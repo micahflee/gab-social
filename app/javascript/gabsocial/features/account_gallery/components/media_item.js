@@ -6,7 +6,7 @@ import Icon from 'gabsocial/components/icon';
 import { autoPlayGif, displayMedia } from 'gabsocial/initial_state';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
-import { isIOS } from 'gabsocial/is_mobile';
+import { isIOS } from 'gabsocial/utils/is_mobile';
 
 export default class MediaItem extends ImmutablePureComponent {
 

@@ -4,7 +4,7 @@ import { STORE_HYDRATE } from '../actions/store';
 import { EMOJI_USE } from '../actions/emojis';
 import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
 import { Map as ImmutableMap, fromJS } from 'immutable';
-import uuid from '../uuid';
+import uuid from '../utils/uuid';
 
 const initialState = ImmutableMap({
   saved: true,

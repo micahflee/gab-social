@@ -16,7 +16,7 @@ import {
 } from '../actions/accounts';
 import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
-import compareId from '../compare_id';
+import compareId from '../utils/compare_id';
 
 const initialState = ImmutableMap({
   items: ImmutableList(),

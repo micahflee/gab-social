@@ -6,7 +6,7 @@ import IconButton from '../../../components/icon_button';
 import DisplayName from '../../../components/display_name';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { isRtl } from '../../../rtl';
+import { isRtl } from '../../../utils/rtl';
 import { NavLink } from 'react-router-dom';
 
 const messages = defineMessages({

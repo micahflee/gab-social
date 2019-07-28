@@ -8,7 +8,7 @@ import {
   CONVERSATIONS_UPDATE,
   CONVERSATIONS_READ,
 } from '../actions/conversations';
-import compareId from '../compare_id';
+import compareId from '../utils/compare_id';
 
 const initialState = ImmutableMap({
   items: ImmutableList(),

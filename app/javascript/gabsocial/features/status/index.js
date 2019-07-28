@@ -40,7 +40,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import { boostModal, deleteModal, me } from '../../initial_state';
-import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../ui/util/fullscreen';
+import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../../utils/fullscreen';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
 import Icon from 'gabsocial/components/icon';
 

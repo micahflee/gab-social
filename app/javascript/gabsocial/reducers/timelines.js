@@ -18,7 +18,7 @@ import {
   ACCOUNT_UNFOLLOW_SUCCESS,
 } from '../actions/accounts';
 import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
-import compareId from '../compare_id';
+import compareId from '../utils/compare_id';
 import { GROUP_REMOVE_STATUS_SUCCESS } from '../actions/groups';
 
 const initialState = ImmutableMap();

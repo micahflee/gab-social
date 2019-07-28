@@ -4,7 +4,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { fromJS, is } from 'immutable';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
+import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/fullscreen';
 import { displayMedia } from '../../initial_state';
 import Icon from 'gabsocial/components/icon';
 import { decode } from 'blurhash';

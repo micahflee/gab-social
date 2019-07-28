@@ -4,7 +4,7 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { debounce } from 'lodash';
 import { connect } from 'react-redux';
-import { isUserTouching } from '../../../is_mobile';
+import { isUserTouching } from '../../../utils/is_mobile';
 import { me } from '../../../initial_state';
 import { Link } from 'react-router-dom';
 import NotificationsCounterIcon from './notifications_counter_icon';

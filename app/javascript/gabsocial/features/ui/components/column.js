@@ -1,7 +1,7 @@
 import React from 'react';
 import ColumnHeader from './column_header';
 import PropTypes from 'prop-types';
-import { isMobile } from '../../../is_mobile';
+import { isMobile } from '../../../utils/is_mobile';
 import ColumnBackButton from '../../../components/column_back_button';
 import ColumnBackButtonSlim from '../../../components/column_back_button_slim';
 

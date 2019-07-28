@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import scheduleIdleTask from '../features/ui/util/schedule_idle_task';
-import getRectFromEntry from '../features/ui/util/get_rect_from_entry';
+import scheduleIdleTask from '../utils/schedule_idle_task';
+import getRectFromEntry from '../utils/get_rect_from_entry';
 import { is } from 'immutable';
 
 // Diff these props in the "rendered" state

@@ -3,7 +3,7 @@ import AutosuggestAccountContainer from '../features/compose/containers/autosugg
 import AutosuggestEmoji from './autosuggest_emoji';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
-import { isRtl } from '../rtl';
+import { isRtl } from '../utils/rtl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
 import classNames from 'classnames';

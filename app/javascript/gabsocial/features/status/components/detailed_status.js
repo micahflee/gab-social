@@ -10,7 +10,7 @@ import { FormattedDate, FormattedNumber } from 'react-intl';
 import Card from './card';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Video from '../../video';
-import scheduleIdleTask from '../../ui/util/schedule_idle_task';
+import scheduleIdleTask from '../../../utils/schedule_idle_task';
 import classNames from 'classnames';
 import Icon from 'gabsocial/components/icon';
 import PollContainer from 'gabsocial/containers/poll_container';
