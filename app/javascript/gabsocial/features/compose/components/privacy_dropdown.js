@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import IconButton from '../../../components/icon_button';
 import Overlay from 'react-overlays/lib/Overlay';
@@ -22,7 +20,7 @@ const messages = defineMessages({
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 
-class PrivacyDropdownMenu extends React.PureComponent {
+class PrivacyDropdownMenu extends PureComponent {
 
   static propTypes = {
     style: PropTypes.object,
@@ -150,7 +148,7 @@ class PrivacyDropdownMenu extends React.PureComponent {
 }
 
 export default @injectIntl
-class PrivacyDropdown extends React.PureComponent {
+class PrivacyDropdown extends PureComponent {
 
   static propTypes = {
     isUserTouching: PropTypes.func,

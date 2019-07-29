@@ -1,9 +1,6 @@
-import React from 'react';
 import ComposeFormContainer from './containers/compose_form_container';
 import NavigationContainer from './containers/navigation_container';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
 import { mountCompose, unmountCompose } from '../../actions/compose';
 import { Link } from 'react-router-dom';
 import { injectIntl, defineMessages } from 'react-intl';
@@ -34,7 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class Compose extends React.PureComponent {
+class Compose extends PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,

@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { changeListEditorTitle, submitListEditor } from '../../../actions/lists';
 import Button from '../../../components/button';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -22,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class ListForm extends React.PureComponent {
+class ListForm extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string.isRequired,

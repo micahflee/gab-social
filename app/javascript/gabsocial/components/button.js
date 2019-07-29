@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-export default class Button extends React.PureComponent {
+export default class Button extends PureComponent {
 
   static propTypes = {
     text: PropTypes.node,

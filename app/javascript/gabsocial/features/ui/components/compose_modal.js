@@ -1,7 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { connect } from 'react-redux';
 import { me } from '../../../initial_state';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Avatar from '../../../components/avatar';

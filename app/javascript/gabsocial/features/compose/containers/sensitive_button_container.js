@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { changeComposeSensitivity } from 'gabsocial/actions/compose';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
@@ -23,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-class SensitiveButton extends React.PureComponent {
+class SensitiveButton extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

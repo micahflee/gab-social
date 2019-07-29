@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import Avatar from './avatar';
 import DisplayName from './display_name';
 import Permalink from './permalink';

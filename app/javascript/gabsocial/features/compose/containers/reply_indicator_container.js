@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { cancelReplyCompose } from '../../../actions/compose';
 import { makeGetStatus } from '../../../selectors';
 import ReplyIndicator from '../components/reply_indicator';

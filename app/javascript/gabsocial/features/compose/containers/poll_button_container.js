@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import PollButton from '../components/poll_button';
 import { addPoll, removePoll } from '../../../actions/compose';
 

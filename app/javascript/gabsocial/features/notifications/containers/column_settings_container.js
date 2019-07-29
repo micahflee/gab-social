@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { defineMessages, injectIntl } from 'react-intl';
 import ColumnSettings from '../components/column_settings';
 import { changeSetting } from '../../../actions/settings';

@@ -66,6 +66,13 @@ module.exports = {
   },
 
   plugins: [
+    new webpack.ProvidePlugin({
+      React: 'react',
+      Component: ['react', 'Component'],
+      PureComponent: ['react', 'PureComponent'],
+      connect: ['react-redux', 'connect'],
+      PropTypes: 'prop-types',
+    }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new webpack.NormalModuleReplacementPlugin(
       /^history\//, (resource) => {

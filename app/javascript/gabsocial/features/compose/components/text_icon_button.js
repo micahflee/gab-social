@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 
-export default class TextIconButton extends React.PureComponent {
+export default class TextIconButton extends PureComponent {
 
   static propTypes = {
     label: PropTypes.string.isRequired,

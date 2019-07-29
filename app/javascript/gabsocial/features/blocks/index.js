@@ -1,10 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import PropTypes from 'prop-types';
 import LoadingIndicator from '../../components/loading_indicator';
 import Column from '../ui/components/column';
 import AccountContainer from '../../containers/account_container';

@@ -1,6 +1,4 @@
-import React from 'react';
 import { Provider } from 'react-redux';
-import PropTypes from 'prop-types';
 import configureStore from '../store/configureStore';
 import { hydrateStore } from '../actions/store';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -20,7 +18,7 @@ if (initialState) {
 
 store.dispatch(fetchCustomEmojis());
 
-export default class TimelineContainer extends React.PureComponent {
+export default class TimelineContainer extends PureComponent {
 
   static propTypes = {
     locale: PropTypes.string.isRequired,

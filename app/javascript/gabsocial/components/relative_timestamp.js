@@ -1,6 +1,4 @@
-import React from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
-import PropTypes from 'prop-types';
 
 const messages = defineMessages({
   just_now: { id: 'relative_time.just_now', defaultMessage: 'now' },
@@ -112,7 +110,7 @@ const timeRemainingString = (intl, date, now) => {
 };
 
 export default @injectIntl
-class RelativeTimestamp extends React.Component {
+class RelativeTimestamp extends Component {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
@@ -28,7 +25,7 @@ const mapStateToProps = (state, props) => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class ListTimeline extends React.PureComponent {
+class ListTimeline extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

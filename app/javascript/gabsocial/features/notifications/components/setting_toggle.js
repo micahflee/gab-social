@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Toggle from 'react-toggle';
 
-export default class SettingToggle extends React.PureComponent {
+export default class SettingToggle extends PureComponent {
 
   static propTypes = {
     prefix: PropTypes.string,

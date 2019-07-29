@@ -1,11 +1,9 @@
-import React from 'react';
 import ColumnHeader from './column_header';
-import PropTypes from 'prop-types';
 import { isMobile } from '../../../utils/is_mobile';
 import ColumnBackButton from '../../../components/column_back_button';
 import ColumnBackButtonSlim from '../../../components/column_back_button_slim';
 
-export default class Column extends React.PureComponent {
+export default class Column extends PureComponent {
 
   static propTypes = {
     heading: PropTypes.string,

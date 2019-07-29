@@ -1,9 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { fetchLists } from 'gabsocial/actions/lists';
-import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
 import { NavLink, withRouter } from 'react-router-dom';
 import Icon from 'gabsocial/components/icon';

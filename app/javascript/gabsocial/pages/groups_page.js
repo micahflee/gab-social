@@ -1,5 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { me } from 'gabsocial/initial_state';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';

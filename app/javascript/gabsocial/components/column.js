@@ -1,7 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 
-export default class Column extends React.PureComponent {
+export default class Column extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,

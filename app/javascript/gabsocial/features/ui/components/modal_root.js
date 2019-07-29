@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Base from '../../../components/modal_root';
 import BundleContainer from '../containers/bundle_container';
 import BundleModalError from './bundle_modal_error';
@@ -39,7 +37,7 @@ const MODAL_COMPONENTS = {
   'UNAUTHORIZED': () => Promise.resolve({ default: UnauthorizedModal }),
 };
 
-export default class ModalRoot extends React.PureComponent {
+export default class ModalRoot extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string,

@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Button from '../../../components/button';
 
 export default @injectIntl
-class ConfirmationModal extends React.PureComponent {
+class ConfirmationModal extends PureComponent {
 
   static propTypes = {
     message: PropTypes.node.isRequired,

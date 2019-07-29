@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import IconButton from '../../../components/icon_button';
@@ -10,7 +8,7 @@ const messages = defineMessages({
   close: { id: 'bundle_modal_error.close', defaultMessage: 'Close' },
 });
 
-class BundleModalError extends React.PureComponent {
+class BundleModalError extends PureComponent {
 
   static propTypes = {
     onRetry: PropTypes.func.isRequired,

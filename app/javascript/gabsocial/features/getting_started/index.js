@@ -1,10 +1,7 @@
-import React from 'react';
 import Column from '../ui/components/column';
 import ColumnLink from '../ui/components/column_link';
 import ColumnSubheading from '../ui/components/column_subheading';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { me, profile_directory } from '../../initial_state';

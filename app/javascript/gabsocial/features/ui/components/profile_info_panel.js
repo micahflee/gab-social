@@ -1,9 +1,6 @@
 'use strict';
 
-import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Button from 'gabsocial/components/button';
 import ImmutablePureComponent from 'react-immutable-pure-component';

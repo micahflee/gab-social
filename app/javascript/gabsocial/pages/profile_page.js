@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import { fetchAccount, fetchAccountByUsername } from '../actions/accounts';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';

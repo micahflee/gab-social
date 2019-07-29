@@ -1,7 +1,4 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl';
-import { connect } from 'react-redux';
 import { openModal } from '../actions/modal';
 import { cancelReplyCompose } from '../actions/compose';
 
@@ -22,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-class ModalRoot extends React.PureComponent {
+class ModalRoot extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,

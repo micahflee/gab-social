@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Header from '../features/search/components/header';
 import WhoToFollowPanel from '../features/ui/components/who_to_follow_panel';
 // import TrendsPanel from '../features/ui/components/trends_panel';

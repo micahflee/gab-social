@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import scheduleIdleTask from '../utils/schedule_idle_task';
 import getRectFromEntry from '../utils/get_rect_from_entry';
 import { is } from 'immutable';
@@ -9,7 +7,7 @@ const updateOnPropsForRendered = ['id', 'index', 'listLength'];
 // Diff these props in the "unrendered" state
 const updateOnPropsForUnrendered = ['id', 'index', 'listLength', 'cachedHeight'];
 
-export default class IntersectionObserverArticle extends React.Component {
+export default class IntersectionObserverArticle extends Component {
 
   static propTypes = {
     intersectionObserverWrapper: PropTypes.object.isRequired,

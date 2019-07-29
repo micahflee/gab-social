@@ -1,9 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { invitesEnabled, version, repository, source_url, me } from 'gabsocial/initial_state';
-import { connect } from 'react-redux';
 import { openModal } from '../../../actions/modal';
 
 const mapStateToProps = state => ({

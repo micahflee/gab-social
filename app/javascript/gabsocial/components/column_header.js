@@ -1,7 +1,5 @@
 'use strict';
 
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import Icon from 'gabsocial/components/icon';
@@ -12,7 +10,7 @@ const messages = defineMessages({
 });
 
 export default @injectIntl
-class ColumnHeader extends React.PureComponent {
+class ColumnHeader extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

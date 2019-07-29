@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import Upload from '../components/upload';
 import { undoUploadCompose, changeUploadCompose } from '../../../actions/compose';
 import { openModal } from '../../../actions/modal';

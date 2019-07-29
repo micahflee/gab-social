@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { makeGetNotification, makeGetStatus } from '../../../selectors';
 import Notification from '../components/notification';
 import { openModal } from '../../../actions/modal';

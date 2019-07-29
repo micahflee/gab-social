@@ -1,4 +1,3 @@
-import React from 'react';
 import SearchContainer from 'gabsocial/features/compose/containers/search_container';
 import SearchResultsContainer from 'gabsocial/features/compose/containers/search_results_container';
 

@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import LoadingIndicator from '../../components/loading_indicator';
 import MissingIndicator from '../../components/missing_indicator';

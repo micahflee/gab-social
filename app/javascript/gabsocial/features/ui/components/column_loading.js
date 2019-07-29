@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 
 import Column from '../../../components/column';
 import ColumnHeader from '../../../components/column_header';

@@ -1,6 +1,4 @@
-import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Button from '../../../components/button';
 import StatusContent from '../../../components/status_content';

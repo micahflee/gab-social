@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
 import { mountConversations, unmountConversations, expandConversations } from '../../actions/conversations';
@@ -14,7 +11,7 @@ const messages = defineMessages({
 
 export default @connect()
 @injectIntl
-class DirectTimeline extends React.PureComponent {
+class DirectTimeline extends PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,

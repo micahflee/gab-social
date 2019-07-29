@@ -1,8 +1,6 @@
-import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 import Item from './item';
 import Icon from 'gabsocial/components/icon';
 import { Link } from 'react-router-dom';

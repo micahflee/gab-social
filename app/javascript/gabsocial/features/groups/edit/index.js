@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { changeValue, submit, setUp } from '../../../actions/group_editor';
 import Icon from '../../../components/icon';
@@ -35,7 +32,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Edit extends React.PureComponent {
+class Edit extends PureComponent {
 
 	static contextTypes = {
 		router: PropTypes.object

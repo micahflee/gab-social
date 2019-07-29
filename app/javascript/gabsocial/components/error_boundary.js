@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
-export default class ErrorBoundary extends React.PureComponent {
+export default class ErrorBoundary extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,

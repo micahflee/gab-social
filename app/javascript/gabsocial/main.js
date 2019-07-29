@@ -2,7 +2,6 @@
 
 import * as registerPushNotifications from './actions/push_notifications';
 import { default as GabSocial, store } from './containers/gabsocial';
-import React from 'react';
 import ReactDOM from 'react-dom';
 import ready from './ready';
 

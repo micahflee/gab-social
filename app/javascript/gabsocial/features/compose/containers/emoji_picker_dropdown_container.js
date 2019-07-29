@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import EmojiPickerDropdown from '../components/emoji_picker_dropdown';
 import { changeSetting } from '../../../actions/settings';
 import { createSelector } from 'reselect';

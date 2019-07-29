@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import Conversation from '../components/conversation';
 import { markConversationRead } from '../../../actions/conversations';
 

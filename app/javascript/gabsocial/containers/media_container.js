@@ -1,6 +1,5 @@
 import React, { PureComponent, Fragment } from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { getLocale } from '../locales';
 import MediaGallery from '../components/media_gallery';

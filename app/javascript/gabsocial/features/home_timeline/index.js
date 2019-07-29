@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { expandHomeTimeline } from '../../actions/timelines';
-import PropTypes from 'prop-types';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
@@ -19,7 +16,7 @@ const mapStateToProps = state => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class HomeTimeline extends React.PureComponent {
+class HomeTimeline extends PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,

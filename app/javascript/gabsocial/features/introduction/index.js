@@ -1,8 +1,5 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ReactSwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { closeOnboarding } from '../../actions/onboarding';
 
@@ -73,7 +70,7 @@ FrameInteractions.propTypes = {
 };
 
 export default @connect(state => ({ domain: state.getIn(['meta', 'domain']) }))
-class Introduction extends React.PureComponent {
+class Introduction extends PureComponent {
 
   static propTypes = {
     domain: PropTypes.string.isRequired,

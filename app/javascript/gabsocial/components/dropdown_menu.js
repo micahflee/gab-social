@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import IconButton from './icon_button';
 import Overlay from 'react-overlays/lib/Overlay';
@@ -10,7 +8,7 @@ import detectPassiveEvents from 'detect-passive-events';
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 let id = 0;
 
-class DropdownMenu extends React.PureComponent {
+class DropdownMenu extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -164,7 +162,7 @@ class DropdownMenu extends React.PureComponent {
 
 }
 
-export default class Dropdown extends React.PureComponent {
+export default class Dropdown extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

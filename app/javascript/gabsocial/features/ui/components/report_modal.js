@@ -1,8 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { changeReportComment, changeReportForward, submitReport } from '../../../actions/reports';
 import { expandAccountTimeline } from '../../../actions/timelines';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { makeGetAccount } from '../../../selectors';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';

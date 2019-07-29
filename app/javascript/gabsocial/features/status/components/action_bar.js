@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { openModal } from '../../../actions/modal';
-import PropTypes from 'prop-types';
 import IconButton from '../../../components/icon_button';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
@@ -39,7 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-class ActionBar extends React.PureComponent {
+class ActionBar extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

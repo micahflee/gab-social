@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 import Column from './column';
@@ -12,7 +10,7 @@ const messages = defineMessages({
   retry: { id: 'bundle_column_error.retry', defaultMessage: 'Try again' },
 });
 
-class BundleColumnError extends React.PureComponent {
+class BundleColumnError extends PureComponent {
 
   static propTypes = {
     onRetry: PropTypes.func.isRequired,

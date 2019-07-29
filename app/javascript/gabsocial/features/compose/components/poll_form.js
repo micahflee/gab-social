@@ -1,7 +1,5 @@
 'use strict';
 
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
@@ -21,7 +19,7 @@ const messages = defineMessages({
 });
 
 @injectIntl
-class Option extends React.PureComponent {
+class Option extends PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,

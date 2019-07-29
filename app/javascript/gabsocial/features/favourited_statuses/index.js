@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { fetchFavouritedStatuses, expandFavouritedStatuses } from '../../actions/favourites';
 import Column from '../ui/components/column';

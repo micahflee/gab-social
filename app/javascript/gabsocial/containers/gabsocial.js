@@ -1,8 +1,6 @@
 'use strict';
 
-import React from 'react';
 import { Provider, connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import configureStore from '../store/configureStore';
 import { INTRODUCTION_VERSION } from '../actions/onboarding';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -37,7 +35,7 @@ const mapStateToProps = (state) => {
 }
 
 @connect(mapStateToProps)
-class GabSocialMount extends React.PureComponent {
+class GabSocialMount extends PureComponent {
 
   static propTypes = {
     showIntroduction: PropTypes.bool,
@@ -62,7 +60,7 @@ class GabSocialMount extends React.PureComponent {
 
 }
 
-export default class GabSocial extends React.PureComponent {
+export default class GabSocial extends PureComponent {
 
   static propTypes = {
     locale: PropTypes.string.isRequired,

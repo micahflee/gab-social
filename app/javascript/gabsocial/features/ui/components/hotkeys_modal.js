@@ -1,6 +1,4 @@
-import React from 'react';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import IconButton from 'gabsocial/components/icon_button';
 

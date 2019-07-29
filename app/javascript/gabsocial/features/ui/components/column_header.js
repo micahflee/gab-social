@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from 'gabsocial/components/icon';
 
-export default class ColumnHeader extends React.PureComponent {
+export default class ColumnHeader extends PureComponent {
 
   static propTypes = {
     icon: PropTypes.string,

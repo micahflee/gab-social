@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import FilterBar from '../components/filter_bar';
 import { setFilter } from '../../../actions/notifications';
 

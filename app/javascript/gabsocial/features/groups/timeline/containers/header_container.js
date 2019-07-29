@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import Header from '../components/header';
 import { joinGroup, leaveGroup } from '../../../../actions/groups';
 

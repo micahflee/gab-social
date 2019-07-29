@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
@@ -50,7 +47,7 @@ const mapStateToProps = state => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class Notifications extends React.PureComponent {
+class Notifications extends PureComponent {
 
   static propTypes = {
     notifications: ImmutablePropTypes.list.isRequired,

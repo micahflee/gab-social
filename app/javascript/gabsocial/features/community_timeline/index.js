@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
 import ColumnSettingsContainer from './containers/column_settings_container';
@@ -35,7 +32,7 @@ const mapStateToProps = state => {
 
 export default @connect(mapStateToProps)
 @injectIntl
-class CommunityTimeline extends React.PureComponent {
+class CommunityTimeline extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

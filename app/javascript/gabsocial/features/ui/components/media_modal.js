@@ -1,7 +1,5 @@
-import React from 'react';
 import ReactSwipeableViews from 'react-swipeable-views';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import Video from 'gabsocial/features/video';
 import ExtendedVideoPlayer from 'gabsocial/components/extended_video_player';
 import classNames from 'classnames';

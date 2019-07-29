@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import SearchResults from '../components/search_results';
 import { fetchSuggestions, dismissSuggestion } from '../../../actions/suggestions';
 

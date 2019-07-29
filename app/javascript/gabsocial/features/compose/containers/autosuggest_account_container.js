@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import AutosuggestAccount from '../components/autosuggest_account';
 import { makeGetAccount } from '../../../selectors';
 

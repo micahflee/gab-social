@@ -1,11 +1,9 @@
-import React from 'react';
 import Motion from '../features/ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
-import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from 'gabsocial/components/icon';
 
-export default class IconButton extends React.PureComponent {
+export default class IconButton extends PureComponent {
 
   static propTypes = {
     className: PropTypes.string,

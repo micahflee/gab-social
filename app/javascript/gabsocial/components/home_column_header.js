@@ -1,8 +1,5 @@
 'use strict';
 
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import classNames from 'classnames';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
@@ -34,7 +31,7 @@ const mapStateToProps = state => {
   };
 };
 
-class ColumnHeader extends React.PureComponent {
+class ColumnHeader extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

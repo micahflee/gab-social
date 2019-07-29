@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { expandPublicTimeline, expandCommunityTimeline } from 'gabsocial/actions/timelines';
 import Masonry from 'react-masonry-infinite';
@@ -20,7 +17,7 @@ const mapStateToProps = (state, { local }) => {
 };
 
 export default @connect(mapStateToProps)
-class PublicTimeline extends React.PureComponent {
+class PublicTimeline extends PureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,

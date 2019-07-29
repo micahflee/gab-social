@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 
 const MIN_SCALE = 1;
 const MAX_SCALE = 4;
@@ -14,7 +12,7 @@ const getDistance = (p1, p2) =>
 
 const clamp = (min, max, value) => Math.min(max, Math.max(min, value));
 
-export default class ZoomableImage extends React.PureComponent {
+export default class ZoomableImage extends PureComponent {
 
   static propTypes = {
     alt: PropTypes.string,

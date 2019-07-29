@@ -1,12 +1,9 @@
 'use strict';
 
 import classNames from 'classnames';
-import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { defineMessages, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 import { Switch, Redirect, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import NotificationsContainer from './containers/notifications_container';
 import LoadingBarContainer from './containers/loading_bar_container';
 import ModalContainer from './containers/modal_container';
@@ -141,7 +138,7 @@ const LAYOUT = {
 
 const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
 
-class SwitchingColumnsArea extends React.PureComponent {
+class SwitchingColumnsArea extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -246,7 +243,7 @@ class SwitchingColumnsArea extends React.PureComponent {
 export default @connect(mapStateToProps)
 @injectIntl
 @withRouter
-class UI extends React.PureComponent {
+class UI extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

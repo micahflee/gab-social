@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import { makeGetAccount } from '../../../selectors';
 import AccountAuthorize from '../components/account_authorize';
 import { authorizeFollowRequest, rejectFollowRequest } from '../../../actions/accounts';

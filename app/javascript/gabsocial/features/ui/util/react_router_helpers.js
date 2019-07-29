@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { Redirect, Route } from 'react-router-dom';
 import ColumnsAreaContainer from '../containers/columns_area_container';
 import ColumnLoading from '../components/column_loading';
@@ -7,7 +5,7 @@ import BundleColumnError from '../components/bundle_column_error';
 import BundleContainer from '../containers/bundle_container';
 import { me } from 'gabsocial/initial_state';
 
-export class WrappedRoute extends React.Component {
+export class WrappedRoute extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
     page: PropTypes.func,

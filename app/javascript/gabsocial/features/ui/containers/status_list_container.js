@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import StatusList from '../../../components/status_list';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';

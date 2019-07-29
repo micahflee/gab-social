@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { changeValue, submit, reset } from '../../../actions/group_editor';
 import Icon from '../../../components/icon';
 import { defineMessages, injectIntl } from 'react-intl';
@@ -31,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Create extends React.PureComponent {
+class Create extends PureComponent {
 
 	static contextTypes = {
 		router: PropTypes.object

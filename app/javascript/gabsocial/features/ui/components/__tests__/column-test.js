@@ -1,4 +1,3 @@
-import React from 'react';
 import { mount } from 'enzyme';
 import Column from '../column';
 import ColumnHeader from '../column_header';

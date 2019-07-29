@@ -1,10 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { shortNumberFormat } from '../utils/numbers';
 import classNames from 'classnames';
 
-export default class TimelineQueueButtonHeader extends React.PureComponent {
+export default class TimelineQueueButtonHeader extends PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     count: PropTypes.number,

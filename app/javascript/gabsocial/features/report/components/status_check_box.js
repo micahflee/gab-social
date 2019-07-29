@@ -1,5 +1,3 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import Toggle from 'react-toggle';
 import noop from 'lodash/noop';
@@ -7,7 +5,7 @@ import StatusContent from '../../../components/status_content';
 import { MediaGallery, Video } from '../../ui/util/async-components';
 import Bundle from '../../ui/components/bundle';
 
-export default class StatusCheckBox extends React.PureComponent {
+export default class StatusCheckBox extends PureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,

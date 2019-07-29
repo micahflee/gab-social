@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ClearColumnButton from './clear_column_button';
 import SettingToggle from './setting_toggle';
 
-export default class ColumnSettings extends React.PureComponent {
+export default class ColumnSettings extends PureComponent {
 
   static propTypes = {
     settings: ImmutablePropTypes.map.isRequired,

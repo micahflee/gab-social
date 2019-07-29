@@ -1,8 +1,5 @@
-import React from 'react';
 import IconButton from '../../../components/icon_button';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 

@@ -1,6 +1,4 @@
-import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import { isRtl } from '../utils/rtl';
 import { FormattedMessage } from 'react-intl';
 import Permalink from './permalink';
@@ -9,7 +7,7 @@ import Icon from 'gabsocial/components/icon';
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
-export default class StatusContent extends React.PureComponent {
+export default class StatusContent extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

@@ -1,6 +1,4 @@
-import React from 'react';
 import IconButton from '../../../components/icon_button';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
 
 const messages = defineMessages({
@@ -15,7 +13,7 @@ const iconStyle = {
 
 export default
 @injectIntl
-class PollButton extends React.PureComponent {
+class PollButton extends PureComponent {
 
   static propTypes = {
     disabled: PropTypes.bool,

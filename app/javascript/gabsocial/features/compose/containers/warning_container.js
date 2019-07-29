@@ -1,7 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import Warning from '../components/warning';
-import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { me } from '../../../initial_state';
 

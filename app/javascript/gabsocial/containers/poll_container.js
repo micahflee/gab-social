@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import Poll from 'gabsocial/components/poll';
 
 const mapStateToProps = (state, { pollId }) => ({

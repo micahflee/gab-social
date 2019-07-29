@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import Toggle from 'react-toggle';
 import Button from '../../../components/button';
@@ -35,7 +32,7 @@ const mapDispatchToProps = dispatch => {
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class MuteModal extends React.PureComponent {
+class MuteModal extends PureComponent {
 
   static propTypes = {
     isSubmitting: PropTypes.bool.isRequired,

@@ -1,11 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import Motion from '../../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 import { FormattedMessage } from 'react-intl';
 import Icon from 'gabsocial/components/icon';
 
-export default class UploadProgress extends React.PureComponent {
+export default class UploadProgress extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

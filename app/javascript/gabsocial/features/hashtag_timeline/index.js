@@ -1,6 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
 import ColumnHeader from '../../components/column_header';
@@ -15,7 +12,7 @@ const mapStateToProps = (state, props) => ({
 });
 
 export default @connect(mapStateToProps)
-class HashtagTimeline extends React.PureComponent {
+class HashtagTimeline extends PureComponent {
 
   disconnects = [];
 

@@ -1,5 +1,3 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import DetailedStatus from '../components/detailed_status';
 import { makeGetStatus } from '../../../selectors';
 import {
