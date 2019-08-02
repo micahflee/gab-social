@@ -1193,6 +1193,11 @@ a.account__display-name {
 	font-size: 14px;
 }
 
+// Hide "verified" emoji to avoid confusion
+.display-name .emojione[alt=":verified:"] {
+	display: none;
+}
+
 .status__relative-time,
 .detailed-status__datetime {
 	&:hover {
@@ -4975,6 +4980,11 @@ noscript {
 			.emojione {
 				width: 22px;
 				height: 22px;
+			}
+
+			// Hide "verified" emoji to avoid confusion
+			.emojione[alt=":verified:"] {
+				display: none;
 			}
 
 			h1 {
