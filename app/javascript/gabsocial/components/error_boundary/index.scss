@@ -1,0 +1,18 @@
+.error-boundary {
+  &__container {
+    margin: auto;
+  }
+
+  span {
+    display: block;
+    text-align: center;
+    color: $secondary-text-color;
+  }
+
+  &__link {
+    display: block;
+    margin: 15px auto;
+    text-align: center;
+    color: $gab-brand-default;
+  }
+}

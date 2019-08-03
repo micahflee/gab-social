@@ -1,0 +1,29 @@
+.status-action-bar {
+  display: flex;
+  align-items: center;
+  margin-top: 25px;
+  z-index: 4;
+
+  &__dropdown {
+    @include size(23px);
+  }
+}
+
+.status-action-bar-item {
+  display: inline-flex;
+  margin-right: 22px;
+  align-items: center;
+
+  &__btn {
+    margin-right: 4px;
+  }
+
+  &__link {
+    display: inline-block;
+    color: $action-button-color;
+    cursor: pointer;
+    text-decoration: none;
+
+    @include text-sizing(14px, 500);
+  }
+}

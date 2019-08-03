@@ -1,0 +1,129 @@
+.status__content--with-action {
+  cursor: pointer;
+}
+
+.status__content {
+  position: relative;
+  word-wrap: break-word;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 2px;
+  color: $primary-text-color;
+
+  @include text-sizing(15px, 400, 20px);
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.status__content--with-spoiler {
+    white-space: normal;
+
+    .status__content__text {
+      white-space: pre-wrap;
+    }
+  }
+
+  .emojione {
+    margin: -3px 0 0;
+
+    @include size(20px);
+  }
+
+  p {
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+
+    &:last-child {
+      margin-bottom: 2px;
+    }
+  }
+
+  a {
+    color: $gab-brand-default;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+
+      .fa {
+        color: lighten($dark-text-color, 7%);
+      }
+    }
+
+    &.mention {
+      &:hover {
+        text-decoration: none;
+
+        span {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .fa {
+      color: $dark-text-color;
+    }
+  }
+
+  .status__content__spoiler-link {
+    background: $action-button-color;
+
+    &:hover {
+      background: lighten($action-button-color, 7%);
+      text-decoration: none;
+    }
+
+    &::-moz-focus-inner {
+      border: 0;
+    }
+
+    &::-moz-focus-inner,
+    &:focus,
+    &:active {
+      outline: 0 !important;
+    }
+  }
+
+  .status__content__text {
+    display: none;
+
+    &.status__content__text--visible {
+      display: block;
+    }
+  }
+}
+
+.status__content.status__content--collapsed {
+  max-height: 20px * 15; // 15 lines is roughly above 500 characters
+}
+
+.status__content__read-more-button {
+  display: block;
+  color: $gab-brand-default;
+  border: 0;
+  background: transparent;
+  padding: 0;
+  padding-top: 8px;
+
+  @include text-sizing(15px, 400, 20px);
+
+  &:hover,
+  &:active {
+    text-decoration: underline;
+  }
+}
+
+.status__content__spoiler-link {
+  display: inline-block;
+  border-radius: 2px;
+  background: transparent;
+  border: 0;
+  color: $inverted-text-color;
+  padding: 0 6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  vertical-align: middle;
+
+  @include text-sizing(11px, 700, 20px);
+}

@@ -1,0 +1,23 @@
+.badge {
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 2px;
+  margin: 0 5px 5px 0;
+
+  @include text-sizing(12px, 600, 1, center);
+
+  &--pro {
+    background-color: blueviolet;
+    color: #fff;
+  }
+
+  &--investor {
+    background-color: gold;
+    color: #000;
+  }
+
+  &--donor {
+    background-color: lightgreen;
+    color: #000;
+  }
+}

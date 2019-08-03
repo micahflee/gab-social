@@ -1,0 +1,15 @@
+.display-name {
+  display: block;
+  max-width: 100%;
+
+  @include text-overflow(break-word);
+
+  &__html {
+    font-weight: 600;
+    padding-right: 4px;
+  }
+
+  &__account {
+    font-size: 14px;
+  }
+}

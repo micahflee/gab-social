@@ -1,0 +1,69 @@
+.icon-button {
+  display: inline-block;
+  padding: 0;
+  color: $gab-secondary-text;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: color 100ms ease-in;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: lighten($action-button-color, 7%);
+    transition: color 200ms ease-out;
+  }
+
+  &.disabled {
+    color: darken($action-button-color, 13%);
+    cursor: default;
+  }
+
+  &.active {
+    color: $highlight-text-color;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+  }
+
+  &::-moz-focus-inner,
+  &:focus,
+  &:active {
+    outline: 0 !important;
+  }
+
+  &.inverted {
+    color: $gab-secondary-text;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: darken($lighter-text-color, 7%);
+    }
+
+    &.disabled {
+      color: lighten($lighter-text-color, 7%);
+    }
+
+    &.active {
+      color: $highlight-text-color;
+
+      &.disabled {
+        color: lighten($highlight-text-color, 13%);
+      }
+    }
+  }
+
+  &.overlayed {
+    box-sizing: content-box;
+    background: rgba($base-overlay-background, 0.6);
+    color: rgba($primary-text-color, 0.7);
+    border-radius: 4px;
+    padding: 2px;
+
+    &:hover {
+      background: rgba($base-overlay-background, 0.9);
+    }
+  }
+}

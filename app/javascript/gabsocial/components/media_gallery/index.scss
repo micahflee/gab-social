@@ -1,0 +1,146 @@
+.media-item {
+  display: block;
+  float: left;
+  border: none;
+  box-sizing: border-box;
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+
+  &.standalone {
+    media-item-gifv-thumbnail {
+      transform: none;
+      top: 0;
+    }
+  }
+
+  &__thumbnail {
+    display: block;
+    cursor: zoom-in;
+    text-decoration: none;
+    color: $secondary-text-color;
+    line-height: 0;
+    position: relative;
+    z-index: 1;
+
+    &,
+    img {
+      @include size(100%);
+    }
+
+    img {
+      object-fit: cover;
+    }
+  }
+
+  &__gifv {
+    cursor: zoom-in;
+    object-fit: cover;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+
+    @include size(100%);
+  }
+}
+
+.media-gallery {
+  box-sizing: border-box;
+  margin-top: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  position: relative;
+  width: 100%;
+
+  &__preview {
+    object-fit: cover;
+    z-index: 0;
+    background: $base-overlay-background;
+
+    @include size(100%);
+    @include abs-position(0, auto, auto, 0);
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__gifv {
+    overflow: hidden;
+    position: relative;
+
+    @include size(100%);
+
+    &.autoplay {
+      .media-gallery__gifv__label {
+        display: none;
+      }
+    }
+
+    &:hover {
+      .media-gallery__gifv__label {
+        opacity: 1;
+      }
+    }
+
+    &__label {
+      display: block;
+      color: $primary-text-color;
+      background: rgba($base-overlay-background, 0.5);
+      padding: 2px 6px;
+      border-radius: 2px;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.9;
+      transition: opacity 0.1s ease;
+
+      @include text-sizing(11px, 600, 18px);
+      @include abs-position(auto, auto, 6px, 6px);
+    }
+  }
+}
+
+.spoiler-button {
+  z-index: 100;
+
+  @include size(100%);
+  @include abs-position(0, auto, auto, 0);
+
+  &--minified {
+    display: block;
+
+    @include size(auto);
+    @include abs-position(4px, auto, auto, 4px, false);
+  }
+
+  &--hidden {
+    display: none;
+  }
+
+  &__overlay {
+    display: block;
+    background: transparent;
+    border: 0;
+
+    @include size(100%);
+
+    &__label {
+      display: inline-block;
+      background: rgba($base-overlay-background, 0.5);
+      border-radius: 8px;
+      padding: 8px 12px;
+      color: $primary-text-color;
+
+      @include text-sizing(14px, 500);
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      .spoiler-button__overlay__label {
+        background: rgba($base-overlay-background, 0.8);
+      }
+    }
+  }
+}
