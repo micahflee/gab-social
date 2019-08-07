@@ -15,9 +15,7 @@
 const rtlChars = /[\u0590-\u083F]|[\u08A0-\u08FF]|[\uFB1D-\uFDFF]|[\uFE70-\uFEFF]/mg;
 
 export function isRtl(text) {
-  if (text.length === 0) {
-    return false;
-  }
+  if (text.length === 0) return false;
 
   text = text.replace(/(?:^|[^\/\w])@([a-z0-9_]+(@[a-z0-9\.\-]+)?)/ig, '');
   text = text.replace(/(?:^|[^\/\w])#([\S]+)/ig, '');
@@ -25,9 +23,7 @@ export function isRtl(text) {
 
   const matches = text.match(rtlChars);
 
-  if (!matches) {
-    return false;
-  }
+  if (!matches) return false;
 
   return matches.length / text.length > 0.3;
 };
