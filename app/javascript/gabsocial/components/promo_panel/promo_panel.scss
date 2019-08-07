@@ -1,0 +1,29 @@
+.promo-panel {
+  margin-top: 10px;
+  padding: 10px 10px 20px 10px;
+  border-bottom: 1px solid lighten($ui-base-color, 4%);
+}
+
+.promo-panel-item {
+  display: block;
+
+  &:not(:first-of-type) {
+    margin-top: 20px;
+  }
+
+  &__icon {
+    margin-right: 12px;
+  }
+
+  &__message {
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+    margin-top: 6px;
+    color: $primary-text-color;
+
+    &--dark {
+      color: $ui-secondary-color;
+    }
+  }
+}

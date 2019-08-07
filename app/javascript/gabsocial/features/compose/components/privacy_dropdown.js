@@ -1,11 +1,11 @@
 import { injectIntl, defineMessages } from 'react-intl';
-import IconButton from '../../../components/icon_button';
-import Overlay from 'react-overlays/lib/Overlay';
-import Motion from '../../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
 import detectPassiveEvents from 'detect-passive-events';
 import classNames from 'classnames';
-import Icon from 'gabsocial/components/icon';
+import Overlay from 'react-overlays/lib/Overlay';
+import IconButton from '../../../components/icon_button';
+import Motion from '../../ui/util/optional_motion';
+import Icon from '../../../components/icon';
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },

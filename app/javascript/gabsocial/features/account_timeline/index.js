@@ -1,14 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { fetchAccount, fetchAccountByUsername } from '../../actions/accounts';
 import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../../actions/timelines';
-import StatusList from '../../components/status_list';
-import LoadingIndicator from '../../components/loading_indicator';
-import Column from '../ui/components/column';
+import StatusList from '../../components/status_list/status_list';
+import ColumnIndicator from '../../components/column_indicator/column_indicator';
+import Column from '../../components/column';
 import { List as ImmutableList } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
-import MissingIndicator from 'gabsocial/components/missing_indicator';
 import { NavLink } from 'react-router-dom';
 import { me } from 'gabsocial/initial_state';
 
@@ -22,8 +21,7 @@ const mapStateToProps = (state, { params: { username }, withReplies = false }) =
   let accountUsername = username;
   if (accountFetchError) {
     accountId = null;
-  }
-  else {
+  } else {
     let account = accounts.find(acct => username.toLowerCase() == acct.getIn(['acct'], '').toLowerCase());
     accountId = account ? account.getIn(['id'], null) : -1;
     accountUsername = account ? account.getIn(['acct'], '') : '';
@@ -75,8 +73,7 @@ class AccountTimeline extends ImmutablePureComponent {
       }
 
       this.props.dispatch(expandAccountTimeline(accountId, { withReplies }));
-    }
-    else {
+    } else {
       this.props.dispatch(fetchAccountByUsername(username));
     }
   }
@@ -104,19 +101,9 @@ class AccountTimeline extends ImmutablePureComponent {
     const { statusIds, featuredStatusIds, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername } = this.props;
 
     if (!isAccount && accountId !== -1) {
-      return (
-        <Column>
-          <MissingIndicator />
-        </Column>
-      );
-    }
-
-    if (accountId == -1 || (!statusIds && isLoading)) {
-      return (
-        <Column>
-          <LoadingIndicator />
-        </Column>
-      );
+      return (<ColumnIndicator type='missing' />);
+    } else if (accountId === -1 || (!statusIds && isLoading)) {
+      return (<ColumnIndicator type='loading' />);
     }
 
     if (unavailable) {
@@ -132,7 +119,7 @@ class AccountTimeline extends ImmutablePureComponent {
     return (
       <Column>
         <div className='account__section-headline'>
-          <div style={{width: '100%', display: 'flex'}}>
+          <div style={{ width: '100%', display: 'flex' }}>
             <NavLink exact to={`/${accountUsername}`}>
               <FormattedMessage id='account.posts' defaultMessage='Gabs' />
             </NavLink>

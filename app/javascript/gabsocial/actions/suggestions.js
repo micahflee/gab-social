@@ -1,6 +1,6 @@
 import api from '../api';
 import { importFetchedAccounts } from './importer';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const SUGGESTIONS_FETCH_REQUEST = 'SUGGESTIONS_FETCH_REQUEST';
 export const SUGGESTIONS_FETCH_SUCCESS = 'SUGGESTIONS_FETCH_SUCCESS';

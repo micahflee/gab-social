@@ -1,0 +1,18 @@
+.compose-modal {
+  width: 600px;
+
+  &__content {
+    .timeline-compose-block {
+      background: transparent !important;
+      width: 100%;
+      padding: 10px 5px;
+      margin-bottom: 0;
+
+      .compose-form {
+        display: flex;
+        flex-direction: column;
+        max-height: 100%;
+      }
+    }
+  }
+}

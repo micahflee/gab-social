@@ -1,0 +1,125 @@
+.user-panel {
+  display: flex;
+  width: 265px;
+  flex-direction: column;
+  overflow-y: hidden;
+
+  // @include gab-container-standards();
+
+  &__header {
+    display: block;
+    background: lighten($gab-background-container, 4%);
+
+    @include size(100%, 112px);
+
+    body.theme-gabsocial-light & {
+      background: darken($gab-background-container-light, 4%);
+    }
+
+    img {
+      display: block;
+      margin: 0;
+      object-fit: cover;
+
+      @include size(100%);
+    }
+  }
+
+  &__profile {
+    display: flex;
+    align-items: flex-start;
+    padding: 0 10px;
+    margin-top: -53px;
+
+    .account__avatar {
+      display: block;
+      border: 6px solid $gab-background-base;
+      background-size: cover;
+      
+      @include size(82px);
+
+      body.theme-gabsocial-light & {
+        border: 6px solid $gab-background-base-light;
+      }
+    }
+  }
+
+  &__meta {
+    display: block;
+    padding: 6px 20px 17px 20px;
+  }
+
+  &__account {
+    a {
+      text-decoration: none;
+      color: $primary-text-color;
+    }
+
+    &__name {
+      display: block;
+      color: #fff;
+
+      @include text-sizing(20px, 700, 24px);
+
+      body.theme-gabsocial-light & {
+        color: $gab-default-text-light;
+      }
+    }
+
+    &:hover & {
+      &__name {
+        text-decoration: underline;
+      }
+    }
+
+    &__username {
+      display: block;
+      font-size: 14px;
+      line-height: 16px;
+      color: $gab-secondary-text;
+      text-decoration: none !important;
+    }
+  }
+
+  &__stats-block {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 12px;
+  }
+
+  .user-panel-stats-item {
+    flex-wrap: wrap;
+
+    @include flex(left, start, column);
+
+    a {
+      text-decoration: none;
+
+      color: $primary-text-color;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__value {
+      display: block;
+      width: 100%;
+      color: #fff;
+
+      @include text-sizing(20px, 800, 24px);
+
+      body.theme-gabsocial-light & {
+        color: $gab-default-text-light;
+      }
+    }
+
+    &__label {
+      display: block;
+      width: 100%;
+      color: $gab-secondary-text;
+
+      @include text-sizing(12px, 400, 14px);
+    }
+  }
+}

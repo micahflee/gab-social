@@ -1,0 +1,42 @@
+.upload-area {
+  background: rgba($base-overlay-background, 0.8);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 9999;
+
+  @include flex(center, center);
+  @include size(100%);
+  @include abs-position(0, auto, auto, 0);
+
+  * {
+    pointer-events: none;
+  }
+
+  &__drop {
+    display: flex;
+    box-sizing: border-box;
+    position: relative;
+    padding: 8px;
+
+    @include size(320px, 160px);
+  }
+
+  &__background {
+    z-index: -1;
+    border-radius: 4px;
+    background: $ui-base-color;
+    box-shadow: 0 0 5px rgba($base-shadow-color, 0.2);
+
+    @include abs-position(0, 0, 0, 0);
+  }
+
+  &__content {
+    flex: 1;
+    color: $secondary-text-color;
+    border: 2px dashed $ui-base-lighter-color;
+    border-radius: 4px;
+
+    @include flex(center, center);
+    @include text-sizing(18px, 500);
+  }
+}

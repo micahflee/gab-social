@@ -1,0 +1,34 @@
+.link-footer {
+  flex: 0 0 auto;
+  padding: 10px;
+  padding-top: 20px;
+
+  ul {
+    margin-bottom: 10px;
+    li {
+      display: inline;
+    }
+  }
+
+  p {
+    color: $dark-text-color;
+    font-size: 13px;
+    margin-bottom: 20px;
+
+    a {
+      color: $gab-secondary-text;
+      text-decoration: underline;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    color: $gab-secondary-text;
+
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+}

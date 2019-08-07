@@ -1,5 +1,5 @@
 import escapeTextContentForBrowser from 'escape-html';
-import emojify from '../../features/emoji/emoji';
+import emojify from '../../components/emoji/emoji';
 import { unescapeHTML } from '../../utils/html';
 import { expandSpoilers } from '../../initial_state';
 

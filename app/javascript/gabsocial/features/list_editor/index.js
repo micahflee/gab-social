@@ -5,8 +5,8 @@ import { setupListEditor, clearListSuggestions, resetListEditor } from '../../ac
 import Account from './components/account';
 import Search from './components/search';
 import EditListForm from './components/edit_list_form';
-import ColumnSubheading from '../ui/components/column_subheading';
-import IconButton from 'gabsocial/components/icon_button';
+import ColumnSubheading from '../../components/column_subheading';
+import IconButton from '../../components/icon_button';
 
 const mapStateToProps = state => ({
   accountIds: state.getIn(['listEditor', 'accounts', 'items']),

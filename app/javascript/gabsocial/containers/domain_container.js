@@ -1,17 +1,11 @@
-import { blockDomain, unblockDomain } from '../actions/domain_blocks';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { blockDomain, unblockDomain } from '../actions/domain_blocks';
 import Domain from '../components/domain';
 import { openModal } from '../actions/modal';
 
 const messages = defineMessages({
   blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Hide entire domain' },
 });
-
-const makeMapStateToProps = () => {
-  const mapStateToProps = () => ({});
-
-  return mapStateToProps;
-};
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
   onBlockDomain (domain) {
@@ -27,4 +21,4 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Domain));
+export default injectIntl(connect(null, mapDispatchToProps)(Domain));

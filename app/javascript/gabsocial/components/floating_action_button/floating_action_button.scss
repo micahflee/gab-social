@@ -1,0 +1,21 @@
+.floating-action-button {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  border: none;
+  background-color: transparent;
+
+  @include size(61px, 52px);
+  @include abs-position(auto, 14px, 14px, auto, false);
+  @include background-image('/assets/images/sprite-main-navigation.png', 161px 152px, -100px 0);
+
+  @media screen and (max-width: $nav-breakpoint-3) {
+    display: flex;
+  }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-position: -100px -100px;
+  }
+}

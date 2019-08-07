@@ -65,7 +65,7 @@ describe('<Button />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('adds class "button-secondary" if props.secondary given', () => {
+  it('adds class "button--secondary" if props.secondary given', () => {
     const component = renderer.create(<Button secondary />);
     const tree      = component.toJSON();
 

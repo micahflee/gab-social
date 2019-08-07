@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import configureStore from '../store/configureStore';
 import { hydrateStore } from '../actions/store';
-import { IntlProvider, addLocaleData } from 'react-intl';
 import { getLocale } from '../locales';
 import Compose from '../features/standalone/compose';
 import initialState from '../initial_state';

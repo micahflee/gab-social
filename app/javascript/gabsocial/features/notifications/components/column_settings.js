@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ClearColumnButton from './clear_column_button';
-import SettingToggle from './setting_toggle';
+import SettingToggle from '../../../components/setting_toggle';
 
 export default class ColumnSettings extends PureComponent {
 

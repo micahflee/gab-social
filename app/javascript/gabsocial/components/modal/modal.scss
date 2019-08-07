@@ -1,0 +1,44 @@
+.modal {
+  padding: 8px 0 0;
+  overflow: hidden;
+  background-color: $classic-base-color;
+  border-radius: 6px;
+  flex-direction: column;
+  margin: 10px 0;
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    flex: 1;
+    padding: 10px;
+    overflow-y: hidden;
+  }
+
+  @media screen and (max-width:895px) {
+    margin: 0;
+
+    @include size(98vw, 98vh);
+  }
+}
+
+.modal-header {
+  display: block;
+  position: relative;
+  border-bottom: 1px solid lighten($classic-base-color, 8%);
+  border-radius: 6px 6px 0 0;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  &__title {
+    display: block;
+    width: 80%;
+    color: $gab-background-base-light;
+
+    @include text-sizing(18px, 700, 24px, center);
+    @include margin-center;
+  }
+
+  &__close {
+    @include abs-position(10px, 10px);
+  }
+}

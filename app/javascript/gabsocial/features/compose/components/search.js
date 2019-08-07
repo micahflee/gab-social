@@ -1,9 +1,9 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import Overlay from 'react-overlays/lib/Overlay';
-import Motion from '../../ui/util/optional_motion';
 import spring from 'react-motion/lib/spring';
+import Motion from '../../ui/util/optional_motion';
 import { searchEnabled } from '../../../initial_state';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 
 const messages = defineMessages({
   placeholder: { id: 'search.placeholder', defaultMessage: 'Search' },

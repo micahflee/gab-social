@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 import { autoPlayGif, displayMedia } from 'gabsocial/initial_state';
 import classNames from 'classnames';
 import { decode } from 'blurhash';

@@ -2,9 +2,9 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import LoadingIndicator from '../../components/loading_indicator';
-import Column from '../ui/components/column';
-import AccountAuthorizeContainer from './containers/account_authorize_container';
+import ColumnIndicator from '../../components/column_indicator';
+import Column from '../../components/column';
+import AccountAuthorize from './components/account_authorize';
 import { fetchFollowRequests, expandFollowRequests } from '../../actions/accounts';
 import ScrollableList from '../../components/scrollable_list';
 
@@ -41,17 +41,13 @@ class FollowRequests extends ImmutablePureComponent {
     const { intl, accountIds, hasMore } = this.props;
 
     if (!accountIds) {
-      return (
-        <Column>
-          <LoadingIndicator />
-        </Column>
-      );
+      return (<ColumnIndicator type='loading' />);
     }
 
     const emptyMessage = <FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />;
 
     return (
-      <Column icon='user-plus' heading={intl.formatMessage(messages.heading)} backBtnSlim>
+      <Column icon='user-plus' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
         <ScrollableList
           scrollKey='follow_requests'
           onLoadMore={this.handleLoadMore}
@@ -59,7 +55,7 @@ class FollowRequests extends ImmutablePureComponent {
           emptyMessage={emptyMessage}
         >
           {accountIds.map(id =>
-            <AccountAuthorizeContainer key={id} id={id} />
+            <AccountAuthorize key={id} id={id} />
           )}
         </ScrollableList>
       </Column>

@@ -1,9 +1,15 @@
-import Motion from '../../ui/util/optional_motion';
-import spring from 'react-motion/lib/spring';
 import { FormattedMessage } from 'react-intl';
-import Icon from 'gabsocial/components/icon';
+import spring from 'react-motion/lib/spring';
+import Motion from '../../ui/util/optional_motion';
+import Icon from '../../../components/icon';
 
-export default class UploadProgress extends PureComponent {
+const mapStateToProps = state => ({
+  active: state.getIn(['compose', 'is_uploading']),
+  progress: state.getIn(['compose', 'progress']),
+});
+
+export default @connect(mapStateToProps)
+class UploadProgress extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

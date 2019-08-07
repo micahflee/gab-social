@@ -1,17 +1,17 @@
+import { Link, NavLink } from 'react-router-dom';
+import { FormattedDate, FormattedNumber } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import classNames from 'classnames';
 import Avatar from '../../../components/avatar';
 import DisplayName from '../../../components/display_name';
 import StatusContent from '../../../components/status_content';
 import MediaGallery from '../../../components/media_gallery';
-import { Link, NavLink } from 'react-router-dom';
-import { FormattedDate, FormattedNumber } from 'react-intl';
 import Card from './card';
-import ImmutablePureComponent from 'react-immutable-pure-component';
 import Video from '../../video';
 import scheduleIdleTask from '../../../utils/schedule_idle_task';
-import classNames from 'classnames';
-import Icon from 'gabsocial/components/icon';
-import PollContainer from 'gabsocial/containers/poll_container';
+import Icon from '../../../components/icon';
+import Poll from '../../../components/poll';
 
 export default class DetailedStatus extends ImmutablePureComponent {
 
@@ -97,7 +97,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
     }
 
     if (status.get('poll')) {
-      media = <PollContainer pollId={status.get('poll')} />;
+      media = <Poll pollId={status.get('poll')} />;
     } else if (status.get('media_attachments').size > 0) {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);

@@ -1,0 +1,172 @@
+.column-header {
+  display: flex;
+  font-size: 16px;
+  flex: 0 0 auto;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  outline: 0;
+  overflow: hidden;
+  background: $gab-background-container;
+
+  body.theme-gabsocial-light & {
+    background: $gab-background-container-light;
+    color: $gab-default-text-light;
+  }
+
+  &--active {
+    box-shadow: 0 1px 0 rgba($highlight-text-color, 0.3);
+
+    .column-header__icon {
+      color: $highlight-text-color;
+      text-shadow: 0 0 10px rgba($highlight-text-color, 0.4);
+    }
+  }
+
+  &:focus,
+  &:active {
+    outline: 0;
+  }
+
+  &__wrapper {
+    position: relative;
+    flex: 0 0 auto;
+    overflow: hidden;
+
+    &--active {
+      &::before {
+        pointer-events: none;
+        z-index: 1;
+        background: radial-gradient(ellipse, rgba($ui-highlight-color, 0.23) 0%, rgba($ui-highlight-color, 0) 60%);
+
+        @include pseudo;
+        @include size(60%, 28px);
+        @include abs-position(35px, 0, auto, 0, false);
+        @include margin-center;
+      }
+    }
+  }
+
+  &__icon {
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &__expansion {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+    max-height: 0px;
+
+    &--open {
+      max-height: 55px;
+    }
+  }
+
+  &__links {
+    .text-btn {
+      margin-right: 10px;
+    }
+  }
+
+  &__setting-btn {
+    padding: 0 10px;
+
+    &:last-child {
+      padding-right: 0;
+    }
+
+    &:hover {
+      color: $darker-text-color;
+      text-decoration: underline;
+    }
+
+    &--link {
+      text-decoration: none;
+
+      .fa {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  &__button {
+    margin-left: auto;
+    cursor: pointer;
+    border: 0;
+    padding: 0 15px;
+    font-size: 16px;
+    color: #fff;
+    background: $gab-background-container;
+
+    body.theme-gabsocial-light & {
+      color: $gab-default-text-light;
+      background: $gab-background-container-light;
+    }
+
+    &:hover {
+      color: lighten($darker-text-color, 7%);
+    }
+
+    &--active {
+      color: $primary-text-color;
+      background: lighten($ui-base-color, 8%);
+
+      &:hover {
+        color: $primary-text-color;
+        background: lighten($ui-base-color, 8%);
+      }
+    }
+  }
+
+  &__collapsible-inner {
+    background: #3f3f3f;
+    padding: 15px;
+
+    body.theme-gabsocial-light & {
+      background: #e6e6e6;
+    }
+  }
+
+  &__collapsible {
+    max-height: 70vh;
+    overflow: hidden;
+    overflow-y: auto;
+    color: $darker-text-color;
+    transition: max-height 150ms linear;
+
+    &--collapsed {
+      max-height: 0;
+    }
+
+    hr {
+      height: 0;
+      background: transparent;
+      border: 0;
+      border-top: 1px solid lighten($ui-base-color, 12%);
+      margin: 10px 0;
+    }
+  }
+}
+
+.column-header-btn {
+  padding: 15px;
+  color: inherit;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &--sub {
+    font-size: 14px;
+    padding: 6px s10px;
+  }
+
+  &--grouped {
+    margin: 6px;
+  }
+
+  &--active {
+    color: $primary-text-color;
+    border-radius: 10px;
+    background-color: rgba($highlight-text-color, .1);
+  }
+}

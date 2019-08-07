@@ -4,13 +4,12 @@ import {
   fetchAccountByUsername,
 } from 'gabsocial/actions/accounts';
 import { expandAccountMediaTimeline } from '../../actions/timelines';
-import LoadingIndicator from 'gabsocial/components/loading_indicator';
-import Column from '../ui/components/column';
+import ColumnIndicator from '../../components/column_indicator';
+import Column from '../../components/column';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { getAccountGallery } from 'gabsocial/selectors';
 import MediaItem from './components/media_item';
 import LoadMore from 'gabsocial/components/load_more';
-import MissingIndicator from 'gabsocial/components/missing_indicator';
 import { openModal } from 'gabsocial/actions/modal';
 import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
@@ -24,8 +23,7 @@ const mapStateToProps = (state, { params: { username }, withReplies = false }) =
   let accountUsername = username;
   if (accountFetchError) {
     accountId = null;
-  }
-  else {
+  } else {
     let account = accounts.find(acct => username.toLowerCase() == acct.getIn(['acct'], '').toLowerCase());
     accountId = account ? account.getIn(['id'], null) : -1;
     accountUsername = account ? account.getIn(['acct'], '') : '';
@@ -34,7 +32,7 @@ const mapStateToProps = (state, { params: { username }, withReplies = false }) =
   const isBlocked = state.getIn(['relationships', accountId, 'blocked_by'], false);
   const isLocked = state.getIn(['accounts', accountId, 'locked'], false);
   const isFollowing = state.getIn(['relationships', accountId, 'following'], false);
-  const unavailable = (me == accountId) ? false : (isBlocked || (isLocked && !isFollowing));
+  const unavailable = (me === accountId) ? false : (isBlocked || (isLocked && !isFollowing));
 
   return {
     accountId,
@@ -66,6 +64,7 @@ class LoadMoreMedia extends ImmutablePureComponent {
       />
     );
   }
+
 }
 
 export default @connect(mapStateToProps)
@@ -91,8 +90,7 @@ class AccountGallery extends ImmutablePureComponent {
     if (accountId && accountId !== -1) {
       this.props.dispatch(fetchAccount(accountId));
       this.props.dispatch(expandAccountMediaTimeline(accountId));
-    }
-    else {
+    } else {
       this.props.dispatch(fetchAccountByUsername(username));
     }
   }
@@ -152,17 +150,15 @@ class AccountGallery extends ImmutablePureComponent {
     const { width } = this.state;
 
     if (!isAccount && accountId !== -1) {
+      return (<ColumnIndicator type='missing' />);
+    } else if (accountId === -1 || (!attachments && isLoading)) {
+      return ( <ColumnIndicator type='loading' /> );
+    } else if (unavailable) {
       return (
         <Column>
-          <MissingIndicator />
-        </Column>
-      );
-    }
-
-    if (accountId == -1 || (!attachments && isLoading)) {
-      return (
-        <Column>
-          <LoadingIndicator />
+          <div className='empty-column-indicator'>
+            <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
+          </div>
         </Column>
       );
     }
@@ -173,21 +169,11 @@ class AccountGallery extends ImmutablePureComponent {
       loadOlder = <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />;
     }
 
-    if (unavailable) {
-      return (
-        <Column>
-          <div className='empty-column-indicator'>
-            <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
-          </div>
-        </Column>
-      );
-    }
-
     return (
       <Column>
-        <div className='slist slist--flex' onScroll={this.handleScroll}>
+        <div className='scrollable-list scrollable-list--flex' onScroll={this.handleScroll}>
           <div className='account__section-headline'>
-            <div style={{width: '100%', display: 'flex'}}>
+            <div style={{ width: '100%', display: 'flex' }}>
               <NavLink exact to={`/${accountUsername}`}>
                 <FormattedMessage id='account.posts' defaultMessage='Gabs' />
               </NavLink>
@@ -210,7 +196,7 @@ class AccountGallery extends ImmutablePureComponent {
             {
               attachments.size == 0 &&
               <div className='empty-column-indicator'>
-                <FormattedMessage id='account_gallery.none' defaultMessage='No media to show.'/>
+                <FormattedMessage id='account_gallery.none' defaultMessage='No media to show.' />
               </div>
             }
 
@@ -219,7 +205,7 @@ class AccountGallery extends ImmutablePureComponent {
 
           {isLoading && attachments.size === 0 && (
             <div className='slist__append'>
-              <LoadingIndicator />
+              <ColumnIndicator type='loading' />
             </div>
           )}
         </div>

@@ -1,8 +1,8 @@
 import { defineMessages, injectIntl } from 'react-intl';
-import { fetchListSuggestions, clearListSuggestions, changeListSuggestions } from '../../../actions/lists';
 import classNames from 'classnames';
-import Icon from 'gabsocial/components/icon';
-import Button from 'gabsocial/components/button';
+import { fetchListSuggestions, clearListSuggestions, changeListSuggestions } from '../../../actions/lists';
+import Icon from '../../../components/icon';
+import Button from '../../../components/button';
 
 const messages = defineMessages({
   search: { id: 'lists.search', defaultMessage: 'Search among people you follow' },

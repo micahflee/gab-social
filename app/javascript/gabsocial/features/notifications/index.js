@@ -14,7 +14,7 @@ import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
 import { debounce } from 'lodash';
 import ScrollableList from '../../components/scrollable_list';
-import LoadGap from '../../components/load_gap';
+import LoadMore from '../../components/load_more';
 import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
 
 const messages = defineMessages({
@@ -136,7 +136,8 @@ class Notifications extends PureComponent {
       scrollableContent = this.scrollableContent;
     } else if (notifications.size > 0 || hasMore) {
       scrollableContent = notifications.map((item, index) => item === null ? (
-        <LoadGap
+        <LoadMore
+          gap
           key={'gap:' + notifications.getIn([index + 1, 'id'])}
           disabled={isLoading}
           maxId={index > 0 ? notifications.getIn([index - 1, 'id']) : null}
@@ -173,7 +174,7 @@ class Notifications extends PureComponent {
     );
 
     return (
-      <Column ref={this.setColumnRef} label={intl.formatMessage(messages.title)}>
+      <Column ref={this.setColumnRef} heading={intl.formatMessage(messages.title)}>
         <ColumnHeader icon='bell' active={isUnread} title={intl.formatMessage(messages.title)}>
           <ColumnSettingsContainer />
         </ColumnHeader>

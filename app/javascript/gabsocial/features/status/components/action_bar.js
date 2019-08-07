@@ -36,6 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+
+export default @connect(null, mapDispatchToProps)
+@injectIntl
 class ActionBar extends PureComponent {
 
   static contextTypes = {
@@ -213,7 +216,7 @@ class ActionBar extends PureComponent {
       <div className='detailed-status__action-bar'>
         <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>
         <div className='detailed-status__button'><IconButton disabled={reblog_disabled} active={status.get('reblogged')} title={reblog_disabled ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} /></div>
-        <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
+        <div className='detailed-status__button'><IconButton className='star-icon' active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
         {shareButton}
 
         <div className='detailed-status__action-bar-dropdown'>
@@ -222,6 +225,5 @@ class ActionBar extends PureComponent {
       </div>
     );
   }
-}
 
-export default injectIntl(connect(null, mapDispatchToProps)(ActionBar));
+}

@@ -1,5 +1,4 @@
 import { openModal } from '../../../actions/modal';
-import ImmutablePropTypes from 'react-immutable-proptypes';
 import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
 import { defineMessages, injectIntl } from 'react-intl';
 import { meUsername } from 'gabsocial/initial_state';

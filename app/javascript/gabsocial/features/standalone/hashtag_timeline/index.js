@@ -4,7 +4,7 @@ import Masonry from 'react-masonry-infinite';
 import { List as ImmutableList } from 'immutable';
 import DetailedStatusContainer from 'gabsocial/features/status/containers/detailed_status_container';
 import { debounce } from 'lodash';
-import LoadingIndicator from 'gabsocial/components/loading_indicator';
+import ColumnIndicator from '../../../components/column_indicator';
 
 const mapStateToProps = (state, { hashtag }) => ({
   statusIds: state.getIn(['timelines', `hashtag:${hashtag}`, 'items'], ImmutableList()),
@@ -60,7 +60,7 @@ class HashtagTimeline extends PureComponent {
       { mq: '1255px', columns: 3, gutter: 10 },
     ];
 
-    const loader = (isLoading && statusIds.isEmpty()) ? <LoadingIndicator key={0} /> : undefined;
+    const loader = (isLoading && statusIds.isEmpty()) ? <ColumnIndicator type='loading' key={0} /> : undefined;
 
     return (
       <Masonry ref={this.setRef} className='statuses-grid' hasMore={hasMore} loadMore={this.handleLoadMore} sizes={sizes} loader={loader}>

@@ -1,5 +1,5 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 
 const tooltips = defineMessages({
   mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },

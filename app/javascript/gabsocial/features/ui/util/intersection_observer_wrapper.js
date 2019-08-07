@@ -5,7 +5,8 @@
 // instance by calling observe() multiple times."
 // https://developers.google.com/web/updates/2016/04/intersectionobserver
 
-class IntersectionObserverWrapper {
+
+export default class IntersectionObserverWrapper {
 
   callbacks = {};
   observerBacklog = [];
@@ -53,5 +54,3 @@ class IntersectionObserverWrapper {
   }
 
 }
-
-export default IntersectionObserverWrapper;

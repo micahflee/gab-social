@@ -1,10 +1,7 @@
-import Column from '../ui/components/column';
-import MissingIndicator from '../../components/missing_indicator';
+import ColumnIndicator from '../../components/column_indicator';
 
 const GenericNotFound = () => (
-  <Column>
-    <MissingIndicator />
-  </Column>
+  <ColumnIndicator type='missing' />
 );
 
 export default GenericNotFound;

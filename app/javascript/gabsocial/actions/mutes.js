@@ -2,7 +2,7 @@ import api, { getLinks } from '../api';
 import { fetchRelationships } from './accounts';
 import { importFetchedAccounts } from './importer';
 import { openModal } from './modal';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const MUTES_FETCH_REQUEST = 'MUTES_FETCH_REQUEST';
 export const MUTES_FETCH_SUCCESS = 'MUTES_FETCH_SUCCESS';

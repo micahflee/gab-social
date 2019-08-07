@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 
 export default class ClearColumnButton extends PureComponent {
 

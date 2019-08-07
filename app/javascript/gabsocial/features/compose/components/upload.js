@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Motion from '../../ui/util/optional_motion';
-import spring from 'react-motion/lib/spring';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
-import Icon from 'gabsocial/components/icon';
+import spring from 'react-motion/lib/spring';
+import Motion from '../../ui/util/optional_motion';
+import Icon from '../../../components/icon';
 
 const messages = defineMessages({
   description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },

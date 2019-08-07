@@ -1,10 +1,15 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import UploadProgressContainer from '../containers/upload_progress_container';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import UploadProgress from './upload_progress';
 import UploadContainer from '../containers/upload_container';
 import SensitiveButtonContainer from '../containers/sensitive_button_container';
 
-export default class UploadForm extends ImmutablePureComponent {
+const mapStateToProps = state => ({
+  mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
+});
+
+export default @connect(mapStateToProps)
+class UploadForm extends ImmutablePureComponent {
 
   static propTypes = {
     mediaIds: ImmutablePropTypes.list.isRequired,
@@ -15,7 +20,7 @@ export default class UploadForm extends ImmutablePureComponent {
 
     return (
       <div className='compose-form__upload-wrapper'>
-        <UploadProgressContainer />
+        <UploadProgress />
 
         <div className='compose-form__uploads-wrapper'>
           {mediaIds.map(id => (

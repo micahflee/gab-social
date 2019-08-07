@@ -1,6 +1,6 @@
 'use strict';
 
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import configureStore from '../store/configureStore';
 import { INTRODUCTION_VERSION } from '../actions/onboarding';
 import { BrowserRouter, Route } from 'react-router-dom';
@@ -15,6 +15,7 @@ import { getLocale } from '../locales';
 import initialState from '../initial_state';
 import { me } from '../initial_state';
 import ErrorBoundary from '../components/error_boundary';
+// import { whyDidYouUpdate } from 'why-did-you-update';
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);
@@ -31,8 +32,8 @@ const mapStateToProps = (state) => {
 
   return {
     showIntroduction,
-  }
-}
+  };
+};
 
 @connect(mapStateToProps)
 class GabSocialMount extends PureComponent {
@@ -59,6 +60,10 @@ class GabSocialMount extends PureComponent {
   }
 
 }
+
+// whyDidYouUpdate(React);
+// whyDidYouUpdate(React, { groupByComponent: true, collapseComponentGroups: false });
+// whyDidYouUpdate(React, { exclude: [/^Connect|Link|NavLink|Route/] });
 
 export default class GabSocial extends PureComponent {
 

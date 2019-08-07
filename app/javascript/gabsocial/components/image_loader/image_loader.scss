@@ -1,0 +1,23 @@
+.image-loader {
+  position: relative;
+
+  @include flex(center, center, column);
+  @include size(100%);
+
+  &__preview-canvas {
+    object-fit: contain;
+
+    @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
+    @include background-image('/assets/images/void.png', contain, center, repeat);
+  }
+
+  &--amorphous & {
+    &__preview-canvas {
+      display: none;
+    }
+  }
+
+  .loading-bar {
+    position: relative;
+  }
+}

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 import { HotKeys } from 'react-hotkeys';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Switch, Redirect, withRouter } from 'react-router-dom';
-import NotificationsContainer from './containers/notifications_container';
-import LoadingBarContainer from './containers/loading_bar_container';
-import ModalContainer from './containers/modal_container';
+import NotificationsContainer from '../../containers/notifications_container';
+import LoadingBarContainer from '../../containers/loading_bar_container';
+import ModalContainer from '../../containers/modal_container';
 import { isMobile } from '../../utils/is_mobile';
 import { debounce } from 'lodash';
 import { uploadCompose, resetCompose } from '../../actions/compose';
@@ -15,22 +15,22 @@ import { expandNotifications } from '../../actions/notifications';
 import { fetchFilters } from '../../actions/filters';
 import { clearHeight } from '../../actions/height_cache';
 import { openModal } from '../../actions/modal';
-import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
-import UploadArea from './components/upload_area';
-import TabsBar from './components/tabs_bar';
-// import TrendsPanel from './components/trends_panel';
-import WhoToFollowPanel from './components/who_to_follow_panel';
-import LinkFooter from './components/link_footer';
+import WrappedRoute from './util/wrapped_route';
+import UploadArea from '../../components/upload_area';
+import TabsBar from '../../components/tabs_bar';
+import WhoToFollowPanel from '../../components/panel';
+import LinkFooter from '../../components/link_footer';
 import ProfilePage from 'gabsocial/pages/profile_page';
-import GroupsPage from 'gabsocial/pages/groups_page';
 import GroupPage from 'gabsocial/pages/group_page';
 import SearchPage from 'gabsocial/pages/search_page';
 import HomePage from 'gabsocial/pages/home_page';
 import GroupSidebarPanel from '../groups/sidebar_panel';
+import FloatingActionButton from '../../components/floating_action_button';
+import PromoPanel from '../../components/promo_panel/promo_panel';
+import UserPanel from '../../components/user_panel/user_panel';
 
 import {
   Status,
-  GettingStarted,
   CommunityTimeline,
   AccountTimeline,
   AccountGallery,
@@ -38,8 +38,6 @@ import {
   Followers,
   Following,
   Reblogs,
-  Favourites,
-  DirectTimeline,
   HashtagTimeline,
   Notifications,
   FollowRequests,
@@ -50,7 +48,6 @@ import {
   Mutes,
   PinnedStatuses,
   Search,
-  Explore,
   Groups,
   GroupTimeline,
   ListTimeline,
@@ -61,13 +58,12 @@ import {
   GroupEdit,
 } from './util/async-components';
 import { me, meUsername } from '../../initial_state';
-import { previewState as previewMediaState } from './components/media_modal';
-import { previewState as previewVideoState } from './components/video_modal';
 
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
+import { Fragment } from 'react';
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
@@ -115,28 +111,44 @@ const LAYOUT = {
     RIGHT: null,
   },
   DEFAULT: {
-    LEFT: [
-      <WhoToFollowPanel key='0' />,
-      <LinkFooter key='1' />,
-    ],
-    RIGHT: [
-      // <TrendsPanel />,
-      <GroupSidebarPanel key='0' />
-    ],
+    LEFT: (
+      <Fragment>
+        <WhoToFollowPanel />
+        <LinkFooter />
+      </Fragment>
+    ),
+    RIGHT: <GroupSidebarPanel />
   },
   STATUS: {
     TOP: null,
     LEFT: null,
-    RIGHT: [
-      <GroupSidebarPanel key='0' />,
-      <WhoToFollowPanel key='1' />,
-      // <TrendsPanel />,
-      <LinkFooter key='2' />,
-    ],
+    RIGHT: (
+      <Fragment>
+        <GroupSidebarPanel />
+        <WhoToFollowPanel />
+        <LinkFooter />
+      </Fragment>
+    ),
   },
+  GROUPS: {
+    TOP: null,
+    LEFT: (
+      <Fragment>
+        <UserPanel />
+        <PromoPanel />
+        <LinkFooter />
+      </Fragment>
+    ),
+    RIGHT: (
+      <Fragment>
+        <GroupSidebarPanel />
+        <WhoToFollowPanel />
+      </Fragment>
+    ),
+  }
 };
 
-const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
+const shouldHideFAB = path => path.match(/^\/posts\/|^\/search/);
 
 class SwitchingColumnsArea extends PureComponent {
 
@@ -181,10 +193,10 @@ class SwitchingColumnsArea extends PureComponent {
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
         <WrappedRoute path='/timeline/all' exact page={HomePage} component={CommunityTimeline} content={children} />
 
-        <WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
-        <WrappedRoute path='/groups/create' page={GroupsPage} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
-        <WrappedRoute path='/groups/browse/member' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
-        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
+        <WrappedRoute path='/groups' exact layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/create' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/browse/member' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
+        <WrappedRoute path='/groups/browse/admin' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />
@@ -466,10 +478,6 @@ class UI extends PureComponent {
     this.context.router.history.push('/notifications');
   }
 
-  handleHotkeyGoToStart = () => {
-    this.context.router.history.push('/getting-started');
-  }
-
   handleHotkeyGoToFavourites = () => {
     this.context.router.history.push(`/${meUsername}/favorites`);
   }
@@ -511,7 +519,6 @@ class UI extends PureComponent {
       back: this.handleHotkeyBack,
       goToHome: this.handleHotkeyGoToHome,
       goToNotifications: this.handleHotkeyGoToNotifications,
-      goToStart: this.handleHotkeyGoToStart,
       goToFavourites: this.handleHotkeyGoToFavourites,
       goToPinned: this.handleHotkeyGoToPinned,
       goToProfile: this.handleHotkeyGoToProfile,
@@ -520,7 +527,7 @@ class UI extends PureComponent {
       goToRequests: this.handleHotkeyGoToRequests,
     } : {};
 
-    const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
+    const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : (<FloatingActionButton onClick={this.handleOpenComposeModal} message={intl.formatMessage(messages.publish)}/>);
 
     return (
       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>

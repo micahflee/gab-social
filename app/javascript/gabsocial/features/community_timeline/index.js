@@ -1,8 +1,8 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import StatusListContainer from '../ui/containers/status_list_container';
+import StatusListContainer from '../../containers/status_list_container';
 import Column from '../../components/column';
-import ColumnSettingsContainer from './containers/column_settings_container';
-import HomeColumnHeader from '../../components/home_column_header';
+import ColumnSettings from './components/column_settings';
+import HomeColumnHeader from '../../components/column_header';
 import {
   expandCommunityTimeline,
   expandPublicTimeline,
@@ -104,9 +104,9 @@ class CommunityTimeline extends PureComponent {
     const { intl, hasUnread, onlyMedia, timelineId, allFediverse } = this.props;
 
     return (
-      <Column label={intl.formatMessage(messages.title)}>
+      <Column heading={intl.formatMessage(messages.title)}>
         <HomeColumnHeader activeItem='all' active={hasUnread} >
-          <ColumnSettingsContainer />
+          <ColumnSettings />
         </HomeColumnHeader>
         <StatusListContainer
           scrollKey={`${timelineId}_timeline`}

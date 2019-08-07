@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Button /> adds class "button-secondary" if props.secondary given 1`] = `
+exports[`<Button /> adds class "button--secondary" if props.secondary given 1`] = `
 <button
-  className="button button-secondary"
+  className="button button--secondary"
   onClick={[Function]}
   style={
     Object {

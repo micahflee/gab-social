@@ -1,5 +1,5 @@
 export function EmojiPicker () {
-  return import(/* webpackChunkName: "emoji_picker" */'../../emoji/emoji_picker');
+  return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker');
 }
 
 export function Compose () {
@@ -20,10 +20,6 @@ export function CommunityTimeline () {
 
 export function HashtagTimeline () {
   return import(/* webpackChunkName: "features/hashtag_timeline" */'../../hashtag_timeline');
-}
-
-export function DirectTimeline() {
-  return import(/* webpackChunkName: "features/direct_timeline" */'../../direct_timeline');
 }
 
 export function ListTimeline () {
@@ -62,10 +58,6 @@ export function Status () {
   return import(/* webpackChunkName: "features/status" */'../../status');
 }
 
-export function GettingStarted () {
-  return import(/* webpackChunkName: "features/getting_started" */'../../getting_started');
-}
-
 export function PinnedStatuses () {
   return import(/* webpackChunkName: "features/pinned_statuses" */'../../pinned_statuses');
 }
@@ -88,10 +80,6 @@ export function Following () {
 
 export function Reblogs () {
   return import(/* webpackChunkName: "features/reblogs" */'../../reblogs');
-}
-
-export function Favourites () {
-  return import(/* webpackChunkName: "features/favourites" */'../../favourites');
 }
 
 export function FollowRequests () {
@@ -119,11 +107,11 @@ export function Mutes () {
 }
 
 export function MuteModal () {
-  return import(/* webpackChunkName: "modals/mute_modal" */'../components/mute_modal');
+  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal');
 }
 
 export function ReportModal () {
-  return import(/* webpackChunkName: "modals/report_modal" */'../components/report_modal');
+  return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal');
 }
 
 export function MediaGallery () {
@@ -135,7 +123,7 @@ export function Video () {
 }
 
 export function EmbedModal () {
-  return import(/* webpackChunkName: "modals/embed_modal" */'../components/embed_modal');
+  return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal');
 }
 
 export function ListEditor () {
@@ -148,8 +136,4 @@ export function ListAdder () {
 
 export function Search () {
   return import(/*webpackChunkName: "features/search" */'../../search');
-}
-
-export function Explore () {
-  return import(/* webpackChunkName: "features/explore" */'../../explore');
 }

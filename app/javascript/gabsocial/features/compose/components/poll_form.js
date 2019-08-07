@@ -1,12 +1,10 @@
-'use strict';
-
+import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import IconButton from 'gabsocial/components/icon_button';
-import Icon from 'gabsocial/components/icon';
-import AutosuggestInput from 'gabsocial/components/autosuggest_input';
-import classNames from 'classnames';
+import IconButton from '../../../components/icon_button';
+import Icon from '../../../components/icon';
+import AutosuggestTextbox from '../../../components/autosuggest_textbox';
 
 const messages = defineMessages({
   option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
@@ -75,7 +73,7 @@ class Option extends PureComponent {
             tabIndex='0'
           />
 
-          <AutosuggestInput
+          <AutosuggestTextbox
             placeholder={intl.formatMessage(messages.option_placeholder, { number: index + 1 })}
             maxLength={25}
             value={title}
@@ -143,7 +141,7 @@ class PollForm extends ImmutablePureComponent {
 
         <div className='poll__footer'>
           {options.size < 4 && (
-            <button className='button button-secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
+            <button className='button button--secondary' onClick={this.handleAddOption}><Icon id='plus' /> <FormattedMessage {...messages.add_option} /></button>
           )}
 
           <select value={expiresIn} onChange={this.handleSelectDuration}>

@@ -1,0 +1,1 @@
+export { default } from './zoomable_image';

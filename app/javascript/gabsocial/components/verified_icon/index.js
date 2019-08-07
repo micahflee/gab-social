@@ -1,13 +1,1 @@
-import './index.scss';
-
-export default class VerifiedIcon extends PureComponent {
-
-  render() {
-    return (
-      <span className='verified-icon'>
-        <span className='visuallyhidden'>Verified Account</span>
-      </span>
-    );
-  }
-
-};
+export { default } from './verified_icon';

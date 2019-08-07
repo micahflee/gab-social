@@ -1,11 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import LoadingIndicator from '../../components/loading_indicator';
-import Column from '../ui/components/column';
+import ColumnIndicator from '../../components/column_indicator';
+import Column from '../../components/column';
 import { fetchLists } from '../../actions/lists';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import ColumnLink from '../ui/components/column_link';
-import ColumnSubheading from '../ui/components/column_subheading';
+import ColumnLink from '../../components/column_link';
+import ColumnSubheading from '../../components/column_subheading';
 import NewListForm from './components/new_list_form';
 import { createSelector } from 'reselect';
 import ScrollableList from '../../components/scrollable_list';
@@ -47,21 +47,17 @@ class Lists extends ImmutablePureComponent {
     const { intl, lists } = this.props;
 
     if (!lists) {
-      return (
-        <Column>
-          <LoadingIndicator />
-        </Column>
-      );
+      return (<ColumnIndicator type='loading' />);
     }
 
     const emptyMessage = <FormattedMessage id='empty_column.lists' defaultMessage="You don't have any lists yet. When you create one, it will show up here." />;
 
     return (
-      <Column icon='list-ul' heading={intl.formatMessage(messages.heading)} backBtnSlim>
-        <br/>
+      <Column icon='list-ul' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
+        <br />
         <ColumnSubheading text={intl.formatMessage(messages.add)} />
         <NewListForm />
-        <br/>
+        <br />
         <ColumnSubheading text={intl.formatMessage(messages.subheading)} />
         <ScrollableList
           scrollKey='lists'

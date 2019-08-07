@@ -1,12 +1,14 @@
-import { me } from 'gabsocial/initial_state';
+import { Fragment } from 'react';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import WhoToFollowPanel from '../features/ui/components/who_to_follow_panel';
-import LinkFooter from '../features/ui/components/link_footer';
-import PromoPanel from '../features/ui/components/promo_panel';
-import UserPanel from '../features/ui/components/user_panel';
+import WhoToFollowPanel from '../components/panel';
+import LinkFooter from '../components/link_footer';
+import PromoPanel from '../components/promo_panel';
+import UserPanel from '../components/user_panel';
 import ComposeFormContainer from '../features/compose/containers/compose_form_container';
 import Avatar from '../components/avatar';
 import GroupSidebarPanel from '../features/groups/sidebar_panel';
+import { me } from '../initial_state';
+import ColumnsArea from '../components/columns_area';
 
 const mapStateToProps = state => ({
   account: state.getIn(['accounts', me]),
@@ -18,40 +20,33 @@ class HomePage extends ImmutablePureComponent {
     const {children, account} = this.props;
 
     return (
-      <div className='page'>
-        <div className='page__columns'>
-          <div className='columns-area__panels'>
-
-            <div className='columns-area__panels__pane columns-area__panels__pane--left'>
-              <div className='columns-area__panels__pane__inner'>
-                <UserPanel />
-                <PromoPanel />
-                <LinkFooter />
-              </div>
-            </div>
-
-            <div className='columns-area__panels__main'>
-              <div className='columns-area columns-area--mobile'>
-                <div className='timeline-compose-block'>
-                  <div className='timeline-compose-block__avatar'>
-                    <Avatar account={account} size={46} />
-                  </div>
-                  <ComposeFormContainer shouldCondense={true} autoFocus={false}/>
-                </div>
-
-                {children}
-              </div>
-            </div>
-
-            <div className='columns-area__panels__pane columns-area__panels__pane--right'>
-              <div className='columns-area__panels__pane__inner'>
-                <GroupSidebarPanel />
-                <WhoToFollowPanel />
-              </div>
-            </div>
+      <ColumnsArea
+        layout={{
+          top: null,
+          right: (
+            <Fragment>
+              <GroupSidebarPanel />
+              {/*<WhoToFollowPanel />*/}
+            </Fragment>
+          ),
+          left: (
+            <Fragment>
+              <UserPanel />
+              <PromoPanel />
+              <LinkFooter />
+            </Fragment>
+          )
+        }}
+      >
+        <div className='timeline-compose-block'>
+          <div className='timeline-compose-block__avatar'>
+            <Avatar account={account} size={46} />
           </div>
+          <ComposeFormContainer shouldCondense={true} autoFocus={false} />
         </div>
-      </div>
+
+        {children}
+      </ColumnsArea>
     )
   }
 }

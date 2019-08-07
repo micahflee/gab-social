@@ -1,0 +1,249 @@
+.tabs-bar {
+  display: flex;
+  box-sizing: border-box;
+  background: #000;
+  flex: 0 0 auto;
+  overflow-y: auto;
+  height: 50px;
+  position: sticky;
+  top: 0;
+  z-index: 4;
+
+  &__container {
+    display: flex;
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 15px;
+
+    @include margin-center;
+
+    // NOTE - might need to adjust this based on column sizing
+    @media screen and (max-width: $nav-breakpoint-4) {
+      padding: 0 20px;
+    }
+
+  }
+
+  &__split {
+    display: flex;
+    width: auto;
+
+    &--left {
+      margin-right: auto;
+    }
+
+    &--right {
+      margin-left: auto;
+      padding-top: 8px;
+
+      @media screen and (max-width: $nav-breakpoint-3) {
+        padding-top: 4px;
+      }
+    }
+  }
+
+  &__search-container {
+    display: block;
+    width: 251px;
+
+    @media screen and (max-width: $nav-breakpoint-2) {
+      display: none;
+    }
+
+    .search {
+      margin: 0;
+    }
+  }
+
+  &__profile {
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 0 20px;
+
+    @include size(34px);
+
+    @media screen and (max-width: $nav-breakpoint-3) {
+      margin: 0;
+
+      @include size(42px);
+    }
+
+    .account__avatar {
+      background-size: 34px 34px;
+
+      @include size(34px);
+
+      @media screen and (max-width: $nav-breakpoint-3) {
+        background-size: 42px 42px;
+
+        @include size(42px);
+      }
+    }
+
+    .compose__action-bar {
+      display: block;
+
+      @include abs-position(0, 0, 0, -5px);
+
+      i {
+        display: none;
+      }
+    }
+  }
+
+  &__button-compose {
+    display: block;
+    margin-left: 20px;
+    border-radius: 4px;
+    background-color: $gab-brand-default !important;
+
+    @include background-image('/assets/images/sprite-main-navigation.png', 161px 152px, 18px 2px);
+    @include size(70px, 34px);
+
+    @media screen and (max-width: $nav-breakpoint-3) {
+      display: none;
+    }
+
+    &:hover {
+      background-color: lighten($gab-brand-default, 5%) !important;
+      background-position: 18px -98px;
+      box-shadow: inset 0px 0px 6px darken($gab-brand-default, 10%);
+    }
+
+    span {
+      display: none;
+    }
+  }
+
+  &__button {
+    margin-left: 12px;
+    height: 34px;
+  }
+
+  .flex {
+    display: flex;
+  }
+}
+
+.tabs-bar-item {
+  display: flex;
+  position: relative;
+  flex: 1 1 auto;
+  margin: 0 25px 0 0;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+
+  @include background-image('/assets/images/sprite-main-navigation-links.png', auto 84px);
+
+  @media screen and (max-width: $nav-breakpoint-1) {
+    background-size: auto 120px;
+    margin: 4px 0 0 0;
+    padding: 0 !important;
+
+    @include size(46px, 42px);
+
+    &.active {
+      height: 38px;
+      border-bottom: 4px solid $gab-default-text-light;
+    }
+
+    &>span {
+      display: none;
+    }
+  }
+
+  // REMINDER - to add the remaining icons (globe / word balloon) from the sprite into this css as necessary
+  &.home {
+    padding: 16px 0 0 26px;
+    background-position: 0 18px;
+
+    &.active {
+      background-position: 0 -52px;
+    }
+
+    @media screen and (max-width: $nav-breakpoint-1) {
+      background-position: 11px 11px;
+
+      &.active {
+        background-position: 11px -89px;
+      }
+    }
+  }
+
+  &.notifications {
+    padding: 16px 0 0 22px;
+    background-position: -140px 18px;
+
+    &.active {
+      background-position: -140px -52px;
+    }
+
+    @media screen and (max-width: $nav-breakpoint-1) {
+      background-position: -186px 11px;
+
+      &.active {
+        background-position: -186px -89px;
+      }
+    }
+  }
+
+  &.groups {
+    padding: 16px 0 0 29px;
+    background-position: -280px 18px;
+
+    &.active {
+      background-position: -280px -52px;
+    }
+
+    @media screen and (max-width: $nav-breakpoint-1) {
+      background-position: -391px 11px;
+
+      &.active {
+        background-position: -391px -89px;
+      }
+    }
+  }
+
+  &.optional {
+    display: none;
+
+    @media screen and (max-width: $nav-breakpoint-2) {
+      display: flex;
+      background-position: -987px 11px;
+
+      &.active {
+        background-position: -987px -89px;
+      }
+    }
+  }
+
+  &.active {
+    color: $gab-text-highlight;
+  }
+
+  &--logo {
+    display: block;
+    margin-right: 35px;
+    border: none;
+
+    @include background-image('/assets/images/gab_logo.svg', 50px 30px, 0 10px);
+    @include size(50px);
+
+    // NOTE - Revisit right-margin of home button / positioning between 376px and 350px
+    //		- want to keep the icons centered between logo and profile image while shrinking
+    @media screen and (max-width: $nav-breakpoint-4) {
+      display: none;
+    }
+
+    & span {
+      display: none !important;
+    }
+
+    &:hover {
+      background-color: #000 !important;
+      border: none !important;
+    }
+  }
+}

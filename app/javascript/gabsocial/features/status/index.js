@@ -1,11 +1,13 @@
 import Immutable from 'immutable';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import { HotKeys } from 'react-hotkeys';
 import { fetchStatus } from '../../actions/statuses';
-import MissingIndicator from '../../components/missing_indicator';
 import DetailedStatus from './components/detailed_status';
 import ActionBar from './components/action_bar';
-import Column from '../ui/components/column';
+import Column from '../../components/column';
 import {
   favourite,
   unfavourite,
@@ -33,13 +35,11 @@ import { makeGetStatus } from '../../selectors';
 import ColumnHeader from '../../components/column_header';
 import StatusContainer from '../../containers/status_container';
 import { openModal } from '../../actions/modal';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { HotKeys } from 'react-hotkeys';
 import { boostModal, deleteModal, me } from '../../initial_state';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../../utils/fullscreen';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../components/icon';
+import ColumnIndicator from '../../components/column_indicator';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -61,7 +61,7 @@ const makeMapStateToProps = () => {
   const mapStateToProps = (state, props) => {
     const status = getStatus(state, {
       id: props.params.statusId,
-      username: props.params.username
+      username: props.params.username,
     });
 
     let ancestorsIds = Immutable.List();
@@ -420,11 +420,7 @@ class Status extends ImmutablePureComponent {
     const { fullscreen } = this.state;
 
     if (status === null) {
-      return (
-        <Column>
-          <MissingIndicator />
-        </Column>
-      );
+      return (<ColumnIndicator type='missing' />);
     }
 
     if (ancestorsIds && ancestorsIds.size > 0) {
@@ -448,7 +444,7 @@ class Status extends ImmutablePureComponent {
     };
 
     return (
-      <Column label={intl.formatMessage(messages.detailedStatus)}>
+      <Column heading={intl.formatMessage(messages.detailedStatus)}>
         { me &&
           <ColumnHeader
             extraButton={(
@@ -458,10 +454,11 @@ class Status extends ImmutablePureComponent {
                 aria-label={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
                 onClick={this.handleToggleAll}
                 aria-pressed={
-                  status.get('hidden') ? 'false' : 'true'}>
-                  <Icon id={status.get('hidden') ? 'eye-slash' : 'eye'
+                  status.get('hidden') ? 'false' : 'true'}
+              >
+                <Icon id={status.get('hidden') ? 'eye-slash' : 'eye'
                 }
-              />
+                />
               </button>
             )}
           />

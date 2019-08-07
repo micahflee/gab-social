@@ -3,10 +3,9 @@ import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
 import AccountContainer from '../../../containers/account_container';
 import StatusContainer from '../../../containers/status_container';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Hashtag from '../../../components/hashtag';
-import Icon from 'gabsocial/components/icon';
-import WhoToFollowPanel from '../../ui/components/who_to_follow_panel';
-// import TrendsPanel from '../../ui/components/trends_panel';
+import TrendingItem from '../../../components/trending_item';
+import Icon from '../../../components/icon';
+import WhoToFollowPanel from '../../../components/panel';
 
 export default @injectIntl
 class SearchResults extends ImmutablePureComponent {
@@ -64,7 +63,7 @@ class SearchResults extends ImmutablePureComponent {
         <div className='search-results__section'>
           <h5><Icon id='hashtag' fixedWidth /><FormattedMessage id='search_results.hashtags' defaultMessage='Hashtags' /></h5>
 
-          {results.get('hashtags').map(hashtag => <Hashtag key={hashtag.get('name')} hashtag={hashtag} />)}
+          {results.get('hashtags').map(hashtag => <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />)}
         </div>
       );
     }

@@ -1,13 +1,15 @@
+import { Fragment } from 'react';
 import { PropTypes } from 'prop-types';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import WhoToFollowPanel from '../features/ui/components/who_to_follow_panel';
-import LinkFooter from '../features/ui/components/link_footer';
-import PromoPanel from '../features/ui/components/promo_panel';
+import WhoToFollowPanel from '../components/panel';
+import LinkFooter from '../components/link_footer';
+import PromoPanel from '../components/panel';
 import HeaderContainer from '../features/groups/timeline/containers/header_container';
 import GroupPanel from '../features/groups/timeline/components/panel';
 import { fetchGroup } from '../actions/groups';
 import GroupSidebarPanel from '../features/groups/sidebar_panel';
+import ColumnsArea from '../components/columns_area';
 
 const mapStateToProps = (state, { params: { id } }) => ({
 	group: state.getIn(['groups', id]),
@@ -17,12 +19,12 @@ const mapStateToProps = (state, { params: { id } }) => ({
 export default @connect(mapStateToProps)
 class GroupPage extends ImmutablePureComponent {
 
-    static propTypes = {
-        group: ImmutablePropTypes.map,
+  static propTypes = {
+    group: ImmutablePropTypes.map,
 		relationships: ImmutablePropTypes.map,
 		dispatch: PropTypes.func.isRequired,
 	};
-	
+
 	componentWillMount() {
 		const { params: { id }, dispatch } = this.props;
 
@@ -31,41 +33,33 @@ class GroupPage extends ImmutablePureComponent {
 
 	render () {
 		const { children, group, relationships } = this.props;
+		const top = group ? <HeaderContainer groupId={group.get('id')} /> : null;
 
 		return (
-			<div className='page group'>
-				{group && <HeaderContainer groupId={group.get('id')} />}
-				
-				<div className='page__columns'>
-					<div className='columns-area__panels'>
-						<div className='columns-area__panels__pane columns-area__panels__pane--left'>
-							<div className='columns-area__panels__pane__inner'>
-								{group && relationships &&
-									<GroupPanel 
-										group={group}
-										relationships={relationships}
-									/>}
-									
-									<PromoPanel />
-									<LinkFooter />
-							</div>
-						</div>
-						
-						<div className='columns-area__panels__main'>
-							<div className='columns-area columns-area--mobile'>
-								{children}
-							</div>
-						</div>
-						
-						<div className='columns-area__panels__pane columns-area__panels__pane--right'>
-							<div className='columns-area__panels__pane__inner'>
-								<GroupSidebarPanel />
-								<WhoToFollowPanel />
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<ColumnsArea
+				layout={{
+					top: top,
+					right: (
+						<Fragment>
+							<GroupSidebarPanel />
+							<WhoToFollowPanel />
+						</Fragment>
+					),
+					left: (
+						<Fragment>
+							{group && relationships &&
+								<GroupPanel
+									group={group}
+									relationships={relationships}
+								/>}
+							<PromoPanel />
+							<LinkFooter />
+						</Fragment>
+					)
+				}}
+			>
+				{children}
+			</ColumnsArea>
 		)
 	}
 }

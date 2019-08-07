@@ -1,5 +1,5 @@
-import { makeGetAccount } from '../../../selectors';
-import Header from '../components/header';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { List as ImmutableList } from 'immutable';
 import {
   followAccount,
   unfollowAccount,
@@ -17,9 +17,9 @@ import { initMuteModal } from '../../../actions/mutes';
 import { initReport } from '../../../actions/reports';
 import { openModal } from '../../../actions/modal';
 import { blockDomain, unblockDomain } from '../../../actions/domain_blocks';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { unfollowModal } from '../../../initial_state';
-import { List as ImmutableList } from 'immutable';
+import { makeGetAccount } from '../../../selectors';
+import Header from '../components/header';
 
 const messages = defineMessages({
   unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },

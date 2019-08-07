@@ -1,9 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import InnerHeader from '../../account/components/header';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import InnerHeader from './inner_header';
 import MovedNote from './moved_note';
-import { FormattedMessage } from 'react-intl';
-import { NavLink } from 'react-router-dom';
 
 export default class Header extends ImmutablePureComponent {
 

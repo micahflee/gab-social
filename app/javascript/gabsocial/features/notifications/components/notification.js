@@ -1,11 +1,11 @@
+import { injectIntl, FormattedMessage } from 'react-intl';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import { HotKeys } from 'react-hotkeys';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import StatusContainer from '../../../containers/status_container';
 import AccountContainer from '../../../containers/account_container';
-import { injectIntl, FormattedMessage } from 'react-intl';
 import Permalink from '../../../components/permalink';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { HotKeys } from 'react-hotkeys';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 
 const notificationForScreenReader = (intl, message, timestamp) => {
   const output = [message];

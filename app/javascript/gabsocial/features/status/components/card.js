@@ -2,7 +2,7 @@ import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import punycode from 'punycode';
 import classnames from 'classnames';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
 
 const IDNA_PREFIX = 'xn--';
 

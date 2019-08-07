@@ -22,10 +22,6 @@ export const REBLOGS_FETCH_REQUEST = 'REBLOGS_FETCH_REQUEST';
 export const REBLOGS_FETCH_SUCCESS = 'REBLOGS_FETCH_SUCCESS';
 export const REBLOGS_FETCH_FAIL    = 'REBLOGS_FETCH_FAIL';
 
-export const FAVOURITES_FETCH_REQUEST = 'FAVOURITES_FETCH_REQUEST';
-export const FAVOURITES_FETCH_SUCCESS = 'FAVOURITES_FETCH_SUCCESS';
-export const FAVOURITES_FETCH_FAIL    = 'FAVOURITES_FETCH_FAIL';
-
 export const PIN_REQUEST = 'PIN_REQUEST';
 export const PIN_SUCCESS = 'PIN_SUCCESS';
 export const PIN_FAIL    = 'PIN_FAIL';
@@ -229,43 +225,6 @@ export function fetchReblogsSuccess(id, accounts) {
 export function fetchReblogsFail(id, error) {
   return {
     type: REBLOGS_FETCH_FAIL,
-    error,
-  };
-};
-
-export function fetchFavourites(id) {
-  return (dispatch, getState) => {
-    if (!me) return;
-
-    dispatch(fetchFavouritesRequest(id));
-
-    api(getState).get(`/api/v1/statuses/${id}/favourited_by`).then(response => {
-      dispatch(importFetchedAccounts(response.data));
-      dispatch(fetchFavouritesSuccess(id, response.data));
-    }).catch(error => {
-      dispatch(fetchFavouritesFail(id, error));
-    });
-  };
-};
-
-export function fetchFavouritesRequest(id) {
-  return {
-    type: FAVOURITES_FETCH_REQUEST,
-    id,
-  };
-};
-
-export function fetchFavouritesSuccess(id, accounts) {
-  return {
-    type: FAVOURITES_FETCH_SUCCESS,
-    id,
-    accounts,
-  };
-};
-
-export function fetchFavouritesFail(id, error) {
-  return {
-    type: FAVOURITES_FETCH_FAIL,
     error,
   };
 };

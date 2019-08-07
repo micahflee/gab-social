@@ -5,8 +5,16 @@ import Permalink from '../../../components/permalink';
 import IconButton from '../../../components/icon_button';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { me } from '../../../initial_state';
 
-export default class NavigationBar extends ImmutablePureComponent {
+const mapStateToProps = state => {
+  return {
+    account: state.getIn(['accounts', me]),
+  };
+};
+
+export default @connect(mapStateToProps)
+class NavigationBar extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
@@ -26,7 +34,9 @@ export default class NavigationBar extends ImmutablePureComponent {
             <strong className='navigation-bar__profile-account'>@{this.props.account.get('acct')}</strong>
           </Permalink>
 
-          <a href='/settings/profile' className='navigation-bar__profile-edit'><FormattedMessage id='navigation_bar.edit_profile' defaultMessage='Edit profile' /></a>
+          <a href='/settings/profile' className='navigation-bar__profile-edit'>
+            <FormattedMessage id='navigation_bar.edit_profile' defaultMessage='Edit profile' />
+          </a>
         </div>
 
         <div className='navigation-bar__actions'>

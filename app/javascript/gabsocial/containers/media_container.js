@@ -7,7 +7,7 @@ import Video from '../features/video';
 import Card from '../features/status/components/card';
 import Poll from 'gabsocial/components/poll';
 import ModalRoot from '../components/modal_root';
-import MediaModal from '../features/ui/components/media_modal';
+import MediaModal from '../components/modal';
 import { List as ImmutableList, fromJS } from 'immutable';
 
 const { localeData, messages } = getLocale();

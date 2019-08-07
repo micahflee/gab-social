@@ -1,13 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { setupListAdder, resetListAdder } from '../../actions/lists';
 import { createSelector } from 'reselect';
+import { setupListAdder, resetListAdder } from '../../actions/lists';
 import List from './components/list';
 import Account from './components/account';
-import IconButton from 'gabsocial/components/icon_button';
+import IconButton from '../../components/icon_button';
 import NewListForm from '../lists/components/new_list_form';
-import ColumnSubheading from '../ui/components/column_subheading';
+import ColumnSubheading from '../../components/column_subheading/column_subheading';
 // hack
 
 const getOrderedLists = createSelector([state => state.get('lists')], lists => {

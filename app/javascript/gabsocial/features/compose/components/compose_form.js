@@ -1,24 +1,23 @@
-import CharacterCounter from './character_counter';
-import Button from '../../../components/button';
+import { defineMessages, injectIntl } from 'react-intl';
+import ImmutablePureComponent from 'react-immutable-pure-component';
+import { length } from 'stringz';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import classNames from 'classnames';
+import CharacterCounter from './character_counter';
 import ReplyIndicatorContainer from '../containers/reply_indicator_container';
-import AutosuggestTextarea from '../../../components/autosuggest_textarea';
-import AutosuggestInput from '../../../components/autosuggest_input';
+import AutosuggestTextbox from '../../../components/autosuggest_textbox';
 import PollButtonContainer from '../containers/poll_button_container';
 import UploadButtonContainer from '../containers/upload_button_container';
-import { defineMessages, injectIntl } from 'react-intl';
 import SpoilerButtonContainer from '../containers/spoiler_button_container';
 import PrivacyDropdownContainer from '../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../containers/poll_form_container';
-import UploadFormContainer from '../containers/upload_form_container';
+import UploadForm from './upload_form';
 import WarningContainer from '../containers/warning_container';
 import { isMobile } from '../../../utils/is_mobile';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { length } from 'stringz';
 import { countableText } from '../util/counter';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../../../components/icon';
+import Button from '../../../components/button';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 const maxPostCharacterCount = 3000;
@@ -104,10 +103,10 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleSubmit = () => {
-    if (this.props.text !== this.autosuggestTextarea.textarea.value) {
+    if (this.props.text !== this.autosuggestTextarea.textbox.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
-      this.props.onChange(this.autosuggestTextarea.textarea.value);
+      this.props.onChange(this.autosuggestTextarea.textbox.value);
     }
 
     // Submit disabled:
@@ -171,8 +170,8 @@ class ComposeForm extends ImmutablePureComponent {
         selectionStart = selectionEnd;
       }
 
-      this.autosuggestTextarea.textarea.setSelectionRange(selectionStart, selectionEnd);
-      this.autosuggestTextarea.textarea.focus();
+      this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
+      this.autosuggestTextarea.textbox.focus();
     }
   }
 
@@ -189,9 +188,9 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleEmojiPick = (data) => {
-    const { text }     = this.props;
-    const position     = this.autosuggestTextarea.textarea.selectionStart;
-    const needsSpace   = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1]);
+    const { text } = this.props;
+    const position = this.autosuggestTextarea.textbox.selectionStart;
+    const needsSpace = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1]);
 
     this.props.onPickEmoji(position, data, needsSpace);
   }
@@ -215,7 +214,7 @@ class ComposeForm extends ImmutablePureComponent {
     const composeClassNames = classNames({
       'compose-form': true,
       'condensed': condensed,
-    })
+    });
 
     return (
       <div className={composeClassNames} ref={this.setForm} onClick={this.handleClick}>
@@ -224,7 +223,7 @@ class ComposeForm extends ImmutablePureComponent {
         { !shouldCondense && <ReplyIndicatorContainer /> }
 
         <div className={`spoiler-input ${this.props.spoiler ? 'spoiler-input--visible' : ''}`}>
-          <AutosuggestInput
+          <AutosuggestTextbox
             placeholder={intl.formatMessage(messages.spoiler_placeholder)}
             value={this.props.spoilerText}
             onChange={this.handleChangeSpoilerText}
@@ -245,7 +244,8 @@ class ComposeForm extends ImmutablePureComponent {
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
         </div>
 
-        <AutosuggestTextarea
+        <AutosuggestTextbox
+          textarea={true}
           ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
           disabled={disabled}
@@ -263,11 +263,11 @@ class ComposeForm extends ImmutablePureComponent {
           {
             !condensed &&
             <div className='compose-form__modifiers'>
-              <UploadFormContainer />
+              <UploadForm />
               <PollFormContainer />
             </div>
           }
-        </AutosuggestTextarea>
+        </AutosuggestTextbox>
 
         {
           !condensed &&

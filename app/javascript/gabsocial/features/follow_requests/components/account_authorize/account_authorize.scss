@@ -1,0 +1,14 @@
+.account-authorize {
+  padding: 14px 10px;
+
+  &__avatar {
+    float: left;
+    margin-right: 10px;
+  }
+
+  .detailed-status__display-name {
+    display: block;
+    margin-bottom: 15px;
+    overflow: hidden;
+  }
+}
