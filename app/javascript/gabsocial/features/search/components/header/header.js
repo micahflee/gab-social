@@ -1,7 +1,5 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
-import { NavLink } from 'react-router-dom';
+import SectionHeadlineBar from '../../../../components/section_headline_bar';
 
 const mapStateToProps = state => ({
   value: state.getIn(['search', 'value']),
@@ -9,7 +7,7 @@ const mapStateToProps = state => ({
 });
 
 export default @connect(mapStateToProps)
-class Header extends ImmutablePureComponent {
+class Header extends PureComponent {
 
   static propTypes = {
     value: PropTypes.string,
@@ -42,12 +40,15 @@ class Header extends ImmutablePureComponent {
           </h1>
         </div>
         <div className='search-header__type-filters'>
-          <div className='account__section-headline'>
-            <div className='search-header__type-filters-tabs'>
-              <NavLink to='/search' activeClassName='active'>
-                <FormattedMessage id='search_results.top' defaultMessage='Top' />
-              </NavLink>
-            </div>
+          <div className='search-header__type-filters-tabs'>
+            <SectionHeadlineBar
+              items={[
+                {
+                  to: '/search',
+                  title: <FormattedMessage id='search_results.top' defaultMessage='Top' />
+                }
+              ]}
+            />
           </div>
         </div>
       </div>

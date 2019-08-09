@@ -1,0 +1,36 @@
+.focal-point-modal {
+  position: relative;
+
+  @include max-size(80vw, 80vh);
+}
+
+.focal-point {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+
+  &.dragging {
+    cursor: move;
+  }
+
+  img {
+    margin: auto;
+
+    @include max-size(80vw, 80vh);
+    @include size(auto);
+  }
+
+  &__reticle {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    background: url('/assets/images/reticle.png') no-repeat 0 0;
+    box-shadow: 0 0 0 9999em rgba($base-shadow-color, 0.35);
+
+    @include circle(100px);
+  }
+
+  &__overlay {
+    @include size(100%);
+    @include abs-position(0, auto, auto, 0);
+  }
+}

@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import classNames from 'classnames';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
-import AutosuggestAccount from '../../features/compose/components/autosuggest_account';
+import AutosuggestAccount from '../autosuggest_account';
 import AutosuggestEmoji from '../autosuggest_emoji';
 import { isRtl } from '../../utils/rtl';
 import { textAtCursorMatchesToken } from '../../utils/cursor_token_match';

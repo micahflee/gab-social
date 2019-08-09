@@ -15,7 +15,7 @@ import { NavLink } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { me } from 'gabsocial/initial_state';
 
-const mapStateToProps = (state, { params: { username }, withReplies = false }) => {
+const mapStateToProps = (state, { params: { username } }) => {
   const accounts = state.getIn(['accounts']);
   const accountFetchError = (state.getIn(['accounts', -1, 'username'], '').toLowerCase() == username.toLowerCase());
 
@@ -85,7 +85,7 @@ class AccountGallery extends ImmutablePureComponent {
   };
 
   componentDidMount () {
-    const { params: { username }, accountId, withReplies } = this.props;
+    const { params: { username }, accountId } = this.props;
 
     if (accountId && accountId !== -1) {
       this.props.dispatch(fetchAccount(accountId));

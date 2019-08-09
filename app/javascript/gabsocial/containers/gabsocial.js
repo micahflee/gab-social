@@ -17,6 +17,29 @@ import { me } from '../initial_state';
 import ErrorBoundary from '../components/error_boundary';
 // import { whyDidYouUpdate } from 'why-did-you-update';
 
+import '../../styles/gabsocial/components.scss';
+import '../../styles/gabsocial/components/buttons.scss';
+import '../../styles/gabsocial/components/inputs.scss';
+import '../../styles/gabsocial/components/tabs-bar.scss';
+import '../../styles/gabsocial/components/dropdown-menu.scss';
+import '../../styles/gabsocial/components/modal.scss';
+import '../../styles/gabsocial/components/account-header.scss';
+import '../../styles/gabsocial/components/user-panel.scss';
+import '../../styles/gabsocial/components/compose-form.scss';
+import '../../styles/gabsocial/components/group-card.scss';
+import '../../styles/gabsocial/components/group-detail.scss';
+import '../../styles/gabsocial/components/group-form.scss';
+import '../../styles/gabsocial/components/group-sidebar-panel.scss';
+import '../../styles/gabsocial/polls.scss';
+import '../../styles/gabsocial/introduction.scss';
+import '../../styles/gabsocial/emoji_picker.scss';
+import '../../styles/gabsocial/about.scss';
+import '../../styles/gabsocial/tables.scss';
+import '../../styles/gabsocial/admin.scss';
+import '../../styles/gabsocial/dashboard.scss';
+import '../../styles/gabsocial/rtl.scss';
+import '../../styles/gabsocial/accessibility.scss';
+
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);
 

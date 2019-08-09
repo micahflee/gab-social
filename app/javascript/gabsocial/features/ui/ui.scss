@@ -1,0 +1,47 @@
+.ui {
+  display: block;
+  width: 100%;
+  padding: 0 0 100px 0;
+}
+
+@media screen and (max-width: 630px) and (max-height: 400px) {
+  .is-composing {
+
+    .tabs-bar,
+    .search {
+      margin-top: -50px;
+    }
+
+    .navigation-bar {
+      padding-bottom: 0;
+
+      &>a:first-child {
+        margin: -100px 10px 0 -50px;
+      }
+
+      &__profile {
+        padding-top: 2px;
+      }
+
+      &__profile-edit {
+        position: absolute;
+        margin-top: -60px;
+      }
+
+      &__actions {
+        .icon-button.close {
+          pointer-events: auto;
+          opacity: 1;
+          transform: scale(1.0, 1.0) translate(0, 0);
+          bottom: 5px;
+        }
+
+        .compose__action-bar .icon-button {
+          pointer-events: none;
+          opacity: 0;
+          transform: scale(0.0, 1.0) translate(100%, 0);
+        }
+      }
+    }
+  }
+}

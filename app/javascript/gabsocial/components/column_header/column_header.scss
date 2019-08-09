@@ -63,33 +63,6 @@
     }
   }
 
-  &__links {
-    .text-btn {
-      margin-right: 10px;
-    }
-  }
-
-  &__setting-btn {
-    padding: 0 10px;
-
-    &:last-child {
-      padding-right: 0;
-    }
-
-    &:hover {
-      color: $darker-text-color;
-      text-decoration: underline;
-    }
-
-    &--link {
-      text-decoration: none;
-
-      .fa {
-        margin-left: 10px;
-      }
-    }
-  }
-
   &__button {
     margin-left: auto;
     cursor: pointer;

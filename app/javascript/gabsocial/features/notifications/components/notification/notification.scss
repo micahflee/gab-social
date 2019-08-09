@@ -1,0 +1,58 @@
+.notification {
+
+  &--favourite {
+
+  }
+
+  &--follow {
+
+  }
+
+  &--reblog {
+
+  }
+
+  &--poll {
+
+  }
+
+  &__message {
+    margin: 0 10px 0 68px;
+    padding: 8px 0 0;
+    cursor: default;
+    color: $gab-secondary-text;
+    position: relative;
+
+    @include text-sizing(15px, 400, 22px);
+
+    .fa {
+      color: $highlight-text-color;
+    }
+
+    >span {
+      display: inline;
+
+      @include text-overflow;
+    }
+  }
+
+  &__display-name {
+    color: inherit;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      color: $primary-text-color;
+      text-decoration: underline;
+    }
+  }
+
+  &__favourite-icon-wrapper {
+    left: -26px;
+    position: absolute;
+
+    .star-icon {
+      color: $gold-star;
+    }
+  }
+}

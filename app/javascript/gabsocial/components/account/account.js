@@ -28,12 +28,13 @@ class Account extends ImmutablePureComponent {
     onFollow: PropTypes.func.isRequired,
     onBlock: PropTypes.func.isRequired,
     onMute: PropTypes.func.isRequired,
-    onMuteNotifications: PropTypes.func.isRequired,
+    onMuteNotifications: PropTypes.func,
     intl: PropTypes.object.isRequired,
     hidden: PropTypes.bool,
     actionIcon: PropTypes.string,
     actionTitle: PropTypes.string,
     onActionClick: PropTypes.func,
+    displayOnly: PropTypes.bool,
   };
 
   handleFollow = () => {
@@ -61,7 +62,7 @@ class Account extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, intl, hidden, onActionClick, actionIcon, actionTitle } = this.props;
+    const { account, intl, hidden, onActionClick, actionIcon, actionTitle, displayOnly } = this.props;
 
     if (!account) {
       return <div />;
@@ -109,6 +110,21 @@ class Account extends ImmutablePureComponent {
       }
     }
 
+    if (displayOnly) {
+      return (
+        <div className='account'>
+          <div className='account__wrapper'>
+            <div className='account__display-name'>
+              <div className='account__avatar-wrapper'>
+                <Avatar account={account} size={36} />
+              </div>
+              <DisplayName account={account} />
+            </div>
+          </div>
+        </div>
+      );
+    }
+    
     return (
       <div className='account'>
         <div className='account__wrapper'>

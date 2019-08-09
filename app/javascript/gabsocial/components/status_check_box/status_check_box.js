@@ -1,11 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Toggle from 'react-toggle';
 import { Set as ImmutableSet } from 'immutable';
 import noop from 'lodash/noop';
 import StatusContent from '../status_content';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
 import Bundle from '../../features/ui/util/bundle';
 import { toggleStatusReport } from '../../actions/reports';
+import ToggleSwitch from '../toggle_switch';
 
 import './status_check_box.scss';
 
@@ -78,7 +78,7 @@ class StatusCheckBox extends PureComponent {
         </div>
 
         <div className='status-check-box-toggle'>
-          <Toggle checked={checked} onChange={onToggle} disabled={disabled} />
+          <ToggleSwitch checked={checked} onChange={onToggle} disabled={disabled} />
         </div>
       </div>
     );

@@ -71,7 +71,7 @@
     text-transform: capitalize;
     color: $gab-secondary-text;
 
-    @include text-overflow(nowrap);
+    @include text-overflow;
     @include text-sizing(13px, 400, 26px);
 
     &:focus,

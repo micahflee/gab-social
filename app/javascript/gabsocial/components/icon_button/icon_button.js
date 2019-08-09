@@ -22,6 +22,7 @@ export default class IconButton extends PureComponent {
     animate: PropTypes.bool,
     overlay: PropTypes.bool,
     tabIndex: PropTypes.string,
+    text: PropTypes.string,
   };
 
   static defaultProps = {
@@ -62,6 +63,7 @@ export default class IconButton extends PureComponent {
       pressed,
       tabIndex,
       title,
+      text,
     } = this.props;
 
     const classes = classNames(className, 'icon-button', {
@@ -86,6 +88,7 @@ export default class IconButton extends PureComponent {
           disabled={disabled}
         >
           <Icon id={icon} fixedWidth aria-hidden='true' />
+          {!!text && text}
         </button>
       );
     }
@@ -105,6 +108,7 @@ export default class IconButton extends PureComponent {
             disabled={disabled}
           >
             <Icon id={icon} style={{ transform: `rotate(${rotate}deg)` }} fixedWidth aria-hidden='true' />
+            {!!text && text}
           </button>
         )}
       </Motion>

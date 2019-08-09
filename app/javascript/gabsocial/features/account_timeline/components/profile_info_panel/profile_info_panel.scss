@@ -1,0 +1,137 @@
+.profile-info-panel {
+  display: flex;
+  position: relative;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+
+    @media (min-width:895px) {
+      padding-top: 60px;
+    }
+  }
+}
+
+.profile-info-panel-content {
+  display: flex;
+
+  &__badges {
+    display: flex;
+    margin: 5px 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    &__join-date {
+      display: block;
+      margin-top: 5px;
+
+      .fa {
+        margin-right: 8px;
+      }
+
+      span {
+        color: $primary-text-color;
+
+        body.theme-gabsocial-light & {
+          color: $gab-default-text-light;
+        }
+
+        font-size: 15px;
+        line-height: 1.25;
+      }
+    }
+  }
+
+  &__name {
+    display: block;
+
+    .account-role {
+      vertical-align: top;
+    }
+
+    .emojione {
+      width: 22px;
+      height: 22px;
+    }
+
+    h1 {
+      span:first-of-type {
+        color: #ffffff;
+
+        @include text-overflow;
+        @include text-sizing(20px, 600, 1.25);
+
+        body.theme-gabsocial-light & {
+          color: $gab-default-text-light;
+        }
+      }
+
+      small {
+        display: block;
+        color: $secondary-text-color;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        @include text-sizing(16px, 400, 1.5)
+      }
+    }
+  }
+
+  &__bio {
+    display: block;
+    flex: 1 1;
+    color: $primary-text-color;
+    margin: 15px 0;
+    font-size: 15px;
+    line-height: 1.25;
+
+    a {
+      color: lighten($ui-highlight-color, 8%);
+    }
+  }
+
+  &__fields {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid lighten($ui-base-color, 12%);
+    padding: 10px 0;
+    margin: 5px 0;
+
+    @media screen and (max-width:895px) {
+      border-bottom: 1px solid lighten($ui-base-color, 12%);
+    }
+
+    a {
+      color: lighten($ui-highlight-color, 8%);
+    }
+
+    dl:first-child .verified {
+      border-radius: 0 4px 0 0;
+    }
+
+    .verified a {
+      color: $valid-value-color;
+    }
+
+    &__item {
+      display: flex;
+      padding: 2px 0;
+      margin: 2px 0;
+      flex: 1 1;
+
+      * {
+        font-size: 15px;
+        line-height: 24px;
+      }
+
+      dt {
+        min-width: 26px;
+      }
+
+      dd {
+        padding-left: 4px;
+      }
+    }
+  }
+}

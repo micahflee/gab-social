@@ -1,0 +1,10 @@
+.compose-form-upload-wrapper {
+  overflow: hidden;
+}
+
+.compose-form-uploads-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  flex-wrap: wrap;
+}

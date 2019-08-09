@@ -14,14 +14,14 @@ export default class SearchPage extends PureComponent {
     return (
       <ColumnsArea
         layout={{
-          top: <Header/>,
-          right: (
+          TOP: <Header/>,
+          RIGHT: (
             <Fragment>
               <SignUpPanel />
               <WhoToFollowPanel />
             </Fragment>
           ),
-          left: <LinkFooter/>,
+          LEFT: <LinkFooter/>,
         }}
       >
         {this.props.children}

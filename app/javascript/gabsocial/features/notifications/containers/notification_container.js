@@ -1,5 +1,5 @@
 import { makeGetNotification, makeGetStatus } from '../../../selectors';
-import Notification from '../components/notification';
+import Notification from '../components/notification/notification';
 import { openModal } from '../../../actions/modal';
 import { mentionCompose } from '../../../actions/compose';
 import {

@@ -1,0 +1,1 @@
+export { default } from './new_list_form';

@@ -1,0 +1,36 @@
+.search-popout-container {
+  width: 251px;
+
+  @media screen and (max-width: $nav-breakpoint-2) {
+    width: 100%;
+  }
+}
+
+.search-popout {
+  background: $gab-background-container;
+  padding: 8px 10px 17px 10px;
+  margin: 4px 0 0 0;
+  color: $gab-secondary-text;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+
+  @include text-sizing(12px, 400, 14px);
+  @include border-design($gab-placeholder-accent, 1px, 4px);
+
+  h4 {
+    color: #fff;
+
+    @include text-sizing(14px, 600, 16px);
+  }
+
+  ul {
+    margin: 6px 0 6px;
+
+    li {
+      margin: 0 0 2px 0;
+
+      em {
+        color: $gab-text-highlight;
+      }
+    }
+  }
+}

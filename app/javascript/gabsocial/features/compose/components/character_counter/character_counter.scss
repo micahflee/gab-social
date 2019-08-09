@@ -1,0 +1,16 @@
+.character-counter {
+  cursor: default;
+  font-family: $font-sans-serif, sans-serif;
+  color: $gab-secondary-text;
+
+  @include text-sizing(14px, 600);
+
+  &--over {
+    color: $warning-red;
+  }
+
+  &__wrapper {
+    align-self: center;
+    margin-right: 4px;
+  }
+}

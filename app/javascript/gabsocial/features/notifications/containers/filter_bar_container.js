@@ -1,4 +1,4 @@
-import FilterBar from '../components/filter_bar';
+import FilterBar from '../components/notification_filter_bar/notification_filter_bar';
 import { setFilter } from '../../../actions/notifications';
 
 const makeMapStateToProps = state => ({

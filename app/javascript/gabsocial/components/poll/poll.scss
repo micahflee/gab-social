@@ -26,7 +26,7 @@
     cursor: default;
     color: #fff;
 
-    @include text-overflow(nowrap);
+    @include text-overflow;
 
     body.theme-gabsocial-light & {
       color: $gab-default-text-light;

@@ -1,0 +1,66 @@
+.list-editor {
+  flex-direction: column;
+  overflow: hidden;
+  overflow-y: scroll;
+
+  @include size(100%);
+
+  @media screen and (max-width: 420px) {
+    width: 90%;
+  }
+
+  h4 {
+    padding: 15px 0;
+    background: lighten($ui-base-color, 13%);
+    border-radius: 8px 8px 0 0;
+
+    @include text-sizing(16px, 500, 1, center);
+  }
+
+  .drawer__inner {
+    border-radius: 0 0 8px 8px;
+
+    &.backdrop {
+      width: calc(100% - 60px);
+      box-shadow: 2px 4px 15px rgba($base-shadow-color, 0.4);
+      border-radius: 0 0 0 8px;
+    }
+  }
+
+  &__accounts {
+    background: lighten($ui-base-color, 13%);
+    overflow-y: auto;
+    max-height: 200px;
+  }
+
+  .account {
+    &__display-name {
+      &:hover strong {
+        text-decoration: none;
+      }
+    }
+
+    &__avatar {
+      cursor: default;
+    }
+  }
+
+  .search {
+    display: flex;
+    flex-direction: row;
+    margin: 10px 0;
+
+    >label {
+      flex: 1 1;
+    }
+
+    >.search__icon .fa {
+      right: 102px !important;
+    }
+
+    >.button {
+      width: 80px;
+      margin-left: 10px;
+    }
+  }
+}

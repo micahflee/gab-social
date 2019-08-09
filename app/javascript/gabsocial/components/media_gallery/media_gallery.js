@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { is } from 'immutable';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
 import IconButton from '../icon_button';
@@ -11,6 +11,8 @@ import './media_gallery.scss';
 
 const messages = defineMessages({
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Toggle visibility' },
+  warning: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
+  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
 });
 
 class Item extends PureComponent {
@@ -308,11 +310,7 @@ class MediaGallery extends PureComponent {
       spoilerButton = (
         <button type='button' onClick={this.handleOpen} className='spoiler-button__overlay'>
           <span className='spoiler-button__overlay__label'>
-            {
-              sensitive
-                ? <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' />
-                : <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />
-            }
+            {intl.formatMessage(sensitive ? messages.warning : messages.hidden)}
           </span>
         </button>
       );

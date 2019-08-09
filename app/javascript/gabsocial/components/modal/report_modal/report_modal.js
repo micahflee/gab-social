@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
 import { OrderedSet } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Toggle from 'react-toggle';
+import ToggleSwitch from '../../toggle_switch';
 import { changeReportComment, changeReportForward, submitReport } from '../../../actions/reports';
 import { expandAccountTimeline } from '../../../actions/timelines';
 import { makeGetAccount } from '../../../selectors';
@@ -111,7 +111,7 @@ class ReportModal extends ImmutablePureComponent {
                 <p><FormattedMessage id='report.forward_hint' defaultMessage='The account is from another server. Send an anonymized copy of the report there as well?' /></p>
 
                 <div className='setting-toggle'>
-                  <Toggle id='report-forward' checked={forward} disabled={isSubmitting} onChange={this.handleForwardChange} />
+                  <ToggleSwitch id='report-forward' checked={forward} disabled={isSubmitting} onChange={this.handleForwardChange} />
                   <label htmlFor='report-forward' className='setting-toggle__label'><FormattedMessage id='report.forward' defaultMessage='Forward to {target}' values={{ target: domain }} /></label>
                 </div>
               </div>

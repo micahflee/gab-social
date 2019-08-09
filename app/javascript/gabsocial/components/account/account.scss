@@ -17,7 +17,7 @@
       display: block;
       color: $primary-text-color;
 
-      @include text-overflow(nowrap);
+      @include text-overflow;
     }
   }
 

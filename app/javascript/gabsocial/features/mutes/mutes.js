@@ -44,15 +44,13 @@ class Mutes extends ImmutablePureComponent {
       return (<ColumnIndicator type='loading' />);
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />;
-
     return (
       <Column icon='volume-off' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
         <ScrollableList
           scrollKey='mutes'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
-          emptyMessage={emptyMessage}
+          emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
         >
           {accountIds.map(id =>
             <AccountContainer key={id} id={id} />

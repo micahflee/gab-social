@@ -11,6 +11,8 @@ export default class ColumnsArea extends PureComponent {
     const { children } = this.props;
     const layout = this.props.layout || {LEFT:null,RIGHT:null};
 
+    console.log("layout:", layout);
+
     return (
       <div className='page'>
         <div className='page__columns'>

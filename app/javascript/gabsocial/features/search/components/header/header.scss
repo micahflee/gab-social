@@ -14,32 +14,30 @@
 
   &__title-text {
     color: $primary-text-color;
-    font-size: 27px;
-    font-weight: bold;
-    line-height: 32px;
-    overflow: hidden;
     padding-left: 20px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
     max-width: 1200px;
-    margin: 0 auto;
+
+    @include text-sizing(27px, bold, 32px);
+    @include text-overflow;
+    @include margin-center;
+
+    @media (min-width:895px) and (max-width:1190px) {
+      max-width: 900px;
+    }
   }
 
   &__type-filters-tabs {
     display: flex;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+
+    @include margin-center;
 
     @media screen and (max-width:895px) {
       max-width: 580px;
     }
-  }
 
-  @media (min-width:895px) and (max-width:1190px) {
-
-    &__title-text,
-    &__type-filters-tabs {
+    @media (min-width:895px) and (max-width:1190px) {
       max-width: 900px;
     }
   }

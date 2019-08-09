@@ -1,0 +1,10 @@
+.poll-list-item {
+  display: flex;
+  align-items: center;
+
+  &__text {
+    flex: 0 0 auto;
+    width: calc(100% - (23px + 6px));
+    margin-right: 6px;
+  }
+}

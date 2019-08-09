@@ -59,7 +59,9 @@ class Account extends ImmutablePureComponent {
       <div className='account'>
         <div className='account__wrapper'>
           <div className='account__display-name'>
-            <div className='account__avatar-wrapper'><Avatar account={account} size={36} /></div>
+            <div className='account__avatar-wrapper'>
+              <Avatar account={account} size={36} />
+            </div>
             <DisplayName account={account} />
           </div>
 

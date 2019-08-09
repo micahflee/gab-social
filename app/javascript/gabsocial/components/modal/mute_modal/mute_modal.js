@@ -1,5 +1,5 @@
 import { injectIntl, FormattedMessage } from 'react-intl';
-import Toggle from 'react-toggle';
+import ToggleSwitch from '../../toggle_switch';
 import Button from '../../button';
 import { closeModal } from '../../../actions/modal';
 import { muteAccount } from '../../../actions/accounts';
@@ -82,7 +82,7 @@ class MuteModal extends PureComponent {
             <label htmlFor='mute-modal__hide-notifications-checkbox'>
               <FormattedMessage id='mute_modal.hide_notifications' defaultMessage='Hide notifications from this user?' />
               {' '}
-              <Toggle id='mute-modal__hide-notifications-checkbox' checked={notifications} onChange={this.toggleNotifications} />
+              <ToggleSwitch id='mute-modal__hide-notifications-checkbox' checked={notifications} onChange={this.toggleNotifications} />
             </label>
           </div>
         </div>

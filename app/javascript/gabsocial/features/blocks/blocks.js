@@ -44,15 +44,13 @@ class Blocks extends ImmutablePureComponent {
       return (<ColumnIndicator type='loading' />);
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.blocks' defaultMessage="You haven't blocked any users yet." />;
-
     return (
       <Column icon='ban' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
         <ScrollableList
           scrollKey='blocks'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
-          emptyMessage={emptyMessage}
+          emptyMessage={<FormattedMessage id='empty_column.blocks' defaultMessage="You haven't blocked any users yet." />}
         >
           {accountIds.map(id =>
             <AccountContainer key={id} id={id} />

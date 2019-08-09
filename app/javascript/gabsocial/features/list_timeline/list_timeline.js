@@ -12,6 +12,7 @@ import ColumnIndicator from '../../components/column_indicator';
 import Icon from '../../components/icon';
 import HomeColumnHeader from '../../components/column_header';
 import Button from '../../components/button';
+import ColumnHeaderSettingButton from '../../components/column_header_setting_button';
 
 const messages = defineMessages({
   deleteMessage: { id: 'confirmations.delete_list.message', defaultMessage: 'Are you sure you want to permanently delete this list?' },
@@ -106,30 +107,39 @@ class ListTimeline extends ImmutablePureComponent {
 
     const emptyMessage = (
       <div>
-        <FormattedMessage id='empty_column.list' defaultMessage='There is nothing in this list yet. When members of this list post new statuses, they will appear here.' />
-        <br /><br />
-        <Button onClick={this.handleEditClick}><FormattedMessage id='list.click_to_add' defaultMessage='Click here to add people' /></Button>
+        <FormattedMessage
+          id='empty_column.list'
+          defaultMessage='There is nothing in this list yet. When members of this list post new statuses, they will appear here.' />
+        <br/><br/>
+        <Button onClick={this.handleEditClick}>
+          <FormattedMessage id='list.click_to_add' defaultMessage='Click here to add people' />
+        </Button>
       </div>
     );
 
     return (
       <Column heading={title}>
         <HomeColumnHeader activeItem='lists' activeSubItem={id} active={hasUnread}>
-          <div className='column-header__links'>
-            <button className='text-btn column-header__setting-btn' tabIndex='0' onClick={this.handleEditClick}>
-              <Icon id='pencil' /> <FormattedMessage id='lists.edit' defaultMessage='Edit list' />
-            </button>
+          <div>
+            <ColumnHeaderSettingButton
+              onClick={this.handleEditClick}
+              icon='pencil'
+              title={<FormattedMessage id='lists.edit' defaultMessage='Edit list' />}
+            />
 
-            <button className='text-btn column-header__setting-btn' tabIndex='0' onClick={this.handleDeleteClick}>
-              <Icon id='trash' /> <FormattedMessage id='lists.delete' defaultMessage='Delete list' />
-            </button>
+            <ColumnHeaderSettingButton
+              onClick={this.handleDeleteClick}
+              icon='trash'
+              title={<FormattedMessage id='lists.delete' defaultMessage='Delete list' />}
+            />
 
             <hr />
 
-            <Link to='/lists' className='text-btn column-header__setting-btn column-header__setting-btn--link'>
-              <FormattedMessage id='lists.view_all' defaultMessage='View all lists' />
-              <Icon id='arrow-right' />
-            </Link>
+            <ColumnHeaderSettingButton
+              to='/lists'
+              icon='arrow-right'
+              title={<FormattedMessage id='lists.view_all' defaultMessage='View all lists' />}
+            />
           </div>
         </HomeColumnHeader>
 

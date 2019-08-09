@@ -44,15 +44,13 @@ class FollowRequests extends ImmutablePureComponent {
       return (<ColumnIndicator type='loading' />);
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />;
-
     return (
       <Column icon='user-plus' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
         <ScrollableList
           scrollKey='follow_requests'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
-          emptyMessage={emptyMessage}
+          emptyMessage={<FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />}
         >
           {accountIds.map(id =>
             <AccountAuthorize key={id} id={id} />

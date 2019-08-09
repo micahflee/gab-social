@@ -1,0 +1,28 @@
+.column-inline-form {
+  padding: 7px 5px 7px 15px;
+  background: lighten($ui-base-color, 4%);
+
+  @include flex(flex-start, center);
+
+  &__block {
+    flex: 1 1 auto;
+  }
+
+  &__title {
+
+  }
+
+  &__input {
+    width: 100%;
+    margin-bottom: 6px;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  &__btn {
+    flex: 0 0 auto;
+    margin: 0 5px;
+  }
+}

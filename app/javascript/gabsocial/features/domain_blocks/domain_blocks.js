@@ -45,15 +45,13 @@ class Blocks extends ImmutablePureComponent {
       return (<ColumnIndicator type='loading' />);
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.domain_blocks' defaultMessage='There are no hidden domains yet.' />;
-
     return (
       <Column icon='minus-circle' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
         <ScrollableList
           scrollKey='domain_blocks'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
-          emptyMessage={emptyMessage}
+          emptyMessage={<FormattedMessage id='empty_column.domain_blocks' defaultMessage='There are no hidden domains yet.' />}
         >
           {domains.map(domain =>
             <DomainContainer key={domain} domain={domain} />

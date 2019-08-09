@@ -1,4 +1,4 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { fromJS, is } from 'immutable';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
@@ -7,6 +7,8 @@ import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/ful
 import { getPointerPosition } from '../../utils/element_position';
 import { displayMedia } from '../../initial_state';
 import Icon from '../../components/icon';
+
+import './video.scss';
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },
@@ -18,6 +20,8 @@ const messages = defineMessages({
   close: { id: 'video.close', defaultMessage: 'Close video' },
   fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
   exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
+  warning: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
+  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
 });
 
 const formatTime = secondsNum => {
@@ -348,14 +352,6 @@ class Video extends PureComponent {
       preload = 'none';
     }
 
-    let warning;
-
-    if (sensitive) {
-      warning = <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' />;
-    } else {
-      warning = <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />;
-    }
-
     return (
       <div
         role='menuitem'
@@ -393,7 +389,7 @@ class Video extends PureComponent {
 
         <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed })}>
           <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-            <span className='spoiler-button__overlay__label'>{warning}</span>
+            <span className='spoiler-button__overlay__label'>{intl.formatMessage(sensitive ? messages.warning : messages.hidden)}</span>
           </button>
         </div>
 
@@ -447,4 +443,3 @@ class Video extends PureComponent {
   }
 
 }
-

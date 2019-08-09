@@ -1,6 +1,12 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage, injectIntl } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import api from '../../../api'
+
+const messages = defineMessages({
+  embed: { id: 'status.embed', defaultMessage: 'Embed' },
+  instructions: { id: 'embed.instructions', defaultMessage: 'Embed this status on your website by copying the code below.' },
+  preview: { id: 'embed.preview', defaultMessage: 'Here is what it will look like:' },
+});
 
 export default @injectIntl
 class EmbedModal extends ImmutablePureComponent {
@@ -48,15 +54,15 @@ class EmbedModal extends ImmutablePureComponent {
   }
 
   render () {
-    const { oembed } = this.state;
+    const { oembed, intl } = this.state;
 
     return (
       <div className='modal-root__modal embed-modal'>
-        <h4><FormattedMessage id='status.embed' defaultMessage='Embed' /></h4>
+        <h4>{intl.formatMessage(messages.embed)}</h4>
 
         <div className='embed-modal__container'>
           <p className='hint'>
-            <FormattedMessage id='embed.instructions' defaultMessage='Embed this status on your website by copying the code below.' />
+            {intl.formatMessage(messages.instructions)}
           </p>
 
           <input
@@ -68,7 +74,7 @@ class EmbedModal extends ImmutablePureComponent {
           />
 
           <p className='hint'>
-            <FormattedMessage id='embed.preview' defaultMessage='Here is what it will look like:' />
+            {intl.formatMessage(messages.preview)}
           </p>
 
           <iframe

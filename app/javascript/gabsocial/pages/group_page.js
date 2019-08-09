@@ -38,14 +38,14 @@ class GroupPage extends ImmutablePureComponent {
 		return (
 			<ColumnsArea
 				layout={{
-					top: top,
-					right: (
+					TOP: top,
+					RIGHT: (
 						<Fragment>
 							<GroupSidebarPanel />
 							<WhoToFollowPanel />
 						</Fragment>
 					),
-					left: (
+					LEFT: (
 						<Fragment>
 							{group && relationships &&
 								<GroupPanel

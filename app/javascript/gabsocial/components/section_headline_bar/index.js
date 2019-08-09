@@ -1,0 +1,1 @@
+export { default } from './section_headline_bar';

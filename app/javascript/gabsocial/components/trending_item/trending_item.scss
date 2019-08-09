@@ -12,7 +12,7 @@
     flex: 1 1 auto;
     color: $dark-text-color;
 
-    @include text-overflow(nowrap);
+    @include text-overflow;
 
     strong {
       font-weight: 500;
@@ -24,7 +24,7 @@
       text-decoration: none;
 
       @include text-sizing(14px, 500);
-      @include text-overflow(nowrap);
+      @include text-overflow;
 
       &:hover,
       &:focus,

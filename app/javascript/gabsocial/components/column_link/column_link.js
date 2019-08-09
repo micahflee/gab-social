@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import Icon from '../../components/icon';
 
+import './column_link.scss';
+
 export default class ColumnLink extends PureComponent {
 
   static propTypes = {

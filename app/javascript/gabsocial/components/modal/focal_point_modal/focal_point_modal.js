@@ -5,6 +5,8 @@ import { changeUploadCompose } from '../../../actions/compose';
 import { getPointerPosition } from '../../../utils/element_position';
 import ImageLoader from '../../image_loader';
 
+import './focal_point_modal.scss';
+
 const mapStateToProps = (state, { id }) => ({
   media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
 });
@@ -101,7 +103,7 @@ class FocalPointModal extends ImmutablePureComponent {
     const height = media.getIn(['meta', 'original', 'height']) || null;
 
     return (
-      <div className='modal-root__modal video-modal focal-point-modal'>
+      <div className='modal-root__modal focal-point-modal'>
         <div className={classNames('focal-point', { dragging })} ref={this.setRef}>
           <ImageLoader
             previewSrc={media.get('preview_url')}

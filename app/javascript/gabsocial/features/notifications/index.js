@@ -124,7 +124,6 @@ class Notifications extends PureComponent {
 
   render () {
     const { intl, notifications, isLoading, isUnread, hasMore, showFilterBar, totalQueuedNotificationsCount } = this.props;
-    const emptyMessage = <FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />;
 
     let scrollableContent = null;
 
@@ -164,7 +163,7 @@ class Notifications extends PureComponent {
         isLoading={isLoading}
         showLoading={isLoading && notifications.size === 0}
         hasMore={hasMore}
-        emptyMessage={emptyMessage}
+        emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
         onLoadMore={this.handleLoadOlder}
         onScrollToTop={this.handleScrollToTop}
         onScroll={this.handleScroll}

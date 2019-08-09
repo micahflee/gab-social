@@ -43,8 +43,6 @@ class Favourites extends ImmutablePureComponent {
       return ( <ColumnIndicator type='missing' /> );
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.favourited_statuses' defaultMessage="You don't have any favourite gabs yet. When you favourite one, it will show up here." />;
-
     return (
       <Column>
         <StatusList
@@ -53,7 +51,7 @@ class Favourites extends ImmutablePureComponent {
           hasMore={hasMore}
           isLoading={isLoading}
           onLoadMore={this.handleLoadMore}
-          emptyMessage={emptyMessage}
+          emptyMessage={<FormattedMessage id='empty_column.favourited_statuses' defaultMessage="You don't have any favourite gabs yet. When you favourite one, it will show up here." />}
         />
       </Column>
     );

@@ -22,14 +22,14 @@ class HomePage extends ImmutablePureComponent {
     return (
       <ColumnsArea
         layout={{
-          top: null,
-          right: (
+          TOP: null,
+          RIGHT: (
             <Fragment>
               <GroupSidebarPanel />
               {/*<WhoToFollowPanel />*/}
             </Fragment>
           ),
-          left: (
+          LEFT: (
             <Fragment>
               <UserPanel />
               <PromoPanel />
