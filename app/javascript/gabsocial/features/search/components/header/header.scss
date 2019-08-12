@@ -18,7 +18,7 @@
     max-width: 1200px;
 
     @include text-sizing(27px, bold, 32px);
-    @include text-overflow;
+    @include text-overflow(nowrap);
     @include margin-center;
 
     @media (min-width:895px) and (max-width:1190px) {

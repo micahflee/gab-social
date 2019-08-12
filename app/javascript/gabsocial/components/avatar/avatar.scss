@@ -1,9 +1,16 @@
-.avatar {
+.avatar,
+.account__avatar {
   // @include avatar-radius();
   display: block;
   position: relative;
   // background-color: $ui-base-color;
   object-fit: cover;
+  background-size: cover;
+
+  // TEMPORARY - need a default size for the avatars for now
+  // They are sized individually all over the application and need to change with breakpoints as well
+  // Might create a mixin to accept the size attribute and apply the various properties where necessary
+  @include size(56px);
 
   &--inline {
     display: inline-block;
@@ -22,4 +29,8 @@
       box-sizing: border-box;
     }
   }
+}
+
+a .account__avatar {
+  cursor: pointer;
 }

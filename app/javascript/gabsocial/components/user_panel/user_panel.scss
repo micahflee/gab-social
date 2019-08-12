@@ -35,7 +35,7 @@
       display: block;
       border: 6px solid $gab-background-base;
       background-size: cover;
-      
+
       @include size(82px);
 
       body.theme-gabsocial-light & {
@@ -74,17 +74,17 @@
 
     &__username {
       display: block;
-      font-size: 14px;
-      line-height: 16px;
       color: $gab-secondary-text;
       text-decoration: none !important;
+
+      @include text-sizing(14px, 16px);
     }
   }
 
   &__stats-block {
-    display: flex;
-    justify-content: space-between;
     padding-top: 12px;
+
+    @include flex(space-between);
   }
 
   .user-panel-stats-item {

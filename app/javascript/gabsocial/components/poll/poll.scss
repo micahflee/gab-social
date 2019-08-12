@@ -26,7 +26,7 @@
     cursor: default;
     color: #fff;
 
-    @include text-overflow;
+    @include text-overflow(nowrap);
 
     body.theme-gabsocial-light & {
       color: $gab-default-text-light;
@@ -51,9 +51,9 @@
       outline: 0;
       font-family: inherit;
       background: $simple-background-color;
-      border: 1px solid darken($simple-background-color, 14%);
-      border-radius: 4px;
       padding: 6px 10px;
+
+      @include border-design(darken($simple-background-color, 14%), 1px, 4px);
 
       &:focus {
         border-color: $highlight-text-color;
@@ -94,9 +94,9 @@
   }
 
   &__footer {
-    padding-top: 6px;
-    padding-bottom: 5px;
     color: $dark-text-color;
+
+    @include vertical-padding(6px, 5px);
 
     span {
       font-size: 14px;

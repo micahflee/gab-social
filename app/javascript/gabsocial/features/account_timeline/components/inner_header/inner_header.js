@@ -6,7 +6,6 @@ import { NavLink } from 'react-router-dom';
 import { debounce } from 'lodash';
 import Button from '../../../components/button';
 import { autoPlayGif, me, isStaff } from '../../../initial_state';
-import Icon from '../../../components/icon';
 import Avatar from '../../../components/avatar';
 import { shortNumberFormat } from '../../../utils/numbers';
 import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
@@ -42,16 +41,11 @@ const messages = defineMessages({
   unendorse: { id: 'account.unendorse', defaultMessage: 'Don\'t feature on profile' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
+  accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
+  accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
+  accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
+  domainBlocked: { id: 'account.domain_blocked', defaultMessage: 'Domain hidden' },
 });
-
-const dateFormatOptions = {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  hour12: false,
-  hour: '2-digit',
-  minute: '2-digit',
-};
 
 export default @injectIntl
 class Header extends ImmutablePureComponent {
@@ -175,15 +169,15 @@ class Header extends ImmutablePureComponent {
     if (!account || !me) return info;
 
     if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
-      info.push(<span key='followed_by' className='relationship-tag'><FormattedMessage id='account.follows_you' defaultMessage='Follows you' /></span>);
+      info.push(<span key='followed_by' className='relationship-tag'>{intl.formatMessage(messages.accountFollowsYou)}</span>);
     } else if (me !== account.get('id') && account.getIn(['relationship', 'blocking'])) {
-      info.push(<span key='blocked' className='relationship-tag'><FormattedMessage id='account.blocked' defaultMessage='Blocked' /></span>);
+      info.push(<span key='blocked' className='relationship-tag'>{intl.formatMessage(messages.accountBlocked)}</span>);
     }
 
     if (me !== account.get('id') && account.getIn(['relationship', 'muting'])) {
-      info.push(<span key='muted' className='relationship-tag'><FormattedMessage id='account.muted' defaultMessage='Muted' /></span>);
+      info.push(<span key='muted' className='relationship-tag'>{intl.formatMessage(messages.accountMuted)}</span>);
     } else if (me !== account.get('id') && account.getIn(['relationship', 'domain_blocking'])) {
-      info.push(<span key='domain_blocked' className='relationship-tag'><FormattedMessage id='account.domain_blocked' defaultMessage='Domain hidden' /></span>);
+      info.push(<span key='domain_blocked' className='relationship-tag'>{intl.formatMessage(messages.domainBlocked)}</span>);
     }
 
     return info;

@@ -53,12 +53,12 @@
 
 .emoji-button {
   display: block;
-  font-size: 24px;
-  line-height: 24px;
   margin-left: 2px;
   width: 24px;
   outline: 0;
   cursor: pointer;
+
+  @include text-sizing(24px, 400, 24px);
 
   &:active,
   &:focus {
@@ -69,10 +69,9 @@
     filter: grayscale(100%);
     opacity: 0.8;
     display: block;
-    margin: 0;
-    width: 22px;
-    height: 22px;
-    margin-top: 2px;
+    margin: 2px 0 0 0;
+
+    @include size(22px);
   }
 
   &:hover,
@@ -82,5 +81,37 @@
       opacity: 1;
       filter: none;
     }
+  }
+}
+
+.no-reduce-motion .pulse-loading {
+  transform-origin: center center;
+  animation: heartbeat 1.5s ease-in-out infinite both;
+}
+
+@keyframes heartbeat {
+  from {
+    transform: scale(1);
+    animation-timing-function: ease-out;
+  }
+
+  10% {
+    transform: scale(0.91);
+    animation-timing-function: ease-in;
+  }
+
+  17% {
+    transform: scale(0.98);
+    animation-timing-function: ease-out;
+  }
+
+  33% {
+    transform: scale(0.87);
+    animation-timing-function: ease-in;
+  }
+
+  45% {
+    transform: scale(1);
+    animation-timing-function: ease-out;
   }
 }

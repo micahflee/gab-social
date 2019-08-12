@@ -135,8 +135,7 @@
   }
 
   &__action {
-    padding: 25px;
-    padding-top: 0;
+    padding: 0 25px 25px 25px;
 
     @include flex(center, center);
   }

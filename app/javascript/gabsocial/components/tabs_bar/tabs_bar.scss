@@ -124,6 +124,11 @@
   .flex {
     display: flex;
   }
+
+  @media screen and (max-width: 630px) and (max-height: 400px) {
+    will-change: margin-top;
+    transition: margin-top 400ms 100ms;
+  }
 }
 
 .tabs-bar-item {

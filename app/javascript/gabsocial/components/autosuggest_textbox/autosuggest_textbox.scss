@@ -38,17 +38,14 @@
       outline: 0;
     }
 
-    @media screen and (max-width: 600px) {
-      font-size: 16px;
-    }
-
     &::-webkit-scrollbar {
       all: unset;
     }
 
-    @media screen and (max-width: 600px) {
+    @include breakpoint(sm) {
       max-height: 100px !important; // prevent auto-resize textarea
       resize: vertical;
+      font-size: 16px;
     }
   }
 

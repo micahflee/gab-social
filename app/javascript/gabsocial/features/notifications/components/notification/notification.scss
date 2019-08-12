@@ -1,20 +1,21 @@
 .notification {
 
+
   &--favourite {
+    .status.status-direct {
+      background: transparent;
 
+      .icon-button.disabled {
+        color: lighten($action-button-color, 13%);
+      }
+    }
   }
 
-  &--follow {
+  &--follow {}
 
-  }
+  &--reblog {}
 
-  &--reblog {
-
-  }
-
-  &--poll {
-
-  }
+  &--poll {}
 
   &__message {
     margin: 0 10px 0 68px;
@@ -32,7 +33,7 @@
     >span {
       display: inline;
 
-      @include text-overflow;
+      @include text-overflow(nowrap);
     }
   }
 

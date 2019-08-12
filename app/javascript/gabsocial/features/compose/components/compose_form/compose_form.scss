@@ -1,0 +1,144 @@
+.compose-form {
+  padding: 10px;
+
+  &__sensitive-button {
+    padding: 0 10px 10px 10px;
+
+    @include text-sizing(14px, 500);
+
+    &.active {
+      color: $highlight-text-color;
+    }
+
+    input[type=checkbox] {
+      display: none;
+    }
+
+    .checkbox {
+      display: inline-block;
+      position: relative;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+      margin-right: 10px;
+      top: -1px;
+      vertical-align: middle;
+
+      @include size(18px);
+      @include border-design($ui-primary-color, 1px, 4px);
+
+      &.active {
+        border-color: $highlight-text-color;
+        background: $highlight-text-color;
+      }
+    }
+  }
+
+  .emoji-picker-dropdown {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 1;
+  }
+
+  &.condensed {
+    .autosuggest-textarea__textarea {
+      min-height: 46px;
+      border-radius: 5px;
+    }
+  }
+
+  .emoji-picker-wrapper {
+    position: relative;
+    height: 0;
+  }
+
+  &__modifiers {
+    color: $inverted-text-color;
+    font-family: inherit;
+    font-size: 14px;
+    background: $simple-background-color;
+  }
+
+  &__buttons-wrapper {
+    padding: 10px;
+    background: darken($simple-background-color, 8%);
+    border-radius: 0 0 4px 4px;
+    flex: 0 0 auto;
+
+    @include flex(space-between);
+
+    .compose-form__buttons {
+      display: flex;
+
+      .compose-form__sensitive-button {
+        display: none;
+
+        &.compose-form__sensitive-button--visible {
+          display: block;
+        }
+
+        .compose-form__sensitive-button__icon {
+          line-height: 27px;
+        }
+      }
+    }
+
+    .icon-button {
+      box-sizing: content-box;
+      padding: 0 3px;
+    }
+  }
+
+  &__publish {
+    min-width: 0;
+    flex: 0 0 auto;
+
+    @include flex(flex-end);
+  }
+
+  &__publish-button-wrapper {
+    overflow: hidden;
+    padding-top: 10px;
+  }
+}
+
+.spoiler-input {
+  height: 0;
+  transform-origin: bottom;
+  opacity: 0.0;
+  position: relative;
+
+  &--visible {
+    height: 36px;
+    margin-bottom: 11px;
+    opacity: 1.0;
+  }
+
+  &__input {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    color: $inverted-text-color;
+    background: $simple-background-color;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+    border: 0;
+    outline: 0;
+    border-radius: 4px;
+
+    &:focus {
+      outline: 0;
+    }
+
+    @include breakpoint(sm) {
+      font-size: 16px;
+    }
+  }
+}
+
+.no-reduce-motion .spoiler-input {
+  transition: height 0.4s ease, opacity 0.4s ease;
+}

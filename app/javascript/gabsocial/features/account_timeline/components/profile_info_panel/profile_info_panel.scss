@@ -33,12 +33,11 @@
       span {
         color: $primary-text-color;
 
+        @include text-sizing(15px, 400, 1.25);
+
         body.theme-gabsocial-light & {
           color: $gab-default-text-light;
         }
-
-        font-size: 15px;
-        line-height: 1.25;
       }
     }
   }
@@ -51,15 +50,14 @@
     }
 
     .emojione {
-      width: 22px;
-      height: 22px;
+      @include size(22px);
     }
 
     h1 {
       span:first-of-type {
         color: #ffffff;
 
-        @include text-overflow;
+        @include text-overflow(nowrap);
         @include text-sizing(20px, 600, 1.25);
 
         body.theme-gabsocial-light & {
@@ -70,10 +68,9 @@
       small {
         display: block;
         color: $secondary-text-color;
-        overflow: hidden;
-        text-overflow: ellipsis;
 
-        @include text-sizing(16px, 400, 1.5)
+        @include text-sizing(16px, 400, 1.5);
+        @include text-overflow;
       }
     }
   }
@@ -83,8 +80,8 @@
     flex: 1 1;
     color: $primary-text-color;
     margin: 15px 0;
-    font-size: 15px;
-    line-height: 1.25;
+
+    @include text-sizing(15px, 400, 1.25);
 
     a {
       color: lighten($ui-highlight-color, 8%);
@@ -121,8 +118,7 @@
       flex: 1 1;
 
       * {
-        font-size: 15px;
-        line-height: 24px;
+        @include text-sizing(15px, 400, 24px);
       }
 
       dt {

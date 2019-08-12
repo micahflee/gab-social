@@ -47,7 +47,7 @@
     display: block;
     font-weight: 500;
 
-    @include text-overflow;
+    @include text-overflow(nowrap);
   }
 
   &__profile-edit {

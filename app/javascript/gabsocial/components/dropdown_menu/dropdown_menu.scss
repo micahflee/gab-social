@@ -2,10 +2,10 @@
   z-index: 9999;
   position: absolute;
   background: $gab-background-container;
-  border-radius: 4px;
-  border: 1px solid $gab-placeholder-accent;
   padding: 4px 0;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
+
+  @include border-design($gab-placeholder-accent, 1px, 4px);
 
   &.left {
     transform-origin: 100% 50%;
@@ -71,7 +71,7 @@
     text-transform: capitalize;
     color: $gab-secondary-text;
 
-    @include text-overflow;
+    @include text-overflow(nowrap);
     @include text-sizing(13px, 400, 26px);
 
     &:focus,

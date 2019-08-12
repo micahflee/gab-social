@@ -9,7 +9,7 @@ const extractValue = (value) => {
   return (typeof value === 'object' && value && 'val' in value) ? value.val : value;
 };
 
-class ReducedMotion extends Component {
+class ReducedMotion extends PureComponent {
 
   static propTypes = {
     defaultStyle: PropTypes.object,

@@ -48,14 +48,11 @@
 
 .reply-indicator-content {
   position: relative;
-  font-size: 15px;
-  line-height: 20px;
-  word-wrap: break-word;
-  font-weight: 400;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding-top: 2px;
   color: $primary-text-color;
+
+  @include text-sizing(15px, 400, 20px);
+  @include text-overflow(normal, break-word);
 
   &:focus {
     outline: 0;
@@ -70,9 +67,9 @@
   }
 
   .emojione {
-    width: 20px;
-    height: 20px;
     margin: -3px 0 0;
+
+    @include size(20px);
   }
 
   p {

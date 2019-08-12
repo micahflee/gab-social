@@ -49,3 +49,45 @@
 .no-reduce-motion .column-indicator--loading .column-indicator__figure {
   animation: loader-figure 1.15s infinite cubic-bezier(0.215, 0.610, 0.355, 1.000);
 }
+
+@keyframes loader-label {
+  0% {
+    opacity: 0.25;
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes loader-figure {
+  0% {
+    background-color: lighten($ui-base-color, 26%);
+
+    @include size(0);
+  }
+
+  29% {
+    background-color: lighten($ui-base-color, 26%);
+  }
+
+  30% {
+    background-color: transparent;
+    border-width: 21px;
+    opacity: 1;
+
+    @include size(42px);
+  }
+
+  100% {
+    border-width: 0;
+    opacity: 0;
+    background-color: transparent;
+
+    @include size(42px);
+  }
+}

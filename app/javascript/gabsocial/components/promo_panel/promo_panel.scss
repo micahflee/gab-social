@@ -17,10 +17,10 @@
 
   &__message {
     display: block;
-    font-size: 14px;
-    line-height: 16px;
     margin-top: 6px;
     color: $primary-text-color;
+
+    @include text-sizing(14px, 400, 16px);
 
     &--dark {
       color: $ui-secondary-color;

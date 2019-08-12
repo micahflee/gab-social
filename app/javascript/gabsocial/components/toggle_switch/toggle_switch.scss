@@ -5,9 +5,10 @@
   background-color: transparent;
   border: 0;
   padding: 0;
-  user-select: none;
   -webkit-tap-highlight-color: rgba($base-overlay-background, 0);
   -webkit-tap-highlight-color: transparent;
+
+  @include unselectable;
 
   &--disabled {
     cursor: not-allowed;
@@ -19,17 +20,15 @@
 .react-toggle-screenreader-only {
   border: 0;
   clip: rect(0 0 0 0);
-  height: 1px;
   margin: -1px;
   overflow: hidden;
   padding: 0;
   position: absolute;
-  width: 1px;
+
+  @include size(1px);
 }
 
 .react-toggle-track {
-  width: 50px;
-  height: 24px;
   padding: 0;
   border-radius: 30px;
   background-color: $ui-base-color;
@@ -51,14 +50,13 @@
 }
 
 .react-toggle-track-check {
-  margin-top: auto;
-  margin-bottom: auto;
   line-height: 0;
   opacity: 0;
   transition: opacity 0.25s ease;
 
   @include abs-position(0, auto, 0, 8px);
   @include size(14px, 10px);
+  @include vertical-margin(auto);
 }
 
 .react-toggle--checked .react-toggle-track-check {
@@ -67,14 +65,13 @@
 }
 
 .react-toggle-track-x {
-  margin-top: auto;
-  margin-bottom: auto;
   line-height: 0;
   opacity: 1;
   transition: opacity 0.25s ease;
 
   @include abs-position(0, 10px, 0);
   @include size(10px);
+  @include vertical-margin(auto);
 }
 
 .react-toggle--checked .react-toggle-track-x {

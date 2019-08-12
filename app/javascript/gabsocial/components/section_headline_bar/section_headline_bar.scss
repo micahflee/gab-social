@@ -17,28 +17,25 @@
     flex: 1 1 auto;
     color: $secondary-text-color;
     padding: 15px 0;
-    font-size: 14px;
-    font-weight: 500;
-    text-align: center;
     text-decoration: none;
     position: relative;
+
+    @include text-sizing(14px, 500, 1, center);
 
     &.active {
       color: $primary-text-color;
 
       &::before,
       &::after {
-        display: block;
-        content: "";
-        position: absolute;
         bottom: 0;
         left: 50%;
-        width: 0;
-        height: 0;
         transform: translateX(-50%);
         border-style: solid;
         border-width: 0 10px 10px;
         border-color: transparent transparent lighten($ui-base-color, 8%);
+
+        @include pseudo;
+        @include size(0);
       }
 
       &::after {
@@ -46,5 +43,16 @@
         border-color: transparent transparent $ui-base-color;
       }
     }
+  }
+}
+
+.account-section-headline {
+
+  button,
+  a {
+    flex: none;
+    padding: 18px 15px;
+
+    @include text-sizing(16px, 600);
   }
 }

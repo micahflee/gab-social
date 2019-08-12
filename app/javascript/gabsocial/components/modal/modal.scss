@@ -26,8 +26,8 @@
   position: relative;
   border-bottom: 1px solid lighten($classic-base-color, 8%);
   border-radius: 6px 6px 0 0;
-  padding-top: 12px;
-  padding-bottom: 12px;
+
+  @include vertical-padding(12px);
 
   &__title {
     display: block;

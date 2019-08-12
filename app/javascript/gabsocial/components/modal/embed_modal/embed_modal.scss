@@ -1,12 +1,10 @@
 .embed-modal {
-  max-width: 80vw;
-  max-height: 80vh;
+  @include max-size(80vw, 80vh);
 
   h4 {
     padding: 30px;
-    font-weight: 500;
-    font-size: 16px;
-    text-align: center;
+
+    @include text-sizing(16px, 500, 1, center);
   }
 
   .embed-modal__container {
@@ -44,7 +42,7 @@
         background: lighten($ui-base-color, 4%);
       }
 
-      @media screen and (max-width: 600px) {
+      @include breakpoint(sm) {
         font-size: 16px;
       }
     }

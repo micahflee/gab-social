@@ -4,12 +4,10 @@
 
 .status__content {
   position: relative;
-  word-wrap: break-word;
-  overflow: hidden;
-  text-overflow: ellipsis;
   padding-top: 2px;
   color: $primary-text-color;
 
+  @include text-overflow(normal, break-word);
   @include text-sizing(15px, 400, 20px);
 
   &:focus {
@@ -103,8 +101,7 @@
   color: $gab-brand-default;
   border: 0;
   background: transparent;
-  padding: 0;
-  padding-top: 8px;
+  padding: 8px 0 0 0;
 
   @include text-sizing(15px, 400, 20px);
 

@@ -16,8 +16,8 @@
     strong,
     span {
       display: block;
-      text-overflow: ellipsis;
-      overflow: hidden;
+
+      @include text-overflow;
     }
 
     strong {
@@ -33,11 +33,11 @@
 
 .account__header__content {
   color: $darker-text-color;
-  font-size: 14px;
-  font-weight: 400;
   overflow: hidden;
   word-break: normal;
   word-wrap: break-word;
+
+  @include text-sizing(14px, 400);
 
   p {
     margin-bottom: 20px;
@@ -55,4 +55,18 @@
       text-decoration: none;
     }
   }
+}
+
+.account--panel {
+  background: lighten($ui-base-color, 4%);
+  border-top: 1px solid lighten($ui-base-color, 8%);
+  border-bottom: 1px solid lighten($ui-base-color, 8%);
+  display: flex;
+  flex-direction: row;
+  padding: 10px 0;
+}
+
+.account--panel__button {
+  flex: 1 1 auto;
+  text-align: center;
 }

@@ -2,8 +2,8 @@
   background: $ui-base-color;
   color: $dark-text-color;
   padding: 8px 20px;
-  font-size: 12px;
-  font-weight: 500;
   text-transform: uppercase;
   cursor: default;
+
+  @include text-sizing(12px, 500);
 }

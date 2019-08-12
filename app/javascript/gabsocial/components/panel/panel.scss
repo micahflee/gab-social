@@ -1,11 +1,11 @@
 .panel {
   display: flex;
-  width: 100%;
   border-radius: 10px;
   flex-direction: column;
-  height: auto;
   box-sizing: border-box;
   background: $gab-background-container;
+
+  @include size(100%, auto);
 
   body.theme-gabsocial-light & {
     // @include light-theme-shadow();
@@ -66,11 +66,11 @@
       padding-right: 10px;
 
       &__avatar {
-        height: 46px;
-        width: 46px;
         background-color: red;
         left: -58px;
         position: absolute;
+
+        @include size(46px);
       }
 
       &__name {
@@ -81,18 +81,17 @@
 
         &__name {
           color: $primary-text-color;
-          font-size: 14px;
-          font-weight: bold;
-          line-height: 16px;
           margin-bottom: 2px;
           max-height: 32px; //2 lines of text
           overflow: hidden;
+
+          @include text-sizing(14px, 700, 16px);
         }
 
         &__username {
           color: $lighter-text-color;
-          font-size: 12px;
-          line-height: 14px;
+
+          @include text-sizing(12px, 400, 14px);
         }
       }
     }
@@ -125,8 +124,7 @@
   &__title {
     flex: 1 1;
     color: $primary-text-color;
-    font-size: 16px;
-    font-weight: bold;
-    line-height: 19px;
+
+    @include text-sizing(16px, 700, 19px);
   }
 }

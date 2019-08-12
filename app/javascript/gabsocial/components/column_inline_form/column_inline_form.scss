@@ -8,13 +8,12 @@
     flex: 1 1 auto;
   }
 
-  &__title {
-
-  }
+  &__title {}
 
   &__input {
-    width: 100%;
     margin-bottom: 6px;
+
+    @include size(100%, 36px);
 
     &:focus {
       outline: 0;
@@ -24,5 +23,7 @@
   &__btn {
     flex: 0 0 auto;
     margin: 0 5px;
+    margin-left: 6px;
+    width: 112px;
   }
 }

@@ -94,15 +94,15 @@
   }
 
   &__buttons-bar {
-    display: flex;
-    justify-content: space-between;
     padding-bottom: 10px;
+
+    @include flex(space-between);
   }
 
   &__buttons {
     font-size: 16px;
 
-    @include text-overflow;
+    @include text-overflow(nowrap);
 
     &.left {
       button {
@@ -177,13 +177,12 @@
 
     &__handle {
       z-index: 3;
-      border-radius: 50%;
       transition: opacity .1s ease;
       background: lighten($ui-highlight-color, 8%);
       box-shadow: 1px 2px 6px rgba($base-shadow-color, 0.2);
       pointer-events: none;
 
-      @include size(12px);
+      @include circle(12px);
       @include abs-position(auto, auto, 16px, 70px);
     }
   }
@@ -222,11 +221,11 @@
     &__progress,
     &__buffer {
       display: block;
-      position: absolute;
       height: 4px;
       border-radius: 4px;
-      top: 10px;
       background: lighten($ui-highlight-color, 8%);
+
+      @include abs-position(10px);
     }
 
     &__buffer {
@@ -234,10 +233,8 @@
     }
 
     &__handle {
-      position: absolute;
       z-index: 3;
       opacity: 0;
-      top: 6px;
       margin-left: -6px;
       transition: opacity .1s ease;
       background: lighten($ui-highlight-color, 8%);
@@ -245,6 +242,7 @@
       pointer-events: none;
 
       @include circle(12px);
+      @include abs-position(6px);
 
       &.active {
         opacity: 1;
@@ -262,8 +260,7 @@
   &.fullscreen {
     .video-player__buttons {
       button {
-        padding-top: 10px;
-        padding-bottom: 10px;
+        @include vertical-padding(10px);
       }
     }
   }

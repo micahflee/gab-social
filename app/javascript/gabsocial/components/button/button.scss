@@ -12,7 +12,7 @@
   @include border-design(transparent, 10px, 4px);
   @include text-sizing(14px, 500, 36px, center);
   @include size(auto, 36px);
-  @include text-overflow;
+  @include text-overflow(nowrap);
 
   &:active,
   &:focus,
