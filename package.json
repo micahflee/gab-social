@@ -150,6 +150,7 @@
     "rimraf": "^2.6.3",
     "sass": "^1.20.3",
     "sass-loader": "^7.0.3",
+    "sass-resources-loader": "^2.0.1",
     "stringz": "^1.0.0",
     "substring-trie": "^1.0.2",
     "throng": "^4.0.0",
