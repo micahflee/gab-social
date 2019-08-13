@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { is } from 'immutable';
 import { defineMessages, injectIntl } from 'react-intl';
 import classNames from 'classnames';
@@ -15,7 +16,7 @@ const messages = defineMessages({
   hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
 });
 
-class Item extends PureComponent {
+class Item extends ImmutablePureComponent {
 
   static propTypes = {
     attachment: ImmutablePropTypes.map.isRequired,

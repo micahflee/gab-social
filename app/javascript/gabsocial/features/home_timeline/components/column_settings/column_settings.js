@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import { changeSetting, saveSettings } from '../../../../actions/settings';
 import SettingToggle from '../../../../components/setting_toggle';
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default @connect(mapStateToProps, mapDispatchToProps)
-class ColumnSettings extends PureComponent {
+class ColumnSettings extends ImmutablePureComponent {
 
   static propTypes = {
     settings: ImmutablePropTypes.map.isRequired,

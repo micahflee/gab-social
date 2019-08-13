@@ -19,7 +19,7 @@ const messages = defineMessages({
 });
 
 @injectIntl
-class Option extends PureComponent {
+class Option extends ImmutablePureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,

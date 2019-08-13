@@ -2,7 +2,6 @@ import Base from '../modal_base';
 import Bundle from '../../features/ui/util/bundle';
 import BundleModalError from '../bundle_modal_error';
 import {
-  ModalLoading,
   ActionsModal,
   MediaModal,
   VideoModal,
@@ -13,6 +12,8 @@ import {
   ComposeModal,
   UnauthorizedModal,
 } from '../modal';
+
+import ModalLoading from '../modal_loading';
 
 import {
   MuteModal,

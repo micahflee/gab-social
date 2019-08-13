@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Set as ImmutableSet } from 'immutable';
 import noop from 'lodash/noop';
 import StatusContent from '../status_content';
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 });
 
 export default @connect(mapStateToProps, mapDispatchToProps)
-class StatusCheckBox extends PureComponent {
+class StatusCheckBox extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,

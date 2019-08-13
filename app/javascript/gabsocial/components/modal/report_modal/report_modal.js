@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { defineMessages, FormattedMessage, injectIntl } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl';
 import { OrderedSet } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ToggleSwitch from '../../toggle_switch';
@@ -14,6 +14,10 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   placeholder: { id: 'report.placeholder', defaultMessage: 'Additional comments' },
   submit: { id: 'report.submit', defaultMessage: 'Submit' },
+  hint: { id: 'report.hint', defaultMessage: 'The report will be sent to your server moderators. You can provide an explanation of why you are reporting this account below:' },
+  forwardHint: { id: 'report.forward_hint', defaultMessage: 'The account is from another server. Send an anonymized copy of the report there as well?' },
+  forward: { id: 'report.forward', defaultMessage: 'Forward to {target}' },
+  target: { id: 'report.target', defaultMessage: 'Report {target}' },
 });
 
 const makeMapStateToProps = () => {
@@ -89,12 +93,14 @@ class ReportModal extends ImmutablePureComponent {
       <div className='modal-root__modal report-modal'>
         <div className='report-modal__target'>
           <IconButton className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={16} />
-          <FormattedMessage id='report.target' defaultMessage='Report {target}' values={{ target: <strong>{account.get('acct')}</strong> }} />
+          {intl.formatMessage(messages.target, {
+            target: <strong>{account.get('acct')}</strong>
+          })}
         </div>
 
         <div className='report-modal__container'>
           <div className='report-modal__comment'>
-            <p><FormattedMessage id='report.hint' defaultMessage='The report will be sent to your server moderators. You can provide an explanation of why you are reporting this account below:' /></p>
+            <p>{intl.formatMessage(messages.hint)}</p>
 
             <textarea
               className='setting-text light'
@@ -108,11 +114,15 @@ class ReportModal extends ImmutablePureComponent {
 
             {domain && (
               <div>
-                <p><FormattedMessage id='report.forward_hint' defaultMessage='The account is from another server. Send an anonymized copy of the report there as well?' /></p>
+                <p>{intl.formatMessage(messages.forwardHint)}</p>
 
                 <div className='setting-toggle'>
                   <ToggleSwitch id='report-forward' checked={forward} disabled={isSubmitting} onChange={this.handleForwardChange} />
-                  <label htmlFor='report-forward' className='setting-toggle__label'><FormattedMessage id='report.forward' defaultMessage='Forward to {target}' values={{ target: domain }} /></label>
+                  <label htmlFor='report-forward' className='setting-toggle__label'>
+                    {intl.formatMessage(messages.forward, {
+                      target: domain
+                    })}
+                  </label>
                 </div>
               </div>
             )}

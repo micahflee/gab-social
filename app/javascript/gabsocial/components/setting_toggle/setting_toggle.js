@@ -1,9 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import ToggleSwitch from '../toggle_switch';
 
 import './setting_toggle.scss';
 
-export default class SettingToggle extends PureComponent {
+export default class SettingToggle extends ImmutablePureComponent {
 
   static propTypes = {
     prefix: PropTypes.string,

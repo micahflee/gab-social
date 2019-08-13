@@ -18,6 +18,8 @@ const mapStateToProps = (state, { pollId }) => ({
 
 const messages = defineMessages({
   closed: { id: 'poll.closed', defaultMessage: 'Closed' },
+  vote: { id: 'poll.vote', defaultMessage: 'Vote' },
+  refresh: { id: 'poll.refresh', defaultMessage: 'Refresh' },
 });
 
 const makeEmojiMap = record => record.get('emojis').reduce((obj, emoji) => {
@@ -149,14 +151,14 @@ class Poll extends ImmutablePureComponent {
           {
             !showResults &&
             <Button className='poll__button' disabled={disabled} onClick={this.handleVote} secondary>
-              <FormattedMessage id='poll.vote' defaultMessage='Vote' />
+              {intl.formatMessage(messages.vote)}
             </Button>
           }
           {
             showResults && !this.props.disabled &&
             <span>
               <button className='poll__link' onClick={this.handleRefresh}>
-                <FormattedMessage id='poll.refresh' defaultMessage='Refresh' />
+                {intl.formatMessage(messages.refresh)}
               </button>
               &nbsp;·&nbsp;
             </span>

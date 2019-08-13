@@ -24,4 +24,4 @@ export {
   ReportModal,
   UnauthorizedModal,
   VideoModal,
-}
+};

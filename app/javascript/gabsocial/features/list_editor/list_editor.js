@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
 import { setupListEditor, clearListSuggestions, resetListEditor } from '../../actions/lists';
 import Account from './components/account';
-import Search from './components/search';
+import ListEditorSearch from './components/list_editor_search';
 import EditListForm from './components/edit_list_form/edit_list_form';
 import ColumnSubheading from '../../components/column_subheading';
 import IconButton from '../../components/icon_button';
@@ -85,7 +85,7 @@ class ListEditor extends ImmutablePureComponent {
 
             <br />
             <ColumnSubheading text={intl.formatMessage(messages.addToList)} />
-            <Search />
+            <ListEditorSearch />
             <div className='list-editor__accounts'>
               {searchAccountIds.map(accountId => <Account key={accountId} accountId={accountId} />)}
             </div>

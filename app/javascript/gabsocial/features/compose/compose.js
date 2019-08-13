@@ -1,5 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { Link } from 'react-router-dom';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
 import spring from 'react-motion/lib/spring';
 import Motion from '../ui/util/optional_motion';
@@ -11,7 +11,6 @@ import SearchResultsContainer from './containers/search_results_container';
 import { changeComposing } from '../../actions/compose';
 import elephantUIPlane from '../../../images/logo_ui_column_footer.png';
 import { mascot } from '../../initial_state';
-import Icon from '../../components/icon';
 
 import './compose.scss';
 
@@ -33,7 +32,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class Compose extends PureComponent {
+class Compose extends ImmutablePureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,

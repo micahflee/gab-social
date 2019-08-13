@@ -12,15 +12,16 @@ class SectionHeadlineBarItem extends PureComponent {
       PropTypes.string,
       PropTypes.node,
     ]),
+    exact: PropTypes.bool,
   };
 
   render() {
-    const { to, title, icon, className, onClick } = this.props;
+    const { to, title, icon, className, onClick, exact } = this.props;
 
     const classes = classNames('section-header-bar__item', className);
 
     if (to) {
-      return (<NavLink className={classes} to={to}>{title}</NavLink>);
+      return (<NavLink className={classes} exact={exact} to={to}>{title}</NavLink>);
     } else if (icon) {
       <button className={classes} onClick={onClick} title={title}>
         <Icon id={icon} fixedWidth />
@@ -33,14 +34,17 @@ class SectionHeadlineBarItem extends PureComponent {
 
 export default class SectionHeadlineBar extends PureComponent {
   static propTypes = {
-    items: PropTypes.array,
+    items: PropTypes.array.isRequired,
+    className: PropTypes.string,
   };
 
   render() {
-    const { items } = this.props;
+    const { items, className } = this.props;
+
+    const classes = classNames('section-headline-bar', className);
 
     return (
-      <div className='section-headline-bar'>
+      <div className={classes}>
         {
           items.forEach(item, i => (
             <SectionHeadlineBarItem key={`shbi-{i}`} {...item} />

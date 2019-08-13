@@ -10,7 +10,7 @@ import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
 import StatusContent from '../status_content/status_content';
 import StatusActionBar from '../status_action_bar/status_action_bar';
-import Card from '../../features/status/components/card';
+import Card from '../../features/status/components/card/card';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
 import Icon from '../icon';
 import Poll from '../../components/poll';

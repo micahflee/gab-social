@@ -1,6 +1,9 @@
+import classNames from 'classnames';
 import Overlay from 'react-overlays/lib/Overlay';
 import Icon from '../icon';
 import SearchPopout from '../search_popout';
+
+import './search.scss';
 
 export default class Search extends PureComponent {
 
@@ -11,43 +14,21 @@ export default class Search extends PureComponent {
   static propTypes = {
     value: PropTypes.string.isRequired,
     submitted: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onClear: PropTypes.func.isRequired,
     onShow: PropTypes.func.isRequired,
     openInRoute: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
+    placeholder: PropTypes.string.isRequired,
+    className: PropTypes.string,
+    searchTitle: PropTypes.string,
+    onChange: PropTypes.func.isRequired,
+    onKeyUp: PropTypes.func.isRequired,
+    handleSubmit: PropTypes.func,
+    withOverlay: PropTypes.bool,
+    handleClear: PropTypes.func.isRequired,
   };
 
   state = {
     expanded: false,
   };
-
-  handleChange = (e) => {
-    this.props.onChange(e.target.value);
-  }
-
-  handleClear = (e) => {
-    e.preventDefault();
-
-    if (this.props.value.length > 0 || this.props.submitted) {
-      this.props.onClear();
-    }
-  }
-
-  handleKeyUp = (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-
-      this.props.onSubmit();
-
-      if (this.props.openInRoute) {
-        this.context.router.history.push('/search');
-      }
-    } else if (e.key === 'Escape') {
-      document.querySelector('.ui').parentElement.focus();
-    }
-  }
 
   handleFocus = () => {
     this.setState({ expanded: true });
@@ -59,32 +40,46 @@ export default class Search extends PureComponent {
   }
 
   render() {
-    const { intl, value, submitted } = this.props;
+    const { value, submitted, placeholder, className, searchTitle, onKeyUp, handleClear, handleSubmit, withOverlay, onChange } = this.props;
     const { expanded } = this.state;
+
     const hasValue = value.length > 0 || submitted;
+    const classes = classNames('search', className);
+    const iconClass = hasValue ? 'active' : '';
 
     return (
-      <div className='search'>
+      <div className={classes}>
         <label>
-          <span style={{ display: 'none' }}>{intl.formatMessage(messages.placeholder)}</span>
+          <span className='invisible'>{placeholder}</span>
           <input
             className='search__input'
             type='text'
-            placeholder={intl.formatMessage(messages.placeholder)}
+            placeholder={placeholder}
             value={value}
-            onChange={this.handleChange}
-            onKeyUp={this.handleKeyUp}
+            onChange={onChange}
+            onKeyUp={onKeyUp}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
         </label>
-        <div role='button' tabIndex='0' className='search__icon' onClick={this.handleClear}>
-          <Icon id='search' className={hasValue ? '' : 'active'} />
-          <Icon id='times-circle' className={hasValue ? 'active' : ''} aria-label={intl.formatMessage(messages.placeholder)} />
+
+        <div role='button' tabIndex='0' className='search__icon' onClick={handleClear}>
+          <Icon id='search' className={iconClass} />
+          <Icon id='times-circle' className={iconClass} aria-label={placeholder} />
         </div>
-        <Overlay show={expanded && !hasValue} placement='bottom' target={this}>
-          <SearchPopout />
-        </Overlay>
+
+        {
+          withOverlay &&
+          <Overlay show={expanded && !hasValue} placement='bottom' target={this}>
+            <SearchPopout />
+          </Overlay>
+        }
+
+        {
+          (searchTitle && handleSubmit) &&
+          <Button onClick={handleSubmit}>{intl.formatMessage(messages.searchTitle)}</Button>
+        }
+
       </div>
     );
   }

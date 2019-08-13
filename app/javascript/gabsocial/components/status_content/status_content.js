@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import classnames from 'classnames';
 import { isRtl } from '../../utils/rtl';
@@ -9,7 +10,7 @@ import './status_content.scss';
 
 const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
 
-export default class StatusContent extends PureComponent {
+export default class StatusContent extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

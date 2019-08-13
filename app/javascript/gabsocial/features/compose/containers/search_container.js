@@ -4,7 +4,7 @@ import {
   submitSearch,
   showSearch,
 } from '../../../actions/search';
-import Search from '../components/search';
+import ComposeSearch from '../components/compose_search';
 
 const mapStateToProps = state => ({
   value: state.getIn(['search', 'value']),
@@ -31,4 +31,4 @@ const mapDispatchToProps = dispatch => ({
 
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Search);
+export default connect(mapStateToProps, mapDispatchToProps)(ComposeSearch);

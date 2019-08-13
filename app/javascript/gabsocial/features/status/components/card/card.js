@@ -1,8 +1,11 @@
 import Immutable from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import punycode from 'punycode';
 import classnames from 'classnames';
-import Icon from '../../../components/icon';
+import Icon from '../../../../components/icon';
+
+import './card.scss';
 
 const IDNA_PREFIX = 'xn--';
 
@@ -52,7 +55,7 @@ const addAutoPlay = html => {
   return html;
 };
 
-export default class Card extends PureComponent {
+export default class Card extends ImmutablePureComponent {
 
   static propTypes = {
     card: ImmutablePropTypes.map,

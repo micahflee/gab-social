@@ -1,10 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import ColumnHeaderSettingButton from '../../../../components/column_header_setting_button';
 import SettingToggle from '../../../../components/setting_toggle';
 import ColumnSettingsHeading from '../../../../components/column_settings_heading';
 
-export default class ColumnSettings extends PureComponent {
+export default class ColumnSettings extends ImmutablePureComponent {
 
   static propTypes = {
     settings: ImmutablePropTypes.map.isRequired,

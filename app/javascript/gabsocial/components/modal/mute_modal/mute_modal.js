@@ -1,10 +1,16 @@
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import ToggleSwitch from '../../toggle_switch';
 import Button from '../../button';
 import { closeModal } from '../../../actions/modal';
 import { muteAccount } from '../../../actions/accounts';
 import { toggleHideNotifications } from '../../../actions/mutes';
 
+const messages = defineMessages({
+  muteMessage: { id: 'confirmations.mute.message', defaultMessage: 'Are you sure you want to mute {name}?' },
+  hideNotifications: { id: 'mute_modal.hide_notifications', defaultMessage: 'Hide notifications from this user?' },
+  cancel: { id: 'confirmation_modal.cancel', defaultMessage: 'Cancel' },
+  confirm: { id: 'confirmations.mute.confirm', defaultMessage: 'Mute' },
+});
 
 const mapStateToProps = state => {
   return {
@@ -72,15 +78,11 @@ class MuteModal extends PureComponent {
       <div className='modal-root__modal mute-modal'>
         <div className='mute-modal__container'>
           <p>
-            <FormattedMessage
-              id='confirmations.mute.message'
-              defaultMessage='Are you sure you want to mute {name}?'
-              values={{ name: <strong>@{account.get('acct')}</strong> }}
-            />
+            {intl.formatMessage(messages.muteMessage, { name: <strong>@{account.get('acct')}</strong> })}
           </p>
           <div>
             <label htmlFor='mute-modal__hide-notifications-checkbox'>
-              <FormattedMessage id='mute_modal.hide_notifications' defaultMessage='Hide notifications from this user?' />
+              {intl.formatMessage(messages.hideNotifications)}
               {' '}
               <ToggleSwitch id='mute-modal__hide-notifications-checkbox' checked={notifications} onChange={this.toggleNotifications} />
             </label>
@@ -89,10 +91,10 @@ class MuteModal extends PureComponent {
 
         <div className='mute-modal__action-bar'>
           <Button onClick={this.handleCancel} className='mute-modal__cancel-button'>
-            <FormattedMessage id='confirmation_modal.cancel' defaultMessage='Cancel' />
+            {intl.formatMessage(messages.cancel)}
           </Button>
           <Button onClick={this.handleClick} ref={this.setRef}>
-            <FormattedMessage id='confirmations.mute.confirm' defaultMessage='Mute' />
+            {intl.formatMessage(messages.confirm)}
           </Button>
         </div>
       </div>

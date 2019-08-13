@@ -15,6 +15,7 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   previous: { id: 'lightbox.previous', defaultMessage: 'Previous' },
   next: { id: 'lightbox.next', defaultMessage: 'Next' },
+  viewContext: { id: 'lightbox.view_context', defaultMessage: 'View context' },
 });
 
 export const previewState = 'previewMediaModal';
@@ -228,7 +229,9 @@ class MediaModal extends ImmutablePureComponent {
 
           {status && (
             <div className={classNames('media-modal__meta', { 'media-modal__meta--shifted': media.size > 1 })}>
-              <a href={status.get('url')} onClick={this.handleStatusClick}><FormattedMessage id='lightbox.view_context' defaultMessage='View context' /></a>
+              <a href={status.get('url')} onClick={this.handleStatusClick}>
+                {intl.formatMessage(messages.viewContext)}
+              </a>
             </div>
           )}
 

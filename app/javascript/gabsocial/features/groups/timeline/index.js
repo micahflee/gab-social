@@ -1,16 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import StatusListContainer from '../../../containers/status_list_container';
-import Column from '../../../components/column';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import { connectGroupStream } from '../../../actions/streaming';
 import { expandGroupTimeline } from '../../../actions/timelines';
 import ColumnIndicator from '../../../components/column_indicator';
-import ComposeFormContainer from '../../../../gabsocial/features/compose/containers/compose_form_container';
-import { me } from 'gabsocial/initial_state';
-import Avatar from '../../../components/avatar';
+import TimelineComposeBlock from '../../../components/timeline_compose_block';
 
 const mapStateToProps = (state, props) => ({
-  account: state.getIn(['accounts', me]),
   group: state.getIn(['groups', props.params.id]),
   relationships: state.getIn(['group_relationships', props.params.id]),
   hasUnread: state.getIn(['timelines', `group:${props.params.id}`, 'unread']) > 0,
@@ -18,7 +15,7 @@ const mapStateToProps = (state, props) => ({
 
 export default @connect(mapStateToProps)
 @injectIntl
-class GroupTimeline extends PureComponent {
+class GroupTimeline extends ImmutablePureComponent {
 
 	static contextTypes = {
 	  router: PropTypes.object,
@@ -31,7 +28,6 @@ class GroupTimeline extends PureComponent {
 	  hasUnread: PropTypes.bool,
 	  group: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
 	  relationships: ImmutablePropTypes.map,
-	  account: ImmutablePropTypes.map,
 	  intl: PropTypes.object.isRequired,
 	};
 
@@ -57,7 +53,7 @@ class GroupTimeline extends PureComponent {
 	}
 
 	render () {
-	  const { columnId, group, relationships, account } = this.props;
+	  const { columnId, group, relationships } = this.props;
 	  const { id } = this.props.params;
 
 	  if (typeof group === 'undefined' || !relationships) {
@@ -67,17 +63,13 @@ class GroupTimeline extends PureComponent {
 	  }
 
 	  return (
-  <div>
-	      {relationships.get('member') && (
-    <div className='timeline-compose-block'>
-  <div className='timeline-compose-block__avatar'>
-  <Avatar account={account} size={46} />
-	          </div>
-	          <ComposeFormContainer group={group} shouldCondense autoFocus={false} />
-	        </div>
-	      )}
+  		<div>
+	      {
+					relationships.get('member') &&
+					<TimelineComposeBlock size={46} group={group} shouldCondense={true} autoFocus={false} />
+	      }
 
-  <div className='group__feed'>
+  			<div className='group__feed'>
 	        <StatusListContainer
 	          scrollKey={`group_timeline-${columnId}`}
 	          timelineId={`group:${id}`}
@@ -85,7 +77,7 @@ class GroupTimeline extends PureComponent {
 	          group={group}
 	          withGroupAdmin={relationships && relationships.get('admin')}
 	          emptyMessage={<FormattedMessage id='empty_column.group' defaultMessage='There is nothing in this group yet. When members of this group post new statuses, they will appear here.' />}
-    />
+    			/>
 	      </div>
 	    </div>
 	  );

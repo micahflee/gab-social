@@ -1,6 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import detectPassiveEvents from 'detect-passive-events';
 import Overlay from 'react-overlays/lib/Overlay';
 import { EmojiPicker as EmojiPickerAsync } from '../../../ui/util/async-components';
@@ -154,7 +155,7 @@ class ModifierPicker extends PureComponent {
 }
 
 @injectIntl
-class EmojiPickerMenu extends PureComponent {
+class EmojiPickerMenu extends ImmutablePureComponent {
 
   static propTypes = {
     custom_emojis: ImmutablePropTypes.list,
@@ -291,7 +292,7 @@ class EmojiPickerMenu extends PureComponent {
 }
 
 export default @injectIntl
-class EmojiPickerDropdown extends PureComponent {
+class EmojiPickerDropdown extends ImmutablePureComponent {
 
   static propTypes = {
     custom_emojis: ImmutablePropTypes.list,

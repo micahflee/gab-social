@@ -1,4 +1,4 @@
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
 import Icon from '../icon';
 
@@ -44,7 +44,7 @@ class LoadMore extends PureComponent {
         onClick={this.handleClick}
         aria-label={intl.formatMessage(messages.load_more)}
       >
-        {!gap && <FormattedMessage id='status.load_more' defaultMessage='Load more' />}
+        {!gap && intl.formatMessage(messages.load_more)}
         {gap && <Icon id='ellipsis-h' />}
       </button>
     );

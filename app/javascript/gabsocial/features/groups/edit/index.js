@@ -1,9 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import { changeValue, submit, setUp } from '../../../actions/group_editor';
-import Icon from '../../../components/icon';
 import { defineMessages, injectIntl } from 'react-intl';
 import ColumnIndicator from '../../../components/column_indicator';
-import Column from '../../../components/column';
 import classNames from 'classnames';
 
 const messages = defineMessages({
@@ -32,7 +31,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Edit extends PureComponent {
+class Edit extends ImmutablePureComponent {
 
 	static contextTypes = {
 	  router: PropTypes.object,

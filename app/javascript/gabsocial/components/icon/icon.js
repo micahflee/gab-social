@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 
+import './icon.scss';
 export default class Icon extends PureComponent {
 
   static propTypes = {

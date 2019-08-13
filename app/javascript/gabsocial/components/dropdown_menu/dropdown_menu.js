@@ -1,4 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component';
 import detectPassiveEvents from 'detect-passive-events';
 import Overlay from 'react-overlays/lib/Overlay';
 import spring from 'react-motion/lib/spring';
@@ -159,7 +160,7 @@ class DropdownMenu extends PureComponent {
 
 }
 
-export default class Dropdown extends PureComponent {
+export default class Dropdown extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
