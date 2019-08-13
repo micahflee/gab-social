@@ -25,5 +25,11 @@ module.exports = {
         sourceMap: true,
       },
     },
+    {
+      loader: 'sass-resources-loader',
+      options: {
+        resources: `${process.cwd()}/app/javascript/styles/base.scss`,
+      },
+    },
   ],
 };
