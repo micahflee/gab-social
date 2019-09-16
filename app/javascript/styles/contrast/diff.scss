@@ -58,16 +58,6 @@
   }
 }
 
-.getting-started__footer a {
-  text-decoration: underline;
-
-  &:hover,
-  &:focus,
-  &:active {
-    text-decoration: none;
-  }
-}
-
 .nothing-here {
   color: $darker-text-color;
 }

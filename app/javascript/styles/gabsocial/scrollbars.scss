@@ -4,8 +4,7 @@
 
 html {scrollbar-color: lighten($gab-background-container, 4%) $gab-background-container;}
 ::-webkit-scrollbar {
-	width: 12px;
-	height: 12px;
+	@include size(12px);
 }
 ::-webkit-scrollbar-thumb {
 	border: none;

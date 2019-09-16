@@ -1,23 +1,20 @@
 .public-layout {
   .footer {
-    display: flex;
     padding: 40px 0;
     font-size: 12px;
-    justify-content: center;
-    align-items: center;
     background-color: lighten($ui-base-color, 5%);
     border-top: darken($ui-base-color, 10%);
+
+    @include flex(center, center);
 
     @media screen and (max-width:1024px) {
       padding: 40px 20px;
     }
 
     .footer-container {
-      display: flex;
       width: 960px;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: center;
+
+      @include flex(flex-start, center, row, wrap);
 
       @media screen and (max-width:1024px) {
         width: 100%;
@@ -31,11 +28,10 @@
 
     h4 {
       text-transform: uppercase;
-      font-weight: 700;
       margin-bottom: 8px;
       color: $darker-text-color;
-      font-size: 1.6rem;
-      line-height: 1.5;
+
+      @include text-sizing(1.6rem, 700, 1.5);
 
       a {
         color: inherit;
@@ -48,9 +44,8 @@
 
       span {
         color: $primary-text-color;
-        font-size: 1.3rem;
-        font-weight: 500;
-        line-height: 1.5;
+
+        @include text-sizing(1.3rem, 500, 1.5);
 
         &:last-of-type {
           color: darken($primary-text-color, 20%);
@@ -67,11 +62,10 @@
         a {
           text-decoration: none;
           color: lighten($ui-base-color, 34%);
-          font-size: 1.3rem;
-          font-weight: 500;
-          line-height: 1.5;
           padding: 10px 4px;
           margin-left: 10px;
+
+          @include text-sizing(1.3rem, 500, 1.5);
 
           &:hover,
           &:active,

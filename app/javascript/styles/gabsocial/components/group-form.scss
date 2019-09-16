@@ -23,14 +23,13 @@
 		display: block;
 		box-sizing: border-box;
 		float: left;
- 		height: 20px; 
+ 		height: 20px;
  		padding: 3px 0 0 33px;
-		@include font-size(12);
-		@include font-weight(light);
 		color: $gab-secondary-text;
-		background-repeat: no-repeat;
-		background-image: url('../images/sprite-post-functions.png');
-		background-size: 100px 1200px;
+
+		@include text-sizing(12px, 400);
+		@include background-image('/assets/images/sprite-post-functions.png', 100px 1200px);
+
 		&:hover {
 			color: $gab-brand-default;
 			background-position: 0 -100px;
@@ -41,12 +40,12 @@
 		}
 	}
 	.group-form__file {
-		width: 1px;
-		height: 1px;
 		overflow: hidden;
 		opacity: 0;
 		position: absolute;
 		pointer-events: none;
+
+		@include size(1px);
 	}
 	button {float: right;}
 }

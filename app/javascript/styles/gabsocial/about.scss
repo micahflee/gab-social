@@ -17,12 +17,10 @@ $small-breakpoint: 960px;
 
 .rich-formatting {
   font-family: $font-sans-serif, sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 30px;
   color: $darker-text-color;
   padding-right: 10px;
+
+  @include text-sizing(16px, 400, 30px);
 
   a {
     color: $highlight-text-color;
@@ -32,12 +30,10 @@ $small-breakpoint: 960px;
   p,
   li {
     font-family: $font-sans-serif, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 30px;
     margin-bottom: 12px;
     color: $darker-text-color;
+
+    @include text-sizing(16px, 400, 30px);
 
     a {
       color: $highlight-text-color;
@@ -57,64 +53,58 @@ $small-breakpoint: 960px;
 
   h1 {
     font-family: $font-display, sans-serif;
-    font-size: 26px;
-    line-height: 30px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(26px, 500, 30px);
 
     small {
       font-family: $font-sans-serif, sans-serif;
       display: block;
-      font-size: 18px;
-      font-weight: 400;
       color: lighten($darker-text-color, 10%);
+
+      @include text-sizing(18px, 400);
     }
   }
 
   h2 {
     font-family: $font-display, sans-serif;
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(22px, 500, 26px);
   }
 
   h3 {
     font-family: $font-display, sans-serif;
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(18px, 500, 24px);
   }
 
   h4 {
     font-family: $font-display, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(16px, 500, 24px);
   }
 
   h5 {
     font-family: $font-display, sans-serif;
-    font-size: 14px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(14px, 500, 24px);
   }
 
   h6 {
     font-family: $font-display, sans-serif;
-    font-size: 12px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(12px, 500, 24px);
   }
 
   ul,
@@ -144,11 +134,11 @@ $small-breakpoint: 960px;
   }
 
   hr {
-    width: 100%;
-    height: 0;
     border: 0;
     border-bottom: 1px solid rgba($ui-base-lighter-color, .6);
     margin: 20px 0;
+
+    @include size(100%, 0);
 
     &.spacer {
       height: 1px;
@@ -163,23 +153,22 @@ $small-breakpoint: 960px;
 
   .container-alt {
     position: relative;
-    padding-right: 280px + 15px;
+    padding-right: 295px;
   }
 
   &__sections {
-    display: flex;
-    justify-content: space-between;
     flex-wrap: wrap;
+
+    @include flex(space-between);
   }
 
   &__section {
     flex: 1 0 0;
     font-family: $font-sans-serif, sans-serif;
-    font-size: 16px;
-    line-height: 28px;
     color: $primary-text-color;
-    text-align: right;
     padding: 10px 15px;
+
+    @include text-sizing(16px, 400, 28px, right);
 
     span,
     strong {
@@ -194,9 +183,8 @@ $small-breakpoint: 960px;
 
     strong {
       font-family: $font-display, sans-serif;
-      font-weight: 500;
-      font-size: 32px;
-      line-height: 48px;
+ 
+      @include text-sizing(32px, 500, 48px);
     }
 
     @media screen and (max-width: $column-breakpoint) {
@@ -204,56 +192,19 @@ $small-breakpoint: 960px;
     }
   }
 
-  .panel {
-    position: absolute;
-    width: 280px;
-    box-sizing: border-box;
-    background: darken($ui-base-color, 8%);
-    padding: 20px;
-    padding-top: 10px;
-    border-radius: 4px 4px 0 0;
-    right: 0;
-    bottom: -40px;
-
-    .panel-header {
-      font-family: $font-display, sans-serif;
-      font-size: 14px;
-      line-height: 24px;
-      font-weight: 500;
-      color: $darker-text-color;
-      padding-bottom: 5px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid lighten($ui-base-color, 4%);
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-
-      a,
-      span {
-        font-weight: 400;
-        color: darken($darker-text-color, 10%);
-      }
-
-      a {
-        text-decoration: none;
-      }
-    }
-  }
-
   .owner {
     text-align: center;
 
     .avatar {
-      width: 80px;
-      height: 80px;
-      margin: 0 auto;
       margin-bottom: 15px;
+
+      @include size(80px);
+      @include margin-center;
 
       img {
         display: block;
-        width: 80px;
-        height: 80px;
-        border-radius: 48px;
+
+        @include circle(80px);
       }
     }
 
@@ -284,12 +235,10 @@ $small-breakpoint: 960px;
   p,
   li {
     font-family: $font-sans-serif, sans-serif;
-    font-size: 16px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 30px;
     margin-bottom: 12px;
     color: $darker-text-color;
+
+    @include text-sizing(16px, 400, 30px);
 
     a {
       color: $highlight-text-color;
@@ -301,74 +250,67 @@ $small-breakpoint: 960px;
     display: inline;
     margin: 0;
     padding: 0;
-    font-weight: 700;
     background: transparent;
     font-family: inherit;
-    font-size: inherit;
-    line-height: inherit;
     color: lighten($darker-text-color, 10%);
+
+    @include text-sizing(inherit, 700, inherit);
   }
 
   h1 {
     font-family: $font-display, sans-serif;
-    font-size: 26px;
-    line-height: 30px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(26px, 500, 30px);
 
     small {
       font-family: $font-sans-serif, sans-serif;
       display: block;
-      font-size: 18px;
-      font-weight: 400;
       color: lighten($darker-text-color, 10%);
+
+      @include text-sizing(18px, 400);
     }
   }
 
   h2 {
     font-family: $font-display, sans-serif;
-    font-size: 22px;
-    line-height: 26px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(22px, 500, 26px);
   }
 
   h3 {
     font-family: $font-display, sans-serif;
-    font-size: 18px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(18px, 500, 24px);
   }
 
   h4 {
     font-family: $font-display, sans-serif;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(16px, 500, 24px);
   }
 
   h5 {
     font-family: $font-display, sans-serif;
-    font-size: 14px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(14px, 500, 24px);
   }
 
   h6 {
     font-family: $font-display, sans-serif;
-    font-size: 12px;
-    line-height: 24px;
-    font-weight: 500;
     margin-bottom: 20px;
     color: $secondary-text-color;
+
+    @include text-sizing(12px, 24px, 500);
   }
 
   ul,
@@ -398,11 +340,11 @@ $small-breakpoint: 960px;
   }
 
   hr {
-    width: 100%;
-    height: 0;
     border: 0;
     border-bottom: 1px solid rgba($ui-base-lighter-color, .6);
     margin: 20px 0;
+
+    @include size(100%, 0);
 
     &.spacer {
       height: 1px;
@@ -424,17 +366,12 @@ $small-breakpoint: 960px;
 
     .row {
       width: 100%;
-      display: flex;
-      flex-direction: row-reverse;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
+
+      @include flex(space-between, center, row-reverse, nowrap);
     }
 
     .row__information-board {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
+      @include flex(flex-end, flex-end);
 
       .information-board__section {
         flex: 1 0 auto;
@@ -446,24 +383,15 @@ $small-breakpoint: 960px;
         justify-content: space-between;
       }
     }
-
-    .row__mascot {
-      flex: 1;
-      margin: 10px -50px 0 0;
-
-      @media screen and (max-width: $no-gap-breakpoint) {
-        display: none;
-      }
-    }
   }
 
   &__logo {
     margin-right: 20px;
 
     img {
-      height: 50px;
-      width: auto;
       mix-blend-mode: lighten;
+
+      @include size(auto, 50px);
     }
   }
 
@@ -508,9 +436,9 @@ $small-breakpoint: 960px;
       }
 
       &__avatar {
-        width: 44px;
-        height: 44px;
         background-size: 44px 44px;
+
+        @include size(44px);
       }
 
       .display-name {
@@ -540,18 +468,6 @@ $small-breakpoint: 960px;
     background: $ui-base-color;
     border-radius: 4px;
     box-shadow: 0 0 6px rgba($black, 0.1);
-  }
-
-  &__mascot {
-    height: 104px;
-    position: relative;
-    left: -40px;
-    bottom: 25px;
-
-    img {
-      height: 190px;
-      width: auto;
-    }
   }
 
   &__short-description {
@@ -608,17 +524,6 @@ $small-breakpoint: 960px;
       .container-alt {
         padding-right: 20px;
       }
-
-      .panel {
-        position: static;
-        margin-top: 20px;
-        width: 100%;
-        border-radius: 4px;
-
-        .panel-header {
-          text-align: center;
-        }
-      }
     }
   }
 
@@ -674,7 +579,7 @@ $small-breakpoint: 960px;
       padding: 40px 20px 20px 20px;
 
       &--left {
-        margin-right: 40px;
+        margin-: 40px;
       }
 
       &--right {
@@ -701,10 +606,7 @@ $small-breakpoint: 960px;
   }
 
   &__brand {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    flex-direction: column;
+    @include flex(start, center, column);
 
     .brand {
       margin-right: auto !important;
@@ -731,15 +633,14 @@ $small-breakpoint: 960px;
   }
 
   .hero-widget {
-    margin-top: 30px;
-    margin-bottom: 0;
+    @include vertical-margin(30px, 0);
 
     h4 {
       padding: 10px;
       text-transform: uppercase;
-      font-weight: 700;
-      font-size: 13px;
       color: $darker-text-color;
+
+      @include text-sizing(13px, 700);
     }
 
     &__text {
@@ -768,9 +669,9 @@ $small-breakpoint: 960px;
       }
 
       .account__avatar {
-        width: 44px;
-        height: 44px;
         background-size: 44px 44px;
+
+        @include size(44px);
       }
     }
 
@@ -779,9 +680,9 @@ $small-breakpoint: 960px;
 
       strong {
         font-family: $font-display, sans-serif;
-        font-size: 15px;
-        font-weight: 700;
         display: block;
+
+        @include text-sizing(15px, 700);
       }
 
       span {
@@ -798,10 +699,9 @@ $small-breakpoint: 960px;
 
   .simple_form p.lead {
     color: $darker-text-color;
-    font-size: 15px;
-    line-height: 20px;
-    font-weight: 400;
     margin-bottom: 25px;
+
+    @include text-sizing(15px, 400, 20px);
   }
 
   &__grid {
@@ -826,10 +726,10 @@ $small-breakpoint: 960px;
         }
 
         .hero-widget {
-          margin-top: 0;
-          margin-bottom: 10px;
           order: 1;
           flex: 0 0 auto;
+
+          @include vertical-margin(0, 10px);
         }
       }
 
@@ -894,10 +794,9 @@ $small-breakpoint: 960px;
   display: block;
   width: 470px;
   color: $primary-text-color;
-  font-size: 30px;
-  line-height: 1.4;
   margin-top: 25px;
-  font-weight: 400;
+
+  @include text-sizing(30px, 400, 1.4);
 
   @media (min-width:767px) and (max-width:1024px) {
     width: 320px;

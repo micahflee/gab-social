@@ -1,41 +1,35 @@
 body.rtl {
   direction: rtl;
 
-  .column-header > button {
+  .column-header>button {
     text-align: right;
-    padding-left: 0;
-    padding-right: 15px;
+
+    @include horizontal-padding(0, 15px);
   }
 
   .landing-page__logo {
-    margin-right: 0;
-    margin-left: 20px;
+    @include horizontal-margin(20px, 0);
   }
 
   .landing-page .features-list .features-list__row .visual {
-    margin-left: 0;
-    margin-right: 15px;
+    @include horizontal-margin(0, 15px);
   }
 
   .column-link__icon,
   .column-header__icon {
-    margin-right: 0;
-    margin-left: 5px;
+    @include horizontal-margin(0, 5px);
   }
 
   .compose-form .compose-form__buttons-wrapper .character-counter__wrapper {
-    margin-right: 0;
-    margin-left: 4px;
+    @include horizontal-margin(4px, 0);
   }
 
   .navigation-bar__profile {
-    margin-left: 0;
-    margin-right: 8px;
+    @include horizontal-margin(0, 8px);
   }
 
   .search__input {
-    padding-right: 10px;
-    padding-left: 30px;
+    @include horizontal-padding(30px, 10px);
   }
 
   .search__icon .fa {
@@ -46,18 +40,16 @@ body.rtl {
   .column-header__buttons {
     left: 0;
     right: auto;
-    margin-left: 0;
-    margin-right: -15px;
+
+    @include horizontal-margin(0, -15px);
   }
 
   .column-inline-form .icon-button {
-    margin-left: 0;
-    margin-right: 5px;
+    @include horizontal-margin(0, 5px);
   }
 
   .column-header__links .text-btn {
-    margin-left: 10px;
-    margin-right: 0;
+    @include horizontal-margin(10px, 0);
   }
 
   .account__avatar-wrapper {
@@ -65,8 +57,7 @@ body.rtl {
   }
 
   .column-header__back-button {
-    padding-left: 5px;
-    padding-right: 0;
+    @include horizontal-padding(5px, 0);
   }
 
   .column-header__setting-arrows {
@@ -74,8 +65,7 @@ body.rtl {
   }
 
   .setting-toggle__label {
-    margin-left: 0;
-    margin-right: 8px;
+    @include horizontal-margin(0, 8px);
   }
 
   .status__avatar {
@@ -85,24 +75,20 @@ body.rtl {
 
   .status,
   .activity-stream .status.light {
-    padding-left: 10px;
-    padding-right: 68px;
+    @include horizontal-padding(10px, 68px);
   }
 
   .status__info .status__display-name,
   .activity-stream .status.light .status__display-name {
-    padding-left: 25px;
-    padding-right: 0;
+    @include horizontal-padding(25px, 0);
   }
 
   .activity-stream .pre-header {
-    padding-right: 68px;
-    padding-left: 0;
+    @include horizontal-padding(0, 68px);
   }
 
   .status__prepend {
-    margin-left: 0;
-    margin-right: 68px;
+    @include horizontal-margin(0, 68px);
   }
 
   .status__prepend-icon-wrapper {
@@ -120,7 +106,7 @@ body.rtl {
     left: 0;
   }
 
-  .column-back-button--slim-button {
+  .column-back-button--slim {
     right: auto;
     left: 0;
   }
@@ -133,20 +119,18 @@ body.rtl {
   .status__action-bar {
 
     &__counter {
-      margin-right: 0;
-      margin-left: 11px;
+      @include horizontal-margin(11px, 0);
 
       .status__action-bar-button {
-        margin-right: 0;
-        margin-left: 4px;
+        @include horizontal-margin(4px, 0);
       }
     }
   }
 
   .status__action-bar-button {
     float: right;
-    margin-right: 0;
-    margin-left: 18px;
+
+    @include horizontal-margin(18px, 0);
   }
 
   .status__action-bar-dropdown {
@@ -154,13 +138,11 @@ body.rtl {
   }
 
   .privacy-dropdown__dropdown {
-    margin-left: 0;
-    margin-right: 40px;
+    @include horizontal-margin(0, 40px);
   }
 
   .privacy-dropdown__option__icon {
-    margin-left: 10px;
-    margin-right: 0;
+    @include horizontal-margin(10px, 0);
   }
 
   .detailed-status__display-name .display-name {
@@ -168,15 +150,14 @@ body.rtl {
   }
 
   .detailed-status__display-avatar {
-    margin-right: 0;
-    margin-left: 10px;
     float: right;
+
+    @include horizontal-margin(10px, 0);
   }
 
   .detailed-status__favorites,
   .detailed-status__reblogs {
-    margin-left: 0;
-    margin-right: 6px;
+    @include horizontal-margin(0, 6px);
   }
 
   .fa-ul {
@@ -195,18 +176,15 @@ body.rtl {
 
   .admin-wrapper .sidebar ul a i.fa,
   a.table-action-link i.fa {
-    margin-right: 0;
-    margin-left: 5px;
+    @include horizontal-margin(5px, 0);
   }
 
   .simple_form .check_boxes .checkbox label {
-    padding-left: 0;
-    padding-right: 25px;
+    @include horizontal-padding(0, 25px);
   }
 
   .simple_form .input.with_label.boolean label.checkbox {
-    padding-left: 25px;
-    padding-right: 0;
+    @include horizontal-padding(25px, 0);
   }
 
   .simple_form .check_boxes .checkbox input[type="checkbox"],
@@ -220,14 +198,12 @@ body.rtl {
     right: 0;
   }
 
-  .simple_form .input.radio_buttons .radio > label {
-    padding-right: 28px;
-    padding-left: 0;
+  .simple_form .input.radio_buttons .radio>label {
+    @include horizontal-padding(0, 28px);
   }
 
   .simple_form .input-with-append .input input {
-    padding-left: 142px;
-    padding-right: 0;
+    @include horizontal-padding(142px, 0);
   }
 
   .simple_form .input.boolean label.checkbox {
@@ -237,8 +213,7 @@ body.rtl {
 
   .simple_form .input.boolean .label_input,
   .simple_form .input.boolean .hint {
-    padding-left: 0;
-    padding-right: 28px;
+    @include horizontal-padding(0, 28px);
   }
 
   .simple_form .label_input__append {
@@ -262,8 +237,7 @@ body.rtl {
   }
 
   .filters .filter-subset {
-    margin-right: 0;
-    margin-left: 45px;
+    @include horizontal-margin(45px, 0);
   }
 
   .landing-page .header-wrapper .mascot {
@@ -295,32 +269,29 @@ body.rtl {
   }
 
   .landing-page .fa-external-link {
-    padding-right: 5px;
-    padding-left: 0 !important;
+    @include horizontal-padding(0 !important, 5px);
   }
 
   .landing-page .features #gabsocial-timeline {
-    margin-right: 0;
-    margin-left: 30px;
+    @include horizontal-margin(30px, 0);
   }
 
   @media screen and (min-width: 631px) {
+
     .column,
     .drawer {
-      padding-left: 5px;
-      padding-right: 5px;
+      @include horizontal-padding(5px);
 
       &:first-child {
-        padding-left: 5px;
-        padding-right: 10px;
+        @include horizontal-padding(5px, 10px);
       }
     }
 
-    .columns-area > div {
+    .columns-area>div {
+
       .column,
       .drawer {
-        padding-left: 5px;
-        padding-right: 5px;
+        @include horizontal-padding(5px);
       }
     }
   }
@@ -328,33 +299,29 @@ body.rtl {
   .public-layout {
     .header {
       .nav-button {
-        margin-left: 8px;
-        margin-right: 0;
+        @include horizontal-margin(8px, 0);
       }
     }
 
     .public-account-header__tabs {
-      margin-left: 0;
-      margin-right: 20px;
+      @include horizontal-margin(0, 20px);
     }
   }
 
   .landing-page__information {
     .account__display-name {
-      margin-right: 0;
-      margin-left: 5px;
+      @include horizontal-margin(5px, 0);
     }
 
     .account__avatar-wrapper {
-      margin-left: 12px;
-      margin-right: 0;
+      @include horizontal-margin(12px, 0);
     }
   }
 
   .card__bar .display-name {
-    margin-left: 0;
-    margin-right: 15px;
     text-align: right;
+
+    @include horizontal-margin(0, 15px);
   }
 
   .fa-chevron-left::before {
@@ -366,16 +333,14 @@ body.rtl {
   }
 
   .column-back-button__icon {
-    margin-right: 0;
-    margin-left: 5px;
+    @include horizontal-margin(5px, 0);
   }
 
   .column-header__setting-arrows .column-header__setting-btn:last-child {
-    padding-left: 0;
-    padding-right: 10px;
+    @include horizontal-padding(0, 10px);
   }
 
-  .simple_form .input.radio_buttons .radio > label input {
+  .simple_form .input.radio_buttons .radio>label input {
     left: auto;
     right: 0;
   }

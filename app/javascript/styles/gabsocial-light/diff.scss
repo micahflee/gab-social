@@ -5,7 +5,7 @@
 .button {
   color: $white;
 
-  &.button-alternative-2 {
+  &.button--alternative-2 {
     color: $white;
   }
 }
@@ -79,7 +79,7 @@
 }
 
 .detailed-status,
-.detailed-status__action-bar {
+.detailed-status-action-bar {
   background: darken($ui-base-color, 6%);
 }
 
@@ -214,7 +214,6 @@
 }
 
 // Change the default color used for the text in an empty column or on the error column
-.empty-column-indicator,
 .error-column {
   color: $primary-text-color;
   background: $white;
@@ -317,7 +316,7 @@
   }
 }
 
-.account__section-headline a.active::after {
+.account-section-headline a.active::after {
   border-color: transparent transparent $white;
 }
 

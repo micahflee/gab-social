@@ -12,10 +12,10 @@
     img {
       object-fit: cover;
       display: block;
-      width: 100%;
-      height: 100%;
       margin: 0;
       border-radius: 4px 4px 0 0;
+
+      @include size(100%);
     }
   }
 
@@ -23,16 +23,15 @@
     background: $ui-base-color;
     padding: 20px;
     border-radius: 0 0 4px 4px;
-    font-size: 15px;
     color: $darker-text-color;
-    line-height: 20px;
     word-wrap: break-word;
-    font-weight: 400;
+
+    @include text-sizing(15px, 400, 20px);
 
     .emojione {
-      width: 20px;
-      height: 20px;
       margin: -3px 0 0;
+
+      @include size(20px);
     }
 
     p {
@@ -47,12 +46,11 @@
       display: inline;
       margin: 0;
       padding: 0;
-      font-weight: 700;
       background: transparent;
       font-family: inherit;
-      font-size: inherit;
-      line-height: inherit;
       color: lighten($darker-text-color, 10%);
+
+      @include text-sizing(inherit, 700, inherit);
     }
 
     a {
@@ -77,9 +75,9 @@
   h4 {
     padding: 10px;
     text-transform: uppercase;
-    font-weight: 700;
-    font-size: 13px;
     color: $darker-text-color;
+
+    @include text-sizing(13px, 700);
   }
 
   .account {
@@ -95,9 +93,9 @@
     }
 
     .account__avatar {
-      width: 44px;
-      height: 44px;
       background-size: 44px 44px;
+
+      @include size(44px);
     }
   }
 }
@@ -120,11 +118,10 @@
 }
 
 .contact-widget {
-  font-size: 15px;
   color: $darker-text-color;
-  line-height: 20px;
   word-wrap: break-word;
-  font-weight: 400;
+
+  @include text-sizing(15px, 400, 20px);
 
   strong {
     font-weight: 500;
@@ -238,10 +235,9 @@
 
   h1 {
     color: $primary-text-color;
-    font-size: 36px;
-    line-height: 1.1;
-    font-weight: 700;
     margin-bottom: 10px;
+
+    @include text-sizing(36px, 700, 1.1);
   }
 
   p {
@@ -268,20 +264,20 @@
     box-sizing: border-box;
     margin-bottom: 10px;
 
-    & > a,
-    & > div {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+    &>a,
+    &>div {
       background: $ui-base-color;
       border-radius: 4px;
       padding: 15px;
       text-decoration: none;
       color: inherit;
       box-shadow: 0 0 15px rgba($base-shadow-color, 0.2);
+
+      @include flex(space-between, center);
     }
 
-    & > a {
+    &>a {
+
       &:hover,
       &:active,
       &:focus {
@@ -289,24 +285,22 @@
       }
     }
 
-    &.active > a {
+    &.active>a {
       background: $ui-highlight-color;
       cursor: default;
     }
 
-    &.disabled > div {
+    &.disabled>div {
       opacity: 0.5;
       cursor: default;
     }
 
     h4 {
       flex: 1 1 auto;
-      font-size: 18px;
-      font-weight: 700;
       color: $primary-text-color;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+
+      @include text-overflow(nowrap);
+      @include text-sizing(18px, 700);
 
       .fa {
         color: $darker-text-color;
@@ -314,14 +308,15 @@
 
       small {
         display: block;
-        font-weight: 400;
-        font-size: 15px;
         margin-top: 8px;
         color: $darker-text-color;
+
+        @include text-sizing(15px, 400);
       }
     }
 
     &.active h4 {
+
       &,
       .fa,
       small {
@@ -341,18 +336,16 @@
 }
 
 .avatar-stack {
-  display: flex;
-  justify-content: flex-end;
+  @include flex(flex-end);
 
   .account__avatar {
     flex: 0 0 auto;
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
     position: relative;
     margin-left: -10px;
     background: darken($ui-base-color, 8%);
     border: 2px solid $ui-base-color;
+
+    @include circle(36px);
 
     &:nth-child(1) {
       z-index: 1;
@@ -404,16 +397,15 @@
 
   &__count {
     width: 120px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
     color: $primary-text-color;
+
+    @include text-sizing(15px, 500, 1, center);
 
     small {
       display: block;
       color: $darker-text-color;
-      font-weight: 400;
-      font-size: 14px;
+
+      @include text-sizing(14px, 400);
     }
   }
 
@@ -444,7 +436,7 @@
 }
 
 $maximum-width: 1235px;
-$fluid-breakpoint: $maximum-width + 20px;
+$fluid-breakpoint: $maximum-width+20px;
 
 .statuses-grid {
   min-height: 600px;
@@ -482,13 +474,12 @@ $fluid-breakpoint: $maximum-width + 20px;
       }
 
       .status__content {
-        font-size: 15px;
-        line-height: 20px;
+        @include text-sizing(15px, 400, 20px);
 
         .emojione {
-          width: 20px;
-          height: 20px;
           margin: -3px 0 0;
+
+          @include size(20px);
         }
 
         .status__content__spoiler-link {
@@ -519,11 +510,10 @@ $fluid-breakpoint: $maximum-width + 20px;
   }
 
   a {
-    font-size: 14px;
-    line-height: 20px;
     text-decoration: none;
-    font-weight: 500;
     color: $ui-highlight-color;
+
+    @include text-sizing(14px, 500, 20px);
 
     &:hover,
     &:focus,

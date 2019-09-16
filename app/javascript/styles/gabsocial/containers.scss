@@ -1,7 +1,6 @@
 .container-alt {
   width: 700px;
-  margin: 0 auto;
-  margin-top: 40px;
+  margin: 40px auto 0 auto;
 
   @media screen and (max-width: 740px) {
     width: 100%;
@@ -17,9 +16,7 @@
   }
 
   h1 {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    @include flex(center, center);
 
     img {
       height: 42px;
@@ -27,17 +24,14 @@
     }
 
     a {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       color: $primary-text-color;
       text-decoration: none;
       outline: 0;
       padding: 12px 16px;
-      line-height: 32px;
       font-family: $font-display, sans-serif;
-      font-weight: 500;
-      font-size: 14px;
+
+      @include flex(center, center);
+      @include text-sizing(14px, 500, 32px);
     }
   }
 }
@@ -62,33 +56,29 @@
   width: 400px;
   margin: 0 auto;
   display: flex;
-  font-size: 13px;
-  line-height: 18px;
   box-sizing: border-box;
-  padding: 20px 0;
-  padding-bottom: 0;
-  margin-bottom: -30px;
-  margin-top: 40px;
+  padding: 20px 0 0 0;
+
+  @include text-sizing(13px, 400, 18px);
+  @include vertical-margin(40px, -30px);
 
   @media screen and (max-width: 440px) {
     width: 100%;
-    margin: 0;
-    margin-bottom: 10px;
-    padding: 20px;
-    padding-bottom: 0;
+    margin: 0 0 10px 0;
+    padding: 20px 20px 0 20px;
   }
 
   .avatar {
-    width: 40px;
-    height: 40px;
     margin-right: 8px;
 
+    @include size(40px);
+
     img {
-      width: 100%;
-      height: 100%;
       display: block;
       margin: 0;
       border-radius: 4px;
+
+      @include size(100%);
     }
   }
 
@@ -100,16 +90,16 @@
     .username {
       display: block;
       font-weight: 500;
-      text-overflow: ellipsis;
-      overflow: hidden;
+
+      @include text-overflow;
     }
   }
 
   .logout-link {
     display: block;
-    font-size: 32px;
-    line-height: 40px;
     margin-left: 8px;
+
+    @include text-sizing(32px, 400, 40px);
   }
 }
 
@@ -149,19 +139,14 @@
 
     .landing-page__call-to-action {
       padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+
+      @include flex(center, center);
     }
 
     .row__information-board {
       width: 100%;
       justify-content: center;
       align-items: center;
-    }
-
-    .row__mascot {
-      display: none;
     }
   }
 
@@ -207,66 +192,48 @@
   .background-svg {
     display: block;
     position: absolute;
-    height: 100%;
-    width: 100%;
     min-height: 580px;
     z-index: -1;
-    background-image:url('/landing/wave.svg');
-    background-repeat: no-repeat;
-    background-position: bottom;
-    background-size: cover;
+
+    @include size(100%);
+    @include background-image('/landing/wave.svg', cover, bottom);
   }
 
   .header {
     height: 80px;
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
-    flex-wrap: nowrap;
     padding: 14px 0;
     box-sizing: border-box;
+
+    @include flex(center, stretch, row, nowrap);
 
     @media screen and (max-width: 1024px) {
       padding: 14px 20px;
     }
 
     .header-container {
-      display: flex;
       width: 960px;
-      align-items: stretch;
-      justify-content: center;
-      flex-wrap: nowrap;
 
-      & > div {
+      @include flex(center, stretch, row, nowrap);
+
+      &>div {
         flex: 1 1 33.3%;
         min-height: 1px;
       }
     }
 
     .nav-left {
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: nowrap;
+      @include flex(flex-start, center, row, nowrap);
     }
 
     .nav-center {
-      display: flex;
-      align-items: stretch;
-      justify-content: center;
-      flex-wrap: nowrap;
+      @include flex(center, stretch, row, nowrap);
     }
 
     .nav-right {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: nowrap;
+      @include flex(flex-end, center, row, nowrap);
 
       .simple_form.new_user {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+        @include flex(flex-start, center, row);
 
         .fields-group {
           display: flex;
@@ -319,10 +286,10 @@
 
       img {
         display: block;
-        height: 30px;
-        width: auto;
         position: relative;
         bottom: -2px;
+
+        @include size(auto, 30px);
 
         @media screen and (max-width: $no-gap-breakpoint) {
           height: 20px;
@@ -334,12 +301,11 @@
       display: flex;
       align-items: center;
       padding: 12px 22px;
-      font-size: 14px;
-      font-weight: 600;
       text-decoration: none;
       color: $primary-text-color;
       white-space: nowrap;
-      text-align: center;
+
+      @include text-sizing(14px, 600, 1, center);
 
       &:hover,
       &:focus,
@@ -446,26 +412,24 @@
       background: darken($ui-base-color, 12%);
 
       &::after {
-        content: "";
-        display: block;
-        position: absolute;
-        width: 100%;
-        height: 100%;
         box-shadow: inset 0 -1px 1px 1px rgba($base-shadow-color, 0.15);
         top: 0;
         left: 0;
+
+        @include pseudo;
+        @include size(100%);
       }
 
       img {
         object-fit: cover;
         display: block;
-        width: 100%;
-        height: 100%;
         margin: 0;
         border-radius: 4px 4px 0 0;
+
+        @include size(100%);
       }
 
-      @media screen and (max-width: 600px) {
+      @include breakpoint(sm) {
         height: 200px;
       }
     }
@@ -500,41 +464,37 @@
     &__bar {
       position: relative;
       margin-top: -80px;
-      display: flex;
-      justify-content: flex-start;
+
+      @include flex(flex-start);
 
       &::before {
-        content: "";
-        display: block;
         background: lighten($ui-base-color, 4%);
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
         height: 60px;
         border-radius: 0 0 4px 4px;
         z-index: -1;
+
+        @include pseudo;
+        @include abs-position(auto, 0, 0, 0, false);
       }
 
       .avatar {
         display: block;
-        width: 120px;
-        height: 120px;
         padding-left: 20px - 4px;
         flex: 0 0 auto;
 
+        @include size(120px);
+
         img {
           display: block;
-          width: 100%;
-          height: 100%;
           margin: 0;
-          border-radius: 50%;
           border: 4px solid lighten($ui-base-color, 4%);
           background: darken($ui-base-color, 8%);
+
+          @include circle(100%);
         }
       }
 
-      @media screen and (max-width: 600px) {
+      @include breakpoint(sm) {
         margin-top: 0;
         background: lighten($ui-base-color, 4%);
         border-radius: 0 0 4px 4px;
@@ -545,10 +505,9 @@
         }
 
         .avatar {
-          width: 48px;
-          height: 48px;
-          padding: 7px 0;
-          padding-left: 10px;
+          padding: 7px 0 7px 10px;
+
+          @include size(48px);
 
           img {
             border: 0;
@@ -575,39 +534,32 @@
       margin-left: 20px;
 
       &__name {
-        padding-top: 20px;
-        padding-bottom: 8px;
+        @include vertical-padding(20px 8px);
 
         h1 {
-          font-size: 20px;
-          line-height: 18px * 1.5;
           color: $primary-text-color;
-          font-weight: 500;
-          overflow: hidden;
-          white-space: nowrap;
-          text-overflow: ellipsis;
           text-shadow: 1px 1px 1px $base-shadow-color;
+
+          @include text-overflow(nowrap);
+          @include text-sizing(20px, 500, 27px);
 
           small {
             display: block;
-            font-size: 14px;
             color: $primary-text-color;
-            font-weight: 400;
-            overflow: hidden;
-            text-overflow: ellipsis;
+
+            @include text-overflow;
+            @include text-sizing(14px, 400);
           }
         }
       }
 
-      @media screen and (max-width: 600px) {
+      @include breakpoint(sm) {
         margin-left: 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
+
+        @include flex(space-between, center);
 
         &__name {
-          padding-top: 0;
-          padding-bottom: 0;
+          @include vertical-padding(0);
 
           h1 {
             font-size: 16px;
@@ -622,10 +574,9 @@
       }
 
       &__tabs {
-        display: flex;
-        justify-content: flex-start;
-        align-items: stretch;
         height: 58px;
+
+        @include flex(flex-start, stretch);
 
         .details-counters {
           display: flex;
@@ -659,15 +610,14 @@
           }
 
           &::after {
-            display: block;
-            content: "";
-            position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
             border-bottom: 4px solid $ui-primary-color;
             opacity: 0.5;
             transition: all 400ms ease;
+
+            @include pseudo;
           }
 
           &.active {
@@ -699,11 +649,11 @@
           }
 
           .counter-number {
-            font-weight: 500;
-            font-size: 18px;
             margin-bottom: 5px;
             color: $primary-text-color;
             font-family: $font-display, sans-serif;
+
+            @include text-sizing(18px, 500);
           }
         }
 
@@ -746,8 +696,8 @@
           display: inline-block;
           color: $darker-text-color;
           text-decoration: none;
-          padding: 15px;
-          font-weight: 500;
+
+          @include text-sizing(15px, 500);
 
           strong {
             font-weight: 700;
@@ -763,7 +713,7 @@
     }
   }
 
-  .account__section-headline {
+  .account-section-headline {
     border-radius: 4px 4px 0 0;
 
     @media screen and (max-width: $no-gap-breakpoint) {
@@ -827,9 +777,8 @@
     color: $action-button-color;
     font-size: 18px;
 
-    & > span {
-      font-size: 14px;
-      font-weight: 500;
+    &>span {
+      @include text-sizing(14px, 500);
     }
   }
 
@@ -839,7 +788,7 @@
     min-width: 100%;
     margin: 0 -5px;
 
-    & > div {
+    &>div {
       box-sizing: border-box;
       flex: 1 0 auto;
       width: 300px;
@@ -851,7 +800,7 @@
         max-width: 50%;
       }
 
-      @media screen and (max-width: 600px) {
+      @include breakpoint(sm) {
         max-width: 100%;
       }
     }
@@ -860,7 +809,7 @@
       margin: 0;
       border-top: 1px solid lighten($ui-base-color, 8%);
 
-      & > div {
+      &>div {
         width: 100%;
         padding: 0;
         margin-bottom: 0;

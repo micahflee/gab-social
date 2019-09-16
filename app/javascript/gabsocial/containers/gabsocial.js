@@ -15,7 +15,6 @@ import { getLocale } from '../locales';
 import initialState from '../initial_state';
 import { me } from '../initial_state';
 import ErrorBoundary from '../components/error_boundary';
-// import { whyDidYouUpdate } from 'why-did-you-update';
 
 import '../../styles/gabsocial/components.scss';
 import '../../styles/gabsocial/components/buttons.scss';
@@ -83,10 +82,6 @@ class GabSocialMount extends PureComponent {
   }
 
 }
-
-// whyDidYouUpdate(React);
-// whyDidYouUpdate(React, { groupByComponent: true, collapseComponentGroups: false });
-// whyDidYouUpdate(React, { exclude: [/^Connect|Link|NavLink|Route/] });
 
 export default class GabSocial extends PureComponent {
 

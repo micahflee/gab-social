@@ -59,9 +59,9 @@
         padding: 10px 10px 20px 10px;
 
         h1 {
-            font-size: 22px;
-            font-weight: bold;
             margin-bottom: 10px;
+
+            @include text-sizing(22px, 700);
         }
 
         .group__panel__description {
@@ -72,22 +72,23 @@
             display: inline-block;
             margin-bottom: 10px;
             border-radius: 4px;
+            font-size: 13px;
+            padding: 4px 8px;
             background: $gab-background-container;
             body.theme-gabsocial-light & {
           		background: $gab-background-container-light;
           	}
-            font-size: 13px;
-            padding: 4px 8px;
         }
     }
 
     .group__feed {
       background: $gab-background-container;
-      body.theme-gabsocial-light & {
-        background: $gab-background-container-light;
-      }
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       overflow: hidden;
+
+      body.theme-gabsocial-light & {
+        background: $gab-background-container-light;
+      }
     }
 }

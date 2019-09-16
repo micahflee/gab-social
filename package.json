@@ -12,7 +12,8 @@
     "start": "node ./streaming/index.js",
     "test": "${npm_execpath} run test:lint && ${npm_execpath} run test:jest",
     "test:lint": "eslint --ext=js .",
-    "test:jest": "cross-env NODE_ENV=test jest --coverage"
+    "test:jest": "cross-env NODE_ENV=test jest --coverage",
+    "webpack-defaults": "webpack-defaults"
   },
   "repository": {
     "type": "git",

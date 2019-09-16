@@ -1,5 +1,5 @@
 .card {
-  & > a {
+  &>a {
     display: block;
     text-decoration: none;
     color: inherit;
@@ -26,14 +26,14 @@
 
     img {
       display: block;
-      width: 100%;
-      height: 100%;
       margin: 0;
       object-fit: cover;
       border-radius: 4px 4px 0 0;
+
+      @include size(100%);
     }
 
-    @media screen and (max-width: 600px) {
+    @include breakpoint(sm) {
       height: 200px;
     }
 
@@ -45,11 +45,10 @@
   &__bar {
     position: relative;
     padding: 15px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
     background: lighten($ui-base-color, 4%);
     border-radius: 0 0 4px 4px;
+
+    @include flex(flex-start, center);
 
     @media screen and (max-width: $no-gap-breakpoint) {
       border-radius: 0;
@@ -57,18 +56,18 @@
 
     .avatar {
       flex: 0 0 auto;
-      width: 48px;
-      height: 48px;
       padding-top: 2px;
 
+      @include size(48px);
+
       img {
-        width: 100%;
-        height: 100%;
         display: block;
         margin: 0;
         border-radius: 4px;
         background: darken($ui-base-color, 8%);
         object-fit: cover;
+
+        @include size(100%);
       }
     }
 
@@ -77,20 +76,18 @@
       text-align: left;
 
       strong {
-        font-size: 15px;
         color: $primary-text-color;
-        font-weight: 500;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+        @include text-overflow;
+        @include text-sizing(15px, 500);
       }
 
       span {
         display: block;
-        font-size: 14px;
         color: $gab-secondary-text;
-        font-weight: 400;
-        overflow: hidden;
-        text-overflow: ellipsis;
+
+        @include text-overflow;
+        @include text-sizing(14px, 400);
       }
     }
   }
@@ -107,12 +104,12 @@
   .older,
   .page,
   .gap {
-    font-size: 14px;
     color: $primary-text-color;
-    font-weight: 500;
     display: inline-block;
     padding: 6px 10px;
     text-decoration: none;
+
+    @include text-sizing(14px, 500);
   }
 
   .current {
@@ -176,16 +173,13 @@
   background: $ui-base-color;
   box-shadow: 0 0 15px rgba($base-shadow-color, 0.2);
   color: $gab-secondary-text;
-  font-size: 14px;
-  font-weight: 500;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: default;
   border-radius: 4px;
   padding: 20px;
   min-height: 30vh;
+
+  @include flex(center, center);
+  @include text-sizing(14px, 500, 1, center);
 
   &--under-tabs {
     border-radius: 0 0 4px 4px;
@@ -201,13 +195,11 @@
   display: inline-block;
   padding: 4px 6px;
   cursor: default;
-  border-radius: 3px;
-  font-size: 12px;
-  line-height: 12px;
-  font-weight: 500;
   color: $ui-secondary-color;
   background-color: rgba($ui-secondary-color, 0.1);
-  border: 1px solid rgba($ui-secondary-color, 0.5);
+
+  @include text-sizing(12px, 500, 12px);
+  @include border-design(rgba($ui-secondary-color, 0.5), 1px, 3px);
 
   &.moderator {
     color: $success-green;
@@ -228,8 +220,8 @@
   border: 0 none;
   border-top: 1px solid lighten($ui-base-color, 12%);
   border-bottom: 1px solid lighten($ui-base-color, 12%);
-  font-size: 14px;
-  line-height: 20px;
+
+  @include text-sizing(14px, 400, 20px);
 
   dl {
     display: flex;
@@ -239,12 +231,10 @@
   dt,
   dd {
     box-sizing: border-box;
-    padding: 14px;
-    text-align: center;
     max-height: 48px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+
+    @include text-overflow(nowrap);
+    @include text-sizing(14px, 400, 1, center);
   }
 
   dt {
@@ -290,7 +280,7 @@
   }
 }
 
-.directory__tag .trends__item__current {
+.directory__tag .trending-item__uses {
   width: auto;
 }
 

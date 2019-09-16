@@ -157,8 +157,7 @@ a.table-action-link {
 
     &__actions,
     &__content {
-      padding: 8px 0;
-      padding-right: 16px;
+      padding: 8px 16px 8px 0;
       flex: 1 1 auto;
     }
   }
@@ -204,8 +203,7 @@ a.table-action-link {
     }
 
     &__content {
-      padding-top: 12px;
-      padding-bottom: 16px;
+      @include vertical-padding(12px, 16px);
 
       &--unpadded {
         padding: 0;

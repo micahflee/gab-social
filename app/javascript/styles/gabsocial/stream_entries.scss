@@ -75,21 +75,21 @@
 
 .button.logo-button {
   flex: 0 auto;
-  font-size: 14px;
   background: $ui-highlight-color;
   color: $primary-text-color;
   text-transform: none;
-  line-height: 36px;
   height: auto;
   padding: 3px 15px;
   border: 0;
 
+  @include text-sizing(14px, 400, 36px);
+
   svg {
-    width: 20px;
-    height: auto;
     vertical-align: middle;
     margin-right: 5px;
     fill: $primary-text-color;
+
+    @include size(20px, auto);
   }
 
   &:active,

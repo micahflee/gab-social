@@ -20,6 +20,7 @@ body {
 }
 
 .email-body {
+
   td,
   div,
   a,
@@ -29,6 +30,7 @@ body {
 }
 
 a {
+
   &,
   &:visited,
   span {
@@ -72,8 +74,8 @@ td {
   font-size: 0 !important;
   line-height: 100%;
   text-align: center;
-  padding-left: 16px;
-  padding-right: 16px;
+
+  @include horizontal-padding(16px);
 }
 
 .email-start {
@@ -98,7 +100,8 @@ body {
 .col-3,
 .col-4,
 .col-5,
-.col-6, {
+.col-6,
+  {
   font-size: 0;
   display: inline-block;
   width: 100%;
@@ -114,9 +117,9 @@ body {
 }
 
 .column-cell {
-  padding-top: 16px;
-  padding-bottom: 16px;
   vertical-align: top;
+
+  @include vertical-padding(16px);
 
   &.button-cell {
     padding-top: 0;
@@ -187,8 +190,8 @@ p {
 
 p {
   display: block;
-  margin-top: 0;
-  margin-bottom: 16px;
+
+  @include vertical-margin(0, 16px);
 
   &.small {
     font-size: 13px;
@@ -207,12 +210,11 @@ h4,
 h5,
 h6 {
   color: $ui-secondary-color;
-  margin-left: 0;
-  margin-right: 0;
-  margin-top: 20px;
-  margin-bottom: 8px;
   padding: 0;
   font-weight: 500;
+
+  @include horizontal-margin(0);
+  @include vertical-margin(20px, 8px);
 }
 
 h1 {
@@ -231,10 +233,9 @@ h3 {
 }
 
 h5 {
-  font-size: 16px;
-  line-height: 21px;
-  font-weight: 700;
   color: lighten($ui-base-color, 34%);
+
+  @include text-sizing(16px, 700, 21px);
 }
 
 .input-cell {
@@ -248,12 +249,10 @@ h5 {
     background: darken($ui-base-color, 8%);
     border-radius: 4px;
     padding: 16px;
-    line-height: 20px;
     mso-line-height-rule: exactly;
     border-radius: 4px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 17px;
+
+    @include text-sizing(17px, 500, 20px, center);
   }
 }
 
@@ -263,8 +262,8 @@ h5 {
   font-size: 0;
   text-align: center;
   vertical-align: top;
-  padding-left: 16px;
-  padding-right: 16px;
+
+  @include horizontal-padding(16px);
 }
 
 .content-cell {
@@ -298,8 +297,8 @@ h5 {
 
   .column-cell {
     text-align: center;
-    padding-top: 20px;
-    padding-bottom: 8px;
+
+    @include vertical-padding(20px, 8px);
   }
 }
 
@@ -313,6 +312,7 @@ h5 {
 }
 
 .footer {
+
   .column-cell,
   p {
     color: lighten($ui-base-color, 34%);
@@ -344,17 +344,15 @@ h5 {
 
 .button {
   display: table;
-  margin-left: auto;
-  margin-right: auto;
+
+  @include horizontal-margin(auto);
 
   td {
-    line-height: 20px;
     mso-line-height-rule: exactly;
     border-radius: 4px;
-    text-align: center;
-    font-weight: 500;
-    font-size: 17px;
     padding: 0 !important;
+
+    @include text-sizing(17px, 500, 20x, center);
 
     a,
     a span {
@@ -403,8 +401,7 @@ h5 {
 }
 
 .padded {
-  padding-left: 16px;
-  padding-right: 16px;
+  @include horizontal-padding(16px);
 }
 
 .padded-bottom {
@@ -434,10 +431,10 @@ h5 {
 
   img {
     max-width: 32px;
-    width: 32px;
-    height: 32px;
     display: block;
     line-height: 100%;
+
+    @include size(32px);
   }
 }
 
@@ -467,9 +464,9 @@ h5 {
 
     bdi {
       color: $white;
-      font-size: 16px;
       display: block;
-      font-weight: 500;
+
+      @include text-sizing(16px, 500);
     }
 
     td:first-child {
@@ -477,9 +474,9 @@ h5 {
     }
 
     img {
-      width: 48px;
-      height: 48px;
       border-radius: 4px;
+
+      @include size(48px);
     }
   }
 
@@ -505,9 +502,9 @@ h5 {
 
 ul {
   padding-left: 15px;
-  margin-top: 0;
-  margin-bottom: 0;
   padding-top: 16px;
+
+  @include vertical-margin(0);
 
   li {
     margin-bottom: 16px;
@@ -526,6 +523,7 @@ ul {
 }
 
 @media (max-width: 697px) {
+
   .email-container,
   .col-1,
   .col-2,
@@ -546,7 +544,6 @@ ul {
   }
 
   .padded {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
+    @include horizontal-padding(0 !important);
   }
 }
