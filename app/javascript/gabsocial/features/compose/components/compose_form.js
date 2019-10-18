@@ -233,6 +233,8 @@ class ComposeForm extends ImmutablePureComponent {
       publishText = intl.formatMessage(messages.schedulePost);
     }
 
+    const showPublish = isModalOpen ? false : !condensed;
+
     const composeClassNames = classNames({
       'compose-form': true,
       'condensed': condensed,
@@ -309,7 +311,7 @@ class ComposeForm extends ImmutablePureComponent {
         }
 
         {
-          !condensed &&
+          showPublish &&
           <div className='compose-form__publish'>
             <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
           </div>

@@ -170,13 +170,30 @@
 		.compose-form__uploads-wrapper {
 			display: flex;
 			flex-direction: row;
-			padding: 5px;
 			flex-wrap: wrap;
+			&.contains-media {
+				padding: 5px;
+				border-top: 1px solid darken($simple-background-color, 8%);
+			}
 		}
 		.compose-form__upload {
-			flex: 1 1 0;
-			min-width: 40%;
 			margin: 5px;
+			width: calc(50% - 10px);
+    	height: 135px;
+			@media (min-width: 895px) {
+				width: 222px;
+				height: 180px;
+			}
+			@media (min-width: 607px) and (max-width: 895px) {
+				width: 210px;
+				height: 210px;
+			}
+			@media (min-width: 607px) and (max-width: 895px) {
+				width: 210px;
+				height: 210px;
+			}
+
+
 			&__actions {
 				background: linear-gradient(180deg, rgba($base-shadow-color, 0.8) 0, rgba($base-shadow-color, 0.35) 80%, transparent);
 				display: flex;
@@ -234,7 +251,7 @@
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
-			height: 140px;
+			height: 100%;
 			width: 100%;
 			overflow: hidden;
 		}

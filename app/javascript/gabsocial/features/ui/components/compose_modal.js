@@ -4,16 +4,17 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { connect } from 'react-redux';
 import { me } from '../../../initial_state';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import Avatar from '../../../components/avatar';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ComposeFormContainer from '../../compose/containers/compose_form_container';
 import IconButton from 'gabsocial/components/icon_button';
+import Button from 'gabsocial/components/button';
 import { openModal } from '../../../actions/modal';
 import { cancelReplyCompose } from '../../../actions/compose';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
+  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
 });
 
 const mapStateToProps = state => {
@@ -51,19 +52,19 @@ class ComposeModal extends ImmutablePureComponent {
   };
 
   render () {
-    const { intl, account } = this.props;
+    const { intl } = this.props;
 
     return (
       <div className='modal-root__modal compose-modal'>
         <div className='compose-modal__header'>
-          <h3 className='compose-modal__header__title'><FormattedMessage id='navigation_bar.compose' defaultMessage='Compose new gab' /></h3>
           <IconButton className='compose-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={this.onClickClose} size={20} />
+          <h3 className='compose-modal__header__title'>
+            <FormattedMessage id='navigation_bar.compose' defaultMessage='Compose new gab' />
+          </h3>
+          <Button className='compose-modal__publish' text={intl.formatMessage(messages.publish)} onClick={this.onClickClose} />
         </div>
-        <div className='compose-modal__content'>
+        <div className='compose-modal__content compose-modal__content--scroll'>
           <div className='timeline-compose-block'>
-            <div className='timeline-compose-block__avatar'>
-              <Avatar account={account} size={32} />
-            </div>
             <ComposeFormContainer />
           </div>
         </div>

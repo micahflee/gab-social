@@ -10,6 +10,7 @@ import Icon from 'gabsocial/components/icon';
 
 const messages = defineMessages({
   description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
+  delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
 });
 
 export default @injectIntl
@@ -100,7 +101,7 @@ class Upload extends ImmutablePureComponent {
           {({ scale }) => (
             <div className='compose-form__upload-thumbnail' style={{ transform: `scale(${scale})`, backgroundImage: `url(${media.get('preview_url')})`, backgroundPosition: `${x}% ${y}%` }}>
               <div className={classNames('compose-form__upload__actions', { active })}>
-                <button className='icon-button' onClick={this.handleUndoClick}><Icon id='times' /> <FormattedMessage id='upload_form.undo' defaultMessage='Delete' /></button>
+                <button className='icon-button' title={intl.formatMessage(messages.delete)} onClick={this.handleUndoClick}><Icon id='times'/></button>
                 {media.get('type') === 'image' && <button className='icon-button' onClick={this.handleFocalPointClick}><Icon id='crosshairs' /> <FormattedMessage id='upload_form.focus' defaultMessage='Crop' /></button>}
               </div>
 

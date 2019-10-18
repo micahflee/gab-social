@@ -264,9 +264,11 @@
 				left: -22px;
 				top: 13px;
 			}
-		.autosuggest-textarea__textarea {
-			padding: 14px 32px 13px 10px !important;
-			body.theme-gabsocial-light & {background: $gab-background-base-light;}
+			.autosuggest-textarea__textarea {
+				padding: 14px 32px 13px 10px !important;
+				body.theme-gabsocial-light & {
+					background: $gab-background-base-light;
+				}
 			}
 		}
 	}
@@ -4915,8 +4917,14 @@ noscript {
 
 	&__close {
 	position: absolute;
-	right: 10px;
+	left: 10px;
 	top: 10px;
+	}
+
+	&__publish {
+		position: absolute;
+		right: 10px;
+		top: 4px;
 	}
 
 	&__content {
@@ -4925,6 +4933,11 @@ noscript {
 		flex: 1;
 		padding: 10px;
 		overflow-y: hidden;
+
+		&--scroll {
+			display: block;
+			overflow-y: scroll;
+		}
 
 		.timeline-compose-block {
 			background: transparent !important;
@@ -4936,9 +4949,14 @@ noscript {
 				max-height: 100%;
 				display: flex;
 				flex-direction: column;
+				padding: 0 !important;
 
 				.compose-form__autosuggest-wrapper .autosuggest-textarea__textarea {
-					max-height: calc(100vh - 363px) !important;
+					max-height: 160px !important;
+				}
+
+				.compose-form__autosuggest-wrapper:before {
+					content: none !important;
 				}
 			}
 		}
@@ -4946,8 +4964,9 @@ noscript {
 
 	@media screen and (max-width:895px) {
 		margin: 0;
-		height: 98vh;
-		width: 98vw;
+		border-radius: 0;
+    height: 100vh;
+		width: 100vw;
 	}
 }
 
@@ -5215,7 +5234,7 @@ noscript {
 	border-bottom: 1px solid;
 	border-top: 1px solid;
 	border-color: darken($ui-base-color, 4%);
-	transition: max-height 2.5s ease;
+	transition: max-height 150ms ease;
 	overflow: hidden;
 
 	&.hidden {
