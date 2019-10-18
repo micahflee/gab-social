@@ -4967,6 +4967,12 @@ noscript {
 		border-radius: 0;
     height: 100vh;
 		width: 100vw;
+
+		.compose-form__publish.in-modal {
+			position: fixed;
+			top: 0;
+			right: 15px;
+		}
 	}
 }
 

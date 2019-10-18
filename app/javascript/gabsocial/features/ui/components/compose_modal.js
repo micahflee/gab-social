@@ -7,14 +7,12 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ComposeFormContainer from '../../compose/containers/compose_form_container';
 import IconButton from 'gabsocial/components/icon_button';
-import Button from 'gabsocial/components/button';
 import { openModal } from '../../../actions/modal';
 import { cancelReplyCompose } from '../../../actions/compose';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
 });
 
 const mapStateToProps = state => {
@@ -61,7 +59,6 @@ class ComposeModal extends ImmutablePureComponent {
           <h3 className='compose-modal__header__title'>
             <FormattedMessage id='navigation_bar.compose' defaultMessage='Compose new gab' />
           </h3>
-          <Button className='compose-modal__publish' text={intl.formatMessage(messages.publish)} onClick={this.onClickClose} />
         </div>
         <div className='compose-modal__content compose-modal__content--scroll'>
           <div className='timeline-compose-block'>
