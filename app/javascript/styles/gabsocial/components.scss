@@ -4917,14 +4917,8 @@ noscript {
 
 	&__close {
 	position: absolute;
-	left: 10px;
+	right: 10px;
 	top: 10px;
-	}
-
-	&__publish {
-		position: absolute;
-		right: 10px;
-		top: 4px;
 	}
 
 	&__content {
@@ -4967,12 +4961,6 @@ noscript {
 		border-radius: 0;
     height: 100vh;
 		width: 100vw;
-
-		.compose-form__publish.in-modal {
-			position: fixed;
-			top: 0;
-			right: 15px;
-		}
 	}
 }
 

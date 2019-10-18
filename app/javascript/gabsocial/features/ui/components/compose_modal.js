@@ -55,10 +55,10 @@ class ComposeModal extends ImmutablePureComponent {
     return (
       <div className='modal-root__modal compose-modal'>
         <div className='compose-modal__header'>
-          <IconButton className='compose-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={this.onClickClose} size={20} />
           <h3 className='compose-modal__header__title'>
             <FormattedMessage id='navigation_bar.compose' defaultMessage='Compose new gab' />
           </h3>
+          <IconButton className='compose-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={this.onClickClose} size={20} />
         </div>
         <div className='compose-modal__content compose-modal__content--scroll'>
           <div className='timeline-compose-block'>

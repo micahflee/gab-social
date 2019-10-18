@@ -238,10 +238,6 @@ class ComposeForm extends ImmutablePureComponent {
       'condensed': condensed,
     });
 
-    const composeFormPublishClasses = classNames('compose-form__publish', {
-      'in-modal': isModalOpen,
-    });
-
     return (
       <div className={composeClassNames} ref={this.setForm} onClick={this.handleClick}>
         <WarningContainer />
@@ -314,7 +310,7 @@ class ComposeForm extends ImmutablePureComponent {
 
         {
           !condensed &&
-          <div className={composeFormPublishClasses}>
+          <div className='compose-form__publish'>
             <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
           </div>
         }
