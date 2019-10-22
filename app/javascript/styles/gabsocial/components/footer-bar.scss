@@ -1,0 +1,43 @@
+.footer-bar {
+  display: block;
+  position: fixed;
+  background: #000;
+  height: 48px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: transform 0.2s ease;
+  overflow: hidden;
+
+  @media screen and (min-width: 895px) {
+    display: none !important;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: row;
+		align-items: stretch;
+  }
+
+  &__link {
+    display: flex;
+    flex: 1 1 auto;
+    margin: 0;
+    min-width: 36px;
+    height: 48px;
+    padding-top: 4px;
+    justify-content: center;
+    color: white;
+    text-decoration: none;
+    border-top: 2px solid transparent;
+
+    &.active {
+      border-top-color: $gab-brand-default;
+    }
+
+    & > span {
+      display: none;
+    }
+  }
+}

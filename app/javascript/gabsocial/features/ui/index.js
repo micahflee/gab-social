@@ -21,6 +21,7 @@ import { openModal } from '../../actions/modal';
 import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
 import UploadArea from './components/upload_area';
 import TabsBar from './components/tabs_bar';
+import FooterBar from './components/footer_bar';
 // import TrendsPanel from './components/trends_panel';
 import WhoToFollowPanel from './components/who_to_follow_panel';
 import LinkFooter from './components/link_footer';
@@ -533,6 +534,7 @@ class UI extends React.PureComponent {
           <SwitchingColumnsArea location={location} onLayoutChange={this.handleLayoutChange}>
             {children}
           </SwitchingColumnsArea>
+          <FooterBar />
 
           {me && floatingActionButton}
 
