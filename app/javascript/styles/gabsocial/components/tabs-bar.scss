@@ -275,6 +275,12 @@
 		&.apps {
 			background-position: -825px 18px;
 		}
+		&.trends {
+			background-position: -850px 18px;
+			@media screen and (max-width: 895px) {
+				background-position: -1208px 8px;
+			}
+		}
 		&.tabs-bar__link__icon--search {
 			background-position: -697px 18px;
 			@media screen and (max-width: 895px) {

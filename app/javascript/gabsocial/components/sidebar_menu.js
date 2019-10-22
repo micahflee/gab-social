@@ -32,6 +32,7 @@ const messages = defineMessages({
   more: { id: 'sidebar.more', defaultMessage: 'More' },
   partners: { id: 'promo.partners', defaultMessage: 'Affiliate Partners' },
   pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  trends: { id: 'promo.trends', defaultMessage: 'Trends' },
 })
 
 const mapStateToProps = state => {
@@ -150,6 +151,10 @@ class SidebarMenu extends ImmutablePureComponent {
                   <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.pro)}</span>
                 </a>
               }
+              <a className='sidebar-menu-item' href='https://trends.gab.com'>
+                <Icon id='signal' fixedWidth />
+                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.trends)}</span>
+              </a>
               <a className='sidebar-menu-item' href='https://news.gab.com'>
                 <Icon id='align-left' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.news)}</span>

@@ -42,6 +42,13 @@ class PromoPanel extends React.PureComponent {
           </div>
 
           <div className='promo-panel-item'>
+            <a className='promo-panel-item__btn' href='https://trends.gab.com'>
+              <Icon id='signal' className='promo-panel-item__icon' fixedWidth />
+              <FormattedMessage id='promo.trends' defaultMessage='Trends' />
+            </a>
+          </div>
+
+          <div className='promo-panel-item'>
             <a className='promo-panel-item__btn' href='https://news.gab.com/support-gab'>
               <Icon id='users' className='promo-panel-item__icon' fixedWidth />
               <FormattedMessage id='promo.partners' defaultMessage='Affiliate Partners' />

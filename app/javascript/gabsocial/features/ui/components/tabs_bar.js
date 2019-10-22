@@ -30,10 +30,10 @@ export const privateLinks = [
     <i className='tabs-bar__link__icon groups'/>
     <FormattedMessage id='tabs_bar.groups' defaultMessage='Groups' />
   </NavLink>,
-  <NavLink key='pr5' className='tabs-bar__link tabs-bar__link--search' to='/search' data-preview-title-id='tabs_bar.search' >
-    <i className='tabs-bar__link__icon tabs-bar__link__icon--search'/>
-    <FormattedMessage id='tabs_bar.search' defaultMessage='Search' />
-  </NavLink>,
+  <a key='pl4' className='tabs-bar__link tabs-bar__link--trends' href='https://trends.gab.com' data-preview-title-id='tabs_bar.trends' >
+    <i className='tabs-bar__link__icon trends'/>
+    <FormattedMessage id='tabs_bar.trends' defaultMessage='Trends' />
+  </a>,
 ];
 
 export const publicLinks = [
@@ -48,6 +48,10 @@ export const publicLinks = [
     <i className='tabs-bar__link__icon tabs-bar__link__icon--search'/>
     <FormattedMessage id='tabs_bar.search' defaultMessage='Search' />
   </NavLink>,
+  <a key='pl3' className='tabs-bar__link tabs-bar__link--trends' href='https://trends.gab.com' data-preview-title-id='tabs_bar.trends' >
+    <i className='tabs-bar__link__icon trends'/>
+    <FormattedMessage id='tabs_bar.trends' defaultMessage='Trends' />
+  </a>,
 ];
 
 @withRouter
