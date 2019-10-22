@@ -155,6 +155,7 @@ class TabsBar extends React.PureComponent {
 
     const classes = classNames('tabs-bar', {
       'tabs-bar--collapsed': collapsed,
+      'logged-in': !!account,
     })
 
     return (
@@ -191,6 +192,10 @@ class TabsBar extends React.PureComponent {
                 <button className='tabs-bar__button-compose button' onClick={onOpenCompose} aria-label='Gab'>
                   <span>Gab</span>
                 </button>
+                <NavLink className='tabs-bar__search-btn' to='/search'>
+                  <i className='tabs-bar__link__icon tabs-bar__link__icon--search'/>
+                  <FormattedMessage id='tabs_bar.search' defaultMessage='Search' />
+                </NavLink>
               </div>
             }
             {
