@@ -9,6 +9,8 @@
   z-index: 1000;
   transition: transform 0.2s ease;
   overflow: hidden;
+  padding-bottom: 0;
+  padding-bottom: env(safe-area-inset-bottom);
 
   @media screen and (min-width: 895px) {
     display: none !important;
