@@ -5,6 +5,8 @@ require 'sidekiq-scheduler/web'
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
+html_only = lambda { |req| req.format.nil? || req.format.html? }
+
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
@@ -41,7 +43,10 @@ Rails.application.routes.draw do
     confirmations:      'auth/confirmations',
   }
 
-  get '/users/:username', to: redirect('/%{username}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
+  get '/users/:username', to: redirect('/%{username}'), constraints: html_only
+  get '/users/:username/followers', to: redirect('/%{username}/followers'), constraints: html_only
+  get '/users/:username/following', to: redirect('/%{username}/following'), constraints: html_only
+
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
   resources :accounts, path: 'users', only: [:show], param: :username do
@@ -453,10 +458,10 @@ Rails.application.routes.draw do
   get '/about/sales',        to: 'about#sales'
 
   get '/tags/:tag', to: 'react#react'
-  get '/:username', to: 'react#react', as: :short_account
-  get '/:username/with_replies', to: 'react#react', as: :short_account_with_replies
-  get '/:username/media', to: 'react#react', as: :short_account_media
-  get '/:username/tagged/:tag', to: 'react#react', as: :short_account_tag
+  get '/:username', to: 'accounts#show', as: :short_account
+  get '/:username/with_replies', to: 'accounts#show', as: :short_account_with_replies
+  get '/:username/media', to: 'accounts#show', as: :short_account_media
+  get '/:username/tagged/:tag', to: 'accounts#show', as: :short_account_tag
   get '/:username/posts/:statusId/reblogs', to: 'react#react'
   get '/:account_username/posts/:id', to: 'react#react', as: :short_account_status
   get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
