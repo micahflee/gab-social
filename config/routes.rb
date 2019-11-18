@@ -46,6 +46,7 @@ Rails.application.routes.draw do
   get '/users/:username', to: redirect('/%{username}'), constraints: html_only
   get '/users/:username/followers', to: redirect('/%{username}/followers'), constraints: html_only
   get '/users/:username/following', to: redirect('/%{username}/following'), constraints: html_only
+  get '/users/:username/statuses/:id', to: redirect('/%{username}/posts/%{id}'), constraints: html_only
 
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
@@ -462,8 +463,8 @@ Rails.application.routes.draw do
   get '/:username/with_replies', to: 'accounts#show', as: :short_account_with_replies
   get '/:username/media', to: 'accounts#show', as: :short_account_media
   get '/:username/tagged/:tag', to: 'accounts#show', as: :short_account_tag
-  get '/:username/posts/:statusId/reblogs', to: 'react#react'
-  get '/:account_username/posts/:id', to: 'react#react', as: :short_account_status
+  get '/:username/posts/:statusId/reblogs', to: 'statuses#show'
+  get '/:account_username/posts/:id', to: 'statuses#show', as: :short_account_status
   get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
 
   get '/(*any)', to: 'react#react', as: :web
