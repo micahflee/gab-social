@@ -240,7 +240,7 @@ Rails.application.routes.draw do
     resources :users, only: [] do
       resource :two_factor_authentication, only: [:destroy]
     end
-    
+
     resources :custom_emojis, only: [:index, :new, :create, :update, :destroy] do
       member do
         post :copy
@@ -452,17 +452,17 @@ Rails.application.routes.draw do
   get '/about/dmca',         to: 'about#dmca'
   get '/about/sales',        to: 'about#sales'
 
-  get '/tags/:tag', to: 'home#index'
-  get '/:username', to: 'home#index', as: :short_account
-  get '/:username/with_replies', to: 'home#index', as: :short_account_with_replies
-  get '/:username/media', to: 'home#index', as: :short_account_media
-  get '/:username/tagged/:tag', to: 'home#index', as: :short_account_tag
-  get '/:username/posts/:statusId/reblogs', to: 'home#index'
-  get '/:account_username/posts/:id', to: 'home#index', as: :short_account_status
+  get '/tags/:tag', to: 'react#react'
+  get '/:username', to: 'react#react', as: :short_account
+  get '/:username/with_replies', to: 'react#react', as: :short_account_with_replies
+  get '/:username/media', to: 'react#react', as: :short_account_media
+  get '/:username/tagged/:tag', to: 'react#react', as: :short_account_tag
+  get '/:username/posts/:statusId/reblogs', to: 'react#react'
+  get '/:account_username/posts/:id', to: 'react#react', as: :short_account_status
   get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
 
-  get '/(*any)', to: 'home#index', as: :web
-  root 'home#index'
+  get '/(*any)', to: 'react#react', as: :web
+  root 'react#react'
 
   # Routes that are now to be used within webapp, but still referenced within application
   # TODO : Consolidate

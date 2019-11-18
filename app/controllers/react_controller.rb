@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_referrer_policy_header
-  before_action :set_initial_state_json
-  before_action :set_data_for_meta
+class ReactController < ApplicationController
+  before_action :authenticate_user!, only: :react
+  before_action :set_referrer_policy_header, only: :react
+  before_action :set_initial_state_json, only: :react
+  before_action :set_data_for_meta, only: :react
 
-  def index
+  def react
     @body_classes = 'app-body'
   end
 
