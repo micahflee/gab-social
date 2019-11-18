@@ -15,18 +15,6 @@ class ReactController < ApplicationController
   def set_data_for_meta
     return if find_route_matches
 
-    if params[:username].present?
-      @account = Account.find_local(params[:username])
-    elsif params[:account_username].present?
-      @account = Account.find_local(params[:account_username])
-
-      if params[:id].present? && !@account.nil?
-        @status = @account.statuses.find(params[:id])
-        @stream_entry = @status.stream_entry
-        @type = @stream_entry.activity_type.downcase
-      end
-    end
-
     if request.path.starts_with?('/tags') && params[:tag].present?
       @tag = Tag.find_normalized(params[:tag])
     end
