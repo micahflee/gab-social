@@ -28,12 +28,11 @@ const messages = defineMessages({
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
   lists: { id: 'column.lists', defaultMessage: 'Lists', },
   apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
-  news: { id: 'tabs_bar.news', defaultMessage: 'News' },
   more: { id: 'sidebar.more', defaultMessage: 'More' },
-  partners: { id: 'promo.partners', defaultMessage: 'Affiliate Partners' },
   pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
   trends: { id: 'promo.trends', defaultMessage: 'Trends' },
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
+  shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
 })
 
 const mapStateToProps = state => {
@@ -152,17 +151,13 @@ class SidebarMenu extends ImmutablePureComponent {
                   <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.pro)}</span>
                 </a>
               }
+                <a className='sidebar-menu-item' href='https://shop.dissenter.com'>
+                  <Icon id='shopping-cart' fixedWidth />
+                  <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.shop)}</span>
+                </a>
               <a className='sidebar-menu-item' href='https://trends.gab.com'>
                 <Icon id='signal' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.trends)}</span>
-              </a>
-              <a className='sidebar-menu-item' href='https://news.gab.com'>
-                <Icon id='align-left' fixedWidth />
-                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.news)}</span>
-              </a>
-              <a className='sidebar-menu-item' href='https://news.gab.com/support-gab'>
-                <Icon id='users' fixedWidth />
-                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.partners)}</span>
               </a>
               <NavLink className='sidebar-menu-item' to='/search' onClick={this.handleSidebarClose}>
                 <Icon id='search' fixedWidth />
