@@ -1026,7 +1026,7 @@
         "id": "search_popout.tips.full_text"
       },
       {
-        "defaultMessage": "Simple text returns matching display names, usernames and hashtags",
+        "defaultMessage": "Simple text returns matching display names, usernames, groups and hashtags",
         "id": "search_popout.tips.text"
       },
       {
