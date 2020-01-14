@@ -202,7 +202,10 @@ class SwitchingColumnsArea extends React.PureComponent {
 
         <WrappedRoute path='/notifications' layout={LAYOUT.DEFAULT} component={Notifications} content={children} />
 
-        <WrappedRoute path='/search' publicRoute page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/people' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/groups' exact page={SearchPage} component={Search} content={children} />
 
         <WrappedRoute path='/follow_requests' layout={LAYOUT.DEFAULT} component={FollowRequests} content={children} />
         <WrappedRoute path='/blocks' layout={LAYOUT.DEFAULT} component={Blocks} content={children} />
