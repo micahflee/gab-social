@@ -16,6 +16,7 @@ class SearchService < BaseService
         results[:accounts] = perform_accounts_search! if account_searchable?
         results[:statuses] = perform_statuses_search! if full_text_searchable?
         results[:hashtags] = perform_hashtags_search! if hashtag_searchable?
+        results[:groups] = perform_groups_search!
       end
     end
   end
@@ -29,6 +30,14 @@ class SearchService < BaseService
       limit: @limit,
       resolve: @resolve,
       offset: @offset
+    )
+  end
+
+  def perform_groups_search!
+    Group.search_for(
+      @query.gsub(/\A#/, ''),
+      @limit,
+      @offset
     )
   end
 
