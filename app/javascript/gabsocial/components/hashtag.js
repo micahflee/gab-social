@@ -9,10 +9,10 @@ const Hashtag = ({ hashtag }) => (
   <div className='trends__item'>
     <div className='trends__item__name'>
       <Permalink href={hashtag.get('url')} to={`/tags/${hashtag.get('name')}`}>
-        #<span>{hashtag.get('name')}</span>
+        <strong>#{hashtag.get('name')}</strong>
       </Permalink>
 
-      <FormattedMessage id='trends.count_by_accounts' defaultMessage='{count} {rawCount, plural, one {person} other {people}} talking' values={{ rawCount: hashtag.getIn(['history', 0, 'accounts']), count: <strong>{shortNumberFormat(hashtag.getIn(['history', 0, 'accounts']))}</strong> }} />
+      <FormattedMessage id='trends.count_by_accounts' defaultMessage='{count} {rawCount, plural, one {person} other {people}} talking' values={{ rawCount: hashtag.getIn(['history', 0, 'accounts']), count: <span>{shortNumberFormat(hashtag.getIn(['history', 0, 'accounts']))}</span> }} />
     </div>
 
     <div className='trends__item__current'>
