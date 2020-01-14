@@ -1,6 +1,7 @@
 import api from '../api';
 import { CancelToken, isCancel } from 'axios';
 import { throttle } from 'lodash';
+import moment from 'moment';
 import { search as emojiSearch } from '../features/emoji/emoji_mart_search_light';
 import { tagHistory } from '../settings';
 import { useEmoji } from './emojis';
@@ -198,8 +199,12 @@ export function submitCompose(routerHistory, group) {
       : `/api/v1/statuses/${id}`;
     const method = id === null ? 'post' : 'put';
 
+    let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
+    if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
+
     api(getState)[method](endpoint, {
       status,
+      scheduled_at,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
       media_ids: media.map(item => item.get('id')),
@@ -208,7 +213,6 @@ export function submitCompose(routerHistory, group) {
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
       group_id: group ? group.get('id') : null,
-      scheduled_at: getState().getIn(['compose', 'scheduled_at'], null),
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
