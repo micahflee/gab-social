@@ -7,7 +7,7 @@ import Permalink from './permalink';
 import classnames from 'classnames';
 import Icon from 'gabsocial/components/icon';
 
-const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
+const MAX_HEIGHT = 200;
 
 export default class StatusContent extends React.PureComponent {
 
