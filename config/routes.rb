@@ -369,6 +369,7 @@ Rails.application.routes.draw do
         collection do
           post :clear
           post :dismiss # Deprecated
+          post :mark_read
         end
 
         member do

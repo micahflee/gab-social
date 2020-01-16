@@ -14,7 +14,10 @@ import { isMobile } from '../../is_mobile';
 import { debounce } from 'lodash';
 import { uploadCompose, resetCompose } from '../../actions/compose';
 import { expandHomeTimeline } from '../../actions/timelines';
-import { expandNotifications } from '../../actions/notifications';
+import {
+  initializeNotifications,
+  expandNotifications,
+} from '../../actions/notifications';
 import { fetchFilters } from '../../actions/filters';
 import { clearHeight } from '../../actions/height_cache';
 import { openModal } from '../../actions/modal';
@@ -381,6 +384,7 @@ class UI extends React.PureComponent {
     if (me) {
       this.props.dispatch(expandHomeTimeline());
       this.props.dispatch(expandNotifications());
+      this.props.dispatch(initializeNotifications());
       this.props.dispatch(fetchGroups('member'));
 
       setTimeout(() => this.props.dispatch(fetchFilters()), 500);

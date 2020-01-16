@@ -36,6 +36,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:advanced_layout]    = object.current_account.user.setting_advanced_layout
       store[:group_in_home_feed] = object.current_account.user.setting_group_in_home_feed
       store[:is_staff]           = object.current_account.user.staff?
+      store[:unread_count]       = unread_count object.current_account
     end
 
     store
@@ -77,6 +78,11 @@ class InitialStateSerializer < ActiveModel::Serializer
   end
 
   private
+
+  def unread_count(account)
+    last_read = account.user.last_read_notification || 0
+    account.notifications.where("id > #{last_read}").count
+  end
 
   def instance_presenter
     @instance_presenter ||= InstancePresenter.new

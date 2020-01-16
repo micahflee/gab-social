@@ -38,6 +38,7 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  last_read_notification    :bigint(8)
 #
 
 class User < ApplicationRecord

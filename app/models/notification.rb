@@ -74,6 +74,17 @@ class Notification < ApplicationRecord
     type != :follow_request
   end
 
+  def mark_read!
+    user = account.user
+    is_newer = self.id > (user.last_read_notification || -1)
+
+    if is_newer
+      user.last_read_notification = self.id
+      user.save!
+    else false
+    end
+  end
+
   class << self
     def cache_ids
       select(:id, :updated_at, :activity_type, :activity_id)

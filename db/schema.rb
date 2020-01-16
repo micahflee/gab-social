@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_17_141707) do
+ActiveRecord::Schema.define(version: 2019_12_01_210057) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -823,6 +823,7 @@ ActiveRecord::Schema.define(version: 2019_09_17_141707) do
     t.string "chosen_languages", array: true
     t.bigint "created_by_application_id"
     t.boolean "approved", default: true, null: false
+    t.bigint "last_read_notification"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
@@ -934,6 +935,7 @@ ActiveRecord::Schema.define(version: 2019_09_17_141707) do
   add_foreign_key "user_invite_requests", "users", on_delete: :cascade
   add_foreign_key "users", "accounts", name: "fk_50500f500d", on_delete: :cascade
   add_foreign_key "users", "invites", on_delete: :nullify
+  add_foreign_key "users", "notifications", column: "last_read_notification", on_delete: :nullify
   add_foreign_key "users", "oauth_applications", column: "created_by_application_id", on_delete: :nullify
   add_foreign_key "web_push_subscriptions", "oauth_access_tokens", column: "access_token_id", on_delete: :cascade
   add_foreign_key "web_push_subscriptions", "users", on_delete: :cascade

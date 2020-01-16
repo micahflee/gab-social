@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Api::V1::NotificationsController < Api::BaseController
-  before_action -> { doorkeeper_authorize! :read, :'read:notifications' }, except: [:clear, :dismiss]
-  before_action -> { doorkeeper_authorize! :write, :'write:notifications' }, only: [:clear, :dismiss]
+  before_action -> { doorkeeper_authorize! :read, :'read:notifications' }, except: [:clear, :dismiss, :mark_read]
+  before_action -> { doorkeeper_authorize! :write, :'write:notifications' }, only: [:clear, :dismiss, :mark_read]
   before_action :require_user!
   after_action :insert_pagination_headers, only: :index
 
@@ -27,6 +27,11 @@ class Api::V1::NotificationsController < Api::BaseController
 
   def dismiss
     current_account.notifications.find_by!(id: params[:id]).destroy!
+    render_empty
+  end
+
+  def mark_read
+    current_account.notifications.find(params[:id]).mark_read!
     render_empty
   end
 
