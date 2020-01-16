@@ -20,7 +20,7 @@ module Paperclip
 
     def needs_convert?
       num_frames = identify('-format %n :file', file: file.path).to_i
-      options[:style] == :original && num_frames > 1
+      options[:style] == :original && num_frames > 1000
     end
   end
 end
