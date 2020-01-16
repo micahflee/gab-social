@@ -307,7 +307,7 @@
   "search_popout.tips.full_text": "Simple text returns statuses you have written, favourited, boosted, or have been mentioned in, as well as matching usernames, display names, and hashtags.",
   "search_popout.tips.hashtag": "hashtag",
   "search_popout.tips.status": "durum",
-  "search_popout.tips.text": "Simple text returns matching display names, usernames and hashtags",
+  "search_popout.tips.text": "Simple text returns matching display names, usernames, groups and hashtags",
   "search_popout.tips.user": "kullanıcı",
   "search_results.accounts": "İnsanlar",
   "search_results.hashtags": "Hashtagler",

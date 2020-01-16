@@ -307,7 +307,7 @@
   "search_popout.tips.full_text": "Simple text returns statuses you have written, favourited, reposted, or have been mentioned in, as well as matching usernames, display names, and hashtags.",
   "search_popout.tips.hashtag": "แฮชแท็ก",
   "search_popout.tips.status": "สถานะ",
-  "search_popout.tips.text": "Simple text returns matching display names, usernames and hashtags",
+  "search_popout.tips.text": "Simple text returns matching display names, usernames, groups and hashtags",
   "search_popout.tips.user": "ผู้ใช้",
   "search_results.accounts": "ผู้คน",
   "search_results.hashtags": "แฮชแท็ก",

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::SearchController < Api::BaseController
-  RESULTS_LIMIT = 20
+  RESULTS_LIMIT = 100
 
   respond_to :json
 
