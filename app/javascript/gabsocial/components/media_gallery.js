@@ -50,6 +50,13 @@ class Item extends React.PureComponent {
     }
   }
 
+  handleLoadedData = (e) => {
+    if (!this.hoverToPlay()) {
+      e.target.play();
+    }
+  }
+
+
   hoverToPlay () {
     const { attachment } = this.props;
     return !autoPlayGif && attachment.get('type') === 'gifv';
@@ -69,13 +76,6 @@ class Item extends React.PureComponent {
 
     e.stopPropagation();
   }
-
-  onLoadedData = (e) => {
-    console.log("onLoadedData:", e);
-    if (!this.hoverToPlay()) {
-      e.target.play();
-    }
-  };
 
   componentDidMount () {
     if (this.props.attachment.get('blurhash')) {
@@ -103,10 +103,6 @@ class Item extends React.PureComponent {
 
   setCanvasRef = c => {
     this.canvas = c;
-  }
-  
-  setVideoRef = v => {
-    this.videoRef = v;
   }
 
   handleImageLoad = () => {
@@ -186,23 +182,20 @@ class Item extends React.PureComponent {
     } else if (attachment.get('type') === 'gifv') {
       const autoPlay = !isIOS() && autoPlayGif;
 
-      const attachUrl = attachment.get('url');
-      // const gifsrc = attachUrl.indexOf('?') > -1 ? attachUrl.split("?")[0] : attachUrl;
-      const gifsrc = 'https://video.twimg.com/tweet_video/EOOQ7zfWkAENTFm.mp4';
-
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
           <video
-            ref={this.setVideoRef}
             className='media-gallery__item-gifv-thumbnail'
             aria-label={attachment.get('description')}
             title={attachment.get('description')}
             role='application'
-            src={gifsrc}
-            type='video/mp4'
+            src={attachment.get('url')}
+            onClick={this.handleClick}
+            onMouseEnter={this.handleMouseEnter}
+            onMouseLeave={this.handleMouseLeave}
+            onLoadedData={this.handleLoadedData}
             autoPlay={autoPlay}
-            onLoadedData={this.onLoadedData}
-            preload='auto'
+            type='video/mp4'
             loop
             muted
             playsInline
@@ -215,8 +208,8 @@ class Item extends React.PureComponent {
 
     return (
       <div className={classNames('media-gallery__item', { standalone })} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
-        <canvas width={32} height={32} ref={this.setCanvasRef} className={classNames('media-gallery__preview', { 'media-gallery__preview--hidden': true })} />
-        {thumbnail}
+        <canvas width={32} height={32} ref={this.setCanvasRef} className={classNames('media-gallery__preview', { 'media-gallery__preview--hidden': visible && this.state.loaded })} />
+        {visible && thumbnail}
       </div>
     );
   }
