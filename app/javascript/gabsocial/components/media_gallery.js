@@ -176,7 +176,8 @@ class Item extends React.PureComponent {
       const autoPlay = !isIOS() && autoPlayGif;
 
       const attachUrl = attachment.get('url');
-      const gifsrc = attachUrl.indexOf('?') > -1 ? attachUrl.split("?")[0] : attachUrl;
+      // const gifsrc = attachUrl.indexOf('?') > -1 ? attachUrl.split("?")[0] : attachUrl;
+      const gifsrc = 'https://video.twimg.com/tweet_video/EOOQ7zfWkAENTFm.mp4';
 
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
