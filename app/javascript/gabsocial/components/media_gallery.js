@@ -71,6 +71,7 @@ class Item extends React.PureComponent {
   }
 
   onLoadedData = (e) => {
+    console.log("onLoadedData:", e);
     if (!this.hoverToPlay()) {
       e.target.play();
     }
