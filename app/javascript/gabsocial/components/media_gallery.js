@@ -175,6 +175,9 @@ class Item extends React.PureComponent {
     } else if (attachment.get('type') === 'gifv') {
       const autoPlay = !isIOS() && autoPlayGif;
 
+      const attachUrl = attachment.get('url');
+      const gifsrc = attachUrl.indexOf('?') > -1 ? attachUrl.split("?")[0] : attachUrl;
+
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
           <video
@@ -182,11 +185,12 @@ class Item extends React.PureComponent {
             aria-label={attachment.get('description')}
             title={attachment.get('description')}
             role='application'
-            src={attachment.get('url')}
+            src={gifsrc}
             onClick={this.handleClick}
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             autoPlay={autoPlay}
+            preload='auto'
             loop
             muted
             playsInline
