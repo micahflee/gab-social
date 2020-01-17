@@ -186,6 +186,7 @@ class Item extends React.PureComponent {
             title={attachment.get('description')}
             role='application'
             src={gifsrc}
+            type='video/mp4'
             onClick={this.handleClick}
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
