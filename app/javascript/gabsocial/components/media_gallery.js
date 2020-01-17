@@ -59,7 +59,7 @@ class Item extends React.PureComponent {
 
   hoverToPlay () {
     const { attachment } = this.props;
-    return !autoPlayGif && attachment.get('type') === 'gifv';
+    return autoPlayGif === false && attachment.get('type') === 'gifv';
   }
 
   handleClick = (e) => {
@@ -180,7 +180,7 @@ class Item extends React.PureComponent {
         </a>
       );
     } else if (attachment.get('type') === 'gifv') {
-      const autoPlay = !isIOS() && autoPlayGif;
+      const autoPlay = !isIOS() && autoPlayGif !== false;
 
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
