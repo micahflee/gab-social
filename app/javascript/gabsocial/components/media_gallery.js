@@ -97,6 +97,10 @@ class Item extends React.PureComponent {
   setCanvasRef = c => {
     this.canvas = c;
   }
+  
+  setVideoRef = v => {
+    this.videoRef = v;
+  }
 
   handleImageLoad = () => {
     this.setState({ loaded: true });
@@ -182,16 +186,11 @@ class Item extends React.PureComponent {
       thumbnail = (
         <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
           <video
+            ref={this.setVideoRef}
             className='media-gallery__item-gifv-thumbnail'
-            aria-label={attachment.get('description')}
-            title={attachment.get('description')}
-            role='application'
             src={gifsrc}
             type='video/mp4'
-            autoPlay={autoPlay}
             preload='auto'
-            loop
-            muted
             playsInline
           />
 
