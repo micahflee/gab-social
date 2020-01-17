@@ -70,6 +70,12 @@ class Item extends React.PureComponent {
     e.stopPropagation();
   }
 
+  onLoadedData = (e) => {
+    if (!this.hoverToPlay()) {
+      e.target.play();
+    }
+  };
+
   componentDidMount () {
     if (this.props.attachment.get('blurhash')) {
       this._decode();
@@ -188,9 +194,16 @@ class Item extends React.PureComponent {
           <video
             ref={this.setVideoRef}
             className='media-gallery__item-gifv-thumbnail'
+            aria-label={attachment.get('description')}
+            title={attachment.get('description')}
+            role='application'
             src={gifsrc}
             type='video/mp4'
+            autoPlay={autoPlay}
+            onLoadedData={this.onLoadedData}
             preload='auto'
+            loop
+            muted
             playsInline
           />
 
