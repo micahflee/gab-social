@@ -50,18 +50,10 @@ class Item extends React.PureComponent {
     }
   }
 
-  handleLoadedData = (e) => {
-    console.log("handleLoadedData:", e, this.hoverToPlay());
-    // if (!this.hoverToPlay()) {
-    //   e.target.play();
-    // }
-  }
-
   handleLoadedMetaData = (e) => {
-    console.log("handleLoadedMetaData:", e, this.hoverToPlay());
-    // if (!this.hoverToPlay()) {
-    //   e.target.play();
-    // }
+    if (!this.hoverToPlay()) {
+      e.target.play();
+    }
   }
 
   hoverToPlay () {
@@ -200,7 +192,6 @@ class Item extends React.PureComponent {
             onClick={this.handleClick}
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
-            onLoadedData={this.handleLoadedData}
             onLoadedMetadata={this.handleLoadedMetaData}
             autoPlay={autoPlay}
             type='video/mp4'
