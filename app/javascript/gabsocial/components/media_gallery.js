@@ -51,11 +51,11 @@ class Item extends React.PureComponent {
   }
 
   handleLoadedData = (e) => {
+    console.log("handleLoadedData:", e, this.hoverToPlay());
     if (!this.hoverToPlay()) {
       e.target.play();
     }
   }
-
 
   hoverToPlay () {
     const { attachment } = this.props;
