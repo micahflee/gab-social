@@ -57,6 +57,13 @@ class Item extends React.PureComponent {
     // }
   }
 
+  handleLoadedMetaData = (e) => {
+    console.log("handleLoadedMetaData:", e, this.hoverToPlay());
+    // if (!this.hoverToPlay()) {
+    //   e.target.play();
+    // }
+  }
+
   hoverToPlay () {
     const { attachment } = this.props;
     return autoPlayGif === false && attachment.get('type') === 'gifv';
@@ -194,6 +201,7 @@ class Item extends React.PureComponent {
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             onLoadedData={this.handleLoadedData}
+            onLoadedMetaData={this.handleLoadedMetaData}
             autoPlay={autoPlay}
             type='video/mp4'
             loop
