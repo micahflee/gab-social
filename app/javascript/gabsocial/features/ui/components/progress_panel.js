@@ -5,8 +5,9 @@ export default class ProgressPanel extends React.PureComponent {
   render() {
     if (!monthlyExpensesComplete) return null;
 
+    const completed = Math.min(monthlyExpensesComplete, 100);
     const style = {
-      width: `${monthlyExpensesComplete}%`,
+      width: `${completed}%`,
     };
 
     return (
@@ -18,7 +19,7 @@ export default class ProgressPanel extends React.PureComponent {
           <span className='progress-panel__text'>We are 100% funded by you.</span>
           <div className='progress-panel__bar-container'>
             <a className='progress-panel__bar' style={style} href='https://shop.dissenter.com/category/donations'>
-              <span className='progress-panel__bar__text'>{monthlyExpensesComplete}% covered this month</span>
+              <span className='progress-panel__bar__text'>{completed}% covered this month</span>
             </a>
           </div>
         </div>
