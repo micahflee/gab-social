@@ -72,6 +72,8 @@ en:
     unfollow: Unfollow
   promotions:
       title: Promotions
+  monthly_funding:
+    title: Monthly Funding
   admin:
     account_actions:
       action: Perform action

@@ -25,5 +25,6 @@ export const isStaff = getMeta('is_staff');
 export const forceSingleColumn = !getMeta('advanced_layout');
 export const promotions = initialState && initialState.promotions;
 export const unreadCount = getMeta('unread_count');
+export const monthlyExpensesComplete = getMeta('monthly_expenses_complete');
 
 export default initialState;

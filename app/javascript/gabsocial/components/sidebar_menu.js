@@ -14,6 +14,7 @@ import { closeSidebar } from '../actions/sidebar';
 import { shortNumberFormat } from '../utils/numbers';
 import { me } from '../initial_state';
 import { makeGetAccount } from '../selectors';
+import ProgressPanel from '../features/ui/components/progress_panel';
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -33,6 +34,7 @@ const messages = defineMessages({
   trends: { id: 'promo.trends', defaultMessage: 'Trends' },
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
   shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
+  donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
 })
 
 const mapStateToProps = state => {
@@ -139,6 +141,10 @@ class SidebarMenu extends ImmutablePureComponent {
 
             </div>
 
+            <div className='sidebar-menu__section'>
+              <ProgressPanel />
+            </div>
+
             <div className='sidebar-menu__section sidebar-menu__section--borderless'>
               <NavLink className='sidebar-menu-item' to={`/${acct}`} onClick={this.handleSidebarClose}>
                 <Icon id='user' fixedWidth />
@@ -151,10 +157,14 @@ class SidebarMenu extends ImmutablePureComponent {
                   <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.pro)}</span>
                 </a>
               }
-                <a className='sidebar-menu-item' href='https://shop.dissenter.com'>
-                  <Icon id='shopping-cart' fixedWidth />
-                  <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.shop)}</span>
-                </a>
+              <a className='sidebar-menu-item' href='https://shop.dissenter.com/category/donations'>
+                <Icon id='heart' fixedWidth />
+                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.donate)}</span>
+              </a>
+              <a className='sidebar-menu-item' href='https://shop.dissenter.com'>
+                <Icon id='shopping-cart' fixedWidth />
+                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.shop)}</span>
+              </a>
               <a className='sidebar-menu-item' href='https://trends.gab.com'>
                 <Icon id='signal' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.trends)}</span>
@@ -163,10 +173,6 @@ class SidebarMenu extends ImmutablePureComponent {
                 <Icon id='search' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.search)}</span>
               </NavLink>
-              <a className='sidebar-menu-item' href='https://apps.gab.com'>
-                <Icon id='th' fixedWidth />
-                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.apps)}</span>
-              </a>
               <a className='sidebar-menu-item' href='/settings/preferences'>
                 <Icon id='cog' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.preferences)}</span>

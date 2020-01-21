@@ -35,6 +35,13 @@ class PromoPanel extends React.PureComponent {
           }
 
           <div className={`promo-panel-item ${!isPro ? 'promo-panel-item--top-rounded' : ''}`}>
+            <a className='promo-panel-item__btn promo-panel-item__btn--special' href='https://shop.dissenter.com/category/donations'>
+              <Icon id='heart' className='promo-panel-item__icon' fixedWidth />
+              <FormattedMessage id='promo.donation' defaultMessage='Make a Donation' />
+            </a>
+          </div>
+
+          <div className='promo-panel-item'>
             <a className='promo-panel-item__btn' href='https://shop.dissenter.com'>
               <Icon id='shopping-cart' className='promo-panel-item__icon' fixedWidth />
               <FormattedMessage id='promo.store' defaultMessage='Store - Buy Merch' />

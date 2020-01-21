@@ -1702,6 +1702,12 @@ a.account__display-name {
 		font-size: 15px;
 		padding: 0 20px;
 
+		&--special {
+			i {
+				color: #30CE7D;
+			}
+		}
+
 		&:hover {
 			color: darken($primary-text-color, 14%);
 
@@ -5354,5 +5360,71 @@ noscript {
 		font-size: 10px;
 		padding-left: 2px;
 		margin-left: 2px;
+	}
+}
+
+.sidebar-menu .progress-panel {
+	padding-left: 12px;
+	padding-right: 12px;
+}
+
+.progress-panel {
+	background: none !important;
+	background-color: transparent !important;
+	box-shadow: none !important;
+	margin-top: 15px;
+
+	.progress-panel-header {
+		padding: 5px;
+    margin-bottom: 0;
+	}
+
+	&__content {
+		display: block;
+		padding: 0 5px;
+		box-sizing: border-box;
+	}
+
+	&__text {
+		display: block;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: $darker-text-color;
+	}
+
+	&__bar-container {
+		display: block;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 12px;
+    height: 22px;
+    overflow: hidden;
+		position: relative;
+		background-color: #555;
+		margin-top: 15px;
+		margin-bottom: 15px;
+	}
+
+	&__bar {
+		display: block;
+    width: 100%;
+    background-color: #32a269;
+    box-sizing: border-box;
+    border-radius: 10px;
+    height: 22px;
+		margin: -1px;
+
+		&__text {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			text-align: center;
+			font-size: 14px;
+			line-height: 22px;
+			font-weight: 600;
+			color: #fff;
+		}
 	}
 }

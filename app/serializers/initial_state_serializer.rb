@@ -37,6 +37,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:group_in_home_feed] = object.current_account.user.setting_group_in_home_feed
       store[:is_staff]           = object.current_account.user.staff?
       store[:unread_count]       = unread_count object.current_account
+      store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_ammount") || 0
     end
 
     store

@@ -10,6 +10,7 @@ import UserPanel from '../features/ui/components/user_panel';
 import ComposeFormContainer from '../features/compose/containers/compose_form_container';
 import Avatar from '../components/avatar';
 import GroupSidebarPanel from '../features/groups/sidebar_panel';
+import ProgressPanel from '../features/ui/components/progress_panel';
 
 const mapStateToProps = state => ({
   account: state.getIn(['accounts', me]),
@@ -28,6 +29,7 @@ class HomePage extends ImmutablePureComponent {
             <div className='columns-area__panels__pane columns-area__panels__pane--left'>
               <div className='columns-area__panels__pane__inner'>
                 <UserPanel />
+                <ProgressPanel />
                 <PromoPanel />
                 <LinkFooter />
               </div>
