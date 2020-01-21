@@ -201,7 +201,7 @@ class Item extends React.PureComponent {
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             onLoadedData={this.handleLoadedData}
-            onLoadedMetaData={this.handleLoadedMetaData}
+            onLoadedMetadata={this.handleLoadedMetaData}
             autoPlay={autoPlay}
             type='video/mp4'
             loop
