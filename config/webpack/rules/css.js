@@ -1,15 +1,25 @@
+const { join, resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { settings, themes } = require('../configuration');
+
+console.log("themes", themes);
+
+let pathy = resolve(join(settings.source_path, themes.default));
+
+console.log("pathy:", pathy);
 
 module.exports = {
   test: /\.s?css$/i,
   use: [
+    // 'style-loader',
     MiniCssExtractPlugin.loader,
     {
       loader: 'css-loader',
       options: {
         sourceMap: true,
         importLoaders: 2,
-        localIdentName: '[name]__[local]___[hash:base64:5]',
+        // modules: true,
+        // localIdentName: '[name]',
       },
     },
     {
@@ -23,12 +33,18 @@ module.exports = {
       options: {
         implementation: require('sass'),
         sourceMap: true,
+        includePaths: [pathy],
+        sassOptions: {
+          includePaths: [pathy],
+        }
       },
     },
     {
       loader: 'sass-resources-loader',
       options: {
-        resources: `${process.cwd()}/app/javascript/styles/base.scss`,
+        resources: [
+          pathy,
+        ]
       },
     },
   ],
