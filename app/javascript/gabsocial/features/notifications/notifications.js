@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
 import { debounce } from 'lodash';
 import Column from '../../components/column';
-import ColumnHeader from '../../components/column_header';
+import { ColumnHeader } from '../../components/column_header';
 import {
   expandNotifications,
   scrollTopNotifications,

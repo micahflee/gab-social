@@ -101,7 +101,7 @@ class Create extends PureComponent {
 						disabled={disabled}
 						onChange={this.handleCoverImageChange}
 					/>
-					<button className='standard-small'>{intl.formatMessage(messages.create)}</button>
+					<button className='button'>{intl.formatMessage(messages.create)}</button>
 				</div>
 			</form>
 		);

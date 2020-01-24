@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import Column from '../column';
-import ColumnHeader from '../column_header';
+import { ColumnHeader } from '../column_header';
 import IconButton from '../icon_button';
 
 import './bundle_column_error.scss';

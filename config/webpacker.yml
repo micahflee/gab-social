@@ -58,6 +58,7 @@ development:
     host: localhost
     port: 3035
     public: localhost:3035
+    # : todo :
     hmr: false
     # Inline should be set to true if using HMR
     inline: true

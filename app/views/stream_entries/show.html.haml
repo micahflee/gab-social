@@ -21,5 +21,3 @@
   .column-0
     .activity-stream.h-entry
       = render partial: "stream_entries/#{@type}", locals: { @type.to_sym => @stream_entry.activity, include_threads: true }
-  .column-1
-    = render 'application/sidebar'

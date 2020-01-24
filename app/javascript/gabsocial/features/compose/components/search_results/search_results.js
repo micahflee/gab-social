@@ -5,7 +5,7 @@ import AccountContainer from '../../../../containers/account_container';
 import StatusContainer from '../../../../containers/status_container';
 import TrendingItem from '../../../../components/trending_item';
 import Icon from '../../../../components/icon';
-import WhoToFollowPanel from '../../../../components/panel';
+import { WhoToFollowPanel } from '../../../../components/panel';
 
 import './search_results.scss';
 

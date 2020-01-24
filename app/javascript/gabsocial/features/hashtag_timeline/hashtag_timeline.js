@@ -1,6 +1,6 @@
 import StatusListContainer from '../../containers/status_list_container';
 import Column from '../../components/column';
-import ColumnHeader from '../../components/column_header';
+import { ColumnHeader } from '../../components/column_header';
 import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines';
 import { FormattedMessage } from 'react-intl';
 import { connectHashtagStream } from '../../actions/streaming';

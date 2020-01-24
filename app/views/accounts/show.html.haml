@@ -51,19 +51,7 @@
             .entry= link_to_more @older_url
 
   .column-1
-    - if @account.memorial?
-      .memoriam-widget= t('in_memoriam_html')
-    - elsif @account.moved?
-      = render 'moved', account: @account
-
     = render 'bio', account: @account
-
-    - unless @endorsed_accounts.empty?
-      .endorsements-widget
-        %h4= t 'accounts.choices_html', name: content_tag(:bdi, display_name(@account, custom_emojify: true))
-
-        - @endorsed_accounts.each do |account|
-          = account_link_to account
 
     - @account.featured_tags.order(statuses_count: :desc).each do |featured_tag|
       .directory__tag{ class: params[:tag] == featured_tag.name ? 'active' : nil }
@@ -77,5 +65,3 @@
               - else
                 %time{ datetime: featured_tag.last_status_at.iso8601, title: l(featured_tag.last_status_at) }= l featured_tag.last_status_at
           .trends__item__current= number_to_human featured_tag.statuses_count, strip_insignificant_zeros: true
-
-    = render 'application/sidebar'

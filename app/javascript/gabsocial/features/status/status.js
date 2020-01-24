@@ -32,12 +32,12 @@ import {
 import { initMuteModal } from '../../actions/mutes';
 import { initReport } from '../../actions/reports';
 import { makeGetStatus } from '../../selectors';
-import ColumnHeader from '../../components/column_header';
+import { ColumnHeader } from '../../components/column_header';
 import StatusContainer from '../../containers/status_container';
 import { openModal } from '../../actions/modal';
 import { boostModal, deleteModal, me } from '../../initial_state';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../../utils/fullscreen';
-import { textForScreenReader, defaultMediaVisibility } from '../../components/status';
+import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status';
 import Icon from '../../components/icon';
 import ColumnIndicator from '../../components/column_indicator';
 

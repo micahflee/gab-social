@@ -2,10 +2,10 @@ const { join, resolve } = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { settings, themes } = require('../configuration');
 
-console.log("themes", themes);
-
 let pathy = resolve(join(settings.source_path, themes.default));
 
+console.log("themes", themes);
+console.log("settings:", settings);
 console.log("pathy:", pathy);
 
 module.exports = {
@@ -33,10 +33,6 @@ module.exports = {
       options: {
         implementation: require('sass'),
         sourceMap: true,
-        includePaths: [pathy],
-        sassOptions: {
-          includePaths: [pathy],
-        }
       },
     },
     {

@@ -632,66 +632,6 @@ $small-breakpoint: 960px;
     border-radius: 0;
   }
 
-  .hero-widget {
-    @include vertical-margin(30px, 0);
-
-    h4 {
-      padding: 10px;
-      text-transform: uppercase;
-      color: $darker-text-color;
-
-      @include text-sizing(13px, 700);
-    }
-
-    &__text {
-      border-radius: 0;
-      padding-bottom: 0;
-    }
-
-    &__footer {
-      background: $ui-base-color;
-      padding: 10px;
-      border-radius: 0 0 4px 4px;
-      display: flex;
-
-      &__column {
-        flex: 1 1 50%;
-      }
-    }
-
-    .account {
-      padding: 10px 0;
-      border-bottom: 0;
-
-      .account__display-name {
-        display: flex;
-        align-items: center;
-      }
-
-      .account__avatar {
-        background-size: 44px 44px;
-
-        @include size(44px);
-      }
-    }
-
-    &__counter {
-      padding: 10px;
-
-      strong {
-        font-family: $font-display, sans-serif;
-        display: block;
-
-        @include text-sizing(15px, 700);
-      }
-
-      span {
-        font-size: 14px;
-        color: $darker-text-color;
-      }
-    }
-  }
-
   .simple_form .user_agreement .label_input > label {
     font-weight: 400;
     color: $darker-text-color;
@@ -724,13 +664,6 @@ $small-breakpoint: 960px;
           order: 2;
           flex: 0 0 auto;
         }
-
-        .hero-widget {
-          order: 1;
-          flex: 0 0 auto;
-
-          @include vertical-margin(0, 10px);
-        }
       }
 
       &__column-registration {
@@ -745,19 +678,6 @@ $small-breakpoint: 960px;
     @media screen and (max-width: $no-gap-breakpoint) {
       grid-gap: 0;
 
-      .hero-widget {
-        display: block;
-        margin-bottom: 0;
-        box-shadow: none;
-
-        &__img,
-        &__img img,
-        &__footer {
-          border-radius: 0;
-        }
-      }
-
-      .hero-widget,
       .box-widget,
       .directory__tag {
         border-bottom: 1px solid lighten($ui-base-color, 8%);

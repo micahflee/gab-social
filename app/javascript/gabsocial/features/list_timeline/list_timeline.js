@@ -10,7 +10,7 @@ import { fetchList, deleteList } from '../../actions/lists';
 import { openModal } from '../../actions/modal';
 import ColumnIndicator from '../../components/column_indicator';
 import Icon from '../../components/icon';
-import HomeColumnHeader from '../../components/column_header';
+import { HomeColumnHeader } from '../../components/column_header';
 import Button from '../../components/button';
 import ColumnHeaderSettingButton from '../../components/column_header_setting_button';
 

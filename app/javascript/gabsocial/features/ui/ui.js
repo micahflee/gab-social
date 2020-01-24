@@ -18,7 +18,7 @@ import { openModal } from '../../actions/modal';
 import WrappedRoute from './util/wrapped_route';
 import UploadArea from '../../components/upload_area';
 import TabsBar from '../../components/tabs_bar';
-import WhoToFollowPanel from '../../components/panel';
+import { WhoToFollowPanel } from '../../components/panel';
 import LinkFooter from '../../components/link_footer';
 import ProfilePage from 'gabsocial/pages/profile_page';
 import GroupPage from 'gabsocial/pages/group_page';
@@ -65,6 +65,7 @@ import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
 import { Fragment } from 'react';
 
+import '../../../styles/application.scss';
 import './ui.scss';
 
 const messages = defineMessages({

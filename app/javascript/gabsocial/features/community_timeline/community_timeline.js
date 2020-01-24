@@ -2,7 +2,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import StatusListContainer from '../../containers/status_list_container';
 import Column from '../../components/column';
 import ColumnSettings from './components/column_settings';
-import HomeColumnHeader from '../../components/column_header';
+import { HomeColumnHeader } from '../../components/column_header';
 import {
   expandCommunityTimeline,
   expandPublicTimeline,

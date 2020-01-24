@@ -8,11 +8,20 @@ const AssetsManifestPlugin = require('webpack-assets-manifest');
 const extname = require('path-complete-extname');
 const { env, settings, themes, output } = require('./configuration');
 const rules = require('./rules');
-const localePackPaths = require('./generateLocalePacks');
+const localePackPaths = [
+  '/Users/m3/Documents/dev/gab-social-2/tmp/packs/locale_en.js',
+];
+//require('./generateLocalePacks');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
 const packPaths = sync(join(entryPath, extensionGlob));
+
+console.log("localePackPaths", localePackPaths);
+console.log("packPaths:", packPaths);
+console.log("env:", env);
+console.log("settings:", settings);
+console.log("output:", output);
 
 module.exports = {
   entry: Object.assign(
@@ -27,10 +36,6 @@ module.exports = {
       localMap[basename(entry, extname(entry, extname(entry)))] = resolve(entry);
       return localMap;
     }, {}),
-    Object.keys(themes).reduce((themePaths, name) => {
-      themePaths[name] = resolve(join(settings.source_path, themes[name]));
-      return themePaths;
-    }, {})
   ),
 
   output: {
