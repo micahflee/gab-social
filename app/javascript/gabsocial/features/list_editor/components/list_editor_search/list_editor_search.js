@@ -48,7 +48,7 @@ class ListEditorSearch extends PureComponent {
   }
 
   render () {
-    const { value, intl, ...rest } = this.props;
+    const { value, intl } = this.props;
 
     return (
       <Search
@@ -60,7 +60,6 @@ class ListEditorSearch extends PureComponent {
         handleSubmit={this.handleSubmit}
         handleClear={this.handleClear}
         searchTitle={intl.formatMessage(messages.searchTitle)}
-        {...rest}
       />
     )
   }

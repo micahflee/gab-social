@@ -157,7 +157,7 @@ class AccountGallery extends ImmutablePureComponent {
   }
 
   render () {
-    const { attachments, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername } = this.props;
+    const { attachments, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername, intl } = this.props;
     const { width } = this.state;
 
     if (!isAccount && accountId !== -1) {

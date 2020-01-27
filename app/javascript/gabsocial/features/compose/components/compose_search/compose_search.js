@@ -50,7 +50,7 @@ class ComposeSearch extends PureComponent {
   }
 
   render () {
-    const { intl, value, onShow, ...rest } = this.props;
+    const { intl, value, onShow, openInRoute } = this.props;
 
     return (
       <Search
@@ -61,7 +61,7 @@ class ComposeSearch extends PureComponent {
         handleClear={this.handleClear}
         onShow={onShow}
         withOverlay
-        {...rest}
+        openInRoute
       />
     )
   }

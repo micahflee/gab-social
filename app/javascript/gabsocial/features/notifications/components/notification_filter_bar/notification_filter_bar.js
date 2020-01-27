@@ -1,7 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import SectionHeadlineBar from '../../../../components/section_headline_bar';
 
-const tooltips = defineMessages({
+const messages = defineMessages({
   mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
   favourites: { id: 'notifications.filter.favourites', defaultMessage: 'Favorites' },
   boosts: { id: 'notifications.filter.boosts', defaultMessage: 'Reposts' },
@@ -58,33 +58,33 @@ class NotificationFilterBar extends PureComponent {
           {
             className: selectedFilter === 'mention' ? 'active' : '',
             onClick: this.onClick('mention'),
-            title: intl.formatMessage(tooltips.mentions),
+            title: intl.formatMessage(messages.mentions),
             icon: 'at',
           },
           {
             className: selectedFilter === 'favourite' ? 'active' : '',
             onClick: this.onClick('favourite'),
-            title: intl.formatMessage(tooltips.favourites),
+            title: intl.formatMessage(messages.favourites),
             icon: 'star',
           },
           {
             className: selectedFilter === 'reblog' ? 'active' : '',
             onClick: this.onClick('reblog'),
-            title: intl.formatMessage(tooltips.boosts),
+            title: intl.formatMessage(messages.boosts),
             icon: 'retweet',
           },
           {
             className: selectedFilter === 'poll' ? 'active' : '',
             onClick: this.onClick('poll'),
-            title: intl.formatMessage(tooltips.polls),
+            title: intl.formatMessage(messages.polls),
             icon: 'tasks',
           },
           {
             className: selectedFilter === 'follow' ? 'active' : '',
             onClick: this.onClick('follow'),
-            title: intl.formatMessage(tooltips.follows),
+            title: intl.formatMessage(messages.follows),
             icon: 'user-plus',
-          }
+          },
         ]}
       />
     )

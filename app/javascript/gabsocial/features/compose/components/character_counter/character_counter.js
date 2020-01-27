@@ -17,9 +17,11 @@ export default class CharacterCounter extends PureComponent {
       'character-counter--over': (diff < 0),
     });
 
-    <div className='character-counter__wrapper'>
-      <span className={classes}>{diff}</span>
-    </div>
+    return (
+      <div className='character-counter__wrapper'>
+        <span className={classes}>{diff}</span>
+      </div>
+    )
   }
 
 }

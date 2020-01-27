@@ -420,7 +420,7 @@ class Status extends ImmutablePureComponent {
     const { fullscreen } = this.state;
 
     if (status === null) {
-      return (<ColumnIndicator type='missing' />);
+      return (<ColumnIndicator type='loading' />);
     }
 
     if (ancestorsIds && ancestorsIds.size > 0) {

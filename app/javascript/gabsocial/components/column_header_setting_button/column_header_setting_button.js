@@ -9,12 +9,12 @@ export default class ColumnHeaderSettingButton extends PureComponent {
   static propTypes = {
     title: PropTypes.node.isRequired,
     icon: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
+    onClick: PropTypes.func,
     to: PropTypes.string,
   };
 
   render () {
-    const { title, icon, to } = this.props;
+    const { title, icon, to, onClick } = this.props;
 
     const classes = classNames('column-header-setting-btn', {
       'column-header-setting-btn--link': !!to
@@ -30,7 +30,7 @@ export default class ColumnHeaderSettingButton extends PureComponent {
     }
 
     return (
-      <button className={classes} tabIndex='0' onClick={this.props.onClick}>
+      <button className={classes} tabIndex='0' onClick={onClick}>
         <Icon id={icon} />
         {title}
       </button>

@@ -8,7 +8,7 @@ class SectionHeadlineBarItem extends PureComponent {
     icon: PropTypes.string,
     className: PropTypes.string,
     onClick: PropTypes.func,
-    title: PropTypes.oneOf([
+    title: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.node,
     ]),
@@ -21,14 +21,20 @@ class SectionHeadlineBarItem extends PureComponent {
     const classes = classNames('section-header-bar__item', className);
 
     if (to) {
-      return (<NavLink className={classes} exact={exact} to={to}>{title}</NavLink>);
+      return (
+        <NavLink className={classes} exact={exact} to={to}>{title}</NavLink>
+      )
     } else if (icon) {
-      <button className={classes} onClick={onClick} title={title}>
-        <Icon id={icon} fixedWidth />
-      </button>
+      return (
+        <button className={classes} onClick={onClick} title={title}>
+          <Icon id={icon} fixedWidth />
+        </button>
+      )
     }
 
-    return (<button className={classes} onClick={onClick}>{title}</button>)
+    return (
+      <button className={classes} onClick={onClick}>{title}</button>
+    )
   }
 };
 
@@ -46,8 +52,8 @@ export default class SectionHeadlineBar extends PureComponent {
     return (
       <div className={classes}>
         {
-          items.forEach(item, i => (
-            <SectionHeadlineBarItem key={`shbi-{i}`} {...item} />
+          items.forEach((item, i) => (
+            <SectionHeadlineBarItem key={`shbi-${i}`} {...item} />
           ))
         }
       </div>

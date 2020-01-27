@@ -3,6 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { openModal } from '../../../actions/modal';
 import { cancelReplyCompose } from '../../../actions/compose';
 import ModalLayout from '../modal_layout';
+import TimelineComposeBlock from '../../timeline_compose_block';
 
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -46,7 +47,7 @@ class ComposeModal extends ImmutablePureComponent {
     const { intl } = this.props;
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.title)} onClose={onClickClose}>
+      <ModalLayout title={intl.formatMessage(messages.title)} onClose={this.onClickClose}>
         <TimelineComposeBlock />
       </ModalLayout>
     );

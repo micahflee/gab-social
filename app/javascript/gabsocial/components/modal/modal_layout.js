@@ -16,7 +16,7 @@ class ModalLayout extends PureComponent {
   };
 
   render() {
-    const { title, children } = this.props;
+    const { title, children, intl, onClose } = this.props;
 
     return (
       <div className='modal modal--layout modal--root'>

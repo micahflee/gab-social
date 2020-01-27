@@ -6,6 +6,8 @@ import classNames from 'classnames';
 import { decode } from 'blurhash';
 import { isIOS } from 'gabsocial/utils/is_mobile';
 
+import './media_item.scss';
+
 export default class MediaItem extends ImmutablePureComponent {
 
   static propTypes = {

@@ -43,7 +43,6 @@ const mapStateToProps = (state, { params: { username } }) => {
 
 
 export default @connect(mapStateToProps)
-@injectIntl
 class Following extends ImmutablePureComponent {
 
   static propTypes = {

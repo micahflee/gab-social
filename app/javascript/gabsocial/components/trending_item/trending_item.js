@@ -14,6 +14,8 @@ export default class TrendingItem extends ImmutablePureComponent {
   };
 
   render() {
+    const { hashtag } = this.props;
+    
     return (
       <div className='trending-item'>
         <div className='trending-item__text'>
