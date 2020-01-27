@@ -73,6 +73,6 @@
     overflow: hidden;
 
     @include size(100%, 140px);
-    @include background-image;
+    @include background-image("");
   }
 }

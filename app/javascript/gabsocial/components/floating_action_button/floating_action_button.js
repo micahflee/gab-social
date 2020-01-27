@@ -1,3 +1,5 @@
+import ComposeIcon from './assets/compose_icon';
+
 import './floating_action_button.scss';
 
 export default class FloatingActionButton extends Component {
@@ -6,19 +8,17 @@ export default class FloatingActionButton extends Component {
     message: PropTypes.string.isRequired,
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextProps.message !== this.props.message) {
-      return true;
-    }
-
-    return false;
+  shouldComponentUpdate(nextProps) {
+    return nextProps.message !== this.props.message;
   }
 
   render() {
     const { onClick, message } = this.props;
 
     return (
-      <button onClick={onClick} className='floating-action-button' aria-label={message} />
+      <button onClick={onClick} className='floating-action-button' aria-label={message}>
+        <ComposeIcon />
+      </button>
     )
   }
 }

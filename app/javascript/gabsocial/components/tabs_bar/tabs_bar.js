@@ -8,6 +8,13 @@ import SearchContainer from 'gabsocial/features/compose/containers/search_contai
 import Avatar from '../avatar';
 import ActionBar from 'gabsocial/features/compose/components/action_bar';
 import { openModal } from '../../actions/modal';
+import GabLogo from './assets/gab_logo/gab_logo';
+import {
+  GroupIcon,
+  HomeIcon,
+  NotificationsIcon,
+  SearchIcon,
+} from './assets/tabs_bar_icon';
 
 import './tabs_bar.scss';
 
@@ -41,8 +48,9 @@ class TabsBar extends ImmutablePureComponent {
         <nav className='tabs-bar'>
           <div className='tabs-bar__container'>
             <div className='tabs-bar__split tabs-bar__split--left'>
-              <a className='tabs-bar-item--logo' href='/#' data-preview-title-id='column.home' style={{ padding: '0' }}>
+              <a className='tabs-bar-item--logo' href='/#' data-preview-title-id='column.home'>
                 <FormattedMessage id='tabs_bar.home' defaultMessage='Home' />
+                <GabLogo />
               </a>
               <a className='tabs-bar-item home' href='/home' data-preview-title-id='column.home'  >
                 <FormattedMessage id='tabs_bar.home' defaultMessage='Home' />
@@ -73,20 +81,25 @@ class TabsBar extends ImmutablePureComponent {
       <nav className='tabs-bar'>
         <div className='tabs-bar__container'>
           <div className='tabs-bar__split tabs-bar__split--left'>
-            <NavLink className='tabs-bar-item--logo' to='/home#' data-preview-title-id='column.home' style={{ padding: '0' }}>
+            <NavLink className='tabs-bar-item--logo' to='/home#' data-preview-title-id='column.home'>
               <FormattedMessage id='tabs_bar.home' defaultMessage='Home' />
+              <GabLogo />
             </NavLink>
             <NavLink className='tabs-bar-item home' to='/home' data-preview-title-id='column.home'  >
+              <HomeIcon />
               <FormattedMessage id='tabs_bar.home' defaultMessage='Home' />
             </NavLink>
             <NavLink className='tabs-bar-item notifications' to='/notifications' data-preview-title-id='column.notifications' >
+              <NotificationsIcon />
               <NotificationsCounter />
               <FormattedMessage id='tabs_bar.notifications' defaultMessage='Notifications' />
             </NavLink>
             <NavLink className='tabs-bar-item groups' to='/groups' data-preview-title-id='column.groups' >
+              <GroupIcon />
               <FormattedMessage id='tabs_bar.groups' defaultMessage='Groups' />
             </NavLink>
             <NavLink className='tabs-bar-item optional' to='/search' data-preview-title-id='tabs_bar.search' >
+              <SearchIcon />
               <FormattedMessage id='tabs_bar.search' defaultMessage='Search' />
             </NavLink>
           </div>

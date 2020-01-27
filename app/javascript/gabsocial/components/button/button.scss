@@ -1,7 +1,6 @@
 .button {
   display: inline-block;
   font-family: inherit;
-  padding: 0 16px;
   position: relative;
   text-decoration: none;
   background-color: $ui-highlight-color;
@@ -10,9 +9,9 @@
   cursor: pointer;
 
   @include border-design(transparent, 10px, 4px);
-  @include text-sizing(14px, 500, 36px, center);
+  @include text-sizing(14px, 600, 1em, center);
   @include size(auto, 36px);
-  @include text-overflow(nowrap);
+  // @include text-overflow(nowrap);
 
   &:active,
   &:focus,
