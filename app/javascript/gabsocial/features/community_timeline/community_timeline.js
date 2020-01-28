@@ -1,8 +1,11 @@
+import React from 'react';
+import { connect } from 'react-redux';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import StatusListContainer from '../../containers/status_list_container';
+import PropTypes from 'prop-types';
+import StatusListContainer from '../ui/containers/status_list_container';
 import Column from '../../components/column';
-import ColumnSettings from './components/column_settings';
-import { HomeColumnHeader } from '../../components/column_header';
+import ColumnSettingsContainer from './containers/column_settings_container';
+import HomeColumnHeader from '../../components/home_column_header';
 import {
   expandCommunityTimeline,
   expandPublicTimeline,
@@ -32,15 +35,10 @@ const mapStateToProps = state => {
 
 export default @connect(mapStateToProps)
 @injectIntl
-class CommunityTimeline extends PureComponent {
+class CommunityTimeline extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
-
-  static defaultProps = {
-    onlyMedia: false,
-    allFediverse: false,
   };
 
   static propTypes = {
@@ -104,9 +102,9 @@ class CommunityTimeline extends PureComponent {
     const { intl, hasUnread, onlyMedia, timelineId, allFediverse } = this.props;
 
     return (
-      <Column heading={intl.formatMessage(messages.title)}>
+      <Column label={intl.formatMessage(messages.title)}>
         <HomeColumnHeader activeItem='all' active={hasUnread} >
-          <ColumnSettings />
+          <ColumnSettingsContainer />
         </HomeColumnHeader>
         <StatusListContainer
           scrollKey={`${timelineId}_timeline`}

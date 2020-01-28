@@ -1,14 +1,14 @@
-import { defineMessages, injectIntl } from 'react-intl';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { fromJS, is } from 'immutable';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
-import { decode } from 'blurhash';
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/fullscreen';
-import { getPointerPosition } from '../../utils/element_position';
+import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
 import { displayMedia } from '../../initial_state';
-import Icon from '../../components/icon';
-
-import './video.scss';
+import Icon from 'gabsocial/components/icon';
+import { decode } from 'blurhash';
+import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio';
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },
@@ -20,8 +20,6 @@ const messages = defineMessages({
   close: { id: 'video.close', defaultMessage: 'Close video' },
   fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
   exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
-  warning: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
-  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
 });
 
 const formatTime = secondsNum => {
@@ -36,8 +34,61 @@ const formatTime = secondsNum => {
   return (hours === '00' ? '' : `${hours}:`) + `${minutes}:${seconds}`;
 };
 
+export const findElementPosition = el => {
+  let box;
+
+  if (el.getBoundingClientRect && el.parentNode) {
+    box = el.getBoundingClientRect();
+  }
+
+  if (!box) {
+    return {
+      left: 0,
+      top: 0,
+    };
+  }
+
+  const docEl = document.documentElement;
+  const body = document.body;
+
+  const clientLeft = docEl.clientLeft || body.clientLeft || 0;
+  const scrollLeft = window.pageXOffset || body.scrollLeft;
+  const left = (box.left + scrollLeft) - clientLeft;
+
+  const clientTop = docEl.clientTop || body.clientTop || 0;
+  const scrollTop = window.pageYOffset || body.scrollTop;
+  const top = (box.top + scrollTop) - clientTop;
+
+  return {
+    left: Math.round(left),
+    top: Math.round(top),
+  };
+};
+
+export const getPointerPosition = (el, event) => {
+  const position = {};
+  const box = findElementPosition(el);
+  const boxW = el.offsetWidth;
+  const boxH = el.offsetHeight;
+  const boxY = box.top;
+  const boxX = box.left;
+
+  let pageY = event.pageY;
+  let pageX = event.pageX;
+
+  if (event.changedTouches) {
+    pageX = event.changedTouches[0].pageX;
+    pageY = event.changedTouches[0].pageY;
+  }
+
+  position.y = Math.max(0, Math.min(1, (pageY - boxY) / boxH));
+  position.x = Math.max(0, Math.min(1, (pageX - boxX) / boxW));
+
+  return position;
+};
+
 export default @injectIntl
-class Video extends PureComponent {
+class Video extends React.PureComponent {
 
   static propTypes = {
     preview: PropTypes.string,
@@ -57,6 +108,7 @@ class Video extends PureComponent {
     intl: PropTypes.object.isRequired,
     blurhash: PropTypes.string,
     link: PropTypes.node,
+    aspectRatio: PropTypes.number,
   };
 
   state = {
@@ -154,13 +206,11 @@ class Video extends PureComponent {
 
     if (!isNaN(x)) {
       var slideamt = x;
-
       if (x > 1) {
         slideamt = 1;
       } else if (x < 0) {
         slideamt = 0;
       }
-
       this.video.volume = slideamt;
       this.setState({ volume: slideamt });
     }
@@ -294,6 +344,7 @@ class Video extends PureComponent {
   }
 
   handleProgress = () => {
+    if (!this.video.buffered) return;
     if (this.video.buffered.length > 0) {
       this.setState({ buffer: this.video.buffered.end(0) / this.video.duration * 100 });
     }
@@ -325,7 +376,7 @@ class Video extends PureComponent {
   }
 
   render() {
-    const { preview, src, inline, startTime, onOpenVideo, onCloseVideo, intl, alt, detailed, sensitive, link } = this.props;
+    const { preview, src, inline, startTime, onOpenVideo, onCloseVideo, intl, alt, detailed, sensitive, link, aspectRatio } = this.props;
     const { containerWidth, currentTime, duration, volume, buffer, dragging, paused, fullscreen, hovered, muted, revealed } = this.state;
     const progress = (currentTime / duration) * 100;
 
@@ -337,7 +388,15 @@ class Video extends PureComponent {
 
     if (inline && containerWidth) {
       width = containerWidth;
-      height = containerWidth / (16 / 9);
+      const minSize = containerWidth / (16 / 9);
+
+      if (isPanoramic(aspectRatio)) {
+        height = Math.max(Math.floor(containerWidth / maximumAspectRatio), minSize);
+      } else if (isPortrait(aspectRatio)) {
+        height = Math.max(Math.floor(containerWidth / minimumAspectRatio), minSize);
+      } else {
+        height = Math.floor(containerWidth / aspectRatio);
+      }
 
       playerStyle.height = height;
     }
@@ -350,6 +409,14 @@ class Video extends PureComponent {
       preload = 'metadata';
     } else {
       preload = 'none';
+    }
+
+    let warning;
+
+    if (sensitive) {
+      warning = <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' />;
+    } else {
+      warning = <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />;
     }
 
     return (
@@ -366,6 +433,7 @@ class Video extends PureComponent {
         <canvas width={32} height={32} ref={this.setCanvasRef} className={classNames('media-gallery__preview', { 'media-gallery__preview--hidden': revealed })} />
 
         {revealed && <video
+          playsInline
           ref={this.setVideoRef}
           src={src}
           poster={preview}
@@ -389,7 +457,7 @@ class Video extends PureComponent {
 
         <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed })}>
           <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-            <span className='spoiler-button__overlay__label'>{intl.formatMessage(sensitive ? messages.warning : messages.hidden)}</span>
+            <span className='spoiler-button__overlay__label'>{warning}</span>
           </button>
         </div>
 

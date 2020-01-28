@@ -1,36 +1,44 @@
 'use strict';
 
 import classNames from 'classnames';
+import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { defineMessages, injectIntl } from 'react-intl';
+import { connect } from 'react-redux';
 import { Switch, Redirect, withRouter } from 'react-router-dom';
-import NotificationsContainer from '../../containers/notifications_container';
-import LoadingBarContainer from '../../containers/loading_bar_container';
-import ModalContainer from '../../containers/modal_container';
-import { isMobile } from '../../utils/is_mobile';
+import PropTypes from 'prop-types';
+import NotificationsContainer from './containers/notifications_container';
+import LoadingBarContainer from './containers/loading_bar_container';
+import ModalContainer from './containers/modal_container';
+import { isMobile } from '../../is_mobile';
 import { debounce } from 'lodash';
 import { uploadCompose, resetCompose } from '../../actions/compose';
 import { expandHomeTimeline } from '../../actions/timelines';
-import { expandNotifications } from '../../actions/notifications';
+import {
+  initializeNotifications,
+  expandNotifications,
+} from '../../actions/notifications';
 import { fetchFilters } from '../../actions/filters';
 import { clearHeight } from '../../actions/height_cache';
 import { openModal } from '../../actions/modal';
-import WrappedRoute from './util/wrapped_route';
-import UploadArea from '../../components/upload_area';
-import TabsBar from '../../components/tabs_bar';
-import { WhoToFollowPanel } from '../../components/panel';
-import LinkFooter from '../../components/link_footer';
+import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
+import UploadArea from './components/upload_area';
+import TabsBar from './components/tabs_bar';
+import FooterBar from './components/footer_bar';
+// import TrendsPanel from './components/trends_panel';
+import WhoToFollowPanel from './components/who_to_follow_panel';
+import LinkFooter from './components/link_footer';
 import ProfilePage from 'gabsocial/pages/profile_page';
+import GroupsPage from 'gabsocial/pages/groups_page';
 import GroupPage from 'gabsocial/pages/group_page';
 import SearchPage from 'gabsocial/pages/search_page';
 import HomePage from 'gabsocial/pages/home_page';
 import GroupSidebarPanel from '../groups/sidebar_panel';
-import FloatingActionButton from '../../components/floating_action_button';
-import PromoPanel from '../../components/promo_panel/promo_panel';
-import UserPanel from '../../components/user_panel/user_panel';
+import SidebarMenu from '../../components/sidebar_menu';
 
 import {
   Status,
+  GettingStarted,
   CommunityTimeline,
   AccountTimeline,
   AccountGallery,
@@ -38,6 +46,8 @@ import {
   Followers,
   Following,
   Reblogs,
+  Favourites,
+  DirectTimeline,
   HashtagTimeline,
   Notifications,
   FollowRequests,
@@ -48,6 +58,7 @@ import {
   Mutes,
   PinnedStatuses,
   Search,
+  Explore,
   Groups,
   GroupTimeline,
   ListTimeline,
@@ -58,15 +69,13 @@ import {
   GroupEdit,
 } from './util/async-components';
 import { me, meUsername } from '../../initial_state';
+import { previewState as previewMediaState } from './components/media_modal';
+import { previewState as previewVideoState } from './components/video_modal';
 
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
-import { Fragment } from 'react';
-
-import '../../../styles/application.scss';
-import './ui.scss';
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
@@ -114,46 +123,30 @@ const LAYOUT = {
     RIGHT: null,
   },
   DEFAULT: {
-    LEFT: (
-      <Fragment>
-        <WhoToFollowPanel />
-        <LinkFooter />
-      </Fragment>
-    ),
-    RIGHT: <GroupSidebarPanel />
+    LEFT: [
+      <WhoToFollowPanel key='0' />,
+      <LinkFooter key='1' />,
+    ],
+    RIGHT: [
+      // <TrendsPanel />,
+      <GroupSidebarPanel key='0' />
+    ],
   },
   STATUS: {
     TOP: null,
     LEFT: null,
-    RIGHT: (
-      <Fragment>
-        <GroupSidebarPanel />
-        <WhoToFollowPanel />
-        <LinkFooter />
-      </Fragment>
-    ),
+    RIGHT: [
+      <GroupSidebarPanel key='0' />,
+      <WhoToFollowPanel key='1' />,
+      // <TrendsPanel />,
+      <LinkFooter key='2' />,
+    ],
   },
-  GROUPS: {
-    TOP: null,
-    LEFT: (
-      <Fragment>
-        <UserPanel />
-        <PromoPanel />
-        <LinkFooter />
-      </Fragment>
-    ),
-    RIGHT: (
-      <Fragment>
-        <GroupSidebarPanel />
-        <WhoToFollowPanel />
-      </Fragment>
-    ),
-  }
 };
 
-const shouldHideFAB = path => path.match(/^\/posts\/|^\/search/);
+const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
 
-class SwitchingColumnsArea extends PureComponent {
+class SwitchingColumnsArea extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -187,7 +180,8 @@ class SwitchingColumnsArea extends PureComponent {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, account } = this.props;
+    const { mobile } = this.state;
 
     return (
       <Switch>
@@ -195,23 +189,26 @@ class SwitchingColumnsArea extends PureComponent {
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
         <WrappedRoute path='/timeline/all' exact page={HomePage} component={CommunityTimeline} content={children} />
 
-        <WrappedRoute path='/groups' exact layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
-        <WrappedRoute path='/groups/create' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
-        <WrappedRoute path='/groups/browse/member' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
-        <WrappedRoute path='/groups/browse/admin' layout={LAYOUT.GROUPS} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
+        <WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/create' page={GroupsPage} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/browse/member' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
+        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
-        <WrappedRoute path='/tags/:id' component={HashtagTimeline} content={children} />
+        <WrappedRoute path='/tags/:id' publicRoute component={HashtagTimeline} content={children} />
 
         <WrappedRoute path='/lists' layout={LAYOUT.DEFAULT} component={Lists} content={children} />
         <WrappedRoute path='/list/:id' page={HomePage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' layout={LAYOUT.DEFAULT} component={Notifications} content={children} />
 
-        <WrappedRoute path='/search' publicRoute page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/people' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/groups' exact page={SearchPage} component={Search} content={children} />
 
         <WrappedRoute path='/follow_requests' layout={LAYOUT.DEFAULT} component={FollowRequests} content={children} />
         <WrappedRoute path='/blocks' layout={LAYOUT.DEFAULT} component={Blocks} content={children} />
@@ -257,7 +254,7 @@ class SwitchingColumnsArea extends PureComponent {
 export default @connect(mapStateToProps)
 @injectIntl
 @withRouter
-class UI extends PureComponent {
+class UI extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
@@ -344,7 +341,9 @@ class UI extends PureComponent {
 
     this.dragTargets = this.dragTargets.filter(el => el !== e.target && this.node.contains(el));
 
-    if (this.dragTargets.length > 0) return;
+    if (this.dragTargets.length > 0) {
+      return;
+    }
 
     this.setState({ draggingOver: false });
   }
@@ -385,6 +384,7 @@ class UI extends PureComponent {
     if (me) {
       this.props.dispatch(expandHomeTimeline());
       this.props.dispatch(expandNotifications());
+      this.props.dispatch(initializeNotifications());
       this.props.dispatch(fetchGroups('member'));
 
       setTimeout(() => this.props.dispatch(fetchFilters()), 500);
@@ -393,7 +393,6 @@ class UI extends PureComponent {
 
   componentDidMount() {
     if (!me) return;
-
     this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
       return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName);
     };
@@ -479,6 +478,10 @@ class UI extends PureComponent {
     this.context.router.history.push('/notifications');
   }
 
+  handleHotkeyGoToStart = () => {
+    this.context.router.history.push('/getting-started');
+  }
+
   handleHotkeyGoToFavourites = () => {
     this.context.router.history.push(`/${meUsername}/favorites`);
   }
@@ -520,6 +523,7 @@ class UI extends PureComponent {
       back: this.handleHotkeyBack,
       goToHome: this.handleHotkeyGoToHome,
       goToNotifications: this.handleHotkeyGoToNotifications,
+      goToStart: this.handleHotkeyGoToStart,
       goToFavourites: this.handleHotkeyGoToFavourites,
       goToPinned: this.handleHotkeyGoToPinned,
       goToProfile: this.handleHotkeyGoToProfile,
@@ -528,7 +532,7 @@ class UI extends PureComponent {
       goToRequests: this.handleHotkeyGoToRequests,
     } : {};
 
-    const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : (<FloatingActionButton onClick={this.handleOpenComposeModal} message={intl.formatMessage(messages.publish)} />);
+    const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
 
     return (
       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>
@@ -537,6 +541,7 @@ class UI extends PureComponent {
           <SwitchingColumnsArea location={location} onLayoutChange={this.handleLayoutChange}>
             {children}
           </SwitchingColumnsArea>
+          <FooterBar />
 
           {me && floatingActionButton}
 
@@ -544,6 +549,7 @@ class UI extends PureComponent {
           <LoadingBarContainer className='loading-bar' />
           <ModalContainer />
           <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
+          {me && <SidebarMenu />}
         </div>
       </HotKeys>
     );
