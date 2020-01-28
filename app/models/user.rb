@@ -38,6 +38,7 @@
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
+#  last_read_notification    :bigint(8)
 #
 
 class User < ApplicationRecord
@@ -213,6 +214,10 @@ class User < ApplicationRecord
     @shows_application ||= settings.show_application
   end
 
+  def allows_group_in_home_feed?
+    settings.group_in_home_feed
+  end
+ 
   def token_for_app(a)
     return nil if a.nil? || a.owner != self
     Doorkeeper::AccessToken
@@ -268,6 +273,10 @@ class User < ApplicationRecord
 
   def hide_all_media?
     setting_display_media == 'hide_all'
+  end
+
+  def force_regeneration!
+    Redis.current.set("account:#{account_id}:regeneration", true)
   end
 
   protected

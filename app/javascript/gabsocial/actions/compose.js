@@ -1,6 +1,7 @@
 import api from '../api';
 import { CancelToken, isCancel } from 'axios';
 import { throttle } from 'lodash';
+import moment from 'moment';
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
 import { tagHistory } from '../settings';
 import { useEmoji } from './emojis';
@@ -20,6 +21,7 @@ export const COMPOSE_SUBMIT_REQUEST  = 'COMPOSE_SUBMIT_REQUEST';
 export const COMPOSE_SUBMIT_SUCCESS  = 'COMPOSE_SUBMIT_SUCCESS';
 export const COMPOSE_SUBMIT_FAIL     = 'COMPOSE_SUBMIT_FAIL';
 export const COMPOSE_REPLY           = 'COMPOSE_REPLY';
+export const COMPOSE_QUOTE           = 'COMPOSE_QUOTE';
 export const COMPOSE_REPLY_CANCEL    = 'COMPOSE_REPLY_CANCEL';
 export const COMPOSE_DIRECT          = 'COMPOSE_DIRECT';
 export const COMPOSE_MENTION         = 'COMPOSE_MENTION';
@@ -60,6 +62,8 @@ export const COMPOSE_POLL_OPTION_CHANGE   = 'COMPOSE_POLL_OPTION_CHANGE';
 export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE';
 export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE';
 
+export const COMPOSE_SCHEDULED_AT_CHANGE = 'COMPOSE_SCHEDULED_AT_CHANGE';
+
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
   uploadErrorPoll:  { id: 'upload_error.poll', defaultMessage: 'File upload not allowed with polls.' },
@@ -84,6 +88,17 @@ export function replyCompose(status, routerHistory) {
   return (dispatch, getState) => {
     dispatch({
       type: COMPOSE_REPLY,
+      status: status,
+    });
+
+    dispatch(openModal('COMPOSE'));
+  };
+};
+
+export function quoteCompose(status, routerHistory) {
+  return (dispatch, getState) => {
+    dispatch({
+      type: COMPOSE_QUOTE,
       status: status,
     });
 
@@ -125,6 +140,45 @@ export function directCompose(account, routerHistory) {
   };
 };
 
+export function handleComposeSubmit(dispatch, getState, response, status) {
+  if (!dispatch || !getState) return;
+
+  const isScheduledStatus = response.data['scheduled_at'] !== undefined;
+  if (isScheduledStatus) {
+    dispatch(showAlertForError({
+      response: {
+        data: {},
+        status: 200,
+        statusText: 'Successfully scheduled status',
+      }
+    }));
+    dispatch(submitComposeSuccess({ ...response.data }));
+    return;
+  }
+
+  dispatch(insertIntoTagHistory(response.data.tags, status));
+  dispatch(submitComposeSuccess({ ...response.data }));
+
+  // To make the app more responsive, immediately push the status into the columns
+  const insertIfOnline = timelineId => {
+    const timeline = getState().getIn(['timelines', timelineId]);
+
+    if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null && timeline.get('online')) {
+      let dequeueArgs = {};
+      if (timelineId === 'community') dequeueArgs.onlyMedia = getState().getIn(['settings', 'community', 'other', 'onlyMedia']);
+      dispatch(dequeueTimeline(timelineId, null, dequeueArgs));
+      dispatch(updateTimeline(timelineId, { ...response.data }));
+    }
+  };
+
+  if (response.data.visibility !== 'direct') {
+    insertIfOnline('home');
+  } else if (response.data.in_reply_to_id === null && response.data.visibility === 'public') {
+    insertIfOnline('community');
+    insertIfOnline('public');
+  }
+}
+
 export function submitCompose(routerHistory, group) {
   return function (dispatch, getState) {
     if (!me) return;
@@ -139,9 +193,20 @@ export function submitCompose(routerHistory, group) {
     dispatch(submitComposeRequest());
     dispatch(closeModal());
 
-    api(getState).post('/api/v1/statuses', {
+    const id = getState().getIn(['compose', 'id']);
+    const endpoint = id === null
+      ? '/api/v1/statuses'
+      : `/api/v1/statuses/${id}`;
+    const method = id === null ? 'post' : 'put';
+
+    let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
+    if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
+
+    api(getState)[method](endpoint, {
       status,
+      scheduled_at,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
+      quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']),
       spoiler_text: getState().getIn(['compose', 'spoiler_text'], ''),
@@ -156,33 +221,7 @@ export function submitCompose(routerHistory, group) {
       if (response.data.visibility === 'direct' && getState().getIn(['conversations', 'mounted']) <= 0 && routerHistory) {
         routerHistory.push('/messages');
       }
-
-      dispatch(insertIntoTagHistory(response.data.tags, status));
-      dispatch(submitComposeSuccess({ ...response.data }));
-
-      // To make the app more responsive, immediately push the status
-      // into the columns
-
-      const insertIfOnline = timelineId => {
-        const timeline = getState().getIn(['timelines', timelineId]);
-
-        if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null && timeline.get('online')) {
-          let dequeueArgs = {};
-          if (timelineId === 'community') dequeueArgs.onlyMedia = getState().getIn(['settings', 'community', 'other', 'onlyMedia']),
-
-          dispatch(dequeueTimeline(timelineId, null, dequeueArgs));
-          dispatch(updateTimeline(timelineId, { ...response.data }));
-        }
-      };
-
-      if (response.data.visibility !== 'direct') {
-        insertIfOnline('home');
-      }
-
-      if (response.data.in_reply_to_id === null && response.data.visibility === 'public') {
-        insertIfOnline('community');
-        insertIfOnline('public');
-      }
+      handleComposeSubmit(dispatch, getState, response, status);
     }).catch(function (error) {
       dispatch(submitComposeFail(error));
     });
@@ -559,5 +598,12 @@ export function changePollSettings(expiresIn, isMultiple) {
     type: COMPOSE_POLL_SETTINGS_CHANGE,
     expiresIn,
     isMultiple,
+  };
+};
+
+export function changeScheduledAt(date) {
+  return {
+    type: COMPOSE_SCHEDULED_AT_CHANGE,
+    date,
   };
 };

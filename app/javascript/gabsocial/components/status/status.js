@@ -1,4 +1,18 @@
+
 import { NavLink } from 'react-router-dom';
+import React from 'react';
+import ImmutablePropTypes from 'react-immutable-proptypes';
+import PropTypes from 'prop-types';
+import Avatar from './avatar';
+import AvatarOverlay from './avatar_overlay';
+import AvatarComposite from './avatar_composite';
+import RelativeTimestamp from './relative_timestamp';
+import DisplayName from './display_name';
+import StatusContent from './status_content';
+import StatusQuote from './status_quote';
+import StatusActionBar from './status_action_bar';
+import AttachmentList from './attachment_list';
+import Card from '../features/status/components/card';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
@@ -63,9 +77,12 @@ class Status extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
+    onShowRevisions: PropTypes.func,
+    onQuote: PropTypes.func,
     onFavourite: PropTypes.func,
     onReblog: PropTypes.func,
     onDelete: PropTypes.func,
+    onEdit: PropTypes.func,
     onDirect: PropTypes.func,
     onMention: PropTypes.func,
     onPin: PropTypes.func,
@@ -86,6 +103,8 @@ class Status extends ImmutablePureComponent {
     cacheMediaWidth: PropTypes.func,
     cachedMediaWidth: PropTypes.number,
     group: ImmutablePropTypes.map,
+    promoted: PropTypes.bool,
+    onOpenProUpgradeModal: PropTypes.func,
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -248,11 +267,16 @@ class Status extends ImmutablePureComponent {
     this.node = c;
   };
 
-  render() {
+
+  handleOpenProUpgradeModal = () => {
+    this.props.onOpenProUpgradeModal();
+	}
+
+  render () {
     let media = null;
     let statusAvatar, prepend, rebloggedByText, reblogContent;
 
-    const { intl, hidden, featured, unread, showThread, group } = this.props;
+    const { intl, hidden, featured, otherAccounts, unread, showThread, group, promoted } = this.props;
 
     let { status, account, ...other } = this.props;
 
@@ -284,7 +308,14 @@ class Status extends ImmutablePureComponent {
       );
     }
 
-    if (featured) {
+    if (promoted) {
+      prepend = (
+        <button className='status__prepend status__prepend--promoted' onClick={this.handleOpenProUpgradeModal}>
+          <div className='status__prepend-icon-wrapper'><Icon id='star' className='status__prepend-icon' fixedWidth /></div>
+          <FormattedMessage id='status.promoted' defaultMessage='Promoted gab' />
+        </button>
+      );
+    } else if (featured) {
       prepend = (
         <div className='status__prepend'>
           <div className='status__prepend-icon-wrapper'>
@@ -341,6 +372,7 @@ class Status extends ImmutablePureComponent {
                 blurhash={video.get('blurhash')}
                 src={video.get('url')}
                 alt={video.get('description')}
+                aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
                 width={this.props.cachedMediaWidth}
                 height={110}
                 inline
@@ -376,7 +408,6 @@ class Status extends ImmutablePureComponent {
         <Card
           onOpenMedia={this.props.onOpenMedia}
           card={status.get('card')}
-          compact
           cacheWidth={this.props.cacheMediaWidth}
           defaultWidth={this.props.cachedMediaWidth}
         />
@@ -446,10 +477,10 @@ class Status extends ImmutablePureComponent {
               </NavLink>
             </div>
 
-            {!group && status.get('group') && (
+            {((!group && status.get('group')) || status.get('revised_at') !== null) && (
               <div className='status__meta'>
-                Posted in{' '}
-                <NavLink to={`/groups/${status.getIn(['group', 'id'])}`}>{status.getIn(['group', 'title'])}</NavLink>
+                {!group && status.get('group') && <React.Fragment>Posted in <NavLink to={`/groups/${status.getIn(['group', 'id'])}`}>{status.getIn(['group', 'title'])}</NavLink></React.Fragment>}
+                {status.get('revised_at') !== null && <a onClick={() => other.onShowRevisions(status)}> Edited</a>}
               </div>
             )}
 
@@ -464,9 +495,11 @@ class Status extends ImmutablePureComponent {
 
             {media}
 
-            {showThread &&
-              status.get('in_reply_to_id') &&
-              status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
+            {status.get('quote') && <StatusQuote
+              id={status.get('quote')}
+            />}
+
+            {showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
               <button className='status__content__read-more-button' onClick={this.handleClick}>
                 <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
               </button>

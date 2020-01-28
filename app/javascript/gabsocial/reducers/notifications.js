@@ -1,4 +1,5 @@
 import {
+  NOTIFICATIONS_INITIALIZE,
   NOTIFICATIONS_UPDATE,
   NOTIFICATIONS_EXPAND_SUCCESS,
   NOTIFICATIONS_EXPAND_REQUEST,
@@ -9,6 +10,7 @@ import {
   NOTIFICATIONS_UPDATE_QUEUE,
   NOTIFICATIONS_DEQUEUE,
   MAX_QUEUED_NOTIFICATIONS,
+  NOTIFICATIONS_MARK_READ,
 } from '../actions/notifications';
 import {
   ACCOUNT_BLOCK_SUCCESS,
@@ -17,6 +19,7 @@ import {
 import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import compareId from '../utils/compare_id';
+import { unreadCount } from 'gabsocial/initial_state';
 
 const initialState = ImmutableMap({
   items: ImmutableList(),
@@ -26,6 +29,7 @@ const initialState = ImmutableMap({
   isLoading: false,
   queuedNotifications: ImmutableList(), //max = MAX_QUEUED_NOTIFICATIONS
   totalQueuedNotificationsCount: 0, //used for queuedItems overflow for MAX_QUEUED_NOTIFICATIONS+
+  lastRead: -1,
 });
 
 const notificationToMap = notification => ImmutableMap({
@@ -126,6 +130,10 @@ const updateNotificationsQueue = (state, notification, intlMessages, intlLocale)
 
 export default function notifications(state = initialState, action) {
   switch(action.type) {
+  case NOTIFICATIONS_INITIALIZE:
+    return state.set('unread', unreadCount);
+  case NOTIFICATIONS_MARK_READ:
+    return state.set('lastRead', action.notification);
   case NOTIFICATIONS_EXPAND_REQUEST:
     return state.set('isLoading', true);
   case NOTIFICATIONS_EXPAND_FAIL:

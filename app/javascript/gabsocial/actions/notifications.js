@@ -14,6 +14,7 @@ import { unescapeHTML } from '../utils/html';
 import { getFilters, regexFromFilters } from '../selectors';
 import { me } from 'gabsocial/initial_state';
 
+export const NOTIFICATIONS_INITIALIZE  = 'NOTIFICATIONS_INITIALIZE';
 export const NOTIFICATIONS_UPDATE      = 'NOTIFICATIONS_UPDATE';
 export const NOTIFICATIONS_UPDATE_NOOP = 'NOTIFICATIONS_UPDATE_NOOP';
 export const NOTIFICATIONS_UPDATE_QUEUE = 'NOTIFICATIONS_UPDATE_QUEUE';
@@ -27,6 +28,7 @@ export const NOTIFICATIONS_FILTER_SET = 'NOTIFICATIONS_FILTER_SET';
 
 export const NOTIFICATIONS_CLEAR      = 'NOTIFICATIONS_CLEAR';
 export const NOTIFICATIONS_SCROLL_TOP = 'NOTIFICATIONS_SCROLL_TOP';
+export const NOTIFICATIONS_MARK_READ  = 'NOTIFICATIONS_MARK_READ';
 
 export const MAX_QUEUED_NOTIFICATIONS = 40;
 
@@ -42,6 +44,12 @@ const fetchRelatedRelationships = (dispatch, notifications) => {
     dispatch(fetchRelationships(accountIds));
   }
 };
+
+export function initializeNotifications() {
+  return {
+    type: NOTIFICATIONS_INITIALIZE,
+  };
+}
 
 export function updateNotifications(notification, intlMessages, intlLocale) {
   return (dispatch, getState) => {
@@ -134,6 +142,7 @@ export function dequeueNotifications() {
     dispatch({
       type: NOTIFICATIONS_DEQUEUE,
     });
+    dispatch(markReadNotifications());
   }
 };
 
@@ -225,10 +234,13 @@ export function clearNotifications() {
 };
 
 export function scrollTopNotifications(top) {
-  return {
-    type: NOTIFICATIONS_SCROLL_TOP,
-    top,
-  };
+  return (dispatch, getState) => {
+    dispatch({
+      type: NOTIFICATIONS_SCROLL_TOP,
+      top,
+    });
+    dispatch(markReadNotifications());
+  }
 };
 
 export function setFilter (filterType) {
@@ -241,4 +253,21 @@ export function setFilter (filterType) {
     dispatch(expandNotifications());
     dispatch(saveSettings());
   };
+};
+
+export function markReadNotifications() {
+  return (dispatch, getState) => {
+    if (!me) return;
+    const top_notification = parseInt(getState().getIn(['notifications', 'items', 0, 'id']));
+    const last_read = getState().getIn(['notifications', 'lastRead']);
+
+    if (top_notification && top_notification > last_read) {
+      api(getState).post('/api/v1/notifications/mark_read', {id: top_notification}).then(response => {
+        dispatch({
+          type: NOTIFICATIONS_MARK_READ,
+          notification: top_notification,
+        });
+      });
+    }
+  }
 };

@@ -11,7 +11,12 @@ class Api::V1::AccountByUsernameController < Api::BaseController
   end
 
   def set_account
-    @account = Account.find_local!(params[:username])
+    username, domain = params[:username].split("@")
+    if domain
+      @account = Account.find_remote!(username, domain)
+    else
+      @account = Account.find_local!(username)
+    end
   end
 
   def check_account_suspension

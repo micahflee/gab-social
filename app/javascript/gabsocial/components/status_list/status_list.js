@@ -26,11 +26,23 @@ export default class StatusList extends ImmutablePureComponent {
     withGroupAdmin: PropTypes.bool,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
+    promotion: PropTypes.object,
+    promotedStatus: ImmutablePropTypes.map,
+    fetchStatus: PropTypes.func,
   };
 
   componentDidMount() {
     this.handleDequeueTimeline();
+    this.fetchPromotedStatus();
   };
+
+  fetchPromotedStatus() {
+    const { promotion, promotedStatus, fetchStatus } = this.props;
+
+    if (promotion && !promotedStatus) {
+      fetchStatus(promotion.status_id);
+    }
+  }
 
   getFeaturedStatusCount = () => {
     return this.props.featuredStatusIds ? this.props.featuredStatusIds.size : 0;
@@ -84,30 +96,23 @@ export default class StatusList extends ImmutablePureComponent {
   }
 
   render () {
-    const { statusIds, featuredStatusIds, onLoadMore, timelineId, totalQueuedItemsCount, isLoading, isPartial, withGroupAdmin, group, ...other }  = this.props;
+    const { statusIds, featuredStatusIds, onLoadMore, timelineId, totalQueuedItemsCount, isLoading, isPartial, withGroupAdmin, group, promotion, promotedStatus, ...other }  = this.props;
 
     if (isPartial) {
       return ( <ColumnIndicator type='loading' /> );
     }
 
-    let scrollableContent = null;
-    if (isLoading || statusIds.size > 0) {
-      scrollableContent = statusIds.map((statusId, i) => {
-        if (statusId === null) {
-          return (
-            <LoadMore
-              gap
-              key={'gap:' + statusIds.get(i + 1)}
-              disabled={isLoading}
-              maxId={i > 0 ? statusIds.get(i - 1) : null}
-              onClick={onLoadMore}
-            />
-          );
-        }
-
-        return (
+    let scrollableContent = (isLoading || statusIds.size > 0) ? (
+      statusIds.map((statusId, index) => statusId === null ? (
+        <LoadGap
+          key={'gap:' + statusIds.get(index + 1)}
+          disabled={isLoading}
+          maxId={index > 0 ? statusIds.get(index - 1) : null}
+          onClick={onLoadMore}
+        />
+      ) : (
+        <React.Fragment key={statusId}>
           <StatusContainer
-            key={statusId}
             id={statusId}
             onMoveUp={this.handleMoveUp}
             onMoveDown={this.handleMoveDown}
@@ -116,9 +121,17 @@ export default class StatusList extends ImmutablePureComponent {
             withGroupAdmin={withGroupAdmin}
             showThread
           />
-        );
-      });
-    }
+          {promotedStatus && index === promotion.position && (
+            <StatusContainer
+              id={promotion.status_id}
+              contextType={timelineId}
+              promoted
+              showThread
+            />
+          )}
+        </React.Fragment>
+      ))
+    ) : null;
 
     if (scrollableContent && featuredStatusIds) {
       scrollableContent = featuredStatusIds.map(statusId => (

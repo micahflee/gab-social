@@ -3,10 +3,10 @@
 class Api::V1::StatusesController < Api::BaseController
   include Authorization
 
-  before_action -> { authorize_if_got_token! :read, :'read:statuses' }, except: [:create, :destroy]
-  before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :destroy]
+  before_action -> { authorize_if_got_token! :read, :'read:statuses' }, except: [:create, :update, :destroy]
+  before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :update, :destroy]
   before_action :require_user!, except:  [:show, :context, :card]
-  before_action :set_status, only:       [:show, :context, :card]
+  before_action :set_status, only:       [:show, :context, :card, :update, :revisions]
 
   respond_to :json
 
@@ -33,14 +33,10 @@ class Api::V1::StatusesController < Api::BaseController
     render json: @context, serializer: REST::ContextSerializer, relationships: StatusRelationshipsPresenter.new(statuses, current_user&.account_id)
   end
 
-  def card
-    @card = @status.preview_cards.first
+  def revisions
+    @revisions = @status.revisions
 
-    if @card.nil?
-      render_empty
-    else
-      render json: @card, serializer: REST::PreviewCardSerializer
-    end
+    render json: @revisions, each_serializer: REST::StatusRevisionSerializer
   end
 
   def create
@@ -55,9 +51,25 @@ class Api::V1::StatusesController < Api::BaseController
                                          application: doorkeeper_token.application,
                                          poll: status_params[:poll],
                                          idempotency: request.headers['Idempotency-Key'],
-                                         group_id: status_params[:group_id])
+                                         group_id: status_params[:group_id],
+                                         quote_of_id: status_params[:quote_of_id])
 
     render json: @status, serializer: @status.is_a?(ScheduledStatus) ? REST::ScheduledStatusSerializer : REST::StatusSerializer
+  end
+
+  def update
+    authorize @status, :update?
+    
+    @status = EditStatusService.new.call(@status,
+                                         text: status_params[:status],
+                                         media_ids: status_params[:media_ids],
+                                         sensitive: status_params[:sensitive],
+                                         spoiler_text: status_params[:spoiler_text],
+                                         visibility: status_params[:visibility],
+                                         application: doorkeeper_token.application,
+                                         idempotency: request.headers['Idempotency-Key'])
+
+    render json: @status, serializer: REST::StatusSerializer
   end
 
   def destroy
@@ -82,6 +94,7 @@ class Api::V1::StatusesController < Api::BaseController
     params.permit(
       :status,
       :in_reply_to_id,
+      :quote_of_id,
       :sensitive,
       :spoiler_text,
       :visibility,

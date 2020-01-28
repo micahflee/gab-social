@@ -12,7 +12,7 @@ class Api::V1::GroupsController < Api::BaseController
   def index
     case current_tab
       when 'featured'
-        @groups = Group.where(is_featured: true).limit(25).all
+        @groups = Group.where(is_featured: true).limit(50).all
       when 'member'
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.unread_count DESC, group_accounts.id DESC').all
       when 'admin'
@@ -33,6 +33,8 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def create
+    authorize :group, :create?
+    
     @group = Group.create!(group_params.merge(account: current_account))
     render json: @group, serializer: REST::GroupSerializer
   end

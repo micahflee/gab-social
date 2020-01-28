@@ -24,6 +24,12 @@ const initialState = ImmutableMap({
     }),
   }),
 
+  group: ImmutableMap({
+    shows: ImmutableMap({
+      reply: true,
+    }),
+  }),
+
   notifications: ImmutableMap({
     alerts: ImmutableMap({
       follow: true,
@@ -57,6 +63,10 @@ const initialState = ImmutableMap({
   }),
 
   community: ImmutableMap({
+    other: ImmutableMap({
+      allFediverse: false,
+      onlyMedia: false,
+    }),
     regex: ImmutableMap({
       body: '',
     }),

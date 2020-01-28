@@ -18,8 +18,12 @@ import { isMobile } from '../../../../utils/is_mobile';
 import { countableText } from '../../util/counter';
 import Icon from '../../../../components/icon';
 import Button from '../../../../components/button';
+import SchedulePostDropdownContainer from '../containers/schedule_post_dropdown_container';
+import UploadFormContainer from '../containers/upload_form_container';
+import QuotedStatusPreviewContainer from '../containers/quoted_status_preview_container';
 
 import './compose_form.scss';
+
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 const maxPostCharacterCount = 3000;
@@ -29,6 +33,7 @@ const messages = defineMessages({
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
+  schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' }
 });
 
 export default @injectIntl
@@ -44,6 +49,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    edit: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     suggestions: ImmutablePropTypes.list,
     spoiler: PropTypes.bool,
@@ -69,6 +75,8 @@ class ComposeForm extends ImmutablePureComponent {
     autoFocus: PropTypes.bool,
     group: ImmutablePropTypes.map,
     isModalOpen: PropTypes.bool,
+    scheduledAt: PropTypes.instanceOf(Date),
+    setScheduledAt: PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -93,12 +101,21 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleClick = (e) => {
     if (!this.form) return false;
+    if (e.target) {
+      if (e.target.classList.contains('react-datepicker__time-list-item')) return;
+    }
     if (!this.form.contains(e.target)) {
       this.handleClickOutside();
     }
   }
 
   handleClickOutside = () => {
+    const { shouldCondense, scheduledAt, text, isModalOpen } = this.props;
+    const condensed = shouldCondense && !text;
+    if (condensed && scheduledAt && !isModalOpen) { //Reset scheduled date if condensing
+      this.props.setScheduledAt(null);
+    }
+
     this.setState({
       composeFocused: false,
     });
@@ -198,7 +215,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   render () {
-    const { intl, onPaste, showSearch, anyMedia, shouldCondense, autoFocus, isModalOpen } = this.props;
+    const { intl, onPaste, showSearch, anyMedia, shouldCondense, autoFocus, isModalOpen, quoteOfId, edit, scheduledAt } = this.props;
     const condensed = shouldCondense && !this.props.text && !this.state.composeFocused;
     const disabled = this.props.isSubmitting;
     const text     = [this.props.spoilerText, countableText(this.props.text)].join('');
@@ -211,6 +228,10 @@ class ComposeForm extends ImmutablePureComponent {
       publishText = <span className='compose-form__publish-private'><Icon id='lock' /> {intl.formatMessage(messages.publish)}</span>;
     } else {
       publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
+    }
+
+    if (scheduledAt) {
+      publishText = intl.formatMessage(messages.schedulePost);
     }
 
     const composeClassNames = classNames({
@@ -265,20 +286,25 @@ class ComposeForm extends ImmutablePureComponent {
           {
             !condensed &&
             <div className='compose-form__modifiers'>
-              <UploadForm />
-              <PollFormContainer />
+              <UploadFormContainer />
+              {!edit && <PollFormContainer />}
             </div>
           }
         </AutosuggestTextbox>
+
+        {quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} />}
 
         {
           !condensed &&
           <div className='compose-form__buttons-wrapper'>
             <div className='compose-form__buttons'>
               <UploadButtonContainer />
-              <PollButtonContainer />
+              {!edit && <PollButtonContainer />}
               <PrivacyDropdownContainer />
               <SpoilerButtonContainer />
+              <SchedulePostDropdownContainer
+                position={isModalOpen ? 'top' : undefined}
+              />
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} />
           </div>

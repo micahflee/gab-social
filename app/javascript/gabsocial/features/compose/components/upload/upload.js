@@ -10,8 +10,7 @@ import './upload.scss';
 
 const messages = defineMessages({
   description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
-  undo: { id: 'upload_form.undo', defaultMessage: 'Delete' },
-  focus: { id: 'upload_form.focus', defaultMessage: 'Crop' },
+  delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
 });
 
 export default @injectIntl
@@ -100,24 +99,10 @@ class Upload extends ImmutablePureComponent {
       <div className='compose-form-upload' tabIndex='0' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick} role='button'>
         <Motion defaultStyle={{ scale: 0.8 }} style={{ scale: spring(1, { stiffness: 180, damping: 12 }) }}>
           {({ scale }) => (
-            <div className='compose-form-upload__thumbnail' style={{ transform: `scale(${scale})`, backgroundImage: `url(${media.get('preview_url')})`, backgroundPosition: `${x}% ${y}%` }}>
-              <div className={classNames('compose-form-upload__actions', { active })}>
-                <IconButton
-                  onClick={this.handleUndoClick}
-                  icon='times'
-                  title={intl.formatMessage(messages.undo)}
-                  text={intl.formatMessage(messages.undo)}
-                />
-
-                {
-                  media.get('type') === 'image' &&
-                  <IconButton
-                    onClick={this.handleFocalPointClick}
-                    icon='crosshairs'
-                    title={intl.formatMessage(messages.focus)}
-                    text={intl.formatMessage(messages.focus)}
-                  />
-                }
+            <div className='compose-form__upload-thumbnail' style={{ transform: `scale(${scale})`, backgroundImage: `url(${media.get('preview_url')})`, backgroundPosition: `${x}% ${y}%` }}>
+              <div className={classNames('compose-form__upload__actions', { active })}>
+                <button className='icon-button' title={intl.formatMessage(messages.delete)} onClick={this.handleUndoClick}><Icon id='times'/></button>
+                {media.get('type') === 'image' && <button className='icon-button' onClick={this.handleFocalPointClick}><Icon id='crosshairs' /> <FormattedMessage id='upload_form.focus' defaultMessage='Crop' /></button>}
               </div>
 
               <div className={classNames('compose-form-upload__description', { active })}>

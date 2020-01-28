@@ -10,13 +10,16 @@ import './detailed_status_action_bar.scss';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
-  redraft: { id: 'status.redraft', defaultMessage: 'Delete & re-draft' },
+  edit: { id: 'status.edit', defaultMessage: 'Edit' },
+  direct: { id: 'status.direct', defaultMessage: 'Direct message @{name}' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
   reblog: { id: 'status.reblog', defaultMessage: 'Repost' },
+  quote: { id: 'status.quote', defaultMessage: 'Quote' },
   reblog_private: { id: 'status.reblog_private', defaultMessage: 'Repost to original audience' },
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Un-repost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be reposted' },
+  cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
   mute: { id: 'status.mute', defaultMessage: 'Mute @{name}' },
   muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
@@ -50,6 +53,7 @@ class ActionBar extends ImmutablePureComponent {
     status: ImmutablePropTypes.map.isRequired,
     onReply: PropTypes.func.isRequired,
     onReblog: PropTypes.func.isRequired,
+    onQuote: PropTypes.func.isRequired,
     onFavourite: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
@@ -79,6 +83,14 @@ class ActionBar extends ImmutablePureComponent {
     }
   }
 
+  handleQuoteClick = (e) => {
+    if (me) {
+      this.props.onQuote(this.props.status, e);
+    } else {
+      this.props.onOpenUnauthorizedModal();
+    }
+  }
+
   handleFavouriteClick = () => {
     if (me) {
       this.props.onFavourite(this.props.status);
@@ -91,8 +103,8 @@ class ActionBar extends ImmutablePureComponent {
     this.props.onDelete(this.props.status, this.context.router.history);
   }
 
-  handleRedraftClick = () => {
-    this.props.onDelete(this.props.status, this.context.router.history, true);
+  handleEditClick = () => {
+    this.props.onEdit(this.props.status);
   }
 
   handleMentionClick = () => {
@@ -176,7 +188,7 @@ class ActionBar extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
       menu.push(null);
       menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
-      menu.push({ text: intl.formatMessage(messages.redraft), action: this.handleRedraftClick });
+      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
     } else {
       menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
       menu.push(null);
@@ -208,17 +220,11 @@ class ActionBar extends ImmutablePureComponent {
     let reblog_disabled = (status.get('visibility') === 'direct' || status.get('visibility') === 'private');
 
     return (
-      <div className='detailed-status-action-bar'>
-        <div className='detailed-status-action-bar__button'>
-          <IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} />
-        </div>
-        <div className='detailed-status-action-bar__button'>
-          <IconButton disabled={reblog_disabled} active={status.get('reblogged')} title={reblog_disabled ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} />
-        </div>
-        <div className='detailed-status-action-bar__button'>
-          <IconButton className='star-icon' active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
-        </div>
-
+      <div className='detailed-status__action-bar'>
+        <div className='detailed-status__button'><IconButton title={intl.formatMessage(messages.reply)} icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon} onClick={this.handleReplyClick} /></div>
+        <div className='detailed-status__button'><IconButton disabled={reblog_disabled} active={status.get('reblogged')} title={reblog_disabled ? intl.formatMessage(messages.cannot_reblog) : intl.formatMessage(messages.reblog)} icon={reblogIcon} onClick={this.handleReblogClick} /></div>
+        <div className='detailed-status__button'><IconButton disabled={reblog_disabled} title={reblog_disabled ? intl.formatMessage(messages.cannot_quote) : intl.formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} /></div>
+        <div className='detailed-status__button'><IconButton className='star-icon' animate active={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} /></div>
         {shareButton}
 
         <div className='detailed-status-action-bar__dropdown'>

@@ -43,6 +43,7 @@ export default function search(state = initialState, action) {
       accounts: ImmutableList(action.results.accounts.map(item => item.id)),
       statuses: ImmutableList(action.results.statuses.map(item => item.id)),
       hashtags: fromJS(action.results.hashtags),
+      groups: fromJS(action.results.groups),
     })).set('submitted', true);
   default:
     return state;

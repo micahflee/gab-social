@@ -8,9 +8,11 @@ import {
   changeComposeSpoilerText,
   insertEmojiCompose,
   uploadCompose,
+  changeScheduledAt,
 } from '../../../actions/compose';
 
 const mapStateToProps = state => ({
+  edit: state.getIn(['compose', 'id']) !== null,
   text: state.getIn(['compose', 'text']),
   suggestions: state.getIn(['compose', 'suggestions']),
   spoiler: state.getIn(['compose', 'spoiler']),
@@ -25,6 +27,8 @@ const mapStateToProps = state => ({
   showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
   anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
   isModalOpen: state.get('modal').modalType === 'COMPOSE',
+  quoteOfId: state.getIn(['compose', 'quote_of_id']),
+  scheduledAt: state.getIn(['compose', 'scheduled_at']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,6 +65,9 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(insertEmojiCompose(position, data, needsSpace));
   },
 
+  setScheduledAt (date) {
+    dispatch(changeScheduledAt(date));
+  },
 });
 
 function mergeProps(stateProps, dispatchProps, ownProps) {

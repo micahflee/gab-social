@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_22_003649) do
+ActiveRecord::Schema.define(version: 2019_12_02_004114) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -578,6 +578,15 @@ ActiveRecord::Schema.define(version: 2019_07_22_003649) do
     t.index ["status_id", "preview_card_id"], name: "index_preview_cards_statuses_on_status_id_and_preview_card_id"
   end
 
+  create_table "promotions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "expires_at"
+    t.bigint "status_id", null: false
+    t.string "timeline_id"
+    t.integer "position", default: 10
+  end
+
   create_table "relays", force: :cascade do |t|
     t.string "inbox_url", default: "", null: false
     t.string "follow_activity_id"
@@ -663,6 +672,13 @@ ActiveRecord::Schema.define(version: 2019_07_22_003649) do
     t.index ["account_id", "status_id"], name: "index_status_pins_on_account_id_and_status_id", unique: true
   end
 
+  create_table "status_revisions", force: :cascade do |t|
+    t.bigint "status_id"
+    t.string "text"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "status_stats", force: :cascade do |t|
     t.bigint "status_id", null: false
     t.bigint "replies_count", default: 0, null: false
@@ -693,10 +709,13 @@ ActiveRecord::Schema.define(version: 2019_07_22_003649) do
     t.bigint "in_reply_to_account_id"
     t.bigint "poll_id"
     t.integer "group_id"
+    t.bigint "quote_of_id"
+    t.datetime "revised_at"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
     t.index ["group_id"], name: "index_statuses_on_group_id"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
+    t.index ["quote_of_id"], name: "index_statuses_on_quote_of_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
     t.index ["uri"], name: "index_statuses_on_uri", unique: true
   end
@@ -804,6 +823,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_003649) do
     t.string "chosen_languages", array: true
     t.bigint "created_by_application_id"
     t.boolean "approved", default: true, null: false
+    t.bigint "last_read_notification"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
@@ -905,6 +925,7 @@ ActiveRecord::Schema.define(version: 2019_07_22_003649) do
   add_foreign_key "statuses", "accounts", name: "fk_9bda1543f7", on_delete: :cascade
   add_foreign_key "statuses", "groups", on_delete: :nullify
   add_foreign_key "statuses", "statuses", column: "in_reply_to_id", on_delete: :nullify
+  add_foreign_key "statuses", "statuses", column: "quote_of_id", on_delete: :nullify
   add_foreign_key "statuses", "statuses", column: "reblog_of_id", on_delete: :cascade
   add_foreign_key "statuses_tags", "statuses", on_delete: :cascade
   add_foreign_key "statuses_tags", "tags", name: "fk_3081861e21", on_delete: :cascade

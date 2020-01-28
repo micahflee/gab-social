@@ -4,6 +4,7 @@ import {
   COMPOSE_CHANGE,
   COMPOSE_REPLY,
   COMPOSE_REPLY_CANCEL,
+  COMPOSE_QUOTE,
   COMPOSE_DIRECT,
   COMPOSE_MENTION,
   COMPOSE_SUBMIT_REQUEST,
@@ -35,16 +36,18 @@ import {
   COMPOSE_POLL_OPTION_CHANGE,
   COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
+  COMPOSE_SCHEDULED_AT_CHANGE,
 } from '../actions/compose';
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STORE_HYDRATE } from '../actions/store';
-import { REDRAFT } from '../actions/statuses';
+import { STATUS_EDIT } from '../actions/statuses';
 import { Map as ImmutableMap, List as ImmutableList, OrderedSet as ImmutableOrderedSet, fromJS } from 'immutable';
 import uuid from '../utils/uuid';
 import { me } from '../initial_state';
 import { unescapeHTML } from '../utils/html';
 
 const initialState = ImmutableMap({
+  id: null,
   mounted: 0,
   sensitive: false,
   spoiler: false,
@@ -55,6 +58,7 @@ const initialState = ImmutableMap({
   caretPosition: null,
   preselectDate: null,
   in_reply_to: null,
+  quote_of_id: null,
   is_composing: false,
   is_submitting: false,
   is_changing_upload: false,
@@ -69,6 +73,7 @@ const initialState = ImmutableMap({
   resetFileKey: Math.floor((Math.random() * 0x10000)),
   idempotencyKey: null,
   tagHistory: ImmutableList(),
+  scheduled_at: null,
 });
 
 const initialPoll = ImmutableMap({
@@ -89,17 +94,20 @@ function statusToTextMentions(state, status) {
 
 function clearAll(state) {
   return state.withMutations(map => {
+    map.set('id', null);
     map.set('text', '');
     map.set('spoiler', false);
     map.set('spoiler_text', '');
     map.set('is_submitting', false);
     map.set('is_changing_upload', false);
     map.set('in_reply_to', null);
+    map.set('quote_of_id', null);
     map.set('privacy', state.get('default_privacy'));
     map.set('sensitive', false);
     map.update('media_attachments', list => list.clear());
     map.set('poll', null);
     map.set('idempotencyKey', uuid());
+    map.set('scheduled_at', null);
   });
 };
 
@@ -189,7 +197,10 @@ const expandMentions = status => {
   const fragment = domParser.parseFromString(status.get('content'), 'text/html').documentElement;
 
   status.get('mentions').forEach(mention => {
-    fragment.querySelector(`a[href="/${mention.get('acct')}"]`).textContent = `@${mention.get('acct')}`;
+    const mentionFragment = fragment.querySelector(`a[href$="/${mention.get('acct')}"]`);
+    if (mentionFragment) {
+      fragment.querySelector(`a[href$="/${mention.get('acct')}"]`).textContent = `@${mention.get('acct')}`;
+    }
   });
 
   return fragment.innerHTML;
@@ -255,9 +266,29 @@ export default function compose(state = initialState, action) {
         map.set('spoiler_text', '');
       }
     });
+  case COMPOSE_QUOTE:
+    return state.withMutations(map => {
+      map.set('quote_of_id', action.status.get('id'));
+      map.set('text', '');
+      map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
+      map.set('focusDate', new Date());
+      map.set('caretPosition', null);
+      map.set('preselectDate', new Date());
+      map.set('idempotencyKey', uuid());
+
+      if (action.status.get('spoiler_text').length > 0) {
+        map.set('spoiler', true);
+        map.set('spoiler_text', action.status.get('spoiler_text'));
+      } else {
+        map.set('spoiler', false);
+        map.set('spoiler_text', '');
+      }
+    });
   case COMPOSE_REPLY_CANCEL:
   case COMPOSE_RESET:
     return state.withMutations(map => {
+      map.set('id', null);
+      map.set('quote_of_id', null);
       map.set('in_reply_to', null);
       map.set('text', '');
       map.set('spoiler', false);
@@ -265,6 +296,7 @@ export default function compose(state = initialState, action) {
       map.set('privacy', state.get('default_privacy'));
       map.set('poll', null);
       map.set('idempotencyKey', uuid());
+      map.set('scheduled_at', null);
     });
   case COMPOSE_SUBMIT_REQUEST:
     return state.set('is_submitting', true);
@@ -329,10 +361,12 @@ export default function compose(state = initialState, action) {
 
         return item;
       }));
-  case REDRAFT:
+  case STATUS_EDIT:
     return state.withMutations(map => {
-      map.set('text', action.raw_text || unescapeHTML(expandMentions(action.status)));
+      map.set('id', action.status.get('id'));
+      map.set('text', unescapeHTML(expandMentions(action.status)));
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
+      map.set('quote_of_id', action.status.get('quote_of_id'));
       map.set('privacy', action.status.get('visibility'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
@@ -345,14 +379,6 @@ export default function compose(state = initialState, action) {
       } else {
         map.set('spoiler', false);
         map.set('spoiler_text', '');
-      }
-
-      if (action.status.get('poll')) {
-        map.set('poll', ImmutableMap({
-          options: action.status.getIn(['poll', 'options']).map(x => x.get('title')),
-          multiple: action.status.getIn(['poll', 'multiple']),
-          expires_in: 24 * 3600,
-        }));
       }
     });
   case COMPOSE_POLL_ADD:
@@ -367,6 +393,8 @@ export default function compose(state = initialState, action) {
     return state.updateIn(['poll', 'options'], options => options.delete(action.index));
   case COMPOSE_POLL_SETTINGS_CHANGE:
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
+  case COMPOSE_SCHEDULED_AT_CHANGE:
+    return state.set('scheduled_at', action.date);
   default:
     return state;
   }

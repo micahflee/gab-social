@@ -326,6 +326,9 @@
       }
 
       @media screen and (max-width: 550px) {
+        font-size: 12px;
+        padding: 12px 10px;
+
         &.optional {
           display: none;
         }

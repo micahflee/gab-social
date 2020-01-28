@@ -6,17 +6,20 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import GroupCard from './card';
 import GroupCreate from '../create';
+import { me } from 'gabsocial/initial_state';
+import { openModal } from '../../../actions/modal';
 
 const messages = defineMessages({
 	heading: { id: 'column.groups', defaultMessage: 'Groups' },
 	create: { id: 'groups.create', defaultMessage: 'Create group' },
 	tab_featured: { id: 'groups.tab_featured', defaultMessage: 'Featured' },
-	tab_member: { id: 'groups.tab_member', defaultMessage: 'Groups you\'re in' },
-	tab_admin: { id: 'groups.tab_admin', defaultMessage: 'Groups you manage' },
+	tab_member: { id: 'groups.tab_member', defaultMessage: 'Member' },
+	tab_admin: { id: 'groups.tab_admin', defaultMessage: 'Manage' },
 });
 
 const mapStateToProps = (state, { activeTab }) => ({
 	groupIds: state.getIn(['group_lists', activeTab]),
+	account: state.getIn(['accounts', me]),
 });
 
 export default @connect(mapStateToProps)
@@ -42,12 +45,27 @@ class Groups extends ImmutablePureComponent {
 		}
 	}
 
+	handleOpenProUpgradeModal = () => {
+		this.props.dispatch(openModal('PRO_UPGRADE'));
+	}
+
 	renderHeader() {
-		const { intl, activeTab } = this.props;
+		const { intl, activeTab, account, onOpenProUpgradeModal } = this.props;
+
+		const isPro = account.get('is_pro');
 
 		return (
 			<div className="group-column-header">
-				<div className="group-column-header__cta"><Link to="/groups/create" className="button">{intl.formatMessage(messages.create)}</Link></div>
+				<div className="group-column-header__cta">
+					{
+						account && isPro &&
+						<Link to="/groups/create" className="button standard-small">{intl.formatMessage(messages.create)}</Link>
+					}
+					{
+						account && !isPro &&
+						<button onClick={this.handleOpenProUpgradeModal} className="button standard-small">{intl.formatMessage(messages.create)}</button>
+					}
+				</div>
 				<div className="group-column-header__title">{intl.formatMessage(messages.heading)}</div>
 
 				<div className="column-header__wrapper">

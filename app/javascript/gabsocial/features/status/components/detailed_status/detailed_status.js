@@ -1,3 +1,4 @@
+import StatusQuote from '../../../components/status_quote';
 import { Link, NavLink } from 'react-router-dom';
 import { FormattedDate, FormattedNumber } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
@@ -32,12 +33,17 @@ export default class DetailedStatus extends ImmutablePureComponent {
     compact: PropTypes.bool,
     showMedia: PropTypes.bool,
     onToggleMediaVisibility: PropTypes.func,
+    onShowRevisions: PropTypes.func,
   };
 
   state = {
     height: null,
   };
 
+  handleShowRevisions = () => {
+    this.props.onShowRevisions(this.props.status);
+  }
+  
   handleOpenVideo = (media, startTime) => {
     this.props.onOpenVideo(media, startTime);
   }
@@ -110,6 +116,7 @@ export default class DetailedStatus extends ImmutablePureComponent {
             blurhash={video.get('blurhash')}
             src={video.get('url')}
             alt={video.get('description')}
+            aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
             width={300}
             height={150}
             inline
@@ -185,15 +192,20 @@ export default class DetailedStatus extends ImmutablePureComponent {
             <DisplayName account={status.get('account')} localDomain={this.props.domain} />
           </NavLink>
 
-          {status.get('group') && (
-            <div className='status__meta'>
-              Posted in <NavLink to={`/groups/${status.getIn(['group', 'id'])}`}>{status.getIn(['group', 'title'])}</NavLink>
-            </div>
-          )}
+          {(status.get('group') || status.get('revised_at') !== null) && (
+              <div className='status__meta'>
+                {status.get('group') && <React.Fragment>Posted in <NavLink to={`/groups/${status.getIn(['group', 'id'])}`}>{status.getIn(['group', 'title'])}</NavLink></React.Fragment>}
+                {status.get('revised_at') !== null && <a onClick={this.handleShowRevisions}> Edited</a>}
+              </div>
+            )}
 
           <StatusContent status={status} expanded={!status.get('hidden')} onExpandedToggle={this.handleExpandedToggle} />
 
           {media}
+
+          {status.get('quote') && <StatusQuote
+            id={status.get('quote')}
+          />}
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener'>

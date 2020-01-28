@@ -2,7 +2,8 @@
 
 class InitialStateSerializer < ActiveModel::Serializer
   attributes :meta, :compose, :accounts,
-             :media_attachments, :settings
+             :media_attachments, :settings,
+             :promotions
 
   has_one :push_subscription, serializer: REST::WebPushSubscriptionSerializer
 
@@ -35,6 +36,8 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:advanced_layout]    = object.current_account.user.setting_advanced_layout
       store[:group_in_home_feed] = object.current_account.user.setting_group_in_home_feed
       store[:is_staff]           = object.current_account.user.staff?
+      store[:unread_count]       = unread_count object.current_account
+      store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_ammount") || 0
     end
 
     store
@@ -65,7 +68,22 @@ class InitialStateSerializer < ActiveModel::Serializer
     { accept_content_types: MediaAttachment::IMAGE_FILE_EXTENSIONS + MediaAttachment::VIDEO_FILE_EXTENSIONS + MediaAttachment::IMAGE_MIME_TYPES + MediaAttachment::VIDEO_MIME_TYPES }
   end
 
+  def promotions
+    if object.current_account
+      if object.current_account.is_pro
+        return []
+      end
+    end
+
+    ActiveModelSerializers::SerializableResource.new(Promotion.active, each_serializer: REST::PromotionSerializer)
+  end
+
   private
+
+  def unread_count(account)
+    last_read = account.user.last_read_notification || 0
+    account.notifications.where("id > #{last_read}").count
+  end
 
   def instance_presenter
     @instance_presenter ||= InstancePresenter.new

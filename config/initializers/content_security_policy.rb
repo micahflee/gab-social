@@ -9,7 +9,7 @@ assets_host ||= "http#{Rails.configuration.x.use_https ? 's' : ''}://#{base_host
 Rails.application.config.content_security_policy do |p|
   p.base_uri        :none
   p.default_src     :none
-  p.frame_ancestors :none
+  p.frame_ancestors :self, "https://*.gab.com", "https://*.openplatform.us"
   p.font_src        :self, assets_host
   p.img_src         :self, :https, :data, :blob, assets_host
   p.style_src       :self, :unsafe_inline, assets_host

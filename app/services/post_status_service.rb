@@ -68,6 +68,9 @@ class PostStatusService < BaseService
 
     process_hashtags_service.call(@status)
     process_mentions_service.call(@status)
+    if @status.quote
+      process_quote_service.call(@status)
+    end
   end
 
   def schedule_status!
@@ -97,7 +100,7 @@ class PostStatusService < BaseService
 
   def validate_group!
     group_id = @options[:group_id]
-    
+
     return if group_id.blank?
 
     raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group') if not GroupAccount.where(account: @account, group_id: group_id).exists?
@@ -117,6 +120,10 @@ class PostStatusService < BaseService
     ISO_639.find(str)&.alpha2
   end
 
+  def process_quote_service
+    ProcessQuoteService.new
+  end
+
   def process_mentions_service
     ProcessMentionsService.new
   end
@@ -126,6 +133,7 @@ class PostStatusService < BaseService
   end
 
   def scheduled?
+    return false unless @account.is_pro
     @scheduled_at.present?
   end
 
@@ -164,6 +172,7 @@ class PostStatusService < BaseService
     {
       text: @text,
       group_id: @options[:group_id],
+      quote_of_id: @options[:quote_of_id],
       media_attachments: @media || [],
       thread: @in_reply_to,
       poll_attributes: poll_attributes,

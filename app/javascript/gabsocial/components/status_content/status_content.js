@@ -8,7 +8,7 @@ import Icon from '../icon';
 
 import './status_content.scss';
 
-const MAX_HEIGHT = 642; // 20px * 32 (+ 2px padding at the top)
+const MAX_HEIGHT = 200;
 
 export default class StatusContent extends ImmutablePureComponent {
 
@@ -44,7 +44,7 @@ export default class StatusContent extends ImmutablePureComponent {
       }
       link.classList.add('status-link');
 
-      let mention = this.props.status.get('mentions').find(item => link.href === `/${item.get('acct')}`);
+      let mention = this.props.status.get('mentions').find(item => link.href === `${item.get('url')}`);
 
       if (mention) {
         link.addEventListener('click', this.onMentionClick.bind(this, mention), false);

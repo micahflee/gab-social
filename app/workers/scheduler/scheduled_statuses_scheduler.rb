@@ -3,8 +3,6 @@
 class Scheduler::ScheduledStatusesScheduler
   include Sidekiq::Worker
 
-  sidekiq_options unique: :until_executed, retry: 0
-
   def perform
     due_statuses.find_each do |scheduled_status|
       PublishScheduledStatusWorker.perform_at(scheduled_status.scheduled_at, scheduled_status.id)

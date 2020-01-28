@@ -21,6 +21,7 @@ import {
   EmbedModal,
   ListEditor,
   ListAdder,
+  StatusRevisionModal,
 } from '../../features/ui/util/async-components';
 
 const MODAL_COMPONENTS = {
@@ -34,10 +35,12 @@ const MODAL_COMPONENTS = {
   'EMBED': EmbedModal,
   'LIST_EDITOR': ListEditor,
   'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
-  'LIST_ADDER':ListAdder,
+  'LIST_ADDER': ListAdder,
   'HOTKEYS': () => Promise.resolve({ default: HotkeysModal }),
+  'STATUS_REVISION': StatusRevisionModal,
   'COMPOSE': () => Promise.resolve({ default: ComposeModal }),
   'UNAUTHORIZED': () => Promise.resolve({ default: UnauthorizedModal }),
+  'PRO_UPGRADE': () => Promise.resolve({ default: ProUpgradeModal }),
 };
 
 export default class ModalRoot extends PureComponent {

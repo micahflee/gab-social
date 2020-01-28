@@ -40,7 +40,7 @@ module.exports = merge(sharedConfig, {
 
         uglifyOptions: {
           compress: {
-            warnings: false,
+
           },
 
           output: {

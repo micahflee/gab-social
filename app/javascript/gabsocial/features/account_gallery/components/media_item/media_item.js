@@ -5,8 +5,10 @@ import { autoPlayGif, displayMedia } from 'gabsocial/initial_state';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
 import { isIOS } from 'gabsocial/utils/is_mobile';
+import conversations_list_container from '../../direct_timeline/containers/conversations_list_container';
 
 import './media_item.scss';
+
 
 export default class MediaItem extends ImmutablePureComponent {
 
@@ -125,8 +127,10 @@ export default class MediaItem extends ImmutablePureComponent {
             onMouseEnter={this.handleMouseEnter}
             onMouseLeave={this.handleMouseLeave}
             autoPlay={autoPlay}
+            preload='auto'
             loop
             muted
+            playsInline
           />
 
           <span className='media-gallery__gifv__label'>GIF</span>

@@ -43,6 +43,17 @@ class Group < ApplicationRecord
   before_destroy :clean_feed_manager
   after_create :add_owner_to_accounts
 
+  class << self
+    def search_for(term, limit = 100, offset = 0)
+      pattern = sanitize_sql_like(term.strip) + '%'
+
+      Group.where('lower(title) like lower(?) AND is_archived=false', pattern)
+        .order(:title)
+        .limit(limit)
+        .offset(offset)
+    end
+  end
+
   private
 
   def add_owner_to_accounts

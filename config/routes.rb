@@ -89,6 +89,9 @@ Rails.application.routes.draw do
       post '/btcpay-notification', to: 'upgrade#btcpay_notification', as: :btcpay_notification
     end
 
+    resources :promotions, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
+
     namespace :verifications do
       get :moderation, to: 'moderation#index', as: :moderation
       get 'moderation/:id/approve', to: 'moderation#approve', as: :approve
@@ -125,6 +128,7 @@ Rails.application.routes.draw do
 
     resources :sessions, only: [:destroy]
     resources :featured_tags, only: [:index, :create, :destroy]
+    resources :scheduled_statuses, only: [:index, :destroy]
   end
 
   resources :media, only: [:show] do
@@ -182,7 +186,7 @@ Rails.application.routes.draw do
 
     resources :report_notes, only: [:create, :destroy]
 
-    resources :accounts, only: [:index, :show] do
+    resources :accounts, only: [:index, :show, :edit, :update] do
       member do
         post :subscribe
         post :unsubscribe
@@ -236,12 +240,19 @@ Rails.application.routes.draw do
     resources :users, only: [] do
       resource :two_factor_authentication, only: [:destroy]
     end
-
+    
     resources :custom_emojis, only: [:index, :new, :create, :update, :destroy] do
       member do
         post :copy
         post :enable
         post :disable
+      end
+    end
+
+    resources :groups, only: [:index, :destroy] do
+      member do
+        post :enable_featured
+        post :disable_featured
       end
     end
 
@@ -276,7 +287,7 @@ Rails.application.routes.draw do
 
     # JSON / REST API
     namespace :v1 do
-      resources :statuses, only: [:create, :show, :destroy] do
+      resources :statuses, only: [:create, :update, :show, :destroy] do
         scope module: :statuses do
           resources :reblogged_by, controller: :reblogged_by_accounts, only: :index
           resources :favourited_by, controller: :favourited_by_accounts, only: :index
@@ -296,6 +307,7 @@ Rails.application.routes.draw do
         member do
           get :context
           get :card
+          get :revisions
         end
       end
 
@@ -323,7 +335,7 @@ Rails.application.routes.draw do
 
       get '/search', to: 'search#index', as: :search
 
-      get '/account_by_username/:username', to: 'account_by_username#show'
+      get '/account_by_username/:username', to: 'account_by_username#show', username: /(.*)/
 
       resources :follows,      only: [:create]
       resources :media,        only: [:create, :update]
@@ -358,6 +370,7 @@ Rails.application.routes.draw do
         collection do
           post :clear
           post :dismiss # Deprecated
+          post :mark_read
         end
 
         member do
@@ -439,6 +452,15 @@ Rails.application.routes.draw do
   get '/about/dmca',         to: 'about#dmca'
   get '/about/sales',        to: 'about#sales'
 
+  get '/tags/:tag', to: 'home#index'
+  get '/:username', to: 'home#index', as: :short_account
+  get '/:username/with_replies', to: 'home#index', as: :short_account_with_replies
+  get '/:username/media', to: 'home#index', as: :short_account_media
+  get '/:username/tagged/:tag', to: 'home#index', as: :short_account_tag
+  get '/:username/posts/:statusId/reblogs', to: 'home#index'
+  get '/:account_username/posts/:id', to: 'home#index', as: :short_account_status
+  get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
+
   get '/(*any)', to: 'home#index', as: :web
   root 'home#index'
 
@@ -446,13 +468,6 @@ Rails.application.routes.draw do
   # TODO : Consolidate
   get '/explore', to: 'directories#index', as: :explore
   get '/explore/:id', to: 'directories#show', as: :explore_hashtag
-
-  get '/:username', to: 'accounts#show', as: :short_account
-  get '/:username/with_replies', to: 'accounts#show', as: :short_account_with_replies
-  get '/:username/media', to: 'accounts#show', as: :short_account_media
-  get '/:username/tagged/:tag', to: 'accounts#show', as: :short_account_tag
-  get '/:account_username/posts/:id', to: 'statuses#show', as: :short_account_status
-  get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
 
   resources :tags, only: [:show]
 

@@ -20,11 +20,15 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :authorized_apps, safe_join([fa_icon('list fw'), t('settings.authorized_apps')]), oauth_authorized_applications_url
     end
 
+    n.item :posts, safe_join([fa_icon('bars fw'), t('settings.posts')]), settings_scheduled_statuses_url do |s|
+      s.item :scheduled_posts, safe_join([fa_icon('calendar fw'), t('settings.scheduled_posts')]), settings_scheduled_statuses_url
+    end
+
     n.item :requests, safe_join([fa_icon('id-card-o fw'), t('verifications.requests.title')]), settings_verifications_requests_url
 
     n.item :billing, safe_join([fa_icon('usd fw'), t('settings.billing')]), settings_billing_transactions_url do |s|
       s.item :transactions, safe_join([fa_icon('bars fw'), t('settings.transactions')]), settings_billing_transactions_url
-      s.item :upgrade, safe_join([fa_icon('usd fw'), t('settings.upgrade')]), settings_billing_upgrade_url
+      s.item :upgrade, safe_join([fa_icon('usd fw'), t('settings.upgrade')]), 'https://pro.gab.com'
     end
 
     n.item :data, safe_join([fa_icon('cloud-download fw'), t('settings.import_and_export')]), settings_export_url do |s|
@@ -48,12 +52,15 @@ SimpleNavigation::Configuration.run do |navigation|
     n.item :admin, safe_join([fa_icon('cogs fw'), t('admin.title')]), admin_dashboard_url, if: proc { current_user.staff? } do |s|
       s.item :dashboard, safe_join([fa_icon('tachometer fw'), t('admin.dashboard.title')]), admin_dashboard_url
       s.item :settings, safe_join([fa_icon('cogs fw'), t('admin.settings.title')]), edit_admin_settings_url, if: -> { current_user.admin? }, highlights_on: %r{/admin/settings}
+      s.item :groups, safe_join([fa_icon('smile-o fw'), t('admin.groups.title')]), admin_groups_url, highlights_on: %r{/admin/groups}
       s.item :custom_emojis, safe_join([fa_icon('smile-o fw'), t('admin.custom_emojis.title')]), admin_custom_emojis_url, highlights_on: %r{/admin/custom_emojis}
       s.item :relays, safe_join([fa_icon('exchange fw'), t('admin.relays.title')]), admin_relays_url, if: -> { current_user.admin? }, highlights_on: %r{/admin/relays}
       s.item :subscriptions, safe_join([fa_icon('paper-plane-o fw'), t('admin.subscriptions.title')]), admin_subscriptions_url, if: -> { current_user.admin? }
       s.item :sidekiq, safe_join([fa_icon('diamond fw'), 'Sidekiq']), sidekiq_url, link_html: { target: 'sidekiq' }, if: -> { current_user.admin? }
       s.item :pghero, safe_join([fa_icon('database fw'), 'PgHero']), pghero_url, link_html: { target: 'pghero' }, if: -> { current_user.admin? }
       s.item :moderation, safe_join([fa_icon('id-card-o fw'), t('verifications.moderation.title')]), settings_verifications_moderation_url, if: -> { current_user.admin? }
+      s.item :promotions, safe_join([fa_icon('star fw'), t('promotions.title')]), settings_promotions_url, if: -> { current_user.admin? }
+      s.item :monthly_funding, safe_join([fa_icon('money fw'), t('monthly_funding.title')]), settings_expenses_url, if: -> { current_user.admin? }
     end
 
     n.item :logout, safe_join([fa_icon('sign-out fw'), t('auth.logout')]), destroy_user_session_url, link_html: { 'data-method' => 'delete' }

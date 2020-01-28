@@ -1,14 +1,15 @@
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';
 import { debounce } from 'lodash';
-import { me } from '../initial_state';
-import StatusList from '../components/status_list/status_list';
+import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from 'gabsocial/actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
+import { sample } from 'lodash';
+import { fetchStatus } from '../actions/statuses';
 
 const makeGetStatusIds = () => createSelector([
-  (state, { type }) => state.getIn(['settings', type], ImmutableMap()),
-  (state, { type }) => state.getIn(['timelines', type, 'items'], ImmutableList()),
+  (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
+  (state, { type, id }) => state.getIn(['timelines', id, 'items'], ImmutableList()),
   (state)           => state.get('statuses'),
 ], (columnSettings, statusIds, statuses) => {
   return statusIds.filter(id => {
@@ -31,13 +32,16 @@ const makeGetStatusIds = () => createSelector([
 
 const mapStateToProps = (state, {timelineId}) => {
   const getStatusIds = makeGetStatusIds();
+  const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
   return {
-    statusIds: getStatusIds(state, { type: timelineId }),
+    statusIds: getStatusIds(state, { type: timelineId.substring(0,5) === 'group' ? 'group' : timelineId, id: timelineId }),
     isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
     hasMore:   state.getIn(['timelines', timelineId, 'hasMore']),
     totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
+    promotion: promotion,
+    promotedStatus: promotion && state.getIn(['statuses', promotion.status_id])
   };
 };
 
@@ -51,6 +55,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onScroll: debounce(() => {
     dispatch(scrollTopTimeline(ownProps.timelineId, false));
   }, 100),
+  fetchStatus(id) {
+    dispatch(fetchStatus(id));
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(StatusList);

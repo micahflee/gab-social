@@ -4,6 +4,7 @@ import {
   replyCompose,
   mentionCompose,
   directCompose,
+  quoteCompose,
 } from '../actions/compose';
 import {
   reblog,
@@ -18,6 +19,7 @@ import {
   muteStatus,
   unmuteStatus,
   deleteStatus,
+  editStatus,
   hideStatus,
   revealStatus,
 } from '../actions/statuses';
@@ -35,11 +37,11 @@ import {
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
   deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
-  redraftConfirm: { id: 'confirmations.redraft.confirm', defaultMessage: 'Delete & redraft' },
-  redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favorites and reposts will be lost, and replies to the original post will be orphaned.' },
   blockConfirm: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
+  quoteConfirm: { id: 'confirmations.quote.confirm', defaultMessage: 'Quote' },
+  quoteMessage: { id: 'confirmations.quote.message', defaultMessage: 'Quoting now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
   blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
 });
 
@@ -70,6 +72,21 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     });
   },
 
+  onQuote (status, router) {
+    dispatch((_, getState) => {
+      let state = getState();
+      if (state.getIn(['compose', 'text']).trim().length !== 0) {
+        dispatch(openModal('CONFIRM', {
+          message: intl.formatMessage(messages.quoteMessage),
+          confirm: intl.formatMessage(messages.quoteConfirm),
+          onConfirm: () => dispatch(quoteCompose(status, router)),
+        }));
+      } else {
+        dispatch(quoteCompose(status, router));
+      }
+    });
+  },
+
   onModalReblog (status) {
     if (status.get('reblogged')) {
       dispatch(unreblog(status));
@@ -84,6 +101,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }));
     }
+  },
+
+  onShowRevisions (status) {
+    dispatch(openModal('STATUS_REVISION', { status }));
   },
 
   onFavourite (status) {
@@ -109,16 +130,20 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }));
   },
 
-  onDelete (status, history, withRedraft = false) {
+  onDelete (status, history) {
     if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history, withRedraft));
+      dispatch(deleteStatus(status.get('id'), history));
     } else {
       dispatch(openModal('CONFIRM', {
-        message: intl.formatMessage(withRedraft ? messages.redraftMessage : messages.deleteMessage),
-        confirm: intl.formatMessage(withRedraft ? messages.redraftConfirm : messages.deleteConfirm),
-        onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
+        message: intl.formatMessage(messages.deleteMessage),
+        confirm: intl.formatMessage(messages.deleteConfirm),
+        onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
       }));
     }
+  },
+
+  onEdit (status) {
+    dispatch(editStatus(status));
   },
 
   onDirect (account, router) {
@@ -181,6 +206,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onGroupRemoveStatus(groupId, statusId) {
     dispatch(groupRemoveStatus(groupId, statusId));
+  },
+
+  onOpenProUpgradeModal() {
+    dispatch(openModal('PRO_UPGRADE'));
   },
 
 });

@@ -59,6 +59,7 @@ class Notification < ApplicationRecord
   def target_status
     case type
     when :reblog
+      return status if status&.quote?
       status&.reblog
     when :favourite
       favourite&.status
@@ -71,6 +72,17 @@ class Notification < ApplicationRecord
 
   def browserable?
     type != :follow_request
+  end
+
+  def mark_read!
+    user = account.user
+    is_newer = self.id > (user.last_read_notification || -1)
+
+    if is_newer
+      user.last_read_notification = self.id
+      user.save!
+    else false
+    end
   end
 
   class << self

@@ -53,6 +53,7 @@ class StatusCheckBox extends ImmutablePureComponent {
                 blurhash={video.get('blurhash')}
                 src={video.get('url')}
                 alt={video.get('description')}
+                aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
                 width={239}
                 height={110}
                 inline

@@ -43,13 +43,17 @@ export function normalizeStatus(status, normalOldStatus) {
     normalStatus.reblog = status.reblog.id;
   }
 
+  if (status.quote && status.quote.id) {
+    normalStatus.quote = status.quote.id;
+  }
+
   if (status.poll && status.poll.id) {
     normalStatus.poll = status.poll.id;
   }
 
   // Only calculate these values when status first encountered
   // Otherwise keep the ones already in the reducer
-  if (normalOldStatus) {
+  if (normalOldStatus && normalOldStatus.get('content') === normalStatus.content && normalOldStatus.get('spoiler_text') === normalStatus.spoiler_text) {
     normalStatus.search_index = normalOldStatus.get('search_index');
     normalStatus.contentHtml = normalOldStatus.get('contentHtml');
     normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml');
