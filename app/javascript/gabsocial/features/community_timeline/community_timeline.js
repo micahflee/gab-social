@@ -1,11 +1,4 @@
-import React from 'react';
-import { connect } from 'react-redux';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import StatusListContainer from '../ui/containers/status_list_container';
-import Column from '../../components/column';
-import ColumnSettingsContainer from './containers/column_settings_container';
-import HomeColumnHeader from '../../components/home_column_header';
 import {
   expandCommunityTimeline,
   expandPublicTimeline,
@@ -14,6 +7,10 @@ import {
   connectCommunityStream,
   connectPublicStream,
 } from '../../actions/streaming';
+import StatusListContainer from '../../containers/status_list_container';;
+// import ColumnSettingsContainer from '.containers/column_settings_container';
+import Column from '../../components/column';
+// import { HomeColumnHeader } from '../../components/column_header';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Community timeline' },
@@ -103,9 +100,9 @@ class CommunityTimeline extends React.PureComponent {
 
     return (
       <Column label={intl.formatMessage(messages.title)}>
-        <HomeColumnHeader activeItem='all' active={hasUnread} >
+        { /* <HomeColumnHeader activeItem='all' active={hasUnread} >
           <ColumnSettingsContainer />
-        </HomeColumnHeader>
+        </HomeColumnHeader> */ }
         <StatusListContainer
           scrollKey={`${timelineId}_timeline`}
           timelineId={`${timelineId}${onlyMedia ? ':media' : ''}`}

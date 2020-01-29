@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import QuotedStatusPreview from '../components/quoted_status_preview';
 
 const mapStateToProps = (state, { id }) => ({

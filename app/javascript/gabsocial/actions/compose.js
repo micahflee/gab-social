@@ -12,7 +12,7 @@ import { showAlertForError } from './alerts';
 import { showAlert } from './alerts';
 import { defineMessages } from 'react-intl';
 import { openModal, closeModal } from './modal';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 let cancelFetchComposeSuggestionsAccounts;
 

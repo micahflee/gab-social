@@ -1,4 +1,4 @@
-import React, { PureComponent, Fragment } from 'react';
+import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { IntlProvider, addLocaleData } from 'react-intl';
 import { getLocale } from '../locales';

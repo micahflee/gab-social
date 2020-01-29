@@ -6,6 +6,7 @@ import { dequeueTimeline } from 'gabsocial/actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
 import { sample } from 'lodash';
 import { fetchStatus } from '../actions/statuses';
+import StatusList from '../components/status_list';
 
 const makeGetStatusIds = () => createSelector([
   (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),

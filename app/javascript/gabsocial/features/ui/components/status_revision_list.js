@@ -1,8 +1,7 @@
-import React from 'react';
+
 import { injectIntl } from 'react-intl';
-import PropTypes from 'prop-types';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import ModalLoading from './modal_loading';
+import ModalLoading from '../../../components/modal_loading';
 import RelativeTimestamp from '../../../components/relative_timestamp';
 
 export default @injectIntl

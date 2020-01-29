@@ -4,6 +4,7 @@ import { length } from 'stringz';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import classNames from 'classnames';
 import CharacterCounter from '../character_counter';
+import UploadForm from '../upload_form';
 import ReplyIndicatorContainer from '../../containers/reply_indicator_container';
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox';
 import PollButtonContainer from '../../containers/poll_button_container';
@@ -12,18 +13,15 @@ import SpoilerButtonContainer from '../../containers/spoiler_button_container';
 import PrivacyDropdownContainer from '../../containers/privacy_dropdown_container';
 import EmojiPickerDropdown from '../../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../../containers/poll_form_container';
-import UploadForm from '../upload_form/upload_form';
 import WarningContainer from '../../containers/warning_container';
-import { isMobile } from '../../../../utils/is_mobile';
-import { countableText } from '../../util/counter';
+import SchedulePostDropdownContainer from '../../containers/schedule_post_dropdown_container';
+import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container';
 import Icon from '../../../../components/icon';
 import Button from '../../../../components/button';
-import SchedulePostDropdownContainer from '../containers/schedule_post_dropdown_container';
-import UploadFormContainer from '../containers/upload_form_container';
-import QuotedStatusPreviewContainer from '../containers/quoted_status_preview_container';
+import { isMobile } from '../../../../utils/is_mobile';
+import { countableText } from '../../util/counter';
 
 import './compose_form.scss';
-
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 const maxPostCharacterCount = 3000;
@@ -286,7 +284,7 @@ class ComposeForm extends ImmutablePureComponent {
           {
             !condensed &&
             <div className='compose-form__modifiers'>
-              <UploadFormContainer />
+              <UploadForm />
               {!edit && <PollFormContainer />}
             </div>
           }

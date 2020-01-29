@@ -1,9 +1,6 @@
-import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import PropTypes from 'prop-types';
 import StatusContent from './status_content';
 import DisplayName from './display_name';
-import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 const mapStateToProps = (state, { id }) => ({

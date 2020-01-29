@@ -1,4 +1,3 @@
-import React from 'react';
 import { monthlyExpensesComplete } from '../../../initial_state';
 
 export default class ProgressPanel extends React.PureComponent {

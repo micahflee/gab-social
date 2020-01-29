@@ -5,7 +5,6 @@ import { autoPlayGif, displayMedia } from 'gabsocial/initial_state';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
 import { isIOS } from 'gabsocial/utils/is_mobile';
-import conversations_list_container from '../../direct_timeline/containers/conversations_list_container';
 
 import './media_item.scss';
 

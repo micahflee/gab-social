@@ -27,11 +27,11 @@ export default class WrappedRoute extends Component {
         <Bundle fetchComponent={component} loading={this.renderLoading} error={this.renderError}>
           {Component =>
             (
-                <Page params={match.params} {...componentParams}>
-                  <Component params={match.params} {...componentParams}>
-                    {content}
-                  </Component>
-                </Page>
+              <Page params={match.params} {...componentParams}>
+                <Component params={match.params} {...componentParams}>
+                  {content}
+                </Component>
+              </Page>
             )
           }
         </Bundle>
@@ -61,15 +61,15 @@ export default class WrappedRoute extends Component {
     return <BundleColumnError {...props} />;
   }
 
-  render () {
+  render() {
     const { component: Component, content, publicRoute, ...rest } = this.props;
 
     if (!publicRoute && !me) {
       const actualUrl = encodeURIComponent(this.props.computedMatch.url);
       return <Route path={this.props.path} component={() => {
-         window.location.href = `/auth/sign_in?redirect_uri=${actualUrl}`;
-         return null;
-       }}/>
+        window.location.href = `/auth/sign_in?redirect_uri=${actualUrl}`;
+        return null;
+      }} />
     }
 
     return <Route {...rest} render={this.renderComponent} />;

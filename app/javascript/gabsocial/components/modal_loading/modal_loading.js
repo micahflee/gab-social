@@ -1,4 +1,3 @@
-import { PureComponent } from 'react';
 import ColumnIndicator from '../column_indicator';
 
 import './modal_loading.scss';

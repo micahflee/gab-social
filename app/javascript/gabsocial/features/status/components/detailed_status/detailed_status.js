@@ -1,9 +1,9 @@
-import StatusQuote from '../../../components/status_quote';
 import { Link, NavLink } from 'react-router-dom';
 import { FormattedDate, FormattedNumber } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import classNames from 'classnames';
+import StatusQuote from '../../../../components/status_quote';
 import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
 import StatusContent from '../../../../components/status_content';

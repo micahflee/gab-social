@@ -1,5 +1,5 @@
 import api from '../api';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const GROUP_CREATE_REQUEST      = 'GROUP_CREATE_REQUEST';
 export const GROUP_CREATE_SUCCESS      = 'GROUP_CREATE_SUCCESS';

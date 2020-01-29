@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Hashtag from '../../../components/hashtag';
-import Icon from 'gabsocial/components/icon';
-import WhoToFollowPanel from '../../ui/components/who_to_follow_panel';
+import TrendingItem from '../../../../components/trending_item';
+import Icon from '../../../../components/icon';
+import { WhoToFollowPanel } from '../../../../components/panel';
 // import TrendsPanel from '../../ui/components/trends_panel';
-import GroupListItem from 'gabsocial/components/group_list_item';
+import GroupListItem from '../../../../components/group_list_item';
 
 export default
 @injectIntl
@@ -71,7 +71,7 @@ class SearchResults extends ImmutablePureComponent {
       hashtags = (
         <div className='search-results__section'>
           <h5><Icon id='hashtag' fixedWidth /><FormattedMessage id='search_results.hashtags' defaultMessage='Hashtags' /></h5>
-          {results.get('hashtags').slice(0, size).map(hashtag => <Hashtag key={hashtag.get('name')} hashtag={hashtag} />)}
+          {results.get('hashtags').slice(0, size).map(hashtag => <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />)}
         </div>
       );
     }

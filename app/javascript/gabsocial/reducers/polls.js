@@ -1,4 +1,4 @@
-import { POLLS_IMPORT } from 'gabsocial/actions/importer';
+import { POLLS_IMPORT } from '../actions/importer';
 import { Map as ImmutableMap, fromJS } from 'immutable';
 
 const importPolls = (state, polls) => state.withMutations(map => polls.forEach(poll => map.set(poll.id, fromJS(poll))));

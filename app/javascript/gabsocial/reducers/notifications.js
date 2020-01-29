@@ -19,7 +19,7 @@ import {
 import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import compareId from '../utils/compare_id';
-import { unreadCount } from 'gabsocial/initial_state';
+import { unreadCount } from '../initial_state';
 
 const initialState = ImmutableMap({
   items: ImmutableList(),

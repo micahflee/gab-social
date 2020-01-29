@@ -1,7 +1,7 @@
 import api from '../api';
 import { importFetchedAccounts } from './importer';
 import { showAlertForError } from './alerts';
-import { me } from 'gabsocial/initial_state'
+import { me } from '../initial_state'
 
 export const LIST_FETCH_REQUEST = 'LIST_FETCH_REQUEST';
 export const LIST_FETCH_SUCCESS = 'LIST_FETCH_SUCCESS';

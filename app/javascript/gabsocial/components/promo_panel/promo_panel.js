@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl';
-import Icon from 'gabsocial/components/icon';
+import Icon from '../icon';
 
 import './promo_panel.scss';
 

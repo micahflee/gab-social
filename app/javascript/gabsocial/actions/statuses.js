@@ -4,7 +4,7 @@ import { evictStatus } from '../storage/modifier';
 import { deleteFromTimelines } from './timelines';
 import { importFetchedStatus, importFetchedStatuses, importAccount, importStatus } from './importer';
 import { openModal } from './modal';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const STATUS_FETCH_REQUEST = 'STATUS_FETCH_REQUEST';
 export const STATUS_FETCH_SUCCESS = 'STATUS_FETCH_SUCCESS';

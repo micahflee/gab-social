@@ -1,16 +1,9 @@
 'use strict';
 
 import classNames from 'classnames';
-import React from 'react';
 import { HotKeys } from 'react-hotkeys';
 import { defineMessages, injectIntl } from 'react-intl';
-import { connect } from 'react-redux';
 import { Switch, Redirect, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import NotificationsContainer from './containers/notifications_container';
-import LoadingBarContainer from './containers/loading_bar_container';
-import ModalContainer from './containers/modal_container';
-import { isMobile } from '../../is_mobile';
 import { debounce } from 'lodash';
 import { uploadCompose, resetCompose } from '../../actions/compose';
 import { expandHomeTimeline } from '../../actions/timelines';
@@ -21,20 +14,24 @@ import {
 import { fetchFilters } from '../../actions/filters';
 import { clearHeight } from '../../actions/height_cache';
 import { openModal } from '../../actions/modal';
-import { WrappedSwitch, WrappedRoute } from './util/react_router_helpers';
-import UploadArea from './components/upload_area';
-import TabsBar from './components/tabs_bar';
+import WrappedRoute from './util/wrapped_route';
+import { isMobile } from '../../utils/is_mobile';
+import NotificationsContainer from '../../containers/notifications_container';
+import LoadingBarContainer from '../../containers/loading_bar_container';
+import ModalContainer from '../../containers/modal_container';
+import UploadArea from '../../components/upload_area';
+import TabsBar from '../../components/tabs_bar';
 import FooterBar from './components/footer_bar';
 // import TrendsPanel from './components/trends_panel';
-import WhoToFollowPanel from './components/who_to_follow_panel';
-import LinkFooter from './components/link_footer';
-import ProfilePage from 'gabsocial/pages/profile_page';
-import GroupsPage from 'gabsocial/pages/groups_page';
-import GroupPage from 'gabsocial/pages/group_page';
-import SearchPage from 'gabsocial/pages/search_page';
-import HomePage from 'gabsocial/pages/home_page';
-import GroupSidebarPanel from '../groups/sidebar_panel';
+import { WhoToFollowPanel } from '../../components/panel';
+import LinkFooter from '../../components/link_footer';
 import SidebarMenu from '../../components/sidebar_menu';
+import ProfilePage from '../../pages/profile_page';
+// import GroupsPage from 'gabsocial/pages/groups_page';
+import GroupPage from '../../pages/group_page';
+import SearchPage from '../../pages/search_page';
+import HomePage from '../../pages/home_page';
+import GroupSidebarPanel from '../groups/sidebar_panel';
 
 import {
   Status,
@@ -69,13 +66,14 @@ import {
   GroupEdit,
 } from './util/async-components';
 import { me, meUsername } from '../../initial_state';
-import { previewState as previewMediaState } from './components/media_modal';
-import { previewState as previewVideoState } from './components/video_modal';
 
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
+
+import '../../../styles/application.scss';
+import './ui.scss';
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
@@ -189,10 +187,10 @@ class SwitchingColumnsArea extends React.PureComponent {
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
         <WrappedRoute path='/timeline/all' exact page={HomePage} component={CommunityTimeline} content={children} />
 
-        <WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
+        {/*<WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/create' page={GroupsPage} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
         <WrappedRoute path='/groups/browse/member' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
-        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
+        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />*/}
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />

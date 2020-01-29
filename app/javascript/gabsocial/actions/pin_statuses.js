@@ -1,6 +1,6 @@
 import api from '../api';
 import { importFetchedStatuses } from './importer';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const PINNED_STATUSES_FETCH_REQUEST = 'PINNED_STATUSES_FETCH_REQUEST';
 export const PINNED_STATUSES_FETCH_SUCCESS = 'PINNED_STATUSES_FETCH_SUCCESS';

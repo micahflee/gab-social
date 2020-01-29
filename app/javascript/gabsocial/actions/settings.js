@@ -1,7 +1,7 @@
 import api from '../api';
 import { debounce } from 'lodash';
 import { showAlertForError } from './alerts';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const SETTING_CHANGE = 'SETTING_CHANGE';
 export const SETTING_SAVE   = 'SETTING_SAVE';

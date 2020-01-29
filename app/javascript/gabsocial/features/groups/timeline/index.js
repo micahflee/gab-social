@@ -1,18 +1,12 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import StatusListContainer from '../../ui/containers/status_list_container';
-import Column from '../../../components/column';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import { connectGroupStream } from '../../../actions/streaming';
-import { expandGroupTimeline } from '../../../actions/timelines';
-import MissingIndicator from '../../../components/missing_indicator';
-import LoadingIndicator from '../../../components/loading_indicator';
-import ComposeFormContainer from '../../../../gabsocial/features/compose/containers/compose_form_container';
-import { me } from 'gabsocial/initial_state';
-import Avatar from '../../../components/avatar';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import ColumnSettingsContainer from "./containers/column_settings_container";
-import Icon from 'gabsocial/components/icon';
+import { connectGroupStream } from '../../../actions/streaming';
+import { expandGroupTimeline } from '../../../actions/timelines';
+import StatusListContainer from '../../../containers/status_list_container';
+import ColumnSettingsContainer from './containers/column_settings_container';
+import Icon from '../../../components/icon';
 
 const messages = defineMessages({
   tabLatest: { id: 'group.timeline.tab_latest', defaultMessage: 'Latest' },

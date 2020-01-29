@@ -1,5 +1,5 @@
 import api from '../api';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const FILTERS_FETCH_REQUEST = 'FILTERS_FETCH_REQUEST';
 export const FILTERS_FETCH_SUCCESS = 'FILTERS_FETCH_SUCCESS';

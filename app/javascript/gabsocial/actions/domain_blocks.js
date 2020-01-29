@@ -1,5 +1,5 @@
 import api, { getLinks } from '../api';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const DOMAIN_BLOCK_REQUEST = 'DOMAIN_BLOCK_REQUEST';
 export const DOMAIN_BLOCK_SUCCESS = 'DOMAIN_BLOCK_SUCCESS';

@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { NavLink, withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
-import NotificationsCounterIcon from './notifications_counter_icon';
+import NotificationCounter from '../../../components/notification_counter';
 import { me } from '../../../initial_state';
 
 const links = [
@@ -12,7 +10,7 @@ const links = [
   </NavLink>,
   <NavLink key='pr2' className='footer-bar__link' to='/notifications' data-preview-title-id='column.notifications'>
     <i className='tabs-bar__link__icon notifications'/>
-    <NotificationsCounterIcon />
+    <NotificationCounter />
     <FormattedMessage id='tabs_bar.notifications' defaultMessage='Notifications' />
   </NavLink>,
   <NavLink key='pr3' className='footer-bar__link' to='/groups' data-preview-title-id='column.groups'>

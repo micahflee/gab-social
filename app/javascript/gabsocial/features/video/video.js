@@ -1,14 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { fromJS, is } from 'immutable';
 import { throttle } from 'lodash';
 import classNames from 'classnames';
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../ui/util/fullscreen';
-import { displayMedia } from '../../initial_state';
-import Icon from 'gabsocial/components/icon';
 import { decode } from 'blurhash';
+import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/fullscreen';
 import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio';
+import { displayMedia } from '../../initial_state';
+import Icon from '../../components/icon';
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },

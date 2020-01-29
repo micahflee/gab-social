@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import SchedulePostDropdown from '../components/schedule_post_dropdown';
 import { changeScheduledAt } from '../../../actions/compose';
 import { openModal } from '../../../actions/modal';

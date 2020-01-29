@@ -1,6 +1,4 @@
-import React from 'react';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { connect } from 'react-redux';
 import { load } from '../../../actions/status_revision_list';
 import StatusRevisionList from '../components/status_revision_list';
 

@@ -217,8 +217,8 @@ class StatusActionBar extends ImmutablePureComponent {
           menu.push({ text: formatMessage(status.get('reblogged') ? messages.cancel_reblog_private : messages.reblog_private), action: this.handleReblogClick });
         }
       }
-      menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
-      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
+      menu.push({ text: formatMessage(messages.delete), action: this.handleDeleteClick });
+      menu.push({ text: formatMessage(messages.edit), action: this.handleEditClick });
     } else {
       menu.push({ text: formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
       menu.push(null);
@@ -292,10 +292,10 @@ class StatusActionBar extends ImmutablePureComponent {
         </div>
 
         <div className='status__action-bar__counter'>
-          <IconButton className='status__action-bar-button' disabled={!publicStatus} title={!publicStatus ? intl.formatMessage(messages.cannot_quote) : intl.formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} />
+          <IconButton className='status__action-bar-button' disabled={!publicStatus} title={!publicStatus ? formatMessage(messages.cannot_quote) : formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} />
         </div>
         <div className='status__action-bar__counter'>
-          <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={intl.formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
+          <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
           {favoriteCount !== 0 && <span className='detailed-status__link'>{favoriteCount}</span>}
         </div>
 

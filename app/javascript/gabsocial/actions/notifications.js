@@ -12,7 +12,7 @@ import { defineMessages } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import { unescapeHTML } from '../utils/html';
 import { getFilters, regexFromFilters } from '../selectors';
-import { me } from 'gabsocial/initial_state';
+import { me } from '../initial_state';
 
 export const NOTIFICATIONS_INITIALIZE  = 'NOTIFICATIONS_INITIALIZE';
 export const NOTIFICATIONS_UPDATE      = 'NOTIFICATIONS_UPDATE';

@@ -1,9 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import { injectIntl, defineMessages } from 'react-intl';
 import DatePicker from 'react-datepicker';
 import IconButton from '../../../components/icon_button';
-import { isMobile } from '../../../is_mobile';
+import { isMobile } from '../../../utils/is_mobile';
 
 import "react-datepicker/dist/react-datepicker.css";
 
