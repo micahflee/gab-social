@@ -28,7 +28,7 @@ const links = [
 export default
 @injectIntl
 @withRouter
-class FooterBar extends React.PureComponent {
+class FooterBar extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

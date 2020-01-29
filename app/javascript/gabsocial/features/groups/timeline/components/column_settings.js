@@ -3,7 +3,7 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import SettingToggle from '../../../../components/setting_toggle';
 
 export default @injectIntl
-class ColumnSettings extends React.PureComponent {
+class ColumnSettings extends PureComponent {
 
   static propTypes = {
     settings: ImmutablePropTypes.map.isRequired,

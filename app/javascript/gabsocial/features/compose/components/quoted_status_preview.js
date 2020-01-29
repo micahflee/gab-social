@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import DisplayName from '../../../components/display_name';
 import StatusContent from '../../../components/status_content';
 
-export default class QuotedStatusPreview extends React.PureComponent {
+export default class QuotedStatusPreview extends PureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map,
     account: ImmutablePropTypes.map,

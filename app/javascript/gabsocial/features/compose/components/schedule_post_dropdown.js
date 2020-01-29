@@ -9,7 +9,7 @@ const messages = defineMessages({
   schedule_status: { id: 'schedule_status.title', defaultMessage: 'Schedule Status' },
 });
 
-class DatePickerWrapper extends React.PureComponent {
+class DatePickerWrapper extends PureComponent {
   static propTypes = {
     value: PropTypes.string,
     onClick: PropTypes.func,
@@ -27,7 +27,7 @@ class DatePickerWrapper extends React.PureComponent {
 }
 
 export default @injectIntl
-class SchedulePostDropdown extends React.PureComponent {
+class SchedulePostDropdown extends PureComponent {
 
   static propTypes = {
     date: PropTypes.instanceOf(Date),

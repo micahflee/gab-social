@@ -144,7 +144,7 @@ const LAYOUT = {
 
 const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
 
-class SwitchingColumnsArea extends React.PureComponent {
+class SwitchingColumnsArea extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -251,7 +251,7 @@ class SwitchingColumnsArea extends React.PureComponent {
 export default @connect(mapStateToProps)
 @injectIntl
 @withRouter
-class UI extends React.PureComponent {
+class UI extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

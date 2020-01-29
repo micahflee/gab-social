@@ -32,7 +32,7 @@ const mapStateToProps = state => {
 
 export default @connect(mapStateToProps)
 @injectIntl
-class CommunityTimeline extends React.PureComponent {
+class CommunityTimeline extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

@@ -11,7 +11,7 @@ const mapStateToProps = (state, { id }) => ({
 });
 
 @connect(mapStateToProps)
-export default class StatusQuote extends React.PureComponent {
+export default class StatusQuote extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

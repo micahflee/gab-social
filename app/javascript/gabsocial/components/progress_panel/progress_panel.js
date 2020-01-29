@@ -1,6 +1,6 @@
 import { monthlyExpensesComplete } from '../../initial_state';
 
-export default class ProgressPanel extends React.PureComponent {
+export default class ProgressPanel extends PureComponent {
   render() {
     if (!monthlyExpensesComplete) return null;
 
