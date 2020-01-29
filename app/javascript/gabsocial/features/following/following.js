@@ -1,18 +1,18 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import ColumnIndicator from '../../components/column_indicator';
+import { FormattedMessage } from 'react-intl';
+import { me } from '../../initial_state';
 import {
   fetchAccount,
   fetchFollowing,
   expandFollowing,
   fetchAccountByUsername,
 } from '../../actions/accounts';
-import { FormattedMessage } from 'react-intl';
 import AccountContainer from '../../containers/account_container';
+import ColumnIndicator from '../../components/column_indicator';
 import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
-import { me } from 'gabsocial/initial_state';
 
 const mapStateToProps = (state, { params: { username } }) => {
   const accounts = state.getIn(['accounts']);

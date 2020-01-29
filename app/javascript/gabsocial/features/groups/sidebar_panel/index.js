@@ -1,9 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import Item from './item';
-import Icon from 'gabsocial/components/icon';
 import { Link } from 'react-router-dom';
+import Item from './item';
+import Icon from '../../../components/icon';
 
 const messages = defineMessages({
     title: { id: 'groups.sidebar-panel.title', defaultMessage: 'Groups You\'re In' },

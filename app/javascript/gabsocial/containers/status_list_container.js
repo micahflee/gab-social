@@ -1,10 +1,9 @@
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';
-import { debounce } from 'lodash';
+import { debounce, sample } from 'lodash';
 import { me, promotions } from '../initial_state';
-import { dequeueTimeline } from 'gabsocial/actions/timelines';
+import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
-import { sample } from 'lodash';
 import { fetchStatus } from '../actions/statuses';
 import StatusList from '../components/status_list';
 

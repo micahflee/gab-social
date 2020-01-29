@@ -1,9 +1,9 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Button from 'gabsocial/components/button';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
+import Button from '../../../../components/button';
 
 const messages = defineMessages({
 	join: { id: 'groups.join', defaultMessage: 'Join group' },

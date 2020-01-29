@@ -1,13 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { fetchGroups } from '../../../actions/groups';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
+import { fetchGroups } from '../../../actions/groups';
+import { openModal } from '../../../actions/modal';
+import { me } from '../../../initial_state';
 import GroupCard from './card';
 import GroupCreate from '../create';
-import { me } from 'gabsocial/initial_state';
-import { openModal } from '../../../actions/modal';
 
 const messages = defineMessages({
 	heading: { id: 'column.groups', defaultMessage: 'Groups' },

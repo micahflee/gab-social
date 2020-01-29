@@ -1,18 +1,16 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { FormattedMessage } from 'react-intl';
 import TrendingItem from '../../../../components/trending_item';
 import Icon from '../../../../components/icon';
 import { WhoToFollowPanel } from '../../../../components/panel';
 // import TrendsPanel from '../../ui/components/trends_panel';
 import GroupListItem from '../../../../components/group_list_item';
 
-export default
-@injectIntl
-class SearchResults extends ImmutablePureComponent {
+export default class SearchResults extends ImmutablePureComponent {
 
   static propTypes = {
     results: ImmutablePropTypes.map.isRequired,
-    intl: PropTypes.object.isRequired,
     location: PropTypes.object,
   };
 

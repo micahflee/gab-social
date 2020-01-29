@@ -2,8 +2,8 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import IconButton from 'gabsocial/components/icon_button';
 import StatusRevisionListContainer from '../containers/status_revision_list_container';
+import IconButton from '../../../components/icon_button';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },

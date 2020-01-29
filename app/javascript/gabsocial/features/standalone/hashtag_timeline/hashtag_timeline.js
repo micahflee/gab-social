@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { expandHashtagTimeline } from 'gabsocial/actions/timelines';
 import Masonry from 'react-masonry-infinite';
 import { List as ImmutableList } from 'immutable';
-import DetailedStatusContainer from 'gabsocial/features/status/containers/detailed_status_container';
 import { debounce } from 'lodash';
+import { expandHashtagTimeline } from '../../../actions/timelines';
+import DetailedStatusContainer from '../../../features/status/containers/detailed_status_container';
 import ColumnIndicator from '../../../components/column_indicator';
 
 const mapStateToProps = (state, { hashtag }) => ({

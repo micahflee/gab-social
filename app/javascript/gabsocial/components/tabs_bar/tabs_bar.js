@@ -4,9 +4,9 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { me } from '../../initial_state';
 import NotificationsCounter from '../notification_counter';
-import SearchContainer from 'gabsocial/features/compose/containers/search_container';
+import SearchContainer from '../../features/compose/containers/search_container';
 import Avatar from '../avatar';
-import ActionBar from 'gabsocial/features/compose/components/action_bar';
+import ActionBar from '../../features/compose/components/action_bar';
 import { openModal } from '../../actions/modal';
 import GabLogo from './assets/gab_logo/gab_logo';
 import {

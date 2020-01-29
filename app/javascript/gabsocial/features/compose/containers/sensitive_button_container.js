@@ -1,6 +1,6 @@
 import classNames from 'classnames';
-import { changeComposeSensitivity } from 'gabsocial/actions/compose';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
+import { changeComposeSensitivity } from '../../../actions/compose';
 
 const messages = defineMessages({
   marked: { id: 'compose_form.sensitive.marked', defaultMessage: 'Media is marked as sensitive' },
