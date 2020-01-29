@@ -1,8 +1,8 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import IconButton from '../../../../components/icon_button';
 import { removeFromListAdder, addToListAdder } from '../../../../actions/lists';
+import IconButton from '../../../../components/icon_button';
 import Icon from '../../../../components/icon';
 
 import './list.scss';

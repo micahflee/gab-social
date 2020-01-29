@@ -39,7 +39,6 @@ export default class SearchResults extends ImmutablePureComponent {
     let accounts, statuses, hashtags, groups;
     let count = 0;
 
-
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, 5) : results.get('accounts').size;
       count += size;
@@ -50,7 +49,6 @@ export default class SearchResults extends ImmutablePureComponent {
         </div>
       );
     }
-
 
     if (results.get('groups') && results.get('groups').size > 0 && (isTop || showGroups)) {
       const size = isTop ? Math.min(results.get('groups').size, 5) : results.get('groups').size;

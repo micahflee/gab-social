@@ -1,8 +1,6 @@
 import SearchContainer from '../compose/containers/search_container';
 import SearchResultsContainer from '../compose/containers/search_results_container';
 
-
-// : TODO : test
 export default class Search extends PureComponent {
 
   render() {

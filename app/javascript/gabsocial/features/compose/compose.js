@@ -2,15 +2,18 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
 import spring from 'react-motion/lib/spring';
+import {
+  changeComposing,
+  mountCompose,
+  unmountCompose,
+} from '../../actions/compose';
+import { mascot } from '../../initial_state';
 import Motion from '../ui/util/optional_motion';
 import ComposeFormContainer from './containers/compose_form_container';
-import NavigationBar from './components/navigation_bar';
-import { mountCompose, unmountCompose } from '../../actions/compose';
 import SearchContainer from './containers/search_container';
 import SearchResultsContainer from './containers/search_results_container';
-import { changeComposing } from '../../actions/compose';
+import NavigationBar from './components/navigation_bar';
 import elephantUIPlane from '../../../images/logo_ui_column_footer.png';
-import { mascot } from '../../initial_state';
 
 import './compose.scss';
 

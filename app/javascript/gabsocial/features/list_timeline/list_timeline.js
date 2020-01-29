@@ -1,15 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { Link } from 'react-router-dom';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import StatusListContainer from '../../containers/status_list_container';
-import Column from '../../components/column';
 import { connectListStream } from '../../actions/streaming';
 import { expandListTimeline } from '../../actions/timelines';
 import { fetchList, deleteList } from '../../actions/lists';
 import { openModal } from '../../actions/modal';
+import StatusListContainer from '../../containers/status_list_container';
+import Column from '../../components/column';
 import ColumnIndicator from '../../components/column_indicator';
-import Icon from '../../components/icon';
 import { HomeColumnHeader } from '../../components/column_header';
 import Button from '../../components/button';
 import ColumnHeaderSettingButton from '../../components/column_header_setting_button';

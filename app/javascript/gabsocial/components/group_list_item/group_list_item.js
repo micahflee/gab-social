@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
-import { shortNumberFormat } from '../utils/numbers';
+import { shortNumberFormat } from '../../utils/numbers';
 
 const messages = defineMessages({
   members: { id: 'groups.card.members', defaultMessage: 'Members' },

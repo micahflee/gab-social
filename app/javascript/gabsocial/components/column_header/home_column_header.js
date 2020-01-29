@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import { injectIntl, defineMessages } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { createSelector } from 'reselect';
-import Icon from '../icon';
 import { fetchLists } from '../../actions/lists';
+import Icon from '../icon';
 
 import './column_header.scss';
 

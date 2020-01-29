@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import VerifiedIcon from '../verified_icon/verified_icon';
+import VerifiedIcon from '../verified_icon';
 
 import './display_name.scss';
 

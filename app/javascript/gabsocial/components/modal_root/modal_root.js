@@ -12,9 +12,6 @@ import {
   ComposeModal,
   UnauthorizedModal,
 } from '../modal';
-
-import ModalLoading from '../modal_loading';
-
 import {
   MuteModal,
   ReportModal,
@@ -23,6 +20,7 @@ import {
   ListAdder,
   StatusRevisionModal,
 } from '../../features/ui/util/async-components';
+import ModalLoading from '../modal_loading';
 
 const MODAL_COMPONENTS = {
   'MEDIA': () => Promise.resolve({ default: MediaModal }),

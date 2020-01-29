@@ -2,13 +2,13 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
 import { FormattedMessage } from 'react-intl';
-import { me } from '../../initial_state';
 import {
   fetchAccount,
   fetchFollowing,
   expandFollowing,
   fetchAccountByUsername,
 } from '../../actions/accounts';
+import { me } from '../../initial_state';
 import AccountContainer from '../../containers/account_container';
 import ColumnIndicator from '../../components/column_indicator';
 import Column from '../../components/column';

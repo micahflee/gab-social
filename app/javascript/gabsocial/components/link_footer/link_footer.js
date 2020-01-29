@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl';
-import { invitesEnabled, version, repository, source_url, me } from '../../initial_state';
 import { openModal } from '../../actions/modal';
+import { invitesEnabled, version, repository, source_url, me } from '../../initial_state';
 
 import './link_footer.scss';
 

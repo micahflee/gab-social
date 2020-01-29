@@ -3,16 +3,16 @@ import { FormattedDate, FormattedNumber } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import classNames from 'classnames';
+import scheduleIdleTask from '../../../../utils/schedule_idle_task';
 import StatusQuote from '../../../../components/status_quote';
 import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
 import StatusContent from '../../../../components/status_content';
 import MediaGallery from '../../../../components/media_gallery';
-import Card from '../card';
-import Video from '../../../video';
-import scheduleIdleTask from '../../../../utils/schedule_idle_task';
 import Icon from '../../../../components/icon';
 import Poll from '../../../../components/poll';
+import Card from '../card';
+import Video from '../../../video';
 
 import './detailed_status.scss';
 

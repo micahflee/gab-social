@@ -13,7 +13,7 @@ export default class SearchPopout extends PureComponent {
 
   render() {
     const { style } = this.props;
-    
+
     return (
       <div className='search-popout-container' style={{ ...style, position: 'absolute', zIndex: 1000 }}>
         <Motion defaultStyle={{ opacity: 0, scaleX: 1, scaleY: 1 }} style={{ opacity: spring(1, { damping: 35, stiffness: 400 }), scaleX: spring(1, { damping: 35, stiffness: 400 }), scaleY: spring(1, { damping: 35, stiffness: 400 }) }}>

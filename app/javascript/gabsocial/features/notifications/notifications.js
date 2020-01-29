@@ -4,8 +4,6 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
 import { debounce } from 'lodash';
-import Column from '../../components/column';
-import { ColumnHeader } from '../../components/column_header';
 import {
   expandNotifications,
   scrollTopNotifications,
@@ -17,6 +15,8 @@ import FilterBarContainer from './containers/filter_bar_container';
 import ScrollableList from '../../components/scrollable_list';
 import LoadMore from '../../components/load_more';
 import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
+import Column from '../../components/column';
+import { ColumnHeader } from '../../components/column_header';
 
 const messages = defineMessages({
   title: { id: 'column.notifications', defaultMessage: 'Notifications' },

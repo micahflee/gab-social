@@ -12,11 +12,7 @@ class FrameWelcome extends Component {
   };
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.domain !== this.props.domain) {
-      return true;
-    }
-
-    return false;
+    return nextProps.domain !== this.props.domain;
   }
 
   render() {
@@ -55,7 +51,7 @@ class FrameFederation extends Component {
   }
 
   shouldComponentUpdate() {
-     return false;
+    return false;
   }
 
   render() {

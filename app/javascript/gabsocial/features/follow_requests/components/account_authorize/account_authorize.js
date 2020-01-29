@@ -1,12 +1,12 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
+import { authorizeFollowRequest, rejectFollowRequest } from '../../../../actions/accounts';
+import { makeGetAccount } from '../../../../selectors';
 import Permalink from '../../../../components/permalink';
 import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
 import IconButton from '../../../../components/icon_button';
-import { makeGetAccount } from '../../../../selectors';
-import { authorizeFollowRequest, rejectFollowRequest } from '../../../../actions/accounts';
 
 import './account_authorize.scss';
 

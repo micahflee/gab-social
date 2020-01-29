@@ -1,5 +1,4 @@
-import DetailedStatus from '../components/detailed_status';
-import { makeGetStatus } from '../../../selectors';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import {
   replyCompose,
   mentionCompose,
@@ -24,9 +23,10 @@ import {
 import { initMuteModal } from '../../../actions/mutes';
 import { initReport } from '../../../actions/reports';
 import { openModal } from '../../../actions/modal';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { boostModal, deleteModal } from '../../../initial_state';
 import { showAlertForError } from '../../../actions/alerts';
+import { boostModal, deleteModal } from '../../../initial_state';
+import { makeGetStatus } from '../../../selectors';
+import DetailedStatus from '../components/detailed_status';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },

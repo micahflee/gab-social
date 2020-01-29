@@ -1,9 +1,9 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { expandHomeTimeline } from '../../actions/timelines';
 import StatusListContainer from '../../containers/status_list_container';
-import Column from '../../components/column';
 import ColumnSettings from './components/column_settings';
-import HomeColumnHeader from '../../components/column_header';
+import Column from '../../components/column';
+import { HomeColumnHeader } from '../../components/column_header';
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },
@@ -67,9 +67,9 @@ class HomeTimeline extends PureComponent {
 
     return (
       <Column heading={intl.formatMessage(messages.title)}>
-        { /* <HomeColumnHeader activeItem='home' active={hasUnread}>
+        <HomeColumnHeader activeItem='home' active={hasUnread}>
           <ColumnSettings />
-        </HomeColumnHeader> */}
+        </HomeColumnHeader>
         <StatusListContainer
           scrollKey='home_timeline'
           onLoadMore={this.handleLoadMore}

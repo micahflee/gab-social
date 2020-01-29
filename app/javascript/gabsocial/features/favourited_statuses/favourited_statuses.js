@@ -3,9 +3,9 @@ import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { debounce } from 'lodash';
 import { fetchFavouritedStatuses, expandFavouritedStatuses } from '../../actions/favourites';
+import { meUsername } from '../../initial_state';
 import Column from '../../components/column';
 import StatusList from '../../components/status_list';
-import { meUsername } from '../../initial_state';
 import ColumnIndicator from '../../components/column_indicator';
 
 const mapStateToProps = (state, { params: { username } }) => {

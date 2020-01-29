@@ -2,13 +2,13 @@ import { Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { IntlProvider, addLocaleData } from 'react-intl';
+import { getLocale } from '../locales';
 import configureStore from '../store/configureStore';
 import { hydrateStore } from '../actions/store';
-import { getLocale } from '../locales';
+import initialState from '../initial_state';
 import PublicTimeline from '../features/standalone/public_timeline';
 import HashtagTimeline from '../features/standalone/hashtag_timeline';
 import ModalContainer from './modal_container';
-import initialState from '../initial_state';
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);

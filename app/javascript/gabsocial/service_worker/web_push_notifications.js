@@ -28,8 +28,8 @@ const notify = options =>
       const group = cloneNotification(notifications[0]);
 
       group.title = formatMessage('notifications.group', options.data.preferred_locale, { count: group.data.count + 1 });
-      group.body  = `${options.title}\n${group.body}`;
-      group.data  = { ...group.data, count: group.data.count + 1 };
+      group.body = `${options.title}\n${group.body}`;
+      group.data = { ...group.data, count: group.data.count + 1 };
 
       return self.registration.showNotification(group.title, group);
     }
@@ -62,7 +62,7 @@ const cloneNotification = notification => {
   let k;
 
   // Object.assign() does not work with notifications
-  for(k in notification) {
+  for (k in notification) {
     clone[k] = notification[k];
   }
 
@@ -83,24 +83,24 @@ const handlePush = (event) => {
     fetchFromApi(`/api/v1/notifications/${notification_id}`, 'get', access_token).then(notification => {
       const options = {};
 
-      options.title     = formatMessage(`notification.${notification.type}`, preferred_locale, { name: notification.account.display_name.length > 0 ? notification.account.display_name : notification.account.username });
-      options.body      = notification.status && htmlToPlainText(notification.status.content);
-      options.icon      = notification.account.avatar_static;
+      options.title = formatMessage(`notification.${notification.type}`, preferred_locale, { name: notification.account.display_name.length > 0 ? notification.account.display_name : notification.account.username });
+      options.body = notification.status && htmlToPlainText(notification.status.content);
+      options.icon = notification.account.avatar_static;
       options.timestamp = notification.created_at && new Date(notification.created_at);
-      options.tag       = notification.id;
-      options.badge     = '/badge.png';
-      options.image     = notification.status && notification.status.media_attachments.length > 0 && notification.status.media_attachments[0].preview_url || undefined;
-      options.data      = { access_token, preferred_locale, id: notification.status ? notification.status.id : notification.account.id, url: notification.status ? `/${notification.account.username}/posts/${notification.status.id}` : `/${notification.account.username}` };
+      options.tag = notification.id;
+      options.badge = '/badge.png';
+      options.image = notification.status && notification.status.media_attachments.length > 0 && notification.status.media_attachments[0].preview_url || undefined;
+      options.data = { access_token, preferred_locale, id: notification.status ? notification.status.id : notification.account.id, url: notification.status ? `/${notification.account.username}/posts/${notification.status.id}` : `/${notification.account.username}` };
 
       if (notification.status && notification.status.spoiler_text || notification.status.sensitive) {
-        options.data.hiddenBody  = htmlToPlainText(notification.status.content);
+        options.data.hiddenBody = htmlToPlainText(notification.status.content);
         options.data.hiddenImage = notification.status.media_attachments.length > 0 && notification.status.media_attachments[0].preview_url;
 
         if (notification.status.spoiler_text) {
-          options.body    = notification.status.spoiler_text;
+          options.body = notification.status.spoiler_text;
         }
 
-        options.image   = undefined;
+        options.image = undefined;
         options.actions = [actionExpand(preferred_locale)];
       } else if (notification.type === 'mention') {
         options.actions = [actionReblog(preferred_locale), actionFavourite(preferred_locale)];
@@ -149,8 +149,8 @@ const findBestClient = clients => {
 const expandNotification = notification => {
   const newNotification = cloneNotification(notification);
 
-  newNotification.body    = newNotification.data.hiddenBody;
-  newNotification.image   = newNotification.data.hiddenImage;
+  newNotification.body = newNotification.data.hiddenBody;
+  newNotification.image = newNotification.data.hiddenImage;
   newNotification.actions = [actionReblog(notification.data.preferred_locale), actionFavourite(notification.data.preferred_locale)];
 
   return self.registration.showNotification(newNotification.title, newNotification);
@@ -171,7 +171,7 @@ const openUrl = url =>
       const webClients = clientList.filter(client => /\//.test(client.url));
 
       if (webClients.length !== 0) {
-        const client       = findBestClient(webClients);
+        const client = findBestClient(webClients);
         const { pathname } = new URL(url, self.location);
 
         // : TODO :

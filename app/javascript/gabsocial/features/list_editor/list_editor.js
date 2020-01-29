@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
-import { setupListEditor, clearListSuggestions, resetListEditor } from '../../actions/lists';
+import { setupListEditor, resetListEditor } from '../../actions/lists';
 import Account from './components/account';
 import ListEditorSearch from './components/list_editor_search';
 import EditListForm from './components/edit_list_form/edit_list_form';
@@ -48,8 +48,7 @@ class ListEditor extends ImmutablePureComponent {
   }
 
   componentWillUnmount() {
-    const { onReset } = this.props;
-    onReset();
+    this.props.onReset();
   }
 
   onClickClose = () => {

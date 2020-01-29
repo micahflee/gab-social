@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { makeGetAccount } from '../../selectors';
 import Avatar from '../avatar';
 import DisplayName from '../display_name';
-import { makeGetAccount } from '../../selectors';
 
 import './autosuggest_account.scss';
 

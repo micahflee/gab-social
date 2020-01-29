@@ -2,10 +2,10 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
+import { fetchFollowRequests, expandFollowRequests } from '../../actions/accounts';
 import ColumnIndicator from '../../components/column_indicator';
 import Column from '../../components/column';
 import AccountAuthorize from './components/account_authorize';
-import { fetchFollowRequests, expandFollowRequests } from '../../actions/accounts';
 import ScrollableList from '../../components/scrollable_list';
 
 const messages = defineMessages({

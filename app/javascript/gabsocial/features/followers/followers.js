@@ -9,10 +9,10 @@ import {
   expandFollowers,
   fetchAccountByUsername,
 } from '../../actions/accounts';
+import { me } from '../../initial_state';
 import AccountContainer from '../../containers/account_container';
 import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
-import { me } from '../../initial_state';
 
 const mapStateToProps = (state, { params: { username } }) => {
   const accounts = state.getIn(['accounts']);

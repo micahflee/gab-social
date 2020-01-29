@@ -1,9 +1,8 @@
 import { Fragment } from 'react';
-import WhoToFollowPanel from '../components/panel';
+import GroupSidebarPanel from '../features/groups/sidebar_panel';
 import LinkFooter from '../components/link_footer';
 import PromoPanel from '../components/promo_panel';
 import UserPanel from '../components/user_panel';
-import GroupSidebarPanel from '../features/groups/sidebar_panel';
 import ColumnsArea from '../components/columns_area';
 import TimelineComposeBlock from '../components/timeline_compose_block';
 
@@ -18,7 +17,6 @@ export default class HomePage extends PureComponent {
           RIGHT: (
             <Fragment>
               <GroupSidebarPanel />
-              { /* <WhoToFollowPanel /> */ }
             </Fragment>
           ),
           LEFT: (

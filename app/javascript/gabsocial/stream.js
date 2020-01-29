@@ -4,7 +4,7 @@ import WebSocketClient from 'websocket.js';
 
 const randomIntUpTo = max => Math.floor(Math.random() * Math.floor(max));
 
-export function connectStream(path, pollingRefresh = null, callbacks = () => ({ onConnect() {}, onDisconnect() {}, onReceive() {} })) {
+export function connectStream(path, pollingRefresh = null, callbacks = () => ({ onConnect() { }, onDisconnect() { }, onReceive() { } })) {
   return (dispatch, getState) => {
     const streamingAPIBaseURL = getState().getIn(['meta', 'streaming_api_base_url']);
     const accessToken = getState().getIn(['meta', 'access_token']);
@@ -26,7 +26,7 @@ export function connectStream(path, pollingRefresh = null, callbacks = () => ({ 
     };
 
     const subscription = getStream(streamingAPIBaseURL, accessToken, path, {
-      connected () {
+      connected() {
         if (pollingRefresh) {
           clearPolling();
         }
@@ -34,7 +34,7 @@ export function connectStream(path, pollingRefresh = null, callbacks = () => ({ 
         onConnect();
       },
 
-      disconnected () {
+      disconnected() {
         if (pollingRefresh) {
           polling = setTimeout(() => setupPolling(), randomIntUpTo(40000));
         }
@@ -42,11 +42,11 @@ export function connectStream(path, pollingRefresh = null, callbacks = () => ({ 
         onDisconnect();
       },
 
-      received (data) {
+      received(data) {
         onReceive(data);
       },
 
-      reconnected () {
+      reconnected() {
         if (pollingRefresh) {
           clearPolling();
           pollingRefresh(dispatch);
@@ -71,13 +71,13 @@ export function connectStream(path, pollingRefresh = null, callbacks = () => ({ 
 
 
 export default function getStream(streamingAPIBaseURL, accessToken, stream, { connected, received, disconnected, reconnected }) {
-  const params = [ `stream=${stream}` ];
+  const params = [`stream=${stream}`];
 
   const ws = new WebSocketClient(`${streamingAPIBaseURL}/api/v1/streaming/?${params.join('&')}`, accessToken);
 
-  ws.onopen      = connected;
-  ws.onmessage   = e => received(JSON.parse(e.data));
-  ws.onclose     = disconnected;
+  ws.onopen = connected;
+  ws.onmessage = e => received(JSON.parse(e.data));
+  ws.onclose = disconnected;
   ws.onreconnect = reconnected;
 
   return ws;

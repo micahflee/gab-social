@@ -56,8 +56,7 @@ class ListAdder extends ImmutablePureComponent {
   }
 
   componentWillUnmount() {
-    const { onReset } = this.props;
-    onReset();
+    this.props.onReset();
   }
 
   onClickClose = () => {

@@ -5,18 +5,18 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames';
+import { displayMedia } from '../../initial_state';
+import Card from '../../features/status/components/card';
+import { MediaGallery, Video } from '../../features/ui/util/async-components';
 import Avatar from '../avatar';
 import StatusQuote from '../status_quote';
 import AvatarOverlay from '../avatar_overlay';
 import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
-import Icon from '../icon';
-import Poll from '../poll';
 import StatusContent from '../status_content';
 import StatusActionBar from '../status_action_bar';
-import Card from '../../features/status/components/card';
-import { MediaGallery, Video } from '../../features/ui/util/async-components';
-import { displayMedia } from '../../initial_state';
+import Icon from '../icon';
+import Poll from '../poll';
 
 import './status.scss';
 
@@ -483,9 +483,9 @@ class Status extends ImmutablePureComponent {
 
             {media}
 
-            {status.get('quote') && <StatusQuote
+            { /* status.get('quote') && <StatusQuote
               id={status.get('quote')}
-            />}
+            /> */ }
 
             {showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
               <button className='status__content__read-more-button' onClick={this.handleClick}>

@@ -14,7 +14,7 @@ const getImageUrl = inputFile => new Promise((resolve, reject) => {
 
   const reader = new FileReader();
   reader.onerror = (...args) => reject(...args);
-  reader.onload  = ({ target }) => resolve(target.result);
+  reader.onload = ({ target }) => resolve(target.result);
 
   reader.readAsDataURL(inputFile);
 });
@@ -24,7 +24,7 @@ const loadImage = inputFile => new Promise((resolve, reject) => {
     const img = new Image();
 
     img.onerror = (...args) => reject(...args);
-    img.onload  = () => resolve(img);
+    img.onload = () => resolve(img);
 
     img.src = url;
   }).catch(reject);
@@ -43,26 +43,26 @@ const getOrientation = (img, type = 'image/png') => new Promise(resolve => {
 });
 
 const processImage = (img, { width, height, orientation, type = 'image/png' }) => new Promise(resolve => {
-  const canvas  = document.createElement('canvas');
+  const canvas = document.createElement('canvas');
 
   if (4 < orientation && orientation < 9) {
-    canvas.width  = height;
+    canvas.width = height;
     canvas.height = width;
   } else {
-    canvas.width  = width;
+    canvas.width = width;
     canvas.height = height;
   }
 
   const context = canvas.getContext('2d');
 
   switch (orientation) {
-  case 2: context.transform(-1, 0, 0, 1, width, 0); break;
-  case 3: context.transform(-1, 0, 0, -1, width, height); break;
-  case 4: context.transform(1, 0, 0, -1, 0, height); break;
-  case 5: context.transform(0, 1, 1, 0, 0, 0); break;
-  case 6: context.transform(0, 1, -1, 0, height, 0); break;
-  case 7: context.transform(0, -1, -1, 0, height, width); break;
-  case 8: context.transform(0, -1, 1, 0, 0, width); break;
+    case 2: context.transform(-1, 0, 0, 1, width, 0); break;
+    case 3: context.transform(-1, 0, 0, -1, width, height); break;
+    case 4: context.transform(1, 0, 0, -1, 0, height); break;
+    case 5: context.transform(0, 1, 1, 0, 0, 0); break;
+    case 6: context.transform(0, 1, -1, 0, height, 0); break;
+    case 7: context.transform(0, -1, -1, 0, height, width); break;
+    case 8: context.transform(0, -1, 1, 0, 0, width); break;
   }
 
   context.drawImage(img, 0, 0, width, height);
@@ -73,7 +73,7 @@ const processImage = (img, { width, height, orientation, type = 'image/png' }) =
 const resizeImage = (img, type = 'image/png') => new Promise((resolve, reject) => {
   const { width, height } = img;
 
-  const newWidth  = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
+  const newWidth = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (width / height)));
   const newHeight = Math.round(Math.sqrt(MAX_IMAGE_PIXELS * (height / width)));
 
   getOrientation(img, type)

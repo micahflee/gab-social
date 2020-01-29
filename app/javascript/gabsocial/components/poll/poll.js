@@ -7,7 +7,7 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../features/ui/util/optional_motion';
 import { vote, fetchPoll } from '../../actions/polls';
 import emojify from '../emoji/emoji';
-import RelativeTimestamp from '../relative_timestamp/relative_timestamp';
+import RelativeTimestamp from '../relative_timestamp';
 import Button from '../button';
 
 import './poll.scss';

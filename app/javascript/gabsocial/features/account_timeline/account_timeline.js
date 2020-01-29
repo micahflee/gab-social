@@ -4,11 +4,11 @@ import { List as ImmutableList } from 'immutable';
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { fetchAccount, fetchAccountByUsername } from '../../actions/accounts';
 import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../../actions/timelines';
+import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
+import { me } from '../../initial_state';
 import StatusList from '../../components/status_list/status_list';
 import ColumnIndicator from '../../components/column_indicator/column_indicator';
 import Column from '../../components/column';
-import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
-import { me } from '../../initial_state';
 import SectionHeadlineBar from '../../components/section_headline_bar' ;
 
 const messages = defineMessages({

@@ -21,7 +21,7 @@ import LoadingBarContainer from '../../containers/loading_bar_container';
 import ModalContainer from '../../containers/modal_container';
 import UploadArea from '../../components/upload_area';
 import TabsBar from '../../components/tabs_bar';
-import FooterBar from './components/footer_bar';
+import FooterBar from '../../components/footer_bar';
 // import TrendsPanel from './components/trends_panel';
 import { WhoToFollowPanel } from '../../components/panel';
 import LinkFooter from '../../components/link_footer';
@@ -178,8 +178,7 @@ class SwitchingColumnsArea extends React.PureComponent {
   }
 
   render() {
-    const { children, account } = this.props;
-    const { mobile } = this.state;
+    const { children } = this.props;
 
     return (
       <Switch>

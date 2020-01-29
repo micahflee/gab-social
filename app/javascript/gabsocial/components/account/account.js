@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { me } from '../../initial_state';
 import Avatar from '../avatar/avatar';
 import DisplayName from '../display_name';
 import IconButton from '../icon_button';
-import { me } from '../../initial_state';
 
 import './account.scss';
 
@@ -122,7 +122,7 @@ class Account extends ImmutablePureComponent {
         </div>
       );
     }
-    
+
     return (
       <div className='account'>
         <div className='account__wrapper'>

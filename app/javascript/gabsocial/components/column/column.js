@@ -1,5 +1,5 @@
-import ColumnHeader from '../column_header';
 import { isMobile } from '../../utils/is_mobile';
+import { ColumnHeader } from '../column_header';
 import ColumnBackButton from '../column_back_button';
 
 import './column.scss';
@@ -23,9 +23,9 @@ export default class Column extends PureComponent {
 
     const showHeading = heading && (!hideHeadingOnMobile || (hideHeadingOnMobile && !isMobile(window.innerWidth)));
     const columnHeaderId = showHeading && heading.replace(/ /g, '-');
-    // const header = showHeading && (
-    //   <ColumnHeader icon={icon} active={active} type={heading} columnHeaderId={columnHeaderId} />
-    // );
+    const header = showHeading && (
+      <ColumnHeader icon={icon} active={active} type={heading} columnHeaderId={columnHeaderId} />
+    );
 
     return (
       <div role='region' aria-labelledby={columnHeaderId} className='column'>

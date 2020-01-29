@@ -1,5 +1,5 @@
-import FilterBar from '../components/notification_filter_bar/notification_filter_bar';
 import { setFilter } from '../../../actions/notifications';
+import FilterBar from '../components/notification_filter_bar';
 
 const makeMapStateToProps = state => ({
   selectedFilter: state.getIn(['settings', 'notifications', 'quickFilter', 'active']),

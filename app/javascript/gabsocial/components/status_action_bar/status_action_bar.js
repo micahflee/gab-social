@@ -3,10 +3,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Link } from 'react-router-dom';
+import { openModal } from '../../actions/modal';
+import { me, isStaff } from '../../initial_state';
 import DropdownMenuContainer from '../../containers/dropdown_menu_container';
 import IconButton from '../icon_button';
-import { me, isStaff } from '../../initial_state';
-import { openModal } from '../../actions/modal';
 
 import './status_action_bar.scss';
 

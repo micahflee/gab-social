@@ -2,8 +2,8 @@ import { Sparklines, SparklinesCurve } from 'react-sparklines';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Permalink from '../permalink/permalink';
 import { shortNumberFormat } from '../../utils/numbers';
+import Permalink from '../permalink';
 
 import './trending_item.scss';
 
@@ -15,7 +15,7 @@ export default class TrendingItem extends ImmutablePureComponent {
 
   render() {
     const { hashtag } = this.props;
-    
+
     return (
       <div className='trending-item'>
         <div className='trending-item__text'>

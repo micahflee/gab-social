@@ -3,8 +3,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import detectPassiveEvents from 'detect-passive-events';
 import Overlay from 'react-overlays/lib/Overlay';
 import spring from 'react-motion/lib/spring';
-import IconButton from '../icon_button';
 import Motion from '../../features/ui/util/optional_motion';
+import IconButton from '../icon_button';
 
 import './dropdown_menu.scss';
 

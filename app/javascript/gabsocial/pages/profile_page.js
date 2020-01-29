@@ -2,9 +2,9 @@ import { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import HeaderContainer from '../features/account_timeline/containers/header_container';
+import ProfileInfoPanel from '../features/account_timeline/components/profile_info_panel/profile_info_panel';
 import { WhoToFollowPanel, SignUpPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
-import ProfileInfoPanel from '../features/account_timeline/components/profile_info_panel/profile_info_panel';
 import ColumnsArea from '../components/columns_area';
 
 const mapStateToProps = (state, { params: { username }, withReplies = false }) => {

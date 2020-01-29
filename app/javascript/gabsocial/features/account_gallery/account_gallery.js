@@ -5,14 +5,14 @@ import {
   fetchAccount,
   fetchAccountByUsername,
 } from '../../actions/accounts';
+import { openModal } from '../../actions/modal';
 import { expandAccountMediaTimeline } from '../../actions/timelines';
+import { me } from '../../initial_state';
+import { getAccountGallery } from '../../selectors';
 import ColumnIndicator from '../../components/column_indicator';
 import Column from '../../components/column';
-import { getAccountGallery } from '../../selectors';
 import MediaItem from './components/media_item';
 import LoadMore from '../../components/load_more';
-import { openModal } from '../../actions/modal';
-import { me } from '../../initial_state';
 import SectionHeadlineBar from '../../components/section_headline_bar';
 
 import './account_gallery.scss';

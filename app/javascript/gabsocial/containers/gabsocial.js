@@ -5,18 +5,18 @@ import configureStore from '../store/configureStore';
 import { INTRODUCTION_VERSION } from '../actions/onboarding';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { ScrollContext } from 'react-router-scroll-4';
-import UI from '../features/ui';
-import Introduction from '../features/introduction';
+import { IntlProvider, addLocaleData } from 'react-intl';
 import { fetchCustomEmojis } from '../actions/custom_emojis';
 import { hydrateStore } from '../actions/store';
 import {
   connectUserStream,
   connectStatusUpdateStream,
 } from '../actions/streaming';
-import { IntlProvider, addLocaleData } from 'react-intl';
 import { getLocale } from '../locales';
 import initialState from '../initial_state';
 import { me } from '../initial_state';
+import UI from '../features/ui';
+// import Introduction from '../features/introduction';
 import ErrorBoundary from '../components/error_boundary';
 
 const { localeData, messages } = getLocale();

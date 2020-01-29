@@ -4,8 +4,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { autoPlayGif, me } from '../../initial_state';
 import { makeGetAccount } from '../../selectors';
-import Avatar from '../avatar';
 import { shortNumberFormat } from '../../utils/numbers';
+import Avatar from '../avatar';
 
 import './user_panel.scss';
 

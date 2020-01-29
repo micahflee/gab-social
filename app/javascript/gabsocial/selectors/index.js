@@ -2,10 +2,10 @@ import { createSelector } from 'reselect';
 import { List as ImmutableList } from 'immutable';
 import { me } from '../initial_state';
 
-const getAccountBase         = (state, id) => state.getIn(['accounts', id], null);
-const getAccountCounters     = (state, id) => state.getIn(['accounts_counters', id], null);
+const getAccountBase = (state, id) => state.getIn(['accounts', id], null);
+const getAccountCounters = (state, id) => state.getIn(['accounts_counters', id], null);
 const getAccountRelationship = (state, id) => state.getIn(['relationships', id], null);
-const getAccountMoved        = (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])]);
+const getAccountMoved = (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])]);
 
 export const makeGetAccount = () => {
   return createSelector([getAccountBase, getAccountCounters, getAccountRelationship, getAccountMoved], (base, counters, relationship, moved) => {
@@ -22,17 +22,17 @@ export const makeGetAccount = () => {
 
 const toServerSideType = columnType => {
   switch (columnType) {
-  case 'home':
-  case 'notifications':
-  case 'public':
-  case 'thread':
-    return columnType;
-  default:
-    if (columnType.indexOf('list:') > -1) {
-      return 'home';
-    } else {
-      return 'public'; // community, account, hashtag
-    }
+    case 'home':
+    case 'notifications':
+    case 'public':
+    case 'thread':
+      return columnType;
+    default:
+      if (columnType.indexOf('list:') > -1) {
+        return 'home';
+      } else {
+        return 'public'; // community, account, hashtag
+      }
   }
 };
 
@@ -91,7 +91,7 @@ export const makeGetStatus = () => {
         statusReblog = null;
       }
 
-      const regex    = (accountReblog || accountBase).get('id') !== me && regexFromFilters(filters);
+      const regex = (accountReblog || accountBase).get('id') !== me && regexFromFilters(filters);
       const filtered = regex && regex.test(statusBase.get('reblog') ? statusReblog.get('search_index') : statusBase.get('search_index'));
 
       return statusBase.withMutations(map => {
@@ -125,7 +125,7 @@ export const getAlerts = createSelector([getAlertsBase], (base) => {
 
 export const makeGetNotification = () => {
   return createSelector([
-    (_, base)             => base,
+    (_, base) => base,
     (state, _, accountId) => state.getIn(['accounts', accountId]),
   ], (base, account) => {
     return base.set('account', account);
@@ -134,7 +134,7 @@ export const makeGetNotification = () => {
 
 export const getAccountGallery = createSelector([
   (state, id) => state.getIn(['timelines', `account:${id}:media`, 'items'], ImmutableList()),
-  state       => state.get('statuses'),
+  state => state.get('statuses'),
 ], (statusIds, statuses) => {
   let medias = ImmutableList();
 

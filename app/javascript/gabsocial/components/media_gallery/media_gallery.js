@@ -4,13 +4,12 @@ import { is } from 'immutable';
 import { defineMessages, injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import { decode } from 'blurhash';
+import { autoPlayGif, displayMedia } from '../../initial_state';
 import { isIOS } from '../../utils/is_mobile';
 import { isPanoramic, isPortrait, isNonConformingRatio, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio';
-import { autoPlayGif, displayMedia } from '../../initial_state';
 import IconButton from '../icon_button';
 
 import './media_gallery.scss';
-
 
 const messages = defineMessages({
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Toggle visibility' },

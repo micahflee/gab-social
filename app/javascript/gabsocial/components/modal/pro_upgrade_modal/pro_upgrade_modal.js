@@ -1,8 +1,8 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { me } from '../../../initial_state';
-import IconButton from '../../../components/icon_button';
-import Icon from '../../../components/icon';
+import { me } from '../initial_state';
+import IconButton from './icon_button';
+import Icon from './icon';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },

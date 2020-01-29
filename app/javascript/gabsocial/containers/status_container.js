@@ -1,5 +1,4 @@
-import Status from '../components/status';
-import { makeGetStatus } from '../selectors';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import {
   replyCompose,
   mentionCompose,
@@ -26,13 +25,14 @@ import {
 import { initMuteModal } from '../actions/mutes';
 import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import { boostModal, deleteModal } from '../initial_state';
 import { showAlertForError } from '../actions/alerts';
 import { 
   createRemovedAccount,
   groupRemoveStatus
 } from '../actions/groups';
+import { makeGetStatus } from '../selectors';
+import Status from '../components/status';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },

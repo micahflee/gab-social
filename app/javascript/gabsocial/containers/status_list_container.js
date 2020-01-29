@@ -1,10 +1,10 @@
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';
 import { debounce, sample } from 'lodash';
-import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
 import { fetchStatus } from '../actions/statuses';
+import { me, promotions } from '../initial_state';
 import StatusList from '../components/status_list';
 
 const makeGetStatusIds = () => createSelector([

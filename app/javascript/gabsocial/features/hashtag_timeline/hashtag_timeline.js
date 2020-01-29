@@ -1,11 +1,10 @@
+import { FormattedMessage } from 'react-intl';
+import { isEqual } from 'lodash';
+import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines';
+import { connectHashtagStream } from '../../actions/streaming';
 import StatusListContainer from '../../containers/status_list_container';
 import Column from '../../components/column';
 import { ColumnHeader } from '../../components/column_header';
-import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines';
-import { FormattedMessage } from 'react-intl';
-import { connectHashtagStream } from '../../actions/streaming';
-import { isEqual } from 'lodash';
-import ColumnBackButton from '../../components/column_back_button';
 
 const mapStateToProps = (state, props) => ({
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
@@ -43,11 +42,11 @@ class HashtagTimeline extends PureComponent {
   additionalFor = (mode) => {
     const { tags } = this.props.params;
 
-    if (tags && (tags[mode] || []).length > 0) {
+    try {
       return tags[mode].map(tag => tag.value).join('/');
+    } catch (error) {
+      return '';
     }
-
-    return '';
   }
 
   _subscribe (dispatch, id, tags = {}) {

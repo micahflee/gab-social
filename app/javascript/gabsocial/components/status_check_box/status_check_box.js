@@ -2,10 +2,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Set as ImmutableSet } from 'immutable';
 import noop from 'lodash/noop';
-import StatusContent from '../status_content';
+import { toggleStatusReport } from '../../actions/reports';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
 import Bundle from '../../features/ui/util/bundle';
-import { toggleStatusReport } from '../../actions/reports';
+import StatusContent from '../status_content';
 import ToggleSwitch from '../toggle_switch';
 
 import './status_check_box.scss';

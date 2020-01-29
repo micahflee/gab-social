@@ -3,15 +3,17 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
-import Avatar from './avatar';
-import IconButton from './icon_button';
-import Icon from './icon';
-import DisplayName from './display_name';
-import { closeSidebar } from '../actions/sidebar';
-import { shortNumberFormat } from '../utils/numbers';
-import { me } from '../initial_state';
-import { makeGetAccount } from '../selectors';
-import ProgressPanel from '../features/ui/components/progress_panel';
+import Avatar from '../avatar';
+import IconButton from '../icon_button';
+import Icon from '../icon';
+import DisplayName from '../display_name';
+import { closeSidebar } from '../../actions/sidebar';
+import { shortNumberFormat } from '../../utils/numbers';
+import { me } from '../../initial_state';
+import { makeGetAccount } from '../../selectors';
+import ProgressPanel from '../progress_panel';
+
+import './sidebar_menu.scss';
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },

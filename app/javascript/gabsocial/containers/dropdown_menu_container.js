@@ -1,7 +1,7 @@
 import { openDropdownMenu, closeDropdownMenu } from '../actions/dropdown_menu';
 import { openModal, closeModal } from '../actions/modal';
-import DropdownMenu from '../components/dropdown_menu';
 import { isUserTouching } from '../utils/is_mobile';
+import DropdownMenu from '../components/dropdown_menu';
 
 const mapStateToProps = state => ({
   isModalOpen: state.get('modal').modalType === 'ACTIONS',

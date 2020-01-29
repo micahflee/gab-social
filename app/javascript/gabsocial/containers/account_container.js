@@ -1,6 +1,4 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { makeGetAccount } from '../selectors';
-import Account from '../components/account';
 import {
   followAccount,
   unfollowAccount,
@@ -12,6 +10,8 @@ import {
 import { openModal } from '../actions/modal';
 import { initMuteModal } from '../actions/mutes';
 import { unfollowModal } from '../initial_state';
+import { makeGetAccount } from '../selectors';
+import Account from '../components/account';
 
 const messages = defineMessages({
   unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },

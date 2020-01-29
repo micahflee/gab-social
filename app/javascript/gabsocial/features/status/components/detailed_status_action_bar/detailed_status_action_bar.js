@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
 import { openModal } from '../../../../actions/modal';
-import IconButton from '../../../../components/icon_button';
 import { me, isStaff } from '../../../../initial_state';
+import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
+import IconButton from '../../../../components/icon_button';
 
 import './detailed_status_action_bar.scss';
 

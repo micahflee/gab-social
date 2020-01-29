@@ -1,5 +1,5 @@
-import IconButton from '../icon_button';
 import { defineMessages, injectIntl } from 'react-intl';
+import IconButton from '../icon_button';
 
 import './domain.scss';
 

@@ -1,5 +1,3 @@
-import { makeGetNotification, makeGetStatus } from '../../../selectors';
-import Notification from '../components/notification/notification';
 import { openModal } from '../../../actions/modal';
 import { mentionCompose } from '../../../actions/compose';
 import {
@@ -13,6 +11,8 @@ import {
   revealStatus,
 } from '../../../actions/statuses';
 import { boostModal } from '../../../initial_state';
+import { makeGetNotification, makeGetStatus } from '../../../selectors';
+import Notification from '../components/notification/notification';
 
 const makeMapStateToProps = () => {
   const getNotification = makeGetNotification();

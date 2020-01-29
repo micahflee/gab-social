@@ -1,14 +1,14 @@
 import { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
+import { fetchGroup } from '../actions/groups';
+import HeaderContainer from '../features/groups/timeline/containers/header_container';
+import GroupPanel from '../features/groups/timeline/components/panel';
+import GroupSidebarPanel from '../features/groups/sidebar_panel';
+import ColumnsArea from '../components/columns_area';
 import { WhoToFollowPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
 import PromoPanel from '../components/promo_panel';
-import HeaderContainer from '../features/groups/timeline/containers/header_container';
-import GroupPanel from '../features/groups/timeline/components/panel';
-import { fetchGroup } from '../actions/groups';
-import GroupSidebarPanel from '../features/groups/sidebar_panel';
-import ColumnsArea from '../components/columns_area';
 
 const mapStateToProps = (state, { params: { id } }) => ({
 	group: state.getIn(['groups', id]),

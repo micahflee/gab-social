@@ -5,9 +5,6 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import { fetchStatus } from '../../actions/statuses';
-import DetailedStatus from './components/detailed_status';
-import ActionBar from './components/detailed_status_action_bar';
-import Column from '../../components/column';
 import {
   favourite,
   unfavourite,
@@ -31,15 +28,18 @@ import {
 } from '../../actions/statuses';
 import { initMuteModal } from '../../actions/mutes';
 import { initReport } from '../../actions/reports';
-import { makeGetStatus } from '../../selectors';
-import { ColumnHeader } from '../../components/column_header';
-import StatusContainer from '../../containers/status_container';
 import { openModal } from '../../actions/modal';
 import { boostModal, deleteModal, me } from '../../initial_state';
+import { makeGetStatus } from '../../selectors';
 import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../../utils/fullscreen';
+import StatusContainer from '../../containers/status_container';
+import { ColumnHeader } from '../../components/column_header';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status';
 import Icon from '../../components/icon';
 import ColumnIndicator from '../../components/column_indicator';
+import DetailedStatus from './components/detailed_status';
+import ActionBar from './components/detailed_status_action_bar';
+import Column from '../../components/column';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -417,7 +417,6 @@ class Status extends ImmutablePureComponent {
   render () {
     let ancestors, descendants;
     const { status, ancestorsIds, descendantsIds, intl, domain } = this.props;
-    const { fullscreen } = this.state;
 
     if (status === null) {
       return (<ColumnIndicator type='loading' />);

@@ -1,8 +1,8 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import Avatar from '../avatar';
-import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
 import { me } from '../../initial_state';
+import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
+import Avatar from '../avatar';
 
 import './timeline_compose_block.scss';
 
