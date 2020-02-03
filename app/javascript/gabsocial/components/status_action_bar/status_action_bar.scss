@@ -1,21 +1,51 @@
 .status-action-bar {
-  display: flex;
-  align-items: center;
-  margin-top: 25px;
+  display: block;
+  margin-top: 10px;
   z-index: 4;
+
+  @include horizontal-padding(10px);
 
   &__dropdown {
     @include size(23px);
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #161616;
+
+    @include size(100%, 42px);
+  }
+
+  &__comment {
+
   }
 }
 
 .status-action-bar-item {
   display: inline-flex;
-  margin-right: 22px;
   align-items: center;
+  justify-content: center;
+  height: 42px;
+  width: 33%;
+  padding: 5px;
+  box-sizing: border-box;
 
   &__btn {
+    border-radius: 4px;
     margin-right: 4px;
+    font-size: 14px;
+    font-weight: 500;
+
+    @include size(100%);
+
+    &:hover {
+      background-color: #000;
+    }
+
+    i {
+      margin-right: 4px;
+    }
   }
 
   &__link {

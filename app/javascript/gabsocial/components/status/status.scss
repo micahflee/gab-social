@@ -1,9 +1,9 @@
 .status {
-  padding: 8px 10px 8px 68px;
   position: relative;
   min-height: 54px;
-  border-bottom: 1px solid lighten($ui-base-color, 8%);
   cursor: default;
+  margin-bottom: 10px;
+  border: 1px solid #171717;
 
   @supports (-ms-overflow-style: -ms-autohiding-scrollbar) {
     // Add margin to avoid Edge auto-hiding scrollbar appearing over content.
@@ -88,7 +88,7 @@
 
 @media screen and (min-width:630px) {
   .status {
-    padding: 15px 15px 15px 78px;
+    padding: 12px 15px 15px 78px;
     min-height: 50px;
 
     &__avatar {
@@ -136,24 +136,57 @@
 
 .status__relative-time {
   color: $dark-text-color;
-  float: right;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .status__display-name {
   color: $dark-text-color;
 }
 
-.status__info .status__display-name {
-  display: block;
-  max-width: 100%;
-  padding-right: 25px;
+.status__info {
+  display: flex;
+  flex-direction: column;
+  z-index: 4;
+  position: relative;
+  padding: 10px 10px 8px 62px;
+
+  &__dot-seperator {
+    font-size: 15px;
+    color: $dark-text-color;
+
+    @include horizontal-margin(5px);
+  }
+
+  &__attributes {
+    display: flex;
+    margin-top: 2px;
+    align-items: center;
+
+    &__item {
+      font-size: 12px;
+      color: $dark-text-color;
+
+      &--link {
+        cursor: pointer;
+        color: $primary-text-color;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+
+    &__icon {
+      margin-left: auto;
+      color: $dark-text-color;
+    }
+  }
 }
 
-.status__info {
-  font-size: 15px;
-  z-index: 4;
-}
 
 .status__prepend {
   margin-left: 68px;
@@ -181,17 +214,10 @@
 }
 
 .status__avatar {
-  @include size(48px);
+  overflow: hidden;
+  @include circle(42px);
   @include abs-position(10px, auto, auto, 10px);
 }
-
-.status__expand {
-  cursor: pointer;
-
-  @include size(68px, 100%);
-  @include abs-position(0, auto, auto, 0);
-}
-
 
 .media-spoiler-video {
   cursor: pointer;

@@ -20,12 +20,10 @@ import NotificationsContainer from '../../containers/notifications_container';
 import LoadingBarContainer from '../../containers/loading_bar_container';
 import ModalContainer from '../../containers/modal_container';
 import UploadArea from '../../components/upload_area';
-import TabsBar from '../../components/tabs_bar';
 import FooterBar from '../../components/footer_bar';
 // import TrendsPanel from './components/trends_panel';
 import { WhoToFollowPanel } from '../../components/panel';
 import LinkFooter from '../../components/link_footer';
-import SidebarMenu from '../../components/sidebar_menu';
 import ProfilePage from '../../pages/profile_page';
 // import GroupsPage from 'gabsocial/pages/groups_page';
 import GroupPage from '../../pages/group_page';
@@ -534,19 +532,19 @@ class UI extends PureComponent {
     return (
       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>
         <div className={classNames('ui', { 'is-composing': isComposing })} ref={this.setRef} style={{ pointerEvents: dropdownMenuIsOpen ? 'none' : null }}>
-          <TabsBar />
           <SwitchingColumnsArea location={location} onLayoutChange={this.handleLayoutChange}>
             {children}
           </SwitchingColumnsArea>
-          <FooterBar />
+          { /* <FooterBar /> */ }
 
-          {me && floatingActionButton}
+          { /* me && floatingActionButton */ }
 
+          { /*
           <NotificationsContainer />
           <LoadingBarContainer className='loading-bar' />
           <ModalContainer />
           <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
-          {me && <SidebarMenu />}
+          */ }
         </div>
       </HotKeys>
     );

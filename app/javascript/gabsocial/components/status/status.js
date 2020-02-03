@@ -403,7 +403,7 @@ class Status extends ImmutablePureComponent {
     }
 
     if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={48} />;
+      statusAvatar = <Avatar account={status.get('account')} size={42} />;
     } else {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
@@ -448,21 +448,24 @@ class Status extends ImmutablePureComponent {
             })}
             data-id={status.get('id')}
           >
-            <div className='status__expand' onClick={this.handleExpandClick} role='presentation' />
             <div className='status__info'>
-              <NavLink to={statusUrl} className='status__relative-time'>
-                <RelativeTimestamp timestamp={status.get('created_at')} />
-              </NavLink>
-
-              <NavLink
-                to={`/${status.getIn(['account', 'acct'])}`}
-                title={status.getIn(['account', 'acct'])}
-                className='status__display-name'
-              >
-                <div className='status__avatar'>{statusAvatar}</div>
-
-                <DisplayName account={status.get('account')} />
-              </NavLink>
+              <div className='status__info__actions'>
+                <NavLink className='status__display-name' to={`/${status.getIn(['account', 'acct'])}`} title={status.getIn(['account', 'acct'])}>
+                  <div className='status__avatar'>{statusAvatar}</div>
+                  <DisplayName account={status.get('account')} />
+                </NavLink>
+                <Icon id='ellipsis-h' className='status__info__actions__icon'/>
+              </div>
+              <div className='status__info__attributes'>
+                <NavLink to={statusUrl} className='status__relative-time'>
+                  <RelativeTimestamp timestamp={status.get('created_at')} />
+                </NavLink>
+                <span className='status__info__dot-seperator'>•</span>
+                { /* <Icon id='globe' className='status__info__attributes__item'/> */ }
+                <span className='status__info__attributes__item status__info__attributes__item--link'>Memes Group</span>
+                <span className='status__info__dot-seperator'>•</span>
+                <span className='status__info__attributes__item'>Edited</span>
+              </div>
             </div>
 
             {((!group && status.get('group')) || status.get('revised_at') !== null) && (

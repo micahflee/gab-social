@@ -203,9 +203,9 @@ export default class DetailedStatus extends ImmutablePureComponent {
 
           {media}
 
-          {status.get('quote') && <StatusQuote
+          { /* status.get('quote') && <StatusQuote
             id={status.get('quote')}
-          />}
+          /> */ }
 
           <div className='detailed-status__meta'>
             <a className='detailed-status__datetime' href={status.get('url')} target='_blank' rel='noopener'>

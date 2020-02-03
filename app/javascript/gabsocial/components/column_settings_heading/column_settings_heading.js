@@ -7,7 +7,7 @@ export default class ColumnSettingsHeading extends PureComponent {
   };
 
   render() {
-    const { heading } = this.props;
+    const { heading, id } = this.props;
 
     return (
       <span id={id} className='column-settings-heading'>{heading}</span>

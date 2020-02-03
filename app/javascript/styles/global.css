@@ -1,0 +1,184 @@
+html,body{
+  height: 100%;
+}
+
+body{
+  -ms-overflow-style:scrollbar;
+  overflow-y:scroll;
+  overscroll-behavior-y:none;
+}
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+body {
+  margin: 0;
+}
+
+.default {
+  align-items: stretch;
+  border: 0 solid black;
+  box-sizing: border-box;
+  display: flex;
+  flex-basis: auto;
+  flex-direction: column;
+  flex-shrink: 0;
+  margin-bottom: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: 0px;
+  min-height: 0px;
+  min-width: 0px;
+  padding-bottom: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  padding-top: 0px;
+  position: relative;
+  z-index: 0;
+}
+
+.text {
+  font: 14px system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+.color-black {
+  color: rgba(0, 0, 0, 1.00);
+}
+
+.inline {
+  display: inline;
+}
+
+.wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.inherit {
+  color: inherit;
+  font: inherit;
+  white-space: inherit;
+}
+
+.r-13awgt0 {
+  -ms-flex-negative: 1;
+  -ms-flex-positive: 1;
+  -ms-flex-preferred-size: 0%;
+  -webkit-box-flex: 1;
+  -webkit-flex-basis: 0%;
+  -webkit-flex-grow: 1;
+  -webkit-flex-shrink: 1;
+  flex-basis: 0%;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.r-4qtqp9 {
+  display: inline-block;
+}
+
+.r-ywje51 {
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+}
+
+.r-hvic4v {
+  display: none;
+}
+
+.r-1adg3ll {
+  display: block;
+}
+
+
+.r-12vffkv>* {
+  pointer-events: auto;
+}
+
+.r-12vffkv {
+  pointer-events: none !important;
+}
+
+.r-14lw9ot {
+  background-color: rgba(255, 255, 255, 1.00);
+}
+
+.r-1p0dtai {
+  bottom: 0px;
+}
+
+.r-1d2f490 {
+  left: 0px;
+}
+
+.r-1xcajam {
+  position: fixed;
+}
+
+.r-zchlnj {
+  right: 0px;
+}
+
+.r-ipm5af {
+  top: 0px;
+}
+
+.r-yyyyoo {
+  fill: currentcolor;
+}
+
+.r-1xvli5t {
+  height: 1.25em;
+}
+
+.r-dnmrzs {
+  max-width: 100%;
+}
+
+.r-bnwqim {
+  position: relative;
+}
+
+.r-1plcrui {
+  vertical-align: text-bottom;
+}
+
+.r-lrvibr {
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.color-brand {
+  color: rgba(29, 161, 242, 1.00);
+}
+
+.height-72-px {
+  height: 72px;
+}
+
+.position-relative {
+  position: absolute;
+}
+
+.width-72-px {
+  width: 72px;
+}
+
+.top-60-pc {
+  top: 60%;
+}
+
+.line-height-2 {
+  line-height: 2em;
+}
+
+.text-align-center {
+  text-align: center;
+}

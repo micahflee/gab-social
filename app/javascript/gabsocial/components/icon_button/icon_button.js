@@ -44,10 +44,10 @@ export default class IconButton extends PureComponent {
 
   render () {
     const style = {
-      fontSize: `${this.props.size}px`,
-      width: `${this.props.size * 1.28571429}px`,
-      height: `${this.props.size * 1.28571429}px`,
-      lineHeight: `${this.props.size}px`,
+      // fontSize: `${this.props.size}px`,
+      // width: `${this.props.size * 1.28571429}px`,
+      // height: `${this.props.size * 1.28571429}px`,
+      // lineHeight: `${this.props.size}px`,
       ...this.props.style,
     };
 

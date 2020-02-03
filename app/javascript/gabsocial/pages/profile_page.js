@@ -5,7 +5,7 @@ import HeaderContainer from '../features/account_timeline/containers/header_cont
 import ProfileInfoPanel from '../features/account_timeline/components/profile_info_panel/profile_info_panel';
 import { WhoToFollowPanel, SignUpPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
-import ColumnsArea from '../components/columns_area';
+import PageLayout from '../components/page_layout';
 
 const mapStateToProps = (state, { params: { username }, withReplies = false }) => {
   const accounts = state.getIn(['accounts']);
@@ -48,7 +48,7 @@ class ProfilePage extends ImmutablePureComponent {
     const { accountId, account, accountUsername } = this.props;
 
     return (
-      <ColumnsArea
+      <PageLayout
         layout={{
           TOP: <HeaderContainer accountId={accountId} username={accountUsername} />,
           RIGHT: (
@@ -62,7 +62,7 @@ class ProfilePage extends ImmutablePureComponent {
         }}
       >
         {this.props.children}
-      </ColumnsArea>
+      </PageLayout>
     )
   }
 }

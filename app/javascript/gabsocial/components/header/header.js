@@ -12,8 +12,14 @@ import { shortNumberFormat } from '../../utils/numbers';
 import { me } from '../../initial_state';
 import { makeGetAccount } from '../../selectors';
 import ProgressPanel from '../progress_panel';
+import GabLogo from './assets/gab_logo';
+import {
+  GroupIcon,
+  HomeIcon,
+  NotificationsIcon,
+} from './assets/tabs_bar_icon';
 
-import './sidebar_menu.scss';
+console.log("header global - styles:", styles);
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -46,14 +52,14 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onClose () {
+  onClose() {
     dispatch(closeSidebar());
   },
 });
 
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class SidebarMenu extends ImmutablePureComponent {
+class Header extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -66,7 +72,7 @@ class SidebarMenu extends ImmutablePureComponent {
     moreOpen: false,
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (!me) return;
 
     if (this.props.sidebarOpen) {
@@ -89,7 +95,7 @@ class SidebarMenu extends ImmutablePureComponent {
     });
   }
 
-  render () {
+  render() {
     const { sidebarOpen, intl, account } = this.props;
     const { moreOpen } = this.state;
 
@@ -104,6 +110,83 @@ class SidebarMenu extends ImmutablePureComponent {
 
     const moreIcon = moreOpen ? 'minus' : 'plus';
     const moreContainerStyle = { display: moreOpen ? 'block' : 'none' };
+
+    const sidebarItems = [
+      {
+        name: 'Home',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Notifications',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Groups',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Lists',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Chat',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Trends',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        name: 'Profile',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+    ];
+
+    return (
+      <header role='banner' className={[styles.header].join(' ')}>
+        <div className='header__container'>
+          <div className='header-scrollarea'>
+            <div className='header-scrollarea__container'>
+              <h1 className='header__heading'>
+                <a className='header__heading__btn'>
+                  <GabLogo />
+                </a>
+              </h1>
+              <nav className='header-nav'>
+
+                {
+                  sidebarItems.map((sidebarItem, i) => {
+                    return (
+                      <NavLink to={sidebarItem.to} className='header-nav__item' key={`header-nav__item-${i}`}>
+                        <div className='header-nav__item__block'>
+                          {sidebarItem.icon}
+                          <span className='header-nav__item__title'>{sidebarItem.name}</span>
+                        </div>
+                      </NavLink>
+                    )
+                  })
+                }
+
+                <a className='header-nav__item'>
+                  <div className='header-nav__item__block'>
+                    <NotificationsIcon />
+                    <span className='header-nav__item__title'>More</span>
+                  </div>
+                </a>
+
+              </nav>
+            </div>
+          </div>
+        </div>
+      </header>
+    )
 
     return (
       <div className={classes}>
@@ -124,7 +207,7 @@ class SidebarMenu extends ImmutablePureComponent {
                 </Link>
               </div>
               <div className='sidebar-menu-profile__name'>
-                <DisplayName account={account}/>
+                <DisplayName account={account} />
               </div>
 
               <div className='sidebar-menu-profile__stats'>
@@ -212,7 +295,7 @@ class SidebarMenu extends ImmutablePureComponent {
             </div>
 
             <div className='sidebar-menu__section'>
-              <a className='sidebar-menu-item' href='/auth/sign_out' data-method='delete'>
+              <a  className='sidebar-menu-item' href='/auth/sign_out' data-method='delete'>
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.logout)}</span>
               </a>
             </div>

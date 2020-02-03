@@ -8,7 +8,8 @@
   color: $primary-text-color;
 
   @include text-overflow(normal, break-word);
-  @include text-sizing(15px, 400, 20px);
+  @include text-sizing(14px, 400, 20px);
+  @include horizontal-padding(10px);
 
   &:focus {
     outline: 0;
@@ -102,6 +103,7 @@
   border: 0;
   background: transparent;
   padding: 8px 0 0 0;
+  margin-left: 10px;
 
   @include text-sizing(15px, 400, 20px);
 

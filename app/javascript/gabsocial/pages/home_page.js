@@ -3,7 +3,7 @@ import GroupSidebarPanel from '../features/groups/sidebar_panel';
 import LinkFooter from '../components/link_footer';
 import PromoPanel from '../components/promo_panel';
 import UserPanel from '../components/user_panel';
-import ColumnsArea from '../components/columns_area';
+import PageLayout from '../components/page_layout';
 import TimelineComposeBlock from '../components/timeline_compose_block';
 
 export default class HomePage extends PureComponent {
@@ -11,26 +11,20 @@ export default class HomePage extends PureComponent {
     const {children} = this.props;
 
     return (
-      <ColumnsArea
+      <PageLayout
         layout={{
-          TOP: null,
           RIGHT: (
             <Fragment>
               <GroupSidebarPanel />
-            </Fragment>
-          ),
-          LEFT: (
-            <Fragment>
-              <UserPanel />
               <PromoPanel />
               <LinkFooter />
             </Fragment>
-          )
+          ),
         }}
       >
         <TimelineComposeBlock size={46} shouldCondense={true} autoFocus={false} />
         {children}
-      </ColumnsArea>
+      </PageLayout>
     )
   }
 }

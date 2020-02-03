@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { openModal } from '../../actions/modal';
 import { me, isStaff } from '../../initial_state';
 import DropdownMenuContainer from '../../containers/dropdown_menu_container';
+import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
 import IconButton from '../icon_button';
 
 import './status_action_bar.scss';
@@ -265,49 +266,67 @@ class StatusActionBar extends ImmutablePureComponent {
 
     return (
       <div className='status-action-bar'>
-        <div className='status-action-bar-item'>
-          <IconButton
-            className='status-action-bar-item__btn'
-            title={replyTitle}
-            icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon}
-            onClick={this.handleReplyClick}
-          />
-          {
-            replyCount !== 0 &&
-            <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`} className='status-action-bar-item__link'>{replyCount}</Link>
-          }
-        </div>
+        <div className='status-action-bar__items'>
+          <div className='status-action-bar-item'>
+            <IconButton
+              className='status-action-bar-item__btn star-icon'
+              animate
+              active={status.get('favourited')}
+              pressed={status.get('favourited')}
+              title={formatMessage(messages.favourite)}
+              icon='star'
+              onClick={this.handleFavouriteClick}
+              text='Like'
+            />
+            { /* favoriteCount !== 0 && <span className='detailed-status__link'>{favoriteCount}</span> */ }
+          </div>
 
-        <div className='status-action-bar-item'>
-          <IconButton
-            className='status-action-bar-item__btn'
-            disabled={!publicStatus}
-            active={status.get('reblogged')}
-            pressed={status.get('reblogged')}
-            title={reblogTitle}
-            icon={reblogIcon}
-            onClick={this.handleReblogClick}
-          />
-          {reblogCount !== 0 && <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}/reblogs`} className='status-action-bar-item__link'>{reblogCount}</Link>}
-        </div>
+          <div className='status-action-bar-item'>
+            <IconButton
+              className='status-action-bar-item__btn'
+              title={replyTitle}
+              icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon}
+              onClick={this.handleReplyClick}
+              text='Comment'
+            />
+            { /*
+              replyCount !== 0 &&
+              <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`} className='status-action-bar-item__link'>{replyCount}</Link>
+              */
+            }
+          </div>
 
-        <div className='status__action-bar__counter'>
-          <IconButton className='status__action-bar-button' disabled={!publicStatus} title={!publicStatus ? formatMessage(messages.cannot_quote) : formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} />
-        </div>
-        <div className='status__action-bar__counter'>
-          <IconButton className='status__action-bar-button star-icon' animate active={status.get('favourited')} pressed={status.get('favourited')} title={formatMessage(messages.favourite)} icon='star' onClick={this.handleFavouriteClick} />
-          {favoriteCount !== 0 && <span className='detailed-status__link'>{favoriteCount}</span>}
-        </div>
+          <div className='status-action-bar-item'>
+            <IconButton
+              className='status-action-bar-item__btn'
+              disabled={!publicStatus}
+              active={status.get('reblogged')}
+              pressed={status.get('reblogged')}
+              title={reblogTitle}
+              icon={reblogIcon}
+              onClick={this.handleReblogClick}
+              text='Share'
+            />
+            { /* reblogCount !== 0 && <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}/reblogs`} className='status-action-bar-item__link'>{reblogCount}</Link> */ }
+          </div>
 
-        <div className='status-action-bar__dropdown'>
-          <DropdownMenuContainer
-            status={status}
-            items={menu}
-            icon='ellipsis-h'
-            size={18}
-            direction='right'
-            title={formatMessage(messages.more)}
-          />
+          {/*<div className='status__action-bar__counter'>
+            <IconButton className='status__action-bar-button' disabled={!publicStatus} title={!publicStatus ? formatMessage(messages.cannot_quote) : formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} />
+          </div>*/}
+
+          {/*<div className='status-action-bar__dropdown'>
+            <DropdownMenuContainer
+              status={status}
+              items={menu}
+              icon='ellipsis-h'
+              size={18}
+              direction='right'
+              title={formatMessage(messages.more)}
+            />
+          </div>*/}
+        </div>
+        <div className='status-action-bar__comment'>
+          {/*<ComposeFormContainer shouldCondense statusId={status.get('id')} />*/}
         </div>
       </div>
     );

@@ -1,4 +1,5 @@
 import { injectIntl, defineMessages } from 'react-intl';
+import moment from 'moment';
 
 const messages = defineMessages({
   just_now: { id: 'relative_time.just_now', defaultMessage: 'now' },

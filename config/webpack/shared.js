@@ -9,7 +9,7 @@ const extname = require('path-complete-extname');
 const { env, settings, themes, output } = require('./configuration');
 const rules = require('./rules');
 const localePackPaths = [
-  '/Users/m3/Documents/dev/gab-social-2/tmp/packs/locale_en.js',
+  '/Users/m3/Documents/dev/gab-social/tmp/packs/locale_en.js',
 ];
 //require('./generateLocalePacks');
 
@@ -77,6 +77,7 @@ module.exports = {
       PureComponent: ['react', 'PureComponent'],
       connect: ['react-redux', 'connect'],
       PropTypes: 'prop-types',
+      styles: '/Users/m3/Documents/dev/gab-social/app/javascript/styles/global.css',
     }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new webpack.NormalModuleReplacementPlugin(
