@@ -19,7 +19,7 @@ module.exports = {
         sourceMap: true,
         importLoaders: 2,
         modules: true,
-        // localIdentName: '[name]',
+        localIdentName: '[hash:base64:5]',
       },
     },
     {

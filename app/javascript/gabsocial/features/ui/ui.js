@@ -16,52 +16,52 @@ import { clearHeight } from '../../actions/height_cache';
 import { openModal } from '../../actions/modal';
 import WrappedRoute from './util/wrapped_route';
 import { isMobile } from '../../utils/is_mobile';
-import NotificationsContainer from '../../containers/notifications_container';
-import LoadingBarContainer from '../../containers/loading_bar_container';
-import ModalContainer from '../../containers/modal_container';
-import UploadArea from '../../components/upload_area';
-import FooterBar from '../../components/footer_bar';
+// import NotificationsContainer from '../../containers/notifications_container';
+// import LoadingBarContainer from '../../containers/loading_bar_container';
+// import ModalContainer from '../../containers/modal_container';
+// import UploadArea from '../../components/upload_area';
+// import FooterBar from '../../components/footer_bar';
 // import TrendsPanel from './components/trends_panel';
-import { WhoToFollowPanel } from '../../components/panel';
-import LinkFooter from '../../components/link_footer';
-import ProfilePage from '../../pages/profile_page';
+// import { WhoToFollowPanel } from '../../components/panel';
+// import LinkFooter from '../../components/link_footer';
+// import ProfilePage from '../../pages/profile_page';
 // import GroupsPage from 'gabsocial/pages/groups_page';
-import GroupPage from '../../pages/group_page';
-import SearchPage from '../../pages/search_page';
+// import GroupPage from '../../pages/group_page';
+// import SearchPage from '../../pages/search_page';
 import HomePage from '../../pages/home_page';
-import GroupSidebarPanel from '../groups/sidebar_panel';
+// import GroupSidebarPanel from '../groups/sidebar_panel';
 
 import {
-  Status,
-  GettingStarted,
-  CommunityTimeline,
-  AccountTimeline,
-  AccountGallery,
+  // Status,
+  // GettingStarted,
+  // CommunityTimeline,
+  // AccountTimeline,
+  // AccountGallery,
   HomeTimeline,
-  Followers,
-  Following,
-  Reblogs,
-  Favourites,
-  DirectTimeline,
-  HashtagTimeline,
-  Notifications,
-  FollowRequests,
-  GenericNotFound,
-  FavouritedStatuses,
-  Blocks,
-  DomainBlocks,
-  Mutes,
-  PinnedStatuses,
-  Search,
-  Explore,
-  Groups,
-  GroupTimeline,
-  ListTimeline,
-  Lists,
-  GroupMembers,
-  GroupRemovedAccounts,
-  GroupCreate,
-  GroupEdit,
+  // Followers,
+  // Following,
+  // Reblogs,
+  // Favourites,
+  // DirectTimeline,
+  // HashtagTimeline,
+  // Notifications,
+  // FollowRequests,
+  // GenericNotFound,
+  // FavouritedStatuses,
+  // Blocks,
+  // DomainBlocks,
+  // Mutes,
+  // PinnedStatuses,
+  // Search,
+  // Explore,
+  // Groups,
+  // GroupTimeline,
+  // ListTimeline,
+  // Lists,
+  // GroupMembers,
+  // GroupRemovedAccounts,
+  // GroupCreate,
+  // GroupEdit,
 } from './util/async-components';
 import { me, meUsername } from '../../initial_state';
 
@@ -70,8 +70,8 @@ import { me, meUsername } from '../../initial_state';
 import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
 
-import '../../../styles/application.scss';
-import './ui.scss';
+// import '../../../styles/application.scss';
+// import './ui.scss';
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
@@ -114,30 +114,30 @@ const keyMap = {
 };
 
 const LAYOUT = {
-  EMPTY: {
-    LEFT: null,
-    RIGHT: null,
-  },
-  DEFAULT: {
-    LEFT: [
-      <WhoToFollowPanel key='0' />,
-      <LinkFooter key='1' />,
-    ],
-    RIGHT: [
-      // <TrendsPanel />,
-      <GroupSidebarPanel key='0' />
-    ],
-  },
-  STATUS: {
-    TOP: null,
-    LEFT: null,
-    RIGHT: [
-      <GroupSidebarPanel key='0' />,
-      <WhoToFollowPanel key='1' />,
-      // <TrendsPanel />,
-      <LinkFooter key='2' />,
-    ],
-  },
+  // EMPTY: {
+  //   LEFT: null,
+  //   RIGHT: null,
+  // },
+  // DEFAULT: {
+  //   LEFT: [
+  //     <WhoToFollowPanel key='0' />,
+  //     <LinkFooter key='1' />,
+  //   ],
+  //   RIGHT: [
+  //     // <TrendsPanel />,
+  //     <GroupSidebarPanel key='0' />
+  //   ],
+  // },
+  // STATUS: {
+  //   TOP: null,
+  //   LEFT: null,
+  //   RIGHT: [
+  //     <GroupSidebarPanel key='0' />,
+  //     <WhoToFollowPanel key='1' />,
+  //     // <TrendsPanel />,
+  //     <LinkFooter key='2' />,
+  //   ],
+  // },
 };
 
 const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
@@ -182,12 +182,12 @@ class SwitchingColumnsArea extends PureComponent {
       <Switch>
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
-        <WrappedRoute path='/timeline/all' exact page={HomePage} component={CommunityTimeline} content={children} />
+        {/*<WrappedRoute path='/timeline/all' exact page={HomePage} component={CommunityTimeline} content={children} />
 
-        {/*<WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
+        <WrappedRoute path='/groups' exact page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/create' page={GroupsPage} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
         <WrappedRoute path='/groups/browse/member' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'member' }} />
-        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />*/}
+        <WrappedRoute path='/groups/browse/admin' page={GroupsPage} component={Groups} content={children} componentParams={{ activeTab: 'admin' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />
@@ -240,7 +240,7 @@ class SwitchingColumnsArea extends PureComponent {
         <Redirect from='/@:username/posts/:statusId/reblogs' to='/:username/posts/:statusId/reblogs' />
         <WrappedRoute path='/:username/posts/:statusId/reblogs' layout={LAYOUT.STATUS} component={Reblogs} content={children} />
 
-        <WrappedRoute layout={LAYOUT.EMPTY} component={GenericNotFound} content={children} />
+        <WrappedRoute layout={LAYOUT.EMPTY} component={GenericNotFound} content={children} />*/}
       </Switch>
     );
   }
@@ -531,7 +531,7 @@ class UI extends PureComponent {
 
     return (
       <HotKeys keyMap={keyMap} handlers={handlers} ref={this.setHotkeysRef} attach={window} focused>
-        <div className={classNames('ui', { 'is-composing': isComposing })} ref={this.setRef} style={{ pointerEvents: dropdownMenuIsOpen ? 'none' : null }}>
+        <div ref={this.setRef} style={{ pointerEvents: dropdownMenuIsOpen ? 'none' : null }}>
           <SwitchingColumnsArea location={location} onLayoutChange={this.handleLayoutChange}>
             {children}
           </SwitchingColumnsArea>

@@ -7,7 +7,7 @@ class HomeController < ApplicationController
   before_action :set_data_for_meta
 
   def index
-    @body_classes = 'app-body'
+    # 
   end
 
   private

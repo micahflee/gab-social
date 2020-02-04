@@ -3,23 +3,21 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
-import Avatar from '../avatar';
-import IconButton from '../icon_button';
-import Icon from '../icon';
-import DisplayName from '../display_name';
-import { closeSidebar } from '../../actions/sidebar';
-import { shortNumberFormat } from '../../utils/numbers';
-import { me } from '../../initial_state';
-import { makeGetAccount } from '../../selectors';
-import ProgressPanel from '../progress_panel';
+import Avatar from './avatar';
+import IconButton from './icon_button';
+import Icon from './icon';
+import DisplayName from './display_name';
+import { closeSidebar } from '../actions/sidebar';
+import { shortNumberFormat } from '../utils/numbers';
+import { me } from '../initial_state';
+import { makeGetAccount } from '../selectors';
+import ProgressPanel from './progress_panel';
 import GabLogo from './assets/gab_logo';
 import {
   GroupIcon,
   HomeIcon,
   NotificationsIcon,
 } from './assets/tabs_bar_icon';
-
-console.log("header global - styles:", styles);
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -120,17 +118,17 @@ class Header extends ImmutablePureComponent {
       {
         name: 'Notifications',
         icon: <NotificationsIcon />,
-        to: '/',
+        to: '/notifications',
       },
       {
         name: 'Groups',
         icon: <NotificationsIcon />,
-        to: '/',
+        to: '/groups',
       },
       {
         name: 'Lists',
         icon: <NotificationsIcon />,
-        to: '/',
+        to: '/lists',
       },
       {
         name: 'Chat',
@@ -150,37 +148,34 @@ class Header extends ImmutablePureComponent {
     ];
 
     return (
-      <header role='banner' className={[styles.header].join(' ')}>
-        <div className='header__container'>
-          <div className='header-scrollarea'>
-            <div className='header-scrollarea__container'>
-              <h1 className='header__heading'>
-                <a className='header__heading__btn'>
+      <header role='banner' className={[styles.default, styles.flexGrow1, styles.z3, styles.alignItemsEnd].join(' ')}>
+        <div className={[styles.default, styles.width275PX].join(' ')}>
+          <div className={[styles.default, styles.positionFixed, styles.top0, styles.height100PC].join(' ')}>
+            <div className={[styles.default, styles.height100PC, styles.width275PX, styles.paddingHorizontal20PX].join(' ')}>
+              <h1 className={[styles.default].join(' ')}>
+                <NavLink to='/' aria-label='Gab' className={[styles.default, styles.noSelect, styles.noUnderline, styles.height50PX, styles.justifyContentCenter, styles.cursorPointer, styles.paddingHoizontal10PX].join(' ')}>
                   <GabLogo />
-                </a>
+                </NavLink>
               </h1>
-              <nav className='header-nav'>
-
+              <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC].join(' ')}>
                 {
                   sidebarItems.map((sidebarItem, i) => {
                     return (
-                      <NavLink to={sidebarItem.to} className='header-nav__item' key={`header-nav__item-${i}`}>
-                        <div className='header-nav__item__block'>
-                          {sidebarItem.icon}
-                          <span className='header-nav__item__title'>{sidebarItem.name}</span>
+                      <NavLink to={sidebarItem.to} key={`header-nav-item-${i}`} className={[styles.default, styles.noUnderline, styles.cursorPointer, styles.width100PC, styles.alignItemsStart, styles.flexGrow1].join(' ')}>
+                        <div className={[styles.default, styles.maxWidth100PC, styles.flexRow, styles.paddingVertical10PX, styles.paddingHoizontal10PX, styles.circle, styles.alignItemsCenter].join(' ')}>
+                          <div className={[styles.default]}>
+                            {sidebarItem.icon}
+                          </div>
+                          <div className={[styles.default, styles.paddingHorizontal20PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
+                            <span className={[styles.default, styles.fontWeightBold, styles.fontSize19PX, styles.text].join(' ')}>
+                              {sidebarItem.name}
+                            </span>
+                          </div>
                         </div>
                       </NavLink>
                     )
                   })
                 }
-
-                <a className='header-nav__item'>
-                  <div className='header-nav__item__block'>
-                    <NotificationsIcon />
-                    <span className='header-nav__item__title'>More</span>
-                  </div>
-                </a>
-
               </nav>
             </div>
           </div>
