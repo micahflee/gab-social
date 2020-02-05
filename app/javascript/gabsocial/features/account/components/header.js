@@ -138,7 +138,6 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.blocks), to: '/blocks' });
       menu.push({ text: intl.formatMessage(messages.domain_blocks), to: '/domain_blocks' });
     } else {
-      menu.push({ text: intl.formatMessage(messages.chat), action: this.onChat });
       menu.push({ text: intl.formatMessage(messages.mention, { name: account.get('acct') }), action: this.props.onMention });
 
       if (account.getIn(['relationship', 'following'])) {
@@ -338,7 +337,16 @@ class Header extends ImmutablePureComponent {
                   </Button>
                 }
                 {account.get('id') !== me &&
-                  <IconButton icon='comments' className='button button-alternative-2 chat-button hidden-sm' onClick={this.onChat} title={intl.formatMessage(messages.chat)} />
+                  <form method='POST' action='https://chat.gab.com/direct-message'>
+                    <input type="hidden" name="username" value={account.get('username')} />
+                    <IconButton
+                      type='submit'
+                      icon='comments'
+                      className='button button-alternative-2 chat-button'
+                      onClick={this.onChat}
+                      title={intl.formatMessage(messages.chat)}
+                    />
+                  </form>
                 }
                 <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />
               </div>
