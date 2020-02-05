@@ -1,26 +1,34 @@
-import './panel.scss';
+import classNames from 'classnames/bind'
+import Icon from '../icon'
 
 export default class PanelLayout extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
+    subtitle: PropTypes.string,
     icon: PropTypes.string,
     children: PropTypes.node,
-  };
+    hasBackground: PropTypes.boolean,
+  }
 
   render() {
-    const {title, icon, children} = this.props;
+    const { title, subtitle, icon, hasBackground, children } = this.props
 
     return (
-      <div className='panel'>
-        <div className='panel-header'>
-          {icon && <Icon id={icon} className='panel-header__icon' />}
-          <span className='panel-header__title'>{title}</span>
-        </div>
-        <div className='panel__content'>
+      <aside className={[styles.default, styles.backgroundSubtle, styles.overflowHidden, styles.radiusSmall, styles.marginBottom15PX].join(' ')}>
+        {
+          (title || subtitle) &&
+          <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX, styles.borderColorSubtle, styles.borderBottom1PX].join(' ')}>
+            <div className={[styles.default, styles.flexRow, styles.alignItemsCenter].join(' ')}>
+              {icon && <Icon id={icon} height='16px' width='16px' className={[styles.default, styles.marginRight10PX].join(' ')} />}
+              <span className={[styles.default, styles.text, styles.fontWeightExtraBold, styles.colorBlack, styles.fontSize19PX].join(' ')}>{title}</span>
+            </div>
+            {subtitle && <span className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize13PX, styles.marginTop5PX].join(' ')}>{subtitle}</span>}
+          </div>
+        }
+        <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX].join(' ')}>
           {children}
         </div>
-      </div>
-    );
-  };
-
-};
+      </aside>
+    )
+  }
+}

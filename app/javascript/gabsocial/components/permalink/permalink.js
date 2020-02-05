@@ -1,4 +1,4 @@
-import  classNames from 'classnames';
+import classNames from 'classnames';
 
 export default class Permalink extends PureComponent {
 
@@ -9,30 +9,26 @@ export default class Permalink extends PureComponent {
   static propTypes = {
     className: PropTypes.string,
     href: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
     children: PropTypes.node,
-    onInterceptClick: PropTypes.func,
+    blank: PropTypes.boolean,
+    button: PropTypes.boolean,
   };
 
   handleClick = e => {
-    if (this.props.onInterceptClick && this.props.onInterceptClick()) {
-      e.preventDefault();
-      return;
-    }
-
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
-      this.context.router.history.push(this.props.to);
+      this.context.router.history.push(this.props.href);
     }
   }
 
   render () {
-    const { href, children, className, onInterceptClick, ...other } = this.props;
+    const { href, children, className, blank, ...other } = this.props;
 
     const classes = classNames('permalink', className);
+    const target = blank ? '_blank' : null;
 
     return (
-      <a target='_blank' href={href} onClick={this.handleClick} className={classes} {...other}>
+      <a target={target} href={href} onClick={this.handleClick} className={classes} {...other}>
         {children}
       </a>
     );

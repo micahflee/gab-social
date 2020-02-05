@@ -1,12 +1,12 @@
 import moment from 'moment'
 import classNames from 'classnames/bind'
 import {
+  FormattedMessage,
   defineMessages,
   injectIntl,
 } from 'react-intl'
 import { openModal } from '../actions/modal'
 import {
-  version,
   repository,
   source_url,
   me,
@@ -23,7 +23,6 @@ const messages = defineMessages({
   terms: { id: 'getting_started.terms_of_sale', defaultMessage: 'Terms of Sale' },
   privacy: { id: 'getting_started.privacy', defaultMessage: 'Privacy Policy' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
-  notice: { id: 'getting_started.open_source_notice', defaultMessage: 'Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.' },
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -61,7 +60,7 @@ class LinkFooter extends PureComponent {
     const { onOpenHotkeys, intl } = this.props
     const { hoveringItemIndex } = this.state
 
-    const cx = classNames.bind(styles);
+    const cx = classNames.bind(styles)
 
     const currentYear = moment().format('YYYY')
 
@@ -121,17 +120,33 @@ class LinkFooter extends PureComponent {
                 text: 1,
                 marginVertical5PX: 1,
                 paddingRight15PX: 1,
+                cursorPointer: 1,
                 colorSubtle: i !== hoveringItemIndex,
                 noUnderline: i !== hoveringItemIndex,
                 colorBlack: i === hoveringItemIndex,
                 underline: i === hoveringItemIndex,
               })
+
+              if (linkFooterItem.onClick) {
+                return (
+                  <button
+                    key={`link-footer-item-${i}`}
+                    data-method={linkFooterItem.logout ? 'delete' : null}
+                    onClick={linkFooterItem.onClick || null}
+                    onMouseEnter={() => this.onMouseEnterLinkFooterItem(i)}
+                    onMouseLeave={() => this.onMouseLeaveLinkFooterItem(i)}
+                    className={classes}
+                  >
+                    {linkFooterItem.text}
+                  </button>
+                )
+              }
+
               return (
                 <a
                   key={`link-footer-item-${i}`}
                   href={linkFooterItem.to}
                   data-method={linkFooterItem.logout ? 'delete' : null}
-                  onClick={linkFooterItem.onClick || null}
                   onMouseEnter={() => this.onMouseEnterLinkFooterItem(i)}
                   onMouseLeave={() => this.onMouseLeaveLinkFooterItem(i)}
                   className={classes}
@@ -141,19 +156,16 @@ class LinkFooter extends PureComponent {
               )
             })
           }
+          <span className={[styles.default, styles.text, styles.fontSize13PX, styles.colorSubtle, styles.marginVertical5PX].join(' ')}>© {currentYear} Gab AI, Inc.</span>
         </nav>
 
-        <p>
-          {intl.formatMessage(messages.invite, {
-            gitlab: (
-              <span>
-                <a href={source_url} rel='noopener' target='_blank'>{repository}</a>
-                (v{version})
-              </span>
-            )
-          })}
+        <p className={[styles.default, styles.text, styles.fontSize13PX, styles.colorSubtle, styles.marginTop10PX].join(' ')}>
+          <FormattedMessage
+            id='getting_started.open_source_notice'
+            defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'
+            values={{ gitlab: <a href={source_url} className={[styles.inherit].join(' ')} rel='noopener' target='_blank'>{repository}</a> }}
+          />
         </p>
-        <p>© {currentYear} Gab AI Inc.</p>
       </div>
     )
   }
