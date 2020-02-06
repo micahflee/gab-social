@@ -286,6 +286,19 @@
 		background-image: url('../images/sprite-main-navigation-links.png');
 		background-size: auto 84px;
 
+		&.chat {
+			font-size: 25px;
+			padding-top: 6px;
+			color: #C8C8C8;
+			background-image: none !important;
+
+			&--sm {
+				font-size: 20px !important;
+				width: 24px !important;
+				padding-top: 14px !important;
+			}
+		}
+
 		@media screen and (max-width: 895px) {
 			width: 32px;
 			background-size: auto 120px;

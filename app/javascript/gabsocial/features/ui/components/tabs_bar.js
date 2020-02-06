@@ -12,6 +12,7 @@ import Avatar from '../../../components/avatar';
 import ActionBar from 'gabsocial/features/compose/components/action_bar';
 import { openModal } from '../../../actions/modal';
 import { openSidebar } from '../../../actions/sidebar';
+import Icon from '../../../components/icon';
 
 export const privateLinks = [
   <NavLink key='pr0' className='tabs-bar__link--logo' to='/home#' data-preview-title-id='column.home' style={{ padding: '0' }}>
@@ -33,6 +34,10 @@ export const privateLinks = [
   <a key='pl4' className='tabs-bar__link tabs-bar__link--trends' href='https://trends.gab.com' data-preview-title-id='tabs_bar.trends' >
     <i className='tabs-bar__link__icon trends'/>
     <FormattedMessage id='tabs_bar.trends' defaultMessage='Trends' />
+  </a>,
+  <a key='pl5' className='tabs-bar__link tabs-bar__link--chat' href='https://chat.gab.com' data-preview-title-id='tabs_bar.chat' >
+    <Icon id='comments' className='tabs-bar__link__icon chat chat--sm' />
+    <FormattedMessage id='tabs_bar.chat' defaultMessage='Chat' />
   </a>,
 ];
 
