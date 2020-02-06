@@ -16,18 +16,18 @@ const links = [
     <NotificationsCounterIcon />
     <FormattedMessage id='tabs_bar.notifications' defaultMessage='Notifications' />
   </NavLink>,
-  <NavLink key='pr3' className='footer-bar__link' to='/groups' data-preview-title-id='column.groups'>
-    <i className='tabs-bar__link__icon groups' />
-    <FormattedMessage id='tabs_bar.groups' defaultMessage='Groups' />
-  </NavLink>,
-  <a key='pl4' className='footer-bar__link footer-bar__link--trends' href='https://trends.gab.com' data-preview-title-id='tabs_bar.trends'>
-    <i className='tabs-bar__link__icon trends' />
-    <FormattedMessage id='tabs_bar.trends' defaultMessage='Trends' />
-  </a>,
   <a key='pl5' className='footer-bar__link footer-bar__link--chat' href='https://chat.gab.com' data-preview-title-id='tabs_bar.chat'>
     <Icon id='comments' className='tabs-bar__link__icon chat' />
     <FormattedMessage id='tabs_bar.chat' defaultMessage='Chat' />
   </a>,
+  <a key='pl4' className='footer-bar__link footer-bar__link--trends' href='https://trends.gab.com' data-preview-title-id='tabs_bar.trends'>
+    <i className='tabs-bar__link__icon trends' />
+    <FormattedMessage id='tabs_bar.trends' defaultMessage='Trends' />
+  </a>,
+  <NavLink key='pr3' className='footer-bar__link' to='/groups' data-preview-title-id='column.groups'>
+    <i className='tabs-bar__link__icon groups' />
+    <FormattedMessage id='tabs_bar.groups' defaultMessage='Groups' />
+  </NavLink>,
 ]
 
 export default
