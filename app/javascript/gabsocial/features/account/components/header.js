@@ -97,7 +97,7 @@ class Header extends ImmutablePureComponent {
   onChat = () => {
     const { account } = this.props;
 
-    axios.post('https://chat.gab.com/direct-message', {
+    axios.post('https://chat.gab.com/private-message', {
       username: account.get('username'),
     })
     .then(function (response) {
@@ -337,7 +337,7 @@ class Header extends ImmutablePureComponent {
                   </Button>
                 }
                 {account.get('id') !== me &&
-                  <form method='POST' action='https://chat.gab.com/direct-message'>
+                  <form method='POST' action='https://chat.gab.com/private-message'>
                     <input type="hidden" name="username" value={account.get('username')} />
                     <IconButton
                       type='submit'
