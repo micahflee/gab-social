@@ -21,7 +21,7 @@ export default class DisplayName extends ImmutablePureComponent {
         </bdi>
         {
           account.get('is_verified') &&
-          <Icon id='verified' width='15px' height='15px' className={[styles.default]} title='Verified Account' />
+          <Icon id='verified' width='16px' height='16px' className={[styles.default]} title='Verified Account' />
           /*<Icon id='verified' width='15px' height='15px' className={[styles.default]} title='PRO' />
           <Icon id='verified' width='15px' height='15px' className={[styles.default]} title='Donor' />
           <Icon id='verified' width='15px' height='15px' className={[styles.default]} title='Investor' />*/

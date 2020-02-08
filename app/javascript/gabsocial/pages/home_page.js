@@ -17,9 +17,10 @@ export default class HomePage extends PureComponent {
     return (
       <PageLayout
         layout={{
+          HEADER: <span>hello</span>,
+          HEADER_RIGHT: <Search />,
           RIGHT: (
             <Fragment>
-              <Search />
               <UserPanel />
               <WhoToFollowPanel />
               <TrendsPanel />
@@ -32,6 +33,7 @@ export default class HomePage extends PureComponent {
         }}
       >
         <TimelineComposeBlock autoFocus={false} shouldCondense />
+        <div className={[styles.default, styles.borderBottom1PX, styles.borderColorSubtle2, styles.marginBottom15PX, styles.width100PC].join(' ')} />
         {children}
       </PageLayout>
     )

@@ -1,13 +1,12 @@
 import { injectIntl, defineMessages } from 'react-intl'
 import DatePicker from 'react-datepicker'
-import IconButton from '../../../components/icon_button'
 import { changeScheduledAt } from '../../../actions/compose'
 import { openModal } from '../../../actions/modal'
 import { me } from '../../../initial_state'
 import { isMobile } from '../../../utils/is_mobile'
 import ComposeExtraButton from './compose_extra_button'
 
-import 'react-datepicker/dist/react-datepicker.css'
+// import 'react-datepicker/dist/react-datepicker.css'
 
 const messages = defineMessages({
   schedule_status: { id: 'schedule_status.title', defaultMessage: 'Schedule' },

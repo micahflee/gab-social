@@ -17,7 +17,9 @@ const messages = defineMessages({
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
+  comment: { id: 'status.comment', defaultMessage: 'Comment' },
   more: { id: 'status.more', defaultMessage: 'More' },
+  share: { id: 'status.share', defaultMessage: 'Share' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
   reblog: { id: 'status.reblog', defaultMessage: 'Repost' },
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
@@ -25,7 +27,7 @@ const messages = defineMessages({
   cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Un-repost' },
   cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be reposted' },
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
-  favourite: { id: 'status.favourite', defaultMessage: 'Favorite' },
+  like: { id: 'status.like', defaultMessage: 'Like' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },
   report: { id: 'status.report', defaultMessage: 'Report @{name}' },
   muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
@@ -76,7 +78,8 @@ class StatusActionBarItem extends PureComponent {
     const btnClasses = cx({
       default: 1,
       text: 1,
-      fontSize15PX: 1,
+      fontSize13PX: 1,
+      fontWeight500: 1,
       cursorPointer: 1,
       displayFlex: 1,
       justifyContentCenter: 1,
@@ -86,17 +89,12 @@ class StatusActionBarItem extends PureComponent {
       paddingHorizontal10PX: 1,
       width100PC: 1,
       radiusSmall: 1,
+      outlineFocusBrand: 1,
       backgroundTransparent: !hovering,
-      backgroundSubtle2: hovering,
-      colorBlack: !hovering,
-      colorBrand: hovering,
-    })
-
-    const iconClasses = cx({
-      default: 1,
-      marginRight10PX: 1,
-      fillColorSubtle: !hovering,
-      fillColorBrand: hovering,
+      backgroundSubtle: hovering,
+      colorSubtle: 1,
+      // colorSubtle: !hovering,
+      // colorBrand: hovering,
     })
 
     return (
@@ -109,7 +107,7 @@ class StatusActionBarItem extends PureComponent {
           onMouseEnter={() => this.handleOnMouseEnter()}
           onMouseLeave={() => this.handleOnMouseLeave()}
           >
-          <Icon width='16px' height='16px' icon={icon} className={iconClasses} />
+          <Icon width='16px' height='16px' id={icon} className={[styles.default, styles.marginRight10PX, styles.fillColorSubtle].join(' ')} />
           {title}
         </button>
       </div>
@@ -334,24 +332,30 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const items = [
       {
-        title: formatMessage(messages.favourite),
-        icon: 'star',
+        title: formatMessage(messages.like),
+        icon: 'like',
         active: status.get('favourited'),
         onClick: this.handleFavouriteClick,
       },
       {
-        title: replyTitle,
-        icon: 'reply',
+        title: formatMessage(messages.comment),
+        icon: 'comment',
         active: 0,
         onClick: this.handleReplyClick,
       },
       {
         title: reblogTitle,
-        icon: (status.get('visibility') === 'private') ? 'lock' : 'retweet',
+        icon: (status.get('visibility') === 'private') ? 'lock' : 'repost',
         disabled: !publicStatus,
         active: status.get('reblogged'),
         onClick: this.handleReblogClick,
-      }
+      },
+      {
+        title: formatMessage(messages.share),
+        icon: 'share',
+        active: false,
+        onClick: this.handleFavouriteClick,
+      },
     ]
 
     return (
@@ -359,7 +363,7 @@ class StatusActionBar extends ImmutablePureComponent {
         <div className={[styles.default, styles.paddingVertical2PX, styles.flexRow, styles.borderTop1PX, styles.borderColorSubtle].join(' ')}>
           {
             items.map((item, i) => (
-              <StatusActionBarItem {...item} />
+              <StatusActionBarItem key={`status-action-bar-item-${i}`} {...item} />
             ))
           }
 

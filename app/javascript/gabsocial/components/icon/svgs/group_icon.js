@@ -2,7 +2,8 @@ const GroupIcon = ({
   className = 'header-nav__item__icon',
   width = '26px',
   height = '26px',
-  viewBox = '0 0 48 48'
+  viewBox = '0 0 48 48',
+  title = 'Group',
 }) => (
   <svg
     className={className}
@@ -14,6 +15,7 @@ const GroupIcon = ({
     height={height}
     viewBox={viewBox}
     xmlSpace='preserve'
+    aria-label={title}
   >
     <g>
       <path className='header-nav__item__icon__path' d="M 41 25 L 37 25 C 37 26 37 27 37 28 L 37 42 C 37 43 37 43 37 44 L 43 44 C 46 44 48 42 48 40 L 48 32 C 48 28 44 25 41 25 Z M 41 25"/>

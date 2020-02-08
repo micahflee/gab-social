@@ -4,17 +4,12 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
 import Button from './button'
-import Icon from './icon'
 import { closeSidebar } from '../actions/sidebar'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 // import ProgressPanel from './progress_panel'
 import GabLogo from './assets/gab_logo'
-import {
-  GroupIcon,
-  HomeIcon,
-  NotificationsIcon,
-} from './assets/tabs_bar_icon'
+import Icon from './icon'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -110,32 +105,32 @@ class Header extends ImmutablePureComponent {
     const menuItems = [
       {
         title: 'Home',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='home' />,
         to: '/',
       },
       {
         title: 'Notifications',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='notifications' />,
         to: '/notifications',
       },
       {
         title: 'Groups',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='groups' />,
         to: '/groups',
       },
       {
         title: 'Lists',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='lists' />,
         to: '/lists',
       },
       {
         title: 'Chat',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='chat' />,
         to: '/',
       },
       {
         title: 'Profile',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='profile' />,
         to: '/',
       },
     ]
@@ -143,12 +138,12 @@ class Header extends ImmutablePureComponent {
     const shortcutItems = [
       {
         title: 'Meme Group',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='group' />,
         to: '/',
       },
       {
         title: 'Andrew',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='user' />,
         to: '/',
       },
     ]
@@ -156,22 +151,22 @@ class Header extends ImmutablePureComponent {
     const exploreItems = [
       {
         title: 'Trends',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='trends' />,
         to: '/',
       },
       {
         title: 'Dissenter',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='dissenter' />,
         to: '/',
       },
       {
         title: 'Apps',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='apps' />,
         to: '/',
       },
       {
         title: 'Shop',
-        icon: <NotificationsIcon />,
+        icon: <Icon id='shop' />,
         to: '/',
       },
     ]
@@ -186,9 +181,6 @@ class Header extends ImmutablePureComponent {
                   <GabLogo />
                 </NavLink>
               </h1>
-              <div>
-                { /* profile card */}
-              </div>
               <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC, styles.marginBottom15PX].join(' ')}>
                 <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Menu</span>
                 {
@@ -283,7 +275,7 @@ class HeaderMenuItem extends PureComponent {
       >
         <div className={containerClasses}>
           <div className={[styles.default]}>
-            <NotificationsIcon className={iconClasses} width='16px' height='16px' />
+            <Icon className={iconClasses} width='16px' height='16px' />
           </div>
           <div className={[styles.default, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
             <span className={textClasses}>{title}</span>

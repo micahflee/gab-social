@@ -424,6 +424,8 @@ class Status extends ImmutablePureComponent {
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 
+    console.log("const replies = state.getIn(['contexts', 'replies', id]);", state.getIn(['contexts', 'replies', id]))
+
     return (
       <HotKeys handlers={handlers}>
         <div
@@ -457,7 +459,7 @@ class Status extends ImmutablePureComponent {
                     >
                       <DisplayName account={status.get('account')} />
                     </NavLink>
-                    <Icon id='ellipsis-h' width='14px' height='15px' className={[styles.default, styles.marginLeftAuto].join(' ')} />
+                    <Icon id='ellipsis' width='20px' height='20px' className={[styles.default, styles.fillColorSubtle, styles.marginLeftAuto].join(' ')} />
                   </div>
                   <div className={[styles.default, styles.flexRow, styles.alignItemsCenter, styles.lineHeight15].join(' ')}>
                     <NavLink
@@ -466,13 +468,13 @@ class Status extends ImmutablePureComponent {
                     >
                       <RelativeTimestamp timestamp={status.get('created_at')} />
                     </NavLink>
-                    <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                    <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
                     <Icon id='globe' width='12px' height='12px' className={[styles.default, styles.displayInline, styles.marginLeft5PX, styles.fillColorSubtle].join(' ')}/>
 
                     {
                       status.get('group') &&
                       <Fragment>
-                        <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
                         <NavLink
                           to={`/groups/${status.getIn(['group', 'id'])}`}
                           className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorBlack].join(' ')}
@@ -485,7 +487,7 @@ class Status extends ImmutablePureComponent {
                     {
                       status.get('revised_at') !== null &&
                       <Fragment>
-                        <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
                         <button
                           onClick={() => other.onShowRevisions(status)}
                           className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}
@@ -500,7 +502,7 @@ class Status extends ImmutablePureComponent {
               </div>
             </div>
 
-            <div className={[styles.default, styles.paddingHorizontal15PX].join(' ')}>
+            <div className={[styles.default, styles.paddingHorizontal15PX, styles.marginBottom15PX].join(' ')}>
               <StatusContent
                 status={status}
                 reblogContent={reblogContent}

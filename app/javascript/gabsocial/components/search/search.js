@@ -44,11 +44,11 @@ export default class Search extends PureComponent {
     const iconClass = hasValue ? 'active' : '';
 
     return (
-      <div className={[styles.default, styles.backgroundColorSubtle3, styles.positionSticky, styles.justifyContentCenter, styles.top0, styles.z2, styles.height53PX, styles.marginBottom10PX].join(' ')}>
-        <div className={[styles.default, styles.backgroundSubtle2, styles.flexRow, styles.circle, styles.alignItemsCenter].join(' ')}>
-          <Icon id='search' width='18px' height='18px' className={[styles.default, styles.marginLeft15PX, styles.marginRight10PX].join(' ')} />
+      <div className={[styles.default, styles.justifyContentCenter, styles.height53PX].join(' ')}>
+        <div className={[styles.default, styles.backgroundWhite, styles.border1PX, styles.borderColorSubtle, styles.flexRow, styles.circle, styles.alignItemsCenter].join(' ')}>
+          <Icon id='search' width='16px' height='16px' className={[styles.default, styles.marginLeft15PX, styles.marginRight10PX].join(' ')} />
           <input
-            className={[styles.default, styles.text, styles.lineHeight125, styles.displayBlock, styles.paddingVertical10PX, styles.paddingHorizontal10PX, styles.backgroundTransparent, styles.fontSize15PX, styles.flexGrow1].join(' ')}
+            className={[styles.default, styles.text, styles.outlineFocusBrand, styles.lineHeight125, styles.displayBlock, styles.paddingVertical10PX, styles.paddingHorizontal10PX, styles.backgroundTransparent, styles.fontSize15PX, styles.flexGrow1].join(' ')}
             type='text'
             placeholder='Search on Gab...'
             value={value}
@@ -57,8 +57,8 @@ export default class Search extends PureComponent {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          <div role='button' tabIndex='0' className={[styles.default, styles.paddingHorizontal10PX].join(' ')} onClick={handleClear}>
-            <Icon id='times-circle' width='18px' height='18px' className={iconClass} aria-label={placeholder} />
+          <div role='button' tabIndex='0' className={[styles.default, styles.cursorPointer, styles.marginRight5PX, styles.paddingHorizontal10PX, styles.paddingVertical10PX, styles.circle, styles.backgroundColorBrandLight].join(' ')} onClick={handleClear}>
+            <Icon id='close' width='10px' height='10px' className={styles.fillColorWhite} aria-label={placeholder} />
           </div>
         </div>
 

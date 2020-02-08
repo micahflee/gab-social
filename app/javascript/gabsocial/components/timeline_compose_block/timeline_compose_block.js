@@ -26,12 +26,19 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     const { account, size, ...rest } = this.props;
 
     return (
-      <div className={[styles.default, styles.flexRow, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX, styles.paddingVertical10PX, styles.paddingHorizontal15PX].join(' ')}>
-        <div className={[styles.default, styles.marginRight10PX].join(' ')}>
-          <Avatar account={account} size={46} />
+      <section className={[styles.default, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX].join(' ')}>
+        <div className={[styles.default, styles.backgroundSubtle, styles.borderBottom1PX, styles.borderColorSubtle, styles.paddingHorizontal15PX, styles.paddingVertical2PX].join(' ')}>
+          <h1 className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize12PX, styles.fontWeight500, styles.lineHeight2, styles.paddingVertical2PX].join(' ')}>
+            Create Post
+          </h1>
         </div>
-        <ComposeFormContainer {...rest} />
-      </div>
+        <div className={[styles.default, styles.flexRow, styles.paddingVertical15PX, styles.paddingHorizontal15PX].join(' ')}>
+          <div className={[styles.default, styles.marginRight10PX].join(' ')}>
+            <Avatar account={account} size={46} />
+          </div>
+          <ComposeFormContainer {...rest} />
+        </div>
+      </section>
     )
   }
 

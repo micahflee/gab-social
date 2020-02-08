@@ -131,9 +131,11 @@ class Account extends ImmutablePureComponent {
             </button>
           </div>
 
-          <button className={[styles.default, styles.marginLeftAuto, styles.paddingVertical2PX, styles.cursorPointer].join(' ')}>
-            <Icon width='14px' height='14px' />
-          </button>
+          <div className={[styles.default, styles.marginLeftAuto].join(' ')}>
+            <button className={[styles.default, styles.circle, styles.backgroundSubtle2, styles.paddingVertical5PX, styles.paddingHorizontal5PX, styles.cursorPointer].join(' ')}>
+              <Icon id='close' width='8px' height='8px' />
+            </button>
+          </div>
 
         </div>
       </div>

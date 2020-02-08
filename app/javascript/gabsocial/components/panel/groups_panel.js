@@ -145,7 +145,7 @@ class GroupPanelItem extends ImmutablePureComponent {
                 {intl.formatMessage(messages.no_recent_activity)}
               </Fragment>
             }
-            <Icon className={styles.marginLeftAuto} width='10px' height='10px' />
+            <span className={[styles.marginLeftAuto, styles.inherit].join(' ')}>→</span>
           </span>
         </div>
       </NavLink>
