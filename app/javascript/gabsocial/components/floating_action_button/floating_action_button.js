@@ -1,7 +1,5 @@
 import ComposeIcon from './assets/compose_icon';
 
-import './floating_action_button.scss';
-
 export default class FloatingActionButton extends Component {
   static propTypes = {
     onClick: PropTypes.func.isRequired,

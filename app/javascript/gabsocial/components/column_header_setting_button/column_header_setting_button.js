@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import Icon from '../icon';
 
-import './column_header_setting_button.scss';
-
 export default class ColumnHeaderSettingButton extends PureComponent {
 
   static propTypes = {

@@ -1,28 +1,32 @@
 import classNames from 'classnames/bind'
-import Icon from '../icon'
 
 export default class PanelLayout extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
-    icon: PropTypes.string,
     children: PropTypes.node,
     hasBackground: PropTypes.boolean,
+    button: PropTypes.node,
   }
 
   render() {
-    const { title, subtitle, icon, hasBackground, children } = this.props
+    const { title, subtitle, button, hasBackground, children } = this.props
 
     return (
-      <aside className={[styles.default, styles.backgroundSubtle, styles.overflowHidden, styles.radiusSmall, styles.marginBottom15PX].join(' ')}>
+      <aside className={[styles.default, styles.backgroundWhite, styles.overflowHidden, styles.radiusSmall, styles.marginBottom15PX, styles.borderColorSubtle, styles.border1PX].join(' ')}>
         {
           (title || subtitle) &&
           <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX, styles.borderColorSubtle, styles.borderBottom1PX].join(' ')}>
             <div className={[styles.default, styles.flexRow, styles.alignItemsCenter].join(' ')}>
-              {icon && <Icon id={icon} height='16px' width='16px' className={[styles.default, styles.marginRight10PX].join(' ')} />}
-              <span className={[styles.default, styles.text, styles.fontWeightExtraBold, styles.colorBlack, styles.fontSize19PX].join(' ')}>{title}</span>
+              <h1 className={[styles.default, styles.text, styles.fontWeightBold, styles.colorBlack, styles.fontSize16PX].join(' ')}>{title}</h1>
+              {
+                !!button &&
+                <div className={[styles.default, styles.marginLeftAuto].join(' ')}>
+                  {button}
+                </div>
+              }
             </div>
-            {subtitle && <span className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize13PX, styles.marginTop5PX].join(' ')}>{subtitle}</span>}
+            {subtitle && <h2 className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize13PX, styles.fontWeightBold, styles.marginTop5PX].join(' ')}>{subtitle}</h2>}
           </div>
         }
         <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX].join(' ')}>

@@ -15,8 +15,6 @@ import SearchResultsContainer from './containers/search_results_container';
 import NavigationBar from './components/navigation_bar';
 import elephantUIPlane from '../../../images/logo_ui_column_footer.png';
 
-import './compose.scss';
-
 const messages = defineMessages({
   start: { id: 'getting_started.heading', defaultMessage: 'Getting started' },
   home_timeline: { id: 'tabs_bar.home', defaultMessage: 'Home' },

@@ -1,13 +1,14 @@
-import { injectIntl, defineMessages } from 'react-intl';
-import spring from 'react-motion/lib/spring';
-import detectPassiveEvents from 'detect-passive-events';
-import classNames from 'classnames';
-import Overlay from 'react-overlays/lib/Overlay';
-import IconButton from '../../../../components/icon_button';
-import Motion from '../../../ui/util/optional_motion';
-import Icon from '../../../../components/icon';
-
-import './privacy_dropdown.scss';
+import { injectIntl, defineMessages } from 'react-intl'
+import spring from 'react-motion/lib/spring'
+import detectPassiveEvents from 'detect-passive-events'
+import classNames from 'classnames'
+import Overlay from 'react-overlays/lib/Overlay'
+import { changeComposeVisibility } from '../../../actions/compose'
+import { openModal, closeModal } from '../../../actions/modal'
+import { isUserTouching } from '../../../utils/is_mobile'
+import Motion from '../../ui/util/optional_motion'
+import Icon from '../../../components/icon'
+import ComposeExtraButton from './compose_extra_button'
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
@@ -16,11 +17,11 @@ const messages = defineMessages({
   unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
   private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
   private_long: { id: 'privacy.private.long', defaultMessage: 'Post to followers only' },
-  direct_short: { id: 'privacy.direct.short', defaultMessage: 'Direct' },
   change_privacy: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
-});
+  visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
+})
 
-const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
+const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 class PrivacyDropdownMenu extends PureComponent {
 
@@ -31,96 +32,96 @@ class PrivacyDropdownMenu extends PureComponent {
     placement: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-  };
+  }
 
   state = {
     mounted: false,
-  };
+  }
 
   handleDocumentClick = e => {
     if (this.node && !this.node.contains(e.target)) {
-      this.props.onClose();
+      this.props.onClose()
     }
   }
 
   handleKeyDown = e => {
-    const { items } = this.props;
-    const value = e.currentTarget.getAttribute('data-index');
+    const { items } = this.props
+    const value = e.currentTarget.getAttribute('data-index')
     const index = items.findIndex(item => {
-      return (item.value === value);
-    });
-    let element;
+      return (item.value === value)
+    })
+    let element
 
     switch(e.key) {
     case 'Escape':
-      this.props.onClose();
-      break;
+      this.props.onClose()
+      break
     case 'Enter':
-      this.handleClick(e);
-      break;
+      this.handleClick(e)
+      break
     case 'ArrowDown':
-      element = this.node.childNodes[index + 1];
+      element = this.node.childNodes[index + 1]
       if (element) {
-        element.focus();
-        this.props.onChange(element.getAttribute('data-index'));
+        element.focus()
+        this.props.onChange(element.getAttribute('data-index'))
       }
-      break;
+      break
     case 'ArrowUp':
-      element = this.node.childNodes[index - 1];
+      element = this.node.childNodes[index - 1]
       if (element) {
-        element.focus();
-        this.props.onChange(element.getAttribute('data-index'));
+        element.focus()
+        this.props.onChange(element.getAttribute('data-index'))
       }
-      break;
+      break
     case 'Home':
-      element = this.node.firstChild;
+      element = this.node.firstChild
       if (element) {
-        element.focus();
-        this.props.onChange(element.getAttribute('data-index'));
+        element.focus()
+        this.props.onChange(element.getAttribute('data-index'))
       }
-      break;
+      break
     case 'End':
-      element = this.node.lastChild;
+      element = this.node.lastChild
       if (element) {
-        element.focus();
-        this.props.onChange(element.getAttribute('data-index'));
+        element.focus()
+        this.props.onChange(element.getAttribute('data-index'))
       }
-      break;
+      break
     }
   }
 
   handleClick = e => {
-    const value = e.currentTarget.getAttribute('data-index');
+    const value = e.currentTarget.getAttribute('data-index')
 
-    e.preventDefault();
+    e.preventDefault()
 
-    this.props.onClose();
-    this.props.onChange(value);
+    this.props.onClose()
+    this.props.onChange(value)
   }
 
   componentDidMount () {
-    document.addEventListener('click', this.handleDocumentClick, false);
-    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions);
-    if (this.focusedItem) this.focusedItem.focus();
-    this.setState({ mounted: true });
+    document.addEventListener('click', this.handleDocumentClick, false)
+    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
+    if (this.focusedItem) this.focusedItem.focus()
+    this.setState({ mounted: true })
   }
 
   componentWillUnmount () {
-    document.removeEventListener('click', this.handleDocumentClick, false);
-    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions);
+    document.removeEventListener('click', this.handleDocumentClick, false)
+    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
   setRef = c => {
-    this.node = c;
+    this.node = c
   }
 
   setFocusRef = c => {
-    this.focusedItem = c;
+    this.focusedItem = c
   }
 
   render () {
-    const { mounted } = this.state;
-    const { style, items, placement, value } = this.props;
+    const { mounted } = this.state
+    const { style, items, placement, value } = this.props
 
     return (
       <Motion defaultStyle={{ opacity: 0, scaleX: 0.85, scaleY: 0.75 }} style={{ opacity: spring(1, { damping: 35, stiffness: 400 }), scaleX: spring(1, { damping: 35, stiffness: 400 }), scaleY: spring(1, { damping: 35, stiffness: 400 }) }}>
@@ -144,12 +145,31 @@ class PrivacyDropdownMenu extends PureComponent {
           </div>
         )}
       </Motion>
-    );
+    )
   }
 
 }
 
-export default @injectIntl
+const mapStateToProps = state => ({
+  isModalOpen: state.get('modal').modalType === 'ACTIONS',
+  value: state.getIn(['compose', 'privacy']),
+})
+
+const mapDispatchToProps = dispatch => ({
+
+  onChange (value) {
+    dispatch(changeComposeVisibility(value))
+  },
+
+  isUserTouching,
+  onModalOpen: props => dispatch(openModal('ACTIONS', props)),
+  onModalClose: () => dispatch(closeModal()),
+
+})
+
+export default
+@connect(mapStateToProps, mapDispatchToProps)
+@injectIntl
 class PrivacyDropdown extends PureComponent {
 
   static propTypes = {
@@ -160,84 +180,78 @@ class PrivacyDropdown extends PureComponent {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   state = {
     open: false,
     placement: 'bottom',
-  };
+  }
 
   handleToggle = ({ target }) => {
     if (this.props.isUserTouching()) {
       if (this.state.open) {
-        this.props.onModalClose();
+        this.props.onModalClose()
       } else {
         this.props.onModalOpen({
           actions: this.options.map(option => ({ ...option, active: option.value === this.props.value })),
           onClick: this.handleModalActionClick,
-        });
+        })
       }
     } else {
-      const { top } = target.getBoundingClientRect();
-      this.setState({ placement: top * 2 < innerHeight ? 'bottom' : 'top' });
-      this.setState({ open: !this.state.open });
+      const { top } = target.getBoundingClientRect()
+      this.setState({ placement: top * 2 < innerHeight ? 'bottom' : 'top' })
+      this.setState({ open: !this.state.open })
     }
   }
 
   handleModalActionClick = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    const { value } = this.options[e.currentTarget.getAttribute('data-index')];
+    const { value } = this.options[e.currentTarget.getAttribute('data-index')]
 
-    this.props.onModalClose();
-    this.props.onChange(value);
+    this.props.onModalClose()
+    this.props.onChange(value)
   }
 
   handleKeyDown = e => {
     switch(e.key) {
     case 'Escape':
-      this.handleClose();
-      break;
+      this.handleClose()
+      break
     }
   }
 
   handleClose = () => {
-    this.setState({ open: false });
+    this.setState({ open: false })
   }
 
   handleChange = value => {
-    this.props.onChange(value);
+    this.props.onChange(value)
   }
 
   componentWillMount () {
-    const { intl: { formatMessage } } = this.props;
+    const { intl: { formatMessage } } = this.props
 
     this.options = [
       { icon: 'globe', value: 'public', text: formatMessage(messages.public_short), meta: formatMessage(messages.public_long) },
       { icon: 'unlock', value: 'unlisted', text: formatMessage(messages.unlisted_short), meta: formatMessage(messages.unlisted_long) },
       { icon: 'lock', value: 'private', text: formatMessage(messages.private_short), meta: formatMessage(messages.private_long) },
-    ];
+    ]
   }
 
   render () {
-    const { value, intl } = this.props;
-    const { open, placement } = this.state;
+    const { value, intl } = this.props
+    const { open, placement } = this.state
 
-    const valueOption = this.options.find(item => item.value === value);
+    const valueOption = this.options.find(item => item.value === value)
 
     return (
       <div className={classNames('privacy-dropdown', placement, { active: open })} onKeyDown={this.handleKeyDown}>
         <div className={classNames('privacy-dropdown__value', { active: this.options.indexOf(valueOption) === 0 })}>
-          <IconButton
-            className='privacy-dropdown__value-icon'
+          <ComposeExtraButton
             icon={valueOption.icon}
-            title={intl.formatMessage(messages.change_privacy)}
-            size={18}
-            expanded={open}
-            active={open}
-            inverted
+            title={intl.formatMessage(messages.visibility)}
             onClick={this.handleToggle}
-            style={{ height: null, lineHeight: '27px' }}
           />
         </div>
 
@@ -251,7 +265,7 @@ class PrivacyDropdown extends PureComponent {
           />
         </Overlay>
       </div>
-    );
+    )
   }
 
 }

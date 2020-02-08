@@ -3,8 +3,6 @@ import classNames from 'classnames';
 import { injectIntl, defineMessages } from 'react-intl';
 import Icon from '../icon';
 
-import './column_header.scss';
-
 const messages = defineMessages({
   show: { id: 'column_header.show_settings', defaultMessage: 'Show settings' },
   hide: { id: 'column_header.hide_settings', defaultMessage: 'Hide settings' },

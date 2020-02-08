@@ -4,8 +4,6 @@ import UploadProgress from '../upload_progress';
 import UploadContainer from '../../containers/upload_container';
 import SensitiveButtonContainer from '../../containers/sensitive_button_container';
 
-import './upload_form.scss';
-
 const mapStateToProps = state => ({
   mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
 });

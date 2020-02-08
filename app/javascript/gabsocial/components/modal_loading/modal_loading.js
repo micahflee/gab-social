@@ -1,7 +1,5 @@
 import ColumnIndicator from '../column_indicator';
 
-import './modal_loading.scss';
-
 // Keep the markup in sync with <BundleModalError />
 // (make sure they have the same dimensions)
 export default class ModalLoading extends PureComponent {

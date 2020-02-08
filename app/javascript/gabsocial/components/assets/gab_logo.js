@@ -1,5 +1,3 @@
-import './gab_logo.scss'
-
 const GabLogo = ({
   width = '50px',
   height = '30px',

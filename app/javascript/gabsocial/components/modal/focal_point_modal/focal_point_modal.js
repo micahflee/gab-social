@@ -5,8 +5,6 @@ import { changeUploadCompose } from '../../../actions/compose';
 import { getPointerPosition } from '../../../utils/element_position';
 import ImageLoader from '../../image_loader';
 
-import './focal_point_modal.scss';
-
 const mapStateToProps = (state, { id }) => ({
   media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
 });

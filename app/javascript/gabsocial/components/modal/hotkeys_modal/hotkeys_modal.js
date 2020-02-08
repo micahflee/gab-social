@@ -2,8 +2,6 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import IconButton from '../../icon_button';
 
-import './hotkeys_modal.scss';
-
 const messages = defineMessages({
   heading: { id: 'keyboard_shortcuts.heading', defaultMessage: 'Keyboard Shortcuts' },
   close: { id: 'lightbox.close', defaultMessage: 'Close' },

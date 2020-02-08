@@ -4,8 +4,6 @@ import { makeGetAccount } from '../../selectors';
 import Avatar from '../avatar';
 import DisplayName from '../display_name';
 
-import './autosuggest_account.scss';
-
 const makeMapStateToProps = () => {
   const getAccount = makeGetAccount();
 

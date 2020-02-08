@@ -2,8 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { autoPlayGif } from '../../initial_state';
 
-import './avatar_overlay.scss';
-
 export default class AvatarOverlay extends ImmutablePureComponent {
 
   static propTypes = {

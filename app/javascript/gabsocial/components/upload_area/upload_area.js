@@ -2,8 +2,6 @@ import { FormattedMessage } from 'react-intl';
 import spring from 'react-motion/lib/spring';
 import Motion from '../../features/ui/util/optional_motion';
 
-import './upload_area.scss';
-
 export default class UploadArea extends PureComponent {
 
   static propTypes = {

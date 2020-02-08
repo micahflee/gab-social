@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import classNames from 'classnames';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -6,8 +7,6 @@ import { isRtl } from '../../utils/rtl';
 import { textAtCursorMatchesToken } from '../../utils/cursor_token_match';
 import AutosuggestAccount from '../autosuggest_account';
 import AutosuggestEmoji from '../autosuggest_emoji';
-
-import './autosuggest_textbox.scss';
 
 export default class AutosuggestTextbox extends ImmutablePureComponent {
 
@@ -198,15 +197,13 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     }
 
     if (textarea) {
-      return [
-        <div className='autosuggest-textarea__wrapper' key='autosuggest-textarea__wrapper'>
-          <div className='autosuggest-textarea'>
-            <label>
-              <span style={{ display: 'none' }}>{placeholder}</span>
-
+      return (
+        <Fragment>
+          <div className={[styles.default].join(' ')}>
+            <div className={[styles.default, styles.marginLeft5PX].join(' ')}>
               <Textarea
                 inputRef={this.setTextbox}
-                className='autosuggest-textarea__textarea'
+                className={[styles.default, styles.backgroundWhite, styles.lineHeight125, styles.resizeNone, styles.paddingVertical15PX, styles.outlineNone, styles.fontSize16PX, styles.text, styles.displayBlock].join(' ')}
                 disabled={disabled}
                 placeholder={placeholder}
                 autoFocus={autoFocus}
@@ -220,16 +217,16 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 style={style}
                 aria-autocomplete='list'
               />
-            </label>
+            </div>
+            {children}
           </div>
-          {children}
-        </div>,
-        <div className='autosuggest-textarea__suggestions-wrapper' key='autosuggest-textarea__suggestions-wrapper'>
-          <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
-            {suggestions.map(this.renderSuggestion)}
+          <div className='autosuggest-textarea__suggestions-wrapper'>
+            <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
+              {suggestions.map(this.renderSuggestion)}
+            </div>
           </div>
-        </div>,
-      ];
+        </Fragment>
+      )
     }
 
     return (

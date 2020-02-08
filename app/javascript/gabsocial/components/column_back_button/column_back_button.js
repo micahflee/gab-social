@@ -2,8 +2,6 @@ import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
 import Icon from '../icon';
 
-import './column_back_button.scss';
-
 export default class ColumnBackButton extends PureComponent {
 
   static contextTypes = {

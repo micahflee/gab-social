@@ -3,8 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import Video from '../../../features/video';
 
-import './video_modal.scss';
-
 export const previewState = 'previewVideoModal';
 
 export default class VideoModal extends ImmutablePureComponent {

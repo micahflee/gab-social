@@ -8,8 +8,6 @@ import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
 import IconButton from '../../../../components/icon_button';
 
-import './account_authorize.scss';
-
 const messages = defineMessages({
   authorize: { id: 'follow_request.authorize', defaultMessage: 'Authorize' },
   reject: { id: 'follow_request.reject', defaultMessage: 'Reject' },

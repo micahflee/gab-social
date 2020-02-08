@@ -1,1 +1,1 @@
-export { default } from './inner_header.scss';
+export { default } from './inner_header';

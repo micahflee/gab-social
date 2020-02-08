@@ -2,8 +2,6 @@ import { is } from 'immutable';
 import scheduleIdleTask from '../../utils/schedule_idle_task';
 import getRectFromEntry from '../../utils/get_rect_from_entry';
 
-import './intersection_observer_article.scss';
-
 // Diff these props in the "rendered" state
 const updateOnPropsForRendered = ['id', 'index', 'listLength'];
 // Diff these props in the "unrendered" state

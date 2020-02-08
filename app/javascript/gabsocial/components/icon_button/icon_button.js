@@ -3,8 +3,6 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../features/ui/util/optional_motion';
 import Icon from '../icon';
 
-import './icon_button.scss';
-
 export default class IconButton extends PureComponent {
 
   static propTypes = {
@@ -23,6 +21,8 @@ export default class IconButton extends PureComponent {
     overlay: PropTypes.bool,
     tabIndex: PropTypes.string,
     text: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
   };
 
   static defaultProps = {
@@ -64,6 +64,8 @@ export default class IconButton extends PureComponent {
       tabIndex,
       title,
       text,
+      width,
+      height,
     } = this.props;
 
     const classes = classNames(className, 'icon-button', {
@@ -73,45 +75,21 @@ export default class IconButton extends PureComponent {
       overlayed: overlay,
     });
 
-    // Perf optimization: avoid unnecessary <Motion> components unless we actually need to animate.
-    if (!animate) {
-      return (
-        <button
-          aria-label={title}
-          aria-pressed={pressed}
-          aria-expanded={expanded}
-          title={title}
-          className={classes}
-          onClick={this.handleClick}
-          style={style}
-          tabIndex={tabIndex}
-          disabled={disabled}
-        >
-          <Icon id={icon} fixedWidth aria-hidden='true' />
-          {!!text && text}
-        </button>
-      );
-    }
-
     return (
-      <Motion defaultStyle={{ rotate: active ? -360 : 0 }} style={{ rotate: animate ? spring(active ? -360 : 0, { stiffness: 120, damping: 7 }) : 0 }}>
-        {({ rotate }) => (
-          <button
-            aria-label={title}
-            aria-pressed={pressed}
-            aria-expanded={expanded}
-            title={title}
-            className={classes}
-            onClick={this.handleClick}
-            style={style}
-            tabIndex={tabIndex}
-            disabled={disabled}
-          >
-            <Icon id={icon} style={{ transform: `rotate(${rotate}deg)` }} fixedWidth aria-hidden='true' />
-            {!!text && text}
-          </button>
-        )}
-      </Motion>
+      <button
+        aria-label={title}
+        aria-pressed={pressed}
+        aria-expanded={expanded}
+        title={title}
+        className={classes}
+        onClick={this.handleClick}
+        style={style}
+        tabIndex={tabIndex}
+        disabled={disabled}
+      >
+        <Icon id={icon} fixedWidth aria-hidden='true' width={width} height={height} />
+        {!!text && text}
+      </button>
     );
   }
 

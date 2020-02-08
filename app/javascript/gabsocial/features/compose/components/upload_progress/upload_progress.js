@@ -3,8 +3,6 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../../ui/util/optional_motion';
 import Icon from '../../../../components/icon';
 
-import './upload_progress.scss'
-
 const mapStateToProps = state => ({
   active: state.getIn(['compose', 'is_uploading']),
   progress: state.getIn(['compose', 'progress']),

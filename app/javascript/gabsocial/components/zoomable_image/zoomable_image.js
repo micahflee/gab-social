@@ -1,5 +1,3 @@
-import './zoomable_image.scss';
-
 const MIN_SCALE = 1;
 const MAX_SCALE = 4;
 

@@ -6,8 +6,6 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../features/ui/util/optional_motion';
 import IconButton from '../icon_button';
 
-import './dropdown_menu.scss';
-
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 let id = 0;
 

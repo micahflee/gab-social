@@ -1,8 +1,6 @@
 import { length } from 'stringz';
 import classNames from 'classnames';
 
-import './character_counter.scss';
-
 export default class CharacterCounter extends PureComponent {
 
   static propTypes = {

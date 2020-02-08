@@ -7,8 +7,6 @@ import Permalink from '../../../../components/permalink';
 import IconButton from '../../../../components/icon_button';
 import { me } from '../../../../initial_state';
 
-import './navigation_bar.scss';
-
 const mapStateToProps = state => {
   return {
     account: state.getIn(['accounts', me]),

@@ -7,8 +7,6 @@ import Overlay from 'react-overlays/lib/Overlay';
 import { EmojiPicker as EmojiPickerAsync } from '../../../ui/util/async-components';
 import { buildCustomEmojis } from '../../../../components/emoji/emoji';
 
-import './emoji_picker_dropdown.scss';
-
 const messages = defineMessages({
   emoji: { id: 'emoji_button.label', defaultMessage: 'Insert emoji' },
   emoji_search: { id: 'emoji_button.search', defaultMessage: 'Search...' },

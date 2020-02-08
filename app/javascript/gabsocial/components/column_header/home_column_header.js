@@ -7,8 +7,6 @@ import { createSelector } from 'reselect';
 import { fetchLists } from '../../actions/lists';
 import Icon from '../icon';
 
-import './column_header.scss';
-
 const messages = defineMessages({
   show: { id: 'column_header.show_settings', defaultMessage: 'Show settings' },
   hide: { id: 'column_header.hide_settings', defaultMessage: 'Hide settings' },

@@ -6,8 +6,6 @@ import { me, isStaff } from '../../../../initial_state';
 import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
 import IconButton from '../../../../components/icon_button';
 
-import './detailed_status_action_bar.scss';
-
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },

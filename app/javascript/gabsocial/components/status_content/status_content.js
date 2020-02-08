@@ -1,16 +1,22 @@
+import { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import classnames from 'classnames';
 import { isRtl } from '../../utils/rtl';
 import Permalink from '../permalink/permalink';
 import Icon from '../icon';
 
-import './status_content.scss';
-
 const MAX_HEIGHT = 200;
 
-export default class StatusContent extends ImmutablePureComponent {
+const messages = defineMessages({
+  showMore: { id: 'status.show_more', defaultMessage: 'Show more' },
+  showLess: { id: 'status.show_less', defaultMessage: 'Show less' },
+})
+
+export default
+@injectIntl
+class StatusContent extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -23,6 +29,7 @@ export default class StatusContent extends ImmutablePureComponent {
     onExpandedToggle: PropTypes.func,
     onClick: PropTypes.func,
     collapsable: PropTypes.bool,
+    intl: PropTypes.object.isRequired,
   };
 
   state = {
@@ -145,7 +152,7 @@ export default class StatusContent extends ImmutablePureComponent {
   }
 
   render () {
-    const { status } = this.props;
+    const { status, intl } = this.props;
 
     if (status.get('content').length === 0) return null;
 
@@ -164,12 +171,6 @@ export default class StatusContent extends ImmutablePureComponent {
       directionStyle.direction = 'rtl';
     }
 
-    const readMoreButton = (
-      <button className='status__content__read-more-button' onClick={this.props.onClick} key='read-more'>
-        <FormattedMessage id='status.read_more' defaultMessage='Read more' />
-      </button>
-    );
-
     if (status.get('spoiler_text').length > 0) {
       let mentionsPlaceholder = '';
 
@@ -179,7 +180,7 @@ export default class StatusContent extends ImmutablePureComponent {
         </Permalink>
       )).reduce((aggregate, item) => [...aggregate, item, ' '], []);
 
-      const toggleText = hidden ? <FormattedMessage id='status.show_more' defaultMessage='Show more' /> : <FormattedMessage id='status.show_less' defaultMessage='Show less' />;
+      const toggleText = intl.formatMessaeg(hidden ? messages.showMore : messages.showLess);
 
       if (hidden) {
         mentionsPlaceholder = <div>{mentionLinks}</div>;
@@ -199,32 +200,37 @@ export default class StatusContent extends ImmutablePureComponent {
         </div>
       );
     } else if (this.props.onClick) {
-      const output = [
-        <div
-          ref={this.setRef}
-          tabIndex='0'
-          key='content'
-          className={classNames}
-          style={directionStyle}
-          dangerouslySetInnerHTML={content}
-          lang={status.get('language')}
-          onMouseDown={this.handleMouseDown}
-          onMouseUp={this.handleMouseUp}
-        />,
-      ];
+      return (
+        <Fragment>
+          <div
+            ref={this.setRef}
+            tabIndex='0'
+            className={[styles.statusContent].join(' ')}
+            style={directionStyle}
+            dangerouslySetInnerHTML={content}
+            lang={status.get('language')}
+            onMouseDown={this.handleMouseDown}
+            onMouseUp={this.handleMouseUp}
+          />
 
-      if (this.state.collapsed) {
-        output.push(readMoreButton);
-      }
-
-      return output;
+          {
+            this.state.collapsed &&
+            <button
+              className={[styles.default].join(' ')}
+              onClick={this.props.onClick}
+            >
+              <FormattedMessage id='status.read_more' defaultMessage='Read more' />
+            </button>
+          }
+        </Fragment>
+      )
     }
 
     return (
       <div
         tabIndex='0'
         ref={this.setRef}
-        className='status__content'
+        className={[styles.statusContent].join(' ')}
         style={directionStyle}
         dangerouslySetInnerHTML={content}
         lang={status.get('language')}

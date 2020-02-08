@@ -6,8 +6,6 @@ import IconButton from '../../../../components/icon_button';
 import Icon from '../../../../components/icon';
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox';
 
-import './poll_form.scss';
-
 const messages = defineMessages({
   option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
   add_option: { id: 'compose_form.poll.add_option', defaultMessage: 'Add a choice' },

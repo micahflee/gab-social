@@ -2,8 +2,6 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import IconButton from '../../icon_button';
 
-import './unauthorized_modal.scss';
-
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   signup: {id: 'unauthorized_modal.title', defaultMessage: 'Sign up for Gab' },

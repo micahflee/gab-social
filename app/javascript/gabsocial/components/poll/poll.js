@@ -10,8 +10,6 @@ import emojify from '../emoji/emoji';
 import RelativeTimestamp from '../relative_timestamp';
 import Button from '../button';
 
-import './poll.scss';
-
 const mapStateToProps = (state, { pollId }) => ({
   poll: state.getIn(['polls', pollId]),
 });

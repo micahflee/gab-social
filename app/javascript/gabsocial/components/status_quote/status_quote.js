@@ -3,8 +3,6 @@ import StatusContent from '../status_content';
 import DisplayName from '../display_name';
 import { NavLink } from 'react-router-dom';
 
-import './status_quote.scss';
-
 const mapStateToProps = (state, { id }) => ({
   status: state.getIn(['statuses', id]),
   account: state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),

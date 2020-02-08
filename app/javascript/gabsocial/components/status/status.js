@@ -1,4 +1,4 @@
-
+import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { injectIntl, FormattedMessage } from 'react-intl';
@@ -17,8 +17,6 @@ import StatusContent from '../status_content';
 import StatusActionBar from '../status_action_bar';
 import Icon from '../icon';
 import Poll from '../poll';
-
-import './status.scss';
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
@@ -93,6 +91,7 @@ class Status extends ImmutablePureComponent {
     group: ImmutablePropTypes.map,
     promoted: PropTypes.bool,
     onOpenProUpgradeModal: PropTypes.func,
+    intl: PropTypes.object.isRequired,
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -403,7 +402,7 @@ class Status extends ImmutablePureComponent {
     }
 
     if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={42} />;
+      statusAvatar = <Avatar account={status.get('account')} size={50} />;
     } else {
       statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
@@ -428,16 +427,13 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={classNames('status__wrapper', `status__wrapper-${status.get('visibility')}`, {
-            'status__wrapper-reply': !!status.get('in_reply_to_id'),
-            read: unread === false,
-            focusable: !this.props.muted,
-          })}
+          className={[styles.default, styles.backgroundWhite, styles.radiusSmall, styles.marginBottom15PX, styles.border1PX, styles.borderColorSubtle].join(' ')}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
         >
+
           {prepend}
 
           <div
@@ -448,53 +444,84 @@ class Status extends ImmutablePureComponent {
             })}
             data-id={status.get('id')}
           >
-            <div className='status__info'>
-              <div className='status__info__actions'>
-                <NavLink className='status__display-name' to={`/${status.getIn(['account', 'acct'])}`} title={status.getIn(['account', 'acct'])}>
-                  <div className='status__avatar'>{statusAvatar}</div>
-                  <DisplayName account={status.get('account')} />
-                </NavLink>
-                <Icon id='ellipsis-h' className='status__info__actions__icon'/>
-              </div>
-              <div className='status__info__attributes'>
-                <NavLink to={statusUrl} className='status__relative-time'>
-                  <RelativeTimestamp timestamp={status.get('created_at')} />
-                </NavLink>
-                <span className='status__info__dot-seperator'>•</span>
-                { /* <Icon id='globe' className='status__info__attributes__item'/> */ }
-                <span className='status__info__attributes__item status__info__attributes__item--link'>Memes Group</span>
-                <span className='status__info__dot-seperator'>•</span>
-                <span className='status__info__attributes__item'>Edited</span>
+
+            <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX].join(' ')}>
+              <div className={[styles.default, styles.flexRow, styles.marginTop5PX].join(' ')}>
+                <div className={[styles.default, styles.marginRight10PX].join(' ')}>{statusAvatar}</div>
+                <div className={[styles.default, styles.alignItemsStart, styles.flexGrow1, styles.marginTop5PX].join(' ')}>
+                  <div className={[styles.default, styles.flexRow, styles.width100PC, styles.alignItemsStart].join(' ')}>
+                    <NavLink
+                      className={[styles.default, styles.flexRow, styles.alignItemsStart, styles.noUnderline].join(' ')}
+                      to={`/${status.getIn(['account', 'acct'])}`}
+                      title={status.getIn(['account', 'acct'])}
+                    >
+                      <DisplayName account={status.get('account')} />
+                    </NavLink>
+                    <Icon id='ellipsis-h' width='14px' height='15px' className={[styles.default, styles.marginLeftAuto].join(' ')} />
+                  </div>
+                  <div className={[styles.default, styles.flexRow, styles.alignItemsCenter, styles.lineHeight15].join(' ')}>
+                    <NavLink
+                      to={statusUrl}
+                      className={[styles.default, styles.text, styles.fontSize13PX, styles.noUnderline, styles.colorSubtle].join(' ')}
+                    >
+                      <RelativeTimestamp timestamp={status.get('created_at')} />
+                    </NavLink>
+                    <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                    <Icon id='globe' width='12px' height='12px' className={[styles.default, styles.displayInline, styles.marginLeft5PX, styles.fillColorSubtle].join(' ')}/>
+
+                    {
+                      status.get('group') &&
+                      <Fragment>
+                        <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <NavLink
+                          to={`/groups/${status.getIn(['group', 'id'])}`}
+                          className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorBlack].join(' ')}
+                        >
+                        {status.getIn(['group', 'title'])}
+                        </NavLink>
+                      </Fragment>
+                    }
+
+                    {
+                      status.get('revised_at') !== null &&
+                      <Fragment>
+                        <span className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <button
+                          onClick={() => other.onShowRevisions(status)}
+                          className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}
+                        >
+                          Edited
+                        </button>
+                      </Fragment>
+                    }
+
+                  </div>
+                </div>
               </div>
             </div>
 
-            {((!group && status.get('group')) || status.get('revised_at') !== null) && (
-              <div className='status__meta'>
-                {!group && status.get('group') && <React.Fragment>Posted in <NavLink to={`/groups/${status.getIn(['group', 'id'])}`}>{status.getIn(['group', 'title'])}</NavLink></React.Fragment>}
-                {status.get('revised_at') !== null && <a onClick={() => other.onShowRevisions(status)}> Edited</a>}
-              </div>
-            )}
+            <div className={[styles.default, styles.paddingHorizontal15PX].join(' ')}>
+              <StatusContent
+                status={status}
+                reblogContent={reblogContent}
+                onClick={this.handleClick}
+                expanded={!status.get('hidden')}
+                onExpandedToggle={this.handleExpandedToggle}
+                collapsable
+              />
+            </div>
 
-            <StatusContent
-              status={status}
-              reblogContent={reblogContent}
-              onClick={this.handleClick}
-              expanded={!status.get('hidden')}
-              onExpandedToggle={this.handleExpandedToggle}
-              collapsable
-            />
-
-            {media}
+            { /* media */ }
 
             { /* status.get('quote') && <StatusQuote
               id={status.get('quote')}
             /> */ }
 
-            {showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
+            { /* showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
               <button className='status__content__read-more-button' onClick={this.handleClick}>
                 <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
               </button>
-            )}
+            ) */ }
 
             <StatusActionBar status={status} account={account} {...other} />
           </div>

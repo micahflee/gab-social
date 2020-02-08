@@ -7,8 +7,6 @@ import AccountContainer from '../../../../containers/account_container';
 import Permalink from '../../../../components/permalink';
 import Icon from '../../../../components/icon';
 
-import './notification.scss';
-
 const notificationForScreenReader = (intl, message, timestamp) => {
   const output = [message];
 

@@ -2,8 +2,6 @@ import { isMobile } from '../../utils/is_mobile';
 import { ColumnHeader } from '../column_header';
 import ColumnBackButton from '../column_back_button';
 
-import './column.scss';
-
 export default class Column extends PureComponent {
 
   static propTypes = {

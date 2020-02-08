@@ -1,5 +1,3 @@
-import './column_subheading.scss';
-
 export default class ColumnSubheading extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,

@@ -1,15 +1,13 @@
-
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
+import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom';
 import { openModal } from '../../actions/modal';
 import { me, isStaff } from '../../initial_state';
 import DropdownMenuContainer from '../../containers/dropdown_menu_container';
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
-import IconButton from '../icon_button';
-
-import './status_action_bar.scss';
+import Icon from '../icon';
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -47,6 +45,77 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openModal('UNAUTHORIZED'));
   },
 });
+
+class StatusActionBarItem extends PureComponent {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    onClick: PropTypes.func.isRequired,
+    icon: PropTypes.string.isRequired,
+    active: PropTypes.bool,
+    disabled: PropTypes.bool,
+  }
+
+  state = {
+    hovering: false,
+  }
+
+  handleOnMouseEnter = () => {
+    this.setState({ hovering: true })
+  }
+
+  handleOnMouseLeave = () => {
+    this.setState({ hovering: false })
+  }
+
+  render() {
+    const { title, onClick, icon, active, disabled } = this.props
+    const { hovering } = this.state
+
+    const cx = classNames.bind(styles)
+
+    const btnClasses = cx({
+      default: 1,
+      text: 1,
+      fontSize15PX: 1,
+      cursorPointer: 1,
+      displayFlex: 1,
+      justifyContentCenter: 1,
+      flexRow: 1,
+      alignItemsCenter: 1,
+      paddingVertical10PX: 1,
+      paddingHorizontal10PX: 1,
+      width100PC: 1,
+      radiusSmall: 1,
+      backgroundTransparent: !hovering,
+      backgroundSubtle2: hovering,
+      colorBlack: !hovering,
+      colorBrand: hovering,
+    })
+
+    const iconClasses = cx({
+      default: 1,
+      marginRight10PX: 1,
+      fillColorSubtle: !hovering,
+      fillColorBrand: hovering,
+    })
+
+    return (
+      <div className={[styles.default, styles.flexGrow1, styles.paddingHorizontal10PX].join(' ')}>
+        <button
+          className={btnClasses}
+          onClick={onClick}
+          active={active}
+          disabled={disabled}
+          onMouseEnter={() => this.handleOnMouseEnter()}
+          onMouseLeave={() => this.handleOnMouseLeave()}
+          >
+          <Icon width='16px' height='16px' icon={icon} className={iconClasses} />
+          {title}
+        </button>
+      </div>
+    )
+  }
+}
 
 export default @connect(null, mapDispatchToProps)
 @injectIntl
@@ -254,7 +323,6 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const reblogCount = status.get('reblogs_count');
     const reblogTitle = !publicStatus ? formatMessage(messages.cannot_reblog) : formatMessage(messages.reblog);
-    const reblogIcon = (status.get('visibility') === 'private') ? 'lock' : 'retweet';
 
     const favoriteCount = status.get('favourites_count');
 
@@ -264,55 +332,36 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const menu = this._makeMenu(publicStatus);
 
+    const items = [
+      {
+        title: formatMessage(messages.favourite),
+        icon: 'star',
+        active: status.get('favourited'),
+        onClick: this.handleFavouriteClick,
+      },
+      {
+        title: replyTitle,
+        icon: 'reply',
+        active: 0,
+        onClick: this.handleReplyClick,
+      },
+      {
+        title: reblogTitle,
+        icon: (status.get('visibility') === 'private') ? 'lock' : 'retweet',
+        disabled: !publicStatus,
+        active: status.get('reblogged'),
+        onClick: this.handleReblogClick,
+      }
+    ]
+
     return (
-      <div className='status-action-bar'>
-        <div className='status-action-bar__items'>
-          <div className='status-action-bar-item'>
-            <IconButton
-              className='status-action-bar-item__btn star-icon'
-              animate
-              active={status.get('favourited')}
-              pressed={status.get('favourited')}
-              title={formatMessage(messages.favourite)}
-              icon='star'
-              onClick={this.handleFavouriteClick}
-              text='Like'
-            />
-            { /* favoriteCount !== 0 && <span className='detailed-status__link'>{favoriteCount}</span> */ }
-          </div>
-
-          <div className='status-action-bar-item'>
-            <IconButton
-              className='status-action-bar-item__btn'
-              title={replyTitle}
-              icon={status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) ? 'reply' : replyIcon}
-              onClick={this.handleReplyClick}
-              text='Comment'
-            />
-            { /*
-              replyCount !== 0 &&
-              <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`} className='status-action-bar-item__link'>{replyCount}</Link>
-              */
-            }
-          </div>
-
-          <div className='status-action-bar-item'>
-            <IconButton
-              className='status-action-bar-item__btn'
-              disabled={!publicStatus}
-              active={status.get('reblogged')}
-              pressed={status.get('reblogged')}
-              title={reblogTitle}
-              icon={reblogIcon}
-              onClick={this.handleReblogClick}
-              text='Share'
-            />
-            { /* reblogCount !== 0 && <Link to={`/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}/reblogs`} className='status-action-bar-item__link'>{reblogCount}</Link> */ }
-          </div>
-
-          {/*<div className='status__action-bar__counter'>
-            <IconButton className='status__action-bar-button' disabled={!publicStatus} title={!publicStatus ? formatMessage(messages.cannot_quote) : formatMessage(messages.quote)} icon='quote-left' onClick={this.handleQuoteClick} />
-          </div>*/}
+      <div className={[styles.default, styles.marginTop10PX, styles.paddingHorizontal10PX].join(' ')}>
+        <div className={[styles.default, styles.paddingVertical2PX, styles.flexRow, styles.borderTop1PX, styles.borderColorSubtle].join(' ')}>
+          {
+            items.map((item, i) => (
+              <StatusActionBarItem {...item} />
+            ))
+          }
 
           {/*<div className='status-action-bar__dropdown'>
             <DropdownMenuContainer

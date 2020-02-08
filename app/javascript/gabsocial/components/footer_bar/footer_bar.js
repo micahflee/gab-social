@@ -3,8 +3,6 @@ import { FormattedMessage, injectIntl } from 'react-intl';
 import NotificationCounter from '../notification_counter';
 import { me } from '../../initial_state';
 
-import './footer_bar.scss';
-
 const links = [
   <NavLink key='pr1' className='footer-bar__link' to='/home' data-preview-title-id='column.home'>
     <i className='tabs-bar__link__icon home'/>

@@ -5,8 +5,6 @@ import IntersectionObserverWrapper from '../../features/ui/util/intersection_obs
 import ColumnIndicator from '../column_indicator';
 import LoadMore from '../load_more';
 
-import './scrollable_list.scss';
-
 const MOUSE_IDLE_DELAY = 300;
 
 export default class ScrollableList extends PureComponent {

@@ -2,8 +2,6 @@ import { injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames';
 import Icon from '../icon';
 
-import './load_more.scss';
-
 const messages = defineMessages({
   load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
 });

@@ -6,7 +6,7 @@ import TrendingItem from '../../components/trending_item';
 import PanelLayout from './panel_layout';
 
 const messages = defineMessages({
-  title: { id:'trends.title', defaultMessage: 'Trends' },
+  title: { id:'trends.title', defaultMessage: 'Trends for you' },
 });
 
 const mapStateToProps = state => ({
@@ -36,16 +36,22 @@ class TrendsPanel extends ImmutablePureComponent {
   render() {
     const { intl, trends } = this.props;
 
-    if (trends.isEmpty()) {
-      return null;
-    }
+    // !!! TESTING !!!
+    // if (trends.isEmpty()) {
+    //   return null;
+    // }
 
     return (
-      <PanelLayout id='hashtag' title={intl.formatMessage(messages.title)}>
-        <div className='panel__list'>
-          {trends && trends.map(hashtag => (
+      <PanelLayout title={intl.formatMessage(messages.title)}>
+        <div className={styles.default}>
+          { /* trends && trends.map(hashtag => (
             <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />
-          ))}
+          )) */ }
+          <TrendingItem />
+          <TrendingItem />
+          <TrendingItem />
+          <TrendingItem />
+          <TrendingItem />
         </div>
       </PanelLayout>
     );

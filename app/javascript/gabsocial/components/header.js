@@ -1,14 +1,11 @@
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
-import Avatar from './avatar'
 import Button from './button'
 import Icon from './icon'
-import DisplayName from './display_name'
 import { closeSidebar } from '../actions/sidebar'
-import { shortNumberFormat } from '../utils/numbers'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 // import ProgressPanel from './progress_panel'
@@ -87,18 +84,6 @@ class Header extends ImmutablePureComponent {
     })
   }
 
-  onMouseEnterLinkFooterItem = (i) => {
-    this.setState({
-      hoveringItemIndex: i,
-    })
-  }
-
-  onMouseLeaveLinkFooterItem = () => {
-    this.setState({
-      hoveringItemIndex: null,
-    })
-  }
-
   handleSidebarClose = () => {
     this.props.onClose()
     this.setState({
@@ -119,44 +104,73 @@ class Header extends ImmutablePureComponent {
     //   'sidebar-menu__root--visible': sidebarOpen,
     // })
 
-    const cx = classNames.bind(styles)
-
     const moreIcon = moreOpen ? 'minus' : 'plus'
     const moreContainerStyle = { display: moreOpen ? 'block' : 'none' }
 
-    const sidebarItems = [
+    const menuItems = [
       {
-        name: 'Home',
+        title: 'Home',
         icon: <NotificationsIcon />,
         to: '/',
       },
       {
-        name: 'Notifications',
+        title: 'Notifications',
         icon: <NotificationsIcon />,
         to: '/notifications',
       },
       {
-        name: 'Groups',
+        title: 'Groups',
         icon: <NotificationsIcon />,
         to: '/groups',
       },
       {
-        name: 'Lists',
+        title: 'Lists',
         icon: <NotificationsIcon />,
         to: '/lists',
       },
       {
-        name: 'Chat',
+        title: 'Chat',
         icon: <NotificationsIcon />,
         to: '/',
       },
       {
-        name: 'Trends',
+        title: 'Profile',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+    ]
+
+    const shortcutItems = [
+      {
+        title: 'Meme Group',
         icon: <NotificationsIcon />,
         to: '/',
       },
       {
-        name: 'Profile',
+        title: 'Andrew',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+    ]
+
+    const exploreItems = [
+      {
+        title: 'Trends',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        title: 'Dissenter',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        title: 'Apps',
+        icon: <NotificationsIcon />,
+        to: '/',
+      },
+      {
+        title: 'Shop',
         icon: <NotificationsIcon />,
         to: '/',
       },
@@ -166,186 +180,116 @@ class Header extends ImmutablePureComponent {
       <header role='banner' className={[styles.default, styles.flexGrow1, styles.z3, styles.alignItemsEnd].join(' ')}>
         <div className={[styles.default, styles.width250PX].join(' ')}>
           <div className={[styles.default, styles.positionFixed, styles.top0, styles.height100PC].join(' ')}>
-            <div className={[styles.default, styles.height100PC, styles.width250PX, styles.paddingHorizontal20PX].join(' ')}>
+            <div className={[styles.default, styles.height100PC, styles.width250PX, styles.paddingHorizontal20PX, styles.marginVertical10PX].join(' ')}>
               <h1 className={[styles.default].join(' ')}>
-                <NavLink to='/' aria-label='Gab' className={[styles.default, styles.noSelect, styles.noUnderline, styles.height50PX, styles.justifyContentCenter, styles.cursorPointer, styles.paddingHoizontal10PX].join(' ')}>
+                <NavLink to='/' aria-label='Gab' className={[styles.default, styles.noSelect, styles.noUnderline, styles.height50PX, styles.justifyContentCenter, styles.cursorPointer, styles.paddingHorizontal10PX].join(' ')}>
                   <GabLogo />
                 </NavLink>
               </h1>
-              <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC].join(' ')}>
+              <div>
+                { /* profile card */}
+              </div>
+              <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC, styles.marginBottom15PX].join(' ')}>
+                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Menu</span>
                 {
-                  sidebarItems.map((sidebarItem, i) => {
-                    const containerClasses = cx({
-                      default: 1,
-                      maxWidth100PC: 1,
-                      flexRow: 1,
-                      paddingVertical10PX: 1,
-                      paddingHoizontal10PX: 1,
-                      circle: 1,
-                      alignItemsCenter: 1,
-                      backgroundColorBrandLightOpaque: hoveringItemIndex === i,
-                    })
-
-                    const textClasses = cx({
-                      default: 1,
-                      fontWeightBold: 1,
-                      fontSize19PX: 1,
-                      text: 1,
-                      colorBrand: hoveringItemIndex === i,
-                      colorBlack: hoveringItemIndex !== i,
-                    })
-
-                    const iconClasses = cx({
-                      fillColorBrand: hoveringItemIndex === i,
-                      fillColorBlack: hoveringItemIndex !== i,
-                    })
-
-                    return (
-                      <NavLink
-                        to={sidebarItem.to}
-                        key={`header-nav-item-${i}`}
-                        onMouseEnter={() => this.onMouseEnterLinkFooterItem(i)}
-                        onMouseLeave={() => this.onMouseLeaveLinkFooterItem(i)}
-                        className={[styles.default, styles.noUnderline, styles.cursorPointer, styles.width100PC, styles.alignItemsStart, styles.flexGrow1].join(' ')}
-                      >
-                        <div className={containerClasses}>
-                          <div className={[styles.default]}>
-                            <NotificationsIcon className={iconClasses}/>
-                          </div>
-                          <div className={[styles.default, styles.paddingHorizontal20PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
-                            <span className={textClasses}>
-                              {sidebarItem.name}
-                            </span>
-                          </div>
-                        </div>
-                      </NavLink>
-                    )
-                  })
+                  menuItems.map((menuItem, i) => (
+                    <HeaderMenuItem {...menuItem} key={`header-item-menu-${i}`} />
+                  ))
+                }
+                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Shortcuts</span>
+                {
+                  shortcutItems.map((shortcutItem, i) => (
+                    <HeaderMenuItem {...shortcutItem} key={`header-item-shortcut-${i}`} />
+                  ))
+                }
+                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Explore</span>
+                {
+                  exploreItems.map((exploreItem, i) => (
+                    <HeaderMenuItem {...exploreItem} key={`header-item-explore-${i}`} />
+                  ))
                 }
               </nav>
-              <Button className={[styles.paddingVertical15PX, styles.marginVertical5PX, styles.fontSize15PX, styles.fontWeightBold].join(' ')}>Gab</Button>
+              <Button className={[styles.paddingVertical15PX, styles.fontSize15PX, styles.fontWeightBold].join(' ')}>Gab</Button>
             </div>
           </div>
         </div>
       </header>
     )
-
-    // return (
-    //   <div className={classes}>
-    //     <div className='sidebar-menu__wrapper' role='button' onClick={this.handleSidebarClose} />
-    //     <div className='sidebar-menu'>
-
-    //       <div className='sidebar-menu-header'>
-    //         <span className='sidebar-menu-header__title'>Account Info</span>
-    //         <IconButton title='close' onClick={this.handleSidebarClose} icon='close' className='sidebar-menu-header__btn' />
-    //       </div>
-
-    //       <div className='sidebar-menu__content'>
-
-    //         <div className='sidebar-menu-profile'>
-    //           <div className='sidebar-menu-profile__avatar'>
-    //             <Link to={`/${acct}`} title={acct} onClick={this.handleSidebarClose}>
-    //               <Avatar account={account} />
-    //             </Link>
-    //           </div>
-    //           <div className='sidebar-menu-profile__name'>
-    //             <DisplayName account={account} />
-    //           </div>
-
-    //           <div className='sidebar-menu-profile__stats'>
-    //             <NavLink className='sidebar-menu-profile-stat' to={`/${acct}/followers`} onClick={this.handleSidebarClose} title={intl.formatNumber(account.get('followers_count'))}>
-    //               <strong className='sidebar-menu-profile-stat__value'>{shortNumberFormat(account.get('followers_count'))}</strong>
-    //               <span className='sidebar-menu-profile-stat__label'>{intl.formatMessage(messages.followers)}</span>
-    //             </NavLink>
-    //             <NavLink className='sidebar-menu-profile-stat' to={`/${acct}/following`} onClick={this.handleSidebarClose} title={intl.formatNumber(account.get('following_count'))}>
-    //               <strong className='sidebar-menu-profile-stat__value'>{shortNumberFormat(account.get('following_count'))}</strong>
-    //               <span className='sidebar-menu-profile-stat__label'>{intl.formatMessage(messages.follows)}</span>
-    //             </NavLink>
-    //           </div>
-
-    //         </div>
-
-    //         <div className='sidebar-menu__section'>
-    //           { /* <ProgressPanel /> */ }
-    //         </div>
-
-    //         <div className='sidebar-menu__section sidebar-menu__section--borderless'>
-    //           <NavLink className='sidebar-menu-item' to={`/${acct}`} onClick={this.handleSidebarClose}>
-    //             <Icon id='user' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.profile)}</span>
-    //           </NavLink>
-    //           {
-    //             !isPro &&
-    //             <a className='sidebar-menu-item' href='https://pro.gab.com'>
-    //               <Icon id='arrow-up' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.pro)}</span>
-    //             </a>
-    //           }
-    //           <a className='sidebar-menu-item' href='https://shop.dissenter.com/category/donations'>
-    //             <Icon id='heart' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.donate)}</span>
-    //           </a>
-    //           <a className='sidebar-menu-item' href='https://shop.dissenter.com'>
-    //             <Icon id='shopping-cart' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.shop)}</span>
-    //           </a>
-    //           <a className='sidebar-menu-item' href='https://trends.gab.com'>
-    //             <Icon id='signal' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.trends)}</span>
-    //           </a>
-    //           <NavLink className='sidebar-menu-item' to='/search' onClick={this.handleSidebarClose}>
-    //             <Icon id='search' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.search)}</span>
-    //           </NavLink>
-    //           <a className='sidebar-menu-item' href='/settings/preferences'>
-    //             <Icon id='cog' fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.preferences)}</span>
-    //           </a>
-    //         </div>
-
-    //         <div className='sidebar-menu__section'>
-    //           <div className='sidebar-menu-item' onClick={this.toggleMore} role='button'>
-    //             <Icon id={moreIcon} fixedWidth />
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.more)}</span>
-    //           </div>
-    //           <div style={moreContainerStyle}>
-    //             <NavLink className='sidebar-menu-item' to='/lists' onClick={this.handleSidebarClose}>
-    //               <Icon id='list' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.lists)}</span>
-    //             </NavLink>
-    //             <NavLink className='sidebar-menu-item' to='/follow_requests' onClick={this.handleSidebarClose}>
-    //               <Icon id='user-plus' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.follow_requests)}</span>
-    //             </NavLink>
-    //             <NavLink className='sidebar-menu-item' to='/blocks' onClick={this.handleSidebarClose}>
-    //               <Icon id='ban' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.blocks)}</span>
-    //             </NavLink>
-    //             <NavLink className='sidebar-menu-item' to='/domain_blocks' onClick={this.handleSidebarClose}>
-    //               <Icon id='sitemap' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.domain_blocks)}</span>
-    //             </NavLink>
-    //             <NavLink className='sidebar-menu-item' to='/mutes' onClick={this.handleSidebarClose}>
-    //               <Icon id='times-circle' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.mutes)}</span>
-    //             </NavLink>
-    //             <a className='sidebar-menu-item' href='/filters'>
-    //               <Icon id='filter' fixedWidth />
-    //               <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.filters)}</span>
-    //             </a>
-    //           </div>
-    //         </div>
-
-    //         <div className='sidebar-menu__section'>
-    //           <a  className='sidebar-menu-item' href='/auth/sign_out' data-method='delete'>
-    //             <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.logout)}</span>
-    //           </a>
-    //         </div>
-
-    //       </div>
-    //     </div>
-    //   </div>
-    // )
   }
 
+}
+
+class HeaderMenuItem extends PureComponent {
+  static propTypes = {
+    to: PropTypes.string,
+    active: PropTypes.bool,
+    icon: PropTypes.node,
+    title: PropTypes.string,
+  }
+
+  state = {
+    hovering: false,
+  }
+
+  handleOnMouseEnter = () => {
+    this.setState({ hovering: true })
+  }
+
+  handleOnMouseLeave = () => {
+    this.setState({ hovering: false })
+  }
+
+  render() {
+    const { to, active, icon, title } = this.props
+    const { hovering } = this.state
+
+    const cx = classNames.bind(styles)
+
+    const shouldShowActive = hovering || active
+
+    const containerClasses = cx({
+      default: 1,
+      maxWidth100PC: 1,
+      width100PC: 1,
+      flexRow: 1,
+      paddingVertical5PX: 1,
+      paddingHorizontal10PX: 1,
+      alignItemsCenter: 1,
+      // border1PX: shouldShowActive,
+      // borderColorSubtle: shouldShowActive,
+      backgroundWhite: shouldShowActive,
+    })
+
+    const textClasses = cx({
+      default: 1,
+      fontWeightNormal: 1,
+      fontSize15PX: 1,
+      text: 1,
+      colorBrand: shouldShowActive,
+      colorBlack: !hovering && !active,
+    })
+
+    const iconClasses = cx({
+      fillColorBrand: shouldShowActive,
+      fillColorBlack: !hovering && !active,
+    })
+
+    return (
+      <NavLink
+        to={to}
+        onMouseEnter={() => this.handleOnMouseEnter()}
+        onMouseLeave={() => this.handleOnMouseLeave()}
+        className={[styles.default, styles.noUnderline, styles.cursorPointer, styles.width100PC, styles.alignItemsStart, styles.flexGrow1].join(' ')}
+      >
+        <div className={containerClasses}>
+          <div className={[styles.default]}>
+            <NotificationsIcon className={iconClasses} width='16px' height='16px' />
+          </div>
+          <div className={[styles.default, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
+            <span className={textClasses}>{title}</span>
+          </div>
+        </div>
+      </NavLink>
+    )
+  }
 }

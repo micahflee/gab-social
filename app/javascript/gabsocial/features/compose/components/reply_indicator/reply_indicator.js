@@ -7,8 +7,6 @@ import IconButton from '../../../../components/icon_button';
 import DisplayName from '../../../../components/display_name';
 import { isRtl } from '../../../../utils/rtl';
 
-import './reply_indicator.scss';
-
 const messages = defineMessages({
   cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
 });

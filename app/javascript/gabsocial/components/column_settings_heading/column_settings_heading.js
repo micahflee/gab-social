@@ -1,5 +1,3 @@
-import './column_settings_heading.scss';
-
 export default class ColumnSettingsHeading extends PureComponent {
   static propTypes = {
     heading: PropTypes.object.isRequired,

@@ -3,8 +3,6 @@ import Overlay from 'react-overlays/lib/Overlay';
 import Icon from '../icon';
 import SearchPopout from '../search_popout';
 
-import './search.scss';
-
 export default class Search extends PureComponent {
 
   static contextTypes = {
@@ -17,7 +15,6 @@ export default class Search extends PureComponent {
     onShow: PropTypes.func.isRequired,
     openInRoute: PropTypes.bool,
     placeholder: PropTypes.string.isRequired,
-    className: PropTypes.string,
     searchTitle: PropTypes.string,
     onChange: PropTypes.func.isRequired,
     onKeyUp: PropTypes.func.isRequired,
@@ -40,32 +37,29 @@ export default class Search extends PureComponent {
   }
 
   render() {
-    const { value, submitted, placeholder, className, searchTitle, onKeyUp, handleClear, handleSubmit, withOverlay, onChange } = this.props;
+    const { value, submitted, placeholder, searchTitle, onKeyUp, handleClear, handleSubmit, withOverlay, onChange } = this.props;
     const { expanded } = this.state;
 
-    const hasValue = value.length > 0 || submitted;
-    const classes = classNames('search', className);
+    const hasValue = value ? value.length > 0 || submitted : 0;
     const iconClass = hasValue ? 'active' : '';
 
     return (
-      <div className={classes}>
-        <label>
-          <span className='invisible'>{placeholder}</span>
+      <div className={[styles.default, styles.backgroundColorSubtle3, styles.positionSticky, styles.justifyContentCenter, styles.top0, styles.z2, styles.height53PX, styles.marginBottom10PX].join(' ')}>
+        <div className={[styles.default, styles.backgroundSubtle2, styles.flexRow, styles.circle, styles.alignItemsCenter].join(' ')}>
+          <Icon id='search' width='18px' height='18px' className={[styles.default, styles.marginLeft15PX, styles.marginRight10PX].join(' ')} />
           <input
-            className='search__input'
+            className={[styles.default, styles.text, styles.lineHeight125, styles.displayBlock, styles.paddingVertical10PX, styles.paddingHorizontal10PX, styles.backgroundTransparent, styles.fontSize15PX, styles.flexGrow1].join(' ')}
             type='text'
-            placeholder={placeholder}
+            placeholder='Search on Gab...'
             value={value}
             onChange={onChange}
             onKeyUp={onKeyUp}
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-        </label>
-
-        <div role='button' tabIndex='0' className='search__icon' onClick={handleClear}>
-          <Icon id='search' className={iconClass} />
-          <Icon id='times-circle' className={iconClass} aria-label={placeholder} />
+          <div role='button' tabIndex='0' className={[styles.default, styles.paddingHorizontal10PX].join(' ')} onClick={handleClear}>
+            <Icon id='times-circle' width='18px' height='18px' className={iconClass} aria-label={placeholder} />
+          </div>
         </div>
 
         {

@@ -6,8 +6,6 @@ import Icon from '../../../../components/icon';
 import VerifiedIcon from '../../../../components/verified_icon';
 import Badge from '../../../../components/badge';
 
-import './profile_info_panel.scss';
-
 const messages = defineMessages({
   linkVerifiedOn: { id: 'account.link_verified_on', defaultMessage: 'Ownership of this link was checked on {date}' },
   account_locked: { id: 'account.locked_info', defaultMessage: 'This account privacy status is set to locked. The owner manually reviews who can follow them.' },

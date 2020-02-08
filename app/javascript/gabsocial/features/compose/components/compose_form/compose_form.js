@@ -7,21 +7,19 @@ import CharacterCounter from '../character_counter';
 import UploadForm from '../upload_form';
 import ReplyIndicatorContainer from '../../containers/reply_indicator_container';
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox';
-import PollButtonContainer from '../../containers/poll_button_container';
-import UploadButtonContainer from '../../containers/upload_button_container';
-import SpoilerButtonContainer from '../../containers/spoiler_button_container';
-import PrivacyDropdownContainer from '../../containers/privacy_dropdown_container';
+import PollButton from '../../components/poll_button';
+import UploadButton from '../../components/upload_button';
+import SpoilerButton from '../../components/spoiler_button';
+import PrivacyDropdown from '../../components/privacy_dropdown';
 import EmojiPickerDropdown from '../../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../../containers/poll_form_container';
 import WarningContainer from '../../containers/warning_container';
-import SchedulePostDropdownContainer from '../../containers/schedule_post_dropdown_container';
+import SchedulePostDropdown from '../../components/schedule_post_dropdown';
 import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container';
 import Icon from '../../../../components/icon';
 import Button from '../../../../components/button';
 import { isMobile } from '../../../../utils/is_mobile';
 import { countableText } from '../../util/counter';
-
-import './compose_form.scss';
 
 const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
 const maxPostCharacterCount = 3000;
@@ -30,7 +28,7 @@ const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
-  publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}!' },
+  publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' }
 });
 
@@ -220,29 +218,22 @@ class ComposeForm extends ImmutablePureComponent {
     const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
-    let publishText = '';
-
-    if (this.props.privacy === 'private' || this.props.privacy === 'direct') {
-      publishText = <span className='compose-form__publish-private'><Icon id='lock' /> {intl.formatMessage(messages.publish)}</span>;
-    } else {
-      publishText = this.props.privacy !== 'unlisted' ? intl.formatMessage(messages.publishLoud, { publish: intl.formatMessage(messages.publish) }) : intl.formatMessage(messages.publish);
-    }
-
-    if (scheduledAt) {
-      publishText = intl.formatMessage(messages.schedulePost);
-    }
-
     const composeClassNames = classNames({
       'compose-form': true,
       'condensed': condensed,
     });
 
     return (
-      <div className={composeClassNames} ref={this.setForm} onClick={this.handleClick}>
-        <WarningContainer />
+      <div
+        className={[styles.default, styles.flexGrow1].join(' ')}
+        ref={this.setForm}
+        onClick={this.handleClick}
+      >
+        { /* <WarningContainer /> */ }
 
-        { !shouldCondense && <ReplyIndicatorContainer /> }
+        { /* !shouldCondense && <ReplyIndicatorContainer /> */ }
 
+        { /*
         <div className={`spoiler-input ${this.props.spoiler ? 'spoiler-input--visible' : ''}`}>
           <AutosuggestTextbox
             placeholder={intl.formatMessage(messages.spoiler_placeholder)}
@@ -260,13 +251,14 @@ class ComposeForm extends ImmutablePureComponent {
             className='spoiler-input__input'
           />
         </div>
+        */ }
 
+        { /*
         <div className='emoji-picker-wrapper'>
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
-        </div>
+        </div> */ }
 
         <AutosuggestTextbox
-          textarea={true}
           ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
           placeholder={intl.formatMessage(messages.placeholder)}
           disabled={disabled}
@@ -280,38 +272,37 @@ class ComposeForm extends ImmutablePureComponent {
           onSuggestionSelected={this.onSuggestionSelected}
           onPaste={onPaste}
           autoFocus={shouldAutoFocus}
+          textarea
         >
-          {
+          { /*
             !condensed &&
             <div className='compose-form__modifiers'>
               <UploadForm />
               {!edit && <PollFormContainer />}
             </div>
-          }
+          */ }
         </AutosuggestTextbox>
 
-        {quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} />}
+        { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */ }
 
         {
-          !condensed &&
-          <div className='compose-form__buttons-wrapper'>
-            <div className='compose-form__buttons'>
-              <UploadButtonContainer />
-              {!edit && <PollButtonContainer />}
-              <PrivacyDropdownContainer />
-              <SpoilerButtonContainer />
-              <SchedulePostDropdownContainer
-                position={isModalOpen ? 'top' : undefined}
-              />
+          /* !condensed && */
+          <div className={[styles.default, styles.flexRow, styles.marginTop10PX].join(' ')}>
+            <div className={[styles.default, styles.flexRow, styles.marginRightAuto].join(' ')}>
+              <UploadButton />
+              {
+                !edit && <PollButton />
+              }
+              <PrivacyDropdown />
+              <SpoilerButton />
+              <SchedulePostDropdown position={isModalOpen ? 'top' : undefined} />
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} />
-          </div>
-        }
-
-        {
-          !condensed &&
-          <div className='compose-form__publish'>
-            <div className='compose-form__publish-button-wrapper'><Button text={publishText} onClick={this.handleSubmit} disabled={disabledButton} block /></div>
+            <Button
+              text={intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+              onClick={this.handleSubmit}
+              disabled={disabledButton}
+            />
           </div>
         }
 

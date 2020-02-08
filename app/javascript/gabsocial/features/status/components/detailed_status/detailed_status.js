@@ -14,8 +14,6 @@ import Poll from '../../../../components/poll';
 import Card from '../card';
 import Video from '../../../video';
 
-import './detailed_status.scss';
-
 export default class DetailedStatus extends ImmutablePureComponent {
 
   static contextTypes = {

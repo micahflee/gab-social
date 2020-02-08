@@ -1,7 +1,5 @@
 import unicodeMapping from '../emoji/emoji_unicode_mapping_light';
 
-import './autosuggest_emoji.scss';
-
 const assetHost = process.env.CDN_HOST || '';
 
 export default class AutosuggestEmoji extends PureComponent {

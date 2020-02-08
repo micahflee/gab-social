@@ -1,7 +1,5 @@
 import { FormattedMessage } from 'react-intl';
 
-import './error_boundary.scss';
-
 export default class ErrorBoundary extends PureComponent {
 
   static propTypes = {

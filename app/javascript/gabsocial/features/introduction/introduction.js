@@ -3,8 +3,6 @@ import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
 import { closeOnboarding } from '../../actions/onboarding';
 
-import './introduction.scss';
-
 class FrameWelcome extends Component {
   static propTypes = {
     domain: PropTypes.string.isRequired,

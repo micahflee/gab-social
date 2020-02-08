@@ -2,8 +2,6 @@ import classNames from 'classnames';
 import { LoadingBar } from 'react-redux-loading-bar';
 import ZoomableImage from '../zoomable_image';
 
-import './image_loader.scss';
-
 export default class ImageLoader extends PureComponent {
 
   static propTypes = {

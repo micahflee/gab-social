@@ -3,8 +3,6 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../features/ui/util/optional_motion';
 import { searchEnabled } from '../../initial_state';
 
-import './search_popout.scss';
-
 export default class SearchPopout extends PureComponent {
 
   static propTypes = {

@@ -8,7 +8,6 @@ import GroupSidebarPanel from '../features/groups/sidebar_panel';
 import PageLayout from '../components/page_layout';
 import { WhoToFollowPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
-import PromoPanel from '../components/promo_panel';
 
 const mapStateToProps = (state, { params: { id } }) => ({
 	group: state.getIn(['groups', id]),
@@ -51,7 +50,6 @@ class GroupPage extends ImmutablePureComponent {
 									group={group}
 									relationships={relationships}
 								/>}
-							<PromoPanel />
 							<LinkFooter />
 						</Fragment>
 					)

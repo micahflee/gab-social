@@ -1,7 +1,5 @@
 import { shortNumberFormat } from '../../utils/numbers';
 
-import './notification_counter.scss';
-
 const mapStateToProps = state => ({
   count: state.getIn(['notifications', 'unread']),
 });

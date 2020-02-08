@@ -4,8 +4,6 @@ import { me } from '../../initial_state';
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
 import Avatar from '../avatar';
 
-import './timeline_compose_block.scss';
-
 const mapStateToProps = state => {
   return {
     account: state.getIn(['accounts', me]),
@@ -28,9 +26,9 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     const { account, size, ...rest } = this.props;
 
     return (
-      <div className='timeline-compose-block'>
-        <div className='timeline-compose-block__avatar'>
-          <Avatar account={account} size={size} />
+      <div className={[styles.default, styles.flexRow, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX, styles.paddingVertical10PX, styles.paddingHorizontal15PX].join(' ')}>
+        <div className={[styles.default, styles.marginRight10PX].join(' ')}>
+          <Avatar account={account} size={46} />
         </div>
         <ComposeFormContainer {...rest} />
       </div>

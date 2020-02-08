@@ -1,8 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import Column from '../column';
 
-import './column_indicator.scss';
-
 const messages = defineMessages({
   loading: { id: 'loading_indicator.label', defaultMessage: 'Loading...' },
   missing: { id: 'missing_indicator.sublabel', defaultMessage: 'This resource could not be found.' },

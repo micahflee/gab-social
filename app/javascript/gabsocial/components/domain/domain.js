@@ -1,8 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import IconButton from '../icon_button';
 
-import './domain.scss';
-
 const messages = defineMessages({
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unhide {domain}' },
 });

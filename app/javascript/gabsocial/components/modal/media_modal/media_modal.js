@@ -9,8 +9,6 @@ import IconButton from '../../icon_button';
 import ImageLoader from '../../image_loader';
 import Icon from '../../icon';
 
-import './media_modal.scss';
-
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   previous: { id: 'lightbox.previous', defaultMessage: 'Previous' },

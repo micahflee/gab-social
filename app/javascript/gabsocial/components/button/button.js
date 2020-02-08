@@ -56,10 +56,10 @@ export default class Button extends PureComponent {
       colorWhite: 1,
       circle: 1,
       cursorPointer: 1,
-      width100PC: 1,
       textAlignCenter: 1,
       paddingVertical10PX: 1,
       paddingHorizontal15PX: 1,
+      width100PC: block,
       backgroundColorBrand: !hovering,
       backgroundColorBrandDark: hovering,
     })

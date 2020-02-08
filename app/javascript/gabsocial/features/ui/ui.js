@@ -70,9 +70,6 @@ import { me, meUsername } from '../../initial_state';
 import '../../components/status';
 import { fetchGroups } from '../../actions/groups';
 
-// import '../../../styles/application.scss';
-// import './ui.scss';
-
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },

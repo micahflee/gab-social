@@ -3,8 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import InnerHeader from '../inner_header';
 import MovedNote from '../moved_note';
 
-import './header.scss';
-
 export default class Header extends ImmutablePureComponent {
 
   static propTypes = {

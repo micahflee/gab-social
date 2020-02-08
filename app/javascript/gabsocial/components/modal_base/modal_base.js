@@ -3,8 +3,6 @@ import classNames from 'classnames';
 import { openModal } from '../../actions/modal';
 import { cancelReplyCompose } from '../../actions/compose';
 
-import './modal_base.scss';
-
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
 });

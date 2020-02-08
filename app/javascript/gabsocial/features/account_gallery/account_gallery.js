@@ -15,8 +15,6 @@ import MediaItem from './components/media_item';
 import LoadMore from '../../components/load_more';
 import SectionHeadlineBar from '../../components/section_headline_bar';
 
-import './account_gallery.scss';
-
 const messages = defineMessages({
   posts: { id: 'account.posts', defaultMessage: 'Gabs' },
   postsWithReplies: { id: 'account.posts_with_replies', defaultMessage: 'Gabs and replies' },

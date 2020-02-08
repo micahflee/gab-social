@@ -9,8 +9,6 @@ import IconButton from '../../components/icon_button';
 import NewListForm from '../lists/components/new_list_form';
 import ColumnSubheading from '../../components/column_subheading/column_subheading';
 
-import './list_adder.scss';
-
 const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   if (!lists) {
     return lists;

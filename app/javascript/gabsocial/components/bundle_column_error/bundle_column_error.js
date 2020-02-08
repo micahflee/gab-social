@@ -3,8 +3,6 @@ import Column from '../column';
 import { ColumnHeader } from '../column_header';
 import IconButton from '../icon_button';
 
-import './bundle_column_error.scss';
-
 const messages = defineMessages({
   title: { id: 'bundle_column_error.title', defaultMessage: 'Network error' },
   body: { id: 'bundle_column_error.body', defaultMessage: 'Something went wrong while loading this component.' },

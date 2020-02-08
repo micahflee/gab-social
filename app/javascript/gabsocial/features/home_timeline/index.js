@@ -67,9 +67,6 @@ class HomeTimeline extends PureComponent {
 
     return (
       <Column heading={intl.formatMessage(messages.title)}>
-        <HomeColumnHeader activeItem='home' active={hasUnread}>
-          <ColumnSettings />
-        </HomeColumnHeader>
         <StatusListContainer
           scrollKey='home_timeline'
           onLoadMore={this.handleLoadMore}

@@ -5,8 +5,6 @@ import { removeFromListAdder, addToListAdder } from '../../../../actions/lists';
 import IconButton from '../../../../components/icon_button';
 import Icon from '../../../../components/icon';
 
-import './list.scss';
-
 const messages = defineMessages({
   remove: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
   add: { id: 'lists.account.add', defaultMessage: 'Add to list' },

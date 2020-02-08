@@ -10,7 +10,6 @@ export default class ProgressPanel extends PureComponent {
       <PanelLayout
         title="Gab's Operational Expenses"
         subtitle="We are 100% funded by you"
-        icon="comments"
         hasBackground
       >
         <ProgressBar progress={monthlyExpensesComplete}/>

@@ -11,8 +11,6 @@ import { shortNumberFormat } from '../../../utils/numbers';
 import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
 import ProfileInfoPanel from './profile_info_panel/profile_info_panel';
 
-import './inner_header.scss';
-
 const messages = defineMessages({
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
   follow: { id: 'account.follow', defaultMessage: 'Follow' },

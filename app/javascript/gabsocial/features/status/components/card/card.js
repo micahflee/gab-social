@@ -5,8 +5,6 @@ import punycode from 'punycode';
 import classnames from 'classnames';
 import Icon from '../../../../components/icon';
 
-import './card.scss';
-
 const IDNA_PREFIX = 'xn--';
 
 const decodeIDNA = domain => {

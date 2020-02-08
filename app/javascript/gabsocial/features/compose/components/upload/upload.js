@@ -6,8 +6,6 @@ import spring from 'react-motion/lib/spring';
 import Motion from '../../../ui/util/optional_motion';
 import IconButton from '../../../../components/icon_button';
 
-import './upload.scss';
-
 const messages = defineMessages({
   description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
   delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },

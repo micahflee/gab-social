@@ -6,8 +6,6 @@ import Icon from '../../../../components/icon';
 import { autoPlayGif, displayMedia } from '../../../../initial_state';
 import { isIOS } from '../../../../utils/is_mobile';
 
-import './media_item.scss';
-
 export default class MediaItem extends ImmutablePureComponent {
 
   static propTypes = {

@@ -6,8 +6,6 @@ import AvatarOverlay from '../../../../components/avatar_overlay';
 import DisplayName from '../../../../components/display_name';
 import Icon from '../../../../components/icon';
 
-import './moved_note.scss';
-
 export default class MovedNote extends ImmutablePureComponent {
 
   static contextTypes = {

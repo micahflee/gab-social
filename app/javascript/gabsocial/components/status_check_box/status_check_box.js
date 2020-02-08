@@ -8,8 +8,6 @@ import Bundle from '../../features/ui/util/bundle';
 import StatusContent from '../status_content';
 import ToggleSwitch from '../toggle_switch';
 
-import './status_check_box.scss';
-
 const mapStateToProps = (state, { id }) => ({
   status: state.getIn(['statuses', id]),
   checked: state.getIn(['reports', 'new', 'status_ids'], ImmutableSet()).includes(id),

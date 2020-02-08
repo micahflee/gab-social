@@ -1,7 +1,5 @@
 import Button from '../button';
 
-import './column_inline_form.scss';
-
 export default class ColumnInlineForm extends PureComponent {
 
   static propTypes = {

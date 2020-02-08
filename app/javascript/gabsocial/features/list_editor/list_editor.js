@@ -8,8 +8,6 @@ import EditListForm from './components/edit_list_form/edit_list_form';
 import ColumnSubheading from '../../components/column_subheading';
 import IconButton from '../../components/icon_button';
 
-import './list_editor.scss';
-
 const mapStateToProps = state => ({
   accountIds: state.getIn(['listEditor', 'accounts', 'items']),
   searchAccountIds: state.getIn(['listEditor', 'suggestions', 'items']),

@@ -1,5 +1,3 @@
-import './extended_video_player.scss';
-
 export default class ExtendedVideoPlayer extends PureComponent {
 
   static propTypes = {

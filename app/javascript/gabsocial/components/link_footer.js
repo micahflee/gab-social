@@ -109,7 +109,7 @@ class LinkFooter extends PureComponent {
     ]
 
     return (
-      <div className={styles.default}>
+      <div className={[styles.default, styles.paddingHorizontal10PX].join(' ')}>
         <nav aria-label='Footer' role='navigation' className={[styles.default, styles.flexWrap, styles.flexRow].join(' ')}>
           {
             linkFooterItems.map((linkFooterItem, i) => {
@@ -121,6 +121,7 @@ class LinkFooter extends PureComponent {
                 marginVertical5PX: 1,
                 paddingRight15PX: 1,
                 cursorPointer: 1,
+                backgroundTransparent: 1,
                 colorSubtle: i !== hoveringItemIndex,
                 noUnderline: i !== hoveringItemIndex,
                 colorBlack: i === hoveringItemIndex,
