@@ -1,4 +1,4 @@
-import classNames from 'classnames';
+import classNames from 'classnames/bind';
 import Overlay from 'react-overlays/lib/Overlay';
 import Icon from '../icon';
 import SearchPopout from '../search_popout';
@@ -41,7 +41,19 @@ export default class Search extends PureComponent {
     const { expanded } = this.state;
 
     const hasValue = value ? value.length > 0 || submitted : 0;
-    const iconClass = hasValue ? 'active' : '';
+
+    const cx = classNames.bind(styles)
+
+    const btnClasses = cx({
+      default: 1,
+      cursorPointer: 1,
+      marginRight5PX: 1,
+      paddingHorizontal10PX: 1,
+      paddingVertical10PX: 1,
+      circle: 1,
+      backgroundColorBrandLight: 1,
+      displayNone: !hasValue,
+    })
 
     return (
       <div className={[styles.default, styles.justifyContentCenter, styles.height53PX].join(' ')}>
@@ -57,7 +69,7 @@ export default class Search extends PureComponent {
             onFocus={this.handleFocus}
             onBlur={this.handleBlur}
           />
-          <div role='button' tabIndex='0' className={[styles.default, styles.cursorPointer, styles.marginRight5PX, styles.paddingHorizontal10PX, styles.paddingVertical10PX, styles.circle, styles.backgroundColorBrandLight].join(' ')} onClick={handleClear}>
+          <div role='button' tabIndex='0' className={btnClasses} onClick={handleClear}>
             <Icon id='close' width='10px' height='10px' className={styles.fillColorWhite} aria-label={placeholder} />
           </div>
         </div>

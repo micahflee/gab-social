@@ -16,8 +16,8 @@ export default class HomePage extends PureComponent {
 
     return (
       <PageLayout
+        title='Home'
         layout={{
-          HEADER: <span>hello</span>,
           HEADER_RIGHT: <Search />,
           RIGHT: (
             <Fragment>

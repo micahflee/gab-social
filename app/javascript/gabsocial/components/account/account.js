@@ -132,8 +132,8 @@ class Account extends ImmutablePureComponent {
           </div>
 
           <div className={[styles.default, styles.marginLeftAuto].join(' ')}>
-            <button className={[styles.default, styles.circle, styles.backgroundSubtle2, styles.paddingVertical5PX, styles.paddingHorizontal5PX, styles.cursorPointer].join(' ')}>
-              <Icon id='close' width='8px' height='8px' />
+            <button className={[styles.default, styles.circle, styles.backgroundTransparent, styles.paddingVertical5PX, styles.paddingHorizontal5PX, styles.cursorPointer].join(' ')}>
+              <Icon className={styles.fillColorSubtle} id='close' width='8px' height='8px' />
             </button>
           </div>
 

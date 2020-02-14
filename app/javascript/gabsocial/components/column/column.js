@@ -26,7 +26,7 @@ export default class Column extends PureComponent {
     );
 
     return (
-      <div role='region' aria-labelledby={columnHeaderId} className='column'>
+      <div role='region' aria-labelledby={columnHeaderId} className={[styles.default].join(' ')}>
         { backBtn && <ColumnBackButton slim={backBtn === 'slim'} />}
         {children}
       </div>

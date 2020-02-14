@@ -50,6 +50,7 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = (state, props) => ({
     status: getStatus(state, props),
+    replies: state.getIn(['contexts', 'replies', props.id]),
   });
 
   return mapStateToProps;

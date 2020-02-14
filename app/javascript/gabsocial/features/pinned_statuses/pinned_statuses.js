@@ -5,7 +5,7 @@ import { fetchPinnedStatuses } from '../../actions/pin_statuses';
 import { meUsername } from '../../initial_state';
 import Column from '../../components/column';
 import StatusList from '../../components/status_list/status_list';
-import ColumnIndicator from '../../components/column_indicator/column_indicator';
+import ColumnIndicator from '../../components/column_indicator';
 
 const mapStateToProps = (state, { params: { username } }) => {
   return {

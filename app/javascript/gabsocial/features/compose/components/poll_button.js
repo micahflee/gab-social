@@ -54,7 +54,7 @@ class PollButton extends PureComponent {
         title={intl.formatMessage(active ? messages.remove_poll : messages.title)}
         disabled={disabled}
         onClick={this.handleClick}
-        icon='tasks'
+        icon='poll'
       />
     )
   }

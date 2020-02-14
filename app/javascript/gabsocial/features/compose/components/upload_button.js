@@ -65,7 +65,7 @@ class UploadButton extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
         disabled={disabled}
         onClick={this.handleClick}
-        icon='upload'
+        icon='media'
       >
         <label>
           <span className={styles.displayNone}>{intl.formatMessage(messages.upload)}</span>

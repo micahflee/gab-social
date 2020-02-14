@@ -265,6 +265,8 @@ class Status extends ImmutablePureComponent {
 
     const { intl, hidden, featured, otherAccounts, unread, showThread, group, promoted } = this.props;
 
+    // console.log("replies:", this.props.replies)
+
     let { status, account, ...other } = this.props;
 
     if (status === null) return null;
@@ -391,6 +393,7 @@ class Status extends ImmutablePureComponent {
         );
       }
     } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
+      console.log("card:", status.get('card'))
       media = (
         <Card
           onOpenMedia={this.props.onOpenMedia}
@@ -423,8 +426,6 @@ class Status extends ImmutablePureComponent {
       };
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
-
-    console.log("const replies = state.getIn(['contexts', 'replies', id]);", state.getIn(['contexts', 'replies', id]))
 
     return (
       <HotKeys handlers={handlers}>
@@ -472,7 +473,7 @@ class Status extends ImmutablePureComponent {
                     <Icon id='globe' width='12px' height='12px' className={[styles.default, styles.displayInline, styles.marginLeft5PX, styles.fillColorSubtle].join(' ')}/>
 
                     {
-                      status.get('group') &&
+                      !!status.get('group') &&
                       <Fragment>
                         <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
                         <NavLink
@@ -502,7 +503,7 @@ class Status extends ImmutablePureComponent {
               </div>
             </div>
 
-            <div className={[styles.default, styles.paddingHorizontal15PX, styles.marginBottom15PX].join(' ')}>
+            <div className={styles.default}>
               <StatusContent
                 status={status}
                 reblogContent={reblogContent}
@@ -513,7 +514,7 @@ class Status extends ImmutablePureComponent {
               />
             </div>
 
-            { /* media */ }
+            { media }
 
             { /* status.get('quote') && <StatusQuote
               id={status.get('quote')}

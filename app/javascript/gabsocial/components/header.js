@@ -105,32 +105,39 @@ class Header extends ImmutablePureComponent {
     const menuItems = [
       {
         title: 'Home',
-        icon: <Icon id='home' />,
+        icon: 'home',
         to: '/',
+        count: 0,
       },
       {
         title: 'Notifications',
-        icon: <Icon id='notifications' />,
+        icon: 'notifications',
         to: '/notifications',
+        count: 40,
       },
       {
         title: 'Groups',
-        icon: <Icon id='groups' />,
+        icon: 'group',
         to: '/groups',
       },
       {
         title: 'Lists',
-        icon: <Icon id='lists' />,
+        icon: 'lists',
         to: '/lists',
       },
       {
         title: 'Chat',
-        icon: <Icon id='chat' />,
+        icon: 'chat',
         to: '/',
       },
       {
         title: 'Profile',
-        icon: <Icon id='profile' />,
+        icon: 'profile',
+        to: '/',
+      },
+      {
+        title: 'More',
+        icon: 'plus',
         to: '/',
       },
     ]
@@ -138,70 +145,88 @@ class Header extends ImmutablePureComponent {
     const shortcutItems = [
       {
         title: 'Meme Group',
-        icon: <Icon id='group' />,
+        icon: 'group',
         to: '/',
+        count: 0,
       },
       {
         title: 'Andrew',
-        icon: <Icon id='user' />,
+        icon: 'user',
         to: '/',
+        count: 3,
       },
     ]
 
     const exploreItems = [
       {
         title: 'Trends',
-        icon: <Icon id='trends' />,
+        icon: 'trends',
         to: '/',
       },
       {
         title: 'Dissenter',
-        icon: <Icon id='dissenter' />,
+        icon: 'dissenter',
         to: '/',
       },
       {
         title: 'Apps',
-        icon: <Icon id='apps' />,
+        icon: 'apps',
         to: '/',
       },
       {
         title: 'Shop',
-        icon: <Icon id='shop' />,
+        icon: 'shop',
         to: '/',
       },
     ]
+
+    const cx = classNames.bind(styles)
+
+    const titleClasses = cx({
+      default: 1,
+      text: 1,
+      colorSubtle: 1,
+      displayBlock: 1,
+      fontSize13PX: 1,
+      paddingVertical5PX: 1,
+      marginTop10PX: 1,
+      paddingHorizontal10PX: 1,
+      fontWeightBold: 1,
+    })
 
     return (
       <header role='banner' className={[styles.default, styles.flexGrow1, styles.z3, styles.alignItemsEnd].join(' ')}>
         <div className={[styles.default, styles.width250PX].join(' ')}>
           <div className={[styles.default, styles.positionFixed, styles.top0, styles.height100PC].join(' ')}>
-            <div className={[styles.default, styles.height100PC, styles.width250PX, styles.paddingHorizontal20PX, styles.marginVertical10PX].join(' ')}>
+            <div className={[styles.default, styles.height100PC, styles.width250PX, styles.paddingHorizontal15PX, styles.marginVertical10PX].join(' ')}>
               <h1 className={[styles.default].join(' ')}>
                 <NavLink to='/' aria-label='Gab' className={[styles.default, styles.noSelect, styles.noUnderline, styles.height50PX, styles.justifyContentCenter, styles.cursorPointer, styles.paddingHorizontal10PX].join(' ')}>
                   <GabLogo />
                 </NavLink>
               </h1>
               <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC, styles.marginBottom15PX].join(' ')}>
-                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Menu</span>
+                <span className={titleClasses}>Menu</span>
                 {
                   menuItems.map((menuItem, i) => (
                     <HeaderMenuItem {...menuItem} key={`header-item-menu-${i}`} />
                   ))
                 }
-                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Shortcuts</span>
+                <span className={titleClasses}>Shortcuts</span>
                 {
                   shortcutItems.map((shortcutItem, i) => (
                     <HeaderMenuItem {...shortcutItem} key={`header-item-shortcut-${i}`} />
                   ))
                 }
-                <span className={[styles.default, styles.text, styles.colorSubtle, styles.displayBlock, styles.fontSize13PX, styles.paddingVertical5PX, styles.marginTop10PX, styles.paddingHorizontal10PX, styles.fontWeight500].join(' ')}>Explore</span>
+                <span className={titleClasses}>Explore</span>
                 {
                   exploreItems.map((exploreItem, i) => (
                     <HeaderMenuItem {...exploreItem} key={`header-item-explore-${i}`} />
                   ))
                 }
               </nav>
-              <Button className={[styles.paddingVertical15PX, styles.fontSize15PX, styles.fontWeightBold].join(' ')}>Gab</Button>
+              <Button block className={[styles.paddingVertical15PX, styles.fontSize15PX, styles.fontWeightBold].join(' ')}>
+                Gab
+              </Button>
             </div>
           </div>
         </div>
@@ -215,7 +240,7 @@ class HeaderMenuItem extends PureComponent {
   static propTypes = {
     to: PropTypes.string,
     active: PropTypes.bool,
-    icon: PropTypes.node,
+    icon: PropTypes.string,
     title: PropTypes.string,
   }
 
@@ -247,9 +272,10 @@ class HeaderMenuItem extends PureComponent {
       paddingVertical5PX: 1,
       paddingHorizontal10PX: 1,
       alignItemsCenter: 1,
+      radiusSmall: 1,
       // border1PX: shouldShowActive,
       // borderColorSubtle: shouldShowActive,
-      backgroundWhite: shouldShowActive,
+      backgroundColorBrandLightOpaque: shouldShowActive,
     })
 
     const textClasses = cx({
@@ -257,6 +283,7 @@ class HeaderMenuItem extends PureComponent {
       fontWeightNormal: 1,
       fontSize15PX: 1,
       text: 1,
+      fontWeight500: shouldShowActive,
       colorBrand: shouldShowActive,
       colorBlack: !hovering && !active,
     })
@@ -275,7 +302,7 @@ class HeaderMenuItem extends PureComponent {
       >
         <div className={containerClasses}>
           <div className={[styles.default]}>
-            <Icon className={iconClasses} width='16px' height='16px' />
+            <Icon id={icon} className={iconClasses} width='15px' height='15px' />
           </div>
           <div className={[styles.default, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
             <span className={textClasses}>{title}</span>

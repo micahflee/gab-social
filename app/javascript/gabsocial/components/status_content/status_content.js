@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
-import classnames from 'classnames';
+import classNames from 'classnames/bind'
 import { isRtl } from '../../utils/rtl';
 import Permalink from '../permalink/permalink';
 import Icon from '../icon';
@@ -12,6 +12,7 @@ const MAX_HEIGHT = 200;
 const messages = defineMessages({
   showMore: { id: 'status.show_more', defaultMessage: 'Show more' },
   showLess: { id: 'status.show_less', defaultMessage: 'Show less' },
+  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
 })
 
 export default
@@ -161,15 +162,19 @@ class StatusContent extends ImmutablePureComponent {
     const content = { __html: this.getHtmlContent() };
     const spoilerContent = { __html: status.get('spoilerHtml') };
     const directionStyle = { direction: 'ltr' };
-    const classNames = classnames('status__content', {
-      'status__content--with-action': this.props.onClick && this.context.router,
-      'status__content--with-spoiler': status.get('spoiler_text').length > 0,
-      'status__content--collapsed': this.state.collapsed === true,
-    });
+    // const classNames = ''; 
+    // classnames('status__content', {
+    //   'status__content--with-action': this.props.onClick && this.context.router,
+    //   'status__content--with-spoiler': status.get('spoiler_text').length > 0,
+    //   'status__content--collapsed': this.state.collapsed === true,
+    //   // styles.paddingHorizontal15PX, styles.marginBottom15PX
+    // });
 
     if (isRtl(status.get('search_index'))) {
       directionStyle.direction = 'rtl';
     }
+
+    const cx = classNames.bind(styles)
 
     if (status.get('spoiler_text').length > 0) {
       let mentionsPlaceholder = '';
@@ -187,7 +192,7 @@ class StatusContent extends ImmutablePureComponent {
       }
 
       return (
-        <div className={classNames} ref={this.setRef} tabIndex='0' style={directionStyle} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
+        <div className={[].join(' ')} ref={this.setRef} tabIndex='0' style={directionStyle} onMouseDown={this.handleMouseDown} onMouseUp={this.handleMouseUp}>
           <p style={{ marginBottom: hidden && status.get('mentions').isEmpty() ? '0px' : null }}>
             <span dangerouslySetInnerHTML={spoilerContent} lang={status.get('language')} />
             {' '}
@@ -200,8 +205,15 @@ class StatusContent extends ImmutablePureComponent {
         </div>
       );
     } else if (this.props.onClick) {
+      const hasMarginBottom = !!status.get('card') || !!status.get('poll') || status.get('media_attachments').size > 0
+
+      const containerClasses = cx({
+        paddingHorizontal15PX: 1,
+        marginBottom15PX: hasMarginBottom,
+      })
+
       return (
-        <Fragment>
+        <div className={containerClasses}>
           <div
             ref={this.setRef}
             tabIndex='0'
@@ -212,17 +224,16 @@ class StatusContent extends ImmutablePureComponent {
             onMouseDown={this.handleMouseDown}
             onMouseUp={this.handleMouseUp}
           />
-
           {
             this.state.collapsed &&
             <button
-              className={[styles.default].join(' ')}
+              className={[styles.default, styles.displayFlex, styles.cursorPointer, styles.paddingVertical2PX, styles.text, styles.colorBlack, styles.fontWeightBold, styles.fontSize15PX].join(' ')}
               onClick={this.props.onClick}
             >
-              <FormattedMessage id='status.read_more' defaultMessage='Read more' />
+              {intl.formatMessage(messages.readMore)}
             </button>
           }
-        </Fragment>
+        </div>
       )
     }
 
@@ -230,7 +241,7 @@ class StatusContent extends ImmutablePureComponent {
       <div
         tabIndex='0'
         ref={this.setRef}
-        className={[styles.statusContent].join(' ')}
+        className={[styles.paddingHorizontal15PX, styles.marginBottom15PX, styles.statusContent].join(' ')}
         style={directionStyle}
         dangerouslySetInnerHTML={content}
         lang={status.get('language')}

@@ -7,7 +7,7 @@ import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../../acti
 import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { me } from '../../initial_state';
 import StatusList from '../../components/status_list/status_list';
-import ColumnIndicator from '../../components/column_indicator/column_indicator';
+import ColumnIndicator from '../../components/column_indicator';
 import Column from '../../components/column';
 import SectionHeadlineBar from '../../components/section_headline_bar' ;
 

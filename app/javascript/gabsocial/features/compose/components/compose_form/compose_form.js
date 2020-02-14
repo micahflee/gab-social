@@ -299,6 +299,7 @@ class ComposeForm extends ImmutablePureComponent {
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} />
             <Button
+              className={[styles.fontSize15PX, styles.paddingHorizontal15PX].join(' ')}
               text={intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
               onClick={this.handleSubmit}
               disabled={disabledButton}

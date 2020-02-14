@@ -115,113 +115,131 @@ export default class Card extends ImmutablePureComponent {
   }
 
   renderVideo () {
-    const { card }  = this.props;
-    const content   = { __html: addAutoPlay(card.get('html')) };
-    const { width } = this.state;
-    const ratio     = card.get('width') / card.get('height');
-    const height    = width / ratio;
+    const { card }  = this.props
+    const content   = { __html: addAutoPlay(card.get('html')) }
+    const { width } = this.state
+    const ratio     = card.get('width') / card.get('height')
+    const height    = width / ratio
 
     return (
       <div
         ref={this.setRef}
-        className='status-card__image status-card-video'
+        className={[styles.default, styles.backgroundColorSubtle3, styles.positionAbsolute, styles.top0, styles.right0, styles.bottom0, styles.left0, styles.statusCardVideo].join(' ')}
         dangerouslySetInnerHTML={content}
-        style={{
-          height,
-          paddingBottom: 0,
-        }}
       />
-    );
+    )
   }
 
   render () {
-    const { card } = this.props;
-    const { width, embedded } = this.state;
+    const { card } = this.props
+    const { width, embedded } = this.state
 
-    if (card === null) {
-      return null;
-    }
+    if (card === null) return null
 
-    const maxDescription = 150;
-    const cardImg = card.get('image');
-    const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name');
-    const horizontal = (card.get('width') > card.get('height') && (card.get('width') + 100 >= width)) || card.get('type') !== 'link' || embedded;
-    const interactive = card.get('type') !== 'link';
-    const className = classnames('status-card', {
-      horizontal,
-      interactive,
-      compact: !cardImg && !interactive,
-    });
+    const maxDescription = 160
+    const cardImg = card.get('image')
+    const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name')
+    const horizontal = (card.get('width') > card.get('height') && (card.get('width') + 100 >= width)) || card.get('type') !== 'link' || embedded
+    const interactive = card.get('type') !== 'link'
+
     const title = interactive ?
-      <a className='status-card__title' href={card.get('url')} title={card.get('title')} rel='noopener' target='_blank'>
-        <strong>{card.get('title')}</strong>
-      </a>
-      : <strong className='status-card__title' title={card.get('title')}>{card.get('title')}</strong>;
+      (
+        <a
+          className={[styles.default, styles.displayFlex, styles.text, styles.noUnderline, styles.overflowWrapBreakWord, styles.colorBlack, styles.fontSize15PX, styles.fontWeight500].join(' ')}
+          href={card.get('url')}
+          title={card.get('title')}
+          rel='noopener'
+          target='_blank'
+        >
+          {card.get('title')}
+        </a>
+      )
+      : (
+        <span className={[styles.default, styles.displayFlex, styles.text, styles.overflowWrapBreakWord, styles.colorBlack, styles.fontSize15PX, styles.fontWeight500].join(' ')}>
+          {card.get('title')}
+        </span>
+      )
 
     const description = (
-      <div className='status-card__content'>
+      <div className={[styles.default, styles.flexNormal, styles.paddingHorizontal10PX, styles.paddingVertical10PX, styles.borderColorSubtle, styles.borderLeft1PX].join(' ')}>
         {title}
-        {!horizontal && <p className='status-card__description'>{trim(card.get('description') || '', maxDescription)}</p>}
-        <span className='status-card__host'>
-          <Icon id='link' fixedWidth />
-          {' '}
+        <p className={[styles.default, styles.displayFlex, styles.text, styles.marginVertical5PX, styles.overflowWrapBreakWord, styles.colorSubtle, styles.fontSize13PX, styles.fontWeightNormal].join(' ')}>
+          {trim(card.get('description') || '', maxDescription)}
+        </p>
+        <span className={[styles.default, styles.marginTopAuto, styles.flexRow, styles.alignItemsCenter, styles.colorSubtle, styles.text, styles.displayFlex, styles.textOverflowEllipsis, styles.fontSize13PX].join(' ')}>
+          <Icon id='link' width='12px' height='12px' className={[styles.fillColorSubtle, styles.marginRight5PX].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
-    );
+    )
 
-    let embed = '';
-    let thumbnail = card ? <div style={{ backgroundImage: `url(${cardImg})` }} className='status-card__image-image' /> : thumbnail = <div className='status-card__image-image' />;
+    let embed = ''
+    let thumbnail = interactive ?
+      <img src={cardImg} className={[styles.default, styles.objectFitCover, styles.positionAbsolute, styles.width100PC, styles.height100PC, styles.top0, styles.right0, styles.bottom0, styles.left0].join(' ')} />
+      :
+      <img src={cardImg} className={[styles.default, styles.objectFitCover, styles.width400PX, styles.height260PX].join(' ')} />
 
     if (interactive) {
       if (embedded) {
-        embed = this.renderVideo();
-      } else {
-        let iconVariant = 'play';
+        embed = this.renderVideo()
+      }
 
-        if (card.get('type') === 'photo') {
-          iconVariant = 'search-plus';
-        }
+      let iconVariant = 'play'
 
-        embed = (
-          <div className='status-card__image'>
-            {thumbnail}
-            <div className='status-card__actions'>
-              <div>
-                <button onClick={this.handleEmbedClick}><Icon id={iconVariant} /></button>
-                {horizontal && <a href={card.get('url')} target='_blank' rel='noopener'><Icon id='external-link' /></a>}
-              </div>
-            </div>
-          </div>
-        );
+      if (card.get('type') === 'photo') {
+        iconVariant = 'search-plus'
       }
 
       return (
-        <div className={className} ref={this.setRef}>
-          {embed}
-          {description}
+        <div className={[styles.default, styles.width100PC, styles.paddingHorizontal10PX].join(' ')}>
+          <div className={[styles.default, styles.overflowHidden, styles.width100PC, styles.borderColorSubtle2, styles.border1PX, styles.radiusSmall].join(' ')}>
+            <div className={[styles.default, styles.width100PC].join(' ')}>
+              <div className={[styles.default, styles.width100PC, styles.paddingTop5625PC].join(' ')}>
+                { !!embed && embed}
+                { !embed && thumbnail}
+                { !embed &&
+                  <div className={[styles.default, styles.positionAbsolute, styles.top0, styles.right0, styles.left0, styles.bottom0, styles.alignItemsCenter, styles.justifyContentCenter].join(' ')}>
+                    <button
+                      className={[styles.default, styles.cursorPointer, styles.backgroundColorOpaque, styles.radiusSmall, styles.paddingVertical15PX, styles.paddingHorizontal15PX].join(' ')}
+                      onClick={this.handleEmbedClick}
+                    >
+                      <Icon id={iconVariant} className={[styles.fillColorWhite].join(' ')}/>
+                    </button>
+                  </div>
+                }
+              </div>
+            </div>
+            {description}
+          </div>
         </div>
-      );
+      )
     } else if (cardImg) {
       embed = (
-        <div className='status-card__image'>
+        <div className={[styles.default].join(' ')}>
           {thumbnail}
         </div>
-      );
+      )
     } else {
       embed = (
-        <div className='status-card__image'>
-          <Icon id='file-text' />
+        <div className={[styles.default, styles.paddingVertical15PX, styles.paddingHorizontal15PX, styles.width72PX, styles.alignItemsCenter, styles.justifyContentCenter].join(' ')}>
+          <Icon id='file-text' width='22px' height='22px' className={styles.fillColorSubtle} />
         </div>
-      );
+      )
     }
 
     return (
-      <a href={card.get('url')} className={className} target='_blank' rel='noopener' ref={this.setRef}>
-        {embed}
-        {description}
-      </a>
-    );
+      <div className={[styles.default, styles.width100PC, styles.paddingHorizontal10PX].join(' ')}>
+        <a
+          href={card.get('url')}
+          className={[styles.default, styles.cursorPointer, styles.flexRow, styles.overflowHidden, styles.noUnderline, styles.width100PC, styles.borderColorSubtle2, styles.border1PX, styles.radiusSmall].join(' ')}
+          rel='noopener'
+          ref={this.setRef}
+          >
+          {embed}
+          {description}
+        </a>
+        </div>
+    )
   }
 
 }

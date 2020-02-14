@@ -32,7 +32,7 @@ import HomePage from '../../pages/home_page';
 // import GroupSidebarPanel from '../groups/sidebar_panel';
 
 import {
-  // Status,
+  Status,
   // GettingStarted,
   // CommunityTimeline,
   // AccountTimeline,
@@ -230,10 +230,10 @@ class SwitchingColumnsArea extends PureComponent {
 
         <Redirect from='/@:username/pins' to='/:username/pins' />
         <WrappedRoute path='/:username/pins' component={PinnedStatuses} page={ProfilePage} content={children} />
-
+        */ }
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact layout={LAYOUT.STATUS} component={Status} content={children} />
-
+        { /*
         <Redirect from='/@:username/posts/:statusId/reblogs' to='/:username/posts/:statusId/reblogs' />
         <WrappedRoute path='/:username/posts/:statusId/reblogs' layout={LAYOUT.STATUS} component={Reblogs} content={children} />
 

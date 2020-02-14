@@ -164,7 +164,7 @@ class Item extends ImmutablePureComponent {
 
       thumbnail = (
         <a
-          className='media-item__thumbnail'
+          className={[styles.default, styles.overflowHidden].join(' ')}
           href={attachment.get('remote_url') || originalUrl}
           onClick={this.handleClick}
           target='_blank'
@@ -184,9 +184,9 @@ class Item extends ImmutablePureComponent {
       const autoPlay = !isIOS() && autoPlayGif !== false;
 
       thumbnail = (
-        <div className={classNames('media-gallery__gifv', { autoplay: autoPlay })}>
+        <div className={[styles.default, styles.overflowHidden, styles.heigh100PC, styles.width100PC].join(' ')}>
           <video
-            className='media-item__gifv'
+            className={[styles.default, styles.cursorPointer, styles.objectFitCover, styles.width100PC, styles.height100PC, styles.z1].join(' ')}
             aria-label={attachment.get('description')}
             title={attachment.get('description')}
             role='application'
@@ -208,8 +208,8 @@ class Item extends ImmutablePureComponent {
     }
 
     return (
-      <div className={classNames('media-gallery__item', { standalone })} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
-        <canvas width={32} height={32} ref={this.setCanvasRef} className={classNames('media-gallery__preview', { 'media-gallery__preview--hidden': visible && this.state.loaded })} />
+      <div className={[styles.defeault, styles.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+        <canvas width={0} height={0} ref={this.setCanvasRef} className={styles.displayNone} />
         {visible && thumbnail}
       </div>
     );
@@ -512,10 +512,15 @@ class MediaGallery extends PureComponent {
     }
 
     return (
-      <div className='media-gallery' style={style} ref={this.handleRef}>
+      <div
+        className={[styles.default, styles.overflowHidden, styles.borderColorSubtle, styles.borderTop1PX, styles.borderBottom1PX].join(' ')}
+        style={style}
+        ref={this.handleRef}
+      >
+        { /*
         <div className={classNames('spoiler-button', { 'spoiler-button--minified': visible })}>
           {spoilerButton}
-        </div>
+        </div> */ }
 
         {children}
       </div>

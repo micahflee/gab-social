@@ -1,8 +1,8 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { me } from '../../initial_state';
-import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
-import Avatar from '../avatar';
+import { me } from '../initial_state';
+import ComposeFormContainer from '../features/compose/containers/compose_form_container';
+import Avatar from './avatar';
 
 const mapStateToProps = state => {
   return {
@@ -26,7 +26,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     const { account, size, ...rest } = this.props;
 
     return (
-      <section className={[styles.default, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX].join(' ')}>
+      <section className={[styles.default, styles.overflowHidden, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX].join(' ')}>
         <div className={[styles.default, styles.backgroundSubtle, styles.borderBottom1PX, styles.borderColorSubtle, styles.paddingHorizontal15PX, styles.paddingVertical2PX].join(' ')}>
           <h1 className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize12PX, styles.fontWeight500, styles.lineHeight2, styles.paddingVertical2PX].join(' ')}>
             Create Post

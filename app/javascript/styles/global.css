@@ -16,6 +16,11 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
+.statusCardVideo iframe {
+  height: 100% !important;
+  width: 100% !important;
+}
+
 .default {
   display: flex;
   flex-basis: auto;
@@ -93,7 +98,7 @@ body {
 .resizeNone { resize: none; }
 
 .circle { border-radius: 9999px; }
-.radiusSmall { border-radius: 4px; }
+.radiusSmall { border-radius: 8px; }
 
 .borderColorSubtle2 { border-color: #e5e9ed; }
 .borderColorSubtle { border-color: #ECECED; }
@@ -122,13 +127,16 @@ body {
 .backgroundTransparent { background-color: transparent; }
 .backgroundPanel { background-color: #aaa; }
 .backgroundSubtle { background-color: #F5F8FA; }
+.backgroundSubtle_onHover:hover { background-color: #F5F8FA; }
 .backgroundSubtle2 { background-color: #e8ecef; }
 .backgroundColorSubtle3 { background-color: #F6F6F9; }
 .backgroundWhite { background-color: #fff; }
 .backgroundColorBrandLightOpaque { background-color: rgba(54, 233, 145, 0.1); }
+.backgroundColorOpaque { background-color: rgba(0,0,0, 0.4); }
 .backgroundColorBrandLight { background-color: #36e991; }
 .backgroundColorBrand { background-color: #21cf7a; }
 .backgroundColorBrandDark { background-color: #38A16B; }
+.backgroundColorBrandDark_onHover:hover { background-color: #38A16B; }
 .colorBlack { color: #000; }
 .colorWhite { color: #fff; }
 .colorSubtle { color: #666; }
@@ -161,9 +169,11 @@ body {
 .height53PX { height: 53px; }
 .height72PX { height: 72px; }
 .height122PX { height: 122px; }
+.height260PX { height: 260px; }
 
 .width1015PX { width: 1015px; }
 .width660PX { width: 660px; }
+.width400PX { width: 400px; }
 .width325PX { width: 325px; }
 .width250PX { width: 250px; }
 .width100PC { width: 100%; }
@@ -175,6 +185,7 @@ body {
 
 .textAlignCenter { text-align: center; }
 
+.fontSize24PX { font-size: 24px; }
 .fontSize19PX { font-size: 19px; }
 .fontSize16PX { font-size: 16px; }
 .fontSize15PX { font-size: 15px; }
@@ -189,6 +200,7 @@ body {
 
 .noUnderline { text-decoration: none; }
 .underline { text-decoration: underline; }
+.underline_onHover:hover { text-decoration: underline; }
 
 .objectFitCover { object-fit: cover; }
 
@@ -218,7 +230,10 @@ body {
 .marginBottom10PX { margin-bottom: 10px; }
 .marginTop10PX { margin-top: 10px; }
 .marginTop5PX { margin-top: 5px; }
+.marginTopAuto { margin-top: auto; }
 .marginTopNeg30PX { margin-top: -30px; }
+
+.paddingTop5625PC { padding-top: 56.25%; }
 
 .paddingHorizontal15PX {
   padding-left: 15px;

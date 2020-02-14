@@ -57,21 +57,8 @@ class StatusActionBarItem extends PureComponent {
     disabled: PropTypes.bool,
   }
 
-  state = {
-    hovering: false,
-  }
-
-  handleOnMouseEnter = () => {
-    this.setState({ hovering: true })
-  }
-
-  handleOnMouseLeave = () => {
-    this.setState({ hovering: false })
-  }
-
   render() {
     const { title, onClick, icon, active, disabled } = this.props
-    const { hovering } = this.state
 
     const cx = classNames.bind(styles)
 
@@ -90,11 +77,9 @@ class StatusActionBarItem extends PureComponent {
       width100PC: 1,
       radiusSmall: 1,
       outlineFocusBrand: 1,
-      backgroundTransparent: !hovering,
-      backgroundSubtle: hovering,
+      backgroundTransparent: 1,
+      backgroundSubtle_onHover: 1,
       colorSubtle: 1,
-      // colorSubtle: !hovering,
-      // colorBrand: hovering,
     })
 
     return (
@@ -104,9 +89,7 @@ class StatusActionBarItem extends PureComponent {
           onClick={onClick}
           active={active}
           disabled={disabled}
-          onMouseEnter={() => this.handleOnMouseEnter()}
-          onMouseLeave={() => this.handleOnMouseLeave()}
-          >
+        >
           <Icon width='16px' height='16px' id={icon} className={[styles.default, styles.marginRight10PX, styles.fillColorSubtle].join(' ')} />
           {title}
         </button>
@@ -358,25 +341,83 @@ class StatusActionBar extends ImmutablePureComponent {
       },
     ]
 
-    return (
-      <div className={[styles.default, styles.marginTop10PX, styles.paddingHorizontal10PX].join(' ')}>
-        <div className={[styles.default, styles.paddingVertical2PX, styles.flexRow, styles.borderTop1PX, styles.borderColorSubtle].join(' ')}>
-          {
-            items.map((item, i) => (
-              <StatusActionBarItem key={`status-action-bar-item-${i}`} {...item} />
-            ))
-          }
+    const hasInteractions = favoriteCount > 0 || replyCount > 0 || reblogCount > 0
+    const shouldCondense = (!!status.get('card') || status.get('media_attachments').size > 0) && !hasInteractions
 
-          {/*<div className='status-action-bar__dropdown'>
-            <DropdownMenuContainer
-              status={status}
-              items={menu}
-              icon='ellipsis-h'
-              size={18}
-              direction='right'
-              title={formatMessage(messages.more)}
-            />
-          </div>*/}
+    const cx = classNames.bind(styles)
+
+    const containerClasses = cx({
+      default: 1,
+      paddingHorizontal10PX: 1,
+      marginTop10PX: !shouldCondense,
+      marginTop5PX: shouldCondense,
+    })
+
+    const innerContainerClasses = cx({
+      default: 1,
+      paddingVertical2PX: 1,
+      flexRow: 1,
+      width100PC: 1,
+      borderTop1PX: !shouldCondense,
+      borderColorSubtle: !shouldCondense,
+      marginTop5PX: hasInteractions,
+    })
+
+    const interactionBtnClasses = cx({
+      default: 1,
+      text: 1,
+      colorSubtle: 1,
+      cursorPointer: 1,
+      fontSize15PX: 1,
+      fontWeightNormal: 1,
+      marginRight10PX: 1,
+      paddingVertical5PX: 1,
+    })
+
+    return (
+      <div className={containerClasses}>
+        {
+          hasInteractions &&
+          <div className={[styles.default, styles.flexRow, styles.paddingHorizontal5PX].join(' ')}>
+            { favoriteCount > 0 &&
+              <button className={interactionBtnClasses}>
+                {favoriteCount}
+                &nbsp;Likes
+              </button>
+            }
+            { replyCount > 0 &&
+              <button className={interactionBtnClasses}>
+                {replyCount}
+                &nbsp;Comments
+              </button>
+            }
+            { reblogCount > 0 &&
+              <button className={interactionBtnClasses}>
+                {reblogCount}
+                &nbsp;Reposts
+              </button>
+            }
+          </div>
+        }
+        <div className={innerContainerClasses}>
+          <div className={[styles.default, styles.flexRow, styles.paddingVertical2PX, styles.width100PC].join(' ')}>
+            {
+              items.map((item, i) => (
+                <StatusActionBarItem key={`status-action-bar-item-${i}`} {...item} />
+              ))
+            }
+
+            {/*<div className='status-action-bar__dropdown'>
+              <DropdownMenuContainer
+                status={status}
+                items={menu}
+                icon='ellipsis-h'
+                size={18}
+                direction='right'
+                title={formatMessage(messages.more)}
+              />
+            </div>*/}
+          </div>
         </div>
         <div className='status-action-bar__comment'>
           {/*<ComposeFormContainer shouldCondense statusId={status.get('id')} />*/}

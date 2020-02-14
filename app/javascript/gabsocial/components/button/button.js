@@ -1,33 +1,20 @@
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 
 export default class Button extends PureComponent {
 
   static propTypes = {
+    children: PropTypes.node,
     text: PropTypes.node,
+    to: PropTypes.string,
     href: PropTypes.string,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     block: PropTypes.bool,
     secondary: PropTypes.bool,
-    children: PropTypes.node,
     className: PropTypes.string,
   }
 
-  state = {
-    hovering: false,
-  }
-
-  handleOnMouseEnter = () => {
-    this.setState({
-      hovering: true,
-    })
-  }
-
-  handleOnMouseLeave = () => {
-    this.setState({
-      hovering: false,
-    })
-  }
 
   handleClick = (e) => {
     if (!this.props.disabled && this.props.onClick) {
@@ -44,8 +31,7 @@ export default class Button extends PureComponent {
   }
 
   render () {
-    const { secondary, block, className, disabled, text, children, href } = this.props
-    const { hovering } = this.state
+    const { block, className, disabled, text, to, children, href } = this.props
 
     const cx = classNames.bind(styles)
 
@@ -60,20 +46,21 @@ export default class Button extends PureComponent {
       paddingVertical10PX: 1,
       paddingHorizontal15PX: 1,
       width100PC: block,
-      backgroundColorBrand: !hovering,
-      backgroundColorBrandDark: hovering,
+      backgroundColorBrand: 1,
+      backgroundColorBrandDark_onHover: 1,
     })
 
     if (href) {
       return (
-        <a
-          className={classes}
-          href={href}
-          onMouseEnter={() => this.handleOnMouseEnter()}
-          onMouseLeave={() => this.handleOnMouseLeave()}
-        >
+        <a className={classes} href={href}>
           {text || children}
         </a>
+      )
+    } else if (to) {
+      return (
+        <NavLink className={classes} to={to}>
+          {text || children}
+        </NavLink>
       )
     }
 
@@ -83,8 +70,6 @@ export default class Button extends PureComponent {
         disabled={disabled}
         onClick={this.handleClick}
         className={classes}
-        onMouseEnter={() => this.handleOnMouseEnter()}
-        onMouseLeave={() => this.handleOnMouseLeave()}
       >
         {text || children}
       </button>

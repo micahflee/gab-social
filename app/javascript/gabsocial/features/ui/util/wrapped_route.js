@@ -54,7 +54,7 @@ export default class WrappedRoute extends Component {
   }
 
   renderLoading = () => {
-    return <ColumnIndicator type='loading' />;
+    return <div />
   }
 
   renderError = (props) => {
