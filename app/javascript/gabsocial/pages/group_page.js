@@ -5,7 +5,7 @@ import { fetchGroup } from '../actions/groups';
 import HeaderContainer from '../features/groups/timeline/containers/header_container';
 import GroupPanel from '../features/groups/timeline/components/panel';
 import GroupSidebarPanel from '../features/groups/sidebar_panel';
-import PageLayout from '../components/page_layout';
+import DefaultLayout from '../components/default_layout';
 import { WhoToFollowPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
 
@@ -34,7 +34,7 @@ class GroupPage extends ImmutablePureComponent {
 		const top = group ? <HeaderContainer groupId={group.get('id')} /> : null;
 
 		return (
-			<PageLayout
+			<DefaultLayout
 				layout={{
 					TOP: top,
 					RIGHT: (
@@ -56,7 +56,7 @@ class GroupPage extends ImmutablePureComponent {
 				}}
 			>
 				{children}
-			</PageLayout>
+			</DefaultLayout>
 		)
 	}
 }

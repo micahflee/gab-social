@@ -1,5 +1,5 @@
 import { Route } from 'react-router-dom';
-import PageLayout from '../../../components/page_layout';
+import DefaultLayout from '../../../components/layouts/default_layout';
 import BundleColumnError from '../../../components/bundle_column_error';
 import Bundle from './bundle';
 import { me } from '../../../initial_state';
@@ -42,11 +42,11 @@ export default class WrappedRoute extends Component {
       <Bundle fetchComponent={component} loading={this.renderLoading} error={this.renderError}>
         {Component =>
           (
-            <PageLayout layout={layout}>
+            <DefaultLayout layout={layout}>
               <Component params={match.params} {...componentParams}>
                 {content}
               </Component>
-            </PageLayout>
+            </DefaultLayout>
           )
         }
       </Bundle>

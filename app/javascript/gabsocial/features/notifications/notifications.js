@@ -10,13 +10,12 @@ import {
   dequeueNotifications,
 } from '../../actions/notifications';
 import NotificationContainer from './containers/notification_container';
-import ColumnSettingsContainer from './containers/column_settings_container';
-import FilterBarContainer from './containers/filter_bar_container';
+// import ColumnSettingsContainer from './containers/column_settings_container';
+// import FilterBarContainer from './containers/filter_bar_container';
 import ScrollableList from '../../components/scrollable_list';
 import LoadMore from '../../components/load_more';
-import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
+// import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
 import Column from '../../components/column';
-import { ColumnHeader } from '../../components/column_header';
 
 const messages = defineMessages({
   title: { id: 'column.notifications', defaultMessage: 'Notifications' },
@@ -128,9 +127,11 @@ class Notifications extends ImmutablePureComponent {
 
     let scrollableContent = null;
 
-    const filterBarContainer = showFilterBar
-      ? (<FilterBarContainer />)
-      : null;
+    // const filterBarContainer = showFilterBar
+    //   ? (<FilterBarContainer />)
+    //   : null;
+
+    console.log("notifications:", notifications)
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
@@ -169,18 +170,15 @@ class Notifications extends ImmutablePureComponent {
         onScrollToTop={this.handleScrollToTop}
         onScroll={this.handleScroll}
       >
-        {scrollableContent}
+        { scrollableContent }
       </ScrollableList>
     );
 
     return (
       <Column ref={this.setColumnRef} heading={intl.formatMessage(messages.title)}>
-        <ColumnHeader icon='bell' active={isUnread} title={intl.formatMessage(messages.title)}>
-          <ColumnSettingsContainer />
-        </ColumnHeader>
-        {filterBarContainer}
-        <TimelineQueueButtonHeader onClick={this.handleDequeueNotifications} count={totalQueuedNotificationsCount} itemType='notification' />
-        {scrollContainer}
+        { /* filterBarContainer */ }
+        { /* <TimelineQueueButtonHeader onClick={this.handleDequeueNotifications} count={totalQueuedNotificationsCount} itemType='notification' /> */ }
+        { scrollContainer }
       </Column>
     );
   }

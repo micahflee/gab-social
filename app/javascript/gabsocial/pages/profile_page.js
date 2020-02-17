@@ -1,11 +1,11 @@
 import { Fragment } from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import HeaderContainer from '../features/account_timeline/containers/header_container';
-import ProfileInfoPanel from '../features/account_timeline/components/profile_info_panel/profile_info_panel';
-import { WhoToFollowPanel, SignUpPanel } from '../components/panel';
-import LinkFooter from '../components/link_footer';
-import PageLayout from '../components/page_layout';
+// import HeaderContainer from '../features/account_timeline/containers/header_container';
+// import ProfileInfoPanel from '../features/account_timeline/components/profile_info_panel/profile_info_panel';
+// import { WhoToFollowPanel, SignUpPanel } from '../components/panel';
+// import LinkFooter from '../components/link_footer';
+import ProfileLayout from '../components/layouts/profile_layout';
 
 const mapStateToProps = (state, { params: { username }, withReplies = false }) => {
   const accounts = state.getIn(['accounts']);
@@ -48,21 +48,9 @@ class ProfilePage extends ImmutablePureComponent {
     const { accountId, account, accountUsername } = this.props;
 
     return (
-      <PageLayout
-        layout={{
-          TOP: <HeaderContainer accountId={accountId} username={accountUsername} />,
-          RIGHT: (
-            <Fragment>
-              <SignUpPanel />
-              <WhoToFollowPanel />
-              <LinkFooter />
-            </Fragment>
-          ),
-          LEFT: <ProfileInfoPanel username={accountUsername} account={account} />,
-        }}
-      >
-        {this.props.children}
-      </PageLayout>
+      <ProfileLayout>
+        { /*this.props.children */ }
+      </ProfileLayout>
     )
   }
 }

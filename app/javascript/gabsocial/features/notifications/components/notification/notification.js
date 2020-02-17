@@ -155,6 +155,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
+          { /*
           <StatusContainer
             id={notification.get('status')}
             account={notification.get('account')}
@@ -165,7 +166,7 @@ class Notification extends ImmutablePureComponent {
             updateScrollBottom={this.props.updateScrollBottom}
             cachedMediaWidth={this.props.cachedMediaWidth}
             cacheMediaWidth={this.props.cacheMediaWidth}
-          />
+          /> */ }
         </div>
       </HotKeys>
     );
@@ -186,7 +187,7 @@ class Notification extends ImmutablePureComponent {
               <FormattedMessage id='notification.reblog' defaultMessage='{name} reposted your status' values={{ name: link }} />
             </span>
           </div>
-
+          { /*
           <StatusContainer
             id={notification.get('status')}
             account={notification.get('account')}
@@ -197,7 +198,7 @@ class Notification extends ImmutablePureComponent {
             updateScrollBottom={this.props.updateScrollBottom}
             cachedMediaWidth={this.props.cachedMediaWidth}
             cacheMediaWidth={this.props.cacheMediaWidth}
-          />
+          /> */ }
         </div>
       </HotKeys>
     );
@@ -218,7 +219,7 @@ class Notification extends ImmutablePureComponent {
               <FormattedMessage id='notification.poll' defaultMessage='A poll you have voted in has ended' />
             </span>
           </div>
-
+          { /*
           <StatusContainer
             id={notification.get('status')}
             account={notification.get('account')}
@@ -229,7 +230,7 @@ class Notification extends ImmutablePureComponent {
             updateScrollBottom={this.props.updateScrollBottom}
             cachedMediaWidth={this.props.cachedMediaWidth}
             cacheMediaWidth={this.props.cacheMediaWidth}
-          />
+          /> */}
         </div>
       </HotKeys>
     );
@@ -242,16 +243,16 @@ class Notification extends ImmutablePureComponent {
     const link             = <bdi><Permalink className='notification__display-name' href={`/${account.get('acct')}`} title={account.get('acct')} to={`/${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
 
     switch(notification.get('type')) {
-    case 'follow':
-      return this.renderFollow(notification, account, link);
-    case 'mention':
-      return this.renderMention(notification);
+    // case 'follow':
+    //   return this.renderFollow(notification, account, link);
+    // case 'mention':
+    //   return this.renderMention(notification);
     case 'favourite':
       return this.renderFavourite(notification, link);
-    case 'reblog':
-      return this.renderReblog(notification, link);
-    case 'poll':
-      return this.renderPoll(notification);
+    // case 'reblog':
+    //   return this.renderReblog(notification, link);
+    // case 'poll':
+    //   return this.renderPoll(notification);
     }
 
     return null;

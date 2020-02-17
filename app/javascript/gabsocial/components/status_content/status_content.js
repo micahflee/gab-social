@@ -185,7 +185,7 @@ class StatusContent extends ImmutablePureComponent {
         </Permalink>
       )).reduce((aggregate, item) => [...aggregate, item, ' '], []);
 
-      const toggleText = intl.formatMessaeg(hidden ? messages.showMore : messages.showLess);
+      const toggleText = intl.formatMessage(hidden ? messages.showMore : messages.showLess);
 
       if (hidden) {
         mentionsPlaceholder = <div>{mentionLinks}</div>;

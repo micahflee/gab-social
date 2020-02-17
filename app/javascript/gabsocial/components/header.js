@@ -107,7 +107,7 @@ class Header extends ImmutablePureComponent {
         title: 'Home',
         icon: 'home',
         to: '/',
-        count: 0,
+        count: 124,
       },
       {
         title: 'Notifications',
@@ -122,7 +122,7 @@ class Header extends ImmutablePureComponent {
       },
       {
         title: 'Lists',
-        icon: 'lists',
+        icon: 'list',
         to: '/lists',
       },
       {
@@ -131,13 +131,8 @@ class Header extends ImmutablePureComponent {
         to: '/',
       },
       {
-        title: 'Profile',
-        icon: 'profile',
-        to: '/',
-      },
-      {
         title: 'More',
-        icon: 'plus',
+        icon: 'more',
         to: '/',
       },
     ]
@@ -150,24 +145,14 @@ class Header extends ImmutablePureComponent {
         count: 0,
       },
       {
-        title: 'Andrew',
-        icon: 'user',
+        title: '@andrew',
+        image: 'http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139',
         to: '/',
         count: 3,
       },
     ]
 
     const exploreItems = [
-      {
-        title: 'Trends',
-        icon: 'trends',
-        to: '/',
-      },
-      {
-        title: 'Dissenter',
-        icon: 'dissenter',
-        to: '/',
-      },
       {
         title: 'Apps',
         icon: 'apps',
@@ -176,6 +161,16 @@ class Header extends ImmutablePureComponent {
       {
         title: 'Shop',
         icon: 'shop',
+        to: '/',
+      },
+      {
+        title: 'Trends',
+        icon: 'trends',
+        to: '/',
+      },
+      {
+        title: 'Dissenter',
+        icon: 'dissenter',
         to: '/',
       },
     ]
@@ -204,6 +199,9 @@ class Header extends ImmutablePureComponent {
                   <GabLogo />
                 </NavLink>
               </h1>
+              <div>
+                <HeaderMenuItem me image='http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139' title='@admin' to='/profile' />
+              </div>
               <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC, styles.marginBottom15PX].join(' ')}>
                 <span className={titleClasses}>Menu</span>
                 {
@@ -241,7 +239,10 @@ class HeaderMenuItem extends PureComponent {
     to: PropTypes.string,
     active: PropTypes.bool,
     icon: PropTypes.string,
+    image: PropTypes.string,
     title: PropTypes.string,
+    me: PropTypes.boolean,
+    count: PropTypes.number,
   }
 
   state = {
@@ -257,12 +258,14 @@ class HeaderMenuItem extends PureComponent {
   }
 
   render() {
-    const { to, active, icon, title } = this.props
+    const { to, active, icon, image, title, me, count } = this.props
     const { hovering } = this.state
 
     const cx = classNames.bind(styles)
 
+    const iconSize = '16px'
     const shouldShowActive = hovering || active
+    const isNotifications = to === '/notifications'
 
     const containerClasses = cx({
       default: 1,
@@ -275,7 +278,7 @@ class HeaderMenuItem extends PureComponent {
       radiusSmall: 1,
       // border1PX: shouldShowActive,
       // borderColorSubtle: shouldShowActive,
-      backgroundColorBrandLightOpaque: shouldShowActive,
+      backgroundSubtle2: shouldShowActive,
     })
 
     const textClasses = cx({
@@ -283,14 +286,29 @@ class HeaderMenuItem extends PureComponent {
       fontWeightNormal: 1,
       fontSize15PX: 1,
       text: 1,
-      fontWeight500: shouldShowActive,
-      colorBrand: shouldShowActive,
-      colorBlack: !hovering && !active,
+      textOverflowEllipsis: 1,
+      colorBlack: shouldShowActive || me,
+      colorSubtle: !hovering && !active && !me,
     })
 
     const iconClasses = cx({
-      fillColorBrand: shouldShowActive,
-      fillColorBlack: !hovering && !active,
+      fillColorBlack: shouldShowActive,
+      fillColorSubtle: !hovering && !active,
+    })
+
+    const countClasses = cx({
+      default: 1,
+      text: 1,
+      marginLeftAuto: 1,
+      fontSize12PX: 1,
+      paddingHorizontal5PX: 1,
+      marginRight2PX: 1,
+      lineHeight15: 1,
+      marginLeft5PX: 1,
+      colorSubtle: !isNotifications,
+      colorWhite: isNotifications,
+      backgroundColorBrand: isNotifications,
+      radiusSmall: isNotifications,
     })
 
     return (
@@ -302,11 +320,24 @@ class HeaderMenuItem extends PureComponent {
       >
         <div className={containerClasses}>
           <div className={[styles.default]}>
-            <Icon id={icon} className={iconClasses} width='15px' height='15px' />
+            { icon && <Icon id={icon} className={iconClasses} width={iconSize} height={iconSize} /> }
+            { image &&
+              <img
+                className={[styles.default, styles.circle].join(' ')}
+                width={iconSize}
+                height={iconSize}
+                src={image}
+              />
+            }
           </div>
-          <div className={[styles.default, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.displayInline].join(' ')}>
+          <div className={[styles.default, styles.flexNormal, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.flexRow, styles.width100PC].join(' ')}>
             <span className={textClasses}>{title}</span>
           </div>
+          { count > 0 &&
+            <span className={countClasses}>
+              {count}
+            </span>
+          }
         </div>
       </NavLink>
     )

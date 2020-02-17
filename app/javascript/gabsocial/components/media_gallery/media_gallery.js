@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { is } from 'immutable';
 import { defineMessages, injectIntl } from 'react-intl';
-import classNames from 'classnames';
+import classNames from 'classnames/bind'
 import { decode } from 'blurhash';
 import { autoPlayGif, displayMedia } from '../../initial_state';
 import { isIOS } from '../../utils/is_mobile';
@@ -117,9 +117,9 @@ class Item extends ImmutablePureComponent {
 
     let width  = 100;
     let height = '100%';
-    let top    = 'auto';
+    let top    = '0';
     let left   = 'auto';
-    let bottom = 'auto';
+    let bottom = '0';
     let right  = 'auto';
     let float = 'left';
     let position = 'relative';
@@ -127,9 +127,9 @@ class Item extends ImmutablePureComponent {
     if (dimensions) {
       width = dimensions.w;
       height = dimensions.h;
-      top = dimensions.t || 'auto';
+      top = dimensions.t || '0';
       right = dimensions.r || 'auto';
-      bottom = dimensions.b || 'auto';
+      bottom = dimensions.b || '0';
       left = dimensions.l || 'auto';
       float = dimensions.float || 'left';
       position = dimensions.pos || 'relative';
@@ -139,7 +139,7 @@ class Item extends ImmutablePureComponent {
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={classNames('media-gallery__item', { standalone })} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+        <div className={[styles.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
           <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url')} target='_blank' style={{ cursor: 'pointer' }}>
             <canvas width={32} height={32} ref={this.setCanvasRef} className='media-gallery__preview' />
           </a>
@@ -164,7 +164,7 @@ class Item extends ImmutablePureComponent {
 
       thumbnail = (
         <a
-          className={[styles.default, styles.overflowHidden].join(' ')}
+          className={[styles.default, styles.overflowHidden, styles.height100PC, styles.width100PC, styles.cursorPointer].join(' ')}
           href={attachment.get('remote_url') || originalUrl}
           onClick={this.handleClick}
           target='_blank'
@@ -173,6 +173,7 @@ class Item extends ImmutablePureComponent {
             src={previewUrl}
             srcSet={srcSet}
             sizes={sizes}
+            className={[styles.height100PC, styles.width100PC, styles.objectFitCover].join(' ')}
             alt={attachment.get('description')}
             title={attachment.get('description')}
             style={{ objectPosition: `${x}% ${y}%` }}
@@ -511,9 +512,20 @@ class MediaGallery extends PureComponent {
       );
     }
 
+    const cx = classNames.bind(styles)
+    const containerClasses = cx({
+      default: 1,
+      displayBlock: 1,
+      overflowHidden: 1,
+      borderColorSubtle: size === 1,
+      borderTop1PX: size === 1,
+      borderBottom1PX: size === 1,
+      paddingHorizontal5PX: size > 1,
+    })
+
     return (
       <div
-        className={[styles.default, styles.overflowHidden, styles.borderColorSubtle, styles.borderTop1PX, styles.borderBottom1PX].join(' ')}
+        className={containerClasses}
         style={style}
         ref={this.handleRef}
       >

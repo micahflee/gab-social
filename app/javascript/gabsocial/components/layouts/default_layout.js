@@ -1,7 +1,8 @@
-import ColumnHeader from './column_header'
-import Header from './header'
+import Search from '../search'
+import ColumnHeader from '../column_header'
+import Header from '../header'
 
-export default class PageLayout extends PureComponent {
+export default class DefaultLayout extends PureComponent {
   static propTypes = {
     layout: PropTypes.object,
     title: PropTypes.string,
@@ -10,9 +11,6 @@ export default class PageLayout extends PureComponent {
 
   render() {
     const { children, title, showBackBtn, layout } = this.props
-
-    const right = layout.RIGHT || null
-    const headerRight = layout.HEADER_RIGHT || null
 
     return (
       <div className={[styles.default, styles.flexRow, styles.width100PC, styles.backgroundColorSubtle3].join(' ')}>
@@ -27,7 +25,7 @@ export default class PageLayout extends PureComponent {
                 <ColumnHeader title={title} />
               </div>
               <div className={[styles.default, styles.width325PX].join(' ')}>
-                { headerRight }
+                <Search />
               </div>
             </div>
           </div>
@@ -43,7 +41,7 @@ export default class PageLayout extends PureComponent {
 
             <div className={[styles.default, styles.width325PX].join(' ')}>
               <div className={styles.default}>
-                {right}
+                {layout}
               </div>
             </div>
           </div>

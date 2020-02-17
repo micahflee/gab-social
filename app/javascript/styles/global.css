@@ -13,6 +13,7 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   font-size: 15px;
+  overflow-wrap: break-word;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
@@ -139,7 +140,7 @@ body {
 .backgroundColorBrandDark_onHover:hover { background-color: #38A16B; }
 .colorBlack { color: #000; }
 .colorWhite { color: #fff; }
-.colorSubtle { color: #666; }
+.colorSubtle { color: #4B4F55; }
 .colorBrand { color: #21cf7a }
 .fillColorBlack { fill: #000; }
 .fillColorWhite { fill: #fff; }
@@ -170,6 +171,7 @@ body {
 .height72PX { height: 72px; }
 .height122PX { height: 122px; }
 .height260PX { height: 260px; }
+.height350PX { height: 350px; }
 
 .width1015PX { width: 1015px; }
 .width660PX { width: 660px; }

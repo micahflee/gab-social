@@ -53,18 +53,12 @@ class ColumnHeader extends PureComponent {
         { /* <button className={[styles.default, styles.cursorPointer, styles.backgroundTransparent, styles.alignItemsCenter, styles.marginRight10PX, styles.justifyContentCenter].join(' ')}>
           <Icon className={[styles.marginRight5PX, styles.fillColorBrand].join(' ')} id='back' width='24px' height='24px' />
         </button> */ }
-        <h1 className={[styles.default, styles.height100PC, styles.justifyContentCenter].join(' ')}>
+        <h1 role='heading' className={[styles.default, styles.height100PC, styles.justifyContentCenter].join(' ')}>
           <span className={[styles.default, styles.text, styles.fontSize24PX, styles.fontWeight500, styles.colorBlack].join(' ')}>
             {title}
           </span>
         </h1>
         <div className={[styles.default, styles.backgroundTransparent, styles.flexRow, styles.alignItemsCenter, styles.justifyContentCenter, styles.marginLeftAuto].join(' ')}>
-          <button className={[styles.default, styles.marginLeft5PX, styles.cursorPointer, styles.backgroundSubtle2, styles.paddingHorizontal10PX, styles.paddingVertical5PX, styles.radiusSmall].join(' ')}>
-            <Icon className={styles.fillColorSubtle} id='ellipsis' width='24px' height='24px' />
-          </button>
-          <button className={[styles.default, styles.marginLeft5PX, styles.cursorPointer, styles.backgroundSubtle2, styles.paddingHorizontal10PX, styles.paddingVertical5PX, styles.radiusSmall].join(' ')}>
-            <Icon className={styles.fillColorSubtle} id='ellipsis' width='24px' height='24px' />
-          </button>
           <button className={[styles.default, styles.marginLeft5PX, styles.cursorPointer, styles.backgroundSubtle2, styles.paddingHorizontal10PX, styles.paddingVertical5PX, styles.radiusSmall].join(' ')}>
             <Icon className={styles.fillColorSubtle} id='ellipsis' width='24px' height='24px' />
           </button>

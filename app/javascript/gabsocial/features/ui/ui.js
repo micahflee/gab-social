@@ -24,18 +24,19 @@ import { isMobile } from '../../utils/is_mobile';
 // import TrendsPanel from './components/trends_panel';
 // import { WhoToFollowPanel } from '../../components/panel';
 // import LinkFooter from '../../components/link_footer';
-// import ProfilePage from '../../pages/profile_page';
+import ProfilePage from '../../pages/profile_page'
 // import GroupsPage from 'gabsocial/pages/groups_page';
 // import GroupPage from '../../pages/group_page';
 // import SearchPage from '../../pages/search_page';
-import HomePage from '../../pages/home_page';
+import HomePage from '../../pages/home_page'
+import NotificationsPage from '../../pages/notifications_page'
 // import GroupSidebarPanel from '../groups/sidebar_panel';
 
 import {
   Status,
   // GettingStarted,
   // CommunityTimeline,
-  // AccountTimeline,
+  AccountTimeline,
   // AccountGallery,
   HomeTimeline,
   // Followers,
@@ -44,7 +45,7 @@ import {
   // Favourites,
   // DirectTimeline,
   // HashtagTimeline,
-  // Notifications,
+  Notifications,
   // FollowRequests,
   // GenericNotFound,
   // FavouritedStatuses,
@@ -194,9 +195,9 @@ class SwitchingColumnsArea extends PureComponent {
 
         <WrappedRoute path='/lists' layout={LAYOUT.DEFAULT} component={Lists} content={children} />
         <WrappedRoute path='/list/:id' page={HomePage} component={ListTimeline} content={children} />
-
-        <WrappedRoute path='/notifications' layout={LAYOUT.DEFAULT} component={Notifications} content={children} />
-
+    */}
+        <WrappedRoute path='/notifications' layout={LAYOUT.DEFAULT} page={NotificationsPage} component={Notifications} content={children} />
+{/*
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/people' exact page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
@@ -206,10 +207,10 @@ class SwitchingColumnsArea extends PureComponent {
         <WrappedRoute path='/blocks' layout={LAYOUT.DEFAULT} component={Blocks} content={children} />
         <WrappedRoute path='/domain_blocks' layout={LAYOUT.DEFAULT} component={DomainBlocks} content={children} />
         <WrappedRoute path='/mutes' layout={LAYOUT.DEFAULT} component={Mutes} content={children} />
-
+    */ }
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact component={AccountTimeline} page={ProfilePage} content={children} />
-
+    { /*
         <Redirect from='/@:username/with_replies' to='/:username/with_replies' />
         <WrappedRoute path='/:username/with_replies' component={AccountTimeline} page={ProfilePage} content={children} componentParams={{ withReplies: true }} />
 

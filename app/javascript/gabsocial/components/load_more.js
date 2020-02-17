@@ -1,10 +1,9 @@
-import { injectIntl, defineMessages } from 'react-intl';
-import classNames from 'classnames';
-import Icon from '../icon';
+import { injectIntl, defineMessages } from 'react-intl'
+import Icon from './icon'
 
 const messages = defineMessages({
   load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
-});
+})
 
 export default @injectIntl
 class LoadMore extends PureComponent {
@@ -23,20 +22,16 @@ class LoadMore extends PureComponent {
   }
 
   handleClick = () => {
-    const { gap, maxId } = this.props;
-    this.props.onClick(gap ? maxId : undefined);
+    const { gap, maxId } = this.props
+    this.props.onClick(gap ? maxId : undefined)
   }
 
   render() {
-    const { disabled, visible, gap, intl } = this.props;
-
-    const btnClasses = classNames('load-more', {
-      'load-more--gap': gap,
-    });
+    const { disabled, visible, gap, intl } = this.props
 
     return (
       <button
-        className={btnClasses}
+        className={[styles.default].join(' ')}
         disabled={disabled || !visible}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         onClick={this.handleClick}
@@ -45,7 +40,7 @@ class LoadMore extends PureComponent {
         {!gap && intl.formatMessage(messages.load_more)}
         {gap && <Icon id='ellipsis-h' />}
       </button>
-    );
+    )
   }
 
 }
