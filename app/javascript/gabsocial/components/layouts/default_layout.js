@@ -1,48 +1,52 @@
+import Sticky from 'react-stickynode'
 import Search from '../search'
 import ColumnHeader from '../column_header'
-import Header from '../header'
+import Sidebar from '../sidebar'
 
 export default class DefaultLayout extends PureComponent {
   static propTypes = {
+    actions: PropTypes.array,
     layout: PropTypes.object,
     title: PropTypes.string,
-    showBackBtn: PropTypes.boolean,
+    showBackBtn: PropTypes.bool,
   }
 
   render() {
-    const { children, title, showBackBtn, layout } = this.props
+    const { children, title, showBackBtn, layout, actions } = this.props
 
     return (
-      <div className={[styles.default, styles.flexRow, styles.width100PC, styles.backgroundColorSubtle3].join(' ')}>
+      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundcolorSecondary3].join(' ')}>
 
-        <Header />
+        <Sidebar />
 
-        <main role='main' className={[styles.default, styles.flexShrink1, styles.flexGrow1, styles.borderColorSubtle2, styles.borderLeft1PX].join(' ')}>
+        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.bordercolorSecondary2, _s.borderLeft1PX].join(' ')}>
 
-          <div className={[styles.default, styles.height53PX, styles.borderBottom1PX, styles.borderColorSubtle2, styles.backgroundColorSubtle3, styles.z3, styles.top0, styles.positionFixed].join(' ')}>
-            <div className={[styles.default, styles.height53PX, styles.paddingLeft15PX, styles.width1015PX, styles.flexRow, styles.justifyContentSpaceBetween].join(' ')}>
-              <div className={[styles.default, styles.width660PX].join(' ')}>
-                <ColumnHeader title={title} />
+          <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.bordercolorSecondary2, _s.backgroundcolorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
+            <div className={[_s.default, _s.height53PX, _s.paddingLeft15PX, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
+              <div className={[_s.default, _s.width660PX].join(' ')}>
+                <ColumnHeader title={title} showBackBtn={showBackBtn} actions={actions} />
               </div>
-              <div className={[styles.default, styles.width325PX].join(' ')}>
+              <div className={[_s.default, _s.width325PX].join(' ')}>
                 <Search />
               </div>
             </div>
           </div>
 
-          <div className={[styles.default, styles.height53PX].join(' ')}></div>
+          <div className={[_s.default, _s.height53PX].join(' ')}></div>
 
-          <div className={[styles.default, styles.width1015PX, styles.flexRow, styles.justifyContentSpaceBetween, styles.paddingLeft15PX, styles.paddingVertical15PX].join(' ')}>
-            <div className={[styles.default, styles.width660PX, styles.z1].join(' ')}>
-              <div className={styles.default}>
+          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
+            <div className={[_s.default, _s.width660PX, _s.z1].join(' ')}>
+              <div className={_s.default}>
                 {children}
               </div>
             </div>
 
-            <div className={[styles.default, styles.width325PX].join(' ')}>
-              <div className={styles.default}>
-                {layout}
-              </div>
+            <div className={[_s.default, _s.width325PX].join(' ')}>
+              <Sticky top={73} enabled>
+                <div className={[_s.default, _s.width325PX].join(' ')}>
+                  {layout}
+                </div>
+              </Sticky>
             </div>
           </div>
 

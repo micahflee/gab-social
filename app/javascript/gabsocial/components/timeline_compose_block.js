@@ -26,14 +26,14 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     const { account, size, ...rest } = this.props;
 
     return (
-      <section className={[styles.default, styles.overflowHidden, styles.radiusSmall, styles.border1PX, styles.borderColorSubtle, styles.backgroundWhite, styles.marginBottom15PX].join(' ')}>
-        <div className={[styles.default, styles.backgroundSubtle, styles.borderBottom1PX, styles.borderColorSubtle, styles.paddingHorizontal15PX, styles.paddingVertical2PX].join(' ')}>
-          <h1 className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize12PX, styles.fontWeight500, styles.lineHeight2, styles.paddingVertical2PX].join(' ')}>
+      <section className={[_s.default, _s.overflowHidden, _s.radiusSmall, _s.border1PX, _s.bordercolorSecondary, _s.backgroundWhite, _s.marginBottom15PX].join(' ')}>
+        <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.bordercolorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
+          <h1 className={[_s.default, _s.text, _s.colorSecondary, _s.fontSize12PX, _s.fontWeightMedium, _s.lineHeight2, _s.paddingVertical2PX].join(' ')}>
             Create Post
           </h1>
         </div>
-        <div className={[styles.default, styles.flexRow, styles.paddingVertical15PX, styles.paddingHorizontal15PX].join(' ')}>
-          <div className={[styles.default, styles.marginRight10PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
+          <div className={[_s.default, _s.marginRight10PX].join(' ')}>
             <Avatar account={account} size={46} />
           </div>
           <ComposeFormContainer {...rest} />

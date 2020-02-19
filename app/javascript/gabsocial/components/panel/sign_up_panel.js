@@ -26,7 +26,9 @@ class SignUpPanel extends PureComponent {
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
       >
-        <Button href="/auth/sign_up">{intl.formatMessage(messages.register)}</Button>
+        <Button href="/auth/sign_up">
+          {intl.formatMessage(messages.register)}
+        </Button>
       </PanelLayout>
     )
   }

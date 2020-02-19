@@ -41,8 +41,6 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     // : testing!!! :
     const suggestions = [
       "1",
-      "1",
-      "1",
     ]
     // if (suggestions.isEmpty()) {
     //   return null;
@@ -50,7 +48,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
-        <div className={styles.default}>
+        <div className={_s.default}>
           {suggestions && suggestions.map(accountId => (
             <AccountContainer
               key={accountId}

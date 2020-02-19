@@ -3,6 +3,8 @@ import Overlay from 'react-overlays/lib/Overlay';
 import Icon from '../icon';
 import SearchPopout from '../search_popout';
 
+const cx = classNames.bind(_s)
+
 export default class Search extends PureComponent {
 
   static contextTypes = {
@@ -10,17 +12,17 @@ export default class Search extends PureComponent {
   };
 
   static propTypes = {
-    value: PropTypes.string.isRequired,
+    // value: PropTypes.string.isRequired,
     submitted: PropTypes.bool,
-    onShow: PropTypes.func.isRequired,
+    // onShow: PropTypes.func.isRequired,
     openInRoute: PropTypes.bool,
-    placeholder: PropTypes.string.isRequired,
+    // placeholder: PropTypes.string.isRequired,
     searchTitle: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    onKeyUp: PropTypes.func.isRequired,
+    // onChange: PropTypes.func.isRequired,
+    // onKeyUp: PropTypes.func.isRequired,
     handleSubmit: PropTypes.func,
     withOverlay: PropTypes.bool,
-    handleClear: PropTypes.func.isRequired,
+    // handleClear: PropTypes.func.isRequired,
   };
 
   state = {
@@ -42,8 +44,6 @@ export default class Search extends PureComponent {
 
     const hasValue = value ? value.length > 0 || submitted : 0;
 
-    const cx = classNames.bind(styles)
-
     const btnClasses = cx({
       default: 1,
       cursorPointer: 1,
@@ -56,11 +56,11 @@ export default class Search extends PureComponent {
     })
 
     return (
-      <div className={[styles.default, styles.justifyContentCenter, styles.height53PX].join(' ')}>
-        <div className={[styles.default, styles.backgroundWhite, styles.border1PX, styles.borderColorSubtle, styles.flexRow, styles.circle, styles.alignItemsCenter].join(' ')}>
-          <Icon id='search' width='16px' height='16px' className={[styles.default, styles.marginLeft15PX, styles.marginRight10PX].join(' ')} />
+      <div className={[_s.default, _s.justifyContentCenter, _s.height53PX].join(' ')}>
+        <div className={[_s.default, _s.backgroundWhite, _s.border1PX, _s.bordercolorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
+          <Icon id='search' width='16px' height='16px' className={[_s.default, _s.marginLeft15PX, _s.marginRight10PX].join(' ')} />
           <input
-            className={[styles.default, styles.text, styles.outlineFocusBrand, styles.lineHeight125, styles.displayBlock, styles.paddingVertical10PX, styles.paddingHorizontal10PX, styles.backgroundTransparent, styles.fontSize15PX, styles.flexGrow1].join(' ')}
+            className={[_s.default, _s.text, _s.outlineFocusBrand, _s.lineHeight125, _s.displayBlock, _s.paddingVertical10PX, _s.paddingHorizontal10PX, _s.backgroundTransparent, _s.fontSize15PX, _s.flexGrow1].join(' ')}
             type='text'
             placeholder='Search on Gab...'
             value={value}
@@ -70,7 +70,7 @@ export default class Search extends PureComponent {
             onBlur={this.handleBlur}
           />
           <div role='button' tabIndex='0' className={btnClasses} onClick={handleClear}>
-            <Icon id='close' width='10px' height='10px' className={styles.fillColorWhite} aria-label={placeholder} />
+            <Icon id='close' width='10px' height='10px' className={_s.fillColorWhite} aria-label={placeholder} />
           </div>
         </div>
 

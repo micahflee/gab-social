@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { me } from '../../initial_state'
-import Avatar from '../avatar/avatar'
+import Avatar from '../avatar'
 import DisplayName from '../display_name'
 import IconButton from '../icon_button'
 import Icon from '../icon'
@@ -107,33 +107,33 @@ class Account extends ImmutablePureComponent {
     }
 
     return (
-      <div className={[styles.default, styles.marginTop5PX, styles.marginBottom15PX].join(' ')}>
-        <div className={[styles.default, styles.flexRow].join(' ')}>
+      <div className={[_s.default, _s.marginTop5PX, _s.marginBottom15PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow].join(' ')}>
 
           <NavLink
-            className={[styles.default, styles.noUnderline].join(' ')}
+            className={[_s.default, _s.noUnderline].join(' ')}
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
           >
             <Avatar account={account} size={52} />
           </NavLink>
 
-          <div className={[styles.default, styles.alignItemsStart, styles.paddingHorizontal10PX].join(' ')}>
+          <div className={[_s.default, _s.alignItemsStart, _s.paddingHorizontal10PX].join(' ')}>
             <NavLink
-              className={[styles.default, styles.noUnderline].join(' ')}
+              className={[_s.default, _s.noUnderline].join(' ')}
               title={account.get('acct')}
               to={`/${account.get('acct')}`}
             >
               <DisplayName account={account} />
             </NavLink>
-            <button className={[styles.default, styles.marginTop5PX, styles.colorBrand, styles.text, styles.cursorPointer, styles.fontSize14PX, styles.circle, styles.border1PX, styles.borderColorBrand, styles.paddingHorizontal20PX, styles.paddingVertical5PX].join(' ')}>
+            <button className={[_s.default, _s.marginTop5PX, _s.colorBrand, _s.text, _s.cursorPointer, _s.fontSize14PX, _s.circle, _s.border1PX, _s.borderColorBrand, _s.paddingHorizontal20PX, _s.paddingVertical5PX].join(' ')}>
               {intl.formatMessage(messages.follow)}
             </button>
           </div>
 
-          <div className={[styles.default, styles.marginLeftAuto].join(' ')}>
-            <button className={[styles.default, styles.circle, styles.backgroundTransparent, styles.paddingVertical5PX, styles.paddingHorizontal5PX, styles.cursorPointer].join(' ')}>
-              <Icon className={styles.fillColorSubtle} id='close' width='8px' height='8px' />
+          <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+            <button className={[_s.default, _s.circle, _s.backgroundTransparent, _s.paddingVertical5PX, _s.paddingHorizontal5PX, _s.cursorPointer].join(' ')}>
+              <Icon className={_s.fillcolorSecondary} id='close' width='8px' height='8px' />
             </button>
           </div>
 

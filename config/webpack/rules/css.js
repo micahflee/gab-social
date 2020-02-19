@@ -4,14 +4,9 @@ const { settings, themes } = require('../configuration');
 
 let pathy = resolve(join(settings.source_path, themes.default));
 
-console.log("themes", themes);
-console.log("settings:", settings);
-console.log("pathy:", pathy);
-
 module.exports = {
   test: /\.s?css$/i,
   use: [
-    // 'style-loader',
     MiniCssExtractPlugin.loader,
     {
       loader: 'css-loader',

@@ -31,6 +31,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
+const cx = classNames.bind(_s)
+const currentYear = moment().format('YYYY')
+
 export default @connect(null, mapDispatchToProps)
 @injectIntl
 class LinkFooter extends PureComponent {
@@ -59,10 +62,6 @@ class LinkFooter extends PureComponent {
   render() {
     const { onOpenHotkeys, intl } = this.props
     const { hoveringItemIndex } = this.state
-
-    const cx = classNames.bind(styles)
-
-    const currentYear = moment().format('YYYY')
 
     const linkFooterItems = [
       {
@@ -109,8 +108,8 @@ class LinkFooter extends PureComponent {
     ]
 
     return (
-      <div className={[styles.default, styles.paddingHorizontal10PX].join(' ')}>
-        <nav aria-label='Footer' role='navigation' className={[styles.default, styles.flexWrap, styles.flexRow].join(' ')}>
+      <div className={[_s.default, _s.paddingHorizontal10PX].join(' ')}>
+        <nav aria-label='Footer' role='navigation' className={[_s.default, _s.flexWrap, _s.flexRow].join(' ')}>
           {
             linkFooterItems.map((linkFooterItem, i) => {
               if (linkFooterItem.requiresUser && !me) return null
@@ -122,9 +121,9 @@ class LinkFooter extends PureComponent {
                 paddingRight15PX: 1,
                 cursorPointer: 1,
                 backgroundTransparent: 1,
-                colorSubtle: i !== hoveringItemIndex,
+                colorSecondary: i !== hoveringItemIndex,
                 noUnderline: i !== hoveringItemIndex,
-                colorBlack: i === hoveringItemIndex,
+                colorPrimary: i === hoveringItemIndex,
                 underline: i === hoveringItemIndex,
               })
 
@@ -157,14 +156,14 @@ class LinkFooter extends PureComponent {
               )
             })
           }
-          <span className={[styles.default, styles.text, styles.fontSize13PX, styles.colorSubtle, styles.marginVertical5PX].join(' ')}>© {currentYear} Gab AI, Inc.</span>
+          <span className={[_s.default, _s.text, _s.fontSize13PX, _s.colorSecondary, _s.marginVertical5PX].join(' ')}>© {currentYear} Gab AI, Inc.</span>
         </nav>
 
-        <p className={[styles.default, styles.text, styles.fontSize13PX, styles.colorSubtle, styles.marginTop10PX].join(' ')}>
+        <p className={[_s.default, _s.text, _s.fontSize13PX, _s.colorSecondary, _s.marginTop10PX, _s.marginBottom15PX].join(' ')}>
           <FormattedMessage
             id='getting_started.open_source_notice'
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'
-            values={{ gitlab: <a href={source_url} className={[styles.inherit].join(' ')} rel='noopener' target='_blank'>{repository}</a> }}
+            values={{ gitlab: <a href={source_url} className={[_s.inherit].join(' ')} rel='noopener' target='_blank'>{repository}</a> }}
           />
         </p>
       </div>

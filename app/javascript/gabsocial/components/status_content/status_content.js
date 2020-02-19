@@ -15,6 +15,8 @@ const messages = defineMessages({
   readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
 })
 
+const cx = classNames.bind(_s)
+
 export default
 @injectIntl
 class StatusContent extends ImmutablePureComponent {
@@ -167,14 +169,12 @@ class StatusContent extends ImmutablePureComponent {
     //   'status__content--with-action': this.props.onClick && this.context.router,
     //   'status__content--with-spoiler': status.get('spoiler_text').length > 0,
     //   'status__content--collapsed': this.state.collapsed === true,
-    //   // styles.paddingHorizontal15PX, styles.marginBottom15PX
+    //   // _s.paddingHorizontal15PX, _s.marginBottom15PX
     // });
 
     if (isRtl(status.get('search_index'))) {
       directionStyle.direction = 'rtl';
     }
-
-    const cx = classNames.bind(styles)
 
     if (status.get('spoiler_text').length > 0) {
       let mentionsPlaceholder = '';
@@ -217,7 +217,7 @@ class StatusContent extends ImmutablePureComponent {
           <div
             ref={this.setRef}
             tabIndex='0'
-            className={[styles.statusContent].join(' ')}
+            className={[_s.statusContent].join(' ')}
             style={directionStyle}
             dangerouslySetInnerHTML={content}
             lang={status.get('language')}
@@ -227,7 +227,7 @@ class StatusContent extends ImmutablePureComponent {
           {
             this.state.collapsed &&
             <button
-              className={[styles.default, styles.displayFlex, styles.cursorPointer, styles.paddingVertical2PX, styles.text, styles.colorBlack, styles.fontWeightBold, styles.fontSize15PX].join(' ')}
+              className={[_s.default, _s.displayFlex, _s.cursorPointer, _s.paddingVertical2PX, _s.text, _s.colorPrimary, _s.fontWeightBold, _s.fontSize15PX].join(' ')}
               onClick={this.props.onClick}
             >
               {intl.formatMessage(messages.readMore)}
@@ -241,7 +241,7 @@ class StatusContent extends ImmutablePureComponent {
       <div
         tabIndex='0'
         ref={this.setRef}
-        className={[styles.paddingHorizontal15PX, styles.marginBottom15PX, styles.statusContent].join(' ')}
+        className={[_s.paddingHorizontal15PX, _s.marginBottom15PX, _s.statusContent].join(' ')}
         style={directionStyle}
         dangerouslySetInnerHTML={content}
         lang={status.get('language')}

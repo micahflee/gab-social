@@ -68,7 +68,7 @@ class UploadButton extends ImmutablePureComponent {
         icon='media'
       >
         <label>
-          <span className={styles.displayNone}>{intl.formatMessage(messages.upload)}</span>
+          <span className={_s.displayNone}>{intl.formatMessage(messages.upload)}</span>
           <input
             key={resetFileKey}
             ref={this.setRef}
@@ -76,7 +76,7 @@ class UploadButton extends ImmutablePureComponent {
             accept={acceptContentTypes.toArray().join(',')}
             onChange={this.handleChange}
             disabled={disabled}
-            className={styles.displayNone}
+            className={_s.displayNone}
             multiple
           />
         </label>

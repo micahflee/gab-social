@@ -31,7 +31,7 @@ class LoadMore extends PureComponent {
 
     return (
       <button
-        className={[styles.default].join(' ')}
+        className={[_s.default].join(' ')}
         disabled={disabled || !visible}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         onClick={this.handleClick}

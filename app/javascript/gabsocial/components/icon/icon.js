@@ -1,4 +1,6 @@
+import AddIcon from './svgs/add_icon'
 import AppsIcon from './svgs/apps_icon'
+import AngleRightIcon from './svgs/angle_right_icon'
 import BackIcon from './svgs/back_icon'
 import CalendarIcon from './svgs/calendar_icon'
 import ChatIcon from './svgs/chat_icon'
@@ -20,6 +22,7 @@ import RepostIcon from './svgs/repost_icon'
 import SearchIcon from './svgs/search_icon'
 import ShareIcon from './svgs/share_icon'
 import ShopIcon from './svgs/shop_icon'
+import SubtractIcon from './svgs/subtract_icon'
 import TrendsIcon from './svgs/trends_icon'
 import VerifiedIcon from './svgs/verified_icon'
 import WarningIcon from './svgs/warning_icon'
@@ -37,8 +40,12 @@ export default class Icon extends PureComponent {
     const { id, ...options } = this.props
 
     switch (id) {
+      case 'add':
+        return <AddIcon {...options} />
       case 'apps':
         return <AppsIcon {...options} />
+      case 'angle-right':
+        return <AngleRightIcon {...options} />
       case 'back':
         return <BackIcon {...options} />
       case 'calendar':
@@ -81,6 +88,8 @@ export default class Icon extends PureComponent {
         return <ShareIcon {...options} />
       case 'shop':
         return <ShopIcon {...options} />
+      case 'subtract':
+        return <SubtractIcon {...options} />
       case 'trends':
         return <TrendsIcon {...options} />
       case 'verified':

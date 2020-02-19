@@ -7,7 +7,6 @@ import List from './components/list';
 import Account from '../../components/account';
 import IconButton from '../../components/icon_button';
 import NewListForm from '../lists/components/new_list_form';
-import ColumnSubheading from '../../components/column_subheading/column_subheading';
 
 const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   if (!lists) {
@@ -78,12 +77,10 @@ class ListAdder extends ImmutablePureComponent {
 
             <br />
 
-            <ColumnSubheading text={intl.formatMessage(messages.add)} />
             <NewListForm />
 
             <br />
 
-            <ColumnSubheading text={intl.formatMessage(messages.subheading)} />
             <div className='list-adder__lists'>
               {listIds.map(ListId => <List key={ListId} listId={ListId} />)}
             </div>

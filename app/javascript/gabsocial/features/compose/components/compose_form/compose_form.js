@@ -225,7 +225,7 @@ class ComposeForm extends ImmutablePureComponent {
 
     return (
       <div
-        className={[styles.default, styles.flexGrow1].join(' ')}
+        className={[_s.default, _s.flexGrow1].join(' ')}
         ref={this.setForm}
         onClick={this.handleClick}
       >
@@ -287,8 +287,8 @@ class ComposeForm extends ImmutablePureComponent {
 
         {
           /* !condensed && */
-          <div className={[styles.default, styles.flexRow, styles.marginTop10PX].join(' ')}>
-            <div className={[styles.default, styles.flexRow, styles.marginRightAuto].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.marginTop10PX].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
               <UploadButton />
               {
                 !edit && <PollButton />
@@ -299,11 +299,12 @@ class ComposeForm extends ImmutablePureComponent {
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} />
             <Button
-              className={[styles.fontSize15PX, styles.paddingHorizontal15PX].join(' ')}
-              text={intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+              className={[_s.fontSize15PX, _s.paddingHorizontal15PX].join(' ')}
               onClick={this.handleSubmit}
               disabled={disabledButton}
-            />
+            >
+              {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+            </Button>
           </div>
         }
 

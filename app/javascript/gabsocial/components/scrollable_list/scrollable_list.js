@@ -19,7 +19,7 @@ export default class ScrollableList extends PureComponent {
     isLoading: PropTypes.bool,
     showLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
-    emptyMessage: PropTypes.node,
+    emptyMessage: PropTypes.string,
     children: PropTypes.node,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,

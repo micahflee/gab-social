@@ -1,6 +1,5 @@
 import { isMobile } from '../../utils/is_mobile';
 import { ColumnHeader } from '../column_header';
-import ColumnBackButton from '../column_back_button';
 
 export default class Column extends PureComponent {
 
@@ -26,8 +25,7 @@ export default class Column extends PureComponent {
     );
 
     return (
-      <div role='region' aria-labelledby={columnHeaderId} className={[styles.default].join(' ')}>
-        { backBtn && <ColumnBackButton slim={backBtn === 'slim'} />}
+      <div role='region' aria-labelledby={columnHeaderId} className={[_s.default].join(' ')}>
         {children}
       </div>
     );

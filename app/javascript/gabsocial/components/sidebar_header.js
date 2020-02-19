@@ -47,9 +47,11 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
+const cx = classNames.bind(_s)
+
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Header extends ImmutablePureComponent {
+class Sidebar extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -175,12 +177,10 @@ class Header extends ImmutablePureComponent {
       },
     ]
 
-    const cx = classNames.bind(styles)
-
     const titleClasses = cx({
       default: 1,
       text: 1,
-      colorSubtle: 1,
+      colorSecondary: 1,
       displayBlock: 1,
       fontSize13PX: 1,
       paddingVertical5PX: 1,
@@ -190,19 +190,19 @@ class Header extends ImmutablePureComponent {
     })
 
     return (
-      <header role='banner' className={[styles.default, styles.flexGrow1, styles.z3, styles.alignItemsEnd].join(' ')}>
-        <div className={[styles.default, styles.width250PX].join(' ')}>
-          <div className={[styles.default, styles.positionFixed, styles.top0, styles.height100PC].join(' ')}>
-            <div className={[styles.default, styles.height100PC, styles.width250PX, styles.paddingHorizontal15PX, styles.marginVertical10PX].join(' ')}>
-              <h1 className={[styles.default].join(' ')}>
-                <NavLink to='/' aria-label='Gab' className={[styles.default, styles.noSelect, styles.noUnderline, styles.height50PX, styles.justifyContentCenter, styles.cursorPointer, styles.paddingHorizontal10PX].join(' ')}>
+      <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
+        <div className={[_s.default, _s.width240PX].join(' ')}>
+          <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
+            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.paddingRight15PX, _s.marginVertical10PX].join(' ')}>
+              <h1 className={[_s.default].join(' ')}>
+                <NavLink to='/' aria-label='Gab' className={[_s.default, _s.noSelect, _s.noUnderline, _s.height50PX, _s.justifyContentCenter, _s.cursorPointer, _s.paddingHorizontal10PX].join(' ')}>
                   <GabLogo />
                 </NavLink>
               </h1>
               <div>
                 <HeaderMenuItem me image='http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139' title='@admin' to='/profile' />
               </div>
-              <nav aria-label='Primary' role='navigation' className={[styles.default, styles.width100PC, styles.marginBottom15PX].join(' ')}>
+              <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.marginBottom15PX].join(' ')}>
                 <span className={titleClasses}>Menu</span>
                 {
                   menuItems.map((menuItem, i) => (
@@ -222,7 +222,7 @@ class Header extends ImmutablePureComponent {
                   ))
                 }
               </nav>
-              <Button block className={[styles.paddingVertical15PX, styles.fontSize15PX, styles.fontWeightBold].join(' ')}>
+              <Button block className={[_s.paddingVertical15PX, _s.fontSize15PX, _s.fontWeightBold].join(' ')}>
                 Gab
               </Button>
             </div>
@@ -241,7 +241,7 @@ class HeaderMenuItem extends PureComponent {
     icon: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
-    me: PropTypes.boolean,
+    me: PropTypes.bool,
     count: PropTypes.number,
   }
 
@@ -261,8 +261,6 @@ class HeaderMenuItem extends PureComponent {
     const { to, active, icon, image, title, me, count } = this.props
     const { hovering } = this.state
 
-    const cx = classNames.bind(styles)
-
     const iconSize = '16px'
     const shouldShowActive = hovering || active
     const isNotifications = to === '/notifications'
@@ -277,7 +275,7 @@ class HeaderMenuItem extends PureComponent {
       alignItemsCenter: 1,
       radiusSmall: 1,
       // border1PX: shouldShowActive,
-      // borderColorSubtle: shouldShowActive,
+      // bordercolorSecondary: shouldShowActive,
       backgroundSubtle2: shouldShowActive,
     })
 
@@ -287,13 +285,13 @@ class HeaderMenuItem extends PureComponent {
       fontSize15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
-      colorBlack: shouldShowActive || me,
-      colorSubtle: !hovering && !active && !me,
+      colorPrimary: shouldShowActive || me,
+      colorSecondary: !hovering && !active && !me,
     })
 
     const iconClasses = cx({
       fillColorBlack: shouldShowActive,
-      fillColorSubtle: !hovering && !active,
+      fillcolorSecondary: !hovering && !active,
     })
 
     const countClasses = cx({
@@ -305,7 +303,7 @@ class HeaderMenuItem extends PureComponent {
       marginRight2PX: 1,
       lineHeight15: 1,
       marginLeft5PX: 1,
-      colorSubtle: !isNotifications,
+      colorSecondary: !isNotifications,
       colorWhite: isNotifications,
       backgroundColorBrand: isNotifications,
       radiusSmall: isNotifications,
@@ -316,21 +314,21 @@ class HeaderMenuItem extends PureComponent {
         to={to}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[styles.default, styles.noUnderline, styles.cursorPointer, styles.width100PC, styles.alignItemsStart, styles.flexGrow1].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart, _s.flexGrow1].join(' ')}
       >
         <div className={containerClasses}>
-          <div className={[styles.default]}>
+          <div className={[_s.default]}>
             { icon && <Icon id={icon} className={iconClasses} width={iconSize} height={iconSize} /> }
             { image &&
               <img
-                className={[styles.default, styles.circle].join(' ')}
+                className={[_s.default, _s.circle].join(' ')}
                 width={iconSize}
                 height={iconSize}
                 src={image}
               />
             }
           </div>
-          <div className={[styles.default, styles.flexNormal, styles.paddingHorizontal10PX, styles.textOverflowEllipsis, styles.overflowWrapBreakWord, styles.flexRow, styles.width100PC].join(' ')}>
+          <div className={[_s.default, _s.flexNormal, _s.paddingHorizontal10PX, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
             <span className={textClasses}>{title}</span>
           </div>
           { count > 0 &&

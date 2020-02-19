@@ -10,8 +10,8 @@ export default class Permalink extends PureComponent {
     className: PropTypes.string,
     href: PropTypes.string.isRequired,
     children: PropTypes.node,
-    blank: PropTypes.boolean,
-    button: PropTypes.boolean,
+    blank: PropTypes.bool,
+    button: PropTypes.bool,
   };
 
   handleClick = e => {

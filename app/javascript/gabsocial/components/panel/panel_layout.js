@@ -1,37 +1,62 @@
-import classNames from 'classnames/bind'
+import Heading from '../heading'
+import Button from '../button'
 
 export default class PanelLayout extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
     children: PropTypes.node,
-    hasBackground: PropTypes.boolean,
-    button: PropTypes.node,
+    buttonTitle: PropTypes.string,
+    buttonAction: PropTypes.func,
+    buttonTo: PropTypes.func,
+    noPadding: PropTypes.bool,
   }
 
   render() {
-    const { title, subtitle, button, hasBackground, children } = this.props
+    const { title, subtitle, buttonTitle, buttonAction, buttonTo, noPadding, children } = this.props
 
     return (
-      <aside className={[styles.default, styles.backgroundWhite, styles.overflowHidden, styles.radiusSmall, styles.marginBottom15PX, styles.borderColorSubtle, styles.border1PX].join(' ')}>
+      <aside className={[_s.default, _s.backgroundWhite, _s.overflowHidden, _s.radiusSmall, _s.marginBottom15PX, _s.bordercolorSecondary, _s.border1PX].join(' ')}>
         {
           (title || subtitle) &&
-          <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX, styles.borderColorSubtle, styles.borderBottom1PX].join(' ')}>
-            <div className={[styles.default, styles.flexRow, styles.alignItemsCenter].join(' ')}>
-              <h1 className={[styles.default, styles.text, styles.fontWeightBold, styles.colorBlack, styles.fontSize16PX].join(' ')}>{title}</h1>
+          <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX, _s.bordercolorSecondary, _s.borderBottom1PX].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+              <Heading size='h3'>
+                {title}
+              </Heading>
               {
-                !!button &&
-                <div className={[styles.default, styles.marginLeftAuto].join(' ')}>
-                  {button}
+                (!!buttonTitle && (!!buttonAction || !!buttonTo)) &&
+                <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+                  <Button
+                    text
+                    to={buttonTo}
+                    onClick={buttonAction}
+                    className={[_s.default, _s.cursorPointer, _s.fontWeightBold, _s.text, _s.colorBrand, _s.fontSize13PX, _s.noUnderline].join(' ')}
+                  >
+                    {buttonTitle}
+                  </Button>
                 </div>
               }
             </div>
-            {subtitle && <h2 className={[styles.default, styles.text, styles.colorSubtle, styles.fontSize13PX, styles.fontWeightBold, styles.marginTop5PX].join(' ')}>{subtitle}</h2>}
+            {
+              subtitle &&
+              <Heading size='h4'>
+                {subtitle}
+              </Heading>
+            }
           </div>
         }
-        <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX].join(' ')}>
-          {children}
-        </div>
+
+        {
+          !noPadding &&
+          <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+            {children}
+          </div>
+        }
+
+        {
+          noPadding && children
+        }
       </aside>
     )
   }

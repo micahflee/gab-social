@@ -1,8 +1,8 @@
 import {
-  TRENDS_FETCH_REQUEST,
-  TRENDS_FETCH_SUCCESS,
-  TRENDS_FETCH_FAIL,
-} from '../actions/trends';
+  HASHTAGS_FETCH_REQUEST,
+  HASHTAGS_FETCH_SUCCESS,
+  HASHTAGS_FETCH_FAIL,
+} from '../actions/hashtags';
 import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
 
 const initialState = ImmutableMap({
@@ -10,16 +10,16 @@ const initialState = ImmutableMap({
   isLoading: false,
 });
 
-export default function trendsReducer(state = initialState, action) {
+export default function hashtagsReducer(state = initialState, action) {
   switch(action.type) {
-    case TRENDS_FETCH_REQUEST:
+    case HASHTAGS_FETCH_REQUEST:
       return state.set('isLoading', true);
-    case TRENDS_FETCH_SUCCESS:
+    case HASHTAGS_FETCH_SUCCESS:
       return state.withMutations(map => {
         map.set('items', fromJS(action.tags.map((x => x))))
         map.set('isLoading', false);
       });
-    case TRENDS_FETCH_FAIL:
+    case HASHTAGS_FETCH_FAIL:
       return state.set('isLoading', false);
     default:
       return state;

@@ -1,32 +1,32 @@
 import ColumnHeader from '../column_header'
-import Header from '../header'
+import Sidebar from '../sidebar'
 
 export default class ProfileLayout extends PureComponent {
   static propTypes = {
     layout: PropTypes.object,
     title: PropTypes.string,
-    showBackBtn: PropTypes.boolean,
+    showBackBtn: PropTypes.bool,
   }
 
   render() {
     const { children } = this.props
 
     return (
-      <div className={[styles.default, styles.flexRow, styles.width100PC, styles.backgroundColorSubtle3].join(' ')}>
+      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundcolorSecondary3].join(' ')}>
 
-        <Header />
+        <Sidebar />
 
-        <main role='main' className={[styles.default, styles.flexShrink1, styles.flexGrow1, styles.borderColorSubtle2, styles.borderLeft1PX].join(' ')}>
+        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.bordercolorSecondary2, _s.borderLeft1PX].join(' ')}>
 
-          <div className={[styles.default, styles.height350PX, styles.width100PC].join(' ')}>
+          <div className={[_s.default, _s.height350PX, _s.width100PC].join(' ')}>
             <img
-              className={[styles.default, styles.height350PX, styles.width100PC, styles.objectFitCover].join(' ')}
+              className={[_s.default, _s.height350PX, _s.width100PC, _s.objectFitCover].join(' ')}
               src='https://gab.com/media/user/bz-5cf53d08403d4.jpeg'
             />
           </div>
 
-          <div className={[styles.default, styles.width1015PX, styles.flexRow, styles.justifyContentSpaceBetween, styles.paddingLeft15PX, styles.paddingVertical15PX].join(' ')}>
-            <div className={[styles.default, styles.z1].join(' ')}>
+          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
+            <div className={[_s.default, _s.z1].join(' ')}>
               {children}
             </div>
           </div>

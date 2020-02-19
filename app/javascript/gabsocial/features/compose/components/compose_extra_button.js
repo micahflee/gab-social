@@ -1,6 +1,8 @@
 import classNames from 'classnames/bind'
 import Icon from '../../../components/icon'
 
+const cx = classNames.bind(_s)
+
 export default class ComposeExtraButton extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
@@ -25,8 +27,6 @@ export default class ComposeExtraButton extends PureComponent {
     const { title, disabled, onClick, icon, children } = this.props
     const { hovering } = this.state
 
-    const cx = classNames.bind(styles)
-
     const btnClasses = cx({
       default: 1,
       circle: 1,
@@ -44,13 +44,13 @@ export default class ComposeExtraButton extends PureComponent {
       text: 1,
       lineHeight15: 1,
       fontSize12PX: 1,
-      fontWeight500: 1,
-      colorSubtle: 1,
+      fontWeightMedium: 1,
+      colorSecondary: 1,
       displayNone: !hovering,
     })
 
     return (
-      <div className={[styles.default, styles.marginRight10PX].join(' ')}>
+      <div className={[_s.default, _s.marginRight10PX].join(' ')}>
         <button
           className={btnClasses}
           title={title}
@@ -59,7 +59,7 @@ export default class ComposeExtraButton extends PureComponent {
           onMouseEnter={() => this.handleOnMouseEnter()}
           onMouseLeave={() => this.handleOnMouseLeave()}
         >
-          <Icon id={icon} width='18px' height='18px' className={styles.fillColorSubtle} />
+          <Icon id={icon} width='18px' height='18px' className={_s.fillcolorSecondary} />
           <span className={titleClasses}>
             {title}
           </span>

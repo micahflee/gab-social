@@ -17,7 +17,7 @@ export default class StatusList extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
     isPartial: PropTypes.bool,
     hasMore: PropTypes.bool,
-    emptyMessage: PropTypes.node,
+    emptyMessage: PropTypes.string,
     timelineId: PropTypes.string,
     queuedItemSize: PropTypes.number,
     onDequeueTimeline: PropTypes.func,

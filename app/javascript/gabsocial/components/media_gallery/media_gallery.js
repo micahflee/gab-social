@@ -15,6 +15,7 @@ const messages = defineMessages({
   hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
 });
 
+const cx = classNames.bind(_s)
 class Item extends ImmutablePureComponent {
 
   static propTypes = {
@@ -139,7 +140,7 @@ class Item extends ImmutablePureComponent {
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={[styles.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+        <div className={[_s.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
           <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url')} target='_blank' style={{ cursor: 'pointer' }}>
             <canvas width={32} height={32} ref={this.setCanvasRef} className='media-gallery__preview' />
           </a>
@@ -164,7 +165,7 @@ class Item extends ImmutablePureComponent {
 
       thumbnail = (
         <a
-          className={[styles.default, styles.overflowHidden, styles.height100PC, styles.width100PC, styles.cursorPointer].join(' ')}
+          className={[_s.default, _s.overflowHidden, _s.height100PC, _s.width100PC, _s.cursorPointer].join(' ')}
           href={attachment.get('remote_url') || originalUrl}
           onClick={this.handleClick}
           target='_blank'
@@ -173,7 +174,7 @@ class Item extends ImmutablePureComponent {
             src={previewUrl}
             srcSet={srcSet}
             sizes={sizes}
-            className={[styles.height100PC, styles.width100PC, styles.objectFitCover].join(' ')}
+            className={[_s.height100PC, _s.width100PC, _s.objectFitCover].join(' ')}
             alt={attachment.get('description')}
             title={attachment.get('description')}
             style={{ objectPosition: `${x}% ${y}%` }}
@@ -185,9 +186,9 @@ class Item extends ImmutablePureComponent {
       const autoPlay = !isIOS() && autoPlayGif !== false;
 
       thumbnail = (
-        <div className={[styles.default, styles.overflowHidden, styles.heigh100PC, styles.width100PC].join(' ')}>
+        <div className={[_s.default, _s.overflowHidden, _s.heigh100PC, _s.width100PC].join(' ')}>
           <video
-            className={[styles.default, styles.cursorPointer, styles.objectFitCover, styles.width100PC, styles.height100PC, styles.z1].join(' ')}
+            className={[_s.default, _s.cursorPointer, _s.objectFitCover, _s.width100PC, _s.height100PC, _s.z1].join(' ')}
             aria-label={attachment.get('description')}
             title={attachment.get('description')}
             role='application'
@@ -209,8 +210,8 @@ class Item extends ImmutablePureComponent {
     }
 
     return (
-      <div className={[styles.defeault, styles.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
-        <canvas width={0} height={0} ref={this.setCanvasRef} className={styles.displayNone} />
+      <div className={[_s.defeault, _s.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+        <canvas width={0} height={0} ref={this.setCanvasRef} className={_s.displayNone} />
         {visible && thumbnail}
       </div>
     );
@@ -512,12 +513,11 @@ class MediaGallery extends PureComponent {
       );
     }
 
-    const cx = classNames.bind(styles)
     const containerClasses = cx({
       default: 1,
       displayBlock: 1,
       overflowHidden: 1,
-      borderColorSubtle: size === 1,
+      bordercolorSecondary: size === 1,
       borderTop1PX: size === 1,
       borderBottom1PX: size === 1,
       paddingHorizontal5PX: size > 1,

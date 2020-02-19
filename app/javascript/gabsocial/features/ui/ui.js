@@ -30,6 +30,8 @@ import ProfilePage from '../../pages/profile_page'
 // import SearchPage from '../../pages/search_page';
 import HomePage from '../../pages/home_page'
 import NotificationsPage from '../../pages/notifications_page'
+import ListPage from '../../pages/list_page'
+import ListsPage from '../../pages/lists_page'
 // import GroupSidebarPanel from '../groups/sidebar_panel';
 
 import {
@@ -57,8 +59,8 @@ import {
   // Explore,
   // Groups,
   // GroupTimeline,
-  // ListTimeline,
-  // Lists,
+  ListTimeline,
+  Lists,
   // GroupMembers,
   // GroupRemovedAccounts,
   // GroupCreate,
@@ -192,11 +194,11 @@ class SwitchingColumnsArea extends PureComponent {
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
         <WrappedRoute path='/tags/:id' publicRoute component={HashtagTimeline} content={children} />
+*/}
+        <WrappedRoute path='/lists' page={ListsPage} component={Lists} content={children} />
+        <WrappedRoute path='/list/:id' page={ListPage} component={ListTimeline} content={children} />
 
-        <WrappedRoute path='/lists' layout={LAYOUT.DEFAULT} component={Lists} content={children} />
-        <WrappedRoute path='/list/:id' page={HomePage} component={ListTimeline} content={children} />
-    */}
-        <WrappedRoute path='/notifications' layout={LAYOUT.DEFAULT} page={NotificationsPage} component={Notifications} content={children} />
+        <WrappedRoute path='/notifications' page={NotificationsPage} component={Notifications} content={children} />
 {/*
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/people' exact page={SearchPage} component={Search} content={children} />

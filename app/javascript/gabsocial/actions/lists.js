@@ -81,13 +81,17 @@ export const fetchListFail = (id, error) => ({
 });
 
 export const fetchLists = () => (dispatch, getState) => {
-  if (!me) return;
-
-  dispatch(fetchListsRequest());
-
-  api(getState).get('/api/v1/lists')
-    .then(({ data }) => dispatch(fetchListsSuccess(data)))
-    .catch(err => dispatch(fetchListsFail(err)));
+  return new Promise((resolve, reject) => {
+    dispatch(fetchListsRequest());
+    if (!me) return reject()
+    api(getState).get('/api/v1/lists').then(({ data }) => {
+      dispatch(fetchListsSuccess(data))
+      return resolve()
+    }).catch((err) => {
+      dispatch(fetchListsFail(err))
+      return reject()
+    });
+  })
 };
 
 export const fetchListsRequest = () => ({

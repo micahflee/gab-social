@@ -124,7 +124,7 @@ export default class Card extends ImmutablePureComponent {
     return (
       <div
         ref={this.setRef}
-        className={[styles.default, styles.backgroundColorSubtle3, styles.positionAbsolute, styles.top0, styles.right0, styles.bottom0, styles.left0, styles.statusCardVideo].join(' ')}
+        className={[_s.default, _s.backgroundcolorSecondary3, _s.positionAbsolute, _s.top0, _s.right0, _s.bottom0, _s.left0, _s.statusCardVideo].join(' ')}
         dangerouslySetInnerHTML={content}
       />
     )
@@ -145,7 +145,7 @@ export default class Card extends ImmutablePureComponent {
     const title = interactive ?
       (
         <a
-          className={[styles.default, styles.displayFlex, styles.text, styles.noUnderline, styles.overflowWrapBreakWord, styles.colorBlack, styles.fontSize15PX, styles.fontWeight500].join(' ')}
+          className={[_s.default, _s.displayFlex, _s.text, _s.noUnderline, _s.overflowWrapBreakWord, _s.colorPrimary, _s.fontSize15PX, _s.fontWeightMedium].join(' ')}
           href={card.get('url')}
           title={card.get('title')}
           rel='noopener'
@@ -155,19 +155,19 @@ export default class Card extends ImmutablePureComponent {
         </a>
       )
       : (
-        <span className={[styles.default, styles.displayFlex, styles.text, styles.overflowWrapBreakWord, styles.colorBlack, styles.fontSize15PX, styles.fontWeight500].join(' ')}>
+        <span className={[_s.default, _s.displayFlex, _s.text, _s.overflowWrapBreakWord, _s.colorPrimary, _s.fontSize15PX, _s.fontWeightMedium].join(' ')}>
           {card.get('title')}
         </span>
       )
 
     const description = (
-      <div className={[styles.default, styles.flexNormal, styles.paddingHorizontal10PX, styles.paddingVertical10PX, styles.borderColorSubtle, styles.borderLeft1PX].join(' ')}>
+      <div className={[_s.default, _s.flexNormal, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.bordercolorSecondary, _s.borderLeft1PX].join(' ')}>
         {title}
-        <p className={[styles.default, styles.displayFlex, styles.text, styles.marginVertical5PX, styles.overflowWrapBreakWord, styles.colorSubtle, styles.fontSize13PX, styles.fontWeightNormal].join(' ')}>
+        <p className={[_s.default, _s.displayFlex, _s.text, _s.marginVertical5PX, _s.overflowWrapBreakWord, _s.colorSecondary, _s.fontSize13PX, _s.fontWeightNormal].join(' ')}>
           {trim(card.get('description') || '', maxDescription)}
         </p>
-        <span className={[styles.default, styles.marginTopAuto, styles.flexRow, styles.alignItemsCenter, styles.colorSubtle, styles.text, styles.displayFlex, styles.textOverflowEllipsis, styles.fontSize13PX].join(' ')}>
-          <Icon id='link' width='12px' height='12px' className={[styles.fillColorSubtle, styles.marginRight5PX].join(' ')} fixedWidth />
+        <span className={[_s.default, _s.marginTopAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
+          <Icon id='link' width='12px' height='12px' className={[_s.fillcolorSecondary, _s.marginRight5PX].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
@@ -175,9 +175,9 @@ export default class Card extends ImmutablePureComponent {
 
     let embed = ''
     let thumbnail = interactive ?
-      <img src={cardImg} className={[styles.default, styles.objectFitCover, styles.positionAbsolute, styles.width100PC, styles.height100PC, styles.top0, styles.right0, styles.bottom0, styles.left0].join(' ')} />
+      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.positionAbsolute, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
-      <img src={cardImg} className={[styles.default, styles.objectFitCover, styles.width400PX, styles.height260PX].join(' ')} />
+      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.width400PX, _s.height260PX].join(' ')} />
 
     if (interactive) {
       if (embedded) {
@@ -191,19 +191,19 @@ export default class Card extends ImmutablePureComponent {
       }
 
       return (
-        <div className={[styles.default, styles.width100PC, styles.paddingHorizontal10PX].join(' ')}>
-          <div className={[styles.default, styles.overflowHidden, styles.width100PC, styles.borderColorSubtle2, styles.border1PX, styles.radiusSmall].join(' ')}>
-            <div className={[styles.default, styles.width100PC].join(' ')}>
-              <div className={[styles.default, styles.width100PC, styles.paddingTop5625PC].join(' ')}>
+        <div className={[_s.default, _s.width100PC, _s.paddingHorizontal10PX].join(' ')}>
+          <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.bordercolorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+              <div className={[_s.default, _s.width100PC, _s.paddingTop5625PC].join(' ')}>
                 { !!embed && embed}
                 { !embed && thumbnail}
                 { !embed &&
-                  <div className={[styles.default, styles.positionAbsolute, styles.top0, styles.right0, styles.left0, styles.bottom0, styles.alignItemsCenter, styles.justifyContentCenter].join(' ')}>
+                  <div className={[_s.default, _s.positionAbsolute, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
                     <button
-                      className={[styles.default, styles.cursorPointer, styles.backgroundColorOpaque, styles.radiusSmall, styles.paddingVertical15PX, styles.paddingHorizontal15PX].join(' ')}
+                      className={[_s.default, _s.cursorPointer, _s.backgroundColorOpaque, _s.radiusSmall, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}
                       onClick={this.handleEmbedClick}
                     >
-                      <Icon id={iconVariant} className={[styles.fillColorWhite].join(' ')}/>
+                      <Icon id={iconVariant} className={[_s.fillColorWhite].join(' ')}/>
                     </button>
                   </div>
                 }
@@ -215,23 +215,23 @@ export default class Card extends ImmutablePureComponent {
       )
     } else if (cardImg) {
       embed = (
-        <div className={[styles.default].join(' ')}>
+        <div className={[_s.default].join(' ')}>
           {thumbnail}
         </div>
       )
     } else {
       embed = (
-        <div className={[styles.default, styles.paddingVertical15PX, styles.paddingHorizontal15PX, styles.width72PX, styles.alignItemsCenter, styles.justifyContentCenter].join(' ')}>
-          <Icon id='file-text' width='22px' height='22px' className={styles.fillColorSubtle} />
+        <div className={[_s.default, _s.paddingVertical15PX, _s.paddingHorizontal15PX, _s.width72PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          <Icon id='file-text' width='22px' height='22px' className={_s.fillcolorSecondary} />
         </div>
       )
     }
 
     return (
-      <div className={[styles.default, styles.width100PC, styles.paddingHorizontal10PX].join(' ')}>
+      <div className={[_s.default, _s.width100PC, _s.paddingHorizontal10PX].join(' ')}>
         <a
           href={card.get('url')}
-          className={[styles.default, styles.cursorPointer, styles.flexRow, styles.overflowHidden, styles.noUnderline, styles.width100PC, styles.borderColorSubtle2, styles.border1PX, styles.radiusSmall].join(' ')}
+          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bordercolorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
           rel='noopener'
           ref={this.setRef}
           >

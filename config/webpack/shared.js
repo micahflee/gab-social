@@ -77,7 +77,7 @@ module.exports = {
       PureComponent: ['react', 'PureComponent'],
       connect: ['react-redux', 'connect'],
       PropTypes: 'prop-types',
-      styles: '/Users/m3/Documents/dev/gab-social/app/javascript/styles/global.css',
+      _s: '/Users/m3/Documents/dev/gab-social/app/javascript/styles/global.css', // : todo :
     }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new webpack.NormalModuleReplacementPlugin(

@@ -6,11 +6,8 @@ import { expandListTimeline } from '../../actions/timelines';
 import { fetchList, deleteList } from '../../actions/lists';
 import { openModal } from '../../actions/modal';
 import StatusListContainer from '../../containers/status_list_container';
-import Column from '../../components/column';
 import ColumnIndicator from '../../components/column_indicator';
-import { HomeColumnHeader } from '../../components/column_header';
 import Button from '../../components/button';
-import ColumnHeaderSettingButton from '../../components/column_header_setting_button';
 
 const messages = defineMessages({
   deleteMessage: { id: 'confirmations.delete_list.message', defaultMessage: 'Are you sure you want to permanently delete this list?' },
@@ -19,7 +16,6 @@ const messages = defineMessages({
 
 const mapStateToProps = (state, props) => ({
   list: state.getIn(['lists', props.params.id]),
-  hasUnread: state.getIn(['timelines', `list:${props.params.id}`, 'unread']) > 0,
 });
 
 export default @connect(mapStateToProps)
@@ -33,7 +29,6 @@ class ListTimeline extends ImmutablePureComponent {
   static propTypes = {
     params: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    hasUnread: PropTypes.bool,
     list: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
     intl: PropTypes.object.isRequired,
   };
@@ -93,7 +88,7 @@ class ListTimeline extends ImmutablePureComponent {
   }
 
   render() {
-    const { hasUnread, list } = this.props;
+    const { list } = this.props;
     const { id } = this.props.params;
     const title = list ? list.get('title') : id;
 
@@ -116,38 +111,12 @@ class ListTimeline extends ImmutablePureComponent {
     );
 
     return (
-      <Column heading={title}>
-        <HomeColumnHeader activeItem='lists' activeSubItem={id} active={hasUnread}>
-          <div>
-            <ColumnHeaderSettingButton
-              onClick={this.handleEditClick}
-              icon='pencil'
-              title={<FormattedMessage id='lists.edit' defaultMessage='Edit list' />}
-            />
-
-            <ColumnHeaderSettingButton
-              onClick={this.handleDeleteClick}
-              icon='trash'
-              title={<FormattedMessage id='lists.delete' defaultMessage='Delete list' />}
-            />
-
-            <hr />
-
-            <ColumnHeaderSettingButton
-              to='/lists'
-              icon='arrow-right'
-              title={<FormattedMessage id='lists.view_all' defaultMessage='View all lists' />}
-            />
-          </div>
-        </HomeColumnHeader>
-
-        <StatusListContainer
-          scrollKey='list_timeline'
-          timelineId={`list:${id}`}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={emptyMessage}
-        />
-      </Column>
+      <StatusListContainer
+        scrollKey='list_timeline'
+        timelineId={`list:${id}`}
+        onLoadMore={this.handleLoadMore}
+        emptyMessage={emptyMessage}
+      />
     );
   }
 

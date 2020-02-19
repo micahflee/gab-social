@@ -2,7 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { NavLink } from 'react-router-dom';
-import AvatarOverlay from '../../../../components/avatar_overlay';
 import DisplayName from '../../../../components/display_name';
 import Icon from '../../../../components/icon';
 
@@ -13,12 +12,11 @@ export default class MovedNote extends ImmutablePureComponent {
   };
 
   static propTypes = {
-    from: ImmutablePropTypes.map.isRequired,
     to: ImmutablePropTypes.map.isRequired,
   };
 
   render () {
-    const { from, to } = this.props;
+    const { to } = this.props;
     const displayNameHtml = { __html: from.get('display_name_html') };
 
     return (
@@ -38,7 +36,7 @@ export default class MovedNote extends ImmutablePureComponent {
 
         <NavLink to={`/${this.props.to.get('acct')}`} className='moved-note__display-name'>
           <div className='moved-note__display-avatar'>
-            <AvatarOverlay account={to} friend={from} />
+            <Avatar account={to} />
           </div>
           <DisplayName account={to} />
         </NavLink>

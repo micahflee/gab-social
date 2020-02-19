@@ -10,7 +10,6 @@ import Card from '../../features/status/components/card';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
 import Avatar from '../avatar';
 import StatusQuote from '../status_quote';
-import AvatarOverlay from '../avatar_overlay';
 import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
 import StatusContent from '../status_content';
@@ -406,8 +405,6 @@ class Status extends ImmutablePureComponent {
 
     if (account === undefined || account === null) {
       statusAvatar = <Avatar account={status.get('account')} size={50} />;
-    } else {
-      statusAvatar = <AvatarOverlay account={status.get('account')} friend={account} />;
     }
 
     const handlers = this.props.muted
@@ -430,7 +427,7 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={[styles.default, styles.backgroundWhite, styles.radiusSmall, styles.marginBottom15PX, styles.border1PX, styles.borderColorSubtle].join(' ')}
+          className={[_s.default, _s.backgroundWhite, _s.radiusSmall, _s.marginBottom15PX, _s.border1PX, _s.bordercolorSecondary].join(' ')}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
@@ -448,37 +445,37 @@ class Status extends ImmutablePureComponent {
             data-id={status.get('id')}
           >
 
-            <div className={[styles.default, styles.paddingHorizontal15PX, styles.paddingVertical10PX].join(' ')}>
-              <div className={[styles.default, styles.flexRow, styles.marginTop5PX].join(' ')}>
-                <div className={[styles.default, styles.marginRight10PX].join(' ')}>{statusAvatar}</div>
-                <div className={[styles.default, styles.alignItemsStart, styles.flexGrow1, styles.marginTop5PX].join(' ')}>
-                  <div className={[styles.default, styles.flexRow, styles.width100PC, styles.alignItemsStart].join(' ')}>
+            <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+              <div className={[_s.default, _s.flexRow, _s.marginTop5PX].join(' ')}>
+                <div className={[_s.default, _s.marginRight10PX].join(' ')}>{statusAvatar}</div>
+                <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.marginTop5PX].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsStart].join(' ')}>
                     <NavLink
-                      className={[styles.default, styles.flexRow, styles.alignItemsStart, styles.noUnderline].join(' ')}
+                      className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
                       to={`/${status.getIn(['account', 'acct'])}`}
                       title={status.getIn(['account', 'acct'])}
                     >
                       <DisplayName account={status.get('account')} />
                     </NavLink>
-                    <Icon id='ellipsis' width='20px' height='20px' className={[styles.default, styles.fillColorSubtle, styles.marginLeftAuto].join(' ')} />
+                    <Icon id='ellipsis' width='20px' height='20px' className={[_s.default, _s.fillcolorSecondary, _s.marginLeftAuto].join(' ')} />
                   </div>
-                  <div className={[styles.default, styles.flexRow, styles.alignItemsCenter, styles.lineHeight15].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.lineHeight15].join(' ')}>
                     <NavLink
                       to={statusUrl}
-                      className={[styles.default, styles.text, styles.fontSize13PX, styles.noUnderline, styles.colorSubtle].join(' ')}
+                      className={[_s.default, _s.text, _s.fontSize13PX, _s.noUnderline, _s.colorSecondary].join(' ')}
                     >
                       <RelativeTimestamp timestamp={status.get('created_at')} />
                     </NavLink>
-                    <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
-                    <Icon id='globe' width='12px' height='12px' className={[styles.default, styles.displayInline, styles.marginLeft5PX, styles.fillColorSubtle].join(' ')}/>
+                    <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
+                    <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.marginLeft5PX, _s.fillcolorSecondary].join(' ')}/>
 
                     {
                       !!status.get('group') &&
                       <Fragment>
-                        <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
                         <NavLink
                           to={`/groups/${status.getIn(['group', 'id'])}`}
-                          className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorBlack].join(' ')}
+                          className={[_s.default, _s.text, _s.fontSize13PX, _s.marginLeft5PX, _s.colorPrimary].join(' ')}
                         >
                         {status.getIn(['group', 'title'])}
                         </NavLink>
@@ -488,10 +485,10 @@ class Status extends ImmutablePureComponent {
                     {
                       status.get('revised_at') !== null &&
                       <Fragment>
-                        <span className={[styles.default, styles.text, styles.fontSize12PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}>•</span>
+                        <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
                         <button
                           onClick={() => other.onShowRevisions(status)}
-                          className={[styles.default, styles.text, styles.fontSize13PX, styles.marginLeft5PX, styles.colorSubtle].join(' ')}
+                          className={[_s.default, _s.text, _s.fontSize13PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}
                         >
                           Edited
                         </button>
@@ -503,7 +500,7 @@ class Status extends ImmutablePureComponent {
               </div>
             </div>
 
-            <div className={styles.default}>
+            <div className={_s.default}>
               <StatusContent
                 status={status}
                 reblogContent={reblogContent}

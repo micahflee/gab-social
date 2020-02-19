@@ -48,6 +48,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+const cx = classNames.bind(_s)
+
 class StatusActionBarItem extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
@@ -60,13 +62,11 @@ class StatusActionBarItem extends PureComponent {
   render() {
     const { title, onClick, icon, active, disabled } = this.props
 
-    const cx = classNames.bind(styles)
-
     const btnClasses = cx({
       default: 1,
       text: 1,
       fontSize13PX: 1,
-      fontWeight500: 1,
+      fontWeightMedium: 1,
       cursorPointer: 1,
       displayFlex: 1,
       justifyContentCenter: 1,
@@ -79,18 +79,18 @@ class StatusActionBarItem extends PureComponent {
       outlineFocusBrand: 1,
       backgroundTransparent: 1,
       backgroundSubtle_onHover: 1,
-      colorSubtle: 1,
+      colorSecondary: 1,
     })
 
     return (
-      <div className={[styles.default, styles.flexGrow1, styles.paddingHorizontal10PX].join(' ')}>
+      <div className={[_s.default, _s.flexGrow1, _s.paddingHorizontal10PX].join(' ')}>
         <button
           className={btnClasses}
           onClick={onClick}
           active={active}
           disabled={disabled}
         >
-          <Icon width='16px' height='16px' id={icon} className={[styles.default, styles.marginRight10PX, styles.fillColorSubtle].join(' ')} />
+          <Icon width='16px' height='16px' id={icon} className={[_s.default, _s.marginRight10PX, _s.fillcolorSecondary].join(' ')} />
           {title}
         </button>
       </div>
@@ -317,20 +317,20 @@ class StatusActionBar extends ImmutablePureComponent {
       {
         title: formatMessage(messages.like),
         icon: 'like',
-        active: status.get('favourited'),
+        active: !!status.get('favourited'),
         onClick: this.handleFavouriteClick,
       },
       {
         title: formatMessage(messages.comment),
         icon: 'comment',
-        active: 0,
+        active: false,
         onClick: this.handleReplyClick,
       },
       {
         title: reblogTitle,
         icon: (status.get('visibility') === 'private') ? 'lock' : 'repost',
         disabled: !publicStatus,
-        active: status.get('reblogged'),
+        active: !!status.get('reblogged'),
         onClick: this.handleReblogClick,
       },
       {
@@ -343,8 +343,6 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const hasInteractions = favoriteCount > 0 || replyCount > 0 || reblogCount > 0
     const shouldCondense = (!!status.get('card') || status.get('media_attachments').size > 0) && !hasInteractions
-
-    const cx = classNames.bind(styles)
 
     const containerClasses = cx({
       default: 1,
@@ -359,14 +357,14 @@ class StatusActionBar extends ImmutablePureComponent {
       flexRow: 1,
       width100PC: 1,
       borderTop1PX: !shouldCondense,
-      borderColorSubtle: !shouldCondense,
+      bordercolorSecondary: !shouldCondense,
       marginTop5PX: hasInteractions,
     })
 
     const interactionBtnClasses = cx({
       default: 1,
       text: 1,
-      colorSubtle: 1,
+      colorSecondary: 1,
       cursorPointer: 1,
       fontSize15PX: 1,
       fontWeightNormal: 1,
@@ -378,7 +376,7 @@ class StatusActionBar extends ImmutablePureComponent {
       <div className={containerClasses}>
         {
           hasInteractions &&
-          <div className={[styles.default, styles.flexRow, styles.paddingHorizontal5PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.paddingHorizontal5PX].join(' ')}>
             { favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
                 {favoriteCount}
@@ -400,7 +398,7 @@ class StatusActionBar extends ImmutablePureComponent {
           </div>
         }
         <div className={innerContainerClasses}>
-          <div className={[styles.default, styles.flexRow, styles.paddingVertical2PX, styles.width100PC].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.paddingVertical2PX, _s.width100PC].join(' ')}>
             {
               items.map((item, i) => (
                 <StatusActionBarItem key={`status-action-bar-item-${i}`} {...item} />

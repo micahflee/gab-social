@@ -1,3 +1,5 @@
+import Text from './text'
+
 export default class ProgressBar extends PureComponent {
   static propTypes = {
     progress: PropTypes.number,
@@ -10,11 +12,16 @@ export default class ProgressBar extends PureComponent {
     const style = {
       width: `${completed}%`,
     }
+    const title = `${completed}% covered this month`
 
     return (
-      <a href='https://shop.dissenter.com/category/donations' className={[styles.default, styles.backgroundPanel, styles.noUnderline, styles.circle, styles.overflowHidden, styles.height22PX, styles.cursorPointer].join(' ')}>
-        <div className={[styles.default, styles.backgroundColorBrandDark, styles.circle, styles.height22PX].join(' ')} style={style} />
-        <span className={[styles.default, styles.text, styles.width100PC, styles.textAlignCenter, styles.colorWhite, styles.fontSize13PX, styles.positionAbsolute, styles.fontWeightBold, styles.displayFlex, styles.height100PC, styles.justifyContentCenter].join(' ')}>{completed}% covered this month</span>
+      <a href='https://shop.dissenter.com/category/donations' className={[_s.default, _s.backgroundPanel, _s.noUnderline, _s.circle, _s.overflowHidden, _s.height22PX, _s.cursorPointer].join(' ')}>
+        <div className={[_s.default, _s.backgroundColorBrandDark, _s.circle, _s.height22PX].join(' ')} style={style} />
+        <div className={[_s.default, _s.positionAbsolute,  _s.width100PC, _s.height22PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          <Text size='small' weight='bold' color='white'>
+            {title}
+          </Text>
+        </div>
       </a>
     )
   }

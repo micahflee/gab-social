@@ -28,11 +28,11 @@ class ColumnIndicator extends PureComponent {
     const title = type !== 'error' ? intl.formatMessage(messages[type]) : message
 
     return (
-      <div className={[styles.default, styles.width100PC, styles.justifyContentCenter, styles.alignItemsCenter, styles.paddingVertical15PX].join(' ')}>
+      <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.paddingVertical15PX].join(' ')}>
         <Icon id={type} width='52px' height='52px' />
         {
           type !== 'loading' &&
-          <span className={[styles.default, styles.marginTop10PX, styles.text, styles.displayFlex, styles.colorBrand, styles.fontWeightNormal, styles.fontSize14PX].join(' ')}>
+          <span className={[_s.default, _s.marginTop10PX, _s.text, _s.displayFlex, _s.colorBrand, _s.fontWeightNormal, _s.fontSize14PX].join(' ')}>
             {title}
           </span>
         }

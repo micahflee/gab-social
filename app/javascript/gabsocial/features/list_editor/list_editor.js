@@ -5,7 +5,6 @@ import { setupListEditor, resetListEditor } from '../../actions/lists';
 import Account from './components/account';
 import ListEditorSearch from './components/list_editor_search';
 import EditListForm from './components/edit_list_form/edit_list_form';
-import ColumnSubheading from '../../components/column_subheading';
 import IconButton from '../../components/icon_button';
 
 const mapStateToProps = state => ({
@@ -66,14 +65,12 @@ class ListEditor extends ImmutablePureComponent {
         </div>
         <div className='compose-modal__content'>
           <div className='list-editor'>
-            <ColumnSubheading text={intl.formatMessage(messages.changeTitle)} />
             <EditListForm />
             <br />
 
             {
               accountIds.size > 0 &&
               <div>
-                <ColumnSubheading text={intl.formatMessage(messages.removeFromList)} />
                 <div className='list-editor__accounts'>
                   {accountIds.map(accountId => <Account key={accountId} accountId={accountId} added />)}
                 </div>
@@ -81,7 +78,6 @@ class ListEditor extends ImmutablePureComponent {
             }
 
             <br />
-            <ColumnSubheading text={intl.formatMessage(messages.addToList)} />
             <ListEditorSearch />
             <div className='list-editor__accounts'>
               {searchAccountIds.map(accountId => <Account key={accountId} accountId={accountId} />)}

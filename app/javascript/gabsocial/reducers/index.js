@@ -31,7 +31,7 @@ import conversations from './conversations';
 import suggestions from './suggestions';
 import polls from './polls';
 import identity_proofs from './identity_proofs';
-import trends from './trends';
+import hashtags from './hashtags';
 import groups from './groups';
 import group_relationships from './group_relationships';
 import group_lists from './group_lists';
@@ -72,7 +72,7 @@ const reducers = {
   conversations,
   suggestions,
   polls,
-  trends,
+  hashtags,
   groups,
   group_relationships,
   group_lists,

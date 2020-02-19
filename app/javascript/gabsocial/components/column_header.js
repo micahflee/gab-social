@@ -19,6 +19,8 @@ class ColumnHeader extends PureComponent {
     icon: PropTypes.string,
     active: PropTypes.bool,
     children: PropTypes.node,
+    showBackBtn: PropTypes.bool,
+    actions: PropTypes.array,
   }
 
   state = {
@@ -45,24 +47,38 @@ class ColumnHeader extends PureComponent {
   }
 
   render () {
-    const { title, icon, active, children, intl: { formatMessage } } = this.props
+    const { title, showBackBtn, icon, active, children, actions, intl: { formatMessage } } = this.props
     const { collapsed } = this.state
 
     return (
-      <div className={[styles.default, styles.height100PC, styles.flexRow].join(' ')}>
-        { /* <button className={[styles.default, styles.cursorPointer, styles.backgroundTransparent, styles.alignItemsCenter, styles.marginRight10PX, styles.justifyContentCenter].join(' ')}>
-          <Icon className={[styles.marginRight5PX, styles.fillColorBrand].join(' ')} id='back' width='24px' height='24px' />
-        </button> */ }
-        <h1 role='heading' className={[styles.default, styles.height100PC, styles.justifyContentCenter].join(' ')}>
-          <span className={[styles.default, styles.text, styles.fontSize24PX, styles.fontWeight500, styles.colorBlack].join(' ')}>
+      <div className={[_s.default, _s.height100PC, _s.flexRow].join(' ')}>
+        {
+          showBackBtn &&
+          <button className={[_s.default, _s.cursorPointer, _s.backgroundTransparent, _s.alignItemsCenter, _s.marginRight10PX, _s.justifyContentCenter].join(' ')}>
+            <Icon className={[_s.marginRight5PX, _s.fillColorBrand].join(' ')} id='back' width='20px' height='20px' />
+          </button>
+        }
+        <h1 role='heading' className={[_s.default, _s.height100PC, _s.justifyContentCenter].join(' ')}>
+          <span className={[_s.default, _s.text, _s.fontSize24PX, _s.fontWeightMedium, _s.colorPrimary].join(' ')}>
             {title}
           </span>
         </h1>
-        <div className={[styles.default, styles.backgroundTransparent, styles.flexRow, styles.alignItemsCenter, styles.justifyContentCenter, styles.marginLeftAuto].join(' ')}>
-          <button className={[styles.default, styles.marginLeft5PX, styles.cursorPointer, styles.backgroundSubtle2, styles.paddingHorizontal10PX, styles.paddingVertical5PX, styles.radiusSmall].join(' ')}>
-            <Icon className={styles.fillColorSubtle} id='ellipsis' width='24px' height='24px' />
-          </button>
-        </div>
+        {
+          !!actions &&
+          <div className={[_s.default, _s.backgroundTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.marginLeftAuto].join(' ')}>
+            {
+              actions.map((action, i) => (
+                <button
+                  onClick={() => action.onClick()}
+                  key={`column-header-action-btn-${i}`}
+                  className={[_s.default, _s.marginLeft5PX, _s.cursorPointer, _s.backgroundSubtle2, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.radiusSmall].join(' ')}
+                >
+                  <Icon className={_s.fillcolorSecondary} id={action.icon} width='20px' height='20px' />
+                </button>
+              ))
+            }
+          </div>
+        }
       </div>
     )
 
