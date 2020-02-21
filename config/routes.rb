@@ -5,6 +5,7 @@ require 'sidekiq-scheduler/web'
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
+username_regex = /([^\/]*)/
 html_only = lambda { |req| req.format.nil? || req.format.html? }
 
 Rails.application.routes.draw do
@@ -43,10 +44,10 @@ Rails.application.routes.draw do
     confirmations:      'auth/confirmations',
   }
 
-  get '/users/:username', to: redirect('/%{username}'), constraints: html_only
-  get '/users/:username/followers', to: redirect('/%{username}/followers'), constraints: html_only
-  get '/users/:username/following', to: redirect('/%{username}/following'), constraints: html_only
-  get '/users/:username/statuses/:id', to: redirect('/%{username}/posts/%{id}'), constraints: html_only
+  get '/users/:username', to: redirect('/%{username}'), constraints: html_only, username: username_regex
+  get '/users/:username/followers', to: redirect('/%{username}/followers'), constraints: html_only, username: username_regex
+  get '/users/:username/following', to: redirect('/%{username}/following'), constraints: html_only, username: username_regex
+  get '/users/:username/statuses/:id', to: redirect('/%{username}/posts/%{id}'), constraints: html_only, username: username_regex
 
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
@@ -341,7 +342,7 @@ Rails.application.routes.draw do
 
       get '/search', to: 'search#index', as: :search
 
-      get '/account_by_username/:username', to: 'account_by_username#show', username: /(.*)/
+      get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
 
       resources :follows,      only: [:create]
       resources :media,        only: [:create, :update]
@@ -459,13 +460,13 @@ Rails.application.routes.draw do
   get '/about/sales',        to: 'about#sales'
 
   get '/tags/:tag', to: 'react#react'
-  get '/:username', to: 'accounts#show', as: :short_account
-  get '/:username/with_replies', to: 'accounts#show', as: :short_account_with_replies
-  get '/:username/media', to: 'accounts#show', as: :short_account_media
-  get '/:username/tagged/:tag', to: 'accounts#show', as: :short_account_tag
-  get '/:username/posts/:statusId/reblogs', to: 'statuses#show'
-  get '/:account_username/posts/:id', to: 'statuses#show', as: :short_account_status
-  get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
+  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account
+  get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
+  get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
+  get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
+  get '/:username/posts/:statusId/reblogs', to: 'statuses#show', username: username_regex
+  get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
+  get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
 
   get '/(*any)', to: 'react#react', as: :web
   root 'react#react'
