@@ -4,6 +4,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { shortNumberFormat } from '../utils/numbers'
 import Text from './text'
+import Button from './button'
 
 export default class HashtagItem extends ImmutablePureComponent {
 
@@ -29,15 +30,29 @@ export default class HashtagItem extends ImmutablePureComponent {
 
     return (
       <NavLink
-        to='/test'
+        to='/tags/test'
         className={[_s.default, _s.noUnderline, _s.backgroundSubtle_onHover, _s.paddingHorizontal15PX, _s.paddingVertical5PX].join(' ')}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        <Text color='brand' size='medium' weight='bold' className={_s.paddingVertical2PX}>
-          #randomhashtag
-        </Text>
-        <Text color='secondary' size='small' underline={hovering} className={_s.paddingVertical2PX}>
+        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+          <div>
+            <Text color='brand' size='medium' weight='bold' className={[_s.paddingVertical2PX, _s.lineHeight15].join(' ')}>
+              #randomhashtag
+            </Text>
+          </div>
+          <Button
+            text
+            backgroundColor='none'
+            color='none'
+            icon='caret-down'
+            iconWidth='8px'
+            iconHeight='8px'
+            iconClassName={_s.fillcolorSecondary}
+            className={_s.marginLeftAuto}
+          />
+        </div>
+        <Text color='secondary' size='small' className={_s.paddingVertical2PX}>
           10,240 Gabs
         </Text>
       </NavLink>

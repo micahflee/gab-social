@@ -203,7 +203,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             <div className={[_s.default, _s.marginLeft5PX].join(' ')}>
               <Textarea
                 inputRef={this.setTextbox}
-                className={[_s.default, _s.backgroundWhite, _s.lineHeight125, _s.resizeNone, _s.paddingVertical15PX, _s.outlineFocusBrand, _s.fontSize16PX, _s.text, _s.displayBlock].join(' ')}
+                className={[_s.default, _s.backgroundColorPrimary, _s.lineHeight125, _s.resizeNone, _s.paddingVertical15PX, _s.outlineFocusBrand, _s.fontSize16PX, _s.text, _s.displayBlock].join(' ')}
                 disabled={disabled}
                 placeholder={placeholder}
                 autoFocus={autoFocus}

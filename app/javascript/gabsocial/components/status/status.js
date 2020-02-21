@@ -16,6 +16,7 @@ import StatusContent from '../status_content';
 import StatusActionBar from '../status_action_bar';
 import Icon from '../icon';
 import Poll from '../poll';
+import StatusHeader from '../status_header'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
@@ -403,10 +404,6 @@ class Status extends ImmutablePureComponent {
       );
     }
 
-    if (account === undefined || account === null) {
-      statusAvatar = <Avatar account={status.get('account')} size={50} />;
-    }
-
     const handlers = this.props.muted
       ? {}
       : {
@@ -427,7 +424,7 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={[_s.default, _s.backgroundWhite, _s.radiusSmall, _s.marginBottom15PX, _s.border1PX, _s.bordercolorSecondary].join(' ')}
+          className={[_s.default, _s.backgroundColorPrimary, _s.radiusSmall, _s.marginBottom15PX, _s.border1PX, _s.borderColorSecondary].join(' ')}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
@@ -445,60 +442,7 @@ class Status extends ImmutablePureComponent {
             data-id={status.get('id')}
           >
 
-            <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
-              <div className={[_s.default, _s.flexRow, _s.marginTop5PX].join(' ')}>
-                <div className={[_s.default, _s.marginRight10PX].join(' ')}>{statusAvatar}</div>
-                <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.marginTop5PX].join(' ')}>
-                  <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsStart].join(' ')}>
-                    <NavLink
-                      className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
-                      to={`/${status.getIn(['account', 'acct'])}`}
-                      title={status.getIn(['account', 'acct'])}
-                    >
-                      <DisplayName account={status.get('account')} />
-                    </NavLink>
-                    <Icon id='ellipsis' width='20px' height='20px' className={[_s.default, _s.fillcolorSecondary, _s.marginLeftAuto].join(' ')} />
-                  </div>
-                  <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.lineHeight15].join(' ')}>
-                    <NavLink
-                      to={statusUrl}
-                      className={[_s.default, _s.text, _s.fontSize13PX, _s.noUnderline, _s.colorSecondary].join(' ')}
-                    >
-                      <RelativeTimestamp timestamp={status.get('created_at')} />
-                    </NavLink>
-                    <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
-                    <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.marginLeft5PX, _s.fillcolorSecondary].join(' ')}/>
-
-                    {
-                      !!status.get('group') &&
-                      <Fragment>
-                        <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
-                        <NavLink
-                          to={`/groups/${status.getIn(['group', 'id'])}`}
-                          className={[_s.default, _s.text, _s.fontSize13PX, _s.marginLeft5PX, _s.colorPrimary].join(' ')}
-                        >
-                        {status.getIn(['group', 'title'])}
-                        </NavLink>
-                      </Fragment>
-                    }
-
-                    {
-                      status.get('revised_at') !== null &&
-                      <Fragment>
-                        <span className={[_s.default, _s.text, _s.fontSize12PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}>•</span>
-                        <button
-                          onClick={() => other.onShowRevisions(status)}
-                          className={[_s.default, _s.text, _s.fontSize13PX, _s.marginLeft5PX, _s.colorSecondary].join(' ')}
-                        >
-                          Edited
-                        </button>
-                      </Fragment>
-                    }
-
-                  </div>
-                </div>
-              </div>
-            </div>
+            <StatusHeader status={status} />
 
             <div className={_s.default}>
               <StatusContent

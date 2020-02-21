@@ -2,11 +2,12 @@ import { injectIntl, defineMessages } from 'react-intl'
 // import { fetchTrends } from '../../actions/trends'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import TrendingItem from '../../components/trending_item'
+import TrendingItem from '../trends_panel_item'
 import PanelLayout from './panel_layout'
 
 const messages = defineMessages({
   title: { id:'trends.title', defaultMessage: 'Trending right now' },
+  show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
 })
 
 // const mapStateToProps = state => ({
@@ -43,12 +44,16 @@ class TrendsPanel extends ImmutablePureComponent {
     // }
 
     return (
-      <PanelLayout title={intl.formatMessage(messages.title)}>
+      <PanelLayout
+        noPadding
+        title={intl.formatMessage(messages.title)}
+        footerButtonTitle={intl.formatMessage(messages.show_all)}
+        footerButtonTo='/explore'
+      >
         <div className={_s.default}>
           { /* trends && trends.map(hashtag => (
             <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />
           )) */ }
-          <TrendingItem />
           <TrendingItem />
           <TrendingItem />
           <TrendingItem />

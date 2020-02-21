@@ -16,7 +16,7 @@ export default class ProfileLayout extends PureComponent {
 
         <Sidebar />
 
-        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.bordercolorSecondary2, _s.borderLeft1PX].join(' ')}>
+        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
           <div className={[_s.default, _s.height350PX, _s.width100PC].join(' ')}>
             <img

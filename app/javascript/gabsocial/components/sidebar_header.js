@@ -275,7 +275,7 @@ class HeaderMenuItem extends PureComponent {
       alignItemsCenter: 1,
       radiusSmall: 1,
       // border1PX: shouldShowActive,
-      // bordercolorSecondary: shouldShowActive,
+      // borderColorSecondary: shouldShowActive,
       backgroundSubtle2: shouldShowActive,
     })
 

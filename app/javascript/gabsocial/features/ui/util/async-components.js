@@ -50,8 +50,8 @@ export function Groups () {
   return import(/* webpackChunkName: "features/groups/index" */'../../groups/index');
 }
 
-export function Lists () {
-  return import(/* webpackChunkName: "features/lists" */'../../lists');
+export function ListsDirectory () {
+  return import(/* webpackChunkName: "features/lists_directory" */'../../lists_directory');
 }
 
 export function Status () {

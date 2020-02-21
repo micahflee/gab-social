@@ -4,10 +4,13 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import { shortNumberFormat } from '../utils/numbers'
+import Text from './text'
+import Button from './button'
+import Image from './image'
 
 const cx = classNames.bind(_s)
 
-export default class TrendingItem extends ImmutablePureComponent {
+export default class TrendingItemCard extends ImmutablePureComponent {
 
   static propTypes = {
     trend: ImmutablePropTypes.map.isRequired,
@@ -39,16 +42,24 @@ export default class TrendingItem extends ImmutablePureComponent {
       underline: hovering,
     })
 
+
+    // URL with title, description
+
+    // URL with video
+
+    // URL with title, description, image
     return (
-      <NavLink
-        to='/test'
-        className={[_s.default, _s.noUnderline, _s.marginBottom10PX].join(' ')}
-        onMouseEnter={() => this.handleOnMouseEnter()}
-        onMouseLeave={() => this.handleOnMouseLeave()}
-      >
-        <span className={[_s.default, _s.text, _s.displayFlex, _s.colorBrand, _s.fontSize15PX, _s.fontWeightBold, _s.lineHeight15].join(' ')}>#randomhashtag</span>
-        <span className={subtitleClasses}>10,240 Gabs</span>
-      </NavLink>
+      <div className={[_s.default, _s.flexRow, _s.overflowHidden, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall, _s.backgroundSubtle_onHover].join(' ')}>
+        <div className={[_s.default, _s.flexNormal, _s.paddingVertical10PX, _s.paddingHorizontal10PX].join(' ')}>
+          <Text color='secondary'  className={_s.lineHeight15}>
+            NYPost
+          </Text>
+          <Text size='medium' color='primary'>
+            The best flower subscription services: BloomsyBox, Bouqs...
+          </Text>
+        </div>
+        <Image width='92px' height='92px' />
+      </div>
     )
   }
 

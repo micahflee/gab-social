@@ -517,7 +517,7 @@ class MediaGallery extends PureComponent {
       default: 1,
       displayBlock: 1,
       overflowHidden: 1,
-      bordercolorSecondary: size === 1,
+      borderColorSecondary: size === 1,
       borderTop1PX: size === 1,
       borderBottom1PX: size === 1,
       paddingHorizontal5PX: size > 1,

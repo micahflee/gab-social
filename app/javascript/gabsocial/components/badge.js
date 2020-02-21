@@ -3,7 +3,7 @@ import Text from './text'
 export default class Badge extends PureComponent {
   static propTypes = {
     children: PropTypes.string,
-    popover: PropTypes.string,
+    description: PropTypes.string,
   }
 
   state = {
@@ -19,15 +19,17 @@ export default class Badge extends PureComponent {
   }
 
   render() {
-    const { children, popover } = this.props
+    const { children, description } = this.props
     const { hovering } = this.state
 
     return (
-      <div>
-        <Text color='secondary' size='small' className={_s.marginVertical5PX}>
-          {children}
-        </Text>
-      </div>
+      <Text
+        color='white'
+        size='extraSmall'
+        className={[_s.backgroundColorBrand, _s.paddingHorizontal5PX, _s.lineHeight125, _s.radiusSmall].join(' ')}
+      >
+        {children}
+      </Text>
     )
   }
 }

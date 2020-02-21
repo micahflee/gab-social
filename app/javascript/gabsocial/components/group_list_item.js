@@ -45,7 +45,7 @@ class GroupListItem extends ImmutablePureComponent {
     if (!relationships) return null
 
     const unreadCount = relationships.get('unread_count')
-    
+
     const subtitle = unreadCount > 0 ? (
       <Fragment>
         {shortNumberFormat(unreadCount)}
@@ -57,7 +57,7 @@ class GroupListItem extends ImmutablePureComponent {
     return (
       <NavLink
         to={`/groups/${group.get('id')}`}
-        className={[_s.default, _s.noUnderline, _s.marginTop5PX, _s.overflowHidden, _s.radiusSmall, _s.marginBottom10PX, _s.border1PX, _s.bordercolorSecondary, _s.backgroundSubtle_onHover].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.marginTop5PX, _s.overflowHidden, _s.radiusSmall, _s.marginBottom10PX, _s.border1PX, _s.borderColorSecondary, _s.backgroundSubtle_onHover].join(' ')}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >

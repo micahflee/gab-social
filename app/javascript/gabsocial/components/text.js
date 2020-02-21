@@ -8,6 +8,7 @@ const COLORS = {
   brand: 'brand',
   error: 'error',
   white: 'white',
+  inherit: 'inherit',
 }
 
 const SIZES = {
@@ -26,6 +27,11 @@ const WEIGHTS = {
   extraBold: 'extraBold',
 }
 
+const ALIGNMENTS = {
+  center: 'center',
+  left: 'left',
+}
+
 export default class Text extends PureComponent {
   static propTypes = {
     tagName: PropTypes.string,
@@ -34,6 +40,7 @@ export default class Text extends PureComponent {
     color: PropTypes.oneOf(Object.keys(COLORS)),
     size: PropTypes.oneOf(Object.keys(SIZES)),
     weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
+    align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
     underline: PropTypes.bool,
   }
 
@@ -45,7 +52,16 @@ export default class Text extends PureComponent {
   }
 
   render() {
-    const { tagName, className, children, color, size, weight, underline } = this.props
+    const {
+      tagName,
+      className,
+      children,
+      color,
+      size,
+      weight,
+      underline,
+      align
+    } = this.props
 
     const classes = cx(className, {
       default: 1,
@@ -55,15 +71,21 @@ export default class Text extends PureComponent {
       colorSecondary: color === COLORS.secondary,
       colorBrand: color === COLORS.brand,
       colorWhite: color === COLORS.white,
+      inherit: color === COLORS.inherit,
 
       fontSize19PX: size === SIZES.large,
       fontSize15PX: size === SIZES.medium,
       fontSize14PX: size === SIZES.normal,
       fontSize13PX: size === SIZES.small,
+      fontSize12PX: size === SIZES.extraSmall,
 
       fontWeightNormal: weight === WEIGHTS.normal,
       fontWeightMedium: weight === WEIGHTS.medium,
       fontWeightBold: weight === WEIGHTS.bold,
+      fontWeightExtraBold: weight === WEIGHTS.extraBold,
+
+      textAlignLeft: align === ALIGNMENTS.left,
+      textAlignCenter: align === ALIGNMENTS.center,
 
       underline: underline,
     })

@@ -95,14 +95,15 @@ body {
 
 .whiteSpaceNoWrap { white-space: nowrap; }
 
-.outlineFocusBrand:focus {outline: 2px solid #21cf7a; }
+.outlineNone { outline: none; }
+.outlineFocusBrand:focus { outline: 2px solid #21cf7a; }
 .resizeNone { resize: none; }
 
 .circle { border-radius: 9999px; }
 .radiusSmall { border-radius: 8px; }
 
-.bordercolorSecondary2 { border-color: #e5e9ed; }
-.bordercolorSecondary { border-color: #ECECED; }
+.borderColorSecondary2 { border-color: #e5e9ed; }
+.borderColorSecondary { border-color: #ECECED; }
 .borderColorWhite { border-color: #fff; }
 .borderColorBrand { border-color: #21cf7a; }
 .borderRight1PX { border-right-width: 1px; }
@@ -131,15 +132,17 @@ body {
 .backgroundSubtle_onHover:hover { background-color: #F5F8FA; }
 .backgroundSubtle2 { background-color: #e8ecef; }
 .backgroundcolorSecondary3 { background-color: #F6F6F9; }
-.backgroundWhite { background-color: #fff; }
+.backgroundColorPrimary { background-color: #fff; }
 .backgroundColorBrandLightOpaque { background-color: rgba(54, 233, 145, 0.1); }
 .backgroundColorOpaque { background-color: rgba(0,0,0, 0.4); }
 .backgroundColorBrandLight { background-color: #36e991; }
 .backgroundColorBrand { background-color: #21cf7a; }
+.backgroundColorBrand_onHover:hover { background-color: #21cf7a; }
 .backgroundColorBrandDark { background-color: #38A16B; }
 .backgroundColorBrandDark_onHover:hover { background-color: #38A16B; }
 .colorPrimary { color: #000; }
 .colorWhite { color: #fff; }
+.colorWhite_onHover:hover { color: #fff; }
 .colorSecondary { color: #4B4F55; }
 .colorBrand { color: #21cf7a }
 .fillColorBlack { fill: #000; }
@@ -175,9 +178,9 @@ body {
 .height350PX { height: 350px; }
 
 .width1015PX { width: 1015px; }
-.width660PX { width: 660px; }
+.width645PX { width: 645px; }
 .width400PX { width: 400px; }
-.width325PX { width: 325px; }
+.width340PX { width: 340px; }
 .width240PX { width: 240px; }
 .width100PC { width: 100%; }
 .width72PX { width: 72px; }
@@ -185,42 +188,43 @@ body {
 
 @media (min-width: 1480px) {
   .width1015PX { width: 1080px; }
-  .width660PX { width: 700px; }
-  .width325PX { width: 350px; }
+  .width645PX { width: 700px; }
+  .width340PX { width: 350px; }
   .width240PX { width: 250px; }
 }
 
 @media (min-width: 1160px) and (max-width: 1280px) {
   .width1015PX { width: 910px; }
-  .width660PX { width: 580px; }
-  .width325PX { width: 300px; }
+  .width645PX { width: 580px; }
+  .width340PX { width: 300px; }
   .width240PX { width: 230px; }
 }
 
 @media (min-width: 1080px) and (max-width: 1160px) {
   .width1015PX { width: 850px; }
-  .width660PX { width: 525px; }
-  .width325PX { width: 300px; }
+  .width645PX { width: 525px; }
+  .width340PX { width: 300px; }
   .width240PX { width: 210px; }
 }
 
 @media (min-width: 992px) and (max-width: 1080px) {
   .width1015PX { width: 850px; }
-  .width660PX { width: 525px; }
-  .width325PX { width: 300px; }
+  .width645PX { width: 525px; }
+  .width340PX { width: 300px; }
   .width240PX { width: 100px; }
 }
 
 @media (min-width: 0px) and (max-width: 992px) {
   .width1015PX { width: 600px; }
-  .width660PX { width: 600px; }
-  .width325PX { width: 0px; }
+  .width645PX { width: 600px; }
+  .width340PX { width: 0px; }
   .width240PX { width: 100px; }
 }
 
 .top0 { top: 0; }
 .top60PC { top: 60%; }
 
+.textAlignLeft { text-align: left; }
 .textAlignCenter { text-align: center; }
 
 .fontSize24PX { font-size: 24px; }

@@ -1,13 +1,10 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { NavLink } from 'react-router-dom'
 import { createSelector } from 'reselect'
 import { defineMessages, injectIntl } from 'react-intl'
-import classNames from 'classnames/bind'
 import { fetchLists } from '../../actions/lists'
 import ColumnIndicator from '../../components/column_indicator'
-import ScrollableList from '../../components/scrollable_list'
-import Icon from '../../components/icon'
+import List from '../../components/list'
 
 const messages = defineMessages({
   add: { id: 'lists.new.create', defaultMessage: 'Add List' },
@@ -30,11 +27,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-const cx = classNames.bind(_s)
-
 export default @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Lists extends ImmutablePureComponent {
+class ListsDirectory extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.object.isRequired,
@@ -63,56 +58,18 @@ class Lists extends ImmutablePureComponent {
 
     const emptyMessage = intl.formatMessage(messages.empty)
 
+    const listItems = lists.map(list => ({
+      to: `/list/${list.get('id')}`,
+      title: list.get('title'),
+    }))
+
     return (
-      <ScrollableList
+      <List
         scrollKey='lists'
         emptyMessage={emptyMessage}
-      >
-        <div className={[_s.default, _s.backgroundWhite, _s.radiusSmall, _s.overflowHidden, _s.border1PX, _s.bordercolorSecondary].join(' ')}>
-          {
-            lists.map((list, i) => {
-              const isLast = lists.length - 1 === i
-              return (
-                <ListItem key={list.get('id')} list={list} isLast={isLast} />
-              )
-            })
-          }
-        </div>
-      </ScrollableList>
+        items={listItems}
+      />
     )
   }
 
-}
-
-class ListItem extends ImmutablePureComponent {
-  static propTypes = {
-    isLast: PropTypes.bool,
-    list: ImmutablePropTypes.map,
-  }
-
-  render() {
-    const { list, isLast } = this.props
-
-    const containerClasses = cx({
-      default: 1,
-      cursorPointer: 1,
-      noUnderline: 1,
-      paddingHorizontal15PX: 1,
-      paddingVertical15PX: 1,
-      flexRow: 1,
-      alignItemsCenter: 1,
-      backgroundSubtle_onHover: 1,
-      bordercolorSecondary: !isLast,
-      borderBottom1PX: !isLast,
-    })
-
-    return (
-      <NavLink to={`/list/${list.get('id')}`} className={containerClasses} >
-        <span className={[_s.default, _s.text, _s.colorPrimary, _s.fontSize14PX].join(' ')}>
-          {list.get('title')}
-        </span>
-        <Icon id='angle-right' className={[_s.marginLeftAuto, _s.fillColorBlack].join(' ')} width='10px' height='10px' />
-      </NavLink>
-    )
-  }
 }

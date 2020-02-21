@@ -161,7 +161,7 @@ export default class Card extends ImmutablePureComponent {
       )
 
     const description = (
-      <div className={[_s.default, _s.flexNormal, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.bordercolorSecondary, _s.borderLeft1PX].join(' ')}>
+      <div className={[_s.default, _s.flexNormal, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.borderColorSecondary, _s.borderLeft1PX].join(' ')}>
         {title}
         <p className={[_s.default, _s.displayFlex, _s.text, _s.marginVertical5PX, _s.overflowWrapBreakWord, _s.colorSecondary, _s.fontSize13PX, _s.fontWeightNormal].join(' ')}>
           {trim(card.get('description') || '', maxDescription)}
@@ -192,7 +192,7 @@ export default class Card extends ImmutablePureComponent {
 
       return (
         <div className={[_s.default, _s.width100PC, _s.paddingHorizontal10PX].join(' ')}>
-          <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.bordercolorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}>
+          <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}>
             <div className={[_s.default, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.width100PC, _s.paddingTop5625PC].join(' ')}>
                 { !!embed && embed}
@@ -231,7 +231,7 @@ export default class Card extends ImmutablePureComponent {
       <div className={[_s.default, _s.width100PC, _s.paddingHorizontal10PX].join(' ')}>
         <a
           href={card.get('url')}
-          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bordercolorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
+          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
           rel='noopener'
           ref={this.setRef}
           >

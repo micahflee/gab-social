@@ -31,23 +31,16 @@ class GroupSidebarPanel extends ImmutablePureComponent {
     return (
       <PanelLayout
         title={intl.formatMessage(messages.title)}
-        buttonTitle={intl.formatMessage(messages.all)}
-        buttonTo='/groups/browse/member'
+        headerButtonTitle={intl.formatMessage(messages.all)}
+        headerButtonTo='/groups/browse/member'
+        footerButtonTitle={count > 6 ? intl.formatMessage(messages.show_all) : undefined}
+        footerButtonTo={count > 6 ? '/groups/browse/member' : undefined}
       >
         <div className={_s.default}>
           {
             groupIds.slice(0, 6).map(groupId => (
-              <GroupListItem
-                key={`group-panel-item-${groupId}`}
-                id={groupId}
-              />
+              <GroupListItem key={`group-panel-item-${groupId}`} id={groupId} />
             ))
-          }
-          {
-            count > 6 &&
-            <Button to='/groups/browse/member' block text>
-              {intl.formatMessage(messages.show_all)}
-            </Button>
           }
         </div>
       </PanelLayout>

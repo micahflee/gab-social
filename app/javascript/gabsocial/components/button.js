@@ -1,5 +1,7 @@
+import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
+import Icon from './icon'
 
 const cx = classNames.bind(_s)
 
@@ -7,6 +9,7 @@ const COLORS = {
   primary: 'primary',
   secondary: 'secondary',
   tertiary: 'tertiary',
+  white: 'white',
   brand: 'brand',
   error: 'error',
   none: 'none',
@@ -21,15 +24,22 @@ export default class Button extends PureComponent {
     onClick: PropTypes.func,
     className: PropTypes.string,
     icon: PropTypes.string,
+    iconWidth: PropTypes.string,
+    iconHeight: PropTypes.string,
+    iconClassName: PropTypes.string,
     color: PropTypes.string,
+    backgroundColor: PropTypes.string,
     block: PropTypes.bool,
     text: PropTypes.bool,
     disabled: PropTypes.bool,
     outline: PropTypes.bool,
+    narrow: PropTypes.bool,
+    underlineOnHover: PropTypes.bool,
   }
 
   static defaultProps = {
-    color: COLORS.brand,
+    color: COLORS.white,
+    backgroundColor: COLORS.brand,
   }
 
   handleClick = (e) => {
@@ -47,7 +57,27 @@ export default class Button extends PureComponent {
   }
 
   render () {
-    const { block, className, disabled, text, to, children, href, outline, color } = this.props
+    const {
+      block,
+      className,
+      disabled,
+      text,
+      to,
+      icon,
+      iconWidth,
+      iconHeight,
+      iconClassName,
+      children,
+      href,
+      outline,
+      color,
+      backgroundColor,
+      underlineOnHover,
+      narrow,
+      ...otherProps
+    } = this.props
+
+    const theIcon = !!icon ? <Icon id={icon} width={iconWidth} height={iconWidth} className={iconClassName} /> : undefined
 
     // : todo :
     const classes = cx(className, {
@@ -57,25 +87,42 @@ export default class Button extends PureComponent {
       cursorPointer: 1,
       textAlignCenter: 1,
 
-      backgroundColorBrand: !text && !outline,
+      backgroundColorPrimary: backgroundColor === COLORS.white,
+      backgroundColorBrand: backgroundColor === COLORS.brand,
+      backgroundTransparent: backgroundColor === COLORS.none,
 
-      // colorPrimary: 1,
-      // colorSecondary: 1,
-      colorWhite: [].indexOf(color) > -1,
-      colorBrand: text || [].indexOf(color) > -1,
+      colorPrimary: color === COLORS.primary,
+      colorSecondary: color === COLORS.secondary,
+      colorWhite: color === COLORS.white,
+      colorBrand: color === COLORS.brand,
 
-      // borderColorBrand: 1,
-      // border1PX: 1,
+      borderColorBrand: color === COLORS.brand && outline,
+      border1PX: outline,
 
       circle: !text,
 
-      paddingVertical10PX: !text,
+      paddingVertical5PX: narrow,
+      paddingVertical10PX: !text && !narrow,
       paddingHorizontal15PX: !text,
 
       width100PC: block,
+
+      underline_onHover: underlineOnHover,
+
+      backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
+
+      backgroundColorBrand_onHover: color === COLORS.brand && outline,
+      colorWhite_onHover: color === COLORS.brand && outline,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'
+
+    const theChildren = !!icon ? (
+      <Fragment>
+        {theIcon}
+        {children}
+      </Fragment>
+    ) : children
 
     return React.createElement(
       tagName,
@@ -86,8 +133,9 @@ export default class Button extends PureComponent {
         to: to || undefined,
         to: href || undefined,
         onClick: this.handleClick || undefined,
+        ...otherProps
       },
-      children,
+      theChildren,
     )
   }
 

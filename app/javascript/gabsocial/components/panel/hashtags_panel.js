@@ -44,7 +44,12 @@ class HashtagsPanel extends ImmutablePureComponent {
     // }
 
     return (
-      <PanelLayout title={intl.formatMessage(messages.title)} noPadding>
+      <PanelLayout
+        noPadding
+        title={intl.formatMessage(messages.title)}
+        footerButtonTitle={intl.formatMessage(messages.show_all)}
+        footerButtonTo='/explore'
+      >
         <div className={_s.default}>
           { /* hashtags && hashtags.map(hashtag => (
             <HashtagingItem key={hashtag.get('name')} hashtag={hashtag} />
@@ -55,9 +60,6 @@ class HashtagsPanel extends ImmutablePureComponent {
           <HashtagItem />
           <HashtagItem />
         </div>
-        <Button to='/groups/browse/member' block text>
-          {intl.formatMessage(messages.show_all)}
-        </Button>
       </PanelLayout>
     )
   }

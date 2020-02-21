@@ -13,7 +13,6 @@ const SIZES = {
 
 export default class Heading extends PureComponent {
   static propTypes = {
-    className: PropTypes.string,
     children: PropTypes.any,
     size: PropTypes.oneOf(Object.keys(SIZES)),
   }
@@ -23,31 +22,36 @@ export default class Heading extends PureComponent {
   }
 
   render() {
-    const { className, children, size } = this.props
+    const { children, size } = this.props
 
     const classes = cx({
       default: 1,
       text: 1,
 
       colorPrimary: [SIZES.h1, SIZES.h3].indexOf(size) > -1,
-      colorSecondary: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
+      colorSecondary: [SIZES.h2, SIZES.h4, SIZES.h5].indexOf(size) > -1,
 
       fontSize24PX: size === SIZES.h1,
       fontSize19PX: size === SIZES.h2,
       fontSize16PX: size === SIZES.h3,
       fontSize13PX: size === SIZES.h4,
+      fontSize12PX: size === SIZES.h5,
 
       marginTop5PX: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
 
+      lineHeight2: size === SIZES.h5,
+      paddingVertical2PX: size === SIZES.h5,
+
       // fontWeightNormal: weight === WEIGHTS.normal,
-      // fontWeightMedium: weight === WEIGHTS.medium,
-      fontWeightBold: [SIZES.h3, SIZES.h4].indexOf(size) > -1
+      fontWeightMedium: [SIZES.h1, SIZES.h5].indexOf(size) > -1,
+      fontWeightBold: [SIZES.h3, SIZES.h4].indexOf(size) > -1,
     })
 
     return React.createElement(
       size,
       {
         className: classes,
+        role: 'heading',
       },
       children,
     )

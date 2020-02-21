@@ -6,7 +6,7 @@ import { setupListAdder, resetListAdder } from '../../actions/lists';
 import List from './components/list';
 import Account from '../../components/account';
 import IconButton from '../../components/icon_button';
-import NewListForm from '../lists/components/new_list_form';
+import NewListForm from '../lists_directory/components/new_list_form';
 
 const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   if (!lists) {

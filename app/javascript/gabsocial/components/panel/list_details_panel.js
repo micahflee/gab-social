@@ -40,8 +40,8 @@ class ListDetailsPanel extends ImmutablePureComponent {
     return (
       <PanelLayout
         title={intl.formatMessage(messages.title, { count })}
-        buttonTitle={intl.formatMessage(messages.show_all)}
-        buttonAction={this.handleShowAllLists}
+        headerButtonTitle={intl.formatMessage(messages.show_all)}
+        headerButtonAction={this.handleShowAllLists}
       >
         <div className={_s.default}>
 

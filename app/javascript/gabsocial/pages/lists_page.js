@@ -22,11 +22,11 @@ export default class ListsPage extends PureComponent {
         title='Lists'
         actions={[
           {
-            icon: 'subtract',
+            icon: 'list-delete',
             onClick: this.handleClickEditLists
           },
           {
-            icon: 'add',
+            icon: 'list-add',
             onClick: this.handleClickNewList
           },
         ]}

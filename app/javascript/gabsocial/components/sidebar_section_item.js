@@ -47,7 +47,7 @@ export default class SidebarSectionItem extends PureComponent {
       alignItemsCenter: 1,
       radiusSmall: 1,
       // border1PX: shouldShowActive,
-      // bordercolorSecondary: shouldShowActive,
+      // borderColorSecondary: shouldShowActive,
       backgroundSubtle2: shouldShowActive,
     })
 
@@ -86,7 +86,7 @@ export default class SidebarSectionItem extends PureComponent {
         to={to}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart, _s.flexGrow1].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart].join(' ')}
       >
         <div className={containerClasses}>
           <div className={[_s.default]}>

@@ -19,14 +19,14 @@ export default class DefaultLayout extends PureComponent {
 
         <Sidebar />
 
-        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.bordercolorSecondary2, _s.borderLeft1PX].join(' ')}>
+        <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
-          <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.bordercolorSecondary2, _s.backgroundcolorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
+          <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary2, _s.backgroundcolorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
             <div className={[_s.default, _s.height53PX, _s.paddingLeft15PX, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
-              <div className={[_s.default, _s.width660PX].join(' ')}>
+              <div className={[_s.default, _s.width645PX].join(' ')}>
                 <ColumnHeader title={title} showBackBtn={showBackBtn} actions={actions} />
               </div>
-              <div className={[_s.default, _s.width325PX].join(' ')}>
+              <div className={[_s.default, _s.width340PX].join(' ')}>
                 <Search />
               </div>
             </div>
@@ -35,15 +35,15 @@ export default class DefaultLayout extends PureComponent {
           <div className={[_s.default, _s.height53PX].join(' ')}></div>
 
           <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
-            <div className={[_s.default, _s.width660PX, _s.z1].join(' ')}>
+            <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
               <div className={_s.default}>
                 {children}
               </div>
             </div>
 
-            <div className={[_s.default, _s.width325PX].join(' ')}>
+            <div className={[_s.default, _s.width340PX].join(' ')}>
               <Sticky top={73} enabled>
-                <div className={[_s.default, _s.width325PX].join(' ')}>
+                <div className={[_s.default, _s.width340PX].join(' ')}>
                   {layout}
                 </div>
               </Sticky>

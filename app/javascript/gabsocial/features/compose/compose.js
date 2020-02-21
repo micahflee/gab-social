@@ -10,7 +10,7 @@ import {
 import { mascot } from '../../initial_state';
 import Motion from '../ui/util/optional_motion';
 import ComposeFormContainer from './containers/compose_form_container';
-import SearchContainer from './containers/search_container';
+// import SearchContainer from './containers/search_container';
 import SearchResultsContainer from './containers/search_results_container';
 import NavigationBar from './components/navigation_bar';
 import elephantUIPlane from '../../../images/logo_ui_column_footer.png';
@@ -76,7 +76,7 @@ class Compose extends ImmutablePureComponent {
       <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>
         {header}
 
-        {isSearchPage && <SearchContainer /> }
+        { /* isSearchPage && <SearchContainer /> */ }
 
         <div className='drawer__pager'>
           {!isSearchPage && <div className='drawer__inner' onFocus={this.onFocus}>

@@ -8,6 +8,7 @@ import PanelLayout from './panel_layout';
 const messages = defineMessages({
   dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
   title: { id: 'who_to_follow.title', defaultMessage: 'Who to Follow' },
+  show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
 });
 
 const mapStateToProps = state => ({
@@ -47,7 +48,11 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     // }
 
     return (
-      <PanelLayout title={intl.formatMessage(messages.title)}>
+      <PanelLayout
+        title={intl.formatMessage(messages.title)}
+        footerButtonTitle={intl.formatMessage(messages.show_more)}
+        footerButtonTo='/explore'
+      >
         <div className={_s.default}>
           {suggestions && suggestions.map(accountId => (
             <AccountContainer

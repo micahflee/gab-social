@@ -60,7 +60,7 @@ import {
   // Groups,
   // GroupTimeline,
   ListTimeline,
-  Lists,
+  ListsDirectory,
   // GroupMembers,
   // GroupRemovedAccounts,
   // GroupCreate,
@@ -195,7 +195,7 @@ class SwitchingColumnsArea extends PureComponent {
 
         <WrappedRoute path='/tags/:id' publicRoute component={HashtagTimeline} content={children} />
 */}
-        <WrappedRoute path='/lists' page={ListsPage} component={Lists} content={children} />
+        <WrappedRoute path='/lists' page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/list/:id' page={ListPage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' page={NotificationsPage} component={Notifications} content={children} />

@@ -8,6 +8,8 @@ import Avatar from '../avatar'
 import DisplayName from '../display_name'
 import IconButton from '../icon_button'
 import Icon from '../icon'
+import Button from '../button'
+import Text from '../text'
 
 const messages = defineMessages({
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -126,9 +128,17 @@ class Account extends ImmutablePureComponent {
             >
               <DisplayName account={account} />
             </NavLink>
-            <button className={[_s.default, _s.marginTop5PX, _s.colorBrand, _s.text, _s.cursorPointer, _s.fontSize14PX, _s.circle, _s.border1PX, _s.borderColorBrand, _s.paddingHorizontal20PX, _s.paddingVertical5PX].join(' ')}>
-              {intl.formatMessage(messages.follow)}
-            </button>
+            <Button
+              outline
+              narrow
+              color='brand'
+              backgroundColor='none'
+              className={_s.marginTop5PX}
+            >
+              <Text color='inherit'>
+                {intl.formatMessage(messages.follow)}
+              </Text>
+            </Button>
           </div>
 
           <div className={[_s.default, _s.marginLeftAuto].join(' ')}>

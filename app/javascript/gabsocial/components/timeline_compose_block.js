@@ -1,19 +1,28 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { me } from '../initial_state';
-import ComposeFormContainer from '../features/compose/containers/compose_form_container';
-import Avatar from './avatar';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { injectIntl, defineMessages } from 'react-intl'
+import { me } from '../initial_state'
+import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import Avatar from './avatar'
+import Heading from './heading'
+
+const messages = defineMessages({
+  createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
+})
 
 const mapStateToProps = state => {
   return {
     account: state.getIn(['accounts', me]),
-  };
-};
+  }
+}
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
+@injectIntl
 class TimelineComposeBlock extends ImmutablePureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map.isRequired,
     size: PropTypes.number,
   }
@@ -23,14 +32,14 @@ class TimelineComposeBlock extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, size, ...rest } = this.props;
+    const { account, size, intl, ...rest } = this.props
 
     return (
-      <section className={[_s.default, _s.overflowHidden, _s.radiusSmall, _s.border1PX, _s.bordercolorSecondary, _s.backgroundWhite, _s.marginBottom15PX].join(' ')}>
-        <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.bordercolorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
-          <h1 className={[_s.default, _s.text, _s.colorSecondary, _s.fontSize12PX, _s.fontWeightMedium, _s.lineHeight2, _s.paddingVertical2PX].join(' ')}>
-            Create Post
-          </h1>
+      <section className={[_s.default, _s.overflowHidden, _s.radiusSmall, _s.border1PX, _s.borderColorSecondary, _s.backgroundColorPrimary, _s.marginBottom15PX].join(' ')}>
+        <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
+          <Heading size='h5'>
+            {intl.formatMessage(messages.createPost)}
+          </Heading>
         </div>
         <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
           <div className={[_s.default, _s.marginRight10PX].join(' ')}>
