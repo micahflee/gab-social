@@ -1,4 +1,5 @@
 import { injectIntl, defineMessages } from 'react-intl'
+import TabBar from './tab_bar'
 import Icon from './icon'
 import Button from './button'
 import Heading from './heading'
@@ -23,6 +24,7 @@ class ColumnHeader extends PureComponent {
     children: PropTypes.node,
     showBackBtn: PropTypes.bool,
     actions: PropTypes.array,
+    tabs: PropTypes.array,
   }
 
   state = {
@@ -49,7 +51,7 @@ class ColumnHeader extends PureComponent {
   }
 
   render() {
-    const { title, showBackBtn, icon, active, children, actions, intl: { formatMessage } } = this.props
+    const { title, showBackBtn, tabs, icon, active, children, actions, intl: { formatMessage } } = this.props
     const { collapsed } = this.state
 
     return (
@@ -61,11 +63,16 @@ class ColumnHeader extends PureComponent {
           </button>
         }
 
-        <div className={[_s.default, _s.height100PC, _s.justifyContentCenter].join(' ')}>
+        <div className={[_s.default, _s.height100PC, _s.justifyContentCenter, _s.marginRight10PX].join(' ')}>
           <Heading size='h1'>
             {title}
           </Heading>
         </div>
+
+        {
+          !!tabs &&
+          <TabBar tabs={tabs} />
+        }
 
         {
           !!actions &&

@@ -3,7 +3,7 @@ import Search from '../search'
 import ColumnHeader from '../column_header'
 import Sidebar from '../sidebar'
 
-export default class DefaultLayout extends PureComponent {
+export default class SearchLayout extends PureComponent {
   static propTypes = {
     actions: PropTypes.array,
     tabs: PropTypes.array,

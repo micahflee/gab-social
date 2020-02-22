@@ -1,6 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import Column from '../column';
-import { ColumnHeader } from '../column_header';
 import IconButton from '../icon_button';
 
 const messages = defineMessages({
@@ -26,7 +25,6 @@ class BundleColumnError extends PureComponent {
 
     return (
       <Column>
-        <ColumnHeader icon='exclamation-circle' type={formatMessage(messages.title)} />
         <div className='error-column'>
           <IconButton title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
           {formatMessage(messages.body)}

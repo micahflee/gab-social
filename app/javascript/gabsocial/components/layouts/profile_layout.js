@@ -1,4 +1,3 @@
-import ColumnHeader from '../column_header'
 import Sidebar from '../sidebar'
 
 export default class ProfileLayout extends PureComponent {

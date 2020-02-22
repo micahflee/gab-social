@@ -10,7 +10,6 @@ import {
 import StatusListContainer from '../../containers/status_list_container';;
 // import ColumnSettingsContainer from '.containers/column_settings_container';
 import Column from '../../components/column';
-// import { HomeColumnHeader } from '../../components/column_header';
 
 const messages = defineMessages({
   title: { id: 'column.community', defaultMessage: 'Community timeline' },
@@ -100,9 +99,6 @@ class CommunityTimeline extends PureComponent {
 
     return (
       <Column label={intl.formatMessage(messages.title)}>
-        { /* <HomeColumnHeader activeItem='all' active={hasUnread} >
-          <ColumnSettingsContainer />
-        </HomeColumnHeader> */ }
         <StatusListContainer
           scrollKey={`${timelineId}_timeline`}
           timelineId={`${timelineId}${onlyMedia ? ':media' : ''}`}

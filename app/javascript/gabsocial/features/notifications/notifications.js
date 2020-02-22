@@ -131,6 +131,8 @@ class Notifications extends ImmutablePureComponent {
     //   ? (<FilterBarContainer />)
     //   : null;
 
+    // : todo : include follow requests
+
     console.log("notifications:", notifications)
 
     if (isLoading && this.scrollableContent) {

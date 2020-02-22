@@ -106,12 +106,14 @@ body {
 .borderColorSecondary { border-color: #ECECED; }
 .borderColorWhite { border-color: #fff; }
 .borderColorBrand { border-color: #21cf7a; }
+.borderColorTransparent { border-color: transparent; }
 .borderRight1PX { border-right-width: 1px; }
 .borderBottom1PX { border-bottom-width: 1px; }
 .borderLeft1PX { border-left-width: 1px; }
 .borderTop1PX { border-top-width: 1px; }
 .border1PX { border-width: 1px; }
 .border2PX { border-width: 2px; }
+.borderBottom2PX { border-bottom-width: 2px; }
 
 .marginAuto { margin: auto; }
 
@@ -131,6 +133,7 @@ body {
 .backgroundSubtle { background-color: #F5F8FA; }
 .backgroundSubtle_onHover:hover { background-color: #F5F8FA; }
 .backgroundSubtle2 { background-color: #e8ecef; }
+.backgroundSubtle2Dark_onHover:hover { background-color: #d9e0e5; }
 .backgroundcolorSecondary3 { background-color: #F6F6F9; }
 .backgroundColorPrimary { background-color: #fff; }
 .backgroundColorBrandLightOpaque { background-color: rgba(54, 233, 145, 0.1); }
@@ -184,6 +187,7 @@ body {
 .width240PX { width: 240px; }
 .width100PC { width: 100%; }
 .width72PX { width: 72px; }
+.width50PC { width: 50%; }
 .maxWidth100PC { max-width: 100%; }
 
 @media (min-width: 1480px) {

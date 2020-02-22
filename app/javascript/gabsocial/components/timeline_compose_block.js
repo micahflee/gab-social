@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import Block from './block'
 import Avatar from './avatar'
 import Heading from './heading'
 
@@ -35,18 +36,20 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     const { account, size, intl, ...rest } = this.props
 
     return (
-      <section className={[_s.default, _s.overflowHidden, _s.radiusSmall, _s.border1PX, _s.borderColorSecondary, _s.backgroundColorPrimary, _s.marginBottom15PX].join(' ')}>
-        <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
-          <Heading size='h5'>
-            {intl.formatMessage(messages.createPost)}
-          </Heading>
-        </div>
-        <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
-          <div className={[_s.default, _s.marginRight10PX].join(' ')}>
-            <Avatar account={account} size={46} />
+      <section className={[_s.default, _s.marginBottom15PX].join(' ')}>
+        <Block>
+          <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
+            <Heading size='h5'>
+              {intl.formatMessage(messages.createPost)}
+            </Heading>
           </div>
-          <ComposeFormContainer {...rest} />
-        </div>
+          <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
+            <div className={[_s.default, _s.marginRight10PX].join(' ')}>
+              <Avatar account={account} size={46} />
+            </div>
+            <ComposeFormContainer {...rest} />
+          </div>
+        </Block>
       </section>
     )
   }

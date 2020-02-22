@@ -20,26 +20,35 @@ export default @connect(mapStateToProps)
 class GroupSidebarPanel extends ImmutablePureComponent {
   static propTypes = {
     groupIds: ImmutablePropTypes.list,
+    slim: PropTypes.bool,
   }
 
   render() {
-    const { intl, groupIds } = this.props
+    const { intl, groupIds, slim } = this.props
     const count = groupIds.count()
 
     if (count === 0) return null
+
+    const maxCount = slim ? 12 : 6
 
     return (
       <PanelLayout
         title={intl.formatMessage(messages.title)}
         headerButtonTitle={intl.formatMessage(messages.all)}
         headerButtonTo='/groups/browse/member'
-        footerButtonTitle={count > 6 ? intl.formatMessage(messages.show_all) : undefined}
-        footerButtonTo={count > 6 ? '/groups/browse/member' : undefined}
+        footerButtonTitle={count > maxCount ? intl.formatMessage(messages.show_all) : undefined}
+        footerButtonTo={count > maxCount ? '/groups/browse/member' : undefined}
+        noPadding={slim}
       >
         <div className={_s.default}>
           {
-            groupIds.slice(0, 6).map(groupId => (
-              <GroupListItem key={`group-panel-item-${groupId}`} id={groupId} />
+            groupIds.slice(0, maxCount).map((groupId, i) => (
+              <GroupListItem
+                key={`group-panel-item-${groupId}`}
+                id={groupId}
+                slim={slim}
+                isLast={groupIds.length - 1 === i}
+              />
             ))
           }
         </div>

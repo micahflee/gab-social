@@ -444,7 +444,7 @@ class Status extends ImmutablePureComponent {
 
     return (
       <Column heading={intl.formatMessage(messages.detailedStatus)}>
-        { me &&
+        { /* me &&
           <ColumnHeader
             extraButton={(
               <button
@@ -461,7 +461,7 @@ class Status extends ImmutablePureComponent {
               </button>
             )}
           />
-        }
+        */ }
 
         <div ref={this.setRef}>
           {ancestors}

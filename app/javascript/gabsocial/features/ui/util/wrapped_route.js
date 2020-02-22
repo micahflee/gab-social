@@ -1,77 +1,64 @@
-import { Route } from 'react-router-dom';
-import DefaultLayout from '../../../components/layouts/default_layout';
-import BundleColumnError from '../../../components/bundle_column_error';
-import Bundle from './bundle';
-import { me } from '../../../initial_state';
-import ColumnIndicator from '../../../components/column_indicator';
+import { Route } from 'react-router-dom'
+import BundleColumnError from '../../../components/bundle_column_error'
+import Bundle from './bundle'
+import { me } from '../../../initial_state'
 
 export default class WrappedRoute extends Component {
   static propTypes = {
     component: PropTypes.func.isRequired,
-    page: PropTypes.func,
+    page: PropTypes.func.isRequired,
     content: PropTypes.node,
     componentParams: PropTypes.object,
-    layout: PropTypes.object,
     publicRoute: PropTypes.bool,
-  };
+  }
 
   static defaultProps = {
     componentParams: {},
-  };
+  }
 
   renderComponent = ({ match }) => {
-    const { component, content, componentParams, layout, page: Page } = this.props;
-
-    if (Page) {
-      return (
-        <Bundle fetchComponent={component} loading={this.renderLoading} error={this.renderError}>
-          {Component =>
-            (
-              <Page params={match.params} {...componentParams}>
-                <Component params={match.params} {...componentParams}>
-                  {content}
-                </Component>
-              </Page>
-            )
-          }
-        </Bundle>
-      );
-    }
+    const {
+      component,
+      content,
+      componentParams,
+      page: Page
+    } = this.props
 
     return (
-      <Bundle fetchComponent={component} loading={this.renderLoading} error={this.renderError}>
+      <Bundle fetchComponent={component} error={this.renderError}>
         {Component =>
           (
-            <DefaultLayout layout={layout}>
+            <Page params={match.params} {...componentParams}>
               <Component params={match.params} {...componentParams}>
                 {content}
               </Component>
-            </DefaultLayout>
+            </Page>
           )
         }
       </Bundle>
-    );
-  }
-
-  renderLoading = () => {
-    return <div />
+    )
   }
 
   renderError = (props) => {
-    return <BundleColumnError {...props} />;
+    return <BundleColumnError {...props} />
   }
 
   render() {
-    const { component: Component, content, publicRoute, ...rest } = this.props;
+    const {
+      component: Component,
+      content,
+      publicRoute,
+      ...rest
+    } = this.props
 
     if (!publicRoute && !me) {
-      const actualUrl = encodeURIComponent(this.props.computedMatch.url);
+      const actualUrl = encodeURIComponent(this.props.computedMatch.url)
       return <Route path={this.props.path} component={() => {
-        window.location.href = `/auth/sign_in?redirect_uri=${actualUrl}`;
-        return null;
+        window.location.href = `/auth/sign_in?redirect_uri=${actualUrl}`
+        return null
       }} />
     }
 
-    return <Route {...rest} render={this.renderComponent} />;
+    return <Route {...rest} render={this.renderComponent} />
   }
 }

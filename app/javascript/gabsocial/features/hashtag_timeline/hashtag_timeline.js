@@ -4,7 +4,6 @@ import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines';
 import { connectHashtagStream } from '../../actions/streaming';
 import StatusListContainer from '../../containers/status_list_container';
 import Column from '../../components/column';
-import { ColumnHeader } from '../../components/column_header';
 
 const mapStateToProps = (state, props) => ({
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
@@ -104,7 +103,6 @@ class HashtagTimeline extends PureComponent {
 
     return (
       <Column heading={`#${id}`}>
-        <ColumnHeader icon='hashtag' active={hasUnread} title={this.title()} />
         <StatusListContainer
           scrollKey='hashtag_timeline'
           timelineId={`hashtag:${id}`}

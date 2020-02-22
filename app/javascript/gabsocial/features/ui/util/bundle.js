@@ -1,21 +1,26 @@
-import { fetchBundleRequest, fetchBundleSuccess, fetchBundleFail } from '../../../actions/bundles';
+import {
+  fetchBundleRequest,
+  fetchBundleSuccess,
+  fetchBundleFail
+} from '../../../actions/bundles'
 
 const mapDispatchToProps = dispatch => ({
   onFetch() {
-    dispatch(fetchBundleRequest());
+    dispatch(fetchBundleRequest())
   },
   onFetchSuccess() {
-    dispatch(fetchBundleSuccess());
+    dispatch(fetchBundleSuccess())
   },
   onFetchFail(error) {
-    dispatch(fetchBundleFail(error));
+    dispatch(fetchBundleFail(error))
   },
-});
+})
 
-const emptyComponent = () => null;
-const noop = () => { };
+const emptyComponent = () => null
+const noop = () => { }
 
-export default @connect(null, mapDispatchToProps)
+export default
+@connect(null, mapDispatchToProps)
 class Bundle extends PureComponent {
 
   static propTypes = {
@@ -46,69 +51,94 @@ class Bundle extends PureComponent {
   }
 
   componentWillMount() {
-    this.load(this.props);
+    this.load(this.props)
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.fetchComponent !== this.props.fetchComponent) {
-      this.load(nextProps);
+      this.load(nextProps)
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     if (this.timeout) {
-      clearTimeout(this.timeout);
+      clearTimeout(this.timeout)
     }
   }
 
   load = (props) => {
-    const { fetchComponent, onFetch, onFetchSuccess, onFetchFail, renderDelay } = props || this.props;
-    const cachedMod = Bundle.cache.get(fetchComponent);
+    const {
+      fetchComponent,
+      onFetch,
+      onFetchSuccess,
+      onFetchFail,
+      renderDelay
+    } = props || this.props
+
+    const cachedMod = Bundle.cache.get(fetchComponent)
 
     if (fetchComponent === undefined) {
-      this.setState({ mod: null });
-      return Promise.resolve();
+      this.setState({
+        mod: null
+      })
+      return Promise.resolve()
     }
 
-    onFetch();
+    onFetch()
 
     if (cachedMod) {
-      this.setState({ mod: cachedMod.default });
-      onFetchSuccess();
-      return Promise.resolve();
+      this.setState({
+        mod: cachedMod.default
+      })
+      onFetchSuccess()
+      return Promise.resolve()
     }
 
-    this.setState({ mod: undefined });
+    this.setState({
+      mod: undefined
+    })
 
     if (renderDelay !== 0) {
-      this.timestamp = new Date();
-      this.timeout = setTimeout(() => this.setState({ forceRender: true }), renderDelay);
+      this.timestamp = new Date()
+      this.timeout = setTimeout(() => this.setState({
+        forceRender: true
+      }), renderDelay)
     }
 
     return fetchComponent()
       .then((mod) => {
-        Bundle.cache.set(fetchComponent, mod);
-        this.setState({ mod: mod.default });
-        onFetchSuccess();
+        Bundle.cache.set(fetchComponent, mod)
+        this.setState({
+          mod: mod.default
+        })
+        onFetchSuccess()
       })
       .catch((error) => {
-        this.setState({ mod: null });
-        onFetchFail(error);
-      });
+        this.setState({
+          mod: null
+        })
+        onFetchFail(error)
+      })
   }
 
   render() {
-    const { loading: Loading, error: Error, children, renderDelay } = this.props;
-    const { mod, forceRender } = this.state;
-    const elapsed = this.timestamp ? (new Date() - this.timestamp) : renderDelay;
+    const {
+      loading: LoadingComponent,
+      error: ErrorComponent,
+      children,
+      renderDelay
+    } = this.props
+
+    const { mod, forceRender } = this.state
+    const elapsed = this.timestamp ? (new Date() - this.timestamp) : renderDelay
 
     if (mod === undefined) {
-      return (elapsed >= renderDelay || forceRender) ? <Loading /> : null;
+      return (elapsed >= renderDelay || forceRender) ? <LoadingComponent /> : null
     } else if (mod === null) {
-      return <Error onRetry={this.load} />;
+      return <ErrorComponent onRetry={this.load} />
     }
 
-    return children(mod);
+    return children(mod)
   }
 
 }

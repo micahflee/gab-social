@@ -1,3 +1,4 @@
+import Block from './block'
 import ScrollableList from './scrollable_list'
 import ListItem from './list_item'
 
@@ -13,7 +14,7 @@ export default class List extends PureComponent {
     const { items, scrollKey, emptyMessage } = this.props
 
     return (
-      <div className={[_s.default, _s.backgroundColorPrimary, _s.radiusSmall, _s.overflowHidden, _s.border1PX, _s.borderColorSecondary].join(' ')}>
+      <Block>
         <ScrollableList
           scrollKey={scrollKey}
           emptyMessage={emptyMessage}
@@ -31,7 +32,7 @@ export default class List extends PureComponent {
             })
           }
         </ScrollableList>
-      </div>
+      </Block>
     )
   }
 

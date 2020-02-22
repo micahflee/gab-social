@@ -1,32 +1,17 @@
-import { Fragment } from 'react';
-import Header from '../features/search/components/header';
-import LinkFooter from '../components/link_footer';
-import { WhoToFollowPanel, SignUpPanel } from '../components/panel';
-import DefaultLayout from '../components/layouts/default_layout';
+import { Fragment } from 'react'
+import LinkFooter from '../components/link_footer'
+import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
+import TrendsPanel from '../components/panel/trends_panel'
+import SearchLayout from '../components/layouts/search_layout'
 
 export default class SearchPage extends PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node,
-  };
-
   render() {
+    const { children } = this.props
+
     return (
-      <DefaultLayout
-        layout={{
-          TOP: <Header/>,
-          RIGHT: (
-            <Fragment>
-              <SignUpPanel />
-              <WhoToFollowPanel />
-            </Fragment>
-          ),
-          LEFT: <LinkFooter/>,
-        }}
-      >
-        {this.props.children}
-      </DefaultLayout>
+      <SearchLayout>
+        {children}
+      </SearchLayout>
     )
   }
-
-};
+}

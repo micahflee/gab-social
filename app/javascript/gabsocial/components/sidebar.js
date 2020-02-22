@@ -6,9 +6,9 @@ import Button from './button'
 import { closeSidebar } from '../actions/sidebar'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
-import GabLogo from './assets/gab_logo'
 import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
+import SidebarHeader from './sidebar_header'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -104,6 +104,11 @@ class Sidebar extends ImmutablePureComponent {
         count: 124,
       },
       {
+        title: 'Search',
+        icon: 'search-sidebar',
+        to: '/search',
+      },
+      {
         title: 'Notifications',
         icon: 'notifications',
         to: '/notifications',
@@ -130,6 +135,11 @@ class Sidebar extends ImmutablePureComponent {
         to: '/',
       },
     ]
+
+    // more:
+    // settings/preferences
+    // help
+    // logout
 
     const shortcutItems = [
       {
@@ -175,17 +185,7 @@ class Sidebar extends ImmutablePureComponent {
           <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
             <div className={[_s.default, _s.height100PC, _s.width240PX, _s.paddingRight15PX, _s.marginVertical10PX].join(' ')}>
 
-              <h1 className={[_s.default].join(' ')}>
-                <NavLink to='/' aria-label='Gab' className={[_s.default, _s.noSelect, _s.noUnderline, _s.height50PX, _s.justifyContentCenter, _s.cursorPointer, _s.paddingHorizontal10PX].join(' ')}>
-                  <GabLogo />
-                </NavLink>
-              </h1>
-
-              <SidebarSectionItem
-                image='http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139'
-                title='@admin'
-                to='/profile'
-              />
+              <SidebarHeader />
 
               <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.marginBottom15PX].join(' ')}>
                 <SidebarSectionTitle>Menu</SidebarSectionTitle>

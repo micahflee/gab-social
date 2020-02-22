@@ -14,6 +14,7 @@ import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
 import StatusContent from '../status_content';
 import StatusActionBar from '../status_action_bar';
+import Block from '../block';
 import Icon from '../icon';
 import Poll from '../poll';
 import StatusHeader from '../status_header'
@@ -257,9 +258,9 @@ class Status extends ImmutablePureComponent {
 
   handleOpenProUpgradeModal = () => {
     this.props.onOpenProUpgradeModal();
-	}
+  }
 
-  render () {
+  render() {
     let media = null;
     let statusAvatar, prepend, rebloggedByText, reblogContent;
 
@@ -424,51 +425,53 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={[_s.default, _s.backgroundColorPrimary, _s.radiusSmall, _s.marginBottom15PX, _s.border1PX, _s.borderColorSecondary].join(' ')}
+          className={[_s.default, _s.marginBottom15PX].join(' ')}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
         >
+          <Block>
 
-          {prepend}
+            {prepend}
 
-          <div
-            className={classNames('status', `status-${status.get('visibility')}`, {
-              'status-reply': !!status.get('in_reply_to_id'),
-              muted: this.props.muted,
-              read: unread === false,
-            })}
-            data-id={status.get('id')}
-          >
+            <div
+              className={classNames('status', `status-${status.get('visibility')}`, {
+                'status-reply': !!status.get('in_reply_to_id'),
+                muted: this.props.muted,
+                read: unread === false,
+              })}
+              data-id={status.get('id')}
+            >
 
-            <StatusHeader status={status} />
+              <StatusHeader status={status} />
 
-            <div className={_s.default}>
-              <StatusContent
-                status={status}
-                reblogContent={reblogContent}
-                onClick={this.handleClick}
-                expanded={!status.get('hidden')}
-                onExpandedToggle={this.handleExpandedToggle}
-                collapsable
-              />
-            </div>
+              <div className={_s.default}>
+                <StatusContent
+                  status={status}
+                  reblogContent={reblogContent}
+                  onClick={this.handleClick}
+                  expanded={!status.get('hidden')}
+                  onExpandedToggle={this.handleExpandedToggle}
+                  collapsable
+                />
+              </div>
 
-            { media }
+              {media}
 
-            { /* status.get('quote') && <StatusQuote
+              { /* status.get('quote') && <StatusQuote
               id={status.get('quote')}
             /> */ }
 
-            { /* showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
+              { /* showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
               <button className='status__content__read-more-button' onClick={this.handleClick}>
                 <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
               </button>
             ) */ }
 
-            <StatusActionBar status={status} account={account} {...other} />
-          </div>
+              <StatusActionBar status={status} account={account} {...other} />
+            </div>
+          </Block>
         </div>
       </HotKeys>
     );

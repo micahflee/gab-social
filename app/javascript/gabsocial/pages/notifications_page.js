@@ -18,6 +18,7 @@ export default class NotificationsPage extends PureComponent {
             <LinkFooter />
           </Fragment>
         )}
+        showBackBtn
       >
         {children}
       </DefaultLayout>

@@ -35,6 +35,7 @@ export default class Button extends PureComponent {
     outline: PropTypes.bool,
     narrow: PropTypes.bool,
     underlineOnHover: PropTypes.bool,
+    radiusSmall: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -56,7 +57,7 @@ export default class Button extends PureComponent {
     this.node.focus()
   }
 
-  render () {
+  render() {
     const {
       block,
       className,
@@ -74,6 +75,7 @@ export default class Button extends PureComponent {
       backgroundColor,
       underlineOnHover,
       narrow,
+      radiusSmall,
       ...otherProps
     } = this.props
 
@@ -90,6 +92,7 @@ export default class Button extends PureComponent {
       backgroundColorPrimary: backgroundColor === COLORS.white,
       backgroundColorBrand: backgroundColor === COLORS.brand,
       backgroundTransparent: backgroundColor === COLORS.none,
+      backgroundSubtle2: backgroundColor === COLORS.tertiary,
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,
@@ -100,6 +103,7 @@ export default class Button extends PureComponent {
       border1PX: outline,
 
       circle: !text,
+      radiusSmall: radiusSmall,
 
       paddingVertical5PX: narrow,
       paddingVertical10PX: !text && !narrow,
@@ -108,6 +112,8 @@ export default class Button extends PureComponent {
       width100PC: block,
 
       underline_onHover: underlineOnHover,
+
+      backgroundSubtle2Dark_onHover: backgroundColor === COLORS.tertiary,
 
       backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
 
@@ -124,19 +130,25 @@ export default class Button extends PureComponent {
       </Fragment>
     ) : children
 
-    return React.createElement(
-      tagName,
-      {
-        className: classes,
-        ref: this.setRef,
-        disabled: disabled,
-        to: to || undefined,
-        to: href || undefined,
-        onClick: this.handleClick || undefined,
-        ...otherProps
-      },
-      theChildren,
-    )
+    const options = {
+      className: classes,
+      ref: this.setRef,
+      disabled: disabled,
+      to: to || undefined,
+      href: href || undefined,
+      onClick: this.handleClick || undefined,
+    }
+
+    if (tagName === 'NavLink' && !!to) {
+      console.log("to: ", to)
+      return (
+        <NavLink {...options}>
+          {theChildren}
+        </NavLink>
+      )
+    }
+
+    return React.createElement(tagName, options, theChildren)
   }
 
 }
