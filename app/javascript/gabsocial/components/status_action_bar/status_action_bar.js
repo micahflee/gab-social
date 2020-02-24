@@ -5,7 +5,7 @@ import classNames from 'classnames/bind'
 import { Link } from 'react-router-dom';
 import { openModal } from '../../actions/modal';
 import { me, isStaff } from '../../initial_state';
-import DropdownMenuContainer from '../../containers/dropdown_menu_container';
+import Dropdown from '../dropdown_menu'
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
 import Icon from '../icon';
 

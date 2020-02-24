@@ -14,7 +14,8 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default @connect(makeMapStateToProps)
+export default
+@connect(makeMapStateToProps)
 class AutosuggestAccount extends ImmutablePureComponent {
 
   static propTypes = {

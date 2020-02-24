@@ -5,7 +5,8 @@ const messages = defineMessages({
   load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
 })
 
-export default @injectIntl
+export default
+@injectIntl
 class LoadMore extends PureComponent {
 
   static propTypes = {

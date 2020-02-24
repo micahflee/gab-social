@@ -4,7 +4,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl';
 import classNames from 'classnames/bind'
 import { isRtl } from '../../utils/rtl';
-import Permalink from '../permalink/permalink';
+import Button from '../button'
 import Icon from '../icon';
 
 const MAX_HEIGHT = 200;
@@ -180,9 +180,9 @@ class StatusContent extends ImmutablePureComponent {
       let mentionsPlaceholder = '';
 
       const mentionLinks = status.get('mentions').map(item => (
-        <Permalink to={`/${item.get('acct')}`} href={`/${item.get('acct')}`} key={item.get('id')} className='mention'>
+        <Button to={`/${item.get('acct')}`} href={`/${item.get('acct')}`} key={item.get('id')} className='mention'>
           @<span>{item.get('username')}</span>
-        </Permalink>
+        </Button>
       )).reduce((aggregate, item) => [...aggregate, item, ' '], []);
 
       const toggleText = intl.formatMessage(hidden ? messages.showMore : messages.showLess);

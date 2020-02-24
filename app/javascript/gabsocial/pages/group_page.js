@@ -5,7 +5,7 @@ import { fetchGroup } from '../actions/groups';
 import HeaderContainer from '../features/groups/timeline/containers/header_container';
 import GroupPanel from '../features/groups/timeline/components/panel';
 // import GroupSidebarPanel from '../features/groups/sidebar_panel';
-import DefaultLayout from '../components/layouts/default_layout';
+import DefaultLayout from '../layouts/default_layout';
 import { WhoToFollowPanel } from '../components/panel';
 import LinkFooter from '../components/link_footer';
 

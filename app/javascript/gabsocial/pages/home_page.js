@@ -6,7 +6,7 @@ import ProgressPanel from '../components/panel/progress_panel'
 import UserPanel from '../components/panel/user_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import HashtagsPanel from '../components/panel/hashtags_panel'
-import DefaultLayout from '../components/layouts/default_layout'
+import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 

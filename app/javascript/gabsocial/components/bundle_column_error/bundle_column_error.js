@@ -8,7 +8,8 @@ const messages = defineMessages({
   retry: { id: 'bundle_column_error.retry', defaultMessage: 'Try again' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class BundleColumnError extends PureComponent {
 
   static propTypes = {

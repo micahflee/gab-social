@@ -7,7 +7,7 @@ import Video from '../features/video';
 import Card from '../features/status/components/card';
 import Poll from '../components/poll';
 import MediaGallery from '../components/media_gallery';
-import ModalRoot from '../components/modal_root';
+import ModalRoot from '../components/modal/modal_root';
 import { MediaModal } from '../components/modal';
 
 const { localeData, messages } = getLocale();

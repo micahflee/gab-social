@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import ActionBar from '../action_bar';
 import Avatar from '../../../../components/avatar';
-import Permalink from '../../../../components/permalink';
+import Button from '../../../../components/button'
 import IconButton from '../../../../components/icon_button';
 import { me } from '../../../../initial_state';
 
@@ -26,15 +26,15 @@ class NavigationBar extends ImmutablePureComponent {
 
     return (
       <div className='navigation-bar'>
-        <Permalink href={account.get('url')} to={`/${account.get('acct')}`}>
+        <Button href={account.get('url')} to={`/${account.get('acct')}`}>
           <span style={{ display: 'none' }}>{account.get('acct')}</span>
           <Avatar account={account} size={48} />
-        </Permalink>
+        </Button>
 
         <div className='navigation-bar__profile'>
-          <Permalink href={account.get('url')} to={`/${account.get('acct')}`}>
+          <Button href={account.get('url')} to={`/${account.get('acct')}`}>
             <strong className='navigation-bar__profile-account'>@{account.get('acct')}</strong>
-          </Permalink>
+          </Button>
 
           <a href='/settings/profile' className='navigation-bar__profile-edit'>
             <FormattedMessage id='navigation_bar.edit_profile' defaultMessage='Edit profile' />

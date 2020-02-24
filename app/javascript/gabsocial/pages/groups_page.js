@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
-import DefaultLayout from '../components/layouts/default_layout'
+import DefaultLayout from '../layouts/default_layout'
 
 export default class GroupsPage extends PureComponent {
 

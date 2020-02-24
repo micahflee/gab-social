@@ -2,7 +2,7 @@ import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import LinkFooter from '../components/link_footer'
-import DefaultLayout from '../components/layouts/default_layout'
+import DefaultLayout from '../layouts/default_layout'
 import ListDetailsPanel from '../components/panel/list_details_panel'
 
 const mapStateToProps = (state, props) => ({

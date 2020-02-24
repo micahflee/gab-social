@@ -3,11 +3,35 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import detectPassiveEvents from 'detect-passive-events';
 import Overlay from 'react-overlays/lib/Overlay';
 import spring from 'react-motion/lib/spring';
-import Motion from '../../features/ui/util/optional_motion';
+import { openDropdownMenu, closeDropdownMenu } from '../../actions/dropdown_menu';
+import { openModal, closeModal } from '../../actions/modal';
+import { isUserTouching } from '../../utils/is_mobile';
+import Motion from '../../features/ui/util/optional_motion'
 import IconButton from '../icon_button';
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
 let id = 0;
+
+const mapStateToProps = state => ({
+  isModalOpen: state.get('modal').modalType === 'ACTIONS',
+  dropdownPlacement: state.getIn(['dropdown_menu', 'placement']),
+  openDropdownId: state.getIn(['dropdown_menu', 'openId']),
+  openedViaKeyboard: state.getIn(['dropdown_menu', 'keyboard']),
+});
+
+const mapDispatchToProps = (dispatch, { status, items }) => ({
+  onOpen(id, onItemClick, dropdownPlacement, keyboard) {
+    dispatch(isUserTouching() ? openModal('ACTIONS', {
+      status,
+      actions: items,
+      onClick: onItemClick,
+    }) : openDropdownMenu(id, dropdownPlacement, keyboard));
+  },
+  onClose(id) {
+    dispatch(closeModal());
+    dispatch(closeDropdownMenu(id));
+  },
+});
 
 class DropdownMenu extends PureComponent {
 
@@ -158,7 +182,9 @@ class DropdownMenu extends PureComponent {
 
 }
 
-export default class Dropdown extends ImmutablePureComponent {
+export default
+@connect(mapStateToProps, mapDispatchToProps)
+class Dropdown extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

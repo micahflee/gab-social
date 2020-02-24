@@ -1,1 +1,0 @@
-export { default } from './bundle_modal_error';

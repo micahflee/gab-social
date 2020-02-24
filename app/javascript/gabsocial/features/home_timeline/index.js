@@ -11,7 +11,8 @@ const mapStateToProps = state => ({
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
 })
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class HomeTimeline extends PureComponent {
 

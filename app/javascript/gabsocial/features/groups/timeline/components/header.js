@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
-import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
+import Dropdown from '../../../../components/dropdown_menu'
 import Button from '../../../../components/button';
 
 const messages = defineMessages({
@@ -24,7 +24,7 @@ class Header extends ImmutablePureComponent {
 		router: PropTypes.object,
 	};
 
-	getActionButton() {
+getActionButton() {
 		const { group, relationships, toggleMembership, intl } = this.props;
 		const toggle = () => toggleMembership(group, relationships);
 

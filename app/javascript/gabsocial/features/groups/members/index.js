@@ -12,7 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import AccountContainer from '../../../containers/account_container';
 import Column from '../../../components/column';
 import ScrollableList from '../../../components/scrollable_list';
-import DropdownMenuContainer from '../../../containers/dropdown_menu_container';
+import Dropdown from '../../../components/dropdown_menu'
 
 const mapStateToProps = (state, { params: { id } }) => ({
 	group: state.getIn(['groups', id]),

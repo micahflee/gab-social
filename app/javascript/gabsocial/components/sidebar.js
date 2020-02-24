@@ -1,9 +1,9 @@
-import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import { closeSidebar } from '../actions/sidebar'
+import { openModal } from '../actions/modal'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import SidebarSectionTitle from './sidebar_section_title'
@@ -44,9 +44,13 @@ const mapDispatchToProps = (dispatch) => ({
   onClose() {
     dispatch(closeSidebar())
   },
+  onOpenComposeModal() {
+    dispatch(openModal('PRO_UPGRADE'))
+  },
 })
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class Sidebar extends ImmutablePureComponent {
 
@@ -55,6 +59,7 @@ class Sidebar extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     sidebarOpen: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
+    onOpenComposeModal: PropTypes.func.isRequired,
   }
 
   state = {
@@ -82,6 +87,11 @@ class Sidebar extends ImmutablePureComponent {
     this.setState({
       moreOpen: false,
     })
+  }
+
+  handleOpenComposeModal = () => {
+    console.log("handleOpenComposeModal")
+    this.props.onOpenComposeModal()
   }
 
   render() {
@@ -113,6 +123,11 @@ class Sidebar extends ImmutablePureComponent {
         icon: 'notifications',
         to: '/notifications',
         count: 40,
+      },
+      {
+        title: 'Bookmarks',
+        icon: 'bookmarks',
+        to: '/bookmarks',
       },
       {
         title: 'Groups',
@@ -210,6 +225,7 @@ class Sidebar extends ImmutablePureComponent {
 
               <Button
                 block
+                onClick={this.handleOpenComposeModal}
                 className={[_s.paddingVertical15PX, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
               >
                 Gab

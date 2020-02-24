@@ -4,7 +4,7 @@ import { HotKeys } from 'react-hotkeys';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import StatusContainer from '../../../../containers/status_container';
 import AccountContainer from '../../../../containers/account_container';
-import Permalink from '../../../../components/permalink';
+import Button from '../../../../components/button'
 import Icon from '../../../../components/icon';
 
 const notificationForScreenReader = (intl, message, timestamp) => {
@@ -240,7 +240,7 @@ class Notification extends ImmutablePureComponent {
     const { notification } = this.props;
     const account          = notification.get('account');
     const displayNameHtml  = { __html: account.get('display_name_html') };
-    const link             = <bdi><Permalink className='notification__display-name' href={`/${account.get('acct')}`} title={account.get('acct')} to={`/${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
+    const link             = <bdi><Button className='notification__display-name' href={`/${account.get('acct')}`} title={account.get('acct')} to={`/${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
 
     switch(notification.get('type')) {
     // case 'follow':

@@ -5,7 +5,8 @@ const messages = defineMessages({
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unhide {domain}' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class Domain extends PureComponent {
 
   static propTypes = {

@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import { openModal } from '../../../../actions/modal';
-import DropdownMenuContainer from '../../../../containers/dropdown_menu_container';
+import Dropdown from '../../../../components/dropdown_menu'
 import { meUsername } from '../../../../initial_state';
 
 const messages = defineMessages({

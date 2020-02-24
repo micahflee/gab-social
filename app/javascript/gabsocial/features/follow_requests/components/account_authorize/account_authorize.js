@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { authorizeFollowRequest, rejectFollowRequest } from '../../../../actions/accounts';
 import { makeGetAccount } from '../../../../selectors';
-import Permalink from '../../../../components/permalink';
+import Button from '../../../../components/button'
 import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
 import IconButton from '../../../../components/icon_button';
@@ -51,12 +51,12 @@ class AccountAuthorize extends ImmutablePureComponent {
     return (
       <div className='account-authorize__wrapper'>
         <div className='account-authorize'>
-          <Permalink href={`/${account.get('acct')}`} to={`/${account.get('acct')}`} className='account-authorize__display-name'>
+          <Button href={`/${account.get('acct')}`} to={`/${account.get('acct')}`} className='account-authorize__display-name'>
             <div className='account-authorize__avatar'>
               <Avatar account={account} size={48} />
             </div>
             <DisplayName account={account} />
-          </Permalink>
+          </Button>
 
           <div className='account__header__content' dangerouslySetInnerHTML={content} />
         </div>

@@ -1,6 +1,6 @@
 import { closeModal } from '../actions/modal';
 import { cancelReplyCompose } from '../actions/compose';
-import ModalRoot from '../components/modal_root';
+import ModalRoot from '../components/modal/modal_root';
 
 const mapStateToProps = state => ({
   type: state.get('modal').modalType,

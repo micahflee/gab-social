@@ -1,1 +1,0 @@
-export { default } from './floating_action_button';

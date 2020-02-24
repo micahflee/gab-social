@@ -115,6 +115,8 @@ body {
 .border2PX { border-width: 2px; }
 .borderBottom2PX { border-bottom-width: 2px; }
 
+.borderDashed { border-style: dashed; }
+
 .marginAuto { margin: auto; }
 
 .displayNone { display: none; }
@@ -136,6 +138,7 @@ body {
 .backgroundSubtle2Dark_onHover:hover { background-color: #d9e0e5; }
 .backgroundcolorSecondary3 { background-color: #F6F6F9; }
 .backgroundColorPrimary { background-color: #fff; }
+.backgroundColorPrimaryOpaque { background-color: rgba(255,255,255,0.8); }
 .backgroundColorBrandLightOpaque { background-color: rgba(54, 233, 145, 0.1); }
 .backgroundColorOpaque { background-color: rgba(0,0,0, 0.4); }
 .backgroundColorBrandLight { background-color: #36e991; }
@@ -154,8 +157,10 @@ body {
 .fillcolorSecondary { fill: #666; }
 
 .bottom0 { bottom: 0; }
+.bottomAuto { bottom: auto; }
 .left0 { left: 0px; }
 .right0 { right: 0px; }
+.rightAuto { right: auto; }
 .top0 { top: 0px; }
 
 .lineHeight125 { line-height: 1.25em; }
@@ -253,6 +258,7 @@ body {
 .z1 { z-index: 1; }
 .z2 { z-index: 2; }
 .z3 { z-index: 3; }
+.z4 { z-index: 4; }
 
 .marginVertical5PX {
   margin-top: 5px;

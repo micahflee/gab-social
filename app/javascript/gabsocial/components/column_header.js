@@ -9,7 +9,8 @@ const messages = defineMessages({
   hide: { id: 'column_header.hide_settings', defaultMessage: 'Hide settings' },
 })
 
-export default @injectIntl
+export default
+@injectIntl
 class ColumnHeader extends PureComponent {
 
   static contextTypes = {

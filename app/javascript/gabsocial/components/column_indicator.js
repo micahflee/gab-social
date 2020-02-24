@@ -6,7 +6,8 @@ const messages = defineMessages({
   missing: { id: 'missing_indicator.sublabel', defaultMessage: 'This resource could not be found.' },
 })
 
-export default @injectIntl
+export default
+@injectIntl
 class ColumnIndicator extends PureComponent {
 
   static propTypes = {
