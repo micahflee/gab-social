@@ -107,15 +107,15 @@ export function Mutes() {
 }
 
 export function MuteModal() {
-  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal')
+  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal')
 }
 
 export function StatusRevisionModal() {
-  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal')
+  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/status_revision_modal')
 }
 
 export function ReportModal() {
-  return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal')
+  return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal')
 }
 
 export function MediaGallery() {
@@ -127,7 +127,7 @@ export function Video() {
 }
 
 export function EmbedModal() {
-  return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal')
+  return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal')
 }
 
 export function ListEditor() {

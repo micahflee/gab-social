@@ -1,9 +1,9 @@
 import { injectIntl, defineMessages } from 'react-intl';
-import { closeModal } from '../../../actions/modal';
-import { muteAccount } from '../../../actions/accounts';
-import { toggleHideNotifications } from '../../../actions/mutes';
-import ToggleSwitch from '../../toggle_switch';
-import Button from '../../button';
+import { closeModal } from '../../actions/modal';
+import { muteAccount } from '../../actions/accounts';
+import { toggleHideNotifications } from '../../actions/mutes';
+import ToggleSwitch from '../toggle_switch';
+import Button from '../button';
 
 const messages = defineMessages({
   muteMessage: { id: 'confirmations.mute.message', defaultMessage: 'Are you sure you want to mute {name}?' },

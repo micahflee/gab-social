@@ -10,10 +10,8 @@ import { expandAccountMediaTimeline } from '../../actions/timelines';
 import { me } from '../../initial_state';
 import { getAccountGallery } from '../../selectors';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import MediaItem from './components/media_item';
 import LoadMore from '../../components/load_more';
-import SectionHeadlineBar from '../../components/section_headline_bar';
 
 const messages = defineMessages({
   posts: { id: 'account.posts', defaultMessage: 'Gabs' },
@@ -63,7 +61,7 @@ class LoadMoreMedia extends ImmutablePureComponent {
     this.props.onLoadMore(this.props.maxId);
   }
 
-  render () {
+  render() {
     return (
       <LoadMore
         disabled={this.props.disabled}
@@ -93,7 +91,7 @@ class AccountGallery extends ImmutablePureComponent {
     width: 323,
   };
 
-  componentDidMount () {
+  componentDidMount() {
     const { params: { username }, accountId } = this.props;
 
     if (accountId && accountId !== -1) {
@@ -104,7 +102,7 @@ class AccountGallery extends ImmutablePureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId)) {
       this.props.dispatch(fetchAccount(nextProps.params.accountId));
       this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId));
@@ -154,14 +152,14 @@ class AccountGallery extends ImmutablePureComponent {
     }
   }
 
-  render () {
+  render() {
     const { attachments, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername, intl } = this.props;
     const { width } = this.state;
 
     if (!isAccount && accountId !== -1) {
       return (<ColumnIndicator type='missing' />);
     } else if (accountId === -1 || (!attachments && isLoading)) {
-      return ( <ColumnIndicator type='loading' /> );
+      return (<ColumnIndicator type='loading' />);
     } else if (unavailable) {
       return (<ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />);
     }
@@ -173,9 +171,8 @@ class AccountGallery extends ImmutablePureComponent {
     }
 
     return (
-      <Column>
-        <div className='scrollable-list scrollable-list--flex' onScroll={this.handleScroll}>
-          <SectionHeadlineBar
+      <div className='scrollable-list scrollable-list--flex' onScroll={this.handleScroll}>
+        { /* <SectionHeadlineBar
             className='account-section-headline'
             items={[
               {
@@ -194,32 +191,31 @@ class AccountGallery extends ImmutablePureComponent {
                 title: intl.formatMessage(messages.media),
               },
             ]}
-          />
+          /> */ }
 
-          <div role='feed' className='account-gallery__container' ref={this.handleRef}>
-            {attachments.map((attachment, index) => attachment === null ? (
-              <LoadMoreMedia key={'more:' + attachments.getIn(index + 1, 'id')} maxId={index > 0 ? attachments.getIn(index - 1, 'id') : null} onLoadMore={this.handleLoadMore} />
-            ) : (
+        <div role='feed' className='account-gallery__container' ref={this.handleRef}>
+          {attachments.map((attachment, index) => attachment === null ? (
+            <LoadMoreMedia key={'more:' + attachments.getIn(index + 1, 'id')} maxId={index > 0 ? attachments.getIn(index - 1, 'id') : null} onLoadMore={this.handleLoadMore} />
+          ) : (
               <MediaItem key={attachment.get('id')} attachment={attachment} displayWidth={width} onOpenMedia={this.handleOpenMedia} />
             ))}
 
-            {
-              attachments.size == 0 &&
-              <div className='empty-column-indicator'>
-                <FormattedMessage id='account_gallery.none' defaultMessage='No media to show.' />
-              </div>
-            }
-
-            {loadOlder}
-          </div>
-
-          {isLoading && attachments.size === 0 && (
-            <div className='slist__append'>
-              <ColumnIndicator type='loading' />
+          {
+            attachments.size == 0 &&
+            <div className='empty-column-indicator'>
+              <FormattedMessage id='account_gallery.none' defaultMessage='No media to show.' />
             </div>
-          )}
+          }
+
+          {loadOlder}
         </div>
-      </Column>
+
+        {isLoading && attachments.size === 0 && (
+          <div className='slist__append'>
+            <ColumnIndicator type='loading' />
+          </div>
+        )}
+      </div>
     );
   }
 

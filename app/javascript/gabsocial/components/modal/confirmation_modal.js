@@ -1,7 +1,9 @@
-import { injectIntl, FormattedMessage } from 'react-intl';
-import Button from '../../button';
+import { injectIntl, FormattedMessage } from 'react-intl'
+import ModalLayout from './modal_layout'
+import Button from '../button'
 
-export default @injectIntl
+export default
+@injectIntl
 class ConfirmationModal extends PureComponent {
 
   static propTypes = {
@@ -13,34 +15,34 @@ class ConfirmationModal extends PureComponent {
     onSecondary: PropTypes.func,
     intl: PropTypes.object.isRequired,
     onCancel: PropTypes.func,
-  };
+  }
 
   componentDidMount() {
-    this.button.focus();
+    this.button.focus()
   }
 
   handleClick = () => {
-    this.props.onClose();
-    this.props.onConfirm();
+    this.props.onClose()
+    this.props.onConfirm()
   }
 
   handleSecondary = () => {
-    this.props.onClose();
-    this.props.onSecondary();
+    this.props.onClose()
+    this.props.onSecondary()
   }
 
   handleCancel = () => {
-    const {onClose, onCancel} = this.props;
-    onClose();
-    if (onCancel) onCancel();
+    const {onClose, onCancel} = this.props
+    onClose()
+    if (onCancel) onCancel()
   }
 
   setRef = (c) => {
-    this.button = c;
+    this.button = c
   }
 
   render () {
-    const { message, confirm, secondary } = this.props;
+    const { message, confirm, secondary } = this.props
 
     return (
       <div className='modal-root__modal confirmation-modal'>
@@ -58,7 +60,7 @@ class ConfirmationModal extends PureComponent {
           <Button text={confirm} onClick={this.handleClick} ref={this.setRef} />
         </div>
       </div>
-    );
+    )
   }
 
 }

@@ -1,18 +1,17 @@
 import ModalBase from './modal_base'
 import Bundle from '../../features/ui/util/bundle'
 import BundleModalError from '../bundle_modal_error'
-import {
-  ActionsModal,
-  MediaModal,
-  VideoModal,
-  BoostModal,
-  ConfirmationModal,
-  FocalPointModal,
-  HotkeysModal,
-  ComposeModal,
-  UnauthorizedModal,
-  ProUpgradeModal,
-} from '.'
+import ActionsModal from './actions_modal'
+import MediaModal from './media_modal'
+// import VideoModal from './video_modal'
+import BoostModal from './boost_modal'
+import ConfirmationModal from './confirmation_modal'
+import FocalPointModal from './focal_point_modal'
+import HotkeysModal from './hotkeys_modal'
+import ComposeModal from './compose_modal'
+import UnauthorizedModal from './unauthorized_modal'
+import ProUpgradeModal from './pro_upgrade_modal'
+import ModalLoading from './modal_loading'
 import {
   MuteModal,
   ReportModal,
@@ -21,11 +20,10 @@ import {
   ListAdder,
   StatusRevisionModal,
 } from '../../features/ui/util/async-components'
-import ModalLoading from '../modal_loading'
 
 const MODAL_COMPONENTS = {
   'MEDIA': () => Promise.resolve({ default: MediaModal }),
-  'VIDEO': () => Promise.resolve({ default: VideoModal }),
+  // 'VIDEO': () => Promise.resolve({ default: VideoModal }),
   'BOOST': () => Promise.resolve({ default: BoostModal }),
   'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
   'MUTE': MuteModal,

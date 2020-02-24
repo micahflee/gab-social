@@ -8,7 +8,7 @@ import Card from '../features/status/components/card';
 import Poll from '../components/poll';
 import MediaGallery from '../components/media_gallery';
 import ModalRoot from '../components/modal/modal_root';
-import { MediaModal } from '../components/modal';
+import MediaModal from '../components/modal/media_modal';
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);

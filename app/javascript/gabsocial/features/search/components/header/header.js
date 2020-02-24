@@ -1,5 +1,4 @@
 import { FormattedMessage } from 'react-intl';
-import SectionHeadlineBar from '../../../../components/section_headline_bar';
 
 const mapStateToProps = state => ({
   value: state.getIn(['search', 'value']),
@@ -41,14 +40,14 @@ class Header extends PureComponent {
         </div>
         <div className='search-header__type-filters'>
           <div className='search-header__type-filters-tabs'>
-            <SectionHeadlineBar
+            { /* <SectionHeadlineBar
               items={[
                 {
                   to: '/search',
                   title: <FormattedMessage id='search_results.top' defaultMessage='Top' />
                 }
               ]}
-            />
+            /> */ }
           </div>
         </div>
       </div>

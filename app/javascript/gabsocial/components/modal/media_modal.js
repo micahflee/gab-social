@@ -3,11 +3,11 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ReactSwipeableViews from 'react-swipeable-views';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import Video from '../../../features/video';
-import ExtendedVideoPlayer from '../../extended_video_player';
-import IconButton from '../../icon_button';
-import ImageLoader from '../../image_loader';
-import Icon from '../../icon';
+import Video from '../../features/video';
+import ExtendedVideoPlayer from '../extended_video_player';
+import IconButton from '../icon_button';
+import ImageLoader from '../image_loader';
+import Icon from '../icon';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },

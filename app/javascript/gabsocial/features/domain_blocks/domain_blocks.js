@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import { fetchDomainBlocks, expandDomainBlocks } from '../../actions/domain_blocks';
 import DomainContainer from '../../containers/domain_container';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
 
 const messages = defineMessages({
@@ -46,18 +45,16 @@ class Blocks extends ImmutablePureComponent {
     }
 
     return (
-      <Column icon='minus-circle' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
-        <ScrollableList
-          scrollKey='domain_blocks'
-          onLoadMore={this.handleLoadMore}
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='empty_column.domain_blocks' defaultMessage='There are no hidden domains yet.' />}
-        >
-          {domains.map(domain =>
-            <DomainContainer key={domain} domain={domain} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='domain_blocks'
+        onLoadMore={this.handleLoadMore}
+        hasMore={hasMore}
+        emptyMessage={<FormattedMessage id='empty_column.domain_blocks' defaultMessage='There are no hidden domains yet.' />}
+      >
+        {domains.map(domain =>
+          <DomainContainer key={domain} domain={domain} />
+        )}
+      </ScrollableList>
     );
   }
 

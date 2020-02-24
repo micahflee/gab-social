@@ -3,7 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import AccountContainer from '../../containers/account_container';
 import { fetchBlocks, expandBlocks } from '../../actions/blocks';
 import ScrollableList from '../../components/scrollable_list';
@@ -45,18 +44,16 @@ class Blocks extends ImmutablePureComponent {
     }
 
     return (
-      <Column icon='ban' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
-        <ScrollableList
-          scrollKey='blocks'
-          onLoadMore={this.handleLoadMore}
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='empty_column.blocks' defaultMessage="You haven't blocked any users yet." />}
-        >
-          {accountIds.map(id =>
-            <AccountContainer key={id} id={id} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='blocks'
+        onLoadMore={this.handleLoadMore}
+        hasMore={hasMore}
+        emptyMessage={<FormattedMessage id='empty_column.blocks' defaultMessage="You haven't blocked any users yet." />}
+      >
+        {accountIds.map(id =>
+          <AccountContainer key={id} id={id} />
+        )}
+      </ScrollableList>
     );
   }
 

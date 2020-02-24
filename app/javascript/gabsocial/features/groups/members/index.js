@@ -1,7 +1,6 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import ColumnIndicator from '../../../components/column_indicator';
 import {
 	fetchMembers,
 	expandMembers,
@@ -10,7 +9,6 @@ import {
 } from '../../../actions/groups';
 import { FormattedMessage } from 'react-intl';
 import AccountContainer from '../../../containers/account_container';
-import Column from '../../../components/column';
 import ScrollableList from '../../../components/scrollable_list';
 import Dropdown from '../../../components/dropdown_menu'
 
@@ -51,15 +49,10 @@ class GroupMembers extends ImmutablePureComponent {
 		const { accountIds, hasMore, group, relationships, dispatch } = this.props;
 		
 		if (!group || !accountIds || !relationships) {
-			return (
-				<Column>
-					<LoadingIndicator />
-				</Column>
-			);
+			return <LoadingIndicator />
 		}
 
 		return (
-			<Column>
 				<ScrollableList
 					scrollKey='members'
 					hasMore={hasMore}
@@ -84,7 +77,6 @@ class GroupMembers extends ImmutablePureComponent {
 						);
 					})}
 				</ScrollableList>
-			</Column>
 		);
 	}
 

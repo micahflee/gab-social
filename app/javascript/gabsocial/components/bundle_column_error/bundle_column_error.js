@@ -1,5 +1,4 @@
 import { defineMessages, injectIntl } from 'react-intl';
-import Column from '../column';
 import IconButton from '../icon_button';
 
 const messages = defineMessages({
@@ -25,12 +24,10 @@ class BundleColumnError extends PureComponent {
     const { intl: { formatMessage } } = this.props;
 
     return (
-      <Column>
-        <div className='error-column'>
-          <IconButton title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
-          {formatMessage(messages.body)}
-        </div>
-      </Column>
+      <div className='error-column'>
+        <IconButton title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
+        {formatMessage(messages.body)}
+      </div>
     );
   }
 

@@ -11,7 +11,6 @@ import {
 import { me } from '../../initial_state';
 import AccountContainer from '../../containers/account_container';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
 
 const mapStateToProps = (state, { params: { username } }) => {
@@ -90,18 +89,16 @@ class Following extends ImmutablePureComponent {
     }
 
     return (
-      <Column>
-        <ScrollableList
-          scrollKey='following'
-          hasMore={hasMore}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={<FormattedMessage id='account.follows.empty' defaultMessage="This user doesn't follow anyone yet." />}
-        >
-          {accountIds.map(id =>
-            <AccountContainer key={id} id={id} withNote={false} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='following'
+        hasMore={hasMore}
+        onLoadMore={this.handleLoadMore}
+        emptyMessage={<FormattedMessage id='account.follows.empty' defaultMessage="This user doesn't follow anyone yet." />}
+      >
+        {accountIds.map(id =>
+          <AccountContainer key={id} id={id} withNote={false} />
+        )}
+      </ScrollableList>
     );
   }
 

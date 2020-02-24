@@ -5,7 +5,6 @@ import { debounce } from 'lodash';
 import { fetchMutes, expandMutes } from '../../actions/mutes';
 import AccountContainer from '../../containers/account_container';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
 
 const messages = defineMessages({
@@ -41,23 +40,21 @@ class Mutes extends ImmutablePureComponent {
     const { intl, hasMore, accountIds } = this.props;
 
     if (!accountIds) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     }
 
     return (
-      <Column icon='volume-off' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
-        <ScrollableList
-          scrollKey='mutes'
-          onLoadMore={this.handleLoadMore}
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
-        >
-          {accountIds.map(id =>
-            <AccountContainer key={id} id={id} />
-          )}
-        </ScrollableList>
-      </Column>
-    );
+      <ScrollableList
+        scrollKey='mutes'
+        onLoadMore={this.handleLoadMore}
+        hasMore={hasMore}
+        emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
+      >
+        {accountIds.map(id =>
+          <AccountContainer key={id} id={id} />
+        )}
+      </ScrollableList>
+    )
   }
 
 }

@@ -1,5 +1,5 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { load } from '../../../actions/status_revision_list';
+import { load } from '../actions/status_revision_list';
 import StatusRevisionList from '../components/status_revision_list';
 
 class StatusRevisionListContainer extends ImmutablePureComponent {

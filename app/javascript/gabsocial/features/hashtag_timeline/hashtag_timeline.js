@@ -3,7 +3,6 @@ import { isEqual } from 'lodash';
 import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines';
 import { connectHashtagStream } from '../../actions/streaming';
 import StatusListContainer from '../../containers/status_list_container';
-import Column from '../../components/column';
 
 const mapStateToProps = (state, props) => ({
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
@@ -102,14 +101,12 @@ class HashtagTimeline extends PureComponent {
     const { id } = this.props.params;
 
     return (
-      <Column heading={`#${id}`}>
-        <StatusListContainer
-          scrollKey='hashtag_timeline'
-          timelineId={`hashtag:${id}`}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={<FormattedMessage id='empty_column.hashtag' defaultMessage='There is nothing in this hashtag yet.' />}
-        />
-      </Column>
+      <StatusListContainer
+        scrollKey='hashtag_timeline'
+        timelineId={`hashtag:${id}`}
+        onLoadMore={this.handleLoadMore}
+        emptyMessage={<FormattedMessage id='empty_column.hashtag' defaultMessage='There is nothing in this hashtag yet.' />}
+      />
     );
   }
 

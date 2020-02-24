@@ -6,7 +6,6 @@ import { fetchStatus } from '../../actions/statuses';
 import { makeGetStatus } from '../../selectors';
 import AccountContainer from '../../containers/account_container';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
 
 const mapStateToProps = (state, props) => {
@@ -54,16 +53,14 @@ class Reblogs extends ImmutablePureComponent {
     }
 
     return (
-      <Column>
-        <ScrollableList
-          scrollKey='reblogs'
-          emptyMessage={<FormattedMessage id='status.reblogs.empty' defaultMessage='No one has reposted this gab yet. When someone does, they will show up here.' />}
-        >
-          {accountIds.map(id =>
-            <AccountContainer key={id} id={id} withNote={false} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='reblogs'
+        emptyMessage={<FormattedMessage id='status.reblogs.empty' defaultMessage='No one has reposted this gab yet. When someone does, they will show up here.' />}
+      >
+        {accountIds.map(id =>
+          <AccountContainer key={id} id={id} withNote={false} />
+        )}
+      </ScrollableList>
     );
   }
 

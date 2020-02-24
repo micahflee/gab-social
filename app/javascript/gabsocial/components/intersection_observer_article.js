@@ -1,6 +1,6 @@
 import { is } from 'immutable';
-import scheduleIdleTask from '../../utils/schedule_idle_task';
-import getRectFromEntry from '../../utils/get_rect_from_entry';
+import scheduleIdleTask from '../utils/schedule_idle_task';
+import getRectFromEntry from '../utils/get_rect_from_entry';
 
 // Diff these props in the "rendered" state
 const updateOnPropsForRendered = ['id', 'index', 'listLength'];

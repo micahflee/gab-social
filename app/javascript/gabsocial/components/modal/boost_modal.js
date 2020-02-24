@@ -1,12 +1,12 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import Button from '../../button';
-import StatusContent from '../../status_content';
-import Avatar from '../../avatar';
-import RelativeTimestamp from '../../relative_timestamp';
-import DisplayName from '../../display_name';
-import Icon from '../../icon';
+import Button from '../button';
+import StatusContent from '../status_content';
+import Avatar from '../avatar';
+import RelativeTimestamp from '../relative_timestamp';
+import DisplayName from '../display_name';
+import Icon from '../icon';
 
 const messages = defineMessages({
   cancel_reblog: { id: 'status.cancel_reblog_private', defaultMessage: 'Un-repost' },

@@ -4,7 +4,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { debounce } from 'lodash';
 import { fetchFavouritedStatuses, expandFavouritedStatuses } from '../../actions/favourites';
 import { meUsername } from '../../initial_state';
-import Column from '../../components/column';
 import StatusList from '../../components/status_list';
 import ColumnIndicator from '../../components/column_indicator';
 
@@ -44,7 +43,6 @@ class Favourites extends ImmutablePureComponent {
     }
 
     return (
-      <Column>
         <StatusList
           statusIds={statusIds}
           scrollKey='favourited_statuses'
@@ -53,7 +51,6 @@ class Favourites extends ImmutablePureComponent {
           onLoadMore={this.handleLoadMore}
           emptyMessage={<FormattedMessage id='empty_column.favourited_statuses' defaultMessage="You don't have any favourite gabs yet. When you favourite one, it will show up here." />}
         />
-      </Column>
     );
   }
 

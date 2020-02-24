@@ -4,7 +4,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
 import { fetchFollowRequests, expandFollowRequests } from '../../actions/accounts';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
 import AccountAuthorize from './components/account_authorize';
 import ScrollableList from '../../components/scrollable_list';
 
@@ -45,18 +44,16 @@ class FollowRequests extends ImmutablePureComponent {
     }
 
     return (
-      <Column icon='user-plus' heading={intl.formatMessage(messages.heading)} backBtn='slim'>
-        <ScrollableList
-          scrollKey='follow_requests'
-          onLoadMore={this.handleLoadMore}
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />}
-        >
-          {accountIds.map(id =>
-            <AccountAuthorize key={id} id={id} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='follow_requests'
+        onLoadMore={this.handleLoadMore}
+        hasMore={hasMore}
+        emptyMessage={<FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />}
+      >
+        {accountIds.map(id =>
+          <AccountAuthorize key={id} id={id} />
+        )}
+      </ScrollableList>
     );
   }
 

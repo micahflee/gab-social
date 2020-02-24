@@ -8,8 +8,6 @@ import { fetchAccountIdentityProofs } from '../../actions/identity_proofs';
 import { me } from '../../initial_state';
 import StatusList from '../../components/status_list/status_list';
 import ColumnIndicator from '../../components/column_indicator';
-import Column from '../../components/column';
-import SectionHeadlineBar from '../../components/section_headline_bar' ;
 
 const messages = defineMessages({
   posts: { id: 'account.posts', defaultMessage: 'Gabs' },
@@ -70,7 +68,7 @@ class AccountTimeline extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
   };
 
-  componentWillMount () {
+  componentWillMount() {
     const { params: { username }, accountId, withReplies } = this.props;
 
     if (accountId && accountId !== -1) {
@@ -87,7 +85,7 @@ class AccountTimeline extends ImmutablePureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId) || nextProps.withReplies !== this.props.withReplies) {
       this.props.dispatch(fetchAccount(nextProps.accountId));
       this.props.dispatch(fetchAccountIdentityProofs(nextProps.accountId));
@@ -106,7 +104,7 @@ class AccountTimeline extends ImmutablePureComponent {
     }
   }
 
-  render () {
+  render() {
     const { statusIds, featuredStatusIds, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername, intl } = this.props;
 
     if (!isAccount && accountId !== -1) {
@@ -117,38 +115,38 @@ class AccountTimeline extends ImmutablePureComponent {
       return (<ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />);
     }
 
+    /* <SectionHeadlineBar
+        className='account-section-headline'
+        items={[
+          {
+            exact: true,
+            to: `/${accountUsername}`,
+            title: intl.formatMessage(messages.posts),
+          },
+          {
+            exact: true,
+            to: `/${accountUsername}/with_replies`,
+            title: intl.formatMessage(messages.postsWithReplies),
+          },
+          {
+            exact: true,
+            to: `/${accountUsername}/media`,
+            title: intl.formatMessage(messages.media),
+          },
+        ]}
+      />
+      */
+
     return (
-      <Column>
-        <SectionHeadlineBar
-          className='account-section-headline'
-          items={[
-            {
-              exact: true,
-              to: `/${accountUsername}`,
-              title: intl.formatMessage(messages.posts),
-            },
-            {
-              exact: true,
-              to: `/${accountUsername}/with_replies`,
-              title: intl.formatMessage(messages.postsWithReplies),
-            },
-            {
-              exact: true,
-              to: `/${accountUsername}/media`,
-              title: intl.formatMessage(messages.media),
-            },
-          ]}
-        />
-        <StatusList
-          scrollKey='account_timeline'
-          statusIds={statusIds}
-          featuredStatusIds={featuredStatusIds}
-          isLoading={isLoading}
-          hasMore={hasMore}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={<FormattedMessage id='empty_column.account_timeline' defaultMessage='No gabs here!' />}
-        />
-      </Column>
+      <StatusList
+        scrollKey='account_timeline'
+        statusIds={statusIds}
+        featuredStatusIds={featuredStatusIds}
+        isLoading={isLoading}
+        hasMore={hasMore}
+        onLoadMore={this.handleLoadMore}
+        emptyMessage={<FormattedMessage id='empty_column.account_timeline' defaultMessage='No gabs here!' />}
+      />
     );
   }
 

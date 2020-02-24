@@ -3,7 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import { fetchPinnedStatuses } from '../../actions/pin_statuses';
 import { meUsername } from '../../initial_state';
-import Column from '../../components/column';
 import StatusList from '../../components/status_list/status_list';
 import ColumnIndicator from '../../components/column_indicator';
 
@@ -33,18 +32,16 @@ class PinnedStatuses extends ImmutablePureComponent {
     const { statusIds, hasMore, isMyAccount } = this.props;
 
     if (!isMyAccount) {
-      return (<ColumnIndicator type='missing' />);
+      return <ColumnIndicator type='missing' />
     }
 
     return (
-      <Column>
-        <StatusList
-          statusIds={statusIds}
-          scrollKey='pinned_statuses'
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='pinned_statuses.none' defaultMessage='No pins to show.' />}
-        />
-      </Column>
+      <StatusList
+        statusIds={statusIds}
+        scrollKey='pinned_statuses'
+        hasMore={hasMore}
+        emptyMessage={<FormattedMessage id='pinned_statuses.none' defaultMessage='No pins to show.' />}
+      />
     );
   }
 

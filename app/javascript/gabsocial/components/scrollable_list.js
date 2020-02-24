@@ -1,9 +1,9 @@
 import { throttle } from 'lodash';
 import { List as ImmutableList } from 'immutable';
-import IntersectionObserverArticleContainer from '../../containers/intersection_observer_article_container';
-import IntersectionObserverWrapper from '../../features/ui/util/intersection_observer_wrapper';
-import ColumnIndicator from '../column_indicator';
-import LoadMore from '../load_more';
+import IntersectionObserverArticleContainer from '../containers/intersection_observer_article_container';
+import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper';
+import ColumnIndicator from './column_indicator';
+import LoadMore from './load_more';
 
 const MOUSE_IDLE_DELAY = 300;
 

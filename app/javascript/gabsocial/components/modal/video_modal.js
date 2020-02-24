@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
-import Video from '../../../features/video';
+import Video from '../../features/video';
 
 export const previewState = 'previewVideoModal';
 

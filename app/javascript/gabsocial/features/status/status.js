@@ -39,7 +39,6 @@ import Icon from '../../components/icon';
 import ColumnIndicator from '../../components/column_indicator';
 import DetailedStatus from './components/detailed_status';
 import ActionBar from './components/detailed_status_action_bar';
-import Column from '../../components/column';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -81,7 +80,7 @@ const makeMapStateToProps = () => {
         const ids = [status.get('id')];
 
         while (ids.length > 0) {
-          let id        = ids.shift();
+          let id = ids.shift();
           const replies = state.getIn(['contexts', 'replies', id]);
 
           if (status.get('id') !== id) {
@@ -134,15 +133,15 @@ class Status extends ImmutablePureComponent {
     loadedStatusId: undefined,
   };
 
-  componentWillMount () {
+  componentWillMount() {
     this.props.dispatch(fetchStatus(this.props.params.statusId));
   }
 
-  componentDidMount () {
+  componentDidMount() {
     attachFullscreenListener(this.onFullScreenChange);
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
       this._scrolledIntoView = false;
       this.props.dispatch(fetchStatus(nextProps.params.statusId));
@@ -359,7 +358,7 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  _selectChild (index, align_top) {
+  _selectChild(index, align_top) {
     const container = this.node;
     const element = container.querySelectorAll('.focusable')[index];
 
@@ -373,7 +372,7 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  renderChildren (list) {
+  renderChildren(list) {
     return list.map(id => (
       <StatusContainer
         key={id}
@@ -389,7 +388,7 @@ class Status extends ImmutablePureComponent {
     this.node = c;
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (this._scrolledIntoView) {
       return;
     }
@@ -406,7 +405,7 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     detachFullscreenListener(this.onFullScreenChange);
   }
 
@@ -414,7 +413,7 @@ class Status extends ImmutablePureComponent {
     this.setState({ fullscreen: isFullscreen() });
   }
 
-  render () {
+  render() {
     let ancestors, descendants;
     const { status, ancestorsIds, descendantsIds, intl, domain } = this.props;
 
@@ -442,63 +441,61 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     };
 
+    /* me &&
+      <ColumnHeader
+        extraButton={(
+          <button
+            className='column-header__button'
+            title={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
+            aria-label={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
+            onClick={this.handleToggleAll}
+            aria-pressed={
+              status.get('hidden') ? 'false' : 'true'}
+          >
+            <Icon id={status.get('hidden') ? 'eye-slash' : 'eye'
+            }
+            />
+          </button>
+        )}
+      />
+    */
+
     return (
-      <Column heading={intl.formatMessage(messages.detailedStatus)}>
-        { /* me &&
-          <ColumnHeader
-            extraButton={(
-              <button
-                className='column-header__button'
-                title={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
-                aria-label={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
-                onClick={this.handleToggleAll}
-                aria-pressed={
-                  status.get('hidden') ? 'false' : 'true'}
-              >
-                <Icon id={status.get('hidden') ? 'eye-slash' : 'eye'
-                }
-                />
-              </button>
-            )}
-          />
-        */ }
+      <div ref={this.setRef}>
+        {ancestors}
 
-        <div ref={this.setRef}>
-          {ancestors}
+        <HotKeys handlers={handlers}>
+          <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
+            <DetailedStatus
+              status={status}
+              onOpenVideo={this.handleOpenVideo}
+              onOpenMedia={this.handleOpenMedia}
+              onToggleHidden={this.handleToggleHidden}
+              domain={domain}
+              showMedia={this.state.showMedia}
+              onToggleMediaVisibility={this.handleToggleMediaVisibility}
+            />
 
-          <HotKeys handlers={handlers}>
-            <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
-              <DetailedStatus
-                status={status}
-                onOpenVideo={this.handleOpenVideo}
-                onOpenMedia={this.handleOpenMedia}
-                onToggleHidden={this.handleToggleHidden}
-                domain={domain}
-                showMedia={this.state.showMedia}
-                onToggleMediaVisibility={this.handleToggleMediaVisibility}
-              />
+            <ActionBar
+              status={status}
+              onReply={this.handleReplyClick}
+              onFavourite={this.handleFavouriteClick}
+              onReblog={this.handleReblogClick}
+              onDelete={this.handleDeleteClick}
+              onDirect={this.handleDirectClick}
+              onMention={this.handleMentionClick}
+              onMute={this.handleMuteClick}
+              onMuteConversation={this.handleConversationMuteClick}
+              onBlock={this.handleBlockClick}
+              onReport={this.handleReport}
+              onPin={this.handlePin}
+              onEmbed={this.handleEmbed}
+            />
+          </div>
+        </HotKeys>
 
-              <ActionBar
-                status={status}
-                onReply={this.handleReplyClick}
-                onFavourite={this.handleFavouriteClick}
-                onReblog={this.handleReblogClick}
-                onDelete={this.handleDeleteClick}
-                onDirect={this.handleDirectClick}
-                onMention={this.handleMentionClick}
-                onMute={this.handleMuteClick}
-                onMuteConversation={this.handleConversationMuteClick}
-                onBlock={this.handleBlockClick}
-                onReport={this.handleReport}
-                onPin={this.handlePin}
-                onEmbed={this.handleEmbed}
-              />
-            </div>
-          </HotKeys>
-
-          {descendants}
-        </div>
-      </Column>
+        {descendants}
+      </div>
     );
   }
 

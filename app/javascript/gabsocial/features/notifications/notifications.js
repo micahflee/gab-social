@@ -15,7 +15,6 @@ import NotificationContainer from './containers/notification_container';
 import ScrollableList from '../../components/scrollable_list';
 import LoadMore from '../../components/load_more';
 // import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
-import Column from '../../components/column';
 
 const messages = defineMessages({
   title: { id: 'column.notifications', defaultMessage: 'Notifications' },
@@ -177,11 +176,11 @@ class Notifications extends ImmutablePureComponent {
     );
 
     return (
-      <Column ref={this.setColumnRef} heading={intl.formatMessage(messages.title)}>
+      <div ref={this.setColumnRef}>
         { /* filterBarContainer */ }
         { /* <TimelineQueueButtonHeader onClick={this.handleDequeueNotifications} count={totalQueuedNotificationsCount} itemType='notification' /> */ }
         { scrollContainer }
-      </Column>
+      </div>
     );
   }
 

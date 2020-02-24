@@ -11,7 +11,6 @@ import {
 } from '../../actions/accounts';
 import { me } from '../../initial_state';
 import AccountContainer from '../../containers/account_container';
-import Column from '../../components/column';
 import ScrollableList from '../../components/scrollable_list';
 
 const mapStateToProps = (state, { params: { username } }) => {
@@ -52,7 +51,7 @@ class Followers extends ImmutablePureComponent {
     unavailable: PropTypes.bool,
   };
 
-  componentWillMount () {
+  componentWillMount() {
     const { params: { username }, accountId } = this.props;
 
     if (accountId && accountId !== -1) {
@@ -63,7 +62,7 @@ class Followers extends ImmutablePureComponent {
     }
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId)) {
       this.props.dispatch(fetchAccount(nextProps.accountId));
       this.props.dispatch(fetchFollowers(nextProps.accountId));
@@ -76,7 +75,7 @@ class Followers extends ImmutablePureComponent {
     }
   }, 300, { leading: true });
 
-  render () {
+  render() {
     const { accountIds, hasMore, isAccount, accountId, unavailable } = this.props;
 
     if (!isAccount && accountId !== -1) {
@@ -88,18 +87,16 @@ class Followers extends ImmutablePureComponent {
     }
 
     return (
-      <Column>
-        <ScrollableList
-          scrollKey='followers'
-          hasMore={hasMore}
-          onLoadMore={this.handleLoadMore}
-          emptyMessage={<FormattedMessage id='account.followers.empty' defaultMessage='No one follows this user yet.' />}
-        >
-          {accountIds.map(id =>
-            <AccountContainer key={id} id={id} withNote={false} />
-          )}
-        </ScrollableList>
-      </Column>
+      <ScrollableList
+        scrollKey='followers'
+        hasMore={hasMore}
+        onLoadMore={this.handleLoadMore}
+        emptyMessage={<FormattedMessage id='account.followers.empty' defaultMessage='No one follows this user yet.' />}
+      >
+        {accountIds.map(id =>
+          <AccountContainer key={id} id={id} withNote={false} />
+        )}
+      </ScrollableList>
     );
   }
 

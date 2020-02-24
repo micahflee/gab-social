@@ -1,5 +1,4 @@
 import { defineMessages, injectIntl } from 'react-intl';
-import SectionHeadlineBar from '../../../../components/section_headline_bar';
 
 const messages = defineMessages({
   mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
@@ -30,7 +29,7 @@ class NotificationFilterBar extends PureComponent {
 
     if (!advancedMode) {
       return (
-        <SectionHeadlineBar
+        { /* <SectionHeadlineBar
           items={[
             {
               className: selectedFilter === 'all' ? 'active' : '',
@@ -43,12 +42,15 @@ class NotificationFilterBar extends PureComponent {
               title: intl.formatMessage(messages.filterMentions),
             }
           ]}
-        />
+        /> */ }
       )
     }
 
     return (
-      <SectionHeadlineBar
+      <div />
+    )
+
+    /* <SectionHeadlineBar
         items={[
           {
             className: selectedFilter === 'all' ? 'active' : '',
@@ -86,8 +88,7 @@ class NotificationFilterBar extends PureComponent {
             icon: 'user-plus',
           },
         ]}
-      />
-    )
+      /> */
   }
 
 }

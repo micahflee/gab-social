@@ -1,6 +1,6 @@
 import { FormattedMessage } from 'react-intl';
 import classNames from 'classnames';
-import { shortNumberFormat } from '../../utils/numbers';
+import { shortNumberFormat } from '../utils/numbers';
 
 export default class TimelineQueueButtonHeader extends PureComponent {
 

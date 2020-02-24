@@ -1,11 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import classNames from 'classnames';
-import StatusContent from '../../status_content';
-import Avatar from '../../avatar';
-import RelativeTimestamp from '../../relative_timestamp';
-import DisplayName from '../../display_name';
-import IconButton from '../../icon_button';
+import StatusContent from '../status_content';
+import Avatar from '../avatar';
+import RelativeTimestamp from '../relative_timestamp';
+import DisplayName from '../display_name';
+import IconButton from '../icon_button';
 
 export default class ActionsModal extends ImmutablePureComponent {
 

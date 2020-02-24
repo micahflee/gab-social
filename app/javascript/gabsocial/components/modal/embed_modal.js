@@ -1,6 +1,6 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import api from '../../../api'
+import api from '../../api'
 
 const messages = defineMessages({
   embed: { id: 'status.embed', defaultMessage: 'Embed' },

@@ -2,13 +2,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { defineMessages, injectIntl } from 'react-intl';
 import { OrderedSet } from 'immutable';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { changeReportComment, changeReportForward, submitReport } from '../../../actions/reports';
-import { expandAccountTimeline } from '../../../actions/timelines';
-import { makeGetAccount } from '../../../selectors';
-import StatusCheckBox from '../../status_check_box';
-import ToggleSwitch from '../../toggle_switch';
-import Button from '../../button';
-import IconButton from '../../icon_button';
+import { changeReportComment, changeReportForward, submitReport } from '../../actions/reports';
+import { expandAccountTimeline } from '../../actions/timelines';
+import { makeGetAccount } from '../../selectors';
+import StatusCheckBox from '../status_check_box';
+import ToggleSwitch from '../toggle_switch';
+import Button from '../button';
+import IconButton from '../icon_button';
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
