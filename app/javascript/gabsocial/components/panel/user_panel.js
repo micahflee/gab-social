@@ -25,7 +25,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class UserPanel extends ImmutablePureComponent {
   static propTypes = {

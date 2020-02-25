@@ -44,7 +44,8 @@ const mapStateToProps = state => ({
   totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class Notifications extends ImmutablePureComponent {
 

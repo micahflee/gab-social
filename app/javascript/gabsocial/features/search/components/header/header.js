@@ -5,7 +5,8 @@ const mapStateToProps = state => ({
   submitted: state.getIn(['search', 'submitted']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class Header extends PureComponent {
 
   static propTypes = {

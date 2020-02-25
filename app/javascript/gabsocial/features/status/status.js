@@ -108,7 +108,8 @@ const makeMapStateToProps = () => {
   return mapStateToProps;
 };
 
-export default @injectIntl
+export default
+@injectIntl
 @connect(makeMapStateToProps)
 class Status extends ImmutablePureComponent {
 

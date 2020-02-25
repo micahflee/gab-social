@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
-import GabLogo from './assets/gab_logo'
+import GabLogo from '../assets/gab_logo'
 import SidebarSectionItem from './sidebar_section_item'
 
 const mapStateToProps = state => {

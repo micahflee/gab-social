@@ -13,7 +13,8 @@ const mapStateToProps = (state, { hashtag }) => ({
   hasMore: state.getIn(['timelines', `hashtag:${hashtag}`, 'hasMore'], false),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class HashtagTimeline extends ImmutablePureComponent {
 
   static propTypes = {

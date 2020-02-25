@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
   mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class UploadForm extends ImmutablePureComponent {
 
   static propTypes = {

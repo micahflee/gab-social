@@ -16,7 +16,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class ComposeModal extends ImmutablePureComponent {
 

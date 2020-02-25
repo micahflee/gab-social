@@ -41,7 +41,8 @@ const mapStateToProps = (state, { params: { username } }) => {
 
 
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class Following extends ImmutablePureComponent {
 
   static propTypes = {

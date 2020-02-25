@@ -8,7 +8,8 @@ const messages = defineMessages({
   preview: { id: 'embed.preview', defaultMessage: 'Here is what it will look like:' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class EmbedModal extends ImmutablePureComponent {
 
   static propTypes = {

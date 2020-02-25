@@ -14,7 +14,8 @@ const mapStateToProps = (state, { params: { username } }) => {
   };
 };;
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class PinnedStatuses extends ImmutablePureComponent {
 
   static propTypes = {

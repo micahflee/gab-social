@@ -26,7 +26,8 @@ const mapDispatchToProps = dispatch => ({
 	reset: () => dispatch(reset()),
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class Create extends PureComponent {
 

@@ -45,7 +45,8 @@ const messages = defineMessages({
   domainBlocked: { id: 'account.domain_blocked', defaultMessage: 'Domain hidden' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class Header extends ImmutablePureComponent {
 
   static propTypes = {

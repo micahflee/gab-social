@@ -22,7 +22,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
 	hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', id, 'next']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class GroupRemovedAccounts extends ImmutablePureComponent {
 

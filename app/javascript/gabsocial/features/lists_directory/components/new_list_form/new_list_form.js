@@ -17,7 +17,8 @@ const mapDispatchToProps = dispatch => ({
   onSubmit: () => dispatch(submitListEditor(true)),
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class NewListForm extends PureComponent {
 

@@ -30,7 +30,8 @@ const mapStateToProps = (state, { account }) => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class ProfileInfoPanel extends ImmutablePureComponent {
 

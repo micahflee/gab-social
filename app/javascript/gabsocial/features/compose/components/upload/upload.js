@@ -11,7 +11,8 @@ const messages = defineMessages({
   delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class Upload extends ImmutablePureComponent {
 
   static contextTypes = {

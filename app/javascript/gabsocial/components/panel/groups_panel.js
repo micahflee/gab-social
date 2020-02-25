@@ -15,7 +15,8 @@ const mapStateToProps = (state) => ({
   groupIds: state.getIn(['group_lists', 'member']),
 })
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class GroupSidebarPanel extends ImmutablePureComponent {
   static propTypes = {

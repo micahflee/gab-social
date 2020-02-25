@@ -4,7 +4,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import ModalLoading from './modal_loading';
 import RelativeTimestamp from './relative_timestamp';
 
-export default @injectIntl
+export default
+@injectIntl
 class StatusRevisionsList extends ImmutablePureComponent {
 
   static propTypes = {

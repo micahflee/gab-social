@@ -31,7 +31,7 @@ export default class Avatar extends ImmutablePureComponent {
     this.setState({ hovering: false })
   }
 
-  render () {
+  render() {
     const { account, size, animate } = this.props
     const { hovering, sameImg } = this.state
 

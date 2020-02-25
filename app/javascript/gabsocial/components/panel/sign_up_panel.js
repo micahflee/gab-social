@@ -9,7 +9,8 @@ const messages = defineMessages({
   register: { id: 'account.register', defaultMessage: 'Sign up' },
 })
 
-export default @injectIntl
+export default
+@injectIntl
 class SignUpPanel extends PureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,

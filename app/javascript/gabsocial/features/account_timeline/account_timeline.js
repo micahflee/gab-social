@@ -51,7 +51,8 @@ const mapStateToProps = (state, { params: { username }, withReplies = false }) =
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class AccountTimeline extends ImmutablePureComponent {
 

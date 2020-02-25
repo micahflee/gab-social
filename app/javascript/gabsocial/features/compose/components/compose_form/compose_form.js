@@ -32,7 +32,8 @@ const messages = defineMessages({
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' }
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
   state = {

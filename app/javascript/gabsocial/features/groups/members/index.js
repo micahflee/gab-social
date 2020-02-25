@@ -19,7 +19,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
 	hasMore: !!state.getIn(['user_lists', 'groups', id, 'next']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class GroupMembers extends ImmutablePureComponent {
 
 	static propTypes = {

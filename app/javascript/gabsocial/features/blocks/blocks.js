@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   hasMore: !!state.getIn(['user_lists', 'blocks', 'next']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class Blocks extends ImmutablePureComponent {
 

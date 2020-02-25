@@ -10,7 +10,8 @@ const messages = defineMessages({
   filterMentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class NotificationFilterBar extends PureComponent {
 
   static propTypes = {

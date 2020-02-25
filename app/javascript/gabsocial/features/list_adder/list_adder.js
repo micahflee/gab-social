@@ -33,7 +33,8 @@ const messages = defineMessages({
   headerTitle: { id: 'list_adder.header_title', defaultMessage: 'Add or Remove from Lists' },
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ListAdder extends ImmutablePureComponent {
 

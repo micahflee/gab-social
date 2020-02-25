@@ -33,7 +33,8 @@ const mapDispatchToProps = (dispatch, { id }) => ({
   },
 });
 
-export default @connect(makeMapStateToProps, mapDispatchToProps)
+export default
+@connect(makeMapStateToProps, mapDispatchToProps)
 @injectIntl
 class AccountAuthorize extends ImmutablePureComponent {
 

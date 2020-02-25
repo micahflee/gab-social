@@ -289,7 +289,8 @@ class EmojiPickerMenu extends ImmutablePureComponent {
 
 }
 
-export default @injectIntl
+export default
+@injectIntl
 class EmojiPickerDropdown extends ImmutablePureComponent {
 
   static propTypes = {

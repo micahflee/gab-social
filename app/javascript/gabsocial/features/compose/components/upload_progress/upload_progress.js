@@ -8,7 +8,8 @@ const mapStateToProps = state => ({
   progress: state.getIn(['compose', 'progress']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class UploadProgress extends PureComponent {
 
   static propTypes = {

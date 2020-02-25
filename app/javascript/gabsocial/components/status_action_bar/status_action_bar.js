@@ -98,7 +98,8 @@ class StatusActionBarItem extends PureComponent {
   }
 }
 
-export default @connect(null, mapDispatchToProps)
+export default
+@connect(null, mapDispatchToProps)
 @injectIntl
 class StatusActionBar extends ImmutablePureComponent {
 

@@ -24,7 +24,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const cx = classNames.bind(_s)
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ModalBase extends PureComponent {
 

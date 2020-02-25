@@ -18,7 +18,8 @@ const mapStateToProps = (state, props) => ({
   list: state.getIn(['lists', props.params.id]),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class ListTimeline extends ImmutablePureComponent {
 

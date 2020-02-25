@@ -25,7 +25,8 @@ const makeEmojiMap = record => record.get('emojis').reduce((obj, emoji) => {
   return obj;
 }, {});
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class Poll extends ImmutablePureComponent {
 

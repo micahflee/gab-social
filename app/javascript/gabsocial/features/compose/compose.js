@@ -31,7 +31,8 @@ const mapStateToProps = (state, ownProps) => ({
   showSearch: ownProps.isSearchPage,
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class Compose extends ImmutablePureComponent {
 

@@ -16,7 +16,8 @@ const mapStateToProps = state => ({
   hasMore: !!state.getIn(['user_lists', 'follow_requests', 'next']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class FollowRequests extends ImmutablePureComponent {
 

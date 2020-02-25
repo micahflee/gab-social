@@ -14,7 +14,8 @@ const mapStateToProps = (state, { params: { id } }) => ({
 	relationships: state.getIn(['group_relationships', id]),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class GroupPage extends ImmutablePureComponent {
 
   static propTypes = {

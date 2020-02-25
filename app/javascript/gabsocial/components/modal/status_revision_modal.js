@@ -9,7 +9,8 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class StatusRevisionModal extends ImmutablePureComponent {
 
     static propTypes = {

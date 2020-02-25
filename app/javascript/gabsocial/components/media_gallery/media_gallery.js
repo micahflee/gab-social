@@ -219,7 +219,8 @@ class Item extends ImmutablePureComponent {
 
 }
 
-export default @injectIntl
+export default
+@injectIntl
 class MediaGallery extends PureComponent {
 
   static propTypes = {

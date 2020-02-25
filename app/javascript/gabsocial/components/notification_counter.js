@@ -4,7 +4,8 @@ const mapStateToProps = state => ({
   count: state.getIn(['notifications', 'unread']),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class NotificationCounter extends PureComponent {
 
 	static propTypes = {

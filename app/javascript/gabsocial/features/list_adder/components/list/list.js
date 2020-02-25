@@ -20,7 +20,8 @@ const mapDispatchToProps = (dispatch, { listId }) => ({
   onAdd: () => dispatch(addToListAdder(listId)),
 });
 
-export default @connect(MapStateToProps, mapDispatchToProps)
+export default
+@connect(MapStateToProps, mapDispatchToProps)
 @injectIntl
 class List extends ImmutablePureComponent {
 

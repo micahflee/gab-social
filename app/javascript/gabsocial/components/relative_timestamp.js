@@ -109,7 +109,8 @@ const timeRemainingString = (intl, date, now) => {
   return relativeTime
 }
 
-export default @injectIntl
+export default
+@injectIntl
 class RelativeTimestamp extends Component {
 
   static propTypes = {

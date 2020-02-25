@@ -72,7 +72,8 @@ class LoadMoreMedia extends ImmutablePureComponent {
 
 }
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class AccountGallery extends ImmutablePureComponent {
 

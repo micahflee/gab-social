@@ -21,7 +21,8 @@ const mapStateToProps = (state, props) => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class Reblogs extends ImmutablePureComponent {
 
   static propTypes = {

@@ -12,7 +12,8 @@ const messages = defineMessages({
 	edit: { id: 'groups.edit', defaultMessage: 'Edit' }
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class Header extends ImmutablePureComponent {
 	static propTypes = {
 		group: ImmutablePropTypes.map,

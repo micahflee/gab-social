@@ -27,7 +27,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ListsDirectory extends ImmutablePureComponent {
 

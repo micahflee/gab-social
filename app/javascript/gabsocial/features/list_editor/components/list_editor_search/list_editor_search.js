@@ -17,7 +17,8 @@ const mapDispatchToProps = dispatch => ({
   onChange: value => dispatch(changeListSuggestions(value)),
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ListEditorSearch extends PureComponent {
 

@@ -17,7 +17,8 @@ const mapDispatchToProps = (dispatch, { id }) => ({
 
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 class FocalPointModal extends ImmutablePureComponent {
 
   static propTypes = {

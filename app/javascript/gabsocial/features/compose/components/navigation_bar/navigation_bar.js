@@ -13,7 +13,8 @@ const mapStateToProps = state => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class NavigationBar extends ImmutablePureComponent {
 
   static propTypes = {

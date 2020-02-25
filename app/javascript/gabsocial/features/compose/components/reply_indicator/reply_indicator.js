@@ -11,7 +11,8 @@ const messages = defineMessages({
   cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class ReplyIndicator extends ImmutablePureComponent {
 
   static contextTypes = {

@@ -14,7 +14,8 @@ const messages = defineMessages({
   combo: { id: 'boost_modal.combo', defaultMessage: 'You can press {combo} to skip this next time' },
 });
 
-export default @injectIntl
+export default
+@injectIntl
 class BoostModal extends ImmutablePureComponent {
 
   static contextTypes = {

@@ -29,7 +29,8 @@ const mapDispatchToProps = dispatch => ({
   setUp: group => dispatch(setUp(group)),
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class Edit extends ImmutablePureComponent {
 

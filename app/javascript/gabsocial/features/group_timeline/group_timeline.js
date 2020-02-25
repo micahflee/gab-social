@@ -22,7 +22,8 @@ const mapStateToProps = (state, { activeTab }) => ({
 	account: state.getIn(['accounts', me]),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class Groups extends ImmutablePureComponent {
 	static propTypes = {

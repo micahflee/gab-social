@@ -29,7 +29,8 @@ const mapDispatchToProps = (dispatch, { accountId }) => ({
   onAdd: () => dispatch(addToListEditor(accountId)),
 });
 
-export default @connect(makeMapStateToProps, mapDispatchToProps)
+export default
+@connect(makeMapStateToProps, mapDispatchToProps)
 @injectIntl
 class Account extends ImmutablePureComponent {
 

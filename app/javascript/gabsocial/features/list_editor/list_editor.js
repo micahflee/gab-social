@@ -25,7 +25,8 @@ const messages = defineMessages({
   editList: { id: 'lists.edit', defaultMessage: 'Edit list' },
 });
 
-export default @connect(mapStateToProps, mapDispatchToProps)
+export default
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ListEditor extends ImmutablePureComponent {
 

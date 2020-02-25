@@ -39,7 +39,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
-export default @connect(null, mapDispatchToProps)
+export default
+@connect(null, mapDispatchToProps)
 @injectIntl
 class ActionBar extends ImmutablePureComponent {
 

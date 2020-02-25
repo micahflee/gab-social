@@ -133,7 +133,8 @@ class FrameInteractions extends Component {
   }
 }
 
-export default @connect(state => ({ domain: state.getIn(['meta', 'domain']) }))
+export default
+@connect(state => ({ domain: state.getIn(['meta', 'domain']) }))
 class Introduction extends PureComponent {
 
   static propTypes = {

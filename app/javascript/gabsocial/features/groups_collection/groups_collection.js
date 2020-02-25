@@ -8,7 +8,8 @@ const mapStateToProps = (state, { activeTab }) => ({
 	groupIds: state.getIn(['group_lists', activeTab]),
 })
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class GroupsCollection extends ImmutablePureComponent {
 	static propTypes = {
 		activeTab: PropTypes.string.isRequired,

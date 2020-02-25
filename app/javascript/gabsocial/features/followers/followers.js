@@ -39,7 +39,8 @@ const mapStateToProps = (state, { params: { username } }) => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class Followers extends ImmutablePureComponent {
 
   static propTypes = {

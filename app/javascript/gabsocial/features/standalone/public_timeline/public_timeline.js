@@ -17,7 +17,8 @@ const mapStateToProps = (state, { local }) => {
   };
 };
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class PublicTimeline extends ImmutablePureComponent {
 
   static propTypes = {

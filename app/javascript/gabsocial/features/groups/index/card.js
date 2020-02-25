@@ -17,7 +17,8 @@ const mapStateToProps = (state, { id }) => ({
 	relationships: state.getIn(['group_relationships', id]),
 });
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 @injectIntl
 class GroupCard extends ImmutablePureComponent {
     static propTypes = {
