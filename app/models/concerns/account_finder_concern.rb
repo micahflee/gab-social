@@ -12,6 +12,10 @@ module AccountFinderConcern
       find_remote(username, domain) || raise(ActiveRecord::RecordNotFound)
     end
 
+    def find_acct!(acct)
+      find_acct(acct) || raise(ActiveRecord::RecordNotFound)
+    end
+
     def representative
       find_local(Setting.site_contact_username.strip.gsub(/\A@/, '')) || Account.local.without_suspended.first
     end
@@ -22,6 +26,11 @@ module AccountFinderConcern
 
     def find_remote(username, domain)
       AccountFinder.new(username, domain).account
+    end
+
+    def find_acct(acct)
+      username, domain = acct.split("@")
+      find_remote(username, domain)
     end
   end
 

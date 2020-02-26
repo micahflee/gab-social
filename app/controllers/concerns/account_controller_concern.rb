@@ -6,8 +6,6 @@ module AccountControllerConcern
   FOLLOW_PER_PAGE = 12
 
   included do
-    layout 'public'
-
     before_action :set_account
     before_action :check_account_approval
     before_action :check_account_suspension
@@ -18,7 +16,7 @@ module AccountControllerConcern
   private
 
   def set_account
-    @account = Account.find_local!(username_param)
+    @account = Account.find_acct!(username_param)
   end
 
   def set_instance_presenter
@@ -26,6 +24,8 @@ module AccountControllerConcern
   end
 
   def set_link_headers
+    return if !@account.local? # TODO: Handle remote users
+
     response.headers['Link'] = LinkHeader.new(
       [
         webfinger_account_link,

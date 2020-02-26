@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-class HomeController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_referrer_policy_header
-  before_action :set_initial_state_json
-  before_action :set_data_for_meta
+class ReactController < ApplicationController
+  before_action :authenticate_user!, only: :react
+  before_action :set_referrer_policy_header, only: :react
+  before_action :set_initial_state_json, only: :react
+  before_action :set_data_for_meta, only: :react
 
-  def index
+  def react
     @body_classes = 'app-body'
   end
 
@@ -14,18 +14,6 @@ class HomeController < ApplicationController
 
   def set_data_for_meta
     return if find_route_matches
-
-    if params[:username].present?
-      @account = Account.find_local(params[:username])
-    elsif params[:account_username].present?
-      @account = Account.find_local(params[:account_username])
-
-      if params[:id].present? && !@account.nil?
-        @status = @account.statuses.find(params[:id])
-        @stream_entry = @status.stream_entry
-        @type = @stream_entry.activity_type.downcase
-      end
-    end
 
     if request.path.starts_with?('/tags') && params[:tag].present?
       @tag = Tag.find_normalized(params[:tag])

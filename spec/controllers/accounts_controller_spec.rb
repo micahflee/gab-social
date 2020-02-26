@@ -63,20 +63,6 @@ RSpec.describe AccountsController, type: :controller do
       end
 
       include_examples 'responses'
-
-      context 'without max_id nor since_id' do
-        let(:expected_statuses) { [status7, status6, status5, status4, status3, status2, status1] }
-
-        include_examples 'responsed streams'
-      end
-
-      context 'with max_id and since_id' do
-        let(:max_id) { status4.stream_entry.id }
-        let(:since_id) { status1.stream_entry.id }
-        let(:expected_statuses) { [status3, status2] }
-
-        include_examples 'responsed streams'
-      end
     end
 
     context 'activitystreams2' do
@@ -90,54 +76,8 @@ RSpec.describe AccountsController, type: :controller do
       let(:format) { nil }
       let(:content_type) { 'text/html' }
 
-      shared_examples 'responsed statuses' do
-        it 'assigns @pinned_statuses' do
-          pinned_statuses = assigns(:pinned_statuses).to_a
-          expect(pinned_statuses.size).to eq expected_pinned_statuses.size
-          pinned_statuses.each.zip(expected_pinned_statuses.each) do |pinned_status, expected_pinned_status|
-            expect(pinned_status).to eq expected_pinned_status
-          end
-        end
-
-        it 'assigns @statuses' do
-          statuses = assigns(:statuses).to_a
-          expect(statuses.size).to eq expected_statuses.size
-          statuses.each.zip(expected_statuses.each) do |status, expected_status|
-            expect(status).to eq expected_status
-          end
-        end
-      end
 
       include_examples 'responses'
-
-      context 'with anonymous visitor' do
-        context 'without since_id nor max_id' do
-          let(:expected_statuses) { [status7, status6, status5, status4, status3, status2, status1] }
-          let(:expected_pinned_statuses) { [status7, status5, status6] }
-
-          include_examples 'responsed statuses'
-        end
-
-        context 'with since_id nor max_id' do
-          let(:max_id) { status4.id }
-          let(:since_id) { status1.id }
-          let(:expected_statuses) { [status3, status2] }
-          let(:expected_pinned_statuses) { [] }
-
-          include_examples 'responsed statuses'
-        end
-      end
-
-      context 'with blocked visitor' do
-        let(:current_user) { eve }
-
-        context 'without since_id nor max_id' do
-          let(:expected_statuses) { [] }
-          let(:expected_pinned_statuses) { [] }
-
-          include_examples 'responsed statuses'
-        end
-      end
     end
   end
 end

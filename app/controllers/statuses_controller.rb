@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-class StatusesController < ApplicationController
+class StatusesController < ReactController
   include SignatureAuthentication
   include Authorization
 
   ANCESTORS_LIMIT         = 40
   DESCENDANTS_LIMIT       = 60
   DESCENDANTS_DEPTH_LIMIT = 20
-
-  layout 'public'
 
   before_action :set_account
   before_action :set_status
@@ -32,12 +30,7 @@ class StatusesController < ApplicationController
           expires_in 10.seconds, public: true
         end
 
-        @body_classes = 'with-modals'
-
-        set_ancestors
-        set_descendants
-
-        render 'stream_entries/show'
+        return process(:react)
       end
 
       format.json do
@@ -111,7 +104,7 @@ class StatusesController < ApplicationController
   end
 
   def set_account
-    @account = Account.find_local!(params[:account_username])
+    @account = Account.find_acct!(params[:account_username])
   end
 
   def set_ancestors
@@ -174,6 +167,8 @@ class StatusesController < ApplicationController
   end
 
   def set_link_headers
+    return if !@account.local? # TODO: Handle remote accounts
+
     response.headers['Link'] = LinkHeader.new(
       [
         [account_stream_entry_url(@account, @status.stream_entry, format: 'atom'), [%w(rel alternate), %w(type application/atom+xml)]],
@@ -185,7 +180,7 @@ class StatusesController < ApplicationController
   def set_status
     @status       = @account.statuses.find(params[:id])
     @stream_entry = @status.stream_entry
-    @type         = @stream_entry.activity_type.downcase
+    @type         = @stream_entry&.activity_type&.downcase
 
     authorize @status, :show?
   rescue GabSocial::NotPermittedError

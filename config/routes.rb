@@ -5,6 +5,9 @@ require 'sidekiq-scheduler/web'
 
 Sidekiq::Web.set :session_secret, Rails.application.secrets[:secret_key_base]
 
+username_regex = /([^\/]*)/
+html_only = lambda { |req| req.format.nil? || req.format.html? }
+
 Rails.application.routes.draw do
   mount LetterOpenerWeb::Engine, at: 'letter_opener' if Rails.env.development?
 
@@ -41,7 +44,11 @@ Rails.application.routes.draw do
     confirmations:      'auth/confirmations',
   }
 
-  get '/users/:username', to: redirect('/%{username}'), constraints: lambda { |req| req.format.nil? || req.format.html? }
+  get '/users/:username', to: redirect('/%{username}'), constraints: html_only, username: username_regex
+  get '/users/:username/followers', to: redirect('/%{username}/followers'), constraints: html_only, username: username_regex
+  get '/users/:username/following', to: redirect('/%{username}/following'), constraints: html_only, username: username_regex
+  get '/users/:username/statuses/:id', to: redirect('/%{username}/posts/%{id}'), constraints: html_only, username: username_regex
+
   get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
 
   resources :accounts, path: 'users', only: [:show], param: :username do
@@ -240,7 +247,7 @@ Rails.application.routes.draw do
     resources :users, only: [] do
       resource :two_factor_authentication, only: [:destroy]
     end
-    
+
     resources :custom_emojis, only: [:index, :new, :create, :update, :destroy] do
       member do
         post :copy
@@ -335,7 +342,7 @@ Rails.application.routes.draw do
 
       get '/search', to: 'search#index', as: :search
 
-      get '/account_by_username/:username', to: 'account_by_username#show', username: /(.*)/
+      get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
 
       resources :follows,      only: [:create]
       resources :media,        only: [:create, :update]
@@ -452,17 +459,17 @@ Rails.application.routes.draw do
   get '/about/dmca',         to: 'about#dmca'
   get '/about/sales',        to: 'about#sales'
 
-  get '/tags/:tag', to: 'home#index'
-  get '/:username', to: 'home#index', as: :short_account
-  get '/:username/with_replies', to: 'home#index', as: :short_account_with_replies
-  get '/:username/media', to: 'home#index', as: :short_account_media
-  get '/:username/tagged/:tag', to: 'home#index', as: :short_account_tag
-  get '/:username/posts/:statusId/reblogs', to: 'home#index'
-  get '/:account_username/posts/:id', to: 'home#index', as: :short_account_status
-  get '/:account_username/posts/:id/embed', to: 'statuses#embed', as: :embed_short_account_status
+  get '/tags/:tag', to: 'react#react'
+  get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
+  get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
+  get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
+  get '/:username/posts/:statusId/reblogs', to: 'statuses#show', username: username_regex
+  get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
+  get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
 
-  get '/(*any)', to: 'home#index', as: :web
-  root 'home#index'
+  get '/(*any)', to: 'react#react', as: :web
+  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account
+  root 'react#react'
 
   # Routes that are now to be used within webapp, but still referenced within application
   # TODO : Consolidate
