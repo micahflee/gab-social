@@ -460,7 +460,6 @@ Rails.application.routes.draw do
   get '/about/sales',        to: 'about#sales'
 
   get '/tags/:tag', to: 'react#react'
-  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account
   get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
   get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
   get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
@@ -469,6 +468,7 @@ Rails.application.routes.draw do
   get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
 
   get '/(*any)', to: 'react#react', as: :web
+  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account
   root 'react#react'
 
   # Routes that are now to be used within webapp, but still referenced within application
