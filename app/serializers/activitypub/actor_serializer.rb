@@ -3,6 +3,15 @@
 class ActivityPub::ActorSerializer < ActivityPub::Serializer
   include RoutingHelper
 
+  # Conditionally serialize Gab image for gab:// URLs
+  def self.serializer_for(object, options)
+    gab_image = object.is_a?(String) and object.start_with?('gab://')
+    if gab_image and options[:serializer] == ActivityPub::ImageSerializer
+      return ActivityPub::GabImageSerializer
+    end
+    super
+  end
+
   context :security
 
   context_extensions :manually_approves_followers, :featured, :also_known_as,
@@ -83,10 +92,12 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   end
 
   def icon
+    return object.avatar_remote_url if is_gab_avatar?
     object.avatar
   end
 
   def image
+    return object.header_remote_url if is_gab_header?
     object.header
   end
 
@@ -99,11 +110,19 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   end
 
   def avatar_exists?
-    object.avatar?
+    object.avatar? or is_gab_avatar?
   end
 
   def header_exists?
-    object.header?
+    object.header? or is_gab_header?
+  end
+
+  def is_gab_avatar?
+    object.avatar_remote_url&.start_with?('gab://')
+  end
+
+  def is_gab_header?
+    object.header_remote_url&.start_with?('gab://')
   end
 
   def manually_approves_followers
