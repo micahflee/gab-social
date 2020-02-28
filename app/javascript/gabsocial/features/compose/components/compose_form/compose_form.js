@@ -2,7 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { length } from 'stringz';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import classNames from 'classnames';
+import classNames from 'classnames/bind'
 import CharacterCounter from '../character_counter';
 import UploadForm from '../upload_form';
 import ReplyIndicatorContainer from '../../containers/reply_indicator_container';
@@ -18,6 +18,7 @@ import SchedulePostDropdown from '../../components/schedule_post_dropdown';
 import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container';
 import Icon from '../../../../components/icon';
 import Button from '../../../../components/button';
+import Avatar from '../../../../components/avatar'
 import { isMobile } from '../../../../utils/is_mobile';
 import { countableText } from '../../util/counter';
 
@@ -31,6 +32,8 @@ const messages = defineMessages({
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' }
 });
+
+const cx = classNames.bind(_s)
 
 export default
 @injectIntl
@@ -49,6 +52,8 @@ class ComposeForm extends ImmutablePureComponent {
     edit: PropTypes.bool.isRequired,
     text: PropTypes.string.isRequired,
     suggestions: ImmutablePropTypes.list,
+    account: ImmutablePropTypes.map.isRequired,
+    status: ImmutablePropTypes.map,
     spoiler: PropTypes.bool,
     privacy: PropTypes.string,
     spoilerText: PropTypes.string,
@@ -164,7 +169,7 @@ class ComposeForm extends ImmutablePureComponent {
     document.removeEventListener("click", this.handleClick, false);
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (!this.autosuggestTextarea) return;
 
     // This statement does several things:
@@ -176,13 +181,13 @@ class ComposeForm extends ImmutablePureComponent {
       let selectionEnd, selectionStart;
 
       if (this.props.preselectDate !== prevProps.preselectDate) {
-        selectionEnd   = this.props.text.length;
+        selectionEnd = this.props.text.length;
         selectionStart = this.props.text.search(/\s/) + 1;
       } else if (typeof this.props.caretPosition === 'number') {
         selectionStart = this.props.caretPosition;
-        selectionEnd   = this.props.caretPosition;
+        selectionEnd = this.props.caretPosition;
       } else {
-        selectionEnd   = this.props.text.length;
+        selectionEnd = this.props.text.length;
         selectionStart = selectionEnd;
       }
 
@@ -211,30 +216,65 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onPickEmoji(position, data, needsSpace);
   }
 
-  render () {
-    const { intl, onPaste, showSearch, anyMedia, shouldCondense, autoFocus, isModalOpen, quoteOfId, edit, scheduledAt } = this.props;
+  render() {
+    const {
+      intl,
+      account,
+      onPaste,
+      showSearch,
+      anyMedia,
+      shouldCondense,
+      autoFocus,
+      isModalOpen,
+      quoteOfId,
+      edit,
+      scheduledAt
+    } = this.props
     const condensed = shouldCondense && !this.props.text && !this.state.composeFocused;
     const disabled = this.props.isSubmitting;
-    const text     = [this.props.spoilerText, countableText(this.props.text)].join('');
+    const text = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
-    const composeClassNames = classNames({
-      'compose-form': true,
-      'condensed': condensed,
-    });
+    const containerClasses = cx({
+      default: 1,
+      flexGrow1: 1,
+      flexRow: shouldCondense,
+      radiusSmall: shouldCondense,
+      backgroundSubtle: shouldCondense,
+      paddingHorizontal5PX: shouldCondense,
+    })
+
+    const actionsContainerClasses = cx({
+      default: 1,
+      flexRow: 1,
+      alignItemsCenter: 1,
+      marginTop10PX: !shouldCondense,
+    })
+
+    const avatarContainerClasses = cx({
+      default: 1,
+      marginRight10PX: 1,
+      marginTop5PX: shouldCondense,
+    })
+
+    const avatarSize = shouldCondense ? 28 : 46
 
     return (
-      <div
-        className={[_s.default, _s.flexGrow1].join(' ')}
-        ref={this.setForm}
-        onClick={this.handleClick}
-      >
-        { /* <WarningContainer /> */ }
+      <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
+        <div className={avatarContainerClasses}>
+          <Avatar account={account} size={avatarSize} />
+        </div>
+        <div
+          className={containerClasses}
+          ref={this.setForm}
+          onClick={this.handleClick}
+        >
+          { /* <WarningContainer /> */}
 
-        { /* !shouldCondense && <ReplyIndicatorContainer /> */ }
+          { /* !shouldCondense && <ReplyIndicatorContainer /> */}
 
-        { /*
+          { /*
         <div className={`spoiler-input ${this.props.spoiler ? 'spoiler-input--visible' : ''}`}>
           <AutosuggestTextbox
             placeholder={intl.formatMessage(messages.spoiler_placeholder)}
@@ -254,63 +294,68 @@ class ComposeForm extends ImmutablePureComponent {
         </div>
         */ }
 
-        { /*
+          { /*
         <div className='emoji-picker-wrapper'>
           <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
         </div> */ }
 
-        <AutosuggestTextbox
-          ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-          placeholder={intl.formatMessage(messages.placeholder)}
-          disabled={disabled}
-          value={this.props.text}
-          onChange={this.handleChange}
-          suggestions={this.props.suggestions}
-          onKeyDown={this.handleKeyDown}
-          onFocus={this.handleComposeFocus}
-          onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-          onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-          onSuggestionSelected={this.onSuggestionSelected}
-          onPaste={onPaste}
-          autoFocus={shouldAutoFocus}
-          textarea
-        >
-          { /*
+          <AutosuggestTextbox
+            ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+            placeholder={intl.formatMessage(messages.placeholder)}
+            disabled={disabled}
+            value={this.props.text}
+            onChange={this.handleChange}
+            suggestions={this.props.suggestions}
+            onKeyDown={this.handleKeyDown}
+            onFocus={this.handleComposeFocus}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            onSuggestionSelected={this.onSuggestionSelected}
+            onPaste={onPaste}
+            autoFocus={shouldAutoFocus}
+            small={shouldCondense}
+            textarea
+          >
+            { /*
             !condensed &&
             <div className='compose-form__modifiers'>
               <UploadForm />
               {!edit && <PollFormContainer />}
             </div>
           */ }
-        </AutosuggestTextbox>
+          </AutosuggestTextbox>
 
-        { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */ }
+          { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */}
 
-        {
-          /* !condensed && */
-          <div className={[_s.default, _s.flexRow, _s.marginTop10PX].join(' ')}>
+          <div className={actionsContainerClasses}>
             <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
-              <UploadButton />
+              <UploadButton small={shouldCondense} />
               {
-                !edit && <PollButton />
+                !edit && <PollButton small={shouldCondense} />
               }
-              <PrivacyDropdown />
-              <SpoilerButton />
-              <SchedulePostDropdown position={isModalOpen ? 'top' : undefined} />
+              {
+                !shouldCondense &&
+                <PrivacyDropdown />
+              }
+              <SpoilerButton small={shouldCondense} />
+              <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />
             </div>
-            <CharacterCounter max={maxPostCharacterCount} text={text} />
-            <Button
-              className={[_s.fontSize15PX, _s.paddingHorizontal15PX].join(' ')}
-              onClick={this.handleSubmit}
-              disabled={disabledButton}
-            >
-              {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
-            </Button>
+            <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
+            {
+              !shouldCondense &&
+              <Button
+                className={[_s.fontSize15PX, _s.paddingHorizontal15PX].join(' ')}
+                onClick={this.handleSubmit}
+                disabled={disabledButton}
+              >
+                {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+              </Button>
+            }
           </div>
-        }
 
+        </div>
       </div>
-    );
+    )
   }
 
 }

@@ -1,7 +1,7 @@
 import ComposeFormContainer from '../../compose/containers/compose_form_container';
 import NotificationsContainer from '../../../containers/notifications_container';
 import LoadingBarContainer from '../../../containers/loading_bar_container';
-import ModalContainer from '../../../containers/modal_container';
+import ModalRoot from '../../../components/modal/modal_root'
 
 export default class Compose extends PureComponent {
 
@@ -10,7 +10,7 @@ export default class Compose extends PureComponent {
       <div>
         <ComposeFormContainer />
         <NotificationsContainer />
-        <ModalContainer />
+        <ModalRoot />
         <LoadingBarContainer className='loading-bar' />
       </div>
     );

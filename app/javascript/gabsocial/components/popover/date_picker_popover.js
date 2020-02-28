@@ -1,4 +1,4 @@
-export default class Popover extends PureComponent {
+export default class DatePickerPopover extends PureComponent {
   render() {
     return (
       <div>

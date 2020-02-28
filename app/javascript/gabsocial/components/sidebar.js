@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closeSidebar())
   },
   onOpenComposeModal() {
-    dispatch(openModal('PRO_UPGRADE'))
+    dispatch(openModal('COMPOSE'))
   },
 })
 
@@ -98,6 +98,7 @@ class Sidebar extends ImmutablePureComponent {
     const { sidebarOpen, intl, account } = this.props
     const { moreOpen } = this.state
 
+    // : todo :
     if (!me || !account) return null
 
     const acct = account.get('acct')
@@ -125,11 +126,6 @@ class Sidebar extends ImmutablePureComponent {
         count: 40,
       },
       {
-        title: 'Bookmarks',
-        icon: 'bookmarks',
-        to: '/bookmarks',
-      },
-      {
         title: 'Groups',
         icon: 'group',
         to: '/groups',
@@ -142,7 +138,8 @@ class Sidebar extends ImmutablePureComponent {
       {
         title: 'Chat',
         icon: 'chat',
-        to: '/',
+        to: '',
+        // href: 'https://chat.gab.com',
       },
       {
         title: 'More',
@@ -175,22 +172,26 @@ class Sidebar extends ImmutablePureComponent {
       {
         title: 'Apps',
         icon: 'apps',
-        to: '/',
+        to: '',
+        // href: 'https://apps.gab.com',
       },
       {
         title: 'Shop',
         icon: 'shop',
-        to: '/',
+        to: '',
+        // href: 'https://shop.dissenter.com',
       },
       {
         title: 'Trends',
         icon: 'trends',
-        to: '/',
+        to: '',
+        // href: 'https://trends.gab.com',
       },
       {
         title: 'Dissenter',
         icon: 'dissenter',
-        to: '/',
+        to: '',
+        // href: 'https://dissenter.com',
       },
     ]
 

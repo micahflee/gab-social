@@ -1,9 +1,19 @@
-import ModalBase from './modal_base'
+import { closeModal } from '../../actions/modal'
+import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
+import {
+  MuteModal,
+  ReportModal,
+  EmbedModal,
+  // ListEditor,
+  // ListAdder,
+  StatusRevisionModal,
+} from '../../features/ui/util/async-components'
+import ModalBase from './modal_base'
 import BundleModalError from '../bundle_modal_error'
 import ActionsModal from './actions_modal'
 import MediaModal from './media_modal'
-// import VideoModal from './video_modal'
+import VideoModal from './video_modal'
 import BoostModal from './boost_modal'
 import ConfirmationModal from './confirmation_modal'
 import FocalPointModal from './focal_point_modal'
@@ -12,35 +22,46 @@ import ComposeModal from './compose_modal'
 import UnauthorizedModal from './unauthorized_modal'
 import ProUpgradeModal from './pro_upgrade_modal'
 import ModalLoading from './modal_loading'
-import {
-  MuteModal,
-  ReportModal,
-  EmbedModal,
-  ListEditor,
-  ListAdder,
-  StatusRevisionModal,
-} from '../../features/ui/util/async-components'
 
 const MODAL_COMPONENTS = {
-  'MEDIA': () => Promise.resolve({ default: MediaModal }),
-  // 'VIDEO': () => Promise.resolve({ default: VideoModal }),
-  'BOOST': () => Promise.resolve({ default: BoostModal }),
-  'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
-  'MUTE': MuteModal,
-  'REPORT': ReportModal,
   'ACTIONS': () => Promise.resolve({ default: ActionsModal }),
-  'EMBED': EmbedModal,
-  'LIST_EDITOR': ListEditor,
-  'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
-  'LIST_ADDER': ListAdder,
-  'HOTKEYS': () => Promise.resolve({ default: HotkeysModal }),
-  'STATUS_REVISION': StatusRevisionModal,
+  'BOOST': () => Promise.resolve({ default: BoostModal }),
   'COMPOSE': () => Promise.resolve({ default: ComposeModal }),
-  'UNAUTHORIZED': () => Promise.resolve({ default: UnauthorizedModal }),
+  'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
+  'EMBED': EmbedModal,
+  'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
+  'HOTKEYS': () => Promise.resolve({ default: HotkeysModal }),
+  'MEDIA': () => Promise.resolve({ default: MediaModal }),
+  'MUTE': MuteModal,
   'PRO_UPGRADE': () => Promise.resolve({ default: ProUpgradeModal }),
+  'REPORT': ReportModal,
+  'STATUS_REVISION': StatusRevisionModal,
+  'UNAUTHORIZED': () => Promise.resolve({ default: UnauthorizedModal }),
+  'VIDEO': () => Promise.resolve({ default: VideoModal }),
+  // 'LIST_EDITOR': ListEditor,
+  // 'LIST_ADDER': ListAdder,
+  // group create
+  // group members
 }
 
-export default class ModalRoot extends PureComponent {
+const mapStateToProps = state => ({
+  type: state.get('modal').modalType,
+  props: state.get('modal').modalProps,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClose (optionalType) {
+    if (optionalType === 'COMPOSE') {
+        dispatch(cancelReplyCompose())
+    }
+
+    dispatch(closeModal())
+  },
+})
+
+export default
+@connect(mapStateToProps, mapDispatchToProps)
+class ModalRoot extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string,

@@ -1,12 +1,14 @@
 import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import classNames from 'classnames';
+import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Textarea from 'react-textarea-autosize';
 import { isRtl } from '../../utils/rtl';
 import { textAtCursorMatchesToken } from '../../utils/cursor_token_match';
 import AutosuggestAccount from '../autosuggest_account';
 import AutosuggestEmoji from '../autosuggest_emoji';
+
+const cx = classNames.bind(_s)
 
 export default class AutosuggestTextbox extends ImmutablePureComponent {
 
@@ -30,6 +32,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     textarea: PropTypes.bool,
+    small: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -188,7 +191,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
   render () {
-    const { value, suggestions, disabled, placeholder, onKeyUp, autoFocus, children, className, id, maxLength, textarea } = this.props;
+    const { value, small, suggestions, disabled, placeholder, onKeyUp, autoFocus, children, className, id, maxLength, textarea } = this.props;
     const { suggestionsHidden } = this.state;
     const style = { direction: 'ltr' };
 
@@ -196,14 +199,30 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       style.direction = 'rtl';
     }
 
+    const textClasses = cx({
+      default: 1,
+      lineHeight125: 1,
+      resizeNone: 1,
+      text: 1,
+      displayBlock: 1,
+      outlineNone: 1,
+      backgroundColorPrimary: !small,
+      backgroundSubtle: small,
+      paddingVertical15PX: !small,
+      paddingVertical10PX: small,
+      fontSize16PX: !small,
+      fontSize14PX: small,
+      marginRight5PX: small,
+    })
+
     if (textarea) {
       return (
         <Fragment>
-          <div className={[_s.default].join(' ')}>
+          <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.marginLeft5PX].join(' ')}>
               <Textarea
                 inputRef={this.setTextbox}
-                className={[_s.default, _s.backgroundColorPrimary, _s.lineHeight125, _s.resizeNone, _s.paddingVertical15PX, _s.outlineFocusBrand, _s.fontSize16PX, _s.text, _s.displayBlock].join(' ')}
+                className={textClasses}
                 disabled={disabled}
                 placeholder={placeholder}
                 autoFocus={autoFocus}

@@ -39,6 +39,7 @@ class UploadButton extends ImmutablePureComponent {
     resetFileKey: PropTypes.number,
     acceptContentTypes: ImmutablePropTypes.listOf(PropTypes.string).isRequired,
     intl: PropTypes.object.isRequired,
+    small: PropTypes.bool,
   }
 
   handleChange = (e) => {
@@ -56,7 +57,7 @@ class UploadButton extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, resetFileKey, unavailable, disabled, acceptContentTypes } = this.props
+    const { intl, resetFileKey, unavailable, disabled, acceptContentTypes, small } = this.props
 
     if (unavailable) return null
 
@@ -66,6 +67,7 @@ class UploadButton extends ImmutablePureComponent {
         disabled={disabled}
         onClick={this.handleClick}
         icon='media'
+        small={small}
       >
         <label>
           <span className={_s.displayNone}>{intl.formatMessage(messages.upload)}</span>

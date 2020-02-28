@@ -38,6 +38,7 @@ class PollButton extends PureComponent {
     active: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
+    small: PropTypes.bool,
   };
 
   handleClick = () => {
@@ -45,7 +46,7 @@ class PollButton extends PureComponent {
   }
 
   render() {
-    const { intl, active, unavailable, disabled } = this.props;
+    const { intl, active, unavailable, disabled, small } = this.props;
 
     if (unavailable) return null;
 
@@ -55,6 +56,7 @@ class PollButton extends PureComponent {
         disabled={disabled}
         onClick={this.handleClick}
         icon='poll'
+        small={small}
       />
     )
   }

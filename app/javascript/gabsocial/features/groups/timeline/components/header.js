@@ -2,7 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
-import Dropdown from '../../../../components/dropdown_menu'
 import Button from '../../../../components/button';
 
 const messages = defineMessages({

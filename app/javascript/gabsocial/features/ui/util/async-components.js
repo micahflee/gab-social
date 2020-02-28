@@ -58,10 +58,6 @@ export function Status() {
   return import(/* webpackChunkName: "features/status" */'../../status')
 }
 
-export function PinnedStatuses() {
-  return import(/* webpackChunkName: "features/pinned_statuses" */'../../pinned_statuses')
-}
-
 export function AccountTimeline() {
   return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline')
 }
@@ -90,7 +86,7 @@ export function GenericNotFound() {
   return import(/* webpackChunkName: "features/generic_not_found" */'../../generic_not_found')
 }
 
-export function FavouritedStatuses() {
+export function FavoritedStatuses() {
   return import(/* webpackChunkName: "features/favourited_statuses" */'../../favourited_statuses')
 }
 

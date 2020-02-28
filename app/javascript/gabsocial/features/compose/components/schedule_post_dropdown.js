@@ -56,6 +56,7 @@ class SchedulePostDropdown extends PureComponent {
     isPro: PropTypes.bool,
     onOpenProUpgradeModal: PropTypes.func.isRequired,
     position: PropTypes.string,
+    small: PropTypes.bool,
   }
 
   handleToggle = () => {
@@ -73,7 +74,7 @@ class SchedulePostDropdown extends PureComponent {
   }
 
   render () {
-    const { intl, date, isPro, position } = this.props
+    const { intl, date, isPro, position, small } = this.props
 
     const open = !!date
     const datePickerDisabled = !isPro
@@ -87,6 +88,7 @@ class SchedulePostDropdown extends PureComponent {
             icon='calendar'
             title={intl.formatMessage(messages.schedule_status)}
             onClick={this.handleToggle}
+            small={small}
           />
         </div>
         {

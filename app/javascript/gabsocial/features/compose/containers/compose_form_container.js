@@ -1,4 +1,4 @@
-import ComposeForm from '../components/compose_form';
+import ComposeForm from '../components/compose_form'
 import {
   changeCompose,
   submitCompose,
@@ -9,66 +9,74 @@ import {
   insertEmojiCompose,
   uploadCompose,
   changeScheduledAt,
-} from '../../../actions/compose';
+} from '../../../actions/compose'
+import { me } from '../../../initial_state'
 
-const mapStateToProps = state => ({
-  edit: state.getIn(['compose', 'id']) !== null,
-  text: state.getIn(['compose', 'text']),
-  suggestions: state.getIn(['compose', 'suggestions']),
-  spoiler: state.getIn(['compose', 'spoiler']),
-  spoilerText: state.getIn(['compose', 'spoiler_text']),
-  privacy: state.getIn(['compose', 'privacy']),
-  focusDate: state.getIn(['compose', 'focusDate']),
-  caretPosition: state.getIn(['compose', 'caretPosition']),
-  preselectDate: state.getIn(['compose', 'preselectDate']),
-  isSubmitting: state.getIn(['compose', 'is_submitting']),
-  isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
-  isUploading: state.getIn(['compose', 'is_uploading']),
-  showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
-  anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
-  isModalOpen: state.get('modal').modalType === 'COMPOSE',
-  quoteOfId: state.getIn(['compose', 'quote_of_id']),
-  scheduledAt: state.getIn(['compose', 'scheduled_at']),
-});
+const mapStateToProps = (state, { status }) => {
+
+  // : todo :
+  //everything needs to be in relation to if there's a status or not
+
+  return {
+    edit: state.getIn(['compose', 'id']) !== null,
+    text: state.getIn(['compose', 'text']),
+    suggestions: state.getIn(['compose', 'suggestions']),
+    spoiler: state.getIn(['compose', 'spoiler']),
+    spoilerText: state.getIn(['compose', 'spoiler_text']),
+    privacy: state.getIn(['compose', 'privacy']),
+    focusDate: state.getIn(['compose', 'focusDate']),
+    caretPosition: state.getIn(['compose', 'caretPosition']),
+    preselectDate: state.getIn(['compose', 'preselectDate']),
+    isSubmitting: state.getIn(['compose', 'is_submitting']),
+    isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
+    isUploading: state.getIn(['compose', 'is_uploading']),
+    showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
+    anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
+    isModalOpen: state.get('modal').modalType === 'COMPOSE',
+    quoteOfId: state.getIn(['compose', 'quote_of_id']),
+    scheduledAt: state.getIn(['compose', 'scheduled_at']),
+    account: state.getIn(['accounts', me]),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onChange (text) {
-    dispatch(changeCompose(text));
+  onChange(text) {
+    dispatch(changeCompose(text))
   },
 
-  onSubmit (router, group) {
-    dispatch(submitCompose(router, group));
+  onSubmit(router, group) {
+    dispatch(submitCompose(router, group))
   },
 
-  onClearSuggestions () {
-    dispatch(clearComposeSuggestions());
+  onClearSuggestions() {
+    dispatch(clearComposeSuggestions())
   },
 
-  onFetchSuggestions (token) {
-    dispatch(fetchComposeSuggestions(token));
+  onFetchSuggestions(token) {
+    dispatch(fetchComposeSuggestions(token))
   },
 
-  onSuggestionSelected (position, token, suggestion, path) {
-    dispatch(selectComposeSuggestion(position, token, suggestion, path));
+  onSuggestionSelected(position, token, suggestion, path) {
+    dispatch(selectComposeSuggestion(position, token, suggestion, path))
   },
 
-  onChangeSpoilerText (checked) {
-    dispatch(changeComposeSpoilerText(checked));
+  onChangeSpoilerText(checked) {
+    dispatch(changeComposeSpoilerText(checked))
   },
 
-  onPaste (files) {
-    dispatch(uploadCompose(files));
+  onPaste(files) {
+    dispatch(uploadCompose(files))
   },
 
-  onPickEmoji (position, data, needsSpace) {
-    dispatch(insertEmojiCompose(position, data, needsSpace));
+  onPickEmoji(position, data, needsSpace) {
+    dispatch(insertEmojiCompose(position, data, needsSpace))
   },
 
-  setScheduledAt (date) {
-    dispatch(changeScheduledAt(date));
+  setScheduledAt(date) {
+    dispatch(changeScheduledAt(date))
   },
-});
+})
 
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, {
@@ -77,4 +85,4 @@ function mergeProps(stateProps, dispatchProps, ownProps) {
   })
 }
 
-export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ComposeForm);
+export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(ComposeForm)

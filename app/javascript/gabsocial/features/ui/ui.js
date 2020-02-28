@@ -15,7 +15,8 @@ import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
 import WrappedRoute from './util/wrapped_route'
 import NotificationsContainer from '../../containers/notifications_container'
-import ModalContainer from '../../containers/modal_container'
+import ModalRoot from '../../components/modal/modal_root'
+import PopoverRoot from '../../components/popover/popover_root'
 import UploadArea from '../../components/upload_area'
 // import TrendsPanel from './components/trends_panel'
 // import { WhoToFollowPanel } from '../../components/panel'
@@ -80,7 +81,6 @@ const mapStateToProps = state => ({
   isComposing: state.getIn(['compose', 'is_composing']),
   hasComposingText: state.getIn(['compose', 'text']).trim().length !== 0,
   hasMediaAttachments: state.getIn(['compose', 'media_attachments']).size > 0,
-  dropdownMenuIsOpen: state.getIn(['dropdown_menu', 'openId']) !== null,
 })
 
 const keyMap = {
@@ -243,7 +243,6 @@ class UI extends PureComponent {
     hasMediaAttachments: PropTypes.bool,
     location: PropTypes.object,
     intl: PropTypes.object.isRequired,
-    dropdownMenuIsOpen: PropTypes.bool,
   }
 
   state = {
@@ -504,7 +503,7 @@ class UI extends PureComponent {
 
   render() {
     const { draggingOver } = this.state
-    const { children, location, dropdownMenuIsOpen } = this.props
+    const { children, location } = this.props
 
     const handlers = me ? {
       help: this.handleHotkeyToggleHelp,
@@ -532,12 +531,7 @@ class UI extends PureComponent {
         attach={window}
         focused
       >
-        <div
-          ref={this.setRef}
-          style={{
-            pointerEvents: dropdownMenuIsOpen ? 'none' : null
-          }}
-        >
+        <div ref={this.setRef}>
           <SwitchingArea
             location={location}
             onLayoutChange={this.handleLayoutChange}
@@ -546,7 +540,8 @@ class UI extends PureComponent {
           </SwitchingArea>
 
           <NotificationsContainer />
-          <ModalContainer />
+          <ModalRoot />
+          <PopoverRoot />
           <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
         </div>
       </HotKeys>

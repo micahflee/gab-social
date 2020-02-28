@@ -9,6 +9,7 @@ export default class ComposeExtraButton extends PureComponent {
     disabled: PropTypes.bool,
     onClick: PropTypes.func,
     icon: PropTypes.string,
+    small: PropTypes.bool,
   }
 
   state = {
@@ -24,18 +25,26 @@ export default class ComposeExtraButton extends PureComponent {
   }
 
   render() {
-    const { title, disabled, onClick, icon, children } = this.props
+    const { title, disabled, onClick, icon, children, small } = this.props
     const { hovering } = this.state
+
+    const containerClasses = cx({
+      default: 1,
+      marginRight10PX: !small,
+      marginRight2PX: small,
+    })
 
     const btnClasses = cx({
       default: 1,
       circle: 1,
       flexRow: 1,
-      paddingVertical10PX: 1,
-      paddingHorizontal10PX: 1,
       cursorPointer: 1,
       backgroundSubtle: !hovering,
       backgroundSubtle2: hovering,
+      paddingVertical10PX: !small,
+      paddingHorizontal10PX: !small,
+      paddingVertical5PX: small,
+      paddingHorizontal5PX: small,
     })
 
     const titleClasses = cx({
@@ -49,8 +58,10 @@ export default class ComposeExtraButton extends PureComponent {
       displayNone: !hovering,
     })
 
+    const iconSize = !!small ? '12px' : '18px'
+
     return (
-      <div className={[_s.default, _s.marginRight10PX].join(' ')}>
+      <div className={containerClasses}>
         <button
           className={btnClasses}
           title={title}
@@ -59,10 +70,13 @@ export default class ComposeExtraButton extends PureComponent {
           onMouseEnter={() => this.handleOnMouseEnter()}
           onMouseLeave={() => this.handleOnMouseLeave()}
         >
-          <Icon id={icon} width='18px' height='18px' className={_s.fillcolorSecondary} />
-          <span className={titleClasses}>
-            {title}
-          </span>
+          <Icon id={icon} width={iconSize} height={iconSize} className={_s.fillcolorSecondary} />
+          {
+            !small &&
+            <span className={titleClasses}>
+              {title}
+            </span>
+          }
         </button>
         {children}
       </div>

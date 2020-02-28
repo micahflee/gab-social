@@ -10,7 +10,7 @@ export const FAVOURITED_STATUSES_EXPAND_REQUEST = 'FAVOURITED_STATUSES_EXPAND_RE
 export const FAVOURITED_STATUSES_EXPAND_SUCCESS = 'FAVOURITED_STATUSES_EXPAND_SUCCESS';
 export const FAVOURITED_STATUSES_EXPAND_FAIL    = 'FAVOURITED_STATUSES_EXPAND_FAIL';
 
-export function fetchFavouritedStatuses() {
+export function fetchFavoritedStatuses() {
   return (dispatch, getState) => {
     if (!me) return;
 
@@ -18,26 +18,26 @@ export function fetchFavouritedStatuses() {
       return;
     }
 
-    dispatch(fetchFavouritedStatusesRequest());
+    dispatch(fetchFavoritedStatusesRequest());
 
     api(getState).get('/api/v1/favourites').then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
       dispatch(importFetchedStatuses(response.data));
-      dispatch(fetchFavouritedStatusesSuccess(response.data, next ? next.uri : null));
+      dispatch(fetchFavoritedStatusesSuccess(response.data, next ? next.uri : null));
     }).catch(error => {
-      dispatch(fetchFavouritedStatusesFail(error));
+      dispatch(fetchFavoritedStatusesFail(error));
     });
   };
 };
 
-export function fetchFavouritedStatusesRequest() {
+export function fetchFavoritedStatusesRequest() {
   return {
     type: FAVOURITED_STATUSES_FETCH_REQUEST,
     skipLoading: true,
   };
 };
 
-export function fetchFavouritedStatusesSuccess(statuses, next) {
+export function fetchFavoritedStatusesSuccess(statuses, next) {
   return {
     type: FAVOURITED_STATUSES_FETCH_SUCCESS,
     statuses,
@@ -46,7 +46,7 @@ export function fetchFavouritedStatusesSuccess(statuses, next) {
   };
 };
 
-export function fetchFavouritedStatusesFail(error) {
+export function fetchFavoritedStatusesFail(error) {
   return {
     type: FAVOURITED_STATUSES_FETCH_FAIL,
     error,
@@ -54,7 +54,7 @@ export function fetchFavouritedStatusesFail(error) {
   };
 };
 
-export function expandFavouritedStatuses() {
+export function expandFavoritedStatuses() {
   return (dispatch, getState) => {
     if (!me) return;
     
@@ -64,25 +64,25 @@ export function expandFavouritedStatuses() {
       return;
     }
 
-    dispatch(expandFavouritedStatusesRequest());
+    dispatch(expandFavoritedStatusesRequest());
 
     api(getState).get(url).then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
       dispatch(importFetchedStatuses(response.data));
-      dispatch(expandFavouritedStatusesSuccess(response.data, next ? next.uri : null));
+      dispatch(expandFavoritedStatusesSuccess(response.data, next ? next.uri : null));
     }).catch(error => {
-      dispatch(expandFavouritedStatusesFail(error));
+      dispatch(expandFavoritedStatusesFail(error));
     });
   };
 };
 
-export function expandFavouritedStatusesRequest() {
+export function expandFavoritedStatusesRequest() {
   return {
     type: FAVOURITED_STATUSES_EXPAND_REQUEST,
   };
 };
 
-export function expandFavouritedStatusesSuccess(statuses, next) {
+export function expandFavoritedStatusesSuccess(statuses, next) {
   return {
     type: FAVOURITED_STATUSES_EXPAND_SUCCESS,
     statuses,
@@ -90,7 +90,7 @@ export function expandFavouritedStatusesSuccess(statuses, next) {
   };
 };
 
-export function expandFavouritedStatusesFail(error) {
+export function expandFavoritedStatusesFail(error) {
   return {
     type: FAVOURITED_STATUSES_EXPAND_FAIL,
     error,

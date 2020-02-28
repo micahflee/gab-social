@@ -8,7 +8,7 @@ import { hydrateStore } from '../actions/store';
 import initialState from '../initial_state';
 import PublicTimeline from '../features/standalone/public_timeline';
 import HashtagTimeline from '../features/standalone/hashtag_timeline';
-import ModalContainer from './modal_container';
+import ModalRoot from '../components/modal/modal_root'
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);

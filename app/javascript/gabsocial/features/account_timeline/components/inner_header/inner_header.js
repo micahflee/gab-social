@@ -8,7 +8,6 @@ import Button from '../../../components/button';
 import { autoPlayGif, me, isStaff } from '../../../initial_state';
 import Avatar from '../../../components/avatar';
 import { shortNumberFormat } from '../../../utils/numbers';
-import Dropdown from '../../../components/dropdown_menu'
 import ProfileInfoPanel from './profile_info_panel/profile_info_panel';
 
 const messages = defineMessages({

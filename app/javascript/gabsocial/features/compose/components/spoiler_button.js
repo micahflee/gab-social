@@ -28,6 +28,7 @@ class SpoilerButton extends PureComponent {
   static propTypes = {
     active: PropTypes.bool,
     intl: PropTypes.map,
+    small: PropTypes.bool,
   }
 
   handleClick = (e) => {
@@ -36,13 +37,14 @@ class SpoilerButton extends PureComponent {
   }
 
   render () {
-    const { active, intl } = this.props
+    const { active, intl, small } = this.props
 
     return (
       <ComposeExtraButton
         title={intl.formatMessage(messages.title)}
         icon='warning'
         onClick={this.handleClick}
+        small={small}
       />
     )
   }

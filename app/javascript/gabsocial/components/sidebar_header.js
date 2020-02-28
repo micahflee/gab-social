@@ -15,7 +15,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default @connect(mapStateToProps)
+export default
+@connect(mapStateToProps)
 class SidebarHeader extends ImmutablePureComponent {
 
   static propTypes = {

@@ -40,7 +40,7 @@ export default class HomePage extends PureComponent {
           </Fragment>
         )}
       >
-        <TimelineComposeBlock autoFocus={false} shouldCondense />
+        <TimelineComposeBlock autoFocus={false} />
         <Divider />
         {children}
       </DefaultLayout>

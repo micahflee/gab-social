@@ -1,10 +1,10 @@
 import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
-import classNames from 'classnames';
+import classNames from 'classnames/bind'
 import { displayMedia } from '../../initial_state';
 import Card from '../../features/status/components/card';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
@@ -18,10 +18,13 @@ import Block from '../block';
 import Icon from '../icon';
 import Poll from '../poll';
 import StatusHeader from '../status_header'
+import Text from '../text'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
 import Bundle from '../../features/ui/util/bundle';
+
+const cx = classNames.bind(_s)
 
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
   const displayName = status.getIn(['account', 'display_name']);
@@ -51,6 +54,12 @@ export const defaultMediaVisibility = status => {
 
   return (displayMedia !== 'hide_all' && !status.get('sensitive')) || displayMedia === 'show_all';
 };
+
+const messages = defineMessages({
+  filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
+  promoted: { id:'status.promoted', defaultMessage: 'Promoted gab' },
+  pinned: { id: 'status.pinned', defaultMessage: 'Pinned gab' },
+})
 
 export default
 @injectIntl
@@ -293,7 +302,7 @@ class Status extends ImmutablePureComponent {
       return (
         <HotKeys handlers={minHandlers}>
           <div className='status__wrapper status__wrapper--filtered focusable' tabIndex='0' ref={this.handleRef}>
-            <FormattedMessage id='status.filtered' defaultMessage='Filtered' />
+            <Text>{intl.formatMessage(messages.filtered)}</Text>
           </div>
         </HotKeys>
       );
@@ -302,17 +311,24 @@ class Status extends ImmutablePureComponent {
     if (promoted) {
       prepend = (
         <button className='status__prepend status__prepend--promoted' onClick={this.handleOpenProUpgradeModal}>
-          <div className='status__prepend-icon-wrapper'><Icon id='star' className='status__prepend-icon' fixedWidth /></div>
-          <FormattedMessage id='status.promoted' defaultMessage='Promoted gab' />
+          <div className='status__prepend-icon-wrapper'>
+            <Icon id='star' className='status__prepend-icon' fixedWidth />
+          </div>
+          <Text>{intl.formatMessage(messages.promoted)}</Text>
         </button>
       );
     } else if (featured) {
       prepend = (
-        <div className='status__prepend'>
-          <div className='status__prepend-icon-wrapper'>
-            <Icon id='thumb-tack' className='status__prepend-icon' fixedWidth />
-          </div>
-          <FormattedMessage id='status.pinned' defaultMessage='Pinned gab' />
+        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingVertical5PX, _s.paddingHorizontal15PX].join(' ')}>
+          <Icon
+            id='thumb-tack'
+            width='12px'
+            height='12px'
+            className={_s.fillcolorSecondary}
+          />
+          <Text size='small' color='secondary' className={_s.marginLeft5PX}>
+            {intl.formatMessage(messages.pinned)}
+          </Text>
         </div>
       );
     } else if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
@@ -323,7 +339,7 @@ class Status extends ImmutablePureComponent {
           <div className='status__prepend-icon-wrapper'>
             <Icon id='retweet' className='status__prepend-icon' fixedWidth />
           </div>
-          <FormattedMessage
+          {/*<FormattedMessage
             id='status.reblogged_by'
             defaultMessage='{name} reposted'
             values={{
@@ -335,7 +351,7 @@ class Status extends ImmutablePureComponent {
                 </NavLink>
               ),
             }}
-          />
+          /> */ }
         </div>
       );
 
@@ -423,10 +439,18 @@ class Status extends ImmutablePureComponent {
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 
+    const containerClasses = cx({
+      default: 1,
+      marginBottom15PX: 1,
+      paddingBottom15PX: featured,
+      borderBottom1PX: featured,
+      borderColorSecondary: featured,
+    })
+
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={[_s.default, _s.marginBottom15PX].join(' ')}
+          className={containerClasses}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}

@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux-immutable';
-import dropdown_menu from './dropdown_menu';
+import popover from './popover';
 import timelines from './timelines';
 import meta from './meta';
 import alerts from './alerts';
@@ -40,7 +40,7 @@ import sidebar from './sidebar';
 import status_revision_list from './status_revision_list';
 
 const reducers = {
-  dropdown_menu,
+  popover,
   timelines,
   meta,
   alerts,

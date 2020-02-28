@@ -44,9 +44,6 @@ class TimelineComposeBlock extends ImmutablePureComponent {
             </Heading>
           </div>
           <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
-            <div className={[_s.default, _s.marginRight10PX].join(' ')}>
-              <Avatar account={account} size={46} />
-            </div>
             <ComposeFormContainer {...rest} />
           </div>
         </Block>

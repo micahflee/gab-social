@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { autoPlayGif, me } from '../../initial_state'
+import { me } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import { shortNumberFormat } from '../../utils/numbers'
 import DisplayName from '../display_name'
@@ -18,10 +18,8 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = state => {
-  const getAccount = makeGetAccount()
-
   return {
-    account: getAccount(state, me),
+    account: makeGetAccount()(state, me),
   }
 }
 
@@ -36,25 +34,6 @@ class UserPanel extends ImmutablePureComponent {
 
   render() {
     const { account, intl } = this.props
-    const displayNameHtml = { __html: account.get('display_name_html') }
-
-    const statItems = [
-      {
-        to: `/${account.get('acct')}`,
-        title: intl.formatMessage(messages.gabs),
-        value: shortNumberFormat(account.get('statuses_count')),
-      },
-      {
-        to: `/${account.get('acct')}/followers`,
-        title: intl.formatMessage(messages.followers),
-        value: shortNumberFormat(account.get('followers_count')),
-      },
-      {
-        to: `/${account.get('acct')}/following`,
-        title: intl.formatMessage(messages.follows),
-        value: shortNumberFormat(account.get('following_count')),
-      },
-    ]
 
     return (
       <PanelLayout noPadding>
@@ -76,11 +55,21 @@ class UserPanel extends ImmutablePureComponent {
         </NavLink>
 
         <div className={[_s.default, _s.marginBottom15PX, _s.marginTop5PX, _s.flexRow, _s.paddingHorizontal15PX].join(' ')}>
-          {
-            statItems.map((statItem, i) => (
-              <UserStat {...statItem} key={`user-stat-panel-item-${i}`} />
-            ))
-          }
+          <UserStat
+            to={`/${account.get('acct')}`}
+            title={intl.formatMessage(messages.gabs)}
+            value={shortNumberFormat(account.get('statuses_count'))}
+          />
+          <UserStat
+            to={`/${account.get('acct')}/followers`}
+            title={intl.formatMessage(messages.followers)}
+            value={shortNumberFormat(account.get('followers_count'))}
+          />
+          <UserStat
+            to={`/${account.get('acct')}/following`}
+            title={intl.formatMessage(messages.follows)}
+            value={shortNumberFormat(account.get('following_count'))}
+          />
         </div>
       </PanelLayout>
     )

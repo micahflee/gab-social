@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { debounce } from 'lodash';
-import { fetchFavouritedStatuses, expandFavouritedStatuses } from '../../actions/favourites';
+import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../../actions/favourites';
 import { meUsername } from '../../initial_state';
 import StatusList from '../../components/status_list';
 import ColumnIndicator from '../../components/column_indicator';
@@ -29,11 +29,11 @@ class Favourites extends ImmutablePureComponent {
   };
 
   componentWillMount () {
-    this.props.dispatch(fetchFavouritedStatuses());
+    this.props.dispatch(fetchFavoritedStatuses());
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandFavouritedStatuses());
+    this.props.dispatch(expandFavoritedStatuses());
   }, 300, { leading: true })
 
   render () {

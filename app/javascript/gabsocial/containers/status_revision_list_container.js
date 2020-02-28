@@ -1,25 +1,25 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { load } from '../actions/status_revision_list';
-import StatusRevisionList from '../components/status_revision_list';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { load } from '../actions/status_revision_list'
+import StatusRevisionList from '../components/status_revision_list'
 
 class StatusRevisionListContainer extends ImmutablePureComponent {
-    componentDidMount() {
-        this.props.load(this.props.id);
-    }
+  componentDidMount() {
+    this.props.load(this.props.id)
+  }
 
-    render() {
-        return <StatusRevisionList {...this.props} />;
-    }
+  render() {
+    return <StatusRevisionList {...this.props} />
+  }
 }
 
 const mapStateToProps = state => ({
-    loading: state.getIn(['status_revision_list', 'loading']),
-    error: state.getIn(['status_revision_list', 'error']),
-    data: state.getIn(['status_revision_list', 'data']),
-});
+  loading: state.getIn(['status_revision_list', 'loading']),
+  error: state.getIn(['status_revision_list', 'error']),
+  data: state.getIn(['status_revision_list', 'data']),
+})
 
 const mapDispatchToProps = {
-    load
-};
+  load
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(StatusRevisionListContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(StatusRevisionListContainer)

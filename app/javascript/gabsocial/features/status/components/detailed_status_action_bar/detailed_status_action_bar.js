@@ -3,7 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { openModal } from '../../../../actions/modal';
 import { me, isStaff } from '../../../../initial_state';
-import Dropdown from '../../../../components/dropdown_menu';
 import IconButton from '../../../../components/icon_button';
 
 const messages = defineMessages({

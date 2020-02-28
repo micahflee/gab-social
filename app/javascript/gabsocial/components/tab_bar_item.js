@@ -11,6 +11,7 @@ class TabBarItem extends PureComponent {
     location: PropTypes.object.isRequired,
     title: PropTypes.string,
     to: PropTypes.string,
+    large: PropTypes.bool,
   }
 
   state = {
@@ -30,7 +31,7 @@ class TabBarItem extends PureComponent {
   }
 
   render() {
-    const { title, to, location } = this.props
+    const { title, to, location, large } = this.props
     const { active } = this.state
 
     const isCurrent = active === -1 ? to === location.pathname : active
@@ -43,23 +44,40 @@ class TabBarItem extends PureComponent {
       displayFlex: 1,
       alignItemsCenter: 1,
       justifyContentCenter: 1,
-      paddingHorizontal10PX: 1,
       borderBottom2PX: 1,
+      paddingVertical5PX: 1,
       borderColorTransparent: !isCurrent,
       borderColorBrand: isCurrent,
+      marginRight5PX: large,
+    })
+
+    const textParentClasses = cx({
+      default: 1,
+      height100PC: 1,
+      alignItemsCenter: 1,
+      justifyContentCenter: 1,
+      radiusSmall: 1,
+      paddingHorizontal10PX: !large,
+      paddingHorizontal15PX: large,
+      backgroundSubtle2Dark_onHover: !isCurrent,
     })
 
     const textOptions = {
-      size: 'small',
-      color: isCurrent ? 'brand' : 'primary',
-      weight: isCurrent ? 'bold' : 'normal',
+      size: !!large ? 'normal' : 'small',
+      color: isCurrent ? 'brand' : large ? 'secondary' : 'primary',
+      weight: isCurrent ? 'bold' : large ? 'medium' : 'normal',
+      className: cx({
+        paddingHorizontal5PX: large,
+      }),
     }
 
     return (
       <NavLink to={to} className={containerClasses}>
-        <Text {...textOptions}>
-          {title}
-        </Text>
+        <span className={textParentClasses}>
+          <Text {...textOptions}>
+            {title}
+          </Text>
+        </span>
       </NavLink>
     )
   }

@@ -1,13 +1,12 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { defineMessages, injectIntl } from 'react-intl';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
-import { Link } from 'react-router-dom';
-import { openModal } from '../../actions/modal';
-import { me, isStaff } from '../../initial_state';
-import Dropdown from '../dropdown_menu'
-import ComposeFormContainer from '../../features/compose/containers/compose_form_container';
-import Icon from '../icon';
+import { openModal } from '../../actions/modal'
+import { me, isStaff } from '../../initial_state'
+import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
+import Icon from '../icon'
+import StatusActionBarItem from '../status_action_bar_item'
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
@@ -40,63 +39,15 @@ const messages = defineMessages({
   copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
   group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
   group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenUnauthorizedModal() {
-    dispatch(openModal('UNAUTHORIZED'));
+    dispatch(openModal('UNAUTHORIZED'))
   },
-});
+})
 
 const cx = classNames.bind(_s)
-
-class StatusActionBarItem extends PureComponent {
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    onClick: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
-    active: PropTypes.bool,
-    disabled: PropTypes.bool,
-  }
-
-  render() {
-    const { title, onClick, icon, active, disabled } = this.props
-
-    const btnClasses = cx({
-      default: 1,
-      text: 1,
-      fontSize13PX: 1,
-      fontWeightMedium: 1,
-      cursorPointer: 1,
-      displayFlex: 1,
-      justifyContentCenter: 1,
-      flexRow: 1,
-      alignItemsCenter: 1,
-      paddingVertical10PX: 1,
-      paddingHorizontal10PX: 1,
-      width100PC: 1,
-      radiusSmall: 1,
-      outlineFocusBrand: 1,
-      backgroundTransparent: 1,
-      backgroundSubtle_onHover: 1,
-      colorSecondary: 1,
-    })
-
-    return (
-      <div className={[_s.default, _s.flexGrow1, _s.paddingHorizontal10PX].join(' ')}>
-        <button
-          className={btnClasses}
-          onClick={onClick}
-          active={active}
-          disabled={disabled}
-        >
-          <Icon width='16px' height='16px' id={icon} className={[_s.default, _s.marginRight10PX, _s.fillcolorSecondary].join(' ')} />
-          {title}
-        </button>
-      </div>
-    )
-  }
-}
 
 export default
 @connect(null, mapDispatchToProps)
@@ -105,7 +56,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
@@ -125,7 +76,7 @@ class StatusActionBar extends ImmutablePureComponent {
     withDismiss: PropTypes.bool,
     withGroupAdmin: PropTypes.bool,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   // Avoid checking props that are functions (and whose equality will always
   // evaluate to false. See react-immutable-pure-component for usage.
@@ -136,53 +87,53 @@ class StatusActionBar extends ImmutablePureComponent {
 
   handleReplyClick = () => {
     if (me) {
-      this.props.onReply(this.props.status, this.context.router.history);
+      this.props.onReply(this.props.status, this.context.router.history)
     } else {
-      this.props.onOpenUnauthorizedModal();
+      this.props.onOpenUnauthorizedModal()
     }
   }
 
   handleQuoteClick = () => {
     if (me) {
-      this.props.onQuote(this.props.status, this.context.router.history);
+      this.props.onQuote(this.props.status, this.context.router.history)
     } else {
-      this.props.onOpenUnauthorizedModal();
+      this.props.onOpenUnauthorizedModal()
     }
   }
 
   handleFavouriteClick = () => {
     if (me) {
-      this.props.onFavourite(this.props.status);
+      this.props.onFavourite(this.props.status)
     } else {
-      this.props.onOpenUnauthorizedModal();
+      this.props.onOpenUnauthorizedModal()
     }
   }
 
   handleReblogClick = e => {
     if (me) {
-      this.props.onReblog(this.props.status, e);
+      this.props.onReblog(this.props.status, e)
     } else {
-      this.props.onOpenUnauthorizedModal();
+      this.props.onOpenUnauthorizedModal()
     }
   }
 
-  render () {
-    const { status, intl: { formatMessage } } = this.props;
+  render() {
+    const { status, intl: { formatMessage } } = this.props
 
-    const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'));
+    const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
 
-    const replyCount = status.get('replies_count');
-    const replyIcon = (status.get('in_reply_to_id', null) === null) ? 'reply' : 'reply-all';
-    const replyTitle = (status.get('in_reply_to_id', null) === null) ? formatMessage(messages.reply) : formatMessage(messages.replyAll);
+    const replyCount = status.get('replies_count')
+    const replyIcon = (status.get('in_reply_to_id', null) === null) ? 'reply' : 'reply-all'
+    const replyTitle = (status.get('in_reply_to_id', null) === null) ? formatMessage(messages.reply) : formatMessage(messages.replyAll)
 
-    const reblogCount = status.get('reblogs_count');
-    const reblogTitle = !publicStatus ? formatMessage(messages.cannot_reblog) : formatMessage(messages.reblog);
+    const reblogCount = status.get('reblogs_count')
+    const reblogTitle = !publicStatus ? formatMessage(messages.cannot_reblog) : formatMessage(messages.reblog)
 
-    const favoriteCount = status.get('favourites_count');
+    const favoriteCount = status.get('favourites_count')
 
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
       <IconButton className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
-    );
+    )
 
     const items = [
       {
@@ -248,19 +199,19 @@ class StatusActionBar extends ImmutablePureComponent {
         {
           hasInteractions &&
           <div className={[_s.default, _s.flexRow, _s.paddingHorizontal5PX].join(' ')}>
-            { favoriteCount > 0 &&
+            {favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
                 {favoriteCount}
                 &nbsp;Likes
               </button>
             }
-            { replyCount > 0 &&
+            {replyCount > 0 &&
               <button className={interactionBtnClasses}>
                 {replyCount}
                 &nbsp;Comments
               </button>
             }
-            { reblogCount > 0 &&
+            {reblogCount > 0 &&
               <button className={interactionBtnClasses}>
                 {reblogCount}
                 &nbsp;Reposts
@@ -277,11 +228,11 @@ class StatusActionBar extends ImmutablePureComponent {
             }
           </div>
         </div>
-        <div className='status-action-bar__comment'>
-          {/*<ComposeFormContainer shouldCondense statusId={status.get('id')} />*/}
+        <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.marginBottom10PX].join(' ')}>
+          { /* <ComposeFormContainer statusId={status.get('id')} shouldCondense /> */ }
         </div>
       </div>
-    );
+    )
   }
 
 }

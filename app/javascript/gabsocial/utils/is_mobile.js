@@ -28,6 +28,20 @@ export function breakpointExtraSmall(width) {
   return width < BREAKPOINT_EXTRA_SMALL
 }
 
+export function getScreenBreakpoint(width) {
+  if (width > BREAKPOINT_EXTRA_LARGE) {
+    return 'BREAKPOINT_EXTRA_LARGE'
+  } else if (width > BREAKPOINT_MEDIUM && width < BREAKPOINT_LARGE) {
+    return 'BREAKPOINT_LARGE'
+  } else if (width > BREAKPOINT_SMALL && width < BREAKPOINT_MEDIUM) {
+    return 'BREAKPOINT_MEDIUM'
+  } else if (width > BREAKPOINT_EXTRA_SMALL && width < BREAKPOINT_SMALL) {
+    return 'BREAKPOINT_SMALL'
+  } else {
+    return 'BREAKPOINT_EXTRA_SMALL'
+  }
+}
+
 //
 
 const LAYOUT_BREAKPOINT = 630

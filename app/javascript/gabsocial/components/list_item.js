@@ -9,6 +9,7 @@ export default class ListItem extends PureComponent {
     isLast: PropTypes.bool,
     to: PropTypes.string,
     title: PropTypes.string,
+    onClick: PropTypes.func,
   }
 
   render() {

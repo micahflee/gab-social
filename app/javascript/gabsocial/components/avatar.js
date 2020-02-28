@@ -4,7 +4,8 @@ import { Map as ImmutableMap } from 'immutable'
 import { autoPlayGif } from '../initial_state'
 import Image from './image'
 
-export default class Avatar extends ImmutablePureComponent {
+export default
+class Avatar extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
@@ -24,6 +25,7 @@ export default class Avatar extends ImmutablePureComponent {
   }
 
   handleMouseEnter = () => {
+    // : todo : user popover
     this.setState({ hovering: true })
   }
 

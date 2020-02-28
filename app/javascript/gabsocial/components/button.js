@@ -140,7 +140,6 @@ export default class Button extends PureComponent {
     }
 
     if (tagName === 'NavLink' && !!to) {
-      console.log("to: ", to)
       return (
         <NavLink {...options}>
           {theChildren}
