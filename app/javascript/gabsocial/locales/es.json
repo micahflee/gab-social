@@ -123,7 +123,7 @@
   "empty_column.community": "La línea de tiempo local está vacía. ¡Escribe algo para empezar la fiesta!",
   "empty_column.direct": "Aún no tienes ningún mensaje directo. Cuando envíes o recibas uno, se mostrará aquí.",
   "empty_column.domain_blocks": "Todavía no hay dominios ocultos.",
-  "empty_column.favourited_statuses": "Aún no tienes toots preferidos. Cuando marques uno como favorito, aparecerá aquí.",
+  "empty_column.favorited_statuses": "Aún no tienes toots preferidos. Cuando marques uno como favorito, aparecerá aquí.",
   "empty_column.favourites": "Nadie ha marcado este toot como preferido. Cuando alguien lo haga, aparecerá aquí.",
   "empty_column.follow_requests": "No tienes ninguna petición de seguidor. Cuando recibas una, se mostrará aquí.",
   "empty_column.hashtag": "No hay nada en este hashtag aún.",

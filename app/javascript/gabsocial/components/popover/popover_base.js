@@ -135,10 +135,10 @@ class PopoverBase extends ImmutablePureComponent {
 
     return (
       <div onKeyDown={this.handleKeyDown} className={containerClasses}>
-        <div show={open} placement={popoverPlacement} target={this.findTarget}>
-          { /* <PopoverMenu items={items} onClose={this.handleClose} openedViaKeyboard={openedViaKeyboard} /> */}
+        { /* <div show={open} placement={popoverPlacement} target={this.findTarget}>
+          <PopoverMenu items={items} onClose={this.handleClose} openedViaKeyboard={openedViaKeyboard} />
           {children}
-        </div>
+        </div> */}
       </div>
     )
   }

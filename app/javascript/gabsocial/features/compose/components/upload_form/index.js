@@ -1,1 +1,1 @@
-export { default } from './upload_form';
+export { default } from './upload_form'

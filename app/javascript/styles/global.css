@@ -18,10 +18,6 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
-.statusContent a {
-  color: #21cf7a;
-}
-
 .dangerousContent * {
   margin-top: 0;
   margin-bottom: 0;
@@ -30,8 +26,15 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
+.statusContent a,
 .dangerousContent a {
   color: #21cf7a;
+  text-decoration: none;
+}
+
+.statusContent a:hover,
+.dangerousContent a:hover {
+  text-decoration: underline;
 }
 
 .statusCardVideo iframe {
@@ -263,7 +266,7 @@ body {
 }
 
 .backgroundSubtle2 {
-  background-color: #e8ecef;
+  background-color: #e2e8ec;
 }
 
 .backgroundSubtle2Dark_onHover:hover {
@@ -434,6 +437,10 @@ body {
   height: 122px;
 }
 
+.height220PX {
+  height: 220px;
+}
+
 .height260PX {
   height: 260px;
 }
@@ -450,12 +457,12 @@ body {
   width: 645px;
 }
 
-.width400PX {
-  width: 400px;
-}
-
 .width340PX {
   width: 340px;
+}
+
+.width330PX {
+  width: 330px;
 }
 
 .width240PX {

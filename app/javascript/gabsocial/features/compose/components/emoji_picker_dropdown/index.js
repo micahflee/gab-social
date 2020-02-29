@@ -1,1 +1,1 @@
-export { default } from './emoji_picker_dropdown';
+export { default } from './emoji_picker_dropdown'

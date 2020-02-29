@@ -123,7 +123,7 @@
   "empty_column.community": "Lokálna časová os je prázdna. Napíšte niečo, aby sa to tu začalo hýbať!",
   "empty_column.direct": "Ešte nemáš žiadne súkromné správy. Keď nejakú pošleš, alebo dostaneš, ukáže sa tu.",
   "empty_column.domain_blocks": "Žiadne domény ešte niesú skryté.",
-  "empty_column.favourited_statuses": "Nemáš obľúbené ešte žiadne príspevky. Keď si nejaký obľúbiš, bude zobrazený práve tu.",
+  "empty_column.favorited_statuses": "Nemáš obľúbené ešte žiadne príspevky. Keď si nejaký obľúbiš, bude zobrazený práve tu.",
   "empty_column.favourites": "Tento toot si ešte nikto neobľúbil. Ten kto si ho obľúbi, bude zobrazený tu.",
   "empty_column.follow_requests": "Ešte nemáš žiadne požiadavky o následovanie. Keď nejaké dostaneš, budú tu zobrazené.",
   "empty_column.hashtag": "Pod týmto hashtagom sa ešte nič nenachádza.",

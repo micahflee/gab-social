@@ -27,19 +27,19 @@ export function ListTimeline() {
 }
 
 export function GroupTimeline() {
-  return import(/* webpackChunkName: "features/groups/timeline" */'../../groups/timeline')
+  return import(/* webpackChunkName: "features/group_timeline" */'../../group_timeline')
 }
 
 export function GroupMembers() {
-  return import(/* webpackChunkName: "features/groups/timeline" */'../../groups/members')
+  return import(/* webpackChunkName: "features/group_members" */'../../group_members')
 }
 
 export function GroupRemovedAccounts() {
-  return import(/* webpackChunkName: "features/groups/timeline" */'../../groups/removed_accounts')
+  return import(/* webpackChunkName: "features/group_removed_accounts" */'../../group_removed_accounts')
 }
 
 export function GroupCreate() {
-  return import(/* webpackChunkName: "features/groups/timeline" */'../../groups/create')
+  return import(/* webpackChunkName: "features/groups_create" */'../../group_create')
 }
 
 export function GroupEdit() {
@@ -87,7 +87,7 @@ export function GenericNotFound() {
 }
 
 export function FavoritedStatuses() {
-  return import(/* webpackChunkName: "features/favourited_statuses" */'../../favourited_statuses')
+  return import(/* webpackChunkName: "features/favorited_statuses" */'../../favorited_statuses')
 }
 
 export function Blocks() {

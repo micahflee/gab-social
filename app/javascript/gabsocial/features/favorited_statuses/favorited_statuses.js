@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { debounce } from 'lodash';
-import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../../actions/favourites';
+import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../../actions/favorites';
 import { meUsername } from '../../initial_state';
 import StatusList from '../../components/status_list';
 import ColumnIndicator from '../../components/column_indicator';
@@ -10,15 +10,15 @@ import ColumnIndicator from '../../components/column_indicator';
 const mapStateToProps = (state, { params: { username } }) => {
   return {
     isMyAccount: (username.toLowerCase() === meUsername.toLowerCase()),
-    statusIds: state.getIn(['status_lists', 'favourites', 'items']),
-    isLoading: state.getIn(['status_lists', 'favourites', 'isLoading'], true),
-    hasMore: !!state.getIn(['status_lists', 'favourites', 'next']),
+    statusIds: state.getIn(['status_lists', 'favorites', 'items']),
+    isLoading: state.getIn(['status_lists', 'favorites', 'isLoading'], true),
+    hasMore: !!state.getIn(['status_lists', 'favorites', 'next']),
   };
 };
 
 export default
 @connect(mapStateToProps)
-class Favourites extends ImmutablePureComponent {
+class Favorites extends ImmutablePureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -46,11 +46,11 @@ class Favourites extends ImmutablePureComponent {
     return (
         <StatusList
           statusIds={statusIds}
-          scrollKey='favourited_statuses'
+          scrollKey='favorited_statuses'
           hasMore={hasMore}
           isLoading={isLoading}
           onLoadMore={this.handleLoadMore}
-          emptyMessage={<FormattedMessage id='empty_column.favourited_statuses' defaultMessage="You don't have any favourite gabs yet. When you favourite one, it will show up here." />}
+          emptyMessage={<FormattedMessage id='empty_column.favorited_statuses' defaultMessage="You don't have any favorite gabs yet. When you favorite one, it will show up here." />}
         />
     );
   }

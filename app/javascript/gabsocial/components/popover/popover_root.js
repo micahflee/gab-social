@@ -48,9 +48,9 @@ class PopoverRoot extends PureComponent {
     onClose: PropTypes.func.isRequired,
   }
 
-  getSnapshotBeforeUpdate() {
-    return { visible: !!this.props.type }
-  }
+  // getSnapshotBeforeUpdate() {
+  //   return { visible: !!this.props.type }
+  // }
 
   static contextTypes = {
     router: PropTypes.object,
@@ -73,25 +73,25 @@ class PopoverRoot extends PureComponent {
   }
 
   handleDocumentClick = e => {
-    if (this.node && !this.node.contains(e.target)) {
-      this.props.onClose()
-    }
+    // if (this.node && !this.node.contains(e.target)) {
+    //   this.props.onClose()
+    // }
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick, false)
-    document.addEventListener('keydown', this.handleKeyDown, false)
-    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
+    // document.addEventListener('click', this.handleDocumentClick, false)
+    // document.addEventListener('keydown', this.handleKeyDown, false)
+    // document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
 
-    if (this.focusedItem && this.props.openedViaKeyboard) this.focusedItem.focus()
+    // if (this.focusedItem && this.props.openedViaKeyboard) this.focusedItem.focus()
 
-    this.setState({ mounted: true })
+    // this.setState({ mounted: true })
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleDocumentClick, false)
-    document.removeEventListener('keydown', this.handleKeyDown, false)
-    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
+    // document.removeEventListener('click', this.handleDocumentClick, false)
+    // document.removeEventListener('keydown', this.handleKeyDown, false)
+    // document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
   setRef = c => {
@@ -159,13 +159,15 @@ class PopoverRoot extends PureComponent {
 
     console.log("popover root - type, visible:", type, visible)
 
+    // <PopoverBase className={`popover-menu ${placement}`} visible={visible} ref={this.setRef}>
+    //     {
+    //       visible &&
+    //       <UserInfoPopover />
+    //     }
+    //   </PopoverBase>
+
     return (
-      <PopoverBase className={`popover-menu ${placement}`} visible={visible} ref={this.setRef}>
-        {
-          visible &&
-          <UserInfoPopover />
-        }
-      </PopoverBase>
+      <div></div>
     )
   }
 }

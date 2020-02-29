@@ -1,14 +1,13 @@
+import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List as ImmutableList } from 'immutable'
-import classNames from 'classnames/bind'
 import PanelLayout from './panel_layout'
+import Divider from '../divider'
 import Icon from '../icon'
 import Text from '../text'
-
-const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   title: { id: 'about', defaultMessage: 'About' },
@@ -19,12 +18,12 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state, { account }) => {
-  const identityProofs = !!account ? state.getIn(['identity_proofs', account.get('id')], ImmutableList()) : ImmutableList();
+  const identityProofs = !!account ? state.getIn(['identity_proofs', account.get('id')], ImmutableList()) : ImmutableList()
   return {
     identityProofs,
     domain: state.getIn(['meta', 'domain']),
-  };
-};
+  }
+}
 
 
 const mapDispatchToProps = dispatch => {
@@ -54,28 +53,8 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
     const fields = !account ? null : account.get('fields')
     const content = !account ? null : { __html: account.get('note_emojified') }
-    const memberSinceDate = !account ? null : intl.formatDate(account.get('created_at'), { month: 'long', year: 'numeric' });
+    const memberSinceDate = !account ? null : intl.formatDate(account.get('created_at'), { month: 'long', year: 'numeric' })
     const hasNote = !!content ? (account.get('note').length > 0 && account.get('note') !== '<p></p>') : false
-
-    const lineClasses = cx({
-      default: 1,
-      flexRow: 1,
-      alignItemsCenter: 1,
-      borderTop1PX: 1,
-      borderColorSecondary: 1,
-      marginTop10PX: 1,
-      paddingTop10PX: 1,
-    })
-
-    const memberLineClasses = cx({
-      default: 1,
-      flexRow: 1,
-      alignItemsCenter: 1,
-      borderTop1PX: hasNote,
-      borderColorSecondary: hasNote,
-      marginTop10PX: hasNote,
-      paddingTop10PX: hasNote,
-    })
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
@@ -84,10 +63,13 @@ class ProfileInfoPanel extends ImmutablePureComponent {
           <div className={[_s.default].join(' ')}>
             {
               hasNote &&
-              <div className={_s.dangerousContent} dangerouslySetInnerHTML={content} />
+              <Fragment>
+                <div className={_s.dangerousContent} dangerouslySetInnerHTML={content} />
+                <Divider small />
+              </Fragment>
             }
 
-            <div className={memberLineClasses}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
               <Icon id='calendar' width='12px' height='12px' className={_s.fillcolorSecondary} />
               <Text
                 size='small'
@@ -104,45 +86,50 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
             {(fields.size > 0 || identityProofs.size > 0) && (
               <div className={[_s.default]}>
-
                 {identityProofs.map((proof, i) => (
-                  <dl className={lineClasses} key={`profile-identity-proof-${i}`}>
-                    <dt
-                      className={_s.dangerousContent}
-                      dangerouslySetInnerHTML={{ __html: proof.get('provider') }}
-                    />
+                  <Fragment>
+                    <Divider small />
+                    <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-identity-proof-${i}`}>
+                      <dt
+                        className={_s.dangerousContent}
+                        dangerouslySetInnerHTML={{ __html: proof.get('provider') }}
+                      />
 
-                    { /* : todo : */ }
-                    <dd className='verified'>
-                      <a href={proof.get('proof_url')} target='_blank' rel='noopener'>
-                        <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
-                          <Icon id='check' className='verified__mark' />
-                        </span>
-                      </a>
-                      <a href={proof.get('profile_url')} target='_blank' rel='noopener'>
-                        <span
-                          className={_s.dangerousContent}
-                          dangerouslySetInnerHTML={{ __html: ' ' + proof.get('provider_username') }}
-                        />
-                      </a>
-                    </dd>
-                  </dl>
+                      { /* : todo : */}
+                      <dd className='verified'>
+                        <a href={proof.get('proof_url')} target='_blank' rel='noopener'>
+                          <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
+                            <Icon id='check' className='verified__mark' />
+                          </span>
+                        </a>
+                        <a href={proof.get('profile_url')} target='_blank' rel='noopener'>
+                          <span
+                            className={_s.dangerousContent}
+                            dangerouslySetInnerHTML={{ __html: ' ' + proof.get('provider_username') }}
+                          />
+                        </a>
+                      </dd>
+                    </dl>
+                  </Fragment>
                 ))}
 
                 {
                   fields.map((pair, i) => (
-                    <dl className={lineClasses} key={`profile-field-${i}`}>
-                      <dt
-                        className={[_s.text, _s.dangerousContent].join('')}
-                        dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }}
-                        title={pair.get('name')}
-                      />
-                      <dd
-                        className={[_s.dangerousContent, _s.marginLeftAuto].join(' ')}
-                        title={pair.get('value_plain')}
-                        dangerouslySetInnerHTML={{ __html: pair.get('value_emojified') }}
-                      />
-                    </dl>
+                    <Fragment>
+                      <Divider small />
+                      <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-field-${i}`}>
+                        <dt
+                          className={[_s.text, _s.dangerousContent].join('')}
+                          dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }}
+                          title={pair.get('name')}
+                        />
+                        <dd
+                          className={[_s.dangerousContent, _s.marginLeftAuto].join(' ')}
+                          title={pair.get('value_plain')}
+                          dangerouslySetInnerHTML={{ __html: pair.get('value_emojified') }}
+                        />
+                      </dl>
+                    </Fragment>
                   ))
                 }
 

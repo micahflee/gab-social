@@ -22,7 +22,7 @@ import UploadArea from '../../components/upload_area'
 // import { WhoToFollowPanel } from '../../components/panel'
 // import LinkFooter from '../../components/link_footer'
 import ProfilePage from '../../pages/profile_page'
-// import GroupPage from '../../pages/group_page'
+import GroupPage from '../../pages/group_page'
 import GroupsPage from '../../pages/groups_page'
 import SearchPage from '../../pages/search_page'
 import ErrorPage from '../../pages/error_page'
@@ -40,30 +40,29 @@ import {
   AccountTimeline,
   // AccountGallery,
   HomeTimeline,
-  // Followers,
-  // Following,
+  Followers,
+  Following,
   // Reblogs,
-  // Favourites,
+  // Favorites,
   // DirectTimeline,
   // HashtagTimeline,
   Notifications,
   // FollowRequests,
   GenericNotFound,
-  // FavouritedStatuses,
+  FavoritedStatuses,
   // Blocks,
   // DomainBlocks,
   // Mutes,
-  // PinnedStatuses,
   Search,
   // Explore,
   GroupsCollection,
-  // GroupTimeline,
+  GroupTimeline,
   ListTimeline,
   ListsDirectory,
-  // GroupMembers,
-  // GroupRemovedAccounts,
-  // GroupCreate,
-  // GroupEdit,
+  GroupMembers,
+  GroupRemovedAccounts,
+  GroupCreate,
+  GroupEdit,
 } from './util/async-components'
 import { me, meUsername } from '../../initial_state'
 
@@ -90,7 +89,7 @@ const keyMap = {
   forceNew: 'option+n',
   focusColumn: ['1', '2', '3', '4', '5', '6', '7', '8', '9'],
   reply: 'r',
-  favourite: 'f',
+  Favorite: 'f',
   boost: 'b',
   mention: 'm',
   open: ['enter', 'o'],
@@ -101,7 +100,7 @@ const keyMap = {
   goToHome: 'g h',
   goToNotifications: 'g n',
   goToStart: 'g s',
-  goToFavourites: 'g f',
+  goToFavorites: 'g f',
   goToPinned: 'g p',
   goToProfile: 'g u',
   goToBlocked: 'g b',
@@ -154,15 +153,13 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/groups/browse/member' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'member' }} />
         <WrappedRoute path='/groups/browse/admin' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'admin' }} />
 
-        { /*
-        <WrappedRoute path='/groups/create' page={GroupsPage} component={Groups} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/create' page={GroupsPage} component={GroupCreate} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
-        <WrappedRoute path='/tags/:id' publicRoute component={HashtagTimeline} content={children} />
-        */ }
+        { /* <WrappedRoute path='/tags/:id' publicRoute component={HashtagTimeline} content={children} /> */}
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/list/:id' page={ListPage} component={ListTimeline} content={children} />
@@ -189,28 +186,25 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
-        { /*
-        <Redirect from='/@:username/with_replies' to='/:username/with_replies' />
-        <WrappedRoute path='/:username/with_replies' component={AccountTimeline} page={ProfilePage} content={children} componentParams={{ withReplies: true }} />
+        <Redirect from='/@:username/comments' to='/:username/comments' />
+        <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountTimeline} content={children} componentParams={{ commentsOnly: true }} />
 
         <Redirect from='/@:username/followers' to='/:username/followers' />
-        <WrappedRoute path='/:username/followers' component={Followers} page={ProfilePage} content={children} />
+        <WrappedRoute path='/:username/followers' page={ProfilePage} component={Followers} content={children} />
 
         <Redirect from='/@:username/following' to='/:username/following' />
-        <WrappedRoute path='/:username/following' component={Following} page={ProfilePage} content={children} />
-
+        <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />
+        { /*
         <Redirect from='/@:username/media' to='/:username/media' />
         <WrappedRoute path='/:username/media' component={AccountGallery} page={ProfilePage} content={children} />
 
         <Redirect from='/@:username/tagged/:tag' to='/:username/tagged/:tag' exact />
         <WrappedRoute path='/:username/tagged/:tag' exact component={AccountTimeline} page={ProfilePage} content={children} />
-
+        */ }
         <Redirect from='/@:username/favorites' to='/:username/favorites' />
-        <WrappedRoute path='/:username/favorites' component={FavouritedStatuses} page={ProfilePage} content={children} />
+        <WrappedRoute path='/:username/favorites' page={ProfilePage} component={FavoritedStatuses} content={children} />
 
-        <Redirect from='/@:username/pins' to='/:username/pins' />
-        <WrappedRoute path='/:username/pins' component={PinnedStatuses} page={ProfilePage} content={children} />
-
+        { /*
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact component={Status} content={children} />
         */ }
@@ -473,7 +467,7 @@ class UI extends PureComponent {
     this.context.router.history.push('/getting-started')
   }
 
-  handleHotkeyGoToFavourites = () => {
+  handleHotkeyGoToFavorites = () => {
     this.context.router.history.push(`/${meUsername}/favorites`)
   }
 
@@ -515,7 +509,7 @@ class UI extends PureComponent {
       goToHome: this.handleHotkeyGoToHome,
       goToNotifications: this.handleHotkeyGoToNotifications,
       goToStart: this.handleHotkeyGoToStart,
-      goToFavourites: this.handleHotkeyGoToFavourites,
+      goToFavorites: this.handleHotkeyGoToFavorites,
       goToPinned: this.handleHotkeyGoToPinned,
       goToProfile: this.handleHotkeyGoToProfile,
       goToBlocked: this.handleHotkeyGoToBlocked,

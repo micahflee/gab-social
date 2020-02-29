@@ -123,7 +123,7 @@
   "empty_column.community": "La timeline locale è vuota. Condividi qualcosa pubblicamente per dare inizio alla festa!",
   "empty_column.direct": "Non hai ancora nessun messaggio diretto. Quando ne manderai o riceverai qualcuno, apparirà qui.",
   "empty_column.domain_blocks": "Non vi sono domini nascosti.",
-  "empty_column.favourited_statuses": "Non hai ancora segnato nessun toot come apprezzato. Quando lo farai, comparirà qui.",
+  "empty_column.favorited_statuses": "Non hai ancora segnato nessun toot come apprezzato. Quando lo farai, comparirà qui.",
   "empty_column.favourites": "Nessuno ha ancora segnato questo toot come apprezzato. Quando qualcuno lo farà, apparirà qui.",
   "empty_column.follow_requests": "Non hai ancora ricevuto nessuna richiesta di seguirti. Quando ne arriveranno, saranno mostrate qui.",
   "empty_column.hashtag": "Non c'è ancora nessun post con questo hashtag.",

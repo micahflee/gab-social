@@ -123,7 +123,7 @@
   "empty_column.community": "Den lokala tidslinjen är tom. Skriv något offentligt för att få bollen att rulla!",
   "empty_column.direct": "Du har inga direktmeddelanden än. När du skickar eller tar emot kommer den att dyka upp här.",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favourite gabs yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite gabs yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this gab yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "Det finns inget i denna hashtag ännu.",

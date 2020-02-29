@@ -123,7 +123,7 @@
   "empty_column.community": "Fluxul local este gol. Scrie ceva public pentru a împinge bila la vale!",
   "empty_column.direct": "Nu ai nici un mesaj direct incă. Când trimiți sau primești unul, va fi afișat aici.",
   "empty_column.domain_blocks": "Nu sunt domenii ascunse incă.",
-  "empty_column.favourited_statuses": "Nu ai nici o postare favorită încă. Când vei avea, vor fi afișate aici.",
+  "empty_column.favorited_statuses": "Nu ai nici o postare favorită încă. Când vei avea, vor fi afișate aici.",
   "empty_column.favourites": "Nimeni nu are această postare adăugată la favorite. Când cineva o va face va fi afișat aici.",
   "empty_column.follow_requests": "Nu ai încă nici o cerere de urmărire. Când vei primi una, va fi afișată aici.",
   "empty_column.hashtag": "Acest hastag nu a fost folosit încă.",

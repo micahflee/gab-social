@@ -4,7 +4,6 @@ import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import Block from './block'
-import Avatar from './avatar'
 import Heading from './heading'
 
 const messages = defineMessages({

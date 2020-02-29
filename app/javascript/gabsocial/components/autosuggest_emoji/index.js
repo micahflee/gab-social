@@ -1,1 +1,1 @@
-export { default } from './autosuggest_emoji';
+export { default } from './autosuggest_emoji'

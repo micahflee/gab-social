@@ -123,7 +123,7 @@
   "empty_column.community": "La línia de temps local és buida. Escriu alguna cosa públicament per fer rodar la pilota!",
   "empty_column.direct": "Encara no tens missatges directes. Quan enviïs o rebis un, es mostrarà aquí.",
   "empty_column.domain_blocks": "Encara no hi ha dominis ocults.",
-  "empty_column.favourited_statuses": "Encara no tens cap toot favorit. Quan en tinguis, apareixerà aquí.",
+  "empty_column.favorited_statuses": "Encara no tens cap toot favorit. Quan en tinguis, apareixerà aquí.",
   "empty_column.favourites": "Encara ningú ha marcat aquest toot com a favorit. Quan algú ho faci, apareixera aquí.",
   "empty_column.follow_requests": "Encara no teniu cap petició de seguiment. Quan rebeu una, apareixerà aquí.",
   "empty_column.hashtag": "Encara no hi ha res en aquesta etiqueta.",

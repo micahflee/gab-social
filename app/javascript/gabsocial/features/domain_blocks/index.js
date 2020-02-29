@@ -1,1 +1,1 @@
-export { default } from './domain_blocks';
+export { default } from './domain_blocks'

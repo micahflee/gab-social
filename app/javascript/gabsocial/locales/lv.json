@@ -123,7 +123,7 @@
   "empty_column.community": "Lokālā laika līnija ir tukša. :/ Ieraksti kaut ko lai sākas rosība!",
   "empty_column.direct": "Tev nav privāto ziņu. Tiklīdz saņemsi tās šeit parādīsies.",
   "empty_column.domain_blocks": "Slēpto domēnu vēl nav.",
-  "empty_column.favourited_statuses": "Tev vēl nav iemīļoto ziņojumu. Kad Tev tādu būs tie šeit parādīsies.",
+  "empty_column.favorited_statuses": "Tev vēl nav iemīļoto ziņojumu. Kad Tev tādu būs tie šeit parādīsies.",
   "empty_column.favourites": "Neviens šo ziņojumu nav pievienojis favorītiem. Kad tādu būs tie šeit parādīsies.",
   "empty_column.follow_requests": "Šobrīd neviens nav pieteicies tev sekot. Kad kāds pieteiksies tas parādīsies šeit.",
   "empty_column.hashtag": "Ar šo haštagu nekas nav atrodams.",

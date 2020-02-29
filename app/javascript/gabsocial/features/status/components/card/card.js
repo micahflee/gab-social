@@ -167,7 +167,7 @@ export default class Card extends ImmutablePureComponent {
           {trim(card.get('description') || '', maxDescription)}
         </p>
         <span className={[_s.default, _s.marginTopAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
-          <Icon id='link' width='12px' height='12px' className={[_s.fillcolorSecondary, _s.marginRight5PX].join(' ')} fixedWidth />
+          <Icon id='link' width='10px' height='10px' className={[_s.fillcolorSecondary, _s.marginRight5PX].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
@@ -177,7 +177,7 @@ export default class Card extends ImmutablePureComponent {
     let thumbnail = interactive ?
       <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.positionAbsolute, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
-      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.width400PX, _s.height260PX].join(' ')} />
+      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.width330PX, _s.height220PX].join(' ')} />
 
     if (interactive) {
       if (embedded) {
@@ -231,7 +231,7 @@ export default class Card extends ImmutablePureComponent {
       <div className={[_s.default, _s.width100PC, _s.paddingHorizontal10PX].join(' ')}>
         <a
           href={card.get('url')}
-          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
+          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.backgroundSubtle_onHover, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
           rel='noopener'
           ref={this.setRef}
           >

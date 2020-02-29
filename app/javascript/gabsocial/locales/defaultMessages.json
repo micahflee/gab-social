@@ -1213,7 +1213,7 @@
       },
       {
         "defaultMessage": "You don't have any favorite gabs yet. When you favorite one, it will show up here.",
-        "id": "empty_column.favourited_statuses"
+        "id": "empty_column.favorited_statuses"
       }
     ],
     "path": "app/javascript/gabsocial/features/favourited_statuses/index.json"

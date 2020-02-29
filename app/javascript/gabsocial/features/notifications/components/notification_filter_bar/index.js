@@ -1,1 +1,1 @@
-export { default } from './notification_filter_bar';
+export { default } from './notification_filter_bar'

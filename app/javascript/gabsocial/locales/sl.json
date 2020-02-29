@@ -123,7 +123,7 @@
   "empty_column.community": "Lokalna časovnica je prazna. Napišite nekaj javnega, da se bo žoga zakotalila!",
   "empty_column.direct": "Nimate še nobenih neposrednih sporočil. Ko ga pošljete ali prejmete, se prikaže tukaj.",
   "empty_column.domain_blocks": "Še vedno ni skritih domen.",
-  "empty_column.favourited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "V tem hashtagu še ni nič.",

@@ -5,6 +5,7 @@ import { fetchGroup } from '../actions/groups'
 import GroupInfoPanel from '../components/panel/group_info_panel'
 import GroupLayout from '../layouts/group_layout'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
+import GroupSidebarPanel from '../components/panel/groups_panel'
 import LinkFooter from '../components/link_footer'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
@@ -60,7 +61,8 @@ class GroupPage extends ImmutablePureComponent {
 
 		return (
 			<GroupLayout
-				title={'group name'}
+				group={group}
+				relationships={relationships}
 				actions={[
 					{
 						icon: 'ellipsis',
@@ -69,8 +71,9 @@ class GroupPage extends ImmutablePureComponent {
 				]}
 				layout={(
 					<Fragment>
-						<GroupInfoPanel />
+						<GroupInfoPanel group={group} />
 						<WhoToFollowPanel />
+						<GroupSidebarPanel slim />
 						<LinkFooter />
 					</Fragment>
 				)}

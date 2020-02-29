@@ -1,1 +1,1 @@
-export { default } from './upload_progress';
+export { default } from './upload_progress'

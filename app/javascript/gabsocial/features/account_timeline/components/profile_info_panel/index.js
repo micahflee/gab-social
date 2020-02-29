@@ -1,1 +1,1 @@
-export { default } from './profile_info_panel';
+export { default } from './profile_info_panel'

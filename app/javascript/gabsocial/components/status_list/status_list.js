@@ -98,7 +98,7 @@ export default class StatusList extends ImmutablePureComponent {
     const { statusIds, featuredStatusIds, onLoadMore, timelineId, totalQueuedItemsCount, isLoading, isPartial, withGroupAdmin, group, promotion, promotedStatus, ...other }  = this.props;
 
     if (isPartial) {
-      return ( <ColumnIndicator type='loading' /> );
+      return <ColumnIndicator type='loading' />
     }
 
     let scrollableContent = (isLoading || statusIds.size > 0) ? (
@@ -110,7 +110,7 @@ export default class StatusList extends ImmutablePureComponent {
           onClick={onLoadMore}
         />
       ) : (
-        <React.Fragment key={statusId}>
+        <Fragment key={statusId}>
           <StatusContainer
             id={statusId}
             onMoveUp={this.handleMoveUp}
@@ -120,15 +120,16 @@ export default class StatusList extends ImmutablePureComponent {
             withGroupAdmin={withGroupAdmin}
             showThread
           />
-          {promotedStatus && index === promotion.position && (
+          {
+            promotedStatus && index === promotion.position &&
             <StatusContainer
               id={promotion.status_id}
               contextType={timelineId}
               promoted
               showThread
             />
-          )}
-        </React.Fragment>
+          }
+        </Fragment>
       ))
     ) : null;
 

@@ -124,7 +124,7 @@
   "empty_column.community": "The local timeline is empty. Write something publicly to get the ball rolling!",
   "empty_column.direct": "You don't have any direct messages yet. When you send or receive one, it will show up here.",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favorite gabs yet. When you favorite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favorite gabs yet. When you favorite one, it will show up here.",
   "empty_column.favourites": "No one has favorited this gab yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "There is nothing in this hashtag yet.",

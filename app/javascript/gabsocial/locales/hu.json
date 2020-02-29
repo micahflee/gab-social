@@ -123,7 +123,7 @@
   "empty_column.community": "A helyi idővonal üres. Írj egy publikus stástuszt, hogy elindítsd a labdát!",
   "empty_column.direct": "You don't have any direct messages yet. When you send or receive one, it will show up here.",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "Jelenleg nem található semmi ezen hashtaggel.",

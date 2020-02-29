@@ -1,1 +1,1 @@
-export { default } from './domain';
+export { default } from './domain'

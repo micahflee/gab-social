@@ -1,1 +1,1 @@
-export { default } from './column_inline_form';
+export { default } from './column_inline_form'

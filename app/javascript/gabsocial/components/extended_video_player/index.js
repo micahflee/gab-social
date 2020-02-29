@@ -1,1 +1,1 @@
-export { default } from './extended_video_player';
+export { default } from './extended_video_player'

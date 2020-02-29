@@ -1,1 +1,1 @@
-export { default } from './follow_requests';
+export { default } from './follow_requests'

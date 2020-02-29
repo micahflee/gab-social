@@ -1,1 +1,1 @@
-export { default } from './column_settings';
+export { default } from './column_settings'

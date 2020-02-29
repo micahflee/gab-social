@@ -321,9 +321,9 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingVertical5PX, _s.paddingHorizontal15PX].join(' ')}>
           <Icon
-            id='thumb-tack'
-            width='12px'
-            height='12px'
+            id='pin'
+            width='10px'
+            height='10px'
             className={_s.fillcolorSecondary}
           />
           <Text size='small' color='secondary' className={_s.marginLeft5PX}>

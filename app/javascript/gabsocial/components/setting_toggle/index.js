@@ -1,1 +1,1 @@
-export { default } from './setting_toggle';
+export { default } from './setting_toggle'

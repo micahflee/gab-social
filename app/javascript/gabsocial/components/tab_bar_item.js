@@ -66,9 +66,6 @@ class TabBarItem extends PureComponent {
       size: !!large ? 'normal' : 'small',
       color: isCurrent ? 'brand' : large ? 'secondary' : 'primary',
       weight: isCurrent ? 'bold' : large ? 'medium' : 'normal',
-      className: cx({
-        paddingHorizontal5PX: large,
-      }),
     }
 
     return (

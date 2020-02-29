@@ -16,7 +16,7 @@ export default class TrendingItem extends ImmutablePureComponent {
 
   static propTypes = {
     trend: ImmutablePropTypes.map.isRequired,
-  };
+  }
 
   state = {
     hovering: false,

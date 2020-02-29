@@ -1,1 +1,1 @@
-export { default } from './autosuggest_textbox';
+export { default } from './autosuggest_textbox'

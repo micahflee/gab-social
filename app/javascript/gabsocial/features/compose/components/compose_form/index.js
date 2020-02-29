@@ -1,1 +1,1 @@
-export { default } from './compose_form';
+export { default } from './compose_form'

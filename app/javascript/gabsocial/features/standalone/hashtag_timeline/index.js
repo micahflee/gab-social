@@ -1,1 +1,1 @@
-export { default } from './hashtag_timeline';
+export { default } from './hashtag_timeline'

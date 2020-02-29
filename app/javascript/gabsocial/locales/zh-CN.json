@@ -123,7 +123,7 @@
   "empty_column.community": "本站时间轴暂时没有内容，快嘟几个来抢头香啊！",
   "empty_column.direct": "你还没有使用过私信。当你发出或者收到私信时，它会在这里显示。",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "这个话题标签下暂时没有内容。",

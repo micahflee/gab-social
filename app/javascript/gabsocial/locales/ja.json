@@ -123,7 +123,7 @@
   "empty_column.community": "ローカルタイムラインはまだ使われていません。何か書いてみましょう！",
   "empty_column.direct": "ダイレクトメッセージはまだありません。ダイレクトメッセージをやりとりすると、ここに表示されます。",
   "empty_column.domain_blocks": "非表示にしているドメインはありません。",
-  "empty_column.favourited_statuses": "まだ何もお気に入り登録していません。お気に入り登録するとここに表示されます。",
+  "empty_column.favorited_statuses": "まだ何もお気に入り登録していません。お気に入り登録するとここに表示されます。",
   "empty_column.favourites": "まだ誰もお気に入り登録していません。お気に入り登録されるとここに表示されます。",
   "empty_column.follow_requests": "まだフォローリクエストを受けていません。フォローリクエストを受けるとここに表示されます。",
   "empty_column.hashtag": "このハッシュタグはまだ使われていません。",

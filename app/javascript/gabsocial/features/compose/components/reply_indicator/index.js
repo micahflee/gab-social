@@ -1,1 +1,1 @@
-export { default } from './reply_indicator';
+export { default } from './reply_indicator'

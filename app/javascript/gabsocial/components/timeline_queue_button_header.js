@@ -1,6 +1,8 @@
-import { FormattedMessage } from 'react-intl';
-import classNames from 'classnames';
-import { shortNumberFormat } from '../utils/numbers';
+import { FormattedMessage } from 'react-intl'
+import classNames from 'classnames'
+import { shortNumberFormat } from '../utils/numbers'
+import Button from './button'
+import Text from './text'
 
 export default class TimelineQueueButtonHeader extends PureComponent {
 
@@ -8,21 +10,24 @@ export default class TimelineQueueButtonHeader extends PureComponent {
     onClick: PropTypes.func.isRequired,
     count: PropTypes.number,
     itemType: PropTypes.string,
-  };
+    floating: PropTypes.bool
+  }
 
   static defaultProps = {
     count: 0,
     itemType: 'item',
-  };
+  }
 
   render () {
-    const { count, itemType, onClick } = this.props;
+    const { count, itemType, onClick } = this.props
 
-    const hasItems = (count > 0);
+    const hasItems = count > 0
+
+    // : todo :
 
     const classes = classNames('timeline-queue-header', {
       'timeline-queue-header--extended': hasItems,
-    });
+    })
 
     return (
       <div className={classes}>
@@ -40,7 +45,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
           }
         </a>
       </div>
-    );
+    )
   }
 
 }

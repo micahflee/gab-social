@@ -1,1 +1,1 @@
-export { default } from './list_adder';
+export { default } from './list_adder'

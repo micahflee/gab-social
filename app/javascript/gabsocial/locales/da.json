@@ -123,7 +123,7 @@
   "empty_column.community": "Den lokale tidslinje er tom. Skriv noget offentligt for at starte lavinen!",
   "empty_column.direct": "Du har endnu ingen direkte beskeder. Når du sender eller modtager en, vil den vises her.",
   "empty_column.domain_blocks": "Der er endnu ikke nogle skjulte domæner.",
-  "empty_column.favourited_statuses": "Du har endnu ikke favoriseret nogen trut. Når du favoriserer et, vil det blive vist her.",
+  "empty_column.favorited_statuses": "Du har endnu ikke favoriseret nogen trut. Når du favoriserer et, vil det blive vist her.",
   "empty_column.favourites": "Endnu ingen har favoriseret dette trut. Når en anden gør vil det blive vist her.",
   "empty_column.follow_requests": "Du har endnu ingen følgeranmodninger. Når du modtager en, vil den komme frem her.",
   "empty_column.hashtag": "Dette hashtag indeholder endnu ikke noget.",

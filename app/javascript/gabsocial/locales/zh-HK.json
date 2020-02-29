@@ -123,7 +123,7 @@
   "empty_column.community": "本站時間軸暫時未有內容，快寫一點東西來搶頭香啊！",
   "empty_column.direct": "你沒有個人訊息。當你發出或接收個人訊息，就會在這裡出現。",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "這個標籤暫時未有內容。",

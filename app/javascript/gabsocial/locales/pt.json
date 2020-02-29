@@ -123,7 +123,7 @@
   "empty_column.community": "Ainda não existe conteúdo local para mostrar!",
   "empty_column.direct": "Ainda não tens qualquer mensagem directa. Quando enviares ou receberes alguma, ela irá aparecer aqui.",
   "empty_column.domain_blocks": "Ainda não há qualquer domínio escondido.",
-  "empty_column.favourited_statuses": "Ainda não tens quaisquer publicações favoritas. Quando tiveres alguma, ela irá aparecer aqui.",
+  "empty_column.favorited_statuses": "Ainda não tens quaisquer publicações favoritas. Quando tiveres alguma, ela irá aparecer aqui.",
   "empty_column.favourites": "Ainda ninguém favorizou esta publicação. Quando alguém o fizer, ela irá aparecer aqui.",
   "empty_column.follow_requests": "Ainda não tens pedido de seguimento algum. Quando receberes algum, ele irá aparecer aqui.",
   "empty_column.hashtag": "Não foram encontradas publicações com essa hashtag.",

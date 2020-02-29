@@ -33,6 +33,8 @@ export default class Icon extends PureComponent {
         return <I.DissenterIcon {...options} />
       case 'ellipsis':
         return <I.EllipsisIcon {...options} />
+      case 'error':
+        return <I.ErrorIcon {...options} />
       case 'globe':
         return <I.GlobeIcon {...options} />
       case 'group':
@@ -41,16 +43,24 @@ export default class Icon extends PureComponent {
         return <I.HomeIcon {...options} />
       case 'like':
         return <I.LikeIcon {...options} />
+      case 'link':
+        return <I.LinkIcon {...options} />
       case 'list':
         return <I.ListIcon {...options} />
       case 'loading':
         return <I.LoadingIcon {...options} />
-      case 'more':
-        return <I.MoreIcon {...options} />
       case 'media':
         return <I.MediaIcon {...options} />
+      case 'missing':
+        return <I.MissingIcon {...options} />
+      case 'more':
+        return <I.MoreIcon {...options} />
       case 'notifications':
         return <I.NotificationsIcon {...options} />
+      case 'pin':
+        return <I.PinIcon {...options} />
+      case 'play':
+        return <I.PlayIcon {...options} />
       case 'poll':
         return <I.PollIcon {...options} />
       case 'repost':

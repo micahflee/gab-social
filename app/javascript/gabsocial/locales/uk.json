@@ -123,7 +123,7 @@
   "empty_column.community": "Локальна стрічка пуста. Напишіть щось, щоб розігріти народ!",
   "empty_column.direct": "У вас ще немає прямих повідомлень. Коли ви відправите чи отримаєте якесь, воно з'явиться тут.",
   "empty_column.domain_blocks": "There are no hidden domains yet.",
-  "empty_column.favourited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
+  "empty_column.favorited_statuses": "You don't have any favourite toots yet. When you favourite one, it will show up here.",
   "empty_column.favourites": "No one has favourited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",
   "empty_column.hashtag": "Дописів з цим хештегом поки не існує.",

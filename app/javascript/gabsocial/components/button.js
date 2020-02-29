@@ -81,6 +81,10 @@ export default class Button extends PureComponent {
 
     const theIcon = !!icon ? <Icon id={icon} width={iconWidth} height={iconWidth} className={iconClassName} /> : undefined
 
+    if (backgroundColor === 'tertiary') {
+      console.log("className:", className)
+    }
+
     // : todo :
     const classes = cx(className, {
       default: 1,
@@ -93,6 +97,7 @@ export default class Button extends PureComponent {
       backgroundColorBrand: backgroundColor === COLORS.brand,
       backgroundTransparent: backgroundColor === COLORS.none,
       backgroundSubtle2: backgroundColor === COLORS.tertiary,
+      backgroundSubtle: backgroundColor === COLORS.secondary,
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,
@@ -131,9 +136,9 @@ export default class Button extends PureComponent {
     ) : children
 
     const options = {
+      disabled,
       className: classes,
       ref: this.setRef,
-      disabled: disabled,
       to: to || undefined,
       href: href || undefined,
       onClick: this.handleClick || undefined,

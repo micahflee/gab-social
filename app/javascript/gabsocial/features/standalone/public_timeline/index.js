@@ -1,1 +1,1 @@
-export { default } from './public_timeline';
+export { default } from './public_timeline'

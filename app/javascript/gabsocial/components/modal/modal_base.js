@@ -6,6 +6,7 @@ import { cancelReplyCompose } from '../../actions/compose'
 
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
+  delete: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
 })
 
 const mapStateToProps = state => ({
@@ -58,7 +59,7 @@ class ModalBase extends PureComponent {
 
     if (!composeId && composeText && type == 'COMPOSE') {
       onOpenModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
+        message: intl.formatMessage(messages.delete),
         confirm: intl.formatMessage(messages.confirm),
         onConfirm: () => onCancelReplyCompose(),
         onCancel: () => onOpenModal('COMPOSE'),

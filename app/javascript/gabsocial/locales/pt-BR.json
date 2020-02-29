@@ -123,7 +123,7 @@
   "empty_column.community": "A timeline local está vazia. Escreva algo publicamente para começar!",
   "empty_column.direct": "Você não tem nenhuma mensagem direta ainda. Quando você enviar ou receber uma, as mensagens aparecerão por aqui.",
   "empty_column.domain_blocks": "Ainda não há nenhum domínio escondido.",
-  "empty_column.favourited_statuses": "Você ainda não tem nenhum toot favorito. Quando você favoritar um toot, ele aparecerá aqui.",
+  "empty_column.favorited_statuses": "Você ainda não tem nenhum toot favorito. Quando você favoritar um toot, ele aparecerá aqui.",
   "empty_column.favourites": "Ninguém favoritou esse toot até agora. Quando alguém favoritar, a pessoa aparecerá aqui.",
   "empty_column.follow_requests": "Você não tem nenhum pedido de seguir por agora. Quando você receber um, ele aparecerá aqui.",
   "empty_column.hashtag": "Ainda não há qualquer conteúdo com essa hashtag.",

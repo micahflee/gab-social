@@ -123,7 +123,7 @@
   "empty_column.community": "Yerel zaman çizelgesi boş. Daha fazla eğlence için herkese açık bir gönderi paylaşın!",
   "empty_column.direct": "Henüz doğrudan mesajınız yok. Bir tane gönderdiğinizde veya aldığınızda burada görünecektir.",
   "empty_column.domain_blocks": "Henüz hiçbir gizli alan adı yok.",
-  "empty_column.favourited_statuses": "Hiç favori gönderiminiz yok. Bir tane olursa burada görünecek.",
+  "empty_column.favorited_statuses": "Hiç favori gönderiminiz yok. Bir tane olursa burada görünecek.",
   "empty_column.favourites": "Kimse bu gönderiyi favorilerine eklememiş. Biri eklerse burada görünecek.",
   "empty_column.follow_requests": "Hiç takip isteğiniz yok. Bir tane aldığınızda burada görünecek.",
   "empty_column.hashtag": "Henüz bu hashtag’e sahip hiçbir gönderi yok.",

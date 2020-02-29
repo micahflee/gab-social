@@ -1,1 +1,1 @@
-export { default } from './media_item';
+export { default } from './media_item'

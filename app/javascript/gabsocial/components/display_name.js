@@ -31,12 +31,12 @@ class DisplayName extends ImmutablePureComponent {
   }
 
   handleMouseEnter = debounce(() => {
-    console.log("SHOW - USER POPOVER")
-    this.props.openUserInfoPopover()
+    // console.log("SHOW - USER POPOVER")
+    // this.props.openUserInfoPopover()
   }, 50, { leading: true })
 
   handleMouseLeave = () => {
-    console.log("HIDE - USER POPOVER")
+    // console.log("HIDE - USER POPOVER")
     // this.props.closeUserInfoPopover()
   }
 

@@ -1,1 +1,1 @@
-export { default } from './account_authorize';
+export { default } from './account_authorize'

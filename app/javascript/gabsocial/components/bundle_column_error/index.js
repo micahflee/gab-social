@@ -1,1 +1,1 @@
-export { default } from './bundle_column_error';
+export { default } from './bundle_column_error'

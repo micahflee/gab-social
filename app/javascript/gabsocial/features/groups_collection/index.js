@@ -1,1 +1,1 @@
-export { default } from './groups_collection';
+export { default } from './groups_collection'

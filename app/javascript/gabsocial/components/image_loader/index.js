@@ -1,1 +1,1 @@
-export { default } from './image_loader';
+export { default } from './image_loader'

@@ -123,7 +123,7 @@
   "empty_column.community": "本地時間軸是空的。快公開嘟些文搶頭香啊！",
   "empty_column.direct": "您還沒有任何私訊。當您私訊別人或收到私訊時，它將於此顯示。",
   "empty_column.domain_blocks": "尚未隱藏任何網域。",
-  "empty_column.favourited_statuses": "你還沒有將任何嘟文標為最愛。最愛的嘟文將顯示於此。",
+  "empty_column.favorited_statuses": "你還沒有將任何嘟文標為最愛。最愛的嘟文將顯示於此。",
   "empty_column.favourites": "還沒有人將此嘟文標為最愛。如果有人標成最愛，則會顯示在這裡。",
   "empty_column.follow_requests": "您尚未收到任何關注請求。收到時會顯示於此。",
   "empty_column.hashtag": "這個「#」標籤下什麼都沒有。",

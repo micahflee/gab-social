@@ -1,1 +1,1 @@
-export { default } from './search_popout';
+export { default } from './search_popout'

@@ -1,1 +1,1 @@
-export { default } from './autosuggest_account';
+export { default } from './autosuggest_account'

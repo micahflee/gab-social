@@ -1,1 +1,1 @@
-export { default } from './account_timeline';
+export { default } from './account_timeline'

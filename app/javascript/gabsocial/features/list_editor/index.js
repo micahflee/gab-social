@@ -1,1 +1,1 @@
-export { default } from './list_editor';
+export { default } from './list_editor'

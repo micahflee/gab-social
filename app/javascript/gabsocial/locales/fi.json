@@ -123,7 +123,7 @@
   "empty_column.community": "Paikallinen aikajana on tyhjä. Homma lähtee käyntiin, kun kirjoitat jotain julkista!",
   "empty_column.direct": "Sinulla ei ole vielä yhtään viestiä yksittäiselle käyttäjälle. Kun lähetät tai vastaanotat sellaisen, se näkyy täällä.",
   "empty_column.domain_blocks": "Yhtään verkko-osoitetta ei ole vielä piilotettu.",
-  "empty_column.favourited_statuses": "Et ole vielä lisännyt tuuttauksia suosikkeihisi. Kun teet niin, tuuttaus näkyy tässä.",
+  "empty_column.favorited_statuses": "Et ole vielä lisännyt tuuttauksia suosikkeihisi. Kun teet niin, tuuttaus näkyy tässä.",
   "empty_column.favourites": "Kukaan ei ole vielä lisännyt tätä tuuttausta suosikkeihinsa. Kun joku tekee niin, näkyy kyseinen henkilö tässä.",
   "empty_column.follow_requests": "Sinulla ei ole vielä seurauspyyntöjä. Kun saat sellaisen, näkyy se tässä.",
   "empty_column.hashtag": "Tällä hashtagilla ei ole vielä mitään.",

@@ -1,105 +1,98 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { defineMessages, injectIntl } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { Link } from 'react-router-dom';
-import classNames from 'classnames';
-import { fetchGroups } from '../../../actions/groups';
-import { openModal } from '../../../actions/modal';
-import { me } from '../../../initial_state';
-import GroupCard from './card';
-import GroupCreate from '../create';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { injectIntl, defineMessages } from 'react-intl'
+import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+import { connectGroupStream } from '../../actions/streaming'
+import { expandGroupTimeline } from '../../actions/timelines'
+import StatusListContainer from '../../containers/status_list_container'
+// import ColumnSettingsContainer from './containers/column_settings_container'
+import ColumnIndicator from '../../components/column_indicator'
 
 const messages = defineMessages({
-	heading: { id: 'column.groups', defaultMessage: 'Groups' },
-	create: { id: 'groups.create', defaultMessage: 'Create group' },
-	tab_featured: { id: 'groups.tab_featured', defaultMessage: 'Featured' },
-	tab_member: { id: 'groups.tab_member', defaultMessage: 'Member' },
-	tab_admin: { id: 'groups.tab_admin', defaultMessage: 'Manage' },
-});
+	tabLatest: { id: 'group.timeline.tab_latest', defaultMessage: 'Latest' },
+	show: { id: 'group.timeline.show_settings', defaultMessage: 'Show settings' },
+	hide: { id: 'group.timeline.hide_settings', defaultMessage: 'Hide settings' },
+	empty: { id: 'empty_column.group', defaultMessage: 'There is nothing in this group yet.\nWhen members of this group post new statuses, they will appear here.' },
+})
 
-const mapStateToProps = (state, { activeTab }) => ({
-	groupIds: state.getIn(['group_lists', activeTab]),
-	account: state.getIn(['accounts', me]),
-});
+const mapStateToProps = (state, props) => ({
+	group: state.getIn(['groups', props.params.id]),
+	relationships: state.getIn(['group_relationships', props.params.id]),
+	hasUnread: state.getIn(['timelines', `group:${props.params.id}`, 'unread']) > 0,
+})
 
 export default
 @connect(mapStateToProps)
 @injectIntl
-class Groups extends ImmutablePureComponent {
-	static propTypes = {
-		params: PropTypes.object.isRequired,
-		activeTab: PropTypes.string.isRequired,
-		showCreateForm: PropTypes.bool,
-		dispatch: PropTypes.func.isRequired,
-		groups: ImmutablePropTypes.map,
-		groupIds: ImmutablePropTypes.list,
-		intl: PropTypes.object.isRequired,
-	};
+class GroupTimeline extends ImmutablePureComponent {
 
-	componentWillMount () {
-		this.props.dispatch(fetchGroups(this.props.activeTab));
+	static contextTypes = {
+		router: PropTypes.object,
 	}
 
-	componentDidUpdate(oldProps) {
-		if (this.props.activeTab && this.props.activeTab !== oldProps.activeTab) {
-			this.props.dispatch(fetchGroups(this.props.activeTab));
+	static propTypes = {
+		params: PropTypes.object.isRequired,
+		dispatch: PropTypes.func.isRequired,
+		columnId: PropTypes.string,
+		hasUnread: PropTypes.bool,
+		group: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
+		relationships: ImmutablePropTypes.map,
+		intl: PropTypes.object.isRequired,
+	}
+
+	state = {
+		collapsed: true,
+	}
+
+	componentDidMount() {
+		const { dispatch } = this.props
+		const { id } = this.props.params
+
+		dispatch(expandGroupTimeline(id))
+
+		this.disconnect = dispatch(connectGroupStream(id))
+	}
+
+	componentWillUnmount() {
+		if (this.disconnect) {
+			this.disconnect()
+			this.disconnect = null
 		}
 	}
 
-	handleOpenProUpgradeModal = () => {
-		this.props.dispatch(openModal('PRO_UPGRADE'));
+	handleLoadMore = maxId => {
+		const { id } = this.props.params
+		this.props.dispatch(expandGroupTimeline(id, { maxId }))
 	}
 
-	renderHeader() {
-		const { intl, activeTab, account, onOpenProUpgradeModal } = this.props;
+	handleToggleClick = (e) => {
+		e.stopPropagation()
+		this.setState({ collapsed: !this.state.collapsed })
+	}
 
-		const isPro = account.get('is_pro');
+	render() {
+		const { columnId, group, relationships, account, intl } = this.props
+		const { collapsed } = this.state
+		const { id } = this.props.params
+
+		if (typeof group === 'undefined' || !relationships) {
+			return <ColumnIndicator type='loading' />
+		} else if (group === false) {
+			return <ColumnIndicator type='missing' />
+		}
 
 		return (
-			<div className="group-column-header">
-				<div className="group-column-header__cta">
-					{
-						account && isPro &&
-						<Link to="/groups/create" className="button standard-small">{intl.formatMessage(messages.create)}</Link>
-					}
-					{
-						account && !isPro &&
-						<button onClick={this.handleOpenProUpgradeModal} className="button standard-small">{intl.formatMessage(messages.create)}</button>
-					}
-				</div>
-				<div className="group-column-header__title">{intl.formatMessage(messages.heading)}</div>
-
-				<div className="column-header__wrapper">
-					<h1 className="column-header">
-						<Link to='/groups' className={classNames('btn grouped', {'active': 'featured' === activeTab})}>
-							{intl.formatMessage(messages.tab_featured)}
-						</Link>
-
-						<Link to='/groups/browse/member' className={classNames('btn grouped', {'active': 'member' === activeTab})}>
-							{intl.formatMessage(messages.tab_member)}
-						</Link>
-
-						<Link to='/groups/browse/admin' className={classNames('btn grouped', {'active': 'admin' === activeTab})}>
-							{intl.formatMessage(messages.tab_admin)}
-						</Link>
-					</h1>
-				</div>
-			</div>
-		);
+			<StatusListContainer
+				alwaysPrepend
+				scrollKey={`group_timeline-${columnId}`}
+				timelineId={`group:${id}`}
+				onLoadMore={this.handleLoadMore}
+				group={group}
+				withGroupAdmin={relationships && relationships.get('admin')}
+				emptyMessage={intl.formatMessage(messages.empty)}
+			/>
+		)
 	}
 
-	render () {
-		const { groupIds, showCreateForm } = this.props;
-
-		return (
-			<div>
-				{!showCreateForm && this.renderHeader()}
-				{showCreateForm && <GroupCreate /> }
-
-				<div className="group-card-list">
-					{groupIds.map(id => <GroupCard key={id} id={id} />)}
-				</div>
-			</div>
-		);
-	}
 }

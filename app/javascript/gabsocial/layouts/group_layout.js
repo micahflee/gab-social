@@ -8,43 +8,40 @@ import Text from '../components/text'
 import Button from '../components/button'
 import DisplayName from '../components/display_name'
 import TabBar from '../components/tab_bar'
+import Block from '../components/block'
 import ColumnHeader from '../components/column_header'
 
 export default class GroupLayout extends ImmutablePureComponent {
   static propTypes = {
     actions: PropTypes.array,
-    tabs: PropTypes.array,
     group: ImmutablePropTypes.map,
+    relationships: ImmutablePropTypes.map,
     layout: PropTypes.object,
-    title: PropTypes.string,
     showBackBtn: PropTypes.bool,
   }
 
   render() {
-    const { group, children, layout, title, showBackBtn, actions, tabs } = this.props
+    const { group, children, layout, showBackBtn, actions, relationships } = this.props
 
-    // const tabs = !account ? null : [
-    //   {
-    //     to: `/${account.get('acct')}`,
-    //     title: 'Timeline',
-    //   },
-    //   {
-    //     to: `/${account.get('acct')}/comments`,
-    //     title: 'Comments',
-    //   },
-    //   {
-    //     to: `/${account.get('acct')}/photos`,
-    //     title: 'Photos',
-    //   },
-    //   {
-    //     to: `/${account.get('acct')}/videos`,
-    //     title: 'Videos',
-    //   },
-    //   {
-    //     to: '',
-    //     title: 'More',
-    //   },
-    // ]
+    const tabs = !group ? null : [
+      {
+        to: `/groups/${group.get('id')}`,
+        title: 'Latest',
+      },
+      {
+        to: `/groups/${group.get('id')}/pinned`,
+        title: 'Pinned',
+      },
+      {
+        to: `/groups/${group.get('id')}/popular`,
+        title: 'Popular',
+      },
+    ]
+
+    const title = !!group ? group.get('title') : undefined
+
+    console.log("relationships:", relationships)
+    // const !!relationships && relationships.get('member')
 
     return (
       <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundcolorSecondary3].join(' ')}>
@@ -74,15 +71,51 @@ export default class GroupLayout extends ImmutablePureComponent {
           <div className={[_s.default, _s.width1015PX, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
 
             <div className={[_s.default, _s.z1, _s.width100PC, _s.marginBottom15PX].join(' ')}>
-              <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
-                <Image className={_s.height350PX} src='https://gab.com/media/user/bz-5cf53d08403d4.jpeg' />
-              </div>
+              <Block>
+                <div className={[_s.default, _s.width100PC].join(' ')}>
+                  <Image className={_s.height350PX} src='https://gab.com/media/user/bz-5cf53d08403d4.jpeg' />
+                  <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
+                    <div className={[_s.default, _s.flexRow, _s.height100PC, _s.paddingHorizontal10PX].join(' ')}>
+                      <TabBar tabs={tabs} />
+                      <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.marginLeftAuto].join(' ')}>
+                        <Button
+                          color='primary'
+                          backgroundColor='tertiary'
+                          radiusSmall
+                          className={_s.marginRight5PX}
+                        >
+                          <Text color='inherit' size='small'>
+                            Leave/Join
+                          </Text>
+                        </Button>
+                        <Button
+                          color='primary'
+                          backgroundColor='tertiary'
+                          radiusSmall
+                          className={_s.marginRight5PX}
+                        >
+                          <Text color='inherit' size='small'>
+                            Share
+                          </Text>
+                        </Button>
+                        <Button
+                          radiusSmall
+                          color='primary'
+                          backgroundColor='tertiary'
+                          className={_s.marginRight5PX}
+                          icon='ellipsis'
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </Block>
             </div>
 
             <div className={[_s.default, _s.flexRow, _s.width100PC, _s.justifyContentSpaceBetween].join(' ')}>
               <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
                 <div className={_s.default}>
-                  {children}``
+                  {children}
                 </div>
               </div>
 

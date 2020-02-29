@@ -1,1 +1,1 @@
-export { default } from './list_editor_search';
+export { default } from './list_editor_search'

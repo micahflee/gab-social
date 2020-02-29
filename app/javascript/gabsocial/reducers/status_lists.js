@@ -1,11 +1,11 @@
 import {
-  FAVOURITED_STATUSES_FETCH_REQUEST,
-  FAVOURITED_STATUSES_FETCH_SUCCESS,
-  FAVOURITED_STATUSES_FETCH_FAIL,
-  FAVOURITED_STATUSES_EXPAND_REQUEST,
-  FAVOURITED_STATUSES_EXPAND_SUCCESS,
-  FAVOURITED_STATUSES_EXPAND_FAIL,
-} from '../actions/favourites';
+  FAVORITED_STATUSES_FETCH_REQUEST,
+  FAVORITED_STATUSES_FETCH_SUCCESS,
+  FAVORITED_STATUSES_FETCH_FAIL,
+  FAVORITED_STATUSES_EXPAND_REQUEST,
+  FAVORITED_STATUSES_EXPAND_SUCCESS,
+  FAVORITED_STATUSES_EXPAND_FAIL,
+} from '../actions/favorites';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import {
   FAVOURITE_SUCCESS,
@@ -58,15 +58,15 @@ const removeOneFromList = (state, listType, status) => {
 
 export default function statusLists(state = initialState, action) {
   switch(action.type) {
-  case FAVOURITED_STATUSES_FETCH_REQUEST:
-  case FAVOURITED_STATUSES_EXPAND_REQUEST:
+  case FAVORITED_STATUSES_FETCH_REQUEST:
+  case FAVORITED_STATUSES_EXPAND_REQUEST:
     return state.setIn(['favourites', 'isLoading'], true);
-  case FAVOURITED_STATUSES_FETCH_FAIL:
-  case FAVOURITED_STATUSES_EXPAND_FAIL:
+  case FAVORITED_STATUSES_FETCH_FAIL:
+  case FAVORITED_STATUSES_EXPAND_FAIL:
     return state.setIn(['favourites', 'isLoading'], false);
-  case FAVOURITED_STATUSES_FETCH_SUCCESS:
+  case FAVORITED_STATUSES_FETCH_SUCCESS:
     return normalizeList(state, 'favourites', action.statuses, action.next);
-  case FAVOURITED_STATUSES_EXPAND_SUCCESS:
+  case FAVORITED_STATUSES_EXPAND_SUCCESS:
     return appendToList(state, 'favourites', action.statuses, action.next);
   case FAVOURITE_SUCCESS:
     return prependOneToList(state, 'favourites', action.status);

@@ -1,1 +1,1 @@
-export { default } from './detailed_status';
+export { default } from './detailed_status'

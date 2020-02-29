@@ -1,5 +1,7 @@
 import { injectIntl, defineMessages } from 'react-intl'
+import Button from './button'
 import Icon from './icon'
+import Text from './text'
 
 const messages = defineMessages({
   load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
@@ -31,16 +33,29 @@ class LoadMore extends PureComponent {
     const { disabled, visible, gap, intl } = this.props
 
     return (
-      <button
-        className={[_s.default].join(' ')}
+      <Button
+        block
+        radiusSmall
+        backgroundColor='tertiary'
+        color='primary'
         disabled={disabled || !visible}
         style={{ visibility: visible ? 'visible' : 'hidden' }}
         onClick={this.handleClick}
         aria-label={intl.formatMessage(messages.load_more)}
       >
-        {!gap && intl.formatMessage(messages.load_more)}
-        {gap && <Icon id='ellipsis-h' />}
-      </button>
+        {
+          !gap &&
+          <Text color='inherit'>
+            {intl.formatMessage(messages.load_more)}
+          </Text>
+        }
+        {
+          gap &&
+          <Text align='center'>
+            <Icon id='ellipsis' />
+          </Text>
+        }
+      </Button>
     )
   }
 

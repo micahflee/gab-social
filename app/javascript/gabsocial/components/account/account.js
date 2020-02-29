@@ -36,6 +36,7 @@ class Account extends ImmutablePureComponent {
     actionIcon: PropTypes.string,
     actionTitle: PropTypes.string,
     onActionClick: PropTypes.func,
+    compact: PropTypes.bool,
   }
 
   handleFollow = () => {
@@ -63,7 +64,15 @@ class Account extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, intl, hidden, onActionClick, actionIcon, actionTitle } = this.props
+    const {
+      account,
+      intl,
+      hidden,
+      onActionClick,
+      actionIcon,
+      actionTitle,
+      compact
+    } = this.props
 
     if (!account) return null
 
@@ -76,6 +85,7 @@ class Account extends ImmutablePureComponent {
       )
     }
 
+    const avatarSize = compact ? 42 : 52
     let buttons
 
     if (onActionClick && actionIcon) {
@@ -109,6 +119,50 @@ class Account extends ImmutablePureComponent {
       }
     }
 
+    // : todo : clean up
+
+    if (compact) {
+      return (
+        <div className={[_s.default, _s.marginTop5PX, _s.marginBottom15PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow].join(' ')}>
+
+          <NavLink
+            className={[_s.default, _s.noUnderline].join(' ')}
+            title={account.get('acct')}
+            to={`/${account.get('acct')}`}
+          >
+            <Avatar account={account} size={avatarSize} />
+          </NavLink>
+
+          <div className={[_s.default, _s.alignItemsStart, _s.paddingHorizontal10PX].join(' ')}>
+            <NavLink
+              className={[_s.default, _s.noUnderline].join(' ')}
+              title={account.get('acct')}
+              to={`/${account.get('acct')}`}
+            >
+              <DisplayName account={account} multiline />
+            </NavLink>
+          </div>
+
+          <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+            <Button
+              outline
+              narrow
+              color='brand'
+              backgroundColor='none'
+              className={_s.marginTop5PX}
+            >
+              <Text color='inherit'>
+                {intl.formatMessage(messages.follow)}
+              </Text>
+            </Button>
+          </div>
+
+        </div>
+      </div>
+      )
+    }
+
     return (
       <div className={[_s.default, _s.marginTop5PX, _s.marginBottom15PX].join(' ')}>
         <div className={[_s.default, _s.flexRow].join(' ')}>
@@ -118,7 +172,7 @@ class Account extends ImmutablePureComponent {
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
           >
-            <Avatar account={account} size={52} />
+            <Avatar account={account} size={avatarSize} />
           </NavLink>
 
           <div className={[_s.default, _s.alignItemsStart, _s.paddingHorizontal10PX].join(' ')}>
@@ -129,6 +183,7 @@ class Account extends ImmutablePureComponent {
             >
               <DisplayName account={account} />
             </NavLink>
+          
             <Button
               outline
               narrow

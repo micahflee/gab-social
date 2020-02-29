@@ -1,5 +1,4 @@
 import classNames from 'classnames/bind'
-import Button from './button'
 import Icon from './icon'
 
 const cx = classNames.bind(_s)

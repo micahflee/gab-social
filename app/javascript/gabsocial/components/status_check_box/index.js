@@ -1,1 +1,1 @@
-export { default } from './status_check_box';
+export { default } from './status_check_box'

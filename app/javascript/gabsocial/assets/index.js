@@ -9,15 +9,20 @@ import CloseIcon from './close_icon'
 import CommentIcon from './comment_icon'
 import DissenterIcon from './dissenter_icon'
 import EllipsisIcon from './ellipsis_icon'
+import ErrorIcon from './error_icon'
 import GlobeIcon from './globe_icon'
 import GroupIcon from './group_icon'
 import HomeIcon from './home_icon'
 import LikeIcon from './like_icon'
+import LinkIcon from './link_icon'
 import ListIcon from './list_icon'
 import LoadingIcon from './loading_icon'
 import MediaIcon from './media_icon'
+import MissingIcon from './missing_icon'
 import MoreIcon from './more_icon'
 import NotificationsIcon from './notifications_icon'
+import PinIcon from './pin_icon'
+import PlayIcon from './play_icon'
 import PollIcon from './poll_icon'
 import RepostIcon from './repost_icon'
 import SearchIcon from './search_icon'
@@ -40,15 +45,20 @@ export {
   CommentIcon,
   DissenterIcon,
   EllipsisIcon,
+  ErrorIcon,
   GlobeIcon,
   GroupIcon,
   HomeIcon,
   LikeIcon,
+  LinkIcon,
   ListIcon,
   LoadingIcon,
   MediaIcon,
+  MissingIcon,
   MoreIcon,
   NotificationsIcon,
+  PinIcon,
+  PlayIcon,
   PollIcon,
   RepostIcon,
   SearchIcon,

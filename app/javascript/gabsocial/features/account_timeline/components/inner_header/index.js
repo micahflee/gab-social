@@ -1,1 +1,1 @@
-export { default } from './inner_header';
+export { default } from './inner_header'

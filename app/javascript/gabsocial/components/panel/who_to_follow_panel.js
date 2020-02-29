@@ -42,7 +42,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     const { intl, /* suggestions, */ dismissSuggestion } = this.props;
     // : testing!!! :
     const suggestions = [
-      "1",
+      "1","1","1",
     ]
     // if (suggestions.isEmpty()) {
     //   return null;

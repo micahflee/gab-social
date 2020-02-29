@@ -1,10 +1,8 @@
-import { FormattedMessage } from 'react-intl';
-
 export default class ErrorBoundary extends PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
-  };
+  }
 
   state = {
     hasError: false,
@@ -17,22 +15,23 @@ export default class ErrorBoundary extends PureComponent {
       hasError: true,
       stackTrace: error.stack,
       componentStack: info && info.componentStack,
-    });
+    })
   }
 
   render() {
-    const { hasError } = this.state;
+    const { hasError } = this.state
 
-    if (!hasError) return this.props.children;
+    if (!hasError) return this.props.children
+
+    // : todo : custom error page
 
     return (
       <div className='error-boundary'>
         <div className='error-boundary__container'>
-          <FormattedMessage id='alert.unexpected.message' defaultMessage='Error' />
           <a className='error-boundary__link' href='/home'>Return Home</a>
         </div>
       </div>
-    );
+    )
   }
 
 }
