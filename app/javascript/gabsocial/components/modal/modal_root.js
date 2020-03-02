@@ -16,7 +16,6 @@ import MediaModal from './media_modal'
 import VideoModal from './video_modal'
 import BoostModal from './boost_modal'
 import ConfirmationModal from './confirmation_modal'
-import FocalPointModal from './focal_point_modal'
 import HotkeysModal from './hotkeys_modal'
 import ComposeModal from './compose_modal'
 import UnauthorizedModal from './unauthorized_modal'
@@ -29,7 +28,6 @@ const MODAL_COMPONENTS = {
   'COMPOSE': () => Promise.resolve({ default: ComposeModal }),
   'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
   'EMBED': EmbedModal,
-  'FOCAL_POINT': () => Promise.resolve({ default: FocalPointModal }),
   'HOTKEYS': () => Promise.resolve({ default: HotkeysModal }),
   'MEDIA': () => Promise.resolve({ default: MediaModal }),
   'MUTE': MuteModal,

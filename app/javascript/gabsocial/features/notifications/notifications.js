@@ -11,14 +11,9 @@ import {
 } from '../../actions/notifications';
 import NotificationContainer from './containers/notification_container';
 // import ColumnSettingsContainer from './containers/column_settings_container';
-// import FilterBarContainer from './containers/filter_bar_container';
 import ScrollableList from '../../components/scrollable_list';
 import LoadMore from '../../components/load_more';
-// import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
-
-const messages = defineMessages({
-  title: { id: 'column.notifications', defaultMessage: 'Notifications' },
-});
+import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
 
 const getNotifications = createSelector([
   state => state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
@@ -127,13 +122,39 @@ class Notifications extends ImmutablePureComponent {
 
     let scrollableContent = null;
 
-    // const filterBarContainer = showFilterBar
-    //   ? (<FilterBarContainer />)
-    //   : null;
-
     // : todo : include follow requests
 
-    console.log("notifications:", notifications)
+    console.log('notifications:', notifications)
+
+    let filteredNotifications = {follows:[]}
+
+    notifications.forEach((notification) => {
+      // const createdAt = notification.get('createdAt')
+      // const account = notification.get('account')
+      const type = notification.get('type')
+      const status = notification.get('status')
+      if (type === 'follow') {
+        filteredNotifications.follows.push(notification)
+      } else if (type === 'favourite') {
+        if (filteredNotifications[status] === undefined) {
+          filteredNotifications[status] = {}
+        }
+        if (filteredNotifications[status]['favorite'] === undefined) {
+          filteredNotifications[status].favorite = []
+        }
+        filteredNotifications[status].favorite.push(notification)
+      } else if (type === 'poll') {
+        if (filteredNotifications[status] === undefined) {
+          filteredNotifications[status] = {}
+        }
+        if (filteredNotifications[status]['poll'] === undefined) {
+          filteredNotifications[status].poll = []
+        }
+        filteredNotifications[status].poll.push(notification)
+      }
+    })
+
+    console.log('filteredNotifications:', filteredNotifications)
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent;
@@ -161,28 +182,29 @@ class Notifications extends ImmutablePureComponent {
 
     this.scrollableContent = scrollableContent;
 
-    const scrollContainer = (
-      <ScrollableList
-        scrollKey='notifications'
-        isLoading={isLoading}
-        showLoading={isLoading && notifications.size === 0}
-        hasMore={hasMore}
-        emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
-        onLoadMore={this.handleLoadOlder}
-        onScrollToTop={this.handleScrollToTop}
-        onScroll={this.handleScroll}
-      >
-        { scrollableContent }
-      </ScrollableList>
-    );
-
     return (
       <div ref={this.setColumnRef}>
-        { /* filterBarContainer */ }
-        { /* <TimelineQueueButtonHeader onClick={this.handleDequeueNotifications} count={totalQueuedNotificationsCount} itemType='notification' /> */ }
-        { scrollContainer }
+
+        <TimelineQueueButtonHeader
+          onClick={this.handleDequeueNotifications}
+          count={totalQueuedNotificationsCount}
+          itemType='notification'
+        />
+
+        <ScrollableList
+          scrollKey='notifications'
+          isLoading={isLoading}
+          showLoading={isLoading && notifications.size === 0}
+          hasMore={hasMore}
+          emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
+          onLoadMore={this.handleLoadOlder}
+          onScrollToTop={this.handleScrollToTop}
+          onScroll={this.handleScroll}
+        >
+          { scrollableContent }
+        </ScrollableList>
       </div>
-    );
+    )
   }
 
 }

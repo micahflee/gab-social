@@ -87,7 +87,7 @@ class Notification extends ImmutablePureComponent {
     if (status) this.props.onToggleHidden(status);
   }
 
-  getHandlers () {
+  getHandlers() {
     return {
       reply: this.handleMention,
       favourite: this.handleHotkeyFavourite,
@@ -101,7 +101,7 @@ class Notification extends ImmutablePureComponent {
     };
   }
 
-  renderFollow (notification, account, link) {
+  renderFollow(notification, account, link) {
     const { intl } = this.props;
 
     return (
@@ -123,7 +123,7 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
-  renderMention (notification) {
+  renderMention(notification) {
     return (
       <StatusContainer
         id={notification.get('status')}
@@ -140,7 +140,7 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
-  renderFavourite (notification, link) {
+  renderFavourite(notification, link) {
     const { intl } = this.props;
 
     return (
@@ -173,7 +173,7 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
-  renderReblog (notification, link) {
+  renderReblog(notification, link) {
     const { intl } = this.props;
 
     return (
@@ -205,7 +205,7 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
-  renderPoll (notification) {
+  renderPoll(notification) {
     const { intl } = this.props;
 
     return (
@@ -237,23 +237,35 @@ class Notification extends ImmutablePureComponent {
     );
   }
 
-  render () {
+  render() {
     const { notification } = this.props;
-    const account          = notification.get('account');
-    const displayNameHtml  = { __html: account.get('display_name_html') };
-    const link             = <bdi><Button className='notification__display-name' href={`/${account.get('acct')}`} title={account.get('acct')} to={`/${account.get('acct')}`} dangerouslySetInnerHTML={displayNameHtml} /></bdi>;
+    const account = notification.get('account');
+    const displayNameHtml = { __html: account.get('display_name_html') };
+    const link = (
+      <bdi>
+        <Button
+          className='notification__display-name'
+          href={`/${account.get('acct')}`}
+          title={account.get('acct')}
+          to={`/${account.get('acct')}`}
+          dangerouslySetInnerHTML={displayNameHtml}
+        />
+      </bdi>
+    );
 
-    switch(notification.get('type')) {
-    // case 'follow':
-    //   return this.renderFollow(notification, account, link);
-    // case 'mention':
-    //   return this.renderMention(notification);
-    case 'favourite':
-      return this.renderFavourite(notification, link);
-    // case 'reblog':
-    //   return this.renderReblog(notification, link);
-    // case 'poll':
-    //   return this.renderPoll(notification);
+    // console.log("notification:", notification)
+
+    switch (notification.get('type')) {
+      // case 'follow':
+      //   return this.renderFollow(notification, account, link);
+      // case 'mention':
+      //   return this.renderMention(notification);
+      case 'favourite':
+        return this.renderFavourite(notification, link);
+      // case 'reblog':
+      //   return this.renderReblog(notification, link);
+      // case 'poll':
+      //   return this.renderPoll(notification);
     }
 
     return null;

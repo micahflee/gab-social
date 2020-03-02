@@ -6,17 +6,17 @@ export const REBLOG_REQUEST = 'REBLOG_REQUEST';
 export const REBLOG_SUCCESS = 'REBLOG_SUCCESS';
 export const REBLOG_FAIL    = 'REBLOG_FAIL';
 
-export const FAVOURITE_REQUEST = 'FAVOURITE_REQUEST';
-export const FAVOURITE_SUCCESS = 'FAVOURITE_SUCCESS';
-export const FAVOURITE_FAIL    = 'FAVOURITE_FAIL';
+export const FAVORITE_REQUEST = 'FAVORITE_REQUEST';
+export const FAVORITE_SUCCESS = 'FAVORITE_SUCCESS';
+export const FAVORITE_FAIL    = 'FAVORITE_FAIL';
 
 export const UNREBLOG_REQUEST = 'UNREBLOG_REQUEST';
 export const UNREBLOG_SUCCESS = 'UNREBLOG_SUCCESS';
 export const UNREBLOG_FAIL    = 'UNREBLOG_FAIL';
 
-export const UNFAVOURITE_REQUEST = 'UNFAVOURITE_REQUEST';
-export const UNFAVOURITE_SUCCESS = 'UNFAVOURITE_SUCCESS';
-export const UNFAVOURITE_FAIL    = 'UNFAVOURITE_FAIL';
+export const UNFAVORITE_REQUEST = 'UNFAVORITE_REQUEST';
+export const UNFAVORITE_SUCCESS = 'UNFAVORITE_SUCCESS';
+export const UNFAVORITE_FAIL    = 'UNFAVORITE_FAIL';
 
 export const REBLOGS_FETCH_REQUEST = 'REBLOGS_FETCH_REQUEST';
 export const REBLOGS_FETCH_SUCCESS = 'REBLOGS_FETCH_SUCCESS';
@@ -144,7 +144,7 @@ export function unfavourite(status) {
 
 export function favouriteRequest(status) {
   return {
-    type: FAVOURITE_REQUEST,
+    type: FAVORITE_REQUEST,
     status: status,
     skipLoading: true,
   };
@@ -152,7 +152,7 @@ export function favouriteRequest(status) {
 
 export function favouriteSuccess(status) {
   return {
-    type: FAVOURITE_SUCCESS,
+    type: FAVORITE_SUCCESS,
     status: status,
     skipLoading: true,
   };
@@ -160,7 +160,7 @@ export function favouriteSuccess(status) {
 
 export function favouriteFail(status, error) {
   return {
-    type: FAVOURITE_FAIL,
+    type: FAVORITE_FAIL,
     status: status,
     error: error,
     skipLoading: true,
@@ -169,7 +169,7 @@ export function favouriteFail(status, error) {
 
 export function unfavouriteRequest(status) {
   return {
-    type: UNFAVOURITE_REQUEST,
+    type: UNFAVORITE_REQUEST,
     status: status,
     skipLoading: true,
   };
@@ -177,7 +177,7 @@ export function unfavouriteRequest(status) {
 
 export function unfavouriteSuccess(status) {
   return {
-    type: UNFAVOURITE_SUCCESS,
+    type: UNFAVORITE_SUCCESS,
     status: status,
     skipLoading: true,
   };
@@ -185,7 +185,7 @@ export function unfavouriteSuccess(status) {
 
 export function unfavouriteFail(status, error) {
   return {
-    type: UNFAVOURITE_FAIL,
+    type: UNFAVORITE_FAIL,
     status: status,
     error: error,
     skipLoading: true,

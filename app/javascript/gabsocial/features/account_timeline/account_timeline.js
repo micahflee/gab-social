@@ -109,35 +109,12 @@ class AccountTimeline extends ImmutablePureComponent {
     const { statusIds, featuredStatusIds, isLoading, hasMore, isAccount, accountId, unavailable, accountUsername, intl } = this.props;
 
     if (!isAccount && accountId !== -1) {
-      return (<ColumnIndicator type='missing' />);
+      return <ColumnIndicator type='missing' />
     } else if (accountId === -1 || (!statusIds && isLoading)) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     } else if (unavailable) {
-      return (<ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />);
+      return <ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />
     }
-
-    /* <SectionHeadlineBar
-        className='account-section-headline'
-        items={[
-          {
-            exact: true,
-            to: `/${accountUsername}`,
-            title: intl.formatMessage(messages.posts),
-          },
-          {
-            exact: true,
-            to: `/${accountUsername}/with_replies`,
-            title: intl.formatMessage(messages.postsWithReplies),
-          },
-          {
-            exact: true,
-            to: `/${accountUsername}/media`,
-            title: intl.formatMessage(messages.media),
-          },
-        ]}
-      />
-      */
-
     return (
       <StatusList
         scrollKey='account_timeline'

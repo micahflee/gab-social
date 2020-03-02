@@ -48,7 +48,7 @@ export default class HashtagItem extends ImmutablePureComponent {
             icon='caret-down'
             iconWidth='8px'
             iconHeight='8px'
-            iconClassName={_s.fillcolorSecondary}
+            iconClassName={_s.fillColorSecondary}
             className={_s.marginLeftAuto}
           />
         </div>

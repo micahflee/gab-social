@@ -118,9 +118,11 @@ class Followers extends ImmutablePureComponent {
             onLoadMore={this.handleLoadMore}
             emptyMessage={intl.formatMessage(messages.empty)}
           >
-            {accountIds.map((id, i) => (
-              <AccountContainer key={id} id={id} withNote={false} compact />
-            ))}
+            {
+              accountIds.map((id, i) => (
+                <AccountContainer key={id} id={id} withNote={false} compact />
+              ))
+            }
           </ScrollableList>
         </div>
       </Block>

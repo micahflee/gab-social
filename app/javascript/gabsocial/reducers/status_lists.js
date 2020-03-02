@@ -8,14 +8,14 @@ import {
 } from '../actions/favorites';
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import {
-  FAVOURITE_SUCCESS,
-  UNFAVOURITE_SUCCESS,
+  FAVORITE_SUCCESS,
+  UNFAVORITE_SUCCESS,
   PIN_SUCCESS,
   UNPIN_SUCCESS,
 } from '../actions/interactions';
 
 const initialState = ImmutableMap({
-  favourites: ImmutableMap({
+  favorites: ImmutableMap({
     next: null,
     loaded: false,
     items: ImmutableList(),
@@ -60,18 +60,18 @@ export default function statusLists(state = initialState, action) {
   switch(action.type) {
   case FAVORITED_STATUSES_FETCH_REQUEST:
   case FAVORITED_STATUSES_EXPAND_REQUEST:
-    return state.setIn(['favourites', 'isLoading'], true);
+    return state.setIn(['favorites', 'isLoading'], true);
   case FAVORITED_STATUSES_FETCH_FAIL:
   case FAVORITED_STATUSES_EXPAND_FAIL:
-    return state.setIn(['favourites', 'isLoading'], false);
+    return state.setIn(['favorites', 'isLoading'], false);
   case FAVORITED_STATUSES_FETCH_SUCCESS:
-    return normalizeList(state, 'favourites', action.statuses, action.next);
+    return normalizeList(state, 'favorites', action.statuses, action.next);
   case FAVORITED_STATUSES_EXPAND_SUCCESS:
-    return appendToList(state, 'favourites', action.statuses, action.next);
-  case FAVOURITE_SUCCESS:
-    return prependOneToList(state, 'favourites', action.status);
-  case UNFAVOURITE_SUCCESS:
-    return removeOneFromList(state, 'favourites', action.status);
+    return appendToList(state, 'favorites', action.statuses, action.next);
+  case FAVORITE_SUCCESS:
+    return prependOneToList(state, 'favorites', action.status);
+  case UNFAVORITE_SUCCESS:
+    return removeOneFromList(state, 'favorites', action.status);
   case PIN_SUCCESS:
     return prependOneToList(state, 'pins', action.status);
   case UNPIN_SUCCESS:

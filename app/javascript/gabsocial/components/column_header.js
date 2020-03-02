@@ -60,7 +60,7 @@ class ColumnHeader extends PureComponent {
         {
           showBackBtn &&
           <button className={[_s.default, _s.cursorPointer, _s.backgroundTransparent, _s.alignItemsCenter, _s.marginRight10PX, _s.justifyContentCenter].join(' ')}>
-            <Icon className={[_s.marginRight5PX, _s.fillColorBrand].join(' ')} id='back' width='20px' height='20px' />
+            <Icon className={[_s.marginRight5PX, _s.fillColorPrimary].join(' ')} id='back' width='20px' height='20px' />
           </button>
         }
 
@@ -85,7 +85,7 @@ class ColumnHeader extends PureComponent {
                   key={`column-header-action-btn-${i}`}
                   className={[_s.default, _s.marginLeft5PX, _s.cursorPointer, _s.backgroundSubtle2, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.radiusSmall].join(' ')}
                 >
-                  <Icon className={_s.fillcolorSecondary} id={action.icon} width='20px' height='20px' />
+                  <Icon className={_s.fillColorSecondary} id={action.icon} width='20px' height='20px' />
                 </button>
               ))
             }

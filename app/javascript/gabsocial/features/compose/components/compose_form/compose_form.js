@@ -316,13 +316,15 @@ class ComposeForm extends ImmutablePureComponent {
             small={shouldCondense}
             textarea
           >
-            { /*
-            !condensed &&
+
             <div className='compose-form__modifiers'>
               <UploadForm />
-              {!edit && <PollFormContainer />}
+              {
+                !edit &&
+                <PollFormContainer />
+              }
             </div>
-          */ }
+
           </AutosuggestTextbox>
 
           { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */}

@@ -8,12 +8,11 @@ export default class SearchLayout extends PureComponent {
     actions: PropTypes.array,
     tabs: PropTypes.array,
     layout: PropTypes.object,
-    title: PropTypes.string,
     showBackBtn: PropTypes.bool,
   }
 
   render() {
-    const { children, title, showBackBtn, layout, actions, tabs } = this.props
+    const { children, showBackBtn, layout, actions, tabs } = this.props
 
     // const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
     // const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
@@ -29,7 +28,7 @@ export default class SearchLayout extends PureComponent {
             <div className={[_s.default, _s.height53PX, _s.paddingLeft15PX, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
               <div className={[_s.default, _s.width645PX].join(' ')}>
                 <ColumnHeader
-                  title={title}
+                  title={'Search'}
                   showBackBtn={showBackBtn}
                   actions={actions}
                   tabs={tabs}

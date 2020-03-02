@@ -26,6 +26,7 @@ import PlayIcon from './play_icon'
 import PollIcon from './poll_icon'
 import RepostIcon from './repost_icon'
 import SearchIcon from './search_icon'
+import SearchAltIcon from './search_alt_icon'
 import ShareIcon from './share_icon'
 import ShopIcon from './shop_icon'
 import SubtractIcon from './subtract_icon'
@@ -62,6 +63,7 @@ export {
   PollIcon,
   RepostIcon,
   SearchIcon,
+  SearchAltIcon,
   ShareIcon,
   ShopIcon,
   SubtractIcon,

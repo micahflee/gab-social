@@ -197,7 +197,7 @@ export default class StatusHeader extends ImmutablePureComponent {
                 icon='ellipsis'
                 iconWidth='20px'
                 iconHeight='20px'
-                iconClassName={_s.fillcolorSecondary}
+                iconClassName={_s.fillColorSecondary}
                 className={_s.marginLeftAuto}
                 onClick={this.handleStatusOptionsClick}
               />
@@ -218,7 +218,7 @@ export default class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
 
-              <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.marginLeft5PX, _s.fillcolorSecondary].join(' ')} />
+              <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.marginLeft5PX, _s.fillColorSecondary].join(' ')} />
 
               {
                 !!status.get('group') &&

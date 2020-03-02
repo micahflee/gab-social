@@ -324,7 +324,7 @@ class Status extends ImmutablePureComponent {
             id='pin'
             width='10px'
             height='10px'
-            className={_s.fillcolorSecondary}
+            className={_s.fillColorSecondary}
           />
           <Text size='small' color='secondary' className={_s.marginLeft5PX}>
             {intl.formatMessage(messages.pinned)}

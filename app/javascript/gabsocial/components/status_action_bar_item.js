@@ -43,7 +43,7 @@ export default class StatusActionBarItem extends PureComponent {
           active={active}
           disabled={disabled}
         >
-          <Icon width='16px' height='16px' id={icon} className={[_s.default, _s.marginRight10PX, _s.fillcolorSecondary].join(' ')} />
+          <Icon width='16px' height='16px' id={icon} className={[_s.default, _s.marginRight10PX, _s.fillColorSecondary].join(' ')} />
           {title}
         </button>
       </div>

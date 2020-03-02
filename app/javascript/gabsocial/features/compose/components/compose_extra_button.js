@@ -70,7 +70,7 @@ export default class ComposeExtraButton extends PureComponent {
           onMouseEnter={() => this.handleOnMouseEnter()}
           onMouseLeave={() => this.handleOnMouseLeave()}
         >
-          <Icon id={icon} width={iconSize} height={iconSize} className={_s.fillcolorSecondary} />
+          <Icon id={icon} width={iconSize} height={iconSize} className={_s.fillColorSecondary} />
           {
             !small &&
             <span className={titleClasses}>

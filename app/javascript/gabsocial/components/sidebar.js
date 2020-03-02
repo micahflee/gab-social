@@ -115,15 +115,15 @@ class Sidebar extends ImmutablePureComponent {
         count: 124,
       },
       {
-        title: 'Search',
-        icon: 'search-sidebar',
-        to: '/search',
-      },
-      {
         title: 'Notifications',
         icon: 'notifications',
         to: '/notifications',
         count: 40,
+      },
+      {
+        title: 'Search',
+        icon: 'search-alt',
+        to: '/search',
       },
       {
         title: 'Groups',

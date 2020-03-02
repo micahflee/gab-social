@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { debounce } from 'lodash'
@@ -13,6 +14,7 @@ import AccountContainer from '../../containers/account_container'
 import ColumnIndicator from '../../components/column_indicator'
 import ScrollableList from '../../components/scrollable_list'
 import Block from '../../components/block'
+import Divider from '../../components/divider'
 import Heading from '../../components/heading'
 
 const mapStateToProps = (state, { params: { username } }) => {
@@ -118,9 +120,11 @@ class Following extends ImmutablePureComponent {
             onLoadMore={this.handleLoadMore}
             emptyMessage={intl.formatMessage(messages.empty)}
           >
-            {accountIds.map((id, i) => (
-              <AccountContainer key={id} id={id} withNote={false} compact />
-            ))}
+            {
+              accountIds.map((id) => (
+                <AccountContainer key={id} id={id} withNote={false} compact />
+              ))
+            }
           </ScrollableList>
         </div>
       </Block>

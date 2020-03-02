@@ -70,7 +70,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             }
 
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-              <Icon id='calendar' width='12px' height='12px' className={_s.fillcolorSecondary} />
+              <Icon id='calendar' width='12px' height='12px' className={_s.fillColorSecondary} />
               <Text
                 size='small'
                 color='secondary'

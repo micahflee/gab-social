@@ -173,27 +173,6 @@ class AccountGallery extends ImmutablePureComponent {
 
     return (
       <div className='scrollable-list scrollable-list--flex' onScroll={this.handleScroll}>
-        { /* <SectionHeadlineBar
-            className='account-section-headline'
-            items={[
-              {
-                exact: true,
-                to: `/${accountUsername}`,
-                title: intl.formatMessage(messages.posts),
-              },
-              {
-                exact: true,
-                to: `/${accountUsername}/with_replies`,
-                title: intl.formatMessage(messages.postsWithReplies),
-              },
-              {
-                exact: true,
-                to: `/${accountUsername}/media`,
-                title: intl.formatMessage(messages.media),
-              },
-            ]}
-          /> */ }
-
         <div role='feed' className='account-gallery__container' ref={this.handleRef}>
           {attachments.map((attachment, index) => attachment === null ? (
             <LoadMoreMedia key={'more:' + attachments.getIn(index + 1, 'id')} maxId={index > 0 ? attachments.getIn(index - 1, 'id') : null} onLoadMore={this.handleLoadMore} />

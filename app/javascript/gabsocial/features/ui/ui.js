@@ -43,7 +43,6 @@ import {
   Followers,
   Following,
   // Reblogs,
-  // Favorites,
   // DirectTimeline,
   // HashtagTimeline,
   Notifications,
@@ -197,9 +196,6 @@ class SwitchingArea extends PureComponent {
         { /*
         <Redirect from='/@:username/media' to='/:username/media' />
         <WrappedRoute path='/:username/media' component={AccountGallery} page={ProfilePage} content={children} />
-
-        <Redirect from='/@:username/tagged/:tag' to='/:username/tagged/:tag' exact />
-        <WrappedRoute path='/:username/tagged/:tag' exact component={AccountTimeline} page={ProfilePage} content={children} />
         */ }
         <Redirect from='/@:username/favorites' to='/:username/favorites' />
         <WrappedRoute path='/:username/favorites' page={ProfilePage} component={FavoritedStatuses} content={children} />

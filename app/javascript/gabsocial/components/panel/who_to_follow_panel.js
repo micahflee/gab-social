@@ -57,11 +57,10 @@ class WhoToFollowPanel extends ImmutablePureComponent {
         <div className={_s.default}>
           {suggestions && suggestions.map(accountId => (
             <AccountContainer
+              showDismiss
               key={accountId}
               id={accountId}
-              actionIcon='times'
-              actionTitle={intl.formatMessage(messages.dismissSuggestion)}
-              onActionClick={dismissSuggestion}
+              dismissAction={dismissSuggestion}
             />
           ))}
         </div>

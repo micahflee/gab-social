@@ -167,7 +167,7 @@ export default class Card extends ImmutablePureComponent {
           {trim(card.get('description') || '', maxDescription)}
         </p>
         <span className={[_s.default, _s.marginTopAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
-          <Icon id='link' width='10px' height='10px' className={[_s.fillcolorSecondary, _s.marginRight5PX].join(' ')} fixedWidth />
+          <Icon id='link' width='10px' height='10px' className={[_s.fillColorSecondary, _s.marginRight5PX].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
@@ -222,7 +222,7 @@ export default class Card extends ImmutablePureComponent {
     } else {
       embed = (
         <div className={[_s.default, _s.paddingVertical15PX, _s.paddingHorizontal15PX, _s.width72PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Icon id='file-text' width='22px' height='22px' className={_s.fillcolorSecondary} />
+          <Icon id='file-text' width='22px' height='22px' className={_s.fillColorSecondary} />
         </div>
       )
     }

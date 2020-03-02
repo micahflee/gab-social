@@ -67,6 +67,8 @@ export default class Icon extends PureComponent {
         return <I.RepostIcon {...options} />
       case 'search':
         return <I.SearchIcon {...options} />
+      case 'search-alt':
+        return <I.SearchAltIcon {...options} />
       case 'share':
         return <I.ShareIcon {...options} />
       case 'shop':
