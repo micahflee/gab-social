@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { fetchGroups } from '../../actions/groups'
-import Block from '../../components/block'
-import GroupCollectionItem from '../../components/group_collection_item'
+import { fetchGroups } from '../actions/groups'
+import Block from '../components/block'
+import GroupCollectionItem from '../components/group_collection_item'
 
 const mapStateToProps = (state, { activeTab }) => ({
 	groupIds: state.getIn(['group_lists', activeTab]),

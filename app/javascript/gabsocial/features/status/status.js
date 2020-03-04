@@ -6,8 +6,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import { fetchStatus } from '../../actions/statuses';
 import {
-  favourite,
-  unfavourite,
+  favorite,
+  unfavorite,
   reblog,
   unreblog,
   pin,
@@ -155,11 +155,11 @@ class Status extends ImmutablePureComponent {
     this.setState({ showMedia: !this.state.showMedia });
   }
 
-  handleFavouriteClick = (status) => {
+  handleFavoriteClick = (status) => {
     if (status.get('favourited')) {
-      this.props.dispatch(unfavourite(status));
+      this.props.dispatch(unfavorite(status));
     } else {
-      this.props.dispatch(favourite(status));
+      this.props.dispatch(favorite(status));
     }
   }
 
@@ -184,18 +184,18 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  handleModalReblog = (status) => {
-    this.props.dispatch(reblog(status));
+  handleModalRepost = (status) => {
+    this.props.dispatch(repost(status));
   }
 
-  handleReblogClick = (status, e) => {
+  handleRepostClick = (status, e) => {
     if (status.get('reblogged')) {
-      this.props.dispatch(unreblog(status));
+      this.props.dispatch(unrepost(status));
     } else {
       if ((e && e.shiftKey) || !boostModal) {
-        this.handleModalReblog(status);
+        this.handleModalRepost(status);
       } else {
-        this.props.dispatch(openModal('BOOST', { status, onReblog: this.handleModalReblog }));
+        this.props.dispatch(openModal('BOOST', { status, onRepost: this.handleModalRepost }));
       }
     }
   }
@@ -298,12 +298,12 @@ class Status extends ImmutablePureComponent {
     this.handleReplyClick(this.props.status);
   }
 
-  handleHotkeyFavourite = () => {
-    this.handleFavouriteClick(this.props.status);
+  handleHotkeyFavorite = () => {
+    this.handleFavoriteClick(this.props.status);
   }
 
   handleHotkeyBoost = () => {
-    this.handleReblogClick(this.props.status);
+    this.handleRepostClick(this.props.status);
   }
 
   handleHotkeyMention = e => {
@@ -432,7 +432,7 @@ class Status extends ImmutablePureComponent {
       moveUp: this.handleHotkeyMoveUp,
       moveDown: this.handleHotkeyMoveDown,
       reply: this.handleHotkeyReply,
-      favourite: this.handleHotkeyFavourite,
+      favorite: this.handleHotkeyFavorite,
       boost: this.handleHotkeyBoost,
       mention: this.handleHotkeyMention,
       openProfile: this.handleHotkeyOpenProfile,
@@ -481,11 +481,11 @@ class Status extends ImmutablePureComponent {
               showThread
             />
 
-            <ActionBar
+            {/*<ActionBar
               status={status}
               onReply={this.handleReplyClick}
-              onFavourite={this.handleFavouriteClick}
-              onReblog={this.handleReblogClick}
+              onFavorite={this.handleFavoriteClick}
+              onRepost={this.handleRepostClick}
               onDelete={this.handleDeleteClick}
               onDirect={this.handleDirectClick}
               onMention={this.handleMentionClick}
@@ -495,7 +495,7 @@ class Status extends ImmutablePureComponent {
               onReport={this.handleReport}
               onPin={this.handlePin}
               onEmbed={this.handleEmbed}
-            />
+            />*/}
           </div>
         </HotKeys>
 

@@ -11,7 +11,7 @@ const messages = defineMessages({
   reply: { id: 'keyboard_shortcuts.reply', defaultMessage: 'reply' },
   mention: { id: 'keyboard_shortcuts.mention', defaultMessage: 'mention author' },
   profile: { id: 'keyboard_shortcuts.profile', defaultMessage: 'open author\'s profile' },
-  favourite: { id: 'keyboard_shortcuts.favourite', defaultMessage: 'favorite' },
+  favorite: { id: 'keyboard_shortcuts.favorite', defaultMessage: 'favorite' },
   boost: { id: 'keyboard_shortcuts.boost', defaultMessage: 'repost' },
   enter: { id: 'keyboard_shortcuts.enter', defaultMessage: 'open status' },
   toggle_hidden: { id: 'keyboard_shortcuts.toggle_hidden', defaultMessage: 'show/hide text behind CW' },
@@ -28,7 +28,7 @@ const messages = defineMessages({
   notifications: { id: 'keyboard_shortcuts.notifications', defaultMessage: 'open notifications column' },
   direct: { id: 'keyboard_shortcuts.direct', defaultMessage: 'open direct messages column' },
   start: { id: 'keyboard_shortcuts.start', defaultMessage: 'open "get started" column' },
-  favourites: { id: 'keyboard_shortcuts.favourites', defaultMessage: 'open favorites list' },
+  favorites: { id: 'keyboard_shortcuts.favorites', defaultMessage: 'open favorites list' },
   pinned: { id: 'keyboard_shortcuts.pinned', defaultMessage: 'open pinned gabs list' },
   my_profile: { id: 'keyboard_shortcuts.my_profile', defaultMessage: 'open your profile' },
   blocked: { id: 'keyboard_shortcuts.blocked', defaultMessage: 'open blocked users list' },
@@ -65,7 +65,7 @@ class HotkeysModal extends ImmutablePureComponent {
               <HotKeysModalRow hotkey='r' action={intl.formatMessage(messages.reply)} />
               <HotKeysModalRow hotkey='m' action={intl.formatMessage(messages.mention)} />
               <HotKeysModalRow hotkey='p' action={intl.formatMessage(messages.profile)} />
-              <HotKeysModalRow hotkey='f' action={intl.formatMessage(messages.favourite)} />
+              <HotKeysModalRow hotkey='f' action={intl.formatMessage(messages.favorite)} />
               <HotKeysModalRow hotkey='b' action={intl.formatMessage(messages.boost)} />
               <HotKeysModalRow hotkey='enter, o' action={intl.formatMessage(messages.enter)} />
               <HotKeysModalRow hotkey='x' action={intl.formatMessage(messages.toggle_hidden)} />
@@ -108,7 +108,7 @@ class HotkeysModal extends ImmutablePureComponent {
             </thead>
             <tbody>
               <HotKeysModalRow hotkey='g + s' action={intl.formatMessage(messages.start)} />
-              <HotKeysModalRow hotkey='g + f' action={intl.formatMessage(messages.favourites)} />
+              <HotKeysModalRow hotkey='g + f' action={intl.formatMessage(messages.favorites)} />
               <HotKeysModalRow hotkey='g + p' action={intl.formatMessage(messages.pinned)} />
               <HotKeysModalRow hotkey='g + u' action={intl.formatMessage(messages.my_profile)} />
               <HotKeysModalRow hotkey='g + b' action={intl.formatMessage(messages.blocked)} />

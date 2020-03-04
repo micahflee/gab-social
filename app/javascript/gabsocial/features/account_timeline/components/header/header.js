@@ -12,7 +12,7 @@ export default class Header extends ImmutablePureComponent {
     onBlock: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
     onDirect: PropTypes.func.isRequired,
-    onReblogToggle: PropTypes.func.isRequired,
+    onRepostToggle: PropTypes.func.isRequired,
     onReport: PropTypes.func.isRequired,
     onMute: PropTypes.func.isRequired,
     onBlockDomain: PropTypes.func.isRequired,
@@ -47,8 +47,8 @@ export default class Header extends ImmutablePureComponent {
     this.props.onReport(this.props.account);
   }
 
-  handleReblogToggle = () => {
-    this.props.onReblogToggle(this.props.account);
+  handleRepostToggle = () => {
+    this.props.onRepostToggle(this.props.account);
   }
 
   handleMute = () => {
@@ -94,7 +94,7 @@ export default class Header extends ImmutablePureComponent {
           onBlock={this.handleBlock}
           onMention={this.handleMention}
           onDirect={this.handleDirect}
-          onReblogToggle={this.handleReblogToggle}
+          onRepostToggle={this.handleRepostToggle}
           onReport={this.handleReport}
           onMute={this.handleMute}
           onBlockDomain={this.handleBlockDomain}

@@ -9,7 +9,7 @@ import {
   FOLLOW_REQUEST_REJECT_SUCCESS,
 } from '../actions/accounts';
 import {
-  REBLOGS_FETCH_SUCCESS,
+  REPOSTS_FETCH_SUCCESS,
 } from '../actions/interactions';
 import {
   BLOCKS_FETCH_SUCCESS,
@@ -63,7 +63,7 @@ export default function userLists(state = initialState, action) {
     return normalizeList(state, 'following', action.id, action.accounts, action.next);
   case FOLLOWING_EXPAND_SUCCESS:
     return appendToList(state, 'following', action.id, action.accounts, action.next);
-  case REBLOGS_FETCH_SUCCESS:
+  case REPOSTS_FETCH_SUCCESS:
     return state.setIn(['reblogged_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
   case FOLLOW_REQUESTS_FETCH_SUCCESS:
     return state.setIn(['follow_requests', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['follow_requests', 'next'], action.next);

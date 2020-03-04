@@ -2,7 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 
 const messages = defineMessages({
   mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
-  favourites: { id: 'notifications.filter.favourites', defaultMessage: 'Favorites' },
+  favorites: { id: 'notifications.filter.favorites', defaultMessage: 'Favorites' },
   boosts: { id: 'notifications.filter.boosts', defaultMessage: 'Reposts' },
   polls: { id: 'notifications.filter.polls', defaultMessage: 'Poll results' },
   follows: { id: 'notifications.filter.follows', defaultMessage: 'Follows' },
@@ -65,9 +65,9 @@ class NotificationFilterBar extends PureComponent {
             icon: 'at',
           },
           {
-            className: selectedFilter === 'favourite' ? 'active' : '',
-            onClick: this.onClick('favourite'),
-            title: intl.formatMessage(messages.favourites),
+            className: selectedFilter === 'favorite' ? 'active' : '',
+            onClick: this.onClick('favorite'),
+            title: intl.formatMessage(messages.favorites),
             icon: 'star',
           },
           {

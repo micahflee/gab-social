@@ -2,10 +2,10 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import { fetchMutes, expandMutes } from '../../actions/mutes';
-import AccountContainer from '../../containers/account_container';
-import ColumnIndicator from '../../components/column_indicator';
-import ScrollableList from '../../components/scrollable_list';
+import { fetchMutes, expandMutes } from '../actions/mutes';
+import AccountContainer from '../containers/account_container';
+import ColumnIndicator from '../components/column_indicator';
+import ScrollableList from '../components/scrollable_list';
 
 const messages = defineMessages({
   heading: { id: 'column.mutes', defaultMessage: 'Muted users' },

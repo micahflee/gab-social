@@ -1,1 +1,0 @@
-export { default } from './profile_info_panel'

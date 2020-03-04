@@ -115,10 +115,10 @@ class FrameInteractions extends Component {
 
           <div>
             <h3>
-              <FormattedMessage id='introduction.interactions.favourite.headline' defaultMessage='Favorite' />
+              <FormattedMessage id='introduction.interactions.favorite.headline' defaultMessage='Favorite' />
             </h3>
             <p>
-              <FormattedMessage id='introduction.interactions.favourite.text' defaultMessage='You can save a gab for later, and let the author know that you liked it, by favouriting it.' />
+              <FormattedMessage id='introduction.interactions.favorite.text' defaultMessage='You can save a gab for later, and let the author know that you liked it, by favoriting it.' />
             </p>
           </div>
         </div>

@@ -51,12 +51,12 @@ export default class ColumnSettings extends ImmutablePureComponent {
           <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'follow']} onChange={onChange} label={soundStr} />
         </div>
 
-        <div role='group' aria-labelledby='notifications-favourite'>
-          <FormattedMessage id='notifications.column_settings.favourite' defaultMessage='Favorites:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'favourite']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'favourite']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'favourite']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'favourite']} onChange={onChange} label={soundStr} />
+        <div role='group' aria-labelledby='notifications-favorite'>
+          <FormattedMessage id='notifications.column_settings.favorite' defaultMessage='Favorites:' />
+          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'favorite']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'favorite']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'favorite']} onChange={onChange} label={showStr} />
+          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'favorite']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-mention'>

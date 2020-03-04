@@ -2,10 +2,10 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import { fetchDomainBlocks, expandDomainBlocks } from '../../actions/domain_blocks';
-import DomainContainer from '../../containers/domain_container';
-import ColumnIndicator from '../../components/column_indicator';
-import ScrollableList from '../../components/scrollable_list';
+import { fetchDomainBlocks, expandDomainBlocks } from '../actions/domain_blocks';
+import DomainContainer from '../containers/domain_container';
+import ColumnIndicator from '../components/column_indicator';
+import ScrollableList from '../components/scrollable_list';
 
 const messages = defineMessages({
   heading: { id: 'column.domain_blocks', defaultMessage: 'Hidden domains' },

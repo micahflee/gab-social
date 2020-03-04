@@ -1,1 +1,1 @@
-export { default } from './group_timeline'
+export { default } from '../group_timeline'

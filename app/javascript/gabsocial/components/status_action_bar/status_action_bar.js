@@ -63,8 +63,8 @@ class StatusActionBar extends ImmutablePureComponent {
     onOpenUnauthorizedModal: PropTypes.func.isRequired,
     onReply: PropTypes.func,
     onQuote: PropTypes.func,
-    onFavourite: PropTypes.func,
-    onReblog: PropTypes.func,
+    onFavorite: PropTypes.func,
+    onRepost: PropTypes.func,
     onDelete: PropTypes.func,
     onMention: PropTypes.func,
     onMute: PropTypes.func,
@@ -101,17 +101,17 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   }
 
-  handleFavouriteClick = () => {
+  handleFavoriteClick = () => {
     if (me) {
-      this.props.onFavourite(this.props.status)
+      this.props.onFavorite(this.props.status)
     } else {
       this.props.onOpenUnauthorizedModal()
     }
   }
 
-  handleReblogClick = e => {
+  handleRepostClick = e => {
     if (me) {
-      this.props.onReblog(this.props.status, e)
+      this.props.onRepost(this.props.status, e)
     } else {
       this.props.onOpenUnauthorizedModal()
     }
@@ -129,7 +129,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const reblogCount = status.get('reblogs_count')
     const reblogTitle = !publicStatus ? formatMessage(messages.cannot_reblog) : formatMessage(messages.reblog)
 
-    const favoriteCount = status.get('favourites_count')
+    const favoriteCount = status.get('favorites_count') // : todo :
 
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
       <IconButton className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
@@ -139,8 +139,8 @@ class StatusActionBar extends ImmutablePureComponent {
       {
         title: formatMessage(messages.like),
         icon: 'like',
-        active: !!status.get('favourited'),
-        onClick: this.handleFavouriteClick,
+        active: !!status.get('favorited'),
+        onClick: this.handleFavoriteClick,
       },
       {
         title: formatMessage(messages.comment),
@@ -153,13 +153,13 @@ class StatusActionBar extends ImmutablePureComponent {
         icon: (status.get('visibility') === 'private') ? 'lock' : 'repost',
         disabled: !publicStatus,
         active: !!status.get('reblogged'),
-        onClick: this.handleReblogClick,
+        onClick: this.handleRepostClick,
       },
       {
         title: formatMessage(messages.share),
         icon: 'share',
         active: false,
-        onClick: this.handleFavouriteClick,
+        onClick: this.handleFavoriteClick,
       },
     ]
 

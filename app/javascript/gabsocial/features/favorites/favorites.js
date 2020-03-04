@@ -1,7 +1,7 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
-import { fetchReblogs } from '../../actions/interactions';
+import { fetchReposts } from '../../actions/interactions';
 import { fetchStatus } from '../../actions/statuses';
 import { makeGetStatus } from '../../selectors';
 import AccountContainer from '../../containers/account_container';
@@ -33,13 +33,13 @@ class Favorites extends ImmutablePureComponent {
   };
 
   componentWillMount() {
-    this.props.dispatch(fetchReblogs(this.props.params.statusId));
+    this.props.dispatch(fetchReposts(this.props.params.statusId));
     this.props.dispatch(fetchStatus(this.props.params.statusId));
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
-      this.props.dispatch(fetchReblogs(nextProps.params.statusId));
+      this.props.dispatch(fetchReposts(nextProps.params.statusId));
       this.props.dispatch(fetchStatus(nextProps.params.statusId));
     }
   }

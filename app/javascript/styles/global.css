@@ -409,6 +409,10 @@ body {
   min-height: 100vh;
 }
 
+.heightMin50VH {
+  min-height: 50vh;
+}
+
 .height100VH {
   height: 100vh;
 }
@@ -435,6 +439,10 @@ body {
 
 .height122PX {
   height: 122px;
+}
+
+.height158PX {
+  height: 158px;
 }
 
 .height220PX {
@@ -469,16 +477,20 @@ body {
   width: 240px;
 }
 
-.width100PC {
-  width: 100%;
-}
-
 .width72PX {
   width: 72px;
 }
 
+.width100PC {
+  width: 100%;
+}
+
 .width50PC {
   width: 50%;
+}
+
+.width25PC {
+  width: 25%;
 }
 
 .maxWidth100PC {
@@ -741,6 +753,10 @@ body {
 
 .paddingTop5625PC {
   padding-top: 56.25%;
+}
+
+.paddingTop25PC {
+  padding-top: 25%;
 }
 
 .paddingTop10PX {

@@ -1,5 +1,5 @@
 // import SearchContainer from '../compose/containers/search_container';
-import SearchResultsContainer from '../compose/containers/search_results_container';
+import SearchResultsContainer from './compose/containers/search_results_container';
 
 export default class Search extends PureComponent {
 

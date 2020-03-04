@@ -29,12 +29,8 @@ export default class ProfileLayout extends ImmutablePureComponent {
         title: 'Comments',
       },
       {
-        to: `/${account.get('acct')}/photos`,
-        title: 'Photos',
-      },
-      {
-        to: `/${account.get('acct')}/videos`,
-        title: 'Videos',
+        to: `/${account.get('acct')}/media`,
+        title: 'Media',
       },
       {
         to: '',

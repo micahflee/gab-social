@@ -51,7 +51,7 @@ class ProfileStatsPanel extends ImmutablePureComponent {
               account.get('id') === me &&
               <UserStat
                 title={intl.formatMessage(messages.favorites)}
-                value={shortNumberFormat(account.get('favourite_count'))}
+                value={shortNumberFormat(account.get('favourite_count'))} /* : todo : */
                 to={`/${account.get('acct')}/favorites`}
               />
             }

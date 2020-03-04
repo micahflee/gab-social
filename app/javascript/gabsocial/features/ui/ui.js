@@ -182,8 +182,10 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
+        { /*
         <Redirect from='/@:username/comments' to='/:username/comments' />
         <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountTimeline} content={children} componentParams={{ commentsOnly: true }} />
+        */ }
 
         <Redirect from='/@:username/followers' to='/:username/followers' />
         <WrappedRoute path='/:username/followers' page={ProfilePage} component={Followers} content={children} />
@@ -191,11 +193,8 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/following' to='/:username/following' />
         <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />
 
-        <Redirect from='/@:username/photos' to='/:username/photos' />
-        <WrappedRoute path='/:username/photos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ mediaType: 'photo' }} />
-
-        <Redirect from='/@:username/videos' to='/:username/videos' />
-        <WrappedRoute path='/:username/videos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ mediaType: 'video' }} />
+        <Redirect from='/@:username/media' to='/:username/media' />
+        <WrappedRoute path='/:username/media' page={ProfilePage} component={AccountGallery} content={children} />
 
         <Redirect from='/@:username/favorites' to='/:username/favorites' />
         <WrappedRoute path='/:username/favorites' page={ProfilePage} component={FavoritedStatuses} content={children} />
@@ -203,8 +202,8 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={Status} content={children} componentParams={{ title: 'Status' }} />
 
-        <Redirect from='/@:username/posts/:statusId/reblogs' to='/:username/posts/:statusId/reblogs' />
-        <WrappedRoute path='/:username/posts/:statusId/reblogs' page={BasicPage} component={Reblogs} content={children} componentParams={{ title: 'Reblogs' }} />
+        <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
+        <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={Reposts} content={children} componentParams={{ title: 'Reposts' }} />
 
         <Redirect from='/@:username/posts/:statusId/favorites' to='/:username/posts/:statusId/favorites' />
         <WrappedRoute path='/:username/posts/:statusId/favorites' page={BasicPage} component={Favorites} content={children} componentParams={{ title: 'Favorites' }} />

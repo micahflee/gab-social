@@ -103,7 +103,7 @@ const handlePush = (event) => {
         options.image = undefined;
         options.actions = [actionExpand(preferred_locale)];
       } else if (notification.type === 'mention') {
-        options.actions = [actionReblog(preferred_locale), actionFavourite(preferred_locale)];
+        options.actions = [actionRepost(preferred_locale), actionFavorite(preferred_locale)];
       }
 
       return notify(options);
@@ -127,13 +127,13 @@ const actionExpand = preferred_locale => ({
   title: formatMessage('status.show_more', preferred_locale),
 });
 
-const actionReblog = preferred_locale => ({
+const actionRepost = preferred_locale => ({
   action: 'reblog',
   icon: '/web-push-icon_reblog.png',
   title: formatMessage('status.reblog', preferred_locale),
 });
 
-const actionFavourite = preferred_locale => ({
+const actionFavorite = preferred_locale => ({
   action: 'favourite',
   icon: '/web-push-icon_favourite.png',
   title: formatMessage('status.favourite', preferred_locale),
@@ -151,7 +151,7 @@ const expandNotification = notification => {
 
   newNotification.body = newNotification.data.hiddenBody;
   newNotification.image = newNotification.data.hiddenImage;
-  newNotification.actions = [actionReblog(notification.data.preferred_locale), actionFavourite(notification.data.preferred_locale)];
+  newNotification.actions = [actionRepost(notification.data.preferred_locale), actionFavorite(notification.data.preferred_locale)];
 
   return self.registration.showNotification(newNotification.title, newNotification);
 };

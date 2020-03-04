@@ -1,13 +1,13 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl';
-import { connectListStream } from '../../actions/streaming';
-import { expandListTimeline } from '../../actions/timelines';
-import { fetchList, deleteList } from '../../actions/lists';
-import { openModal } from '../../actions/modal';
-import StatusListContainer from '../../containers/status_list_container';
-import ColumnIndicator from '../../components/column_indicator';
-import Button from '../../components/button';
+import { connectListStream } from '../actions/streaming';
+import { expandListTimeline } from '../actions/timelines';
+import { fetchList, deleteList } from '../actions/lists';
+import { openModal } from '../actions/modal';
+import StatusListContainer from '../containers/status_list_container';
+import ColumnIndicator from '../components/column_indicator';
+import Button from '../components/button';
 
 const messages = defineMessages({
   deleteMessage: { id: 'confirmations.delete_list.message', defaultMessage: 'Are you sure you want to permanently delete this list?' },

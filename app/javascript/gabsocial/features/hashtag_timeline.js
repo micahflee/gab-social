@@ -1,8 +1,8 @@
 import { FormattedMessage } from 'react-intl'
 import { isEqual } from 'lodash'
-import { expandHashtagTimeline, clearTimeline } from '../../actions/timelines'
-import { connectHashtagStream } from '../../actions/streaming'
-import StatusListContainer from '../../containers/status_list_container'
+import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
+import { connectHashtagStream } from '../actions/streaming'
+import StatusListContainer from '../containers/status_list_container'
 
 const mapStateToProps = (state, props) => ({
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,

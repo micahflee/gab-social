@@ -24,7 +24,7 @@ class BoostModal extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    onReblog: PropTypes.func.isRequired,
+    onRepost: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   };
@@ -33,8 +33,8 @@ class BoostModal extends ImmutablePureComponent {
     this.button.focus();
   }
 
-  handleReblog = () => {
-    this.props.onReblog(this.props.status);
+  handleRepost = () => {
+    this.props.onRepost(this.props.status);
     this.props.onClose();
   }
 
@@ -96,7 +96,7 @@ class BoostModal extends ImmutablePureComponent {
               }
             })}
           </div>
-          <Button text={intl.formatMessage(buttonText)} onClick={this.handleReblog} ref={this.setRef} />
+          <Button text={intl.formatMessage(buttonText)} onClick={this.handleRepost} ref={this.setRef} />
         </div>
       </div>
     );

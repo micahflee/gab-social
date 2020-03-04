@@ -1,1 +1,1 @@
-export { default } from './reblogs'
+export { default } from '../reblogs'

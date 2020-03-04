@@ -2,9 +2,9 @@ import { openModal } from '../../../actions/modal'
 import { mentionCompose } from '../../../actions/compose'
 import {
   reblog,
-  favourite,
+  favorite,
   unreblog,
-  unfavourite,
+  unfavorite,
 } from '../../../actions/interactions'
 import {
   hideStatus,
@@ -38,27 +38,27 @@ const mapDispatchToProps = dispatch => ({
     dispatch(mentionCompose(account, router))
   },
 
-  onModalReblog (status) {
-    dispatch(reblog(status))
+  onModalRepost (status) {
+    dispatch(repost(status))
   },
 
-  onReblog (status, e) {
+  onRepost (status, e) {
     if (status.get('reblogged')) {
-      dispatch(unreblog(status))
+      dispatch(unrepost(status))
     } else {
       if (e.shiftKey || !boostModal) {
-        this.onModalReblog(status)
+        this.onModalRepost(status)
       } else {
-        dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }))
+        dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }))
       }
     }
   },
 
-  onFavourite (status) {
-    if (status.get('favourited')) {
-      dispatch(unfavourite(status))
+  onFavorite (status) {
+    if (status.get('favorited')) {
+      dispatch(unfavorite(status))
     } else {
-      dispatch(favourite(status))
+      dispatch(favorite(status))
     }
   },
 

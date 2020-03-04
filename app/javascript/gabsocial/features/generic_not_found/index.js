@@ -1,1 +1,1 @@
-export { default } from './generic_not_found'
+export { default } from '../generic_not_found'

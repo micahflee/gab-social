@@ -12,7 +12,7 @@ export default class StatusOptionsPopover extends PureComponent {
     //     menu.push({ text: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
     //   } else {
     //     if (status.get('visibility') === 'private') {
-    //       menu.push({ text: intl.formatMessage(status.get('reblogged') ? messages.cancel_reblog_private : messages.reblog_private), action: this.handleReblogClick });
+    //       menu.push({ text: intl.formatMessage(status.get('reblogged') ? messages.cancel_reblog_private : messages.reblog_private), action: this.handleRepostClick });
     //     }
     //   }
 

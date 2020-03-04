@@ -1,11 +1,11 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { debounce } from 'lodash';
-import ColumnIndicator from '../../components/column_indicator';
-import AccountContainer from '../../containers/account_container';
-import { fetchBlocks, expandBlocks } from '../../actions/blocks';
-import ScrollableList from '../../components/scrollable_list';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { debounce } from 'lodash'
+import ColumnIndicator from '../components/column_indicator'
+import AccountContainer from '../containers/account_container'
+import { fetchBlocks, expandBlocks } from '../actions/blocks'
+import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
   heading: { id: 'column.blocks', defaultMessage: 'Blocked users' },

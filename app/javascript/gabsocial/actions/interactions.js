@@ -2,25 +2,25 @@ import api from '../api';
 import { importFetchedAccounts, importFetchedStatus } from './importer';
 import { me } from '../initial_state';
 
-export const REBLOG_REQUEST = 'REBLOG_REQUEST';
-export const REBLOG_SUCCESS = 'REBLOG_SUCCESS';
-export const REBLOG_FAIL    = 'REBLOG_FAIL';
+export const REPOST_REQUEST = 'REPOST_REQUEST';
+export const REPOST_SUCCESS = 'REPOST_SUCCESS';
+export const REPOST_FAIL    = 'REPOST_FAIL';
 
 export const FAVORITE_REQUEST = 'FAVORITE_REQUEST';
 export const FAVORITE_SUCCESS = 'FAVORITE_SUCCESS';
 export const FAVORITE_FAIL    = 'FAVORITE_FAIL';
 
-export const UNREBLOG_REQUEST = 'UNREBLOG_REQUEST';
-export const UNREBLOG_SUCCESS = 'UNREBLOG_SUCCESS';
-export const UNREBLOG_FAIL    = 'UNREBLOG_FAIL';
+export const UNREPOST_REQUEST = 'UNREPOST_REQUEST';
+export const UNREPOST_SUCCESS = 'UNREPOST_SUCCESS';
+export const UNREPOST_FAIL    = 'UNREPOST_FAIL';
 
 export const UNFAVORITE_REQUEST = 'UNFAVORITE_REQUEST';
 export const UNFAVORITE_SUCCESS = 'UNFAVORITE_SUCCESS';
 export const UNFAVORITE_FAIL    = 'UNFAVORITE_FAIL';
 
-export const REBLOGS_FETCH_REQUEST = 'REBLOGS_FETCH_REQUEST';
-export const REBLOGS_FETCH_SUCCESS = 'REBLOGS_FETCH_SUCCESS';
-export const REBLOGS_FETCH_FAIL    = 'REBLOGS_FETCH_FAIL';
+export const REPOSTS_FETCH_REQUEST = 'REPOSTS_FETCH_REQUEST';
+export const REPOSTS_FETCH_SUCCESS = 'REPOSTS_FETCH_SUCCESS';
+export const REPOSTS_FETCH_FAIL    = 'REPOSTS_FETCH_FAIL';
 
 export const PIN_REQUEST = 'PIN_REQUEST';
 export const PIN_SUCCESS = 'PIN_SUCCESS';
@@ -30,119 +30,119 @@ export const UNPIN_REQUEST = 'UNPIN_REQUEST';
 export const UNPIN_SUCCESS = 'UNPIN_SUCCESS';
 export const UNPIN_FAIL    = 'UNPIN_FAIL';
 
-export function reblog(status) {
+export function repost(status) {
   return function (dispatch, getState) {
     if (!me) return;
 
-    dispatch(reblogRequest(status));
+    dispatch(repostRequest(status));
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/reblog`).then(function (response) {
       // The reblog API method returns a new status wrapped around the original. In this case we are only
       // interested in how the original is modified, hence passing it skipping the wrapper
       dispatch(importFetchedStatus(response.data.reblog));
-      dispatch(reblogSuccess(status));
+      dispatch(repostSuccess(status));
     }).catch(function (error) {
-      dispatch(reblogFail(status, error));
+      dispatch(repostFail(status, error));
     });
   };
 };
 
-export function unreblog(status) {
+export function unrepost(status) {
   return (dispatch, getState) => {
     if (!me) return;
 
-    dispatch(unreblogRequest(status));
+    dispatch(unrepostRequest(status));
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/unreblog`).then(response => {
       dispatch(importFetchedStatus(response.data));
-      dispatch(unreblogSuccess(status));
+      dispatch(unrepostSuccess(status));
     }).catch(error => {
-      dispatch(unreblogFail(status, error));
+      dispatch(unrepostFail(status, error));
     });
   };
 };
 
-export function reblogRequest(status) {
+export function repostRequest(status) {
   return {
-    type: REBLOG_REQUEST,
+    type: REPOST_REQUEST,
     status: status,
     skipLoading: true,
   };
 };
 
-export function reblogSuccess(status) {
+export function repostSuccess(status) {
   return {
-    type: REBLOG_SUCCESS,
+    type: REPOST_SUCCESS,
     status: status,
     skipLoading: true,
   };
 };
 
-export function reblogFail(status, error) {
+export function repostFail(status, error) {
   return {
-    type: REBLOG_FAIL,
-    status: status,
-    error: error,
-    skipLoading: true,
-  };
-};
-
-export function unreblogRequest(status) {
-  return {
-    type: UNREBLOG_REQUEST,
-    status: status,
-    skipLoading: true,
-  };
-};
-
-export function unreblogSuccess(status) {
-  return {
-    type: UNREBLOG_SUCCESS,
-    status: status,
-    skipLoading: true,
-  };
-};
-
-export function unreblogFail(status, error) {
-  return {
-    type: UNREBLOG_FAIL,
+    type: REPOST_FAIL,
     status: status,
     error: error,
     skipLoading: true,
   };
 };
 
-export function favourite(status) {
+export function unrepostRequest(status) {
+  return {
+    type: UNREPOST_REQUEST,
+    status: status,
+    skipLoading: true,
+  };
+};
+
+export function unrepostSuccess(status) {
+  return {
+    type: UNREPOST_SUCCESS,
+    status: status,
+    skipLoading: true,
+  };
+};
+
+export function unrepostFail(status, error) {
+  return {
+    type: UNREPOST_FAIL,
+    status: status,
+    error: error,
+    skipLoading: true,
+  };
+};
+
+export function favorite(status) {
   return function (dispatch, getState) {
     if (!me) return;
 
-    dispatch(favouriteRequest(status));
+    dispatch(favoriteRequest(status));
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/favourite`).then(function (response) {
       dispatch(importFetchedStatus(response.data));
-      dispatch(favouriteSuccess(status));
+      dispatch(favoriteSuccess(status));
     }).catch(function (error) {
-      dispatch(favouriteFail(status, error));
+      dispatch(favoriteFail(status, error));
     });
   };
 };
 
-export function unfavourite(status) {
+export function unfavorite(status) {
   return (dispatch, getState) => {
     if (!me) return;
 
-    dispatch(unfavouriteRequest(status));
+    dispatch(unfavoriteRequest(status));
 
     api(getState).post(`/api/v1/statuses/${status.get('id')}/unfavourite`).then(response => {
       dispatch(importFetchedStatus(response.data));
-      dispatch(unfavouriteSuccess(status));
+      dispatch(unfavoriteSuccess(status));
     }).catch(error => {
-      dispatch(unfavouriteFail(status, error));
+      dispatch(unfavoriteFail(status, error));
     });
   };
 };
 
-export function favouriteRequest(status) {
+export function favoriteRequest(status) {
   return {
     type: FAVORITE_REQUEST,
     status: status,
@@ -150,7 +150,7 @@ export function favouriteRequest(status) {
   };
 };
 
-export function favouriteSuccess(status) {
+export function favoriteSuccess(status) {
   return {
     type: FAVORITE_SUCCESS,
     status: status,
@@ -158,7 +158,7 @@ export function favouriteSuccess(status) {
   };
 };
 
-export function favouriteFail(status, error) {
+export function favoriteFail(status, error) {
   return {
     type: FAVORITE_FAIL,
     status: status,
@@ -167,7 +167,7 @@ export function favouriteFail(status, error) {
   };
 };
 
-export function unfavouriteRequest(status) {
+export function unfavoriteRequest(status) {
   return {
     type: UNFAVORITE_REQUEST,
     status: status,
@@ -175,7 +175,7 @@ export function unfavouriteRequest(status) {
   };
 };
 
-export function unfavouriteSuccess(status) {
+export function unfavoriteSuccess(status) {
   return {
     type: UNFAVORITE_SUCCESS,
     status: status,
@@ -183,7 +183,7 @@ export function unfavouriteSuccess(status) {
   };
 };
 
-export function unfavouriteFail(status, error) {
+export function unfavoriteFail(status, error) {
   return {
     type: UNFAVORITE_FAIL,
     status: status,
@@ -192,39 +192,39 @@ export function unfavouriteFail(status, error) {
   };
 };
 
-export function fetchReblogs(id) {
+export function fetchReposts(id) {
   return (dispatch, getState) => {
     if (!me) return;
 
-    dispatch(fetchReblogsRequest(id));
+    dispatch(fetchRepostsRequest(id));
 
     api(getState).get(`/api/v1/statuses/${id}/reblogged_by`).then(response => {
       dispatch(importFetchedAccounts(response.data));
-      dispatch(fetchReblogsSuccess(id, response.data));
+      dispatch(fetchRepostsSuccess(id, response.data));
     }).catch(error => {
-      dispatch(fetchReblogsFail(id, error));
+      dispatch(fetchRepostsFail(id, error));
     });
   };
 };
 
-export function fetchReblogsRequest(id) {
+export function fetchRepostsRequest(id) {
   return {
-    type: REBLOGS_FETCH_REQUEST,
+    type: REPOSTS_FETCH_REQUEST,
     id,
   };
 };
 
-export function fetchReblogsSuccess(id, accounts) {
+export function fetchRepostsSuccess(id, accounts) {
   return {
-    type: REBLOGS_FETCH_SUCCESS,
+    type: REPOSTS_FETCH_SUCCESS,
     id,
     accounts,
   };
 };
 
-export function fetchReblogsFail(id, error) {
+export function fetchRepostsFail(id, error) {
   return {
-    type: REBLOGS_FETCH_FAIL,
+    type: REPOSTS_FETCH_FAIL,
     error,
   };
 };

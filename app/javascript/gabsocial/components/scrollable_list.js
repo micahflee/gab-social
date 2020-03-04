@@ -73,7 +73,7 @@ export default class ScrollableList extends PureComponent {
     this.scrollToTopOnMouseIdle = false;
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.window = window;
     this.documentElement = document.scrollingElement || document.documentElement;
 
@@ -97,7 +97,7 @@ export default class ScrollableList extends PureComponent {
     this.setScrollTop(newScrollTop);
   }
 
-  componentDidUpdate (prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     // Reset the scroll position when a new child comes in in order not to
     // jerk the scrollbar around if you're already scrolled down the page.
     if (snapshot !== null) {
@@ -105,12 +105,12 @@ export default class ScrollableList extends PureComponent {
     }
   }
 
-  attachScrollListener () {
+  attachScrollListener() {
     this.window.addEventListener('scroll', this.handleScroll);
     this.window.addEventListener('wheel', this.handleWheel);
   }
 
-  detachScrollListener () {
+  detachScrollListener() {
     this.window.removeEventListener('scroll', this.handleScroll);
     this.window.removeEventListener('wheel', this.handleWheel);
   }
@@ -139,16 +139,16 @@ export default class ScrollableList extends PureComponent {
       this.lastScrollWasSynthetic = false;
     }
   }, 150, {
-    trailing: true,
-  });
+      trailing: true,
+    });
 
   handleWheel = throttle(() => {
     this.scrollToTopOnMouseIdle = false;
   }, 150, {
-    trailing: true,
-  });
+      trailing: true,
+    });
 
-  getSnapshotBeforeUpdate (prevProps) {
+  getSnapshotBeforeUpdate(prevProps) {
     const someItemInserted = React.Children.count(prevProps.children) > 0 &&
       React.Children.count(prevProps.children) < React.Children.count(this.props.children) &&
       this.getFirstChildKey(prevProps) !== this.getFirstChildKey(this.props);
@@ -166,21 +166,21 @@ export default class ScrollableList extends PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     this.clearMouseIdleTimer();
     this.detachScrollListener();
     this.detachIntersectionObserver();
   }
 
-  attachIntersectionObserver () {
+  attachIntersectionObserver() {
     this.intersectionObserverWrapper.connect();
   }
 
-  detachIntersectionObserver () {
+  detachIntersectionObserver() {
     this.intersectionObserverWrapper.disconnect();
   }
 
-  getFirstChildKey (props) {
+  getFirstChildKey(props) {
     const { children } = props;
     let firstChild = children;
 
@@ -198,7 +198,7 @@ export default class ScrollableList extends PureComponent {
     this.props.onLoadMore();
   }
 
-  render () {
+  render() {
     const { children, scrollKey, showLoading, isLoading, hasMore, emptyMessage, onLoadMore } = this.props;
     const childrenCount = React.Children.count(children);
 
@@ -207,28 +207,33 @@ export default class ScrollableList extends PureComponent {
     const loadMore = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null;
 
     if (showLoading) {
-      return ( <ColumnIndicator type='loading' /> );
+      return <ColumnIndicator type='loading' />
     } else if (isLoading || childrenCount > 0 || hasMore || !emptyMessage) {
       return (
-        <div className='scrollable-list' onMouseMove={this.handleMouseMove}>
+        <div onMouseMove={this.handleMouseMove}>
           <div role='feed'>
-            {React.Children.map(this.props.children, (child, index) => (
-              <IntersectionObserverArticle
-                key={child.key}
-                id={child.key}
-                index={index}
-                listLength={childrenCount}
-                intersectionObserverWrapper={this.intersectionObserverWrapper}
-                saveHeightKey={trackScroll ? `${this.context.router.route.location.key}:${scrollKey}` : null}
-              >
-                {React.cloneElement(child, {
-                  getScrollPosition: this.getScrollPosition,
-                  updateScrollBottom: this.updateScrollBottom,
-                  cachedMediaWidth: this.state.cachedMediaWidth,
-                  cacheMediaWidth: this.cacheMediaWidth,
-                })}
-              </IntersectionObserverArticle>
-            ))}
+            {
+              !!this.props.children &&
+              React.Children.map(this.props.children, (child, index) => (
+                <IntersectionObserverArticle
+                  key={child.key}
+                  id={child.key}
+                  index={index}
+                  listLength={childrenCount}
+                  intersectionObserverWrapper={this.intersectionObserverWrapper}
+                  saveHeightKey={trackScroll ? `${this.context.router.route.location.key}:${scrollKey}` : null}
+                >
+                  {
+                    React.cloneElement(child, {
+                      getScrollPosition: this.getScrollPosition,
+                      updateScrollBottom: this.updateScrollBottom,
+                      cachedMediaWidth: this.state.cachedMediaWidth,
+                      cacheMediaWidth: this.cacheMediaWidth,
+                    })
+                  }
+                </IntersectionObserverArticle>
+              ))
+            }
 
             {loadMore}
           </div>
@@ -236,7 +241,7 @@ export default class ScrollableList extends PureComponent {
       );
     }
 
-    return ( <ColumnIndicator type='error' message={emptyMessage} /> );
+    return <ColumnIndicator type='error' message={emptyMessage} />
   }
 
 }

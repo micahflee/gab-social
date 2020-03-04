@@ -1,12 +1,12 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
-import { fetchReblogs } from '../../actions/interactions';
-import { fetchStatus } from '../../actions/statuses';
-import { makeGetStatus } from '../../selectors';
-import AccountContainer from '../../containers/account_container';
-import ColumnIndicator from '../../components/column_indicator';
-import ScrollableList from '../../components/scrollable_list';
+import { fetchReposts } from '../actions/interactions';
+import { fetchStatus } from '../actions/statuses';
+import { makeGetStatus } from '../selectors';
+import AccountContainer from '../containers/account_container';
+import ColumnIndicator from '../components/column_indicator';
+import ScrollableList from '../components/scrollable_list';
 
 const mapStateToProps = (state, props) => {
   const getStatus = makeGetStatus();
@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => {
 
 export default
 @connect(mapStateToProps)
-class Reblogs extends ImmutablePureComponent {
+class Reposts extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.object.isRequired,
@@ -33,13 +33,13 @@ class Reblogs extends ImmutablePureComponent {
   };
 
   componentWillMount () {
-    this.props.dispatch(fetchReblogs(this.props.params.statusId));
+    this.props.dispatch(fetchReposts(this.props.params.statusId));
     this.props.dispatch(fetchStatus(this.props.params.statusId));
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
-      this.props.dispatch(fetchReblogs(nextProps.params.statusId));
+      this.props.dispatch(fetchReposts(nextProps.params.statusId));
       this.props.dispatch(fetchStatus(nextProps.params.statusId));
     }
   }
@@ -48,19 +48,21 @@ class Reblogs extends ImmutablePureComponent {
     const { accountIds, status } = this.props;
 
     if (!accountIds) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     } else if (!status) {
-      return (<ColumnIndicator type='missing' />);
+      return <ColumnIndicator type='missing' />
     }
 
     return (
       <ScrollableList
-        scrollKey='reblogs'
+        scrollKey='reposts'
         emptyMessage={<FormattedMessage id='status.reblogs.empty' defaultMessage='No one has reposted this gab yet. When someone does, they will show up here.' />}
       >
-        {accountIds.map(id =>
-          <AccountContainer key={id} id={id} withNote={false} />
-        )}
+        {
+          accountIds.map(id =>
+            <AccountContainer key={id} id={id} withNote={false} />
+          )
+        }
       </ScrollableList>
     );
   }

@@ -6,9 +6,9 @@ import {
 } from '../../../actions/compose';
 import {
   reblog,
-  favourite,
+  favorite,
   unreblog,
-  unfavourite,
+  unfavorite,
   pin,
   unpin,
 } from '../../../actions/interactions';
@@ -65,27 +65,27 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     });
   },
 
-  onModalReblog (status) {
-    dispatch(reblog(status));
+  onModalRepost (status) {
+    dispatch(repost(status));
   },
 
-  onReblog (status, e) {
+  onRepost (status, e) {
     if (status.get('reblogged')) {
-      dispatch(unreblog(status));
+      dispatch(unrepost(status));
     } else {
       if (e.shiftKey || !boostModal) {
-        this.onModalReblog(status);
+        this.onModalRepost(status);
       } else {
-        dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }));
+        dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }));
       }
     }
   },
 
-  onFavourite (status) {
-    if (status.get('favourited')) {
-      dispatch(unfavourite(status));
+  onFavorite (status) {
+    if (status.get('favorited')) {
+      dispatch(unfavorite(status));
     } else {
-      dispatch(favourite(status));
+      dispatch(favorite(status));
     }
   },
 

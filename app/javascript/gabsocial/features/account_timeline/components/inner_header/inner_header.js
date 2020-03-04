@@ -114,9 +114,9 @@ class Header extends ImmutablePureComponent {
     } else {
       if (account.getIn(['relationship', 'following'])) {
         if (account.getIn(['relationship', 'showing_reblogs'])) {
-          menu.push({ text: intl.formatMessage(messages.hideReblogs, { name: account.get('username') }), action: this.props.onReblogToggle });
+          menu.push({ text: intl.formatMessage(messages.hideReblogs, { name: account.get('username') }), action: this.props.onRepostToggle });
         } else {
-          menu.push({ text: intl.formatMessage(messages.showReblogs, { name: account.get('username') }), action: this.props.onReblogToggle });
+          menu.push({ text: intl.formatMessage(messages.showReblogs, { name: account.get('username') }), action: this.props.onRepostToggle });
         }
 
         menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });
@@ -279,7 +279,7 @@ class Header extends ImmutablePureComponent {
                   <NavLink exact activeClassName='active' to={`/${account.get('acct')}/favorites`} title={intl.formatNumber(account.get('favourite_count'))}>
                     { /* : TODO : shortNumberFormat(account.get('favourite_count')) */ }
                     <span>•</span>
-                    <FormattedMessage id='navigation_bar.favourites' defaultMessage='Favorites' />
+                    <FormattedMessage id='navigation_bar.favorites' defaultMessage='Favorites' />
                   </NavLink>
                   <NavLink exact activeClassName='active' to={`/${account.get('acct')}/pins`} title={intl.formatNumber(account.get('pinned_count'))}>
                     { /* : TODO : shortNumberFormat(account.get('pinned_count')) */ }

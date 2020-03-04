@@ -114,8 +114,8 @@ export function Notifications() {
   return import(/* webpackChunkName: "features/notifications" */'../../notifications')
 }
 
-export function Reblogs() {
-  return import(/* webpackChunkName: "features/reblogs" */'../../reblogs')
+export function Reposts() {
+  return import(/* webpackChunkName: "features/reblogs" */'../../reposts')
 }
 
 export function ReportModal() {
