@@ -947,7 +947,7 @@ cy:
   themes:
     contrast: Cyferbyniad uchel
     default: Gab Social
-    gabsocial-light: Gab Social (golau)
+    gabsocial-light: golau
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

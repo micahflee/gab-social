@@ -1006,7 +1006,7 @@ nl:
   themes:
     contrast: Gab Social (hoog contrast)
     default: Gab Social (donker)
-    gabsocial-light: Gab Social (licht)
+    gabsocial-light: licht
   time:
     formats:
       default: "%d %B %Y om %H:%M"

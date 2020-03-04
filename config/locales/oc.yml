@@ -1020,7 +1020,7 @@ oc:
   themes:
     contrast: Gab Social (Fòrt contrast)
     default: Gab Social (Escur)
-    gabsocial-light: Gab Social (Clar)
+    gabsocial-light: Clar
   time:
     formats:
       default: Lo %d %b de %Y a %Ho%M

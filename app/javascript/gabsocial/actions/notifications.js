@@ -30,7 +30,7 @@ export const NOTIFICATIONS_CLEAR      = 'NOTIFICATIONS_CLEAR';
 export const NOTIFICATIONS_SCROLL_TOP = 'NOTIFICATIONS_SCROLL_TOP';
 export const NOTIFICATIONS_MARK_READ  = 'NOTIFICATIONS_MARK_READ';
 
-export const MAX_QUEUED_NOTIFICATIONS = 40;
+export const MAX_QUEUED_NOTIFICATIONS = 40
 
 defineMessages({
   mention: { id: 'notification.mention', defaultMessage: '{name} mentioned you' },
@@ -43,12 +43,12 @@ const fetchRelatedRelationships = (dispatch, notifications) => {
   if (accountIds.length > 0) {
     dispatch(fetchRelationships(accountIds));
   }
-};
+}
 
 export function initializeNotifications() {
   return {
     type: NOTIFICATIONS_INITIALIZE,
-  };
+  }
 }
 
 export function updateNotifications(notification, intlMessages, intlLocale) {

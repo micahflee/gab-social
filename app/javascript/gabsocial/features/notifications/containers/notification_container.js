@@ -1,70 +1,74 @@
-import { openModal } from '../../../actions/modal';
-import { mentionCompose } from '../../../actions/compose';
+import { openModal } from '../../../actions/modal'
+import { mentionCompose } from '../../../actions/compose'
 import {
   reblog,
   favourite,
   unreblog,
   unfavourite,
-} from '../../../actions/interactions';
+} from '../../../actions/interactions'
 import {
   hideStatus,
   revealStatus,
-} from '../../../actions/statuses';
-import { boostModal } from '../../../initial_state';
-import { makeGetNotification, makeGetStatus } from '../../../selectors';
-import Notification from '../components/notification/notification';
+} from '../../../actions/statuses'
+import { boostModal, me } from '../../../initial_state'
+import { makeGetNotification, makeGetStatus } from '../../../selectors'
+import Notification from '../components/notification/notification-alt'
 
 const makeMapStateToProps = () => {
-  const getNotification = makeGetNotification();
-  const getStatus = makeGetStatus();
+  const getNotification = makeGetNotification()
+  const getStatus = makeGetStatus()
 
   const mapStateToProps = (state, props) => {
-    const notification = getNotification(state, props.notification, props.accountId);
+    const notification = getNotification(state, props.notification, props.accountId)
+
+    const account = state.getIn(['accounts', me])
+
     return {
+      accounts: [account, account, account],
       notification: notification,
       status: notification.get('status') ? getStatus(state, { id: notification.get('status') }) : null,
-    };
-  };
+    }
+  }
 
-  return mapStateToProps;
-};
+  return mapStateToProps
+}
 
 const mapDispatchToProps = dispatch => ({
   onMention: (account, router) => {
-    dispatch(mentionCompose(account, router));
+    dispatch(mentionCompose(account, router))
   },
 
   onModalReblog (status) {
-    dispatch(reblog(status));
+    dispatch(reblog(status))
   },
 
   onReblog (status, e) {
     if (status.get('reblogged')) {
-      dispatch(unreblog(status));
+      dispatch(unreblog(status))
     } else {
       if (e.shiftKey || !boostModal) {
-        this.onModalReblog(status);
+        this.onModalReblog(status)
       } else {
-        dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }));
+        dispatch(openModal('BOOST', { status, onReblog: this.onModalReblog }))
       }
     }
   },
 
   onFavourite (status) {
     if (status.get('favourited')) {
-      dispatch(unfavourite(status));
+      dispatch(unfavourite(status))
     } else {
-      dispatch(favourite(status));
+      dispatch(favourite(status))
     }
   },
 
   onToggleHidden (status) {
     if (status.get('hidden')) {
-      dispatch(revealStatus(status.get('id')));
+      dispatch(revealStatus(status.get('id')))
     } else {
-      dispatch(hideStatus(status.get('id')));
+      dispatch(hideStatus(status.get('id')))
     }
   },
-});
+})
 
-export default connect(makeMapStateToProps, mapDispatchToProps)(Notification);
+export default connect(makeMapStateToProps, mapDispatchToProps)(Notification)

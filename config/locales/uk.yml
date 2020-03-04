@@ -683,7 +683,7 @@ uk:
   themes:
     contrast: Висока контрасність
     default: Gab Social
-    gabsocial-light: Gab Social (світла)
+    gabsocial-light: світла
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

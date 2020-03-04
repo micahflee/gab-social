@@ -925,7 +925,7 @@ kk:
   themes:
     contrast: Gab Social (Жоғары контраст)
     default: Gab Social (Қою)
-    gabsocial-light: Gab Social (Ашық)
+    gabsocial-light: Ашық
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

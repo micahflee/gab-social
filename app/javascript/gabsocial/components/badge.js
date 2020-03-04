@@ -20,7 +20,7 @@ export default class Badge extends PureComponent {
 
   render() {
     const { children, description } = this.props
-    const { hovering } = this.state
+    const { hovering } = this.state // : todo : tooltip
 
     return (
       <Text

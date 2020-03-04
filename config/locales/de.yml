@@ -1008,7 +1008,7 @@ de:
   themes:
     contrast: Gab Social (Hoher Kontrast)
     default: Gab Social (Dunkel)
-    gabsocial-light: Gab Social (Hell)
+    gabsocial-light: Hell
   time:
     formats:
       default: "%d.%m.%Y %H:%M"

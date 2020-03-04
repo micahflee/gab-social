@@ -52,7 +52,7 @@ class ActionBar extends PureComponent {
     return (
       <div style={{'marginTop':'-6px'}}>
         <div>
-          <DropdownMenuContainer items={menu} icon='chevron-down' size={size} direction='right' />
+          { /* <DropdownMenuContainer items={menu} icon='chevron-down' size={size} direction='right' /> */ }
         </div>
       </div>
     );

@@ -124,7 +124,7 @@ export default class Card extends ImmutablePureComponent {
     return (
       <div
         ref={this.setRef}
-        className={[_s.default, _s.backgroundcolorSecondary3, _s.positionAbsolute, _s.top0, _s.right0, _s.bottom0, _s.left0, _s.statusCardVideo].join(' ')}
+        className={[_s.default, _s.backgroundColorSecondary3, _s.positionAbsolute, _s.top0, _s.right0, _s.bottom0, _s.left0, _s.statusCardVideo].join(' ')}
         dangerouslySetInnerHTML={content}
       />
     )

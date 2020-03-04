@@ -1,17 +1,17 @@
-import { throttle } from 'lodash';
-import { List as ImmutableList } from 'immutable';
-import IntersectionObserverArticleContainer from '../containers/intersection_observer_article_container';
-import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper';
-import ColumnIndicator from './column_indicator';
-import LoadMore from './load_more';
+import { throttle } from 'lodash'
+import { List as ImmutableList } from 'immutable'
+import IntersectionObserverArticle from './intersection_observer_article'
+import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
+import ColumnIndicator from './column_indicator'
+import LoadMore from './load_more'
 
-const MOUSE_IDLE_DELAY = 300;
+const MOUSE_IDLE_DELAY = 300
 
 export default class ScrollableList extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   static propTypes = {
     scrollKey: PropTypes.string.isRequired,
@@ -23,11 +23,11 @@ export default class ScrollableList extends PureComponent {
     children: PropTypes.node,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
-  };
+  }
 
   state = {
     cachedMediaWidth: 250, // Default media/card width using default Gab Social theme
-  };
+  }
 
   intersectionObserverWrapper = new IntersectionObserverWrapper();
 
@@ -213,7 +213,7 @@ export default class ScrollableList extends PureComponent {
         <div className='scrollable-list' onMouseMove={this.handleMouseMove}>
           <div role='feed'>
             {React.Children.map(this.props.children, (child, index) => (
-              <IntersectionObserverArticleContainer
+              <IntersectionObserverArticle
                 key={child.key}
                 id={child.key}
                 index={index}
@@ -227,7 +227,7 @@ export default class ScrollableList extends PureComponent {
                   cachedMediaWidth: this.state.cachedMediaWidth,
                   cacheMediaWidth: this.cacheMediaWidth,
                 })}
-              </IntersectionObserverArticleContainer>
+              </IntersectionObserverArticle>
             ))}
 
             {loadMore}

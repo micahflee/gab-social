@@ -626,7 +626,7 @@ th:
   themes:
     contrast: Gab Social (ความคมชัดสูง)
     default: Gab Social (มืด)
-    gabsocial-light: Gab Social (สว่าง)
+    gabsocial-light: สว่าง
   time:
     formats:
       default: "%d %b %Y, %H:%M"

@@ -1005,7 +1005,7 @@ ja:
   themes:
     contrast: Gab Social (ハイコントラスト)
     default: Gab Social (ダーク)
-    gabsocial-light: Gab Social (ライト)
+    gabsocial-light: ライト
   time:
     formats:
       default: "%Y年%m月%d日 %H:%M"

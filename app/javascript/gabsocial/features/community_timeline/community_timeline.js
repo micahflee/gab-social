@@ -23,7 +23,6 @@ const mapStateToProps = state => {
     timelineId,
     allFediverse,
     onlyMedia,
-    // hasUnread: state.getIn(['timelines', `${timelineId}${onlyMedia ? ':media' : ''}`, 'unread']) > 0,
   }
 }
 
@@ -39,7 +38,6 @@ class CommunityTimeline extends PureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-    // hasUnread: PropTypes.bool,
     onlyMedia: PropTypes.bool,
     allFediverse: PropTypes.bool,
     timelineId: PropTypes.string,

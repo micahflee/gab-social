@@ -40,7 +40,7 @@ class Avatar extends ImmutablePureComponent {
     const shouldAnimate = animate || !sameImg
 
     const options = {
-      className: [_s.default, _s.circle].join(' '),
+      className: [_s.default, _s.circle, _s.overflowHidden].join(' '),
       onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
       onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,
       src: account.get((hovering || animate) ? 'avatar' : 'avatar_static'),

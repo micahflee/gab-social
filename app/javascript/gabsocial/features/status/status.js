@@ -467,7 +467,7 @@ class Status extends ImmutablePureComponent {
 
         <HotKeys handlers={handlers}>
           <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
-            <DetailedStatus
+            { /* <DetailedStatus
               status={status}
               onOpenVideo={this.handleOpenVideo}
               onOpenMedia={this.handleOpenMedia}
@@ -475,6 +475,12 @@ class Status extends ImmutablePureComponent {
               domain={domain}
               showMedia={this.state.showMedia}
               onToggleMediaVisibility={this.handleToggleMediaVisibility}
+            /> */ }
+
+            <StatusContainer
+              id={status.get('id')}
+              contextType={'timelineId'}
+              showThread
             />
 
             <ActionBar

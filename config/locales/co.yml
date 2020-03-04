@@ -1005,7 +1005,7 @@ co:
   themes:
     contrast: Gab Social (Cuntrastu altu)
     default: Gab Social (Scuru)
-    gabsocial-light: Gab Social (Chjaru)
+    gabsocial-light: Chjaru
   time:
     formats:
       default: "%d %b %Y, %H:%M"

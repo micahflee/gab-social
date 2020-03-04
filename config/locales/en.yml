@@ -1037,7 +1037,7 @@ en:
   themes:
     contrast: Gab Social (High contrast)
     default: Gab Social (Dark)
-    gabsocial-light: Gab Social (Light)
+    gabsocial-light: Light
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

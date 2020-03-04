@@ -1006,7 +1006,7 @@ ca:
   themes:
     contrast: Gab Social (Alt contrast)
     default: Gab Social (Fosc)
-    gabsocial-light: Gab Social (Clar)
+    gabsocial-light: Clar
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

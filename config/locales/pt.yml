@@ -928,7 +928,7 @@ pt:
   themes:
     contrast: Gab Social (Elevado contraste)
     default: Gab Social
-    gabsocial-light: Gab Social (Leve)
+    gabsocial-light: Leve
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

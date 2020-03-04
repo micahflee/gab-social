@@ -987,7 +987,7 @@ el:
   themes:
     contrast: Gab Social (Υψηλή αντίθεση)
     default: Gab Social (Σκοτεινό)
-    gabsocial-light: Gab Social (Ανοιχτόχρωμο)
+    gabsocial-light: Ανοιχτόχρωμο
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

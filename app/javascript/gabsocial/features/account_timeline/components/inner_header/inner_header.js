@@ -308,7 +308,7 @@ class Header extends ImmutablePureComponent {
                     }} />
                   </Button>
                 }
-                <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />
+                {/*<DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />*/}
               </div>
             }
 

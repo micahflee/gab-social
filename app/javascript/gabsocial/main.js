@@ -10,6 +10,7 @@ const perf = require('./performance');
 function main() {
   perf.start('main()');
 
+  // : todo :
   // if (window.history && history.replaceState) {
   //   const { pathname, search, hash } = window.location;
   //   const path = pathname + search + hash;

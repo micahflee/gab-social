@@ -36,17 +36,3 @@
     url('../fonts/roboto/roboto-bold-700.ttf') format('truetype'),
     url('../fonts/roboto/roboto-bold-700.svg') format('svg');
 }
-
-// Montserrat Extra Bold
-// Used for all bold number, scoreboard, count displays
-@font-face {
-  font-family: 'Montserrat';
-  font-weight: 800;
-  font-style: normal;
-  src: url('../fonts/montserrat/montserrat-extra-bold-800.eot?#iefix');
-  src: url('../fonts/montserrat/montserrat-extra-bold-800.eot?#iefix') format('embedded-opentype'),
-    url('../fonts/montserrat/montserrat-extra-bold-800.woff2') format('woff2'),
-    url('../fonts/montserrat/montserrat-extra-bold-800.woff') format('woff'),
-    url('../fonts/montserrat/montserrat-extra-bold-800.ttf') format('truetype'),
-    url('../fonts/montserrat/montserrat-extra-bold-800.svg') format('svg');
-}

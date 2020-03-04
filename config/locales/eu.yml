@@ -910,7 +910,7 @@ eu:
   themes:
     contrast: Gab Social (Kontraste altua)
     default: Gab Social (Iluna)
-    gabsocial-light: Gab Social (Argia)
+    gabsocial-light: Argia
   time:
     formats:
       default: "%Y(e)ko %b %d, %H:%M"

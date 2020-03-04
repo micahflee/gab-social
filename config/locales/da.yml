@@ -743,7 +743,7 @@ da:
   themes:
     contrast: Gab Social (Høj kontrast)
     default: Gab Socialt (Mørk)
-    gabsocial-light: Gab Social (Lys)
+    gabsocial-light: Lys
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

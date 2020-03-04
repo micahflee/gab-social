@@ -1,19 +1,20 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { createSelector } from 'reselect';
-import { List as ImmutableList } from 'immutable';
-import { debounce } from 'lodash';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import { createSelector } from 'reselect'
+import { List as ImmutableList } from 'immutable'
+import { debounce } from 'lodash'
 import {
   expandNotifications,
   scrollTopNotifications,
   dequeueNotifications,
-} from '../../actions/notifications';
-import NotificationContainer from './containers/notification_container';
-// import ColumnSettingsContainer from './containers/column_settings_container';
-import ScrollableList from '../../components/scrollable_list';
-import LoadMore from '../../components/load_more';
-import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header';
+} from '../../actions/notifications'
+import NotificationContainer from './containers/notification_container'
+// import ColumnSettingsContainer from './containers/column_settings_container'
+import ScrollableList from '../../components/scrollable_list'
+import LoadMore from '../../components/load_more'
+import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header'
+import Block from  '../../components/block'
 
 const getNotifications = createSelector([
   state => state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
@@ -25,10 +26,10 @@ const getNotifications = createSelector([
     // used if user changed the notification settings after loading the notifications from the server
     // otherwise a list of notifications will come pre-filtered from the backend
     // we need to turn it off for FilterBar in order not to block ourselves from seeing a specific category
-    return notifications.filterNot(item => item !== null && excludedTypes.includes(item.get('type')));
+    return notifications.filterNot(item => item !== null && excludedTypes.includes(item.get('type')))
   }
-  return notifications.filter(item => item !== null && allowedType === item.get('type'));
-});
+  return notifications.filter(item => item !== null && allowedType === item.get('type'))
+})
 
 const mapStateToProps = state => ({
   showFilterBar: state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
@@ -37,7 +38,7 @@ const mapStateToProps = state => ({
   isUnread: state.getIn(['notifications', 'unread']) > 0,
   hasMore: state.getIn(['notifications', 'hasMore']),
   totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
-});
+})
 
 export default
 @connect(mapStateToProps)
@@ -54,73 +55,81 @@ class Notifications extends ImmutablePureComponent {
     hasMore: PropTypes.bool,
     dequeueNotifications: PropTypes.func,
     totalQueuedNotificationsCount: PropTypes.number,
-  };
+  }
 
   componentWillUnmount () {
-    this.handleLoadOlder.cancel();
-    this.handleScrollToTop.cancel();
-    this.handleScroll.cancel();
-    this.props.dispatch(scrollTopNotifications(false));
+    this.handleLoadOlder.cancel()
+    this.handleScrollToTop.cancel()
+    this.handleScroll.cancel()
+    this.props.dispatch(scrollTopNotifications(false))
   }
 
   componentDidMount() {
-    this.handleDequeueNotifications();
-    this.props.dispatch(scrollTopNotifications(true));
+    this.handleDequeueNotifications()
+    this.props.dispatch(scrollTopNotifications(true))
   }
 
   handleLoadGap = (maxId) => {
-    this.props.dispatch(expandNotifications({ maxId }));
-  };
+    this.props.dispatch(expandNotifications({ maxId }))
+  }
 
   handleLoadOlder = debounce(() => {
-    const last = this.props.notifications.last();
-    this.props.dispatch(expandNotifications({ maxId: last && last.get('id') }));
-  }, 300, { leading: true });
+    const last = this.props.notifications.last()
+    this.props.dispatch(expandNotifications({ maxId: last && last.get('id') }))
+  }, 300, { leading: true })
 
   handleScrollToTop = debounce(() => {
-    this.props.dispatch(scrollTopNotifications(true));
-  }, 100);
+    this.props.dispatch(scrollTopNotifications(true))
+  }, 100)
 
   handleScroll = debounce(() => {
-    this.props.dispatch(scrollTopNotifications(false));
-  }, 100);
+    this.props.dispatch(scrollTopNotifications(false))
+  }, 100)
 
   setColumnRef = c => {
-    this.column = c;
+    this.column = c
   }
 
   handleMoveUp = id => {
-    const elementIndex = this.props.notifications.findIndex(item => item !== null && item.get('id') === id) - 1;
-    this._selectChild(elementIndex, true);
+    const elementIndex = this.props.notifications.findIndex(item => item !== null && item.get('id') === id) - 1
+    this._selectChild(elementIndex, true)
   }
 
   handleMoveDown = id => {
-    const elementIndex = this.props.notifications.findIndex(item => item !== null && item.get('id') === id) + 1;
-    this._selectChild(elementIndex, false);
+    const elementIndex = this.props.notifications.findIndex(item => item !== null && item.get('id') === id) + 1
+    this._selectChild(elementIndex, false)
   }
 
   _selectChild (index, align_top) {
-    const container = this.column.node;
-    const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`);
+    const container = this.column.node
+    const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`)
 
     if (element) {
       if (align_top && container.scrollTop > element.offsetTop) {
-        element.scrollIntoView(true);
+        element.scrollIntoView(true)
       } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
-        element.scrollIntoView(false);
+        element.scrollIntoView(false)
       }
-      element.focus();
+      element.focus()
     }
   }
 
   handleDequeueNotifications = () => {
-    this.props.dispatch(dequeueNotifications());
-  };
+    this.props.dispatch(dequeueNotifications())
+  }
 
   render () {
-    const { intl, notifications, isLoading, isUnread, hasMore, showFilterBar, totalQueuedNotificationsCount } = this.props;
+    const {
+      intl,
+      notifications,
+      isLoading,
+      isUnread,
+      hasMore,
+      showFilterBar,
+      totalQueuedNotificationsCount
+    } = this.props
 
-    let scrollableContent = null;
+    let scrollableContent = null
 
     // : todo : include follow requests
 
@@ -157,7 +166,7 @@ class Notifications extends ImmutablePureComponent {
     console.log('filteredNotifications:', filteredNotifications)
 
     if (isLoading && this.scrollableContent) {
-      scrollableContent = this.scrollableContent;
+      scrollableContent = this.scrollableContent
     } else if (notifications.size > 0 || hasMore) {
       scrollableContent = notifications.map((item, index) => item === null ? (
         <LoadMore
@@ -169,18 +178,17 @@ class Notifications extends ImmutablePureComponent {
         />
       ) : (
         <NotificationContainer
-          key={item.get('id')}
+          key={`notification-${index}`}
           notification={item}
-          accountId={item.get('account')}
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
         />
-      ));
+      ))
     } else {
-      scrollableContent = null;
+      scrollableContent = null
     }
 
-    this.scrollableContent = scrollableContent;
+    this.scrollableContent = scrollableContent
 
     return (
       <div ref={this.setColumnRef}>
@@ -191,18 +199,20 @@ class Notifications extends ImmutablePureComponent {
           itemType='notification'
         />
 
-        <ScrollableList
-          scrollKey='notifications'
-          isLoading={isLoading}
-          showLoading={isLoading && notifications.size === 0}
-          hasMore={hasMore}
-          emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
-          onLoadMore={this.handleLoadOlder}
-          onScrollToTop={this.handleScrollToTop}
-          onScroll={this.handleScroll}
-        >
-          { scrollableContent }
-        </ScrollableList>
+        <Block>
+          <ScrollableList
+            scrollKey='notifications'
+            isLoading={isLoading}
+            showLoading={isLoading && notifications.size === 0}
+            hasMore={hasMore}
+            emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
+            onLoadMore={this.handleLoadOlder}
+            onScrollToTop={this.handleScrollToTop}
+            onScroll={this.handleScroll}
+          >
+            { scrollableContent }
+          </ScrollableList>
+        </Block>
       </div>
     )
   }

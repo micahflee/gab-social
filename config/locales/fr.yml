@@ -926,7 +926,7 @@ fr:
   themes:
     contrast: Gab Social (Contraste élevé)
     default: Gab Social (Sombre)
-    gabsocial-light: Gab Social (Clair)
+    gabsocial-light: Clair
   time:
     formats:
       default: "%d %b %Y, %H:%M"

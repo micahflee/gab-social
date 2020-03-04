@@ -45,7 +45,8 @@ getActionButton() {
 			{ text: intl.formatMessage(messages.removed_accounts), to: `/groups/${group.get('id')}/removed_accounts` },
 		];
 
-		return <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />;
+		// <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />;
+		return <div></div>
 	}
 
 	render () {

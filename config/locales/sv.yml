@@ -722,7 +722,7 @@ sv:
   themes:
     contrast: Hög kontrast
     default: Gab Social
-    gabsocial-light: Gab Social (ljust)
+    gabsocial-light: ljust
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

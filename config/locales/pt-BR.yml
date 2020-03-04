@@ -1006,7 +1006,7 @@ pt-BR:
   themes:
     contrast: Gab Social  (Alto contraste)
     default: Gab Social (Escuro)
-    gabsocial-light: Gab Social (claro)
+    gabsocial-light: claro
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

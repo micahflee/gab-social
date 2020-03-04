@@ -59,9 +59,13 @@ const normalizeNotification = (state, notification) => {
 const expandNormalizedNotifications = (state, notifications, next) => {
   let items = ImmutableList();
 
+  // : todo filter notiications here:
+
   notifications.forEach((n, i) => {
     items = items.set(i, notificationToMap(n));
   });
+
+  console.log("reducer notifications:", notifications)
 
   return state.withMutations(mutable => {
     if (!items.isEmpty()) {
@@ -74,7 +78,9 @@ const expandNormalizedNotifications = (state, notifications, next) => {
           item => item !== null && compareId(item.get('id'), items.first().get('id')) > 0
         );
 
-        return list.take(firstIndex).concat(items, list.skip(lastIndex));
+        const pop = list.take(firstIndex).concat(items, list.skip(lastIndex));
+        console.log("pop:", pop)
+        return pop
       });
     }
 

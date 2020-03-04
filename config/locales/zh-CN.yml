@@ -711,7 +711,7 @@ zh-CN:
   themes:
     contrast: Gab Social（高对比度）
     default: Gab Social（暗色主题）
-    gabsocial-light: Gab Social（亮色主题）
+    gabsocial-light: 亮色主题
   time:
     formats:
       default: "%Y年%-m月%d日 %H:%M"

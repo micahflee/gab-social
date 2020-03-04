@@ -983,7 +983,7 @@ gl:
   themes:
     contrast: Gab Social (Alto contraste)
     default: Gab Social (Escuro)
-    gabsocial-light: Gab Social (Claro)
+    gabsocial-light: Claro
   time:
     formats:
       default: "%d %b, %Y, %H:%M"

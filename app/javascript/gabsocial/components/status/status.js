@@ -272,9 +272,9 @@ class Status extends ImmutablePureComponent {
 
   render() {
     let media = null;
-    let statusAvatar, prepend, rebloggedByText, reblogContent;
+    let prepend, rebloggedByText, reblogContent;
 
-    const { intl, hidden, featured, otherAccounts, unread, showThread, group, promoted } = this.props;
+    const { intl, hidden, featured, unread, showThread, group, promoted } = this.props;
 
     // console.log("replies:", this.props.replies)
 
@@ -321,7 +321,7 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingVertical5PX, _s.paddingHorizontal15PX].join(' ')}>
           <Icon
-            id='pin'
+            id='star'
             width='10px'
             height='10px'
             className={_s.fillColorSecondary}
@@ -366,7 +366,7 @@ class Status extends ImmutablePureComponent {
     }
 
     if (status.get('poll')) {
-      media = <Poll pollId={status.get('poll')} />;
+      media = <Poll pollId={status.get('poll')} />
     } else if (status.get('media_attachments').size > 0) {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);
@@ -375,6 +375,7 @@ class Status extends ImmutablePureComponent {
           <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer}>
             {Component => (
               <Component
+                inline
                 preview={video.get('preview_url')}
                 blurhash={video.get('blurhash')}
                 src={video.get('url')}
@@ -382,7 +383,6 @@ class Status extends ImmutablePureComponent {
                 aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
                 width={this.props.cachedMediaWidth}
                 height={110}
-                inline
                 sensitive={status.get('sensitive')}
                 onOpenVideo={this.handleOpenVideo}
                 cacheWidth={this.props.cacheMediaWidth}
@@ -391,7 +391,7 @@ class Status extends ImmutablePureComponent {
               />
             )}
           </Bundle>
-        );
+        )
       } else {
         media = (
           <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery}>
@@ -408,10 +408,10 @@ class Status extends ImmutablePureComponent {
               />
             )}
           </Bundle>
-        );
+        )
       }
     } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
-      console.log("card:", status.get('card'))
+      // console.log("card:", status.get('card'))
       media = (
         <Card
           onOpenMedia={this.props.onOpenMedia}
@@ -419,23 +419,21 @@ class Status extends ImmutablePureComponent {
           cacheWidth={this.props.cacheMediaWidth}
           defaultWidth={this.props.cachedMediaWidth}
         />
-      );
+      )
     }
 
-    const handlers = this.props.muted
-      ? {}
-      : {
-        reply: this.handleHotkeyReply,
-        favourite: this.handleHotkeyFavourite,
-        boost: this.handleHotkeyBoost,
-        mention: this.handleHotkeyMention,
-        open: this.handleHotkeyOpen,
-        openProfile: this.handleHotkeyOpenProfile,
-        moveUp: this.handleHotkeyMoveUp,
-        moveDown: this.handleHotkeyMoveDown,
-        toggleHidden: this.handleHotkeyToggleHidden,
-        toggleSensitive: this.handleHotkeyToggleSensitive,
-      };
+    const handlers = this.props.muted ? {} : {
+      reply: this.handleHotkeyReply,
+      favourite: this.handleHotkeyFavourite,
+      boost: this.handleHotkeyBoost,
+      mention: this.handleHotkeyMention,
+      open: this.handleHotkeyOpen,
+      openProfile: this.handleHotkeyOpenProfile,
+      moveUp: this.handleHotkeyMoveUp,
+      moveDown: this.handleHotkeyMoveDown,
+      toggleHidden: this.handleHotkeyToggleHidden,
+      toggleSensitive: this.handleHotkeyToggleSensitive,
+    }
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 

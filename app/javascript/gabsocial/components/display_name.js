@@ -28,6 +28,7 @@ class DisplayName extends ImmutablePureComponent {
     multiline: PropTypes.bool,
     large: PropTypes.bool,
     noHover: PropTypes.bool,
+    noUsername: PropTypes.bool,
   }
 
   handleMouseEnter = debounce(() => {
@@ -41,7 +42,13 @@ class DisplayName extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, multiline, large, noHover } = this.props
+    const {
+      account,
+      multiline,
+      large,
+      noHover,
+      noUsername
+    } = this.props
 
     if (!account) return null
 
@@ -114,9 +121,12 @@ class DisplayName extends ImmutablePureComponent {
             <Icon id='verified' width='16px' height='16px' className={_s.default} title='Gab Investor' />
           */ }
         </div>
-        <span className={usernameClasses}>
-          @{account.get('acct')}
-        </span>
+        {
+          !noUsername &&
+          <span className={usernameClasses}>
+            @{account.get('acct')}
+          </span>
+        }
       </span>
     )
   }

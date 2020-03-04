@@ -1025,7 +1025,7 @@ pl:
   themes:
     contrast: Gab Social (Wysoki kontrast)
     default: Gab Social (Ciemny)
-    gabsocial-light: Gab Social (Jasny)
+    gabsocial-light: Jasny
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

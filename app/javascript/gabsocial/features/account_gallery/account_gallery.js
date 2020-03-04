@@ -20,7 +20,7 @@ const messages = defineMessages({
   error: { id: 'empty_column.account_unavailable', defaultMessage: 'Profile unavailable' },
 });
 
-const mapStateToProps = (state, { params: { username } }) => {
+const mapStateToProps = (state, { mediaType, params: { username } }) => {
   const accounts = state.getIn(['accounts']);
   const accountFetchError = (state.getIn(['accounts', -1, 'username'], '').toLowerCase() == username.toLowerCase());
 
@@ -67,7 +67,7 @@ class LoadMoreMedia extends ImmutablePureComponent {
         disabled={this.props.disabled}
         onClick={this.handleLoadMore}
       />
-    );
+    )
   }
 
 }
@@ -86,11 +86,11 @@ class AccountGallery extends ImmutablePureComponent {
     isAccount: PropTypes.bool,
     unavailable: PropTypes.bool,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   state = {
     width: 323,
-  };
+  }
 
   componentDidMount() {
     const { params: { username }, accountId } = this.props;
@@ -158,27 +158,29 @@ class AccountGallery extends ImmutablePureComponent {
     const { width } = this.state;
 
     if (!isAccount && accountId !== -1) {
-      return (<ColumnIndicator type='missing' />);
+      return <ColumnIndicator type='missing' />
     } else if (accountId === -1 || (!attachments && isLoading)) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     } else if (unavailable) {
-      return (<ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />);
+      return <ColumnIndicator type='error' message={intl.formatMessage(messages.error)} />
     }
 
-    let loadOlder = null;
+    let loadOlder = null
 
     if (hasMore && !(isLoading && attachments.size === 0)) {
-      loadOlder = <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />;
+      loadOlder = <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />
     }
 
     return (
       <div className='scrollable-list scrollable-list--flex' onScroll={this.handleScroll}>
         <div role='feed' className='account-gallery__container' ref={this.handleRef}>
-          {attachments.map((attachment, index) => attachment === null ? (
-            <LoadMoreMedia key={'more:' + attachments.getIn(index + 1, 'id')} maxId={index > 0 ? attachments.getIn(index - 1, 'id') : null} onLoadMore={this.handleLoadMore} />
-          ) : (
+          {
+            attachments.map((attachment, index) => attachment === null ? (
+              <LoadMoreMedia key={'more:' + attachments.getIn(index + 1, 'id')} maxId={index > 0 ? attachments.getIn(index - 1, 'id') : null} onLoadMore={this.handleLoadMore} />
+            ) : (
               <MediaItem key={attachment.get('id')} attachment={attachment} displayWidth={width} onOpenMedia={this.handleOpenMedia} />
-            ))}
+            ))
+          }
 
           {
             attachments.size == 0 &&
@@ -190,11 +192,12 @@ class AccountGallery extends ImmutablePureComponent {
           {loadOlder}
         </div>
 
-        {isLoading && attachments.size === 0 && (
+        {
+          isLoading && attachments.size === 0 &&
           <div className='slist__append'>
             <ColumnIndicator type='loading' />
           </div>
-        )}
+        }
       </div>
     );
   }

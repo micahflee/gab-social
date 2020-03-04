@@ -916,7 +916,7 @@ eo:
   themes:
     contrast: Gab Social (Forta kontrasto)
     default: Gab Social (Malluma)
-    gabsocial-light: Gab Social (Luma)
+    gabsocial-light: Luma
   time:
     formats:
       default: "%Y-%m-%d %H:%M"

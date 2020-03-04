@@ -43,7 +43,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
     ]
 
     return (
-      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundcolorSecondary3].join(' ')}>
+      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundColorSecondary3].join(' ')}>
 
         <Sidebar />
 

@@ -747,7 +747,7 @@ es:
   themes:
     contrast: Alto contraste
     default: Gab Social
-    gabsocial-light: Gab Social (claro)
+    gabsocial-light: claro
   time:
     formats:
       default: "%d de %b del %Y, %H:%M"

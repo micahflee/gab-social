@@ -807,7 +807,7 @@ it:
   themes:
     contrast: Gab Social (contrasto elevato)
     default: Gab Social (scuro)
-    gabsocial-light: Gab Social (chiaro)
+    gabsocial-light: chiaro
   time:
     formats:
       default: "%b %d, %Y, %H:%M"

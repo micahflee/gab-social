@@ -1032,7 +1032,7 @@ ru:
   themes:
     contrast: Gab Social (высококонтрастная)
     default: Gab Social (тёмная)
-    gabsocial-light: Gab Social (светлая)
+    gabsocial-light: светлая
   time:
     formats:
       default: "%d %b %Y, %H:%M"

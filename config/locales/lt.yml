@@ -924,7 +924,7 @@ lt:
   themes:
     contrast: Gab Social (Didelio Kontrasto)
     default: Gab Social (Tamsus)
-    gabsocial-light: Gab Social (Šviesus)
+    gabsocial-light: Šviesus
   time:
     formats:
       default: "%b %d, %Y, %H:%M"
