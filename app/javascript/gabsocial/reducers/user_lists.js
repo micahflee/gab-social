@@ -32,7 +32,7 @@ const initialState = ImmutableMap({
   followers: ImmutableMap(),
   following: ImmutableMap(),
   reblogged_by: ImmutableMap(),
-  favourited_by: ImmutableMap(),
+  favorited_by: ImmutableMap(),
   follow_requests: ImmutableMap(),
   blocks: ImmutableMap(),
   mutes: ImmutableMap(),

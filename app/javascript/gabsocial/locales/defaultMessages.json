@@ -323,7 +323,7 @@
       },
       {
         "defaultMessage": "Favorite",
-        "id": "status.favourite"
+        "id": "status.favorite"
       },
       {
         "defaultMessage": "Expand this status",
@@ -650,7 +650,7 @@
       },
       {
         "defaultMessage": "Favorites",
-        "id": "navigation_bar.favourites"
+        "id": "navigation_bar.favorites"
       },
       {
         "defaultMessage": "Lists",
@@ -774,7 +774,7 @@
       },
       {
         "defaultMessage": "Favorites",
-        "id": "navigation_bar.favourites"
+        "id": "navigation_bar.favorites"
       },
       {
         "defaultMessage": "Lists",
@@ -1209,7 +1209,7 @@
     "descriptors": [
       {
         "defaultMessage": "Favorites",
-        "id": "column.favourites"
+        "id": "column.favorites"
       },
       {
         "defaultMessage": "You don't have any favorite gabs yet. When you favorite one, it will show up here.",
@@ -1222,7 +1222,7 @@
     "descriptors": [
       {
         "defaultMessage": "No one has favorited this gab yet. When someone does, they will show up here.",
-        "id": "empty_column.favourites"
+        "id": "empty_column.favorites"
       }
     ],
     "path": "app/javascript/gabsocial/features/favourites/index.json"
@@ -1315,7 +1315,7 @@
       },
       {
         "defaultMessage": "Favorites",
-        "id": "navigation_bar.favourites"
+        "id": "navigation_bar.favorites"
       },
       {
         "defaultMessage": "Blocked users",
@@ -1504,11 +1504,11 @@
       },
       {
         "defaultMessage": "Favorite",
-        "id": "introduction.interactions.favourite.headline"
+        "id": "introduction.interactions.favorite.headline"
       },
       {
         "defaultMessage": "You can save a gab for later, and let the author know that you liked it, by favoriting it.",
-        "id": "introduction.interactions.favourite.text"
+        "id": "introduction.interactions.favorite.text"
       },
       {
         "defaultMessage": "Finish tutorial!",
@@ -1545,7 +1545,7 @@
       },
       {
         "defaultMessage": "to favorite",
-        "id": "keyboard_shortcuts.favourite"
+        "id": "keyboard_shortcuts.favorite"
       },
       {
         "defaultMessage": "to repost",
@@ -1621,7 +1621,7 @@
       },
       {
         "defaultMessage": "to open favorites list",
-        "id": "keyboard_shortcuts.favourites"
+        "id": "keyboard_shortcuts.favorites"
       },
       {
         "defaultMessage": "to open pinned gabs list",
@@ -1807,7 +1807,7 @@
       },
       {
         "defaultMessage": "Favorites:",
-        "id": "notifications.column_settings.favourite"
+        "id": "notifications.column_settings.favorite"
       },
       {
         "defaultMessage": "Mentions:",
@@ -1832,7 +1832,7 @@
       },
       {
         "defaultMessage": "Favorites",
-        "id": "notifications.filter.favourites"
+        "id": "notifications.filter.favorites"
       },
       {
         "defaultMessage": "Reposts",
@@ -1861,7 +1861,7 @@
       },
       {
         "defaultMessage": "{name} favorited your status",
-        "id": "notification.favourite"
+        "id": "notification.favorite"
       },
       {
         "defaultMessage": "{name} reposted your status",
@@ -1971,7 +1971,7 @@
       },
       {
         "defaultMessage": "Favorite",
-        "id": "status.favourite"
+        "id": "status.favorite"
       },
       {
         "defaultMessage": "Mute @{name}",
@@ -2328,7 +2328,7 @@
       },
       {
         "defaultMessage": "Favorites",
-        "id": "navigation_bar.favourites"
+        "id": "navigation_bar.favorites"
       },
       {
         "defaultMessage": "Lists",
