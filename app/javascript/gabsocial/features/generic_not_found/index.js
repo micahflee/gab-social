@@ -1,1 +1,0 @@
-export { default } from '../generic_not_found'

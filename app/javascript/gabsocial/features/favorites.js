@@ -1,12 +1,12 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
-import { fetchReposts } from '../../actions/interactions';
-import { fetchStatus } from '../../actions/statuses';
-import { makeGetStatus } from '../../selectors';
-import AccountContainer from '../../containers/account_container';
-import ColumnIndicator from '../../components/column_indicator';
-import ScrollableList from '../../components/scrollable_list';
+import { fetchReposts } from '../actions/interactions';
+import { fetchStatus } from '../actions/statuses';
+import { makeGetStatus } from '../selectors';
+import AccountContainer from '../containers/account_container';
+import ColumnIndicator from '../components/column_indicator';
+import ScrollableList from '../components/scrollable_list';
 
 const mapStateToProps = (state, props) => {
   const getStatus = makeGetStatus();

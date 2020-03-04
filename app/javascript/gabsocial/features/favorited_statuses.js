@@ -2,10 +2,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { debounce } from 'lodash'
-import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../../actions/favorites'
-import { meUsername } from '../../initial_state'
-import StatusList from '../../components/status_list'
-import ColumnIndicator from '../../components/column_indicator'
+import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../actions/favorites'
+import { meUsername } from '../initial_state'
+import StatusList from '../components/status_list'
+import ColumnIndicator from '../components/column_indicator'
 
 const mapStateToProps = (state, { params: { username } }) => {
   return {

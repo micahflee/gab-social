@@ -6,10 +6,10 @@ import {
 	expandMembers,
 	updateRole,
 	createRemovedAccount,
-} from '../../actions/groups';
+} from '../actions/groups';
 import { FormattedMessage } from 'react-intl';
-import AccountContainer from '../../containers/account_container';
-import ScrollableList from '../../components/scrollable_list';
+import AccountContainer from '../containers/account_container';
+import ScrollableList from '../components/scrollable_list';
 
 const mapStateToProps = (state, { params: { id } }) => ({
 	group: state.getIn(['groups', id]),

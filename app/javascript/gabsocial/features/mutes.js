@@ -51,9 +51,11 @@ class Mutes extends ImmutablePureComponent {
         hasMore={hasMore}
         emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
       >
-        {accountIds.map(id =>
-          <AccountContainer key={id} id={id} />
-        )}
+        {
+          accountIds.map(id =>
+            <AccountContainer key={id} id={id} />
+          )
+        }
       </ScrollableList>
     )
   }

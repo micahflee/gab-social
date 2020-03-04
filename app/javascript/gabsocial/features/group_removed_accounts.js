@@ -1,15 +1,15 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { debounce } from 'lodash';
-import ColumnIndicator from '../../components/column_indicator';
+import ColumnIndicator from '../components/column_indicator';
 import {
 	fetchRemovedAccounts,
 	expandRemovedAccounts,
 	removeRemovedAccount,
-} from '../../actions/groups';
+} from '../actions/groups';
 import { FormattedMessage } from 'react-intl';
-import AccountContainer from '../../containers/account_container';
-import ScrollableList from '../../components/scrollable_list';
+import AccountContainer from '../containers/account_container';
+import ScrollableList from '../components/scrollable_list';
 import { defineMessages, injectIntl } from 'react-intl';
 
 const messages = defineMessages({

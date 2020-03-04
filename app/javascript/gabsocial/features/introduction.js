@@ -1,7 +1,7 @@
 import ReactSwipeableViews from 'react-swipeable-views';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-import { closeOnboarding } from '../../actions/onboarding';
+import { closeOnboarding } from '../actions/onboarding';
 
 class FrameWelcome extends Component {
   static propTypes = {

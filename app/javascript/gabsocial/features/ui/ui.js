@@ -18,9 +18,6 @@ import NotificationsContainer from '../../containers/notifications_container'
 import ModalRoot from '../../components/modal/modal_root'
 import PopoverRoot from '../../components/popover/popover_root'
 import UploadArea from '../../components/upload_area'
-// import TrendsPanel from './components/trends_panel'
-// import { WhoToFollowPanel } from '../../components/panel'
-// import LinkFooter from '../../components/link_footer'
 import ProfilePage from '../../pages/profile_page'
 import GroupPage from '../../pages/group_page'
 import GroupsPage from '../../pages/groups_page'
@@ -32,7 +29,6 @@ import ListPage from '../../pages/list_page'
 import ListsPage from '../../pages/lists_page'
 import BasicPage from '../../pages/basic_page'
 import SettingsPage from '../../pages/settings_page'
-// import GroupSidebarPanel from '../groups/sidebar_panel'
 
 import {
   AccountGallery,
@@ -40,7 +36,6 @@ import {
   Blocks,
   CommunityTimeline,
   DomainBlocks,
-  Explore,
   Favorites,
   FavoritedStatuses,
   Followers,
