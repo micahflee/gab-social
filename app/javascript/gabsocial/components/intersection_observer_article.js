@@ -1,4 +1,5 @@
 import { is } from 'immutable';
+import { setHeight } from '../actions/height_cache';
 import scheduleIdleTask from '../utils/schedule_idle_task';
 import getRectFromEntry from '../utils/get_rect_from_entry';
 
@@ -7,7 +8,21 @@ const updateOnPropsForRendered = ['id', 'index', 'listLength'];
 // Diff these props in the "unrendered" state
 const updateOnPropsForUnrendered = ['id', 'index', 'listLength', 'cachedHeight'];
 
-export default class IntersectionObserverArticle extends Component {
+const makeMapStateToProps = (state, props) => ({
+  cachedHeight: state.getIn(['height_cache', props.saveHeightKey, props.id]),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onHeightChange (key, id, height) {
+    dispatch(setHeight(key, id, height));
+  },
+
+});
+
+export default
+@connect(makeMapStateToProps, mapDispatchToProps)
+class IntersectionObserverArticle extends Component {
 
   static propTypes = {
     intersectionObserverWrapper: PropTypes.object.isRequired,

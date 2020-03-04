@@ -6,9 +6,12 @@ const { sync } = require('glob');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const AssetsManifestPlugin = require('webpack-assets-manifest');
 const extname = require('path-complete-extname');
-const { env, settings, themes, output } = require('./configuration');
+const { env, settings, output } = require('./configuration');
 const rules = require('./rules');
-const localePackPaths = require('./generateLocalePacks');
+const localePackPaths = [
+  '/Users/m3/Documents/dev/gab-social/tmp/packs/locale_en.js',
+];
+//require('./generateLocalePacks');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);

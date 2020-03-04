@@ -8,9 +8,6 @@ const { readFileSync } = require('fs');
 const configPath = resolve('config', 'webpacker.yml');
 const settings = safeLoad(readFileSync(configPath), 'utf8')[env.RAILS_ENV || env.NODE_ENV];
 
-const themePath = resolve('config', 'themes.yml');
-const themes = safeLoad(readFileSync(themePath), 'utf8');
-
 function removeOuterSlashes(string) {
   return string.replace(/^\/*/, '').replace(/\/*$/, '');
 }
@@ -31,7 +28,6 @@ const output = {
 
 module.exports = {
   settings,
-  themes,
   env: {
     CDN_HOST: env.CDN_HOST,
     NODE_ENV: env.NODE_ENV,

@@ -37,8 +37,6 @@ import { ColumnHeader } from '../../components/column_header';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status';
 import Icon from '../../components/icon';
 import ColumnIndicator from '../../components/column_indicator';
-import DetailedStatus from './components/detailed_status';
-import ActionBar from './components/detailed_status_action_bar';
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
