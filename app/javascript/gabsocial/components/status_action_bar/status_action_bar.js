@@ -20,11 +20,11 @@ const messages = defineMessages({
   more: { id: 'status.more', defaultMessage: 'More' },
   share: { id: 'status.share', defaultMessage: 'Share' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
-  reblog: { id: 'status.reblog', defaultMessage: 'Repost' },
+  repost: { id: 'repost', defaultMessage: 'Repost' },
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
-  reblog_private: { id: 'status.reblog_private', defaultMessage: 'Repost to original audience' },
-  cancel_reblog_private: { id: 'status.cancel_reblog_private', defaultMessage: 'Un-repost' },
-  cannot_reblog: { id: 'status.cannot_reblog', defaultMessage: 'This post cannot be reposted' },
+  repost_private: { id: 'status.repost_private', defaultMessage: 'Repost to original audience' },
+  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Un-repost' },
+  cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },
@@ -126,8 +126,8 @@ class StatusActionBar extends ImmutablePureComponent {
     const replyIcon = (status.get('in_reply_to_id', null) === null) ? 'reply' : 'reply-all'
     const replyTitle = (status.get('in_reply_to_id', null) === null) ? formatMessage(messages.reply) : formatMessage(messages.replyAll)
 
-    const reblogCount = status.get('reblogs_count')
-    const reblogTitle = !publicStatus ? formatMessage(messages.cannot_reblog) : formatMessage(messages.reblog)
+    const repostCount = status.get('reblogs_count')
+    const repostTitle = !publicStatus ? formatMessage(messages.cannot_repost) : formatMessage(messages.repost)
 
     const favoriteCount = status.get('favorites_count') // : todo :
 
@@ -149,7 +149,7 @@ class StatusActionBar extends ImmutablePureComponent {
         onClick: this.handleReplyClick,
       },
       {
-        title: reblogTitle,
+        title: repostTitle,
         icon: (status.get('visibility') === 'private') ? 'lock' : 'repost',
         disabled: !publicStatus,
         active: !!status.get('reblogged'),
@@ -163,7 +163,7 @@ class StatusActionBar extends ImmutablePureComponent {
       },
     ]
 
-    const hasInteractions = favoriteCount > 0 || replyCount > 0 || reblogCount > 0
+    const hasInteractions = favoriteCount > 0 || replyCount > 0 || repostCount > 0
     const shouldCondense = (!!status.get('card') || status.get('media_attachments').size > 0) && !hasInteractions
 
     const containerClasses = cx({
@@ -211,9 +211,9 @@ class StatusActionBar extends ImmutablePureComponent {
                 &nbsp;Comments
               </button>
             }
-            {reblogCount > 0 &&
+            {repostCount > 0 &&
               <button className={interactionBtnClasses}>
-                {reblogCount}
+                {repostCount}
                 &nbsp;Reposts
               </button>
             }

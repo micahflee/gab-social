@@ -67,12 +67,12 @@ export default class ColumnSettings extends ImmutablePureComponent {
           <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'mention']} onChange={onChange} label={soundStr} />
         </div>
 
-        <div role='group' aria-labelledby='notifications-reblog'>
-          <FormattedMessage id='notifications.column_settings.reblog' defaultMessage='Reposts:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'reblog']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'reblog']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'reblog']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'reblog']} onChange={onChange} label={soundStr} />
+        <div role='group' aria-labelledby='notifications-repost'>
+          <FormattedMessage id='notifications.column_settings.repost' defaultMessage='Reposts:' />
+          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'repost']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'repost']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'repost']} onChange={onChange} label={showStr} />
+          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'repost']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-poll'>

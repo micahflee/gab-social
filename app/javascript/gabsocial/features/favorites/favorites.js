@@ -55,8 +55,8 @@ class Favorites extends ImmutablePureComponent {
 
     return (
       <ScrollableList
-        scrollKey='reblogs'
-        emptyMessage={<FormattedMessage id='status.reblogs.empty' defaultMessage='No one has reposted this gab yet. When someone does, they will show up here.' />}
+        scrollKey='reposts'
+        emptyMessage={<FormattedMessage id='status.reposts.empty' defaultMessage='No one has reposted this gab yet. When someone does, they will show up here.' />}
       >
         {
           accountIds.map(id =>

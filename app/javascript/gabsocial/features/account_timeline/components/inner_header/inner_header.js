@@ -27,8 +27,8 @@ const messages = defineMessages({
   media: { id: 'account.media', defaultMessage: 'Media' },
   blockDomain: { id: 'account.block_domain', defaultMessage: 'Hide everything from {domain}' },
   unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unhide {domain}' },
-  hideReblogs: { id: 'account.hide_reblogs', defaultMessage: 'Hide reposts from @{name}' },
-  showReblogs: { id: 'account.show_reblogs', defaultMessage: 'Show reposts from @{name}' },
+  hideReposts: { id: 'account.hide_reblogs', defaultMessage: 'Hide reposts from @{name}' },
+  showReposts: { id: 'account.show_reblogs', defaultMessage: 'Show reposts from @{name}' },
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
@@ -114,9 +114,9 @@ class Header extends ImmutablePureComponent {
     } else {
       if (account.getIn(['relationship', 'following'])) {
         if (account.getIn(['relationship', 'showing_reblogs'])) {
-          menu.push({ text: intl.formatMessage(messages.hideReblogs, { name: account.get('username') }), action: this.props.onRepostToggle });
+          menu.push({ text: intl.formatMessage(messages.hideReposts, { name: account.get('username') }), action: this.props.onRepostToggle });
         } else {
-          menu.push({ text: intl.formatMessage(messages.showReblogs, { name: account.get('username') }), action: this.props.onRepostToggle });
+          menu.push({ text: intl.formatMessage(messages.showReposts, { name: account.get('username') }), action: this.props.onRepostToggle });
         }
 
         menu.push({ text: intl.formatMessage(messages.add_or_remove_from_list), action: this.props.onAddToList });

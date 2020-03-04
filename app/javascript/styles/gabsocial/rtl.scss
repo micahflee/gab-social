@@ -156,7 +156,7 @@ body.rtl {
   }
 
   .detailed-status__favorites,
-  .detailed-status__reblogs {
+  .detailed-status__reposts {
     @include horizontal-margin(0, 6px);
   }
 

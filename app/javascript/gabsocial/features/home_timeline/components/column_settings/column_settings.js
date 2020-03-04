@@ -36,9 +36,9 @@ class ColumnSettings extends ImmutablePureComponent {
         <SettingToggle
           prefix='home_timeline'
           settings={settings}
-          settingPath={['shows', 'reblog']}
+          settingPath={['shows', 'repost']}
           onChange={onChange}
-          label={<FormattedMessage id='home.column_settings.show_reblogs' defaultMessage='Show reposts' />}
+          label={<FormattedMessage id='home.column_settings.show_reposts' defaultMessage='Show reposts' />}
         />
 
         <SettingToggle

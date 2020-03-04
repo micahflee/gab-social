@@ -307,19 +307,19 @@
       },
       {
         "defaultMessage": "Repost",
-        "id": "status.reblog"
+        "id": "status.repost"
       },
       {
         "defaultMessage": "Repost to original audience",
-        "id": "status.reblog_private"
+        "id": "status.repost_private"
       },
       {
         "defaultMessage": "Un-repost",
-        "id": "status.cancel_reblog_private"
+        "id": "status.cancel_repost_private"
       },
       {
         "defaultMessage": "This post cannot be reposted",
-        "id": "status.cannot_reblog"
+        "id": "status.cannot_repost"
       },
       {
         "defaultMessage": "Favorite",
@@ -410,7 +410,7 @@
       },
       {
         "defaultMessage": "{name} reposted",
-        "id": "status.reblogged_by"
+        "id": "status.reposted_by"
       },
       {
         "defaultMessage": "Show thread",
@@ -630,11 +630,11 @@
       },
       {
         "defaultMessage": "Hide reposts from @{name}",
-        "id": "account.hide_reblogs"
+        "id": "account.hide_reposts"
       },
       {
         "defaultMessage": "Show reposts from @{name}",
-        "id": "account.show_reblogs"
+        "id": "account.show_reposts"
       },
       {
         "defaultMessage": "Pinned gabs",
@@ -1216,7 +1216,7 @@
         "id": "empty_column.favorited_statuses"
       }
     ],
-    "path": "app/javascript/gabsocial/features/favourited_statuses/index.json"
+    "path": "app/javascript/gabsocial/features/favorited_statuses/index.json"
   },
   {
     "descriptors": [
@@ -1418,7 +1418,7 @@
       },
       {
         "defaultMessage": "Show reposts",
-        "id": "home.column_settings.show_reblogs"
+        "id": "home.column_settings.show_reposts"
       },
       {
         "defaultMessage": "Show replies",
@@ -1496,11 +1496,11 @@
       },
       {
         "defaultMessage": "Repost",
-        "id": "introduction.interactions.reblog.headline"
+        "id": "introduction.interactions.repost.headline"
       },
       {
         "defaultMessage": "You can share other people's gabs with your followers by reposting them.",
-        "id": "introduction.interactions.reblog.text"
+        "id": "introduction.interactions.repost.text"
       },
       {
         "defaultMessage": "Favorite",
@@ -1815,7 +1815,7 @@
       },
       {
         "defaultMessage": "Reposts:",
-        "id": "notifications.column_settings.reblog"
+        "id": "notifications.column_settings.repost"
       },
       {
         "defaultMessage": "Poll results:",
@@ -1865,7 +1865,7 @@
       },
       {
         "defaultMessage": "{name} reposted your status",
-        "id": "notification.reblog"
+        "id": "notification.repost"
       },
       {
         "defaultMessage": "A poll you have voted in has ended",
@@ -1926,7 +1926,7 @@
     "descriptors": [
       {
         "defaultMessage": "No one has reposted this gab yet. When someone does, they will show up here.",
-        "id": "status.reblogs.empty"
+        "id": "status.reposts.empty"
       }
     ],
     "path": "app/javascript/gabsocial/features/reblogs/index.json"
@@ -1955,19 +1955,19 @@
       },
       {
         "defaultMessage": "Repost",
-        "id": "status.reblog"
+        "id": "status.repost"
       },
       {
         "defaultMessage": "Repost to original audience",
-        "id": "status.reblog_private"
+        "id": "status.repost_private"
       },
       {
         "defaultMessage": "Un-repost",
-        "id": "status.cancel_reblog_private"
+        "id": "status.cancel_repost_private"
       },
       {
         "defaultMessage": "This post cannot be reposted",
-        "id": "status.cannot_reblog"
+        "id": "status.cannot_repost"
       },
       {
         "defaultMessage": "Favorite",
@@ -2122,11 +2122,11 @@
     "descriptors": [
       {
         "defaultMessage": "Un-repost",
-        "id": "status.cancel_reblog_private"
+        "id": "status.cancel_repost_private"
       },
       {
         "defaultMessage": "Repost",
-        "id": "status.reblog"
+        "id": "status.repost"
       },
       {
         "defaultMessage": "You can press {combo} to skip this next time",

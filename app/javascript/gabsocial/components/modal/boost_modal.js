@@ -9,8 +9,8 @@ import DisplayName from '../display_name';
 import Icon from '../icon';
 
 const messages = defineMessages({
-  cancel_reblog: { id: 'status.cancel_reblog_private', defaultMessage: 'Un-repost' },
-  reblog: { id: 'status.reblog', defaultMessage: 'Repost' },
+  cancel_repost: { id: 'status.cancel_repost_private', defaultMessage: 'Un-repost' },
+  repost: { id: 'status.repost', defaultMessage: 'Repost' },
   combo: { id: 'boost_modal.combo', defaultMessage: 'You can press {combo} to skip this next time' },
 });
 
@@ -60,7 +60,7 @@ class BoostModal extends ImmutablePureComponent {
 
   render () {
     const { status, intl } = this.props;
-    const buttonText = status.get('reblogged') ? messages.cancel_reblog : messages.reblog;
+    const buttonText = status.get('reblogged') ? messages.cancel_repost : messages.repost;
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('url')}`;
 

@@ -15,7 +15,7 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
-      reblog: true,
+      repost: true,
       reply: true,
     }),
 
@@ -34,7 +34,7 @@ const initialState = ImmutableMap({
     alerts: ImmutableMap({
       follow: true,
       favorite: true,
-      reblog: true,
+      repost: true,
       mention: true,
       poll: true,
     }),
@@ -48,7 +48,7 @@ const initialState = ImmutableMap({
     shows: ImmutableMap({
       follow: true,
       favorite: true,
-      reblog: true,
+      repost: true,
       mention: true,
       poll: true,
     }),
@@ -56,7 +56,7 @@ const initialState = ImmutableMap({
     sounds: ImmutableMap({
       follow: true,
       favorite: true,
-      reblog: true,
+      repost: true,
       mention: true,
       poll: true,
     }),

@@ -74,7 +74,7 @@ export const makeGetStatus = () => {
       getFilters,
     ],
 
-    (statusBase, statusReblog, accountBase, accountReblog, username, filters) => {
+    (statusBase, statusRepost, accountBase, accountRepost, username, filters) => {
       if (!statusBase) {
         return null;
       }
@@ -85,17 +85,17 @@ export const makeGetStatus = () => {
         return null;
       }
 
-      if (statusReblog) {
-        statusReblog = statusReblog.set('account', accountReblog);
+      if (statusRepost) {
+        statusRepost = statusRepost.set('account', accountRepost);
       } else {
-        statusReblog = null;
+        statusRepost = null;
       }
 
-      const regex = (accountReblog || accountBase).get('id') !== me && regexFromFilters(filters);
-      const filtered = regex && regex.test(statusBase.get('reblog') ? statusReblog.get('search_index') : statusBase.get('search_index'));
+      const regex = (accountRepost || accountBase).get('id') !== me && regexFromFilters(filters);
+      const filtered = regex && regex.test(statusBase.get('reblog') ? statusRepost.get('search_index') : statusBase.get('search_index'));
 
       return statusBase.withMutations(map => {
-        map.set('reblog', statusReblog);
+        map.set('reblog', statusRepost);
         map.set('account', accountBase);
         map.set('filtered', filtered);
       });

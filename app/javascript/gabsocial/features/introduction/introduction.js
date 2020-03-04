@@ -106,10 +106,10 @@ class FrameInteractions extends Component {
 
           <div>
             <h3>
-              <FormattedMessage id='introduction.interactions.reblog.headline' defaultMessage='Repost' />
+              <FormattedMessage id='introduction.interactions.repost.headline' defaultMessage='Repost' />
             </h3>
             <p>
-              <FormattedMessage id='introduction.interactions.reblog.text' defaultMessage="You can share other people's gabs with your followers by reposting them." />
+              <FormattedMessage id='introduction.interactions.repost.text' defaultMessage="You can share other people's gabs with your followers by reposting them." />
             </p>
           </div>
 

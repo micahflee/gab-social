@@ -60,7 +60,7 @@ import {
   ListTimeline,
   Mutes,
   Notifications,
-  Reblogs,
+  Reposts,
   Search,
   Status,
 } from './util/async-components'

@@ -178,14 +178,14 @@ class Notification extends ImmutablePureComponent {
 
     return (
       <HotKeys handlers={this.getHandlers()}>
-        <div className='notification notification--reblog focusable' tabIndex='0' aria-label={notificationForScreenReader(intl, intl.formatMessage({ id: 'notification.reblog', defaultMessage: '{name} reposted your status' }, { name: notification.getIn(['account', 'acct']) }), notification.get('created_at'))}>
+        <div className='notification notification--repost focusable' tabIndex='0' aria-label={notificationForScreenReader(intl, intl.formatMessage({ id: 'notification.repost', defaultMessage: '{name} reposted your status' }, { name: notification.getIn(['account', 'acct']) }), notification.get('created_at'))}>
           <div className='notification__message'>
             <div className='notification__favorite-icon-wrapper'>
               <Icon id='retweet' fixedWidth />
             </div>
 
             <span title={notification.get('created_at')}>
-              <FormattedMessage id='notification.reblog' defaultMessage='{name} reposted your status' values={{ name: link }} />
+              <FormattedMessage id='notification.repost' defaultMessage='{name} reposted your status' values={{ name: link }} />
             </span>
           </div>
           { /*

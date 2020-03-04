@@ -340,7 +340,7 @@ class Status extends ImmutablePureComponent {
             <Icon id='retweet' className='status__prepend-icon' fixedWidth />
           </div>
           {/*<FormattedMessage
-            id='status.reblogged_by'
+            id='status.reposted_by'
             defaultMessage='{name} reposted'
             values={{
               name: (
@@ -356,7 +356,7 @@ class Status extends ImmutablePureComponent {
       );
 
       rebloggedByText = intl.formatMessage(
-        { id: 'status.reblogged_by', defaultMessage: '{name} reposted' },
+        { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
         { name: status.getIn(['account', 'acct']) }
       );
 
