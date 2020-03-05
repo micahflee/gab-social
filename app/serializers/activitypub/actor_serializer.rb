@@ -92,13 +92,13 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   end
 
   def icon
+    return object.avatar if object.avatar?
     return object.avatar_remote_url if is_gab_avatar?
-    object.avatar
   end
 
   def image
+    return object.header if object.header?
     return object.header_remote_url if is_gab_header?
-    object.header
   end
 
   def public_key
@@ -118,11 +118,11 @@ class ActivityPub::ActorSerializer < ActivityPub::Serializer
   end
 
   def is_gab_avatar?
-    object.avatar_remote_url&.start_with?('gab://')
+    object.avatar_remote_url&.start_with?('gab://') or false
   end
 
   def is_gab_header?
-    object.header_remote_url&.start_with?('gab://')
+    object.header_remote_url&.start_with?('gab://') or false
   end
 
   def manually_approves_followers
