@@ -55,11 +55,11 @@ export function GroupsCollection() {
 }
 
 export function GroupCreate() {
-  return import(/* webpackChunkName: "features/groups_create" */'../../group_create')
+  return import(/* webpackChunkName: "features/group_create" */'../../group_create')
 }
 
 export function GroupEdit() {
-  return import(/* webpackChunkName: "features/groups/timeline" */'../../groups/edit')
+  return import(/* webpackChunkName: "features/group_edit" */'../../group_edit')
 }
 
 export function GroupMembers() {
@@ -82,16 +82,16 @@ export function HomeTimeline() {
   return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline')
 }
 
-export function ListAdder() {
-  return import(/*webpackChunkName: "features/list_adder" */'../../list_adder')
+export function ListCreate() {
+  return import(/* webpackChunkName: "features/list_create" */'../../list_create')
 }
 
 export function ListsDirectory() {
   return import(/* webpackChunkName: "features/lists_directory" */'../../lists_directory')
 }
 
-export function ListEditor() {
-  return import(/* webpackChunkName: "features/list_editor" */'../../list_editor')
+export function ListEdit() {
+  return import(/* webpackChunkName: "features/list_editor" */'../../list_edit')
 }
 
 export function ListTimeline() {

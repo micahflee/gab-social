@@ -28,6 +28,7 @@ import NotificationsPage from '../../pages/notifications_page'
 import ListPage from '../../pages/list_page'
 import ListsPage from '../../pages/lists_page'
 import BasicPage from '../../pages/basic_page'
+import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
 
 import {
@@ -51,7 +52,9 @@ import {
   GroupTimeline,
   HashtagTimeline,
   HomeTimeline,
+  ListCreate,
   ListsDirectory,
+  ListEdit,
   ListTimeline,
   Mutes,
   Notifications,
@@ -141,18 +144,21 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/timeline/all' exact page={BasicPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Hashtag Timeline' }} />
 
         <WrappedRoute path='/groups' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/new' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'new' }} />
         <WrappedRoute path='/groups/browse/member' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'member' }} />
         <WrappedRoute path='/groups/browse/admin' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'admin' }} />
 
-        <WrappedRoute path='/groups/create' page={GroupsPage} component={GroupCreate} content={children} componentParams={{ showCreateForm: true, activeTab: 'featured' }} />
+        <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
         <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
-        <WrappedRoute path='/groups/:id/edit' page={GroupPage} component={GroupEdit} content={children} />
+        <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupEdit} content={children} componentParams={{ title: 'Edit Group' }} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
         <WrappedRoute path='/tags/:id' publicRoute page={BasicPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
+        <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List' }} />
+        <WrappedRoute path='/lists/:id/edit' exact page={ModalPage} component={ListEdit} content={children} componentParams={{ title: 'Edit List' }} />
         <WrappedRoute path='/list/:id' page={ListPage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' exact page={NotificationsPage} component={Notifications} content={children} />
@@ -162,7 +168,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/groups' exact page={SearchPage} component={Search} content={children} />
 
-        {/*
+        { /*
         <WrappedRoute path='/settings/account' exact page={SettingsPage} component={AccountSettings} content={children} />
         <WrappedRoute path='/settings/profile' exact page={SettingsPage} component={ProfileSettings} content={children} />
         <WrappedRoute path='/settings/domain_blocks' exact page={SettingsPage} component={DomainBlocks} content={children} />

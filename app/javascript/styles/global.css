@@ -405,6 +405,14 @@ body {
   user-select: none;
 }
 
+.resizeVertical {
+  resize: vertical;
+}
+
+.heightMax100VH {
+  max-height: 100vh;
+}
+
 .heightMin100VH {
   min-height: 100vh;
 }
@@ -713,6 +721,10 @@ body {
 
 .marginLeft15PX {
   margin-left: 15px;
+}
+
+.marginLeft10PX {
+  margin-left: 10px;
 }
 
 .marginLeftAuto {

@@ -6,7 +6,7 @@ import { setupListAdder, resetListAdder } from '../../actions/lists';
 import List from './components/list';
 import Account from '../../components/account';
 import IconButton from '../../components/icon_button';
-import NewListForm from '../lists_directory/components/new_list_form';
+// import NewListForm from '../lists_directory/components/new_list_form';
 
 const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   if (!lists) {
@@ -67,7 +67,9 @@ class ListAdder extends ImmutablePureComponent {
     return (
       <div className='modal-root__modal compose-modal'>
         <div className='compose-modal__header'>
-          <h3 className='compose-modal__header__title'>{intl.formatMessage(messages.headerTitle)}</h3>
+          <h3 className='compose-modal__header__title'>
+            {intl.formatMessage(messages.headerTitle)}
+          </h3>
           <IconButton className='compose-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={this.onClickClose} size={20} />
         </div>
         <div className='compose-modal__content'>
@@ -78,12 +80,14 @@ class ListAdder extends ImmutablePureComponent {
 
             <br />
 
-            <NewListForm />
+            { /* <NewListForm /> */ }
 
             <br />
 
             <div className='list-adder__lists'>
-              {listIds.map(ListId => <List key={ListId} listId={ListId} />)}
+              {
+                listIds.map(ListId => <List key={ListId} listId={ListId} />)
+              }
             </div>
           </div>
         </div>

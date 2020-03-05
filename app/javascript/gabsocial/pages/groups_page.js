@@ -22,6 +22,10 @@ export default class GroupsPage extends PureComponent {
         to: '/groups'
       },
       {
+        title: 'New',
+        to: '/groups/new'
+      },
+      {
         title: 'My Groups',
         to: '/groups/browse/member'
       },

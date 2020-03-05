@@ -1,9 +1,11 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import { changeValue, submit, reset } from '../../actions/group_editor'
-import Block from '../../components/block'
-import Button from '../../components/button'
-import Icon from '../../components/icon'
-import Input from '../../components/icon'
+import { changeValue, submit, reset } from '../actions/group_editor'
+import Button from '../components/button'
+import Divider from '../components/divider'
+import Input from '../components/input'
+import Text from '../components/text'
+import Textarea from '../components/textarea'
+import FileInput from '../components/file_input'
 
 const messages = defineMessages({
 	title: { id: 'groups.form.title', defaultMessage: 'Enter a new group title' },
@@ -69,45 +71,55 @@ class Create extends PureComponent {
 	}
 
 	render() {
-		const { title, description, coverImage, disabled, intl } = this.props
+		const {
+			title,
+			description,
+			coverImage,
+			disabled,
+			intl
+		} = this.props
 
 		return (
-			<Block>
-				<form className='group-form' onSubmit={this.handleSubmit}>
-					<div>
-						<Input
-							type='text'
-							value={title}
-							disabled={disabled}
-							onChange={this.handleTitleChange}
-							placeholder={intl.formatMessage(messages.title)}
-						/>
-					</div>
-					<div>
-						<textarea
-							className='standard'
-							type='text'
-							value={description}
-							disabled={disabled}
-							onChange={this.handleDescriptionChange}
-							placeholder={intl.formatMessage(messages.description)}
-						/>
-					</div>
-					<div>
-						<label htmlFor='group_cover_image' className='group-form__file-label--selected'>
-							{intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
-						</label>
-						<input
-							type='file'
-							className='group-form__file'
-							id='group_cover_image'
-							disabled={disabled}
-							onChange={this.handleCoverImageChange}
-						/>
-						<button className='button'>{intl.formatMessage(messages.create)}</button>
-					</div>
-				</form>
-			</Block>
+			<form onSubmit={this.handleSubmit}>
+				<Input
+					title={intl.formatMessage(messages.title)}
+					value={title}
+					disabled={disabled}
+					onChange={this.handleTitleChange}
+					placeholder={'New group title...'}
+				/>
+
+				<Divider invisible />
+
+				<Textarea
+					title={intl.formatMessage(messages.description)}
+					value={description}
+					disabled={disabled}
+					onChange={this.handleDescriptionChange}
+					placeholder={'Some group description...'}
+				/>
+
+				<Divider invisible />
+
+				<FileInput
+					title={intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
+					disabled={disabled}
+					onChange={this.handleCoverImageChange}
+					width='340px'
+					height='145px'
+				/>
+
+				<Divider invisible />
+
+				<Button
+					className={_s.marginLeft10PX}
+				>
+					<Text color='white'>
+						{intl.formatMessage(messages.create)}
+					</Text>
+				</Button>
+
+			</form>
 		)
 	}
 

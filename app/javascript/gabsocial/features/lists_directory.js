@@ -2,9 +2,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { createSelector } from 'reselect'
 import { defineMessages, injectIntl } from 'react-intl'
-import { fetchLists } from '../../actions/lists'
-import ColumnIndicator from '../../components/column_indicator'
-import List from '../../components/list'
+import { fetchLists } from '../actions/lists'
+import ColumnIndicator from '../components/column_indicator'
+import List from '../components/list'
 
 const messages = defineMessages({
   add: { id: 'lists.new.create', defaultMessage: 'Add List' },

@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { changeValue, submit, setUp } from '../../../actions/group_editor';
+import { changeValue, submit, setUp } from '../../actions/group_editor';
 import { defineMessages, injectIntl } from 'react-intl';
-import ColumnIndicator from '../../../components/column_indicator';
+import ColumnIndicator from '../../components/column_indicator';
 import classNames from 'classnames';
 
 const messages = defineMessages({
