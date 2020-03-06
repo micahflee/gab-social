@@ -1,6 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl';
 import { changeListEditorTitle, submitListEditor } from '../../../../actions/lists';
-import ColumnInlineForm from '../../../../components/column_inline_form';
 
 const messages = defineMessages({
   title: { id: 'lists.edit.submit', defaultMessage: 'Change title' },
@@ -33,16 +32,18 @@ class ListForm extends PureComponent {
   render () {
     const { value, disabled, intl, onSubmit, onChange } = this.props;
 
-    return (
-      <ColumnInlineForm
-        value={value}
-        onChange={onChange}
-        onSubmit={onSubmit}
-        label={intl.formatMessage(messages.title)}
-        btnTitle={intl.formatMessage(messages.save)}
-        disabled={disabled}
-      />
-    );
+    return null;
+
+    // return (
+    //   <ColumnInlineForm
+    //     value={value}
+    //     onChange={onChange}
+    //     onSubmit={onSubmit}
+    //     label={intl.formatMessage(messages.title)}
+    //     btnTitle={intl.formatMessage(messages.save)}
+    //     disabled={disabled}
+    //   />
+    // );
   }
 
 }

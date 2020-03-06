@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import StatusContent from '../status_content';
-import DisplayName from '../display_name';
+import StatusContent from './status_content';
+import DisplayName from './display_name';
 import { NavLink } from 'react-router-dom';
 
 const mapStateToProps = (state, { id }) => ({

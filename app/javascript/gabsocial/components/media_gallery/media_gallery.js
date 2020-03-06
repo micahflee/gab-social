@@ -27,17 +27,17 @@ class Item extends ImmutablePureComponent {
     displayWidth: PropTypes.number,
     visible: PropTypes.bool.isRequired,
     dimensions: PropTypes.object,
-  };
+  }
 
   static defaultProps = {
     standalone: false,
     index: 0,
     size: 1,
-  };
+  }
 
   state = {
     loaded: false,
-  };
+  }
 
   handleMouseEnter = (e) => {
     if (this.hoverToPlay()) {

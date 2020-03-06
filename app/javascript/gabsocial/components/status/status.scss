@@ -28,11 +28,6 @@
     margin-top: 8px;
   }
 
-  &.status-direct:not(.read) {
-    background: lighten($ui-base-color, 8%);
-    border-bottom-color: lighten($ui-base-color, 12%);
-  }
-
   &.light {
     .status__relative-time {
       color: $light-text-color;

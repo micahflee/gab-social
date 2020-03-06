@@ -2,11 +2,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
-import { openModal } from '../../actions/modal'
-import { me, isStaff } from '../../initial_state'
-import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
-import Icon from '../icon'
-import StatusActionBarItem from '../status_action_bar_item'
+import { openModal } from '../actions/modal'
+import { me, isStaff } from '../initial_state'
+import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import Icon from './icon'
+import StatusActionBarItem from './status_action_bar_item'
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },

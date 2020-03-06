@@ -1,5 +1,9 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import { changeValue, submit, reset } from '../actions/group_editor'
+import isObject from 'lodash.isobject'
+import { changeValue, submit, setUp, reset } from '../actions/group_editor'
+import ColumnIndicator from '../components/column_indicator';
 import Button from '../components/button'
 import Divider from '../components/divider'
 import Input from '../components/input'
@@ -13,14 +17,25 @@ const messages = defineMessages({
 	coverImage: { id: 'groups.form.coverImage', defaultMessage: 'Upload a banner image' },
 	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Banner image selected' },
 	create: { id: 'groups.form.create', defaultMessage: 'Create group' },
+	update: { id: 'groups.form.update', defaultMessage: 'Update group' },
 })
 
-const mapStateToProps = state => ({
-	title: state.getIn(['group_editor', 'title']),
-	description: state.getIn(['group_editor', 'description']),
-	coverImage: state.getIn(['group_editor', 'coverImage']),
-	disabled: state.getIn(['group_editor', 'isSubmitting']),
-})
+const mapStateToProps = (state, { params }) => {
+
+	console.log('params:', params)
+
+	const groupId = isObject(params) ? params['id'] : null
+	const group = state.getIn(['groups', groupId])
+
+	return {
+		group,
+		error: groupId && !group,
+		title: state.getIn(['group_editor', 'title']),
+		description: state.getIn(['group_editor', 'description']),
+		coverImage: state.getIn(['group_editor', 'coverImage']),
+		disabled: state.getIn(['group_editor', 'isSubmitting']),
+	}
+}
 
 const mapDispatchToProps = dispatch => ({
 	onTitleChange: value => dispatch(changeValue('title', value)),
@@ -28,18 +43,20 @@ const mapDispatchToProps = dispatch => ({
 	onCoverImageChange: value => dispatch(changeValue('coverImage', value)),
 	onSubmit: routerHistory => dispatch(submit(routerHistory)),
 	reset: () => dispatch(reset()),
+	setUp: group => dispatch(setUp(group)),
 })
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Create extends PureComponent {
+class Create extends ImmutablePureComponent {
 
 	static contextTypes = {
 		router: PropTypes.object
 	}
 
 	static propTypes = {
+		group: ImmutablePropTypes.map,
 		title: PropTypes.string.isRequired,
 		description: PropTypes.string.isRequired,
 		coverImage: PropTypes.object,
@@ -50,7 +67,17 @@ class Create extends PureComponent {
 	}
 
 	componentWillMount() {
-		this.props.reset()
+		if (!this.props.group) {
+			this.props.reset()
+		} else {
+			this.props.setUp(this.props.group)
+		}
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.group !== nextProps.group && !!nextProps.group) {
+			this.props.setUp(nextProps.group)
+		}
 	}
 
 	handleTitleChange = e => {
@@ -72,12 +99,18 @@ class Create extends PureComponent {
 
 	render() {
 		const {
+			group,
+			error,
 			title,
 			description,
 			coverImage,
 			disabled,
 			intl
 		} = this.props
+
+		if (!group && error) {
+			return <ColumnIndicator type='missing' />
+		}
 
 		return (
 			<form onSubmit={this.handleSubmit}>
@@ -115,7 +148,7 @@ class Create extends PureComponent {
 					className={_s.marginLeft10PX}
 				>
 					<Text color='white'>
-						{intl.formatMessage(messages.create)}
+						{intl.formatMessage(!!group ? messages.update : messages.create)}
 					</Text>
 				</Button>
 

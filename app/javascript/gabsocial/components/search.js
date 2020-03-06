@@ -1,12 +1,9 @@
-import classNames from 'classnames/bind'
-import Overlay from 'react-overlays/lib/Overlay'
 import {
   changeSearch,
   clearSearch,
   submitSearch,
   showSearch,
 } from '../actions/search'
-import SearchPopout from './search_popout'
 import Input from './input'
 
 const mapStateToProps = state => ({
@@ -93,9 +90,9 @@ class Search extends PureComponent {
 
         {
           withOverlay &&
-          <Overlay show={expanded && !hasValue} placement='bottom' target={this}>
+          {/*<Overlay show={expanded && !hasValue} placement='bottom' target={this}>
             <SearchPopout />
-          </Overlay>
+        </Overlay>*/}
         }
 
       </div>

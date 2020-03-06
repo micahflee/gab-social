@@ -218,37 +218,6 @@
       @include size(100%, 40x);
     }
 
-    &__progress,
-    &__buffer {
-      display: block;
-      height: 4px;
-      border-radius: 4px;
-      background: lighten($ui-highlight-color, 8%);
-
-      @include abs-position(10px);
-    }
-
-    &__buffer {
-      background: rgba($white, 0.2);
-    }
-
-    &__handle {
-      z-index: 3;
-      opacity: 0;
-      margin-left: -6px;
-      transition: opacity .1s ease;
-      background: lighten($ui-highlight-color, 8%);
-      box-shadow: 1px 2px 6px rgba($base-shadow-color, 0.2);
-      pointer-events: none;
-
-      @include circle(12px);
-      @include abs-position(6px);
-
-      &.active {
-        opacity: 1;
-      }
-    }
-
     &:hover {
       .video-player__seek__handle {
         opacity: 1;

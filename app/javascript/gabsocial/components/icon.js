@@ -15,10 +15,14 @@ export default class Icon extends PureComponent {
     switch (id) {
       case 'add':
         return <I.AddIcon {...options} />
-      case 'apps':
-        return <I.AppsIcon {...options} />
       case 'angle-right':
         return <I.AngleRightIcon {...options} />
+      case 'apps':
+        return <I.AppsIcon {...options} />
+      case 'audio':
+        return <I.AudioIcon {...options} />
+      case 'audio-mute':
+        return <I.AudioMuteIcon {...options} />
       case 'back':
         return <I.BackIcon {...options} />
       case 'calendar':
@@ -35,6 +39,8 @@ export default class Icon extends PureComponent {
         return <I.EllipsisIcon {...options} />
       case 'error':
         return <I.ErrorIcon {...options} />
+      case 'fullscreen':
+        return <I.FullscreenIcon {...options} />
       case 'globe':
         return <I.GlobeIcon {...options} />
       case 'group':
@@ -51,12 +57,16 @@ export default class Icon extends PureComponent {
         return <I.LoadingIcon {...options} />
       case 'media':
         return <I.MediaIcon {...options} />
+      case 'minimize-fullscreen':
+        return <I.MinimizeFullscreenIcon {...options} />
       case 'missing':
         return <I.MissingIcon {...options} />
       case 'more':
         return <I.MoreIcon {...options} />
       case 'notifications':
         return <I.NotificationsIcon {...options} />
+      case 'pause':
+        return <I.PauseIcon {...options} />
       case 'pin':
         return <I.PinIcon {...options} />
       case 'play':

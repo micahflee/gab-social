@@ -2,10 +2,10 @@ import { Fragment } from 'react';
 import { debounce } from 'lodash';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import StatusContainer from '../../containers/status_container';
-import ScrollableList from '../scrollable_list';
-import TimelineQueueButtonHeader from '../timeline_queue_button_header';
-import ColumnIndicator from '../column_indicator';
+import StatusContainer from '../containers/status_container';
+import ScrollableList from './scrollable_list';
+import TimelineQueueButtonHeader from './timeline_queue_button_header';
+import ColumnIndicator from './column_indicator';
 
 export default class StatusList extends ImmutablePureComponent {
 

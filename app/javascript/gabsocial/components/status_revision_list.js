@@ -1,7 +1,6 @@
 
 import { injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import ModalLoading from './modal_loading';
 import RelativeTimestamp from './relative_timestamp';
 
 export default
@@ -17,13 +16,15 @@ class StatusRevisionsList extends ImmutablePureComponent {
   render() {
     const { loading, error, data } = this.props;
 
-    if (loading || !data) return <ModalLoading />;
+    if (loading || !data) return null
 
-    if (error) return (
-      <div className='status-revisions-list'>
-        <div className='status-revisions-list__error'>An error occured</div>
-      </div>
-    );
+    if (error) {
+      return (
+        <div className='status-revisions-list'>
+          <div className='status-revisions-list__error'>An error occured</div>
+        </div>
+      )
+    }
 
     return (
       <div className='status-revisions-list'>

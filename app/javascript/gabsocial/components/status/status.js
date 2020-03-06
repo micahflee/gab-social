@@ -371,6 +371,8 @@ class Status extends ImmutablePureComponent {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);
 
+        console.log("VIDEO HERE")
+
         media = (
           <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer}>
             {Component => (
@@ -460,9 +462,7 @@ class Status extends ImmutablePureComponent {
 
             <div
               className={classNames('status', `status-${status.get('visibility')}`, {
-                'status-reply': !!status.get('in_reply_to_id'),
                 muted: this.props.muted,
-                read: unread === false,
               })}
               data-id={status.get('id')}
             >

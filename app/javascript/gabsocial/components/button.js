@@ -92,6 +92,7 @@ export default class Button extends PureComponent {
       font: 1,
       cursorPointer: 1,
       textAlignCenter: 1,
+      outlineNone: 1,
 
       backgroundColorPrimary: backgroundColor === COLORS.white,
       backgroundColorBrand: backgroundColor === COLORS.brand,

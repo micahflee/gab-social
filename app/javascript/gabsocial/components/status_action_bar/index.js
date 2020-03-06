@@ -1,1 +1,1 @@
-export { default } from './status_action_bar'
+export { default } from '../status_action_bar'

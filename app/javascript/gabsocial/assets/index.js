@@ -1,6 +1,8 @@
 import AddIcon from './add_icon'
-import AppsIcon from './apps_icon'
 import AngleRightIcon from './angle_right_icon'
+import AppsIcon from './apps_icon'
+import AudioIcon from './audio_icon'
+import AudioMuteIcon from './audio_mute_icon'
 import BackIcon from './back_icon'
 import CalendarIcon from './calendar_icon'
 import ChatIcon from './chat_icon'
@@ -10,6 +12,7 @@ import CommentIcon from './comment_icon'
 import DissenterIcon from './dissenter_icon'
 import EllipsisIcon from './ellipsis_icon'
 import ErrorIcon from './error_icon'
+import FullscreenIcon from './fullscreen_icon'
 import GlobeIcon from './globe_icon'
 import GroupIcon from './group_icon'
 import HomeIcon from './home_icon'
@@ -18,9 +21,11 @@ import LinkIcon from './link_icon'
 import ListIcon from './list_icon'
 import LoadingIcon from './loading_icon'
 import MediaIcon from './media_icon'
+import MinimizeFullscreenIcon from './minimize_fullscreen_icon'
 import MissingIcon from './missing_icon'
 import MoreIcon from './more_icon'
 import NotificationsIcon from './notifications_icon'
+import PauseIcon from './pause_icon'
 import PinIcon from './pin_icon'
 import PlayIcon from './play_icon'
 import PollIcon from './poll_icon'
@@ -36,8 +41,10 @@ import WarningIcon from './warning_icon'
 
 export {
   AddIcon,
-  AppsIcon,
   AngleRightIcon,
+  AppsIcon,
+  AudioIcon,
+  AudioMuteIcon,
   BackIcon,
   CalendarIcon,
   ChatIcon,
@@ -47,6 +54,7 @@ export {
   DissenterIcon,
   EllipsisIcon,
   ErrorIcon,
+  FullscreenIcon,
   GlobeIcon,
   GroupIcon,
   HomeIcon,
@@ -55,9 +63,11 @@ export {
   ListIcon,
   LoadingIcon,
   MediaIcon,
+  MinimizeFullscreenIcon,
   MissingIcon,
   MoreIcon,
   NotificationsIcon,
+  PauseIcon,
   PinIcon,
   PlayIcon,
   PollIcon,

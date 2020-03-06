@@ -58,10 +58,6 @@ export function GroupCreate() {
   return import(/* webpackChunkName: "features/group_create" */'../../group_create')
 }
 
-export function GroupEdit() {
-  return import(/* webpackChunkName: "features/group_edit" */'../../group_edit')
-}
-
 export function GroupMembers() {
   return import(/* webpackChunkName: "features/group_members" */'../../group_members')
 }
