@@ -11,9 +11,9 @@ import PollButton from '../../components/poll_button';
 import UploadButton from '../../components/upload_button';
 import SpoilerButton from '../../components/spoiler_button';
 import PrivacyDropdown from '../../components/privacy_dropdown';
+import EmojiPickerButton from '../../components/emoji_picker_button'
 import EmojiPickerDropdown from '../../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../../containers/poll_form_container';
-import WarningContainer from '../../containers/warning_container';
 import SchedulePostDropdown from '../../components/schedule_post_dropdown';
 import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container';
 import Icon from '../../../../components/icon';
@@ -228,7 +228,8 @@ class ComposeForm extends ImmutablePureComponent {
       isModalOpen,
       quoteOfId,
       edit,
-      scheduledAt
+      scheduledAt,
+      spoiler
     } = this.props
     const condensed = shouldCondense && !this.props.text && !this.state.composeFocused;
     const disabled = this.props.isSubmitting;
@@ -258,6 +259,15 @@ class ComposeForm extends ImmutablePureComponent {
       marginTop5PX: shouldCondense,
     })
 
+    const contentWarningClasses = cx({
+      default: 1,
+      paddingTop5PX: 1,
+      paddingBottom10PX: 1,
+      borderBottom1PX: 1,
+      borderColorSecondary: 1,
+      displayNone: !spoiler
+    })
+
     const avatarSize = shouldCondense ? 28 : 46
 
     return (
@@ -265,34 +275,32 @@ class ComposeForm extends ImmutablePureComponent {
         <div className={avatarContainerClasses}>
           <Avatar account={account} size={avatarSize} />
         </div>
+
         <div
           className={containerClasses}
           ref={this.setForm}
           onClick={this.handleClick}
         >
-          { /* <WarningContainer /> */}
 
           { /* !shouldCondense && <ReplyIndicatorContainer /> */}
 
-          { /*
-        <div className={`spoiler-input ${this.props.spoiler ? 'spoiler-input--visible' : ''}`}>
-          <AutosuggestTextbox
-            placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-            value={this.props.spoilerText}
-            onChange={this.handleChangeSpoilerText}
-            onKeyDown={this.handleKeyDown}
-            disabled={!this.props.spoiler}
-            ref={this.setSpoilerText}
-            suggestions={this.props.suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSpoilerSuggestionSelected}
-            searchTokens={[':']}
-            id='cw-spoiler-input'
-            className='spoiler-input__input'
-          />
-        </div>
-        */ }
+          <div className={contentWarningClasses}>
+            <AutosuggestTextbox
+              placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+              value={this.props.spoilerText}
+              onChange={this.handleChangeSpoilerText}
+              onKeyDown={this.handleKeyDown}
+              disabled={!this.props.spoiler}
+              ref={this.setSpoilerText}
+              suggestions={this.props.suggestions}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              onSuggestionSelected={this.onSpoilerSuggestionSelected}
+              searchTokens={[':']}
+              id='cw-spoiler-input'
+              className='spoiler-input__input'
+            />
+          </div>
 
           { /*
         <div className='emoji-picker-wrapper'>
@@ -341,6 +349,7 @@ class ComposeForm extends ImmutablePureComponent {
               }
               <SpoilerButton small={shouldCondense} />
               <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />
+              <EmojiPickerButton />
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
             {

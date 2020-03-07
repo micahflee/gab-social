@@ -2,9 +2,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames'
-import spring from 'react-motion/lib/spring'
-import Motion from '../../../ui/util/optional_motion'
 import Button from '../../../../components/button'
+import Image from '../../../../components/image'
 
 const messages = defineMessages({
   description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
@@ -72,7 +71,10 @@ class Upload extends ImmutablePureComponent {
   handleInputBlur = () => {
     const { dirtyDescription } = this.state
 
-    this.setState({ focused: false, dirtyDescription: null })
+    this.setState({
+      focused: false,
+      dirtyDescription: null,
+    })
 
     if (dirtyDescription !== null) {
       this.props.onDescriptionChange(this.props.media.get('id'), dirtyDescription)
@@ -90,37 +92,33 @@ class Upload extends ImmutablePureComponent {
 
     return (
       <div className='compose-form-upload' tabIndex='0' onMouseEnter={this.handleMouseEnter} onMouseLeave={this.handleMouseLeave} onClick={this.handleClick} role='button'>
-        <Motion defaultStyle={{ scale: 0.8 }} style={{ scale: spring(1, { stiffness: 180, damping: 12 }) }}>
-          {({ scale }) => (
-            <div className='compose-form__upload-thumbnail' style={{ transform: `scale(${scale})`, backgroundImage: `url(${media.get('preview_url')})`, backgroundPosition: `${x}% ${y}%` }}>
-              <div className={classNames('compose-form__upload__actions', { active })}>
-                <Button
-                  title={intl.formatMessage(messages.delete)}
-                  onClick={this.handleUndoClick}
-                  icon='cancel'
-                />
-              </div>
+        <div className='compose-form__upload-thumbnail' style={{ backgroundImage: `url(${media.get('preview_url')})`, backgroundPosition: `${x}% ${y}%` }}>
+          <div className={classNames('compose-form__upload__actions', { active })}>
+            <Button
+              title={intl.formatMessage(messages.delete)}
+              onClick={this.handleUndoClick}
+              icon='cancel'
+            />
+          </div>
 
-              <div className={classNames('compose-form-upload__description', { active })}>
-                <label>
-                  <span style={{ display: 'none' }}>
-                    {intl.formatMessage(messages.description)}
-                  </span>
+          <div className={classNames('compose-form-upload__description', { active })}>
+            <label>
+              <span style={{ display: 'none' }}>
+                {intl.formatMessage(messages.description)}
+              </span>
 
-                  <textarea
-                    placeholder={intl.formatMessage(messages.description)}
-                    value={description}
-                    maxLength={420}
-                    onFocus={this.handleInputFocus}
-                    onChange={this.handleInputChange}
-                    onBlur={this.handleInputBlur}
-                    onKeyDown={this.handleKeyDown}
-                  />
-                </label>
-              </div>
-            </div>
-          )}
-        </Motion>
+              <textarea
+                placeholder={intl.formatMessage(messages.description)}
+                value={description}
+                maxLength={420}
+                onFocus={this.handleInputFocus}
+                onChange={this.handleInputChange}
+                onBlur={this.handleInputBlur}
+                onKeyDown={this.handleKeyDown}
+              />
+            </label>
+          </div>
+        </div>
       </div>
     )
   }

@@ -45,6 +45,7 @@ class SpoilerButton extends PureComponent {
         icon='warning'
         onClick={this.handleClick}
         small={small}
+        active={active}
       />
     )
   }

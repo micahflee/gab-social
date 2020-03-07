@@ -29,7 +29,7 @@ class ComposeModal extends ImmutablePureComponent {
   };
 
   onClickClose = () => {
-    const {composeText, dispatch, onClose, intl} = this.props;
+    const { composeText, dispatch, onClose, intl } = this.props;
 
     if (composeText) {
       dispatch(openModal('CONFIRM', {
@@ -44,12 +44,15 @@ class ComposeModal extends ImmutablePureComponent {
     }
   };
 
-  render () {
+  render() {
     const { intl } = this.props;
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.title)} onClose={this.onClickClose}>
-        <TimelineComposeBlock />
+      <ModalLayout
+        noPadding
+        title={intl.formatMessage(messages.title)} onClose={this.onClickClose}
+      >
+        <TimelineComposeBlock modal />
       </ModalLayout>
     );
   }

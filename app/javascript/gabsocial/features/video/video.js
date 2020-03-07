@@ -1,5 +1,5 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
-import { fromJS, is } from 'immutable'
+import { defineMessages, injectIntl } from 'react-intl'
+import { is } from 'immutable'
 import { throttle } from 'lodash'
 import classNames from 'classnames/bind'
 import { decode } from 'blurhash'
@@ -7,7 +7,6 @@ import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/ful
 import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio'
 import { displayMedia } from '../../initial_state'
 import Button from '../../components/button'
-import Icon from '../../components/icon'
 import Text from '../../components/text'
 
 const cx = classNames.bind(_s)
@@ -20,72 +19,74 @@ const messages = defineMessages({
   hide: { id: 'video.hide', defaultMessage: 'Hide video' },
   fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
   exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
-});
+  sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
+  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
+})
 
 const formatTime = secondsNum => {
-  let hours = Math.floor(secondsNum / 3600);
-  let minutes = Math.floor((secondsNum - (hours * 3600)) / 60);
-  let seconds = secondsNum - (hours * 3600) - (minutes * 60);
+  let hours = Math.floor(secondsNum / 3600)
+  let minutes = Math.floor((secondsNum - (hours * 3600)) / 60)
+  let seconds = secondsNum - (hours * 3600) - (minutes * 60)
 
-  if (hours < 10) hours = '0' + hours;
-  if (minutes < 10) minutes = '0' + minutes;
-  if (seconds < 10) seconds = '0' + seconds;
+  if (hours < 10) hours = '0' + hours
+  if (minutes < 10) minutes = '0' + minutes
+  if (seconds < 10) seconds = '0' + seconds
 
-  return (hours === '00' ? '' : `${hours}:`) + `${minutes}:${seconds}`;
-};
+  return (hours === '00' ? '' : `${hours}:`) + `${minutes}:${seconds}`
+}
 
 export const findElementPosition = el => {
-  let box;
+  let box
 
   if (el.getBoundingClientRect && el.parentNode) {
-    box = el.getBoundingClientRect();
+    box = el.getBoundingClientRect()
   }
 
   if (!box) {
     return {
       left: 0,
       top: 0,
-    };
+    }
   }
 
-  const docEl = document.documentElement;
-  const body = document.body;
+  const docEl = document.documentElement
+  const body = document.body
 
-  const clientLeft = docEl.clientLeft || body.clientLeft || 0;
-  const scrollLeft = window.pageXOffset || body.scrollLeft;
-  const left = (box.left + scrollLeft) - clientLeft;
+  const clientLeft = docEl.clientLeft || body.clientLeft || 0
+  const scrollLeft = window.pageXOffset || body.scrollLeft
+  const left = (box.left + scrollLeft) - clientLeft
 
-  const clientTop = docEl.clientTop || body.clientTop || 0;
-  const scrollTop = window.pageYOffset || body.scrollTop;
-  const top = (box.top + scrollTop) - clientTop;
+  const clientTop = docEl.clientTop || body.clientTop || 0
+  const scrollTop = window.pageYOffset || body.scrollTop
+  const top = (box.top + scrollTop) - clientTop
 
   return {
     left: Math.round(left),
     top: Math.round(top),
-  };
-};
+  }
+}
 
 export const getPointerPosition = (el, event) => {
-  const position = {};
-  const box = findElementPosition(el);
-  const boxW = el.offsetWidth;
-  const boxH = el.offsetHeight;
-  const boxY = box.top;
-  const boxX = box.left;
+  const position = {}
+  const box = findElementPosition(el)
+  const boxW = el.offsetWidth
+  const boxH = el.offsetHeight
+  const boxY = box.top
+  const boxX = box.left
 
-  let pageY = event.pageY;
-  let pageX = event.pageX;
+  let pageY = event.pageY
+  let pageX = event.pageX
 
   if (event.changedTouches) {
-    pageX = event.changedTouches[0].pageX;
-    pageY = event.changedTouches[0].pageY;
+    pageX = event.changedTouches[0].pageX
+    pageY = event.changedTouches[0].pageY
   }
 
-  position.y = Math.max(0, Math.min(1, (pageY - boxY) / boxH));
-  position.x = Math.max(0, Math.min(1, (pageX - boxX) / boxW));
+  position.y = Math.max(0, Math.min(1, (pageY - boxY) / boxH))
+  position.x = Math.max(0, Math.min(1, (pageX - boxX) / boxW))
 
-  return position;
-};
+  return position
+}
 
 export default
 @injectIntl
@@ -99,8 +100,6 @@ class Video extends PureComponent {
     height: PropTypes.number,
     sensitive: PropTypes.bool,
     startTime: PropTypes.number,
-    onOpenVideo: PropTypes.func,
-    onCloseVideo: PropTypes.func,
     detailed: PropTypes.bool,
     inline: PropTypes.bool,
     cacheWidth: PropTypes.func,
@@ -109,7 +108,7 @@ class Video extends PureComponent {
     intl: PropTypes.object.isRequired,
     blurhash: PropTypes.string,
     aspectRatio: PropTypes.number,
-  };
+  }
 
   state = {
     currentTime: 0,
@@ -121,237 +120,267 @@ class Video extends PureComponent {
     fullscreen: false,
     hovered: false,
     muted: false,
+    hoveringVolumeButton: false,
+    hoveringVolumeControl: false,
     revealed: this.props.visible !== undefined ? this.props.visible : (displayMedia !== 'hide_all' && !this.props.sensitive || displayMedia === 'show_all'),
-  };
+  }
 
-  // hard coded in components.scss
-  // any way to get ::before values programatically?
-  volWidth = 50;
-  volOffset = 70;
+  volHeight = 100
+  volOffset = 13
+
   volHandleOffset = v => {
-    const offset = v * this.volWidth + this.volOffset;
-    return (offset > 110) ? 110 : offset;
+    const offset = v * this.volHeight + this.volOffset
+    return (offset > 110) ? 110 : offset
   }
 
   setPlayerRef = c => {
-    this.player = c;
+    this.player = c
 
     if (c) {
-      if (this.props.cacheWidth) this.props.cacheWidth(this.player.offsetWidth);
+      if (this.props.cacheWidth) this.props.cacheWidth(this.player.offsetWidth)
       this.setState({
         containerWidth: c.offsetWidth,
-      });
+      })
     }
   }
 
   setVideoRef = c => {
-    this.video = c;
+    this.video = c
 
     if (this.video) {
-      this.setState({ volume: this.video.volume, muted: this.video.muted });
+      const { volume, muted } = this.video
+      this.setState({
+        volume,
+        muted,
+      })
     }
   }
 
   setSeekRef = c => {
-    this.seek = c;
+    this.seek = c
   }
 
   setVolumeRef = c => {
-    this.volume = c;
+    this.volume = c
   }
 
   setCanvasRef = c => {
-    this.canvas = c;
+    this.canvas = c
   }
 
-  handleClickRoot = e => e.stopPropagation();
+  handleClickRoot = e => e.stopPropagation()
 
   handlePlay = () => {
-    this.setState({ paused: false });
+    this.setState({ paused: false })
   }
 
   handlePause = () => {
-    this.setState({ paused: true });
+    this.setState({ paused: true })
   }
 
   handleTimeUpdate = () => {
+    const { currentTime, duration } = this.video
     this.setState({
-      currentTime: Math.floor(this.video.currentTime),
-      duration: Math.floor(this.video.duration),
-    });
+      currentTime: Math.floor(currentTime),
+      duration: Math.floor(duration),
+    })
   }
 
   handleVolumeMouseDown = e => {
-    document.addEventListener('mousemove', this.handleMouseVolSlide, true);
-    document.addEventListener('mouseup', this.handleVolumeMouseUp, true);
-    document.addEventListener('touchmove', this.handleMouseVolSlide, true);
-    document.addEventListener('touchend', this.handleVolumeMouseUp, true);
+    document.addEventListener('mousemove', this.handleMouseVolSlide, true)
+    document.addEventListener('mouseup', this.handleVolumeMouseUp, true)
+    document.addEventListener('touchmove', this.handleMouseVolSlide, true)
+    document.addEventListener('touchend', this.handleVolumeMouseUp, true)
 
-    this.handleMouseVolSlide(e);
+    this.handleMouseVolSlide(e)
 
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   handleVolumeMouseUp = () => {
-    document.removeEventListener('mousemove', this.handleMouseVolSlide, true);
-    document.removeEventListener('mouseup', this.handleVolumeMouseUp, true);
-    document.removeEventListener('touchmove', this.handleMouseVolSlide, true);
-    document.removeEventListener('touchend', this.handleVolumeMouseUp, true);
+    document.removeEventListener('mousemove', this.handleMouseVolSlide, true)
+    document.removeEventListener('mouseup', this.handleVolumeMouseUp, true)
+    document.removeEventListener('touchmove', this.handleMouseVolSlide, true)
+    document.removeEventListener('touchend', this.handleVolumeMouseUp, true)
   }
 
   handleMouseVolSlide = throttle(e => {
-    const rect = this.volume.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / this.volWidth; //x position within the element.
+    const rect = this.volume.getBoundingClientRect()
+    const y = 1 - ((e.clientY - rect.top) / this.volHeight)
 
-    if (!isNaN(x)) {
-      var slideamt = x;
-      if (x > 1) {
-        slideamt = 1;
-      } else if (x < 0) {
-        slideamt = 0;
+    if (!isNaN(y)) {
+      var slideamt = y
+      if (y > 1) {
+        slideamt = 1
+      } else if (y < 0) {
+        slideamt = 0
       }
-      this.video.volume = slideamt;
-      this.setState({ volume: slideamt });
+      this.video.volume = slideamt
+      this.setState({ volume: slideamt })
     }
-  }, 60);
+  }, 60)
 
   handleMouseDown = e => {
-    document.addEventListener('mousemove', this.handleMouseMove, true);
-    document.addEventListener('mouseup', this.handleMouseUp, true);
-    document.addEventListener('touchmove', this.handleMouseMove, true);
-    document.addEventListener('touchend', this.handleMouseUp, true);
+    document.addEventListener('mousemove', this.handleMouseMove, true)
+    document.addEventListener('mouseup', this.handleMouseUp, true)
+    document.addEventListener('touchmove', this.handleMouseMove, true)
+    document.addEventListener('touchend', this.handleMouseUp, true)
 
-    this.setState({ dragging: true });
-    this.video.pause();
-    this.handleMouseMove(e);
+    this.setState({ dragging: true })
+    this.video.pause()
+    this.handleMouseMove(e)
 
-    e.preventDefault();
-    e.stopPropagation();
+    e.preventDefault()
+    e.stopPropagation()
   }
 
   handleMouseUp = () => {
-    document.removeEventListener('mousemove', this.handleMouseMove, true);
-    document.removeEventListener('mouseup', this.handleMouseUp, true);
-    document.removeEventListener('touchmove', this.handleMouseMove, true);
-    document.removeEventListener('touchend', this.handleMouseUp, true);
+    document.removeEventListener('mousemove', this.handleMouseMove, true)
+    document.removeEventListener('mouseup', this.handleMouseUp, true)
+    document.removeEventListener('touchmove', this.handleMouseMove, true)
+    document.removeEventListener('touchend', this.handleMouseUp, true)
 
-    this.setState({ dragging: false });
-    this.video.play();
+    this.setState({ dragging: false })
+    this.video.play()
   }
 
   handleMouseMove = throttle(e => {
-    const { x } = getPointerPosition(this.seek, e);
-    const currentTime = Math.floor(this.video.duration * x);
+    const { x } = getPointerPosition(this.seek, e)
+    const currentTime = Math.floor(this.video.duration * x)
 
     if (!isNaN(currentTime)) {
-      this.video.currentTime = currentTime;
-      this.setState({ currentTime });
+      this.video.currentTime = currentTime
+      this.setState({ currentTime })
     }
-  }, 60);
+  }, 60)
 
   togglePlay = () => {
     if (this.state.paused) {
-      this.video.play();
+      this.video.play()
     } else {
-      this.video.pause();
+      this.video.pause()
     }
   }
 
   toggleFullscreen = () => {
     if (isFullscreen()) {
-      exitFullscreen();
+      exitFullscreen()
     } else {
-      requestFullscreen(this.player);
+      requestFullscreen(this.player)
     }
   }
 
   componentDidMount() {
-    document.addEventListener('fullscreenchange', this.handleFullscreenChange, true);
-    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange, true);
-    document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true);
-    document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true);
+    document.addEventListener('fullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
 
     if (this.props.blurhash) {
-      this._decode();
+      this._decode()
     }
   }
 
   componentWillUnmount() {
-    document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true);
-    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true);
-    document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true);
-    document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true);
+    document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
   }
 
   componentWillReceiveProps(nextProps) {
     if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
-      this.setState({ revealed: nextProps.visible });
+      this.setState({ revealed: nextProps.visible })
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.revealed && !this.state.revealed && this.video) {
-      this.video.pause();
+      this.video.pause()
     }
     if (prevProps.blurhash !== this.props.blurhash && this.props.blurhash) {
-      this._decode();
+      this._decode()
     }
   }
 
   _decode() {
-    const hash = this.props.blurhash;
-    const pixels = decode(hash, 32, 32);
+    const hash = this.props.blurhash
+    const pixels = decode(hash, 32, 32)
 
     if (pixels && this.canvas) {
-      const ctx = this.canvas.getContext('2d');
-      const imageData = new ImageData(pixels, 32, 32);
+      const ctx = this.canvas.getContext('2d')
+      const imageData = new ImageData(pixels, 32, 32)
 
-      ctx.putImageData(imageData, 0, 0);
+      ctx.putImageData(imageData, 0, 0)
     }
   }
 
   handleFullscreenChange = () => {
-    this.setState({ fullscreen: isFullscreen() });
+    this.setState({ fullscreen: isFullscreen() })
   }
 
   handleMouseEnter = () => {
-    this.setState({ hovered: true });
+    this.setState({ hovered: true })
   }
 
   handleMouseLeave = () => {
-    this.setState({ hovered: false });
+    this.setState({ hovered: false })
   }
 
+  handleMouseEnterAudio = () => {
+    this.setState({ hoveringVolumeButton: true })
+  }
+
+  handleMouseLeaveAudio = throttle(e => {
+    this.setState({ hoveringVolumeButton: false })
+  }, 2000)
+
+  handleMouseEnterVolumeControl = () => {
+    this.setState({ hoveringVolumeControl: true })
+  }
+
+  handleMouseLeaveVolumeControl = throttle(e => {
+    this.setState({ hoveringVolumeControl: false })
+  }, 2000)
+
   toggleMute = () => {
-    this.video.muted = !this.video.muted;
-    this.setState({ muted: this.video.muted });
+    this.video.muted = !this.video.muted
+    this.setState({ muted: this.video.muted })
   }
 
   toggleReveal = () => {
     if (this.props.onToggleVisibility) {
-      this.props.onToggleVisibility();
+      this.props.onToggleVisibility()
     } else {
-      this.setState({ revealed: !this.state.revealed });
+      this.setState({ revealed: !this.state.revealed })
     }
   }
 
   handleLoadedData = () => {
     if (this.props.startTime) {
-      this.video.currentTime = this.props.startTime;
-      this.video.play();
+      this.video.currentTime = this.props.startTime
+      this.video.play()
     }
   }
 
   handleProgress = () => {
-    if (!this.video.buffered) return;
-    if (this.video.buffered.length > 0) {
-      this.setState({ buffer: this.video.buffered.end(0) / this.video.duration * 100 });
+    const { buffered, duration } = this.video
+
+    if (!buffered) return
+    if (buffered.length > 0) {
+      this.setState({
+        buffer: buffered.end(0) / duration * 100,
+      })
     }
   }
 
   handleVolumeChange = () => {
-    this.setState({ volume: this.video.volume, muted: this.video.muted });
+    const { volume, muted } = this.video
+    this.setState({
+      volume,
+      muted,
+    })
   }
 
   render() {
@@ -360,8 +389,6 @@ class Video extends PureComponent {
       src,
       inline,
       startTime,
-      onOpenVideo,
-      onCloseVideo,
       intl,
       alt,
       detailed,
@@ -380,53 +407,43 @@ class Video extends PureComponent {
       fullscreen,
       hovered,
       muted,
-      revealed
+      revealed,
+      hoveringVolumeButton,
+      hoveringVolumeControl
     } = this.state
 
-    const progress = (currentTime / duration) * 100;
+    const progress = (currentTime / duration) * 100
 
-    const volumeWidth = (muted) ? 0 : volume * this.volWidth;
-    const volumeHandleLoc = (muted) ? this.volHandleOffset(0) : this.volHandleOffset(volume);
-    const playerStyle = {};
+    const volumeHeight = (muted) ? 0 : volume * this.volHeight
+    const volumeHandleLoc = (muted) ? this.volHandleOffset(0) : this.volHandleOffset(volume)
+    const playerStyle = {}
 
-    let { width, height } = this.props;
-
-    console.log("buffer, progress:", buffer, progress)
+    let { width, height } = this.props
 
     if (inline && containerWidth) {
-      width = containerWidth;
-      const minSize = containerWidth / (16 / 9);
+      width = containerWidth
+      const minSize = containerWidth / (16 / 9)
 
       if (isPanoramic(aspectRatio)) {
-        height = Math.max(Math.floor(containerWidth / maximumAspectRatio), minSize);
+        height = Math.max(Math.floor(containerWidth / maximumAspectRatio), minSize)
       } else if (isPortrait(aspectRatio)) {
-        height = Math.max(Math.floor(containerWidth / minimumAspectRatio), minSize);
+        height = Math.max(Math.floor(containerWidth / minimumAspectRatio), minSize)
       } else {
-        height = Math.floor(containerWidth / aspectRatio);
+        height = Math.floor(containerWidth / aspectRatio)
       }
 
-      playerStyle.height = height;
+      playerStyle.height = height
     }
 
-    let preload;
+    let preload
 
     if (startTime || fullscreen || dragging) {
-      preload = 'auto';
+      preload = 'auto'
     } else if (detailed) {
-      preload = 'metadata';
+      preload = 'metadata'
     } else {
-      preload = 'none';
+      preload = 'none'
     }
-
-    let warning;
-
-    if (sensitive) {
-      warning = <FormattedMessage id='status.sensitive_warning' defaultMessage='Sensitive content' />;
-    } else {
-      warning = <FormattedMessage id='status.media_hidden' defaultMessage='Media hidden' />;
-    }
-
-    // console.log("width, height:", width, height)
 
     // className={classNames('video-player', {
     //   inactive: !revealed,
@@ -444,6 +461,7 @@ class Video extends PureComponent {
       backgroundColorBrand: 1,
       marginLeftNeg5PX: 1,
       z3: 1,
+      boxShadow1: 1,
       opacity0: !dragging,
       opacity1: dragging || hovered,
     })
@@ -454,6 +472,16 @@ class Video extends PureComponent {
       marginTop10PX: 1,
       positionAbsolute: 1,
       height4PX: 1,
+    })
+
+    const volumeControlClasses = cx({
+      default: 1,
+      positionAbsolute: 1,
+      backgroundColorOpaque: 1,
+      videoPlayerVolume: 1,
+      height122PX: 1,
+      circle: 1,
+      displayNone: !hoveringVolumeButton && !hoveringVolumeControl || !hovered,
     })
 
     return (
@@ -477,7 +505,6 @@ class Video extends PureComponent {
             className={[_s.default, _s.positionAbsolute, _s.height100PC, _s.width100PC, _s.top0, _s.left0].join(' ')}
           />
         }
-
 
         {
           revealed &&
@@ -508,16 +535,38 @@ class Video extends PureComponent {
 
         { /* <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed })}>
           <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-            <span className='spoiler-button__overlay__label'>{warning}</span>
+            <span className='spoiler-button__overlay__label'>
+              {intl.formatMessage(sensitive ? messages.sensitive : messages.hidden)}
+            </span>
           </button>
         </div> */ }
 
-        <div className='video-player__volume' onMouseDown={this.handleVolumeMouseDown} ref={this.setVolumeRef}>
-          <div className='video-player__volume__current' style={{ height: `${volumeWidth}px` }} />
+        <div
+          className={volumeControlClasses}
+          onMouseDown={this.handleVolumeMouseDown}
+          onMouseEnter={this.handleMouseEnterVolumeControl}
+          onMouseLeave={this.handleMouseLeaveVolumeControl}
+          ref={this.setVolumeRef}
+        >
+          <div
+            className={[_s.default, _s.radiusSmall, _s.marginVertical10PX, _s.positionAbsolute, _s.width4PX, _s.marginLeft10PX, _s.backgroundColorPrimaryOpaque].join(' ')}
+            style={{
+              height: '102px',
+            }}
+          />
+          <div
+            className={[_s.default, _s.radiusSmall, _s.marginVertical10PX, _s.bottom0, _s.positionAbsolute, _s.width4PX, _s.marginLeft10PX, _s.backgroundColorPrimary].join(' ')}
+            style={{
+              height: `${volumeHeight}px`
+            }}
+          />
           <span
-            className={classNames('video-player__volume__handle')}
+            className={[_s.default, _s.cursorPointer, _s.positionAbsolute, _s.circle, _s.paddingHorizontal5PX, _s.boxShadow1, _s.marginBottomNeg5PX, _s.paddingVertical5PX, _s.backgroundColorPrimary, _s.z3].join(' ')}
             tabIndex='0'
-            style={{ left: `${volumeHandleLoc}px` }}
+            style={{
+              marginLeft: '7px',
+              bottom: `${volumeHandleLoc}px`,
+            }}
           />
         </div>
 
@@ -562,7 +611,6 @@ class Video extends PureComponent {
                 {formatTime(duration)}
               </Text>
 
-
               <Button
                 narrow
                 backgroundColor='none'
@@ -574,6 +622,8 @@ class Video extends PureComponent {
                 iconHeight='24px'
                 iconClassName={_s.fillColorWhite}
                 className={[_s.paddingHorizontal10PX, _s.marginLeft10PX].join(' ')}
+                onMouseEnter={this.handleMouseEnterAudio}
+                onMouseLeave={this.handleMouseLeaveAudio}
               />
 
               <Button
@@ -592,7 +642,7 @@ class Video extends PureComponent {
 
         </div>
       </div>
-    );
+    )
   }
 
 }

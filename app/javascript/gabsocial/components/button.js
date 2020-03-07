@@ -79,11 +79,14 @@ export default class Button extends PureComponent {
       ...otherProps
     } = this.props
 
-    const theIcon = !!icon ? <Icon id={icon} width={iconWidth} height={iconWidth} className={iconClassName} /> : undefined
-
-    if (backgroundColor === 'tertiary') {
-      console.log("className:", className)
-    }
+    const theIcon = !!icon ? (
+      <Icon
+        id={icon}
+        width={iconWidth}
+        height={iconWidth}
+        className={iconClassName}
+      />
+    ) : undefined
 
     // : todo :
     const classes = cx(className, {
@@ -93,6 +96,7 @@ export default class Button extends PureComponent {
       cursorPointer: 1,
       textAlignCenter: 1,
       outlineNone: 1,
+      flexRow: !!children && !!icon,
 
       backgroundColorPrimary: backgroundColor === COLORS.white,
       backgroundColorBrand: backgroundColor === COLORS.brand,
@@ -143,6 +147,7 @@ export default class Button extends PureComponent {
       to: to || undefined,
       href: href || undefined,
       onClick: this.handleClick || undefined,
+      ...otherProps,
     }
 
     if (tagName === 'NavLink' && !!to) {

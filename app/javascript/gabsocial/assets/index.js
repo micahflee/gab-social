@@ -15,6 +15,7 @@ import ErrorIcon from './error_icon'
 import FullscreenIcon from './fullscreen_icon'
 import GlobeIcon from './globe_icon'
 import GroupIcon from './group_icon'
+import HappyIcon from './happy_icon'
 import HomeIcon from './home_icon'
 import LikeIcon from './like_icon'
 import LinkIcon from './link_icon'
@@ -57,6 +58,7 @@ export {
   FullscreenIcon,
   GlobeIcon,
   GroupIcon,
+  HappyIcon,
   HomeIcon,
   LikeIcon,
   LinkIcon,

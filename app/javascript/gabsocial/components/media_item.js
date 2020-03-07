@@ -3,14 +3,18 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { decode } from 'blurhash'
 import { autoPlayGif, displayMedia } from '../initial_state'
+import classNames from 'classnames/bind'
 import Icon from './icon'
 import Image from './image'
 import Text from './text'
+
+const cx = classNames.bind(_s)
 
 export default class MediaItem extends ImmutablePureComponent {
 
   static propTypes = {
     attachment: ImmutablePropTypes.map.isRequired,
+    small: PropTypes.bool
   }
 
   state = {
@@ -55,7 +59,7 @@ export default class MediaItem extends ImmutablePureComponent {
   }
 
   render() {
-    const { attachment } = this.props
+    const { attachment, small } = this.props
     const { visible, loaded } = this.state
 
     const status = attachment.get('status')
@@ -71,13 +75,33 @@ export default class MediaItem extends ImmutablePureComponent {
       badge = 'GIF'
     }
 
+    const containerClasses = cx({
+      default: 1,
+      positionAbsolute: 1,
+      top0: 1,
+      height100PC: 1,
+      width100PC: 1,
+      paddingVertical5PX: !small,
+      paddingHorizontal5PX: !small,
+    })
+
+    const linkClasses = cx({
+      default: 1,
+      width100PC: 1,
+      height100PC: 1,
+      overflowHidden: 1,
+      border1PX: 1,
+      borderColorSecondary: !small,
+      borderColorWhite: small,
+    })
+
     return (
       <div className={[_s.default, _s.width25PC, _s.paddingTop25PC].join(' ')}>
-        <div className={[_s.default, _s.positionAbsolute, _s.top0, _s.height100PC, _s.width100PC, _s.paddingVertical5PX, _s.paddingHorizontal5PX].join(' ')}>
+        <div className={containerClasses}>
           <NavLink
             to={status.get('url')} /* : todo : */
             title={title}
-            className={[_s.default, _s.width100PC, _s.height100PC, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden].join(' ')}
+            className={linkClasses}
           >
             {
               (!loaded || !visible) &&

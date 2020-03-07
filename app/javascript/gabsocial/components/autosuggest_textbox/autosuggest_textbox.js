@@ -1,12 +1,13 @@
 import { Fragment } from 'react'
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import Textarea from 'react-textarea-autosize';
-import { isRtl } from '../../utils/rtl';
-import { textAtCursorMatchesToken } from '../../utils/cursor_token_match';
-import AutosuggestAccount from '../autosuggest_account';
-import AutosuggestEmoji from '../autosuggest_emoji';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import Textarea from 'react-textarea-autosize'
+import { isRtl } from '../../utils/rtl'
+import { textAtCursorMatchesToken } from '../../utils/cursor_token_match'
+import AutosuggestAccount from '../autosuggest_account'
+import AutosuggestEmoji from '../autosuggest_emoji'
+import Input from '../input'
 
 const cx = classNames.bind(_s)
 
@@ -191,12 +192,24 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
   render () {
-    const { value, small, suggestions, disabled, placeholder, onKeyUp, autoFocus, children, className, id, maxLength, textarea } = this.props;
-    const { suggestionsHidden } = this.state;
-    const style = { direction: 'ltr' };
+    const {
+      value,
+      small,
+      suggestions,
+      disabled,
+      placeholder,
+      onKeyUp,
+      autoFocus,
+      children,
+      className,
+      id,
+      maxLength,
+      textarea
+    } = this.props
 
-    if (isRtl(value)) {
-      style.direction = 'rtl';
+    const { suggestionsHidden } = this.state
+    const style = {
+      direction: isRtl(value) ? 'rtl' : 'ltr',
     }
 
     const textClasses = cx({
@@ -217,7 +230,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
 
     if (textarea) {
       return (
-        <Fragment>
+      <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.marginLeft5PX].join(' ')}>
               <Textarea
@@ -249,11 +262,11 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     }
 
     return (
-      <div className='autosuggest-input'>
-        <label>
+      <div className={[_s.default, _s.flexGrow1].join(' ')}>
+        <label className={[_s.default].join(' ')}>
           <span style={{ display: 'none' }}>{placeholder}</span>
 
-          <input
+          <Input
             type='text'
             ref={this.setTextbox}
             disabled={disabled}

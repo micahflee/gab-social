@@ -10,6 +10,7 @@ export default class ComposeExtraButton extends PureComponent {
     onClick: PropTypes.func,
     icon: PropTypes.string,
     small: PropTypes.bool,
+    active: PropTypes.bool,
   }
 
   state = {
@@ -25,7 +26,15 @@ export default class ComposeExtraButton extends PureComponent {
   }
 
   render() {
-    const { title, disabled, onClick, icon, children, small } = this.props
+    const {
+      title,
+      disabled,
+      onClick,
+      icon,
+      children,
+      small,
+      active
+    } = this.props
     const { hovering } = this.state
 
     const containerClasses = cx({
@@ -39,8 +48,10 @@ export default class ComposeExtraButton extends PureComponent {
       circle: 1,
       flexRow: 1,
       cursorPointer: 1,
-      backgroundSubtle: !hovering,
-      backgroundSubtle2: hovering,
+      outlineNone: 1,
+      backgroundSubtle: !hovering && !active,
+      backgroundSubtle2: hovering && !active,
+      backgroundColorBrandLight: active,
       paddingVertical10PX: !small,
       paddingHorizontal10PX: !small,
       paddingVertical5PX: small,
@@ -54,8 +65,14 @@ export default class ComposeExtraButton extends PureComponent {
       lineHeight15: 1,
       fontSize12PX: 1,
       fontWeightMedium: 1,
-      colorSecondary: 1,
+      colorSecondary: !active,
+      colorWhite: active,
       displayNone: !hovering,
+    })
+
+    const iconClasses = cx({
+      fillColorSecondary: !active,
+      fillColorWhite: active,
     })
 
     const iconSize = !!small ? '12px' : '18px'
@@ -70,9 +87,9 @@ export default class ComposeExtraButton extends PureComponent {
           onMouseEnter={() => this.handleOnMouseEnter()}
           onMouseLeave={() => this.handleOnMouseLeave()}
         >
-          <Icon id={icon} width={iconSize} height={iconSize} className={_s.fillColorSecondary} />
+          <Icon id={icon} width={iconSize} height={iconSize} className={iconClasses} />
           {
-            !small &&
+            (!small && !!title) &&
             <span className={titleClasses}>
               {title}
             </span>

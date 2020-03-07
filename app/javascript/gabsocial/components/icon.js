@@ -45,6 +45,8 @@ export default class Icon extends PureComponent {
         return <I.GlobeIcon {...options} />
       case 'group':
         return <I.GroupIcon {...options} />
+      case 'happy':
+        return <I.HappyIcon {...options} />
       case 'home':
         return <I.HomeIcon {...options} />
       case 'like':

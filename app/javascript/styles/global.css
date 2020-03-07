@@ -10,6 +10,7 @@ body {
   overscroll-behavior-y: none;
 }
 
+.statusContent,
 .statusContent * {
   margin-top: 0;
   margin-bottom: 0;
@@ -18,6 +19,7 @@ body {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
+.dangerousContent,
 .dangerousContent * {
   margin-top: 0;
   margin-bottom: 0;
@@ -143,10 +145,6 @@ body {
 
 .outlineNone {
   outline: none;
-}
-
-.outlineFocusBrand:focus {
-  outline: 2px solid #21cf7a;
 }
 
 .resizeNone {
@@ -286,7 +284,7 @@ body {
 }
 
 .backgroundColorPrimaryOpaque {
-  background-color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(255, 255, 255, 0.6);
 }
 
 .backgroundColorBrandLightOpaque {
@@ -509,6 +507,10 @@ body {
   width: 25%;
 }
 
+.width4PX {
+  width: 4px;
+}
+
 .maxWidth100PC {
   max-width: 100%;
 }
@@ -714,6 +716,10 @@ body {
   margin-left: -5px;
 }
 
+.marginBottomNeg5PX {
+  margin-bottom: -5px;
+}
+
 .marginRight2PX {
   margin-right: 2px;
 }
@@ -787,6 +793,14 @@ body {
   padding-top: 10px;
 }
 
+.paddingTop5PX {
+  padding-top: 5px;
+}
+
+.paddingBottom10PX {
+  padding-bottom: 10px;
+}
+
 .paddingBottom5PX {
   padding-bottom: 5px;
 }
@@ -851,21 +865,6 @@ body {
   padding-right: 20px;
 }
 
-.videoPlayerControlsBackground {
-  background: linear-gradient(0deg,rgba(0,0,0,.85),rgba(0,0,0,.45) 60%,transparent);
-}
-
-.videoPlayerSeek:before {
-  content: '';
-  display: block;
-  position: absolute;
-  /* background: rgba(255, 255, 255, 0.35); */
-  border-radius: 4px;
-  top: 10px;
-  width: 100%;
-  height: 40px;
-}
-
 .opacity0 {
   opacity: 0;
 }
@@ -873,3 +872,52 @@ body {
 .opacity1 {
   opacity: 1;
 }
+
+.boxShadow1 {
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+.listStyleNone {
+  list-style: none;
+}
+
+.videoPlayerControlsBackground {
+  background: linear-gradient(0deg, rgba(0, 0, 0, .85), rgba(0, 0, 0, .45) 60%, transparent);
+}
+
+.videoPlayerSeek:before {
+  content: '';
+  display: block;
+  position: absolute;
+  border-radius: 4px;
+  top: 10px;
+  width: 100%;
+  height: 40px;
+}
+
+.videoPlayerVolume {
+  width: 24px;
+  right: 65px;
+  bottom: 60px;
+}
+
+.select {
+  height: 42px;
+  line-height: 42px;
+  font-size: 18px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.emojione {
+  margin: -3px 0 0;
+  height: 20px;
+  width: 20px;
+}
+
+/* .videoPlayerVolume:before {
+  content: '';
+  display: block;
+  position: absolute;
+} */

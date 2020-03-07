@@ -372,6 +372,7 @@ class Status extends ImmutablePureComponent {
   }
 
   renderChildren(list) {
+    // : todo : comments
     return list.map(id => (
       <StatusContainer
         key={id}
@@ -464,7 +465,7 @@ class Status extends ImmutablePureComponent {
         {ancestors}
 
         <HotKeys handlers={handlers}>
-          <div className={classNames('focusable', 'detailed-status__wrapper')} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
+          <div className={_s.outlineNone} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
             { /* <DetailedStatus
               status={status}
               onOpenVideo={this.handleOpenVideo}

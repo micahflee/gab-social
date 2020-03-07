@@ -29,7 +29,7 @@ export default class StatusActionBarItem extends PureComponent {
       paddingHorizontal10PX: 1,
       width100PC: 1,
       radiusSmall: 1,
-      outlineFocusBrand: 1,
+      outlineNone: 1,
       backgroundTransparent: 1,
       backgroundSubtle_onHover: 1,
       colorSecondary: 1,

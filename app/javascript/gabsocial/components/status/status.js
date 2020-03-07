@@ -165,8 +165,8 @@ class Status extends ImmutablePureComponent {
   }
 
   handleToggleMediaVisibility = () => {
-    this.setState({ showMedia: !this.state.showMedia });
-  };
+    this.setState({ showMedia: !this.state.showMedia })
+  }
 
   handleClick = () => {
     if (this.props.onClick) {
@@ -178,8 +178,8 @@ class Status extends ImmutablePureComponent {
 
     this.context.router.history.push(
       `/${this._properStatus().getIn(['account', 'acct'])}/posts/${this._properStatus().get('id')}`
-    );
-  };
+    )
+  }
 
   handleExpandClick = e => {
     if (e.button === 0) {
@@ -271,10 +271,18 @@ class Status extends ImmutablePureComponent {
   }
 
   render() {
-    let media = null;
-    let prepend, rebloggedByText, reblogContent;
+    const {
+      intl,
+      hidden,
+      featured,
+      unread,
+      showThread,
+      group,
+      promoted
+    } = this.props
 
-    const { intl, hidden, featured, unread, showThread, group, promoted } = this.props;
+    let media = null
+    let prepend, rebloggedByText, reblogContent
 
     // console.log("replies:", this.props.replies)
 
@@ -321,7 +329,7 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingVertical5PX, _s.paddingHorizontal15PX].join(' ')}>
           <Icon
-            id='star'
+            id='pin'
             width='10px'
             height='10px'
             className={_s.fillColorSecondary}
@@ -460,12 +468,7 @@ class Status extends ImmutablePureComponent {
 
             {prepend}
 
-            <div
-              className={classNames('status', `status-${status.get('visibility')}`, {
-                muted: this.props.muted,
-              })}
-              data-id={status.get('id')}
-            >
+            <div data-id={status.get('id')}>
 
               <StatusHeader status={status} />
 
@@ -493,6 +496,7 @@ class Status extends ImmutablePureComponent {
             ) */ }
 
               <StatusActionBar status={status} account={account} {...other} />
+              { /* : todo : comment bar, comments */ }
             </div>
           </Block>
         </div>

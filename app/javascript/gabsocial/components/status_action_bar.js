@@ -5,7 +5,7 @@ import classNames from 'classnames/bind'
 import { openModal } from '../actions/modal'
 import { me, isStaff } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
-import Icon from './icon'
+import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
 
 const messages = defineMessages({
@@ -117,6 +117,10 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   }
 
+  handleShareClick = () => {
+    //
+  }
+
   render() {
     const { status, intl: { formatMessage } } = this.props
 
@@ -134,34 +138,6 @@ class StatusActionBar extends ImmutablePureComponent {
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
       <IconButton className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     )
-
-    const items = [
-      {
-        title: formatMessage(messages.like),
-        icon: 'like',
-        active: !!status.get('favorited'),
-        onClick: this.handleFavoriteClick,
-      },
-      {
-        title: formatMessage(messages.comment),
-        icon: 'comment',
-        active: false,
-        onClick: this.handleReplyClick,
-      },
-      {
-        title: repostTitle,
-        icon: (status.get('visibility') === 'private') ? 'lock' : 'repost',
-        disabled: !publicStatus,
-        active: !!status.get('reblogged'),
-        onClick: this.handleRepostClick,
-      },
-      {
-        title: formatMessage(messages.share),
-        icon: 'share',
-        active: false,
-        onClick: this.handleFavoriteClick,
-      },
-    ]
 
     const hasInteractions = favoriteCount > 0 || replyCount > 0 || repostCount > 0
     const shouldCondense = (!!status.get('card') || status.get('media_attachments').size > 0) && !hasInteractions
@@ -186,9 +162,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const interactionBtnClasses = cx({
       default: 1,
       text: 1,
-      colorSecondary: 1,
       cursorPointer: 1,
-      fontSize15PX: 1,
       fontWeightNormal: 1,
       marginRight10PX: 1,
       paddingVertical5PX: 1,
@@ -199,37 +173,64 @@ class StatusActionBar extends ImmutablePureComponent {
         {
           hasInteractions &&
           <div className={[_s.default, _s.flexRow, _s.paddingHorizontal5PX].join(' ')}>
-            {favoriteCount > 0 &&
+            {
+              favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
-                {favoriteCount}
-                &nbsp;Likes
+                <Text color='secondary'>
+                  {favoriteCount}
+                  &nbsp;Likes
+                </Text>
               </button>
             }
-            {replyCount > 0 &&
+            {
+              replyCount > 0 &&
               <button className={interactionBtnClasses}>
-                {replyCount}
-                &nbsp;Comments
+                <Text color='secondary'>
+                  {replyCount}
+                  &nbsp;Comments
+                </Text>
               </button>
             }
-            {repostCount > 0 &&
+            {
+              repostCount > 0 &&
               <button className={interactionBtnClasses}>
-                {repostCount}
-                &nbsp;Reposts
+                <Text color='secondary'>
+                  {repostCount}
+                  &nbsp;Reposts
+                </Text>
               </button>
             }
           </div>
         }
         <div className={innerContainerClasses}>
           <div className={[_s.default, _s.flexRow, _s.paddingVertical2PX, _s.width100PC].join(' ')}>
-            {
-              items.map((item, i) => (
-                <StatusActionBarItem key={`status-action-bar-item-${i}`} {...item} />
-              ))
-            }
+            <StatusActionBarItem
+              title={formatMessage(messages.like)}
+              icon='like'
+              active={!!status.get('favorited')}
+              onClick={this.handleFavoriteClick}
+            />
+            <StatusActionBarItem
+              title={formatMessage(messages.comment)}
+              icon='comment'
+              onClick={this.handleReplyClick}
+            />
+            <StatusActionBarItem
+              title={repostTitle}
+              icon={(status.get('visibility') === 'private') ? 'lock' : 'repost'}
+              disabled={!publicStatus}
+              active={!!status.get('reblogged')}
+              onClick={this.handleRepostClick}
+            />
+            <StatusActionBarItem
+              title={formatMessage(messages.share)}
+              icon='share'
+              onClick={this.handleShareClick}
+            />
           </div>
         </div>
         <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.marginBottom10PX].join(' ')}>
-          { /* <ComposeFormContainer statusId={status.get('id')} shouldCondense /> */ }
+          { /* <ComposeFormContainer statusId={status.get('id')} shouldCondense /> */}
         </div>
       </div>
     )

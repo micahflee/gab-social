@@ -1,10 +1,13 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
+import classNames from 'classnames/bind'
 import { me } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import Block from './block'
 import Heading from './heading'
+
+const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
@@ -25,6 +28,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map.isRequired,
     size: PropTypes.number,
+    modal: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -32,7 +36,23 @@ class TimelineComposeBlock extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, size, intl, ...rest } = this.props
+    const {
+      account,
+      size,
+      intl,
+      modal,
+      ...rest
+    } = this.props
+
+    if (modal) {
+      return (
+        <section className={_s.default}>
+          <div className={[_s.default, _s.flexRow].join(' ')}>
+            <ComposeFormContainer {...rest} />
+          </div>
+        </section>
+      )
+    }
 
     return (
       <section className={[_s.default, _s.marginBottom15PX].join(' ')}>
@@ -42,7 +62,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
               {intl.formatMessage(messages.createPost)}
             </Heading>
           </div>
-          <div className={[_s.default, _s.flexRow, _s.paddingVertical15PX, _s.paddingHorizontal15PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.paddingHorizontal15PX, _s.paddingVertical15PX].join(' ')}>
             <ComposeFormContainer {...rest} />
           </div>
         </Block>

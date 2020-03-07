@@ -25,7 +25,6 @@ const mapStateToProps = (state, { account }) => {
   }
 }
 
-
 const mapDispatchToProps = dispatch => {
   return {
     fetchSuggestions: () => dispatch(fetchSuggestions()),
@@ -119,7 +118,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                       <Divider small />
                       <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-field-${i}`}>
                         <dt
-                          className={[_s.text, _s.dangerousContent].join('')}
+                          className={[_s.text, _s.dangerousContent].join(' ')}
                           dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }}
                           title={pair.get('name')}
                         />

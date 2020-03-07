@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import classNames from 'classnames/bind'
 import Icon from './icon'
 import Text from './text'
@@ -16,6 +17,7 @@ export default class Input extends PureComponent {
     onBlur: PropTypes.func,
     onClear: PropTypes.func,
     title: PropTypes.string,
+    small: PropTypes.bool,
   }
 
   render() {
@@ -29,7 +31,8 @@ export default class Input extends PureComponent {
       onFocus,
       onBlur,
       onClear,
-      title
+      title,
+      small
     } = this.props
 
     const inputClasses = cx({
@@ -48,7 +51,7 @@ export default class Input extends PureComponent {
     })
 
     return (
-      <div>
+      <Fragment>
         {
           !!title &&
           <div className={[_s.default, _s.marginBottom10PX, _s.paddingLeft15PX].join(' ')}>
@@ -81,7 +84,7 @@ export default class Input extends PureComponent {
             </div>
           }
         </div>
-      </div>
+      </Fragment>
     )
   }
 }

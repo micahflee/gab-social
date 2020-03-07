@@ -17,7 +17,12 @@ class ModalLayout extends PureComponent {
   }
 
   render() {
-    const { title, children, intl, onClose } = this.props
+    const {
+      title,
+      children,
+      intl,
+      onClose,
+    } = this.props
 
     return (
       <div className={[_s.width645PX].join(' ')}>
@@ -27,12 +32,13 @@ class ModalLayout extends PureComponent {
               {title}
             </Heading>
             <Button
-              className=''
+              backgroundColor='none'
               title={intl.formatMessage(messages.close)}
+              className={_s.marginLeftAuto}
               onClick={onClose}
-              icon='times'
-              iconWidth='20px'
-              iconWidth='20px'
+              icon='close'
+              iconWidth='10px'
+              iconWidth='10px'
             />
           </div>
           <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
