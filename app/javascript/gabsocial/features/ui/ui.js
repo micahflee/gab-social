@@ -504,7 +504,7 @@ class UI extends PureComponent {
             {children}
           </SwitchingArea>
 
-          <NotificationsContainer />
+          { /* <NotificationsContainer /> */ }
           <ModalRoot />
           <PopoverRoot />
           <UploadArea active={draggingOver} onClose={this.closeUploadModal} />

@@ -8,10 +8,7 @@ const AssetsManifestPlugin = require('webpack-assets-manifest');
 const extname = require('path-complete-extname');
 const { env, settings, output } = require('./configuration');
 const rules = require('./rules');
-const localePackPaths = [
-  '/Users/m3/Documents/dev/gab-social/tmp/packs/locale_en.js',
-];
-//require('./generateLocalePacks');
+const localePackPaths = require('./generateLocalePacks');
 
 const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
@@ -77,7 +74,7 @@ module.exports = {
       PureComponent: ['react', 'PureComponent'],
       connect: ['react-redux', 'connect'],
       PropTypes: 'prop-types',
-      _s: '/Users/m3/Documents/dev/gab-social/app/javascript/styles/global.css', // : todo :
+      _s: `${resolve(settings.source_path)}/styles/global.css`
     }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new webpack.NormalModuleReplacementPlugin(

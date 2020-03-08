@@ -106,6 +106,7 @@ export default class Button extends PureComponent {
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,
+      colorTertiary: color === COLORS.tertiary,
       colorWhite: color === COLORS.white,
       colorBrand: color === COLORS.brand,
 

@@ -129,17 +129,6 @@ export function mentionCompose(account, routerHistory) {
   };
 };
 
-export function directCompose(account, routerHistory) {
-  return (dispatch, getState) => {
-    dispatch({
-      type: COMPOSE_DIRECT,
-      account: account,
-    });
-
-    ensureComposeIsVisible(getState, routerHistory);
-  };
-};
-
 export function handleComposeSubmit(dispatch, getState, response, status) {
   if (!dispatch || !getState) return;
 

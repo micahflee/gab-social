@@ -11,7 +11,6 @@ import {
 } from '../../../actions/accounts';
 import {
   mentionCompose,
-  directCompose,
 } from '../../../actions/compose';
 import { initMuteModal } from '../../../actions/mutes';
 import { initReport } from '../../../actions/reports';
@@ -78,11 +77,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   onMention (account, router) {
     dispatch(mentionCompose(account, router));
   },
-
-  onDirect (account, router) {
-    dispatch(directCompose(account, router));
-  },
-
+  
   onRepostToggle (account) {
     if (account.getIn(['relationship', 'showing_reblogs'])) {
       dispatch(followAccount(account.get('id'), false));

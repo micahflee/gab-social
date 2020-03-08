@@ -33,6 +33,7 @@ class StatusContent extends ImmutablePureComponent {
     onClick: PropTypes.func,
     collapsable: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    isComment: PropTypes.bool,
   };
 
   state = {
@@ -155,7 +156,7 @@ class StatusContent extends ImmutablePureComponent {
   }
 
   render () {
-    const { status, intl } = this.props;
+    const { status, intl, isComment } = this.props;
 
     if (status.get('content').length === 0) return null;
 
@@ -208,7 +209,7 @@ class StatusContent extends ImmutablePureComponent {
       const hasMarginBottom = !!status.get('card') || !!status.get('poll') || status.get('media_attachments').size > 0
 
       const containerClasses = cx({
-        paddingHorizontal15PX: 1,
+        paddingHorizontal15PX: !isComment,
         marginBottom15PX: hasMarginBottom,
       })
 

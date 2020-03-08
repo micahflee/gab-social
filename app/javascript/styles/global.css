@@ -327,6 +327,10 @@ body {
   color: #fff;
 }
 
+.colorTertiary {
+  color: #777;
+}
+
 .colorSecondary {
   color: #4B4F55;
 }
@@ -795,6 +799,10 @@ body {
 
 .paddingTop5PX {
   padding-top: 5px;
+}
+
+.paddingTop2PX {
+  padding-top: 2px;
 }
 
 .paddingBottom10PX {

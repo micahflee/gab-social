@@ -2,7 +2,6 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import {
   replyCompose,
   mentionCompose,
-  directCompose,
   quoteCompose,
 } from '../actions/compose';
 import {
@@ -148,10 +147,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onEdit (status) {
     dispatch(editStatus(status));
-  },
-
-  onDirect (account, router) {
-    dispatch(directCompose(account, router));
   },
 
   onMention (account, router) {

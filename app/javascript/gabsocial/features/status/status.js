@@ -1,5 +1,4 @@
 import Immutable from 'immutable';
-import classNames from 'classnames';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -8,15 +7,14 @@ import { fetchStatus } from '../../actions/statuses';
 import {
   favorite,
   unfavorite,
-  reblog,
-  unreblog,
+  repost,
+  unrepost,
   pin,
   unpin,
 } from '../../actions/interactions';
 import {
   replyCompose,
   mentionCompose,
-  directCompose,
 } from '../../actions/compose';
 import { blockAccount } from '../../actions/accounts';
 import {
@@ -31,12 +29,11 @@ import { initReport } from '../../actions/reports';
 import { openModal } from '../../actions/modal';
 import { boostModal, deleteModal, me } from '../../initial_state';
 import { makeGetStatus } from '../../selectors';
-import { attachFullscreenListener, detachFullscreenListener, isFullscreen } from '../../utils/fullscreen';
 import StatusContainer from '../../containers/status_container';
-import { ColumnHeader } from '../../components/column_header';
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status';
-import Icon from '../../components/icon';
 import ColumnIndicator from '../../components/column_indicator';
+import Block from '../../components/block'
+import Comment from '../../components/comment'
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -53,15 +50,15 @@ const messages = defineMessages({
 });
 
 const makeMapStateToProps = () => {
-  const getStatus = makeGetStatus();
+  const getStatus = makeGetStatus()
 
   const mapStateToProps = (state, props) => {
     const status = getStatus(state, {
       id: props.params.statusId,
       username: props.params.username,
-    });
+    })
 
-    let ancestorsIds = Immutable.List();
+    let ancestorsIds = Immutable.List()
     let descendantsIds = Immutable.List();
 
     if (status) {
@@ -74,24 +71,8 @@ const makeMapStateToProps = () => {
         }
       });
 
-      descendantsIds = descendantsIds.withMutations(mutable => {
-        const ids = [status.get('id')];
-
-        while (ids.length > 0) {
-          let id = ids.shift();
-          const replies = state.getIn(['contexts', 'replies', id]);
-
-          if (status.get('id') !== id) {
-            mutable.push(id);
-          }
-
-          if (replies) {
-            replies.reverse().forEach(reply => {
-              ids.unshift(reply);
-            });
-          }
-        }
-      });
+      // ONLY Direct descendants
+      descendantsIds = state.getIn(['contexts', 'replies', status.get('id')])
     }
 
     return {
@@ -134,10 +115,6 @@ class Status extends ImmutablePureComponent {
 
   componentWillMount() {
     this.props.dispatch(fetchStatus(this.props.params.statusId));
-  }
-
-  componentDidMount() {
-    attachFullscreenListener(this.onFullScreenChange);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -212,10 +189,6 @@ class Status extends ImmutablePureComponent {
         onConfirm: () => dispatch(deleteStatus(status.get('id'), history, withRedraft)),
       }));
     }
-  }
-
-  handleDirectClick = (account, router) => {
-    this.props.dispatch(directCompose(account, router));
   }
 
   handleMentionClick = (account, router) => {
@@ -372,16 +345,16 @@ class Status extends ImmutablePureComponent {
   }
 
   renderChildren(list) {
+    console.log("list:", list)
     // : todo : comments
     return list.map(id => (
-      <StatusContainer
-        key={id}
+      <Comment
+        key={`comment-${id}`}
         id={id}
         onMoveUp={this.handleMoveUp}
         onMoveDown={this.handleMoveDown}
-        contextType='thread'
       />
-    ));
+    ))
   }
 
   setRef = c => {
@@ -389,11 +362,9 @@ class Status extends ImmutablePureComponent {
   }
 
   componentDidUpdate() {
-    if (this._scrolledIntoView) {
-      return;
-    }
+    if (this._scrolledIntoView) return
 
-    const { status, ancestorsIds } = this.props;
+    const { status, ancestorsIds } = this.props
 
     if (status && ancestorsIds && ancestorsIds.size > 0) {
       const element = this.node.querySelectorAll('.focusable')[ancestorsIds.size - 1];
@@ -405,28 +376,27 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  componentWillUnmount() {
-    detachFullscreenListener(this.onFullScreenChange);
-  }
-
-  onFullScreenChange = () => {
-    this.setState({ fullscreen: isFullscreen() });
-  }
-
   render() {
-    let ancestors, descendants;
-    const { status, ancestorsIds, descendantsIds, intl, domain } = this.props;
+    const {
+      status,
+      ancestorsIds,
+      descendantsIds,
+      intl,
+      domain
+    } = this.props
+
+    let ancestors, descendants
 
     if (status === null) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     }
 
     if (ancestorsIds && ancestorsIds.size > 0) {
-      ancestors = <div>{this.renderChildren(ancestorsIds)}</div>;
+      ancestors = this.renderChildren(ancestorsIds)
     }
 
     if (descendantsIds && descendantsIds.size > 0) {
-      descendants = <div>{this.renderChildren(descendantsIds)}</div>;
+      descendants = this.renderChildren(descendantsIds)
     }
 
     const handlers = {
@@ -441,68 +411,41 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     };
 
-    /* me &&
-      <ColumnHeader
-        extraButton={(
-          <button
-            className='column-header__button'
-            title={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
-            aria-label={intl.formatMessage(status.get('hidden') ? messages.revealAll : messages.hideAll)}
-            onClick={this.handleToggleAll}
-            aria-pressed={
-              status.get('hidden') ? 'false' : 'true'}
-          >
-            <Icon id={status.get('hidden') ? 'eye-slash' : 'eye'
-            }
-            />
-          </button>
-        )}
-      />
-    */
-
     return (
       <div ref={this.setRef}>
-        {ancestors}
+        <Block>
+          {
+            /* ancestors */
+          }
 
-        <HotKeys handlers={handlers}>
-          <div className={_s.outlineNone} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
-            { /* <DetailedStatus
-              status={status}
-              onOpenVideo={this.handleOpenVideo}
-              onOpenMedia={this.handleOpenMedia}
-              onToggleHidden={this.handleToggleHidden}
-              domain={domain}
-              showMedia={this.state.showMedia}
-              onToggleMediaVisibility={this.handleToggleMediaVisibility}
-            /> */ }
+          <HotKeys handlers={handlers}>
+            <div className={_s.outlineNone} tabIndex='0' aria-label={textForScreenReader(intl, status, false)}>
+              
+              <StatusContainer
+                id={status.get('id')}
+                contextType={'timelineId'}
+                showThread
+                borderless={descendantsIds && descendantsIds.size > 0}
+                // onOpenVideo={this.handleOpenVideo}
+                // onOpenMedia={this.handleOpenMedia}
+                // onToggleHidden={this.handleToggleHidden}
+                // domain={domain}
+                // showMedia={this.state.showMedia}
+                // onToggleMediaVisibility={this.handleToggleMediaVisibility}
+              />
+              
+            </div>
+          </HotKeys>
 
-            <StatusContainer
-              id={status.get('id')}
-              contextType={'timelineId'}
-              showThread
-            />
+          {
+            descendantsIds && descendantsIds.size > 0 &&
+            <div className={[_s.default, _s.marginRight10PX, _s.marginLeft10PX, _s.marginBottom10PX, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
+          }
 
-            {/*<ActionBar
-              status={status}
-              onReply={this.handleReplyClick}
-              onFavorite={this.handleFavoriteClick}
-              onRepost={this.handleRepostClick}
-              onDelete={this.handleDeleteClick}
-              onDirect={this.handleDirectClick}
-              onMention={this.handleMentionClick}
-              onMute={this.handleMuteClick}
-              onMuteConversation={this.handleConversationMuteClick}
-              onBlock={this.handleBlockClick}
-              onReport={this.handleReport}
-              onPin={this.handlePin}
-              onEmbed={this.handleEmbed}
-            />*/}
-          </div>
-        </HotKeys>
-
-        {descendants}
+          {descendants}
+        </Block>
       </div>
-    );
+    )
   }
 
 }

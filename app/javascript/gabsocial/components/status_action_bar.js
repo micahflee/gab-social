@@ -132,7 +132,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const repostCount = status.get('reblogs_count')
     const repostTitle = !publicStatus ? formatMessage(messages.cannot_repost) : formatMessage(messages.repost)
 
-    const favoriteCount = status.get('favorites_count') // : todo :
+    const favoriteCount = status.get('favourites_count') // : todo :
 
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
       <IconButton className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />

@@ -13,7 +13,7 @@ import Avatar from '../avatar';
 import StatusQuote from '../status_quote';
 import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
-import StatusContent from '../status_content';
+import StatusContent from '../status_content'
 import StatusActionBar from '../status_action_bar';
 import Block from '../block';
 import Icon from '../icon';
@@ -104,6 +104,7 @@ class Status extends ImmutablePureComponent {
     promoted: PropTypes.bool,
     onOpenProUpgradeModal: PropTypes.func,
     intl: PropTypes.object.isRequired,
+    borderless: PropTypes.bool,
   };
 
   // Avoid checking props that are functions (and whose equality will always
@@ -279,7 +280,8 @@ class Status extends ImmutablePureComponent {
       unread,
       showThread,
       group,
-      promoted
+      promoted,
+      borderless
     } = this.props
 
     let media = null
@@ -450,10 +452,19 @@ class Status extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      marginBottom15PX: 1,
+      marginBottom15PX: !borderless,
+      backgroundColorPrimary: 1,
       paddingBottom15PX: featured,
       borderBottom1PX: featured,
       borderColorSecondary: featured,
+    })
+
+    const innerContainerClasses = cx({
+      default: 1,
+      overflowHidden: 1,
+      radiusSmall: !borderless,
+      borderColorSecondary: !borderless,
+      border1PX: !borderless,
     })
 
     return (
@@ -465,7 +476,7 @@ class Status extends ImmutablePureComponent {
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
         >
-          <Block>
+          <div className={innerContainerClasses}>
 
             {prepend}
 
@@ -497,11 +508,11 @@ class Status extends ImmutablePureComponent {
             ) */ }
 
               <StatusActionBar status={status} account={account} {...other} />
-              {/*<div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.paddingHorizontal15PX, _s.marginBottom10PX].join(' ')}>
+              <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.paddingHorizontal15PX, _s.marginBottom10PX].join(' ')}>
                 <ComposeFormContainer statusId={status.get('id')} shouldCondense />
-          </div>*/}
+              </div>
             </div>
-          </Block>
+          </div>
         </div>
       </HotKeys>
     );

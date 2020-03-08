@@ -26,6 +26,7 @@ class DisplayName extends ImmutablePureComponent {
     openUserInfoPopover: PropTypes.func.isRequired,
     closeUserInfoPopover: PropTypes.func.isRequired,
     multiline: PropTypes.bool,
+    small: PropTypes.bool,
     large: PropTypes.bool,
     noHover: PropTypes.bool,
     noUsername: PropTypes.bool,
@@ -47,7 +48,8 @@ class DisplayName extends ImmutablePureComponent {
       multiline,
       large,
       noHover,
-      noUsername
+      noUsername,
+      small
     } = this.props
 
     if (!account) return null
@@ -70,10 +72,11 @@ class DisplayName extends ImmutablePureComponent {
       whiteSpaceNoWrap: 1,
       fontWeightBold: 1,
       colorPrimary: 1,
-      lineHeight125: 1,
       marginRight2PX: 1,
+      lineHeight125: !small,
+      fontSize14PX: small,
       fontSize15PX: !large,
-      fontSize24PX: large,
+      fontSize24PX: large && !small,
     })
 
     const usernameClasses = cx({
@@ -88,11 +91,14 @@ class DisplayName extends ImmutablePureComponent {
       lineHeight15: multiline,
       lineHeight125: !multiline,
       marginLeft5PX: !multiline,
+      fontSize14PX: small,
       fontSize15PX: !large,
-      fontSize16PX: large
+      fontSize16PX: large && !small,
     })
 
-    const iconSize = !!large ? '19px' : '16px'
+    const iconSize =
+      !!large ? '19px' :
+      !!small ? '14px' : '16px'
 
     // : todo :
     return (
