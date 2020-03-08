@@ -349,7 +349,7 @@ class ComposeForm extends ImmutablePureComponent {
               }
               <SpoilerButton small={shouldCondense} />
               <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />
-              <EmojiPickerButton />
+              <EmojiPickerButton small={shouldCondense} />
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
             {

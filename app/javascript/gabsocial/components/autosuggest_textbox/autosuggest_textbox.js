@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Textarea from 'react-textarea-autosize'
+import ContentEditable from 'react-contenteditable'
 import { isRtl } from '../../utils/rtl'
 import { textAtCursorMatchesToken } from '../../utils/cursor_token_match'
 import AutosuggestAccount from '../autosuggest_account'
@@ -228,18 +229,46 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       marginRight5PX: small,
     })
 
+    // <div aria-activedescendant="typeaheadFocus-0.35973815699338085"
+    // aria-autocomplete="list"
+    // aria-controls="typeaheadDropdownWrapped-0"
+    // aria-describedby="placeholder-7g4r6"
+    // aria-label="Tweet text"
+    // aria-multiline="true"
+    // class="notranslate public-DraftEditor-content"
+    // contenteditable="true"
+    // data-testid="tweetTextarea_0"
+    // role="textbox"
+    // spellcheck="true"
+    // tabindex="0"
+    // no-focuscontainer-refocus="true"
+    // style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;">
+    
     if (textarea) {
       return (
       <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.marginLeft5PX].join(' ')}>
-              <Textarea
+
+              <ContentEditable
+                noFocuscontainerRefocus
+                ariaMultiline
+                contentEditable
+                spellcheck
+                tabindex='0'
+                ariaLabel='Gab text'
+                role='textbox'
+                ariaAutocomplete='list'
+                style={{
+                  userSelect: 'text',
+                  'white-space': 'pre-wrap',
+                  overflowWrap: 'break-word'
+                }}
                 inputRef={this.setTextbox}
                 className={textClasses}
                 disabled={disabled}
                 placeholder={placeholder}
                 autoFocus={autoFocus}
-                value={value}
                 onChange={this.onChange}
                 onKeyDown={this.onKeyDown}
                 onKeyUp={onKeyUp}
@@ -247,7 +276,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onBlur={this.onBlur}
                 onPaste={this.onPaste}
                 style={style}
-                aria-autocomplete='list'
+                html={value}
               />
             </div>
             {children}

@@ -5,13 +5,13 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import classNames from 'classnames/bind'
 import escapeTextContentForBrowser from 'escape-html'
 import spring from 'react-motion/lib/spring'
-import Motion from '../../features/ui/util/optional_motion'
-import { vote } from '../../actions/polls'
-import emojify from '../emoji/emoji'
-import RelativeTimestamp from '../relative_timestamp'
-import Button from '../button'
-import DotTextSeperator from '../dot_text_seperator'
-import Text from '../text'
+import Motion from '../features/ui/util/optional_motion'
+import { vote } from '../actions/polls'
+import emojify from './emoji/emoji'
+import RelativeTimestamp from './relative_timestamp'
+import Button from './button'
+import DotTextSeperator from './dot_text_seperator'
+import Text from './text'
 
 const cx = classNames.bind(_s)
 
@@ -159,7 +159,10 @@ class Poll extends ImmutablePureComponent {
               !showResults && <span className={inputClasses} />
             }
 
-            <span dangerouslySetInnerHTML={{ __html: titleEmojified }} />
+            <span
+              className={_s.text}
+              dangerouslySetInnerHTML={{ __html: titleEmojified }}
+            />
 
             {
               showResults &&

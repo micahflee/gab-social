@@ -8,6 +8,7 @@ import classNames from 'classnames/bind'
 import { displayMedia } from '../../initial_state';
 import Card from '../../features/status/components/card';
 import { MediaGallery, Video } from '../../features/ui/util/async-components';
+import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
 import Avatar from '../avatar';
 import StatusQuote from '../status_quote';
 import RelativeTimestamp from '../relative_timestamp';
@@ -496,7 +497,9 @@ class Status extends ImmutablePureComponent {
             ) */ }
 
               <StatusActionBar status={status} account={account} {...other} />
-              { /* : todo : comment bar, comments */ }
+              {/*<div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.paddingHorizontal15PX, _s.marginBottom10PX].join(' ')}>
+                <ComposeFormContainer statusId={status.get('id')} shouldCondense />
+          </div>*/}
             </div>
           </Block>
         </div>

@@ -33,7 +33,11 @@ class NotificationFilterPanel extends ImmutablePureComponent {
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
-
+        <Text>Date</Text>
+        <Text>Verified</Text>
+        <Text>Users</Text>
+        <Text>Status Id</Text>
+        <Text>Only People I Follow</Text>
       </PanelLayout>
     )
   }

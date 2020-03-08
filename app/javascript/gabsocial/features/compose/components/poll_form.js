@@ -100,19 +100,22 @@ class PollFormOption extends ImmutablePureComponent {
           />
         </label>
 
-        <Button
-          narrow
-          circle
-          backgroundColor='none'
-          className={[_s.marginLeft5PX, _s.justifyContentCenter].join(' ')}
-          icon='close'
-          iconWidth='8px'
-          iconHeight='8px'
-          iconClassName={_s.fillColorSecondary}
-          disabled={index <= 1}
-          title={intl.formatMessage(messages.remove_option)}
-          onClick={this.handleOptionRemove}
-        />
+        {
+          index > 1 &&
+          <Button
+            narrow
+            circle
+            backgroundColor='none'
+            className={[_s.marginLeft5PX, _s.justifyContentCenter].join(' ')}
+            icon='close'
+            iconWidth='8px'
+            iconHeight='8px'
+            iconClassName={_s.fillColorSecondary}
+            disabled={index <= 1}
+            title={intl.formatMessage(messages.remove_option)}
+            onClick={this.handleOptionRemove}
+          />
+        }
       </li>
     );
   }

@@ -1,40 +1,41 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage } from 'react-intl';
-import TrendingItem from '../../../../components/trends_panel_item';
-import Icon from '../../../../components/icon';
-import { WhoToFollowPanel } from '../../../../components/panel';
-// import TrendsPanel from '../../ui/components/trends_panel';
-import GroupListItem from '../../../../components/group_list_item';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { FormattedMessage } from 'react-intl'
+import TrendingItem from '../../../../components/trends_panel_item'
+import Icon from '../../../../components/icon'
+import { WhoToFollowPanel } from '../../../../components/panel'
+// import TrendsPanel from '../../ui/components/trends_panel'
+import GroupListItem from '../../../../components/group_list_item'
+import Block from '../../../../components/block'
 
 export default class SearchResults extends ImmutablePureComponent {
 
   static propTypes = {
     results: ImmutablePropTypes.map.isRequired,
     location: PropTypes.object,
-  };
+  }
 
   state = {
     isSmallScreen: (window.innerWidth <= 895),
   }
 
   render () {
-    const { results, location } = this.props;
-    const { isSmallScreen } = this.state;
+    const { results, location } = this.props
+    const { isSmallScreen } = this.state
 
     if (results.isEmpty() && isSmallScreen) {
       return (
         <div className='search-results'>
           <WhoToFollowPanel />
         </div>
-      );
+      )
     }
 
-    const pathname = location.pathname || '';
-    const showPeople = pathname === '/search/people';
-    const showHashtags = pathname === '/search/hashtags';
-    const showGroups = pathname === '/search/groups';
-    const isTop = !showPeople && !showHashtags && !showGroups;
+    const pathname = location.pathname || ''
+    const showPeople = pathname === '/search/people'
+    const showHashtags = pathname === '/search/hashtags'
+    const showGroups = pathname === '/search/groups'
+    const isTop = !showPeople && !showHashtags && !showGroups
 
     let accounts, statuses, hashtags, groups;
     let count = 0;
@@ -73,7 +74,7 @@ export default class SearchResults extends ImmutablePureComponent {
     }
 
     return (
-      <div className='search-results'>
+      <Block>
         <div className='search-results__header'>
           <Icon id='search' fixedWidth />
           <FormattedMessage
@@ -89,8 +90,8 @@ export default class SearchResults extends ImmutablePureComponent {
         {groups}
         {statuses}
         {hashtags}
-      </div>
-    );
+      </Block>
+    )
   }
 
 }

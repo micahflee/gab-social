@@ -4,7 +4,6 @@ import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import { openModal } from '../actions/modal'
 import { me, isStaff } from '../initial_state'
-import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
 
@@ -228,9 +227,6 @@ class StatusActionBar extends ImmutablePureComponent {
               onClick={this.handleShareClick}
             />
           </div>
-        </div>
-        <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.marginBottom10PX].join(' ')}>
-          { /* <ComposeFormContainer statusId={status.get('id')} shouldCondense /> */}
         </div>
       </div>
     )

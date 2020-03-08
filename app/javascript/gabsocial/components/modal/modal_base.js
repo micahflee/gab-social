@@ -120,6 +120,8 @@ class ModalBase extends PureComponent {
     const containerClasses = cx({
       default: 1,
       z4: 1,
+      height100PC: visible,
+      width100PC: visible,
       displayNone: !visible,
     })
 
@@ -135,7 +137,7 @@ class ModalBase extends PureComponent {
             />
             <div
               role='dialog'
-              className={[_s.default, _s.positionFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.pointerEventsNone, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+              className={[_s.default, _s.positionFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             >
               {children}
             </div>
