@@ -80,6 +80,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
 
   validates :locale, inclusion: I18n.available_locales.map(&:to_s), if: :locale?
+  validates :unique_email, uniqueness: true
   validates_with BlacklistedEmailValidator, on: :create
   validates_with EmailMxValidator, if: :validate_email_dns?
   validates :agreement, acceptance: { allow_nil: false, accept: [true, 'true', '1'] }, on: :create
@@ -95,6 +96,7 @@ class User < ApplicationRecord
   scope :emailable, -> { confirmed.enabled.joins(:account).merge(Account.searchable) }
 
   before_validation :sanitize_languages
+  before_validation :set_unique_email
   before_create :set_approved
 
   # This avoids a deprecation warning from Rails 5.1
@@ -218,7 +220,7 @@ class User < ApplicationRecord
   def allows_group_in_home_feed?
     settings.group_in_home_feed
   end
- 
+
   def token_for_app(a)
     return nil if a.nil? || a.owner != self
     Doorkeeper::AccessToken
@@ -347,4 +349,10 @@ class User < ApplicationRecord
     end
   end
 
+  def set_unique_email
+    user, domain = self.email.split('@')
+    user = user.split('+').first
+    user = user.gsub('.', '') if domain == 'gmail.com'
+    self.unique_email = "#{user}@#{domain}"
+  end
 end
