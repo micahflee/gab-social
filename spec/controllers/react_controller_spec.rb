@@ -1,10 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe HomeController, type: :controller do
+RSpec.describe ReactController, type: :controller do
   render_views
 
-  describe 'GET #index' do
-    subject { get :index }
+  describe 'GET #react' do
+    subject { get :react }
 
     context 'when not signed in' do
       context 'when requested path is tag timeline' do

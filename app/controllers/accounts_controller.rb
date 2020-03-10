@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AccountsController < ApplicationController
+class AccountsController < ReactController
   PAGE_SIZE = 20
 
   include AccountControllerConcern
@@ -11,24 +11,7 @@ class AccountsController < ApplicationController
     respond_to do |format|
       format.html do
         mark_cacheable! unless user_signed_in?
-
-        @body_classes      = 'with-modals'
-        @pinned_statuses   = []
-        @endorsed_accounts = @account.endorsed_accounts.to_a.sample(4)
-
-        if current_account && @account.blocking?(current_account)
-          @statuses = []
-          return
-        end
-
-        @pinned_statuses = cache_collection(@account.pinned_statuses, Status) if show_pinned_statuses?
-        @statuses        = filtered_status_page(params)
-        @statuses        = cache_collection(@statuses, Status)
-
-        unless @statuses.empty?
-          @older_url = older_url if @statuses.last.id > filtered_statuses.last.id
-          @newer_url = newer_url if @statuses.first.id < filtered_statuses.first.id
-        end
+        return process(:react)
       end
 
       format.atom do

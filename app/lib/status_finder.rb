@@ -15,7 +15,7 @@ class StatusFinder
     case recognized_params[:controller]
     when 'stream_entries'
       StreamEntry.find(recognized_params[:id]).status
-    when 'home'
+    when 'statuses'
       Status.find(recognized_params[:id])
     else
       raise ActiveRecord::RecordNotFound
@@ -29,7 +29,7 @@ class StatusFinder
   end
 
   def verify_action!
-    unless recognized_params[:action] == 'show' || recognized_params[:action] == 'index'
+    unless recognized_params[:action] == 'show'
       raise ActiveRecord::RecordNotFound
     end
   end

@@ -82,6 +82,20 @@ class Header extends ImmutablePureComponent {
     window.removeEventListener('resize', this.handleResize);
   }
 
+  onChat = () => {
+    const { account } = this.props;
+
+    axios.post('https://chat.gab.com/private-message', {
+      username: account.get('username'),
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
   handleResize = debounce(() => {
     this.setState({ isSmallScreen: (window.innerWidth <= 895) });
   }, 5, {
@@ -112,6 +126,8 @@ class Header extends ImmutablePureComponent {
       menu.push({ text: intl.formatMessage(messages.blocks), to: '/blocks' });
       menu.push({ text: intl.formatMessage(messages.domain_blocks), to: '/domain_blocks' });
     } else {
+      menu.push({ text: intl.formatMessage(messages.mention, { name: account.get('acct') }), action: this.props.onMention });
+
       if (account.getIn(['relationship', 'following'])) {
         if (account.getIn(['relationship', 'showing_reblogs'])) {
           menu.push({ text: intl.formatMessage(messages.hideReposts, { name: account.get('username') }), action: this.props.onRepostToggle });
