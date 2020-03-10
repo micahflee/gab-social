@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_02_004114) do
+ActiveRecord::Schema.define(version: 2020_03_10_224203) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -824,11 +824,13 @@ ActiveRecord::Schema.define(version: 2019_12_02_004114) do
     t.bigint "created_by_application_id"
     t.boolean "approved", default: true, null: false
     t.bigint "last_read_notification"
+    t.string "unique_email"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+    t.index ["unique_email"], name: "index_users_on_unique_email"
   end
 
   create_table "web_push_subscriptions", force: :cascade do |t|

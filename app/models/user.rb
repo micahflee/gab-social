@@ -39,6 +39,7 @@
 #  created_by_application_id :bigint(8)
 #  approved                  :boolean          default(TRUE), not null
 #  last_read_notification    :bigint(8)
+#  unique_email              :string
 #
 
 class User < ApplicationRecord
