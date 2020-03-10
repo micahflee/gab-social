@@ -48,7 +48,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
           <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
             <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
-                <Image className={_s.height350PX} src='https://gab.com/media/user/bz-5cf53d08403d4.jpeg' />
+                <Image className={_s.height350PX} src={account.get('header')} />
               </div>
 
               <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary, _s.width100PC].join(' ')}>
@@ -57,7 +57,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
                     className={[_s.circle, _s.marginTopNeg75PX, _s.borderColorWhite, _s.border2PX].join(' ')}
                     height='150px'
                     width='150px'
-                    src='http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139'
+                    src={account.get('avatar')}
                   />
                   <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
                     <DisplayName account={account} multiline large />
