@@ -10,7 +10,7 @@ export default class TabBar extends PureComponent {
     const { tabs, large } = this.props
 
     return (
-      <div className={[_s.default, _s.height53PX, _s.paddingHorizontal5PX, _s.flexRow].join(' ')}>
+      <div className={[_s.default, _s.height53PX, _s.px5, _s.flexRow].join(' ')}>
         { !!tabs &&
           tabs.map((tab, i) => (
             <TabBarItem key={`tab-bar-item-${i}`} {...tab} large={large} />

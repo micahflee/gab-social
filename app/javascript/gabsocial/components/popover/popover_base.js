@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { Manager, Reference, Popper } from 'react-popper'
 import classnames from 'classnames/bind'
 import Overlay from 'react-overlays/lib/Overlay'
 import spring from 'react-motion/lib/spring'
@@ -52,14 +53,16 @@ class PopoverBase extends ImmutablePureComponent {
     isModalOpen: PropTypes.bool.isRequired,
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    popoverPlacement: PropTypes.string,
+    position: PropTypes.string,
     openPopoverType: PropTypes.number,
     openedViaKeyboard: PropTypes.bool,
     visible: PropTypes.bool,
+    targetRef: PropTypes.node,
   }
 
   static defaultProps = {
     title: 'Menu',
+    position: 'bottom',
   }
 
   state = {
@@ -124,7 +127,19 @@ class PopoverBase extends ImmutablePureComponent {
   }
 
   render() {
-    const { icon, children, visible, items, size, title, disabled, popoverPlacement, openPopoverType, openedViaKeyboard } = this.props
+    const {
+      icon,
+      children,
+      visible,
+      items,
+      size,
+      title,
+      disabled,
+      position,
+      openPopoverType,
+      openedViaKeyboard,
+      targetRef,
+    } = this.props
     const open = this.state.id === openPopoverType
 
     const containerClasses = cx({
@@ -134,12 +149,24 @@ class PopoverBase extends ImmutablePureComponent {
     })
 
     return (
-      <div onKeyDown={this.handleKeyDown} className={containerClasses}>
-        { /* <div show={open} placement={popoverPlacement} target={this.findTarget}>
-          <PopoverMenu items={items} onClose={this.handleClose} openedViaKeyboard={openedViaKeyboard} />
-          {children}
-        </div> */}
-      </div>
+      <Manager>
+        <Popper
+          placement={position}
+          referenceElement={targetRef}
+        >
+          {({ ref, style, placement, arrowProps }) => (
+            <div ref={ref} style={style} data-placement={placement}>
+              <div ref={arrowProps.ref} style={arrowProps.style} />
+              <div data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
+              {children}
+                { /* <div show={open} placement={popoverPlacement} target={this.findTarget}>
+                  <PopoverMenu items={items} onClose={this.handleClose} openedViaKeyboard={openedViaKeyboard} />
+                </div> */}
+              </div>
+            </div>
+          )}
+        </Popper>
+      </Manager>
     )
   }
 

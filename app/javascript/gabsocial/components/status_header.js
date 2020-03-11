@@ -168,18 +168,18 @@ export default class StatusHeader extends ImmutablePureComponent {
     // </div>
 
     return (
-      <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
-        <div className={[_s.default, _s.flexRow, _s.marginTop5PX].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
 
           <NavLink
             to={`/${status.getIn(['account', 'acct'])}`}
             title={status.getIn(['account', 'acct'])}
-            className={[_s.default, _s.marginRight10PX].join(' ')}
+            className={[_s.default, _s.mr10].join(' ')}
           >
             <Avatar account={status.get('account')} size={50} />
           </NavLink>
 
-          <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.marginTop5PX].join(' ')}>
+          <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.mt5].join(' ')}>
 
             <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsStart].join(' ')}>
               <NavLink
@@ -218,7 +218,7 @@ export default class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
 
-              <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.marginLeft5PX, _s.fillColorSecondary].join(' ')} />
+              <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
 
               {
                 !!status.get('group') &&
@@ -230,7 +230,7 @@ export default class StatusHeader extends ImmutablePureComponent {
                     backgroundColor='none'
                     color='none'
                     to={`/groups/${status.getIn(['group', 'id'])}`}
-                    className={_s.marginLeft5PX}
+                    className={_s.ml5}
                   >
                     <Text size='small' color='secondary'>
                       {status.getIn(['group', 'title'])}
@@ -249,7 +249,7 @@ export default class StatusHeader extends ImmutablePureComponent {
                     backgroundColor='none'
                     color='none'
                     onClick={this.handleOpenStatusEdits}
-                    className={_s.marginLeft5PX}
+                    className={_s.ml5}
                   >
                     <Text size='small' color='secondary'>
                       Edited

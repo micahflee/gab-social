@@ -170,7 +170,7 @@ class StatusContent extends ImmutablePureComponent {
     //   'status__content--with-action': this.props.onClick && this.context.router,
     //   'status__content--with-spoiler': status.get('spoiler_text').length > 0,
     //   'status__content--collapsed': this.state.collapsed === true,
-    //   // _s.paddingHorizontal15PX, _s.marginBottom15PX
+    //   // _s.px15, _s.mb15
     // });
 
     if (isRtl(status.get('search_index'))) {
@@ -209,8 +209,8 @@ class StatusContent extends ImmutablePureComponent {
       const hasMarginBottom = !!status.get('card') || !!status.get('poll') || status.get('media_attachments').size > 0
 
       const containerClasses = cx({
-        paddingHorizontal15PX: !isComment,
-        marginBottom15PX: hasMarginBottom,
+        px15: !isComment,
+        mb15: hasMarginBottom,
       })
 
       return (
@@ -228,7 +228,7 @@ class StatusContent extends ImmutablePureComponent {
           {
             this.state.collapsed &&
             <button
-              className={[_s.default, _s.displayFlex, _s.cursorPointer, _s.paddingVertical2PX, _s.text, _s.colorPrimary, _s.fontWeightBold, _s.fontSize15PX].join(' ')}
+              className={[_s.default, _s.displayFlex, _s.cursorPointer, _s.py2, _s.text, _s.colorPrimary, _s.fontWeightBold, _s.fontSize15PX].join(' ')}
               onClick={this.props.onClick}
             >
               {intl.formatMessage(messages.readMore)}
@@ -242,7 +242,7 @@ class StatusContent extends ImmutablePureComponent {
       <div
         tabIndex='0'
         ref={this.setRef}
-        className={[_s.paddingHorizontal15PX, _s.marginBottom15PX, _s.statusContent].join(' ')}
+        className={[_s.px15, _s.mb15, _s.statusContent].join(' ')}
         style={directionStyle}
         dangerouslySetInnerHTML={content}
         lang={status.get('language')}

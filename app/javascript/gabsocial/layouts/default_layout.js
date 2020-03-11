@@ -26,7 +26,7 @@ export default class DefaultLayout extends PureComponent {
         <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
           <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary2, _s.backgroundColorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
-            <div className={[_s.default, _s.height53PX, _s.paddingLeft15PX, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
+            <div className={[_s.default, _s.height53PX, _s.pl15, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
               <div className={[_s.default, _s.width645PX].join(' ')}>
                 <ColumnHeader
                   title={title}
@@ -43,7 +43,7 @@ export default class DefaultLayout extends PureComponent {
 
           <div className={[_s.default, _s.height53PX].join(' ')}></div>
 
-          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
+          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pl15, _s.py15].join(' ')}>
             <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
               <div className={_s.default}>
                 {children}

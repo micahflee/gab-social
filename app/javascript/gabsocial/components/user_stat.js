@@ -28,7 +28,7 @@ export default class UserStat extends PureComponent {
       <NavLink
         to={to}
         title={`${value} ${title}`}
-        className={[_s.default, _s.flexGrow1, _s.cursorPointer, _s.noUnderline, _s.paddingRight15PX].join(' ')}
+        className={[_s.default, _s.flexGrow1, _s.cursorPointer, _s.noUnderline, _s.pr15].join(' ')}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >

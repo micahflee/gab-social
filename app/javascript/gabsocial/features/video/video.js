@@ -456,8 +456,8 @@ class Video extends PureComponent {
       default: 1,
       positionAbsolute: 1,
       circle: 1,
-      paddingHorizontal10PX: 1,
-      paddingVertical10PX: 1,
+      px10: 1,
+      py10: 1,
       backgroundColorBrand: 1,
       marginLeftNeg5PX: 1,
       z3: 1,
@@ -469,7 +469,7 @@ class Video extends PureComponent {
     const progressClasses = cx({
       default: 1,
       radiusSmall: 1,
-      marginTop10PX: 1,
+      mt10: 1,
       positionAbsolute: 1,
       height4PX: 1,
     })
@@ -549,19 +549,19 @@ class Video extends PureComponent {
           ref={this.setVolumeRef}
         >
           <div
-            className={[_s.default, _s.radiusSmall, _s.marginVertical10PX, _s.positionAbsolute, _s.width4PX, _s.marginLeft10PX, _s.backgroundColorPrimaryOpaque].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.positionAbsolute, _s.width4PX, _s.ml10, _s.backgroundColorPrimaryOpaque].join(' ')}
             style={{
               height: '102px',
             }}
           />
           <div
-            className={[_s.default, _s.radiusSmall, _s.marginVertical10PX, _s.bottom0, _s.positionAbsolute, _s.width4PX, _s.marginLeft10PX, _s.backgroundColorPrimary].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.positionAbsolute, _s.width4PX, _s.ml10, _s.backgroundColorPrimary].join(' ')}
             style={{
               height: `${volumeHeight}px`
             }}
           />
           <span
-            className={[_s.default, _s.cursorPointer, _s.positionAbsolute, _s.circle, _s.paddingHorizontal5PX, _s.boxShadow1, _s.marginBottomNeg5PX, _s.paddingVertical5PX, _s.backgroundColorPrimary, _s.z3].join(' ')}
+            className={[_s.default, _s.cursorPointer, _s.positionAbsolute, _s.circle, _s.px5, _s.boxShadow1, _s.marginBottomNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -570,7 +570,7 @@ class Video extends PureComponent {
           />
         </div>
 
-        <div className={[_s.default, _s.z2, _s.paddingHorizontal15PX, _s.videoPlayerControlsBackground, _s.positionAbsolute, _s.bottom0, _s.right0, _s.left0].join(' ')}>
+        <div className={[_s.default, _s.z2, _s.px15, _s.videoPlayerControlsBackground, _s.positionAbsolute, _s.bottom0, _s.right0, _s.left0].join(' ')}>
 
           <div
             className={[_s.default, _s.cursorPointer, _s.height22PX, _s.videoPlayerSeek].join(' ')}
@@ -591,7 +591,7 @@ class Video extends PureComponent {
             />
           </div>
 
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.paddingBottom5PX, _s.noSelect].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.pb5, _s.noSelect].join(' ')}>
             <Button
               narrow
               backgroundColor='none'
@@ -601,7 +601,7 @@ class Video extends PureComponent {
               iconWidth='16px'
               iconHeight='16px'
               iconClassName={_s.fillColorWhite}
-              className={_s.paddingLeft0}
+              className={_s.pl0}
             />
 
             <div className={[_s.default, _s.marginLeftAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
@@ -621,7 +621,7 @@ class Video extends PureComponent {
                 iconWidth='24px'
                 iconHeight='24px'
                 iconClassName={_s.fillColorWhite}
-                className={[_s.paddingHorizontal10PX, _s.marginLeft10PX].join(' ')}
+                className={[_s.px10, _s.ml10].join(' ')}
                 onMouseEnter={this.handleMouseEnterAudio}
                 onMouseLeave={this.handleMouseLeaveAudio}
               />
@@ -635,7 +635,7 @@ class Video extends PureComponent {
                 iconWidth='20px'
                 iconHeight='20px'
                 iconClassName={_s.fillColorWhite}
-                className={[_s.paddingHorizontal10PX, _s.paddingRight0].join(' ')}
+                className={[_s.px10, _s.pr0].join(' ')}
               />
             </div>
           </div>

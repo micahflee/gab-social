@@ -45,10 +45,10 @@ class TabBarItem extends PureComponent {
       alignItemsCenter: 1,
       justifyContentCenter: 1,
       borderBottom2PX: 1,
-      paddingVertical5PX: 1,
+      py5: 1,
       borderColorTransparent: !isCurrent,
       borderColorBrand: isCurrent,
-      marginRight5PX: large,
+      mr5: large,
     })
 
     const textParentClasses = cx({
@@ -57,8 +57,8 @@ class TabBarItem extends PureComponent {
       alignItemsCenter: 1,
       justifyContentCenter: 1,
       radiusSmall: 1,
-      paddingHorizontal10PX: !large,
-      paddingHorizontal15PX: large,
+      px10: !large,
+      px15: large,
       backgroundSubtle2Dark_onHover: !isCurrent,
     })
 

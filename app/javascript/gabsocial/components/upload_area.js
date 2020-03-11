@@ -60,7 +60,7 @@ class UploadArea extends PureComponent {
               opacity: backgroundOpacity
             }}
           >
-            <div className={[_s.default, _s.width340PX, _s.height260PX, _s.paddingHorizontal10PX, _s.paddingVertical10PX].join(' ')}>
+            <div className={[_s.default, _s.width340PX, _s.height260PX, _s.px10, _s.py10].join(' ')}>
               <div
                 className={[_s.default, _s.positionAbsolute, _s.backgroundColorPrimary, _s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
                 style={{

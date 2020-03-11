@@ -73,6 +73,8 @@ const makeMapStateToProps = () => {
 
       // ONLY Direct descendants
       descendantsIds = state.getIn(['contexts', 'replies', status.get('id')])
+
+      console.log("descendantsIds:", descendantsIds)
     }
 
     return {
@@ -439,7 +441,7 @@ class Status extends ImmutablePureComponent {
 
           {
             descendantsIds && descendantsIds.size > 0 &&
-            <div className={[_s.default, _s.marginRight10PX, _s.marginLeft10PX, _s.marginBottom10PX, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
+            <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
           }
 
           {descendants}

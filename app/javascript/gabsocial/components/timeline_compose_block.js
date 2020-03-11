@@ -55,14 +55,14 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     }
 
     return (
-      <section className={[_s.default, _s.marginBottom15PX].join(' ')}>
+      <section className={[_s.default, _s.mb15].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingHorizontal15PX, _s.paddingVertical2PX].join(' ')}>
+          <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2].join(' ')}>
             <Heading size='h5'>
               {intl.formatMessage(messages.createPost)}
             </Heading>
           </div>
-          <div className={[_s.default, _s.flexRow, _s.paddingHorizontal15PX, _s.paddingVertical15PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.px15, _s.py15].join(' ')}>
             <ComposeFormContainer {...rest} />
           </div>
         </Block>

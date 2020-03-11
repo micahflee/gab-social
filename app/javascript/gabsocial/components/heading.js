@@ -15,6 +15,7 @@ export default class Heading extends PureComponent {
   static propTypes = {
     children: PropTypes.any,
     size: PropTypes.oneOf(Object.keys(SIZES)),
+    center: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -22,11 +23,12 @@ export default class Heading extends PureComponent {
   }
 
   render() {
-    const { children, size } = this.props
+    const { children, size, center } = this.props
 
     const classes = cx({
       default: 1,
       text: 1,
+      textAlignCenter: center,
 
       colorPrimary: [SIZES.h1, SIZES.h3].indexOf(size) > -1,
       colorSecondary: [SIZES.h2, SIZES.h4, SIZES.h5].indexOf(size) > -1,
@@ -37,10 +39,10 @@ export default class Heading extends PureComponent {
       fontSize13PX: size === SIZES.h4,
       fontSize12PX: size === SIZES.h5,
 
-      marginTop5PX: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
+      mt5: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
 
       lineHeight2: size === SIZES.h5,
-      paddingVertical2PX: size === SIZES.h5,
+      py2: size === SIZES.h5,
 
       // fontWeightNormal: weight === WEIGHTS.normal,
       fontWeightMedium: [SIZES.h1, SIZES.h5].indexOf(size) > -1,

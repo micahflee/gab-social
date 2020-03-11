@@ -1,20 +1,20 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { openModal } from '../../actions/modal';
-import { cancelReplyCompose } from '../../actions/compose';
-import ModalLayout from './modal_layout';
-import TimelineComposeBlock from '../timeline_compose_block';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { openModal } from '../../actions/modal'
+import { cancelReplyCompose } from '../../actions/compose'
+import ModalLayout from './modal_layout'
+import TimelineComposeBlock from '../timeline_compose_block'
 
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
   title: { id: 'navigation_bar.compose', defaultMessage: 'Compose new gab' },
-});
+})
 
 const mapStateToProps = state => {
   return {
     composeText: state.getIn(['compose', 'text']),
   };
-};
+}
 
 export default
 @connect(mapStateToProps)
@@ -33,7 +33,8 @@ class ComposeModal extends ImmutablePureComponent {
 
     if (composeText) {
       dispatch(openModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
+        title: <FormattedMessage id='discard-gab-title' defaultMessage='Discard gab?' />,
+        message: <FormattedMessage id='discard-gab-message' defaultMessage="This can't be undone and you'll lose your draft." />,
         confirm: intl.formatMessage(messages.confirm),
         onConfirm: () => dispatch(cancelReplyCompose()),
         onCancel: () => dispatch(openModal('COMPOSE')),
@@ -45,7 +46,7 @@ class ComposeModal extends ImmutablePureComponent {
   };
 
   render() {
-    const { intl } = this.props;
+    const { intl } = this.props
 
     return (
       <ModalLayout

@@ -41,20 +41,20 @@ export default class Input extends PureComponent {
       outlineNone: 1,
       lineHeight125: 1,
       displayBlock: 1,
-      paddingVertical10PX: 1,
+      py10: 1,
       backgroundTransparent: 1,
       fontSize15PX: 1,
       flexGrow1: 1,
-      paddingHorizontal5PX: !!prependIcon,
-      paddingLeft15PX: !prependIcon,
-      paddingRight15PX: !hasClear,
+      px5: !!prependIcon,
+      pl15: !prependIcon,
+      pr15: !hasClear,
     })
 
     return (
       <Fragment>
         {
           !!title &&
-          <div className={[_s.default, _s.marginBottom10PX, _s.paddingLeft15PX].join(' ')}>
+          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>
@@ -63,7 +63,7 @@ export default class Input extends PureComponent {
         <div className={[_s.default, _s.backgroundColorPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
           {
             !!prependIcon &&
-            <Icon id={prependIcon} width='16px' height='16px' className={[_s.marginLeft15PX, _s.marginRight5PX].join(' ')} />
+            <Icon id={prependIcon} width='16px' height='16px' className={[_s.ml15, _s.mr5].join(' ')} />
           }
 
           <input

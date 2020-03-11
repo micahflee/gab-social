@@ -330,14 +330,14 @@ class Status extends ImmutablePureComponent {
       );
     } else if (featured) {
       prepend = (
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.paddingVertical5PX, _s.paddingHorizontal15PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15].join(' ')}>
           <Icon
             id='pin'
             width='10px'
             height='10px'
             className={_s.fillColorSecondary}
           />
-          <Text size='small' color='secondary' className={_s.marginLeft5PX}>
+          <Text size='small' color='secondary' className={_s.ml5}>
             {intl.formatMessage(messages.pinned)}
           </Text>
         </div>
@@ -452,9 +452,9 @@ class Status extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      marginBottom15PX: !borderless,
+      mb15: !borderless,
       backgroundColorPrimary: 1,
-      paddingBottom15PX: featured,
+      pb15: featured,
       borderBottom1PX: featured,
       borderColorSecondary: featured,
     })
@@ -508,9 +508,10 @@ class Status extends ImmutablePureComponent {
             ) */ }
 
               <StatusActionBar status={status} account={account} {...other} />
-              <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.paddingTop10PX, _s.paddingHorizontal15PX, _s.marginBottom10PX].join(' ')}>
+
+              { /* <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
                 <ComposeFormContainer statusId={status.get('id')} shouldCondense />
-              </div>
+              </div> */ }
             </div>
           </div>
         </div>

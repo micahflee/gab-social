@@ -26,7 +26,7 @@ export default class Badge extends PureComponent {
       <Text
         color='white'
         size='extraSmall'
-        className={[_s.backgroundColorBrand, _s.paddingHorizontal5PX, _s.lineHeight125, _s.radiusSmall].join(' ')}
+        className={[_s.backgroundColorBrand, _s.px5, _s.lineHeight125, _s.radiusSmall].join(' ')}
       >
         {children}
       </Text>

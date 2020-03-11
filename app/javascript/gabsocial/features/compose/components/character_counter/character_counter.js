@@ -17,7 +17,7 @@ export default class CharacterCounter extends PureComponent {
     const dashoffset = circumference * (1 - diff)
 
     return (
-      <div className={[_s.default, _s.marginRight10PX, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+      <div className={[_s.default, _s.mr10, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
         <svg width={actualRadius * 2} height={actualRadius * 2} viewBox={`0 0 ${actualRadius * 2} ${actualRadius * 2}`}>
           <circle fill='none' cx={actualRadius} cy={actualRadius} r={radius} fill="none" stroke="#e6e6e6" strokeWidth="2" />
           <circle style={{

@@ -30,14 +30,14 @@ class ColumnIndicator extends PureComponent {
     const title = type !== 'error' ? intl.formatMessage(messages[type]) : message
 
     return (
-      <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.paddingVertical15PX].join(' ')}>
+      <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.py15].join(' ')}>
         <Icon id={type} width='44px' height='44px' />
         {
           type !== 'loading' &&
           <Text
             align='center'
             size='medium'
-            className={_s.marginTop10PX}
+            className={_s.mt10}
           >
             {title}
           </Text>

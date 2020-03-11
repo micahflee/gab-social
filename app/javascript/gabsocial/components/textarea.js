@@ -37,22 +37,22 @@ export default class Textarea extends PureComponent {
       outlineNone: 1,
       lineHeight125: 1,
       displayBlock: 1,
-      paddingVertical10PX: 1,
+      py10: 1,
       backgroundTransparent: 1,
       fontSize15PX: 1,
       flexGrow1: 1,
       heightMax100VH: 1,
       resizeVertical: 1,
-      paddingHorizontal5PX: !!prependIcon,
-      paddingLeft15PX: !prependIcon,
-      paddingRight15PX: !hasClear,
+      px5: !!prependIcon,
+      pl15: !prependIcon,
+      pr15: !hasClear,
     })
 
     return (
       <div>
         {
           !!title &&
-          <div className={[_s.default, _s.marginBottom10PX, _s.paddingLeft15PX].join(' ')}>
+          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>

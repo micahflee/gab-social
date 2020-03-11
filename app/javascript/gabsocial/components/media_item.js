@@ -81,8 +81,8 @@ export default class MediaItem extends ImmutablePureComponent {
       top0: 1,
       height100PC: 1,
       width100PC: 1,
-      paddingVertical5PX: !small,
-      paddingHorizontal5PX: !small,
+      py5: !small,
+      px5: !small,
     })
 
     const linkClasses = cx({
@@ -138,7 +138,7 @@ export default class MediaItem extends ImmutablePureComponent {
 
               {
                 !!badge &&
-                <div className={[_s.default, _s.positionAbsolute, _s.radiusSmall, _s.backgroundColorOpaque, _s.paddingHorizontal5PX, _s.paddingVertical5PX, _s.marginRight5PX, _s.marginVertical5PX, _s.bottom0, _s.right0].join(' ')}>
+                <div className={[_s.default, _s.positionAbsolute, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr5, _s.my5, _s.bottom0, _s.right0].join(' ')}>
                   <Text size='extraSmall' color='white'>
                     {badge}
                   </Text>

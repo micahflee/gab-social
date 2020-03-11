@@ -45,30 +45,30 @@ export default class ProfileLayout extends ImmutablePureComponent {
 
         <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
-          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
+          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pl15, _s.py15].join(' ')}>
             <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
                 <Image className={_s.height350PX} src={account.get('header')} />
               </div>
 
               <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary, _s.width100PC].join(' ')}>
-                <div className={[_s.default, _s.flexRow, _s.paddingHorizontal15PX].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.px15].join(' ')}>
                   <Image
                     className={[_s.circle, _s.marginTopNeg75PX, _s.borderColorWhite, _s.border2PX].join(' ')}
                     height='150px'
                     width='150px'
                     src={account.get('avatar')}
                   />
-                  <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+                  <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
                     <DisplayName account={account} multiline large />
                   </div>
                 </div>
 
-                <div className={[_s.default, _s.flexRow, _s.borderBottom1PX, _s.borderColorSecondary, _s.marginTop5PX, _s.height53PX].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.borderBottom1PX, _s.borderColorSecondary, _s.mt5, _s.height53PX].join(' ')}>
                   <div className={[_s.default].join(' ')}>
                     <TabBar tabs={tabs} large />
                   </div>
-                  <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.paddingVertical5PX].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
                     <Button
                       outline
                       icon='ellipsis'
@@ -77,7 +77,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
                       iconClassName={_s.fillColorBrand}
                       color='brand'
                       backgroundColor='none'
-                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.marginRight10PX, _s.paddingHorizontal10PX].join(' ')}
+                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
                     />
                     <Button
                       outline
@@ -87,17 +87,17 @@ export default class ProfileLayout extends ImmutablePureComponent {
                       iconClassName={_s.fillColorBrand}
                       color='brand'
                       backgroundColor='none'
-                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.marginRight10PX, _s.paddingHorizontal10PX].join(' ')}
+                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
                     />
                     <Button
                       className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
                     >
-                      <span className={[_s.paddingHorizontal15PX].join(' ')}>
+                      <span className={[_s.px15].join(' ')}>
                         <Text
                           color='white'
                           weight='bold'
                           size='medium'
-                          className={[_s.paddingHorizontal15PX].join(' ')}
+                          className={[_s.px15].join(' ')}
                         >
                           Follow
                         </Text>
@@ -107,7 +107,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
                 </div>
               </div>
 
-              <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.paddingRight15PX, _s.paddingVertical15PX].join(' ')}>
+              <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pr15, _s.py15].join(' ')}>
                 <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
                   <div className={_s.default}>
                     {children}

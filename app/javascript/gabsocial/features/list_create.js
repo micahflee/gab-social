@@ -52,7 +52,7 @@ class ListCreate extends PureComponent {
           disabled={disabled}
         />
 
-        <div className={[_s.default, _s.marginVertical10PX, _s.paddingVertical5PX, _s.marginLeft10PX].join(' ')}>
+        <div className={[_s.default, _s.my10, _s.py5, _s.ml10].join(' ')}>
           <Text color='secondary' size='small'>
             Lists are private and only you can see who is on a list.<br/>
             No one else can view your lists. No one knows that they are on your list.
@@ -60,7 +60,7 @@ class ListCreate extends PureComponent {
         </div>
 
         <Button
-          className={_s.marginLeft10PX}
+          className={_s.ml10}
         >
           <Text color='white'>
             {intl.formatMessage(messages.create)}

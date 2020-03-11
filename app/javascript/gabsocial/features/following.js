@@ -74,12 +74,12 @@ class Following extends ImmutablePureComponent {
 
     return (
       <Block>
-        <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX, _s.justifyContentCenter, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
+        <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
           <Heading size='h3'>
             {intl.formatMessage(messages.follows)}
           </Heading>
         </div>
-        <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+        <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
           <ScrollableList
             scrollKey='following'
             hasMore={hasMore}

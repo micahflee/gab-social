@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closeSidebar())
   },
   onOpenComposeModal() {
-    dispatch(openModal('COMPOSE'))
+    dispatch(openModal('PRO_UPGRADE'))
   },
 })
 
@@ -199,11 +199,11 @@ class Sidebar extends ImmutablePureComponent {
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
           <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.paddingRight15PX, _s.marginVertical10PX].join(' ')}>
+            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.pr15, _s.my10].join(' ')}>
 
               <SidebarHeader />
 
-              <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.marginBottom15PX].join(' ')}>
+              <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.mb15].join(' ')}>
                 <SidebarSectionTitle>Menu</SidebarSectionTitle>
                 {
                   menuItems.map((menuItem, i) => (
@@ -227,7 +227,7 @@ class Sidebar extends ImmutablePureComponent {
               <Button
                 block
                 onClick={this.handleOpenComposeModal}
-                className={[_s.paddingVertical15PX, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
+                className={[_s.py15, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
               >
                 Gab
               </Button>

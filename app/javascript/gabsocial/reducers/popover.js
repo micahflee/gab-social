@@ -16,8 +16,7 @@ export default function popoverMenu(state = initialState, action) {
       console.log("POPOVER_OPEN:", action)
       return {
         popoverType: action.popoverType,
-        placement: action.placement,
-        keyboard: action.keyboard
+        popoverProps: action.popoverProps,
       }
     case POPOVER_CLOSE:
       console.log("POPOVER_CLOSE:", action)

@@ -22,7 +22,7 @@ export default class Select extends ImmutablePureComponent {
     return (
       <div className={_s.default}>
         <select
-          className={[_s.default, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.paddingHorizontal15PX, _s.select].join(' ')}
+          className={[_s.default, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.px15, _s.select].join(' ')}
           value={value}
           onChange={onChange}
         >

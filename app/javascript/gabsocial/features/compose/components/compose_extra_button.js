@@ -39,8 +39,8 @@ export default class ComposeExtraButton extends PureComponent {
 
     const containerClasses = cx({
       default: 1,
-      marginRight10PX: !small,
-      marginRight2PX: small,
+      mr10: !small,
+      mr2: small,
     })
 
     const btnClasses = cx({
@@ -52,15 +52,15 @@ export default class ComposeExtraButton extends PureComponent {
       backgroundSubtle: !hovering && !active,
       backgroundSubtle2: hovering && !active,
       backgroundColorBrandLight: active,
-      paddingVertical10PX: !small,
-      paddingHorizontal10PX: !small,
-      paddingVertical5PX: small,
-      paddingHorizontal5PX: small,
+      py10: !small,
+      px10: !small,
+      py5: small,
+      px5: small,
     })
 
     const titleClasses = cx({
       default: 1,
-      marginLeft5PX: 1,
+      ml5: 1,
       text: 1,
       lineHeight15: 1,
       fontSize12PX: 1,

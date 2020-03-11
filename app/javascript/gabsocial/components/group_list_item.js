@@ -59,12 +59,12 @@ class GroupListItem extends ImmutablePureComponent {
       backgroundSubtle_onHover: 1,
       borderColorSecondary: 1,
       radiusSmall: !slim,
-      marginTop5PX: !slim,
-      marginBottom10PX: !slim,
+      mt5: !slim,
+      mb10: !slim,
       border1PX: !slim,
       borderBottom1PX: slim && !isLast,
       flexRow: slim,
-      paddingVertical5PX: slim,
+      py5: slim,
     })
 
     const imageClasses = cx({
@@ -72,14 +72,14 @@ class GroupListItem extends ImmutablePureComponent {
       radiusSmall: slim,
       height72PX: slim,
       width72PX: slim,
-      marginLeft15PX: slim,
+      ml15: slim,
     })
 
     const textContainerClasses = cx({
       default: 1,
-      paddingHorizontal10PX: 1,
-      marginTop5PX: 1,
-      marginBottom10PX: !slim,
+      px10: 1,
+      mt5: 1,
+      mb10: !slim,
     })
 
     return (
@@ -100,14 +100,14 @@ class GroupListItem extends ImmutablePureComponent {
 
           {
             slim &&
-            <Text color='secondary' size='small' className={_s.marginTop5PX}>
+            <Text color='secondary' size='small' className={_s.mt5}>
               {shortNumberFormat(group.get('member_count'))}
               &nbsp;
               {intl.formatMessage(messages.members)}
             </Text>
           }
 
-          <Text color='secondary' size='small' className={_s.marginTop5PX}>
+          <Text color='secondary' size='small' className={_s.mt5}>
             {subtitle}
           </Text>
 

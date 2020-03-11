@@ -29,7 +29,7 @@ class SidebarHeader extends ImmutablePureComponent {
     return (
       <Fragment>
         <h1 className={[_s.default].join(' ')}>
-          <NavLink to='/' aria-label='Gab' className={[_s.default, _s.noSelect, _s.noUnderline, _s.height50PX, _s.justifyContentCenter, _s.cursorPointer, _s.paddingHorizontal10PX].join(' ')}>
+          <NavLink to='/' aria-label='Gab' className={[_s.default, _s.noSelect, _s.noUnderline, _s.height50PX, _s.justifyContentCenter, _s.cursorPointer, _s.px10].join(' ')}>
             <GabLogo />
           </NavLink>
         </h1>

@@ -9,8 +9,8 @@ import Icon from './icon'
 const cx = classNames.bind(_s)
 
 const mapDispatchToProps = dispatch => ({
-  openUserInfoPopover() {
-    dispatch(openPopover('USER_INFO'))
+  openUserInfoPopover(props) {
+    dispatch(openPopover('USER_INFO', props))
   },
   closeUserInfoPopover() {
     dispatch(closePopover())
@@ -33,13 +33,21 @@ class DisplayName extends ImmutablePureComponent {
   }
 
   handleMouseEnter = debounce(() => {
-    // console.log("SHOW - USER POPOVER")
-    // this.props.openUserInfoPopover()
-  }, 50, { leading: true })
+    console.log("SHOW - USER POPOVER")
+    this.props.openUserInfoPopover({
+      targetRef: this.node,
+      position: 'top',
+      account: this.props.account,
+    })
+  }, 1000, { leading: true })
 
-  handleMouseLeave = () => {
-    // console.log("HIDE - USER POPOVER")
-    // this.props.closeUserInfoPopover()
+  handleMouseLeave = debounce(() => {
+    console.log("HIDE - USER POPOVER")
+    this.props.closeUserInfoPopover()
+  }, 1000, { leading: true })
+
+  setRef = (n) => {
+    this.node = n;
   }
 
   render() {
@@ -72,7 +80,7 @@ class DisplayName extends ImmutablePureComponent {
       whiteSpaceNoWrap: 1,
       fontWeightBold: 1,
       colorPrimary: 1,
-      marginRight2PX: 1,
+      mr2: 1,
       lineHeight125: !small,
       fontSize14PX: small,
       fontSize15PX: !large,
@@ -90,7 +98,7 @@ class DisplayName extends ImmutablePureComponent {
       fontWeightNormal: 1,
       lineHeight15: multiline,
       lineHeight125: !multiline,
-      marginLeft5PX: !multiline,
+      ml5: !multiline,
       fontSize14PX: small,
       fontSize15PX: !large,
       fontSize16PX: large && !small,
@@ -102,7 +110,7 @@ class DisplayName extends ImmutablePureComponent {
 
     // : todo :
     return (
-      <span {...containerOptions}>
+      <span {...containerOptions} ref={this.setRef}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong

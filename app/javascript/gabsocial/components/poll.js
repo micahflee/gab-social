@@ -104,8 +104,8 @@ class Poll extends ImmutablePureComponent {
     const listItemClasses = cx({
       default: 1,
       flexRow: 1,
-      paddingVertical10PX: showResults,
-      marginBottom10PX: 1,
+      py10: showResults,
+      mb10: 1,
       border1PX: !showResults,
       borderColorSecondary: !showResults,
       circle: !showResults,
@@ -117,8 +117,8 @@ class Poll extends ImmutablePureComponent {
     const textContainerClasses = cx({
       default: 1,
       width100PC: 1,
-      paddingHorizontal15PX: 1,
-      paddingVertical10PX: !showResults,
+      px15: 1,
+      py10: !showResults,
       cursorPointer: !showResults,
       alignItemsCenter: !showResults,
     })
@@ -151,7 +151,7 @@ class Poll extends ImmutablePureComponent {
                 checked={active}
                 onChange={this.handleOptionChange}
                 disabled={disabled}
-                className={[_s.default, _s.marginRight10PX].join(' ')}
+                className={[_s.default, _s.mr10].join(' ')}
               />
             }
 
@@ -188,7 +188,7 @@ class Poll extends ImmutablePureComponent {
     const disabled = this.props.disabled || Object.entries(this.state.selected).every(item => !item)
 
     return (
-      <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
         <ul className={[_s.default, _s.listStyleNone].join(' ')}>
           {
             poll.get('options').map((option, i) => this.renderOption(option, i))
@@ -200,11 +200,11 @@ class Poll extends ImmutablePureComponent {
             !showResults &&
             <Button
               narrow
-              className={_s.marginRight10PX}
+              className={_s.mr10}
               disabled={disabled}
               onClick={this.handleVote}
             >
-              <Text color='inherit' size='small' className={_s.paddingHorizontal10PX}>
+              <Text color='inherit' size='small' className={_s.px10}>
                 {intl.formatMessage(messages.vote)}
               </Text>
             </Button>
@@ -222,7 +222,7 @@ class Poll extends ImmutablePureComponent {
               poll.get('expires_at') &&
               <Fragment>
                 <DotTextSeperator />
-                <Text color='secondary' className={_s.marginLeft5PX}>
+                <Text color='secondary' className={_s.ml5}>
                   {timeRemaining}
                 </Text>
               </Fragment>

@@ -45,8 +45,8 @@ export default class FileInput extends PureComponent {
       borderDashed: 1,
       borderColorSecondary: 1,
       backgroundColorPrimary: 1,
-      paddingHorizontal10PX: 1,
-      paddingVertical10PX: 1,
+      px10: 1,
+      py10: 1,
       radiusSmall: 1,
       cursorPointer: 1,
     })
@@ -55,7 +55,7 @@ export default class FileInput extends PureComponent {
       <div>
         {
           !!title &&
-          <div className={[_s.default, _s.marginBottom10PX, _s.paddingLeft15PX].join(' ')}>
+          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>

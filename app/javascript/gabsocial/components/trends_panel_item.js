@@ -47,18 +47,18 @@ export default class TrendingItem extends ImmutablePureComponent {
     return (
       <NavLink
         to='/test'
-        className={[_s.default, _s.noUnderline, _s.paddingHorizontal15PX, _s.paddingVertical5PX, _s.borderColorSecondary, _s.borderBottom1PX,  _s.backgroundSubtle_onHover].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.px15, _s.py5, _s.borderColorSecondary, _s.borderBottom1PX,  _s.backgroundSubtle_onHover].join(' ')}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        <div className={[_s.default, _s.flexRow, _s.marginTop5PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
           <Text size='small' color='secondary'>1</Text>
           <DotTextSeperator />
-          <Text size='small' color='secondary' className={_s.marginLeft5PX}>Politics</Text>
+          <Text size='small' color='secondary' className={_s.ml5}>Politics</Text>
         </div>
-        <div className={[_s.default, _s.paddingVertical5PX].join(' ')}>
+        <div className={[_s.default, _s.py5].join(' ')}>
           <Text color='primary' weight='bold' size='medium'>Trump Campaign</Text>
-          <Text color='secondary' className={[_s.marginTop5PX, _s.marginBottom10PX].join(' ')}>46.7K Gabs</Text>
+          <Text color='secondary' className={[_s.mt5, _s.mb10].join(' ')}>46.7K Gabs</Text>
           <TrendingItemCard />
         </div>
       </NavLink>

@@ -31,13 +31,13 @@ export default class HashtagItem extends ImmutablePureComponent {
     return (
       <NavLink
         to='/tags/test'
-        className={[_s.default, _s.noUnderline, _s.backgroundSubtle_onHover, _s.paddingHorizontal15PX, _s.paddingVertical5PX].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.backgroundSubtle_onHover, _s.px15, _s.py5].join(' ')}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           <div>
-            <Text color='brand' size='medium' weight='bold' className={[_s.paddingVertical2PX, _s.lineHeight15].join(' ')}>
+            <Text color='brand' size='medium' weight='bold' className={[_s.py2, _s.lineHeight15].join(' ')}>
               #randomhashtag
             </Text>
           </div>
@@ -52,7 +52,7 @@ export default class HashtagItem extends ImmutablePureComponent {
             className={_s.marginLeftAuto}
           />
         </div>
-        <Text color='secondary' size='small' className={_s.paddingVertical2PX}>
+        <Text color='secondary' size='small' className={_s.py2}>
           10,240 Gabs
         </Text>
       </NavLink>

@@ -10,7 +10,7 @@ export default class SidebarSectionTitle extends PureComponent {
     const { children } = this.props
 
     return (
-      <div className={[_s.default, _s.paddingVertical5PX, _s.paddingHorizontal10PX, _s.marginTop10PX].join(' ')}>
+      <div className={[_s.default, _s.py5, _s.px10, _s.mt10].join(' ')}>
         <Text size='small' weight='bold' color='secondary'>
           {children}
         </Text>

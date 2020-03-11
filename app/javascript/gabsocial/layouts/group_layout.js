@@ -51,7 +51,7 @@ export default class GroupLayout extends ImmutablePureComponent {
         <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
           <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary2, _s.backgroundColorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
-            <div className={[_s.default, _s.height53PX, _s.paddingLeft15PX, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
+            <div className={[_s.default, _s.height53PX, _s.pl15, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
               <div className={[_s.default, _s.width645PX].join(' ')}>
                 <ColumnHeader
                   title={title}
@@ -68,21 +68,21 @@ export default class GroupLayout extends ImmutablePureComponent {
 
           <div className={[_s.default, _s.height53PX].join(' ')}></div>
 
-          <div className={[_s.default, _s.width1015PX, _s.paddingLeft15PX, _s.paddingVertical15PX].join(' ')}>
+          <div className={[_s.default, _s.width1015PX, _s.pl15, _s.py15].join(' ')}>
 
-            <div className={[_s.default, _s.z1, _s.width100PC, _s.marginBottom15PX].join(' ')}>
+            <div className={[_s.default, _s.z1, _s.width100PC, _s.mb15].join(' ')}>
               <Block>
                 <div className={[_s.default, _s.width100PC].join(' ')}>
                   <Image className={_s.height350PX} src='https://gab.com/media/user/bz-5cf53d08403d4.jpeg' />
                   <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
-                    <div className={[_s.default, _s.flexRow, _s.height100PC, _s.paddingHorizontal10PX].join(' ')}>
+                    <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
                       <TabBar tabs={tabs} />
                       <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.marginLeftAuto].join(' ')}>
                         <Button
                           color='primary'
                           backgroundColor='tertiary'
                           radiusSmall
-                          className={_s.marginRight5PX}
+                          className={_s.mr5}
                         >
                           <Text color='inherit' size='small'>
                             Leave/Join
@@ -92,7 +92,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                           color='primary'
                           backgroundColor='tertiary'
                           radiusSmall
-                          className={_s.marginRight5PX}
+                          className={_s.mr5}
                         >
                           <Text color='inherit' size='small'>
                             Share
@@ -102,7 +102,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                           radiusSmall
                           color='primary'
                           backgroundColor='tertiary'
-                          className={_s.marginRight5PX}
+                          className={_s.mr5}
                           icon='ellipsis'
                         />
                       </div>

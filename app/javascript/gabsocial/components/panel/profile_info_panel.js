@@ -73,7 +73,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
               <Text
                 size='small'
                 color='secondary'
-                className={_s.marginLeft5PX}
+                className={_s.ml5}
               >
                 {
                   intl.formatMessage(messages.memberSince, {

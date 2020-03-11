@@ -27,7 +27,7 @@ class ModalLayout extends PureComponent {
     return (
       <div className={[_s.width645PX].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.paddingHorizontal15PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
             <Heading size='h3'>
               {title}
             </Heading>
@@ -41,7 +41,7 @@ class ModalLayout extends PureComponent {
               iconWidth='10px'
             />
           </div>
-          <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+          <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
             {children}
           </div>
         </Block>

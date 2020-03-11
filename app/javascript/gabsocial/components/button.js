@@ -116,9 +116,9 @@ export default class Button extends PureComponent {
       circle: !text,
       radiusSmall: radiusSmall,
 
-      paddingVertical5PX: narrow,
-      paddingVertical10PX: !text && !narrow,
-      paddingHorizontal15PX: !text,
+      py5: narrow,
+      py10: !text && !narrow,
+      px15: !text,
 
       width100PC: block,
 

@@ -42,8 +42,8 @@ export default class SidebarSectionItem extends PureComponent {
       maxWidth100PC: 1,
       width100PC: 1,
       flexRow: 1,
-      paddingVertical5PX: 1,
-      paddingHorizontal10PX: 1,
+      py5: 1,
+      px10: 1,
       alignItemsCenter: 1,
       radiusSmall: 1,
       // border1PX: shouldShowActive,
@@ -71,10 +71,10 @@ export default class SidebarSectionItem extends PureComponent {
       text: 1,
       marginLeftAuto: 1,
       fontSize12PX: 1,
-      paddingHorizontal5PX: 1,
-      marginRight2PX: 1,
+      px5: 1,
+      mr2: 1,
       lineHeight15: 1,
-      marginLeft5PX: 1,
+      ml5: 1,
       colorSecondary: !isNotifications,
       colorWhite: isNotifications,
       backgroundColorBrand: isNotifications,
@@ -100,7 +100,7 @@ export default class SidebarSectionItem extends PureComponent {
               />
             }
           </div>
-          <div className={[_s.default, _s.flexNormal, _s.paddingHorizontal10PX, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
+          <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
             <span className={textClasses}>{title}</span>
           </div>
           { count > 0 &&

@@ -16,8 +16,8 @@ export default class Divider extends PureComponent {
       borderBottom1PX: !invisible,
       borderColorSecondary2: !invisible,
       width100PC: 1,
-      marginBottom15PX: !small,
-      marginVertical10PX: small || invisible,
+      mb15: !small,
+      my10: small || invisible,
     })
 
     return (

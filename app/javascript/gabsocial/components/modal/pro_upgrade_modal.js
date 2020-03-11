@@ -23,38 +23,34 @@ class ProUpgradeModal extends ImmutablePureComponent {
 
     return (
       <ModalLayout title={intl.formatMessage(messages.title)}>
-        <div>
-          <Text>
-            {intl.formatMessage(messages.text)}
-          </Text>
-          <Text>
-            {intl.formatMessage(messages.benefits)}
-          </Text>
+        <Text>
+          {intl.formatMessage(messages.text)}
+        </Text>
+        <Text>
+          {intl.formatMessage(messages.benefits)}
+        </Text>
+
+        <div className={[_s.default, _s.my10].join(' ')}>
+          <Text>• Schedule Posts</Text>
+          <Text>• Get Verified</Text>
+          <Text>• Create Groups</Text>
+          <Text>• Larger Video and Image Uploads</Text>
+          <Text>• Receive the PRO Badge</Text>
+          <Text>• Remove in-feed promotions</Text>
         </div>
 
-        <ul>
-          <li>
-            <Text>Schedule Posts</Text>
-          </li>
-          <li>
-            <Text>Get Verified</Text>
-          </li>
-          <li>
-            <Text>Create Groups</Text>
-          </li>
-          <li>
-            <Text>Larger Video and Image Uploads</Text>
-          </li>
-          <li>
-            <Text>Receive the PRO Badge</Text>
-          </li>
-          <li>
-            <Text>Remove in-feed promotions</Text>
-          </li>
-        </ul>
-
-        <Button icon='pro' href='https://pro.gab.com'>
-          {intl.formatMessage(messages.title)}
+        <Button
+          centered
+          backgroundColor='brand'
+          color='white'
+          icon='pro'
+          href='https://pro.gab.com'
+          className={_s.justifyContentCenter}
+          iconClassName={[_s.mr5, _s.fillColorWhite].join(' ')}
+        >
+          <Text color='inherit' weight='bold' align='center'>
+            {intl.formatMessage(messages.title)}
+          </Text>
         </Button>
 
       </ModalLayout>

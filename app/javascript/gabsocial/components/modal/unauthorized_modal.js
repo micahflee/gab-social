@@ -26,15 +26,15 @@ class UnauthorizedModal extends ImmutablePureComponent {
 
     return (
       <ModalLayout title={intl.formatMessage(messages.signup)}>
-        <div className={[_s.default, _s.paddingHorizontal10PX, _s.paddingVertical10PX].join(' ')}>
-          <Text className={_s.marginBottom15PX}>
+        <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
+          <Text className={_s.mb15}>
             {intl.formatMessage(messages.text)}
           </Text>
           <Button href='/auth/sign_up' className={[_s.width240PX, _s.marginLeftAuto, _s.marginLeftAuto].join(' ')}>
             {intl.formatMessage(messages.register)}
           </Button>
         </div>
-        <div className={[_s.default, _s.paddingHorizontal10PX, _s.paddingVertical10PX].join(' ')}>
+        <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
           <Text color='secondary'>
             {
               intl.formatMessage(messages.login, {

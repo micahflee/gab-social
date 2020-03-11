@@ -48,7 +48,7 @@ class CommentHeader extends ImmutablePureComponent {
                 backgroundColor='none'
                 color='tertiary'
                 onClick={this.handleOpenStatusEdits}
-                className={_s.marginLeft5PX}
+                className={_s.ml5}
               >
                 <Text size='extraSmall' color='inherit'>
                   Edited
@@ -67,7 +67,7 @@ class CommentHeader extends ImmutablePureComponent {
                   backgroundColor='none'
                   color='tertiary'
                   to={statusUrl}
-                  className={_s.marginLeft5PX}
+                  className={_s.ml5}
                 >
                 <Text size='extraSmall' color='inherit'>
                   {favoriteCount}
@@ -87,7 +87,7 @@ class CommentHeader extends ImmutablePureComponent {
                   backgroundColor='none'
                   color='tertiary'
                   to={statusUrl}
-                  className={_s.marginLeft5PX}
+                  className={_s.ml5}
                 >
                 <Text size='extraSmall' color='inherit'>
                   {repostCount}
@@ -105,7 +105,7 @@ class CommentHeader extends ImmutablePureComponent {
             backgroundColor='none'
             color='tertiary'
             to={statusUrl}
-            className={_s.marginLeft5PX}
+            className={_s.ml5}
           >
             <Text size='extraSmall' color='inherit'>
               <RelativeTimestamp timestamp={status.get('created_at')} />

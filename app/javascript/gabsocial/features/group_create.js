@@ -145,7 +145,7 @@ class Create extends ImmutablePureComponent {
 				<Divider invisible />
 
 				<Button
-					className={_s.marginLeft10PX}
+					className={_s.ml10}
 				>
 					<Text color='white'>
 						{intl.formatMessage(!!group ? messages.update : messages.create)}

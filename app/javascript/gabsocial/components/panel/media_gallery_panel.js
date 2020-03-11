@@ -66,7 +66,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
         headerButtonTitle={intl.formatMessage(messages.show_all)}
         headerButtonTo={`/${account.get('acct')}/media`}
       >
-        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.paddingHorizontal10PX, _s.paddingVertical10PX].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
           {
             attachments.slice(0, 16).map((attachment) => (
               <MediaItem

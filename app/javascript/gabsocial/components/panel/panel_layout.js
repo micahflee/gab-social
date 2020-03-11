@@ -32,11 +32,11 @@ export default class PanelLayout extends PureComponent {
     } = this.props
 
     return (
-      <aside className={[_s.default, _s.marginBottom15PX].join(' ')}>
+      <aside className={[_s.default, _s.mb15].join(' ')}>
         <Block>
           {
             (title || subtitle) &&
-            <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
+            <div className={[_s.default, _s.px15, _s.py10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
                 <Heading size='h3'>
                   {title}
@@ -69,7 +69,7 @@ export default class PanelLayout extends PureComponent {
 
           {
             !noPadding &&
-            <div className={[_s.default, _s.paddingHorizontal15PX, _s.paddingVertical10PX].join(' ')}>
+            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
               {children}
             </div>
           }
@@ -87,7 +87,7 @@ export default class PanelLayout extends PureComponent {
                 backgroundColor='none'
                 to={footerButtonTo}
                 onClick={footerButtonAction}
-                className={[_s.paddingHorizontal15PX, _s.paddingVertical15PX, _s.backgroundSubtle_onHover].join(' ')}
+                className={[_s.px15, _s.py15, _s.backgroundSubtle_onHover].join(' ')}
               >
                 <Text color='brand' align='left' size='medium'>
                   {footerButtonTitle}

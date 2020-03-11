@@ -24,7 +24,7 @@ const POPOVER_COMPONENTS = {
   SIDEBAR_MORE: () => Promise.resolve({ default: SidebarMorePopover }),
   STATUS_OPTIONS: () => Promise.resolve({ default: StatusOptionsPopover }),
   STATUS_VISIBILITY: () => Promise.resolve({ default: StatusVisibilityPopover }),
-  USER_INFO: () => UserInfoPopover,
+  USER_INFO: () => Promise.resolve({ default: UserInfoPopover }),
 }
 
 const mapStateToProps = state => ({
@@ -148,26 +148,45 @@ class PopoverRoot extends PureComponent {
     }
   }
 
-  renderError = (props) => {
-    return <BundleModalError />
+  renderError = () => {
+    return null
+  }
+
+  renderLoading = () => {
+    return null
   }
 
   render() {
-    const { type, style, placement } = this.props
+    const {
+      type,
+      style,
+      props,
+    } = this.props
     const { mounted } = this.state
     const visible = !!type
 
-    console.log("popover root - type, visible:", type, visible)
-
-    // <PopoverBase className={`popover-menu ${placement}`} visible={visible} ref={this.setRef}>
-    //     {
-    //       visible &&
-    //       <UserInfoPopover />
-    //     }
-    //   </PopoverBase>
+    console.log("popover root - type, visible:", type, visible, props, POPOVER_COMPONENTS[type])
 
     return (
-      <div></div>
+      <PopoverBase
+        visible={visible}
+        ref={this.setRef}
+        {...props}
+      >
+        {
+          visible &&
+          <Bundle
+            fetchComponent={POPOVER_COMPONENTS[type]}
+            loading={this.renderLoading(type)}
+            error={this.renderError}
+            renderDelay={200}
+          >
+            {
+              (SpecificComponent) => <SpecificComponent {...props} />
+            }
+          </Bundle>
+        }
+      </PopoverBase>
     )
   }
 }

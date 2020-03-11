@@ -68,17 +68,17 @@ class PollFormOption extends ImmutablePureComponent {
 
     const toggleClasses = cx({
       default: 1,
-      paddingHorizontal10PX: 1,
-      paddingVertical10PX: 1,
+      px10: 1,
+      py10: 1,
       borderColorSecondary: 1,
       border1PX: 1,
       outlineNone: 1,
-      marginRight10PX: 1,
+      mr10: 1,
       circle: !isPollMultiple,
     })
 
     return (
-      <li className={[_s.default, _s.flexRow, _s.marginBottom10PX].join(' ')}>
+      <li className={[_s.default, _s.flexRow, _s.mb10].join(' ')}>
         <label className={[_s.default, _s.flexRow, _s.flexGrow1, _s.alignItemsCenter].join(' ')}>
           <span
             className={toggleClasses}
@@ -106,7 +106,7 @@ class PollFormOption extends ImmutablePureComponent {
             narrow
             circle
             backgroundColor='none'
-            className={[_s.marginLeft5PX, _s.justifyContentCenter].join(' ')}
+            className={[_s.ml5, _s.justifyContentCenter].join(' ')}
             icon='close'
             iconWidth='8px'
             iconHeight='8px'
@@ -167,7 +167,7 @@ class PollForm extends ImmutablePureComponent {
     if (!options) return null
 
     return (
-      <div className={[_s.default, _s.paddingHorizontal10PX, _s.paddingVertical10PX, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
+      <div className={[_s.default, _s.px10, _s.py10, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
         <ul className={[_s.default, _s.listStyleNone].join(' ')}>
           {
             options.map((title, i) => (
@@ -192,12 +192,12 @@ class PollForm extends ImmutablePureComponent {
                 outline
                 backgroundColor='none'
                 color='brand'
-                className={[_s.alignItemsCenter, _s.marginRight10PX].join(' ')}
+                className={[_s.alignItemsCenter, _s.mr10].join(' ')}
                 onClick={this.handleAddOption}
                 icon='add'
                 iconWidth='14px'
                 iconHeight='14px'
-                iconClassName={[_s.fillColorBrand, _s.marginRight5PX].join(' ')}
+                iconClassName={[_s.fillColorBrand, _s.mr5].join(' ')}
               >
                 <Text color='brand'>
                   {intl.formatMessage(messages.add_option)}

@@ -41,16 +41,16 @@ export default class ColumnHeader extends PureComponent {
           showBackBtn &&
           <Button
             backgroundColor='none'
-            className={[_s.alignItemsCenter, _s.paddingLeft0, _s.justifyContentCenter].join(' ')}
+            className={[_s.alignItemsCenter, _s.pl0, _s.justifyContentCenter].join(' ')}
             icon='back'
             iconWidth='20px'
             iconHeight='20px'
-            iconClassName={[_s.marginRight5PX, _s.fillColorPrimary].join(' ')}
+            iconClassName={[_s.mr5, _s.fillColorPrimary].join(' ')}
             onClick={this.handleBackClick}
           />
         }
 
-        <div className={[_s.default, _s.height100PC, _s.justifyContentCenter, _s.marginRight10PX].join(' ')}>
+        <div className={[_s.default, _s.height100PC, _s.justifyContentCenter, _s.mr10].join(' ')}>
           <Heading size='h1'>
             {title}
           </Heading>
@@ -71,7 +71,7 @@ export default class ColumnHeader extends PureComponent {
                   backgroundColor='tertiary'
                   onClick={() => action.onClick()}
                   key={`column-header-action-btn-${i}`}
-                  className={[_s.marginLeft5PX, _s.paddingHorizontal10PX].join(' ')}
+                  className={[_s.ml5, _s.px10].join(' ')}
                   iconClassName={_s.fillColorSecondary}
                   icon={action.icon}
                   iconWidth='20px'

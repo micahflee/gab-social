@@ -143,19 +143,19 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      paddingHorizontal10PX: 1,
-      marginTop10PX: !shouldCondense,
-      marginTop5PX: shouldCondense,
+      px10: 1,
+      mt10: !shouldCondense,
+      mt5: shouldCondense,
     })
 
     const innerContainerClasses = cx({
       default: 1,
-      paddingVertical2PX: 1,
+      py2: 1,
       flexRow: 1,
       width100PC: 1,
       borderTop1PX: !shouldCondense,
       borderColorSecondary: !shouldCondense,
-      marginTop5PX: hasInteractions,
+      mt5: hasInteractions,
     })
 
     const interactionBtnClasses = cx({
@@ -163,15 +163,15 @@ class StatusActionBar extends ImmutablePureComponent {
       text: 1,
       cursorPointer: 1,
       fontWeightNormal: 1,
-      marginRight10PX: 1,
-      paddingVertical5PX: 1,
+      mr10: 1,
+      py5: 1,
     })
 
     return (
       <div className={containerClasses}>
         {
           hasInteractions &&
-          <div className={[_s.default, _s.flexRow, _s.paddingHorizontal5PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.px5].join(' ')}>
             {
               favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
@@ -202,7 +202,7 @@ class StatusActionBar extends ImmutablePureComponent {
           </div>
         }
         <div className={innerContainerClasses}>
-          <div className={[_s.default, _s.flexRow, _s.paddingVertical2PX, _s.width100PC].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.py2, _s.width100PC].join(' ')}>
             <StatusActionBarItem
               title={formatMessage(messages.like)}
               icon='like'

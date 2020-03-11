@@ -63,6 +63,7 @@ class Comment extends ImmutablePureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     descendantsIds: ImmutablePropTypes.list,
+
   }
 
   handleClick = () => {

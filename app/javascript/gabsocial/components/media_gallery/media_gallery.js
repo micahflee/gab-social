@@ -521,7 +521,7 @@ class MediaGallery extends PureComponent {
       borderColorSecondary: size === 1,
       borderTop1PX: size === 1,
       borderBottom1PX: size === 1,
-      paddingHorizontal5PX: size > 1,
+      px5: size > 1,
     })
 
     return (

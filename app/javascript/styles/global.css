@@ -707,12 +707,12 @@ body {
   z-index: 4;
 }
 
-.marginVertical5PX {
+.my5 {
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.marginLeft5PX {
+.ml5 {
   margin-left: 5px;
 }
 
@@ -724,28 +724,28 @@ body {
   margin-bottom: -5px;
 }
 
-.marginRight2PX {
+.mr2 {
   margin-right: 2px;
 }
 
-.marginRight5PX {
+.mr5 {
   margin-right: 5px;
 }
 
-.marginVertical10PX {
+.my10 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
-.marginRight10PX {
+.mr10 {
   margin-right: 10px;
 }
 
-.marginLeft15PX {
+.ml15 {
   margin-left: 15px;
 }
 
-.marginLeft10PX {
+.ml10 {
   margin-left: 10px;
 }
 
@@ -757,19 +757,19 @@ body {
   margin-right: auto;
 }
 
-.marginBottom15PX {
+.mb15 {
   margin-bottom: 15px;
 }
 
-.marginBottom10PX {
+.mb10 {
   margin-bottom: 10px;
 }
 
-.marginTop10PX {
+.mt10 {
   margin-top: 10px;
 }
 
-.marginTop5PX {
+.mt5 {
   margin-top: 5px;
 }
 
@@ -793,84 +793,79 @@ body {
   padding-top: 25%;
 }
 
-.paddingTop10PX {
+.pt10 {
   padding-top: 10px;
 }
 
-.paddingTop5PX {
+.pt5 {
   padding-top: 5px;
 }
 
-.paddingTop2PX {
+.pt2 {
   padding-top: 2px;
 }
 
-.paddingBottom10PX {
+.pb10 {
   padding-bottom: 10px;
 }
 
-.paddingBottom5PX {
+.pb5 {
   padding-bottom: 5px;
 }
 
-.paddingHorizontal15PX {
+.px15 {
   padding-left: 15px;
   padding-right: 15px;
 }
 
-.paddingLeft15PX {
+.pl15 {
   padding-left: 15px;
 }
 
-.paddingLeft0 {
+.pl0 {
   padding-left: 0;
 }
 
-.paddingRight0 {
+.pr0 {
   padding-right: 0;
 }
 
-.paddingRight15PX {
+.pr15 {
   padding-right: 15px;
 }
 
-.paddingVertical5PX {
+.py5 {
   padding-top: 5px;
   padding-bottom: 5px;
 }
 
-.paddingVertical10PX {
+.py10 {
   padding-top: 10px;
   padding-bottom: 10px;
 }
 
-.paddingVertical15PX {
+.py15 {
   padding-top: 15px;
   padding-bottom: 15px;
 }
 
-.paddingVertical2PX {
+.py2 {
   padding-top: 2px;
   padding-bottom: 2px;
 }
 
-.paddingBottom15PX {
+.pb15 {
   padding-bottom: 15px;
 }
 
-.paddingHorizontal5PX {
+.px5 {
   padding-left: 5px;
   padding-right: 5px;
 }
 
-.paddingHorizontal10PX {
+.px10 {
   padding-left: 10px;
   padding-right: 10px;
-}
-
-.paddingHorizontal20PX {
-  padding-left: 20px;
-  padding-right: 20px;
 }
 
 .opacity0 {

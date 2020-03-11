@@ -50,7 +50,7 @@ export default class TrendingItemCard extends ImmutablePureComponent {
     // URL with title, description, image
     return (
       <div className={[_s.default, _s.flexRow, _s.overflowHidden, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall, _s.backgroundSubtle_onHover].join(' ')}>
-        <div className={[_s.default, _s.flexNormal, _s.paddingVertical10PX, _s.paddingHorizontal10PX].join(' ')}>
+        <div className={[_s.default, _s.flexNormal, _s.py10, _s.px10].join(' ')}>
           <Text color='secondary'  className={_s.lineHeight15}>
             NYPost
           </Text>

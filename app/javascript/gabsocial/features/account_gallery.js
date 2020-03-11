@@ -94,7 +94,7 @@ class AccountGallery extends ImmutablePureComponent {
         <div
           role='feed'
           onScroll={this.handleScroll}
-          className={[_s.default, _s.flexRow, _s.flexWrap, _s.heightMin50VH, _s.paddingVertical5PX, _s.paddingHorizontal5PX].join(' ')}
+          className={[_s.default, _s.flexRow, _s.flexWrap, _s.heightMin50VH, _s.py5, _s.px5].join(' ')}
         >
 
           {

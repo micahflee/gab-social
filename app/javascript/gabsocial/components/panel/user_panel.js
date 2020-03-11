@@ -43,18 +43,18 @@ class UserPanel extends ImmutablePureComponent {
         />
 
         <NavLink
-          className={[_s.default, _s.flexRow, _s.paddingVertical10PX, _s.paddingHorizontal15PX, _s.noUnderline].join(' ')}
+          className={[_s.default, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
           to={`/${account.get('acct')}`}
         >
           <div className={[_s.default, _s.marginTopNeg30PX, _s.circle, _s.borderColorWhite, _s.border2PX].join(' ')}>
             <Avatar account={account} size={62} />
           </div>
-          <div className={[_s.default, _s.marginLeft15PX].join(' ')}>
+          <div className={[_s.default, _s.ml15].join(' ')}>
             <DisplayName account={account} multiline />
           </div>
         </NavLink>
 
-        <div className={[_s.default, _s.marginBottom15PX, _s.marginTop5PX, _s.flexRow, _s.paddingHorizontal15PX].join(' ')}>
+        <div className={[_s.default, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
           <UserStat
             to={`/${account.get('acct')}`}
             title={intl.formatMessage(messages.gabs)}

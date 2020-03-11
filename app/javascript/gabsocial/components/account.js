@@ -114,7 +114,7 @@ class Account extends ImmutablePureComponent {
           onClick: requested ? this.handleUnrequest : this.handleBlock,
           color: 'primary',
           backgroundColor: 'tertiary',
-          className: _s.marginTop5PX,
+          className: _s.mt5,
         }
       } else if (!account.get('moved') || following) {
         buttonOptions = {
@@ -122,7 +122,7 @@ class Account extends ImmutablePureComponent {
           outline: !following,
           color: !following ? 'brand' : 'white',
           backgroundColor: !following ? 'none' : 'brand',
-          className: _s.marginTop5PX,
+          className: _s.mt5,
           onClick: this.handleFollow,
         }
         buttonText = intl.formatMessage(following ? messages.unfollow : messages.follow)
@@ -141,7 +141,7 @@ class Account extends ImmutablePureComponent {
         narrow
         circle
         backgroundColor='none'
-        className={_s.paddingHorizontal5PX}
+        className={_s.px5}
         onClick={dismissAction}
         icon='close'
         iconWidth='8px'
@@ -151,7 +151,7 @@ class Account extends ImmutablePureComponent {
     )
 
     return (
-      <div className={[_s.default, _s.marginTop5PX, _s.marginBottom15PX].join(' ')}>
+      <div className={[_s.default, _s.mt5, _s.mb15].join(' ')}>
         <div className={[_s.default, _s.flexRow].join(' ')}>
 
           <NavLink
@@ -165,7 +165,7 @@ class Account extends ImmutablePureComponent {
           <NavLink
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
-            className={[_s.default, _s.alignItemsStart, _s.paddingHorizontal10PX, _s.flexGrow1].join(' ')}
+            className={[_s.default, _s.alignItemsStart, _s.px10, _s.flexGrow1].join(' ')}
           >
             <DisplayName account={account} multiline={compact} />
             {!compact && button}

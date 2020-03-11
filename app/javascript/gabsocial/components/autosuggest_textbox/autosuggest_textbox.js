@@ -222,11 +222,11 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       outlineNone: 1,
       backgroundColorPrimary: !small,
       backgroundSubtle: small,
-      paddingVertical15PX: !small,
-      paddingVertical10PX: small,
+      py15: !small,
+      py10: small,
       fontSize16PX: !small,
       fontSize14PX: small,
-      marginRight5PX: small,
+      mr5: small,
     })
 
     // <div aria-activedescendant="typeaheadFocus-0.35973815699338085"
@@ -248,7 +248,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       return (
       <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
-            <div className={[_s.default, _s.marginLeft5PX].join(' ')}>
+            <div className={[_s.default, _s.ml5].join(' ')}>
 
               <ContentEditable
                 noFocuscontainerRefocus

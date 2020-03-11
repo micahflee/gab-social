@@ -243,26 +243,26 @@ class ComposeForm extends ImmutablePureComponent {
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
       backgroundSubtle: shouldCondense,
-      paddingHorizontal5PX: shouldCondense,
+      px5: shouldCondense,
     })
 
     const actionsContainerClasses = cx({
       default: 1,
       flexRow: 1,
       alignItemsCenter: 1,
-      marginTop10PX: !shouldCondense,
+      mt10: !shouldCondense,
     })
 
     const avatarContainerClasses = cx({
       default: 1,
-      marginRight10PX: 1,
-      marginTop5PX: shouldCondense,
+      mr10: 1,
+      mt5: shouldCondense,
     })
 
     const contentWarningClasses = cx({
       default: 1,
-      paddingTop5PX: 1,
-      paddingBottom10PX: 1,
+      pt5: 1,
+      pb10: 1,
       borderBottom1PX: 1,
       borderColorSecondary: 1,
       displayNone: !spoiler
@@ -355,7 +355,7 @@ class ComposeForm extends ImmutablePureComponent {
             {
               !shouldCondense &&
               <Button
-                className={[_s.fontSize15PX, _s.paddingHorizontal15PX].join(' ')}
+                className={[_s.fontSize15PX, _s.px15].join(' ')}
                 onClick={this.handleSubmit}
                 disabled={disabledButton}
               >

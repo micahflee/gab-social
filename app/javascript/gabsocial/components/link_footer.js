@@ -97,7 +97,7 @@ class LinkFooter extends PureComponent {
     ]
 
     return (
-      <div className={[_s.default, _s.paddingHorizontal10PX, _s.marginBottom15PX].join(' ')}>
+      <div className={[_s.default, _s.px10, _s.mb15].join(' ')}>
         <nav aria-label='Footer' role='navigation' className={[_s.default, _s.flexWrap, _s.flexRow].join(' ')}>
           {
             linkFooterItems.map((linkFooterItem, i) => {
@@ -113,7 +113,7 @@ class LinkFooter extends PureComponent {
                   href={linkFooterItem.to}
                   data-method={linkFooterItem.logout ? 'delete' : null}
                   onClick={linkFooterItem.onClick || null}
-                  className={[_s.marginVertical5PX, _s.paddingRight15PX].join(' ')}
+                  className={[_s.my5, _s.pr15].join(' ')}
                 >
                   <Text size='small' color='secondary'>
                     {linkFooterItem.text}
@@ -124,11 +124,11 @@ class LinkFooter extends PureComponent {
           }
         </nav>
 
-        <Text size='small' color='secondary' className={_s.marginTop10PX}>
+        <Text size='small' color='secondary' className={_s.mt10}>
           © {currentYear} Gab AI, Inc.
         </Text>
 
-        <Text size='small' color='secondary' tagName='p' className={_s.marginTop10PX}>
+        <Text size='small' color='secondary' tagName='p' className={_s.mt10}>
           <FormattedMessage
             id='getting_started.open_source_notice'
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'

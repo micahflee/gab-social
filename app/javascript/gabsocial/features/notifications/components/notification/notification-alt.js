@@ -41,27 +41,27 @@ class Notification extends ImmutablePureComponent {
     const { status, notificationType, accounts } = this.props
 
     return (
-      <div className={[_s.default, _s.paddingHorizontal10PX].join(' ')}>
+      <div className={[_s.default, _s.px10].join(' ')}>
         <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.marginVertical10PX, _s.paddingVertical10PX, _s.paddingHorizontal10PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
-            <Icon id='apps' height='20px' width='20px' className={_s.marginTop5PX} />
+            <Icon id='apps' height='20px' width='20px' className={_s.mt5} />
 
-            <div className={[_s.default, _s.marginLeft15PX].join(' ')}>
+            <div className={[_s.default, _s.ml15].join(' ')}>
               <div className={[_s.default, _s.flexRow].join(' ')}>
                 {
                   accounts.slice(0, 6).map((account, i) => (
                     <NavLink
                       to={`/${account.get('acct')}`}
                       key={`fav-avatar-${i}`}
-                      className={_s.marginRight5PX}
+                      className={_s.mr5}
                     >
                       <Avatar size='30' account={account} />
                     </NavLink>
                   ))
                 }
               </div>
-              <div className={[_s.default, _s.paddingTop10PX].join(' ')}>
+              <div className={[_s.default, _s.pt10].join(' ')}>
                 <div className={[_s.default, _s.flexRow].join(' ')}>
                   <div className={_s.text}>
                     {
@@ -76,7 +76,7 @@ class Notification extends ImmutablePureComponent {
                 </div>
               </div>
 
-              <div className={[_s.default, _s.paddingTop10PX].join(' ')}>
+              <div className={[_s.default, _s.pt10].join(' ')}>
                 <Text color='secondary' size='medium'>
                   post this at 1-14-2020 12:15pm (edited)
                 </Text>
@@ -102,28 +102,28 @@ class Notification extends ImmutablePureComponent {
     return (
       <NavLink
         to={`/`}
-        className={[_s.default, _s.paddingHorizontal10PX, _s.backgroundSubtle_onHover].join(' ')}
+        className={[_s.default, _s.px10, _s.backgroundSubtle_onHover].join(' ')}
       >
         <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.marginVertical10PX, _s.paddingVertical10PX, _s.paddingHorizontal10PX].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
-            <Icon id='apps' height='20px' width='20px' className={_s.marginTop5PX} />
+            <Icon id='apps' height='20px' width='20px' className={_s.mt5} />
 
-            <div className={[_s.default, _s.marginLeft15PX].join(' ')}>
+            <div className={[_s.default, _s.ml15].join(' ')}>
               <div className={[_s.default, _s.flexRow].join(' ')}>
                 {
                   accounts.slice(0, 6).map((account, i) => (
                     <NavLink
                       to={`/${account.get('acct')}`}
                       key={`fav-avatar-${i}`}
-                      className={_s.marginRight5PX}
+                      className={_s.mr5}
                     >
                       <Avatar size='30' account={account} />
                     </NavLink>
                   ))
                 }
               </div>
-              <div className={[_s.default, _s.paddingTop10PX].join(' ')}>
+              <div className={[_s.default, _s.pt10].join(' ')}>
                 <div className={[_s.default, _s.flexRow].join(' ')}>
                   <div className={_s.text}>
                     {
@@ -138,7 +138,7 @@ class Notification extends ImmutablePureComponent {
                 </div>
               </div>
 
-              <div className={[_s.default, _s.paddingTop10PX].join(' ')}>
+              <div className={[_s.default, _s.pt10].join(' ')}>
                 <Text color='secondary' size='medium'>
                   post this at 1-14-2020 12:15pm (edited)
                 </Text>

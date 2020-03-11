@@ -64,9 +64,9 @@ class GroupCollectionItem extends ImmutablePureComponent {
       borderColorSecondary: 1,
       radiusSmall: 1,
       border1PX: 1,
-      marginBottom10PX: 1,
-      marginLeft5PX: 1,
-      marginRight5PX: 1,
+      mb10: 1,
+      ml5: 1,
+      mr5: 1,
       backgroundColorPrimary: 1,
       backgroundSubtle_onHover: isMember,
     })
@@ -83,19 +83,19 @@ class GroupCollectionItem extends ImmutablePureComponent {
             height={imageHeight}
           />
 
-          <div className={[_s.default, _s.paddingHorizontal10PX, _s.marginVertical10PX].join(' ')}>
+          <div className={[_s.default, _s.px10, _s.my10].join(' ')}>
             <Text color='primary' size='medium' weight='bold'>
               {group.get('title')}
             </Text>
 
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.marginTop5PX].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.mt5].join(' ')}>
               <Text color='secondary' size='small'>
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;
               {intl.formatMessage(messages.members)}
               </Text>
               <DotTextSeperator />
-              <Text color='secondary' size='small' className={_s.marginLeft5PX}>
+              <Text color='secondary' size='small' className={_s.ml5}>
                 {subtitle}
               </Text>
             </div>
@@ -103,7 +103,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           {
             !isMember &&
-            <div className={[_s.default, _s.paddingHorizontal10PX, _s.marginBottom10PX].join(' ')}>
+            <div className={[_s.default, _s.px10, _s.mb10].join(' ')}>
               <Button
                 color='primary'
                 backgroundColor='tertiary'
