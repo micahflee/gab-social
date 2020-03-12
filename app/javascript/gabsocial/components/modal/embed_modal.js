@@ -1,12 +1,17 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { defineMessages, injectIntl } from 'react-intl';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { defineMessages, injectIntl } from 'react-intl'
 import api from '../../api'
+import ModalLayout from './modal_layout'
+import Divider from '../divider'
+import Icon from '../icon'
+import Input from '../input'
+import Text from '../text'
 
 const messages = defineMessages({
   embed: { id: 'status.embed', defaultMessage: 'Embed' },
   instructions: { id: 'embed.instructions', defaultMessage: 'Embed this status on your website by copying the code below.' },
   preview: { id: 'embed.preview', defaultMessage: 'Here is what it will look like:' },
-});
+})
 
 export default
 @injectIntl
@@ -22,72 +27,82 @@ class EmbedModal extends ImmutablePureComponent {
   state = {
     loading: false,
     oembed: null,
-  };
-
-  componentDidMount () {
-    const { url } = this.props;
-
-    this.setState({ loading: true });
-
-    api().post('/api/web/embed', { url }).then(res => {
-      this.setState({ loading: false, oembed: res.data });
-
-      const iframeDocument = this.iframe.contentWindow.document;
-
-      iframeDocument.open();
-      iframeDocument.write(res.data.html);
-      iframeDocument.close();
-
-      iframeDocument.body.style.margin = 0;
-      this.iframe.width  = iframeDocument.body.scrollWidth;
-      this.iframe.height = iframeDocument.body.scrollHeight;
-    }).catch(error => {
-      this.props.onError(error);
-    });
   }
 
-  setIframeRef = c =>  {
-    this.iframe = c;
+  componentDidMount() {
+    const { url } = this.props
+
+    this.setState({ loading: true })
+
+    api().post('/api/web/embed', { url }).then(res => {
+      this.setState({ loading: false, oembed: res.data })
+
+      const iframeDocument = this.iframe.contentWindow.document
+
+      iframeDocument.open()
+      iframeDocument.write(res.data.html)
+      iframeDocument.close()
+
+      iframeDocument.body.style.margin = 0
+      this.iframe.width = iframeDocument.body.scrollWidth
+      this.iframe.height = iframeDocument.body.scrollHeight
+    }).catch(error => {
+      this.props.onError(error)
+    })
+  }
+
+  setIframeRef = c => {
+    this.iframe = c
   }
 
   handleTextareaClick = (e) => {
-    e.target.select();
+    e.target.select()
   }
 
-  render () {
-    const { oembed, intl } = this.state;
+  render() {
+    const { intl } = this.props
+    const { oembed } = this.state
 
     return (
-      <div className='modal-root__modal embed-modal'>
-        <h4>{intl.formatMessage(messages.embed)}</h4>
-
-        <div className='embed-modal__container'>
-          <p className='hint'>
+      <ModalLayout title={intl.formatMessage(messages.embed)}>
+        <div className={_s.default}>
+          <Text className={_s.my10}>
             {intl.formatMessage(messages.instructions)}
-          </p>
+          </Text>
 
-          <input
-            type='text'
-            className='embed-modal__html'
-            readOnly
-            value={oembed && oembed.html || ''}
-            onClick={this.handleTextareaClick}
-          />
+          <div className={[_s.default, _s.mb10].join(' ')}>
+            <Input
+              readOnly
+              type='text'
+              className='embed-modal__html'
+              value={oembed && oembed.html || ''}
+              onClick={this.handleTextareaClick}
+            />
+          </div>
 
-          <p className='hint'>
+          <Divider />
+
+          <Text className={_s.mb10}>
             {intl.formatMessage(messages.preview)}
-          </p>
+          </Text>
 
-          <iframe
-            className='embed-modal__iframe'
-            frameBorder='0'
-            ref={this.setIframeRef}
-            sandbox='allow-same-origin'
-            title='preview'
-          />
+          <div className={[_s.default, _s.width100PC, _s.backgroundSubtle, _s.height220PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+            <iframe
+              className={[_s.default, _s.width100PC, _s.height100PC, _s.z2].join(' ')}
+              frameBorder='0'
+              ref={this.setIframeRef}
+              sandbox='allow-same-origin'
+              title='preview'
+            />
+            {
+              !oembed && 
+              <Icon id='loading' height='34px' width='34px' className={[_s.positionAbsolute, _s.z3].join(' ')} />
+            }
+          </div>
+
         </div>
-      </div>
-    );
+      </ModalLayout>
+    )
   }
 
 }

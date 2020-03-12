@@ -73,7 +73,7 @@ class MuteModal extends PureComponent {
   }
 
   render () {
-    const { account, notifications } = this.props;
+    const { account, notifications, intl } = this.props;
 
     return (
       <div className='modal-root__modal mute-modal'>

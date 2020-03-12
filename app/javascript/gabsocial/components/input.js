@@ -18,6 +18,7 @@ export default class Input extends PureComponent {
     onClear: PropTypes.func,
     title: PropTypes.string,
     small: PropTypes.bool,
+    readOnly: PropTypes.string,
   }
 
   render() {
@@ -32,7 +33,8 @@ export default class Input extends PureComponent {
       onBlur,
       onClear,
       title,
-      small
+      small,
+      readOnly
     } = this.props
 
     const inputClasses = cx({
@@ -42,9 +44,12 @@ export default class Input extends PureComponent {
       lineHeight125: 1,
       displayBlock: 1,
       py10: 1,
-      backgroundTransparent: 1,
+      backgroundTransparent: !readOnly,
+      backgroundSubtle2: readOnly,
+      colorSecondary: readOnly,
       fontSize15PX: 1,
       flexGrow1: 1,
+      circle: 1,
       px5: !!prependIcon,
       pl15: !prependIcon,
       pr15: !hasClear,
@@ -75,6 +80,7 @@ export default class Input extends PureComponent {
             onKeyUp={onKeyUp}
             onFocus={onFocus}
             onBlur={onBlur}
+            readOnly={readOnly}
           />
 
           {

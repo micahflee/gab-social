@@ -6,6 +6,11 @@ import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
 
 export default class NotificationsPage extends PureComponent {
+
+  componentDidMount() {
+    document.title = 'Notifications - Gab'
+  }
+
   render() {
     const { children } = this.props
 
