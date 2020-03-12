@@ -1,5 +1,7 @@
 - content_for :header_tags do
   = javascript_pack_tag 'public', integrity: true, crossorigin: 'anonymous'
+  %link(rel='stylesheet' href='/legacy/common-05893041.css')
+  %link(rel='stylesheet' href='/legacy/default-558fca16.chunk.css')
 
 - content_for :content do
   .public-layout
@@ -9,7 +11,7 @@
         .header-container
           .nav-left
             = link_to root_url, class: 'brand' do
-              -# = image_pack_tag 'gab_logo.svg', alt: 'Gab Social'
+              %img(src='/legacy/gab_logo.svg' alt='Gab Social')
             = link_to t('home'), root_url, class: 'nav-link optional'
             = link_to t('about.about_this'), about_path, class: 'nav-link'
             = link_to 'Apps', 'https://apps.gab.com', class: 'nav-link'
@@ -29,7 +31,7 @@
     .footer
       .footer-container
         .copyright
-          %span= "2019 Gab AI Inc. All Rights Reserved."
+          %span= "2020 Gab AI Inc. All Rights Reserved."
         %ul
           %li= link_to t('about.investors'), about_investors_path
           %li= link_to 'Terms of Sale', about_sales_path
