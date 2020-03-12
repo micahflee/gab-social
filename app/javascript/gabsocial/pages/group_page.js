@@ -25,6 +25,12 @@ class GroupPage extends ImmutablePureComponent {
 		dispatch: PropTypes.func.isRequired,
 	}
 
+	componentDidMount() {
+		const { group } = this.props
+		const groupTitle = !group ? '...' : group.get('title')
+    document.title = `Group / ${groupTitle} - Gab`
+	}
+	
 	componentWillMount() {
 		const { params: { id }, dispatch } = this.props
 

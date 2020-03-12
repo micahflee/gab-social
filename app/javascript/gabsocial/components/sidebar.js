@@ -45,7 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closeSidebar())
   },
   onOpenComposeModal() {
-    dispatch(openModal('PRO_UPGRADE'))
+    dispatch(openModal('COMPOSE'))
   },
 })
 

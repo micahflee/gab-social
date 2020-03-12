@@ -17,6 +17,12 @@ class ListPage extends ImmutablePureComponent {
     list: ImmutablePropTypes.map,
   };
 
+  componentDidMount() {
+		const { list } = this.props
+		const listTitle = !list ? '...' : list.get('title')
+    document.title = `List / ${listTitle} - Gab`
+  }
+  
   handleEditListTimeline () {
     console.log("handleEditListTimeline")
   }

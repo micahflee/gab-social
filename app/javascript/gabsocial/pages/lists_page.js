@@ -6,6 +6,10 @@ import DefaultLayout from '../layouts/default_layout'
 
 export default class ListsPage extends PureComponent {
 
+  componentDidMount() {
+    document.title = 'Lists - Gab'
+  }
+  
   handleClickNewList () {
     console.log("handleClickNewList")
   }

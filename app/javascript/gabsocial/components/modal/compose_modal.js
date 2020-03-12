@@ -51,7 +51,8 @@ class ComposeModal extends ImmutablePureComponent {
     return (
       <ModalLayout
         noPadding
-        title={intl.formatMessage(messages.title)} onClose={this.onClickClose}
+        title={intl.formatMessage(messages.title)}
+        onClose={this.onClickClose}
       >
         <TimelineComposeBlock modal />
       </ModalLayout>

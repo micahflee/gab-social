@@ -12,6 +12,10 @@ import Divider from '../components/divider'
 
 export default class HomePage extends PureComponent {
 
+  componentDidMount() {
+    document.title = '(1) Home - Gab'
+  }
+
   handleEditHomeTimeline () {
     console.log("handleEditHomeTimeline")
   }

@@ -41,6 +41,15 @@ class ProfilePage extends ImmutablePureComponent {
     unavailable: PropTypes.bool.isRequired,
   }
 
+  componentDidMount() {
+    const { account, params: { username } } = this.props
+    if (!!account) {
+      document.title = `${account.get('display_name')} (@${username}) - Gab`
+    } else {
+      document.title = `@${username} - Gab`
+    }
+  }
+
   componentWillMount() {
     const { dispatch, params: { username } } = this.props
     dispatch(fetchAccountByUsername(username))

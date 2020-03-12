@@ -5,6 +5,10 @@ import DefaultLayout from '../layouts/default_layout'
 
 export default class GroupsPage extends PureComponent {
 
+  componentDidMount() {
+    document.title = 'Groups - Gab'
+  }
+  
   handleClickNewList () {
     console.log("handleClickNewList")
   }

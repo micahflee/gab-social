@@ -3,7 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { debounce } from 'lodash'
 import classNames from 'classnames/bind'
 import { openPopover, closePopover } from '../actions/popover'
-import Badge from './badge'
 import Icon from './icon'
 
 const cx = classNames.bind(_s)
