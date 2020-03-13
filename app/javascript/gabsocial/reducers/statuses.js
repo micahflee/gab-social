@@ -3,6 +3,7 @@ import {
   REBLOG_FAIL,
   FAVORITE_REQUEST,
   FAVORITE_FAIL,
+  UNFAVORITE_REQUEST,
 } from '../actions/interactions';
 import {
   STATUS_MUTE_SUCCESS,
@@ -39,6 +40,8 @@ export default function statuses(state = initialState, action) {
     return state.setIn([action.status.get('id'), 'favourited'], true);
   case FAVORITE_FAIL:
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'favourited'], false);
+  case UNFAVORITE_REQUEST:
+    return state.setIn([action.status.get('id'), 'favourited'], false);
   case REBLOG_REQUEST:
     return state.setIn([action.status.get('id'), 'reblogged'], true);
   case REBLOG_FAIL:

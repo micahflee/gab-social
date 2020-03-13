@@ -83,6 +83,16 @@ class REST::StatusSerializer < ActiveModel::Serializer
     end
   end
 
+  def favourites_count
+    if instance_options && instance_options[:unfavourite]
+      # Decrement counter
+      # https://github.com/tootsuite/mastodon/issues/3166
+      object.favourites_count - 1
+    else
+      object.favourites_count
+    end
+  end
+
   def reblogged
     if instance_options && instance_options[:relationships]
       instance_options[:relationships].reblogs_map[object.id] || false
