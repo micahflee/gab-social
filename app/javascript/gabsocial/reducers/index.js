@@ -2,7 +2,6 @@ import { combineReducers } from 'redux-immutable';
 import popover from './popover';
 import timelines from './timelines';
 import meta from './meta';
-import alerts from './alerts';
 import { loadingBarReducer } from 'react-redux-loading-bar';
 import modal from './modal';
 import user_lists from './user_lists';
@@ -43,7 +42,6 @@ const reducers = {
   popover,
   timelines,
   meta,
-  alerts,
   loadingBar: loadingBarReducer,
   modal,
   user_lists,

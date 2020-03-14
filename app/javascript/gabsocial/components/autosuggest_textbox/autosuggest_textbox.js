@@ -35,13 +35,13 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     onBlur: PropTypes.func,
     textarea: PropTypes.bool,
     small: PropTypes.bool,
-  };
+  }
 
   static defaultProps = {
     autoFocus: true,
     searchTokens: ['@', ':', '#'],
     textarea: false,
-  };
+  }
 
   state = {
     suggestionsHidden: true,
@@ -49,10 +49,12 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     selectedSuggestion: 0,
     lastToken: null,
     tokenStart: 0,
-  };
+  }
 
   onChange = (e) => {
     const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
+
+    console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
 
     if (token !== null && this.state.lastToken !== token) {
       this.setState({ lastToken: token, selectedSuggestion: 0, tokenStart });
@@ -155,10 +157,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     }
   }
 
-  setTextbox = (c) => {
-    this.textbox = c;
-  }
-
   renderSuggestion = (suggestion, i) => {
     const { selectedSuggestion } = this.state;
     let inner, key;
@@ -190,6 +188,10 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
         {inner}
       </div>
     );
+  }
+
+  setTextbox = (c) => {
+    this.textbox = c;
   }
 
   render () {
@@ -249,12 +251,15 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.ml5].join(' ')}>
+              <Textarea
+                className={_s.default}
+                inputRef={this.setTextbox}
+                disabled={disabled}
+                value={value}
+                aria-autocomplete='list'
+              />
 
               <ContentEditable
-                noFocuscontainerRefocus
-                ariaMultiline
-                contentEditable
-                spellcheck
                 tabindex='0'
                 ariaLabel='Gab text'
                 role='textbox'
@@ -264,9 +269,10 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                   'white-space': 'pre-wrap',
                   overflowWrap: 'break-word'
                 }}
-                inputRef={this.setTextbox}
                 className={textClasses}
                 disabled={disabled}
+                style={style}
+                html={value}
                 placeholder={placeholder}
                 autoFocus={autoFocus}
                 onChange={this.onChange}
@@ -275,8 +281,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
                 onPaste={this.onPaste}
-                style={style}
-                html={value}
               />
             </div>
             {children}

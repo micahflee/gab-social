@@ -1,4 +1,4 @@
-import { showAlertForError } from '../actions/alerts';
+// import { showAlertForError } from '../actions/alerts';
 
 const defaultFailSuffix = 'FAIL';
 
@@ -8,7 +8,7 @@ export default function errorsMiddleware() {
       const isFail = new RegExp(`${defaultFailSuffix}$`, 'g');
 
       if (action.type.match(isFail)) {
-        dispatch(showAlertForError(action.error));
+        // dispatch(showAlertForError(action.error));
       }
     }
 

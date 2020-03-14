@@ -1,6 +1,6 @@
 import api from '../api';
 import { importFetchedAccounts } from './importer';
-import { showAlertForError } from './alerts';
+// import { showAlertForError } from './alerts';
 import { me } from '../initial_state'
 
 export const LIST_FETCH_REQUEST = 'LIST_FETCH_REQUEST';
@@ -263,7 +263,8 @@ export const fetchListSuggestions = q => (dispatch, getState) => {
   api(getState).get('/api/v1/accounts/search', { params }).then(({ data }) => {
     dispatch(importFetchedAccounts(data));
     dispatch(fetchListSuggestionsReady(q, data));
-  }).catch(error => dispatch(showAlertForError(error)));
+  })
+  // }).catch(error => dispatch(showAlertForError(error)));
 };
 
 export const fetchListSuggestionsReady = (query, accounts) => ({

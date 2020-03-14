@@ -4,6 +4,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import { closeSidebar } from '../actions/sidebar'
 import { openModal } from '../actions/modal'
+import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import SidebarSectionTitle from './sidebar_section_title'
@@ -37,12 +38,17 @@ const mapStateToProps = state => {
   return {
     account: getAccount(state, me),
     sidebarOpen: state.get('sidebar').sidebarOpen,
+    notificationCount: state.getIn(['notifications', 'unread']),
+    homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
   onClose() {
     dispatch(closeSidebar())
+  },
+  openSidebarMorePopover(props) {
+    dispatch(openPopover('SIDEBAR_MORE', props))
   },
   onOpenComposeModal() {
     dispatch(openModal('COMPOSE'))
@@ -60,6 +66,9 @@ class Sidebar extends ImmutablePureComponent {
     sidebarOpen: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onOpenComposeModal: PropTypes.func.isRequired,
+    openSidebarMorePopover: PropTypes.func.isRequired,
+    notificationCount: PropTypes.number.isRequired,
+    homeItemsQueueCount: PropTypes.number.isRequired,
   }
 
   state = {
@@ -90,12 +99,23 @@ class Sidebar extends ImmutablePureComponent {
   }
 
   handleOpenComposeModal = () => {
-    console.log("handleOpenComposeModal")
     this.props.onOpenComposeModal()
   }
 
+  handleOpenSidebarMorePopover =() => {
+    console.log("handleOpenSidebarMorePopover")
+    this.props.openSidebarMorePopover({
+      targetRef: this.moreBtnRef,
+      position: 'top',
+    })
+  }
+
+  setMoreButtonRef = n => {
+    this.moreBtnRef = n
+  }
+
   render() {
-    const { sidebarOpen, intl, account } = this.props
+    const { sidebarOpen, intl, account, notificationCount, homeItemsQueueCount } = this.props
     const { moreOpen } = this.state
 
     // : todo :
@@ -112,19 +132,20 @@ class Sidebar extends ImmutablePureComponent {
         title: 'Home',
         icon: 'home',
         to: '/',
-        count: 124,
+        count: homeItemsQueueCount,
       },
       {
         title: 'Notifications',
         icon: 'notifications',
         to: '/notifications',
-        count: 40,
+        count: notificationCount,
       },
-      {
-        title: 'Search',
-        icon: 'search-alt',
-        to: '/search',
-      },
+      // : todo : show only when search on top is not visible
+      // {
+      //   title: 'Search',
+      //   icon: 'search-alt',
+      //   to: '/search',
+      // },
       {
         title: 'Groups',
         icon: 'group',
@@ -138,17 +159,17 @@ class Sidebar extends ImmutablePureComponent {
       {
         title: 'Chat',
         icon: 'chat',
-        to: '',
-        // href: 'https://chat.gab.com',
+        href: 'https://chat.gab.com',
       },
       {
         title: 'More',
         icon: 'more',
-        to: '/',
+        onClick: this.handleOpenSidebarMorePopover,
+        buttonRef: this.setMoreButtonRef
       },
     ]
 
-    // more:
+    // more modal:
     // settings/preferences
     // help
     // logout
@@ -172,26 +193,22 @@ class Sidebar extends ImmutablePureComponent {
       {
         title: 'Apps',
         icon: 'apps',
-        to: '',
-        // href: 'https://apps.gab.com',
+        href: 'https://apps.gab.com',
       },
       {
         title: 'Shop',
         icon: 'shop',
-        to: '',
-        // href: 'https://shop.dissenter.com',
+        href: 'https://shop.dissenter.com',
       },
       {
         title: 'Trends',
         icon: 'trends',
-        to: '',
-        // href: 'https://trends.gab.com',
+        href: 'https://trends.gab.com',
       },
       {
         title: 'Dissenter',
         icon: 'dissenter',
-        to: '',
-        // href: 'https://dissenter.com',
+        href: 'https://dissenter.com',
       },
     ]
 
@@ -199,7 +216,7 @@ class Sidebar extends ImmutablePureComponent {
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
           <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.pr15, _s.my10].join(' ')}>
+            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
 
               <SidebarHeader />
 

@@ -27,7 +27,7 @@ class StatusContent extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    reblogContent: PropTypes.string,
+    reblogStatus: PropTypes.string,
     expanded: PropTypes.bool,
     onExpandedToggle: PropTypes.func,
     onClick: PropTypes.func,

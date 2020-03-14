@@ -79,6 +79,7 @@ class ComposeForm extends ImmutablePureComponent {
     isModalOpen: PropTypes.bool,
     scheduledAt: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
+    replyToId: PropTypes.string,
   };
 
   static defaultProps = {
@@ -231,7 +232,6 @@ class ComposeForm extends ImmutablePureComponent {
       scheduledAt,
       spoiler
     } = this.props
-    const condensed = shouldCondense && !this.props.text && !this.state.composeFocused;
     const disabled = this.props.isSubmitting;
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);

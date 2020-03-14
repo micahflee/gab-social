@@ -7,6 +7,11 @@ import { WhoToFollowPanel } from '../../../../components/panel'
 // import TrendsPanel from '../../ui/components/trends_panel'
 import GroupListItem from '../../../../components/group_list_item'
 import Block from '../../../../components/block'
+import Heading from '../../../../components/heading'
+import Button from '../../../../components/button'
+import Text from '../../../../components/text'
+
+import AccountContainer from '../../../../containers/account_container'
 
 export default class SearchResults extends ImmutablePureComponent {
 
@@ -25,9 +30,7 @@ export default class SearchResults extends ImmutablePureComponent {
 
     if (results.isEmpty() && isSmallScreen) {
       return (
-        <div className='search-results'>
-          <WhoToFollowPanel />
-        </div>
+        <div />
       )
     }
 
@@ -37,23 +40,39 @@ export default class SearchResults extends ImmutablePureComponent {
     const showGroups = pathname === '/search/groups'
     const isTop = !showPeople && !showHashtags && !showGroups
 
-    let accounts, statuses, hashtags, groups;
-    let count = 0;
+    let accounts, statuses, hashtags, groups
 
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, 5) : results.get('accounts').size;
-      count += size;
       accounts = (
-        <div className='search-results__section'>
-          <h5><Icon id='user' fixedWidth /><FormattedMessage id='search_results.accounts' defaultMessage='People' /></h5>
-          {results.get('accounts').slice(0, size).map(accountId => <AccountContainer key={accountId} id={accountId} />)}
+        <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.mb15].join(' ')}>
+            <Heading size='h3'>
+              People
+            </Heading>
+            <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+              <Button
+                text
+                backgroundColor='none'
+                color='brand'
+                to='/search/people'
+              >
+                <Text size='small' color='inherit' weight='bold'>
+                  See All
+                </Text>
+              </Button>
+            </div>
+          </div>
+
+          {
+            results.get('accounts').slice(0, size).map(accountId => <AccountContainer expanded key={accountId} id={accountId} />)
+          }
         </div>
       );
     }
 
     if (results.get('groups') && results.get('groups').size > 0 && (isTop || showGroups)) {
       const size = isTop ? Math.min(results.get('groups').size, 5) : results.get('groups').size;
-      count += size;
       groups = (
         <div className='search-results__section'>
           <h5><Icon id='users' fixedWidth /><FormattedMessage id='search_results.groups' defaultMessage='Groups' /></h5>
@@ -64,7 +83,6 @@ export default class SearchResults extends ImmutablePureComponent {
 
     if (results.get('hashtags') && results.get('hashtags').size > 0 && (isTop || showHashtags)) {
       const size = isTop ? Math.min(results.get('hashtags').size, 5) : results.get('hashtags').size;
-      count += size;
       hashtags = (
         <div className='search-results__section'>
           <h5><Icon id='hashtag' fixedWidth /><FormattedMessage id='search_results.hashtags' defaultMessage='Hashtags' /></h5>
@@ -75,17 +93,6 @@ export default class SearchResults extends ImmutablePureComponent {
 
     return (
       <Block>
-        <div className='search-results__header'>
-          <Icon id='search' fixedWidth />
-          <FormattedMessage
-            id='search_results.total'
-            defaultMessage='{count, number} {count, plural, one {result} other {results}}'
-            values={{
-              count
-            }}
-          />
-        </div>
-
         {accounts}
         {groups}
         {statuses}

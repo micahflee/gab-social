@@ -43,17 +43,18 @@ class Search extends PureComponent {
     value: PropTypes.string.isRequired,
     submitted: PropTypes.bool,
     onShow: PropTypes.func.isRequired,
-    openInRoute: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
     onKeyUp: PropTypes.func.isRequired,
-    handleSubmit: PropTypes.func,
     withOverlay: PropTypes.bool,
     handleClear: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
   }
 
   state = {
     expanded: false,
   }
+
+  textbox = React.createRef()
 
   handleChange = (e) => {
     this.props.onChange(e.target.value)
@@ -68,8 +69,31 @@ class Search extends PureComponent {
     this.setState({ expanded: false })
   }
 
+  handleKeyUp = (e) => {
+    const { value } = this.props
+
+    if (e.key === 'Enter') {
+      e.preventDefault();
+
+      this.props.onSubmit();
+      this.context.router.history.push(`/search?q=${value}`);
+
+    } else if (e.key === 'Escape') {
+      this.textbox.blur()
+    }
+  }
+
+  setTextbox = n => {
+    this.textbox = n
+  }
+
   render() {
-    const { value, submitted, onKeyUp, handleClear, handleSubmit, withOverlay } = this.props
+    const {
+      value,
+      submitted,
+      handleClear,
+      withOverlay
+    } = this.props
     const { expanded } = this.state
 
     const hasValue = value ? value.length > 0 || submitted : 0
@@ -79,10 +103,11 @@ class Search extends PureComponent {
         <Input
           hasClear
           value={value}
+          inputRef={this.setTextbox}
           prependIcon='search'
           placeholder='Search on Gab...'
           onChange={this.handleChange}
-          onKeyUp={onKeyUp}
+          onKeyUp={this.handleKeyUp}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onClear={handleClear}

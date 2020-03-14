@@ -8,8 +8,7 @@ import { useEmoji } from './emojis';
 import resizeImage from '../utils/resize_image';
 import { importFetchedAccounts } from './importer';
 import { updateTimeline, dequeueTimeline } from './timelines';
-import { showAlertForError } from './alerts';
-import { showAlert } from './alerts';
+// import { showAlert, showAlertForError } from './alerts';
 import { defineMessages } from 'react-intl';
 import { openModal, closeModal } from './modal';
 import { me } from '../initial_state';
@@ -134,13 +133,13 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
 
   const isScheduledStatus = response.data['scheduled_at'] !== undefined;
   if (isScheduledStatus) {
-    dispatch(showAlertForError({
-      response: {
-        data: {},
-        status: 200,
-        statusText: 'Successfully scheduled status',
-      }
-    }));
+    // dispatch(showAlertForError({
+    //   response: {
+    //     data: {},
+    //     status: 200,
+    //     statusText: 'Successfully scheduled status',
+    //   }
+    // }));
     dispatch(submitComposeSuccess({ ...response.data }));
     return;
   }
@@ -247,12 +246,12 @@ export function uploadCompose(files) {
     let total = Array.from(files).reduce((a, v) => a + v.size, 0);
 
     if (files.length + media.size > uploadLimit) {
-      dispatch(showAlert(undefined, messages.uploadErrorLimit));
+      // dispatch(showAlert(undefined, messages.uploadErrorLimit));
       return;
     }
 
     if (getState().getIn(['compose', 'poll'])) {
-      dispatch(showAlert(undefined, messages.uploadErrorPoll));
+      // dispatch(showAlert(undefined, messages.uploadErrorPoll));
       return;
     }
 
@@ -379,7 +378,7 @@ const fetchComposeSuggestionsAccounts = throttle((dispatch, getState, token) => 
     dispatch(readyComposeSuggestionsAccounts(token, response.data));
   }).catch(error => {
     if (!isCancel(error)) {
-      dispatch(showAlertForError(error));
+      // dispatch(showAlertForError(error));
     }
   });
 }, 200, { leading: true, trailing: true });

@@ -6,16 +6,39 @@ import Sidebar from '../components/sidebar'
 export default class SearchLayout extends PureComponent {
   static propTypes = {
     actions: PropTypes.array,
-    tabs: PropTypes.array,
     layout: PropTypes.object,
     showBackBtn: PropTypes.bool,
   }
 
   render() {
-    const { children, showBackBtn, layout, actions, tabs } = this.props
+    const { children, showBackBtn, layout, actions } = this.props
 
     // const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
     // const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
+
+    const tabs = [
+      {
+        title: 'Top',
+        to: '/search'
+      },
+      {
+        title: 'People',
+        to: '/search/people'
+      },
+      {
+        title: 'Groups',
+        to: '/search/groups'
+      },
+      {
+        title: 'Gabs',
+        to: '/search/gabs'
+      },
+      {
+        title: 'Hashtags',
+        to: '/search/hashtags'
+      },
+    ]
+
 
     return (
       <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundColorSecondary3].join(' ')}>

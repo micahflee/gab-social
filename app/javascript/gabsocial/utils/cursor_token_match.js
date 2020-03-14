@@ -12,7 +12,9 @@ export function textAtCursorMatchesToken(str, caretPosition, searchTokens) {
     word = str.slice(left, right + caretPosition);
   }
 
-  if (!word || word.trim().length < 3 || searchTokens.indexOf(word[0]) === -1) {
+  console.log("left, right, word, caretPosition:", left, right, word, caretPosition)
+
+  if (!word || word.trim().length < 2 || searchTokens.indexOf(word[0]) === -1) {
     return [null, null];
   }
 

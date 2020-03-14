@@ -1,6 +1,6 @@
 import api from '../api';
 import { debounce } from 'lodash';
-import { showAlertForError } from './alerts';
+// import { showAlertForError } from './alerts';
 import { me } from '../initial_state';
 
 export const SETTING_CHANGE = 'SETTING_CHANGE';
@@ -29,7 +29,7 @@ const debouncedSave = debounce((dispatch, getState) => {
 
   api().put('/api/web/settings', { data })
     .then(() => dispatch({ type: SETTING_SAVE }))
-    .catch(error => dispatch(showAlertForError(error)));
+    // .catch(error => dispatch(showAlertForError(error)));
 }, 5000, { trailing: true });
 
 export function saveSettings() {

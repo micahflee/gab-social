@@ -8,10 +8,11 @@ export default class List extends PureComponent {
     items: PropTypes.array,
     scrollKey: PropTypes.string,
     emptyMessage: PropTypes.any,
+    small: PropTypes.bool,
   }
 
   render() {
-    const { items, scrollKey, emptyMessage } = this.props
+    const { items, scrollKey, emptyMessage, small } = this.props
 
     return (
       <Block>
@@ -23,16 +24,16 @@ export default class List extends PureComponent {
             items.map((item, i) => {
               return (
                 <ListItem
+                  small={small}
                   key={`list-item-${i}`}
-                  to={item.to}
-                  title={item.title}
                   isLast={items.length - 1 === i}
+                  {...item}
                 />
               )
             })
           }
         </ScrollableList>
-      </Block>
+    </Block>
     )
   }
 

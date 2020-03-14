@@ -36,6 +36,7 @@ export default class Button extends PureComponent {
     narrow: PropTypes.bool,
     underlineOnHover: PropTypes.bool,
     radiusSmall: PropTypes.bool,
+    noClasses: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -50,6 +51,8 @@ export default class Button extends PureComponent {
   }
 
   setRef = (c) => {
+    const { buttonRef } = this.props
+    if (buttonRef) buttonRef(c)
     this.node = c
   }
 
@@ -76,6 +79,7 @@ export default class Button extends PureComponent {
       underlineOnHover,
       narrow,
       radiusSmall,
+      noClasses,
       ...otherProps
     } = this.props
 
@@ -89,7 +93,7 @@ export default class Button extends PureComponent {
     ) : undefined
 
     // : todo :
-    const classes = cx(className, {
+    const classes = noClasses ? className : cx(className, {
       default: 1,
       noUnderline: 1,
       font: 1,

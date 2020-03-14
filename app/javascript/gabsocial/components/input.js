@@ -19,6 +19,7 @@ export default class Input extends PureComponent {
     title: PropTypes.string,
     small: PropTypes.bool,
     readOnly: PropTypes.string,
+    inputRef: PropTypes.func,
   }
 
   render() {
@@ -34,7 +35,8 @@ export default class Input extends PureComponent {
       onClear,
       title,
       small,
-      readOnly
+      readOnly,
+      inputRef
     } = this.props
 
     const inputClasses = cx({
@@ -75,6 +77,7 @@ export default class Input extends PureComponent {
             className={inputClasses}
             type='text'
             placeholder={placeholder}
+            ref={inputRef}
             value={value}
             onChange={onChange}
             onKeyUp={onKeyUp}

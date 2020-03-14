@@ -17,12 +17,11 @@ const PauseIcon = ({
     xmlSpace='preserve'
     aria-label={title}
   >
-  <g>
-		<rect x='6' y='0' width='18' height='64' rx='4' />
-	  <rect x='40' y='0' width='18' height='64' rx='4' />
-  </g>
-</svg>
-
+    <g>
+      <rect x='6' y='0' width='18' height='64' rx='4' />
+      <rect x='40' y='0' width='18' height='64' rx='4' />
+    </g>
+  </svg>
 )
 
 export default PauseIcon

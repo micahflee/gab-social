@@ -1,6 +1,6 @@
 import {
-  REBLOG_REQUEST,
-  REBLOG_FAIL,
+  REPOST_REQUEST,
+  REPOST_FAIL,
   FAVORITE_REQUEST,
   FAVORITE_FAIL,
   UNFAVORITE_REQUEST,
@@ -42,9 +42,9 @@ export default function statuses(state = initialState, action) {
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'favourited'], false);
   case UNFAVORITE_REQUEST:
     return state.setIn([action.status.get('id'), 'favourited'], false);
-  case REBLOG_REQUEST:
+  case REPOST_REQUEST:
     return state.setIn([action.status.get('id'), 'reblogged'], true);
-  case REBLOG_FAIL:
+  case REPOST_FAIL:
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'reblogged'], false);
   case STATUS_MUTE_SUCCESS:
     return state.setIn([action.id, 'muted'], true);

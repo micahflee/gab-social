@@ -14,14 +14,21 @@ class Avatar extends ImmutablePureComponent {
   }
 
   static defaultProps = {
-    account: ImmutableMap(),
     animate: autoPlayGif,
     size: 40,
   }
 
   state = {
     hovering: false,
-    sameImg: this.props.account.get('avatar') === this.props.account.get('avatar_static'),
+    sameImg: !this.props.account ? false : this.props.account.get('avatar') === this.props.account.get('avatar_static'),
+  }
+
+  componentDidUpdate (prevProps) {
+    if (prevProps.account !== this.props.account) {
+      this.setState({
+        sameImg: !this.props.account ? false : this.props.account.get('avatar') === this.props.account.get('avatar_static'),
+      })
+    }
   }
 
   handleMouseEnter = () => {
@@ -43,8 +50,8 @@ class Avatar extends ImmutablePureComponent {
       className: [_s.default, _s.circle, _s.overflowHidden].join(' '),
       onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
       onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,
-      src: account.get((hovering || animate) ? 'avatar' : 'avatar_static'),
-      alt: account.get('display_name'),
+      src: !account ? undefined : account.get((hovering || animate) ? 'avatar' : 'avatar_static'),
+      alt: !account ? undefined : account.get('display_name'),
       style: {
         width: `${size}px`,
         height: `${size}px`,

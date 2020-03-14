@@ -7,20 +7,17 @@ import {
 const initialState = Immutable.Map({
   popoverType: null,
   placement: null,
-  keyboard: false
 })
 
 export default function popoverMenu(state = initialState, action) {
   switch (action.type) {
     case POPOVER_OPEN:
-      console.log("POPOVER_OPEN:", action)
       return {
         popoverType: action.popoverType,
         popoverProps: action.popoverProps,
       }
     case POPOVER_CLOSE:
-      console.log("POPOVER_CLOSE:", action)
-      return initialState;
+      return initialState
     default:
       return state
   }

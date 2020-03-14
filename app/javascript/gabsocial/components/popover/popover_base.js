@@ -17,7 +17,6 @@ const mapStateToProps = state => ({
   isModalOpen: state.get('modal').modalType === 'ACTIONS',
   popoverPlacement: state.getIn(['popover', 'placement']),
   openPopoverType: state.getIn(['popover', 'popoverType']),
-  openedViaKeyboard: state.getIn(['popover', 'keyboard']),
 })
 
 const mapDispatchToProps = (dispatch, { status, items }) => ({
@@ -55,9 +54,9 @@ class PopoverBase extends ImmutablePureComponent {
     onClose: PropTypes.func.isRequired,
     position: PropTypes.string,
     openPopoverType: PropTypes.number,
-    openedViaKeyboard: PropTypes.bool,
     visible: PropTypes.bool,
     targetRef: PropTypes.node,
+    innerRef: PropTypes.node,
   }
 
   static defaultProps = {
@@ -137,8 +136,8 @@ class PopoverBase extends ImmutablePureComponent {
       disabled,
       position,
       openPopoverType,
-      openedViaKeyboard,
       targetRef,
+      innerRef,
     } = this.props
     const open = this.state.id === openPopoverType
 
@@ -155,13 +154,10 @@ class PopoverBase extends ImmutablePureComponent {
           referenceElement={targetRef}
         >
           {({ ref, style, placement, arrowProps }) => (
-            <div ref={ref} style={style} data-placement={placement}>
+            <div ref={ref} style={style} data-placement={placement} className={[_s.my5, _s.boxShadow2].join(' ')}>
               <div ref={arrowProps.ref} style={arrowProps.style} />
-              <div data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
-              {children}
-                { /* <div show={open} placement={popoverPlacement} target={this.findTarget}>
-                  <PopoverMenu items={items} onClose={this.handleClose} openedViaKeyboard={openedViaKeyboard} />
-                </div> */}
+              <div ref={innerRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
+                {children}
               </div>
             </div>
           )}

@@ -1,9 +1,9 @@
-import Immutable from 'immutable';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { HotKeys } from 'react-hotkeys';
-import { fetchStatus } from '../../actions/statuses';
+import Immutable from 'immutable'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { HotKeys } from 'react-hotkeys'
+import { fetchStatus } from '../../actions/statuses'
 import {
   favorite,
   unfavorite,
@@ -11,27 +11,27 @@ import {
   unrepost,
   pin,
   unpin,
-} from '../../actions/interactions';
+} from '../../actions/interactions'
 import {
   replyCompose,
   mentionCompose,
-} from '../../actions/compose';
-import { blockAccount } from '../../actions/accounts';
+} from '../../actions/compose'
+import { blockAccount } from '../../actions/accounts'
 import {
   muteStatus,
   unmuteStatus,
   deleteStatus,
   hideStatus,
   revealStatus,
-} from '../../actions/statuses';
-import { initMuteModal } from '../../actions/mutes';
-import { initReport } from '../../actions/reports';
-import { openModal } from '../../actions/modal';
-import { boostModal, deleteModal, me } from '../../initial_state';
-import { makeGetStatus } from '../../selectors';
-import StatusContainer from '../../containers/status_container';
-import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status';
-import ColumnIndicator from '../../components/column_indicator';
+} from '../../actions/statuses'
+import { initMuteModal } from '../../actions/mutes'
+import { initReport } from '../../actions/reports'
+import { openModal } from '../../actions/modal'
+import { boostModal, deleteModal, me } from '../../initial_state'
+import { makeGetStatus } from '../../selectors'
+import StatusContainer from '../../containers/status_container'
+import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status'
+import ColumnIndicator from '../../components/column_indicator'
 import Block from '../../components/block'
 import Comment from '../../components/comment'
 

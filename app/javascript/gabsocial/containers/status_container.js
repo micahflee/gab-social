@@ -5,9 +5,9 @@ import {
   quoteCompose,
 } from '../actions/compose';
 import {
-  reblog,
+  repost,
   favorite,
-  unreblog,
+  unrepost,
   unfavorite,
   pin,
   unpin,
@@ -25,7 +25,7 @@ import { initMuteModal } from '../actions/mutes';
 import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
 import { boostModal, deleteModal } from '../initial_state';
-import { showAlertForError } from '../actions/alerts';
+// import { showAlertForError } from '../actions/alerts';
 import { 
   createRemovedAccount,
   groupRemoveStatus
@@ -127,10 +127,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onEmbed (status) {
-    dispatch(openModal('EMBED', {
-      url: status.get('url'),
-      onError: error => dispatch(showAlertForError(error)),
-    }));
+    // dispatch(openModal('EMBED', {
+    //   url: status.get('url'),
+    //   onError: error => dispatch(showAlertForError(error)),
+    // }));
   },
 
   onDelete (status, history) {

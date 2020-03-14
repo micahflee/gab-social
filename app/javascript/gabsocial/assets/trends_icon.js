@@ -17,16 +17,15 @@ const TrendsIcon = ({
     xmlSpace='preserve'
     aria-label={title}
   >
-  <g>
-		<rect x="0" y="0" width="24" height="56" rx="4" />
-	  <rect x="0" y="60" width="24" height="20" rx="4" />
-		<rect x="28" y="44" width="24" height="36" rx="4" />
-		<rect x="28" y="16" width="24" height="24" rx="4" />
-		<rect x="56" y="64" width="24" height="16" rx="4" />
-		<rect x="56" y="30" width="24" height="30" rx="4" />
-  </g>
-</svg>
-
+    <g>
+      <rect x='0' y='0' width='24' height='56' rx='4' />
+      <rect x='0' y='60' width='24' height='20' rx='4' />
+      <rect x='28' y='44' width='24' height='36' rx='4' />
+      <rect x='28' y='16' width='24' height='24' rx='4' />
+      <rect x='56' y='64' width='24' height='16' rx='4' />
+      <rect x='56' y='30' width='24' height='30' rx='4' />
+    </g>
+  </svg>
 )
 
 export default TrendsIcon

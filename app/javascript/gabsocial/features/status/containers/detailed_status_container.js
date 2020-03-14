@@ -22,7 +22,7 @@ import {
 import { initMuteModal } from '../../../actions/mutes';
 import { initReport } from '../../../actions/reports';
 import { openModal } from '../../../actions/modal';
-import { showAlertForError } from '../../../actions/alerts';
+// import { showAlertForError } from '../../../actions/alerts';
 import { boostModal, deleteModal } from '../../../initial_state';
 import { makeGetStatus } from '../../../selectors';
 import DetailedStatus from '../components/detailed_status';
@@ -97,10 +97,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onEmbed (status) {
-    dispatch(openModal('EMBED', {
-      url: status.get('url'),
-      onError: error => dispatch(showAlertForError(error)),
-    }));
+    // dispatch(openModal('EMBED', {
+    //   url: status.get('url'),
+    //   onError: error => dispatch(showAlertForError(error)),
+    // }));
   },
 
   onDelete (status, history) {

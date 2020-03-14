@@ -19,7 +19,7 @@ const POPOVER_COMPONENTS = {
   CONTENT_WARNING: () => Promise.resolve({ default: ContentWarningPopover }),
   DATE_PICKER: () => Promise.resolve({ default: DatePickerPopover }),
   GROUP_INFO: () => GroupInfoPopover,
-  PROFILE_OPTIONS: () => ProfileOptionsPopover,
+  PROFILE_OPTIONS: () => Promise.resolve({ default: ProfileOptionsPopover }),
   SEARCH: () => Promise.resolve({ default: SearchPopover }),
   SIDEBAR_MORE: () => Promise.resolve({ default: SidebarMorePopover }),
   STATUS_OPTIONS: () => Promise.resolve({ default: StatusOptionsPopover }),
@@ -60,7 +60,6 @@ class PopoverRoot extends PureComponent {
     onClose: PropTypes.func.isRequired,
     style: PropTypes.object,
     placement: PropTypes.string,
-    openedViaKeyboard: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -73,25 +72,23 @@ class PopoverRoot extends PureComponent {
   }
 
   handleDocumentClick = e => {
-    // if (this.node && !this.node.contains(e.target)) {
-    //   this.props.onClose()
-    // }
+    if (this.node && !this.node.contains(e.target)) {
+      this.props.onClose()
+    }
   }
 
   componentDidMount() {
-    // document.addEventListener('click', this.handleDocumentClick, false)
-    // document.addEventListener('keydown', this.handleKeyDown, false)
-    // document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
+    document.addEventListener('click', this.handleDocumentClick, false)
+    document.addEventListener('keydown', this.handleKeyDown, false)
+    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
 
-    // if (this.focusedItem && this.props.openedViaKeyboard) this.focusedItem.focus()
-
-    // this.setState({ mounted: true })
+    this.setState({ mounted: true })
   }
 
   componentWillUnmount() {
-    // document.removeEventListener('click', this.handleDocumentClick, false)
-    // document.removeEventListener('keydown', this.handleKeyDown, false)
-    // document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
+    document.removeEventListener('click', this.handleDocumentClick, false)
+    document.removeEventListener('keydown', this.handleKeyDown, false)
+    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
   setRef = c => {
@@ -165,12 +162,10 @@ class PopoverRoot extends PureComponent {
     const { mounted } = this.state
     const visible = !!type
 
-    console.log("popover root - type, visible:", type, visible, props, POPOVER_COMPONENTS[type])
-
     return (
       <PopoverBase
         visible={visible}
-        ref={this.setRef}
+        innerRef={this.setRef}
         {...props}
       >
         {

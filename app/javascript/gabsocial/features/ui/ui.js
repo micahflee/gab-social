@@ -14,7 +14,6 @@ import { fetchFilters } from '../../actions/filters'
 import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
 import WrappedRoute from './util/wrapped_route'
-import NotificationsContainer from '../../containers/notifications_container'
 import ModalRoot from '../../components/modal/modal_root'
 import PopoverRoot from '../../components/popover/popover_root'
 import UploadArea from '../../components/upload_area'
@@ -373,9 +372,9 @@ class UI extends PureComponent {
   componentDidMount() {
     if (!me) return
 
-    this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
-      return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName)
-    }
+    // this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
+    //   return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName)
+    // }
   }
 
   componentWillUnmount() {
@@ -489,27 +488,18 @@ class UI extends PureComponent {
     } : {}
 
     return (
-      <HotKeys
-        keyMap={keyMap}
-        handlers={handlers}
-        ref={this.setHotkeysRef}
-        attach={window}
-        focused
-      >
-        <div ref={this.setRef}>
-          <SwitchingArea
-            location={location}
-            onLayoutChange={this.handleLayoutChange}
-          >
-            {children}
-          </SwitchingArea>
+      <div ref={this.setRef}>
+        <SwitchingArea
+          location={location}
+          onLayoutChange={this.handleLayoutChange}
+        >
+          {children}
+        </SwitchingArea>
 
-          { /* <NotificationsContainer /> */ }
-          <ModalRoot />
-          <PopoverRoot />
-          <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
-        </div>
-      </HotKeys>
+        <ModalRoot />
+        <PopoverRoot />
+        <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
+      </div>
     )
   }
 

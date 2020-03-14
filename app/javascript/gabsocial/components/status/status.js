@@ -348,7 +348,7 @@ class Status extends ImmutablePureComponent {
       prepend = (
         <div className='status__prepend'>
           <div className='status__prepend-icon-wrapper'>
-            <Icon id='retweet' className='status__prepend-icon' fixedWidth />
+            <Icon id='repost' className='status__prepend-icon' fixedWidth />
           </div>
           {/*<FormattedMessage
             id='status.reposted_by'
@@ -382,7 +382,7 @@ class Status extends ImmutablePureComponent {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
         const video = status.getIn(['media_attachments', 0]);
 
-        console.log("VIDEO HERE")
+        // console.log("VIDEO HERE")
 
         media = (
           <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer}>
@@ -434,6 +434,10 @@ class Status extends ImmutablePureComponent {
         />
       )
     }
+
+    // console.log("da status:", status)
+    let quotedStatus = status.get('quotedStatus');
+    // console.log("quotedStatus:", quotedStatus)
 
     const handlers = this.props.muted ? {} : {
       reply: this.handleHotkeyReply,
@@ -509,9 +513,9 @@ class Status extends ImmutablePureComponent {
 
               <StatusActionBar status={status} account={account} {...other} />
 
-              { /* <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
-                <ComposeFormContainer statusId={status.get('id')} shouldCondense />
-              </div> */ }
+              <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
+                {/*<ComposeFormContainer replyToId={status.get('id')} shouldCondense />*/}
+              </div>
             </div>
           </div>
         </div>

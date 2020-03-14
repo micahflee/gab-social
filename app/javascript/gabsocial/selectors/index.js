@@ -67,6 +67,7 @@ export const makeGetStatus = () => {
   return createSelector(
     [
       (state, { id }) => state.getIn(['statuses', id]),
+      (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account'])]),
@@ -74,7 +75,7 @@ export const makeGetStatus = () => {
       getFilters,
     ],
 
-    (statusBase, statusRepost, accountBase, accountRepost, username, filters) => {
+    (statusBase, quotedStatus, statusRepost, accountBase, accountRepost, username, filters) => {
       if (!statusBase) {
         return null;
       }
@@ -95,6 +96,7 @@ export const makeGetStatus = () => {
       const filtered = regex && regex.test(statusBase.get('reblog') ? statusRepost.get('search_index') : statusBase.get('search_index'));
 
       return statusBase.withMutations(map => {
+        map.set('quoted_status', quotedStatus);
         map.set('reblog', statusRepost);
         map.set('account', accountBase);
         map.set('filtered', filtered);
@@ -102,26 +104,6 @@ export const makeGetStatus = () => {
     }
   );
 };
-
-const getAlertsBase = state => state.get('alerts');
-
-export const getAlerts = createSelector([getAlertsBase], (base) => {
-  let arr = [];
-
-  base.forEach(item => {
-    arr.push({
-      message: item.get('message'),
-      title: item.get('title'),
-      key: item.get('key'),
-      dismissAfter: 5000,
-      barStyle: {
-        zIndex: 200,
-      },
-    });
-  });
-
-  return arr;
-});
 
 export const makeGetNotification = () => {
   return createSelector([

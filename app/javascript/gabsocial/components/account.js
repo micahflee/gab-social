@@ -35,6 +35,7 @@ class Account extends ImmutablePureComponent {
     actionTitle: PropTypes.string,
     onActionClick: PropTypes.func,
     compact: PropTypes.bool,
+    expanded: PropTypes.bool,
     showDismiss: PropTypes.bool,
     dismissAction: PropTypes.func,
   }
@@ -76,6 +77,7 @@ class Account extends ImmutablePureComponent {
       actionIcon,
       actionTitle,
       compact,
+      expanded,
       dismissAction,
       showDismiss,
     } = this.props

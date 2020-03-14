@@ -1,3 +1,4 @@
+import { List as ImmutableList } from 'immutable'
 import ComposeForm from '../components/compose_form'
 import {
   changeCompose,
@@ -12,29 +13,31 @@ import {
 } from '../../../actions/compose'
 import { me } from '../../../initial_state'
 
-const mapStateToProps = (state, { status }) => {
+const mapStateToProps = (state, { replyToId }) => {
 
-  // : todo :
-  //everything needs to be in relation to if there's a status or not
+  const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
+  const isMatch = reduxReplyToId || replyToId ? reduxReplyToId === replyToId : true
+
+  // console.log("isMatch:", isMatch, reduxReplyToId, replyToId)
 
   return {
-    edit: state.getIn(['compose', 'id']) !== null,
-    text: state.getIn(['compose', 'text']),
-    suggestions: state.getIn(['compose', 'suggestions']),
-    spoiler: state.getIn(['compose', 'spoiler']),
-    spoilerText: state.getIn(['compose', 'spoiler_text']),
-    privacy: state.getIn(['compose', 'privacy']),
-    focusDate: state.getIn(['compose', 'focusDate']),
-    caretPosition: state.getIn(['compose', 'caretPosition']),
-    preselectDate: state.getIn(['compose', 'preselectDate']),
-    isSubmitting: state.getIn(['compose', 'is_submitting']),
-    isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
-    isUploading: state.getIn(['compose', 'is_uploading']),
-    showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
-    anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
-    isModalOpen: state.get('modal').modalType === 'COMPOSE',
-    quoteOfId: state.getIn(['compose', 'quote_of_id']),
-    scheduledAt: state.getIn(['compose', 'scheduled_at']),
+    edit: !isMatch ? null : state.getIn(['compose', 'id']) !== null,
+    text: !isMatch ? '' : state.getIn(['compose', 'text']),
+    suggestions: !isMatch ? ImmutableList() : state.getIn(['compose', 'suggestions']),
+    spoiler: !isMatch ? false : state.getIn(['compose', 'spoiler']),
+    spoilerText: !isMatch ? '' : state.getIn(['compose', 'spoiler_text']),
+    privacy: !isMatch ? null : state.getIn(['compose', 'privacy']),
+    focusDate: !isMatch ? null : state.getIn(['compose', 'focusDate']),
+    caretPosition: !isMatch ? null : state.getIn(['compose', 'caretPosition']),
+    preselectDate: !isMatch ? null : state.getIn(['compose', 'preselectDate']),
+    isSubmitting: !isMatch ? false : state.getIn(['compose', 'is_submitting']),
+    isChangingUpload: !isMatch ? false : state.getIn(['compose', 'is_changing_upload']),
+    isUploading: !isMatch ? false : state.getIn(['compose', 'is_uploading']),
+    showSearch: !isMatch ? false : state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
+    anyMedia: !isMatch ? false : state.getIn(['compose', 'media_attachments']).size > 0,
+    isModalOpen: !isMatch ? false : state.get('modal').modalType === 'COMPOSE',
+    quoteOfId: !isMatch ? null : state.getIn(['compose', 'quote_of_id']),
+    scheduledAt: !isMatch ? null : state.getIn(['compose', 'scheduled_at']),
     account: state.getIn(['accounts', me]),
   }
 }

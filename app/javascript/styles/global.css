@@ -10,6 +10,11 @@ body {
   overscroll-behavior-y: none;
 }
 
+.overflowYScroll {
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
 .statusContent,
 .statusContent * {
   margin-top: 0;
@@ -878,6 +883,10 @@ body {
 
 .boxShadow1 {
   box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25);
+}
+
+.boxShadow2 {
+  box-shadow: 0 0 15px -5px rgba(0,0,0,0.15);
 }
 
 .listStyleNone {

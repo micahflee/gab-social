@@ -1,20 +1,21 @@
-import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
-import Text from './text'
 
 const cx = classNames.bind(_s)
 
 export default class SidebarSectionItem extends PureComponent {
   static propTypes = {
     to: PropTypes.string,
+    href: PropTypes.string,
+    onClick: PropTypes.func,
     active: PropTypes.bool,
     icon: PropTypes.string,
     image: PropTypes.string,
     title: PropTypes.string,
     me: PropTypes.bool,
     suffix: PropTypes.node,
+    buttonRef: PropTypes.func,
   }
 
   state = {
@@ -30,7 +31,18 @@ export default class SidebarSectionItem extends PureComponent {
   }
 
   render() {
-    const { to, active, icon, image, title, me, count } = this.props
+    const {
+      to,
+      active,
+      icon,
+      image,
+      title,
+      me,
+      count,
+      onClick,
+      href,
+      buttonRef
+    } = this.props
     const { hovering } = this.state
 
     const iconSize = '16px'
@@ -49,6 +61,7 @@ export default class SidebarSectionItem extends PureComponent {
       // border1PX: shouldShowActive,
       // borderColorSecondary: shouldShowActive,
       backgroundSubtle2: shouldShowActive,
+      backgroundTransparent: 1,
     })
 
     const textClasses = cx({
@@ -63,7 +76,7 @@ export default class SidebarSectionItem extends PureComponent {
 
     const iconClasses = cx({
       fillColorBlack: shouldShowActive,
-      fillcolorSecondary: !hovering && !active,
+      fillColorSecondary: !hovering && !active,
     })
 
     const countClasses = cx({
@@ -82,11 +95,15 @@ export default class SidebarSectionItem extends PureComponent {
     })
 
     return (
-      <NavLink
+      <Button
         to={to}
+        href={href}
+        onClick={onClick}
+        noClasses
+        buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart, _s.backgroundTransparent].join(' ')}
       >
         <div className={containerClasses}>
           <div className={[_s.default]}>
@@ -109,7 +126,7 @@ export default class SidebarSectionItem extends PureComponent {
             </span>
           }
         </div>
-      </NavLink>
+      </Button>
     )
   }
 }
