@@ -4,7 +4,6 @@ import React from 'react';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import axios from 'axios';
 import Button from 'gabsocial/components/button';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { autoPlayGif, me, isStaff } from 'gabsocial/initial_state';
@@ -92,20 +91,6 @@ class Header extends ImmutablePureComponent {
 
   componentWillUnmount () {
     window.removeEventListener('resize', this.handleResize);
-  }
-
-  onChat = () => {
-    const { account } = this.props;
-
-    axios.post('https://chat.gab.com/private-message', {
-      username: account.get('username'),
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
   }
 
   handleResize = debounce(() => {
@@ -343,7 +328,6 @@ class Header extends ImmutablePureComponent {
                       type='submit'
                       icon='comments'
                       className='button button-alternative-2 chat-button'
-                      onClick={this.onChat}
                       title={intl.formatMessage(messages.chat)}
                     />
                   </form>

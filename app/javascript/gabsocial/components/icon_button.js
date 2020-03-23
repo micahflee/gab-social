@@ -36,6 +36,8 @@ export default class IconButton extends React.PureComponent {
   };
 
   handleClick = (e) =>  {
+    if (!this.props.onClick) return;
+
     e.preventDefault();
 
     if (!this.props.disabled) {
@@ -89,6 +91,7 @@ export default class IconButton extends React.PureComponent {
           style={style}
           tabIndex={tabIndex}
           disabled={disabled}
+          type={type}
         >
           <Icon id={icon} fixedWidth aria-hidden='true' />
         </button>
