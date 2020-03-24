@@ -1,13 +1,13 @@
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
 import { closeModal } from '../../actions/modal'
-import { muteAccount } from '../../actions/accounts'
+import { blockAccount } from '../../actions/accounts'
 import ConfirmationModal from './confirmation_modal'
 
 const messages = defineMessages({
-  title: { id: 'mute_title', defaultMessage: 'Mute {name}' },
-  muteMessage: { id: 'confirmations.mute.message', defaultMessage: 'Are you sure you want to mute {name}?' },
-  mute: { id: 'confirmations.mute.confirm', defaultMessage: 'Mute' },
+  title: { id: 'block_title', defaultMessage: 'Block {name}' },
+  muteMessage: { id: 'confirmations.block.message', defaultMessage: 'Are you sure you want to block {name}?' },
+  block: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
 })
 
 const mapStateToProps = (state, { accountId }) => {
@@ -20,9 +20,8 @@ const mapStateToProps = (state, { accountId }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onConfirm(account, notifications) {
-      dispatch(closeModal())
-      dispatch(muteAccount(account.get('id'), notifications))
+    onConfirm(account) {
+      dispatch(blockAccount(account.get('id')))
     },
     onClose() {
       dispatch(closeModal())
@@ -33,7 +32,7 @@ const mapDispatchToProps = dispatch => {
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class MuteModal extends PureComponent {
+class BlockAccountModal extends PureComponent {
 
   static propTypes = {
     account: PropTypes.object.isRequired,
@@ -64,7 +63,7 @@ class MuteModal extends PureComponent {
       <ConfirmationModal
         title={title}
         message={message}
-        confirm={intl.formatMessage(messages.mute)}
+        confirm={intl.formatMessage(messages.block)}
         onClose={this.handleClose}
         onConfirm={this.handleClick}
       />

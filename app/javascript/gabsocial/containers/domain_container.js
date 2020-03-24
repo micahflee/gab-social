@@ -1,24 +1,22 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import { blockDomain, unblockDomain } from '../actions/domain_blocks';
-import { openModal } from '../actions/modal';
-import Domain from '../components/domain';
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import { blockDomain, unblockDomain } from '../actions/domain_blocks'
+import { openModal } from '../actions/modal'
+import Domain from '../components/domain'
 
 const messages = defineMessages({
   blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Hide entire domain' },
-});
+})
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
   onBlockDomain (domain) {
-    dispatch(openModal('CONFIRM', {
-      message: <FormattedMessage id='confirmations.domain_block.message' defaultMessage='Are you really, really sure you want to block the entire {domain}? In most cases a few targeted blocks or mutes are sufficient and preferable.' values={{ domain: <strong>{domain}</strong> }} />,
-      confirm: intl.formatMessage(messages.blockDomainConfirm),
-      onConfirm: () => dispatch(blockDomain(domain)),
-    }));
+    dispatch(openModal('BLOCK_DOMAIN', {
+      domain,
+    }))
   },
 
   onUnblockDomain (domain) {
-    dispatch(unblockDomain(domain));
+    dispatch(unblockDomain(domain))
   },
-});
+})
 
-export default injectIntl(connect(null, mapDispatchToProps)(Domain));
+export default injectIntl(connect(null, mapDispatchToProps)(Domain))

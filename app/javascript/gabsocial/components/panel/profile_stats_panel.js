@@ -10,7 +10,7 @@ const messages = defineMessages({
   gabs: { id: 'account.gabs', defaultMessage: 'Gabs' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
-  favorites: { id: 'navigation_bar.favorites', defaultMessage: 'Favorites' },
+  likes: { id: 'likes', defaultMessage: 'Likes' },
 })
 
 export default
@@ -18,7 +18,7 @@ export default
 class ProfileStatsPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    account: ImmutablePropTypes.list.isRequired,
+    account: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
   }
 
@@ -50,9 +50,9 @@ class ProfileStatsPanel extends ImmutablePureComponent {
             {
               account.get('id') === me &&
               <UserStat
-                title={intl.formatMessage(messages.favorites)}
+                title={intl.formatMessage(messages.likes)}
                 value={shortNumberFormat(favouritesCount)}
-                to={`/${account.get('acct')}/favorites`}
+                to={`/${account.get('acct')}/likes`}
               />
             }
           </div>

@@ -2,11 +2,11 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Set as ImmutableSet } from 'immutable';
 import noop from 'lodash/noop';
-import { toggleStatusReport } from '../../actions/reports';
-import { MediaGallery, Video } from '../../features/ui/util/async-components';
-import Bundle from '../../features/ui/util/bundle';
-import StatusContent from '../status_content';
-import ToggleSwitch from '../toggle_switch';
+import { toggleStatusReport } from '../actions/reports';
+import { MediaGallery, Video } from '../features/ui/util/async-components';
+import Bundle from '../features/ui/util/bundle';
+import StatusContent from './status_content';
+import Switch from './switch';
 
 const mapStateToProps = (state, { id }) => ({
   status: state.getIn(['statuses', id]),
@@ -34,9 +34,7 @@ class StatusCheckBox extends ImmutablePureComponent {
     const { status, checked, onToggle, disabled } = this.props;
     let media = null;
 
-    if (status.get('reblog')) {
-      return null;
-    }
+    if (status.get('reblog')) return null
 
     if (status.get('media_attachments').size > 0) {
       if (status.get('media_attachments').some(item => item.get('type') === 'unknown')) {
@@ -72,17 +70,17 @@ class StatusCheckBox extends ImmutablePureComponent {
     }
 
     return (
-      <div className='status-check-box'>
-        <div className='status-check-box__status'>
+      <div className={[_s.default, _s.flexRow].join(' ')}>
+        <div className={[_s.default].join(' ')}>
           <StatusContent status={status} />
           {media}
         </div>
 
-        <div className='status-check-box-toggle'>
-          <ToggleSwitch checked={checked} onChange={onToggle} disabled={disabled} />
+        <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+          <Switch checked={checked} onChange={onToggle} disabled={disabled} />
         </div>
       </div>
-    );
+    )
   }
 
 }

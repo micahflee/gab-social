@@ -18,7 +18,7 @@ const mapStateToProps = (state, { params: { username } }) => {
 
 export default
 @connect(mapStateToProps)
-class Favorites extends ImmutablePureComponent {
+class LikedStatuses extends ImmutablePureComponent {
 
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
@@ -43,16 +43,14 @@ class Favorites extends ImmutablePureComponent {
       return <ColumnIndicator type='missing' />
     }
 
-    console.log("statusIds:", statusIds)
-
     return (
       <StatusList
         statusIds={statusIds}
-        scrollKey='favorited_statuses'
+        scrollKey='liked_statuses'
         hasMore={hasMore}
         isLoading={isLoading}
         onLoadMore={this.handleLoadMore}
-        emptyMessage={<FormattedMessage id='empty_column.favorited_statuses' defaultMessage="You don't have any favorite gabs yet. When you favorite one, it will show up here." />}
+        emptyMessage={<FormattedMessage id='empty_column.liked_statuses' defaultMessage="You don't have any liked gabs yet. When you like one, it will show up here." />}
       />
     )
   }

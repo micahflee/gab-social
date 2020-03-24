@@ -44,6 +44,10 @@ export default class TrendingItem extends ImmutablePureComponent {
       underline: hovering,
     })
 
+    return null;
+
+    // : todo :
+
     return (
       <NavLink
         to='/test'

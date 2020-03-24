@@ -69,7 +69,7 @@ export default class ColumnHeader extends PureComponent {
                 <Button
                   radiusSmall
                   backgroundColor='tertiary'
-                  onClick={() => action.onClick()}
+                  onClick={() => action.onClick() }
                   key={`column-header-action-btn-${i}`}
                   className={[_s.ml5, _s.px10].join(' ')}
                   iconClassName={_s.fillColorSecondary}

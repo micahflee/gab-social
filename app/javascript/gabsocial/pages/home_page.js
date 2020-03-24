@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { openModal } from '../actions/modal'
 import GroupSidebarPanel from '../components/panel/groups_panel'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
@@ -10,18 +11,26 @@ import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 
-export default class HomePage extends PureComponent {
+const mapDispatchToProps = (dispatch) => ({
+  onOpenHomePageSettingsModal() {
+    dispatch(openModal('HOME_TIMELINE_SETTINGS'))
+  },
+})
+
+export default
+@connect(null, mapDispatchToProps)
+class HomePage extends PureComponent {
+
+  static propTypes = {
+    onOpenHomePageSettingsModal: PropTypes.func.isRequired,
+  }
 
   componentDidMount() {
     document.title = '(1) Home - Gab'
   }
 
-  handleEditHomeTimeline () {
-    console.log("handleEditHomeTimeline")
-  }
-
   render() {
-    const { children } = this.props
+    const { children, onOpenHomePageSettingsModal } = this.props
 
     return (
       <DefaultLayout
@@ -29,7 +38,7 @@ export default class HomePage extends PureComponent {
         actions={[
           {
             icon: 'ellipsis',
-            onClick: this.handleEditHomeTimeline
+            onClick: onOpenHomePageSettingsModal,
           },
         ]}
         layout={(

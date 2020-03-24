@@ -49,7 +49,7 @@ class ComposeForm extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
-    edit: PropTypes.bool.isRequired,
+    edit: PropTypes.bool,
     text: PropTypes.string.isRequired,
     suggestions: ImmutablePropTypes.list,
     account: ImmutablePropTypes.map.isRequired,

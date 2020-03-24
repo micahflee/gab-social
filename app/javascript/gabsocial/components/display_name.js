@@ -21,7 +21,7 @@ export default
 class DisplayName extends ImmutablePureComponent {
 
   static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
+    account: ImmutablePropTypes.map,
     openUserInfoPopover: PropTypes.func.isRequired,
     closeUserInfoPopover: PropTypes.func.isRequired,
     multiline: PropTypes.bool,
@@ -32,7 +32,6 @@ class DisplayName extends ImmutablePureComponent {
   }
 
   handleMouseEnter = debounce(() => {
-    console.log("SHOW - USER POPOVER")
     this.props.openUserInfoPopover({
       targetRef: this.node,
       position: 'top',
@@ -41,7 +40,6 @@ class DisplayName extends ImmutablePureComponent {
   }, 1000, { leading: true })
 
   handleMouseLeave = debounce(() => {
-    console.log("HIDE - USER POPOVER")
     this.props.closeUserInfoPopover()
   }, 1000, { leading: true })
 

@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import { changeSetting, saveSettings } from '../../../../actions/settings';
-import SettingToggle from '../../../../components/setting_toggle';
+import SettingSwitch from '../../../../components/setting_switch';
 
 const mapStateToProps = state => ({
   settings: state.getIn(['settings', 'home']),
@@ -33,7 +33,7 @@ class ColumnSettings extends ImmutablePureComponent {
       <div>
         <FormattedMessage id='home.column_settings.basic' defaultMessage='Basic' />
 
-        <SettingToggle
+        <SettingSwitch
           prefix='home_timeline'
           settings={settings}
           settingPath={['shows', 'repost']}
@@ -41,7 +41,7 @@ class ColumnSettings extends ImmutablePureComponent {
           label={<FormattedMessage id='home.column_settings.show_reposts' defaultMessage='Show reposts' />}
         />
 
-        <SettingToggle
+        <SettingSwitch
           prefix='home_timeline'
           settings={settings}
           settingPath={['shows', 'reply']}

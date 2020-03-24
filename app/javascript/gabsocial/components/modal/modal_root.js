@@ -9,37 +9,51 @@ import {
   // ListAdder,
   StatusRevisionModal,
 } from '../../features/ui/util/async-components'
+
 import ModalBase from './modal_base'
 import BundleModalError from '../bundle_modal_error'
+
 import ActionsModal from './actions_modal'
-import MediaModal from './media_modal'
-import VideoModal from './video_modal'
+import BlockAccountModal from './block_account_modal'
+import BlockDomainModal from './block_domain_modal'
 import BoostModal from './boost_modal'
-import ConfirmationModal from './confirmation_modal'
-import HotkeysModal from './hotkeys_modal'
 import ComposeModal from './compose_modal'
-import UnauthorizedModal from './unauthorized_modal'
-import ProUpgradeModal from './pro_upgrade_modal'
+import ConfirmationModal from './confirmation_modal'
+import GroupAdderModal from './group_adder_modal'
+import GroupEditorModal from './group_editor_modal'
+import HomeTimelineSettingsModal from './home_timeline_settings_modal'
+import HotkeysModal from './hotkeys_modal'
+import ListAdderModal from './list_adder_modal'
+import ListEditorModal from './list_editor_modal'
+import MediaModal from './media_modal'
 import ModalLoading from './modal_loading'
+import ProUpgradeModal from './pro_upgrade_modal'
+import VideoModal from './video_modal'
+import UnauthorizedModal from './unauthorized_modal'
+import UnfollowModal from './unfollow_modal'
 
 const MODAL_COMPONENTS = {
-  'ACTIONS': () => Promise.resolve({ default: ActionsModal }),
-  'BOOST': () => Promise.resolve({ default: BoostModal }),
-  'COMPOSE': () => Promise.resolve({ default: ComposeModal }),
-  'CONFIRM': () => Promise.resolve({ default: ConfirmationModal }),
-  'EMBED': EmbedModal,
-  'HOTKEYS': () => Promise.resolve({ default: HotkeysModal }),
-  'MEDIA': () => Promise.resolve({ default: MediaModal }),
+  ACTIONS: () => Promise.resolve({ default: ActionsModal }),
+  BLOCK_ACCOUNT: () => Promise.resolve({ default: BlockAccountModal }),
+  BLOCK_DOMAIN: () => Promise.resolve({ default: BlockDomainModal }),
+  BOOST: () => Promise.resolve({ default: BoostModal }),
+  COMPOSE: () => Promise.resolve({ default: ComposeModal }),
+  CONFIRM: () => Promise.resolve({ default: ConfirmationModal }),
+  EMBED: () => Promise.resolve({ default: EmbedModal }),
+  GROUP_EDITOR: () => Promise.resolve({ default: GroupEditorModal }),
+  GROUP_ADDER: () => Promise.resolve({ default: GroupAdderModal }),
+  HOME_TIMELINE_SETTINGS: () => Promise.resolve({ default: HomeTimelineSettingsModal }),
+  HOTKEYS: () => Promise.resolve({ default: HotkeysModal }),
+  LIST_EDITOR: () => Promise.resolve({ default: ListEditorModal }),
+  LIST_ADDER: () => Promise.resolve({ default: ListAdderModal }),
+  MEDIA: () => Promise.resolve({ default: MediaModal }),
   'MUTE': MuteModal,
-  'PRO_UPGRADE': () => Promise.resolve({ default: ProUpgradeModal }),
-  'REPORT': ReportModal,
-  'STATUS_REVISION': StatusRevisionModal,
-  'UNAUTHORIZED': () => Promise.resolve({ default: UnauthorizedModal }),
-  'VIDEO': () => Promise.resolve({ default: VideoModal }),
-  // 'LIST_EDITOR': ListEditor,
-  // 'LIST_ADDER': ListAdder,
-  // group create
-  // group members
+  PRO_UPGRADE: () => Promise.resolve({ default: ProUpgradeModal }),
+  REPORT: ReportModal,
+  STATUS_REVISION: () => Promise.resolve({ default: StatusRevisionModal }),
+  UNAUTHORIZED: () => Promise.resolve({ default: UnauthorizedModal }),
+  UNFOLLOW: () => Promise.resolve({ default: UnfollowModal }),
+  VIDEO: () => Promise.resolve({ default: VideoModal }),
 }
 
 const mapStateToProps = state => ({
@@ -48,9 +62,9 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onClose (optionalType) {
+  onClose(optionalType) {
     if (optionalType === 'COMPOSE') {
-        dispatch(cancelReplyCompose())
+      dispatch(cancelReplyCompose())
     }
 
     dispatch(closeModal())
@@ -67,11 +81,11 @@ class ModalRoot extends PureComponent {
     onClose: PropTypes.func.isRequired,
   }
 
-  getSnapshotBeforeUpdate () {
+  getSnapshotBeforeUpdate() {
     return { visible: !!this.props.type }
   }
 
-  componentDidUpdate (prevProps, prevState, { visible }) {
+  componentDidUpdate(prevProps, prevState, { visible }) {
     if (visible) {
       document.body.classList.add('with-modals--active')
     } else {
@@ -92,7 +106,7 @@ class ModalRoot extends PureComponent {
     onClose(type)
   }
 
-  render () {
+  render() {
     const { type, props } = this.props
     const visible = !!type
 

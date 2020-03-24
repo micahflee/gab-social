@@ -29,7 +29,6 @@ class EmojiPickerButton extends PureComponent {
     unavailable: PropTypes.bool,
     active: PropTypes.bool,
     onClick: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
     small: PropTypes.bool,
   }
 

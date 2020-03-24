@@ -13,7 +13,6 @@ export const MUTES_EXPAND_SUCCESS = 'MUTES_EXPAND_SUCCESS';
 export const MUTES_EXPAND_FAIL    = 'MUTES_EXPAND_FAIL';
 
 export const MUTES_INIT_MODAL = 'MUTES_INIT_MODAL';
-export const MUTES_TOGGLE_HIDE_NOTIFICATIONS = 'MUTES_TOGGLE_HIDE_NOTIFICATIONS';
 
 export function fetchMutes() {
   return (dispatch, getState) => {
@@ -101,11 +100,5 @@ export function initMuteModal(account) {
     });
 
     dispatch(openModal('MUTE'));
-  };
-}
-
-export function toggleHideNotifications() {
-  return dispatch => {
-    dispatch({ type: MUTES_TOGGLE_HIDE_NOTIFICATIONS });
   };
 }

@@ -28,7 +28,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
   static propTypes = {
     dispatch: PropTypes.func.isRequired,
     accountId: PropTypes.string,
-    account: ImmutablePropTypes.map.isRequired,
+    account: ImmutablePropTypes.map,
     attachments: ImmutablePropTypes.list.isRequired,
     intl: PropTypes.object.isRequired,
   }
@@ -53,8 +53,6 @@ class MediaGalleryPanel extends ImmutablePureComponent {
       account,
       attachments
     } = this.props
-
-    console.log("account, attachments:", account, attachments)
 
     if (!account || !attachments) return null
     if (attachments.size === 0) return null

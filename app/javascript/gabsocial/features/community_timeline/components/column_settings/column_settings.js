@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
-import SettingToggle from '../../../../components/setting_toggle';
+import SettingSwitch from '../../../../components/setting_switch';
 import { changeSetting } from '../../../../actions/settings';
 
 const mapStateToProps = state => ({
@@ -30,13 +30,13 @@ class ColumnSettings extends ImmutablePureComponent {
 
     return (
       <div>
-        <SettingToggle
+        <SettingSwitch
           settings={settings}
           settingPath={['other', 'onlyMedia']}
           onChange={onChange}
           label={<FormattedMessage id='community.column_settings.media_only' defaultMessage='Media Only' />}
         />
-        <SettingToggle
+        <SettingSwitch
           settings={settings}
           settingPath={['other', 'allFediverse']}
           onChange={onChange}

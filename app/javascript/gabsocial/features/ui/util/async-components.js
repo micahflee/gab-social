@@ -42,8 +42,8 @@ export function FollowRequests() {
   return import(/* webpackChunkName: "features/follow_requests" */'../../follow_requests')
 }
 
-export function FavoritedStatuses() {
-  return import(/* webpackChunkName: "features/favorited_statuses" */'../../favorited_statuses')
+export function LikedStatuses() {
+  return import(/* webpackChunkName: "features/liked_statuses" */'../../liked_statuses')
 }
 
 export function GenericNotFound() {

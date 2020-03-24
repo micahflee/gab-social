@@ -4,7 +4,7 @@ import List from '../list'
 export default class SidebarMorePopover extends PureComponent {
   render() {
     return (
-      <PopoverLayout>
+      <PopoverLayout className={_s.width240PX}>
         <List
           scrollKey='profile_options'
           items={[

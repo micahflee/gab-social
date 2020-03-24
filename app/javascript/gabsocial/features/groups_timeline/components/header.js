@@ -42,7 +42,7 @@ getActionButton() {
 
 		const menu = [
 			{ text: intl.formatMessage(messages.edit), to: `/groups/${group.get('id')}/edit` },
-			{ text: intl.formatMessage(messages.removed_accounts), to: `/groups/${group.get('id')}/removed_accounts` },
+			{ text: intl.formatMessage(messages.removed_accounts), to: `/groups/${group.get('id')}/removed-accounts` },
 		];
 
 		// <DropdownMenuContainer items={menu} icon='ellipsis-v' size={24} direction='right' />;

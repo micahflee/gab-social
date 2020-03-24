@@ -40,7 +40,6 @@ const messages = defineMessages({
   deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
   redraftConfirm: { id: 'confirmations.redraft.confirm', defaultMessage: 'Delete & redraft' },
   redraftMessage: { id: 'confirmations.redraft.message', defaultMessage: 'Are you sure you want to delete this status and re-draft it? Favorites and reposts will be lost, and replies to the original post will be orphaned.' },
-  blockConfirm: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
   revealAll: { id: 'status.show_more_all', defaultMessage: 'Show more for all' },
   hideAll: { id: 'status.show_less_all', defaultMessage: 'Show less for all' },
   detailedStatus: { id: 'status.detailed_status', defaultMessage: 'Detailed conversation view' },
@@ -237,19 +236,12 @@ class Status extends ImmutablePureComponent {
   }
 
   handleBlockClick = (status) => {
-    const { dispatch, intl } = this.props;
-    const account = status.get('account');
+    const { dispatch } = this.props
+    const account = status.get('account')
 
-    dispatch(openModal('CONFIRM', {
-      message: <FormattedMessage id='confirmations.block.message' defaultMessage='Are you sure you want to block {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-      confirm: intl.formatMessage(messages.blockConfirm),
-      onConfirm: () => dispatch(blockAccount(account.get('id'))),
-      secondary: intl.formatMessage(messages.blockAndReport),
-      onSecondary: () => {
-        dispatch(blockAccount(account.get('id')));
-        dispatch(initReport(account, status));
-      },
-    }));
+    dispatch(openModal('BLOCK_ACCOUNT', {
+      accountId: account.get('id'),
+    }))
   }
 
   handleReport = (status) => {

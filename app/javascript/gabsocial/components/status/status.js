@@ -514,7 +514,7 @@ class Status extends ImmutablePureComponent {
               <StatusActionBar status={status} account={account} {...other} />
 
               <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
-                {/*<ComposeFormContainer replyToId={status.get('id')} shouldCondense />*/}
+                <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
               </div>
             </div>
           </div>

@@ -2,19 +2,24 @@ import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import classNames from 'classnames/bind'
 import { me } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import { shortNumberFormat } from '../../utils/numbers'
+import Button from '../button'
 import DisplayName from '../display_name'
 import Avatar from '../avatar'
 import Image from '../image'
 import UserStat from '../user_stat'
 import PanelLayout from './panel_layout'
 
+const cx = classNames.bind(_s)
+
 const messages = defineMessages({
   gabs: { id: 'account.posts', defaultMessage: 'Gabs' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' }
+  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
 })
 
 const mapStateToProps = state => {
@@ -32,15 +37,51 @@ class UserPanel extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
   }
 
+  state = {
+    hovering: false,
+  }
+
+  handleOnMouseEnter = () => {
+    this.setState({ hovering: true })
+  }
+
+  handleOnMouseLeave = () => {
+    this.setState({ hovering: false })
+  }
+
   render() {
     const { account, intl } = this.props
+    const { hovering } = this.state
+
+    const buttonClasses = cx({
+      positionAbsolute: 1,
+      mt10: 1,
+      mr10: 1,
+      top0: 1,
+      right0: 1,
+      displayNone: !hovering,
+    })
 
     return (
       <PanelLayout noPadding>
-        <Image
-          className={_s.height122PX}
-          src={account.get('header_static')}
-        />
+        <div
+          className={[_s.default, _s.height122PX].join(' ')}
+          onMouseEnter={() => this.handleOnMouseEnter()}
+          onMouseLeave={() => this.handleOnMouseLeave()}
+        >
+          <Image
+            className={_s.height122PX}
+            src={account.get('header_static')}
+          /> 
+          <Button
+            color='secondary'
+            backgroundColor='secondary'
+            radiusSmall
+            className={buttonClasses}
+          >
+            {intl.formatMessage(messages.edit_profile)}
+          </Button>
+        </div>
 
         <NavLink
           className={[_s.default, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}

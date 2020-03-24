@@ -110,7 +110,7 @@ class Account extends ImmutablePureComponent {
       const blocking = account.getIn(['relationship', 'blocking'])
 
       if (requested || blocking) {
-        buttonText = intl.formatMessage(requested ? messages.requested : messages.blocking)
+        buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
         buttonOptions = {
           narrow: true,
           onClick: requested ? this.handleUnrequest : this.handleBlock,

@@ -1,3 +1,4 @@
+import axios from 'axios'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
@@ -11,7 +12,7 @@ import {
 import { openPopover, closePopover } from '../actions/popover'
 import { initReport } from '../actions/reports'
 import { openModal } from '../actions/modal'
-import { unfollowModal } from '../initial_state'
+import { unfollowModal, me } from '../initial_state'
 import Avatar from './avatar'
 import Image from './image'
 import Text from './text'
@@ -22,6 +23,10 @@ import TabBar from './tab_bar'
 const cx = classNames.bind(_s)
 
 const messages = defineMessages({
+  follow: { id: 'follow', defaultMessage: 'Follow' },
+  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
+  requested: { id: 'requested', defaultMessage: 'Requested' },
+  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
@@ -40,13 +45,11 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     dispatch(openPopover('PROFILE_OPTIONS', props))
   },
 
-  onFollow (account) {
+  onFollow(account) {
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
-        dispatch(openModal('CONFIRM', {
-          message: <FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-          confirm: intl.formatMessage(messages.unfollowConfirm),
-          onConfirm: () => dispatch(unfollowAccount(account.get('id'))),
+        dispatch(openModal('UNFOLLOW', {
+          accountId: account.get('id'),
         }));
       } else {
         dispatch(unfollowAccount(account.get('id')));
@@ -56,24 +59,17 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
-  onBlock (account) {
+  onBlock(account) {
     if (account.getIn(['relationship', 'blocking'])) {
       dispatch(unblockAccount(account.get('id')));
     } else {
-      dispatch(openModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.block.message' defaultMessage='Are you sure you want to block {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-        confirm: intl.formatMessage(messages.blockConfirm),
-        onConfirm: () => dispatch(blockAccount(account.get('id'))),
-        secondary: intl.formatMessage(messages.blockAndReport),
-        onSecondary: () => {
-          dispatch(blockAccount(account.get('id')));
-          dispatch(initReport(account));
-        },
+      dispatch(openModal('BLOCK_ACCOUNT', {
+        accountId: account.get('id'),
       }));
     }
   },
-  
-  onRepostToggle (account) {
+
+  onRepostToggle(account) {
     if (account.getIn(['relationship', 'showing_reblogs'])) {
       dispatch(followAccount(account.get('id'), false));
     } else {
@@ -105,14 +101,18 @@ class ProfileHeader extends ImmutablePureComponent {
     })
   }
 
-  handleStartChat = () => {
-
-  }
-  
   handleFollow = () => {
-
+    this.props.onFollow(this.props.account)
   }
-  
+
+  handleUnrequest = () => {
+    //
+  }
+
+  handleBlock = () => {
+    // this.props.onBlock(this.props.account)
+  }
+
   makeInfo() {
     const { account, intl } = this.props;
 
@@ -195,9 +195,40 @@ class ProfileHeader extends ImmutablePureComponent {
 
     const avatarSize = headerMissing ? '75' : '150'
 
+    let buttonText;
+    let buttonOptions;
+    if (!account) {
+    }
+    else {
+      if (account.get('id') !== me && account.get('relationship', null) !== null) {
+        const following = account.getIn(['relationship', 'following'])
+        const requested = account.getIn(['relationship', 'requested'])
+        const blocking = account.getIn(['relationship', 'blocking'])
+
+        if (requested || blocking) {
+          buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
+          buttonOptions = {
+            narrow: true,
+            onClick: requested ? this.handleUnrequest : this.handleBlock,
+            color: 'primary',
+            backgroundColor: 'tertiary',
+          }
+        } else if (!account.get('moved') || following) {
+          buttonOptions = {
+            narrow: true,
+            outline: !following,
+            color: !following ? 'brand' : 'white',
+            backgroundColor: !following ? 'none' : 'brand',
+            onClick: this.handleFollow,
+          }
+          buttonText = intl.formatMessage(following ? messages.unfollow : messages.follow)
+        }
+      }
+    }
+
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
-        
+
         {
           !headerMissing &&
           <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
@@ -225,50 +256,78 @@ class ProfileHeader extends ImmutablePureComponent {
               <TabBar tabs={tabs} large />
             </div>
 
-            <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
-              <div ref={this.setOpenMoreNodeRef}>
+            {
+              account && account.get('id') === me &&
+              <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
                 <Button
                   outline
-                  icon='ellipsis'
-                  iconWidth='18px'
-                  iconHeight='18px'
-                  iconClassName={_s.fillColorBrand}
-                  color='brand'
                   backgroundColor='none'
-                  className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                  onClick={this.handleOpenMore}
-                />
-              </div>
-
-              <Button
-                outline
-                icon='chat'
-                iconWidth='18px'
-                iconHeight='18px'
-                iconClassName={_s.fillColorBrand}
-                color='brand'
-                backgroundColor='none'
-                className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                onClick={this.handleStartChat}
-              />
-
-              <Button
-                className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                onClick={this.handleFollow}
-              >
-                <span className={[_s.px15].join(' ')}>
+                  color='brand'
+                  className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                  href=''
+                >
                   <Text
-                    color='white'
+                    color='inherit'
                     weight='bold'
                     size='medium'
                     className={[_s.px15].join(' ')}
                   >
-                    Follow
-                  </Text>
-                </span>
-              </Button>
+                    Edit Profile
+                </Text>
+                </Button>
+              </div>
+            }
 
-            </div>
+            {
+              account && account.get('id') !== me &&
+              <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
+                <div ref={this.setOpenMoreNodeRef}>
+                  <Button
+                    outline
+                    icon='ellipsis'
+                    iconWidth='18px'
+                    iconHeight='18px'
+                    iconClassName={_s.fillColorBrand}
+                    color='brand'
+                    backgroundColor='none'
+                    className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                    onClick={this.handleOpenMore}
+                  />
+                </div>
+
+                <form action='https://chat.gab.com/private-message' method='POST'>
+                  <Button
+                    type='submit'
+                    outline
+                    icon='chat'
+                    iconWidth='18px'
+                    iconHeight='18px'
+                    iconClassName={_s.fillColorBrand}
+                    color='brand'
+                    backgroundColor='none'
+                    className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                  />
+                  <input type='hidden' value={account.get('username')} name='username' />
+                </form>
+
+                <Button
+                  {...buttonOptions}
+                  className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                >
+                  <span className={[_s.px15].join(' ')}>
+                    <Text
+                      color='inherit'
+                      weight='bold'
+                      size='medium'
+                      className={[_s.px15].join(' ')}
+                    >
+                      {buttonText}
+                    </Text>
+                  </span>
+                </Button>
+
+              </div>
+            }
           </div>
         </div>
       </div>

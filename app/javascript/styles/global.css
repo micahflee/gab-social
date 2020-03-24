@@ -220,6 +220,10 @@ body {
   margin: auto;
 }
 
+.margin1PX {
+  margin: 1px;
+}
+
 .displayNone {
   display: none;
 }
@@ -428,6 +432,10 @@ body {
   min-height: 100vh;
 }
 
+.heightMax80VH {
+  max-height: 80vh;
+}
+
 .heightMin50VH {
   min-height: 50vh;
 }
@@ -440,12 +448,24 @@ body {
   height: 100%;
 }
 
+.height24PX {
+  height: 24px;
+}
+
 .height22PX {
   height: 22px;
 }
 
+.height20PX {
+  height: 20px;
+}
+
 .height4PX {
   height: 4px;
+}
+
+.height1PX {
+  height: 1px;
 }
 
 .height50PX {
@@ -496,12 +516,24 @@ body {
   width: 330px;
 }
 
+.width250PX {
+  width: 240px;
+}
+
 .width240PX {
   width: 240px;
 }
 
 .width72PX {
   width: 72px;
+}
+
+.width50PX {
+  width: 50px;
+}
+
+.width20PX {
+  width: 20px;
 }
 
 .width100PC {
@@ -933,3 +965,7 @@ body {
   display: block;
   position: absolute;
 } */
+
+.visibilityHidden {
+  visibility: hidden;
+}

@@ -1,20 +1,20 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { debounce } from 'lodash'
-import ColumnIndicator from '../components/column_indicator'
-import AccountContainer from '../containers/account_container'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
+import AccountContainer from '../containers/account_container'
+import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
-  heading: { id: 'column.blocks', defaultMessage: 'Blocked users' },
-});
+  empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
+})
 
 const mapStateToProps = state => ({
   accountIds: state.getIn(['user_lists', 'blocks', 'items']),
   hasMore: !!state.getIn(['user_lists', 'blocks', 'next']),
-});
+})
 
 export default
 @connect(mapStateToProps)
@@ -27,35 +27,43 @@ class Blocks extends ImmutablePureComponent {
     accountIds: ImmutablePropTypes.list,
     hasMore: PropTypes.bool,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
-  componentWillMount () {
-    this.props.dispatch(fetchBlocks());
+  componentWillMount() {
+    this.props.dispatch(fetchBlocks())
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandBlocks());
-  }, 300, { leading: true });
+    this.props.dispatch(expandBlocks())
+  }, 300, { leading: true })
 
-  render () {
-    const { intl, accountIds, hasMore } = this.props;
+  render() {
+    const {
+      intl,
+      accountIds,
+      hasMore
+    } = this.props
 
     if (!accountIds) {
-      return (<ColumnIndicator type='loading' />);
+      return <ColumnIndicator type='loading' />
     }
+
+    const emptyMessage = intl.formatMessage(messages.empty)
 
     return (
       <ScrollableList
         scrollKey='blocks'
         onLoadMore={this.handleLoadMore}
         hasMore={hasMore}
-        emptyMessage={<FormattedMessage id='empty_column.blocks' defaultMessage="You haven't blocked any users yet." />}
+        emptyMessage={emptyMessage}
       >
-        {accountIds.map(id =>
-          <AccountContainer key={id} id={id} />
-        )}
+        {
+          accountIds.map(id =>
+            <AccountContainer key={`blocked-${id}`} id={id} compact />
+          )
+        }
       </ScrollableList>
-    );
+    )
   }
 
 }

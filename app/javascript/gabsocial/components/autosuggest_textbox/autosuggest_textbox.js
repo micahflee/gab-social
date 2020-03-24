@@ -260,10 +260,10 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               />
 
               <ContentEditable
-                tabindex='0'
-                ariaLabel='Gab text'
+                tabIndex='0'
+                aria-label='Gab text'
                 role='textbox'
-                ariaAutocomplete='list'
+                aria-autocomplete='list'
                 style={{
                   userSelect: 'text',
                   'white-space': 'pre-wrap',

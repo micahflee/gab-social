@@ -1,24 +1,24 @@
-import { is } from 'immutable';
-import { setHeight } from '../actions/height_cache';
-import scheduleIdleTask from '../utils/schedule_idle_task';
-import getRectFromEntry from '../utils/get_rect_from_entry';
+import { is } from 'immutable'
+import { setHeight } from '../actions/height_cache'
+import scheduleIdleTask from '../utils/schedule_idle_task'
+import getRectFromEntry from '../utils/get_rect_from_entry'
 
 // Diff these props in the "rendered" state
-const updateOnPropsForRendered = ['id', 'index', 'listLength'];
+const updateOnPropsForRendered = ['id', 'index', 'listLength']
 // Diff these props in the "unrendered" state
-const updateOnPropsForUnrendered = ['id', 'index', 'listLength', 'cachedHeight'];
+const updateOnPropsForUnrendered = ['id', 'index', 'listLength', 'cachedHeight']
 
 const makeMapStateToProps = (state, props) => ({
   cachedHeight: state.getIn(['height_cache', props.saveHeightKey, props.id]),
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onHeightChange (key, id, height) {
-    dispatch(setHeight(key, id, height));
+  onHeightChange(key, id, height) {
+    dispatch(setHeight(key, id, height))
   },
 
-});
+})
 
 export default
 @connect(makeMapStateToProps, mapDispatchToProps)
@@ -33,13 +33,13 @@ class IntersectionObserverArticle extends Component {
     cachedHeight: PropTypes.number,
     onHeightChange: PropTypes.func,
     children: PropTypes.node,
-  };
+  }
 
   state = {
     isHidden: false, // set to true in requestIdleCallback to trigger un-render
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
+  shouldComponentUpdate(nextProps, nextState) {
     const isUnrendered = !this.state.isIntersecting && (this.state.isHidden || this.props.cachedHeight);
     const willBeUnrendered = !nextState.isIntersecting && (nextState.isHidden || nextProps.cachedHeight);
 
@@ -53,7 +53,7 @@ class IntersectionObserverArticle extends Component {
     return !propsToDiff.every(prop => is(nextProps[prop], this.props[prop]));
   }
 
-  componentDidMount () {
+  componentDidMount() {
     const { intersectionObserverWrapper, id } = this.props;
 
     intersectionObserverWrapper.observe(
@@ -65,7 +65,7 @@ class IntersectionObserverArticle extends Component {
     this.componentMounted = true;
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     const { intersectionObserverWrapper, id } = this.props;
     intersectionObserverWrapper.unobserve(id, this.node);
 
@@ -91,32 +91,32 @@ class IntersectionObserverArticle extends Component {
   }
 
   calculateHeight = () => {
-    const { onHeightChange, saveHeightKey, id } = this.props;
+    const { onHeightChange, saveHeightKey, id } = this.props
     // Save the height of the fully-rendered element (this is expensive
     // on Chrome, where we need to fall back to getBoundingClientRect)
-    this.height = getRectFromEntry(this.entry).height;
+    this.height = getRectFromEntry(this.entry).height
 
     if (onHeightChange && saveHeightKey) {
-      onHeightChange(saveHeightKey, id, this.height);
+      onHeightChange(saveHeightKey, id, this.height)
     }
   }
 
   hideIfNotIntersecting = () => {
-    if (!this.componentMounted) return;
+    if (!this.componentMounted) return
 
     // When the browser gets a chance, test if we're still not intersecting,
     // and if so, set our isHidden to true to trigger an unrender. The point of
     // this is to save DOM nodes and avoid using up too much memory.
-    this.setState((prevState) => ({ isHidden: !prevState.isIntersecting }));
+    this.setState((prevState) => ({ isHidden: !prevState.isIntersecting }))
   }
 
   handleRef = (node) => {
-    this.node = node;
+    this.node = node
   }
 
-  render () {
-    const { children, id, index, listLength, cachedHeight } = this.props;
-    const { isIntersecting, isHidden } = this.state;
+  render() {
+    const { children, id, index, listLength, cachedHeight } = this.props
+    const { isIntersecting, isHidden } = this.state
 
     if (!isIntersecting && (isHidden || cachedHeight)) {
       return (
@@ -130,7 +130,7 @@ class IntersectionObserverArticle extends Component {
         >
           {children && React.cloneElement(children, { hidden: true })}
         </article>
-      );
+      )
     }
 
     return (
@@ -143,7 +143,7 @@ class IntersectionObserverArticle extends Component {
       >
         {children && React.cloneElement(children, { hidden: false })}
       </article>
-    );
+    )
   }
 
 }

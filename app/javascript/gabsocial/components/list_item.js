@@ -7,16 +7,27 @@ const cx = classNames.bind(_s)
 
 export default class ListItem extends PureComponent {
   static propTypes = {
+    icon: PropTypes.string,
     isLast: PropTypes.bool,
     to: PropTypes.string,
     href: PropTypes.string,
     title: PropTypes.string,
     onClick: PropTypes.func,
     small: PropTypes.bool,
+    hideArrow: PropTypes.bool,
   }
 
   render() {
-    const { title, isLast, to, href, onClick, small } = this.props
+    const {
+      title,
+      isLast,
+      to,
+      href,
+      onClick,
+      small,
+      icon,
+      hideArrow,
+    } = this.props
 
     const containerClasses = cx({
       default: 1,
@@ -44,16 +55,30 @@ export default class ListItem extends PureComponent {
         className={containerClasses}
         noClasses
       >
+
+        {
+          !!icon &&
+          <Icon
+            id={icon}
+            width='10px'
+            height='10px'
+            className={[_s.mr10, _s.fillColorBlack].join(' ')}
+          />
+        }
+
         <Text color='primary' size={textSize}>
           {title}
         </Text>
 
-        <Icon
-          id='angle-right'
-          width='10px'
-          height='10px'
-          className={[_s.marginLeftAuto, _s.fillColorBlack].join(' ')}
-        />
+        {
+          !hideArrow &&
+          <Icon
+            id='angle-right'
+            width='10px'
+            height='10px'
+            className={[_s.marginLeftAuto, _s.fillColorBlack].join(' ')}
+          />
+        }
       </Button>
     )
   }

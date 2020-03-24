@@ -13,14 +13,14 @@ export default class SearchPage extends PureComponent {
 
     return (
       <SearchLayout
+        showBackBtn
         layout={(
           <Fragment>
             <SearchFilterPanel />
             <LinkFooter />
           </Fragment>
         )}
-        showBackBtn
-        >
+      >
         {children}
       </SearchLayout>
     )

@@ -1,14 +1,16 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { defineMessages, injectIntl } from 'react-intl';
-import { OrderedSet } from 'immutable';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { changeReportComment, changeReportForward, submitReport } from '../../actions/reports';
-import { expandAccountTimeline } from '../../actions/timelines';
-import { makeGetAccount } from '../../selectors';
-import StatusCheckBox from '../status_check_box';
-import ToggleSwitch from '../toggle_switch';
-import Button from '../button';
-import IconButton from '../icon_button';
+import { defineMessages, injectIntl } from 'react-intl'
+import { OrderedSet } from 'immutable'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { changeReportComment, changeReportForward, submitReport } from '../../actions/reports'
+import { expandAccountTimeline } from '../../actions/timelines'
+import { makeGetAccount } from '../../selectors'
+import ModalLayout from './modal_layout'
+import Button from '../button'
+import StatusCheckBox from '../status_check_box'
+import Switch from '../switch'
+import Text from '../Text'
+import Textarea from '../Textarea'
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -82,62 +84,90 @@ class ReportModal extends ImmutablePureComponent {
   }
 
   render () {
-    const { account, comment, intl, statusIds, isSubmitting, forward, onClose } = this.props;
+    const {
+      account, 
+      comment,
+      intl,
+      statusIds,
+      isSubmitting,
+      forward,
+      onClose
+    } = this.props
 
-    if (!account) {
-      return null;
-    }
+    if (!account) return null
 
     const domain = account.get('acct').split('@')[1];
 
     return (
-      <div className='modal-root__modal report-modal'>
-        <div className='report-modal__target'>
-          <IconButton className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={16} />
-          {intl.formatMessage(messages.target, {
-            target: <strong>{account.get('acct')}</strong>
-          })}
-        </div>
+      <ModalLayout
+        noPadding
+        title={intl.formatMessage(messages.target, {
+          target: account.get('acct')
+        })}
+      >
 
-        <div className='report-modal__container'>
-          <div className='report-modal__comment'>
-            <p>{intl.formatMessage(messages.hint)}</p>
+        <div className={[_s.default, _s.flexRow].join(' ')}>
+          <div className={[_s.default, _s.width50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}>
+            <Text color='secondary' size='small'>
+              {intl.formatMessage(messages.hint)}
+            </Text>
 
-            <textarea
-              className='setting-text light'
-              placeholder={intl.formatMessage(messages.placeholder)}
-              value={comment}
-              onChange={this.handleCommentChange}
-              onKeyDown={this.handleKeyDown}
-              disabled={isSubmitting}
-              autoFocus
-            />
+            <div className={_s.my10}>
+              <Textarea
+                placeholder={intl.formatMessage(messages.placeholder)}
+                value={comment}
+                onChange={this.handleCommentChange}
+                onKeyDown={this.handleKeyDown}
+                disabled={isSubmitting}
+                autoFocus
+              />
+            </div>
 
-            {domain && (
+            {
+              domain &&
               <div>
-                <p>{intl.formatMessage(messages.forwardHint)}</p>
+                <Text color='secondary' size='small'>
+                  {intl.formatMessage(messages.forwardHint)}
+                </Text>
 
                 <div className='setting-toggle'>
-                  <ToggleSwitch id='report-forward' checked={forward} disabled={isSubmitting} onChange={this.handleForwardChange} />
-                  <label htmlFor='report-forward' className='setting-toggle__label'>
-                    {intl.formatMessage(messages.forward, {
-                      target: domain
+                  <Switch 
+                    id='report-forward'
+                    checked={forward}
+                    disabled={isSubmitting}
+                    onChange={this.handleForwardChange}
+                    label={intl.formatMessage(messages.forward, {
+                      target: domain,
                     })}
-                  </label>
+                    labelProps={{
+                      size: 'small',
+                      color: 'secondary',
+                    }}
+                  />
                 </div>
               </div>
-            )}
-
-            <Button disabled={isSubmitting} text={intl.formatMessage(messages.submit)} onClick={this.handleSubmit} />
+            }
+            
+            <Button
+              disabled={isSubmitting}
+              onClick={this.handleSubmit}
+              className={_s.marginTopAuto}
+            >
+              {intl.formatMessage(messages.submit)}
+            </Button>
           </div>
 
-          <div className='report-modal__statuses'>
-            <div>
-              {statusIds.map(statusId => <StatusCheckBox id={statusId} key={statusId} disabled={isSubmitting} />)}
+          <div className={[_s.default, _s.width50PC].join(' ')}>
+            <div className={[_s.default, _s.heightMax80VH, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
+              {
+                statusIds.map(statusId => (
+                  <StatusCheckBox id={statusId} key={statusId} disabled={isSubmitting} />
+                ))
+              }
             </div>
           </div>
         </div>
-      </div>
+      </ModalLayout>
     );
   }
 

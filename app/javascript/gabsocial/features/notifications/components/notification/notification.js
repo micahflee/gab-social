@@ -117,7 +117,7 @@ class Notification extends ImmutablePureComponent {
             </span>
           </div>
 
-          <AccountContainer id={account.get('id')} withNote={false} hidden={this.props.hidden} />
+          <AccountContainer id={account.get('id')} hidden={this.props.hidden} />
         </div>
       </HotKeys>
     );

@@ -27,7 +27,7 @@ class SpoilerButton extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,
-    intl: PropTypes.map,
+    intl: PropTypes.object.isRequired,
     small: PropTypes.bool,
   }
 

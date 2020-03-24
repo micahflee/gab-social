@@ -11,7 +11,7 @@ import {
 import {
   mentionCompose,
 } from '../../actions/compose'
-import { initMuteModal } from '../../actions/mutes'
+import { muteAccount } from '../../actions/accounts'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
 import { blockDomain, unblockDomain } from '../../actions/domain_blocks'
@@ -23,7 +23,6 @@ import List from '../list'
 
 const messages = defineMessages({
   unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
-  blockConfirm: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
   blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Hide entire domain' },
   blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
@@ -45,14 +44,12 @@ const messages = defineMessages({
   hideReposts: { id: 'account.hide_reblogs', defaultMessage: 'Hide reposts from @{name}' },
   showReposts: { id: 'account.show_reblogs', defaultMessage: 'Show reposts from @{name}' },
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
-  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
   domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Hidden domains' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  endorse: { id: 'account.endorse', defaultMessage: 'Feature on profile' },
-  unendorse: { id: 'account.unendorse', defaultMessage: 'Don\'t feature on profile' },
-  admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
+  admin_account: { id: 'admin_account', defaultMessage: 'Open moderation interface' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
+  add_or_remove_from_shortcuts: { id: 'account.add_or_remove_from_shortcuts', defaultMessage: 'Add or Remove from shortcuts' },
   accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
   accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
@@ -72,44 +69,35 @@ const makeMapStateToProps = () => {
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
-  onFollow (account) {
+  onFollow(account) {
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
-        dispatch(openModal('CONFIRM', {
-          message: <FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-          confirm: intl.formatMessage(messages.unfollowConfirm),
-          onConfirm: () => dispatch(unfollowAccount(account.get('id'))),
-        }));
+        dispatch(openModal('UNFOLLOW', {
+          accountId: account.get('id'),
+        }))
       } else {
-        dispatch(unfollowAccount(account.get('id')));
+        dispatch(unfollowAccount(account.get('id')))
       }
     } else {
-      dispatch(followAccount(account.get('id')));
+      dispatch(followAccount(account.get('id')))
     }
   },
 
-  onBlock (account) {
+  onBlock(account) {
     if (account.getIn(['relationship', 'blocking'])) {
       dispatch(unblockAccount(account.get('id')));
     } else {
-      dispatch(openModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.block.message' defaultMessage='Are you sure you want to block {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-        confirm: intl.formatMessage(messages.blockConfirm),
-        onConfirm: () => dispatch(blockAccount(account.get('id'))),
-        secondary: intl.formatMessage(messages.blockAndReport),
-        onSecondary: () => {
-          dispatch(blockAccount(account.get('id')));
-          dispatch(initReport(account));
-        },
+      dispatch(openModal('BLOCK_ACCOUNT', {
+        accountId: account.get('id'),
       }));
     }
   },
 
-  onMention (account, router) {
-    dispatch(mentionCompose(account, router));
+  onMention(account) {
+    dispatch(mentionCompose(account));
   },
-  
-  onRepostToggle (account) {
+
+  onRepostToggle(account) {
     if (account.getIn(['relationship', 'showing_reblogs'])) {
       dispatch(followAccount(account.get('id'), false));
     } else {
@@ -117,39 +105,31 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
-  onEndorseToggle (account) {
-    if (account.getIn(['relationship', 'endorsed'])) {
-      dispatch(unpinAccount(account.get('id')));
-    } else {
-      dispatch(pinAccount(account.get('id')));
-    }
-  },
-
-  onReport (account) {
+  onReport(account) {
     dispatch(initReport(account));
   },
 
-  onMute (account) {
+  onMute(account) {
     if (account.getIn(['relationship', 'muting'])) {
       dispatch(unmuteAccount(account.get('id')));
     } else {
-      dispatch(initMuteModal(account));
+      dispatch(openModal('MUTE', {
+        accountId: account.get('id'),
+      }))
     }
   },
 
-  onBlockDomain (domain) {
-    dispatch(openModal('CONFIRM', {
-      message: <FormattedMessage id='confirmations.domain_block.message' defaultMessage='Are you really, really sure you want to block the entire {domain}? In most cases a few targeted blocks or mutes are sufficient and preferable. You will not see content from that domain in any public timelines or your notifications. Your followers from that domain will be removed.' values={{ domain: <strong>{domain}</strong> }} />,
-      confirm: intl.formatMessage(messages.blockDomainConfirm),
-      onConfirm: () => dispatch(blockDomain(domain)),
+  onBlockDomain(domain) {
+    dispatch(openModal('BLOCK_DOMAIN', {
+      domain,
     }));
   },
 
-  onUnblockDomain (domain) {
+  onUnblockDomain(domain) {
     dispatch(unblockDomain(domain));
   },
 
-  onAddToList(account){
+  onAddToList(account) {
     dispatch(openModal('LIST_ADDER', {
       accountId: account.get('id'),
     }));
@@ -168,73 +148,163 @@ class ProfileOptionsPopover extends PureComponent {
 
     let menu = [];
 
-    if (!account) {
-      return [];
-    }
+    if (!account) return menu
+    if (account.get('id') === me) return menu
 
     if ('share' in navigator) {
-      menu.push({ title: intl.formatMessage(messages.share, { name: account.get('username') }), onClick: this.handleShare });
+      menu.push({
+        hideArrow: true,
+        icon: 'share',
+        title: intl.formatMessage(messages.share, { name: account.get('username') }),
+        onClick: this.handleShare
+      });
     }
 
-    if (account.get('id') === me) {
-      menu.push({ title: intl.formatMessage(messages.edit_profile), href: '/settings/profile' });
-      menu.push({ title: intl.formatMessage(messages.preferences), href: '/settings/preferences' });
-      menu.push({ title: intl.formatMessage(messages.follow_requests), to: '/follow_requests' });
-      menu.push({ title: intl.formatMessage(messages.mutes), to: '/mutes' });
-      menu.push({ title: intl.formatMessage(messages.blocks), to: '/blocks' });
-      menu.push({ title: intl.formatMessage(messages.domain_blocks), to: '/domain_blocks' });
-    } else {
-      menu.push({ title: intl.formatMessage(messages.mention, { name: account.get('acct') }), onClick: this.props.onMention });
+    menu.push({
+      hideArrow: true,
+      icon: 'comment',
+      title: intl.formatMessage(messages.mention, { name: account.get('acct') }),
+      onClick: this.handleOnMention
+    });
 
-      if (account.getIn(['relationship', 'following'])) {
-        if (account.getIn(['relationship', 'showing_reblogs'])) {
-          menu.push({ title: intl.formatMessage(messages.hideReposts, { name: account.get('username') }), onClick: this.props.onRepostToggle });
-        } else {
-          menu.push({ title: intl.formatMessage(messages.showReposts, { name: account.get('username') }), onClick: this.props.onRepostToggle });
-        }
-
-        menu.push({ title: intl.formatMessage(messages.add_or_remove_from_list), onClick: this.props.onAddToList });
-        menu.push({ title: intl.formatMessage(account.getIn(['relationship', 'endorsed']) ? messages.unendorse : messages.endorse), onClick: this.props.onEndorseToggle });
-      }
-
-      if (account.getIn(['relationship', 'muting'])) {
-        menu.push({ title: intl.formatMessage(messages.unmute, { name: account.get('username') }), onClick: this.props.onMute });
-      } else {
-        menu.push({ title: intl.formatMessage(messages.mute, { name: account.get('username') }), onClick: this.props.onMute });
-      }
-
-      if (account.getIn(['relationship', 'blocking'])) {
-        menu.push({ title: intl.formatMessage(messages.unblock, { name: account.get('username') }), onClick: this.props.onBlock });
-      } else {
-        menu.push({ title: intl.formatMessage(messages.block, { name: account.get('username') }), onClick: this.props.onBlock });
-      }
-
-      menu.push({ title: intl.formatMessage(messages.report, { name: account.get('username') }), onClick: this.props.onReport });
+    if (account.getIn(['relationship', 'following'])) {
+      const showingReblogs = account.getIn(['relationship', 'showing_reblogs'])
+      menu.push({
+        hideArrow: true,
+        icon: 'repost',
+        title: intl.formatMessage(showingReblogs ? messages.hideReposts : messages.showReposts, {
+          name: account.get('username')
+        }),
+        onClick: this.handleRepostToggle,
+      })
     }
+
+    const isMuting = account.getIn(['relationship', 'muting'])
+    menu.push({
+      hideArrow: true,
+      icon: 'audio-mute',
+      title: intl.formatMessage(isMuting ? messages.unmute : messages.mute, {
+        name: account.get('username')
+      }),
+      onClick: this.handleMute,
+    })
+
+    const isBlocking = account.getIn(['relationship', 'blocking'])
+    menu.push({
+      hideArrow: true,
+      icon: 'block',
+      title: intl.formatMessage(isBlocking ? messages.unblock : messages.block, {
+        name: account.get('username')
+      }),
+      onClick: this.handleBlock
+    })
+
+    menu.push({
+      hideArrow: true,
+      icon: 'report',
+      title: intl.formatMessage(messages.report, { name: account.get('username') }),
+      onClick: this.handleReport
+    })
 
     if (account.get('acct') !== account.get('username')) {
       const domain = account.get('acct').split('@')[1];
 
-      if (account.getIn(['relationship', 'domain_blocking'])) {
-        menu.push({ title: intl.formatMessage(messages.unblockDomain, { domain }), onClick: this.props.onUnblockDomain });
-      } else {
-        menu.push({ title: intl.formatMessage(messages.blockDomain, { domain }), onClick: this.props.onBlockDomain });
-      }
+      const isBlockingDomain = account.getIn(['relationship', 'domain_blocking'])
+      menu.push({
+        hideArrow: true,
+        icon: 'block',
+        title: intl.formatMessage(isBlockingDomain ? messages.unblockDomain : messages.blockDomain, {
+          domain,
+        }),
+        onClick: this.handleUnblockDomain
+      })
     }
 
-    if (account.get('id') !== me && isStaff) {
-      menu.push({ title: intl.formatMessage(messages.admin_account, { name: account.get('username') }), href: `/admin/accounts/${account.get('id')}` });
+    menu.push({
+      hideArrow: true,
+      icon: 'list',
+      title: intl.formatMessage(messages.add_or_remove_from_list),
+      onClick: this.handleAddToList
+    })
+
+    menu.push({
+      hideArrow: true,
+      icon: 'circle',
+      title: intl.formatMessage(messages.add_or_remove_from_shortcuts),
+      onClick: this.handleAddToShortcuts
+    })
+
+    if (isStaff) {
+      menu.push({
+        hideArrow: true,
+        icon: 'circle',
+        title: intl.formatMessage(messages.admin_account),
+        href: `/admin/accounts/${account.get('id')}`
+      })
     }
 
-    return menu;
+    return menu
   }
 
+  handleShare = () => {
+    // : todo :
+  }
+
+  handleFollow = () => {
+    this.props.onFollow(this.props.account);
+  }
+
+  handleBlock = () => {
+    this.props.onBlock(this.props.account);
+  }
+
+  handleOnMention = () => {
+    this.props.onMention(this.props.account);
+  }
+
+  handleReport = () => {
+    this.props.onReport(this.props.account);
+  }
+
+  handleRepostToggle = () => {
+    this.props.onRepostToggle(this.props.account);
+  }
+
+  handleMute = () => {
+    this.props.onMute(this.props.account);
+  }
+
+  handleBlockDomain = () => {
+    const domain = this.props.account.get('acct').split('@')[1];
+
+    // : todo : alert
+    if (!domain) return;
+
+    this.props.onBlockDomain(domain);
+  }
+
+  handleUnblockDomain = () => {
+    const domain = this.props.account.get('acct').split('@')[1];
+
+    // : todo : alert
+    if (!domain) return;
+
+    this.props.onUnblockDomain(domain);
+  }
+
+  handleAddToList = () => {
+    this.props.onAddToList(this.props.account);
+  }
+
+  handleAddToShortcuts = () => {
+    // : todo :
+  }
 
   render() {
     const listItems = this.makeMenu()
 
     return (
-      <PopoverLayout>
+      <PopoverLayout className={_s.width250PX}>
         <List
           scrollKey='profile_options'
           items={listItems}

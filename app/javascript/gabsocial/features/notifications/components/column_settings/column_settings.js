@@ -2,7 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
 import ColumnHeaderSettingButton from '../../../../components/column_header_setting_button';
-import SettingToggle from '../../../../components/setting_toggle';
+import SettingSwitch from '../../../../components/setting_switch';
 
 export default class ColumnSettings extends ImmutablePureComponent {
 
@@ -39,48 +39,48 @@ export default class ColumnSettings extends ImmutablePureComponent {
 
         <div role='group' aria-labelledby='notifications-filter-bar'>
           <FormattedMessage id='notifications.column_settings.filter_bar.category' defaultMessage='Quick filter bar' />
-          <SettingToggle id='show-filter-bar' prefix='notifications' settings={settings} settingPath={['quickFilter', 'show']} onChange={onChange} label={filterShowStr} />
-          <SettingToggle id='show-filter-bar' prefix='notifications' settings={settings} settingPath={['quickFilter', 'advanced']} onChange={onChange} label={filterAdvancedStr} />
+          <SettingSwitch id='show-filter-bar' prefix='notifications' settings={settings} settingPath={['quickFilter', 'show']} onChange={onChange} label={filterShowStr} />
+          <SettingSwitch id='show-filter-bar' prefix='notifications' settings={settings} settingPath={['quickFilter', 'advanced']} onChange={onChange} label={filterAdvancedStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-follow'>
           <FormattedMessage id='notifications.column_settings.follow' defaultMessage='New followers:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'follow']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'follow']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'follow']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'follow']} onChange={onChange} label={soundStr} />
+          <SettingSwitch prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'follow']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingSwitch prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'follow']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['shows', 'follow']} onChange={onChange} label={showStr} />
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['sounds', 'follow']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-favorite'>
           <FormattedMessage id='notifications.column_settings.favorite' defaultMessage='Favorites:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'favorite']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'favorite']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'favorite']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'favorite']} onChange={onChange} label={soundStr} />
+          <SettingSwitch prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'favorite']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingSwitch prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'favorite']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['shows', 'favorite']} onChange={onChange} label={showStr} />
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['sounds', 'favorite']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-mention'>
           <FormattedMessage id='notifications.column_settings.mention' defaultMessage='Mentions:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'mention']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'mention']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'mention']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'mention']} onChange={onChange} label={soundStr} />
+          <SettingSwitch prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'mention']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingSwitch prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'mention']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['shows', 'mention']} onChange={onChange} label={showStr} />
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['sounds', 'mention']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-repost'>
           <FormattedMessage id='notifications.column_settings.repost' defaultMessage='Reposts:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'repost']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'repost']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'repost']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'repost']} onChange={onChange} label={soundStr} />
+          <SettingSwitch prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'repost']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingSwitch prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'repost']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['shows', 'repost']} onChange={onChange} label={showStr} />
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['sounds', 'repost']} onChange={onChange} label={soundStr} />
         </div>
 
         <div role='group' aria-labelledby='notifications-poll'>
           <FormattedMessage id='notifications.column_settings.poll' defaultMessage='Poll results:' />
-          <SettingToggle prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'poll']} onChange={onChange} label={alertStr} />
-          {showPushSettings && <SettingToggle prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'poll']} onChange={this.onPushChange} label={pushStr} />}
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['shows', 'poll']} onChange={onChange} label={showStr} />
-          <SettingToggle prefix='notifications' settings={settings} settingPath={['sounds', 'poll']} onChange={onChange} label={soundStr} />
+          <SettingSwitch prefix='notifications_desktop' settings={settings} settingPath={['alerts', 'poll']} onChange={onChange} label={alertStr} />
+          {showPushSettings && <SettingSwitch prefix='notifications_push' settings={pushSettings} settingPath={['alerts', 'poll']} onChange={this.onPushChange} label={pushStr} />}
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['shows', 'poll']} onChange={onChange} label={showStr} />
+          <SettingSwitch prefix='notifications' settings={settings} settingPath={['sounds', 'poll']} onChange={onChange} label={soundStr} />
         </div>
       </div>
     );

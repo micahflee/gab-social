@@ -71,7 +71,7 @@ class GroupMembers extends ImmutablePureComponent {
 
 					return (
 						<div className="group-account-wrapper" key={id}>
-							<AccountContainer id={id} withNote={false} actionIcon="none" onActionClick={() => true} />
+							<AccountContainer id={id} actionIcon="none" onActionClick={() => true} />
 							{ /*
 								menu.length > 0 && <DropdownMenuContainer items={menu} icon='ellipsis-h' size={18} direction='right' />
 								*/

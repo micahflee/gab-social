@@ -21,11 +21,11 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch, { status, items }) => ({
   onOpen(id, onItemClick, popoverPlacement, keyboard) {
-    dispatch(isUserTouching() ? openModal('ACTIONS', {
-      status,
-      actions: items,
-      onClick: onItemClick,
-    }) : openPopover(id, popoverPlacement, keyboard))
+    // dispatch(isUserTouching() ? openModal('ACTIONS', {
+    //   status,
+    //   actions: items,
+    //   onClick: onItemClick,
+    // }) : openPopover(id, popoverPlacement, keyboard))
   },
   onClose(id) {
     dispatch(closeModal())
@@ -42,9 +42,6 @@ class PopoverBase extends ImmutablePureComponent {
   }
 
   static propTypes = {
-    icon: PropTypes.string.isRequired,
-    items: PropTypes.array.isRequired,
-    size: PropTypes.number.isRequired,
     title: PropTypes.string,
     disabled: PropTypes.bool,
     status: ImmutablePropTypes.map,
@@ -68,28 +65,12 @@ class PopoverBase extends ImmutablePureComponent {
     id: id++,
   }
 
-  handleClick = ({ target, type }) => {
-    if (this.state.id === this.props.openPopoverType) {
-      this.handleClose()
-    } else {
-      const { top } = target.getBoundingClientRect()
-      const placement = top * 2 < innerHeight ? 'bottom' : 'top'
-
-      this.props.onOpen(this.state.id, this.handleItemClick, placement, type !== 'click')
-    }
-  }
-
   handleClose = () => {
     this.props.onClose(this.state.id)
   }
 
   handleKeyDown = e => {
     switch (e.key) {
-      case ' ':
-      case 'Enter':
-        this.handleClick(e)
-        e.preventDefault()
-        break
       case 'Escape':
         this.handleClose()
         break
@@ -127,13 +108,8 @@ class PopoverBase extends ImmutablePureComponent {
 
   render() {
     const {
-      icon,
       children,
       visible,
-      items,
-      size,
-      title,
-      disabled,
       position,
       openPopoverType,
       targetRef,

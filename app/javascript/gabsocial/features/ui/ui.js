@@ -10,6 +10,7 @@ import {
   initializeNotifications,
   expandNotifications,
 } from '../../actions/notifications'
+import LoadingBarContainer from '../../containers/loading_bar_container'
 import { fetchFilters } from '../../actions/filters'
 import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
@@ -37,7 +38,7 @@ import {
   CommunityTimeline,
   DomainBlocks,
   Favorites,
-  FavoritedStatuses,
+  Filters,
   Followers,
   Following,
   FollowRequests,
@@ -50,6 +51,7 @@ import {
   GroupTimeline,
   HashtagTimeline,
   HomeTimeline,
+  LikedStatuses,
   ListCreate,
   ListsDirectory,
   ListEdit,
@@ -148,7 +150,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
-        <WrappedRoute path='/groups/:id/removed_accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
+        <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group' }} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
@@ -169,22 +171,21 @@ class SwitchingArea extends PureComponent {
         { /*
         <WrappedRoute path='/settings/account' exact page={SettingsPage} component={AccountSettings} content={children} />
         <WrappedRoute path='/settings/profile' exact page={SettingsPage} component={ProfileSettings} content={children} />
-        <WrappedRoute path='/settings/domain_blocks' exact page={SettingsPage} component={DomainBlocks} content={children} />
         <WrappedRoute path='/settings/relationships' exact page={SettingsPage} component={RelationshipSettings} content={children} />
-        <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} />
-        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={Blocks} content={children} />
-        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} />
         <WrappedRoute path='/settings/development' exact page={SettingsPage} component={Development} content={children} />
         <WrappedRoute path='/settings/billing' exact page={SettingsPage} component={Billing} content={children} />
         */ }
 
+        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={Blocks} content={children} componentParams={{ title: 'Blocked Accounts' }} />
+        <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={DomainBlocks} content={children} componentParams={{ title: 'Domain Blocks' }} />
+        <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} />
+        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} />
+
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
-        { /*
         <Redirect from='/@:username/comments' to='/:username/comments' />
         <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountTimeline} content={children} componentParams={{ commentsOnly: true }} />
-        */ }
 
         <Redirect from='/@:username/followers' to='/:username/followers' />
         <WrappedRoute path='/:username/followers' page={ProfilePage} component={Followers} content={children} />
@@ -195,8 +196,8 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/media' to='/:username/media' />
         <WrappedRoute path='/:username/media' page={ProfilePage} component={AccountGallery} content={children} />
 
-        <Redirect from='/@:username/favorites' to='/:username/favorites' />
-        <WrappedRoute path='/:username/favorites' page={ProfilePage} component={FavoritedStatuses} content={children} />
+        <Redirect from='/@:username/likes' to='/:username/likes' />
+        <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
 
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={Status} content={children} componentParams={{ title: 'Status' }} />
@@ -489,15 +490,15 @@ class UI extends PureComponent {
 
     return (
       <div ref={this.setRef}>
-        <SwitchingArea
-          location={location}
-          onLayoutChange={this.handleLayoutChange}
-        >
+        <LoadingBarContainer className={[_s.height1PX, _s.z3, _s.backgroundColorBrandLight].join(' ')} />
+
+        <SwitchingArea location={location} onLayoutChange={this.handleLayoutChange}>
           {children}
         </SwitchingArea>
 
         <ModalRoot />
         <PopoverRoot />
+
         <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
       </div>
     )

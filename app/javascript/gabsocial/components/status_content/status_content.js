@@ -130,15 +130,15 @@ class StatusContent extends ImmutablePureComponent {
 
     if (this.props.onExpandedToggle) {
       // The parent manages the state
-      this.props.onExpandedToggle();
+      this.props.onExpandedToggle()
     } else {
-      this.setState({ hidden: !this.state.hidden });
+      this.setState({ hidden: !this.state.hidden })
     }
   }
 
-  handleCollapsedClick = (e) => {
+  handleReadMore = (e) => {
     e.preventDefault();
-    this.setState({ collapsed: !this.state.collapsed });
+    this.setState({ collapsed: false });
   }
 
   setRef = (c) => {
@@ -156,7 +156,8 @@ class StatusContent extends ImmutablePureComponent {
   }
 
   render () {
-    const { status, intl, isComment } = this.props;
+    const { status, intl, isComment } = this.props
+    const { collapsed } = this.state
 
     if (status.get('content').length === 0) return null;
 
@@ -213,12 +214,18 @@ class StatusContent extends ImmutablePureComponent {
         mb15: hasMarginBottom,
       })
 
+      const statusContentClasses = cx({
+        statusContent: 1,
+        height220PX: collapsed,
+        overflowHidden: collapsed,
+      })
+
       return (
         <div className={containerClasses}>
           <div
             ref={this.setRef}
             tabIndex='0'
-            className={[_s.statusContent].join(' ')}
+            className={statusContentClasses}
             style={directionStyle}
             dangerouslySetInnerHTML={content}
             lang={status.get('language')}
@@ -229,7 +236,7 @@ class StatusContent extends ImmutablePureComponent {
             this.state.collapsed &&
             <button
               className={[_s.default, _s.displayFlex, _s.cursorPointer, _s.py2, _s.text, _s.colorPrimary, _s.fontWeightBold, _s.fontSize15PX].join(' ')}
-              onClick={this.props.onClick}
+              onClick={this.handleReadMore}
             >
               {intl.formatMessage(messages.readMore)}
             </button>
