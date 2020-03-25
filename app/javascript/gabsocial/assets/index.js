@@ -15,11 +15,13 @@ import ErrorIcon from './error_icon'
 import FullscreenIcon from './fullscreen_icon'
 import GlobeIcon from './globe_icon'
 import GroupIcon from './group_icon'
+import GroupAddIcon from './group_add_icon'
 import HappyIcon from './happy_icon'
 import HomeIcon from './home_icon'
 import LikeIcon from './like_icon'
 import LinkIcon from './link_icon'
 import ListIcon from './list_icon'
+import ListAddIcon from './list_add_icon'
 import LoadingIcon from './loading_icon'
 import MediaIcon from './media_icon'
 import MinimizeFullscreenIcon from './minimize_fullscreen_icon'
@@ -58,11 +60,13 @@ export {
   FullscreenIcon,
   GlobeIcon,
   GroupIcon,
+  GroupAddIcon,
   HappyIcon,
   HomeIcon,
   LikeIcon,
   LinkIcon,
   ListIcon,
+  ListAddIcon,
   LoadingIcon,
   MediaIcon,
   MinimizeFullscreenIcon,

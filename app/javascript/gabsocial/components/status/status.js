@@ -7,7 +7,7 @@ import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames/bind'
 import { displayMedia } from '../../initial_state';
 import Card from '../../features/status/components/card';
-import { MediaGallery, Video } from '../../features/ui/util/async-components';
+import { MediaGallery, Video } from '../../features/ui/util/async_components';
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
 import Avatar from '../avatar';
 import StatusQuote from '../status_quote';
@@ -81,7 +81,6 @@ class Status extends ImmutablePureComponent {
     onRepost: PropTypes.func,
     onDelete: PropTypes.func,
     onEdit: PropTypes.func,
-    onDirect: PropTypes.func,
     onMention: PropTypes.func,
     onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,

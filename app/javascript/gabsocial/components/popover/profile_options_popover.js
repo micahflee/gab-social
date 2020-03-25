@@ -1,4 +1,4 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import {
   followAccount,
   unfollowAccount,

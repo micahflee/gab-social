@@ -61,6 +61,7 @@ class ListCreate extends PureComponent {
 
         <Button
           className={_s.ml10}
+          type='submit'
         >
           <Text color='white'>
             {intl.formatMessage(messages.create)}

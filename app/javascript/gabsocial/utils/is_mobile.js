@@ -8,6 +8,12 @@ const BREAKPOINT_MEDIUM = 1160
 const BREAKPOINT_SMALL = 1080
 const BREAKPOINT_EXTRA_SMALL = 992
 
+const LAYOUT_BREAKPOINT = 630
+
+export function isMobile(width) {
+  return width <= LAYOUT_BREAKPOINT
+}
+
 export function breakpointExtraLarge(width) {
   return width > BREAKPOINT_EXTRA_LARGE
 }
@@ -42,12 +48,11 @@ export function getScreenBreakpoint(width) {
   }
 }
 
-//
-
-const LAYOUT_BREAKPOINT = 630
-
-export function isMobile(width) {
-  return width <= LAYOUT_BREAKPOINT
+export const getWindowDimension = () => {
+  const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  
+  return { width, height }
 }
 
 const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream

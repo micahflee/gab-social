@@ -4,7 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import detectPassiveEvents from 'detect-passive-events';
 import Overlay from 'react-overlays/lib/Overlay';
-import { EmojiPicker as EmojiPickerAsync } from '../../../ui/util/async-components';
+import { EmojiPicker as EmojiPickerAsync } from '../../../ui/util/async_components';
 import { buildCustomEmojis } from '../../../../components/emoji/emoji';
 
 const messages = defineMessages({

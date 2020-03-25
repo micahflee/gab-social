@@ -123,6 +123,9 @@ class PopoverBase extends ImmutablePureComponent {
       displayNone: !visible,
     })
 
+    console.log("targetRef:", targetRef)
+
+
     return (
       <Manager>
         <Popper

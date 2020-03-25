@@ -10,10 +10,18 @@ export default class StatusActionBarItem extends PureComponent {
     icon: PropTypes.string.isRequired,
     active: PropTypes.bool,
     disabled: PropTypes.bool,
+    buttonRef: PropTypes.node,
   }
 
   render() {
-    const { title, onClick, icon, active, disabled } = this.props
+    const {
+      title,
+      onClick,
+      icon,
+      active,
+      disabled,
+      buttonRef
+    } = this.props
 
     const btnClasses = cx({
       default: 1,
@@ -38,6 +46,7 @@ export default class StatusActionBarItem extends PureComponent {
     return (
       <div className={[_s.default, _s.flexGrow1, _s.px10].join(' ')}>
         <button
+          ref={buttonRef}
           className={btnClasses}
           onClick={onClick}
           active={active}

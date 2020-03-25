@@ -1,6 +1,5 @@
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
-import { closeModal } from '../../actions/modal'
 import { blockAccount } from '../../actions/accounts'
 import ConfirmationModal from './confirmation_modal'
 
@@ -23,9 +22,6 @@ const mapDispatchToProps = dispatch => {
     onConfirm(account) {
       dispatch(blockAccount(account.get('id')))
     },
-    onClose() {
-      dispatch(closeModal())
-    },
   }
 }
 
@@ -37,16 +33,11 @@ class BlockAccountModal extends PureComponent {
   static propTypes = {
     account: PropTypes.object.isRequired,
     onConfirm: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
   handleClick = () => {
     this.props.onConfirm(this.props.account)
-  }
-
-  handleClose = () => {
-    this.props.onClose()
   }
 
   render() {
@@ -64,7 +55,6 @@ class BlockAccountModal extends PureComponent {
         title={title}
         message={message}
         confirm={intl.formatMessage(messages.block)}
-        onClose={this.handleClose}
         onConfirm={this.handleClick}
       />
     )

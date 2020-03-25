@@ -72,8 +72,6 @@ const makeMapStateToProps = () => {
 
       // ONLY Direct descendants
       descendantsIds = state.getIn(['contexts', 'replies', status.get('id')])
-
-      console.log("descendantsIds:", descendantsIds)
     }
 
     return {

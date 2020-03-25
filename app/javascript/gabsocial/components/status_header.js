@@ -2,6 +2,8 @@ import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { openPopover } from '../actions/popover'
+import { openModal } from '../actions/modal'
 import RelativeTimestamp from './relative_timestamp'
 import DisplayName from './display_name'
 import Text from './text'
@@ -10,18 +12,30 @@ import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
 
-export default class StatusHeader extends ImmutablePureComponent {
+export default
+@connect(null, null)
+class StatusHeader extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map,
   }
 
   handleStatusOptionsClick() {
-    console.log("handleStatusOptionsClick")
+    console.log("handleStatusOptionsClick:", this.props)
+    this.props.dispatch(openPopover('STATUS_OPTIONS', {
+      targetRef: this.statusOptionsButton,
+      position: 'top',
+      status: this.props.status,
+    }))
   }
 
   handleOpenStatusEdits() {
-    console.log("handleOpenStatusEdits")
+    // : todo :
+    this.props.dispatch(openPopover('REPOST', {
+      targetRef: this.statusOptionsButton,
+      position: 'top',
+      status: this.props.status,
+    }))
   }
 
   handleDeleteClick = () => {
@@ -95,77 +109,14 @@ export default class StatusHeader extends ImmutablePureComponent {
     this.props.onGroupRemoveStatus(status.getIn(['group', 'id']), status.get('id'));
   }
 
-  _makeMenu = (publicStatus) => {
-    const { status, intl: { formatMessage }, withDismiss, withGroupAdmin } = this.props;
-    const mutingConversation = status.get('muted');
-
-    let menu = [];
-
-    menu.push({ text: formatMessage(messages.open), action: this.handleOpen });
-
-    if (publicStatus) {
-      menu.push({ text: formatMessage(messages.copy), action: this.handleCopy });
-      menu.push({ text: formatMessage(messages.embed), action: this.handleEmbed });
-    }
-
-    if (!me) return menu
-
-    menu.push(null);
-
-    if (status.getIn(['account', 'id']) === me || withDismiss) {
-      menu.push({ text: formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation), action: this.handleConversationMuteClick });
-      menu.push(null);
-    }
-
-    if (status.getIn(['account', 'id']) === me) {
-      if (publicStatus) {
-        menu.push({ text: formatMessage(status.get('pinned') ? messages.unpin : messages.pin), action: this.handlePinClick });
-      } else {
-        if (status.get('visibility') === 'private') {
-          menu.push({ text: formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private), action: this.handleRepostClick });
-        }
-      }
-      menu.push({ text: formatMessage(messages.delete), action: this.handleDeleteClick });
-      menu.push({ text: formatMessage(messages.edit), action: this.handleEditClick });
-    } else {
-      menu.push({ text: formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
-      menu.push(null);
-      menu.push({ text: formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick });
-      menu.push({ text: formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick });
-      menu.push({ text: formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport });
-
-      if (isStaff) {
-        menu.push(null);
-        menu.push({ text: formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }), href: `/admin/accounts/${status.getIn(['account', 'id'])}` });
-        menu.push({ text: formatMessage(messages.admin_status), href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}` });
-      }
-
-      if (withGroupAdmin) {
-        menu.push(null);
-        menu.push({ text: formatMessage(messages.group_remove_account), action: this.handleGroupRemoveAccount });
-        menu.push({ text: formatMessage(messages.group_remove_post), action: this.handleGroupRemovePost });
-      }
-    }
-
-    return menu;
+  setStatusOptionsButton = n => {
+    this.statusOptionsButton = n
   }
 
   render() {
     const { status } = this.props
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
-
-    // const menu = this._makeMenu(publicStatus);
-    // <div className='status-action-bar__dropdown'>
-    //   <DropdownMenuContainer
-    //     status={status}
-    //     items={menu}
-    //     icon='ellipsis-h'
-    //     size={18}
-    //     direction='right'
-    //     title={formatMessage(messages.more)}
-    //   />
-    // </div>
 
     return (
       <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
@@ -200,6 +151,7 @@ export default class StatusHeader extends ImmutablePureComponent {
                 iconClassName={_s.fillColorSecondary}
                 className={_s.marginLeftAuto}
                 onClick={this.handleStatusOptionsClick}
+                buttonRef={this.setStatusOptionsButton}
               />
             </div>
 

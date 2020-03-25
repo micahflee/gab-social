@@ -159,6 +159,8 @@ class StatusContent extends ImmutablePureComponent {
     const { status, intl, isComment } = this.props
     const { collapsed } = this.state
 
+    console.log("status content", status.get('content'))
+
     if (status.get('content').length === 0) return null;
 
     const hidden = this.props.onExpandedToggle ? !this.props.expanded : this.state.hidden;

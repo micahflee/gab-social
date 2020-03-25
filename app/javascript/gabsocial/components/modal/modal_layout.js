@@ -1,5 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
+import { closeModal } from '../../actions/modal'
 import Button from '../button'
 import Block from '../block'
 import Heading from '../heading'
@@ -10,13 +11,23 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 })
 
+const mapDispatchToProps = dispatch => {
+  return {
+    handleCloseModal() {
+      dispatch(closeModal())
+    },
+  }
+}
+
 export default
+@connect(null, mapDispatchToProps)
 @injectIntl
 class ModalLayout extends PureComponent {
   static propTypes = {
     title: PropTypes.string,
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
+    handleCloseModal: PropTypes.func.isRequired,
     width: PropTypes.number,
     hideClose: PropTypes.bool,
     noPadding: PropTypes.bool,
@@ -26,12 +37,19 @@ class ModalLayout extends PureComponent {
     width: 600,
   }
 
+  onHandleCloseModal = () => {
+    if (this.props.onClose) {
+      this.props.onClose();
+    } else {
+      this.props.handleCloseModal()
+    }
+  }
+
   render() {
     const {
       title,
       children,
       intl,
-      onClose,
       width,
       hideClose,
       noPadding
@@ -39,6 +57,8 @@ class ModalLayout extends PureComponent {
 
     const childrenContainerClasses = cx({
       default: 1,
+      heightMax80VH: 1,
+      overflowScroll: 1,
       px15: !noPadding,
       py10: !noPadding,
     })
@@ -56,7 +76,7 @@ class ModalLayout extends PureComponent {
                 backgroundColor='none'
                 title={intl.formatMessage(messages.close)}
                 className={_s.marginLeftAuto}
-                onClick={onClose}
+                onClick={this.onHandleCloseModal}
                 icon='close'
                 iconWidth='10px'
                 iconWidth='10px'

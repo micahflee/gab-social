@@ -40,6 +40,7 @@ const mapStateToProps = state => {
     sidebarOpen: state.get('sidebar').sidebarOpen,
     notificationCount: state.getIn(['notifications', 'unread']),
     homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+    showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
   }
 }
 
@@ -64,6 +65,7 @@ class Sidebar extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
     sidebarOpen: PropTypes.bool,
+    showCommunityTimeline: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onOpenComposeModal: PropTypes.func.isRequired,
     openSidebarMorePopover: PropTypes.func.isRequired,
@@ -115,7 +117,14 @@ class Sidebar extends ImmutablePureComponent {
   }
 
   render() {
-    const { sidebarOpen, intl, account, notificationCount, homeItemsQueueCount } = this.props
+    const {
+      sidebarOpen,
+      intl,
+      account,
+      notificationCount,
+      homeItemsQueueCount,
+      showCommunityTimeline
+    } = this.props
     const { moreOpen } = this.state
 
     // : todo :
@@ -127,6 +136,8 @@ class Sidebar extends ImmutablePureComponent {
     const moreIcon = moreOpen ? 'minus' : 'plus'
     const moreContainerStyle = { display: moreOpen ? 'block' : 'none' }
 
+    console.log("showCommunityTimeline:", showCommunityTimeline)
+
     const menuItems = [
       {
         title: 'Home',
@@ -135,17 +146,23 @@ class Sidebar extends ImmutablePureComponent {
         count: homeItemsQueueCount,
       },
       {
+        title: 'Community',
+        icon: 'community',
+        to: '/timeline/all',
+        hidden: !showCommunityTimeline,
+      },
+      {
         title: 'Notifications',
         icon: 'notifications',
         to: '/notifications',
         count: notificationCount,
       },
-      // : todo : show only when search on top is not visible
-      // {
-      //   title: 'Search',
-      //   icon: 'search-alt',
-      //   to: '/search',
-      // },
+      {
+        title: 'Search',
+        icon: 'search-alt',
+        to: '/search',
+        hidden: true, // : todo : show only when search on top is not visible
+      },
       {
         title: 'Groups',
         icon: 'group',
@@ -168,11 +185,6 @@ class Sidebar extends ImmutablePureComponent {
         buttonRef: this.setMoreButtonRef
       },
     ]
-
-    // more modal:
-    // settings/preferences
-    // help
-    // logout
 
     const shortcutItems = [
       {
@@ -223,9 +235,13 @@ class Sidebar extends ImmutablePureComponent {
               <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.mb15].join(' ')}>
                 <SidebarSectionTitle>Menu</SidebarSectionTitle>
                 {
-                  menuItems.map((menuItem, i) => (
-                    <SidebarSectionItem {...menuItem} key={`sidebar-item-menu-${i}`} />
-                  ))
+                  menuItems.map((menuItem, i) => {
+                    if (menuItem.hidden) return null
+
+                    return (
+                      <SidebarSectionItem {...menuItem} key={`sidebar-item-menu-${i}`} />
+                    )
+                  })
                 }
                 <SidebarSectionTitle>Shortcuts</SidebarSectionTitle>
                 {

@@ -19,6 +19,9 @@ import ModalRoot from '../../components/modal/modal_root'
 import PopoverRoot from '../../components/popover/popover_root'
 import UploadArea from '../../components/upload_area'
 import ProfilePage from '../../pages/profile_page'
+import CommunityPage from '../../pages/community_page'
+import HashtagPage from '../../pages/hashtag_page'
+import ShortcutsPage from '../../pages/shortcuts_page'
 import GroupPage from '../../pages/group_page'
 import GroupsPage from '../../pages/groups_page'
 import SearchPage from '../../pages/search_page'
@@ -60,8 +63,9 @@ import {
   Notifications,
   Reposts,
   Search,
+  Shortcuts,
   Status,
-} from './util/async-components'
+} from './util/async_components'
 import { me, meUsername } from '../../initial_state'
 
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
@@ -141,7 +145,7 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
 
-        <WrappedRoute path='/timeline/all' exact page={BasicPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Hashtag Timeline' }} />
+        <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Timeline' }} />
 
         <WrappedRoute path='/groups' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/new' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'new' }} />
@@ -154,7 +158,9 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group' }} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
-        <WrappedRoute path='/tags/:id' publicRoute page={BasicPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
+        <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
+
+        <WrappedRoute path='/shortcuts' publicRoute page={ShortcutsPage} component={Shortcuts} content={children} />
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List' }} />

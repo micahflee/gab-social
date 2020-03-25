@@ -1,8 +1,9 @@
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import Block from './block'
 import ScrollableList from './scrollable_list'
 import ListItem from './list_item'
 
-export default class List extends PureComponent {
+export default class List extends ImmutablePureComponent {
 
   static propTypes = {
     items: PropTypes.array,
@@ -21,16 +22,14 @@ export default class List extends PureComponent {
           emptyMessage={emptyMessage}
         >
           {
-            items.map((item, i) => {
-              return (
-                <ListItem
-                  small={small}
-                  key={`list-item-${i}`}
-                  isLast={items.length - 1 === i}
-                  {...item}
-                />
-              )
-            })
+            items.map((item, i) => (
+              <ListItem
+                small={small}
+                key={`list-item-${i}`}
+                isLast={items.size - 1 === i}
+                {...item}
+              />
+            ))
           }
         </ScrollableList>
     </Block>

@@ -1,7 +1,6 @@
 import { NavLink, withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import NotificationCounter from '../notification_counter';
-import { me } from '../../initial_state';
 
 const links = [
   <NavLink key='pr1' className='footer-bar__link' to='/home' data-preview-title-id='column.home'>
@@ -38,8 +37,6 @@ class FooterBar extends PureComponent {
 
   render() {
     const { intl: { formatMessage } } = this.props;
-
-    if (!me) return null;
 
     return (
       <div className='footer-bar'>

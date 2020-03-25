@@ -9,23 +9,20 @@ import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
 const messages = defineMessages({
-  title: { id: 'home_timeline_settings', defaultMessage: 'Home Timeline Settings' },
+  title: { id: 'community_timeline_settings', defaultMessage: 'Community Timeline Settings' },
   saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
-  showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
-  showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
-  showPolls: { id: 'home.column_settings.show_polls', defaultMessage: 'Show polls' },
-  showReposts: { id: 'home.column_settings.show_reposts', defaultMessage: 'Show comments' },
-  showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
+  onlyMedia: { id: 'community.column_settings.media_only', defaultMessage: 'Media Only' },
+  showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
 })
 
 const mapStateToProps = state => ({
-  settings: state.getIn(['settings', 'home']),
+  settings: state.getIn(['settings', 'community']),
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     onChange(key, checked) {
-      dispatch(changeSetting(['home', ...key], checked))
+      dispatch(changeSetting(['community', ...key], checked))
     },
     onSave() {
       dispatch(saveSettings())
@@ -37,7 +34,7 @@ const mapDispatchToProps = dispatch => {
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class HomeTimelineSettingsModal extends ImmutablePureComponent {
+class CommunityTimelineSettingsModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -61,43 +58,19 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
       
         <div className={[_s.default, _s.pb10].join(' ')}>
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='community_timeline'
             settings={settings}
-            settingPath={['shows', 'polls']}
+            settingPath={['shows', 'inSidebar']}
             onChange={onChange}
-            label={intl.formatMessage(messages.showPolls)}
+            label={intl.formatMessage(messages.showInSidebar)}
           />
 
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='community_timeline'
             settings={settings}
-            settingPath={['shows', 'photos']}
+            settingPath={['shows', 'onlyMedia']}
             onChange={onChange}
-            label={intl.formatMessage(messages.showPhotos)}
-          />
-
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'videos']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showVideos)}
-          />
-
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'repost']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showReposts)}
-          />
-
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'reply']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showReplies)}
+            label={intl.formatMessage(messages.onlyMedia)}
           />
         </div>
 

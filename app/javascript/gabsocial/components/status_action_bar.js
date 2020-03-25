@@ -3,14 +3,14 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import { openModal } from '../actions/modal'
-import { me, isStaff } from '../initial_state'
+import { openPopover } from '../actions/popover'
+import { me } from '../initial_state'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
 
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  direct: { id: 'status.direct', defaultMessage: 'Direct message @{name}' },
   mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
@@ -44,6 +44,14 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenUnauthorizedModal() {
     dispatch(openModal('UNAUTHORIZED'))
   },
+  onOpenStatusSharePopover(targetRef, status) {
+    console.log("targetRef, status:", targetRef, status)
+    dispatch(openPopover('STATUS_SHARE', {
+      status,
+      targetRef,
+      position: 'top',
+    }))
+  },
 })
 
 const cx = classNames.bind(_s)
@@ -60,6 +68,7 @@ class StatusActionBar extends ImmutablePureComponent {
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     onOpenUnauthorizedModal: PropTypes.func.isRequired,
+    onOpenStatusSharePopover: PropTypes.func.isRequired,
     onReply: PropTypes.func,
     onQuote: PropTypes.func,
     onFavorite: PropTypes.func,
@@ -117,7 +126,12 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   handleShareClick = () => {
-    //
+    console.log("handleShareClick:", this.shareButton, this.props.status)
+    this.props.onOpenStatusSharePopover(this.shareButton, this.props.status)
+  }
+
+  setShareButton = (n) => {
+    this.shareButton = n
   }
 
   render() {
@@ -222,6 +236,7 @@ class StatusActionBar extends ImmutablePureComponent {
               onClick={this.handleRepostClick}
             />
             <StatusActionBarItem
+              buttonRef={this.setShareButton}
               title={formatMessage(messages.share)}
               icon='share'
               onClick={this.handleShareClick}

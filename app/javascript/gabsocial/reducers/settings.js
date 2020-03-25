@@ -15,18 +15,31 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
-      repost: true,
+      photos: true,
+      polls: true,
       reply: true,
-    }),
-
-    regex: ImmutableMap({
-      body: '',
+      repost: true,
+      videos: true,
     }),
   }),
 
-  group: ImmutableMap({
+  lists: ImmutableMap({
     shows: ImmutableMap({
+      photos: true,
+      polls: true,
       reply: true,
+      repost: true,
+      videos: true,
+    }),
+  }),
+
+  groups: ImmutableMap({
+    shows: ImmutableMap({
+      photos: true,
+      polls: true,
+      reply: true,
+      repost: true,
+      videos: true,
     }),
   }),
 
@@ -63,29 +76,10 @@ const initialState = ImmutableMap({
   }),
 
   community: ImmutableMap({
-    other: ImmutableMap({
-      allFediverse: false,
+    shows: ImmutableMap({
+      inSidebar: false,
       onlyMedia: false,
     }),
-    regex: ImmutableMap({
-      body: '',
-    }),
-  }),
-
-  public: ImmutableMap({
-    regex: ImmutableMap({
-      body: '',
-    }),
-  }),
-
-  direct: ImmutableMap({
-    regex: ImmutableMap({
-      body: '',
-    }),
-  }),
-
-  trends: ImmutableMap({
-    show: true,
   }),
 });
 

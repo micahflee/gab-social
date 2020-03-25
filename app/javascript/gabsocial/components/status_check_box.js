@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Set as ImmutableSet } from 'immutable';
 import noop from 'lodash/noop';
 import { toggleStatusReport } from '../actions/reports';
-import { MediaGallery, Video } from '../features/ui/util/async-components';
+import { MediaGallery, Video } from '../features/ui/util/async_components';
 import Bundle from '../features/ui/util/bundle';
 import StatusContent from './status_content';
 import Switch from './switch';

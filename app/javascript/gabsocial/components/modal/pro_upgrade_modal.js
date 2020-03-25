@@ -22,7 +22,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
     const { intl } = this.props
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.title)}>
+      <ModalLayout title={intl.formatMessage(messages.title)} width='460'>
         <Text>
           {intl.formatMessage(messages.text)}
         </Text>

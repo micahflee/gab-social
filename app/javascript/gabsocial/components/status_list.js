@@ -103,7 +103,7 @@ export default class StatusList extends ImmutablePureComponent {
 
     let scrollableContent = (isLoading || statusIds.size > 0) ? (
       statusIds.map((statusId, index) => statusId === null ? (
-        <LoadGap
+        <div
           key={'gap:' + statusIds.get(index + 1)}
           disabled={isLoading}
           maxId={index > 0 ? statusIds.get(index - 1) : null}

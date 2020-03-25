@@ -109,6 +109,9 @@ class Account extends ImmutablePureComponent {
       const requested = account.getIn(['relationship', 'requested'])
       const blocking = account.getIn(['relationship', 'blocking'])
 
+      // : todo :
+      // unmute
+
       if (requested || blocking) {
         buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
         buttonOptions = {

@@ -9,7 +9,7 @@ import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
 const messages = defineMessages({
-  title: { id: 'home_timeline_settings', defaultMessage: 'Home Timeline Settings' },
+  title: { id: 'list_timeline_settings', defaultMessage: 'List Timeline Settings' },
   saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
   showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
   showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
@@ -19,13 +19,13 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = state => ({
-  settings: state.getIn(['settings', 'home']),
+  settings: state.getIn(['settings', 'list']),
 })
 
 const mapDispatchToProps = dispatch => {
   return {
     onChange(key, checked) {
-      dispatch(changeSetting(['home', ...key], checked))
+      dispatch(changeSetting(['list', ...key], checked))
     },
     onSave() {
       dispatch(saveSettings())
@@ -37,7 +37,7 @@ const mapDispatchToProps = dispatch => {
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class HomeTimelineSettingsModal extends ImmutablePureComponent {
+class ListTimelineSettingsModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -61,7 +61,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
       
         <div className={[_s.default, _s.pb10].join(' ')}>
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='list_timeline'
             settings={settings}
             settingPath={['shows', 'polls']}
             onChange={onChange}
@@ -69,7 +69,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           />
 
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='list_timeline'
             settings={settings}
             settingPath={['shows', 'photos']}
             onChange={onChange}
@@ -77,7 +77,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           />
 
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='list_timeline'
             settings={settings}
             settingPath={['shows', 'videos']}
             onChange={onChange}
@@ -85,7 +85,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           />
 
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='list_timeline'
             settings={settings}
             settingPath={['shows', 'repost']}
             onChange={onChange}
@@ -93,7 +93,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           />
 
           <SettingSwitch
-            prefix='home_timeline'
+            prefix='list_timeline'
             settings={settings}
             settingPath={['shows', 'reply']}
             onChange={onChange}

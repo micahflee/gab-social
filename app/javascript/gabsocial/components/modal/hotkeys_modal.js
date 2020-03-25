@@ -26,7 +26,6 @@ const messages = defineMessages({
   unfocus: { id: 'keyboard_shortcuts.unfocus', defaultMessage: 'un-focus compose textarea/search' },
   home: { id: 'keyboard_shortcuts.home', defaultMessage: 'open home timeline' },
   notifications: { id: 'keyboard_shortcuts.notifications', defaultMessage: 'open notifications column' },
-  direct: { id: 'keyboard_shortcuts.direct', defaultMessage: 'open direct messages column' },
   start: { id: 'keyboard_shortcuts.start', defaultMessage: 'open "get started" column' },
   favorites: { id: 'keyboard_shortcuts.favorites', defaultMessage: 'open favorites list' },
   pinned: { id: 'keyboard_shortcuts.pinned', defaultMessage: 'open pinned gabs list' },
@@ -93,7 +92,6 @@ class HotkeysModal extends ImmutablePureComponent {
               <HotKeysModalRow hotkey='esc' action={intl.formatMessage(messages.unfocus)} />
               <HotKeysModalRow hotkey='g + h' action={intl.formatMessage(messages.home)} />
               <HotKeysModalRow hotkey='g + n' action={intl.formatMessage(messages.notifications)} />
-              <HotKeysModalRow hotkey='g + d' action={intl.formatMessage(messages.direct)} />
             </tbody>
           </table>
           <table>

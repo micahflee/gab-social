@@ -9,6 +9,7 @@ import { textAtCursorMatchesToken } from '../../utils/cursor_token_match'
 import AutosuggestAccount from '../autosuggest_account'
 import AutosuggestEmoji from '../autosuggest_emoji'
 import Input from '../input'
+import Composer from '../composer'
 
 const cx = classNames.bind(_s)
 
@@ -52,9 +53,9 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
   onChange = (e) => {
-    const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
+    const [tokenStart, token] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
 
-    console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
+    // console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
 
     if (token !== null && this.state.lastToken !== token) {
       this.setState({ lastToken: token, selectedSuggestion: 0, tokenStart });
@@ -80,40 +81,40 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     // e.key may be a name of the physical key even in this case (e.x. Safari / Chrome on Mac)
     if (e.which === 229 || e.isComposing) return;
 
-    switch(e.key) {
-    case 'Escape':
-      if (suggestions.size === 0 || suggestionsHidden) {
-        document.querySelector('.ui').parentElement.focus();
-      } else {
-        e.preventDefault();
-        this.setState({ suggestionsHidden: true });
-      }
+    switch (e.key) {
+      case 'Escape':
+        if (suggestions.size === 0 || suggestionsHidden) {
+          document.querySelector('.ui').parentElement.focus();
+        } else {
+          e.preventDefault();
+          this.setState({ suggestionsHidden: true });
+        }
 
-      break;
-    case 'ArrowDown':
-      if (suggestions.size > 0 && !suggestionsHidden) {
-        e.preventDefault();
-        this.setState({ selectedSuggestion: Math.min(selectedSuggestion + 1, suggestions.size - 1) });
-      }
+        break;
+      case 'ArrowDown':
+        if (suggestions.size > 0 && !suggestionsHidden) {
+          e.preventDefault();
+          this.setState({ selectedSuggestion: Math.min(selectedSuggestion + 1, suggestions.size - 1) });
+        }
 
-      break;
-    case 'ArrowUp':
-      if (suggestions.size > 0 && !suggestionsHidden) {
-        e.preventDefault();
-        this.setState({ selectedSuggestion: Math.max(selectedSuggestion - 1, 0) });
-      }
+        break;
+      case 'ArrowUp':
+        if (suggestions.size > 0 && !suggestionsHidden) {
+          e.preventDefault();
+          this.setState({ selectedSuggestion: Math.max(selectedSuggestion - 1, 0) });
+        }
 
-      break;
-    case 'Enter':
-    case 'Tab':
-      // Select suggestion
-      if (this.state.lastToken !== null && suggestions.size > 0 && !suggestionsHidden) {
-        e.preventDefault();
-        e.stopPropagation();
-        this.props.onSuggestionSelected(this.state.tokenStart, this.state.lastToken, suggestions.get(selectedSuggestion));
-      }
+        break;
+      case 'Enter':
+      case 'Tab':
+        // Select suggestion
+        if (this.state.lastToken !== null && suggestions.size > 0 && !suggestionsHidden) {
+          e.preventDefault();
+          e.stopPropagation();
+          this.props.onSuggestionSelected(this.state.tokenStart, this.state.lastToken, suggestions.get(selectedSuggestion));
+        }
 
-      break;
+        break;
     }
 
     if (e.defaultPrevented || !this.props.onKeyDown) return;
@@ -151,7 +152,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     this.textbox.focus();
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.suggestions !== this.props.suggestions && nextProps.suggestions.size > 0 && this.state.suggestionsHidden && this.state.focused) {
       this.setState({ suggestionsHidden: false });
     }
@@ -194,7 +195,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     this.textbox = c;
   }
 
-  render () {
+  render() {
     const {
       value,
       small,
@@ -245,13 +246,18 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     // tabindex="0"
     // no-focuscontainer-refocus="true"
     // style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;">
-    
+
     if (textarea) {
       return (
-      <Fragment>
+        <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.ml5].join(' ')}>
-              <Textarea
+
+              <Composer
+              />
+
+              { /*
+                <Textarea
                 className={_s.default}
                 inputRef={this.setTextbox}
                 disabled={disabled}
@@ -282,6 +288,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onBlur={this.onBlur}
                 onPaste={this.onPaste}
               />
+              */ }
             </div>
             {children}
           </div>

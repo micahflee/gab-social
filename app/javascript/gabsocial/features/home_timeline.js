@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import { expandHomeTimeline } from '../../actions/timelines'
-import StatusListContainer from '../../containers/status_list_container'
+import { expandHomeTimeline } from '../actions/timelines'
+import StatusListContainer from '../containers/status_list_container'
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },

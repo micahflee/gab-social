@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchGroups } from '../actions/groups'
-import Block from '../components/block'
+import ScrollableList from '../components/scrollable_list'
 import GroupCollectionItem from '../components/group_collection_item'
 
 const mapStateToProps = (state, { activeTab }) => ({
@@ -30,15 +30,19 @@ class GroupsCollection extends ImmutablePureComponent {
 	render() {
 		const { groupIds } = this.props
 
-		console.log("groupIds: ", groupIds)
-
+		
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-				{
-					groupIds.map((groupId, i) => (
-						<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
-					))
-				}
+				<ScrollableList
+          scrollKey='groups_collection'
+          emptyMessage={''}
+        >
+					{
+						groupIds.map((groupId, i) => (
+							<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+						))
+					}
+				</ScrollableList>
 			</div>
 		)
 	}

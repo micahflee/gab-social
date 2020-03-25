@@ -1,20 +1,16 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { debounce } from 'lodash';
-import { fetchMutes, expandMutes } from '../actions/mutes';
-import AccountContainer from '../containers/account_container';
-import ColumnIndicator from '../components/column_indicator';
-import ScrollableList from '../components/scrollable_list';
-
-const messages = defineMessages({
-  heading: { id: 'column.mutes', defaultMessage: 'Muted users' },
-});
+import { injectIntl, FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { debounce } from 'lodash'
+import { fetchMutes, expandMutes } from '../actions/mutes'
+import AccountContainer from '../containers/account_container'
+import ColumnIndicator from '../components/column_indicator'
+import ScrollableList from '../components/scrollable_list'
 
 const mapStateToProps = state => ({
   accountIds: state.getIn(['user_lists', 'mutes', 'items']),
   hasMore: !!state.getIn(['user_lists', 'mutes', 'next']),
-});
+})
 
 export default
 @connect(mapStateToProps)
@@ -26,19 +22,18 @@ class Mutes extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
     hasMore: PropTypes.bool,
     accountIds: ImmutablePropTypes.list,
-    intl: PropTypes.object.isRequired,
-  };
+  }
 
   componentWillMount() {
-    this.props.dispatch(fetchMutes());
+    this.props.dispatch(fetchMutes())
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandMutes());
-  }, 300, { leading: true });
+    this.props.dispatch(expandMutes())
+  }, 300, { leading: true })
 
   render() {
-    const { intl, hasMore, accountIds } = this.props;
+    const { hasMore, accountIds } = this.props
 
     if (!accountIds) {
       return <ColumnIndicator type='loading' />
@@ -53,7 +48,7 @@ class Mutes extends ImmutablePureComponent {
       >
         {
           accountIds.map(id =>
-            <AccountContainer key={id} id={id} />
+            <AccountContainer key={`mutes-${id}`} id={id} compact />
           )
         }
       </ScrollableList>

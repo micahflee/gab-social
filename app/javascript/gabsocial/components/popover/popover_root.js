@@ -10,8 +10,9 @@ import ProfileOptionsPopover from './profile_options_popover'
 import SearchPopover from './search_popover'
 import SidebarMorePopover from './sidebar_more_popover'
 import StatusOptionsPopover from './status_options_popover'
-import UserInfoPopover from './user_info_popover'
+import StatusSharePopover from './status_share_popover'
 import StatusVisibilityPopover from './status_visibility_popover'
+import UserInfoPopover from './user_info_popover'
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
@@ -23,6 +24,7 @@ const POPOVER_COMPONENTS = {
   SEARCH: () => Promise.resolve({ default: SearchPopover }),
   SIDEBAR_MORE: () => Promise.resolve({ default: SidebarMorePopover }),
   STATUS_OPTIONS: () => Promise.resolve({ default: StatusOptionsPopover }),
+  STATUS_SHARE: () => Promise.resolve({ default: StatusSharePopover }),
   STATUS_VISIBILITY: () => Promise.resolve({ default: StatusVisibilityPopover }),
   USER_INFO: () => Promise.resolve({ default: UserInfoPopover }),
 }

@@ -8,7 +8,7 @@ import {
   // ListEditor,
   // ListAdder,
   StatusRevisionModal,
-} from '../../features/ui/util/async-components'
+} from '../../features/ui/util/async_components'
 
 import ModalBase from './modal_base'
 import BundleModalError from '../bundle_modal_error'
@@ -17,14 +17,18 @@ import ActionsModal from './actions_modal'
 import BlockAccountModal from './block_account_modal'
 import BlockDomainModal from './block_domain_modal'
 import BoostModal from './boost_modal'
+import CommunityTimelineSettingsModal from './community_timeline_settings_modal'
 import ComposeModal from './compose_modal'
 import ConfirmationModal from './confirmation_modal'
-import GroupAdderModal from './group_adder_modal'
+import GroupCreateModal from './group_create_modal'
+import GroupDeleteModal from './group_delete_modal'
 import GroupEditorModal from './group_editor_modal'
 import HomeTimelineSettingsModal from './home_timeline_settings_modal'
 import HotkeysModal from './hotkeys_modal'
-import ListAdderModal from './list_adder_modal'
+import ListCreateModal from './list_create_modal'
+import ListDeleteModal from './list_delete_modal'
 import ListEditorModal from './list_editor_modal'
+import ListTimelineSettingsModal from './list_timeline_settings_modal'
 import MediaModal from './media_modal'
 import ModalLoading from './modal_loading'
 import ProUpgradeModal from './pro_upgrade_modal'
@@ -37,15 +41,19 @@ const MODAL_COMPONENTS = {
   BLOCK_ACCOUNT: () => Promise.resolve({ default: BlockAccountModal }),
   BLOCK_DOMAIN: () => Promise.resolve({ default: BlockDomainModal }),
   BOOST: () => Promise.resolve({ default: BoostModal }),
+  COMMUNITY_TIMELINE_SETTINGS: () => Promise.resolve({ default: CommunityTimelineSettingsModal }),
   COMPOSE: () => Promise.resolve({ default: ComposeModal }),
   CONFIRM: () => Promise.resolve({ default: ConfirmationModal }),
   EMBED: () => Promise.resolve({ default: EmbedModal }),
+  GROUP_CREATE: () => Promise.resolve({ default: GroupCreateModal }),
+  GROUP_DELETE: () => Promise.resolve({ default: GroupDeleteModal }),
   GROUP_EDITOR: () => Promise.resolve({ default: GroupEditorModal }),
-  GROUP_ADDER: () => Promise.resolve({ default: GroupAdderModal }),
   HOME_TIMELINE_SETTINGS: () => Promise.resolve({ default: HomeTimelineSettingsModal }),
   HOTKEYS: () => Promise.resolve({ default: HotkeysModal }),
+  LIST_CREATE: () => Promise.resolve({ default: ListCreateModal }),
+  LIST_DELETE: () => Promise.resolve({ default: ListDeleteModal }),
   LIST_EDITOR: () => Promise.resolve({ default: ListEditorModal }),
-  LIST_ADDER: () => Promise.resolve({ default: ListAdderModal }),
+  LIST_TIMELINE_SETTINGS: () => Promise.resolve({ default: ListTimelineSettingsModal }),
   MEDIA: () => Promise.resolve({ default: MediaModal }),
   'MUTE': MuteModal,
   PRO_UPGRADE: () => Promise.resolve({ default: ProUpgradeModal }),

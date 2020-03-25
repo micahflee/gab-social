@@ -11,7 +11,6 @@ export default class Header extends ImmutablePureComponent {
     onFollow: PropTypes.func.isRequired,
     onBlock: PropTypes.func.isRequired,
     onMention: PropTypes.func.isRequired,
-    onDirect: PropTypes.func.isRequired,
     onRepostToggle: PropTypes.func.isRequired,
     onReport: PropTypes.func.isRequired,
     onMute: PropTypes.func.isRequired,
@@ -37,10 +36,6 @@ export default class Header extends ImmutablePureComponent {
 
   handleMention = () => {
     this.props.onMention(this.props.account, this.context.router.history);
-  }
-
-  handleDirect = () => {
-    this.props.onDirect(this.props.account, this.context.router.history);
   }
 
   handleReport = () => {
@@ -93,7 +88,6 @@ export default class Header extends ImmutablePureComponent {
           onFollow={this.handleFollow}
           onBlock={this.handleBlock}
           onMention={this.handleMention}
-          onDirect={this.handleDirect}
           onRepostToggle={this.handleRepostToggle}
           onReport={this.handleReport}
           onMute={this.handleMute}

@@ -1,7 +1,11 @@
 import Sticky from 'react-stickynode'
+import * as Constants from '../constants'
 import Search from '../components/search'
 import ColumnHeader from '../components/column_header'
 import Sidebar from '../components/sidebar'
+// import Header from '../components/header'
+// import Footer from '../components/footer'
+import Responsive from '../features/ui/util/responsive_component'
 
 export default class DefaultLayout extends PureComponent {
   static propTypes = {
@@ -18,10 +22,14 @@ export default class DefaultLayout extends PureComponent {
     // const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
     // const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
 
+    console.log("Constants.BREAKPOINT_EXTRA_SMALL:", Constants.BREAKPOINT_EXTRA_SMALL)
+
     return (
       <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundColorSecondary3].join(' ')}>
 
-        <Sidebar />
+        <Responsive min={Constants.BREAKPOINT_EXTRA_SMALL}>
+          <Sidebar />
+        </Responsive>
 
         <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary2, _s.borderLeft1PX].join(' ')}>
 
@@ -50,13 +58,16 @@ export default class DefaultLayout extends PureComponent {
               </div>
             </div>
 
-            <div className={[_s.default, _s.width340PX].join(' ')}>
-              <Sticky top={73} enabled>
-                <div className={[_s.default, _s.width340PX].join(' ')}>
-                  {layout}
-                </div>
-              </Sticky>
-            </div>
+            <Responsive min={Constants.BREAKPOINT_EXTRA_SMALL}>
+              <div className={[_s.default, _s.width340PX].join(' ')}>
+                <Sticky top={73} enabled>
+                  <div className={[_s.default, _s.width340PX].join(' ')}>
+                    {layout}
+                  </div>
+                </Sticky>
+              </div>
+            </Responsive>
+
           </div>
 
         </main>

@@ -45,6 +45,8 @@ export default class Icon extends PureComponent {
         return <I.GlobeIcon {...options} />
       case 'group':
         return <I.GroupIcon {...options} />
+      case 'group-add':
+        return <I.GroupAddIcon {...options} />
       case 'happy':
         return <I.HappyIcon {...options} />
       case 'home':
@@ -55,6 +57,8 @@ export default class Icon extends PureComponent {
         return <I.LinkIcon {...options} />
       case 'list':
         return <I.ListIcon {...options} />
+      case 'list-add':
+        return <I.ListAddIcon {...options} />
       case 'loading':
         return <I.LoadingIcon {...options} />
       case 'media':

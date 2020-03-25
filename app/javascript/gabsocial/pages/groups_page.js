@@ -1,9 +1,24 @@
 import { Fragment } from 'react'
+import { openModal } from '../actions/modal'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
+import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import DefaultLayout from '../layouts/default_layout'
 
-export default class GroupsPage extends PureComponent {
+
+const mapDispatchToProps = dispatch => ({
+  onOpenGroupCreateModal() {
+    dispatch(openModal('GROUP_CREATE'))
+  },
+})
+
+export default
+@connect(null, mapDispatchToProps)
+class GroupsPage extends PureComponent {
+
+  static propTypes = {
+    onOpenGroupCreateModal: PropTypes.func.isRequired,
+  }
 
   componentDidMount() {
     document.title = 'Groups - Gab'
@@ -18,7 +33,7 @@ export default class GroupsPage extends PureComponent {
   }
 
   render() {
-    const { children } = this.props
+    const { children, onOpenGroupCreateModal } = this.props
 
     const tabs = [
       {
@@ -44,12 +59,13 @@ export default class GroupsPage extends PureComponent {
         title='Groups'
         actions={[
           {
-            icon: 'list-delete',
-            onClick: this.handleClickEditLists
+            icon: 'group-add',
+            onClick: onOpenGroupCreateModal
           },
         ]}
         layout={(
           <Fragment>
+            <WhoToFollowPanel />
             <GroupsPanel slim />
             <LinkFooter />
           </Fragment>
