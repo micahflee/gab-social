@@ -12,24 +12,30 @@ import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenStatusOptionsPopover(targetRef, status) {
+    dispatch(openPopover('STATUS_OPTIONS', {
+      targetRef,
+      status,
+      position: 'top',
+    }))
+  },
+})
+
 export default
-@connect(null, null)
+@connect(null, mapDispatchToProps)
 class StatusHeader extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map,
+    onOpenStatusOptionsPopover: PropTypes.func.isRequired,
   }
 
-  handleStatusOptionsClick() {
-    console.log("handleStatusOptionsClick:", this.props)
-    this.props.dispatch(openPopover('STATUS_OPTIONS', {
-      targetRef: this.statusOptionsButton,
-      position: 'top',
-      status: this.props.status,
-    }))
+  handleOpenStatusOptionsPopover = () => {
+    this.props.onOpenStatusOptionsPopover(this.statusOptionsButton, this.props.status)
   }
 
-  handleOpenStatusEdits() {
+  handleOpenStatusEdits = () => {
     // : todo :
     this.props.dispatch(openPopover('REPOST', {
       targetRef: this.statusOptionsButton,
@@ -150,7 +156,7 @@ class StatusHeader extends ImmutablePureComponent {
                 iconHeight='20px'
                 iconClassName={_s.fillColorSecondary}
                 className={_s.marginLeftAuto}
-                onClick={this.handleStatusOptionsClick}
+                onClick={this.handleOpenStatusOptionsPopover}
                 buttonRef={this.setStatusOptionsButton}
               />
             </div>

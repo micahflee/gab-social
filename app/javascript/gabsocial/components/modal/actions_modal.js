@@ -5,7 +5,7 @@ import StatusContent from '../status_content';
 import Avatar from '../avatar';
 import RelativeTimestamp from '../relative_timestamp';
 import DisplayName from '../display_name';
-import IconButton from '../icon_button';
+import Button from '../button';
 
 export default class ActionsModal extends ImmutablePureComponent {
 
@@ -32,7 +32,7 @@ export default class ActionsModal extends ImmutablePureComponent {
           className={classNames({ active })}
           data-method={isLogout ? 'delete' : null}
         >
-          {icon && <IconButton title={text} icon={icon} role='presentation' tabIndex='-1' inverted />}
+          {icon && <Button title={text} icon={icon} role='presentation' tabIndex='-1' inverted />}
           <div>
             <div className={classNames({ 'actions-modal__item-label': !!meta })}>{text}</div>
             <div>{meta}</div>

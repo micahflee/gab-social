@@ -3,12 +3,12 @@ import spring from 'react-motion/lib/spring'
 import detectPassiveEvents from 'detect-passive-events'
 import classNames from 'classnames'
 import Overlay from 'react-overlays/lib/Overlay'
-import { changeComposeVisibility } from '../../../actions/compose'
-import { openModal, closeModal } from '../../../actions/modal'
-import { isUserTouching } from '../../../utils/is_mobile'
-import Motion from '../../ui/util/optional_motion'
-import Icon from '../../../components/icon'
-import ComposeExtraButton from './compose_extra_button'
+import { changeComposeVisibility } from '../../actions/compose'
+import { openModal, closeModal } from '../../actions/modal'
+import { isUserTouching } from '../../utils/is_mobile'
+import Motion from '../../features/ui/util/optional_motion'
+import Icon from '../icon'
+import ComposeExtraButton from '../../features/compose/components/compose_extra_button'
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
@@ -246,25 +246,13 @@ class PrivacyDropdown extends PureComponent {
     const valueOption = this.options.find(item => item.value === value)
 
     return (
-      <div className={classNames('privacy-dropdown', placement, { active: open })} onKeyDown={this.handleKeyDown}>
-        <div className={classNames('privacy-dropdown__value', { active: this.options.indexOf(valueOption) === 0 })}>
-          <ComposeExtraButton
-            icon={valueOption.icon}
-            title={intl.formatMessage(messages.visibility)}
-            onClick={this.handleToggle}
-          />
-        </div>
-
-        <Overlay show={open} placement={placement} target={this}>
-          <PrivacyDropdownMenu
-            items={this.options}
-            value={value}
-            onClose={this.handleClose}
-            onChange={this.handleChange}
-            placement={placement}
-          />
-        </Overlay>
-      </div>
+      <PrivacyDropdownMenu
+        items={this.options}
+        value={value}
+        onClose={this.handleClose}
+        onChange={this.handleChange}
+        placement={placement}
+      />
     )
   }
 

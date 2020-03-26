@@ -12,7 +12,11 @@ export default class ProgressPanel extends PureComponent {
         subtitle="We are 100% funded by you"
         hasBackground
       >
-        <ProgressBar progress={monthlyExpensesComplete}/>
+        <ProgressBar
+          progress={monthlyExpensesComplete}
+          title={`${Math.min(parseFloat(monthlyExpensesComplete), 100)}% covered this month`}
+          href='https://shop.dissenter.com/category/donations'
+        />
       </PanelLayout>
     )
   }

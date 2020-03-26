@@ -165,7 +165,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List' }} />
         <WrappedRoute path='/lists/:id/edit' exact page={ModalPage} component={ListEdit} content={children} componentParams={{ title: 'Edit List' }} />
-        <WrappedRoute path='/list/:id' page={ListPage} component={ListTimeline} content={children} />
+        <WrappedRoute path='/lists/:id' page={ListPage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' exact page={NotificationsPage} component={Notifications} content={children} />
 

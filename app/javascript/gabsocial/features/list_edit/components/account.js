@@ -6,7 +6,7 @@ import { removeFromListEditor, addToListEditor } from '../../../actions/lists';
 import { makeGetAccount } from '../../../selectors';
 import Avatar from '../../../components/avatar';
 import DisplayName from '../../../components/display_name';
-import IconButton from '../../../components/icon_button';
+import Button from '../../../components/button';
 
 const messages = defineMessages({
   remove: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
@@ -52,9 +52,9 @@ class Account extends ImmutablePureComponent {
     let button;
 
     if (added) {
-      button = <IconButton icon='times' title={intl.formatMessage(messages.remove)} onClick={onRemove} />;
+      button = <Button icon='times' title={intl.formatMessage(messages.remove)} onClick={onRemove} />;
     } else {
-      button = <IconButton icon='plus' title={intl.formatMessage(messages.add)} onClick={onAdd} />;
+      button = <Button icon='plus' title={intl.formatMessage(messages.add)} onClick={onAdd} />;
     }
 
     return (

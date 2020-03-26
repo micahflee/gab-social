@@ -5,7 +5,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import Video from '../../features/video';
 import ExtendedVideoPlayer from '../extended_video_player';
-import IconButton from '../icon_button';
+import Button from '../button';
 import ImageLoader from '../image_loader';
 import Icon from '../icon';
 
@@ -221,7 +221,7 @@ class MediaModal extends ImmutablePureComponent {
         </div>
 
         <div className={navigationClassName}>
-          <IconButton className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={40} />
+          <Button className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={40} />
 
           {leftNav}
           {rightNav}

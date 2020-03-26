@@ -14,7 +14,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch, { list }) => ({
   onOpenListEditModal() {
-    dispatch(openModal('GROUP_DELETE', {
+    dispatch(openModal('LIST_EDIT', {
       list,
     }))
   },

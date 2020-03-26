@@ -149,7 +149,7 @@ class StatusActionBar extends ImmutablePureComponent {
     const favoriteCount = status.get('favourites_count') // : todo :
 
     const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
-      <IconButton className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
+      <Button className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
     )
 
     const hasInteractions = favoriteCount > 0 || replyCount > 0 || repostCount > 0
@@ -189,7 +189,7 @@ class StatusActionBar extends ImmutablePureComponent {
             {
               favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
-                <Text color='secondary'>
+                <Text color='secondary' size='small'>
                   {favoriteCount}
                   &nbsp;Likes
                 </Text>
@@ -198,7 +198,7 @@ class StatusActionBar extends ImmutablePureComponent {
             {
               replyCount > 0 &&
               <button className={interactionBtnClasses}>
-                <Text color='secondary'>
+                <Text color='secondary' size='small'>
                   {replyCount}
                   &nbsp;Comments
                 </Text>
@@ -207,7 +207,7 @@ class StatusActionBar extends ImmutablePureComponent {
             {
               repostCount > 0 &&
               <button className={interactionBtnClasses}>
-                <Text color='secondary'>
+                <Text color='secondary' size='small'>
                   {repostCount}
                   &nbsp;Reposts
                 </Text>

@@ -2,7 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { removeFromListAdder, addToListAdder } from '../../../../actions/lists';
-import IconButton from '../../../../components/icon_button';
+import Button from '../../../../components/button';
 import Icon from '../../../../components/icon';
 
 const messages = defineMessages({
@@ -51,9 +51,9 @@ class List extends ImmutablePureComponent {
           <div className='list__btn-block'>
             {
               added ?
-                <IconButton icon='times' title={intl.formatMessage(messages.remove)} onClick={onRemove} />
+                <Button icon='times' title={intl.formatMessage(messages.remove)} onClick={onRemove} />
                 :
-                <IconButton icon='plus' title={intl.formatMessage(messages.add)} onClick={onAdd} />
+                <Button icon='plus' title={intl.formatMessage(messages.add)} onClick={onAdd} />
             }
           </div>
         </div>

@@ -10,7 +10,7 @@ import AutosuggestTextbox from '../../../../components/autosuggest_textbox';
 import PollButton from '../../components/poll_button';
 import UploadButton from '../../components/upload_button';
 import SpoilerButton from '../../components/spoiler_button';
-import PrivacyDropdown from '../../components/privacy_dropdown';
+import PostPrivacyButton from '../../../../components/post_privacy_button';
 import EmojiPickerButton from '../../components/emoji_picker_button'
 import EmojiPickerDropdown from '../../containers/emoji_picker_dropdown_container';
 import PollFormContainer from '../../containers/poll_form_container';
@@ -230,7 +230,8 @@ class ComposeForm extends ImmutablePureComponent {
       quoteOfId,
       edit,
       scheduledAt,
-      spoiler
+      spoiler,
+      replyToId
     } = this.props
     const disabled = this.props.isSubmitting;
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
@@ -239,7 +240,7 @@ class ComposeForm extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      flexGrow1: 1,
+      flexNormal: 1,
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
       backgroundSubtle: shouldCondense,
@@ -326,10 +327,10 @@ class ComposeForm extends ImmutablePureComponent {
           >
 
             <div className='compose-form__modifiers'>
-              <UploadForm />
+              <UploadForm replyToId={replyToId} />
               {
                 !edit &&
-                <PollFormContainer />
+                <PollFormContainer replyToId={replyToId} />
               }
             </div>
 
@@ -345,7 +346,7 @@ class ComposeForm extends ImmutablePureComponent {
               }
               {
                 !shouldCondense &&
-                <PrivacyDropdown />
+                <PostPrivacyButton />
               }
               <SpoilerButton small={shouldCondense} />
               <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />

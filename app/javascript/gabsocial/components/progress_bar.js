@@ -1,28 +1,59 @@
+import classNames from 'classnames/bind'
+import Button from './button'
 import Text from './text'
+
+const cx = classNames.bind(_s)
 
 export default class ProgressBar extends PureComponent {
   static propTypes = {
     progress: PropTypes.number,
+    small: PropTypes.bool,
+    title: PropTypes.string,
   }
 
   render() {
-    const { progress } = this.props
+    const {
+      progress,
+      small,
+      title,
+      href
+    } = this.props
 
     const completed = Math.min(parseFloat(progress), 100)
     const style = {
       width: `${completed}%`,
     }
-    const title = `${completed}% covered this month`
+
+    const containerOptions = {
+      href,
+      className: cx({
+        default: 1,
+        backgroundPanel: !small,
+        backgroundSubtle2: small,
+        noUnderline: 1,
+        circle: 1,
+        overflowHidden: 1,
+        cursorPointer: 1,
+        height22PX: !small,
+        height4PX: small,
+      }),
+    }
 
     return (
-      <a href='https://shop.dissenter.com/category/donations' className={[_s.default, _s.backgroundPanel, _s.noUnderline, _s.circle, _s.overflowHidden, _s.height22PX, _s.cursorPointer].join(' ')}>
-        <div className={[_s.default, _s.backgroundColorBrandDark, _s.circle, _s.height22PX].join(' ')} style={style} />
-        <div className={[_s.default, _s.positionAbsolute,  _s.width100PC, _s.height22PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Text size='small' weight='bold' color='white'>
-            {title}
-          </Text>
+      <Button 
+        noClasses
+        {...containerOptions}
+      >
+        <div className={[_s.default, _s.backgroundColorBrandDark, _s.circle, _s.height100PC].join(' ')} style={style} />
+        <div className={[_s.default, _s.positionAbsolute,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          {
+            !!title &&
+            <Text size='small' weight='bold' color='white'>
+              {title}
+            </Text>
+          }
         </div>
-      </a>
+      </Button>
     )
   }
 }

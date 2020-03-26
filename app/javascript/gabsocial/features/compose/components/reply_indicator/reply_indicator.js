@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
 import { NavLink } from 'react-router-dom';
 import Avatar from '../../../../components/avatar';
-import IconButton from '../../../../components/icon_button';
+import Button from '../../../../components/button';
 import DisplayName from '../../../../components/display_name';
 import { isRtl } from '../../../../utils/rtl';
 
@@ -45,7 +45,7 @@ class ReplyIndicator extends ImmutablePureComponent {
       <div className='reply-indicator'>
         <div className='reply-indicator__header'>
           <div className='reply-indicator__cancel'>
-            <IconButton title={intl.formatMessage(messages.cancel)} icon='times' onClick={this.handleClick} inverted />
+            <Button title={intl.formatMessage(messages.cancel)} icon='times' onClick={this.handleClick} inverted />
           </div>
 
           <NavLink to={`/${status.getIn(['account', 'acct'])}`} className='reply-indicator__display-name'>

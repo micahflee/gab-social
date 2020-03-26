@@ -60,7 +60,7 @@ class ListsDirectory extends ImmutablePureComponent {
     const emptyMessage = intl.formatMessage(messages.empty)
 
     const listItems = lists.map(list => ({
-      to: `/list/${list.get('id')}`,
+      to: `/lists/${list.get('id')}`,
       title: list.get('title'),
     }))
 

@@ -1,5 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import IconButton from './icon_button'
+import Button from './button'
 
 const messages = defineMessages({
   title: { id: 'bundle_column_error.title', defaultMessage: 'Network error' },
@@ -25,7 +25,7 @@ class BundleColumnError extends PureComponent {
 
     return (
       <div className='error-column'>
-        <IconButton title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
+        <Button title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
         {formatMessage(messages.body)}
       </div>
     )

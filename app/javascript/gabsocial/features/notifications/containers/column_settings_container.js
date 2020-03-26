@@ -16,6 +16,7 @@ const mapStateToProps = state => ({
   pushSettings: state.get('push_notifications'),
 });
 
+// : todo : put all notification settings actually IN settings
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onChange (path, checked) {

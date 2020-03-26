@@ -5,6 +5,7 @@ import ColumnHeader from '../components/column_header'
 import Sidebar from '../components/sidebar'
 // import Header from '../components/header'
 // import Footer from '../components/footer'
+import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
 
 export default class DefaultLayout extends PureComponent {
@@ -18,9 +19,6 @@ export default class DefaultLayout extends PureComponent {
 
   render() {
     const { children, title, showBackBtn, layout, actions, tabs } = this.props
-
-    // const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
-    // const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
 
     console.log("Constants.BREAKPOINT_EXTRA_SMALL:", Constants.BREAKPOINT_EXTRA_SMALL)
 
@@ -43,9 +41,11 @@ export default class DefaultLayout extends PureComponent {
                   tabs={tabs}
                 />
               </div>
-              <div className={[_s.default, _s.width340PX].join(' ')}>
-                <Search />
-              </div>
+              <Responsive min={Constants.BREAKPOINT_EXTRA_SMALL}>
+                <div className={[_s.default, _s.width340PX].join(' ')}>
+                  <Search />
+                </div>
+              </Responsive>
             </div>
           </div>
 
@@ -66,6 +66,10 @@ export default class DefaultLayout extends PureComponent {
                   </div>
                 </Sticky>
               </div>
+            </Responsive>
+
+            <Responsive max={Constants.BREAKPOINT_EXTRA_SMALL}>
+              <FloatingActionButton />
             </Responsive>
 
           </div>

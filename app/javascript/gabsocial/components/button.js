@@ -10,8 +10,9 @@ const COLORS = {
   secondary: 'secondary',
   tertiary: 'tertiary',
   white: 'white',
+  black: 'black',
   brand: 'brand',
-  error: 'error',
+  danger: 'danger',
   none: 'none',
 }
 
@@ -87,12 +88,11 @@ export default class Button extends PureComponent {
       <Icon
         id={icon}
         width={iconWidth}
-        height={iconWidth}
+        height={iconHeight}
         className={iconClassName}
       />
     ) : undefined
 
-    // : todo :
     const classes = noClasses ? className : cx(className, {
       default: 1,
       noUnderline: 1,
@@ -101,18 +101,22 @@ export default class Button extends PureComponent {
       textAlignCenter: 1,
       outlineNone: 1,
       flexRow: !!children && !!icon,
+      cursorNotAllowed: disabled,
+      opacity05: disabled,
 
       backgroundColorPrimary: backgroundColor === COLORS.white,
+      backgroundColorBlack: backgroundColor === COLORS.black,
       backgroundColorBrand: backgroundColor === COLORS.brand,
       backgroundTransparent: backgroundColor === COLORS.none,
       backgroundSubtle2: backgroundColor === COLORS.tertiary,
       backgroundSubtle: backgroundColor === COLORS.secondary,
-
-      colorPrimary: color === COLORS.primary,
-      colorSecondary: color === COLORS.secondary,
-      colorTertiary: color === COLORS.tertiary,
-      colorWhite: color === COLORS.white,
-      colorBrand: color === COLORS.brand,
+      backgroundColorDanger: backgroundColor === COLORS.danger,
+      
+      colorPrimary: !!children && color === COLORS.primary,
+      colorSecondary: !!children && color === COLORS.secondary,
+      colorTertiary: !!children && color === COLORS.tertiary,
+      colorWhite: !!children && color === COLORS.white,
+      colorBrand: !!children && color === COLORS.brand,
 
       borderColorBrand: color === COLORS.brand && outline,
       border1PX: outline,
@@ -128,12 +132,16 @@ export default class Button extends PureComponent {
 
       underline_onHover: underlineOnHover,
 
-      backgroundSubtle2Dark_onHover: backgroundColor === COLORS.tertiary,
-
+      backgroundSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary,
+      backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black,
       backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
 
       backgroundColorBrand_onHover: color === COLORS.brand && outline,
-      colorWhite_onHover: color === COLORS.brand && outline,
+      colorWhite_onHover: !!children && color === COLORS.brand && outline,
+
+      fillColorWhite: !!icon && color === COLORS.white,
+      fillColorBrand: !!icon && color === COLORS.brand,
+      fillColorWhite_onHover: !!icon && color === COLORS.brand && outline,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'

@@ -20,6 +20,8 @@ export default class Input extends PureComponent {
     small: PropTypes.bool,
     readOnly: PropTypes.string,
     inputRef: PropTypes.func,
+    id: PropTypes.string,
+    hideLabel: PropTypes.bool,
   }
 
   render() {
@@ -36,20 +38,25 @@ export default class Input extends PureComponent {
       title,
       small,
       readOnly,
-      inputRef
+      inputRef,
+      id,
+      hideLabel
     } = this.props
 
     const inputClasses = cx({
       default: 1,
       text: 1,
       outlineNone: 1,
-      lineHeight125: 1,
+      lineHeight125: !small,
+      lineHeight1: small,
       displayBlock: 1,
-      py10: 1,
+      py10: !small,
+      py5: small,
       backgroundTransparent: !readOnly,
       backgroundSubtle2: readOnly,
       colorSecondary: readOnly,
-      fontSize15PX: 1,
+      fontSize15PX: !small,
+      fontSize13PX: small,
       flexGrow1: 1,
       circle: 1,
       px5: !!prependIcon,
@@ -57,12 +64,19 @@ export default class Input extends PureComponent {
       pr15: !hasClear,
     })
 
+    const titleClasses = cx({
+      default: 1,
+      mb10: 1,
+      pl15: 1,
+      displayNone: hideLabel,
+    })
+
     return (
       <Fragment>
         {
           !!title &&
-          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
-            <Text size='small' weight='medium' color='secondary'>
+          <div className={titleClasses}>
+            <Text htmlFor={id} size='small' weight='medium' color='secondary' tagName='label'>
               {title}
             </Text>
           </div>
@@ -74,6 +88,7 @@ export default class Input extends PureComponent {
           }
 
           <input
+            id={id}
             className={inputClasses}
             type='text'
             placeholder={placeholder}

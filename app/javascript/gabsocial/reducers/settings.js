@@ -44,34 +44,9 @@ const initialState = ImmutableMap({
   }),
 
   notifications: ImmutableMap({
-    alerts: ImmutableMap({
-      follow: true,
-      favorite: true,
-      repost: true,
-      mention: true,
-      poll: true,
-    }),
-
+    // : todo : put all notification settings actually IN settings
     quickFilter: ImmutableMap({
       active: 'all',
-      show: true,
-      advanced: false,
-    }),
-
-    shows: ImmutableMap({
-      follow: true,
-      favorite: true,
-      repost: true,
-      mention: true,
-      poll: true,
-    }),
-
-    sounds: ImmutableMap({
-      follow: true,
-      favorite: true,
-      repost: true,
-      mention: true,
-      poll: true,
     }),
   }),
 

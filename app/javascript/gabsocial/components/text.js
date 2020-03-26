@@ -42,6 +42,7 @@ export default class Text extends PureComponent {
     weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
     align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
     underline: PropTypes.bool,
+    htmlFor: PropTypes.string,
   }
 
   static defaultProps = {
@@ -60,7 +61,8 @@ export default class Text extends PureComponent {
       size,
       weight,
       underline,
-      align
+      align,
+      htmlFor
     } = this.props
 
     const classes = cx(className, {
@@ -93,6 +95,7 @@ export default class Text extends PureComponent {
     return React.createElement(
       tagName,
       {
+        htmlFor,
         className: classes,
       },
       children,

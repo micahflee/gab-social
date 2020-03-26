@@ -1,5 +1,7 @@
-import { NavLink, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import classNames from 'classnames/bind'
+import Button from './button'
+import Icon from './icon'
 import Text from './text'
 
 const cx = classNames.bind(_s)
@@ -10,8 +12,11 @@ class TabBarItem extends PureComponent {
   static propTypes = {
     location: PropTypes.object.isRequired,
     title: PropTypes.string,
+    onClick: PropTypes.func,
+    icon: PropTypes.string,
     to: PropTypes.string,
     large: PropTypes.bool,
+    active: PropTypes.bool,
   }
 
   state = {
@@ -31,7 +36,15 @@ class TabBarItem extends PureComponent {
   }
 
   render() {
-    const { title, to, location, large } = this.props
+    const {
+      title,
+      to,
+      onClick,
+      location,
+      large,
+      icon,
+      // active
+    } = this.props
     const { active } = this.state
 
     const isCurrent = active === -1 ? to === location.pathname : active
@@ -46,6 +59,7 @@ class TabBarItem extends PureComponent {
       justifyContentCenter: 1,
       borderBottom2PX: 1,
       py5: 1,
+      backgroundTransparent: 1,
       borderColorTransparent: !isCurrent,
       borderColorBrand: isCurrent,
       mr5: large,
@@ -68,14 +82,31 @@ class TabBarItem extends PureComponent {
       weight: isCurrent ? 'bold' : large ? 'medium' : 'normal',
     }
 
+    const iconOptions = {
+      id: icon,
+      width: !!large ? 20 : 14,
+      height: !!large ? 20 : 14,
+    }
+
     return (
-      <NavLink to={to} className={containerClasses}>
+      <Button
+        onClick={onClick}
+        to={to}
+        className={containerClasses}
+        noClasses
+      >
         <span className={textParentClasses}>
+          { !!title &&
           <Text {...textOptions}>
             {title}
           </Text>
+          }
+
+          { !!icon &&
+            <Icon {...iconOptions} />
+          }
         </span>
-      </NavLink>
+      </Button>
     )
   }
 }

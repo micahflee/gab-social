@@ -23,6 +23,7 @@ import ConfirmationModal from './confirmation_modal'
 import GroupCreateModal from './group_create_modal'
 import GroupDeleteModal from './group_delete_modal'
 import GroupEditorModal from './group_editor_modal'
+import HashtagTimelineSettingsModal from './hashtag_timeline_settings_modal'
 import HomeTimelineSettingsModal from './home_timeline_settings_modal'
 import HotkeysModal from './hotkeys_modal'
 import ListCreateModal from './list_create_modal'
@@ -48,6 +49,7 @@ const MODAL_COMPONENTS = {
   GROUP_CREATE: () => Promise.resolve({ default: GroupCreateModal }),
   GROUP_DELETE: () => Promise.resolve({ default: GroupDeleteModal }),
   GROUP_EDITOR: () => Promise.resolve({ default: GroupEditorModal }),
+  HASHTAG_TIMELINE_SETTINGS: () => Promise.resolve({ default: HashtagTimelineSettingsModal }),
   HOME_TIMELINE_SETTINGS: () => Promise.resolve({ default: HomeTimelineSettingsModal }),
   HOTKEYS: () => Promise.resolve({ default: HotkeysModal }),
   LIST_CREATE: () => Promise.resolve({ default: ListCreateModal }),

@@ -89,6 +89,10 @@ body {
   white-space: inherit;
 }
 
+.inheritFill {
+  fill: inherit;
+}
+
 .flexNormal {
   flex-basis: 0%;
   flex-grow: 1;
@@ -248,6 +252,10 @@ body {
   cursor: pointer
 }
 
+.cursorNotAllowed {
+  cursor: not-allowed;
+}
+
 .pointerEventsAuto>* {
   pointer-events: auto;
 }
@@ -300,6 +308,14 @@ body {
   background-color: rgba(54, 233, 145, 0.1);
 }
 
+.backgroundColorBlack {
+  background-color: #3B3B3B;
+}
+
+.backgroundColorBlackOpaque_onHover:hover {
+  background-color: rgba(59, 59, 59, 0.8);
+}
+
 .backgroundColorOpaque {
   background-color: rgba(0, 0, 0, 0.4);
 }
@@ -322,6 +338,10 @@ body {
 
 .backgroundColorBrandDark_onHover:hover {
   background-color: #38A16B;
+}
+
+.backgroundColorDanger {
+  background-color: #DE2960;
 }
 
 .colorPrimary {
@@ -353,6 +373,10 @@ body {
 }
 
 .fillColorWhite {
+  fill: #fff;
+}
+
+.fillColorWhite_onHover:hover {
   fill: #fff;
 }
 
@@ -761,6 +785,10 @@ body {
   margin-bottom: -5px;
 }
 
+.mt2 {
+  margin-top: 2px;
+}
+
 .mr2 {
   margin-right: 2px;
 }
@@ -907,6 +935,10 @@ body {
 
 .opacity0 {
   opacity: 0;
+}
+
+.opacity05 {
+  opacity: 0.5;
 }
 
 .opacity1 {

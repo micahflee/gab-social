@@ -54,7 +54,7 @@ export default class Switch extends PureComponent {
 
     return (
       <div className={[_s.default, _s.flexRow, _s.py5, _s.alignItemsCenter].join(' ')}>
-        <Text {...labelProps}>
+        <Text {...labelProps} className={_s.mr10}>
           {label}
         </Text>
 

@@ -105,14 +105,11 @@ class ProfileHeader extends ImmutablePureComponent {
     this.props.onFollow(this.props.account)
   }
 
-  handleUnrequest = () => {
-    //
-  }
-
   handleBlock = () => {
-    // this.props.onBlock(this.props.account)
+    this.props.onBlock(this.props.account)
   }
 
+  // : todo :
   makeInfo() {
     const { account, intl } = this.props;
 
@@ -134,28 +131,6 @@ class ProfileHeader extends ImmutablePureComponent {
 
     return info;
   };
-
-  getActionBtn() {
-    const { account, intl } = this.props;
-
-    let actionBtn = null;
-
-    if (!account || !me) return actionBtn;
-
-    if (me !== account.get('id')) {
-      if (!account.get('relationship')) { // Wait until the relationship is loaded
-        //
-      } else if (account.getIn(['relationship', 'requested'])) {
-        actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.requested)} onClick={this.props.onFollow} />;
-      } else if (!account.getIn(['relationship', 'blocking'])) {
-        actionBtn = <Button disabled={account.getIn(['relationship', 'blocked_by'])} className={classNames('logo-button', { 'button--destructive': account.getIn(['relationship', 'following']) })} text={intl.formatMessage(account.getIn(['relationship', 'following']) ? messages.unfollow : messages.follow)} onClick={this.props.onFollow} />;
-      } else if (account.getIn(['relationship', 'blocking'])) {
-        actionBtn = <Button className='logo-button' text={intl.formatMessage(messages.unblock, { name: account.get('username') })} onClick={this.props.onBlock} />;
-      }
-    }
-
-    return actionBtn
-  }
 
   setOpenMoreNodeRef = (n) => {
     this.openMoreNode = n
@@ -195,36 +170,77 @@ class ProfileHeader extends ImmutablePureComponent {
 
     const avatarSize = headerMissing ? '75' : '150'
 
-    let buttonText;
-    let buttonOptions;
+    let buttonText = ''
+    let buttonOptions = {}
+
     if (!account) {
+      console.log("no account")
     }
     else {
-      if (account.get('id') !== me && account.get('relationship', null) !== null) {
-        const following = account.getIn(['relationship', 'following'])
-        const requested = account.getIn(['relationship', 'requested'])
-        const blocking = account.getIn(['relationship', 'blocking'])
-
-        if (requested || blocking) {
-          buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
-          buttonOptions = {
-            narrow: true,
-            onClick: requested ? this.handleUnrequest : this.handleBlock,
-            color: 'primary',
-            backgroundColor: 'tertiary',
-          }
-        } else if (!account.get('moved') || following) {
-          buttonOptions = {
-            narrow: true,
-            outline: !following,
-            color: !following ? 'brand' : 'white',
-            backgroundColor: !following ? 'none' : 'brand',
-            onClick: this.handleFollow,
-          }
-          buttonText = intl.formatMessage(following ? messages.unfollow : messages.follow)
+      if (!account.get('relationship')) {
+        console.log("no relationship")
+        // Wait until the relationship is loaded
+      } else if (account.getIn(['relationship', 'requested'])) {
+        buttonText = intl.formatMessage(messages.requested)
+        buttonOptions = {
+          narrow: true,
+          onClick: this.handleFollow,
+          color: 'primary',
+          backgroundColor: 'tertiary',
         }
+      } else if (!account.getIn(['relationship', 'blocking'])) {
+        const isFollowing = account.getIn(['relationship', 'following'])
+        const isBlockedBy = account.getIn(['relationship', 'blocked_by'])
+        buttonText = intl.formatMessage(isFollowing ? messages.unfollow : messages.follow)
+        buttonOptions = {
+          narrow: true,
+          onClick: this.handleFollow,
+          color: 'primary',
+          backgroundColor: 'tertiary',
+          disabled: isBlockedBy,
+        }
+      } else if (account.getIn(['relationship', 'blocking'])) {
+        buttonText = intl.formatMessage(messages.unblock)
+        buttonOptions = {
+          narrow: true,
+          onClick: this.handleBlock,
+          color: 'primary',
+          backgroundColor: 'tertiary',
+        }
+      } else {
+        console.log("no nothin")
       }
+
+      // if (account.get('id') !== me && account.get('relationship', null) !== null) {
+      //   const following = account.getIn(['relationship', 'following'])
+      //   const requested = account.getIn(['relationship', 'requested'])
+      //   const blocking = account.getIn(['relationship', 'blocking'])
+
+      //   if (requested || blocking) {
+      //     buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
+      //     buttonOptions = {
+      //       narrow: true,
+      //       onClick: requested ? this.handleFollow : this.handleBlock,
+      //       color: 'primary',
+      //       backgroundColor: 'tertiary',
+      //     }
+      //   } else if (!account.get('moved') || following) {
+      //     buttonOptions = {
+      //       narrow: true,
+      //       outline: !following,
+      //       color: !following ? 'brand' : 'white',
+      //       backgroundColor: !following ? 'none' : 'brand',
+      //       onClick: this.handleFollow,
+      //     }
+      //     buttonText = intl.formatMessage(following ? messages.unfollow : messages.follow)
+      //   } else {
+      //     console.log("SHOW ELSE")
+      //   }
+      // }
     }
+
+    console.log("buttonOptions:", buttonText, buttonOptions)
+    
 
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
@@ -287,7 +303,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     icon='ellipsis'
                     iconWidth='18px'
                     iconHeight='18px'
-                    iconClassName={_s.fillColorBrand}
+                    iconClassName={_s.inheritFill}
                     color='brand'
                     backgroundColor='none'
                     className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
@@ -302,7 +318,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     icon='chat'
                     iconWidth='18px'
                     iconHeight='18px'
-                    iconClassName={_s.fillColorBrand}
+                    iconClassName={_s.inheritFill}
                     color='brand'
                     backgroundColor='none'
                     className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}

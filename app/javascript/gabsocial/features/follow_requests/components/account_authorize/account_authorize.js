@@ -6,7 +6,6 @@ import { makeGetAccount } from '../../../../selectors';
 import Button from '../../../../components/button'
 import Avatar from '../../../../components/avatar';
 import DisplayName from '../../../../components/display_name';
-import IconButton from '../../../../components/icon_button';
 
 const messages = defineMessages({
   authorize: { id: 'follow_request.authorize', defaultMessage: 'Authorize' },
@@ -64,10 +63,10 @@ class AccountAuthorize extends ImmutablePureComponent {
 
         <div className='account--panel'>
           <div className='account--panel__button'>
-            <IconButton title={intl.formatMessage(messages.authorize)} icon='check' onClick={onAuthorize} />
+            <Button title={intl.formatMessage(messages.authorize)} icon='check' onClick={onAuthorize} />
           </div>
           <div className='account--panel__button'>
-            <IconButton title={intl.formatMessage(messages.reject)} icon='times' onClick={onReject} />
+            <Button title={intl.formatMessage(messages.reject)} icon='times' onClick={onReject} />
           </div>
         </div>
       </div>

@@ -23,14 +23,6 @@ class GroupsPage extends PureComponent {
   componentDidMount() {
     document.title = 'Groups - Gab'
   }
-  
-  handleClickNewList () {
-    console.log("handleClickNewList")
-  }
-
-  handleClickEditLists () {
-    console.log("handleClickEditLists")
-  }
 
   render() {
     const { children, onOpenGroupCreateModal } = this.props

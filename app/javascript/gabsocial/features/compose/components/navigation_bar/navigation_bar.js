@@ -1,10 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { FormattedMessage } from 'react-intl';
-import ActionBar from '../action_bar';
 import Avatar from '../../../../components/avatar';
 import Button from '../../../../components/button'
-import IconButton from '../../../../components/icon_button';
 import { me } from '../../../../initial_state';
 
 const mapStateToProps = state => {
@@ -43,8 +41,7 @@ class NavigationBar extends ImmutablePureComponent {
         </div>
 
         <div className='navigation-bar__actions'>
-          <IconButton className='close' title='' icon='close' onClick={this.props.onClose} />
-          <ActionBar account={account} />
+          <Button className='close' title='' icon='close' onClick={this.props.onClose} />
         </div>
       </div>
     );

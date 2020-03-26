@@ -7,7 +7,7 @@ import { decode } from 'blurhash';
 import { autoPlayGif, displayMedia } from '../../initial_state';
 import { isIOS } from '../../utils/is_mobile';
 import { isPanoramic, isPortrait, isNonConformingRatio, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio';
-import IconButton from '../icon_button';
+import Button from '../button';
 
 const messages = defineMessages({
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Toggle visibility' },
@@ -503,7 +503,7 @@ class MediaGallery extends PureComponent {
     ));
 
     if (visible) {
-      spoilerButton = <IconButton title={intl.formatMessage(messages.toggle_visible)} icon='eye-slash' overlay onClick={this.handleOpen} />;
+      spoilerButton = <Button title={intl.formatMessage(messages.toggle_visible)} icon='eye-slash' overlay onClick={this.handleOpen} />;
     } else {
       spoilerButton = (
         <button type='button' onClick={this.handleOpen} className='spoiler-button__overlay'>

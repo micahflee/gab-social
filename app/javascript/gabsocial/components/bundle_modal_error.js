@@ -1,5 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl';
-import IconButton from './icon_button';
+import Button from './button';
 
 const messages = defineMessages({
   error: { id: 'bundle_modal_error.message', defaultMessage: 'Something went wrong while loading this component.' },
@@ -29,7 +29,7 @@ class BundleModalError extends PureComponent {
     return (
       <div className='modal-root__modal error-modal'>
         <div className='error-modal__body'>
-          <IconButton title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
+          <Button title={formatMessage(messages.retry)} icon='refresh' onClick={this.handleRetry} size={64} />
           {formatMessage(messages.error)}
         </div>
 
