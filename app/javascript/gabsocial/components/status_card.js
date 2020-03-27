@@ -3,7 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import punycode from 'punycode';
 import classnames from 'classnames';
-import Icon from '../../../../components/icon';
+import Icon from './icon';
 
 const IDNA_PREFIX = 'xn--';
 

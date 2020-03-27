@@ -58,7 +58,7 @@ export default class TrendingItemCard extends ImmutablePureComponent {
             The best flower subscription services: BloomsyBox, Bouqs...
           </Text>
         </div>
-        <Image width='92px' height='92px' />
+        <Image width='92px' height='96px' />
       </div>
     )
   }

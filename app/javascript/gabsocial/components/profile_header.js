@@ -242,6 +242,8 @@ class ProfileHeader extends ImmutablePureComponent {
     console.log("buttonOptions:", buttonText, buttonOptions)
     
 
+    // : todo : "follows you", "mutual follow"
+
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
 

@@ -5,6 +5,7 @@ import BundleModalError from '../bundle_modal_error'
 import PopoverBase from './popover_base'
 import ContentWarningPopover from './content_warning_popover'
 import DatePickerPopover from './date_picker_popover'
+import EmojiPickerPopover from './emoji_picker_popover'
 import GroupInfoPopover from './group_info_popover'
 import ProfileOptionsPopover from './profile_options_popover'
 import SearchPopover from './search_popover'
@@ -19,6 +20,7 @@ const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : fal
 const POPOVER_COMPONENTS = {
   CONTENT_WARNING: () => Promise.resolve({ default: ContentWarningPopover }),
   DATE_PICKER: () => Promise.resolve({ default: DatePickerPopover }),
+  EMOJI_PICKER: () => Promise.resolve({ default: EmojiPickerPopover }),
   GROUP_INFO: () => GroupInfoPopover,
   PROFILE_OPTIONS: () => Promise.resolve({ default: ProfileOptionsPopover }),
   SEARCH: () => Promise.resolve({ default: SearchPopover }),

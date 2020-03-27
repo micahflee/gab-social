@@ -30,19 +30,14 @@ class GroupsCollection extends ImmutablePureComponent {
 	render() {
 		const { groupIds } = this.props
 
-		
+
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-				<ScrollableList
-          scrollKey='groups_collection'
-          emptyMessage={''}
-        >
-					{
-						groupIds.map((groupId, i) => (
-							<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
-						))
-					}
-				</ScrollableList>
+				{
+					groupIds.map((groupId, i) => (
+						<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+					))
+				}
 			</div>
 		)
 	}

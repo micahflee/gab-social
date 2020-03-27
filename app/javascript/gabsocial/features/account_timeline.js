@@ -2,9 +2,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { List as ImmutableList } from 'immutable'
 import { injectIntl, defineMessages } from 'react-intl'
-import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../../actions/timelines'
-import { fetchAccountIdentityProofs } from '../../actions/identity_proofs'
-import StatusList from '../../components/status_list'
+import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../actions/timelines'
+import { fetchAccountIdentityProofs } from '../actions/identity_proofs'
+import StatusList from '../components/status_list'
 
 const messages = defineMessages({
   empty: { id: 'empty_column.account_timeline', defaultMessage: 'No gabs here!' },

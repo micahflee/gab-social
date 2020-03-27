@@ -285,12 +285,18 @@ class StatusContent extends ImmutablePureComponent {
           />
           {
             this.state.collapsed &&
-            <button
-              className={[_s.default, _s.displayFlex, _s.cursorPointer, _s.py2, _s.text, _s.colorPrimary, _s.fontWeightBold, _s.fontSize15PX].join(' ')}
+            <Button
+              text
+              underlineOnHover
+              color='primary'
+              backgroundColor='none'
+              className={[_s.py2].join(' ')}
               onClick={this.handleReadMore}
             >
-              {intl.formatMessage(messages.readMore)}
-            </button>
+              <Text size='medium' color='inherit' weight='bold'>
+                {intl.formatMessage(messages.readMore)}
+              </Text>
+            </Button>
           }
         </div>
       )

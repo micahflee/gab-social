@@ -54,10 +54,10 @@ class TrendsPanel extends ImmutablePureComponent {
           { /* trends && trends.map(hashtag => (
             <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />
           )) */ }
-          <TrendingItem />
-          <TrendingItem />
-          <TrendingItem />
-          <TrendingItem />
+          <TrendingItem index='1' />
+          <TrendingItem index='2' />
+          <TrendingItem index='3' />
+          <TrendingItem index='4' />
         </div>
       </PanelLayout>
     )

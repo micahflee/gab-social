@@ -1,29 +1,30 @@
-import { defineMessages, injectIntl } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { length } from 'stringz';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import { defineMessages, injectIntl } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { length } from 'stringz'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
-import CharacterCounter from '../character_counter';
-import UploadForm from '../upload_form';
-import ReplyIndicatorContainer from '../../containers/reply_indicator_container';
-import AutosuggestTextbox from '../../../../components/autosuggest_textbox';
-import PollButton from '../../components/poll_button';
-import UploadButton from '../../components/upload_button';
-import SpoilerButton from '../../components/spoiler_button';
-import PostPrivacyButton from '../../../../components/post_privacy_button';
+import CharacterCounter from '../character_counter'
+import UploadForm from '../upload_form'
+import ReplyIndicatorContainer from '../../containers/reply_indicator_container'
+import AutosuggestTextbox from '../../../../components/autosuggest_textbox'
+import PollButton from '../../components/poll_button'
+import UploadButton from '../../components/upload_button'
+import SpoilerButton from '../../components/spoiler_button'
+import RichTextEditorButton from '../../components/rich_text_editor_button'
+import GifSelectorButton from '../../components/gif_selector_button'
+import StatusVisibilityButton from '../../components/status_visibility_button'
 import EmojiPickerButton from '../../components/emoji_picker_button'
-import EmojiPickerDropdown from '../../containers/emoji_picker_dropdown_container';
-import PollFormContainer from '../../containers/poll_form_container';
-import SchedulePostDropdown from '../../components/schedule_post_dropdown';
-import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container';
-import Icon from '../../../../components/icon';
-import Button from '../../../../components/button';
+import PollFormContainer from '../../containers/poll_form_container'
+import SchedulePostDropdown from '../../components/schedule_post_dropdown'
+import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container'
+import Icon from '../../../../components/icon'
+import Button from '../../../../components/button'
 import Avatar from '../../../../components/avatar'
-import { isMobile } from '../../../../utils/is_mobile';
-import { countableText } from '../../util/counter';
+import { isMobile } from '../../../../utils/is_mobile'
+import { countableText } from '../../util/counter'
 
-const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d';
-const maxPostCharacterCount = 3000;
+const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d'
+const maxPostCharacterCount = 3000
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
@@ -266,6 +267,7 @@ class ComposeForm extends ImmutablePureComponent {
       pb10: 1,
       borderBottom1PX: 1,
       borderColorSecondary: 1,
+      mb10: 1,
       displayNone: !spoiler
     })
 
@@ -303,11 +305,6 @@ class ComposeForm extends ImmutablePureComponent {
             />
           </div>
 
-          { /*
-        <div className='emoji-picker-wrapper'>
-          <EmojiPickerDropdown onPickEmoji={this.handleEmojiPick} />
-        </div> */ }
-
           <AutosuggestTextbox
             ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
             placeholder={intl.formatMessage(messages.placeholder)}
@@ -340,16 +337,18 @@ class ComposeForm extends ImmutablePureComponent {
 
           <div className={actionsContainerClasses}>
             <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
+              <RichTextEditorButton small={shouldCondense} />
               <UploadButton small={shouldCondense} />
               {
                 !edit && <PollButton small={shouldCondense} />
               }
               {
                 !shouldCondense &&
-                <PostPrivacyButton />
+                <StatusVisibilityButton small={shouldCondense} />
               }
               <SpoilerButton small={shouldCondense} />
               <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />
+              <GifSelectorButton small={shouldCondense} />
               <EmojiPickerButton small={shouldCondense} />
             </div>
             <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />

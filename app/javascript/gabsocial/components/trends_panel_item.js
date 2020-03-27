@@ -15,6 +15,7 @@ const cx = classNames.bind(_s)
 export default class TrendingItem extends ImmutablePureComponent {
 
   static propTypes = {
+    index: PropTypes.number,
     trend: ImmutablePropTypes.map.isRequired,
   }
 
@@ -31,7 +32,7 @@ export default class TrendingItem extends ImmutablePureComponent {
   }
 
   render() {
-    const { trend } = this.props
+    const { trend, index } = this.props
     const { hovering } = this.state
 
     const subtitleClasses = cx({
@@ -44,7 +45,7 @@ export default class TrendingItem extends ImmutablePureComponent {
       underline: hovering,
     })
 
-    return null;
+    // return null;
 
     // : todo :
 
@@ -56,7 +57,7 @@ export default class TrendingItem extends ImmutablePureComponent {
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
         <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
-          <Text size='small' color='secondary'>1</Text>
+          <Text size='small' color='secondary'>{index}</Text>
           <DotTextSeperator />
           <Text size='small' color='secondary' className={_s.ml5}>Politics</Text>
         </div>

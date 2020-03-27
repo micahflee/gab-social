@@ -2,8 +2,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import { FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { NavLink } from 'react-router-dom';
-import DisplayName from '../../../../components/display_name';
-import Icon from '../../../../components/icon';
+import DisplayName from './display_name';
+import Icon from './icon';
 
 export default class MovedNote extends ImmutablePureComponent {
 

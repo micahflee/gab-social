@@ -1,11 +1,14 @@
-import { defineMessages, injectIntl } from 'react-intl';
-import classNames from 'classnames';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import detectPassiveEvents from 'detect-passive-events';
-import Overlay from 'react-overlays/lib/Overlay';
-import { EmojiPicker as EmojiPickerAsync } from '../../../ui/util/async_components';
-import { buildCustomEmojis } from '../../../../components/emoji/emoji';
+import { defineMessages, injectIntl } from 'react-intl'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { Map as ImmutableMap } from 'immutable'
+import classNames from 'classnames'
+import { createSelector } from 'reselect'
+import detectPassiveEvents from 'detect-passive-events'
+import { changeSetting } from '../../actions/settings'
+import { useEmoji } from '../../actions/emojis'
+import { EmojiPicker as EmojiPickerAsync } from '../../features/ui/util/async_components'
+import { buildCustomEmojis } from '../emoji/emoji'
 
 const messages = defineMessages({
   emoji: { id: 'emoji_button.label', defaultMessage: 'Insert emoji' },
@@ -22,13 +25,13 @@ const messages = defineMessages({
   objects: { id: 'emoji_button.objects', defaultMessage: 'Objects' },
   symbols: { id: 'emoji_button.symbols', defaultMessage: 'Symbols' },
   flags: { id: 'emoji_button.flags', defaultMessage: 'Flags' },
-});
+})
 
-const assetHost = process.env.CDN_HOST || '';
-let EmojiPicker, Emoji; // load asynchronously
+const assetHost = process.env.CDN_HOST || ''
+let EmojiPicker, Emoji // load asynchronously
 
-const backgroundImageFn = () => `${assetHost}/emoji/sheet_10.png`;
-const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false;
+const backgroundImageFn = () => `${assetHost}/emoji/sheet_10.png`
+const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 const categoriesSort = [
   'recent',
@@ -93,9 +96,9 @@ class ModifierPickerMenu extends PureComponent {
     return (
       <div className='emoji-picker-dropdown__modifiers__menu' style={{ display: active ? 'block' : 'none' }} ref={this.setRef}>
         <button onClick={this.handleClick} data-index={1}>
-          <Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={1} backgroundImageFn={backgroundImageFn} />
+          {/*<Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={1} backgroundImageFn={backgroundImageFn} />*/}
         </button>
-        <button onClick={this.handleClick} data-index={2}>
+        {/*<button onClick={this.handleClick} data-index={2}>
           <Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={2} backgroundImageFn={backgroundImageFn} />
         </button>
         <button onClick={this.handleClick} data-index={3}>
@@ -109,7 +112,7 @@ class ModifierPickerMenu extends PureComponent {
         </button>
         <button onClick={this.handleClick} data-index={6}>
           <Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={6} backgroundImageFn={backgroundImageFn} />
-        </button>
+    </button>*/}
       </div>
     );
   }
@@ -144,7 +147,7 @@ class ModifierPicker extends PureComponent {
 
     return (
       <div className='emoji-picker-dropdown__modifiers'>
-        <Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={modifier} onClick={this.handleClick} backgroundImageFn={backgroundImageFn} />
+        { /* <Emoji emoji='fist' set='twitter' size={22} sheetSize={32} skin={modifier} onClick={this.handleClick} backgroundImageFn={backgroundImageFn} /> */ }
         <ModifierPickerMenu active={active} onSelect={this.handleSelect} onClose={this.props.onClose} />
       </div>
     );
@@ -162,7 +165,6 @@ class EmojiPickerMenu extends ImmutablePureComponent {
     onClose: PropTypes.func.isRequired,
     onPick: PropTypes.func.isRequired,
     style: PropTypes.object,
-    placement: PropTypes.string,
     arrowOffsetLeft: PropTypes.string,
     arrowOffsetTop: PropTypes.string,
     intl: PropTypes.object.isRequired,
@@ -178,7 +180,6 @@ class EmojiPickerMenu extends ImmutablePureComponent {
 
   state = {
     modifierOpen: false,
-    placement: null,
   };
 
   handleDocumentClick = e => {
@@ -252,7 +253,7 @@ class EmojiPickerMenu extends ImmutablePureComponent {
     }
 
     const title = intl.formatMessage(messages.emoji);
-    const { modifierOpen } = this.state;
+    const { modifierOpen } = this.state
 
     return (
       <div className={classNames('emoji-picker-dropdown__menu', { selecting: modifierOpen })} style={style} ref={this.setRef}>
@@ -289,9 +290,85 @@ class EmojiPickerMenu extends ImmutablePureComponent {
 
 }
 
+const perLine = 8
+const lines = 2
+
+const DEFAULTS = [
+  '+1',
+  'grinning',
+  'kissing_heart',
+  'heart_eyes',
+  'laughing',
+  'stuck_out_tongue_winking_eye',
+  'sweat_smile',
+  'joy',
+  'yum',
+  'disappointed',
+  'thinking_face',
+  'weary',
+  'sob',
+  'sunglasses',
+  'heart',
+  'ok_hand',
+];
+
+const getFrequentlyUsedEmojis = createSelector([
+  state => state.getIn(['settings', 'frequentlyUsedEmojis'], ImmutableMap()),
+], emojiCounters => {
+  let emojis = emojiCounters
+    .keySeq()
+    .sort((a, b) => emojiCounters.get(a) - emojiCounters.get(b))
+    .reverse()
+    .slice(0, perLine * lines)
+    .toArray();
+
+  if (emojis.length < DEFAULTS.length) {
+    let uniqueDefaults = DEFAULTS.filter(emoji => !emojis.includes(emoji));
+    emojis = emojis.concat(uniqueDefaults.slice(0, DEFAULTS.length - emojis.length));
+  }
+
+  return emojis;
+});
+
+const getCustomEmojis = createSelector([
+  state => state.get('custom_emojis'),
+], emojis => emojis.filter(e => e.get('visible_in_picker')).sort((a, b) => {
+  const aShort = a.get('shortcode').toLowerCase();
+  const bShort = b.get('shortcode').toLowerCase();
+
+  if (aShort < bShort) {
+    return -1;
+  } else if (aShort > bShort ) {
+    return 1;
+  }
+
+  return 0;
+}));
+
+const mapStateToProps = state => ({
+  custom_emojis: getCustomEmojis(state),
+  skinTone: state.getIn(['settings', 'skinTone']),
+  frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),
+});
+
+const mapDispatchToProps = (dispatch, { onPickEmoji }) => ({
+  onSkinTone: skinTone => {
+    dispatch(changeSetting(['skinTone'], skinTone));
+  },
+
+  onPickEmoji: emoji => {
+    dispatch(useEmoji(emoji));
+
+    if (onPickEmoji) {
+      onPickEmoji(emoji);
+    }
+  },
+});
+
 export default
 @injectIntl
-class EmojiPickerDropdown extends ImmutablePureComponent {
+@connect(mapStateToProps, mapDispatchToProps)
+class EmojiPickerPopover extends ImmutablePureComponent {
 
   static propTypes = {
     custom_emojis: ImmutablePropTypes.list,
@@ -307,11 +384,7 @@ class EmojiPickerDropdown extends ImmutablePureComponent {
     loading: false,
   };
 
-  setRef = (c) => {
-    this.dropdown = c;
-  }
-
-  onShowDropdown = ({ target }) => {
+  componentWillMount = () => {
     this.setState({ active: true });
 
     if (!EmojiPicker) {
@@ -326,9 +399,6 @@ class EmojiPickerDropdown extends ImmutablePureComponent {
         this.setState({ loading: false });
       });
     }
-
-    const { top } = target.getBoundingClientRect();
-    this.setState({ placement: top * 2 < innerHeight ? 'bottom' : 'top' });
   }
 
   onHideDropdown = () => {
@@ -351,40 +421,28 @@ class EmojiPickerDropdown extends ImmutablePureComponent {
     }
   }
 
-  setTargetRef = c => {
-    this.target = c;
-  }
-
-  findTarget = () => {
-    return this.target;
-  }
-
   render () {
-    const { intl, onPickEmoji, onSkinTone, skinTone, frequentlyUsedEmojis } = this.props;
-    const title = intl.formatMessage(messages.emoji);
-    const { active, loading, placement } = this.state;
+    const {
+      intl,
+      onPickEmoji,
+      onSkinTone,
+      skinTone,
+      frequentlyUsedEmojis
+    } = this.props
+    
+    const { active, loading } = this.state;
 
     return (
       <div className='emoji-picker-dropdown' onKeyDown={this.handleKeyDown}>
-        <div ref={this.setTargetRef} className='emoji-button' title={title} aria-label={title} aria-expanded={active} role='button' onClick={this.onToggle} onKeyDown={this.onToggle} tabIndex={0}>
-          <img
-            className={classNames('emojione', { 'pulse-loading': active && loading })}
-            alt='🙂'
-            src={`${assetHost}/emoji/1f602.svg`}
-          />
-        </div>
-
-        <Overlay show={active} placement={placement} target={this.findTarget}>
-          <EmojiPickerMenu
-            custom_emojis={this.props.custom_emojis}
-            loading={loading}
-            onClose={this.onHideDropdown}
-            onPick={onPickEmoji}
-            onSkinTone={onSkinTone}
-            skinTone={skinTone}
-            frequentlyUsedEmojis={frequentlyUsedEmojis}
-          />
-        </Overlay>
+        <EmojiPickerMenu
+          custom_emojis={this.props.custom_emojis}
+          loading={loading}
+          onClose={this.onHideDropdown}
+          onPick={onPickEmoji}
+          onSkinTone={onSkinTone}
+          skinTone={skinTone}
+          frequentlyUsedEmojis={frequentlyUsedEmojis}
+        />
       </div>
     );
   }

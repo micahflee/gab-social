@@ -139,6 +139,7 @@ export default class Button extends PureComponent {
       backgroundColorBrand_onHover: color === COLORS.brand && outline,
       colorWhite_onHover: !!children && color === COLORS.brand && outline,
 
+      fillColorSecondary: !!icon && color === COLORS.secondary,
       fillColorWhite: !!icon && color === COLORS.white,
       fillColorBrand: !!icon && color === COLORS.brand,
       fillColorWhite_onHover: !!icon && color === COLORS.brand && outline,

@@ -7,7 +7,7 @@ export function AccountGallery() {
 }
 
 export function Blocks() {
-  return import(/* webpackChunkName: "features/blocks" */'../../blocks')
+  return import(/* webpackChunkName: "features/blocks" */'../../blocked_accounts')
 }
 
 export function CommunityTimeline() {
@@ -19,7 +19,7 @@ export function Compose() {
 }
 
 export function DomainBlocks() {
-  return import(/* webpackChunkName: "features/domain_blocks" */'../../domain_blocks')
+  return import(/* webpackChunkName: "features/domain_blocks" */'../../blocked_domains')
 }
 
 export function EmbedModal() {

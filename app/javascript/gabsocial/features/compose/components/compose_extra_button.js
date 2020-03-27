@@ -11,6 +11,7 @@ export default class ComposeExtraButton extends PureComponent {
     icon: PropTypes.string,
     small: PropTypes.bool,
     active: PropTypes.bool,
+    buttonRef: PropTypes.func,
   }
 
   render() {
@@ -21,16 +22,12 @@ export default class ComposeExtraButton extends PureComponent {
       icon,
       children,
       small,
-      active
+      active,
+      buttonRef
     } = this.props
 
-    const containerClasses = cx({
-      default: 1,
-      mr10: !small,
-      mr2: small,
-    })
-
     const btnClasses = cx({
+      backgroundSubtle_onHover: 1,
       backgroundColorBrandLight: active,
       py10: !small,
       px10: !small,
@@ -43,16 +40,16 @@ export default class ComposeExtraButton extends PureComponent {
       fillColorWhite: active,
     })
 
-    const iconSize = !!small ? '12px' : '18px'
+    const iconSize = !!small ? '12px' : '16px'
 
     return (
-      <div className={containerClasses} data-tip={title}>
+      <div className={[_s.default, _s.mr2].join(' ')} ref={buttonRef}>
         <Button
           className={btnClasses}
           title={title}
           disabled={disabled}
           onClick={onClick}
-          backgroundColor='secondary'
+          backgroundColor='none'
           iconClassName={iconClasses}
           icon={icon}
           iconWidth={iconSize}

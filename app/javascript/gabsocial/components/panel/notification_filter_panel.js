@@ -8,6 +8,8 @@ import Button from '../button'
 import Divider from '../divider'
 import Heading from '../heading'
 import Icon from '../icon'
+import Input from '../input'
+import Switch from '../switch'
 import Text from '../text'
 
 const messages = defineMessages({
@@ -33,11 +35,26 @@ class NotificationFilterPanel extends ImmutablePureComponent {
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
-        <Text>Date</Text>
-        <Text>Verified</Text>
-        <Text>Users</Text>
-        <Text>Status Id</Text>
-        <Text>Only People I Follow</Text>
+        <Text>Start Date</Text>
+        <Text>End Date</Text>
+
+        <Divider small />
+
+        <Input title='From specific user(s)' small />
+
+        <Input title='From a specific status' small />
+
+        <Divider small />
+
+        <Switch 
+          id='notifications-verified'
+          label='Only Verified Users'
+        />
+        
+        <Switch 
+          id='notifications-verified'
+          label='Only People I Follow'
+        />
       </PanelLayout>
     )
   }

@@ -58,7 +58,7 @@ class ModalLayout extends PureComponent {
     const childrenContainerClasses = cx({
       default: 1,
       heightMax80VH: 1,
-      overflowScroll: 1,
+      overflowYScroll: 1,
       px15: !noPadding,
       py10: !noPadding,
     })
@@ -77,6 +77,7 @@ class ModalLayout extends PureComponent {
                 title={intl.formatMessage(messages.close)}
                 className={_s.marginLeftAuto}
                 onClick={this.onHandleCloseModal}
+                color='secondary'
                 icon='close'
                 iconWidth='10px'
                 iconWidth='10px'

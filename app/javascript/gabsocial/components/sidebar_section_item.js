@@ -103,7 +103,7 @@ export default class SidebarSectionItem extends PureComponent {
         buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.alignItemsStart, _s.backgroundTransparent].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.backgroundTransparent].join(' ')}
       >
         <div className={containerClasses}>
           <div className={[_s.default]}>
