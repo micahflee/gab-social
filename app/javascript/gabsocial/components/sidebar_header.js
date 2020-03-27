@@ -6,6 +6,7 @@ import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import GabLogo from '../assets/gab_logo'
 import SidebarSectionItem from './sidebar_section_item'
+import Text from './text'
 
 const mapStateToProps = state => {
   const getAccount = makeGetAccount()
@@ -29,8 +30,11 @@ class SidebarHeader extends ImmutablePureComponent {
     return (
       <Fragment>
         <h1 className={[_s.default].join(' ')}>
-          <NavLink to='/' aria-label='Gab' className={[_s.default, _s.noSelect, _s.noUnderline, _s.height50PX, _s.justifyContentCenter, _s.cursorPointer, _s.px10].join(' ')}>
+          <NavLink to='/' aria-label='Gab' className={[_s.default, _s.flexRow, _s.noSelect, _s.noUnderline, _s.height50PX, _s.cursorPointer, _s.px10].join(' ')}>
             <GabLogo />
+            <Text weight='bold' color='brand' size='extraSmall' className={[_s.pb5].join(' ')}>
+              BETA
+            </Text>
           </NavLink>
         </h1>
 
