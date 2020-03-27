@@ -610,10 +610,6 @@ ja:
     lists: リスト
     mutes: ミュート
     storage: メディア
-  featured_tags:
-    add_new: 追加
-    errors:
-      limit: 注目のハッシュタグの上限に達しました
   filters:
     contexts:
       home: ホームタイムライン
@@ -868,7 +864,6 @@ ja:
     development: 開発
     edit_profile: プロフィールを編集
     export: データのエクスポート
-    featured_tags: 注目のハッシュタグ
     identity_proofs: Identity proofs
     import: データのインポート
     import_and_export: インポート・エクスポート

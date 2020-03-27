@@ -572,10 +572,6 @@ fr:
     lists: Listes
     mutes: Vous masquez
     storage: Médias stockés
-  featured_tags:
-    add_new: Ajouter un nouvel hashtag
-    errors:
-      limit: Vous avez déjà mis en avant le nombre maximum de hashtags
   filters:
     contexts:
       home: Accueil
@@ -793,7 +789,6 @@ fr:
     development: Développement
     edit_profile: Modifier le profil
     export: Export de données
-    featured_tags: Hashtags mis en avant
     import: Import de données
     migrate: Migration de compte
     notifications: Notifications

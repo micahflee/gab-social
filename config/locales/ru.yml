@@ -624,10 +624,6 @@ ru:
     lists: Списки
     mutes: Список глушения
     storage: Ваш медиаконтент
-  featured_tags:
-    add_new: Добавить
-    errors:
-      limit: Вы уже добавили максимальное число хэштегов
   filters:
     contexts:
       home: Домашняя лента
@@ -891,7 +887,6 @@ ru:
     development: Разработка
     edit_profile: Изменить профиль
     export: Экспорт данных
-    featured_tags: Особенные хэштеги
     identity_proofs: Подтверждения личности
     import: Импорт
     import_and_export: Импорт и экспорт

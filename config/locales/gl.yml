@@ -600,10 +600,6 @@ gl:
     lists: Listas
     mutes: Acalou
     storage: Almacenamento de medios
-  featured_tags:
-    add_new: Engadir novo
-    errors:
-      limit: Xa acadou o número máximo de etiquetas
   filters:
     contexts:
       home: Liña temporal inicial
@@ -848,7 +844,6 @@ gl:
     development: Desenvolvemento
     edit_profile: Editar perfil
     export: Exportar datos
-    featured_tags: Etiquetas destacadas
     identity_proofs: Probas de identidade
     import: Importar
     migrate: Migrar conta

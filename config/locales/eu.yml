@@ -571,10 +571,6 @@ eu:
     lists: Zerrendak
     mutes: Zuk mututukoak
     storage: Multimedia biltegiratzea
-  featured_tags:
-    add_new: Gehitu berria
-    errors:
-      limit: Gehienezko traola kopurua nabarmendu duzu jada
   filters:
     contexts:
       home: Hasierako denbora-lerroa
@@ -782,7 +778,6 @@ eu:
     development: Garapena
     edit_profile: Aldatu profila
     export: Datuen esportazioa
-    featured_tags: Nabarmendutako traolak
     import: Inportazioa
     migrate: Kontuaren migrazioa
     notifications: Jakinarazpenak

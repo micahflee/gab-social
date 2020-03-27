@@ -612,10 +612,6 @@ ko:
     lists: 리스트
     mutes: 뮤트
     storage: 미디어
-  featured_tags:
-    add_new: 추가
-    errors:
-      limit: 이미 추천 해시태그의 개수가 최대입니다
   filters:
     contexts:
       home: 홈 타임라인
@@ -871,7 +867,6 @@ ko:
     development: 개발
     edit_profile: 프로필 편집
     export: 데이터 내보내기
-    featured_tags: 추천 해시태그
     identity_proofs: 신원 증명
     import: 데이터 가져오기
     import_and_export: 가져오기 / 내보내기

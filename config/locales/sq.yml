@@ -569,10 +569,6 @@ sq:
     lists: Lista
     mutes: Heshtoni
     storage: Depozitim për media
-  featured_tags:
-    add_new: Shtoni të re
-    errors:
-      limit: Keni përdorur tashmë si të zgjedhur sasinë maksimum të hashtagëve
   filters:
     contexts:
       home: Rrjedhë kohore vetjake
@@ -779,7 +775,6 @@ sq:
     development: Zhvillim
     edit_profile: Përpunoni profilin
     export: Eksportim të dhënash
-    featured_tags: Hashtagë të zgjedhur
     import: Importo
     migrate: Migrim llogarie
     notifications: Njoftime

@@ -574,10 +574,6 @@ pt:
     lists: Listas
     mutes: Tens em silêncio
     storage: Armazenamento de média
-  featured_tags:
-    add_new: Adicionar nova
-    errors:
-      limit: Já atingiste o limite máximo de hashtags
   filters:
     contexts:
       home: Cronologia inicial
@@ -795,7 +791,6 @@ pt:
     development: Desenvolvimento
     edit_profile: Editar perfil
     export: Exportar dados
-    featured_tags: Hashtags destacadas
     import: Importar
     migrate: Migração de conta
     notifications: Notificações

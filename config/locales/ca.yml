@@ -610,10 +610,6 @@ ca:
     lists: Llistes
     mutes: Persones silenciades
     storage: Emmagatzematge
-  featured_tags:
-    add_new: Afegir nova
-    errors:
-      limit: Ja has mostrat la quantitat màxima d'etiquetes
   filters:
     contexts:
       home: Línia de temps Inici
@@ -869,7 +865,6 @@ ca:
     development: Desenvolupament
     edit_profile: Editar perfil
     export: Exportar dades
-    featured_tags: Etiquetes destacades
     identity_proofs: Proves d'identitat
     import: Importar
     import_and_export: Importar i exportar

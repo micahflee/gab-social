@@ -618,10 +618,6 @@ pl:
     lists: Listy
     mutes: Wyciszeni
     storage: Urządzenie przechowujące dane
-  featured_tags:
-    add_new: Dodaj nowy
-    errors:
-      limit: Już przekroczyłeś(-aś) maksymalną liczbę wyróżnionych hashtagów
   filters:
     contexts:
       home: Strona główna
@@ -882,7 +878,6 @@ pl:
     development: Tworzenie aplikacji
     edit_profile: Edytuj profil
     export: Eksportowanie danych
-    featured_tags: Wyróżnione hashtagi
     identity_proofs: Dowody tożsamości
     import: Importowanie danych
     migrate: Migracja konta

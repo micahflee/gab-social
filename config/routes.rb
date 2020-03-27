@@ -134,7 +134,6 @@ Rails.application.routes.draw do
     resource :migration, only: [:show, :update]
 
     resources :sessions, only: [:destroy]
-    resources :featured_tags, only: [:index, :create, :destroy]
     resources :scheduled_statuses, only: [:index, :destroy]
   end
 

@@ -572,10 +572,6 @@ kk:
     lists: Тізімдер
     mutes: Үнсіздер
     storage: Медиа жинақ
-  featured_tags:
-    add_new: Жаңасын қосу
-    errors:
-      limit: Хэштег лимитинен асып кеттіңіз
   filters:
     contexts:
       home: Ішкі желі
@@ -792,7 +788,6 @@ kk:
     development: Жасаушы топ
     edit_profile: Профиль өңдеу
     export: Экспорт уақыты
-    featured_tags: Таңдаулы хэштегтер
     import: Импорт
     migrate: Аккаунт көшіру
     notifications: Ескертпелер

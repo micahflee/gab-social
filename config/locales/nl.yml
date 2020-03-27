@@ -610,10 +610,6 @@ nl:
     lists: Lijsten
     mutes: Jij negeert
     storage: Mediaopslag
-  featured_tags:
-    add_new: Nieuwe toevoegen
-    errors:
-      limit: Je hebt al het maximaal aantal hashtags uitgelicht
   filters:
     contexts:
       home: Starttijdlijn
@@ -869,7 +865,6 @@ nl:
     development: Ontwikkelaars
     edit_profile: Profiel bewerken
     export: Exporteren
-    featured_tags: Uitgelichte hashtags
     identity_proofs: Identiteitsbewijzen
     import: Importeren
     import_and_export: Importeren en exporteren

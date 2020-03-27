@@ -609,10 +609,6 @@ sk:
     lists: Zoznamy
     mutes: Stíšil/a si
     storage: Úložisko médií
-  featured_tags:
-    add_new: Pridaj nový
-    errors:
-      limit: Už si si predvolil/a najvyšší možný počet obľúbených haštagov
   filters:
     contexts:
       home: Domáca os
@@ -836,7 +832,6 @@ sk:
     development: Vývoj
     edit_profile: Uprav profil
     export: Exportuj dáta
-    featured_tags: Zvýraznené haštagy
     import: Importuj
     import_and_export: Import a export
     migrate: Presuň účet

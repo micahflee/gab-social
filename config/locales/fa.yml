@@ -603,10 +603,6 @@ fa:
     lists: فهرست‌ها
     mutes: حساب‌های بی‌صداشده
     storage: تصویرهای ذخیره‌شده
-  featured_tags:
-    add_new: افزودن تازه
-    errors:
-      limit: شما بیشترین تعداد مجاز برچسب‌ها را دارید
   filters:
     contexts:
       home: خانه
@@ -853,7 +849,6 @@ fa:
     development: فرابری
     edit_profile: ویرایش نمایه
     export: برون‌سپاری داده‌ها
-    featured_tags: برچسب‌های منتخب
     identity_proofs: مدرک شناسه‌ها
     import: درون‌ریزی
     migrate: انتقال حساب

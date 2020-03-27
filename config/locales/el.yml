@@ -603,10 +603,6 @@ el:
     lists: Λίστες
     mutes: Αποσιωπάς
     storage: Αποθήκευση πολυμέσων
-  featured_tags:
-    add_new: Προσθήκη νέας
-    errors:
-      limit: Έχεις ήδη προσθέσει το μέγιστο αριθμό ταμπελών
   filters:
     contexts:
       home: Αρχική ροή
@@ -852,7 +848,6 @@ el:
     development: Ανάπτυξη
     edit_profile: Επεξεργασία προφίλ
     export: Εξαγωγή δεδομένων
-    featured_tags: Χαρακτηριστικές ταμπέλες
     identity_proofs: Αποδείξεις ταυτοτήτων
     import: Εισαγωγή
     migrate: Μετακόμιση λογαριασμού

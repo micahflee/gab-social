@@ -648,10 +648,6 @@ oc:
     lists: Listas
     mutes: Personas rescondudas
     storage: Mèdias gardats
-  featured_tags:
-    add_new: Ajustar una etiqueta nòva
-    errors:
-      limit: Avètz ja utilizat lo maximum d’etiquetas
   filters:
     contexts:
       home: Flux d’acuèlh
@@ -884,7 +880,6 @@ oc:
     development: Desvolopament
     edit_profile: Modificar lo perfil
     export: Exportar de donadas
-    featured_tags: Etiquetas en avant
     import: Importar de donadas
     migrate: Migracion de compte
     notifications: Notificacions

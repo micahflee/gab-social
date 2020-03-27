@@ -551,10 +551,6 @@ it:
     lists: Liste
     mutes: Stai silenziando
     storage: Archiviazione media
-  featured_tags:
-    add_new: Aggiungi nuovo
-    errors:
-      limit: Hai già messo in evidenza il numero massimo di hashtag
   filters:
     contexts:
       home: Timeline home
@@ -757,7 +753,6 @@ it:
     development: Sviluppo
     edit_profile: Modifica profilo
     export: Esporta impostazioni
-    featured_tags: Hashtag in evidenza
     import: Importa
     migrate: Migrazione dell'account
     notifications: Notifiche

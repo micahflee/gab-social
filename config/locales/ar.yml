@@ -588,8 +588,6 @@ ar:
     lists: القوائم
     mutes: قُمتَ بكتم
     storage: ذاكرة التخزين
-  featured_tags:
-    add_new: إضافة واحد
   filters:
     contexts:
       home: الخيط الزمني الرئيسي

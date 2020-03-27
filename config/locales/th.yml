@@ -430,8 +430,6 @@ th:
     lists: รายการ
     mutes: คุณปิดเสียง
     storage: ที่เก็บข้อมูลสื่อ
-  featured_tags:
-    add_new: เพิ่มใหม่
   filters:
     contexts:
       home: เส้นเวลาหน้าแรก

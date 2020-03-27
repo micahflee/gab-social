@@ -600,10 +600,6 @@ en_GB:
     lists: Lists
     mutes: You mute
     storage: Media storage
-  featured_tags:
-    add_new: Add new
-    errors:
-      limit: You have already featured the maximum amount of hashtags
   filters:
     contexts:
       home: Home timeline
@@ -847,7 +843,6 @@ en_GB:
     development: Development
     edit_profile: Edit profile
     export: Data export
-    featured_tags: Featured hashtags
     identity_proofs: Identity proofs
     import: Import
     migrate: Account migration

@@ -610,10 +610,6 @@ de:
     lists: Listen
     mutes: Du hast stummgeschaltet
     storage: Medienspeicher
-  featured_tags:
-    add_new: Neu hinzufügen
-    errors:
-      limit: Du hast bereits die maximale Anzahl an empfohlenen Hashtags erreicht
   filters:
     contexts:
       home: Startseite
@@ -869,7 +865,6 @@ de:
     development: Entwicklung
     edit_profile: Profil bearbeiten
     export: Datenexport
-    featured_tags: Empfohlene Hashtags
     identity_proofs: Identitätsnachweise
     import: Datenimport
     import_and_export: Importieren und Exportieren

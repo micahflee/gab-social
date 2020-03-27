@@ -581,10 +581,6 @@ lt:
     lists: Sąrašai
     mutes: Jūs tildote
     storage: Medijos sandėlis
-  featured_tags:
-    add_new: Pridėti naują
-    errors:
-      limit: Jūs jau naudojate maksimalų galimą saitažodžių(#) kiekį
   filters:
     contexts:
       home: Namų laiko juosta
@@ -795,7 +791,6 @@ lt:
     development: Plėtojimas
     edit_profile: Keisti profilį
     export: Informacijos eksportas
-    featured_tags: Rodomi saitažodžiai(#)
     import: Importuoti
     migrate: Paskyros migracija
     notifications: Pranešimai

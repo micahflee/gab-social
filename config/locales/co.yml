@@ -610,10 +610,6 @@ co:
     lists: Liste
     mutes: Piattate
     storage: I vostri media
-  featured_tags:
-    add_new: Aghjustà novu
-    errors:
-      limit: Avete digià messu in mostra u numeru massimale di hashtag
   filters:
     contexts:
       home: Accolta
@@ -869,7 +865,6 @@ co:
     development: Sviluppu
     edit_profile: Mudificà u prufile
     export: Spurtazione d’infurmazione
-    featured_tags: Hashtag in vista
     identity_proofs: Prove d'identità
     import: Impurtazione
     import_and_export: Impurtazione è spurtazione

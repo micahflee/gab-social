@@ -610,10 +610,6 @@ pt-BR:
     lists: Listas
     mutes: Você silenciou
     storage: Armazenamento de mídia
-  featured_tags:
-    add_new: Adicionar uma nova hashtag
-    errors:
-      limit: Você atingiu o limite de hashtags em destaque
   filters:
     contexts:
       home: Página inicial
@@ -869,7 +865,6 @@ pt-BR:
     development: Desenvolvimento
     edit_profile: Editar perfil
     export: Exportar dados
-    featured_tags: Hashtags em destaque
     identity_proofs: Provas de identidade
     import: Importar
     import_and_export: Importar e exportar

@@ -600,10 +600,6 @@ cy:
     lists: Rhestrau
     mutes: Yr ydych yn tawelu
     storage: Storio cyfryngau
-  featured_tags:
-    add_new: Ychwanegu
-    errors:
-      limit: Yr ydych yn barod wedi cynnwys yr uchafswm o hashnodau
   filters:
     contexts:
       home: Ffrwd gartref
