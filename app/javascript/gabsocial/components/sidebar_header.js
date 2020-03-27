@@ -16,6 +16,10 @@ const mapStateToProps = state => {
   }
 }
 
+bin/rails db:migrate
+bin/rails assets:precompile
+
+
 export default
 @connect(mapStateToProps)
 class SidebarHeader extends ImmutablePureComponent {
@@ -32,7 +36,7 @@ class SidebarHeader extends ImmutablePureComponent {
         <h1 className={[_s.default].join(' ')}>
           <NavLink to='/' aria-label='Gab' className={[_s.default, _s.flexRow, _s.noSelect, _s.noUnderline, _s.height50PX, _s.cursorPointer, _s.px10].join(' ')}>
             <GabLogo />
-            <Text weight='bold' color='brand' size='extraSmall' className={[_s.pb5, _s.px5].join(' ')}>
+            <Text weight='bold' color='brand' size='extraSmall' className={[_s.pb5].join(' ')}>
               BETA
             </Text>
           </NavLink>

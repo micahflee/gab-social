@@ -9,8 +9,8 @@ import ModalLayout from './modal_layout'
 import Button from '../button'
 import StatusCheckBox from '../status_check_box'
 import Switch from '../switch'
-import Text from '../Text'
-import Textarea from '../Textarea'
+import Text from '../text'
+import Textarea from '../textarea'
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
