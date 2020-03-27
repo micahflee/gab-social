@@ -1,20 +1,20 @@
-import classNames from 'classnames';
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
-import ReactSwipeableViews from 'react-swipeable-views';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import Video from '../../features/video';
-import ExtendedVideoPlayer from '../extended_video_player';
-import Button from '../button';
-import ImageLoader from '../image_loader';
-import Icon from '../icon';
+import classNames from 'classnames'
+import { defineMessages, injectIntl } from 'react-intl'
+import ReactSwipeableViews from 'react-swipeable-views'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import Video from '../video'
+import ExtendedVideoPlayer from '../extended_video_player'
+import Button from '../button'
+import ImageLoader from '../image_loader'
+import Icon from '../icon'
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
   previous: { id: 'lightbox.previous', defaultMessage: 'Previous' },
   next: { id: 'lightbox.next', defaultMessage: 'Next' },
   viewContext: { id: 'lightbox.view_context', defaultMessage: 'View context' },
-});
+})
 
 export const previewState = 'previewMediaModal';
 

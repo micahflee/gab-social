@@ -3,11 +3,11 @@ import { is } from 'immutable'
 import { throttle } from 'lodash'
 import classNames from 'classnames/bind'
 import { decode } from 'blurhash'
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../../utils/fullscreen'
-import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio'
-import { displayMedia } from '../../initial_state'
-import Button from '../../components/button'
-import Text from '../../components/text'
+import { isFullscreen, requestFullscreen, exitFullscreen } from '../utils/fullscreen'
+import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../utils/media_aspect_ratio'
+import { displayMedia } from '../initial_state'
+import Button from './button'
+import Text from './text'
 
 const cx = classNames.bind(_s)
 

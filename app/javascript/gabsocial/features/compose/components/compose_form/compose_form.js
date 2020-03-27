@@ -3,19 +3,19 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { length } from 'stringz'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
-import CharacterCounter from '../character_counter'
+import CharacterCounter from '../../../../components/character_counter'
 import UploadForm from '../upload_form'
 import ReplyIndicatorContainer from '../../containers/reply_indicator_container'
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox'
 import PollButton from '../../components/poll_button'
-import UploadButton from '../../components/upload_button'
+import UploadButton from '../media_upload_button'
 import SpoilerButton from '../../components/spoiler_button'
 import RichTextEditorButton from '../../components/rich_text_editor_button'
 import GifSelectorButton from '../../components/gif_selector_button'
 import StatusVisibilityButton from '../../components/status_visibility_button'
 import EmojiPickerButton from '../../components/emoji_picker_button'
 import PollFormContainer from '../../containers/poll_form_container'
-import SchedulePostDropdown from '../../components/schedule_post_dropdown'
+import SchedulePostButton from '../schedule_post_button'
 import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container'
 import Icon from '../../../../components/icon'
 import Button from '../../../../components/button'
@@ -347,11 +347,13 @@ class ComposeForm extends ImmutablePureComponent {
                 <StatusVisibilityButton small={shouldCondense} />
               }
               <SpoilerButton small={shouldCondense} />
-              <SchedulePostDropdown small={shouldCondense} position={isModalOpen ? 'top' : undefined} />
+              <SchedulePostButton small={shouldCondense} />
               <GifSelectorButton small={shouldCondense} />
               <EmojiPickerButton small={shouldCondense} />
             </div>
+
             <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
+            
             {
               !shouldCondense &&
               <Button

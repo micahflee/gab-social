@@ -1,9 +1,9 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { FormattedMessage } from 'react-intl';
-import Video from '../../features/video';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { FormattedMessage } from 'react-intl'
+import Video from '../video'
 
-export const previewState = 'previewVideoModal';
+export const previewState = 'previewVideoModal'
 
 export default class VideoModal extends ImmutablePureComponent {
 
@@ -12,45 +12,45 @@ export default class VideoModal extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     time: PropTypes.number,
     onClose: PropTypes.func.isRequired,
-  };
+  }
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   componentDidMount () {
     if (this.context.router) {
-      const history = this.context.router.history;
+      const history = this.context.router.history
 
-      history.push(history.location.pathname, previewState);
+      history.push(history.location.pathname, previewState)
 
       this.unlistenHistory = history.listen(() => {
-        this.props.onClose();
-      });
+        this.props.onClose()
+      })
     }
   }
 
   componentWillUnmount () {
     if (this.context.router) {
-      this.unlistenHistory();
+      this.unlistenHistory()
 
       if (this.context.router.history.location.state === previewState) {
-        this.context.router.history.goBack();
+        this.context.router.history.goBack()
       }
     }
   }
 
   handleStatusClick = e => {
     if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('id')}`);
+      e.preventDefault()
+      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('id')}`)
     }
   }
 
   render () {
-    const { media, status, time, onClose } = this.props;
+    const { media, status, time, onClose } = this.props
 
-    const link = status && <a href={status.get('url')} onClick={this.handleStatusClick}><FormattedMessage id='lightbox.view_context' defaultMessage='View context' /></a>;
+    const link = status && <a href={status.get('url')} onClick={this.handleStatusClick}><FormattedMessage id='lightbox.view_context' defaultMessage='View context' /></a>
 
     return (
       <div className='modal-root__modal video-modal'>
@@ -67,7 +67,7 @@ export default class VideoModal extends ImmutablePureComponent {
           />
         </div>
       </div>
-    );
+    )
   }
 
 }

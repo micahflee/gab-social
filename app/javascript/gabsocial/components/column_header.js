@@ -40,6 +40,7 @@ export default class ColumnHeader extends PureComponent {
         {
           showBackBtn &&
           <Button
+            color='primary'
             backgroundColor='none'
             className={[_s.alignItemsCenter, _s.pl0, _s.justifyContentCenter].join(' ')}
             icon='back'

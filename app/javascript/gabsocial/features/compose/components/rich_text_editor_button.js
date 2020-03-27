@@ -42,7 +42,7 @@ class SpoilerButton extends PureComponent {
     return (
       <ComposeExtraButton
         title={intl.formatMessage(messages.title)}
-        icon='letter-t'
+        icon='rich-text'
         onClick={this.handleClick}
         small={small}
         active={active}

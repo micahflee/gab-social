@@ -7,7 +7,7 @@ import {
   EmbedModal,
   // ListEditor,
   // ListAdder,
-  StatusRevisionModal,
+  StatusRevisionsModal,
 } from '../../features/ui/util/async_components'
 
 import ModalBase from './modal_base'
@@ -57,10 +57,10 @@ const MODAL_COMPONENTS = {
   LIST_EDITOR: () => Promise.resolve({ default: ListEditorModal }),
   LIST_TIMELINE_SETTINGS: () => Promise.resolve({ default: ListTimelineSettingsModal }),
   MEDIA: () => Promise.resolve({ default: MediaModal }),
-  'MUTE': MuteModal,
+  MUTE: MuteModal,
   PRO_UPGRADE: () => Promise.resolve({ default: ProUpgradeModal }),
   REPORT: ReportModal,
-  STATUS_REVISION: () => Promise.resolve({ default: StatusRevisionModal }),
+  STATUS_REVISIONS: StatusRevisionsModal,
   UNAUTHORIZED: () => Promise.resolve({ default: UnauthorizedModal }),
   UNFOLLOW: () => Promise.resolve({ default: UnfollowModal }),
   VIDEO: () => Promise.resolve({ default: VideoModal }),

@@ -1,19 +1,19 @@
-import { Fragment } from 'react';
-import ReactDOM from 'react-dom';
-import { List as ImmutableList, fromJS } from 'immutable';
-import { IntlProvider, addLocaleData } from 'react-intl';
-import { getLocale } from '../locales';
-import Video from '../features/video';
-import Card from '../features/status/components/card';
-import Poll from '../components/poll';
-import MediaGallery from '../components/media_gallery';
-import ModalRoot from '../components/modal/modal_root';
-import MediaModal from '../components/modal/media_modal';
+import { Fragment } from 'react'
+import ReactDOM from 'react-dom'
+import { List as ImmutableList, fromJS } from 'immutable'
+import { IntlProvider, addLocaleData } from 'react-intl'
+import { getLocale } from '../locales'
+import Video from '../components/video'
+import StatusCard from '../components/status_card'
+import Poll from '../components/poll'
+import MediaGallery from '../components/media_gallery'
+import ModalRoot from '../components/modal/modal_root'
+import MediaModal from '../components/modal/media_modal'
 
 const { localeData, messages } = getLocale();
 addLocaleData(localeData);
 
-const MEDIA_COMPONENTS = { MediaGallery, Video, Card, Poll };
+const MEDIA_COMPONENTS = { MediaGallery, Video, StatusCard, Poll };
 
 export default class MediaContainer extends PureComponent {
 

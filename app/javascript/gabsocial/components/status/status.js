@@ -6,7 +6,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames/bind'
 import { displayMedia } from '../../initial_state';
-import Card from '../../features/status/components/card';
+import StatusCard from '../status_card'
 import { MediaGallery, Video } from '../../features/ui/util/async_components';
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
 import Avatar from '../avatar';
@@ -425,7 +425,7 @@ class Status extends ImmutablePureComponent {
     } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
       // console.log("card:", status.get('card'))
       media = (
-        <Card
+        <StatusCard
           onOpenMedia={this.props.onOpenMedia}
           card={status.get('card')}
           cacheWidth={this.props.cacheMediaWidth}

@@ -1,23 +1,23 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { FormattedMessage } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { NavLink } from 'react-router-dom';
-import DisplayName from './display_name';
-import Icon from './icon';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { NavLink } from 'react-router-dom'
+import DisplayName from './display_name'
+import Icon from './icon'
 
 export default class MovedNote extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   static propTypes = {
     to: ImmutablePropTypes.map.isRequired,
-  };
+  }
 
   render () {
     const { to } = this.props;
-    const displayNameHtml = { __html: from.get('display_name_html') };
+    const displayNameHtml = { __html: from.get('display_name_html') }
 
     return (
       <div className='moved-note'>

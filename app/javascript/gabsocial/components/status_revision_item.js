@@ -5,7 +5,7 @@ import RelativeTimestamp from './relative_timestamp';
 
 export default
 @injectIntl
-class StatusRevisionsList extends ImmutablePureComponent {
+class StatusRevisionItem extends ImmutablePureComponent {
 
   static propTypes = {
     loading: PropTypes.bool.isRequired,

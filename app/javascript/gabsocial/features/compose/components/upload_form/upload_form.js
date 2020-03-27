@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ProgressBar from '../../../../components/progress_bar'
-import Upload from '../upload'
+import Upload from '../media_upload_item'
 import SensitiveMediaButton from '../sensitive_media_button'
 
 const mapStateToProps = state => ({

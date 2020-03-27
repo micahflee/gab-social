@@ -9,6 +9,7 @@ import { changeSetting } from '../../actions/settings'
 import { useEmoji } from '../../actions/emojis'
 import { EmojiPicker as EmojiPickerAsync } from '../../features/ui/util/async_components'
 import { buildCustomEmojis } from '../emoji/emoji'
+import PopoverLayout from './popover_layout'
 
 const messages = defineMessages({
   emoji: { id: 'emoji_button.label', defaultMessage: 'Insert emoji' },
@@ -430,21 +431,23 @@ class EmojiPickerPopover extends ImmutablePureComponent {
       frequentlyUsedEmojis
     } = this.props
     
-    const { active, loading } = this.state;
+    const { active, loading } = this.state
 
     return (
-      <div className='emoji-picker-dropdown' onKeyDown={this.handleKeyDown}>
-        <EmojiPickerMenu
-          custom_emojis={this.props.custom_emojis}
-          loading={loading}
-          onClose={this.onHideDropdown}
-          onPick={onPickEmoji}
-          onSkinTone={onSkinTone}
-          skinTone={skinTone}
-          frequentlyUsedEmojis={frequentlyUsedEmojis}
-        />
-      </div>
-    );
+      <PopoverLayout>
+        <div className={_s.emojiMart} onKeyDown={this.handleKeyDown}>
+          <EmojiPickerMenu
+            custom_emojis={this.props.custom_emojis}
+            loading={loading}
+            onClose={this.onHideDropdown}
+            onPick={onPickEmoji}
+            onSkinTone={onSkinTone}
+            skinTone={skinTone}
+            frequentlyUsedEmojis={frequentlyUsedEmojis}
+          />
+        </div>
+      </PopoverLayout>
+    )
   }
 
 }

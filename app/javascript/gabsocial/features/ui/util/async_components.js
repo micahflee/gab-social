@@ -126,10 +126,10 @@ export function Status() {
   return import(/* webpackChunkName: "features/status" */'../../status')
 }
 
-export function StatusRevisionModal() {
-  return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/status_revision_modal')
+export function StatusRevisionsModal() {
+  return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal')
 }
 
 export function Video() {
-  return import(/* webpackChunkName: "features/video" */'../../video')
+  return import(/* webpackChunkName: "features/video" */'../../../components/video')
 }

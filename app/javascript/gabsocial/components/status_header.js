@@ -13,6 +13,12 @@ import Button from './button'
 import Avatar from './avatar'
 
 const mapDispatchToProps = (dispatch) => ({
+  onOpenStatusRevisionsPopover(status) {
+    dispatch(openModal('STATUS_REVISIONS', {
+      status,
+    }))
+  },
+
   onOpenStatusOptionsPopover(targetRef, status) {
     dispatch(openPopover('STATUS_OPTIONS', {
       targetRef,
@@ -28,6 +34,7 @@ class StatusHeader extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map,
+    onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
     onOpenStatusOptionsPopover: PropTypes.func.isRequired,
   }
 
@@ -36,12 +43,7 @@ class StatusHeader extends ImmutablePureComponent {
   }
 
   handleOpenStatusEdits = () => {
-    // : todo :
-    this.props.dispatch(openPopover('REPOST', {
-      targetRef: this.statusOptionsButton,
-      position: 'top',
-      status: this.props.status,
-    }))
+    this.props.onOpenStatusRevisionsPopover(this.props.status)
   }
 
   handleDeleteClick = () => {

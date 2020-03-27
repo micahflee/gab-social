@@ -1,57 +1,56 @@
-import Immutable from 'immutable';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import punycode from 'punycode';
-import classnames from 'classnames';
-import Icon from './icon';
+import Immutable from 'immutable'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import punycode from 'punycode'
+import Icon from './icon'
 
-const IDNA_PREFIX = 'xn--';
+const IDNA_PREFIX = 'xn--'
 
 const decodeIDNA = domain => {
   return domain
     .split('.')
     .map(part => part.indexOf(IDNA_PREFIX) === 0 ? punycode.decode(part.slice(IDNA_PREFIX.length)) : part)
-    .join('.');
-};
+    .join('.')
+}
 
 const getHostname = url => {
-  const parser = document.createElement('a');
-  parser.href = url;
-  return parser.hostname;
-};
+  const parser = document.createElement('a')
+  parser.href = url
+  return parser.hostname
+}
 
 const trim = (text, len) => {
-  const cut = text.indexOf(' ', len);
+  const cut = text.indexOf(' ', len)
 
   if (cut === -1) {
-    return text;
+    return text
   }
 
-  return text.substring(0, cut) + (text.length > len ? '…' : '');
-};
+  return text.substring(0, cut) + (text.length > len ? '…' : '')
+}
 
-const domParser = new DOMParser();
+const domParser = new DOMParser()
 
 const addAutoPlay = html => {
-  const document = domParser.parseFromString(html, 'text/html').documentElement;
-  const iframe = document.querySelector('iframe');
+  const document = domParser.parseFromString(html, 'text/html').documentElement
+  const iframe = document.querySelector('iframe')
 
   if (iframe) {
     if (iframe.src.indexOf('?') !== -1) {
-      iframe.src += '&';
+      iframe.src += '&'
     } else {
-      iframe.src += '?';
+      iframe.src += '?'
     }
 
-    iframe.src += 'autoplay=1&auto_play=1';
+    iframe.src += 'autoplay=1&auto_play=1'
 
     // DOM parser creates html/body elements around original HTML fragment,
     // so we need to get innerHTML out of the body and not the entire document
-    return document.querySelector('body').innerHTML;
+    return document.querySelector('body').innerHTML
   }
 
-  return html;
-};
+  return html
+}
 
 export default class Card extends ImmutablePureComponent {
 
@@ -60,24 +59,21 @@ export default class Card extends ImmutablePureComponent {
     onOpenMedia: PropTypes.func.isRequired,
     defaultWidth: PropTypes.number,
     cacheWidth: PropTypes.func,
-  };
-
-  static defaultProps = {
-  };
+  }
 
   state = {
     width: this.props.defaultWidth || 280,
     embedded: false,
-  };
+  }
 
   componentWillReceiveProps (nextProps) {
     if (!Immutable.is(this.props.card, nextProps.card)) {
-      this.setState({ embedded: false });
+      this.setState({ embedded: false })
     }
   }
 
   handlePhotoClick = () => {
-    const { card, onOpenMedia } = this.props;
+    const { card, onOpenMedia } = this.props
 
     onOpenMedia(
       Immutable.fromJS([
@@ -94,23 +90,23 @@ export default class Card extends ImmutablePureComponent {
         },
       ]),
       0
-    );
-  };
+    )
+  }
 
   handleEmbedClick = () => {
-    const { card } = this.props;
+    const { card } = this.props
 
     if (card.get('type') === 'photo') {
-      this.handlePhotoClick();
+      this.handlePhotoClick()
     } else {
-      this.setState({ embedded: true });
+      this.setState({ embedded: true })
     }
   }
 
   setRef = c => {
     if (c) {
-      if (this.props.cacheWidth) this.props.cacheWidth(c.offsetWidth);
-      this.setState({ width: c.offsetWidth });
+      if (this.props.cacheWidth) this.props.cacheWidth(c.offsetWidth)
+      this.setState({ width: c.offsetWidth })
     }
   }
 

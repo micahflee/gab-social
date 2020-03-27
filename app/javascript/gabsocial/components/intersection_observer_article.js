@@ -115,12 +115,19 @@ class IntersectionObserverArticle extends Component {
   }
 
   render() {
-    const { children, id, index, listLength, cachedHeight } = this.props
+    const {
+      children,
+      id,
+      index,
+      listLength,
+      cachedHeight
+    } = this.props
     const { isIntersecting, isHidden } = this.state
 
     if (!isIntersecting && (isHidden || cachedHeight)) {
       return (
         <article
+          className={[_s.outlineNone].join(' ')}
           ref={this.handleRef}
           aria-posinset={index + 1}
           aria-setsize={listLength}
@@ -128,7 +135,10 @@ class IntersectionObserverArticle extends Component {
           data-id={id}
           tabIndex='0'
         >
-          {children && React.cloneElement(children, { hidden: true })}
+          {
+            children &&
+            React.cloneElement(children, { hidden: true })
+          }
         </article>
       )
     }
@@ -141,7 +151,10 @@ class IntersectionObserverArticle extends Component {
         data-id={id}
         tabIndex='0'
       >
-        {children && React.cloneElement(children, { hidden: false })}
+        {
+          children &&
+          React.cloneElement(children, { hidden: false })
+        }
       </article>
     )
   }
