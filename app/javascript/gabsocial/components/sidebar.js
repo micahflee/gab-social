@@ -187,18 +187,18 @@ class Sidebar extends ImmutablePureComponent {
     ]
 
     const shortcutItems = [
-      {
-        title: 'Meme Group',
-        icon: 'group',
-        to: '/',
-        count: 0,
-      },
-      {
-        title: '@andrew',
-        image: 'http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139',
-        to: '/',
-        count: 3,
-      },
+      // {
+      //   title: 'Meme Group',
+      //   icon: 'group',
+      //   to: '/',
+      //   count: 0,
+      // },
+      // {
+      //   title: '@andrew',
+      //   image: 'http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139',
+      //   to: '/',
+      //   count: 3,
+      // },
     ]
 
     const exploreItems = [

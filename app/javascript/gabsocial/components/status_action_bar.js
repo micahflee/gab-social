@@ -6,6 +6,7 @@ import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
 import Text from './text'
+import Button from './button'
 import StatusActionBarItem from './status_action_bar_item'
 
 const messages = defineMessages({
