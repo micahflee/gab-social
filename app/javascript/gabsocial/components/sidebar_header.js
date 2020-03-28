@@ -16,10 +16,6 @@ const mapStateToProps = state => {
   }
 }
 
-bin/rails db:migrate
-bin/rails assets:precompile
-
-
 export default
 @connect(mapStateToProps)
 class SidebarHeader extends ImmutablePureComponent {

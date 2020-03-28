@@ -40,8 +40,8 @@ import {
   Blocks,
   CommunityTimeline,
   DomainBlocks,
-  Favorites,
-  Filters,
+  // Favorites,
+  // Filters,
   Followers,
   Following,
   FollowRequests,
@@ -63,7 +63,7 @@ import {
   Notifications,
   Reposts,
   Search,
-  Shortcuts,
+  // Shortcuts,
   Status,
 } from './util/async_components'
 import { me, meUsername } from '../../initial_state'
@@ -160,7 +160,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
 
-        <WrappedRoute path='/shortcuts' publicRoute page={ShortcutsPage} component={Shortcuts} content={children} />
+        { /* <WrappedRoute path='/shortcuts' publicRoute page={ShortcutsPage} component={Shortcuts} content={children} /> */ }
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List' }} />
@@ -184,7 +184,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={Blocks} content={children} componentParams={{ title: 'Blocked Accounts' }} />
         <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={DomainBlocks} content={children} componentParams={{ title: 'Domain Blocks' }} />
-        <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} />
+        { /* <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} /> */ }
         <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} />
 
         <Redirect from='/@:username' to='/:username' exact />
@@ -211,8 +211,8 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
         <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={Reposts} content={children} componentParams={{ title: 'Reposts' }} />
 
-        <Redirect from='/@:username/posts/:statusId/favorites' to='/:username/posts/:statusId/favorites' />
-        <WrappedRoute path='/:username/posts/:statusId/favorites' page={BasicPage} component={Favorites} content={children} componentParams={{ title: 'Favorites' }} />
+        { /* <Redirect from='/@:username/posts/:statusId/favorites' to='/:username/posts/:statusId/favorites' />
+        <WrappedRoute path='/:username/posts/:statusId/favorites' page={BasicPage} component={Favorites} content={children} componentParams={{ title: 'Favorites' }} /> */ }
 
         <WrappedRoute page={ErrorPage} component={GenericNotFound} content={children} />
       </Switch>
