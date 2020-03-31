@@ -34,7 +34,6 @@ const messages = defineMessages({
   trends: { id: 'promo.trends', defaultMessage: 'Trends' },
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
   shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
-  donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
   chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
 })
 
@@ -158,10 +157,6 @@ class SidebarMenu extends ImmutablePureComponent {
                   <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.pro)}</span>
                 </a>
               }
-              <a className='sidebar-menu-item' href='https://shop.dissenter.com/category/donations'>
-                <Icon id='heart' fixedWidth />
-                <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.donate)}</span>
-              </a>
               <a className='sidebar-menu-item' href='https://shop.dissenter.com'>
                 <Icon id='shopping-cart' fixedWidth />
                 <span className='sidebar-menu-item__title'>{intl.formatMessage(messages.shop)}</span>

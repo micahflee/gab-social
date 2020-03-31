@@ -18,7 +18,7 @@ export default class ProgressPanel extends React.PureComponent {
         <div className='wtf-panel__content progress-panel__content'>
           <span className='progress-panel__text'>We are 100% funded by you.</span>
           <div className='progress-panel__bar-container'>
-            <a className='progress-panel__bar' style={style} href='https://shop.dissenter.com/category/donations'>
+            <a className='progress-panel__bar' style={style} href='https://shop.dissenter.com'>
               <span className='progress-panel__bar__text'>{completed}% covered this month</span>
             </a>
           </div>
