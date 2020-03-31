@@ -10,15 +10,18 @@ import CircleIcon from '../assets/circle_icon'
 import CloseIcon from '../assets/close_icon'
 import CommentIcon from '../assets/comment_icon'
 import DissenterIcon from '../assets/dissenter_icon'
+import DonorIcon from '../assets/donor_icon'
 import EllipsisIcon from '../assets/ellipsis_icon'
 import ErrorIcon from '../assets/error_icon'
 import FullscreenIcon from '../assets/fullscreen_icon'
+import GabLogoIcon from '../assets/gab_logo'
 import GifIcon from '../assets/gif_icon'
 import GlobeIcon from '../assets/globe_icon'
 import GroupIcon from '../assets/group_icon'
 import GroupAddIcon from '../assets/group_add_icon'
 import HappyIcon from '../assets/happy_icon'
 import HomeIcon from '../assets/home_icon'
+import InvestorIcon from '../assets/investor_icon'
 import LikeIcon from '../assets/like_icon'
 import LinkIcon from '../assets/link_icon'
 import ListIcon from '../assets/list_icon'
@@ -33,6 +36,7 @@ import PauseIcon from '../assets/pause_icon'
 import PinIcon from '../assets/pin_icon'
 import PlayIcon from '../assets/play_icon'
 import PollIcon from '../assets/poll_icon'
+import ProIcon from '../assets/pro_icon'
 import RepostIcon from '../assets/repost_icon'
 import RichTextIcon from '../assets/rich_text_icon'
 import SearchIcon from '../assets/search_icon'
@@ -56,15 +60,18 @@ const ICONS = {
 'close': CloseIcon,
 'comment': CommentIcon,
 'dissenter': DissenterIcon,
+'donor': DonorIcon,
 'ellipsis': EllipsisIcon,
 'error': ErrorIcon,
 'fullscreen': FullscreenIcon,
+'gab-logo': GabLogoIcon,
 'gif': GifIcon,
 'globe': GlobeIcon,
 'group': GroupIcon,
 'group-add': GroupAddIcon,
 'happy': HappyIcon,
 'home': HomeIcon,
+'investor': InvestorIcon,
 'like': LikeIcon,
 'link': LinkIcon,
 'list': ListIcon,
@@ -79,6 +86,7 @@ const ICONS = {
 'pin': PinIcon,
 'play': PlayIcon,
 'poll': PollIcon,
+'pro': ProIcon,
 'repost': RepostIcon,
 'rich-text': RichTextIcon,
 'search': SearchIcon,

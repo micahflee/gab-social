@@ -210,7 +210,7 @@ class Video extends PureComponent {
     const y = 1 - ((e.clientY - rect.top) / this.volHeight)
 
     if (!isNaN(y)) {
-      var slideamt = y
+      const slideamt = y
       if (y > 1) {
         slideamt = 1
       } else if (y < 0) {

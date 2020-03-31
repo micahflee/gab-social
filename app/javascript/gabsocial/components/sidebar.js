@@ -142,7 +142,7 @@ class Sidebar extends ImmutablePureComponent {
       {
         title: 'Home',
         icon: 'home',
-        to: '/',
+        to: '/home',
         count: homeItemsQueueCount,
       },
       {

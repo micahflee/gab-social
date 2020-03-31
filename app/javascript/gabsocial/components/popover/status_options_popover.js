@@ -68,7 +68,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     menu.push({
       icon: 'circle',
       hideArrow: true,
-      title: formatMessage(messages.open),
+      title: intl.formatMessage(messages.open),
       onClick: this.handleOpen
     });
 
@@ -76,13 +76,13 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       menu.push({
         icon: 'circle',
         hideArrow: true,
-        title: formatMessage(messages.copy),
+        title: intl.formatMessage(messages.copy),
         onClick: this.handleCopy,
       })
       menu.push({
         icon: 'circle',
         hideArrow: true,
-        title: formatMessage(messages.embed),
+        title: intl.formatMessage(messages.embed),
         onClick: this.handleEmbed,
       })
     }
@@ -93,7 +93,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       menu.push({
         icon: 'circle',
         hideArrow: true,
-        title: formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
+        title: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
         onClick: this.handleConversationMuteClick,
       })
     }
@@ -103,33 +103,33 @@ class StatusOptionsPopover extends ImmutablePureComponent {
         menu.push({
           icon: 'circle',
           hideArrow: true,
-          title: formatMessage(status.get('pinned') ? messages.unpin : messages.pin),
+          title: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin),
           onClick: this.handlePinClick,
         })
       } else {
         if (status.get('visibility') === 'private') {
           menu.push({
-            title: formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
+            title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
             onClick: this.handleRepostClick
           })
         }
       }
-      menu.push({ text: formatMessage(messages.delete), action: this.handleDeleteClick });
-      menu.push({ text: formatMessage(messages.edit), action: this.handleEditClick });
+      menu.push({ text: intl.formatMessage(messages.delete), action: this.handleDeleteClick });
+      menu.push({ text: intl.formatMessage(messages.edit), action: this.handleEditClick });
     } else {
-      menu.push({ text: formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
-      menu.push({ text: formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick });
-      menu.push({ text: formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick });
-      menu.push({ text: formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport });
+      menu.push({ text: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }), action: this.handleMentionClick });
+      menu.push({ text: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }), action: this.handleMuteClick });
+      menu.push({ text: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }), action: this.handleBlockClick });
+      menu.push({ text: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }), action: this.handleReport });
 
       if (isStaff) {
-        menu.push({ text: formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }), href: `/admin/accounts/${status.getIn(['account', 'id'])}` });
-        menu.push({ text: formatMessage(messages.admin_status), href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}` });
+        menu.push({ text: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }), href: `/admin/accounts/${status.getIn(['account', 'id'])}` });
+        menu.push({ text: intl.formatMessage(messages.admin_status), href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}` });
       }
 
       if (withGroupAdmin) {
-        menu.push({ text: formatMessage(messages.group_remove_account), action: this.handleGroupRemoveAccount });
-        menu.push({ text: formatMessage(messages.group_remove_post), action: this.handleGroupRemovePost });
+        menu.push({ text: intl.formatMessage(messages.group_remove_account), action: this.handleGroupRemoveAccount });
+        menu.push({ text: intl.formatMessage(messages.group_remove_post), action: this.handleGroupRemovePost });
       }
     }
 

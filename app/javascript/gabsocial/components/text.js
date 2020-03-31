@@ -9,6 +9,7 @@ const COLORS = {
   error: 'error',
   white: 'white',
   inherit: 'inherit',
+  pro: 'pro',
 }
 
 const SIZES = {
@@ -73,6 +74,7 @@ export default class Text extends PureComponent {
       colorSecondary: color === COLORS.secondary,
       colorBrand: color === COLORS.brand,
       colorWhite: color === COLORS.white,
+      colorGabPro: color === COLORS.pro,
       inherit: color === COLORS.inherit,
 
       fontSize19PX: size === SIZES.large,

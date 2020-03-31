@@ -105,6 +105,11 @@ class DisplayName extends ImmutablePureComponent {
       !!large ? '19px' :
       !!small ? '14px' : '16px'
 
+    const domain = account.get('acct').split('@')[1];
+    const isRemoteUser = !!domain
+
+    console.log("domain, isRemoteUser:", domain, isRemoteUser)
+    
     // : todo :
     return (
       <span {...containerOptions} ref={this.setRef}>
@@ -117,20 +122,20 @@ class DisplayName extends ImmutablePureComponent {
           </bdi>
           {
             account.get('is_verified') &&
-            <Icon id='verified' width={iconSize} height={iconSize} className={_s.default} title='Verified Account' />
+            <Icon id='verified' width={iconSize} height={iconSize} className={_s.default} />
           }
-          { /*
+          {
             account.get('is_pro') &&
-            <Icon id='verified' width='16px' height='16px' className={_s.default} title='Gab PRO' />
-          */ }
-          { /*
+            <Icon id='pro' width='16px' height='16px' className={_s.default} />
+          }
+          {
             account.get('is_donor') &&
-            <Icon id='verified' width='16px' height='16px' className={_s.default} title='Gab Donor' />
-          */ }
-          { /*
+            <Icon id='donor' width='16px' height='16px' className={_s.default} />
+          }
+          {
             account.get('is_investor') &&
-            <Icon id='verified' width='16px' height='16px' className={_s.default} title='Gab Investor' />
-          */ }
+            <Icon id='investor' width='16px' height='16px' className={_s.default} />
+          }
         </div>
         {
           !noUsername &&

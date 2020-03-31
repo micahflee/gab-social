@@ -5,7 +5,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
 import CharacterCounter from '../../../../components/character_counter'
 import UploadForm from '../upload_form'
-import ReplyIndicatorContainer from '../../containers/reply_indicator_container'
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox'
 import PollButton from '../../components/poll_button'
 import UploadButton from '../media_upload_button'
@@ -255,12 +254,6 @@ class ComposeForm extends ImmutablePureComponent {
       mt10: !shouldCondense,
     })
 
-    const avatarContainerClasses = cx({
-      default: 1,
-      mr10: 1,
-      mt5: shouldCondense,
-    })
-
     const contentWarningClasses = cx({
       default: 1,
       pt5: 1,
@@ -271,21 +264,20 @@ class ComposeForm extends ImmutablePureComponent {
       displayNone: !spoiler
     })
 
-    const avatarSize = shouldCondense ? 28 : 46
-
     return (
       <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
-        <div className={avatarContainerClasses}>
-          <Avatar account={account} size={avatarSize} />
-        </div>
+        {
+          shouldCondense &&
+          <div className={[_s.default, _s.mr10, _s.mt5]}>
+            <Avatar account={account} size='28' />
+          </div>
+        }
 
         <div
           className={containerClasses}
           ref={this.setForm}
           onClick={this.handleClick}
         >
-
-          { /* !shouldCondense && <ReplyIndicatorContainer /> */}
 
           <div className={contentWarningClasses}>
             <AutosuggestTextbox
@@ -301,7 +293,6 @@ class ComposeForm extends ImmutablePureComponent {
               onSuggestionSelected={this.onSpoilerSuggestionSelected}
               searchTokens={[':']}
               id='cw-spoiler-input'
-              className='spoiler-input__input'
             />
           </div>
 

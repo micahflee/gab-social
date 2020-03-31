@@ -5,6 +5,10 @@ import Icon from './icon'
 const cx = classNames.bind(_s)
 
 export default class SidebarSectionItem extends PureComponent {
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   static propTypes = {
     to: PropTypes.string,
     href: PropTypes.string,
@@ -46,7 +50,8 @@ export default class SidebarSectionItem extends PureComponent {
     const { hovering } = this.state
 
     const iconSize = '16px'
-    const shouldShowActive = hovering || active
+    const currentPathname = this.context.router.route.location.pathname
+    const shouldShowActive = hovering || active || currentPathname === to || currentPathname === href
     const isNotifications = to === '/notifications'
 
     const containerClasses = cx({
@@ -58,10 +63,12 @@ export default class SidebarSectionItem extends PureComponent {
       px10: 1,
       alignItemsCenter: 1,
       radiusSmall: 1,
-      // border1PX: shouldShowActive,
-      // borderColorSecondary: shouldShowActive,
-      backgroundSubtle2: shouldShowActive,
-      backgroundTransparent: 1,
+      mt2: 1,
+      border1PX: 1,
+      borderColorTransparent: !shouldShowActive,
+      borderColorSecondary: shouldShowActive,
+      backgroundTransparent: !shouldShowActive,
+      backgroundColorPrimary: shouldShowActive,
     })
 
     const textClasses = cx({
@@ -70,13 +77,13 @@ export default class SidebarSectionItem extends PureComponent {
       fontSize15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
+      colorSecondary: !hovering && !active && !me && !shouldShowActive,
       colorPrimary: shouldShowActive || me,
-      colorSecondary: !hovering && !active && !me,
     })
 
     const iconClasses = cx({
+      fillColorSecondary: !hovering && !active && !shouldShowActive,
       fillColorBlack: shouldShowActive,
-      fillColorSecondary: !hovering && !active,
     })
 
     const countClasses = cx({

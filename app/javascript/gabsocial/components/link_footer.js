@@ -134,7 +134,7 @@ class LinkFooter extends PureComponent {
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'
             values={{
               gitlab: (
-                <a href={source_url} className={_s.inherit} rel='noopener' target='_blank'>
+                <a href={source_url} className={_s.inherit} rel='noopener noreferrer' target='_blank'>
                   {repository}
                 </a>
               )

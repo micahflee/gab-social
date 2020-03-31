@@ -1,13 +1,11 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
-import classNames from 'classnames/bind'
 import { me } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import Avatar from './avatar'
 import Block from './block'
 import Heading from './heading'
-
-const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
@@ -57,12 +55,15 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     return (
       <section className={[_s.default, _s.mb15].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2].join(' ')}>
+          <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.alignItemsCenter, _s.flexRow].join(' ')}>
+            <div className={_s.mr10}>
+              <Avatar account={account} size='20' />
+            </div>
             <Heading size='h5'>
               {intl.formatMessage(messages.createPost)}
             </Heading>
           </div>
-          <div className={[_s.default, _s.flexRow, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.px15, _s.pt15, _s.pb10].join(' ')}>
             <ComposeFormContainer {...rest} />
           </div>
         </Block>

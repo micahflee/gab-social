@@ -253,10 +253,21 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
             <div className={[_s.default, _s.ml5].join(' ')}>
 
-              {/*<Composer
-              />*/}
+              <Composer
+                inputRef={this.setTextbox}
+                disabled={disabled}
+                placeholder={placeholder}
+                autoFocus={autoFocus}
+                value={value}
+                onChange={this.onChange}
+                onKeyDown={this.onKeyDown}
+                onKeyUp={onKeyUp}
+                onFocus={this.onFocus}
+                onBlur={this.onBlur}
+                onPaste={this.onPaste}
+              />
 
-              <Textarea
+              { /* <Textarea
                 className={_s.default}
                 inputRef={this.setTextbox}
                 disabled={disabled}
@@ -270,8 +281,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onBlur={this.onBlur}
                 onPaste={this.onPaste}
                 aria-autocomplete='list'
-              />
-
+              /> */ }
               
               { /*
                 <Textarea

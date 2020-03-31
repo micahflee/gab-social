@@ -16,7 +16,7 @@ const regexSupplant = function(regex, flags) {
     regex = regex.source;
   }
   return new RegExp(regex.replace(/#\{(\w+)\}/g, function(match, name) {
-    var newRegex = regexen[name] || '';
+    let newRegex = regexen[name] || '';
     if (typeof newRegex !== 'string') {
       newRegex = newRegex.source;
     }
@@ -185,7 +185,7 @@ export const urlRegex = (function() {
   regexen.validUrlQueryEndingChars = /[a-z0-9_&=#\/]/i;
   regexen.validUrl = regexSupplant(
     '('                                                          + // $1 URL
-      '(https?:\\/\\/)'                                          + // $2 Protocol
+      '(https?:\\/\\/)?'                                         + // $2 Protocol
       '(#{validDomain})'                                         + // $3 Domain(s)
       '(?::(#{validPortNumber}))?'                               + // $4 Port number (optional)
       '(\\/#{validUrlPath}*)?'                                   + // $5 URL Path

@@ -36,6 +36,7 @@ import {
   COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
   COMPOSE_SCHEDULED_AT_CHANGE,
+  COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY
 } from '../actions/compose';
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STORE_HYDRATE } from '../actions/store';
@@ -73,6 +74,7 @@ const initialState = ImmutableMap({
   idempotencyKey: null,
   tagHistory: ImmutableList(),
   scheduled_at: null,
+  rte_controls_visible: false,
 });
 
 const initialPoll = ImmutableMap({
@@ -386,6 +388,8 @@ export default function compose(state = initialState, action) {
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
   case COMPOSE_SCHEDULED_AT_CHANGE:
     return state.set('scheduled_at', action.date);
+  case COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY:
+    return ''
   default:
     return state;
   }

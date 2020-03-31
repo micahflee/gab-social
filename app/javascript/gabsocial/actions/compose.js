@@ -3,6 +3,7 @@ import { CancelToken, isCancel } from 'axios';
 import { throttle } from 'lodash';
 import moment from 'moment';
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
+import { urlRegex } from '../features/compose/util/url_regex'
 import { tagHistory } from '../settings';
 import { useEmoji } from './emojis';
 import resizeImage from '../utils/resize_image';
@@ -61,6 +62,8 @@ export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE';
 export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE';
 
 export const COMPOSE_SCHEDULED_AT_CHANGE = 'COMPOSE_SCHEDULED_AT_CHANGE';
+
+export const COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY = 'COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY'
 
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
@@ -170,12 +173,20 @@ export function submitCompose(routerHistory, group) {
   return function (dispatch, getState) {
     if (!me) return;
 
-    const status = getState().getIn(['compose', 'text'], '');
+    let status = getState().getIn(['compose', 'text'], '');
+    let statusMarkdown = getState().getIn(['compose', 'text_markdown'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
 
-    if ((!status || !status.length) && media.size === 0) {
-      return;
-    }
+    // : hack : 
+    //Prepend http:// to urls in status that don't have protocol
+    status = status.replace(urlRegex, (match) =>{
+      const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
+      return hasProtocol ? match : `http://${match}`
+    })
+    statusMarkdown = statusMarkdown.replace(urlRegex, (match) =>{
+      const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
+      return hasProtocol ? match : `http://${match}`
+    })
 
     dispatch(submitComposeRequest());
     dispatch(closeModal());
@@ -191,6 +202,7 @@ export function submitCompose(routerHistory, group) {
 
     api(getState)[method](endpoint, {
       status,
+      statusMarkdown,
       scheduled_at,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
@@ -594,3 +606,9 @@ export function changeScheduledAt(date) {
     date,
   };
 };
+
+export function changeRichTextEditorControlsVisibility() {
+  return {
+    type: COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
+  }
+}

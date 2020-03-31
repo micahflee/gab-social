@@ -368,6 +368,10 @@ body {
   color: #21cf7a
 }
 
+.colorGabPro {
+  color: #ffd700;
+}
+
 .fillColorBlack {
   fill: #000;
 }
@@ -386,6 +390,10 @@ body {
 
 .fillColorSecondary {
   fill: #666;
+}
+
+.fillColorGabPro {
+  fill: #ffd700;
 }
 
 .bottom0 {
@@ -716,6 +724,10 @@ body {
   font-size: 12px;
 }
 
+.fontSize0 {
+  font-size: 0;
+}
+
 .fontWeightNormal {
   font-weight: 400;
 }
@@ -856,6 +868,10 @@ body {
 
 .paddingTop25PC {
   padding-top: 25%;
+}
+
+.pt15 {
+  padding-top: 15px;
 }
 
 .pt10 {

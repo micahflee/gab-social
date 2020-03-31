@@ -49,14 +49,15 @@ class StatusContent extends ImmutablePureComponent {
 
     const links = node.querySelectorAll('a')
 
-    for (var i = 0; i < links.length; ++i) {
-      let link = links[i]
-      if (link.classList.contains('status-link')) {
+    for (let i = 0; i < links.length; ++i) {
+      const link = links[i]
+      if (link.classList.contains('linked')) {
         continue
       }
-      link.classList.add('status-link')
+      link.classList.add('linked')
+      link.classList.add(_s.text, _s.colorBrand, _s.cursorPointer, _s.inherit)
 
-      let mention = this.props.status.get('mentions').find(item => link.href === `${item.get('url')}`)
+      const mention = this.props.status.get('mentions').find(item => link.href === `${item.get('url')}`)
 
       if (mention) {
         link.addEventListener('click', this.onMentionClick.bind(this, mention), false)
@@ -65,6 +66,20 @@ class StatusContent extends ImmutablePureComponent {
         link.addEventListener('click', this.onHashtagClick.bind(this, link.text), false)
       } else {
         link.setAttribute('title', link.href)
+      }
+
+      const descendents = link.getElementsByTagName('*')
+      for (let j = 0; j < descendents.length; j++) {
+        const descendent = descendents[j];
+        
+        if (descendent.classList.contains('invisible')) {
+          descendent.classList.remove('invisible')
+          descendent.classList.add(_s.fontSize0, _s.text, _s.inherit)
+        }
+        if (descendent.classList.contains('ellipsis')) {
+          descendent.classList.remove('ellipsis')
+          descendent.classList.add(_s.noSelect, _s.text, _s.inherit)
+        } 
       }
     }
 
@@ -89,8 +104,8 @@ class StatusContent extends ImmutablePureComponent {
 
   onMentionClick = (mention, e) => {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault()
-      this.context.router.history.push(`/${mention.get('acct')}`)
+      // e.preventDefault()
+      // this.context.router.history.push(`/${mention.get('acct')}`)
     }
   }
 

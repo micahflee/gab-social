@@ -43,6 +43,8 @@ class Formatter
 
   def reformat(html)
     sanitize(html, Sanitize::Config::GABSOCIAL_STRICT)
+  rescue ArgumentError
+    ''
   end
 
   def plaintext(status)
@@ -246,7 +248,7 @@ class Formatter
 
   def link_to_url(entity, options = {})
     url        = Addressable::URI.parse(entity[:url])
-    html_attrs = { target: '_blank', rel: 'nofollow noopener' }
+    html_attrs = { target: '_blank', rel: 'nofollow noopener noreferrer' }
 
     html_attrs[:rel] = "me #{html_attrs[:rel]}" if options[:me]
 
@@ -284,14 +286,14 @@ class Formatter
     suffix = url[prefix.length + 30..-1]
     cutoff = url[prefix.length..-1].length > 30
 
-    "<span class=\"invisible\">#{encode(prefix)}</span><span class=\"#{cutoff ? 'ellipsis' : ''}\">#{encode(text)}</span><span class=\"invisible\">#{encode(suffix)}</span>"
+    "<span aria-hidden=\"true\" class=\"invisible\">#{encode(prefix)}</span>#{encode(text)}<span aria-hidden=\"true\" class=\"invisible\">#{encode(suffix)}</span>" + (cutoff ? "<span aria-hidden=\"true\" class=\"ellipsis\">…</span>" : "")
   end
 
   def hashtag_html(tag)
-    "<a href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag\" rel=\"tag\">#<span>#{encode(tag)}</span></a>"
+    "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag\" rel=\"tag\">##{encode(tag)}</a>"
   end
 
   def mention_html(account)
-    "<span class=\"h-card\"><a href=\"#{encode(TagManager.instance.url_for(account))}\" class=\"u-url mention\">@<span>#{encode(account.username)}</span></a></span>"
+    "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(TagManager.instance.url_for(account))}\" class=\"u-url mention\">@#{encode(account.acct)}</a>"
   end
 end

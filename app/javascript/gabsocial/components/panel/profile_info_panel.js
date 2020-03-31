@@ -96,12 +96,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
                     { /* : todo : */}
                     <dd className='verified'>
-                      <a href={proof.get('proof_url')} target='_blank' rel='noopener'>
+                      <a href={proof.get('proof_url')} target='_blank' rel='noopener noreferrer'>
                         <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
                           <Icon id='check' className='verified__mark' />
                         </span>
                       </a>
-                      <a href={proof.get('profile_url')} target='_blank' rel='noopener'>
+                      <a href={proof.get('profile_url')} target='_blank' rel='noopener noreferrer'>
                         <span
                           className={_s.dangerousContent}
                           dangerouslySetInnerHTML={{ __html: ' ' + proof.get('provider_username') }}

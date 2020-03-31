@@ -44,7 +44,7 @@ export default class StatusActionBarItem extends PureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.flexGrow1, _s.px10].join(' ')}>
+      <div className={[_s.default, _s.flexGrow1, _s.px5].join(' ')}>
         <button
           ref={buttonRef}
           className={btnClasses}
