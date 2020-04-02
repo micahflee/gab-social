@@ -27,6 +27,9 @@ const messages = defineMessages({
   cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
+  likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
+  repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
+  commentsLabel: { id: 'comments.label', defaultMessage: '{number, plural, one {# comment} other {# comments}}' },
   open: { id: 'status.open', defaultMessage: 'Expand this status' },
   report: { id: 'status.report', defaultMessage: 'Report @{name}' },
   muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
@@ -195,8 +198,9 @@ class StatusActionBar extends ImmutablePureComponent {
               favoriteCount > 0 &&
               <button className={interactionBtnClasses}>
                 <Text color='secondary' size='small'>
-                  {favoriteCount}
-                  &nbsp;Likes
+                  {formatMessage(messages.likesLabel, {
+                    number: favoriteCount,
+                  })}
                 </Text>
               </button>
             }
@@ -204,8 +208,9 @@ class StatusActionBar extends ImmutablePureComponent {
               replyCount > 0 &&
               <button className={interactionBtnClasses}>
                 <Text color='secondary' size='small'>
-                  {replyCount}
-                  &nbsp;Comments
+                  {formatMessage(messages.commentsLabel, {
+                    number: replyCount,
+                  })}
                 </Text>
               </button>
             }
@@ -213,8 +218,9 @@ class StatusActionBar extends ImmutablePureComponent {
               repostCount > 0 &&
               <button className={interactionBtnClasses}>
                 <Text color='secondary' size='small'>
-                  {repostCount}
-                  &nbsp;Reposts
+                  {formatMessage(messages.repostsLabel, {
+                    number: repostCount,
+                  })}
                 </Text>
               </button>
             }
@@ -224,8 +230,8 @@ class StatusActionBar extends ImmutablePureComponent {
           <div className={[_s.default, _s.flexRow, _s.py2, _s.width100PC].join(' ')}>
             <StatusActionBarItem
               title={formatMessage(messages.like)}
-              icon='like'
-              active={!!status.get('favorited')}
+              icon={!!status.get('favourited') ? 'liked' : 'like'}
+              active={!!status.get('favourited')}
               onClick={this.handleFavoriteClick}
             />
             <StatusActionBarItem

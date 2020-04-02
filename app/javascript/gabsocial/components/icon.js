@@ -26,6 +26,7 @@ import HomeIcon from '../assets/home_icon'
 import InvestorIcon from '../assets/investor_icon'
 import ItalicIcon from '../assets/italic_icon'
 import LikeIcon from '../assets/like_icon'
+import LikedIcon from '../assets/liked_icon'
 import LinkIcon from '../assets/link_icon'
 import ListIcon from '../assets/list_icon'
 import ListAddIcon from '../assets/list_add_icon'
@@ -84,6 +85,7 @@ const ICONS = {
 'investor': InvestorIcon,
 'italic': ItalicIcon,
 'like': LikeIcon,
+'liked': LikedIcon,
 'link': LinkIcon,
 'list': ListIcon,
 'list-add': ListAddIcon,

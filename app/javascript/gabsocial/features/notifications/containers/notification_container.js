@@ -55,7 +55,7 @@ const mapDispatchToProps = dispatch => ({
   },
 
   onFavorite (status) {
-    if (status.get('favorited')) {
+    if (status.get('favourited')) {
       dispatch(unfavorite(status))
     } else {
       dispatch(favorite(status))

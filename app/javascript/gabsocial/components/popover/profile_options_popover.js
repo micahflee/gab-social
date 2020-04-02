@@ -216,7 +216,7 @@ class ProfileOptionsPopover extends PureComponent {
         title: intl.formatMessage(isBlockingDomain ? messages.unblockDomain : messages.blockDomain, {
           domain,
         }),
-        onClick: this.handleUnblockDomain
+        onClick: isBlockingDomain ? this.handleUnblockDomain : this.handleBlockDomain,
       })
     }
 
@@ -275,12 +275,14 @@ class ProfileOptionsPopover extends PureComponent {
   }
 
   handleBlockDomain = () => {
-    const domain = this.props.account.get('acct').split('@')[1];
+    const domain = this.props.account.get('acct').split('@')[1]
+
+    console.log("handleBlockDomain:", domain)
 
     // : todo : alert
-    if (!domain) return;
+    if (!domain) return
 
-    this.props.onBlockDomain(domain);
+    this.props.onBlockDomain(domain)
   }
 
   handleUnblockDomain = () => {

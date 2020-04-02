@@ -85,7 +85,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                           className={_s.mr5}
                         >
                           <Text color='inherit' size='small'>
-                            Leave/Join
+                          Leave/Join
                           </Text>
                         </Button>
                         <Button

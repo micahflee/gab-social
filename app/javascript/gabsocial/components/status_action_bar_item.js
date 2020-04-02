@@ -1,5 +1,7 @@
 import classNames from 'classnames/bind'
+import Button from './button'
 import Icon from './icon'
+import Text from './text'
 
 const cx = classNames.bind(_s)
 
@@ -24,37 +26,36 @@ export default class StatusActionBarItem extends PureComponent {
     } = this.props
 
     const btnClasses = cx({
-      default: 1,
-      text: 1,
-      fontSize13PX: 1,
-      fontWeightMedium: 1,
-      cursorPointer: 1,
-      displayFlex: 1,
       justifyContentCenter: 1,
-      flexRow: 1,
       alignItemsCenter: 1,
-      py10: 1,
       px10: 1,
-      width100PC: 1,
-      radiusSmall: 1,
-      outlineNone: 1,
-      backgroundTransparent: 1,
       backgroundSubtle_onHover: 1,
-      colorSecondary: 1,
     })
 
+    const color = active ? 'brand' : 'secondary'
+    const weight = active ? 'bold' : 'medium'
+
     return (
-      <div className={[_s.default, _s.flexGrow1, _s.px5].join(' ')}>
-        <button
-          ref={buttonRef}
+      <div className={[_s.default, _s.flexNormal, _s.px5].join(' ')}>
+        <Button
+          block
+          radiusSmall
+          backgroundColor='none'
+          color={color}
+          buttonRef={buttonRef}
           className={btnClasses}
           onClick={onClick}
           active={active}
           disabled={disabled}
+          icon={icon}
+          iconWidth='16px'
+          iconHeight='16px'
+          iconClassName={[_s.default, _s.mr10, _s.inheritFill].join(' ')}
         >
-          <Icon width='16px' height='16px' id={icon} className={[_s.default, _s.mr10, _s.fillColorSecondary].join(' ')} />
-          {title}
-        </button>
+          <Text color='inherit' size='small' weight={weight}>
+            {title}
+          </Text>
+        </Button>
       </div>
     )
   }

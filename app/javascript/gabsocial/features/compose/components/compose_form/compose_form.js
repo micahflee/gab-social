@@ -260,15 +260,6 @@ class ComposeForm extends ImmutablePureComponent {
       px15: !shouldCondense,
     })
 
-    const contentWarningClasses = cx({
-      default: 1,
-      px15: 1,
-      py10: 1,
-      borderBottom1PX: 1,
-      borderColorSecondary: 1,
-      displayNone: !spoiler
-    })
-
     return (
       <div className={parentContainerClasses}>
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
@@ -285,23 +276,26 @@ class ComposeForm extends ImmutablePureComponent {
             onClick={this.handleClick}
           >
 
-            <div className={contentWarningClasses}>
-              <AutosuggestTextbox
-                placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-                value={this.props.spoilerText}
-                onChange={this.handleChangeSpoilerText}
-                onKeyDown={this.handleKeyDown}
-                disabled={!this.props.spoiler}
-                ref={this.setSpoilerText}
-                suggestions={this.props.suggestions}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSpoilerSuggestionSelected}
-                searchTokens={[':']}
-                prependIcon='warning'
-                id='cw-spoiler-input'
-              />
-            </div>
+            {
+              !!spoiler &&
+              <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                <AutosuggestTextbox
+                  placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                  value={this.props.spoilerText}
+                  onChange={this.handleChangeSpoilerText}
+                  onKeyDown={this.handleKeyDown}
+                  disabled={!this.props.spoiler}
+                  ref={this.setSpoilerText}
+                  suggestions={this.props.suggestions}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                  onSuggestionSelected={this.onSpoilerSuggestionSelected}
+                  searchTokens={[':']}
+                  prependIcon='warning'
+                  id='cw-spoiler-input'
+                />
+              </div>
+            }
 
             <AutosuggestTextbox
               ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
@@ -335,22 +329,35 @@ class ComposeForm extends ImmutablePureComponent {
 
             <div className={actionsContainerClasses}>
               <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
-                <RichTextEditorButton small={shouldCondense} />
+                {
+                  !shouldCondense &&
+                  <RichTextEditorButton />
+                }
                 <UploadButton small={shouldCondense} />
                 {
-                  !edit && <PollButton small={shouldCondense} />
+                  !edit && !shouldCondense &&
+                  <PollButton />
                 }
                 {
                   !shouldCondense &&
-                  <StatusVisibilityButton small={shouldCondense} />
+                  <StatusVisibilityButton />
                 }
-                <SpoilerButton small={shouldCondense} />
-                <SchedulePostButton small={shouldCondense} />
+                {
+                  !shouldCondense &&
+                  <SpoilerButton />
+                }
+                {
+                  !shouldCondense &&
+                  <SchedulePostButton />
+                }
                 <GifSelectorButton small={shouldCondense} />
                 <EmojiPickerButton small={shouldCondense} />
               </div>
 
-              <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
+              {
+                !shouldCondense &&
+                <CharacterCounter max={maxPostCharacterCount} text={text} />
+              }
               
               {
                 !shouldCondense &&

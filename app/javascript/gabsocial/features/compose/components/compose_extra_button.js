@@ -40,7 +40,7 @@ export default class ComposeExtraButton extends PureComponent {
       fillColorWhite: active,
     })
 
-    const iconSize = !!small ? '12px' : '16px'
+    const iconSize = !!small ? '14px' : '16px'
 
     return (
       <div className={[_s.default, _s.mr2].join(' ')} ref={buttonRef}>

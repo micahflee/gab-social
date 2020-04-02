@@ -38,6 +38,7 @@ export default class Button extends PureComponent {
     underlineOnHover: PropTypes.bool,
     radiusSmall: PropTypes.bool,
     noClasses: PropTypes.bool,
+    buttonRef: PropTypes.func,
   }
 
   static defaultProps = {
