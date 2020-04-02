@@ -6,7 +6,11 @@ import {
 } from 'draft-js'
 import { urlRegex } from '../features/compose/util/url_regex'
 import classNames from 'classnames/bind'
+import { me } from '../initial_state'
+import { makeGetAccount } from '../selectors'
 import Button from './button'
+
+import 'draft-js/dist/Draft.css'
 
 const cx = classNames.bind(_s)
 
@@ -57,55 +61,61 @@ const RTE_ITEMS = [
     label: 'Bold',
     style: 'BOLD',
     type: 'style',
-    icon: 'circle',
+    icon: 'bold',
   },
   {
     label: 'Italic',
     style: 'ITALIC',
     type: 'style',
-    icon: 'circle',
+    icon: 'italic',
   },
   {
     label: 'Underline',
     style: 'UNDERLINE',
     type: 'style',
-    icon: 'circle',
+    icon: 'underline',
   },
   {
-    label: 'Monospace',
-    style: 'CODE',
+    label: 'Strikethrough',
+    style: 'STRIKETHROUGH',
     type: 'style',
-    icon: 'circle',
+    icon: 'strikethrough',
   },
+  // {
+  //   label: 'Monospace',
+  //   style: 'CODE',
+  //   type: 'style',
+  //   icon: 'circle',
+  // },
   {
     label: 'H1',
     style: 'header-one',
     type: 'block',
-    icon: 'circle',
+    icon: 'text-size',
   },
   {
     label: 'Blockquote',
     style: 'blockquote',
     type: 'block',
-    icon: 'circle',
-  },
-  {
-    label: 'UL',
-    style: 'unordered-list-item',
-    type: 'block',
-    icon: 'circle',
-  },
-  {
-    label: 'OL',
-    style: 'ordered-list-item',
-    type: 'block',
-    icon: 'circle',
+    icon: 'blockquote',
   },
   {
     label: 'Code Block',
     style: 'code-block',
     type: 'block',
-    icon: 'circle',
+    icon: 'code',
+  },
+  {
+    label: 'UL',
+    style: 'unordered-list-item',
+    type: 'block',
+    icon: 'ul-list',
+  },
+  {
+    label: 'OL',
+    style: 'ordered-list-item',
+    type: 'block',
+    icon: 'ol-list',
   },
 ]
 
@@ -127,7 +137,26 @@ const compositeDecorator = new CompositeDecorator([
 const HANDLE_REGEX = /\@[\w]+/g;
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
 
-export default class Composer extends PureComponent {
+const mapStateToProps = state => {
+  const getAccount = makeGetAccount()
+  const account = getAccount(state, me)
+  const isPro = account.get('is_pro')
+
+  return {
+    isPro,
+    rteControlsVisible: state.getIn(['compose', 'rte_controls_visible']),
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+
+  }
+}
+
+export default
+@connect(mapStateToProps, mapDispatchToProps)
+class Composer extends PureComponent {
 
   static propTypes = {
     inputRef: PropTypes.func,
@@ -141,6 +170,9 @@ export default class Composer extends PureComponent {
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onPaste: PropTypes.func,
+    small: PropTypes.bool,
+    isPro: PropTypes.bool.isRequired,
+    rteControlsVisible: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -176,22 +208,21 @@ export default class Composer extends PureComponent {
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth))
   }
 
-  toggleBlockType = (blockType) => {
-    this.onChange(
-      RichUtils.toggleBlockType(
-        this.state.editorState,
-        blockType
+  toggleEditorStyle = (style, type) => {
+    console.log("toggleEditorStyle:", style, type)
+    if (type === 'style') {
+      this.onChange(
+        RichUtils.toggleInlineStyle(this.state.editorState, style)
       )
-    )
+    } else if (type === 'block') {
+      this.onChange(
+        RichUtils.toggleBlockType(this.state.editorState, style)
+      )
+    }
   }
 
-  toggleInlineStyle = (inlineStyle) => {
-    this.onChange(
-      RichUtils.toggleInlineStyle(
-        this.state.editorState,
-        inlineStyle
-      )
-    )
+  handleOnTogglePopoutEditor = () => {
+    //
   }
 
   setRef = (n) => {
@@ -210,28 +241,61 @@ export default class Composer extends PureComponent {
       onKeyUp,
       onFocus,
       onBlur,
-      onPaste
+      onPaste,
+      small,
+      isPro,
+      rteControlsVisible
     } = this.props
     const { editorState } = this.state
+
+    const editorContainerClasses = cx({
+      default: 1,
+      RTE: 1,
+      cursorText: 1,
+      text: 1,
+      fontSize16PX: !small,
+      fontSize14PX: small,
+      pt15: !small,
+      px15: !small,
+      px10: small,
+      pt10: small,
+      pb10: 1,
+    })
 
     return (
       <div className={[_s.default].join(' ')}>
 
-        <div className={[_s.default, _s.backgroundColorPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
-          {
-            RTE_ITEMS.map((item, i) => (
-              <StyleButton
-                key={`rte-button-${i}`}
-                editorState={editorState}
-                {...item}
-              />
-            ))
-          }
-        </div>
+        {
+          rteControlsVisible && isPro &&
+          <div className={[_s.default, _s.backgroundColorPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
+            {
+              RTE_ITEMS.map((item, i) => (
+                <StyleButton
+                  key={`rte-button-${i}`}
+                  editorState={editorState}
+                  onClick={this.toggleEditorStyle}
+                  {...item}
+                />
+              ))
+            }
+            <Button
+              backgroundColor='none'
+              color='secondary'
+              onClick={this.handleOnTogglePopoutEditor}
+              title='Fullscreen'
+              className={[_s.px10, _s.noSelect, _s.marginLeftAuto].join(' ')}
+              icon='fullscreen'
+              iconClassName={_s.inheritFill}
+              iconWidth='12px'
+              iconHeight='12px'
+              radiusSmall
+            />
+          </div>
+        }
 
         <div
           onClick={this.focus}
-          className={[_s.text, _s.fontSize16PX].join(' ')}
+          className={editorContainerClasses}
         >
           <Editor
             blockStyleFn={getBlockStyle}
@@ -240,7 +304,7 @@ export default class Composer extends PureComponent {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             onTab={this.onTab}
-            placeholder={placeholder}
+            // placeholder={placeholder}
             ref={this.setRef}
           />
         </div>
@@ -252,17 +316,17 @@ export default class Composer extends PureComponent {
 
 class StyleButton extends PureComponent {
   static propTypes = {
-    onToggle: PropTypes.func,
+    onClick: PropTypes.func,
     label: PropTypes.string,
     style: PropTypes.string,
     icon: PropTypes.string,
     type: PropTypes.string,
   }
 
-  handleOnToggle = (e) => {
-    const { onToggle, style } = this.props
+  handleOnClick
+   = (e) => {
     e.preventDefault()
-    onToggle(style)
+    this.props.onClick(this.props.style, this.props.type)
   }
 
   render() {
@@ -279,13 +343,13 @@ class StyleButton extends PureComponent {
     const currentStyle = editorState.getCurrentInlineStyle()
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType()
 
-    let active
-    // active={type.style === blockType}
-    // active={currentStyle.has(type.style)}
-    
+    const active = type === 'block' ? style === blockType : currentStyle.has(style)
+    const color = active ? 'white' : 'secondary'
+
     const btnClasses = cx({
       px10: 1,
       mr5: 1,
+      noSelect: 1,
       backgroundSubtle2Dark_onHover: 1,
       backgroundColorBrandLight: active,
       // py10: !small,
@@ -293,23 +357,20 @@ class StyleButton extends PureComponent {
       // px5: small,
     })
 
-    const iconClasses = cx({
-      fillColorSecondary: !active,
-      fillColorWhite: active,
-    })
-
     return (
       <Button
         className={btnClasses}
         backgroundColor='none'
-        onClick={this.handleOnToggle}
+        color={color}
+        onClick={this.handleOnClick}
         title={label}
-        icon={'rich-text'}
-        iconClassName={iconClasses}
-        iconWidth='10px'
-        iconHeight='10px'
+        icon={icon}
+        iconClassName={_s.inheritFill}
+        iconWidth='12px'
+        iconHeight='12px'
         radiusSmall
       />
     )
   }
 }
+

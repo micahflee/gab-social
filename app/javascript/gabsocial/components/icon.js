@@ -4,6 +4,8 @@ import AppsIcon from '../assets/apps_icon'
 import AudioIcon from '../assets/audio_icon'
 import AudioMuteIcon from '../assets/audio_mute_icon'
 import BackIcon from '../assets/back_icon'
+import BlockquoteIcon from '../assets/blockquote_icon'
+import BoldIcon from '../assets/bold_icon'
 import CalendarIcon from '../assets/calendar_icon'
 import ChatIcon from '../assets/chat_icon'
 import CircleIcon from '../assets/circle_icon'
@@ -22,6 +24,7 @@ import GroupAddIcon from '../assets/group_add_icon'
 import HappyIcon from '../assets/happy_icon'
 import HomeIcon from '../assets/home_icon'
 import InvestorIcon from '../assets/investor_icon'
+import ItalicIcon from '../assets/italic_icon'
 import LikeIcon from '../assets/like_icon'
 import LinkIcon from '../assets/link_icon'
 import ListIcon from '../assets/list_icon'
@@ -32,6 +35,7 @@ import MinimizeFullscreenIcon from '../assets/minimize_fullscreen_icon'
 import MissingIcon from '../assets/missing_icon'
 import MoreIcon from '../assets/more_icon'
 import NotificationsIcon from '../assets/notifications_icon'
+import OLListIcon from '../assets/ol_list_icon'
 import PauseIcon from '../assets/pause_icon'
 import PinIcon from '../assets/pin_icon'
 import PlayIcon from '../assets/play_icon'
@@ -43,8 +47,12 @@ import SearchIcon from '../assets/search_icon'
 import SearchAltIcon from '../assets/search_alt_icon'
 import ShareIcon from '../assets/share_icon'
 import ShopIcon from '../assets/shop_icon'
+import StrikethroughIcon from '../assets/strikethrough_icon'
 import SubtractIcon from '../assets/subtract_icon'
+import TextSizeIcon from '../assets/text_size_icon'
 import TrendsIcon from '../assets/trends_icon'
+import ULListIcon from '../assets/ul_list_icon'
+import UnderlineIcon from '../assets/underline_icon'
 import VerifiedIcon from '../assets/verified_icon'
 import WarningIcon from '../assets/warning_icon'
 
@@ -55,6 +63,8 @@ const ICONS = {
 'audio': AudioIcon,
 'audio-mute': AudioMuteIcon,
 'back': BackIcon,
+'blockquote': BlockquoteIcon,
+'bold': BoldIcon,
 'calendar': CalendarIcon,
 'chat': ChatIcon,
 'close': CloseIcon,
@@ -72,6 +82,7 @@ const ICONS = {
 'happy': HappyIcon,
 'home': HomeIcon,
 'investor': InvestorIcon,
+'italic': ItalicIcon,
 'like': LikeIcon,
 'link': LinkIcon,
 'list': ListIcon,
@@ -82,6 +93,7 @@ const ICONS = {
 'missing': MissingIcon,
 'more': MoreIcon,
 'notifications': NotificationsIcon,
+'ol-list': OLListIcon,
 'pause': PauseIcon,
 'pin': PinIcon,
 'play': PlayIcon,
@@ -93,8 +105,12 @@ const ICONS = {
 'search-alt': SearchAltIcon,
 'share': ShareIcon,
 'shop': ShopIcon,
+'strikethrough': StrikethroughIcon,
 'subtract': SubtractIcon,
+'text-size': TextSizeIcon,
 'trends': TrendsIcon,
+'ul-list': ULListIcon,
+'underline': UnderlineIcon,
 'verified': VerifiedIcon,
 'warning': WarningIcon,
 '': CircleIcon,

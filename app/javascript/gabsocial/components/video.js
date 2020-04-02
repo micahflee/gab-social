@@ -488,7 +488,6 @@ class Video extends PureComponent {
 
     return (
       <div
-        role='menuitem'
         className={[_s.default].join(' ')}
         style={playerStyle}
         ref={this.setPlayerRef}

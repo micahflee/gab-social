@@ -1,82 +1,84 @@
 import { combineReducers } from 'redux-immutable'
-import popover from './popover'
-import timelines from './timelines'
-import meta from './meta'
 import { loadingBarReducer } from 'react-redux-loading-bar'
-import modal from './modal'
-import user_lists from './user_lists'
-import domain_lists from './domain_lists'
 import accounts from './accounts'
 import accounts_counters from './accounts_counters'
-import statuses from './statuses'
-import relationships from './relationships'
-import settings from './settings'
-import push_notifications from './push_notifications'
-import status_lists from './status_lists'
-import mutes from './mutes'
-import reports from './reports'
-import contexts from './contexts'
 import compose from './compose'
-import search from './search'
-import media_attachments from './media_attachments'
-import notifications from './notifications'
-import height_cache from './height_cache'
-import custom_emojis from './custom_emojis'
-import lists from './lists'
-import listEditor from './list_editor'
-import listAdder from './list_adder'
-import filters from './filters'
+import contexts from './contexts'
 import conversations from './conversations'
-import suggestions from './suggestions'
-import polls from './polls'
-import identity_proofs from './identity_proofs'
-import hashtags from './hashtags'
+import custom_emojis from './custom_emojis'
+import domain_lists from './domain_lists'
+import filters from './filters'
 import groups from './groups'
-import group_relationships from './group_relationships'
-import group_lists from './group_lists'
 import group_editor from './group_editor'
+import group_lists from './group_lists'
+import group_relationships from './group_relationships'
+import hashtags from './hashtags'
+import height_cache from './height_cache'
+import identity_proofs from './identity_proofs'
+import lists from './lists'
+import listAdder from './list_adder'
+import listEditor from './list_editor'
+import media_attachments from './media_attachments'
+import meta from './meta'
+import modal from './modal'
+import mutes from './mutes'
+import notifications from './notifications'
+import polls from './polls'
+import popover from './popover'
+import push_notifications from './push_notifications'
+import relationships from './relationships'
+import reports from './reports'
+import search from './search'
+import settings from './settings'
 import sidebar from './sidebar'
+import statuses from './statuses'
+import status_lists from './status_lists'
 import status_revisions from './status_revisions'
+import suggestions from './suggestions'
+import tenor from './tenor'
+import timelines from './timelines'
+import user_lists from './user_lists'
 
 const reducers = {
-  popover,
-  timelines,
-  meta,
-  loadingBar: loadingBarReducer,
-  modal,
-  user_lists,
-  domain_lists,
-  status_lists,
   accounts,
   accounts_counters,
-  statuses,
-  relationships,
-  settings,
-  push_notifications,
-  mutes,
-  reports,
-  contexts,
   compose,
-  search,
-  media_attachments,
-  notifications,
-  height_cache,
+  contexts,
+  conversations,
   custom_emojis,
+  domain_lists,
+  filters,
+  groups,
+  group_editor,
+  group_lists,
+  group_relationships,
+  hashtags,
+  height_cache,
   identity_proofs,
   lists,
-  listEditor,
   listAdder,
-  filters,
-  conversations,
-  suggestions,
+  listEditor,
+  loadingBar: loadingBarReducer,
+  media_attachments,
+  meta,
+  modal,
+  mutes,
+  notifications,
   polls,
-  hashtags,
-  groups,
-  group_relationships,
-  group_lists,
-  group_editor,
+  popover,
+  push_notifications,
+  relationships,
+  reports,
+  search,
+  settings,
   sidebar,
+  statuses,
+  status_lists,
   status_revisions,
+  suggestions,
+  tenor,
+  timelines,
+  user_lists,
 }
 
 export default combineReducers(reducers)

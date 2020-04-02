@@ -607,8 +607,9 @@ export function changeScheduledAt(date) {
   };
 };
 
-export function changeRichTextEditorControlsVisibility() {
+export function changeRichTextEditorControlsVisibility(status) {
   return {
     type: COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
+    status: status,
   }
 }

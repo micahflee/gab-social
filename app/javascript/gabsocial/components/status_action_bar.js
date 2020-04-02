@@ -154,7 +154,11 @@ class StatusActionBar extends ImmutablePureComponent {
     )
 
     const hasInteractions = favoriteCount > 0 || replyCount > 0 || repostCount > 0
-    const shouldCondense = (!!status.get('card') || status.get('media_attachments').size > 0) && !hasInteractions
+    const shouldCondense = (
+      !!status.get('card') ||
+      status.get('media_attachments').size > 0 ||
+      !!status.get('quote')
+    ) && !hasInteractions
 
     const containerClasses = cx({
       default: 1,

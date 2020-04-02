@@ -38,8 +38,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onClose(optionalType) {
-    //
-    dispatch(closePopover())
+    dispatch(closePopover(optionalType))
   },
 })
 
@@ -62,17 +61,6 @@ class PopoverRoot extends PureComponent {
 
   static propTypes = {
     onClose: PropTypes.func.isRequired,
-    style: PropTypes.object,
-    placement: PropTypes.string,
-  }
-
-  static defaultProps = {
-    style: {},
-    placement: 'bottom',
-  }
-
-  state = {
-    mounted: false,
   }
 
   handleDocumentClick = e => {
@@ -85,8 +73,6 @@ class PopoverRoot extends PureComponent {
     document.addEventListener('click', this.handleDocumentClick, false)
     document.addEventListener('keydown', this.handleKeyDown, false)
     document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
-
-    this.setState({ mounted: true })
   }
 
   componentWillUnmount() {
@@ -160,10 +146,8 @@ class PopoverRoot extends PureComponent {
   render() {
     const {
       type,
-      style,
       props,
     } = this.props
-    const { mounted } = this.state
     const visible = !!type
 
     return (

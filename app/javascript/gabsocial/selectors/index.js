@@ -70,12 +70,13 @@ export const makeGetStatus = () => {
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
+      (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id']), 'account'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'account'])]),
       (state, { username }) => username,
       getFilters,
     ],
 
-    (statusBase, quotedStatus, statusRepost, accountBase, accountRepost, username, filters) => {
+    (statusBase, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
       if (!statusBase) {
         return null;
       }
@@ -90,6 +91,10 @@ export const makeGetStatus = () => {
         statusRepost = statusRepost.set('account', accountRepost);
       } else {
         statusRepost = null;
+      }
+
+      if (quotedStatus) {
+        quotedStatus = quotedStatus.set('account', accountQuoted);
       }
 
       const regex = (accountRepost || accountBase).get('id') !== me && regexFromFilters(filters);

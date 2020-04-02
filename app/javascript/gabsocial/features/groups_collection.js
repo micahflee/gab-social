@@ -1,6 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchGroups } from '../actions/groups'
+import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 import GroupCollectionItem from '../components/group_collection_item'
 
@@ -30,6 +31,9 @@ class GroupsCollection extends ImmutablePureComponent {
 	render() {
 		const { groupIds } = this.props
 
+		if (!groupIds) {
+			return <ColumnIndicator type='loading' />
+		}
 
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>

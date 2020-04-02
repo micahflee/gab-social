@@ -16,7 +16,6 @@ import EmojiPickerButton from '../../components/emoji_picker_button'
 import PollFormContainer from '../../containers/poll_form_container'
 import SchedulePostButton from '../schedule_post_button'
 import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container'
-import Icon from '../../../../components/icon'
 import Button from '../../../../components/button'
 import Avatar from '../../../../components/avatar'
 import { isMobile } from '../../../../utils/is_mobile'
@@ -238,7 +237,13 @@ class ComposeForm extends ImmutablePureComponent {
     const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
-    const containerClasses = cx({
+    const parentContainerClasses = cx({
+      default: 1,
+      flexRow: !shouldCondense,
+      pb10: !shouldCondense,
+    })
+
+    const childContainerClasses = cx({
       default: 1,
       flexNormal: 1,
       flexRow: shouldCondense,
@@ -252,111 +257,114 @@ class ComposeForm extends ImmutablePureComponent {
       flexRow: 1,
       alignItemsCenter: 1,
       mt10: !shouldCondense,
+      px15: !shouldCondense,
     })
 
     const contentWarningClasses = cx({
       default: 1,
-      pt5: 1,
-      pb10: 1,
+      px15: 1,
+      py10: 1,
       borderBottom1PX: 1,
       borderColorSecondary: 1,
-      mb10: 1,
       displayNone: !spoiler
     })
 
     return (
-      <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
-        {
-          shouldCondense &&
-          <div className={[_s.default, _s.mr10, _s.mt5]}>
-            <Avatar account={account} size='28' />
-          </div>
-        }
+      <div className={parentContainerClasses}>
+        <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
+          {
+            shouldCondense &&
+            <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
+              <Avatar account={account} size='28' />
+            </div>
+          }
 
-        <div
-          className={containerClasses}
-          ref={this.setForm}
-          onClick={this.handleClick}
-        >
-
-          <div className={contentWarningClasses}>
-            <AutosuggestTextbox
-              placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-              value={this.props.spoilerText}
-              onChange={this.handleChangeSpoilerText}
-              onKeyDown={this.handleKeyDown}
-              disabled={!this.props.spoiler}
-              ref={this.setSpoilerText}
-              suggestions={this.props.suggestions}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              onSuggestionSelected={this.onSpoilerSuggestionSelected}
-              searchTokens={[':']}
-              id='cw-spoiler-input'
-            />
-          </div>
-
-          <AutosuggestTextbox
-            ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-            placeholder={intl.formatMessage(messages.placeholder)}
-            disabled={disabled}
-            value={this.props.text}
-            onChange={this.handleChange}
-            suggestions={this.props.suggestions}
-            onKeyDown={this.handleKeyDown}
-            onFocus={this.handleComposeFocus}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSuggestionSelected}
-            onPaste={onPaste}
-            autoFocus={shouldAutoFocus}
-            small={shouldCondense}
-            textarea
+          <div
+            className={childContainerClasses}
+            ref={this.setForm}
+            onClick={this.handleClick}
           >
 
-            <div className='compose-form__modifiers'>
-              <UploadForm replyToId={replyToId} />
-              {
-                !edit &&
-                <PollFormContainer replyToId={replyToId} />
-              }
+            <div className={contentWarningClasses}>
+              <AutosuggestTextbox
+                placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                value={this.props.spoilerText}
+                onChange={this.handleChangeSpoilerText}
+                onKeyDown={this.handleKeyDown}
+                disabled={!this.props.spoiler}
+                ref={this.setSpoilerText}
+                suggestions={this.props.suggestions}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                onSuggestionSelected={this.onSpoilerSuggestionSelected}
+                searchTokens={[':']}
+                prependIcon='warning'
+                id='cw-spoiler-input'
+              />
             </div>
 
-          </AutosuggestTextbox>
+            <AutosuggestTextbox
+              ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+              placeholder={intl.formatMessage(messages.placeholder)}
+              disabled={disabled}
+              value={this.props.text}
+              onChange={this.handleChange}
+              suggestions={this.props.suggestions}
+              onKeyDown={this.handleKeyDown}
+              onFocus={this.handleComposeFocus}
+              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+              onSuggestionSelected={this.onSuggestionSelected}
+              onPaste={onPaste}
+              autoFocus={shouldAutoFocus}
+              small={shouldCondense}
+              textarea
+            >
 
-          { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */}
+              <div className={[_s.default, _s.px15].join(' ')}>
+                <UploadForm replyToId={replyToId} />
+                {
+                  !edit &&
+                  <PollFormContainer replyToId={replyToId} />
+                }
+              </div>
 
-          <div className={actionsContainerClasses}>
-            <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
-              <RichTextEditorButton small={shouldCondense} />
-              <UploadButton small={shouldCondense} />
-              {
-                !edit && <PollButton small={shouldCondense} />
-              }
+            </AutosuggestTextbox>
+
+            { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */}
+
+            <div className={actionsContainerClasses}>
+              <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
+                <RichTextEditorButton small={shouldCondense} />
+                <UploadButton small={shouldCondense} />
+                {
+                  !edit && <PollButton small={shouldCondense} />
+                }
+                {
+                  !shouldCondense &&
+                  <StatusVisibilityButton small={shouldCondense} />
+                }
+                <SpoilerButton small={shouldCondense} />
+                <SchedulePostButton small={shouldCondense} />
+                <GifSelectorButton small={shouldCondense} />
+                <EmojiPickerButton small={shouldCondense} />
+              </div>
+
+              <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
+              
               {
                 !shouldCondense &&
-                <StatusVisibilityButton small={shouldCondense} />
+                <Button
+                  className={[_s.fontSize15PX, _s.px15].join(' ')}
+                  onClick={this.handleSubmit}
+                  disabled={disabledButton}
+                >
+                  {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+                </Button>
               }
-              <SpoilerButton small={shouldCondense} />
-              <SchedulePostButton small={shouldCondense} />
-              <GifSelectorButton small={shouldCondense} />
-              <EmojiPickerButton small={shouldCondense} />
             </div>
 
-            <CharacterCounter max={maxPostCharacterCount} text={text} small={shouldCondense} />
-            
-            {
-              !shouldCondense &&
-              <Button
-                className={[_s.fontSize15PX, _s.px15].join(' ')}
-                onClick={this.handleSubmit}
-                disabled={disabledButton}
-              >
-                {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
-              </Button>
-            }
           </div>
-
         </div>
       </div>
     )

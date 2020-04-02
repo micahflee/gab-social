@@ -1,10 +1,18 @@
 import { Fragment } from 'react'
+import { me } from '../initial_state'
 import { openModal } from '../actions/modal'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import DefaultLayout from '../layouts/default_layout'
 
+const mapStateToProps = (state) => {
+  const account = state.getIn(['accounts', me])
+
+  return {
+    isPro: account.get('is_pro'),
+  }  
+}
 
 const mapDispatchToProps = dispatch => ({
   onOpenGroupCreateModal() {
@@ -13,10 +21,11 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class GroupsPage extends PureComponent {
 
   static propTypes = {
+    isPro: PropTypes.bool,
     onOpenGroupCreateModal: PropTypes.func.isRequired,
   }
 
@@ -25,9 +34,9 @@ class GroupsPage extends PureComponent {
   }
 
   render() {
-    const { children, onOpenGroupCreateModal } = this.props
+    const { children, isPro, onOpenGroupCreateModal } = this.props
 
-    const tabs = [
+    let tabs = [
       {
         title: 'Featured',
         to: '/groups'
@@ -40,21 +49,25 @@ class GroupsPage extends PureComponent {
         title: 'My Groups',
         to: '/groups/browse/member'
       },
-      { // only if is_pro
+    ]
+
+    let actions = []
+    if (isPro) {
+      actions = [{
+        icon: 'group-add',
+        onClick: onOpenGroupCreateModal,
+      }]
+
+      tabs.push({
         title: 'Admin',
         to: '/groups/browse/admin'
-      },
-    ]
+      })
+    }
 
     return (
       <DefaultLayout
         title='Groups'
-        actions={[
-          {
-            icon: 'group-add',
-            onClick: onOpenGroupCreateModal
-          },
-        ]}
+        actions={actions}
         layout={(
           <Fragment>
             <WhoToFollowPanel />

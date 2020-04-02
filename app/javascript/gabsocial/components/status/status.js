@@ -1,5 +1,3 @@
-import { Fragment } from 'react'
-import { NavLink } from 'react-router-dom';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import { injectIntl, defineMessages } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
@@ -9,14 +7,10 @@ import { displayMedia } from '../../initial_state';
 import StatusCard from '../status_card'
 import { MediaGallery, Video } from '../../features/ui/util/async_components';
 import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
-import Avatar from '../avatar';
-import StatusQuote from '../status_quote';
-import RelativeTimestamp from '../relative_timestamp';
-import DisplayName from '../display_name';
+import RecursiveStatusContainer from '../../containers/recursive_status_container'
 import StatusContent from '../status_content'
+import StatusPrepend from '../status_prepend'
 import StatusActionBar from '../status_action_bar';
-import Block from '../block';
-import Icon from '../icon';
 import Poll from '../poll';
 import StatusHeader from '../status_header'
 import Text from '../text'
@@ -30,13 +24,14 @@ const cx = classNames.bind(_s)
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
   const displayName = status.getIn(['account', 'display_name']);
 
+  // : todo :
   const values = [
-    displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
-    status.get('spoiler_text') && status.get('hidden')
-      ? status.get('spoiler_text')
-      : status.get('search_index').slice(status.get('spoiler_text').length),
-    intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
-    status.getIn(['account', 'acct']),
+    // displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
+    // status.get('spoiler_text') && status.get('hidden')
+    //   ? status.get('spoiler_text')
+    //   : status.get('search_index').slice(status.get('spoiler_text').length),
+    // intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
+    // status.getIn(['account', 'acct']),
   ];
 
   if (rebloggedByText) {
@@ -47,19 +42,17 @@ export const textForScreenReader = (intl, status, rebloggedByText = false) => {
 };
 
 export const defaultMediaVisibility = status => {
-  if (!status) return undefined;
+  if (!status) return undefined
 
   if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
-    status = status.get('reblog');
+    status = status.get('reblog')
   }
 
-  return (displayMedia !== 'hide_all' && !status.get('sensitive')) || displayMedia === 'show_all';
-};
+  return (displayMedia !== 'hide_all' && !status.get('sensitive')) || displayMedia === 'show_all'
+}
 
 const messages = defineMessages({
   filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
-  promoted: { id:'status.promoted', defaultMessage: 'Promoted gab' },
-  pinned: { id: 'status.pinned', defaultMessage: 'Pinned gab' },
 })
 
 export default
@@ -72,7 +65,6 @@ class Status extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map,
-    account: ImmutablePropTypes.map,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
     onShowRevisions: PropTypes.func,
@@ -91,7 +83,6 @@ class Status extends ImmutablePureComponent {
     onToggleHidden: PropTypes.func,
     muted: PropTypes.bool,
     hidden: PropTypes.bool,
-    unread: PropTypes.bool,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
     showThread: PropTypes.bool,
@@ -104,16 +95,17 @@ class Status extends ImmutablePureComponent {
     onOpenProUpgradeModal: PropTypes.func,
     intl: PropTypes.object.isRequired,
     borderless: PropTypes.bool,
-  };
+    isChild: PropTypes.bool,
+  }
 
   // Avoid checking props that are functions (and whose equality will always
   // evaluate to false. See react-immutable-pure-component for usage.
-  updateOnProps = ['status', 'account', 'muted', 'hidden'];
+  updateOnProps = ['status', 'account', 'muted', 'hidden']
 
   state = {
     showMedia: defaultMediaVisibility(this.props.status),
     statusId: undefined,
-  };
+  }
 
   // Track height changes we know about to compensate scrolling
   componentDidMount() {
@@ -122,10 +114,10 @@ class Status extends ImmutablePureComponent {
 
   getSnapshotBeforeUpdate() {
     if (this.props.getScrollPosition) {
-      return this.props.getScrollPosition();
+      return this.props.getScrollPosition()
     }
 
-    return null;
+    return null
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -237,34 +229,34 @@ class Status extends ImmutablePureComponent {
   };
 
   handleHotkeyMoveUp = e => {
-    this.props.onMoveUp(this.props.status.get('id'), e.target.getAttribute('data-featured'));
-  };
+    this.props.onMoveUp(this.props.status.get('id'), e.target.getAttribute('data-featured'))
+  }
 
   handleHotkeyMoveDown = e => {
-    this.props.onMoveDown(this.props.status.get('id'), e.target.getAttribute('data-featured'));
-  };
+    this.props.onMoveDown(this.props.status.get('id'), e.target.getAttribute('data-featured'))
+  }
 
   handleHotkeyToggleHidden = () => {
-    this.props.onToggleHidden(this._properStatus());
-  };
+    this.props.onToggleHidden(this._properStatus())
+  }
 
   handleHotkeyToggleSensitive = () => {
-    this.handleToggleMediaVisibility();
-  };
+    this.handleToggleMediaVisibility()
+  }
 
   _properStatus() {
-    const { status } = this.props;
+    const { status } = this.props
 
     if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
-      return status.get('reblog');
+      return status.get('reblog')
     }
 
-    return status;
+    return status
   }
 
   handleRef = c => {
-    this.node = c;
-  };
+    this.node = c
+  }
 
 
   handleOpenProUpgradeModal = () => {
@@ -276,21 +268,30 @@ class Status extends ImmutablePureComponent {
       intl,
       hidden,
       featured,
-      unread,
       showThread,
       group,
       promoted,
-      borderless
+      borderless,
+      isChild
     } = this.props
 
     let media = null
-    let prepend, rebloggedByText, reblogContent
+    let rebloggedByText, reblogContent
+
+    //   rebloggedByText = intl.formatMessage(
+    //     { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
+    //     { name: status.getIn(['account', 'acct']) }
+    //   );
+
+    //   reblogContent = status.get('contentHtml');
+    //   status = status.get('reblog');
+    // }
+
+    let { status, ...other } = this.props;
 
     // console.log("replies:", this.props.replies)
 
-    let { status, account, ...other } = this.props;
-
-    if (status === null) return null;
+    if (!status) return null
 
     if (hidden) {
       return (
@@ -302,12 +303,10 @@ class Status extends ImmutablePureComponent {
     }
 
     if (status.get('filtered') || status.getIn(['reblog', 'filtered'])) {
-      const minHandlers = this.props.muted
-        ? {}
-        : {
-          moveUp: this.handleHotkeyMoveUp,
-          moveDown: this.handleHotkeyMoveDown,
-        };
+      const minHandlers = this.props.muted ? {} : {
+        moveUp: this.handleHotkeyMoveUp,
+        moveDown: this.handleHotkeyMoveDown,
+      }
 
       return (
         <HotKeys handlers={minHandlers}>
@@ -315,73 +314,14 @@ class Status extends ImmutablePureComponent {
             <Text>{intl.formatMessage(messages.filtered)}</Text>
           </div>
         </HotKeys>
-      );
-    }
-
-    if (promoted) {
-      prepend = (
-        <button className='status__prepend status__prepend--promoted' onClick={this.handleOpenProUpgradeModal}>
-          <div className='status__prepend-icon-wrapper'>
-            <Icon id='star' className='status__prepend-icon' fixedWidth />
-          </div>
-          <Text>{intl.formatMessage(messages.promoted)}</Text>
-        </button>
-      );
-    } else if (featured) {
-      prepend = (
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15].join(' ')}>
-          <Icon
-            id='pin'
-            width='10px'
-            height='10px'
-            className={_s.fillColorSecondary}
-          />
-          <Text size='small' color='secondary' className={_s.ml5}>
-            {intl.formatMessage(messages.pinned)}
-          </Text>
-        </div>
-      );
-    } else if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
-      const display_name_html = { __html: status.getIn(['account', 'display_name_html']) };
-
-      prepend = (
-        <div className='status__prepend'>
-          <div className='status__prepend-icon-wrapper'>
-            <Icon id='repost' className='status__prepend-icon' fixedWidth />
-          </div>
-          {/*<FormattedMessage
-            id='status.reposted_by'
-            defaultMessage='{name} reposted'
-            values={{
-              name: (
-                <NavLink to={`/${status.getIn(['account', 'acct'])}`} className='status__display-name muted'>
-                  <bdi>
-                    <strong dangerouslySetInnerHTML={display_name_html} />
-                  </bdi>
-                </NavLink>
-              ),
-            }}
-          /> */ }
-        </div>
-      );
-
-      rebloggedByText = intl.formatMessage(
-        { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
-        { name: status.getIn(['account', 'acct']) }
-      );
-
-      account = status.get('account');
-      reblogContent = status.get('contentHtml');
-      status = status.get('reblog');
+      )
     }
 
     if (status.get('poll')) {
       media = <Poll pollId={status.get('poll')} />
     } else if (status.get('media_attachments').size > 0) {
       if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        const video = status.getIn(['media_attachments', 0]);
-
-        // console.log("VIDEO HERE")
+        const video = status.getIn(['media_attachments', 0])
 
         media = (
           <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer}>
@@ -409,6 +349,7 @@ class Status extends ImmutablePureComponent {
           <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery}>
             {Component => (
               <Component
+                reduced={isChild}
                 media={status.get('media_attachments')}
                 sensitive={status.get('sensitive')}
                 height={110}
@@ -423,7 +364,6 @@ class Status extends ImmutablePureComponent {
         )
       }
     } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
-      // console.log("card:", status.get('card'))
       media = (
         <StatusCard
           onOpenMedia={this.props.onOpenMedia}
@@ -433,10 +373,6 @@ class Status extends ImmutablePureComponent {
         />
       )
     }
-
-    // console.log("da status:", status)
-    let quotedStatus = status.get('quotedStatus');
-    // console.log("quotedStatus:", quotedStatus)
 
     const handlers = this.props.muted ? {} : {
       reply: this.handleHotkeyReply,
@@ -451,15 +387,13 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     }
 
-    const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
-
     const containerClasses = cx({
       default: 1,
-      mb15: !borderless,
+      mb15: !borderless && !isChild,
       backgroundColorPrimary: 1,
       pb15: featured,
-      borderBottom1PX: featured,
-      borderColorSecondary: featured,
+      borderBottom1PX: featured && !isChild,
+      borderColorSecondary: featured && !isChild,
     })
 
     const innerContainerClasses = cx({
@@ -468,6 +402,10 @@ class Status extends ImmutablePureComponent {
       radiusSmall: !borderless,
       borderColorSecondary: !borderless,
       border1PX: !borderless,
+      pb10: isChild && status.get('media_attachments').size === 0,
+      pb5: isChild && status.get('media_attachments').size > 1,     
+      cursorPointer: isChild,
+      backgroundSubtle_onHover: isChild,
     })
 
     return (
@@ -478,14 +416,15 @@ class Status extends ImmutablePureComponent {
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
+          // onClick={this.handleClick}
         >
           <div className={innerContainerClasses}>
 
-            {prepend}
-
             <div data-id={status.get('id')}>
 
-              <StatusHeader status={status} />
+              <StatusPrepend status={status} promoted={promoted} featured={featured} />
+
+              <StatusHeader status={status} reduced={isChild} />
 
               <div className={_s.default}>
                 <StatusContent
@@ -500,21 +439,24 @@ class Status extends ImmutablePureComponent {
 
               {media}
 
-              { /* status.get('quote') && <StatusQuote
-              id={status.get('quote')}
-            /> */ }
+              {
+                !!status.get('quote') && !isChild &&
+                <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
+                  <Status status={status.get('quoted_status')} isChild />
+                </div>
+              }
+              
+              {
+                !isChild &&
+                <StatusActionBar status={status} {...other} />
+              }
 
-              { /* showThread && status.get('in_reply_to_id') && status.get('in_reply_to_account_id') === status.getIn(['account', 'id']) && (
-              <button className='status__content__read-more-button' onClick={this.handleClick}>
-                <FormattedMessage id='status.show_thread' defaultMessage='Show thread' />
-              </button>
-            ) */ }
-
-              <StatusActionBar status={status} account={account} {...other} />
-
-              <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
-                { /* <ComposeFormContainer replyToId={status.get('id')} shouldCondense /> */ }
-              </div>
+              {
+                !isChild &&
+                <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
+                  <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
+                </div>
+              }
             </div>
           </div>
         </div>

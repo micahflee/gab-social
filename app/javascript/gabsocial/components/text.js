@@ -43,6 +43,7 @@ export default class Text extends PureComponent {
     weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
     align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
     underline: PropTypes.bool,
+    badge: PropTypes.bool,
     htmlFor: PropTypes.string,
   }
 
@@ -63,12 +64,17 @@ export default class Text extends PureComponent {
       weight,
       underline,
       align,
-      htmlFor
+      htmlFor,
+      badge
     } = this.props
 
     const classes = cx(className, {
       default: 1,
       text: 1,
+
+      radiusSmall: badge,
+      lineHeight15: badge,
+      px5: badge,
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,

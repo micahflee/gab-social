@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import classNames from 'classnames/bind'
+import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
@@ -71,6 +72,12 @@ export default class Input extends PureComponent {
       displayNone: hideLabel,
     })
 
+    const btnClasses = cx({
+      displayNone: value.length === 0,
+      px10: 1,
+      mr5: 1,
+    })
+
     return (
       <Fragment>
         {
@@ -103,9 +110,16 @@ export default class Input extends PureComponent {
 
           {
             hasClear &&
-            <div role='button' tabIndex='0' className={'btnClasses'} onClick={onClear}>
-              <Icon id='close' width='10px' height='10px' className={_s.fillColorWhite} aria-label='Clear' />
-            </div>
+            <Button
+              className={btnClasses}
+              tabIndex='0'
+              title='Clear'
+              onClick={onClear}
+              icon='close'
+              iconClassName={_s.inheritFill}
+              iconHeight='10px'
+              iconWidth='10px'
+            />
           }
         </div>
       </Fragment>

@@ -7,8 +7,7 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = state => ({
-  // unavailable: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size > 0),
-  // active: state.getIn(['compose', 'poll']) !== null,
+  active: state.get('popover').popoverType === 'EMOJI_PICKER',
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -33,7 +32,8 @@ class EmojiPickerButton extends PureComponent {
     small: PropTypes.bool,
   }
 
-  handleClick = () => {
+  handleClick = (e) => {
+    e.preventDefault()
     this.props.onClick(this.button)
   }
 
@@ -44,13 +44,11 @@ class EmojiPickerButton extends PureComponent {
   render() {
     const { active, small, intl } = this.props
 
-    const title = intl.formatMessage(messages.emoji)
-
     return (
       <ComposeExtraButton
+        title={intl.formatMessage(messages.emoji)}
         onClick={this.handleClick}
         icon='happy'
-        title={title}
         small={small}
         active={active}
         buttonRef={this.setButton}

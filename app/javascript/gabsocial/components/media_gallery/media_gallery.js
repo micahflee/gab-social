@@ -124,6 +124,7 @@ class Item extends ImmutablePureComponent {
     let right  = 'auto';
     let float = 'left';
     let position = 'relative';
+    let borderRadius = '0 0 0 0';
 
     if (dimensions) {
       width = dimensions.w;
@@ -134,13 +135,20 @@ class Item extends ImmutablePureComponent {
       left = dimensions.l || 'auto';
       float = dimensions.float || 'left';
       position = dimensions.pos || 'relative';
+
+      const br = dimensions.br || []
+      const hasTL = br.indexOf('tl') > -1
+      const hasTR = br.indexOf('tr') > -1
+      const hasBR = br.indexOf('br') > -1
+      const hasBL = br.indexOf('bl') > -1
+      borderRadius = `${hasTL ? '8px' : '0'} ${hasTR ? '8px' : '0'} ${hasBR ? '8px' : '0'} ${hasBL ? '8px' : '0'}`
     }
 
     let thumbnail = '';
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={[_s.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+        <div className={[_s.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius,  width: `${width}%` }}>
           <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url')} target='_blank' style={{ cursor: 'pointer' }}>
             <canvas width={32} height={32} ref={this.setCanvasRef} className='media-gallery__preview' />
           </a>
@@ -169,6 +177,7 @@ class Item extends ImmutablePureComponent {
           href={attachment.get('remote_url') || originalUrl}
           onClick={this.handleClick}
           target='_blank'
+          style={{ borderRadius }}
         >
           <img
             src={previewUrl}
@@ -235,6 +244,7 @@ class MediaGallery extends PureComponent {
     cacheWidth: PropTypes.func,
     visible: PropTypes.bool,
     onToggleVisibility: PropTypes.func,
+    reduced: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -278,8 +288,15 @@ class MediaGallery extends PureComponent {
   }
 
   render () {
-    const { media, intl, sensitive, height, defaultWidth } = this.props;
-    const { visible } = this.state;
+    const {
+      media,
+      intl,
+      sensitive,
+      height,
+      defaultWidth,
+      reduced
+    } = this.props
+    const { visible } = this.state
 
     const width = this.state.width || defaultWidth;
 
@@ -331,34 +348,34 @@ class MediaGallery extends PureComponent {
 
         if (isPortrait(ar1) && isPortrait(ar2)) {
           itemsDimensions = [
-            { w: 50, h: '100%', r: '2px' },
-            { w: 50, h: '100%', l: '2px' }
+            { w: 50, h: '100%', r: '2px', br: ['tl', 'bl'] },
+            { w: 50, h: '100%', l: '2px', br: ['tr', 'br'] },
           ];
         } else if (isPanoramic(ar1) && isPanoramic(ar2)) {
           itemsDimensions = [
-            { w: 100, h: panoSize_px, b: '2px' },
-            { w: 100, h: panoSize_px, t: '2px' }
+            { w: 100, h: panoSize_px, b: '2px', br: ['tl', 'tr'] },
+            { w: 100, h: panoSize_px, t: '2px', br: ['bl', 'br'] },
           ];
         } else if (
           (isPanoramic(ar1) && isPortrait(ar2)) ||
           (isPanoramic(ar1) && isNonConformingRatio(ar2))
         ) {
           itemsDimensions = [
-            { w: 100, h: `${(width / maximumAspectRatio)}px`, b: '2px' },
-            { w: 100, h: `${(width * 0.6)}px`, t: '2px' },
+            { w: 100, h: `${(width / maximumAspectRatio)}px`, b: '2px', br: ['tl', 'tr'] },
+            { w: 100, h: `${(width * 0.6)}px`, t: '2px', br: ['bl', 'br'] },
           ];
         } else if (
           (isPortrait(ar1) && isPanoramic(ar2)) ||
           (isNonConformingRatio(ar1) && isPanoramic(ar2))
         ) {
           itemsDimensions = [
-            { w: 100, h: `${(width * 0.6)}px`, b: '2px' },
-            { w: 100, h: `${(width / maximumAspectRatio)}px`, t: '2px' },
+            { w: 100, h: `${(width * 0.6)}px`, b: '2px', br: ['tl', 'tr'] },
+            { w: 100, h: `${(width / maximumAspectRatio)}px`, t: '2px', br: ['bl', 'br'] },
           ];
         } else {
           itemsDimensions = [
-            { w: 50, h: '100%', r: '2px' },
-            { w: 50, h: '100%', l: '2px' }
+            { w: 50, h: '100%', r: '2px', br: ['tl', 'bl'] },
+            { w: 50, h: '100%', l: '2px', br: ['tr', 'br'] },
           ];
         }
       } else if (size == 3) {
@@ -374,60 +391,60 @@ class MediaGallery extends PureComponent {
 
         if (isPanoramic(ar1) && isNonConformingRatio(ar2) && isNonConformingRatio(ar3)) {
           itemsDimensions = [
-            { w: 100, h: `50%`, b: '2px' },
-            { w: 50, h: '50%', t: '2px', r: '2px' },
-            { w: 50, h: '50%', t: '2px', l: '2px' }
+            { w: 100, h: `50%`, b: '2px', br: ['tl', 'tr'] },
+            { w: 50, h: '50%', t: '2px', r: '2px', br: ['bl'] },
+            { w: 50, h: '50%', t: '2px', l: '2px', br: ['br'] },
           ];
         } else if (isPanoramic(ar1) && isPanoramic(ar2) && isPanoramic(ar3)) {
           itemsDimensions = [
-            { w: 100, h: panoSize_px, b: '4px' },
+            { w: 100, h: panoSize_px, b: '4px', br: ['tl', 'tr'] },
             { w: 100, h: panoSize_px },
-            { w: 100, h: panoSize_px, t: '4px' }
+            { w: 100, h: panoSize_px, t: '4px', br: ['bl', 'br'] },
           ];
         } else if (isPortrait(ar1) && isNonConformingRatio(ar2) && isNonConformingRatio(ar3)) {
           itemsDimensions = [
-            { w: 50, h: `100%`, r: '2px' },
-            { w: 50, h: '50%', b: '2px', l: '2px' },
-            { w: 50, h: '50%', t: '2px', l: '2px' },
+            { w: 50, h: `100%`, r: '2px', br: ['tl', 'bl'] },
+            { w: 50, h: '50%', b: '2px', l: '2px', br: ['tr'] },
+            { w: 50, h: '50%', t: '2px', l: '2px', br: ['br'] },
           ];
         } else if (isNonConformingRatio(ar1) && isNonConformingRatio(ar2) && isPortrait(ar3)) {
           itemsDimensions = [
-            { w: 50, h: '50%', b: '2px', r: '2px' },
-            { w: 50, h: '50%', l: '-2px', b: '-2px', pos: 'absolute', float: 'none' },
-            { w: 50, h: `100%`, r: '-2px', t: '0px', b: '0px', pos: 'absolute', float: 'none' }
+            { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
+            { w: 50, h: '50%', l: '-2px', b: '-2px', pos: 'absolute', float: 'none', br: ['bl'] },
+            { w: 50, h: `100%`, r: '-2px', t: '0px', b: '0px', pos: 'absolute', float: 'none', br: ['tr', 'br'] },
           ];
         } else if (
           (isNonConformingRatio(ar1) && isPortrait(ar2) && isNonConformingRatio(ar3)) ||
           (isPortrait(ar1) && isPortrait(ar2) && isPortrait(ar3))
         ) {
           itemsDimensions = [
-            { w: 50, h: '50%', b: '2px', r: '2px' },
-            { w: 50, h: `100%`, l: '2px', float: 'right' },
-            { w: 50, h: '50%', t: '2px', r: '2px' }
+            { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
+            { w: 50, h: `100%`, l: '2px', float: 'right', br: ['tr', 'br'] },
+            { w: 50, h: '50%', t: '2px', r: '2px', br: ['bl'] },
           ];
         } else if (
           (isPanoramic(ar1) && isPanoramic(ar2) && isNonConformingRatio(ar3)) ||
           (isPanoramic(ar1) && isPanoramic(ar2) && isPortrait(ar3))
         ) {
           itemsDimensions = [
-            { w: 50, h: panoSize_px, b: '2px', r: '2px' },
-            { w: 50, h: panoSize_px, b: '2px', l: '2px' },
-            { w: 100, h: `${width - panoSize}px`, t: '2px' }
+            { w: 50, h: panoSize_px, b: '2px', r: '2px', br: ['tl'] },
+            { w: 50, h: panoSize_px, b: '2px', l: '2px', br: ['tr'] },
+            { w: 100, h: `${width - panoSize}px`, t: '2px', br: ['bl', 'br'] },
           ];
         } else if (
           (isNonConformingRatio(ar1) && isPanoramic(ar2) && isPanoramic(ar3)) ||
           (isPortrait(ar1) && isPanoramic(ar2) && isPanoramic(ar3))
         ) {
           itemsDimensions = [
-            { w: 100, h: `${width - panoSize}px`, b: '2px' },
-            { w: 50, h: panoSize_px, t: '2px', r: '2px' },
-            { w: 50, h: panoSize_px, t: '2px', l: '2px' },
+            { w: 100, h: `${width - panoSize}px`, b: '2px', br: ['tl', 'tr'] },
+            { w: 50, h: panoSize_px, t: '2px', r: '2px', br: ['bl'] },
+            { w: 50, h: panoSize_px, t: '2px', l: '2px', br: ['br'] },
           ];
         } else {
           itemsDimensions = [
-            { w: 50, h: '50%', b: '2px', r: '2px' },
-            { w: 50, h: '50%', b: '2px', l: '2px' },
-            { w: 100, h: `50%`, t: '2px' }
+            { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
+            { w: 50, h: '50%', b: '2px', l: '2px', br: ['tr'] },
+            { w: 100, h: `50%`, t: '2px', br: ['bl', 'br'] },
           ];
         }
       } else if (size == 4) {
@@ -489,6 +506,12 @@ class MediaGallery extends PureComponent {
       style.height = height;
     }
 
+    //If reduced (i.e. like in a quoted post)
+    //then we need to make media smaller
+    if (reduced) {
+      style.height = width / 2
+    }
+
     children = media.take(4).map((attachment, i) => (
       <Item
         key={attachment.get('id')}
@@ -530,12 +553,15 @@ class MediaGallery extends PureComponent {
         style={style}
         ref={this.handleRef}
       >
-        { /*
+
+        { /* : todo :
         <div className={classNames('spoiler-button', { 'spoiler-button--minified': visible })}>
           {spoilerButton}
         </div> */ }
 
-        {children}
+        <div className={[_s.default, _s.displayBlock, _s.width100PC, _s.height100PC, _s.overflowHidden].join(' ')}>
+          {children}
+        </div>
       </div>
     );
   }

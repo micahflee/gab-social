@@ -1,5 +1,5 @@
 import { injectIntl, defineMessages } from 'react-intl'
-import { changeComposeSpoilerness } from '../../../actions/compose'
+import { changeRichTextEditorControlsVisibility } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'
 
 const messages = defineMessages({
@@ -9,13 +9,13 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  active: state.getIn(['compose', 'spoiler']),
+  active: state.getIn(['compose', 'rte_controls_visible']),
 })
 
 const mapDispatchToProps = dispatch => ({
 
-  onClick () {
-    dispatch(changeComposeSpoilerness())
+  onClick (status) {
+    dispatch(changeRichTextEditorControlsVisibility(status))
   },
 
 })
@@ -23,7 +23,7 @@ const mapDispatchToProps = dispatch => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class SpoilerButton extends PureComponent {
+class RichTextEditorButton extends PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

@@ -1,6 +1,5 @@
 import DatePicker from 'react-datepicker'
 import { changeScheduledAt } from '../../actions/compose'
-import { openModal } from '../../actions/modal'
 import { me } from '../../initial_state'
 import { isMobile } from '../../utils/is_mobile'
 import PopoverLayout from './popover_layout'
@@ -16,12 +15,7 @@ const mapDispatchToProps = dispatch => ({
   setScheduledAt (date) {
     dispatch(changeScheduledAt(date))
   },
-
-  onOpenProUpgradeModal() {
-    dispatch(openModal('PRO_UPGRADE'))
-  },
 })
-
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
@@ -29,9 +23,7 @@ class DatePickerPopover extends PureComponent {
   static propTypes = {
     date: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
     isPro: PropTypes.bool,
-    onOpenProUpgradeModal: PropTypes.func.isRequired,
     position: PropTypes.string,
     small: PropTypes.bool,
   }
@@ -46,7 +38,6 @@ class DatePickerPopover extends PureComponent {
     const open = !!date
     const datePickerDisabled = !isPro
     const withPortal = isMobile(window.innerWidth)
-    const popperPlacement = position || undefined
 
     return (
       <PopoverLayout>
@@ -63,7 +54,6 @@ class DatePickerPopover extends PureComponent {
           disabled={datePickerDisabled}
           showTimeSelect
           withPortal={withPortal}
-          popperPlacement={popperPlacement}
           popperModifiers={{
             offset: {
               enabled: true,

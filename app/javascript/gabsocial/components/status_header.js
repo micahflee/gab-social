@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import classNames from 'classnames/bind'
 import { openPopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
 import RelativeTimestamp from './relative_timestamp'
@@ -11,6 +12,8 @@ import DotTextSeperator from './dot_text_seperator'
 import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
+
+const cx = classNames.bind(_s)
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenStatusRevisionsPopover(status) {
@@ -36,6 +39,7 @@ class StatusHeader extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
     onOpenStatusOptionsPopover: PropTypes.func.isRequired,
+    reduced: PropTypes.bool,
   }
 
   handleOpenStatusOptionsPopover = () => {
@@ -122,21 +126,33 @@ class StatusHeader extends ImmutablePureComponent {
   }
 
   render() {
-    const { status } = this.props
+    const { status, reduced } = this.props
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 
+    const containerClasses = cx({
+      default: 1,
+      px15: 1,
+      py10: !reduced,
+      pb10: reduced,
+    })
+
+    const avatarSize = reduced ? 20 : 46
+
     return (
-      <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
+      <div className={containerClasses}>
         <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
 
-          <NavLink
-            to={`/${status.getIn(['account', 'acct'])}`}
-            title={status.getIn(['account', 'acct'])}
-            className={[_s.default, _s.mr10].join(' ')}
-          >
-            <Avatar account={status.get('account')} size={50} />
-          </NavLink>
+          {
+            !reduced &&
+            <NavLink
+              to={`/${status.getIn(['account', 'acct'])}`}
+              title={status.getIn(['account', 'acct'])}
+              className={[_s.default, _s.mr10].join(' ')}
+            >
+              <Avatar account={status.get('account')} size={avatarSize} />
+            </NavLink>
+          }
 
           <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.mt5].join(' ')}>
 
@@ -149,18 +165,21 @@ class StatusHeader extends ImmutablePureComponent {
                 <DisplayName account={status.get('account')} />
               </NavLink>
 
-              <Button
-                text
-                backgroundColor='none'
-                color='none'
-                icon='ellipsis'
-                iconWidth='20px'
-                iconHeight='20px'
-                iconClassName={_s.fillColorSecondary}
-                className={_s.marginLeftAuto}
-                onClick={this.handleOpenStatusOptionsPopover}
-                buttonRef={this.setStatusOptionsButton}
-              />
+              {
+                !reduced &&
+                <Button
+                  text
+                  backgroundColor='none'
+                  color='none'
+                  icon='ellipsis'
+                  iconWidth='20px'
+                  iconHeight='20px'
+                  iconClassName={_s.fillColorSecondary}
+                  className={_s.marginLeftAuto}
+                  onClick={this.handleOpenStatusOptionsPopover}
+                  buttonRef={this.setStatusOptionsButton}
+                />
+              }
             </div>
 
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.lineHeight15].join(' ')}>

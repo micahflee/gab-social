@@ -63,9 +63,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
               {intl.formatMessage(messages.createPost)}
             </Heading>
           </div>
-          <div className={[_s.default, _s.flexRow, _s.px15, _s.pt15, _s.pb10].join(' ')}>
-            <ComposeFormContainer {...rest} />
-          </div>
+          <ComposeFormContainer {...rest} />
         </Block>
       </section>
     )

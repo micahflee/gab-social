@@ -1,6 +1,6 @@
 import { injectIntl, defineMessages } from 'react-intl'
-import { changeComposeSpoilerness } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'
+import { openModal } from '../../../actions/modal'
 
 const messages = defineMessages({
   marked: { id: 'compose_form.spoiler.marked', defaultMessage: 'Text is hidden behind warning' },
@@ -9,13 +9,13 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  active: state.getIn(['compose', 'spoiler']),
+  active: !!state.getIn(['compose', 'gif']) || state.get('modal').modalType === 'GIF_PICKER',
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
-  onClick () {
-    dispatch(changeComposeSpoilerness())
+  onClick() {
+    dispatch(openModal('GIF_PICKER'))
   },
 
 })
@@ -23,29 +23,35 @@ const mapDispatchToProps = dispatch => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class SpoilerButton extends PureComponent {
+class GifSelectorButton extends PureComponent {
 
   static propTypes = {
-    active: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    onClick: PropTypes.func.isRequired,
+    active: PropTypes.bool,
     small: PropTypes.bool,
   }
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.onClick()
+    this.props.onClick(this.button)
   }
 
-  render () {
-    const { active, intl, small } = this.props
+  setButton = (n) => {
+    this.button = n
+  }
+
+  render() {
+    const { active, small, intl } = this.props
 
     return (
       <ComposeExtraButton
         title={intl.formatMessage(messages.title)}
-        icon='gif'
         onClick={this.handleClick}
+        icon='gif'
         small={small}
         active={active}
+        buttonRef={this.setButton}
       />
     )
   }

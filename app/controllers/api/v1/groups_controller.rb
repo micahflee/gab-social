@@ -12,7 +12,9 @@ class Api::V1::GroupsController < Api::BaseController
   def index
     case current_tab
       when 'featured'
-        @groups = Group.where(is_featured: true).limit(50).all
+        @groups = Group.where(is_featured: true, is_archived: false).limit(50).all
+      when 'new'
+        @groups = Group.where(is_archived: false).limit(24).order('created_at DESC').all
       when 'member'
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.unread_count DESC, group_accounts.id DESC').all
       when 'admin'
@@ -24,7 +26,7 @@ class Api::V1::GroupsController < Api::BaseController
 
   def current_tab 
     tab = 'featured'
-    tab = params[:tab] if ['featured', 'member', 'admin'].include? params[:tab]
+    tab = params[:tab] if ['featured', 'member', 'admin', 'new'].include? params[:tab]
     return tab
   end
 

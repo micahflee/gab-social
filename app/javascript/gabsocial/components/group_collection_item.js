@@ -5,15 +5,18 @@ import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import { shortNumberFormat } from '../utils/numbers'
-import Image from './image'
-import Text from './text'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
+import Image from './image'
+import Text from './text'
 
 const messages = defineMessages({
   members: { id: 'groups.card.members', defaultMessage: 'Members' },
   new_statuses: { id: 'groups.sidebar-panel.item.view', defaultMessage: 'new gabs' },
   no_recent_activity: { id: 'groups.sidebar-panel.item.no_recent_activity', defaultMessage: 'No recent activity' },
+  viewGroup: { id: 'view_group', defaultMessage: 'View Group' },
+  member: { id: 'member', defaultMessage: 'Member' },
+  admin: { id: 'admin', defaultMessage: 'Admin' },
 })
 
 const mapStateToProps = (state, { id }) => ({
@@ -49,8 +52,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
     const imageHeight = '200px'
 
-    // : todo :
-    const isMember = false
+    const isMember = relationships.get('member')
 
     const outsideClasses = cx({
       default: 1,
@@ -83,6 +85,25 @@ class GroupCollectionItem extends ImmutablePureComponent {
             height={imageHeight}
           />
 
+          <div className={[_s.default, _s.flexRow, _s.positionAbsolute, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
+            <Text
+              badge
+              className={_s.backgroundColorWhite}
+              size='extraSmall'
+              color='brand'
+            >
+              {intl.formatMessage(messages.member)}
+            </Text>
+            <Text
+              badge
+              className={[_s.backgroundColorBlack, _s.ml5].join(' ')}
+              size='extraSmall'
+              color='white'
+            >
+              {intl.formatMessage(messages.admin)}
+            </Text>
+          </div>
+
           <div className={[_s.default, _s.px10, _s.my10].join(' ')}>
             <Text color='primary' size='medium' weight='bold'>
               {group.get('title')}
@@ -101,20 +122,17 @@ class GroupCollectionItem extends ImmutablePureComponent {
             </div>
           </div>
 
-          {
-            !isMember &&
-            <div className={[_s.default, _s.px10, _s.mb10].join(' ')}>
-              <Button
-                color='primary'
-                backgroundColor='tertiary'
-                radiusSmall
-              >
-                <Text color='inherit' weight='bold'>
-                  Join
-                </Text>
-              </Button>
-            </div>
-          }
+          <div className={[_s.default, _s.px10, _s.mb10].join(' ')}>
+            <Button
+              color='primary'
+              backgroundColor='tertiary'
+              radiusSmall
+            >
+              <Text color='inherit' weight='bold'>
+                {intl.formatMessage(messages.viewGroup)}
+              </Text>
+            </Button>
+          </div>
 
         </NavLink>
       </div>

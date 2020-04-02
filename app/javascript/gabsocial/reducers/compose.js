@@ -54,6 +54,7 @@ const initialState = ImmutableMap({
   spoiler_text: '',
   privacy: null,
   text: '',
+  markdown_text: '',
   focusDate: null,
   caretPosition: null,
   preselectDate: null,
@@ -75,6 +76,7 @@ const initialState = ImmutableMap({
   tagHistory: ImmutableList(),
   scheduled_at: null,
   rte_controls_visible: false,
+  gif: null,
 });
 
 const initialPoll = ImmutableMap({
@@ -298,6 +300,7 @@ export default function compose(state = initialState, action) {
       map.set('poll', null);
       map.set('idempotencyKey', uuid());
       map.set('scheduled_at', null);
+      map.set('rte_controls_visible', false);
     });
   case COMPOSE_SUBMIT_REQUEST:
     return state.set('is_submitting', true);
@@ -389,7 +392,9 @@ export default function compose(state = initialState, action) {
   case COMPOSE_SCHEDULED_AT_CHANGE:
     return state.set('scheduled_at', action.date);
   case COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY:
-    return ''
+    return state.withMutations(map => {
+      map.set('rte_controls_visible', !state.get('rte_controls_visible'));
+    });
   default:
     return state;
   }

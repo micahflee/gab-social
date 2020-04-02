@@ -36,6 +36,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     onBlur: PropTypes.func,
     textarea: PropTypes.bool,
     small: PropTypes.bool,
+    prependIcon: PropTypes.string,
   }
 
   static defaultProps = {
@@ -208,7 +209,8 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       className,
       id,
       maxLength,
-      textarea
+      textarea,
+      prependIcon
     } = this.props
 
     const { suggestionsHidden } = this.state
@@ -232,26 +234,11 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       mr5: small,
     })
 
-    // <div aria-activedescendant="typeaheadFocus-0.35973815699338085"
-    // aria-autocomplete="list"
-    // aria-controls="typeaheadDropdownWrapped-0"
-    // aria-describedby="placeholder-7g4r6"
-    // aria-label="Tweet text"
-    // aria-multiline="true"
-    // class="notranslate public-DraftEditor-content"
-    // contenteditable="true"
-    // data-testid="tweetTextarea_0"
-    // role="textbox"
-    // spellcheck="true"
-    // tabindex="0"
-    // no-focuscontainer-refocus="true"
-    // style="outline: none; user-select: text; white-space: pre-wrap; overflow-wrap: break-word;">
-
     if (textarea) {
       return (
         <Fragment>
           <div className={[_s.default, _s.flexGrow1].join(' ')}>
-            <div className={[_s.default, _s.ml5].join(' ')}>
+            <div className={[_s.default].join(' ')}>
 
               <Composer
                 inputRef={this.setTextbox}
@@ -265,6 +252,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onFocus={this.onFocus}
                 onBlur={this.onBlur}
                 onPaste={this.onPaste}
+                small={small}
               />
 
               { /* <Textarea
@@ -350,6 +338,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             id={id}
             className={className}
             maxLength={maxLength}
+            prependIcon={prependIcon}
           />
         </label>
 
