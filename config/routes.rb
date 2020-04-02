@@ -328,6 +328,7 @@ Rails.application.routes.draw do
 
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]
+      resources :gifs, only: [:index]
       resources :suggestions, only: [:index, :destroy]
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]

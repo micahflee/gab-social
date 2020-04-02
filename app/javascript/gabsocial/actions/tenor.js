@@ -1,4 +1,4 @@
-import axios from 'axios'
+import api from '../api';
 import { me, tenorkey } from '../initial_state'
 
 export const GIFS_CLEAR_RESULTS = 'GIFS_CLEAR_RESULTS'
@@ -14,13 +14,12 @@ export const GIF_CATEGORIES_FETCH_SUCCESS = 'GIF_CATEGORIES_FETCH_SUCCESS'
 export const GIF_CATEGORIES_FETCH_FAIL = 'GIF_CATEGORIES_FETCH_FAIL'
 
 export const fetchGifCategories = () => {
-  return function (dispatch) {
+  return function (dispatch, getState) {
     if (!me) return
 
     dispatch(fetchGifCategoriesRequest())
 
-    axios.get(`https://api.tenor.com/v1/categories?media_filter=minimal&limit=30&key=${tenorkey}`)
-    .then((response) => {
+    api(getState).get('/api/v1/gifs').then(response => {
       console.log("fetchGifCategoriesSuccess:", response)
       dispatch(fetchGifCategoriesSuccess(response.data.tags))
     }).catch(function (error) {
