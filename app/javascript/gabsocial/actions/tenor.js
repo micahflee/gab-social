@@ -13,6 +13,8 @@ export const GIF_CATEGORIES_FETCH_REQUEST = 'GIF_CATEGORIES_FETCH_REQUEST'
 export const GIF_CATEGORIES_FETCH_SUCCESS = 'GIF_CATEGORIES_FETCH_SUCCESS'
 export const GIF_CATEGORIES_FETCH_FAIL = 'GIF_CATEGORIES_FETCH_FAIL'
 
+// : todo :
+
 export const fetchGifCategories = () => {
   return function (dispatch, getState) {
     if (!me) return
@@ -20,7 +22,6 @@ export const fetchGifCategories = () => {
     dispatch(fetchGifCategoriesRequest())
 
     api(getState).get('/api/v1/gifs').then(response => {
-      console.log("fetchGifCategoriesSuccess:", response)
       dispatch(fetchGifCategoriesSuccess(response.data.tags))
     }).catch(function (error) {
       dispatch(fetchGifCategoriesFail(error))
@@ -36,7 +37,7 @@ export const fetchGifResults = () => {
 
     const searchText = getState().getIn(['tenor', 'searchText'], '');
 
-    axios.get(`https://api.tenor.com/v1/search?q=${searchText}&media_filter=minimal&limit=30&key=QHFJ0C5EWGBH`)
+    axios.get(`https://api.tenor.com/v1/search?q=${searchText}&media_filter=minimal&limit=30&key=${tenorkey}`)
     .then((response) => {
       console.log("response:", response)
       dispatch(fetchGifResultsSuccess(response.data.results))

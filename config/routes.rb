@@ -326,6 +326,7 @@ Rails.application.routes.draw do
         resources :group, only: :show
       end
 
+      resources :gab_trends, only: [:index]
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]
       resources :gifs, only: [:index]

@@ -195,7 +195,7 @@ class StatusContent extends ImmutablePureComponent {
           to={`/${item.get('acct')}`}
           href={`/${item.get('acct')}`}
           key={item.get('id')}
-          className={['mention', _s.mr5, _s.mb5].join(' ')}
+          className={['mention', _s.mr5, _s.pb5].join(' ')}
         >
           @{item.get('username')}
         </Button>

@@ -472,6 +472,10 @@ body {
   max-height: 80vh;
 }
 
+.heightMax56PX {
+  max-height: 56px;
+}
+
 .heightMin50VH {
   min-height: 50vh;
 }

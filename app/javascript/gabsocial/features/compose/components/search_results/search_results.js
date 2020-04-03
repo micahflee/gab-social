@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
-import TrendingItem from '../../../../components/trends_panel_item'
+import TrendingItem from '../../../../components/trends_item'
 import Icon from '../../../../components/icon'
 import { WhoToFollowPanel } from '../../../../components/panel'
 // import TrendsPanel from '../../ui/components/trends_panel'

@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
-import GroupSidebarPanel from '../components/panel/groups_panel'
+import GroupsPanel from '../components/panel/groups_panel'
+import ListsPanel from '../components/panel/lists_panel'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
@@ -46,9 +47,10 @@ class HomePage extends PureComponent {
             <UserPanel />
             <ProgressPanel />
             <TrendsPanel />
+            <ListsPanel />
             <HashtagsPanel />
             <WhoToFollowPanel />
-            <GroupSidebarPanel />
+            <GroupsPanel />
             <LinkFooter />
           </Fragment>
         )}

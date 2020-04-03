@@ -181,6 +181,8 @@ class Composer extends PureComponent {
 
   onChange = (editorState) => {
     this.setState({ editorState })
+    const text = editorState.getCurrentContent().getPlainText('\u0001')
+    this.props.onChange(text)
   }
 
   onToggleInlineStyle = (style) => {

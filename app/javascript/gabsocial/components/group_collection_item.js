@@ -50,7 +50,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
       </Fragment>
     ) : intl.formatMessage(messages.no_recent_activity)
 
-    const imageHeight = '200px'
+    const imageHeight = '180px'
 
     const isMember = relationships.get('member')
 
@@ -109,7 +109,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
               {group.get('title')}
             </Text>
 
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.mt5].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.my5].join(' ')}>
               <Text color='secondary' size='small'>
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;
@@ -119,19 +119,9 @@ class GroupCollectionItem extends ImmutablePureComponent {
               <Text color='secondary' size='small' className={_s.ml5}>
                 {subtitle}
               </Text>
+              <DotTextSeperator />
+              <Text color='secondary' size='small' className={_s.ml5}>→</Text>
             </div>
-          </div>
-
-          <div className={[_s.default, _s.px10, _s.mb10].join(' ')}>
-            <Button
-              color='primary'
-              backgroundColor='tertiary'
-              radiusSmall
-            >
-              <Text color='inherit' weight='bold'>
-                {intl.formatMessage(messages.viewGroup)}
-              </Text>
-            </Button>
           </div>
 
         </NavLink>

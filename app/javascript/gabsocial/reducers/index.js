@@ -8,6 +8,7 @@ import conversations from './conversations'
 import custom_emojis from './custom_emojis'
 import domain_lists from './domain_lists'
 import filters from './filters'
+import gab_trends from './gab_trends'
 import groups from './groups'
 import group_editor from './group_editor'
 import group_lists from './group_lists'
@@ -48,6 +49,7 @@ const reducers = {
   custom_emojis,
   domain_lists,
   filters,
+  gab_trends,
   groups,
   group_editor,
   group_lists,
