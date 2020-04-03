@@ -352,7 +352,9 @@ class User < ApplicationRecord
   def set_unique_email
     user, domain = self.email.split('@')
     user = user.split('+').first
-    user = user.gsub('.', '') if domain == 'gmail.com'
+    if ((domain == 'gmail.com') || (domain == 'hotmail.com'))
+      user = user.gsub('.', '')
+    end
     self.unique_email = "#{user}@#{domain}"
   end
 end
