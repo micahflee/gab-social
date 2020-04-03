@@ -18,13 +18,13 @@ function fetchRoot() {
 
 // Cause a new version of a registered Service Worker to replace an existing one
 // that is already installed, and replace the currently active worker on open pages.
-self.addEventListener('install', function (event) {
+self.addEventListener('install', function(event) {
   event.waitUntil(Promise.all([openWebCache(), fetchRoot()]).then(([cache, root]) => cache.put('/', root)));
 });
-self.addEventListener('activate', function (event) {
+self.addEventListener('activate', function(event) {
   event.waitUntil(self.clients.claim());
 });
-self.addEventListener('fetch', function (event) {
+self.addEventListener('fetch', function(event) {
   const url = new URL(event.request.url);
 
   if (url.pathname === '/auth/sign_out') {
@@ -69,16 +69,16 @@ self.addEventListener('fetch', function (event) {
     //non-webapp routes
   } else if (url.pathname.startsWith('/')) {
     // : TODO : if is /web
-    const asyncResponse = fetchRoot();
-    const asyncCache = openWebCache();
+    // const asyncResponse = fetchRoot();
+    // const asyncCache = openWebCache();
 
-    event.respondWith(asyncResponse.then(
-      response => {
-        const clonedResponse = response.clone();
-        asyncCache.then(cache => cache.put('/', clonedResponse)).catch();
-        return response;
-      },
-      () => asyncCache.then(cache => cache.match('/'))));
+    // event.respondWith(asyncResponse.then(
+    //   response => {
+    //     const clonedResponse = response.clone();
+    //     asyncCache.then(cache => cache.put('/', clonedResponse)).catch();
+    //     return response;
+    //   },
+    //   () => asyncCache.then(cache => cache.match('/'))));
   } /* else if (storageFreeable && (ATTACHMENT_HOST ? url.host === ATTACHMENT_HOST : url.pathname.startsWith('/system/'))) {
     event.respondWith(openSystemCache().then(cache => {
       return cache.match(event.request.url).then(cached => {
