@@ -17,7 +17,7 @@ import {
   ACCOUNT_MUTE_SUCCESS,
 } from '../actions/accounts';
 import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines';
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
 import compareId from '../utils/compare_id';
 import { unreadCount } from '../initial_state';
 
@@ -57,31 +57,95 @@ const normalizeNotification = (state, notification) => {
 };
 
 const expandNormalizedNotifications = (state, notifications, next) => {
-  let items = ImmutableList();
+  //Grouped items
+  let follows = ImmutableList()
+  let likes = {}
+  let reposts = {}
+  
+  let items = ImmutableList()
 
   // : todo filter notiications here:
 
-  notifications.forEach((n, i) => {
-    items = items.set(i, notificationToMap(n));
-  });
+  notifications.forEach((n) => {
+    const notification = notificationToMap(n)
+    const statusId = notification.get('status')
+    const type = notification.get('type')
+    
+    switch (type) {
+      case 'follow': {
+        follows = follows.set(follows.size, notification)
+        break
+      }
+      case 'favourite': {
+        if (likes[statusId] === undefined) likes[statusId] = []
+        likes[statusId].push({
+          account: notification.get('account'),
+        })
+        break
+      }
+      case 'reblog': {
+        if (reposts[statusId] === undefined) reposts[statusId] = []
+        reposts[statusId].push({
+          account: notification.get('account'),
+        })
+        break
+      }
+      default: {
+        items = items.set(items.size, notification)
+        break
+      }
+    }
+  })
 
-  console.log("reducer notifications:", notifications)
+  if (follows.size > 0) {
+    items = items.set(items.size, ImmutableMap({
+      follow: follows,
+    }))
+  }
+  if (Object.keys(likes).length > 0) {
+    for (const statusId in likes) {
+      if (likes.hasOwnProperty(statusId)) {
+        const likeArr = likes[statusId]
+        const accounts = likeArr.map((l) => l.account)
+        items = items.set(items.size, ImmutableMap({
+          like: ImmutableMap({
+            status: statusId,
+            accounts: accounts,
+          })
+        }))
+      }
+    }
+  }
+  if (Object.keys(reposts).length > 0) {
+    for (const statusId in reposts) {
+      if (reposts.hasOwnProperty(statusId)) {
+        const repostArr = reposts[statusId]
+        const accounts = repostArr.map((l) => l.account)
+        items = items.set(items.size, ImmutableMap({
+          repost: ImmutableMap({
+            status: statusId,
+            accounts: accounts,
+          })
+        }))
+      }
+    }
+  }
 
   return state.withMutations(mutable => {
     if (!items.isEmpty()) {
       mutable.update('items', list => {
         const lastIndex = 1 + list.findLastIndex(
           item => item !== null && (compareId(item.get('id'), items.last().get('id')) > 0 || item.get('id') === items.last().get('id'))
-        );
+        )
 
         const firstIndex = 1 + list.take(lastIndex).findLastIndex(
           item => item !== null && compareId(item.get('id'), items.first().get('id')) > 0
-        );
+        )
 
-        const pop = list.take(firstIndex).concat(items, list.skip(lastIndex));
-        console.log("pop:", pop)
+        const pop = list.take(firstIndex).concat(items, list.skip(lastIndex))
+
         return pop
-      });
+      })
     }
 
     if (!next) {

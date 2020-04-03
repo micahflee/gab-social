@@ -1,3 +1,4 @@
+import { List as ImmutableList } from 'immutable'
 import { openModal } from '../../../actions/modal'
 import { mentionCompose } from '../../../actions/compose'
 import {
@@ -10,23 +11,68 @@ import {
   hideStatus,
   revealStatus,
 } from '../../../actions/statuses'
-import { boostModal, me } from '../../../initial_state'
-import { makeGetNotification, makeGetStatus } from '../../../selectors'
+import { boostModal } from '../../../initial_state'
+import { makeGetNotification } from '../../../selectors'
 import Notification from '../components/notification/notification-alt'
+
+const getAccountFromState = (state, accountId) => {
+  return state.getIn(['accounts', accountId])
+}
 
 const makeMapStateToProps = () => {
   const getNotification = makeGetNotification()
-  const getStatus = makeGetStatus()
 
   const mapStateToProps = (state, props) => {
-    const notification = getNotification(state, props.notification, props.accountId)
+    const isFollows = !!props.notification.get('follow')
+    const isLikes = !!props.notification.get('like')
+    const isReposts = !!props.notification.get('repost')
+    const isGrouped = isFollows || isLikes || isReposts
 
-    const account = state.getIn(['accounts', me])
+    if (isFollows) {
+      const list = props.notification.get('follow')
+      
+      let accounts = ImmutableList()
+      list.forEach((item) => {
+        const account = getAccountFromState(state, item.get('account'))
+        accounts = accounts.set(accounts.size, account)
+      })
+  
+      return {
+        type: 'follow',
+        accounts: accounts, 
+        createdAt: undefined,
+        statusId: undefined,
+      }
+    } else if (isLikes || isReposts) {
+      const theType = isLikes ? 'like' : 'repost'
+      const list = props.notification.get(theType)
 
-    return {
-      accounts: [account, account, account],
-      notification: notification,
-      status: notification.get('status') ? getStatus(state, { id: notification.get('status') }) : null,
+      let accounts = ImmutableList()
+      const accountIdArr = list.get('accounts')
+
+      for (let i = 0; i < accountIdArr.length; i++) {
+        const accountId = accountIdArr[i];
+        const account = getAccountFromState(state, accountId)
+        accounts = accounts.set(accounts.size, account)
+      }
+
+      return {
+        type: theType,
+        accounts: accounts,
+        createdAt: undefined,
+        statusId: list.get('status'),
+      }
+    } else if (!isGrouped) {
+      const notification = getNotification(state, props.notification, props.notification.get('account'))
+      const account = notification.get('account')
+      const statusId = notification.get('status')
+
+      return {
+        accounts: !!account ? ImmutableList([account]) : ImmutableList(),
+        type: notification.get('type'),
+        createdAt: notification.get('created_at'),
+        statusId: statusId || undefined,
+      }
     }
   }
 

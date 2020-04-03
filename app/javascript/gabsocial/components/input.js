@@ -73,7 +73,7 @@ export default class Input extends PureComponent {
     })
 
     const btnClasses = cx({
-      displayNone: value.length === 0,
+      displayNone: !value || value.length === 0,
       px10: 1,
       mr5: 1,
     })

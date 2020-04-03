@@ -8,7 +8,7 @@ class Api::V1::NotificationsController < Api::BaseController
 
   respond_to :json
 
-  DEFAULT_NOTIFICATIONS_LIMIT = 50
+  DEFAULT_NOTIFICATIONS_LIMIT = 30
 
   def index
     @notifications = load_notifications

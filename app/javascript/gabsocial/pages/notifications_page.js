@@ -56,27 +56,27 @@ class NotificationsPage extends PureComponent {
         active: false,
       },
       {
-        title: ' @ ',
+        title: 'Mentions',
         onClick: null,
         active: false,
       },
       {
-        icon: 'like',
+        title: 'Likes',
         onClick: null,
         active: false,
       },
       {
-        icon: 'repost',
+        title: 'Reposts',
         onClick: null,
         active: false,
       },
       {
-        icon: 'poll',
+        title: 'Polls',
         onClick: null,
         active: false,
       },
       {
-        icon: 'user-plus',
+        title: 'Follows',
         onClick: null,
         active: false,
       },

@@ -133,37 +133,7 @@ class Notifications extends ImmutablePureComponent {
 
     // : todo : include follow requests
 
-    console.log('notifications:', notifications)
-
-    let filteredNotifications = {follows:[]}
-
-    notifications.forEach((notification) => {
-      // const createdAt = notification.get('createdAt')
-      // const account = notification.get('account')
-      const type = notification.get('type')
-      const status = notification.get('status')
-      if (type === 'follow') {
-        filteredNotifications.follows.push(notification)
-      } else if (type === 'favourite') {
-        if (filteredNotifications[status] === undefined) {
-          filteredNotifications[status] = {}
-        }
-        if (filteredNotifications[status]['favorite'] === undefined) {
-          filteredNotifications[status].favorite = []
-        }
-        filteredNotifications[status].favorite.push(notification)
-      } else if (type === 'poll') {
-        if (filteredNotifications[status] === undefined) {
-          filteredNotifications[status] = {}
-        }
-        if (filteredNotifications[status]['poll'] === undefined) {
-          filteredNotifications[status].poll = []
-        }
-        filteredNotifications[status].poll.push(notification)
-      }
-    })
-
-    console.log('filteredNotifications:', filteredNotifications)
+    // console.log('notifications:', notifications)
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent
