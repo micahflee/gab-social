@@ -20,13 +20,13 @@ const messages = defineMessages({
   forwardHint: { id: 'report.forward_hint', defaultMessage: 'The account is from another server. Send an anonymized copy of the report there as well?' },
   forward: { id: 'report.forward', defaultMessage: 'Forward to {target}' },
   target: { id: 'report.target', defaultMessage: 'Report {target}' },
-});
+})
 
 const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount();
+  const getAccount = makeGetAccount()
 
   const mapStateToProps = state => {
-    const accountId = state.getIn(['reports', 'new', 'account_id']);
+    const accountId = state.getIn(['reports', 'new', 'account_id'])
 
     return {
       isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
@@ -34,11 +34,11 @@ const makeMapStateToProps = () => {
       comment: state.getIn(['reports', 'new', 'comment']),
       forward: state.getIn(['reports', 'new', 'forward']),
       statusIds: OrderedSet(state.getIn(['timelines', `account:${accountId}:with_replies`, 'items'])).union(state.getIn(['reports', 'new', 'status_ids'])),
-    };
-  };
+    }
+  }
 
-  return mapStateToProps;
-};
+  return mapStateToProps
+}
 
 export default
 @connect(makeMapStateToProps)
@@ -53,33 +53,34 @@ class ReportModal extends ImmutablePureComponent {
     forward: PropTypes.bool,
     dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+    onClose: PropTypes.func.isRequired,
+  }
 
   handleCommentChange = e => {
-    this.props.dispatch(changeReportComment(e.target.value));
+    this.props.dispatch(changeReportComment(e.target.value))
   }
 
   handleForwardChange = e => {
-    this.props.dispatch(changeReportForward(e.target.checked));
+    this.props.dispatch(changeReportForward(e.target.checked))
   }
 
   handleSubmit = () => {
-    this.props.dispatch(submitReport());
+    this.props.dispatch(submitReport())
   }
 
   handleKeyDown = e => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      this.handleSubmit();
+      this.handleSubmit()
     }
   }
 
   componentDidMount () {
-    this.props.dispatch(expandAccountTimeline(this.props.account.get('id'), { withReplies: true }));
+    this.props.dispatch(expandAccountTimeline(this.props.account.get('id'), { withReplies: true }))
   }
 
   componentWillReceiveProps (nextProps) {
     if (this.props.account !== nextProps.account && nextProps.account) {
-      this.props.dispatch(expandAccountTimeline(nextProps.account.get('id'), { withReplies: true }));
+      this.props.dispatch(expandAccountTimeline(nextProps.account.get('id'), { withReplies: true }))
     }
   }
 
@@ -96,7 +97,7 @@ class ReportModal extends ImmutablePureComponent {
 
     if (!account) return null
 
-    const domain = account.get('acct').split('@')[1];
+    const domain = account.get('acct').split('@')[1]
 
     return (
       <ModalLayout
@@ -104,6 +105,7 @@ class ReportModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.target, {
           target: account.get('acct')
         })}
+        onClose={onClose}
       >
 
         <div className={[_s.default, _s.flexRow].join(' ')}>
@@ -168,7 +170,7 @@ class ReportModal extends ImmutablePureComponent {
           </div>
         </div>
       </ModalLayout>
-    );
+    )
   }
 
 }

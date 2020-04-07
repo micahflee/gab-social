@@ -7,7 +7,7 @@ import ColumnIndicator from '../column_indicator'
 import TrendingItem from '../trends_item'
 
 const messages = defineMessages({
-  title: { id:'trends.title', defaultMessage: 'Trending right now' },
+  title: { id: 'trends.title', defaultMessage: 'Trending right now' },
 })
 
 const mapStateToProps = state => ({
@@ -31,7 +31,7 @@ class TrendsPanel extends ImmutablePureComponent {
     onFetchGabTrends: PropTypes.func.isRequired,
   }
 
-  componentWillMount () {
+  componentWillMount() {
     this.props.onFetchGabTrends()
   }
 
@@ -52,7 +52,7 @@ class TrendsPanel extends ImmutablePureComponent {
             gabtrends && gabtrends.slice(0, 8).map((trend, i) => (
               <TrendingItem
                 key={`gab-trend-${i}`}
-                index={i+1}
+                index={i + 1}
                 isLast={i === 7}
                 url={trend.get('url')}
                 title={trend.get('title')}

@@ -167,7 +167,13 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       done();
       return;
     }
+    
+    console.log("activeFilter:", activeFilter)
+    console.log("excludeTypesFromSettings(getState()):", excludeTypesFromSettings(getState()))
+    console.log("excludeTypesFromFilter(activeFilter):", excludeTypesFromFilter(activeFilter))
 
+    // : todo :
+    // filter verified and following here too
     const params = {
       max_id: maxId,
       exclude_types: activeFilter === 'all'

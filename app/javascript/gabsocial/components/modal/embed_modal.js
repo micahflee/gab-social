@@ -60,11 +60,14 @@ class EmbedModal extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, onClose } = this.props
     const { oembed } = this.state
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.embed)}>
+      <ModalLayout
+        title={intl.formatMessage(messages.embed)}
+        onClose={onClose}
+      >
         <div className={_s.default}>
           <Text className={_s.my10}>
             {intl.formatMessage(messages.instructions)}

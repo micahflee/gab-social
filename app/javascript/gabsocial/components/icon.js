@@ -10,10 +10,13 @@ import CalendarIcon from '../assets/calendar_icon'
 import ChatIcon from '../assets/chat_icon'
 import CircleIcon from '../assets/circle_icon'
 import CloseIcon from '../assets/close_icon'
+import CodeIcon from '../assets/code_icon'
 import CommentIcon from '../assets/comment_icon'
+import CopyIcon from '../assets/copy_icon'
 import DissenterIcon from '../assets/dissenter_icon'
 import DonorIcon from '../assets/donor_icon'
 import EllipsisIcon from '../assets/ellipsis_icon'
+import EmailIcon from '../assets/email_icon'
 import ErrorIcon from '../assets/error_icon'
 import FullscreenIcon from '../assets/fullscreen_icon'
 import GabLogoIcon from '../assets/gab_logo'
@@ -31,6 +34,8 @@ import LinkIcon from '../assets/link_icon'
 import ListIcon from '../assets/list_icon'
 import ListAddIcon from '../assets/list_add_icon'
 import LoadingIcon from '../assets/loading_icon'
+import LockIcon from '../assets/lock_icon'
+import LockFilledIcon from '../assets/lock_filled_icon'
 import MediaIcon from '../assets/media_icon'
 import MinimizeFullscreenIcon from '../assets/minimize_fullscreen_icon'
 import MissingIcon from '../assets/missing_icon'
@@ -54,6 +59,7 @@ import TextSizeIcon from '../assets/text_size_icon'
 import TrendsIcon from '../assets/trends_icon'
 import ULListIcon from '../assets/ul_list_icon'
 import UnderlineIcon from '../assets/underline_icon'
+import UnlockFilledIcon from '../assets/unlock_filled_icon'
 import VerifiedIcon from '../assets/verified_icon'
 import WarningIcon from '../assets/warning_icon'
 
@@ -69,10 +75,13 @@ const ICONS = {
 'calendar': CalendarIcon,
 'chat': ChatIcon,
 'close': CloseIcon,
+'code': CodeIcon,
 'comment': CommentIcon,
+'copy': CopyIcon,
 'dissenter': DissenterIcon,
 'donor': DonorIcon,
 'ellipsis': EllipsisIcon,
+'email': EmailIcon,
 'error': ErrorIcon,
 'fullscreen': FullscreenIcon,
 'gab-logo': GabLogoIcon,
@@ -90,6 +99,8 @@ const ICONS = {
 'list': ListIcon,
 'list-add': ListAddIcon,
 'loading': LoadingIcon,
+'lock': LockIcon,
+'lock-filled': LockFilledIcon,
 'media': MediaIcon,
 'minimize-fullscreen': MinimizeFullscreenIcon,
 'missing': MissingIcon,
@@ -113,6 +124,7 @@ const ICONS = {
 'trends': TrendsIcon,
 'ul-list': ULListIcon,
 'underline': UnderlineIcon,
+'unlock-filled': UnlockFilledIcon,
 'verified': VerifiedIcon,
 'warning': WarningIcon,
 '': CircleIcon,

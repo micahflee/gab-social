@@ -1,7 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { closeModal } from '../../actions/modal'
 import { changeSetting, saveSettings } from '../../actions/settings'
 import ModalLayout from './modal_layout'
 import Button from '../button'
@@ -22,14 +21,14 @@ const mapStateToProps = state => ({
   settings: state.getIn(['settings', 'home']),
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, {onClose}) => {
   return {
     onChange(key, checked) {
       dispatch(changeSetting(['home', ...key], checked))
     },
     onSave() {
       dispatch(saveSettings())
-      dispatch(closeModal())
+      onClose()
     },
   }
 }
@@ -43,6 +42,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     settings: ImmutablePropTypes.map.isRequired,
     onChange: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   }
 
@@ -51,12 +51,13 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, settings, onChange } = this.props
+    const { intl, settings, onChange, onClose } = this.props
 
     return (
       <ModalLayout
         width='320'
         title={intl.formatMessage(messages.title)}
+        onClose={onClose}
       >
       
         <div className={[_s.default, _s.pb10].join(' ')}>

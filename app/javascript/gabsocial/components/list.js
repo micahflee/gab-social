@@ -9,7 +9,10 @@ export default class List extends ImmutablePureComponent {
     items: PropTypes.array,
     scrollKey: PropTypes.string,
     emptyMessage: PropTypes.any,
-    small: PropTypes.bool,
+    size: PropTypes.oneOf([
+      'small',
+      'large'
+    ]),
     onLoadMore: PropTypes.func,
     hasMore: PropTypes.bool,
   }
@@ -20,7 +23,7 @@ export default class List extends ImmutablePureComponent {
       scrollKey,
       emptyMessage,
       hasMore,
-      small,
+      size,
       onLoadMore
     } = this.props
 
@@ -35,7 +38,7 @@ export default class List extends ImmutablePureComponent {
           {
             items.map((item, i) => (
               <ListItem
-                small={small}
+                size={size}
                 key={`list-item-${i}`}
                 isLast={items.size - 1 === i}
                 {...item}

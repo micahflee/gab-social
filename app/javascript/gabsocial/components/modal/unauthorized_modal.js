@@ -19,13 +19,17 @@ class UnauthorizedModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   render() {
     const { intl } = this.props
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.signup)}>
+      <ModalLayout
+        title={intl.formatMessage(messages.signup)}
+        onClose={onClose}
+      >
         <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
           <Text className={_s.mb15}>
             {intl.formatMessage(messages.text)}

@@ -142,9 +142,9 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     return (
       <PopoverLayout className={_s.width240PX}>
         <List
+          size='large'
           scrollKey='profile_options'
           items={items}
-          small
         />
       </PopoverLayout>
     )

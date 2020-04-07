@@ -20,17 +20,15 @@ class TabBarItem extends PureComponent {
   }
 
   state = {
-    active: -1,
+    isCurrent: -1,
   }
 
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       const isCurrent = this.props.to === this.props.location.pathname
 
-      if (this.state.active !== isCurrent) {
-        this.setState({
-          active: isCurrent,
-        })
+      if (this.state.isCurrent !== isCurrent) {
+        this.setState({ isCurrent })
       }
     }
   }
@@ -43,11 +41,11 @@ class TabBarItem extends PureComponent {
       location,
       large,
       icon,
-      // active
+      active
     } = this.props
-    const { active } = this.state
+    const { isCurrent } = this.state
 
-    const isCurrent = active === -1 ? to === location.pathname : active
+    const isActive = active || (isCurrent === -1 ? to === location.pathname : false)
 
     const containerClasses = cx({
       default: 1,
@@ -61,8 +59,8 @@ class TabBarItem extends PureComponent {
       py5: 1,
       cursorPointer: 1,
       backgroundTransparent: 1,
-      borderColorTransparent: !isCurrent,
-      borderColorBrand: isCurrent,
+      borderColorTransparent: !isActive,
+      borderColorBrand: isActive,
       mr5: large,
     })
 
@@ -74,13 +72,13 @@ class TabBarItem extends PureComponent {
       radiusSmall: 1,
       px10: !large,
       px15: large,
-      backgroundSubtle2Dark_onHover: !isCurrent,
+      backgroundSubtle2Dark_onHover: !isActive,
     })
 
     const textOptions = {
       size: !!large ? 'normal' : 'small',
-      color: isCurrent ? 'brand' : large ? 'secondary' : 'primary',
-      weight: isCurrent ? 'bold' : large ? 'medium' : 'normal',
+      color: isActive ? 'brand' : large ? 'secondary' : 'primary',
+      weight: isActive ? 'bold' : large ? 'medium' : 'normal',
     }
 
     const iconOptions = {
@@ -92,8 +90,8 @@ class TabBarItem extends PureComponent {
     return (
       <Button
         onClick={onClick}
-        to={to}
         className={containerClasses}
+        to={to || undefined}
         noClasses
       >
         <span className={textParentClasses}>

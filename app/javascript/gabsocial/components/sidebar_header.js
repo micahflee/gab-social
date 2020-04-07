@@ -28,16 +28,15 @@ class SidebarHeader extends ImmutablePureComponent {
     const { account } = this.props
 
     const isPro = account.get('is_pro')
-    const gabLogoClasses = isPro ? _s.fillColorGabPro : _s.fillColorBrand
 
     return (
       <Fragment>
         <h1 className={[_s.default].join(' ')}>
           <NavLink to='/' aria-label='Gab' className={[_s.default, _s.flexRow, _s.noSelect, _s.noUnderline, _s.height50PX, _s.cursorPointer, _s.px10].join(' ')}>
-            <Icon id='gab-logo' className={gabLogoClasses} />
+            <Icon id='gab-logo' className={_s.fillColorBrand} />
             {
               isPro &&
-              <Text weight='bold' color='pro' size='extraSmall' className={[_s.pb5].join(' ')}>
+              <Text weight='bold' color='brand' size='extraSmall' className={[_s.pb5].join(' ')}>
                 PRO
               </Text>
             }

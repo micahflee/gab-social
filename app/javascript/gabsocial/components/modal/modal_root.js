@@ -114,8 +114,7 @@ class ModalRoot extends PureComponent {
   }
 
   onClickClose = () => {
-    const { onClose, type } = this.props
-    onClose(type)
+    this.props.onClose(this.props.type)
   }
 
   render() {

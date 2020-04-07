@@ -33,7 +33,7 @@ class ListDeleteModal extends PureComponent {
   }
 
   render() {
-    const { list, intl } = this.props
+    const { list, intl, onClose } = this.props
 
     const title = intl.formatMessage(messages.title, {
       list: !!list ? account.get('title') : '',
@@ -48,6 +48,7 @@ class ListDeleteModal extends PureComponent {
         message={message}
         confirm={intl.formatMessage(messages.delete)}
         onConfirm={this.handleClick}
+        onClose={onClose}
       />
     )
   }

@@ -64,13 +64,13 @@ const expandNormalizedNotifications = (state, notifications, next) => {
   
   let items = ImmutableList()
 
-  // : todo filter notiications here:
+  console.log("notifications:", notificationss)
 
   notifications.forEach((n) => {
     const notification = notificationToMap(n)
     const statusId = notification.get('status')
     const type = notification.get('type')
-    
+
     switch (type) {
       case 'follow': {
         follows = follows.set(follows.size, notification)
@@ -130,6 +130,8 @@ const expandNormalizedNotifications = (state, notifications, next) => {
       }
     }
   }
+
+  console.log("final items: ", items)
 
   return state.withMutations(mutable => {
     if (!items.isEmpty()) {

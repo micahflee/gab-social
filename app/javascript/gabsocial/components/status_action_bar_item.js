@@ -8,6 +8,7 @@ const cx = classNames.bind(_s)
 export default class StatusActionBarItem extends PureComponent {
   static propTypes = {
     title: PropTypes.string.isRequired,
+    altTitle: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     icon: PropTypes.string.isRequired,
     active: PropTypes.bool,
@@ -22,14 +23,15 @@ export default class StatusActionBarItem extends PureComponent {
       icon,
       active,
       disabled,
-      buttonRef
+      buttonRef,
+      altTitle
     } = this.props
 
     const btnClasses = cx({
       justifyContentCenter: 1,
       alignItemsCenter: 1,
       px10: 1,
-      backgroundSubtle_onHover: 1,
+      backgroundSubtle_onHover: !disabled,
     })
 
     const color = active ? 'brand' : 'secondary'
@@ -41,6 +43,7 @@ export default class StatusActionBarItem extends PureComponent {
           block
           radiusSmall
           backgroundColor='none'
+          title={altTitle}
           color={color}
           buttonRef={buttonRef}
           className={btnClasses}

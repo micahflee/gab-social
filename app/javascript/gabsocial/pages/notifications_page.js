@@ -22,8 +22,9 @@ const makeMapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectFilter (newActiveFilter) {
-    dispatch(setFilter(newActiveFilter));
+  selectFilter(newActiveFilter) {
+    console.log("newActiveFilter:", newActiveFilter)
+    dispatch(setFilter(newActiveFilter))
   },
 });
 
@@ -42,43 +43,45 @@ class NotificationsPage extends PureComponent {
     document.title = 'Notifications - Gab'
   }
 
-  onClick (notificationType) {
-    return () => this.props.selectFilter(notificationType);
+  onClick(notificationType) {
+    this.props.selectFilter(notificationType);
   }
 
   render() {
-    const { children } = this.props
+    const { children, selectedFilter } = this.props
+
+    console.log("selectedFilter:", selectedFilter)
 
     const tabs = [
       {
         title: 'All',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('all'),
+        active: selectedFilter === 'all',
       },
       {
         title: 'Mentions',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('mention'),
+        active: selectedFilter === 'mention',
       },
       {
         title: 'Likes',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('favourite'),
+        active: selectedFilter === 'favourite',
       },
       {
         title: 'Reposts',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('reblog'),
+        active: selectedFilter === 'reblog',
       },
       {
         title: 'Polls',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('poll'),
+        active: selectedFilter === 'poll',
       },
       {
         title: 'Follows',
-        onClick: null,
-        active: false,
+        onClick: () => this.onClick('follow'),
+        active: selectedFilter === 'follow',
       },
     ]
 

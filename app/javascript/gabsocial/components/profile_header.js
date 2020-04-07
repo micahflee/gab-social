@@ -14,11 +14,12 @@ import { initReport } from '../actions/reports'
 import { openModal } from '../actions/modal'
 import { unfollowModal, me } from '../initial_state'
 import Avatar from './avatar'
-import Image from './image'
-import Text from './text'
 import Button from './button'
 import DisplayName from './display_name'
+import Icon from './icon'
+import Image from './image'
 import TabBar from './tab_bar'
+import Text from './text'
 
 const cx = classNames.bind(_s)
 
@@ -240,6 +241,7 @@ class ProfileHeader extends ImmutablePureComponent {
     }
 
     console.log("buttonOptions:", buttonText, buttonOptions)
+    console.log("account: ", account)
     
 
     // : todo : "follows you", "mutual follow"
@@ -264,8 +266,12 @@ class ProfileHeader extends ImmutablePureComponent {
               <Avatar size={avatarSize} account={account} />
             </div>
 
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.px15, _s.py10].join(' ')}>
               <DisplayName account={account} multiline large />
+              {
+                account && account.get('locked') &&
+                <Icon id='lock-filled' height='14px' width='14px' className={[_s.mt10, _s.ml10].join(' ')} />
+              }
             </div>
           </div>
 

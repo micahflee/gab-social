@@ -13,7 +13,9 @@ export default class ListItem extends PureComponent {
     href: PropTypes.string,
     title: PropTypes.string,
     onClick: PropTypes.func,
-    small: PropTypes.bool,
+    size: PropTypes.oneOf([
+      'small', 'large'
+    ]),
     hideArrow: PropTypes.bool,
   }
 
@@ -24,10 +26,13 @@ export default class ListItem extends PureComponent {
       to,
       href,
       onClick,
-      small,
+      size,
       icon,
       hideArrow,
     } = this.props
+
+    const small = size === 'small'
+    const large = size === 'large'
 
     const containerClasses = cx({
       default: 1,
@@ -45,7 +50,14 @@ export default class ListItem extends PureComponent {
       borderBottom1PX: !isLast,
     })
 
-    const textSize = small ? 'small' : 'normal'
+    const iconClasses = cx({
+      mr10: !large,
+      mr15: large,
+      fillColorBlack: 1,
+    })
+
+    const textSize = small ? 'small' : large ? 'medium' : 'normal'
+    const iconSize = large ? '14px' : '10px'
 
     return (
       <Button
@@ -60,9 +72,9 @@ export default class ListItem extends PureComponent {
           !!icon &&
           <Icon
             id={icon}
-            width='10px'
-            height='10px'
-            className={[_s.mr10, _s.fillColorBlack].join(' ')}
+            width={iconSize}
+            height={iconSize}
+            className={iconClasses}
           />
         }
 

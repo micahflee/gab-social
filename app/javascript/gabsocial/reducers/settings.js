@@ -47,6 +47,8 @@ const initialState = ImmutableMap({
     // : todo : put all notification settings actually IN settings
     quickFilter: ImmutableMap({
       active: 'all',
+      onlyVerifed: false,
+      onlyFollowing: false,
     }),
   }),
 

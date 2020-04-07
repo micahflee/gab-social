@@ -6,6 +6,7 @@ export default class SidebarMorePopover extends PureComponent {
     return (
       <PopoverLayout className={_s.width240PX}>
         <List
+          size='large'
           scrollKey='profile_options'
           items={[
             {
@@ -21,7 +22,6 @@ export default class SidebarMorePopover extends PureComponent {
               href: '/auth/log_out',
             },
           ]}
-          small
         />
       </PopoverLayout>
     )

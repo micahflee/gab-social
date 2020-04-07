@@ -18,6 +18,13 @@ export default class TrendingItem extends PureComponent {
     author: PropTypes.string,
     publishDate: PropTypes.string,
     isLast: PropTypes.bool,
+    wide: PropTypes.bool,
+  }
+
+  static defaultProps = {
+    title: '',
+    description: '',
+    author: '',
   }
 
   state = {
@@ -41,7 +48,8 @@ export default class TrendingItem extends PureComponent {
       imageUrl,
       author,
       publishDate,
-      isLast
+      isLast,
+      wide
     } = this.props
     const { hovering } = this.state
 
@@ -62,23 +70,31 @@ export default class TrendingItem extends PureComponent {
     })
 
     const correctedAuthor = author.replace('www.', '')
-    const correctedDescription = description.length > 120 ? `${description.substring(0, 120)}...` : description
+    const correctedDescription = description.length > 120 ? `${description.substring(0, 120).trim()}...` : description
   
+    const image = (
+      <Image
+        nullable
+        width='116px'
+        height='78px'
+        src={imageUrl}
+        className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
+      />
+    )
+
     return (
       <Button
         noClasses
         href={url}
+        target='_blank'
         className={containerClasses}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        <Image
-          nullable
-          width='116px'
-          height='78px'
-          src={imageUrl}
-          className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
-        />
+        {
+          !wide && image
+        }
+
         <div className={[_s.default, _s.flexNormal, _s.pb5].join(' ')}>
           <div className={_s.default}>
             <Text size='medium' color='primary' weight='bold'>
@@ -86,11 +102,14 @@ export default class TrendingItem extends PureComponent {
             </Text>
           </div>
 
-          <div className={[_s.default, _s.heightMax56PX, _s.overflowHidden, _s.py5].join(' ')}>
-            <Text size='small' color='secondary'>
-              {correctedDescription}
-            </Text>
-          </div>
+          {
+            !!correctedDescription &&
+            <div className={[_s.default, _s.heightMax60PX, _s.overflowHidden, _s.py5].join(' ')}>
+              <Text size='small' color='secondary'>
+                {correctedDescription}
+              </Text>
+            </div>
+          }
           <div className={[_s.default, _s.flexRow].join(' ')}>
             <Text color='secondary' size='small'>
               {index}
@@ -103,8 +122,10 @@ export default class TrendingItem extends PureComponent {
             <Text color='secondary' size='small' className={subtitleClasses}>
               <RelativeTimestamp timestamp={publishDate} />
             </Text>
-            <DotTextSeperator />
-            <Text color='secondary' size='small' className={_s.ml5}>→</Text>
+            {
+              hovering &&
+              <Text color='secondary' size='small' className={_s.ml10}>→</Text>
+            }
           </div>
         </div>
       </Button>

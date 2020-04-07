@@ -39,6 +39,7 @@ class StatusRevisionsModal extends ImmutablePureComponent {
     loading: PropTypes.bool.isRequired,
     error: PropTypes.bool,
     revisions: ImmutablePropTypes.list.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   componentDidMount() {
@@ -49,14 +50,16 @@ class StatusRevisionsModal extends ImmutablePureComponent {
     const {
       intl,
       status,
-      revisions
+      revisions,
+      onClose
     } = this.props
 
-    console.log("revisions:", revisions)
-    console.log("revisions.size:", revisions.size)
-
     return (
-      <ModalLayout title={intl.formatMessage(messages.title)} width='480'>
+      <ModalLayout
+        title={intl.formatMessage(messages.title)}
+        width='480'
+        onClose={onClose}
+      >
         <div className={[_s.default]}>
           <ScrollableList>
             {

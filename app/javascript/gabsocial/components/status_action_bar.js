@@ -144,17 +144,8 @@ class StatusActionBar extends ImmutablePureComponent {
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
 
     const replyCount = status.get('replies_count')
-    const replyIcon = (status.get('in_reply_to_id', null) === null) ? 'reply' : 'reply-all'
-    const replyTitle = (status.get('in_reply_to_id', null) === null) ? formatMessage(messages.reply) : formatMessage(messages.replyAll)
-
     const repostCount = status.get('reblogs_count')
-    const repostTitle = !publicStatus ? formatMessage(messages.cannot_repost) : formatMessage(messages.repost)
-
-    const favoriteCount = status.get('favourites_count') // : todo :
-
-    const shareButton = ('share' in navigator) && status.get('visibility') === 'public' && (
-      <Button className='status-action-bar-button' title={formatMessage(messages.share)} icon='share-alt' onClick={this.handleShareClick} />
-    )
+    const favoriteCount = status.get('favourites_count')
 
     const hasInteractions = favoriteCount > 0 || replyCount > 0 || repostCount > 0
     const shouldCondense = (
@@ -240,8 +231,9 @@ class StatusActionBar extends ImmutablePureComponent {
               onClick={this.handleReplyClick}
             />
             <StatusActionBarItem
-              title={repostTitle}
-              icon={(status.get('visibility') === 'private') ? 'lock' : 'repost'}
+              title={formatMessage(messages.repost)}
+              altTitle={!publicStatus ? formatMessage(messages.cannot_repost) : ''}
+              icon={!publicStatus ? 'lock' : 'repost'}
               disabled={!publicStatus}
               active={!!status.get('reblogged')}
               onClick={this.handleRepostClick}

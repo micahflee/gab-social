@@ -310,7 +310,7 @@ class ProfileOptionsPopover extends PureComponent {
         <List
           scrollKey='profile_options'
           items={listItems}
-          small
+          size='large'
         />
       </PopoverLayout>
     )

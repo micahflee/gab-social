@@ -69,7 +69,7 @@ class ProfilePage extends ImmutablePureComponent {
           <Fragment>
             <ProfileStatsPanel account={account} />
             <ProfileInfoPanel account={account} />
-            <MediaGalleryPanel account={account} />
+            { !unavailable && <MediaGalleryPanel account={account} /> }
             <LinkFooter />
           </Fragment>
         )}

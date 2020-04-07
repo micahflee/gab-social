@@ -16,13 +16,18 @@ class ProUpgradeModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, onClose } = this.props
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.title)} width='460'>
+      <ModalLayout
+        title={intl.formatMessage(messages.title)}
+        width='460'
+        onClose={onClose}
+      >
         <Text>
           {intl.formatMessage(messages.text)}
         </Text>

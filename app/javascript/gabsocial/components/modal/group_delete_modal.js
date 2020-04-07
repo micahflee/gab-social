@@ -25,6 +25,7 @@ class GroupDeleteModal extends PureComponent {
   static propTypes = {
     group: PropTypes.object.isRequired,
     onConfirm: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
@@ -33,7 +34,7 @@ class GroupDeleteModal extends PureComponent {
   }
 
   render() {
-    const { group, intl } = this.props
+    const { group, intl, onClose } = this.props
 
     const title = intl.formatMessage(messages.title, {
       group: !!group ? account.get('title') : '',
@@ -48,6 +49,7 @@ class GroupDeleteModal extends PureComponent {
         message={message}
         confirm={intl.formatMessage(messages.delete)}
         onConfirm={this.handleClick}
+        onClose={onClose}
       />
     )
   }

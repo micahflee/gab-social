@@ -13,15 +13,17 @@ class GroupCreateModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, onClose } = this.props
 
     return (
       <ModalLayout
         title={intl.formatMessage(messages.title)}
         width='440'
+        onClose={onClose}
       >
         <GroupCreate />
       </ModalLayout>

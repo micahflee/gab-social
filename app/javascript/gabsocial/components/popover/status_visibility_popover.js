@@ -58,13 +58,13 @@ class StatusVisibilityDropdown extends PureComponent {
         subtitle: intl.formatMessage(messages.public_long)
       },
       {
-        icon: 'unlock',
+        icon: 'unlock-filled',
         value: 'unlisted',
         title: intl.formatMessage(messages.unlisted_short),
         subtitle: intl.formatMessage(messages.unlisted_long)
       },
       {
-        icon: 'lock',
+        icon: 'lock-filled',
         value: 'private',
         title: intl.formatMessage(messages.private_short),
         subtitle: intl.formatMessage(messages.private_long)

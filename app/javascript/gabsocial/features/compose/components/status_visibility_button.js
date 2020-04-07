@@ -48,10 +48,10 @@ class StatusVisibilityButton extends PureComponent {
     let icon;
     switch (value) {
       case 'unlisted':
-        icon = 'unlock'
+        icon = 'unlock-filled'
         break;
       case 'private':
-        icon = 'lock'
+        icon = 'lock-filled'
         break;
       default:
         icon = 'globe'

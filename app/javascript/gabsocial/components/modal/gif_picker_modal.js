@@ -6,7 +6,6 @@ import {
   setSelectedGif,
   changeGifSearchText
 } from '../../actions/tenor'
-import { closeModal } from '../../actions/modal'
 import Block from '../block'
 import Button from '../button'
 import ColumnIndicator from '../column_indicator'
@@ -29,12 +28,12 @@ const mapStateToProps = (state) => ({
   searchText: state.getIn(['tenor', 'searchText']),
 })
 
-export const mapDispatchToProps = (dispatch) => ({
+export const mapDispatchToProps = (dispatch, { onClose }) => ({
 
   handleCloseModal() {
     dispatch(changeGifSearchText(''))
     dispatch(clearGifResults())
-    dispatch(closeModal())
+    onClose()
   },
 
   handleFetchCategories: () => {

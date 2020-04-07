@@ -34,6 +34,7 @@ class MuteModal extends PureComponent {
     account: PropTypes.object.isRequired,
     onConfirm: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   handleClick = () => {
@@ -41,7 +42,7 @@ class MuteModal extends PureComponent {
   }
 
   render() {
-    const { account, intl } = this.props
+    const { account, intl, onClose } = this.props
 
     const title = intl.formatMessage(messages.title, {
       name: !!account ? account.get('acct') : '',
@@ -56,6 +57,7 @@ class MuteModal extends PureComponent {
         message={message}
         confirm={intl.formatMessage(messages.mute)}
         onConfirm={this.handleClick}
+        onClose={onClose}
       />
     )
   }

@@ -24,6 +24,8 @@ const messages = defineMessages({
 
 // });
 
+// : todo :
+
 export default
 @injectIntl
 // @connect(makeMapStateToProps, mapDispatchToProps)
@@ -60,8 +62,9 @@ class StatusSharePopover extends ImmutablePureComponent {
     const { intl } = this.props
 
     return (
-      <PopoverLayout className={_s.width250PX}>
+      <PopoverLayout width={220}>
         <List
+          size='large'
           scrollKey='status_share_options'
           items={[
             {
@@ -71,13 +74,13 @@ class StatusSharePopover extends ImmutablePureComponent {
               onClick: this.handleCopy,
             },
             {
-              icon: 'envelope',
+              icon: 'email',
               hideArrow: true,
               title: intl.formatMessage(messages.email),
               href: 'mailto:',
             },
             {
-              icon: 'embed',
+              icon: 'code',
               hideArrow: true,
               title: intl.formatMessage(messages.embed),
               onClick: this.handleEmbed,

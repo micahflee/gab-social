@@ -54,8 +54,10 @@ class ModalBase extends PureComponent {
     }
   }
 
-  handleOnClose = () => {
+  handleOnClose = (e) => {
     const { onOpenModal, composeText, composeId, onClose, intl, type, onCancelReplyCompose } = this.props
+
+    if (this.dialog !== e.target) return
 
     if (!composeId && composeText && type == 'COMPOSE') {
       onOpenModal('CONFIRM', {
@@ -108,8 +110,12 @@ class ModalBase extends PureComponent {
     return Array(...this.node.parentElement.childNodes).filter(node => node !== this.node)
   }
 
-  setRef = ref => {
-    this.node = ref
+  setRef = (n) => {
+    this.node = n
+  }
+
+  setDialog = (n) => {
+    this.dialog = n
   }
 
   render () {
@@ -133,10 +139,11 @@ class ModalBase extends PureComponent {
             <div
               role='presentation'
               className={[_s.default, _s.backgroundColorOpaque, _s.positionFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
-              onClick={this.handleOnClose}
             />
             <div
+              ref={this.setDialog}
               role='dialog'
+              onClick={this.handleOnClose}
               className={[_s.default, _s.positionFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             >
               {children}

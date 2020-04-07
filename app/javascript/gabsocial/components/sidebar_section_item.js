@@ -77,6 +77,7 @@ export default class SidebarSectionItem extends PureComponent {
       fontSize15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
+      outlineNone: 1,
       colorSecondary: !hovering && !active && !me && !shouldShowActive,
       colorPrimary: shouldShowActive || me,
     })

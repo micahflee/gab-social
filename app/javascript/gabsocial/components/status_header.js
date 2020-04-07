@@ -138,6 +138,7 @@ class StatusHeader extends ImmutablePureComponent {
     })
 
     const avatarSize = reduced ? 20 : 46
+    const visibilityIcon = 'globe'
 
     return (
       <div className={containerClasses}>
@@ -197,7 +198,7 @@ class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
 
-              <Icon id='globe' width='12px' height='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
+              <Icon id={visibilityIcon} width='12px' height='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
 
               {
                 !!status.get('group') &&

@@ -1,7 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { closeModal } from '../../actions/modal'
 import { changeSetting, saveSettings } from '../../actions/settings'
 import ModalLayout from './modal_layout'
 import Button from '../button'
@@ -19,14 +18,14 @@ const mapStateToProps = state => ({
   settings: state.getIn(['settings', 'community']),
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, { onClose }) => {
   return {
     onChange(key, checked) {
       dispatch(changeSetting(['community', ...key], checked))
     },
     onSave() {
       dispatch(saveSettings())
-      dispatch(closeModal())
+      onClose()
     },
   }
 }
@@ -48,7 +47,7 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, settings, onChange } = this.props
+    const { intl, settings, onChange, onClose } = this.props
 
     return (
       <ModalLayout

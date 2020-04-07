@@ -42,13 +42,17 @@ class HotkeysModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, onClose } = this.props
 
     return (
-      <ModalLayout title={intl.formatMessage(messages.heading)}>
+      <ModalLayout
+        title={intl.formatMessage(messages.heading)}
+        onClose={onClose}
+      >
         <div className={[_s.default, _s.flexRow].join(' ')}>
           <table>
             <thead>

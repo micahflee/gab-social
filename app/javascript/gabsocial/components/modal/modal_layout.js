@@ -1,6 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
-import { closeModal } from '../../actions/modal'
 import Button from '../button'
 import Block from '../block'
 import Heading from '../heading'
@@ -11,16 +10,7 @@ const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    handleCloseModal() {
-      dispatch(closeModal())
-    },
-  }
-}
-
 export default
-@connect(null, mapDispatchToProps)
 @injectIntl
 class ModalLayout extends PureComponent {
   static propTypes = {
@@ -38,11 +28,7 @@ class ModalLayout extends PureComponent {
   }
 
   onHandleCloseModal = () => {
-    if (this.props.onClose) {
-      this.props.onClose();
-    } else {
-      this.props.handleCloseModal()
-    }
+    this.props.onClose()
   }
 
   render() {

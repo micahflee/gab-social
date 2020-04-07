@@ -37,7 +37,7 @@ const mapStateToProps = state => {
 
   return {
     account: getAccount(state, me),
-    sidebarOpen: state.get('sidebar').sidebarOpen,
+    moreOpen: state.get('popover').popoverType === 'SIDEBAR_MORE',
     notificationCount: state.getIn(['notifications', 'unread']),
     homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
     showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
@@ -64,8 +64,8 @@ class Sidebar extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
-    sidebarOpen: PropTypes.bool,
     showCommunityTimeline: PropTypes.bool,
+    moreOpen: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onOpenComposeModal: PropTypes.func.isRequired,
     openSidebarMorePopover: PropTypes.func.isRequired,
@@ -73,39 +73,11 @@ class Sidebar extends ImmutablePureComponent {
     homeItemsQueueCount: PropTypes.number.isRequired,
   }
 
-  state = {
-    moreOpen: false,
-  }
-
-  componentDidUpdate() {
-    if (!me) return
-
-    if (this.props.sidebarOpen) {
-      document.body.classList.add('with-modals--active')
-    } else {
-      document.body.classList.remove('with-modals--active')
-    }
-  }
-
-  toggleMore = () => {
-    this.setState({
-      moreOpen: !this.state.moreOpen
-    })
-  }
-
-  handleSidebarClose = () => {
-    this.props.onClose()
-    this.setState({
-      moreOpen: false,
-    })
-  }
-
   handleOpenComposeModal = () => {
     this.props.onOpenComposeModal()
   }
 
   handleOpenSidebarMorePopover =() => {
-    console.log("handleOpenSidebarMorePopover")
     this.props.openSidebarMorePopover({
       targetRef: this.moreBtnRef,
       position: 'top',
@@ -118,23 +90,19 @@ class Sidebar extends ImmutablePureComponent {
 
   render() {
     const {
-      sidebarOpen,
       intl,
       account,
       notificationCount,
       homeItemsQueueCount,
-      showCommunityTimeline
+      showCommunityTimeline,
+      moreOpen
     } = this.props
-    const { moreOpen } = this.state
 
     // : todo :
     if (!me || !account) return null
 
     const acct = account.get('acct')
     const isPro = account.get('is_pro')
-
-    const moreIcon = moreOpen ? 'minus' : 'plus'
-    const moreContainerStyle = { display: moreOpen ? 'block' : 'none' }
 
     console.log("showCommunityTimeline:", showCommunityTimeline)
 
@@ -182,7 +150,8 @@ class Sidebar extends ImmutablePureComponent {
         title: 'More',
         icon: 'more',
         onClick: this.handleOpenSidebarMorePopover,
-        buttonRef: this.setMoreButtonRef
+        buttonRef: this.setMoreButtonRef,
+        active: moreOpen,
       },
     ]
 
@@ -243,7 +212,7 @@ class Sidebar extends ImmutablePureComponent {
                     )
                   })
                 }
-                <SidebarSectionTitle>Shortcuts</SidebarSectionTitle>
+                { /* <SidebarSectionTitle>Shortcuts</SidebarSectionTitle> */ }
                 {
                   shortcutItems.map((shortcutItem, i) => (
                     <SidebarSectionItem {...shortcutItem} key={`sidebar-item-shortcut-${i}`} />

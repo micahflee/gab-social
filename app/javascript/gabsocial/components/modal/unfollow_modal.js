@@ -31,6 +31,7 @@ class UnfollowModal extends PureComponent {
     isSubmitting: PropTypes.bool.isRequired,
     account: PropTypes.object.isRequired,
     onConfirm: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
@@ -61,6 +62,7 @@ class UnfollowModal extends PureComponent {
         title={`Mute @${account.get('acct')}`}
         message={<FormattedMessage id='confirmations.mute.message' defaultMessage='Are you sure you want to mute @{name}?' values={{ name: account.get('acct') }} />}
         confirm={<FormattedMessage id='mute' defaultMessage='Mute' />}
+        onClose={onClose}
         onConfirm={() => {
           // dispatch(blockDomain(domain))
           // dispatch(blockDomain(domain))

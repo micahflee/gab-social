@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
-import TrendingItem from '../../../../components/trends_item'
+import HashtagItem from '../../../../components/hashtag_item'
 import Icon from '../../../../components/icon'
 import { WhoToFollowPanel } from '../../../../components/panel'
 // import TrendsPanel from '../../ui/components/trends_panel'
@@ -86,7 +86,7 @@ export default class SearchResults extends ImmutablePureComponent {
       hashtags = (
         <div className='search-results__section'>
           <h5><Icon id='hashtag' fixedWidth /><FormattedMessage id='search_results.hashtags' defaultMessage='Hashtags' /></h5>
-          {results.get('hashtags').slice(0, size).map(hashtag => <TrendingItem key={hashtag.get('name')} hashtag={hashtag} />)}
+          {results.get('hashtags').slice(0, size).map(hashtag => <HashtagItem key={hashtag.get('name')} hashtag={hashtag} />)}
         </div>
       );
     }

@@ -124,11 +124,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleSubmit = () => {
-    if (this.props.text !== this.autosuggestTextarea.textbox.value) {
-      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
-      // Update the state to match the current text
-      this.props.onChange(this.autosuggestTextarea.textbox.value);
-    }
+    // if (this.props.text !== this.autosuggestTextarea.textbox.value) {
+    //   // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+    //   // Update the state to match the current text
+    //   this.props.onChange(this.autosuggestTextarea.textbox.value);
+    // }
 
     // Submit disabled:
     const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;

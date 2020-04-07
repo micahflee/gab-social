@@ -57,7 +57,6 @@ export default class GroupLayout extends ImmutablePureComponent {
                   title={title}
                   showBackBtn={showBackBtn}
                   actions={actions}
-                  tabs={tabs}
                 />
               </div>
               <div className={[_s.default, _s.width340PX].join(' ')}>
