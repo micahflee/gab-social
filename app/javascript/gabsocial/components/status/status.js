@@ -289,8 +289,6 @@ class Status extends ImmutablePureComponent {
 
     const { status, ...other } = this.props;
 
-    // console.log("replies:", this.props.replies)
-
     if (!status) return null
 
     if (hidden) {
