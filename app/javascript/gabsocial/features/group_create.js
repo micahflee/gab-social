@@ -21,9 +21,6 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state, { params }) => {
-
-	console.log('params:', params)
-
 	const groupId = isObject(params) ? params['id'] : null
 	const group = state.getIn(['groups', groupId])
 
@@ -64,6 +61,7 @@ class Create extends ImmutablePureComponent {
 		intl: PropTypes.object.isRequired,
 		onTitleChange: PropTypes.func.isRequired,
 		onSubmit: PropTypes.func.isRequired,
+		onCloseModal: PropTypes.func,
 	}
 
 	componentWillMount() {

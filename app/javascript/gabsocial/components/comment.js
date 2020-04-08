@@ -64,7 +64,7 @@ class Comment extends ImmutablePureComponent {
               <Avatar account={status.get('account')} size={32} />
             </NavLink>
 
-            <div className={[_s.default, _s.flexGrow1].join(' ')}>
+            <div className={[_s.default, _s.flexNormal].join(' ')}>
               <div className={[_s.default, _s.px10, _s.py5, _s.radiusSmall, _s.backgroundSubtle].join(' ')}>
                 <div className={_s.pt2}>
                   <CommentHeader status={status} />
