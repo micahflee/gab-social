@@ -219,7 +219,7 @@ export default class Card extends ImmutablePureComponent {
     } else {
       embed = (
         <div className={[_s.default, _s.py15, _s.px15, _s.width72PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Icon id='file-text' width='22px' height='22px' className={_s.fillColorSecondary} />
+          <Icon id='website' width='22px' height='22px' className={_s.fillColorSecondary} />
         </div>
       )
     }

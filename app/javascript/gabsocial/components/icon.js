@@ -63,6 +63,7 @@ import UnderlineIcon from '../assets/underline_icon'
 import UnlockFilledIcon from '../assets/unlock_filled_icon'
 import VerifiedIcon from '../assets/verified_icon'
 import WarningIcon from '../assets/warning_icon'
+import WebsiteIcon from '../assets/website_icon'
 
 const ICONS = {
   'add': AddIcon,
@@ -129,6 +130,7 @@ const ICONS = {
   'unlock-filled': UnlockFilledIcon,
   'verified': VerifiedIcon,
   'warning': WarningIcon,
+  'website': WebsiteIcon,
   '': CircleIcon,
 }
 

@@ -21,8 +21,8 @@ class CommentHeader extends ImmutablePureComponent {
   render() {
     const { status } = this.props
 
-    const repostCount = 12 // status.get('reblogs_count')
-    const favoriteCount = 2 // status.get('favourites_count') // : todo :
+    const repostCount = status.get('reblogs_count')
+    const favoriteCount = status.get('favourites_count')
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 

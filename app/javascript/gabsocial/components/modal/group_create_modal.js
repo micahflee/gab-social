@@ -25,7 +25,7 @@ class GroupCreateModal extends ImmutablePureComponent {
         width='440'
         onClose={onClose}
       >
-        <GroupCreate />
+        <GroupCreate onCloseModal={onClose} />
       </ModalLayout>
     )
   }
