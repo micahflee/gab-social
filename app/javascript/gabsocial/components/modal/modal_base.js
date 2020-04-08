@@ -48,8 +48,7 @@ class ModalBase extends PureComponent {
   activeElement = this.state.revealed ? document.activeElement : null
 
   handleKeyUp = (e) => {
-    if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27)
-         && !!this.props.children) {
+    if ((e.key === 'Escape' || e.key === 'Esc' || e.keyCode === 27) && !!this.props.children) {
       this.handleOnClose()
     }
   }
@@ -57,9 +56,9 @@ class ModalBase extends PureComponent {
   handleOnClose = (e) => {
     const { onOpenModal, composeText, composeId, onClose, intl, type, onCancelReplyCompose } = this.props
 
-    if (this.dialog !== e.target) return
+    if (!!e && this.dialog !== e.target) return
 
-    if (!composeId && composeText && type == 'COMPOSE') {
+    if (!composeId && composeText && type === 'COMPOSE') {
       onOpenModal('CONFIRM', {
         message: intl.formatMessage(messages.delete),
         confirm: intl.formatMessage(messages.confirm),

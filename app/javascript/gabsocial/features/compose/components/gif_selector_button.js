@@ -9,7 +9,7 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  active: !!state.getIn(['compose', 'gif']) || state.get('modal').modalType === 'GIF_PICKER',
+  active: !!state.getIn(['compose', 'gif']) || state.getIn(['modal', 'modalType']) === 'GIF_PICKER',
 })
 
 const mapDispatchToProps = (dispatch) => ({

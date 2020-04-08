@@ -29,7 +29,7 @@ export const fetchGifCategories = () => {
   }
 }
 
-export const fetchGifResults = () => {
+export const fetchGifResults = (maxId) => {
   return function (dispatch, getState) {
     if (!me) return
 
@@ -38,12 +38,12 @@ export const fetchGifResults = () => {
     const searchText = getState().getIn(['tenor', 'searchText'], '');
 
     axios.get(`https://api.tenor.com/v1/search?q=${searchText}&media_filter=minimal&limit=30&key=${tenorkey}`)
-    .then((response) => {
-      console.log("response:", response)
-      dispatch(fetchGifResultsSuccess(response.data.results))
-    }).catch(function (error) {
-      dispatch(fetchGifResultsFail(error))
-    })
+      .then((response) => {
+        console.log('response:', response)
+        dispatch(fetchGifResultsSuccess(response.data.results))
+      }).catch(function (error) {
+        dispatch(fetchGifResultsFail(error))
+      })
   }
 }
 

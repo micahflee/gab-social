@@ -1,7 +1,7 @@
 import { injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import { fetchMutes, expandMutes } from '../actions/mutes'
 import AccountContainer from '../containers/account_container'
 import ColumnIndicator from '../components/column_indicator'

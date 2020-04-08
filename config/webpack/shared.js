@@ -14,12 +14,6 @@ const extensionGlob = `**/*{${settings.extensions.join(',')}}*`;
 const entryPath = join(settings.source_path, settings.source_entry_path);
 const packPaths = sync(join(entryPath, extensionGlob));
 
-console.log("localePackPaths", localePackPaths);
-console.log("packPaths:", packPaths);
-console.log("env:", env);
-console.log("settings:", settings);
-console.log("output:", output);
-
 module.exports = {
   entry: Object.assign(
     packPaths.reduce((map, entry) => {
@@ -70,11 +64,10 @@ module.exports = {
   plugins: [
     new webpack.ProvidePlugin({
       React: 'react',
-      Component: ['react', 'Component'],
       PureComponent: ['react', 'PureComponent'],
       connect: ['react-redux', 'connect'],
       PropTypes: 'prop-types',
-      _s: `${resolve(settings.source_path)}/styles/global.css`
+      _s: `${resolve(settings.source_path)}/styles/global.css`,
     }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),
     new webpack.NormalModuleReplacementPlugin(

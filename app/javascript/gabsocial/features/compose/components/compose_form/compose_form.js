@@ -1,8 +1,8 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { length } from 'stringz'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
+import { length } from 'stringz'
 import CharacterCounter from '../../../../components/character_counter'
 import UploadForm from '../upload_form'
 import AutosuggestTextbox from '../../../../components/autosuggest_textbox'
@@ -15,7 +15,7 @@ import StatusVisibilityButton from '../../components/status_visibility_button'
 import EmojiPickerButton from '../../components/emoji_picker_button'
 import PollFormContainer from '../../containers/poll_form_container'
 import SchedulePostButton from '../schedule_post_button'
-import QuotedStatusPreviewContainer from '../../containers/quoted_status_preview_container'
+import StatusContainer from '../../../../containers/status_container'
 import Button from '../../../../components/button'
 import Avatar from '../../../../components/avatar'
 import { isMobile } from '../../../../utils/is_mobile'
@@ -29,7 +29,7 @@ const messages = defineMessages({
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
-  schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' }
+  schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
 });
 
 const cx = classNames.bind(_s)
@@ -79,6 +79,7 @@ class ComposeForm extends ImmutablePureComponent {
     scheduledAt: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
     replyToId: PropTypes.string,
+    hasPoll: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -104,7 +105,7 @@ class ComposeForm extends ImmutablePureComponent {
   handleClick = (e) => {
     if (!this.form) return false;
     if (e.target) {
-      if (e.target.classList.contains('react-datepicker__time-list-item')) return;
+      if (e.target.classList.contains('react-datepicker__time-list-item')) return false
     }
     if (!this.form.contains(e.target)) {
       this.handleClickOutside();
@@ -162,11 +163,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    document.addEventListener("click", this.handleClick, false);
+    document.addEventListener('click', this.handleClick, false);
   }
 
   componentWillUnmount() {
-    document.removeEventListener("click", this.handleClick, false);
+    document.removeEventListener('click', this.handleClick, false);
   }
 
   componentDidUpdate(prevProps) {
@@ -201,19 +202,19 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   setForm = (c) => {
-    this.form = c;
+    this.form = c
   }
 
   setSpoilerText = (c) => {
-    this.spoilerText = c;
+    this.spoilerText = c
   }
 
   handleEmojiPick = (data) => {
-    const { text } = this.props;
-    const position = this.autosuggestTextarea.textbox.selectionStart;
-    const needsSpace = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1]);
+    const { text } = this.props
+    const position = this.autosuggestTextarea.textbox.selectionStart
+    const needsSpace = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1])
 
-    this.props.onPickEmoji(position, data, needsSpace);
+    this.props.onPickEmoji(position, data, needsSpace)
   }
 
   render() {
@@ -230,11 +231,13 @@ class ComposeForm extends ImmutablePureComponent {
       edit,
       scheduledAt,
       spoiler,
-      replyToId
+      replyToId,
+      hasPoll,
+      isUploading,
     } = this.props
     const disabled = this.props.isSubmitting;
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
-    const disabledButton = disabled || this.props.isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
+    const disabledButton = disabled || isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
     const parentContainerClasses = cx({
@@ -255,7 +258,8 @@ class ComposeForm extends ImmutablePureComponent {
     const actionsContainerClasses = cx({
       default: 1,
       flexRow: 1,
-      alignItemsCenter: 1,
+      alignItemsCenter: !shouldCondense,
+      alignItemsStart: shouldCondense,
       mt10: !shouldCondense,
       px15: !shouldCondense,
     })
@@ -313,19 +317,25 @@ class ComposeForm extends ImmutablePureComponent {
               autoFocus={shouldAutoFocus}
               small={shouldCondense}
               textarea
-            >
+            />
 
+            {
+              (isUploading || anyMedia) &&
               <div className={[_s.default, _s.px15].join(' ')}>
                 <UploadForm replyToId={replyToId} />
-                {
-                  !edit &&
-                  <PollFormContainer replyToId={replyToId} />
-                }
               </div>
+            }
 
-            </AutosuggestTextbox>
+            {
+              !edit && hasPoll &&
+              <div className={[_s.default, _s.px15].join(' ')}>
+                <PollFormContainer replyToId={replyToId} />
+              </div>
+            }
 
-            { /* quoteOfId && <QuotedStatusPreviewContainer id={quoteOfId} /> */}
+            {
+              /* : todo : quoteOfId && <StatusContainer id={quoteOfId} /> */
+            }
 
             <div className={actionsContainerClasses}>
               <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
@@ -358,8 +368,8 @@ class ComposeForm extends ImmutablePureComponent {
                 !shouldCondense &&
                 <CharacterCounter max={maxPostCharacterCount} text={text} />
               }
-              
-              {
+
+              { /* : todo : show send on shouldCondense if any text */
                 !shouldCondense &&
                 <Button
                   className={[_s.fontSize15PX, _s.px15].join(' ')}

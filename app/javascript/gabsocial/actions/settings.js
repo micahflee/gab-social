@@ -1,5 +1,5 @@
 import api from '../api';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce';
 // import { showAlertForError } from './alerts';
 import { me } from '../initial_state';
 

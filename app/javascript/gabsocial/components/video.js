@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import { is } from 'immutable'
-import { throttle } from 'lodash'
+import throttle from 'lodash.throttle'
 import classNames from 'classnames/bind'
 import { decode } from 'blurhash'
 import { isFullscreen, requestFullscreen, exitFullscreen } from '../utils/fullscreen'

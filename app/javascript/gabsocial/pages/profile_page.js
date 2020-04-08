@@ -13,7 +13,7 @@ import ProfileLayout from '../layouts/profile_layout'
 
 const mapStateToProps = (state, { params: { username } }) => {
   const accounts = state.getIn(['accounts'])
-  const account = accounts.find(acct => username.toLowerCase() == acct.getIn(['acct'], '').toLowerCase())
+  const account = accounts.find(acct => username.toLowerCase() === acct.getIn(['acct'], '').toLowerCase())
 
   const accountId = !!account ? account.get('id') : -1
   const isBlocked = state.getIn(['relationships', accountId, 'blocked_by'], false)
@@ -33,6 +33,7 @@ const mapStateToProps = (state, { params: { username } }) => {
 export default
 @connect(mapStateToProps)
 class ProfilePage extends ImmutablePureComponent {
+
   static propTypes = {
     children: PropTypes.node,
     params: PropTypes.object.isRequired,
@@ -59,7 +60,7 @@ class ProfilePage extends ImmutablePureComponent {
     const {
       account,
       children,
-      unavailable
+      unavailable,
     } = this.props
 
     return (
@@ -86,4 +87,5 @@ class ProfilePage extends ImmutablePureComponent {
       </ProfileLayout>
     )
   }
+
 }

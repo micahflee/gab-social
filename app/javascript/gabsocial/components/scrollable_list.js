@@ -1,4 +1,4 @@
-import { throttle } from 'lodash'
+import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
@@ -139,14 +139,14 @@ export default class ScrollableList extends PureComponent {
       this.lastScrollWasSynthetic = false;
     }
   }, 150, {
-      trailing: true,
-    });
+    trailing: true,
+  });
 
   handleWheel = throttle(() => {
     this.scrollToTopOnMouseIdle = false;
   }, 150, {
-      trailing: true,
-    });
+    trailing: true,
+  });
 
   getSnapshotBeforeUpdate(prevProps) {
     const someItemInserted = React.Children.count(prevProps.children) > 0 &&
@@ -199,7 +199,15 @@ export default class ScrollableList extends PureComponent {
   }
 
   render() {
-    const { children, scrollKey, showLoading, isLoading, hasMore, emptyMessage, onLoadMore } = this.props;
+    const {
+      children,
+      scrollKey,
+      showLoading,
+      isLoading,
+      hasMore,
+      emptyMessage,
+      onLoadMore,
+    } = this.props
     const childrenCount = React.Children.count(children);
 
     const trackScroll = true; //placeholder

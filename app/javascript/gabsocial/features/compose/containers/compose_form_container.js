@@ -35,10 +35,11 @@ const mapStateToProps = (state, { replyToId }) => {
     isUploading: !isMatch ? false : state.getIn(['compose', 'is_uploading']),
     showSearch: !isMatch ? false : state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
     anyMedia: !isMatch ? false : state.getIn(['compose', 'media_attachments']).size > 0,
-    isModalOpen: !isMatch ? false : state.get('modal').modalType === 'COMPOSE',
+    isModalOpen: !isMatch ? false : state.getIn(['modal', 'modalType']) === 'COMPOSE',
     quoteOfId: !isMatch ? null : state.getIn(['compose', 'quote_of_id']),
     scheduledAt: !isMatch ? null : state.getIn(['compose', 'scheduled_at']),
     account: state.getIn(['accounts', me]),
+    hasPoll: !isMatch ? false : state.getIn(['compose', 'poll']),
   }
 }
 
@@ -84,7 +85,7 @@ const mapDispatchToProps = (dispatch) => ({
 function mergeProps(stateProps, dispatchProps, ownProps) {
   return Object.assign({}, ownProps, {
     ...stateProps,
-    ...dispatchProps
+    ...dispatchProps,
   })
 }
 

@@ -1,4 +1,9 @@
 export default class Block extends PureComponent {
+
+  static propTypes = {
+    children: PropTypes.node,
+  }
+
   render() {
     const { children } = this.props
 
@@ -8,4 +13,5 @@ export default class Block extends PureComponent {
       </div>
     )
   }
+
 }

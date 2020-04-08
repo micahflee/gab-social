@@ -50,68 +50,60 @@ const selectUnits = delta => {
 
 const getUnitDelay = units => {
   switch (units) {
-    case 'second':
-      return SECOND
-    case 'minute':
-      return MINUTE
-    case 'hour':
-      return HOUR
-    case 'day':
-      return DAY
-    default:
-      return MAX_DELAY
+  case 'second':
+    return SECOND
+  case 'minute':
+    return MINUTE
+  case 'hour':
+    return HOUR
+  case 'day':
+    return DAY
+  default:
+    return MAX_DELAY
   }
 }
 
 export const timeAgoString = (intl, date, now, year) => {
   const delta = now - date.getTime()
 
-  let relativeTime
-
   if (delta < 10 * SECOND) {
-    relativeTime = intl.formatMessage(messages.just_now)
+    return intl.formatMessage(messages.just_now)
   } else if (delta < 7 * DAY) {
     if (delta < MINUTE) {
-      relativeTime = intl.formatMessage(messages.seconds, { number: Math.floor(delta / SECOND) })
+      return intl.formatMessage(messages.seconds, { number: Math.floor(delta / SECOND) })
     } else if (delta < HOUR) {
-      relativeTime = intl.formatMessage(messages.minutes, { number: Math.floor(delta / MINUTE) })
+      return intl.formatMessage(messages.minutes, { number: Math.floor(delta / MINUTE) })
     } else if (delta < DAY) {
-      relativeTime = intl.formatMessage(messages.hours, { number: Math.floor(delta / HOUR) })
+      return intl.formatMessage(messages.hours, { number: Math.floor(delta / HOUR) })
     } else {
-      relativeTime = intl.formatMessage(messages.days, { number: Math.floor(delta / DAY) })
+      return intl.formatMessage(messages.days, { number: Math.floor(delta / DAY) })
     }
   } else if (date.getFullYear() === year) {
-    relativeTime = intl.formatDate(date, shortDateFormatOptions)
-  } else {
-    relativeTime = intl.formatDate(date, { ...shortDateFormatOptions, year: 'numeric' })
+    return intl.formatDate(date, shortDateFormatOptions)
   }
 
-  return relativeTime
+  return intl.formatDate(date, { ...shortDateFormatOptions, year: 'numeric' })
 }
 
 const timeRemainingString = (intl, date, now) => {
   const delta = date.getTime() - now
 
-  let relativeTime
-
   if (delta < 10 * SECOND) {
-    relativeTime = intl.formatMessage(messages.moments_remaining)
+    return intl.formatMessage(messages.moments_remaining)
   } else if (delta < MINUTE) {
-    relativeTime = intl.formatMessage(messages.seconds_remaining, { number: Math.floor(delta / SECOND) })
+    return intl.formatMessage(messages.seconds_remaining, { number: Math.floor(delta / SECOND) })
   } else if (delta < HOUR) {
-    relativeTime = intl.formatMessage(messages.minutes_remaining, { number: Math.floor(delta / MINUTE) })
+    return intl.formatMessage(messages.minutes_remaining, { number: Math.floor(delta / MINUTE) })
   } else if (delta < DAY) {
-    relativeTime = intl.formatMessage(messages.hours_remaining, { number: Math.floor(delta / HOUR) })
-  } else {
-    relativeTime = intl.formatMessage(messages.days_remaining, { number: Math.floor(delta / DAY) })
+    return intl.formatMessage(messages.hours_remaining, { number: Math.floor(delta / HOUR) })
   }
 
-  return relativeTime
+  return intl.formatMessage(messages.days_remaining, { number: Math.floor(delta / DAY) })
 }
 
 export default
 @injectIntl
-class RelativeTimestamp extends Component {
+class RelativeTimestamp extends React.Component {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

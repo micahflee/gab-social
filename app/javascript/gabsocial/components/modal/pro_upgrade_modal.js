@@ -61,4 +61,5 @@ class ProUpgradeModal extends ImmutablePureComponent {
       </ModalLayout>
     )
   }
+
 }

@@ -1,7 +1,6 @@
 import api from '../api';
 import { CancelToken, isCancel } from 'axios';
-import { throttle } from 'lodash';
-import moment from 'moment';
+import throttle from 'lodash.throttle'
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
 import { urlRegex } from '../features/compose/util/url_regex'
 import { tagHistory } from '../settings';
@@ -133,7 +132,7 @@ export function mentionCompose(account, routerHistory) {
 export function handleComposeSubmit(dispatch, getState, response, status) {
   if (!dispatch || !getState) return;
 
-  const isScheduledStatus = response.data['scheduled_at'] !== undefined;
+  const isScheduledStatus = response.data.scheduled_at !== undefined;
   if (isScheduledStatus) {
     // dispatch(showAlertForError({
     //   response: {
@@ -154,7 +153,7 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
     const timeline = getState().getIn(['timelines', timelineId]);
 
     if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null && timeline.get('online')) {
-      let dequeueArgs = {};
+      const dequeueArgs = {};
       if (timelineId === 'community') dequeueArgs.onlyMedia = getState().getIn(['settings', 'community', 'other', 'onlyMedia']);
       dispatch(dequeueTimeline(timelineId, null, dequeueArgs));
       dispatch(updateTimeline(timelineId, { ...response.data }));
@@ -174,19 +173,19 @@ export function submitCompose(routerHistory, group) {
     if (!me) return;
 
     let status = getState().getIn(['compose', 'text'], '');
-    let statusMarkdown = getState().getIn(['compose', 'text_markdown'], '');
+    const statusMarkdown = getState().getIn(['compose', 'text_markdown'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
 
-    // : hack : 
+    // : hack :
     //Prepend http:// to urls in status that don't have protocol
     status = status.replace(urlRegex, (match) =>{
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
       return hasProtocol ? match : `http://${match}`
     })
-    statusMarkdown = statusMarkdown.replace(urlRegex, (match) =>{
-      const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
-      return hasProtocol ? match : `http://${match}`
-    })
+    // statusMarkdown = statusMarkdown.replace(urlRegex, (match) =>{
+    //   const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
+    //   return hasProtocol ? match : `http://${match}`
+    // })
 
     dispatch(submitComposeRequest());
     dispatch(closeModal());
@@ -197,12 +196,13 @@ export function submitCompose(routerHistory, group) {
       : `/api/v1/statuses/${id}`;
     const method = id === null ? 'post' : 'put';
 
-    let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
-    if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
+    const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
+    // : todo :
+    // if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
     api(getState)[method](endpoint, {
       status,
-      statusMarkdown,
+      // statusMarkdown,
       scheduled_at,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),

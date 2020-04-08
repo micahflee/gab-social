@@ -26,9 +26,9 @@ import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
 import { boostModal, deleteModal } from '../initial_state';
 // import { showAlertForError } from '../actions/alerts';
-import { 
+import {
   createRemovedAccount,
-  groupRemoveStatus
+  groupRemoveStatus,
 } from '../actions/groups';
 import { makeGetStatus } from '../selectors';
 import Status from '../components/status';
@@ -58,7 +58,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onReply (status, router) {
     dispatch((_, getState) => {
-      let state = getState();
+      const state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
         dispatch(openModal('CONFIRM', {
           message: intl.formatMessage(messages.replyMessage),
@@ -73,7 +73,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onQuote (status, router) {
     dispatch((_, getState) => {
-      let state = getState();
+      const state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
         dispatch(openModal('CONFIRM', {
           message: intl.formatMessage(messages.quoteMessage),
@@ -107,12 +107,12 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onFavorite (status) {
-    console.log("onFavorite...", status)
+    console.log('onFavorite...', status)
     if (status.get('favourited')) {
-      console.log("unfav...")
+      console.log('unfav...')
       dispatch(unfavorite(status));
     } else {
-      console.log("fav...")
+      console.log('fav...')
       dispatch(favorite(status));
     }
   },

@@ -10,7 +10,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
     onClick: PropTypes.func.isRequired,
     count: PropTypes.number,
     itemType: PropTypes.string,
-    floating: PropTypes.bool
+    floating: PropTypes.bool,
   }
 
   static defaultProps = {

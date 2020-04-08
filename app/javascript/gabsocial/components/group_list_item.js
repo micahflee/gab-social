@@ -25,6 +25,7 @@ export default
 @connect(mapStateToProps)
 @injectIntl
 class GroupListItem extends ImmutablePureComponent {
+
   static propTypes = {
     group: ImmutablePropTypes.map,
     relationships: ImmutablePropTypes.map,
@@ -82,16 +83,22 @@ class GroupListItem extends ImmutablePureComponent {
       mb10: !slim,
     })
 
+    const coverSrc = group.get('cover')
+
     return (
       <NavLink
         to={`/groups/${group.get('id')}`}
         className={containerClasses}
       >
-        <Image
-          src={group.get('cover')}
-          alt={group.get('title')}
-          className={imageClasses}
-        />
+
+        {
+          (!!coverSrc || slim) &&
+          <Image
+            src={coverSrc}
+            alt={group.get('title')}
+            className={imageClasses}
+          />
+        }
 
         <div className={textContainerClasses}>
           <Text color='brand' weight='bold'>
@@ -115,4 +122,5 @@ class GroupListItem extends ImmutablePureComponent {
       </NavLink>
     )
   }
+
 }

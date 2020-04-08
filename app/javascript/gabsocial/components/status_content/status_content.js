@@ -224,12 +224,17 @@ class StatusContent extends ImmutablePureComponent {
         displayNone: hidden,
       })
 
+      const containerClasses = cx({
+        statusContent: 1,
+        px15: !isComment,
+      })
+
       return (
         <div
           className={[].join(' ')}
           ref={this.setRef}
           tabIndex='0'
-          className={[_s.px15, _s.statusContent].join(' ')}
+          className={containerClasses}
           style={directionStyle}
           onMouseDown={this.handleMouseDown}
           onMouseUp={this.handleMouseUp}
@@ -317,11 +322,18 @@ class StatusContent extends ImmutablePureComponent {
       )
     }
 
+    const containerClasses = cx({
+      statusContent: 1,
+      px15: !isComment,
+      mb15: !isComment,
+      mt5: isComment,
+    })
+
     return (
       <div
         tabIndex='0'
         ref={this.setRef}
-        className={[_s.px15, _s.mb15, _s.statusContent].join(' ')}
+        className={containerClasses}
         style={directionStyle}
         dangerouslySetInnerHTML={content}
         lang={status.get('language')}

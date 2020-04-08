@@ -208,10 +208,9 @@ class GifResultsCollection extends PureComponent {
   render() {
     const { results, handleSelectGifResult } = this.props
 
+    // : todo :
     const count = results.length
     const columnIndex = 10
-
-    console.log("results:", results)
 
     return (
       <div className={[_s.default, _s.height100PC, _s.flexRow, _s.width100PC].join(' ')}>

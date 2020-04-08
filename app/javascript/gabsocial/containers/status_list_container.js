@@ -1,6 +1,7 @@
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import { createSelector } from 'reselect';
-import { debounce, sample } from 'lodash';
+import { sample } from 'lodash';
+import debounce from 'lodash.debounce'
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
 import { fetchStatus } from '../actions/statuses';

@@ -45,6 +45,7 @@ export default class HashtagItem extends ImmutablePureComponent {
             text
             backgroundColor='none'
             color='none'
+            title='Remove'
             icon='caret-down'
             iconWidth='8px'
             iconHeight='8px'

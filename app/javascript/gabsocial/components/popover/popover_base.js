@@ -2,7 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Manager, Reference, Popper } from 'react-popper'
 import classnames from 'classnames/bind'
-import Overlay from 'react-overlays/lib/Overlay'
 import spring from 'react-motion/lib/spring'
 import Motion from '../../features/ui/util/optional_motion'
 import { openPopover, closePopover } from '../../actions/popover'
@@ -14,7 +13,7 @@ const cx = classnames.bind(_s)
 let id = 0
 
 const mapStateToProps = state => ({
-  isModalOpen: state.get('modal').modalType === 'ACTIONS',
+  isModalOpen: state.getIn(['modal', 'modalType']) === 'ACTIONS',
   popoverPlacement: state.getIn(['popover', 'placement']),
   openPopoverType: state.getIn(['popover', 'popoverType']),
 })
@@ -71,9 +70,9 @@ class PopoverBase extends ImmutablePureComponent {
 
   handleKeyDown = e => {
     switch (e.key) {
-      case 'Escape':
-        this.handleClose()
-        break
+    case 'Escape':
+      this.handleClose()
+      break
     }
   }
 
@@ -123,7 +122,7 @@ class PopoverBase extends ImmutablePureComponent {
       displayNone: !visible,
     })
 
-    console.log("targetRef:", targetRef)
+    console.log('targetRef:', targetRef)
 
 
     return (

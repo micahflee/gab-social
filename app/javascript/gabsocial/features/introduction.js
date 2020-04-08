@@ -5,7 +5,7 @@ import { closeOnboarding } from '../actions/onboarding';
 
 // : todo :
 
-class FrameWelcome extends Component {
+class FrameWelcome extends React.Component {
   static propTypes = {
     domain: PropTypes.string.isRequired,
     onNext: PropTypes.func.isRequired,
@@ -45,7 +45,7 @@ class FrameWelcome extends Component {
   }
 }
 
-class FrameFederation extends Component {
+class FrameFederation extends React.Component {
   static propTypes = {
     onNext: PropTypes.func.isRequired,
   }
@@ -81,7 +81,7 @@ class FrameFederation extends Component {
   }
 };
 
-class FrameInteractions extends Component {
+class FrameInteractions extends React.Component {
   static propTypes = {
     onNext: PropTypes.func.isRequired,
   };

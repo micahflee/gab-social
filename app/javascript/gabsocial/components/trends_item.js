@@ -49,7 +49,7 @@ export default class TrendingItem extends PureComponent {
       author,
       publishDate,
       isLast,
-      wide
+      wide,
     } = this.props
     const { hovering } = this.state
 
@@ -70,13 +70,14 @@ export default class TrendingItem extends PureComponent {
     })
 
     const correctedAuthor = author.replace('www.', '')
-    const correctedDescription = description.length > 120 ? `${description.substring(0, 120).trim()}...` : description
-  
+    const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
+
     const image = (
       <Image
         nullable
         width='116px'
         height='78px'
+        alt={title}
         src={imageUrl}
         className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
       />
@@ -87,6 +88,7 @@ export default class TrendingItem extends PureComponent {
         noClasses
         href={url}
         target='_blank'
+        rel='noopener noreferrer'
         className={containerClasses}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
@@ -104,7 +106,7 @@ export default class TrendingItem extends PureComponent {
 
           {
             !!correctedDescription &&
-            <div className={[_s.default, _s.heightMax60PX, _s.overflowHidden, _s.py5].join(' ')}>
+            <div className={[_s.default, _s.heightMax56PX, _s.overflowHidden, _s.pt5, _s.mb5].join(' ')}>
               <Text size='small' color='secondary'>
                 {correctedDescription}
               </Text>

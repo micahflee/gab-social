@@ -22,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(makeMapStateToProps, mapDispatchToProps)
-class IntersectionObserverArticle extends Component {
+class IntersectionObserverArticle extends React.Component {
 
   static propTypes = {
     intersectionObserverWrapper: PropTypes.object.isRequired,

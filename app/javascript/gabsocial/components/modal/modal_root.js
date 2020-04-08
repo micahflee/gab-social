@@ -69,8 +69,8 @@ const MODAL_COMPONENTS = {
 }
 
 const mapStateToProps = state => ({
-  type: state.get('modal').modalType,
-  props: state.get('modal').modalProps,
+  type: state.getIn(['modal', 'modalType']),
+  props: state.getIn(['modal', 'modalProps'], {}),
 })
 
 const mapDispatchToProps = (dispatch) => ({

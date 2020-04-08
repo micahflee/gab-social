@@ -16,7 +16,6 @@ import { me } from '../initial_state';
 
 export const NOTIFICATIONS_INITIALIZE  = 'NOTIFICATIONS_INITIALIZE';
 export const NOTIFICATIONS_UPDATE      = 'NOTIFICATIONS_UPDATE';
-export const NOTIFICATIONS_UPDATE_NOOP = 'NOTIFICATIONS_UPDATE_NOOP';
 export const NOTIFICATIONS_UPDATE_QUEUE = 'NOTIFICATIONS_UPDATE_QUEUE';
 export const NOTIFICATIONS_DEQUEUE      = 'NOTIFICATIONS_DEQUEUE';
 
@@ -76,7 +75,6 @@ export function updateNotificationsQueue(notification, intlMessages, intlLocale,
   return (dispatch, getState) => {
     const showAlert = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
     const filters = getFilters(getState(), { contextType: 'notifications' });
-    const playSound = getState().getIn(['settings', 'notifications', 'sounds', notification.type], true);
 
     let filtered = false;
 
@@ -101,13 +99,6 @@ export function updateNotificationsQueue(notification, intlMessages, intlLocale,
       });
     }
 
-    if (playSound && !filtered) {
-      dispatch({
-        type: NOTIFICATIONS_UPDATE_NOOP,
-        meta: { sound: 'ribbit' },
-      });
-    }
-
     if (isOnNotificationsPage) {
       dispatch({
         type: NOTIFICATIONS_UPDATE_QUEUE,
@@ -115,8 +106,7 @@ export function updateNotificationsQueue(notification, intlMessages, intlLocale,
         intlMessages,
         intlLocale,
       });
-    }
-    else {
+    } else {
       dispatch(updateNotifications(notification, intlMessages, intlLocale));
     }
   }
@@ -127,15 +117,13 @@ export function dequeueNotifications() {
     const queuedNotifications = getState().getIn(['notifications', 'queuedNotifications'], ImmutableList());
     const totalQueuedNotificationsCount = getState().getIn(['notifications', 'totalQueuedNotificationsCount'], 0);
 
-    if (totalQueuedNotificationsCount == 0) {
+    if (totalQueuedNotificationsCount === 0) {
       return;
-    }
-    else if (totalQueuedNotificationsCount > 0 && totalQueuedNotificationsCount <= MAX_QUEUED_NOTIFICATIONS) {
+    } else if (totalQueuedNotificationsCount > 0 && totalQueuedNotificationsCount <= MAX_QUEUED_NOTIFICATIONS) {
       queuedNotifications.forEach(block => {
         dispatch(updateNotifications(block.notification, block.intlMessages, block.intlLocale));
       });
-    }
-    else {
+    } else {
       dispatch(expandNotifications());
     }
 
@@ -167,10 +155,10 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       done();
       return;
     }
-    
-    console.log("activeFilter:", activeFilter)
-    console.log("excludeTypesFromSettings(getState()):", excludeTypesFromSettings(getState()))
-    console.log("excludeTypesFromFilter(activeFilter):", excludeTypesFromFilter(activeFilter))
+
+    console.log('activeFilter:', activeFilter)
+    console.log('excludeTypesFromSettings(getState()):', excludeTypesFromSettings(getState()))
+    console.log('excludeTypesFromFilter(activeFilter):', excludeTypesFromFilter(activeFilter))
 
     // : todo :
     // filter verified and following here too
@@ -268,7 +256,7 @@ export function markReadNotifications() {
     const last_read = getState().getIn(['notifications', 'lastRead']);
 
     if (top_notification && top_notification > last_read) {
-      api(getState).post('/api/v1/notifications/mark_read', {id: top_notification}).then(response => {
+      api(getState).post('/api/v1/notifications/mark_read', { id: top_notification }).then(response => {
         dispatch({
           type: NOTIFICATIONS_MARK_READ,
           notification: top_notification,

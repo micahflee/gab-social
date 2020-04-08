@@ -22,7 +22,7 @@ const messages = defineMessages({
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
-  lists: { id: 'column.lists', defaultMessage: 'Lists', },
+  lists: { id: 'column.lists', defaultMessage: 'Lists' },
   apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
   more: { id: 'sidebar.more', defaultMessage: 'More' },
   pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
@@ -37,7 +37,7 @@ const mapStateToProps = state => {
 
   return {
     account: getAccount(state, me),
-    moreOpen: state.get('popover').popoverType === 'SIDEBAR_MORE',
+    moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
     notificationCount: state.getIn(['notifications', 'unread']),
     homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
     showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
@@ -95,7 +95,7 @@ class Sidebar extends ImmutablePureComponent {
       notificationCount,
       homeItemsQueueCount,
       showCommunityTimeline,
-      moreOpen
+      moreOpen,
     } = this.props
 
     // : todo :
@@ -104,7 +104,7 @@ class Sidebar extends ImmutablePureComponent {
     const acct = account.get('acct')
     const isPro = account.get('is_pro')
 
-    console.log("showCommunityTimeline:", showCommunityTimeline)
+    console.log('showCommunityTimeline:', showCommunityTimeline)
 
     const menuItems = [
       {

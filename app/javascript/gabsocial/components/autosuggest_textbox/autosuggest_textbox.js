@@ -2,8 +2,6 @@ import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import Textarea from 'react-textarea-autosize'
-import ContentEditable from 'react-contenteditable'
 import { isRtl } from '../../utils/rtl'
 import { textAtCursorMatchesToken } from '../../utils/cursor_token_match'
 import AutosuggestAccount from '../autosuggest_account'
@@ -83,39 +81,39 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     if (e.which === 229 || e.isComposing) return;
 
     switch (e.key) {
-      case 'Escape':
-        if (suggestions.size === 0 || suggestionsHidden) {
-          document.querySelector('.ui').parentElement.focus();
-        } else {
-          e.preventDefault();
-          this.setState({ suggestionsHidden: true });
-        }
+    case 'Escape':
+      if (suggestions.size === 0 || suggestionsHidden) {
+        document.querySelector('.ui').parentElement.focus();
+      } else {
+        e.preventDefault();
+        this.setState({ suggestionsHidden: true });
+      }
 
-        break;
-      case 'ArrowDown':
-        if (suggestions.size > 0 && !suggestionsHidden) {
-          e.preventDefault();
-          this.setState({ selectedSuggestion: Math.min(selectedSuggestion + 1, suggestions.size - 1) });
-        }
+      break;
+    case 'ArrowDown':
+      if (suggestions.size > 0 && !suggestionsHidden) {
+        e.preventDefault();
+        this.setState({ selectedSuggestion: Math.min(selectedSuggestion + 1, suggestions.size - 1) });
+      }
 
-        break;
-      case 'ArrowUp':
-        if (suggestions.size > 0 && !suggestionsHidden) {
-          e.preventDefault();
-          this.setState({ selectedSuggestion: Math.max(selectedSuggestion - 1, 0) });
-        }
+      break;
+    case 'ArrowUp':
+      if (suggestions.size > 0 && !suggestionsHidden) {
+        e.preventDefault();
+        this.setState({ selectedSuggestion: Math.max(selectedSuggestion - 1, 0) });
+      }
 
-        break;
-      case 'Enter':
-      case 'Tab':
-        // Select suggestion
-        if (this.state.lastToken !== null && suggestions.size > 0 && !suggestionsHidden) {
-          e.preventDefault();
-          e.stopPropagation();
-          this.props.onSuggestionSelected(this.state.tokenStart, this.state.lastToken, suggestions.get(selectedSuggestion));
-        }
+      break;
+    case 'Enter':
+    case 'Tab':
+      // Select suggestion
+      if (this.state.lastToken !== null && suggestions.size > 0 && !suggestionsHidden) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.props.onSuggestionSelected(this.state.tokenStart, this.state.lastToken, suggestions.get(selectedSuggestion));
+      }
 
-        break;
+      break;
     }
 
     if (e.defaultPrevented || !this.props.onKeyDown) return;
@@ -210,7 +208,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       id,
       maxLength,
       textarea,
-      prependIcon
+      prependIcon,
     } = this.props
 
     const { suggestionsHidden } = this.state
@@ -270,7 +268,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 onPaste={this.onPaste}
                 aria-autocomplete='list'
               /> */ }
-              
+
               { /*
                 <Textarea
                 className={_s.default}
@@ -307,6 +305,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             </div>
             {children}
           </div>
+          { /* : todo : */ }
           <div className='autosuggest-textarea__suggestions-wrapper'>
             <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
               {suggestions.map(this.renderSuggestion)}

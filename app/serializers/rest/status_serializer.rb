@@ -85,8 +85,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def favourites_count
     if instance_options && instance_options[:unfavourite]
-      # Decrement counter
-      # https://github.com/tootsuite/mastodon/issues/3166
       object.favourites_count - 1
     else
       object.favourites_count

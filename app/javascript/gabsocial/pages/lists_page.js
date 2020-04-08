@@ -31,8 +31,8 @@ class ListsPage extends PureComponent {
         title='Lists'
         actions={[
           {
-            icon: 'list-add',
-            onClick: onOpenListCreateModal
+            icon: 'add',
+            onClick: onOpenListCreateModal,
           },
         ]}
         layout={(
@@ -48,4 +48,5 @@ class ListsPage extends PureComponent {
       </DefaultLayout>
     )
   }
+
 }

@@ -71,7 +71,7 @@ class Compose extends ImmutablePureComponent {
   render () {
     const { showSearch, isSearchPage, intl } = this.props;
 
-    let header = '';
+    const header = '';
 
     return (
       <div className='drawer' role='region' aria-label={intl.formatMessage(messages.compose)}>

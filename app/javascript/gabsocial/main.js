@@ -5,11 +5,7 @@ import { default as GabSocial, store } from './containers/gabsocial';
 import ReactDOM from 'react-dom';
 import ready from './ready';
 
-const perf = require('./performance');
-
 function main() {
-  perf.start('main()');
-
   // : todo :
   // if (window.history && history.replaceState) {
   //   const { pathname, search, hash } = window.location;
@@ -30,7 +26,6 @@ function main() {
       require('offline-plugin/runtime').install();
       store.dispatch(registerPushNotifications.register());
     }
-    perf.stop('main()');
   });
 }
 

@@ -7,7 +7,7 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = state => ({
-  active: state.get('popover').popoverType === 'EMOJI_PICKER',
+  active: state.getIn(['popover', 'popoverType']) === 'EMOJI_PICKER',
 })
 
 const mapDispatchToProps = dispatch => ({

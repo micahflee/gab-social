@@ -272,7 +272,7 @@ class Status extends ImmutablePureComponent {
       group,
       promoted,
       borderless,
-      isChild
+      isChild,
     } = this.props
 
     let media = null
@@ -287,7 +287,7 @@ class Status extends ImmutablePureComponent {
     //   status = status.get('reblog');
     // }
 
-    let { status, ...other } = this.props;
+    const { status, ...other } = this.props;
 
     // console.log("replies:", this.props.replies)
 
@@ -403,7 +403,7 @@ class Status extends ImmutablePureComponent {
       borderColorSecondary: !borderless,
       border1PX: !borderless,
       pb10: isChild && status.get('media_attachments').size === 0,
-      pb5: isChild && status.get('media_attachments').size > 1,     
+      pb5: isChild && status.get('media_attachments').size > 1,
       cursorPointer: isChild,
       backgroundSubtle_onHover: isChild,
     })
@@ -445,7 +445,7 @@ class Status extends ImmutablePureComponent {
                   <Status status={status.get('quoted_status')} isChild />
                 </div>
               }
-              
+
               {
                 !isChild &&
                 <StatusActionBar status={status} {...other} />

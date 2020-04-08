@@ -328,6 +328,10 @@ body {
   background-color: #36e991;
 }
 
+.backgroundColorBrandLightOpaque_onHover:hover {
+  background-color: rgba(54,233,145, 0.125)
+}
+
 .backgroundColorBrand {
   background-color: #21cf7a;
 }
@@ -389,6 +393,10 @@ body {
 }
 
 .fillColorBrand {
+  fill: #21cf7a;
+}
+
+.fillColorBrand_onHover:hover {
   fill: #21cf7a;
 }
 
@@ -472,8 +480,8 @@ body {
   max-height: 80vh;
 }
 
-.heightMax60PX {
-  max-height: 60px;
+.heightMax56PX {
+  max-height: 56px;
 }
 
 .heightMin50VH {
@@ -510,6 +518,10 @@ body {
 
 .height1PX {
   height: 1px;
+}
+
+.height40PX {
+  height: 40px;
 }
 
 .height50PX {
@@ -856,6 +868,10 @@ body {
 
 .mb10 {
   margin-bottom: 10px;
+}
+
+.mb5 {
+  margin-bottom: 5px;
 }
 
 .mt10 {

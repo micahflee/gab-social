@@ -42,7 +42,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
   openProfileOptionsPopover(props) {
-    console.log("props:", props)
+    console.log('props:', props)
     dispatch(openPopover('PROFILE_OPTIONS', props))
   },
 
@@ -112,9 +112,9 @@ class ProfileHeader extends ImmutablePureComponent {
 
   // : todo :
   makeInfo() {
-    const { account, intl } = this.props;
+    const { account, intl } = this.props
 
-    let info = [];
+    const info = []
 
     if (!account || !me) return info;
 
@@ -130,8 +130,8 @@ class ProfileHeader extends ImmutablePureComponent {
       info.push(<span key='domain_blocked' className='relationship-tag'>{intl.formatMessage(messages.domainBlocked)}</span>);
     }
 
-    return info;
-  };
+    return info
+  }
 
   setOpenMoreNodeRef = (n) => {
     this.openMoreNode = n
@@ -175,11 +175,10 @@ class ProfileHeader extends ImmutablePureComponent {
     let buttonOptions = {}
 
     if (!account) {
-      console.log("no account")
-    }
-    else {
+      console.log('no account')
+    } else {
       if (!account.get('relationship')) {
-        console.log("no relationship")
+        console.log('no relationship')
         // Wait until the relationship is loaded
       } else if (account.getIn(['relationship', 'requested'])) {
         buttonText = intl.formatMessage(messages.requested)
@@ -209,7 +208,7 @@ class ProfileHeader extends ImmutablePureComponent {
           backgroundColor: 'tertiary',
         }
       } else {
-        console.log("no nothin")
+        console.log('no nothin')
       }
 
       // if (account.get('id') !== me && account.get('relationship', null) !== null) {
@@ -240,9 +239,9 @@ class ProfileHeader extends ImmutablePureComponent {
       // }
     }
 
-    console.log("buttonOptions:", buttonText, buttonOptions)
-    console.log("account: ", account)
-    
+    console.log('buttonOptions:', buttonText, buttonOptions)
+    console.log('account: ', account)
+
 
     // : todo : "follows you", "mutual follow"
 
@@ -253,6 +252,7 @@ class ProfileHeader extends ImmutablePureComponent {
           !headerMissing &&
           <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
             <Image
+              alt='Cover Photo'
               className={_s.height350PX}
               src={headerSrc}
             />
@@ -297,7 +297,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     className={[_s.px15].join(' ')}
                   >
                     Edit Profile
-                </Text>
+                  </Text>
                 </Button>
               </div>
             }

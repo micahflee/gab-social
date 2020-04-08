@@ -1,7 +1,7 @@
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce'
 import { fetchFollowRequests, expandFollowRequests } from '../../actions/accounts';
 import ColumnIndicator from '../../components/column_indicator';
 import AccountAuthorize from './components/account_authorize';

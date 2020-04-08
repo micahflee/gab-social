@@ -84,7 +84,7 @@ class AccountGallery extends ImmutablePureComponent {
       isLoading,
       hasMore,
       intl,
-      account
+      account,
     } = this.props
 
     if (!account) return null
@@ -109,7 +109,7 @@ class AccountGallery extends ImmutablePureComponent {
           }
 
           { /*
-            attachments.size == 0 &&
+            attachments.size === 0 &&
             <ColumnIndicator type='empty' message={intl.formatMessage(messages.none)} />
           */ }
 

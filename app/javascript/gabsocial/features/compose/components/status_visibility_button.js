@@ -28,6 +28,11 @@ class StatusVisibilityButton extends PureComponent {
     intl: PropTypes.object.isRequired,
     small: PropTypes.bool,
     onOpenPopover: PropTypes.func.isRequired,
+    value: PropTypes.oneOf([
+      'private',
+      'unlisted',
+      'public',
+    ]),
   }
 
   handleOnClick = () => {
@@ -42,20 +47,20 @@ class StatusVisibilityButton extends PureComponent {
     const {
       intl,
       small,
-      value
+      value,
     } = this.props
 
     let icon;
     switch (value) {
-      case 'unlisted':
-        icon = 'unlock-filled'
-        break;
-      case 'private':
-        icon = 'lock-filled'
-        break;
-      default:
-        icon = 'globe'
-        break;
+    case 'unlisted':
+      icon = 'unlock-filled'
+      break;
+    case 'private':
+      icon = 'lock-filled'
+      break;
+    default:
+      icon = 'globe'
+      break;
     }
 
     return (

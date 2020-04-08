@@ -1,6 +1,6 @@
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import { debounce } from 'lodash';
+import debounce from 'lodash.debounce'
 import {
 	fetchMembers,
 	expandMembers,

@@ -33,7 +33,6 @@ function main ( ) {
   //(Rjc) 2019-05-24 defined but never used
   // const React = require('react');
   const ReactDOM = require('react-dom');
-  const Rellax = require('rellax');
   const createHistory = require('history').createBrowserHistory;
 
   const scrollToDetailedStatus = () => {
@@ -104,12 +103,6 @@ function main ( ) {
         });
     } else {
       scrollToDetailedStatus();
-    }
-
-    const parallaxComponents = document.querySelectorAll('.parallax');
-
-    if (parallaxComponents.length > 0 ) {
-      new Rellax('.parallax', { speed: -1 });
     }
 
     if (document.body.classList.contains('with-modals')) {

@@ -1,10 +1,12 @@
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
+import Image from './image'
 
 const cx = classNames.bind(_s)
 
 export default class SidebarSectionItem extends PureComponent {
+
   static contextTypes = {
     router: PropTypes.object,
   }
@@ -45,7 +47,7 @@ export default class SidebarSectionItem extends PureComponent {
       count,
       onClick,
       href,
-      buttonRef
+      buttonRef,
     } = this.props
     const { hovering } = this.state
 
@@ -65,6 +67,7 @@ export default class SidebarSectionItem extends PureComponent {
       radiusSmall: 1,
       mt2: 1,
       border1PX: 1,
+      outlineNone: 1,
       borderColorTransparent: !shouldShowActive,
       borderColorSecondary: shouldShowActive,
       backgroundTransparent: !shouldShowActive,
@@ -77,7 +80,6 @@ export default class SidebarSectionItem extends PureComponent {
       fontSize15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
-      outlineNone: 1,
       colorSecondary: !hovering && !active && !me && !shouldShowActive,
       colorPrimary: shouldShowActive || me,
     })
@@ -111,14 +113,15 @@ export default class SidebarSectionItem extends PureComponent {
         buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.cursorPointer, _s.width100PC, _s.backgroundTransparent].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.width100PC, _s.backgroundTransparent].join(' ')}
       >
         <div className={containerClasses}>
           <div className={[_s.default]}>
             { icon && <Icon id={icon} className={iconClasses} width={iconSize} height={iconSize} /> }
             { image &&
-              <img
-                className={[_s.default, _s.circle].join(' ')}
+              <Image
+                alt={title}
+                className={_s.circle}
                 width={iconSize}
                 height={iconSize}
                 src={image}
@@ -137,4 +140,5 @@ export default class SidebarSectionItem extends PureComponent {
       </Button>
     )
   }
+
 }

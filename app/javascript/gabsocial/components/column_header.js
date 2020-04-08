@@ -32,7 +32,7 @@ export default class ColumnHeader extends PureComponent {
       title,
       showBackBtn,
       tabs,
-      actions
+      actions,
     } = this.props
 
     return (
@@ -68,15 +68,15 @@ export default class ColumnHeader extends PureComponent {
             {
               actions.map((action, i) => (
                 <Button
-                  radiusSmall
-                  backgroundColor='tertiary'
-                  onClick={() => action.onClick() }
+                  backgroundColor='none'
+                  color='secondary'
+                  onClick={() => action.onClick()}
                   key={`column-header-action-btn-${i}`}
-                  className={[_s.ml5, _s.px10].join(' ')}
-                  iconClassName={_s.fillColorSecondary}
+                  className={[_s.ml5, _s.fillColorBrand_onHover, _s.backgroundColorBrandLightOpaque_onHover, _s.px10].join(' ')}
                   icon={action.icon}
-                  iconWidth='20px'
-                  iconHeight='20px'
+                  iconClassName={_s.inheritFill}
+                  iconWidth='15px'
+                  iconHeight='15px'
                 />
               ))
             }

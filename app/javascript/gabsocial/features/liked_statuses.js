@@ -1,7 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import { fetchFavoritedStatuses, expandFavoritedStatuses } from '../actions/favorites'
 import { meUsername } from '../initial_state'
 import StatusList from '../components/status_list'

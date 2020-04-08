@@ -40,17 +40,6 @@ export default class FileInput extends PureComponent {
     } = this.props
     const { file } = this.state
 
-    const imageClasses = cx({
-      border2PX: 1,
-      borderDashed: 1,
-      borderColorSecondary: 1,
-      backgroundColorPrimary: 1,
-      px10: 1,
-      py10: 1,
-      radiusSmall: 1,
-      cursorPointer: 1,
-    })
-
     return (
       <div>
         {
@@ -63,7 +52,7 @@ export default class FileInput extends PureComponent {
         }
 
         <label
-          className={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}
+          className={[_s.default, _s.alignItemsCenter, _s.radiusSmall, _s.cursorPointer, _s.px10, _s.py10, _s.justifyContentCenter, _s.border2PX, _s.borderColorSecondary, _s.borderDashed].join(' ')}
           htmlFor={`file-input-${title}`}
           style={{
             width,
@@ -71,9 +60,7 @@ export default class FileInput extends PureComponent {
           }}
         >
           <Image
-            className={imageClasses}
-            width={width}
-            height={height}
+            className={[_s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
             src={fileType === 'image' ? file : null}
           />
           {

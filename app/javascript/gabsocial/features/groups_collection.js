@@ -12,6 +12,7 @@ const mapStateToProps = (state, { activeTab }) => ({
 export default
 @connect(mapStateToProps)
 class GroupsCollection extends ImmutablePureComponent {
+
 	static propTypes = {
 		activeTab: PropTypes.string.isRequired,
 		dispatch: PropTypes.func.isRequired,
@@ -35,14 +36,32 @@ class GroupsCollection extends ImmutablePureComponent {
 			return <ColumnIndicator type='loading' />
 		}
 
+		const halfCount = parseInt(groupIds.size / 2)
+
+		console.log("halfCount", halfCount)
+
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-				{
-					groupIds.map((groupId, i) => (
-						<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
-					))
-				}
+				<div className={[_s.default, _s.flexNormal].join(' ')}>
+					<ScrollableList scrollKey='group-collection-column-1'>
+						{
+							groupIds.slice(0, halfCount).map((groupId, i) => (
+								<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+							))
+						}
+					</ScrollableList>
+				</div>
+				<div className={[_s.default, _s.flexNormal].join(' ')}>
+					<ScrollableList scrollKey='group-collection-column-2'>
+						{
+							groupIds.slice(halfCount, groupIds.size).map((groupId, i) => (
+								<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+							))
+						}
+					</ScrollableList>
+				</div>
 			</div>
 		)
 	}
+
 }

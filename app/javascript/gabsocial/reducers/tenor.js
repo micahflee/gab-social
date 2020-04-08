@@ -7,7 +7,7 @@ import {
   GIF_RESULTS_FETCH_FAIL,
   GIF_CATEGORIES_FETCH_REQUEST,
   GIF_CATEGORIES_FETCH_SUCCESS,
-  GIF_CATEGORIES_FETCH_FAIL
+  GIF_CATEGORIES_FETCH_FAIL,
 } from '../actions/tenor'
 import { Map as ImmutableMap } from 'immutable'
 
@@ -22,34 +22,34 @@ const initialState = ImmutableMap({
 
 export default function (state = initialState, action) {
   switch (action.type) {
-    case GIF_RESULTS_FETCH_REQUEST:
-    case GIF_CATEGORIES_FETCH_REQUEST:
-      return state.set('loading', true)
-    case GIF_RESULTS_FETCH_SUCCESS:
-      return state.withMutations(map => {
-        map.set('results', action.results);
-        map.set('error', false);
-        map.set('loading', false);
-      });
-    case GIF_CATEGORIES_FETCH_SUCCESS:
-      return state.withMutations(map => {
-        map.set('categories', action.categories);
-        map.set('error', false);
-        map.set('loading', false);
-      });
-    case GIF_RESULTS_FETCH_FAIL:
-    case GIF_CATEGORIES_FETCH_FAIL:
-      return state.withMutations(map => {
-        map.set('error', !!action.error);
-        map.set('loading', false);
-      });
-    case GIFS_CLEAR_RESULTS:
-      return state.set('results', [])
-    case GIF_SET_SELECTED:
-      return state.set('chosenUrl', action.url)
-    case GIF_CHANGE_SEARCH_TEXT:
-      return state.set('searchText', action.text.trim());
-    default:
-      return state
+  case GIF_RESULTS_FETCH_REQUEST:
+  case GIF_CATEGORIES_FETCH_REQUEST:
+    return state.set('loading', true)
+  case GIF_RESULTS_FETCH_SUCCESS:
+    return state.withMutations(map => {
+      map.set('results', action.results);
+      map.set('error', false);
+      map.set('loading', false);
+    });
+  case GIF_CATEGORIES_FETCH_SUCCESS:
+    return state.withMutations(map => {
+      map.set('categories', action.categories);
+      map.set('error', false);
+      map.set('loading', false);
+    });
+  case GIF_RESULTS_FETCH_FAIL:
+  case GIF_CATEGORIES_FETCH_FAIL:
+    return state.withMutations(map => {
+      map.set('error', !!action.error);
+      map.set('loading', false);
+    });
+  case GIFS_CLEAR_RESULTS:
+    return state.set('results', [])
+  case GIF_SET_SELECTED:
+    return state.set('chosenUrl', action.url)
+  case GIF_CHANGE_SEARCH_TEXT:
+    return state.set('searchText', action.text.trim());
+  default:
+    return state
   }
 }

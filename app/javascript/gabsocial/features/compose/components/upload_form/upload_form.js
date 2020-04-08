@@ -24,7 +24,7 @@ class UploadForm extends ImmutablePureComponent {
     const {
       mediaIds,
       isUploading,
-      uploadProgress
+      uploadProgress,
     } = this.props
 
     return (

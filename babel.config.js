@@ -26,7 +26,6 @@ module.exports = (api) => {
   case 'production':
     envOptions.debug = false;
     config.plugins.push(...[
-      'lodash',
       [
         'transform-react-remove-prop-types',
         {

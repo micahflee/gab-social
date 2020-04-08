@@ -55,29 +55,24 @@ export function dequeueTimeline(timeline, expandFunc, optionalExpandArgs) {
 
     let shouldDispatchDequeue = true;
 
-    if (totalQueuedItemsCount == 0) {
+    if (totalQueuedItemsCount === 0) {
       return;
-    }
-    else if (totalQueuedItemsCount > 0 && totalQueuedItemsCount <= MAX_QUEUED_ITEMS) {
+    } else if (totalQueuedItemsCount > 0 && totalQueuedItemsCount <= MAX_QUEUED_ITEMS) {
       queuedItems.forEach(status => {
         dispatch(updateTimeline(timeline, status.toJS(), null));
       });
-    }
-    else {
+    } else {
       if (typeof expandFunc === 'function') {
         dispatch(clearTimeline(timeline));
         expandFunc();
-      }
-      else {
+      } else {
         if (timeline === 'home') {
           dispatch(clearTimeline(timeline));
           dispatch(expandHomeTimeline(optionalExpandArgs));
-        }
-        else if (timeline === 'community') {
+        } else if (timeline === 'community') {
           dispatch(clearTimeline(timeline));
           dispatch(expandCommunityTimeline(optionalExpandArgs));
-        }
-        else {
+        } else {
           shouldDispatchDequeue = false;
         }
       }

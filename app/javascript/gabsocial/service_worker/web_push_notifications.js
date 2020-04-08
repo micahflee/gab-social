@@ -1,6 +1,6 @@
 import IntlMessageFormat from 'intl-messageformat';
 import locales from './web_push_locales';
-import { unescape } from 'lodash';
+import unescape from 'lodash.unescape'
 
 const MAX_NOTIFICATIONS = 5;
 const GROUP_TAG = 'tag';

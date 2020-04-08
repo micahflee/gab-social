@@ -51,14 +51,14 @@ export function getScreenBreakpoint(width) {
 export const getWindowDimension = () => {
   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
   const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-  
+
   return { width, height }
 }
 
 const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
 
 let userTouching = false
-let listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
+const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 function touchListener() {
   userTouching = true

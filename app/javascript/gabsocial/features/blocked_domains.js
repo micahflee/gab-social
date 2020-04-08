@@ -1,7 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import { unblockDomain, fetchDomainBlocks, expandDomainBlocks } from '../actions/domain_blocks'
 import ColumnIndicator from '../components/column_indicator'
 import List from '../components/list'

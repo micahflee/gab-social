@@ -32,8 +32,8 @@ const POPOVER_COMPONENTS = {
 }
 
 const mapStateToProps = state => ({
-  type: state.get('popover').popoverType,
-  props: state.get('popover').popoverProps,
+  type: state.getIn(['popover', 'popoverType']),
+  props: state.getIn(['popover', 'popoverProps'], {}),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -45,6 +45,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 class PopoverRoot extends PureComponent {
+
   static propTypes = {
     type: PropTypes.string,
     props: PropTypes.object,
@@ -95,22 +96,22 @@ class PopoverRoot extends PureComponent {
     let element
 
     switch (e.key) {
-      case 'ArrowDown':
-        element = items[index + 1]
-        if (element) element.focus()
-        break
-      case 'ArrowUp':
-        element = items[index - 1]
-        if (element) element.focus()
-        break
-      case 'Home':
-        element = items[0]
-        if (element) element.focus()
-        break
-      case 'End':
-        element = items[items.length - 1]
-        if (element) element.focus()
-        break
+    case 'ArrowDown':
+      element = items[index + 1]
+      if (element) element.focus()
+      break
+    case 'ArrowUp':
+      element = items[index - 1]
+      if (element) element.focus()
+      break
+    case 'Home':
+      element = items[0]
+      if (element) element.focus()
+      break
+    case 'End':
+      element = items[items.length - 1]
+      if (element) element.focus()
+      break
     }
   }
 
@@ -172,4 +173,5 @@ class PopoverRoot extends PureComponent {
       </PopoverBase>
     )
   }
+
 }

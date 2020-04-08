@@ -14,7 +14,7 @@ export const getLinks = response => {
   return LinkHeader.parse(value);
 };
 
-let csrfHeader = {};
+const csrfHeader = {};
 
 function setCSRFHeader() {
   const csrfToken = document.querySelector('meta[name=csrf-token]');

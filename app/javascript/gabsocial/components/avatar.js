@@ -47,6 +47,7 @@ class Avatar extends ImmutablePureComponent {
     const shouldAnimate = animate || !sameImg
 
     const options = {
+      alt: !account ? 'Avatar' : account.get('display_name'),
       className: [_s.default, _s.circle, _s.overflowHidden].join(' '),
       onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
       onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,

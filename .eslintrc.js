@@ -10,6 +10,13 @@ module.exports = {
 
   globals: {
     ATTACHMENT_HOST: false,
+    _s: true,
+    PropTypes: true,
+    PureComponent: true,
+    React: {
+      Component: true,
+    },
+    connect: true,
   },
 
   parser: 'babel-eslint',
@@ -98,8 +105,9 @@ module.exports = {
         classes: 'always',
       },
     ],
+    'prefer-const': 'error',
     quotes: ['error', 'single'],
-    semi: 'error',
+    semi: 'off',
     strict: 'off',
     'valid-typeof': 'error',
 

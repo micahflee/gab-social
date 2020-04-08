@@ -7,7 +7,9 @@ import { decode } from 'blurhash';
 import { autoPlayGif, displayMedia } from '../../initial_state';
 import { isIOS } from '../../utils/is_mobile';
 import { isPanoramic, isPortrait, isNonConformingRatio, minimumAspectRatio, maximumAspectRatio } from '../../utils/media_aspect_ratio';
-import Button from '../button';
+import Button from '../button'
+import SensitiveMediaItem from '../../components/sensitive_media_item'
+import Text from '../text'
 
 const messages = defineMessages({
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Toggle visibility' },
@@ -16,6 +18,7 @@ const messages = defineMessages({
 });
 
 const cx = classNames.bind(_s)
+
 class Item extends ImmutablePureComponent {
 
   static propTypes = {
@@ -58,7 +61,7 @@ class Item extends ImmutablePureComponent {
     }
   }
 
-  hoverToPlay () {
+  hoverToPlay() {
     const { attachment } = this.props;
     return autoPlayGif === false && attachment.get('type') === 'gifv';
   }
@@ -79,23 +82,23 @@ class Item extends ImmutablePureComponent {
     e.stopPropagation();
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.attachment.get('blurhash')) {
       this._decode();
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (prevProps.attachment.get('blurhash') !== this.props.attachment.get('blurhash') && this.props.attachment.get('blurhash')) {
       this._decode();
     }
   }
 
-  _decode () {
+  _decode() {
     const hash = this.props.attachment.get('blurhash');
     const pixels = decode(hash, 32, 32);
 
-    if (pixels) {
+    if (pixels && this.canvas) {
       const ctx = this.canvas.getContext('2d');
       const imageData = new ImageData(pixels, 32, 32);
 
@@ -111,17 +114,17 @@ class Item extends ImmutablePureComponent {
     this.setState({ loaded: true });
   }
 
-  render () {
+  render() {
     const { attachment, index, size, standalone, displayWidth, visible, dimensions } = this.props;
 
     const ar = attachment.getIn(['meta', 'small', 'aspect']);
 
-    let width  = 100;
+    let width = 100;
     let height = '100%';
-    let top    = '0';
-    let left   = 'auto';
+    let top = '0';
+    let left = 'auto';
     let bottom = '0';
-    let right  = 'auto';
+    let right = 'auto';
     let float = 'left';
     let position = 'relative';
     let borderRadius = '0 0 0 0';
@@ -148,12 +151,12 @@ class Item extends ImmutablePureComponent {
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={[_s.default].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius,  width: `${width}%` }}>
-          <a className='media-gallery__item-thumbnail' href={attachment.get('remote_url')} target='_blank' style={{ cursor: 'pointer' }}>
-            <canvas width={32} height={32} ref={this.setCanvasRef} className='media-gallery__preview' />
+        <div className={[_s.default, _s.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius, width: `${width}%` }}>
+          <a className={[_s.default, _s.heigh100PC, _s.width100PC, _s.cursorPointer].join(' ')} href={attachment.get('remote_url')} target='_blank' rel='noreferrer noopener'>
+            <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.default, _s.heigh100PC, _s.width100PC].join(' ')} />
           </a>
         </div>
-      );
+      )
     } else if (attachment.get('type') === 'image') {
       const previewUrl = attachment.get('preview_url');
       const previewWidth = attachment.getIn(['meta', 'small', 'width']);
@@ -168,7 +171,7 @@ class Item extends ImmutablePureComponent {
 
       const focusX = attachment.getIn(['meta', 'focus', 'x']) || 0;
       const focusY = attachment.getIn(['meta', 'focus', 'y']) || 0;
-      const x = ((focusX /  2) + .5) * 100;
+      const x = ((focusX / 2) + .5) * 100;
       const y = ((focusY / -2) + .5) * 100;
 
       thumbnail = (
@@ -213,14 +216,19 @@ class Item extends ImmutablePureComponent {
             playsInline
           />
 
-          <span className='media-gallery__gifv__label'>GIF</span>
+          <div className={[_s.default, _s.positionAbsolute, _s.z2, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
+            <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
+          </div>
         </div>
       );
     }
 
     return (
       <div className={[_s.defeault, _s.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
-        <canvas width={0} height={0} ref={this.setCanvasRef} className={_s.displayNone} />
+        {
+          !visible && !this.state.loaded &&
+          <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.default, _s.heigh100PC, _s.width100PC].join(' ')} />
+        }
         {visible && thumbnail}
       </div>
     );
@@ -256,9 +264,11 @@ class MediaGallery extends PureComponent {
     width: this.props.defaultWidth,
   };
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!is(nextProps.media, this.props.media) && nextProps.visible === undefined) {
-      this.setState({ visible: displayMedia !== 'hide_all' && !nextProps.sensitive || displayMedia === 'show_all' });
+      this.setState({
+        visible: displayMedia !== 'hide_all' && !nextProps.sensitive || displayMedia === 'show_all',
+      })
     } else if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
       this.setState({ visible: nextProps.visible });
     }
@@ -287,20 +297,18 @@ class MediaGallery extends PureComponent {
     }
   }
 
-  render () {
+  render() {
     const {
       media,
       intl,
       sensitive,
       height,
       defaultWidth,
-      reduced
+      reduced,
     } = this.props
     const { visible } = this.state
 
     const width = this.state.width || defaultWidth;
-
-    let children, spoilerButton;
 
     const style = {};
     const size = media.take(4).size;
@@ -312,7 +320,7 @@ class MediaGallery extends PureComponent {
     const panoSize_px = `${Math.floor(width / maximumAspectRatio)}px`;
     let itemsDimensions = [];
 
-    if (size == 1 && width) {
+    if (size === 1 && width && visible) {
       const aspectRatio = media.getIn([0, 'meta', 'small', 'aspect']);
 
       if (isPanoramic(aspectRatio)) {
@@ -322,13 +330,13 @@ class MediaGallery extends PureComponent {
       } else {
         style.height = Math.floor(width / aspectRatio);
       }
-    } else if (size > 1 && width) {
+    } else if (size > 1 && width && visible) {
       const ar1 = media.getIn([0, 'meta', 'small', 'aspect']);
       const ar2 = media.getIn([1, 'meta', 'small', 'aspect']);
       const ar3 = media.getIn([2, 'meta', 'small', 'aspect']);
       const ar4 = media.getIn([3, 'meta', 'small', 'aspect']);
 
-      if (size == 2) {
+      if (size === 2) {
         if (isPortrait(ar1) && isPortrait(ar2)) {
           style.height = width - (width / maximumAspectRatio);
         } else if (isPanoramic(ar1) && isPanoramic(ar2)) {
@@ -378,7 +386,7 @@ class MediaGallery extends PureComponent {
             { w: 50, h: '100%', l: '2px', br: ['tr', 'br'] },
           ];
         }
-      } else if (size == 3) {
+      } else if (size === 3) {
         if (isPanoramic(ar1) && isPanoramic(ar2) && isPanoramic(ar3)) {
           style.height = panoSize * 3;
         } else if (isPortrait(ar1) && isPortrait(ar2) && isPortrait(ar3)) {
@@ -391,7 +399,7 @@ class MediaGallery extends PureComponent {
 
         if (isPanoramic(ar1) && isNonConformingRatio(ar2) && isNonConformingRatio(ar3)) {
           itemsDimensions = [
-            { w: 100, h: `50%`, b: '2px', br: ['tl', 'tr'] },
+            { w: 100, h: '50%', b: '2px', br: ['tl', 'tr'] },
             { w: 50, h: '50%', t: '2px', r: '2px', br: ['bl'] },
             { w: 50, h: '50%', t: '2px', l: '2px', br: ['br'] },
           ];
@@ -403,7 +411,7 @@ class MediaGallery extends PureComponent {
           ];
         } else if (isPortrait(ar1) && isNonConformingRatio(ar2) && isNonConformingRatio(ar3)) {
           itemsDimensions = [
-            { w: 50, h: `100%`, r: '2px', br: ['tl', 'bl'] },
+            { w: 50, h: '100%', r: '2px', br: ['tl', 'bl'] },
             { w: 50, h: '50%', b: '2px', l: '2px', br: ['tr'] },
             { w: 50, h: '50%', t: '2px', l: '2px', br: ['br'] },
           ];
@@ -411,7 +419,7 @@ class MediaGallery extends PureComponent {
           itemsDimensions = [
             { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
             { w: 50, h: '50%', l: '-2px', b: '-2px', pos: 'absolute', float: 'none', br: ['bl'] },
-            { w: 50, h: `100%`, r: '-2px', t: '0px', b: '0px', pos: 'absolute', float: 'none', br: ['tr', 'br'] },
+            { w: 50, h: '100%', r: '-2px', t: '0px', b: '0px', pos: 'absolute', float: 'none', br: ['tr', 'br'] },
           ];
         } else if (
           (isNonConformingRatio(ar1) && isPortrait(ar2) && isNonConformingRatio(ar3)) ||
@@ -419,7 +427,7 @@ class MediaGallery extends PureComponent {
         ) {
           itemsDimensions = [
             { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
-            { w: 50, h: `100%`, l: '2px', float: 'right', br: ['tr', 'br'] },
+            { w: 50, h: '100%', l: '2px', float: 'right', br: ['tr', 'br'] },
             { w: 50, h: '50%', t: '2px', r: '2px', br: ['bl'] },
           ];
         } else if (
@@ -444,10 +452,10 @@ class MediaGallery extends PureComponent {
           itemsDimensions = [
             { w: 50, h: '50%', b: '2px', r: '2px', br: ['tl'] },
             { w: 50, h: '50%', b: '2px', l: '2px', br: ['tr'] },
-            { w: 100, h: `50%`, t: '2px', br: ['bl', 'br'] },
+            { w: 100, h: '50%', t: '2px', br: ['bl', 'br'] },
           ];
         }
-      } else if (size == 4) {
+      } else if (size === 4) {
         if (
           (isPortrait(ar1) && isPortrait(ar2) && isPortrait(ar3) && isPortrait(ar4)) ||
           (isPortrait(ar1) && isPortrait(ar2) && isPortrait(ar3) && isNonConformingRatio(ar4)) ||
@@ -491,7 +499,7 @@ class MediaGallery extends PureComponent {
             { w: 67, h: '100%', r: '2px' },
             { w: 33, h: '33%', b: '4px', l: '2px' },
             { w: 33, h: '33%', l: '2px' },
-            { w: 33, h: '33%', t: '4px', l: '2px' }
+            { w: 33, h: '33%', t: '4px', l: '2px' },
           ];
         } else {
           itemsDimensions = [
@@ -512,7 +520,11 @@ class MediaGallery extends PureComponent {
       style.height = width / 2
     }
 
-    children = media.take(4).map((attachment, i) => (
+    if (!visible) {
+      style.height = 'auto'
+    }
+
+    const children = media.take(4).map((attachment, i) => (
       <Item
         key={attachment.get('id')}
         onClick={this.handleClick}
@@ -523,28 +535,16 @@ class MediaGallery extends PureComponent {
         visible={visible}
         dimensions={itemsDimensions[i]}
       />
-    ));
-
-    if (visible) {
-      spoilerButton = <Button title={intl.formatMessage(messages.toggle_visible)} icon='eye-slash' overlay onClick={this.handleOpen} />;
-    } else {
-      spoilerButton = (
-        <button type='button' onClick={this.handleOpen} className='spoiler-button__overlay'>
-          <span className='spoiler-button__overlay__label'>
-            {intl.formatMessage(sensitive ? messages.warning : messages.hidden)}
-          </span>
-        </button>
-      );
-    }
+    ))
 
     const containerClasses = cx({
       default: 1,
       displayBlock: 1,
       overflowHidden: 1,
-      borderColorSecondary: size === 1,
-      borderTop1PX: size === 1,
-      borderBottom1PX: size === 1,
-      px5: size > 1,
+      borderColorSecondary: size === 1 && visible,
+      borderTop1PX: size === 1 && visible,
+      borderBottom1PX: size === 1 && visible,
+      px5: size > 1 && visible,
     })
 
     return (
@@ -554,14 +554,30 @@ class MediaGallery extends PureComponent {
         ref={this.handleRef}
       >
 
-        { /* : todo :
-        <div className={classNames('spoiler-button', { 'spoiler-button--minified': visible })}>
-          {spoilerButton}
-        </div> */ }
+        {
+          !visible && sensitive &&
+          <SensitiveMediaItem onClick={this.handleOpen} />
+        }
 
-        <div className={[_s.default, _s.displayBlock, _s.width100PC, _s.height100PC, _s.overflowHidden].join(' ')}>
-          {children}
-        </div>
+        {
+          visible &&
+          <div className={[_s.default, _s.displayBlock, _s.width100PC, _s.height100PC, _s.overflowHidden].join(' ')}>
+            {children}
+          </div>
+        }
+
+        {
+          visible && sensitive &&
+          <div className={[_s.positionAbsolute, _s.z2, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}>
+            <Button
+              title={intl.formatMessage(messages.toggle_visible)}
+              icon='hidden'
+              backgroundColor='none'
+              className={[_s.px10, _s.backgroundColorBlackOpaque_onHover].join(' ')}
+              onClick={this.handleOpen}
+            />
+          </div>
+        }
       </div>
     );
   }

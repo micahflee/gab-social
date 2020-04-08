@@ -1,25 +1,25 @@
-import unicodeMapping from '../emoji/emoji_unicode_mapping_light';
+import unicodeMapping from '../emoji/emoji_unicode_mapping_light'
 
-const assetHost = process.env.CDN_HOST || '';
+const assetHost = process.env.CDN_HOST || ''
 
 export default class AutosuggestEmoji extends PureComponent {
 
   static propTypes = {
     emoji: PropTypes.object.isRequired,
-  };
+  }
 
   render () {
-    const { emoji } = this.props;
-    let url;
+    const { emoji } = this.props
+    let url
 
     if (emoji.custom) {
-      url = emoji.imageUrl;
+      url = emoji.imageUrl
     } else {
-      const mapping = unicodeMapping[emoji.native] || unicodeMapping[emoji.native.replace(/\uFE0F$/, '')];
+      const mapping = unicodeMapping[emoji.native] || unicodeMapping[emoji.native.replace(/\uFE0F$/, '')]
 
-      if (!mapping) return null;
+      if (!mapping) return null
 
-      url = `${assetHost}/emoji/${mapping.filename}.svg`;
+      url = `${assetHost}/emoji/${mapping.filename}.svg`
     }
 
     return (
@@ -27,7 +27,7 @@ export default class AutosuggestEmoji extends PureComponent {
         <img className='emojione' src={url} alt={emoji.native || emoji.colons} />
         {emoji.colons}
       </div>
-    );
+    )
   }
 
 }

@@ -30,7 +30,7 @@ const makeMapStateToProps = () => {
         const ids = [status.get('id')]
 
         while (ids.length > 0) {
-          let id = ids.shift();
+          const id = ids.shift();
           const replies = state.getIn(['contexts', 'replies', id])
 
           if (status.get('id') !== id) {

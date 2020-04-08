@@ -22,33 +22,9 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = (state, props) => {
     const status = getStatus(state, props)
-    let descendantsIds = Immutable.List()
-
-    if (status) {
-      // ALL descendants
-      descendantsIds = descendantsIds.withMutations(mutable => {
-        const ids = [status.get('id')]
-
-        while (ids.length > 0) {
-          let id = ids.shift();
-          const replies = state.getIn(['contexts', 'replies', id])
-
-          if (status.get('id') !== id) {
-            mutable.push(id)
-          }
-
-          if (replies) {
-            replies.reverse().forEach(reply => {
-              ids.unshift(reply)
-            });
-          }
-        }
-      })
-    }
 
     return {
       status,
-      descendantsIds,
     }
   }
 
@@ -62,30 +38,22 @@ class Comment extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    descendantsIds: ImmutablePropTypes.list,
-  }
-
-  handleClick = () => {
-    // if (this.props.onClick) {
-    //   this.props.onClick();
-    //   return;
-    // }
-
-    // if (!this.context.router) return;
-
-    // this.context.router.history.push(
-    //   `/${this._properStatus().getIn(['account', 'acct'])}/posts/${this._properStatus().get('id')}`
-    // )
+    indent: ImmutablePropTypes.number,
   }
 
   render() {
-    const { status } = this.props
+    const { status, indent } = this.props
 
     console.log("status:", status)
+    const style = {
+      paddingLeft: `${indent * 40}px`,
+    }
+
+    // : todo : add media
 
     return (
       <div className={[_s.default, _s.px10, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
-        <div className={[_s.default].join(' ')}>
+        <div className={[_s.default].join(' ')} style={style}>
 
           <div className={[_s.default, _s.flexRow].join(' ')}>
             <NavLink

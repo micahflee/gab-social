@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import { createSelector } from 'reselect'
 import { List as ImmutableList } from 'immutable'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import {
   expandNotifications,
   scrollTopNotifications,

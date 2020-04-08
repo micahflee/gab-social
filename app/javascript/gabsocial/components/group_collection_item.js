@@ -30,6 +30,7 @@ export default
 @connect(mapStateToProps)
 @injectIntl
 class GroupCollectionItem extends ImmutablePureComponent {
+
   static propTypes = {
     group: ImmutablePropTypes.map,
     relationships: ImmutablePropTypes.map,
@@ -50,14 +51,9 @@ class GroupCollectionItem extends ImmutablePureComponent {
       </Fragment>
     ) : intl.formatMessage(messages.no_recent_activity)
 
-    const imageHeight = '180px'
-
     const isMember = relationships.get('member')
-
-    const outsideClasses = cx({
-      default: 1,
-      width50PC: 1,
-    })
+    const isAdmin = relationships.get('admin')
+    const coverSrc = group.get('cover')
 
     const navLinkClasses = cx({
       default: 1,
@@ -74,35 +70,52 @@ class GroupCollectionItem extends ImmutablePureComponent {
     })
 
     return (
-      <div className={outsideClasses}>
+      <div className={_s.default}>
         <NavLink
           to={`/groups/${group.get('id')}`}
           className={navLinkClasses}
         >
-          <Image
-            src={group.get('cover')}
-            alt={group.get('title')}
-            height={imageHeight}
-          />
+          {
+            !!coverSrc &&
+            <Image
+              src={coverSrc}
+              alt={group.get('title')}
+              className={_s.height158PX}
+            />
+          }
 
-          <div className={[_s.default, _s.flexRow, _s.positionAbsolute, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
-            <Text
-              badge
-              className={_s.backgroundColorWhite}
-              size='extraSmall'
-              color='brand'
-            >
-              {intl.formatMessage(messages.member)}
-            </Text>
-            <Text
-              badge
-              className={[_s.backgroundColorBlack, _s.ml5].join(' ')}
-              size='extraSmall'
-              color='white'
-            >
-              {intl.formatMessage(messages.admin)}
-            </Text>
-          </div>
+          {
+            !coverSrc && (isMember || isAdmin) &&
+            <div className={[_s.default, _s.height40PX, _s.backgroundSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+          }
+
+          {
+            (isMember || isAdmin) &&
+            <div className={[_s.default, _s.flexRow, _s.positionAbsolute, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
+              {
+                isMember &&
+                <Text
+                  badge
+                  className={_s.backgroundColorWhite}
+                  size='extraSmall'
+                  color='brand'
+                >
+                  {intl.formatMessage(messages.member)}
+                </Text>
+              }
+              {
+                isAdmin &&
+                <Text
+                  badge
+                  className={[_s.backgroundColorBlack, _s.ml5].join(' ')}
+                  size='extraSmall'
+                  color='white'
+                >
+                  {intl.formatMessage(messages.admin)}
+                </Text>
+              }
+            </div>
+          }
 
           <div className={[_s.default, _s.px10, _s.my10].join(' ')}>
             <Text color='primary' size='medium' weight='bold'>
@@ -113,14 +126,12 @@ class GroupCollectionItem extends ImmutablePureComponent {
               <Text color='secondary' size='small'>
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;
-              {intl.formatMessage(messages.members)}
+                {intl.formatMessage(messages.members)}
               </Text>
               <DotTextSeperator />
               <Text color='secondary' size='small' className={_s.ml5}>
                 {subtitle}
               </Text>
-              <DotTextSeperator />
-              <Text color='secondary' size='small' className={_s.ml5}>→</Text>
             </div>
           </div>
 
@@ -128,4 +139,5 @@ class GroupCollectionItem extends ImmutablePureComponent {
       </div>
     )
   }
+
 }

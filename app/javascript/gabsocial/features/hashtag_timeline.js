@@ -1,5 +1,5 @@
 import { FormattedMessage } from 'react-intl'
-import { isEqual } from 'lodash'
+import isEqual from 'lodash.isequal'
 import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
 import { connectHashtagStream } from '../actions/streaming'
 import StatusListContainer from '../containers/status_list_container'
@@ -21,7 +21,7 @@ class HashtagTimeline extends PureComponent {
   }
 
   title = () => {
-    let title = [this.props.params.id]
+    const title = [this.props.params.id]
 
     if (this.additionalFor('any')) {
       title.push(' ',
@@ -29,7 +29,7 @@ class HashtagTimeline extends PureComponent {
           key='any'
           id='hashtag.column_header.tag_mode.any'
           values={{
-            additional: this.additionalFor('any')
+            additional: this.additionalFor('any'),
           }}
           defaultMessage='or {additional}'
         />
@@ -42,7 +42,7 @@ class HashtagTimeline extends PureComponent {
           key='all'
           id='hashtag.column_header.tag_mode.all'
           values={{
-            additional: this.additionalFor('all')
+            additional: this.additionalFor('all'),
           }}
           defaultMessage='and {additional}'
         />
@@ -55,7 +55,7 @@ class HashtagTimeline extends PureComponent {
           key='none'
           id='hashtag.column_header.tag_mode.none'
           values={{
-            additional: this.additionalFor('none')
+            additional: this.additionalFor('none'),
           }}
           defaultMessage='without {additional}'
         />
@@ -76,13 +76,13 @@ class HashtagTimeline extends PureComponent {
   }
 
   _subscribe (dispatch, id, tags = {}) {
-    let any = (tags.any || []).map(tag => tag.value)
-    let all = (tags.all || []).map(tag => tag.value)
-    let none = (tags.none || []).map(tag => tag.value);
+    const any = (tags.any || []).map(tag => tag.value)
+    const all = (tags.all || []).map(tag => tag.value)
+    const none = (tags.none || []).map(tag => tag.value);
 
     [id, ...any].map(tag => {
       this.disconnects.push(dispatch(connectHashtagStream(id, tag, status => {
-        let tags = status.tags.map(tag => tag.name)
+        const tags = status.tags.map(tag => tag.name)
 
         return all.filter(tag => tags.includes(tag)).length === all.length &&
                none.filter(tag => tags.includes(tag)).length === 0

@@ -93,6 +93,7 @@ class Account extends ImmutablePureComponent {
       )
     }
 
+    // : todo : cleanup
     let buttonOptions
     let buttonText
 

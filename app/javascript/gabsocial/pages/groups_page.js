@@ -11,7 +11,7 @@ const mapStateToProps = (state) => {
 
   return {
     isPro: account.get('is_pro'),
-  }  
+  }
 }
 
 const mapDispatchToProps = dispatch => ({
@@ -36,31 +36,31 @@ class GroupsPage extends PureComponent {
   render() {
     const { children, isPro, onOpenGroupCreateModal } = this.props
 
-    let tabs = [
+    const actions = []
+    const tabs = [
       {
         title: 'Featured',
-        to: '/groups'
+        to: '/groups',
       },
       {
         title: 'New',
-        to: '/groups/new'
+        to: '/groups/new',
       },
       {
         title: 'My Groups',
-        to: '/groups/browse/member'
+        to: '/groups/browse/member',
       },
     ]
 
-    let actions = []
     if (isPro) {
-      actions = [{
-        icon: 'group-add',
+      actions.push({
+        icon: 'add',
         onClick: onOpenGroupCreateModal,
-      }]
+      })
 
       tabs.push({
         title: 'Admin',
-        to: '/groups/browse/admin'
+        to: '/groups/browse/admin',
       })
     }
 
@@ -82,4 +82,5 @@ class GroupsPage extends PureComponent {
       </DefaultLayout>
     )
   }
+
 }

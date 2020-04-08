@@ -1,6 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import classNames from 'classnames/bind'
 import { openPopover, closePopover } from '../actions/popover'
 import Icon from './icon'

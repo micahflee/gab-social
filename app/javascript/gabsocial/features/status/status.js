@@ -33,7 +33,7 @@ import StatusContainer from '../../containers/status_container'
 import { textForScreenReader, defaultMediaVisibility } from '../../components/status/status'
 import ColumnIndicator from '../../components/column_indicator'
 import Block from '../../components/block'
-import Comment from '../../components/comment'
+import CommentList from '../../components/comment_list'
 
 const messages = defineMessages({
   deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -57,22 +57,51 @@ const makeMapStateToProps = () => {
       username: props.params.username,
     })
 
+    // : todo : if is comment (i.e. if any ancestorsIds) use comment not status
+
     let ancestorsIds = Immutable.List()
-    let descendantsIds = Immutable.List();
+    let descendantsIds = Immutable.List()
 
     if (status) {
-      ancestorsIds = ancestorsIds.withMutations(mutable => {
-        let id = status.get('in_reply_to_id');
+    //   ancestorsIds = ancestorsIds.withMutations(mutable => {
+    //     let id = status.get('in_reply_to_id');
 
-        while (id) {
-          mutable.unshift(id);
-          id = state.getIn(['contexts', 'inReplyTos', id]);
+    //     while (id) {
+    //       mutable.unshift(id);
+    //       id = state.getIn(['contexts', 'inReplyTos', id]);
+    //     }
+    //   });
+
+    //   // ONLY Direct descendants
+    //   descendantsIds = state.getIn(['contexts', 'replies', status.get('id')])
+
+      let indent = -1
+      descendantsIds = descendantsIds.withMutations(mutable => {
+        const ids = [status.get('id')]
+      
+        while (ids.length > 0) {
+          let id = ids.shift();
+          const replies = state.getIn(['contexts', 'replies', id])
+
+          if (status.get('id') !== id) {
+            mutable.push(Immutable.Map({
+              statusId: id,
+              indent: indent,
+            }))
+          }
+
+          if (replies) {
+            replies.reverse().forEach(reply => {
+              ids.unshift(reply)
+            });
+            indent++
+            indent = Math.min(2, indent)
+          }
         }
-      });
-
-      // ONLY Direct descendants
-      descendantsIds = state.getIn(['contexts', 'replies', status.get('id')])
+      })
     }
+
+    console.log("descendantsIds:", descendantsIds)
 
     return {
       status,
@@ -338,6 +367,7 @@ class Status extends ImmutablePureComponent {
 
   renderChildren(list) {
     console.log("list:", list)
+    return null
     // : todo : comments
     return list.map(id => (
       <Comment
@@ -383,9 +413,9 @@ class Status extends ImmutablePureComponent {
       return <ColumnIndicator type='loading' />
     }
 
-    if (ancestorsIds && ancestorsIds.size > 0) {
-      ancestors = this.renderChildren(ancestorsIds)
-    }
+    // if (ancestorsIds && ancestorsIds.size > 0) {
+    //   ancestors = this.renderChildren(ancestorsIds)
+    // }
 
     if (descendantsIds && descendantsIds.size > 0) {
       descendants = this.renderChildren(descendantsIds)
@@ -434,7 +464,7 @@ class Status extends ImmutablePureComponent {
             <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
           }
 
-          {descendants}
+          <CommentList descendants={descendantsIds} />
         </Block>
       </div>
     )

@@ -169,11 +169,12 @@ export default class Card extends ImmutablePureComponent {
       </div>
     )
 
+    // : todo : use <Image />
     let embed = ''
-    let thumbnail = interactive ?
-      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.positionAbsolute, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
+    const thumbnail = interactive ?
+      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.positionAbsolute, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
-      <img src={cardImg} className={[_s.default, _s.objectFitCover, _s.width330PX, _s.height220PX].join(' ')} />
+      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width330PX, _s.height220PX].join(' ')} />
 
     if (interactive) {
       if (embedded) {
@@ -199,7 +200,7 @@ export default class Card extends ImmutablePureComponent {
                       className={[_s.default, _s.cursorPointer, _s.backgroundColorOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
                       onClick={this.handleEmbedClick}
                     >
-                      <Icon id={iconVariant} className={[_s.fillColorWhite].join(' ')}/>
+                      <Icon id={iconVariant} className={[_s.fillColorWhite].join(' ')} />
                     </button>
                   </div>
                 }
@@ -230,11 +231,11 @@ export default class Card extends ImmutablePureComponent {
           className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.backgroundSubtle_onHover, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
           rel='noopener noreferrer'
           ref={this.setRef}
-          >
+        >
           {embed}
           {description}
         </a>
-        </div>
+      </div>
     )
   }
 

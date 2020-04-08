@@ -1,7 +1,7 @@
 import Icon from './icon'
 import Button from './button'
 
-export default class FloatingActionButton extends Component {
+export default class FloatingActionButton extends PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     message: PropTypes.string.isRequired,

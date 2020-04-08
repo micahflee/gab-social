@@ -1,4 +1,3 @@
-import moment from 'moment'
 import {
   FormattedMessage,
   defineMessages,
@@ -46,7 +45,7 @@ class LinkFooter extends PureComponent {
   render() {
     const { onOpenHotkeys, intl } = this.props
 
-    const currentYear = moment().format('YYYY')
+    const currentYear = new Date().getFullYear()
 
     const linkFooterItems = [
       {
