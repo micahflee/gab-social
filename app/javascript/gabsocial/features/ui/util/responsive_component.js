@@ -41,8 +41,6 @@ export default class Responsive extends PureComponent {
 
     const shouldRender = this.shouldRender(min, max, width)
 
-    console.log("shouldRender:", min, max, width, shouldRender)
-
     return shouldRender ? children : null
   }
 }

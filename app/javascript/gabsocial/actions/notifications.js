@@ -7,27 +7,26 @@ import {
   importFetchedStatus,
   importFetchedStatuses,
 } from './importer';
-import { saveSettings } from './settings';
 import { defineMessages } from 'react-intl';
 import { List as ImmutableList } from 'immutable';
 import { unescapeHTML } from '../utils/html';
 import { getFilters, regexFromFilters } from '../selectors';
 import { me } from '../initial_state';
 
-export const NOTIFICATIONS_INITIALIZE  = 'NOTIFICATIONS_INITIALIZE';
-export const NOTIFICATIONS_UPDATE      = 'NOTIFICATIONS_UPDATE';
+export const NOTIFICATIONS_INITIALIZE = 'NOTIFICATIONS_INITIALIZE';
+export const NOTIFICATIONS_UPDATE = 'NOTIFICATIONS_UPDATE';
 export const NOTIFICATIONS_UPDATE_QUEUE = 'NOTIFICATIONS_UPDATE_QUEUE';
-export const NOTIFICATIONS_DEQUEUE      = 'NOTIFICATIONS_DEQUEUE';
+export const NOTIFICATIONS_DEQUEUE = 'NOTIFICATIONS_DEQUEUE';
 
 export const NOTIFICATIONS_EXPAND_REQUEST = 'NOTIFICATIONS_EXPAND_REQUEST';
 export const NOTIFICATIONS_EXPAND_SUCCESS = 'NOTIFICATIONS_EXPAND_SUCCESS';
-export const NOTIFICATIONS_EXPAND_FAIL    = 'NOTIFICATIONS_EXPAND_FAIL';
+export const NOTIFICATIONS_EXPAND_FAIL = 'NOTIFICATIONS_EXPAND_FAIL';
 
 export const NOTIFICATIONS_FILTER_SET = 'NOTIFICATIONS_FILTER_SET';
 
-export const NOTIFICATIONS_CLEAR      = 'NOTIFICATIONS_CLEAR';
+export const NOTIFICATIONS_CLEAR = 'NOTIFICATIONS_CLEAR';
 export const NOTIFICATIONS_SCROLL_TOP = 'NOTIFICATIONS_SCROLL_TOP';
-export const NOTIFICATIONS_MARK_READ  = 'NOTIFICATIONS_MARK_READ';
+export const NOTIFICATIONS_MARK_READ = 'NOTIFICATIONS_MARK_READ';
 
 export const MAX_QUEUED_NOTIFICATIONS = 40
 
@@ -52,7 +51,7 @@ export function initializeNotifications() {
 
 export function updateNotifications(notification, intlMessages, intlLocale) {
   return (dispatch, getState) => {
-    const showInColumn = getState().getIn(['settings', 'notifications', 'shows', notification.type], true);
+    const showInColumn = getState().getIn(['notifications', 'filter', notification.type], true);
 
     if (showInColumn) {
       dispatch(importFetchedAccount(notification.account));
@@ -73,7 +72,8 @@ export function updateNotifications(notification, intlMessages, intlLocale) {
 
 export function updateNotificationsQueue(notification, intlMessages, intlLocale, curPath) {
   return (dispatch, getState) => {
-    const showAlert = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
+    // : todo :
+    // const showAlert = getState().getIn(['settings', 'notifications', 'alerts', notification.type], true);
     const filters = getFilters(getState(), { contextType: 'notifications' });
 
     let filtered = false;
@@ -87,17 +87,18 @@ export function updateNotificationsQueue(notification, intlMessages, intlLocale,
     }
 
     // Desktop notifications
-    if (typeof window.Notification !== 'undefined' && showAlert && !filtered) {
-      const title = new IntlMessageFormat(intlMessages[`notification.${notification.type}`], intlLocale).format({ name: notification.account.display_name.length > 0 ? notification.account.display_name : notification.account.username });
-      const body = (notification.status && notification.status.spoiler_text.length > 0) ? notification.status.spoiler_text : unescapeHTML(notification.status ? notification.status.content : '');
+    // : todo :
+    // if (typeof window.Notification !== 'undefined' && showAlert && !filtered) {
+    //   const title = new IntlMessageFormat(intlMessages[`notification.${notification.type}`], intlLocale).format({ name: notification.account.display_name.length > 0 ? notification.account.display_name : notification.account.username });
+    //   const body = (notification.status && notification.status.spoiler_text.length > 0) ? notification.status.spoiler_text : unescapeHTML(notification.status ? notification.status.content : '');
 
-      const notify = new Notification(title, { body, icon: notification.account.avatar, tag: notification.id });
+    //   const notify = new Notification(title, { body, icon: notification.account.avatar, tag: notification.id });
 
-      notify.addEventListener('click', () => {
-        window.focus();
-        notify.close();
-      });
-    }
+    //   notify.addEventListener('click', () => {
+    //     window.focus();
+    //     notify.close();
+    //   });
+    // }
 
     if (isOnNotificationsPage) {
       dispatch({
@@ -134,22 +135,22 @@ export function dequeueNotifications() {
   }
 };
 
-const excludeTypesFromSettings = state => state.getIn(['settings', 'notifications', 'shows']).filter(enabled => !enabled).keySeq().toJS();
-
 const excludeTypesFromFilter = filter => {
   const allTypes = ImmutableList(['follow', 'favourite', 'reblog', 'mention', 'poll']);
   return allTypes.filterNot(item => item === filter).toJS();
 };
 
-const noOp = () => {};
+const noOp = () => { };
 
 export function expandNotifications({ maxId } = {}, done = noOp) {
   return (dispatch, getState) => {
-    if (!me) return;
+    if (!me) return
 
-    const activeFilter = getState().getIn(['settings', 'notifications', 'quickFilter', 'active']);
-    const notifications = getState().get('notifications');
-    const isLoadingMore = !!maxId;
+    const onlyVerified = getState().getIn(['notifications', 'filter', 'onlyVerified'])
+    const onlyFollowing = getState().getIn(['notifications', 'filter', 'onlyFollowing'])
+    const activeFilter = getState().getIn(['notifications', 'filter', 'active'])
+    const notifications = getState().get('notifications')
+    const isLoadingMore = !!maxId
 
     if (notifications.get('isLoading')) {
       done();
@@ -157,16 +158,16 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     }
 
     console.log('activeFilter:', activeFilter)
-    console.log('excludeTypesFromSettings(getState()):', excludeTypesFromSettings(getState()))
+    // console.log('excludeTypesFromSettings(getState()):', excludeTypesFromSettings(getState()))
     console.log('excludeTypesFromFilter(activeFilter):', excludeTypesFromFilter(activeFilter))
 
     // : todo :
     // filter verified and following here too
     const params = {
       max_id: maxId,
-      exclude_types: activeFilter === 'all'
-        ? excludeTypesFromSettings(getState())
-        : excludeTypesFromFilter(activeFilter),
+      only_verified: onlyVerified,
+      only_following: onlyFollowing,
+      exclude_types: activeFilter === 'all' ? [] : excludeTypesFromFilter(activeFilter),
     };
 
     if (!maxId && notifications.get('items').size > 0) {
@@ -237,17 +238,16 @@ export function scrollTopNotifications(top) {
   }
 };
 
-export function setFilter (filterType) {
+export function setFilter(path, value) {
   return dispatch => {
     dispatch({
       type: NOTIFICATIONS_FILTER_SET,
-      path: ['notifications', 'quickFilter', 'active'],
-      value: filterType,
-    });
-    dispatch(expandNotifications());
-    dispatch(saveSettings());
-  };
-};
+      path: path,
+      value: value,
+    })
+    dispatch(expandNotifications())
+  }
+}
 
 export function markReadNotifications() {
   return (dispatch, getState) => {

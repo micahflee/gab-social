@@ -55,7 +55,7 @@ body {
   flex-direction: column;
   align-items: stretch;
   flex-shrink: 0;
-  border: 0 solid black;
+  border: 0 solid #2d3436;
   z-index: 0;
   margin: 0;
   padding: 0;
@@ -313,7 +313,7 @@ body {
 }
 
 .backgroundColorBlack {
-  background-color: #3B3B3B;
+  background-color: #2d3436;
 }
 
 .backgroundColorBlackOpaque_onHover:hover {
@@ -353,7 +353,7 @@ body {
 }
 
 .colorPrimary {
-  color: #000;
+  color: #2d3436;
 }
 
 .colorWhite {
@@ -381,7 +381,7 @@ body {
 }
 
 .fillColorBlack {
-  fill: #000;
+  fill: #2d3436;
 }
 
 .fillColorWhite {

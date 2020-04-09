@@ -13,7 +13,7 @@ import {
 } from '../../../actions/statuses'
 import { boostModal } from '../../../initial_state'
 import { makeGetNotification } from '../../../selectors'
-import Notification from '../components/notification/notification-alt'
+import Notification from '../components/notification'
 
 const getAccountFromState = (state, accountId) => {
   return state.getIn(['accounts', accountId])

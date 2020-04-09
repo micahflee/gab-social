@@ -1,7 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { changeSetting, saveSettings } from '../../actions/settings'
+import { setFilter } from '../../actions/notifications'
 import PanelLayout from './panel_layout'
 import SettingSwitch from '../setting_switch'
 
@@ -12,14 +12,13 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = state => ({
-  settings: state.getIn(['settings', 'notifications']),
+  settings: state.getIn(['notifications', 'filter']),
 })
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onChange(key, checked) {
-      dispatch(changeSetting(['notifications', ...key], checked))
-      dispatch(saveSettings())
+    onChange(path, value) {
+      dispatch(setFilter(path, value))
     },
   }
 }
@@ -43,7 +42,7 @@ class NotificationFilterPanel extends ImmutablePureComponent {
         <SettingSwitch
           prefix='notification'
           settings={settings}
-          settingPath={['quickFilter', 'onlyVerifed']}
+          settingPath={'onlyVerified'}
           onChange={onChange}
           label={intl.formatMessage(messages.onlyVerified)}
         />
@@ -51,7 +50,7 @@ class NotificationFilterPanel extends ImmutablePureComponent {
         <SettingSwitch
           prefix='notification'
           settings={settings}
-          settingPath={['quickFilter', 'onlyFollowing']}
+          settingPath={'onlyFollowing'}
           onChange={onChange}
           label={intl.formatMessage(messages.onlyFollowing)}
         />

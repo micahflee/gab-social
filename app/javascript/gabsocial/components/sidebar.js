@@ -1,12 +1,14 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
+import * as Constants from '../constants'
 import Button from './button'
 import { closeSidebar } from '../actions/sidebar'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
+import Responsive from '../features/ui/util/responsive_component'
 import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
 import SidebarHeader from './sidebar_header'
@@ -197,7 +199,7 @@ class Sidebar extends ImmutablePureComponent {
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
           <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
+            <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
 
               <SidebarHeader />
 
@@ -226,13 +228,23 @@ class Sidebar extends ImmutablePureComponent {
                 }
               </nav>
 
-              <Button
-                block
-                onClick={this.handleOpenComposeModal}
-                className={[_s.py15, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
-              >
-                Gab
-              </Button>
+              <Responsive min={Constants.BREAKPOINT_SMALL}>
+                <Button
+                  block
+                  onClick={this.handleOpenComposeModal}
+                  className={[_s.py15, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
+                >
+                  Gab
+                </Button>
+              </Responsive>
+
+              <Responsive max={Constants.BREAKPOINT_SMALL}>
+                <Button
+                  onClick={this.handleOpenComposeModal}
+                  className={_s.py15}
+                  icon='pencil'
+                />
+              </Responsive>
 
             </div>
           </div>

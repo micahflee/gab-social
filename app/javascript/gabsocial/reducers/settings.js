@@ -1,5 +1,4 @@
 import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings';
-import { NOTIFICATIONS_FILTER_SET } from '../actions/notifications';
 import { STORE_HYDRATE } from '../actions/store';
 import { EMOJI_USE } from '../actions/emojis';
 import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
@@ -43,15 +42,6 @@ const initialState = ImmutableMap({
     }),
   }),
 
-  notifications: ImmutableMap({
-    // : todo : put all notification settings actually IN settings
-    quickFilter: ImmutableMap({
-      active: 'all',
-      onlyVerifed: false,
-      onlyFollowing: false,
-    }),
-  }),
-
   community: ImmutableMap({
     shows: ImmutableMap({
       inSidebar: false,
@@ -76,7 +66,6 @@ export default function settings(state = initialState, action) {
   switch(action.type) {
   case STORE_HYDRATE:
     return hydrate(state, action.state.get('settings'));
-  case NOTIFICATIONS_FILTER_SET:
   case SETTING_CHANGE:
     return state
       .setIn(action.path, action.value)

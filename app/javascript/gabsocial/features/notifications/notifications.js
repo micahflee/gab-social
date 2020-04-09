@@ -17,12 +17,11 @@ import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_h
 import Block from  '../../components/block'
 
 const getNotifications = createSelector([
-  state => state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
-  state => state.getIn(['settings', 'notifications', 'quickFilter', 'active']),
+  state => state.getIn(['notifications', 'filter', 'active']),
   state => ImmutableList(state.getIn(['settings', 'notifications', 'shows']).filter(item => !item).keys()),
   state => state.getIn(['notifications', 'items']),
-], (showFilterBar, allowedType, excludedTypes, notifications) => {
-  if (!showFilterBar || allowedType === 'all') {
+], (allowedType, excludedTypes, notifications) => {
+  if (allowedType === 'all') {
     // used if user changed the notification settings after loading the notifications from the server
     // otherwise a list of notifications will come pre-filtered from the backend
     // we need to turn it off for FilterBar in order not to block ourselves from seeing a specific category
@@ -32,7 +31,6 @@ const getNotifications = createSelector([
 })
 
 const mapStateToProps = state => ({
-  showFilterBar: state.getIn(['settings', 'notifications', 'quickFilter', 'show']),
   notifications: getNotifications(state),
   isLoading: state.getIn(['notifications', 'isLoading'], true),
   isUnread: state.getIn(['notifications', 'unread']) > 0,
@@ -47,7 +45,6 @@ class Notifications extends ImmutablePureComponent {
 
   static propTypes = {
     notifications: ImmutablePropTypes.list.isRequired,
-    showFilterBar: PropTypes.bool.isRequired,
     dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     isLoading: PropTypes.bool,
@@ -125,7 +122,6 @@ class Notifications extends ImmutablePureComponent {
       isLoading,
       isUnread,
       hasMore,
-      showFilterBar,
       totalQueuedNotificationsCount
     } = this.props
 

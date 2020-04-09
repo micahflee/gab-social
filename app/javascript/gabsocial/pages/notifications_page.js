@@ -18,13 +18,12 @@ const messages = defineMessages({
 });
 
 const makeMapStateToProps = state => ({
-  selectedFilter: state.getIn(['settings', 'notifications', 'quickFilter', 'active']),
+  selectedFilter: state.getIn(['notifications', 'filter', 'active']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  selectFilter(newActiveFilter) {
-    console.log("newActiveFilter:", newActiveFilter)
-    dispatch(setFilter(newActiveFilter))
+  selectFilter(value) {
+    dispatch(setFilter('active', value))
   },
 });
 
@@ -32,6 +31,10 @@ export default
 @injectIntl
 @connect(makeMapStateToProps, mapDispatchToProps)
 class NotificationsPage extends PureComponent {
+
+  static contextTypes = {
+    router: PropTypes.object.isRequired,
+  }
 
   static propTypes = {
     selectFilter: PropTypes.func.isRequired,
@@ -43,8 +46,16 @@ class NotificationsPage extends PureComponent {
     document.title = 'Notifications - Gab'
   }
 
+  // : todo : on pop change filter active type
+
   onClick(notificationType) {
-    this.props.selectFilter(notificationType);
+    this.props.selectFilter(notificationType)
+    
+    if (notificationType === 'all') {
+      this.context.router.history.push('/notifications')
+    } else {
+      this.context.router.history.push(`/notifications?only=${notificationType}`)
+    }
   }
 
   render() {

@@ -387,6 +387,7 @@ class Status extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
+      radiusSmall: !borderless && !isChild,
       mb15: !borderless && !isChild,
       backgroundColorPrimary: 1,
       pb15: featured,

@@ -1,4 +1,3 @@
-import Icon from './icon'
 import Button from './button'
 
 export default class FloatingActionButton extends PureComponent {
@@ -21,13 +20,12 @@ export default class FloatingActionButton extends PureComponent {
       <Button
         onClick={onClick}
         color='white'
-        className={[_s.positionFixed, _s.z4, _s.bottom0, _s.right0].join(' ')}
+        backgroundColor='brand'
+        className={[_s.positionFixed, _s.z4, _s.py15, _s.mb15, _s.mr15, _s.bottom0, _s.right0].join(' ')}
         title={message}
         aria-label={message}
-      >
-        <Icon id='compose' />
-        [...]
-      </Button>
+        icon='pencil'
+      />
     )
   }
 }

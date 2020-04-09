@@ -57,6 +57,7 @@ class TabBarItem extends PureComponent {
       justifyContentCenter: 1,
       borderBottom2PX: 1,
       py5: 1,
+      outlineNone: 1,
       cursorPointer: 1,
       backgroundTransparent: 1,
       borderColorTransparent: !isActive,

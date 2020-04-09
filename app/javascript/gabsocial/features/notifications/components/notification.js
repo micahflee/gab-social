@@ -3,12 +3,12 @@ import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import StatusContainer from '../../../../containers/status_container'
-import AccountContainer from '../../../../containers/account_container'
-import Avatar from '../../../../components/avatar'
-import Icon from '../../../../components/icon'
-import Text from '../../../../components/text'
-import DisplayName from '../../../../components/display_name'
+import StatusContainer from '../../../containers/status_container'
+import AccountContainer from '../../../containers/account_container'
+import Avatar from '../../../components/avatar'
+import Icon from '../../../components/icon'
+import Text from '../../../components/text'
+import DisplayName from '../../../components/display_name'
 
 const messages = defineMessages({
   poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },

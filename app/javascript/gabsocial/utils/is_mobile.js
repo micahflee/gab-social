@@ -19,15 +19,15 @@ export function breakpointExtraLarge(width) {
 }
 
 export function breakpointLarge(width) {
-  return width > BREAKPOINT_MEDIUM && width < BREAKPOINT_LARGE
+  return width < BREAKPOINT_LARGE
 }
 
 export function breakpointMedium(width) {
-  return width > BREAKPOINT_SMALL && width < BREAKPOINT_MEDIUM
+  return width < BREAKPOINT_MEDIUM
 }
 
 export function breakpointSmall(width) {
-  return width > BREAKPOINT_EXTRA_SMALL && width < BREAKPOINT_SMALL
+  return width < BREAKPOINT_SMALL
 }
 
 export function breakpointExtraSmall(width) {

@@ -30,6 +30,11 @@ const initialState = ImmutableMap({
   queuedNotifications: ImmutableList(), //max = MAX_QUEUED_NOTIFICATIONS
   totalQueuedNotificationsCount: 0, //used for queuedItems overflow for MAX_QUEUED_NOTIFICATIONS+
   lastRead: -1,
+  filter: ImmutableMap({
+    active: 'all',
+    onlyVerified: false,
+    onlyFollowing: false,
+  }),
 });
 
 const notificationToMap = notification => ImmutableMap({
@@ -64,7 +69,7 @@ const expandNormalizedNotifications = (state, notifications, next) => {
   
   let items = ImmutableList()
 
-  console.log("notifications:", notificationss)
+  console.log("notifications:", notifications)
 
   notifications.forEach((n) => {
     const notification = notificationToMap(n)
@@ -211,7 +216,10 @@ export default function notifications(state = initialState, action) {
   case NOTIFICATIONS_EXPAND_FAIL:
     return state.set('isLoading', false);
   case NOTIFICATIONS_FILTER_SET:
-    return state.set('items', ImmutableList()).set('hasMore', true);
+    return state.withMutations(mutable => {
+      mutable.set('items', ImmutableList()).set('hasMore', true)
+      mutable.setIn(['filter', action.path], action.value)
+    })
   case NOTIFICATIONS_SCROLL_TOP:
     return updateTop(state, action.top);
   case NOTIFICATIONS_UPDATE:

@@ -44,6 +44,7 @@ import MoreIcon from '../assets/more_icon'
 import NotificationsIcon from '../assets/notifications_icon'
 import OLListIcon from '../assets/ol_list_icon'
 import PauseIcon from '../assets/pause_icon'
+import PencilIcon from '../assets/pencil_icon'
 import PinIcon from '../assets/pin_icon'
 import PlayIcon from '../assets/play_icon'
 import PollIcon from '../assets/poll_icon'
@@ -111,6 +112,7 @@ const ICONS = {
   'notifications': NotificationsIcon,
   'ol-list': OLListIcon,
   'pause': PauseIcon,
+  'pencil': PencilIcon,
   'pin': PinIcon,
   'play': PlayIcon,
   'poll': PollIcon,
