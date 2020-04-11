@@ -11,7 +11,7 @@ const messages = defineMessages({
   heading: { id: 'column.follow_requests', defaultMessage: 'Follow requests' },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accountIds: state.getIn(['user_lists', 'follow_requests', 'items']),
   hasMore: !!state.getIn(['user_lists', 'follow_requests', 'next']),
 });

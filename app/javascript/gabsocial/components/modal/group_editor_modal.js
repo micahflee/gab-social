@@ -7,20 +7,16 @@ const messages = defineMessages({
   confirm: { id: 'confirmations.mute.confirm', defaultMessage: 'Mute' },
 })
 
-const mapStateToProps = state => {
-  return {
-    isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
-    account: state.getIn(['mutes', 'new', 'account']),
-  }
-}
+const mapStateToProps = (state) => ({
+  isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
+  account: state.getIn(['mutes', 'new', 'account']),
+})
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onConfirm(account, notifications) {
-      dispatch(muteAccount(account.get('id'), notifications))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(account, notifications) {
+    dispatch(muteAccount(account.get('id'), notifications))
+  },
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

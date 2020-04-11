@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
+import PageTitle from '../features/ui/util/page_title'
 import GroupsPanel from '../components/panel/groups_panel'
 import ListsPanel from '../components/panel/lists_panel'
 import LinkFooter from '../components/link_footer'

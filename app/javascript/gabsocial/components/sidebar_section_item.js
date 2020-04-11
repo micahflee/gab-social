@@ -117,8 +117,13 @@ export default class SidebarSectionItem extends PureComponent {
       >
         <div className={containerClasses}>
           <div className={[_s.default]}>
-            { icon && <Icon id={icon} className={iconClasses} width={iconSize} height={iconSize} /> }
-            { image &&
+            {
+              icon && 
+              <Icon id={icon} className={iconClasses} width={iconSize} height={iconSize} />
+            }
+            
+            {
+              image &&
               <Image
                 alt={title}
                 className={_s.circle}
@@ -128,10 +133,13 @@ export default class SidebarSectionItem extends PureComponent {
               />
             }
           </div>
+          
           <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
             <span className={textClasses}>{title}</span>
           </div>
-          { count > 0 &&
+
+          {
+            count > 0 &&
             <span className={countClasses}>
               {count}
             </span>

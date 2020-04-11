@@ -270,7 +270,7 @@ class ComposeForm extends ImmutablePureComponent {
           {
             shouldCondense &&
             <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
-              <Avatar account={account} size='28' />
+              <Avatar account={account} size={28} />
             </div>
           }
 

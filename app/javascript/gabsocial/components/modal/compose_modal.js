@@ -10,11 +10,9 @@ const messages = defineMessages({
   title: { id: 'navigation_bar.compose', defaultMessage: 'Compose new gab' },
 })
 
-const mapStateToProps = state => {
-  return {
-    composeText: state.getIn(['compose', 'text']),
-  };
-}
+const mapStateToProps = (state) => ({
+  composeText: state.getIn(['compose', 'text']),
+})
 
 export default
 @connect(mapStateToProps)

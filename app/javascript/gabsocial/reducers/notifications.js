@@ -149,7 +149,11 @@ const expandNormalizedNotifications = (state, notifications, next) => {
           item => item !== null && compareId(item.get('id'), items.first().get('id')) > 0
         )
 
+        // console.log("firstIndex, lastIndex: ", firstIndex, lastIndex)
+
         const pop = list.take(firstIndex).concat(items, list.skip(lastIndex))
+
+        // console.log("pop:", pop)
 
         return pop
       })
@@ -183,6 +187,7 @@ const updateNotificationsQueue = (state, notification, intlMessages, intlLocale)
   const queuedNotifications = state.getIn(['queuedNotifications'], ImmutableList());
   const listedNotifications = state.getIn(['items'], ImmutableList());
   const totalQueuedNotificationsCount = state.getIn(['totalQueuedNotificationsCount'], 0);
+  const unread = state.getIn(['unread'], 0)
 
   let alreadyExists = queuedNotifications.find(existingQueuedNotification => existingQueuedNotification.id === notification.id);
   if (!alreadyExists) alreadyExists = listedNotifications.find(existingListedNotification => existingListedNotification.get('id') === notification.id);
@@ -202,6 +207,7 @@ const updateNotificationsQueue = (state, notification, intlMessages, intlLocale)
       }));
     }
     mutable.set('totalQueuedNotificationsCount', totalQueuedNotificationsCount + 1);
+    mutable.set('unread', unread + 1);
   });
 };
 

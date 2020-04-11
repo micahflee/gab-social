@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl'
 import { setFilter } from '../actions/notifications'
+import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import NotificationFilterPanel from '../components/panel/notification_filter_panel'
@@ -8,28 +9,29 @@ import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
 
 const messages = defineMessages({
+  notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
   mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
-  favorites: { id: 'notifications.filter.favorites', defaultMessage: 'Favorites' },
-  boosts: { id: 'notifications.filter.boosts', defaultMessage: 'Reposts' },
-  polls: { id: 'notifications.filter.polls', defaultMessage: 'Poll results' },
+  likes: { id: 'likes', defaultMessage: 'Likes' },
+  reposts: { id: 'reposts', defaultMessage: 'Reposts' },
+  polls: { id: 'polls', defaultMessage: 'Poll' },
   follows: { id: 'notifications.filter.follows', defaultMessage: 'Follows' },
-  filterAll: { id: 'notifications.filter.all', defaultMessage: 'All' },
-  filterMentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
-});
+  all: { id: 'notifications.filter.all', defaultMessage: 'All' },
+})
 
-const makeMapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   selectedFilter: state.getIn(['notifications', 'filter', 'active']),
-});
+  notificationCount: state.getIn(['notifications', 'unread']),
+})
 
 const mapDispatchToProps = (dispatch) => ({
-  selectFilter(value) {
+  setFilter(value) {
     dispatch(setFilter('active', value))
   },
-});
+})
 
 export default
 @injectIntl
-@connect(makeMapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class NotificationsPage extends PureComponent {
 
   static contextTypes = {
@@ -37,60 +39,60 @@ class NotificationsPage extends PureComponent {
   }
 
   static propTypes = {
-    selectFilter: PropTypes.func.isRequired,
+    setFilter: PropTypes.func.isRequired,
     selectedFilter: PropTypes.string.isRequired,
     intl: PropTypes.object.isRequired,
-  }
-
-  componentDidMount() {
-    document.title = 'Notifications - Gab'
+    notificationCount: PropTypes.number.isRequired,
   }
 
   // : todo : on pop change filter active type
 
   onClick(notificationType) {
-    this.props.selectFilter(notificationType)
+    this.props.setFilter('active', notificationType)
     
     if (notificationType === 'all') {
       this.context.router.history.push('/notifications')
     } else {
-      this.context.router.history.push(`/notifications?only=${notificationType}`)
+      this.context.router.history.push(`/notifications?view=${notificationType}`)
     }
   }
 
   render() {
-    const { children, selectedFilter } = this.props
-
-    console.log("selectedFilter:", selectedFilter)
+    const {
+      intl,
+      children,
+      selectedFilter,
+      notificationCount
+    } = this.props
 
     const tabs = [
       {
-        title: 'All',
+        title: intl.formatMessage(messages.all),
         onClick: () => this.onClick('all'),
         active: selectedFilter === 'all',
       },
       {
-        title: 'Mentions',
+        title: intl.formatMessage(messages.mentions),
         onClick: () => this.onClick('mention'),
         active: selectedFilter === 'mention',
       },
       {
-        title: 'Likes',
+        title: intl.formatMessage(messages.likes),
         onClick: () => this.onClick('favourite'),
         active: selectedFilter === 'favourite',
       },
       {
-        title: 'Reposts',
+        title: intl.formatMessage(messages.reposts),
         onClick: () => this.onClick('reblog'),
         active: selectedFilter === 'reblog',
       },
       {
-        title: 'Polls',
+        title: intl.formatMessage(messages.polls),
         onClick: () => this.onClick('poll'),
         active: selectedFilter === 'poll',
       },
       {
-        title: 'Follows',
+        title: intl.formatMessage(messages.follows),
         onClick: () => this.onClick('follow'),
         active: selectedFilter === 'follow',
       },
@@ -98,7 +100,7 @@ class NotificationsPage extends PureComponent {
 
     return (
       <DefaultLayout
-        title='Notifications'
+        title={intl.formatMessage(messages.notifications)}
         layout={(
           <Fragment>
             <NotificationFilterPanel />
@@ -109,6 +111,10 @@ class NotificationsPage extends PureComponent {
         )}
         tabs={tabs}
       >
+        <PageTitle
+          badge={notificationCount}
+          path={intl.formatMessage(messages.notifications)}
+        />
         {children}
       </DefaultLayout>
     )

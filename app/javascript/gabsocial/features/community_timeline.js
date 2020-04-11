@@ -1,19 +1,15 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandCommunityTimeline } from '../actions/timelines'
 import { connectCommunityStream } from '../actions/streaming'
-import StatusListContainer from '../containers/status_list_container'
+import StatusList from '../components/status_list'
 
 const messages = defineMessages({
   empty: { id: 'empty_column.community', defaultMessage: 'The community timeline is empty. Write something publicly to get the ball rolling!' },
 })
 
-const mapStateToProps = state => {
-  const onlyMedia = state.getIn(['settings', 'community', 'other', 'onlyMedia'])
-
-  return {
-    onlyMedia,
-  }
-}
+const mapStateToProps = (state) => ({
+  onlyMedia: state.getIn(['settings', 'community', 'other', 'onlyMedia'])
+})
 
 export default
 @connect(mapStateToProps)
@@ -67,7 +63,7 @@ class CommunityTimeline extends PureComponent {
     const emptyMessage = intl.formatMessage(messages.empty)
 
     return (
-      <StatusListContainer
+      <StatusList
         scrollKey='community_timeline'
         timelineId={`community${onlyMedia ? ':media' : ''}`}
         onLoadMore={this.handleLoadMore}

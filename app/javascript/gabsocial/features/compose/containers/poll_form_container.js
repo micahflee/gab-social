@@ -6,14 +6,14 @@ import {
   selectComposeSuggestion,
 } from '../../../actions/compose';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   suggestions: state.getIn(['compose', 'suggestions']),
   options: state.getIn(['compose', 'poll', 'options']),
   expiresIn: state.getIn(['compose', 'poll', 'expires_in']),
   isMultiple: state.getIn(['compose', 'poll', 'multiple']),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onAddOption(title) {
     dispatch(addPollOption(title));
   },

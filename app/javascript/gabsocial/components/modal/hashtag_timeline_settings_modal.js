@@ -14,7 +14,7 @@ const messages = defineMessages({
   showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   settings: state.getIn(['settings', 'community']),
 })
 

@@ -68,7 +68,7 @@ const MODAL_COMPONENTS = {
   VIDEO: () => Promise.resolve({ default: VideoModal }),
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   type: state.getIn(['modal', 'modalType']),
   props: state.getIn(['modal', 'modalProps'], {}),
 })

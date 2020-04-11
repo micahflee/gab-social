@@ -22,11 +22,9 @@ const messages = defineMessages({
   edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
 })
 
-const mapStateToProps = state => {
-  return {
-    account: makeGetAccount()(state, me),
-  }
-}
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+})
 
 export default
 @connect(mapStateToProps)
@@ -72,7 +70,7 @@ class UserPanel extends ImmutablePureComponent {
           <Image
             className={_s.height122PX}
             src={account.get('header_static')}
-          /> 
+          />
           <Button
             color='secondary'
             backgroundColor='secondary'

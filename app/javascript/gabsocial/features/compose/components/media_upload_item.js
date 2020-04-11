@@ -22,7 +22,7 @@ const mapStateToProps = (state, { id, otherProps }) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onUndo: id => {
     dispatch(undoUploadCompose(id));

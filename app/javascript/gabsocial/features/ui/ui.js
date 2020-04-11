@@ -3,14 +3,14 @@
 import { HotKeys } from 'react-hotkeys'
 import { defineMessages, injectIntl } from 'react-intl'
 import { Switch, Redirect, withRouter } from 'react-router-dom'
-import { debounce } from 'lodash'
+import debounce from 'lodash.debounce'
 import { uploadCompose, resetCompose } from '../../actions/compose'
 import { expandHomeTimeline } from '../../actions/timelines'
 import {
   initializeNotifications,
   expandNotifications,
 } from '../../actions/notifications'
-import LoadingBarContainer from '../../containers/loading_bar_container'
+import LoadingBar from '../../components/loading_bar'
 import { fetchFilters } from '../../actions/filters'
 import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
@@ -37,9 +37,9 @@ import SettingsPage from '../../pages/settings_page'
 import {
   AccountGallery,
   AccountTimeline,
-  Blocks,
+  BlockedAccounts,
+  BlockedDomains,
   CommunityTimeline,
-  DomainBlocks,
   // Favorites,
   // Filters,
   Followers,
@@ -78,7 +78,7 @@ const messages = defineMessages({
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isComposing: state.getIn(['compose', 'is_composing']),
   hasComposingText: state.getIn(['compose', 'text']).trim().length !== 0,
   hasMediaAttachments: state.getIn(['compose', 'media_attachments']).size > 0,
@@ -182,8 +182,8 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/settings/billing' exact page={SettingsPage} component={Billing} content={children} />
         */ }
 
-        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={Blocks} content={children} componentParams={{ title: 'Blocked Accounts' }} />
-        <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={DomainBlocks} content={children} componentParams={{ title: 'Domain Blocks' }} />
+        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Accounts' }} />
+        <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={BlockedDomains} content={children} componentParams={{ title: 'Blocked Domains' }} />
         { /* <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} /> */ }
         <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} />
 
@@ -496,7 +496,7 @@ class UI extends PureComponent {
 
     return (
       <div ref={this.setRef}>
-        <LoadingBarContainer className={[_s.height1PX, _s.z3, _s.backgroundColorBrandLight].join(' ')} />
+        <LoadingBar className={[_s.height1PX, _s.z3, _s.backgroundColorBrandLight].join(' ')} />
 
         <SwitchingArea location={location} onLayoutChange={this.handleLayoutChange}>
           {children}

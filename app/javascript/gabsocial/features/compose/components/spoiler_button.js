@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   active: state.getIn(['compose', 'spoiler']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onClick () {
     dispatch(changeComposeSpoilerness())

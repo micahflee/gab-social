@@ -36,7 +36,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
   componentDidMount() {
     const { accountId } = this.props
 
-    if (accountId) {
+    if (accountId && accountId !== -1) {
       this.props.dispatch(expandAccountMediaTimeline(accountId, { limit: 8 }))
     }
   }

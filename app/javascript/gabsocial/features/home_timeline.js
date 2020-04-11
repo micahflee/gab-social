@@ -1,13 +1,13 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandHomeTimeline } from '../actions/timelines'
-import StatusListContainer from '../containers/status_list_container'
+import StatusList from '../components/status_list'
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },
   empty: { id: 'empty_column.home', defaultMessage: 'Your home timeline is empty. Start following other users to recieve their content here.' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
 })
 
@@ -63,7 +63,7 @@ class HomeTimeline extends PureComponent {
     const emptyMessage = intl.formatMessage(messages.empty)
 
     return (
-      <StatusListContainer
+      <StatusList
         scrollKey='home_timeline'
         onLoadMore={this.handleLoadMore}
         timelineId='home'

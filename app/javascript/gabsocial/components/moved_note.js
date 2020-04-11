@@ -12,12 +12,13 @@ export default class MovedNote extends ImmutablePureComponent {
   }
 
   static propTypes = {
+    fromAcct: ImmutablePropTypes.map.isRequired,
     to: ImmutablePropTypes.map.isRequired,
   }
 
   render () {
-    const { to } = this.props;
-    const displayNameHtml = { __html: from.get('display_name_html') }
+    const { fromAcct, toAcct } = this.props;
+    const displayNameHtml = { __html: fromAcct.get('display_name_html') }
 
     return (
       <div className='moved-note'>
@@ -34,11 +35,11 @@ export default class MovedNote extends ImmutablePureComponent {
           />
         </div>
 
-        <NavLink to={`/${this.props.to.get('acct')}`} className='moved-note__display-name'>
+        <NavLink to={`/${toAcct.get('acct')}`} className='moved-note__display-name'>
           <div className='moved-note__display-avatar'>
-            <Avatar account={to} />
+            <Avatar account={toAcct} />
           </div>
-          <DisplayName account={to} />
+          <DisplayName account={toAcct} />
         </NavLink>
       </div>
     );

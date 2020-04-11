@@ -9,13 +9,11 @@ const messages = defineMessages({
   cancel: { id: 'confirmation_modal.cancel', defaultMessage: 'Cancel' },
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onConfirm(domain) {
-      dispatch(blockDomain(domain))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(domain) {
+    dispatch(blockDomain(domain))
+  },
+})
 
 export default
 @connect(null, mapDispatchToProps)

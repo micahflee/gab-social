@@ -16,22 +16,8 @@ import LoadMore from '../../components/load_more'
 import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header'
 import Block from  '../../components/block'
 
-const getNotifications = createSelector([
-  state => state.getIn(['notifications', 'filter', 'active']),
-  state => ImmutableList(state.getIn(['settings', 'notifications', 'shows']).filter(item => !item).keys()),
-  state => state.getIn(['notifications', 'items']),
-], (allowedType, excludedTypes, notifications) => {
-  if (allowedType === 'all') {
-    // used if user changed the notification settings after loading the notifications from the server
-    // otherwise a list of notifications will come pre-filtered from the backend
-    // we need to turn it off for FilterBar in order not to block ourselves from seeing a specific category
-    return notifications.filterNot(item => item !== null && excludedTypes.includes(item.get('type')))
-  }
-  return notifications.filter(item => item !== null && allowedType === item.get('type'))
-})
-
-const mapStateToProps = state => ({
-  notifications: getNotifications(state),
+const mapStateToProps = (state) => ({
+  notifications: state.getIn(['notifications', 'items']),
   isLoading: state.getIn(['notifications', 'isLoading'], true),
   isUnread: state.getIn(['notifications', 'unread']) > 0,
   hasMore: state.getIn(['notifications', 'hasMore']),
@@ -112,6 +98,7 @@ class Notifications extends ImmutablePureComponent {
   }
 
   handleDequeueNotifications = () => {
+    window.scrollTo(0, 0)
     this.props.dispatch(dequeueNotifications())
   }
 
@@ -129,7 +116,7 @@ class Notifications extends ImmutablePureComponent {
 
     // : todo : include follow requests
 
-    // console.log('notifications:', notifications)
+    console.log('--0--notifications:', notifications)
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent

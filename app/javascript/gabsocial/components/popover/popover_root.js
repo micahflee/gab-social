@@ -31,7 +31,7 @@ const POPOVER_COMPONENTS = {
   USER_INFO: () => Promise.resolve({ default: UserInfoPopover }),
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   type: state.getIn(['popover', 'popoverType']),
   props: state.getIn(['popover', 'popoverProps'], {}),
 })

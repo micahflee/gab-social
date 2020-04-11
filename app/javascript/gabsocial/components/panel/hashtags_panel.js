@@ -11,15 +11,13 @@ const messages = defineMessages({
   show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   hashtags: state.getIn(['hashtags', 'items']),
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchHashtags: () => dispatch(fetchHashtags()),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  fetchHashtags: () => dispatch(fetchHashtags()),
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

@@ -70,8 +70,10 @@ export default class GabSocial extends PureComponent {
   };
 
   componentDidMount() {
-    this.disconnect = store.dispatch(connectUserStream());
-    store.dispatch(connectStatusUpdateStream());
+    if (!!me) {
+      this.disconnect = store.dispatch(connectUserStream());
+      store.dispatch(connectStatusUpdateStream());
+    }
   }
 
   componentWillUnmount () {

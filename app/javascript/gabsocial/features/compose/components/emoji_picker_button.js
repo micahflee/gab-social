@@ -6,11 +6,11 @@ const messages = defineMessages({
   emoji: { id: 'emoji_button.label', defaultMessage: 'Insert emoji' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   active: state.getIn(['popover', 'popoverType']) === 'EMOJI_PICKER',
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onClick(targetRef) {
     dispatch(openPopover('EMOJI_PICKER', {

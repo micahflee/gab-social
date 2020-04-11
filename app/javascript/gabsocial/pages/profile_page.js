@@ -4,6 +4,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchAccountByUsername } from '../actions/accounts'
 import { makeGetAccount } from '../selectors'
 import { me } from '../initial_state'
+import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import ProfileStatsPanel from '../components/panel/profile_stats_panel'
 import ProfileInfoPanel from '../components/panel/profile_info_panel'
@@ -30,30 +31,26 @@ const mapStateToProps = (state, { params: { username } }) => {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  onFetchAccountByUsername(username) {
+    dispatch(fetchAccountByUsername(username))
+  },
+})
+
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class ProfilePage extends ImmutablePureComponent {
 
   static propTypes = {
     children: PropTypes.node,
     params: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
-    dispatch: PropTypes.func.isRequired,
+    onFetchAccountByUsername: PropTypes.func.isRequired,
     unavailable: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
-    const { account, params: { username } } = this.props
-    if (!!account) {
-      document.title = `${account.get('display_name')} (@${username}) - Gab`
-    } else {
-      document.title = `@${username} - Gab`
-    }
-  }
-
-  componentWillMount() {
-    const { dispatch, params: { username } } = this.props
-    dispatch(fetchAccountByUsername(username))
+    this.props.onFetchAccountByUsername(this.props.params.username)
   }
 
   render() {
@@ -61,7 +58,12 @@ class ProfilePage extends ImmutablePureComponent {
       account,
       children,
       unavailable,
+      params: { username },
     } = this.props
+
+    console.log("acount:", account)
+
+    const title = !!account ? account.get('display_name') : username
 
     return (
       <ProfileLayout
@@ -75,6 +77,7 @@ class ProfilePage extends ImmutablePureComponent {
           </Fragment>
         )}
       >
+        <PageTitle path={title} />
         {
           !account && <ColumnIndicator type='loading' />
         }

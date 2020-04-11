@@ -9,7 +9,7 @@ const messages = defineMessages({
   delete: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   composeId: state.getIn(['compose', 'id']),
   composeText: state.getIn(['compose', 'text']),
 })

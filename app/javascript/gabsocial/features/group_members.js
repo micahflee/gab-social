@@ -8,7 +8,7 @@ import {
 	createRemovedAccount,
 } from '../actions/groups';
 import { FormattedMessage } from 'react-intl';
-import AccountContainer from '../containers/account_container';
+import Account from '../components/account';
 import ScrollableList from '../components/scrollable_list';
 
 const mapStateToProps = (state, { params: { id } }) => ({
@@ -71,7 +71,7 @@ class GroupMembers extends ImmutablePureComponent {
 
 					return (
 						<div className="group-account-wrapper" key={id}>
-							<AccountContainer id={id} actionIcon="none" onActionClick={() => true} />
+							<Account id={id} actionIcon="none" onActionClick={() => true} />
 							{ /*
 								menu.length > 0 && <DropdownMenuContainer items={menu} icon='ellipsis-h' size={18} direction='right' />
 								*/

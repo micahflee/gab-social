@@ -10,8 +10,7 @@ import Block from '../../../../components/block'
 import Heading from '../../../../components/heading'
 import Button from '../../../../components/button'
 import Text from '../../../../components/text'
-
-import AccountContainer from '../../../../containers/account_container'
+import Account from '../../../../components/account'
 
 export default class SearchResults extends ImmutablePureComponent {
 
@@ -65,7 +64,7 @@ export default class SearchResults extends ImmutablePureComponent {
           </div>
 
           {
-            results.get('accounts').slice(0, size).map(accountId => <AccountContainer expanded key={accountId} id={accountId} />)
+            results.get('accounts').slice(0, size).map(accountId => <Account expanded key={accountId} id={accountId} />)
           }
         </div>
       );

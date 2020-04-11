@@ -23,7 +23,7 @@ const mapStateToProps = (state, { params }) => {
   }
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onInitialize: listId => dispatch(setupListEditor(listId)),
   onReset: () => dispatch(resetListEditor()),
 })

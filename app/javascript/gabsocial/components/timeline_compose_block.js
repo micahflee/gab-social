@@ -11,11 +11,9 @@ const messages = defineMessages({
   createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
 })
 
-const mapStateToProps = state => {
-  return {
-    account: state.getIn(['accounts', me]),
-  }
-}
+const mapStateToProps = (state) => ({
+  account: state.getIn(['accounts', me]),
+})
 
 export default
 @connect(mapStateToProps)
@@ -57,7 +55,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
         <Block>
           <div className={[_s.default, _s.backgroundSubtle, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.alignItemsCenter, _s.flexRow].join(' ')}>
             <div className={_s.mr10}>
-              <Avatar account={account} size='20' />
+              <Avatar account={account} size={20} />
             </div>
             <Heading size='h5'>
               {intl.formatMessage(messages.createPost)}

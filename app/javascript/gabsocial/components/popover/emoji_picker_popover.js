@@ -346,7 +346,7 @@ const getCustomEmojis = createSelector([
   return 0;
 }));
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   custom_emojis: getCustomEmojis(state),
   skinTone: state.getIn(['settings', 'skinTone']),
   frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),

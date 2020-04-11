@@ -13,7 +13,10 @@ export default class StatusActionBarItem extends PureComponent {
     icon: PropTypes.string.isRequired,
     active: PropTypes.bool,
     disabled: PropTypes.bool,
-    buttonRef: PropTypes.node,
+    buttonRef: PropTypes.oneOf([
+      PropTypes.func,
+      PropTypes.node,
+    ]),
   }
 
   render() {

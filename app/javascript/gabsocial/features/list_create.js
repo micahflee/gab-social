@@ -9,12 +9,12 @@ const messages = defineMessages({
   create: { id: 'lists.new.create_title', defaultMessage: 'Create' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['listEditor', 'title']),
   disabled: state.getIn(['listEditor', 'isSubmitting']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onChange: value => dispatch(changeListEditorTitle(value)),
   onSubmit: () => dispatch(submitListEditor(true)),
 })

@@ -428,10 +428,6 @@ body {
   right: auto;
 }
 
-.top0 {
-  top: 0px;
-}
-
 .lineHeight125 {
   line-height: 1.25em;
 }
@@ -580,6 +576,14 @@ body {
   width: 240px;
 }
 
+.width160PX {
+  width: 160px;
+}
+
+.center160PX {
+  left: calc(100vw / 2 - 80px);
+}
+
 .width72PX {
   width: 72px;
 }
@@ -706,6 +710,10 @@ body {
 
 .top0 {
   top: 0;
+}
+
+.top80PX {
+  top: 80px;
 }
 
 .top60PC {

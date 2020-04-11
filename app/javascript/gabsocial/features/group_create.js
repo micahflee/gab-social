@@ -34,7 +34,7 @@ const mapStateToProps = (state, { params }) => {
 	}
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 	onTitleChange: value => dispatch(changeValue('title', value)),
 	onDescriptionChange: value => dispatch(changeValue('description', value)),
 	onCoverImageChange: value => dispatch(changeValue('coverImage', value)),

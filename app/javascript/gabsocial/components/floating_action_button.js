@@ -4,17 +4,14 @@ export default class FloatingActionButton extends PureComponent {
   static propTypes = {
     onClick: PropTypes.func.isRequired,
     message: PropTypes.string.isRequired,
-  };
+  }
 
   shouldComponentUpdate(nextProps) {
-    return nextProps.message !== this.props.message;
+    return nextProps.message !== this.props.message
   }
 
   render() {
-    const { onClick, message } = this.props;
-
-    // const shouldHideFAB = path => path.match(/^\/posts\/|^\/search|^\/getting-started/);
-    // const floatingActionButton = shouldHideFAB(this.context.router.history.location.pathname) ? null : <button key='floating-action-button' onClick={this.handleOpenComposeModal} className='floating-action-button' aria-label={intl.formatMessage(messages.publish)}></button>;
+    const { onClick, message } = this.props
 
     return (
       <Button

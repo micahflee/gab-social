@@ -17,7 +17,7 @@ const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')))
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   lists: getOrderedLists(state),
 })
 

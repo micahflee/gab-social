@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   domains: state.getIn(['domain_lists', 'blocks', 'items']),
   hasMore: !!state.getIn(['domain_lists', 'blocks', 'next']),
 })

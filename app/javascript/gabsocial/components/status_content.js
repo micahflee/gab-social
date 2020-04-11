@@ -3,10 +3,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage, injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
-import { isRtl } from '../../utils/rtl'
-import Button from '../button'
-import Icon from '../icon'
-import Text from '../text'
+import { isRtl } from '../utils/rtl'
+import Button from './button'
+import Icon from './icon'
+import Text from './text'
 
 const MAX_HEIGHT = 200
 
@@ -17,6 +17,12 @@ const messages = defineMessages({
 })
 
 const cx = classNames.bind(_s)
+
+// .emojione {
+//   margin: -3px 0 0;
+
+//   @include size(20px);
+// }
 
 export default
 @injectIntl
@@ -167,7 +173,7 @@ class StatusContent extends ImmutablePureComponent {
     const properContent = status.get('contentHtml')
 
     return reblogContent
-      ? `${reblogContent} <div class='status__quote'>${properContent}</div>`
+      ? `${reblogContent} <div className='status__quote'>${properContent}</div>`
       : properContent
   }
 

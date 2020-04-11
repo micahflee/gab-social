@@ -17,13 +17,11 @@ const mapStateToProps = (state, { accountId }) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onConfirm(account, notifications) {
-      dispatch(muteAccount(account.get('id'), notifications))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(account, notifications) {
+    dispatch(muteAccount(account.get('id'), notifications))
+  },
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

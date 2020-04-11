@@ -9,13 +9,11 @@ const messages = defineMessages({
   delete: { id: 'delete', defaultMessage: 'Delete' },
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onConfirm(account) {
-      // dispatch(blockAccount(account.get('id')))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(account) {
+    // dispatch(blockAccount(account.get('id')))
+  },
+})
 
 export default
 @connect(null, mapDispatchToProps)

@@ -79,7 +79,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onMention: (account, router) => {
     dispatch(mentionCompose(account, router))
   },

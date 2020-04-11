@@ -10,7 +10,7 @@ const messages = defineMessages({
 })
 
 const makeMapStateToProps = () => {
-  const mapStateToProps = state => ({
+  const mapStateToProps = (state) => ({
     acceptContentTypes: state.getIn(['media_attachments', 'accept_content_types']),
     disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size > 3 || state.getIn(['compose', 'media_attachments']).some(m => m.get('type') === 'video')),
     unavailable: state.getIn(['compose', 'poll']) !== null,
@@ -20,10 +20,8 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-const mapDispatchToProps = dispatch => ({
-  onSelectFile(files) {
-    dispatch(uploadCompose(files))
-  },
+const mapDispatchToProps = (dispatch) => ({
+  onSelectFile: (files) => dispatch(uploadCompose(files)),
 })
 
 export default

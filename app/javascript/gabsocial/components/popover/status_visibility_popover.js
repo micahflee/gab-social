@@ -19,11 +19,11 @@ const messages = defineMessages({
   visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['compose', 'privacy']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onChange (value) {
     dispatch(changeComposeVisibility(value))

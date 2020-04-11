@@ -10,11 +10,11 @@ const messages = defineMessages({
   schedule_status: { id: 'schedule_status.title', defaultMessage: 'Schedule' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onOpenDatePickerPopover(targetRef) {
     dispatch(openPopover('DATE_PICKER', {
       targetRef,

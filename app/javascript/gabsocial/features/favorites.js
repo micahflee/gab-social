@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { fetchReposts } from '../actions/interactions';
 import { fetchStatus } from '../actions/statuses';
 import { makeGetStatus } from '../selectors';
-import AccountContainer from '../containers/account_container';
+import Account from '../components/account';
 import ColumnIndicator from '../components/column_indicator';
 import ScrollableList from '../components/scrollable_list';
 
@@ -60,7 +60,7 @@ class Favorites extends ImmutablePureComponent {
       >
         {
           accountIds.map(id =>
-            <AccountContainer key={id} id={id} />
+            <Account key={id} id={id} />
           )
         }
       </ScrollableList>

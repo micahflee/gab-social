@@ -2,12 +2,12 @@ import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { isRtl } from '../../utils/rtl'
-import { textAtCursorMatchesToken } from '../../utils/cursor_token_match'
-import AutosuggestAccount from '../autosuggest_account'
-import AutosuggestEmoji from '../autosuggest_emoji'
-import Input from '../input'
-import Composer from '../composer'
+import { isRtl } from '../utils/rtl'
+import { textAtCursorMatchesToken } from '../utils/cursor_token_match'
+import AutosuggestAccount from './autosuggest_account'
+import AutosuggestEmoji from './autosuggest_emoji'
+import Input from './input'
+import Composer from './composer'
 
 const cx = classNames.bind(_s)
 

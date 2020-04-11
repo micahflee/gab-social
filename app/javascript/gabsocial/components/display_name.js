@@ -7,7 +7,7 @@ import Icon from './icon'
 
 const cx = classNames.bind(_s)
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   openUserInfoPopover(props) {
     dispatch(openPopover('USER_INFO', props))
   },

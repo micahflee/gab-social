@@ -4,7 +4,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import StatusContainer from '../../../containers/status_container'
-import AccountContainer from '../../../containers/account_container'
 import Avatar from '../../../components/avatar'
 import Icon from '../../../components/icon'
 import Text from '../../../components/text'
@@ -46,269 +45,95 @@ class Notification extends ImmutablePureComponent {
     type: PropTypes.string.isRequired,
   }
 
-  renderMention = () => {
-    const { intl, accounts, createdAt, statusId } = this.props
-
-    if (accounts.size === 0) return null
-    const account = accounts.get(0)
-
-    // : todo : render statuscontainer or commentcontainer
-
-    return (
-      <div className={[_s.default, _s.px10].join(' ')}>
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
-
-            <Icon id='comment' height='20px' width='20px' className={_s.mt5} />
-
-            <div className={[_s.default, _s.ml15, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
-                <NavLink to={`/${account.get('acct')}`}>
-                  <Avatar size='30' account={account} />
-                </NavLink>
-              </div>
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default, _s.flexRow].join(' ')}>
-                  <div className={_s.text}>
-                    <DisplayName account={account} noUsername />
-                  </div>
-                  <Text size='medium'>
-                    {' '}
-                    {intl.formatMessage(messages.mentionedInPost)}
-                  </Text>
-                </div>
-              </div>
-
-              <div className={[_s.default, _s.pt10, _s.mt5].join(' ')}>
-                <StatusContainer
-                  id={statusId}
-                  isChild
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  renderPoll = () => {
-    const { intl, statusId } = this.props
-
-    return (
-      <div className={[_s.default, _s.px10].join(' ')}>
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
-
-            <Icon id='poll' height='20px' width='20px' className={_s.mt5} />
-
-            <div className={[_s.default, _s.ml15, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.pt5].join(' ')}>
-                <Text size='medium'>
-                  {intl.formatMessage(messages.poll)}
-                </Text>
-              </div>
-
-              <div className={[_s.default, _s.pt10, _s.mt10].join(' ')}>
-                <StatusContainer
-                  id={statusId}
-                  isChild
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  renderFollow = () => {
-    const { intl, accounts, statusId } = this.props
-
-    const count = accounts.size
-    if (count === 0) return null
-
-    return (
-      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.backgroundSubtle_onHover].join(' ')}>
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
-
-            <Icon id='group' height='20px' width='20px' className={_s.mt5} />
-
-            <div className={[_s.default, _s.ml15, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
-                {
-                  accounts.slice(0, 8).map((account, i) => (
-                    <NavLink
-                      to={`/${account.get('acct')}`}
-                      key={`fav-avatar-${i}`}
-                      className={_s.mr5}
-                    >
-                      <Avatar size='30' account={account} />
-                    </NavLink>
-                  ))
-                }
-              </div>
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default, _s.flexRow].join(' ')}>
-                  <div className={_s.text}>
-                    {
-                      accounts.slice(0, 1).map((account, i) => (
-                        <DisplayName key={i} account={account} noUsername />
-                      ))
-                    }
-                  </div>
-                  <Text size='medium'>
-                    {' '}
-                    {intl.formatMessage(count > 1 ? messages.followedYouMultiple : messages.followedYouOne, {
-                      count: count - 1,
-                    })}
-                  </Text>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  renderLike = () => {
-    const { intl, accounts, statusId } = this.props
-
-    const count = accounts.size
-    if (count === 0 || !statusId) return null
-
-    return (
-      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.backgroundSubtle_onHover].join(' ')}>
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
-
-            <Icon id='like' height='20px' width='20px' className={_s.mt5} />
-
-            <div className={[_s.default, _s.ml15, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
-                {
-                  accounts.slice(0, 8).map((account, i) => (
-                    <NavLink
-                      to={`/${account.get('acct')}`}
-                      key={`fav-avatar-${i}`}
-                      className={_s.mr5}
-                    >
-                      <Avatar size='30' account={account} />
-                    </NavLink>
-                  ))
-                }
-              </div>
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default, _s.flexRow].join(' ')}>
-                  <div className={_s.text}>
-                    {
-                      accounts.slice(0, 1).map((account, i) => (
-                        <DisplayName key={i} account={account} noUsername />
-                      ))
-                    }
-                  </div>
-                  <Text size='medium'>
-                    {' '}
-                    {intl.formatMessage(count > 1 ? messages.likedStatusMultiple : messages.likedStatusOne, {
-                      count: count - 1,
-                    })}
-                  </Text>
-                </div>
-              </div>
-              <div className={[_s.default, _s.pt10, _s.mt5].join(' ')}>
-                <StatusContainer
-                  id={statusId}
-                  isChild
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  renderRepost = () => {
-    const { intl, accounts, statusId } = this.props
-
-    const count = accounts.size
-    if (count === 0 || !statusId) return null
-
-    return (
-      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.backgroundSubtle_onHover].join(' ')}>
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
-
-            <Icon id='repost' height='20px' width='20px' className={_s.mt5} />
-
-            <div className={[_s.default, _s.ml15, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
-                {
-                  accounts.slice(0, 8).map((account, i) => (
-                    <NavLink
-                      to={`/${account.get('acct')}`}
-                      key={`fav-avatar-${i}`}
-                      className={_s.mr5}
-                    >
-                      <Avatar size='30' account={account} />
-                    </NavLink>
-                  ))
-                }
-              </div>
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default, _s.flexRow].join(' ')}>
-                  <div className={_s.text}>
-                    {
-                      accounts.slice(0, 1).map((account, i) => (
-                        <DisplayName key={i} account={account} noUsername />
-                      ))
-                    }
-                  </div>
-                  <Text size='medium'>
-                    {' '}
-                    {intl.formatMessage(count > 1 ? messages.repostedStatusMultiple : messages.repostedStatusOne, {
-                      count: count - 1,
-                    })}
-                  </Text>
-                </div>
-              </div>
-              <div className={[_s.default, _s.pt10, _s.mt5].join(' ')}>
-                <StatusContainer
-                  id={statusId}
-                  isChild
-                />
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    )
-  }
-
   render() {
-    const { type } = this.props
+    const { intl, accounts, createdAt, type, statusId } = this.props
+    
+    const count = !!accounts ? accounts.size : 0
 
+    let message
+    let icon
     switch (type) {
       case 'follow':
-        return this.renderFollow()
+        icon = 'group'
+        message =  intl.formatMessage(count > 1 ? messages.followedYouMultiple : messages.followedYouOne, {
+          count: count - 1,
+        })
+        break
       case 'mention':
-        return this.renderMention()
+        icon = 'comment'
+        message = intl.formatMessage(messages.mentionedInPost)
+        break
       case 'like':
-        return this.renderLike()
+        icon = 'like'
+        message = intl.formatMessage(count > 1 ? messages.likedStatusMultiple : messages.likedStatusOne, {
+          count: count - 1,
+        })
+        break
       case 'repost':
-        return this.renderRepost();
+        icon = 'repost'
+        message = intl.formatMessage(count > 1 ? messages.repostedStatusMultiple : messages.repostedStatusOne, {
+          count: count - 1,
+        })
+        break
       case 'poll':
-        return this.renderPoll()
+        icon = 'poll'
+        message = intl.formatMessage(messages.poll)
+        break
+      default:
+        return null
     }
 
-    return null
+    return (
+      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.backgroundSubtle_onHover].join(' ')}>
+        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
+
+            <Icon id={icon} height='20px' width='20px' className={_s.mt5} />
+
+            <div className={[_s.default, _s.ml15, _s.flexNormal].join(' ')}>
+              <div className={[_s.default, _s.flexRow].join(' ')}>
+                {
+                  accounts.slice(0, 8).map((account, i) => (
+                    <NavLink
+                      to={`/${account.get('acct')}`}
+                      key={`fav-avatar-${i}`}
+                      className={_s.mr5}
+                    >
+                      <Avatar size={30} account={account} />
+                    </NavLink>
+                  ))
+                }
+              </div>
+              <div className={[_s.default, _s.pt10].join(' ')}>
+                <div className={[_s.default, _s.flexRow].join(' ')}>
+                  <div className={_s.text}>
+                    {
+                      accounts.slice(0, 1).map((account, i) => (
+                        <DisplayName key={i} account={account} noUsername />
+                      ))
+                    }
+                  </div>
+                  <Text size='medium'>
+                    {' '}
+                    {message}
+                  </Text>
+                </div>
+              </div>
+              {
+                !!statusId &&
+                <div className={[_s.default, _s.pt10, _s.mt5].join(' ')}>
+                  <StatusContainer
+                    id={statusId}
+                    isChild
+                  />
+                </div>
+              }
+            </div>
+
+          </div>
+        </div>
+      </div>
+    )
   }
 
 }

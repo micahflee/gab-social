@@ -165,9 +165,12 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     // filter verified and following here too
     const params = {
       max_id: maxId,
-      only_verified: onlyVerified,
-      only_following: onlyFollowing,
-      exclude_types: activeFilter === 'all' ? [] : excludeTypesFromFilter(activeFilter),
+      // only_verified: onlyVerified,
+      // only_following: onlyFollowing,
+      exclude_types: activeFilter === 'all' ? null : excludeTypesFromFilter(activeFilter),
+      // exclude_types: activeFilter === 'all'
+      //   ? excludeTypesFromSettings(getState())
+      //   : excludeTypesFromFilter(activeFilter),
     };
 
     if (!maxId && notifications.get('items').size > 0) {
@@ -175,6 +178,8 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     }
 
     dispatch(expandNotificationsRequest(isLoadingMore));
+
+    console.log("params:", params)
 
     api(getState).get('/api/v1/notifications', { params }).then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');

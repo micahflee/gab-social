@@ -1,11 +1,11 @@
 import ColumnSettings from '../components/column_settings';
 import { changeSetting, saveSettings } from '../../../../actions/settings';
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   settings: state.getIn(['settings', 'group']),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onChange (key, checked) {
     dispatch(changeSetting(['group', ...key], checked));

@@ -25,12 +25,10 @@ const mapStateToProps = (state, { account }) => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchSuggestions: () => dispatch(fetchSuggestions()),
-    dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  fetchSuggestions: () => dispatch(fetchSuggestions()),
+  dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

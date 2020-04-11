@@ -11,6 +11,21 @@ const getDistance = (p1, p2) =>
 
 const clamp = (min, max, value) => Math.min(max, Math.max(min, value));
 
+// .zoomable-image {
+//   position: relative;
+
+//   @include flex(center, center);
+//   @include size(100%);
+
+//   img {
+//     object-fit: contain;
+
+//     @include size(auto);
+//     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
+//   }
+// }
+
+
 export default class ZoomableImage extends PureComponent {
 
   static propTypes = {

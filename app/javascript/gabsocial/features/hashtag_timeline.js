@@ -2,7 +2,7 @@ import { FormattedMessage } from 'react-intl'
 import isEqual from 'lodash.isequal'
 import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
 import { connectHashtagStream } from '../actions/streaming'
-import StatusListContainer from '../containers/status_list_container'
+import StatusList from '../components/status_list'
 
 const mapStateToProps = (state, props) => ({
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
@@ -128,7 +128,7 @@ class HashtagTimeline extends PureComponent {
     const { id } = this.props.params
 
     return (
-      <StatusListContainer
+      <StatusList
         scrollKey='hashtag_timeline'
         timelineId={`hashtag:${id}`}
         onLoadMore={this.handleLoadMore}

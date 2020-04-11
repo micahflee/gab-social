@@ -10,15 +10,13 @@ const messages = defineMessages({
   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   gabtrends: state.getIn(['gab_trends', 'items']),
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchGabTrends: () => dispatch(fetchGabTrends()),
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onFetchGabTrends: () => dispatch(fetchGabTrends()),
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

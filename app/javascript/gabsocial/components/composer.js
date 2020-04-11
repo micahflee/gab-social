@@ -137,7 +137,7 @@ const compositeDecorator = new CompositeDecorator([
 const HANDLE_REGEX = /\@[\w]+/g;
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const getAccount = makeGetAccount()
   const account = getAccount(state, me)
   const isPro = account.get('is_pro')
@@ -148,11 +148,9 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
 
-  }
-}
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

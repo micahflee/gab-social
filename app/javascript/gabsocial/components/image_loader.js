@@ -1,6 +1,30 @@
 import classNames from 'classnames';
 import { LoadingBar } from 'react-redux-loading-bar';
-import ZoomableImage from '../zoomable_image';
+import ZoomableImage from './zoomable_image';
+
+// .image-loader {
+//   position: relative;
+
+//   @include flex(center, center, column);
+//   @include size(100%);
+
+//   &__preview-canvas {
+//     object-fit: contain;
+
+//     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
+//     @include background-image("", contain, center, repeat);
+//   }
+
+//   &--amorphous & {
+//     &__preview-canvas {
+//       display: none;
+//     }
+//   }
+
+//   .loading-bar {
+//     position: relative;
+//   }
+// }
 
 export default class ImageLoader extends PureComponent {
 

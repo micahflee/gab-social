@@ -1,53 +1,63 @@
 import { Fragment } from 'react'
 import { me } from '../initial_state'
+import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
+import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import DefaultLayout from '../layouts/default_layout'
 
-const mapStateToProps = (state) => {
-  const account = state.getIn(['accounts', me])
+const messages = defineMessages({
+  groups: { id: 'groups', defaultMessage: 'Groups' },
+  featured: { id: 'featured', defaultMessage: 'Featured' },
+  new: { id: 'new', defaultMessage: 'New' },
+  myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
+  admin: { id: 'admin', defaultMessage: 'Admin' },
+})
 
-  return {
-    isPro: account.get('is_pro'),
-  }
-}
+const mapStateToProps = (state) => ({
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onOpenGroupCreateModal() {
     dispatch(openModal('GROUP_CREATE'))
   },
 })
 
 export default
+@injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
 class GroupsPage extends PureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
     isPro: PropTypes.bool,
     onOpenGroupCreateModal: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    document.title = 'Groups - Gab'
-  }
-
   render() {
-    const { children, isPro, onOpenGroupCreateModal } = this.props
+    const {
+      intl,
+      children,
+      isPro,
+      onOpenGroupCreateModal,
+    } = this.props
 
     const actions = []
     const tabs = [
       {
-        title: 'Featured',
+        title: intl.formatMessage(messages.groups),
         to: '/groups',
       },
       {
-        title: 'New',
+        title: intl.formatMessage(messages.new),
         to: '/groups/new',
       },
       {
-        title: 'My Groups',
+        title: intl.formatMessage(messages.myGroups),
         to: '/groups/browse/member',
       },
     ]
@@ -59,14 +69,17 @@ class GroupsPage extends PureComponent {
       })
 
       tabs.push({
-        title: 'Admin',
+        title: intl.formatMessage(messages.admin),
         to: '/groups/browse/admin',
       })
     }
 
+    const title = intl.formatMessage(messages.groups)
+
     return (
       <DefaultLayout
-        title='Groups'
+        showBackBtn
+        title={title}
         actions={actions}
         layout={(
           <Fragment>
@@ -76,8 +89,8 @@ class GroupsPage extends PureComponent {
           </Fragment>
         )}
         tabs={tabs}
-        showBackBtn
       >
+        <PageTitle path={title} />
         { children }
       </DefaultLayout>
     )

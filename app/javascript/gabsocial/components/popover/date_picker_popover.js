@@ -6,12 +6,12 @@ import PopoverLayout from './popover_layout'
 
 // import 'react-datepicker/dist/react-datepicker.css'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   date: state.getIn(['compose', 'scheduled_at']),
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   setScheduledAt (date) {
     dispatch(changeScheduledAt(date))
   },

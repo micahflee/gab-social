@@ -12,7 +12,7 @@ const cx = classnames.bind(_s)
 
 let id = 0
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   isModalOpen: state.getIn(['modal', 'modalType']) === 'ACTIONS',
   popoverPlacement: state.getIn(['popover', 'placement']),
   openPopoverType: state.getIn(['popover', 'popoverType']),

@@ -2,7 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import ImmutablePropTypes from 'react-immutable-proptypes';
-import AccountContainer from '../../containers/account_container';
+import Account from '../../components/account';
 import PanelLayout from './panel_layout';
 
 const messages = defineMessages({
@@ -11,16 +11,14 @@ const messages = defineMessages({
   show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   suggestions: state.getIn(['suggestions', 'items']),
 });
 
-const mapDispatchToProps = dispatch => {
-  return {
-    fetchSuggestions: () => dispatch(fetchSuggestions()),
-    dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
-  }
-};
+const mapDispatchToProps = (dispatch) => ({
+  fetchSuggestions: () => dispatch(fetchSuggestions()),
+  dismissSuggestion: (account) => dispatch(dismissSuggestion(account.get('id'))),
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
@@ -56,7 +54,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
       >
         <div className={_s.default}>
           {suggestions && suggestions.map(accountId => (
-            <AccountContainer
+            <Account
               showDismiss
               key={accountId}
               id={accountId}

@@ -4,7 +4,7 @@ import {
   fetchBundleFail
 } from '../../../actions/bundles'
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onFetch() {
     dispatch(fetchBundleRequest())
   },

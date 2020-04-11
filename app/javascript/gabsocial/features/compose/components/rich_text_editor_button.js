@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
   active: state.getIn(['compose', 'rte_controls_visible']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onClick (status) {
     dispatch(changeRichTextEditorControlsVisibility(status))

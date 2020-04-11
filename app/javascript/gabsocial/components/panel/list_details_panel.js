@@ -17,15 +17,13 @@ const messages = defineMessages({
   edit: { id: 'edit', defaultMessage: 'Edit' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   // accountIds: state.getIn(['listEditor', 'accounts', 'items']),
 })
 
-const mapDispatchToProps = dispatch => {
-  return {
+const mapDispatchToProps = (dispatch) => ({
 
-  }
-}
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
@@ -96,7 +94,7 @@ class ListDetailsPanel extends ImmutablePureComponent {
               {
                 [1, 2, 3, 4, 5, 6, 7, 8, 9].map(item => (
                   <div className={[_s.default, _s.mr5].join(' ')}>
-                    <Avatar size='26' />
+                    <Avatar size={26} />
                   </div>
                 ))
               }

@@ -17,7 +17,7 @@ const messages = defineMessages({
   showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   settings: state.getIn(['settings', 'list']),
 })
 

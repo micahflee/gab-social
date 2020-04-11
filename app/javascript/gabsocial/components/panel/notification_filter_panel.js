@@ -1,6 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { me } from '../../initial_state'
 import { setFilter } from '../../actions/notifications'
 import PanelLayout from './panel_layout'
 import SettingSwitch from '../setting_switch'
@@ -11,17 +12,16 @@ const messages = defineMessages({
   onlyFollowing: { id: 'notification_only_following', defaultMessage: 'Only People I Follow' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   settings: state.getIn(['notifications', 'filter']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onChange(path, value) {
-      dispatch(setFilter(path, value))
-    },
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  onChange(path, value) {
+    dispatch(setFilter(path, value))
+  },
+})
 
 export default
 @injectIntl
@@ -32,10 +32,18 @@ class NotificationFilterPanel extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     onChange: PropTypes.func.isRequired,
     settings: ImmutablePropTypes.map.isRequired,
+    isPro: PropTypes.bool.isRequired,
   }
 
   render() {
-    const { intl, onChange, settings } = this.props
+    const {
+      intl,
+      onChange,
+      settings,
+      isPro
+    } = this.props
+
+    if (!isPro) return null
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>

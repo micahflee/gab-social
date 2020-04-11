@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import { connectGroupStream } from '../actions/streaming'
 import { expandGroupTimeline } from '../actions/timelines'
-import StatusListContainer from '../containers/status_list_container'
-// import ColumnSettingsContainer from './containers/column_settings_container'
+import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
 
 const messages = defineMessages({

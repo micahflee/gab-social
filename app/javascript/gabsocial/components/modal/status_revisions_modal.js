@@ -2,7 +2,6 @@ import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import classNames from 'classnames/bind'
-// import StatusRevisionListContainer from '../../containers/status_revisions_list_container'
 import { loadStatusRevisions } from '../../actions/status_revisions'
 import ModalLayout from './modal_layout'
 import RelativeTimestamp from '../relative_timestamp'
@@ -15,13 +14,13 @@ const messages = defineMessages({
   title: { id: 'status_revisions.heading', defaultMessage: 'Revision History' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   loading: state.getIn(['status_revisions', 'loading']),
   error: state.getIn(['status_revisions', 'error']),
   revisions: state.getIn(['status_revisions', 'revisions']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onLoadStatusRevisions(statusId) {
     dispatch(loadStatusRevisions(statusId))
   },

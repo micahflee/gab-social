@@ -1,15 +1,17 @@
-import api from '../api';
-import { importFetchedAccounts } from './importer';
-import { me } from '../initial_state';
+import api from '../api'
+import { importFetchedAccounts } from './importer'
+import { me } from '../initial_state'
 
-export const SUGGESTIONS_FETCH_REQUEST = 'SUGGESTIONS_FETCH_REQUEST';
-export const SUGGESTIONS_FETCH_SUCCESS = 'SUGGESTIONS_FETCH_SUCCESS';
-export const SUGGESTIONS_FETCH_FAIL    = 'SUGGESTIONS_FETCH_FAIL';
+export const SUGGESTIONS_FETCH_REQUEST = 'SUGGESTIONS_FETCH_REQUEST'
+export const SUGGESTIONS_FETCH_SUCCESS = 'SUGGESTIONS_FETCH_SUCCESS'
+export const SUGGESTIONS_FETCH_FAIL    = 'SUGGESTIONS_FETCH_FAIL'
 
 export const SUGGESTIONS_DISMISS = 'SUGGESTIONS_DISMISS';
 
 export function fetchSuggestions() {
   return (dispatch, getState) => {
+    if (!me) return false
+
     dispatch(fetchSuggestionsRequest());
 
     api(getState).get('/api/v1/suggestions').then(response => {

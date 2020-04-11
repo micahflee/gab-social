@@ -8,7 +8,7 @@ import Icon from './icon'
 import SidebarSectionItem from './sidebar_section_item'
 import Text from './text'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const getAccount = makeGetAccount()
 
   return {

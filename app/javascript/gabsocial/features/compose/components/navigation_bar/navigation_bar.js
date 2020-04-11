@@ -5,11 +5,9 @@ import Avatar from '../../../../components/avatar';
 import Button from '../../../../components/button'
 import { me } from '../../../../initial_state';
 
-const mapStateToProps = state => {
-  return {
-    account: state.getIn(['accounts', me]),
-  };
-};
+const mapStateToProps = (state) => ({
+  account: state.getIn(['accounts', me]),
+})
 
 export default
 @connect(mapStateToProps)

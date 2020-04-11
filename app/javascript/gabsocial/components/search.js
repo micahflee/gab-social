@@ -6,29 +6,16 @@ import {
 } from '../actions/search'
 import Input from './input'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['search', 'value']),
   submitted: state.getIn(['search', 'submitted']),
 })
 
-const mapDispatchToProps = dispatch => ({
-
-  onChange (value) {
-    dispatch(changeSearch(value))
-  },
-
-  onClear () {
-    dispatch(clearSearch())
-  },
-
-  onSubmit () {
-    dispatch(submitSearch())
-  },
-
-  onShow () {
-    dispatch(showSearch())
-  },
-
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (value) => dispatch(changeSearch(value)),
+  onClear: () => dispatch(clearSearch()),
+  onSubmit: () => dispatch(submitSearch()),
+  onShow: () => dispatch(showSearch()),
 })
 
 export default

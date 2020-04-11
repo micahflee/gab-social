@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
-import AccountContainer from '../containers/account_container'
+import Account from '../components/account'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
@@ -11,7 +11,7 @@ const messages = defineMessages({
   empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accountIds: state.getIn(['user_lists', 'blocks', 'items']),
   hasMore: !!state.getIn(['user_lists', 'blocks', 'next']),
 })
@@ -59,7 +59,7 @@ class Blocks extends ImmutablePureComponent {
       >
         {
           accountIds.map(id =>
-            <AccountContainer key={`blocked-${id}`} id={id} compact />
+            <Account key={`blocked-${id}`} id={id} compact />
           )
         }
       </ScrollableList>

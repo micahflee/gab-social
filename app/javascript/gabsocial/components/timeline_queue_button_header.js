@@ -1,8 +1,10 @@
 import { FormattedMessage } from 'react-intl'
-import classNames from 'classnames'
+import classNames from 'classnames/bind'
 import { shortNumberFormat } from '../utils/numbers'
 import Button from './button'
 import Text from './text'
+
+const cx = classNames.bind(_s)
 
 export default class TimelineQueueButtonHeader extends PureComponent {
 
@@ -23,27 +25,37 @@ export default class TimelineQueueButtonHeader extends PureComponent {
 
     const hasItems = count > 0
 
-    // : todo :
-
-    const classes = classNames('timeline-queue-header', {
-      'timeline-queue-header--extended': hasItems,
+    const classes = cx({
+      default: 1,
+      positionFixed: 1,
+      displayNone: !hasItems,
+      top80PX: 1,
+      z4: 1,
+      center160PX: 1,
     })
 
     return (
       <div className={classes}>
-        <a className='timeline-queue-header__btn' onClick={onClick}>
+        <Button
+          narrow
+          color='white'
+          backgroundColor='brand'
+          onClick={onClick}
+        >
           {
             hasItems &&
-            <FormattedMessage
-              id='timeline_queue.label'
-              defaultMessage='{count} new {type}'
-              values={{
-                count: shortNumberFormat(count),
-                type: count === 1 ? itemType : `${itemType}s`,
-              }}
-            />
+            <Text color='inherit' size='small'>
+              <FormattedMessage
+                id='timeline_queue.label'
+                defaultMessage='{count} new {type}'
+                values={{
+                  count: shortNumberFormat(count),
+                  type: count === 1 ? itemType : `${itemType}s`,
+                }}
+              />
+            </Text>
           }
-        </a>
+        </Button>
       </div>
     )
   }

@@ -5,7 +5,7 @@ import { connectListStream } from '../actions/streaming';
 import { expandListTimeline } from '../actions/timelines';
 import { fetchList, deleteList } from '../actions/lists';
 import { openModal } from '../actions/modal';
-import StatusListContainer from '../containers/status_list_container';
+import StatusList from '../components/status_list';
 import ColumnIndicator from '../components/column_indicator';
 import Button from '../components/button';
 
@@ -112,7 +112,7 @@ class ListTimeline extends ImmutablePureComponent {
     );
 
     return (
-      <StatusListContainer
+      <StatusList
         scrollKey='list_timeline'
         timelineId={`list:${id}`}
         onLoadMore={this.handleLoadMore}

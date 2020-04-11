@@ -1,4 +1,4 @@
-import classNames from 'classnames/bind'
+wimport classNames from 'classnames/bind'
 
 const cx = classNames.bind(_s)
 

@@ -7,11 +7,11 @@ const messages = defineMessages({
   searchTitle: { id: 'tabs_bar.search', defaultMessage: 'Search' },
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   value: state.getIn(['listEditor', 'suggestions', 'value']),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onSubmit: value => dispatch(fetchListSuggestions(value)),
   onClear: () => dispatch(clearListSuggestions()),
   onChange: value => dispatch(changeListSuggestions(value)),

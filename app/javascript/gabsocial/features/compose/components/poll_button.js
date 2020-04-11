@@ -8,12 +8,12 @@ const messages = defineMessages({
   remove_poll: { id: 'poll_button.remove_poll', defaultMessage: 'Remove poll' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   unavailable: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size > 0),
   active: state.getIn(['compose', 'poll']) !== null,
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onClick() {
     dispatch((_, getState) => {

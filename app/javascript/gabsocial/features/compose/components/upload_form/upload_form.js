@@ -4,7 +4,7 @@ import ProgressBar from '../../../../components/progress_bar'
 import Upload from '../media_upload_item'
 import SensitiveMediaButton from '../sensitive_media_button'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
   isUploading: state.getIn(['compose', 'is_uploading']),
   uploadProgress: state.getIn(['compose', 'progress']),

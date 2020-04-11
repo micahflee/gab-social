@@ -6,12 +6,12 @@ const messages = defineMessages({
   markAsSensitive: { id: 'compose_form.sensitive.hide', defaultMessage: 'Mark media as sensitive' },
 })
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   active: state.getIn(['compose', 'sensitive']),
   disabled: state.getIn(['compose', 'spoiler']),
 })
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onClick () {
     dispatch(changeComposeSensitivity())

@@ -38,6 +38,16 @@ export default class ExtendedVideoPlayer extends PureComponent {
   render () {
     const { src, muted, controls, alt } = this.props;
 
+    // .extended-video-player {
+    //   @include size(100%);
+    //   @include flex(center, center);
+
+    //   video {
+    //     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
+    //   }
+    // }
+
+
     return (
       <div className='extended-video-player'>
         <video

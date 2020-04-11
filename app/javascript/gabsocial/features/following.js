@@ -6,7 +6,7 @@ import {
   fetchFollowing,
   expandFollowing,
 } from '../actions/accounts'
-import AccountContainer from '../containers/account_container'
+import Account from '../components/account'
 import ScrollableList from '../components/scrollable_list'
 import Block from '../components/block'
 import Heading from '../components/heading'
@@ -88,7 +88,7 @@ class Following extends ImmutablePureComponent {
           >
             {
               !!accountIds && accountIds.map((id) => (
-                <AccountContainer key={`following-${id}`} id={id} compact />
+                <Account key={`following-${id}`} id={id} compact />
               ))
             }
           </ScrollableList>

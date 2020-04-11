@@ -3,11 +3,11 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import { fetchMutes, expandMutes } from '../actions/mutes'
-import AccountContainer from '../containers/account_container'
+import Account from '../components/account'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accountIds: state.getIn(['user_lists', 'mutes', 'items']),
   hasMore: !!state.getIn(['user_lists', 'mutes', 'next']),
 })
@@ -48,7 +48,7 @@ class Mutes extends ImmutablePureComponent {
       >
         {
           accountIds.map(id =>
-            <AccountContainer key={`mutes-${id}`} id={id} compact />
+            <Account key={`mutes-${id}`} id={id} compact />
           )
         }
       </ScrollableList>

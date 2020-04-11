@@ -8,7 +8,7 @@ import {
 	removeRemovedAccount,
 } from '../actions/groups';
 import { FormattedMessage } from 'react-intl';
-import AccountContainer from '../containers/account_container';
+import Account from '../components/account';
 import ScrollableList from '../components/scrollable_list';
 import { defineMessages, injectIntl } from 'react-intl';
 
@@ -64,7 +64,7 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 				onLoadMore={this.handleLoadMore}
 				emptyMessage={<FormattedMessage id='group.removed_accounts.empty' defaultMessage='This group does not has any removed accounts.' />}
 			>
-				{accountIds.map(id => (<AccountContainer
+				{accountIds.map(id => (<Account
 					key={id}
 					id={id}
 					actionIcon='remove'

@@ -102,7 +102,7 @@ export function fetchAccount(id) {
   return (dispatch, getState) => {
     dispatch(fetchRelationships([id]));
 
-    if (getState().getIn(['accounts', id], null) !== null) {
+    if (id === -1 || getState().getIn(['accounts', id], null) !== null) {
       return;
     }
 

@@ -34,7 +34,7 @@ const messages = defineMessages({
   donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
 })
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const getAccount = makeGetAccount()
 
   return {

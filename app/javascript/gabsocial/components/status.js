@@ -3,21 +3,20 @@ import { injectIntl, defineMessages } from 'react-intl';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { HotKeys } from 'react-hotkeys';
 import classNames from 'classnames/bind'
-import { displayMedia } from '../../initial_state';
-import StatusCard from '../status_card'
-import { MediaGallery, Video } from '../../features/ui/util/async_components';
-import ComposeFormContainer from '../../features/compose/containers/compose_form_container'
-import RecursiveStatusContainer from '../../containers/recursive_status_container'
-import StatusContent from '../status_content'
-import StatusPrepend from '../status_prepend'
-import StatusActionBar from '../status_action_bar';
-import Poll from '../poll';
-import StatusHeader from '../status_header'
-import Text from '../text'
+import { me, displayMedia } from '../initial_state';
+import StatusCard from './status_card'
+import { MediaGallery, Video } from '../features/ui/util/async_components';
+import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import StatusContent from './status_content'
+import StatusPrepend from './status_prepend'
+import StatusActionBar from './status_action_bar';
+import Poll from './poll';
+import StatusHeader from './status_header'
+import Text from './text'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
-import Bundle from '../../features/ui/util/bundle';
+import Bundle from '../features/ui/util/bundle';
 
 const cx = classNames.bind(_s)
 
@@ -451,7 +450,7 @@ class Status extends ImmutablePureComponent {
               }
 
               {
-                !isChild &&
+                !isChild && !!me &&
                 <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
                   <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                 </div>

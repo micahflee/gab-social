@@ -1,8 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
-import { makeGetAccount } from '../../selectors';
-import Avatar from '../avatar';
-import DisplayName from '../display_name';
+import { makeGetAccount } from '../selectors';
+import Avatar from './avatar';
+import DisplayName from './display_name';
 
 const makeMapStateToProps = () => {
   const getAccount = makeGetAccount();
@@ -20,7 +20,7 @@ class AutosuggestAccount extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
-  };
+  }
 
   render () {
     const { account } = this.props;

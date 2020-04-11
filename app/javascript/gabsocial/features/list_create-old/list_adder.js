@@ -21,7 +21,7 @@ const mapStateToProps = (state, { accountId }) => ({
   account: state.getIn(['accounts', accountId]),
 });
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch) => ({
   onInitialize: accountId => dispatch(setupListAdder(accountId)),
   onReset: () => dispatch(resetListAdder()),
 });

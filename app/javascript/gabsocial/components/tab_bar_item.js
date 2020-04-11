@@ -63,6 +63,7 @@ class TabBarItem extends PureComponent {
       borderColorTransparent: !isActive,
       borderColorBrand: isActive,
       mr5: large,
+      mr2: !large,
     })
 
     const textParentClasses = cx({

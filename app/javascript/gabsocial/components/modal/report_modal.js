@@ -25,7 +25,7 @@ const messages = defineMessages({
 const makeMapStateToProps = () => {
   const getAccount = makeGetAccount()
 
-  const mapStateToProps = state => {
+  const mapStateToProps = (state) => {
     const accountId = state.getIn(['reports', 'new', 'account_id'])
 
     return {
@@ -125,14 +125,14 @@ class ReportModal extends ImmutablePureComponent {
               />
             </div>
 
-            {
+            { /** : todo : */
               domain &&
               <div>
                 <Text color='secondary' size='small'>
                   {intl.formatMessage(messages.forwardHint)}
                 </Text>
 
-                <div className='setting-toggle'>
+                <div>
                   <Switch 
                     id='report-forward'
                     checked={forward}

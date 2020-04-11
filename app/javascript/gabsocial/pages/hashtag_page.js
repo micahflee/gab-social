@@ -1,15 +1,18 @@
 import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
-import GroupSidebarPanel from '../components/panel/groups_panel'
+import { defineMessages, injectIntl } from 'react-intl'
+import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
-import UserPanel from '../components/panel/user_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import HashtagsPanel from '../components/panel/hashtags_panel'
 import DefaultLayout from '../layouts/default_layout'
-import TimelineComposeBlock from '../components/timeline_compose_block'
-import Divider from '../components/divider'
+
+const messages = defineMessages({
+  hashtag: { id: 'hashtag', defaultMessage: 'Hashtag' },
+  hashtagTimeline: { id: 'hashtag_timeline', defaultMessage: 'Hashtag timeline' },
+})
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenHashtagPageSettingsModal(hashtag) {
@@ -20,23 +23,26 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default
+@injectIntl
 @connect(null, mapDispatchToProps)
 class HashtagPage extends PureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
     onOpenHashtagPageSettingsModal: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    document.title = '(1) Tag - Gab'
-  }
-
   render() {
-    const { children, onOpenHashtagPageSettingsModal } = this.props
+    const {
+      intl,
+      children,
+      onOpenHashtagPageSettingsModal,
+    } = this.props
 
     return (
       <DefaultLayout
-        title='Hashtag'
+        title={intl.formatMessage(messages.hashtagTimeline)}
         actions={[
           {
             icon: 'ellipsis',
@@ -49,11 +55,11 @@ class HashtagPage extends PureComponent {
             <TrendsPanel />
             <HashtagsPanel />
             <WhoToFollowPanel />
-            <GroupSidebarPanel />
             <LinkFooter />
           </Fragment>
         )}
       >
+        <PageTitle path={intl.formatMessage(messages.hashtag)} />
         {children}
       </DefaultLayout>
     )

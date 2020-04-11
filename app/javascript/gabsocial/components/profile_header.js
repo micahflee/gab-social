@@ -18,6 +18,7 @@ import Button from './button'
 import DisplayName from './display_name'
 import Icon from './icon'
 import Image from './image'
+import MovedNote from './moved_note'
 import TabBar from './tab_bar'
 import Text from './text'
 
@@ -33,11 +34,9 @@ const messages = defineMessages({
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
 })
 
-const mapStateToProps = state => {
-  return {
-
-  }
-}
+const mapStateToProps = (state) => ({
+  
+})
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
