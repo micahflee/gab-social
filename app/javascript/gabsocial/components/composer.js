@@ -10,7 +10,7 @@ import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Button from './button'
 
-import 'draft-js/dist/Draft.css'
+// import 'draft-js/dist/Draft.css'
 
 const cx = classNames.bind(_s)
 
