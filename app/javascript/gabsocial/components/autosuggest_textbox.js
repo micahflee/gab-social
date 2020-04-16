@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import isObject from 'lodash.isobject'
 import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { isRtl } from '../utils/rtl'
@@ -51,8 +52,19 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     tokenStart: 0,
   }
 
-  onChange = (e) => {
-    const [tokenStart, token] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
+  onChange = (e, value, selectionStart) => {
+    if (!isObject(e)) {
+      e = {
+        target: {
+          value,
+          selectionStart,
+        },
+      }
+
+      console.log("new e:", e)
+    }
+
+    const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
 
     // console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
 
@@ -235,7 +247,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     if (textarea) {
       return (
         <Fragment>
-          <div className={[_s.default, _s.flexGrow1].join(' ')}>
+          <div className={[_s.default, _s.flexGrow1, _s.maxWidth100PC].join(' ')}>
             <div className={[_s.default].join(' ')}>
 
               <Composer
@@ -253,59 +265,10 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
                 small={small}
               />
 
-              { /* <Textarea
-                className={_s.default}
-                inputRef={this.setTextbox}
-                disabled={disabled}
-                placeholder={placeholder}
-                autoFocus={autoFocus}
-                value={value}
-                onChange={this.onChange}
-                onKeyDown={this.onKeyDown}
-                onKeyUp={onKeyUp}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onPaste={this.onPaste}
-                aria-autocomplete='list'
-              /> */ }
-
-              { /*
-                <Textarea
-                className={_s.default}
-                inputRef={this.setTextbox}
-                disabled={disabled}
-                value={value}
-                aria-autocomplete='list'
-              />
-
-              <ContentEditable
-                tabIndex='0'
-                aria-label='Gab text'
-                role='textbox'
-                aria-autocomplete='list'
-                style={{
-                  userSelect: 'text',
-                  'white-space': 'pre-wrap',
-                  overflowWrap: 'break-word'
-                }}
-                className={textClasses}
-                disabled={disabled}
-                style={style}
-                html={value}
-                placeholder={placeholder}
-                autoFocus={autoFocus}
-                onChange={this.onChange}
-                onKeyDown={this.onKeyDown}
-                onKeyUp={onKeyUp}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onPaste={this.onPaste}
-              />
-              */ }
             </div>
             {children}
           </div>
-          { /* : todo : */ }
+          { /* : todo :  put in popover */ }
           <div className='autosuggest-textarea__suggestions-wrapper'>
             <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
               {suggestions.map(this.renderSuggestion)}

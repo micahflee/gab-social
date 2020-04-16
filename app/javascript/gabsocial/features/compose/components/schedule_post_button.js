@@ -1,6 +1,6 @@
 import { injectIntl, defineMessages } from 'react-intl'
 import { openModal } from '../../../actions/modal'
-import { openPopover } from '../../../actions/popover'
+import { closePopover, openPopover } from '../../../actions/popover'
 import { me } from '../../../initial_state'
 import ComposeExtraButton from './compose_extra_button'
 
@@ -11,6 +11,7 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
+  active: !!state.getIn(['compose', 'scheduled_at']) || state.getIn(['popover', 'popoverType']) === 'DATE_PICKER',
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
@@ -19,6 +20,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openPopover('DATE_PICKER', {
       targetRef,
     }))
+  },
+
+  onCloseDatePickerPopover() {
+    dispatch(closePopover())
   },
 
   onOpenProUpgradeModal() {
@@ -32,10 +37,12 @@ export default
 class SchedulePostDropdown extends PureComponent {
 
   static propTypes = {
+    active: PropTypes.bool.isRequired,
     intl: PropTypes.object.isRequired,
     isPro: PropTypes.bool,
     onOpenProUpgradeModal: PropTypes.func.isRequired,
     onOpenDatePickerPopover: PropTypes.func.isRequired,
+    onCloseDatePickerPopover: PropTypes.func.isRequired,
     small: PropTypes.bool,
   }
 
@@ -52,15 +59,20 @@ class SchedulePostDropdown extends PureComponent {
   }
 
   render () {
-    const { intl, small } = this.props
+    const {
+      active,
+      intl,
+      small,
+    } = this.props
 
     return (
       <ComposeExtraButton
+        active={active}
+        buttonRef={this.setButton}
         icon='calendar'
-        title={intl.formatMessage(messages.schedule_status)}
         onClick={this.handleToggle}
         small={small}
-        buttonRef={this.setButton}
+        title={intl.formatMessage(messages.schedule_status)}
       />
     )
   }

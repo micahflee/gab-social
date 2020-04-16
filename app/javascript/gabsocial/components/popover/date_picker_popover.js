@@ -4,7 +4,7 @@ import { me } from '../../initial_state'
 import { isMobile } from '../../utils/is_mobile'
 import PopoverLayout from './popover_layout'
 
-// import 'react-datepicker/dist/react-datepicker.css'
+import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
 
 const mapStateToProps = (state) => ({
   date: state.getIn(['compose', 'scheduled_at']),
@@ -40,8 +40,9 @@ class DatePickerPopover extends PureComponent {
     const withPortal = isMobile(window.innerWidth)
 
     return (
-      <PopoverLayout>
+      <PopoverLayout width={331}>
         <DatePicker
+          inline
           target={this}
           className='schedule-post-dropdown__datepicker'
           minDate={new Date()}

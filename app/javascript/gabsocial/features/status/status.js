@@ -52,9 +52,12 @@ const makeMapStateToProps = () => {
   const getStatus = makeGetStatus()
 
   const mapStateToProps = (state, props) => {
+    const statusId = props.id || props.params.statusId
+    const username = props.params ? props.params.username : undefined
+
     const status = getStatus(state, {
-      id: props.params.statusId,
-      username: props.params.username,
+      id: statusId,
+      username: username,
     })
 
     // : todo : if is comment (i.e. if any ancestorsIds) use comment not status
@@ -101,7 +104,7 @@ const makeMapStateToProps = () => {
       })
     }
 
-    console.log("descendantsIds:", descendantsIds)
+    // console.log("descendantsIds:", descendantsIds)
 
     return {
       status,
@@ -142,13 +145,18 @@ class Status extends ImmutablePureComponent {
   };
 
   componentWillMount() {
-    this.props.dispatch(fetchStatus(this.props.params.statusId));
+    const statusId = this.props.id || this.props.params.statusId
+    // console.log("statusId:", statusId)
+    this.props.dispatch(fetchStatus(statusId));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
+    const statusId = this.props.id || this.props.params.statusId
+    const nextStatusId = nextProps.id || nextProps.params.statusId
+
+    if (nextStatusId !== statusId && nextStatusId) {
       this._scrolledIntoView = false;
-      this.props.dispatch(fetchStatus(nextProps.params.statusId));
+      this.props.dispatch(fetchStatus(nextStatusId));
     }
 
     if (nextProps.status && nextProps.status.get('id') !== this.state.loadedStatusId) {
@@ -366,7 +374,7 @@ class Status extends ImmutablePureComponent {
   }
 
   renderChildren(list) {
-    console.log("list:", list)
+    // console.log("list:", list)
     return null
     // : todo : comments
     return list.map(id => (
@@ -434,7 +442,7 @@ class Status extends ImmutablePureComponent {
     };
 
     return (
-      <div ref={this.setRef}>
+      <div ref={this.setRef} className={_s.mb15}>
         <Block>
           {
             /* ancestors */

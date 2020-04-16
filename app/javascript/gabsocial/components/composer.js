@@ -6,11 +6,9 @@ import {
 } from 'draft-js'
 import { urlRegex } from '../features/compose/util/url_regex'
 import classNames from 'classnames/bind'
-import { me } from '../initial_state'
-import { makeGetAccount } from '../selectors'
-import Button from './button'
+import RichTextEditorBar from './rich_text_editor_bar'
 
-// import 'draft-js/dist/Draft.css'
+import '!style-loader!css-loader!draft-js/dist/Draft.css'
 
 const cx = classNames.bind(_s)
 
@@ -45,7 +43,6 @@ const findWithRegex = (regex, contentBlock, callback) => {
 }
 
 const HighlightedSpan = (props) => {
-  console.log("HighlightedSpan:", props)
   return (
     <span
       className={_s.colorBrand}
@@ -55,69 +52,6 @@ const HighlightedSpan = (props) => {
     </span>
   )
 }
-
-const RTE_ITEMS = [
-  {
-    label: 'Bold',
-    style: 'BOLD',
-    type: 'style',
-    icon: 'bold',
-  },
-  {
-    label: 'Italic',
-    style: 'ITALIC',
-    type: 'style',
-    icon: 'italic',
-  },
-  {
-    label: 'Underline',
-    style: 'UNDERLINE',
-    type: 'style',
-    icon: 'underline',
-  },
-  {
-    label: 'Strikethrough',
-    style: 'STRIKETHROUGH',
-    type: 'style',
-    icon: 'strikethrough',
-  },
-  // {
-  //   label: 'Monospace',
-  //   style: 'CODE',
-  //   type: 'style',
-  //   icon: 'circle',
-  // },
-  {
-    label: 'H1',
-    style: 'header-one',
-    type: 'block',
-    icon: 'text-size',
-  },
-  {
-    label: 'Blockquote',
-    style: 'blockquote',
-    type: 'block',
-    icon: 'blockquote',
-  },
-  {
-    label: 'Code Block',
-    style: 'code-block',
-    type: 'block',
-    icon: 'code',
-  },
-  {
-    label: 'UL',
-    style: 'unordered-list-item',
-    type: 'block',
-    icon: 'ul-list',
-  },
-  {
-    label: 'OL',
-    style: 'ordered-list-item',
-    type: 'block',
-    icon: 'ol-list',
-  },
-]
 
 const compositeDecorator = new CompositeDecorator([
   {
@@ -137,23 +71,13 @@ const compositeDecorator = new CompositeDecorator([
 const HANDLE_REGEX = /\@[\w]+/g;
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
 
-const mapStateToProps = (state) => {
-  const getAccount = makeGetAccount()
-  const account = getAccount(state, me)
-  const isPro = account.get('is_pro')
-
-  return {
-    isPro,
-    rteControlsVisible: state.getIn(['compose', 'rte_controls_visible']),
-  }
-}
 
 const mapDispatchToProps = (dispatch) => ({
 
 })
 
 export default
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 class Composer extends PureComponent {
 
   static propTypes = {
@@ -169,8 +93,6 @@ class Composer extends PureComponent {
     onBlur: PropTypes.func,
     onPaste: PropTypes.func,
     small: PropTypes.bool,
-    isPro: PropTypes.bool.isRequired,
-    rteControlsVisible: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -180,11 +102,11 @@ class Composer extends PureComponent {
   onChange = (editorState) => {
     this.setState({ editorState })
     const text = editorState.getCurrentContent().getPlainText('\u0001')
-    this.props.onChange(text)
-  }
+    
+    const selectionState = editorState.getSelection()
+    const selectionStart = selectionState.getStartOffset()
 
-  onToggleInlineStyle = (style) => {
-    this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, style))
+    this.props.onChange(null, text, selectionStart)
   }
 
   focus = () => {
@@ -203,26 +125,13 @@ class Composer extends PureComponent {
     return false
   }
 
+  handleOnTogglePopoutEditor = () => {
+    //
+  }
+
   onTab = (e) => {
     const maxDepth = 4
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth))
-  }
-
-  toggleEditorStyle = (style, type) => {
-    console.log("toggleEditorStyle:", style, type)
-    if (type === 'style') {
-      this.onChange(
-        RichUtils.toggleInlineStyle(this.state.editorState, style)
-      )
-    } else if (type === 'block') {
-      this.onChange(
-        RichUtils.toggleBlockType(this.state.editorState, style)
-      )
-    }
-  }
-
-  handleOnTogglePopoutEditor = () => {
-    //
   }
 
   setRef = (n) => {
@@ -243,14 +152,11 @@ class Composer extends PureComponent {
       onBlur,
       onPaste,
       small,
-      isPro,
-      rteControlsVisible
     } = this.props
     const { editorState } = this.state
 
     const editorContainerClasses = cx({
       default: 1,
-      RTE: 1,
       cursorText: 1,
       text: 1,
       fontSize16PX: !small,
@@ -263,35 +169,12 @@ class Composer extends PureComponent {
     })
 
     return (
-      <div className={[_s.default].join(' ')}>
+      <div className={_s.default}>
 
-        {
-          rteControlsVisible && isPro &&
-          <div className={[_s.default, _s.backgroundColorPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
-            {
-              RTE_ITEMS.map((item, i) => (
-                <StyleButton
-                  key={`rte-button-${i}`}
-                  editorState={editorState}
-                  onClick={this.toggleEditorStyle}
-                  {...item}
-                />
-              ))
-            }
-            <Button
-              backgroundColor='none'
-              color='secondary'
-              onClick={this.handleOnTogglePopoutEditor}
-              title='Fullscreen'
-              className={[_s.px10, _s.noSelect, _s.marginLeftAuto].join(' ')}
-              icon='fullscreen'
-              iconClassName={_s.inheritFill}
-              iconWidth='12px'
-              iconHeight='12px'
-              radiusSmall
-            />
-          </div>
-        }
+        <RichTextEditorBar
+          editorState={editorState}
+          onChange={this.onChange}
+        />
 
         <div
           onClick={this.focus}
@@ -304,8 +187,9 @@ class Composer extends PureComponent {
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
             onTab={this.onTab}
-            // placeholder={placeholder}
+            placeholder={placeholder}
             ref={this.setRef}
+            readOnly={disabled}
           />
         </div>
       </div>
@@ -313,64 +197,3 @@ class Composer extends PureComponent {
   }
 
 }
-
-class StyleButton extends PureComponent {
-  static propTypes = {
-    onClick: PropTypes.func,
-    label: PropTypes.string,
-    style: PropTypes.string,
-    icon: PropTypes.string,
-    type: PropTypes.string,
-  }
-
-  handleOnClick
-   = (e) => {
-    e.preventDefault()
-    this.props.onClick(this.props.style, this.props.type)
-  }
-
-  render() {
-    const {
-      label,
-      style,
-      type,
-      icon,
-      editorState
-    } = this.props
-
-    const selection = editorState.getSelection()
-
-    const currentStyle = editorState.getCurrentInlineStyle()
-    const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType()
-
-    const active = type === 'block' ? style === blockType : currentStyle.has(style)
-    const color = active ? 'white' : 'secondary'
-
-    const btnClasses = cx({
-      px10: 1,
-      mr5: 1,
-      noSelect: 1,
-      backgroundSubtle2Dark_onHover: 1,
-      backgroundColorBrandLight: active,
-      // py10: !small,
-      // py5: small,
-      // px5: small,
-    })
-
-    return (
-      <Button
-        className={btnClasses}
-        backgroundColor='none'
-        color={color}
-        onClick={this.handleOnClick}
-        title={label}
-        icon={icon}
-        iconClassName={_s.inheritFill}
-        iconWidth='12px'
-        iconHeight='12px'
-        radiusSmall
-      />
-    )
-  }
-}
-

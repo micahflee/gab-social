@@ -30,6 +30,7 @@ class EmojiPickerButton extends PureComponent {
     onClick: PropTypes.func.isRequired,
     active: PropTypes.bool,
     small: PropTypes.bool,
+    isMatch: PropTypes.bool,
   }
 
   handleClick = (e) => {
@@ -42,7 +43,12 @@ class EmojiPickerButton extends PureComponent {
   }
 
   render() {
-    const { active, small, intl } = this.props
+    const {
+      active,
+      intl,
+      isMatch,
+      small,
+    } = this.props
 
     return (
       <ComposeExtraButton
@@ -50,7 +56,7 @@ class EmojiPickerButton extends PureComponent {
         onClick={this.handleClick}
         icon='happy'
         small={small}
-        active={active}
+        active={active && isMatch}
         buttonRef={this.setButton}
       />
     )

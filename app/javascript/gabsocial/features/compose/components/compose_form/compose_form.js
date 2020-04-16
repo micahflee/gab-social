@@ -49,6 +49,7 @@ class ComposeForm extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     edit: PropTypes.bool,
+    isMatch: PropTypes.bool,
     text: PropTypes.string.isRequired,
     suggestions: ImmutablePropTypes.list,
     account: ImmutablePropTypes.map.isRequired,
@@ -234,6 +235,7 @@ class ComposeForm extends ImmutablePureComponent {
       replyToId,
       hasPoll,
       isUploading,
+      isMatch,
     } = this.props
     const disabled = this.props.isSubmitting;
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
@@ -248,7 +250,10 @@ class ComposeForm extends ImmutablePureComponent {
 
     const childContainerClasses = cx({
       default: 1,
-      flexNormal: 1,
+      flexWrap: 1,
+      overflowHidden: 1,
+      flex1: 1,
+      alignItemsEnd: shouldCondense,
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
       backgroundSubtle: shouldCondense,
@@ -262,6 +267,7 @@ class ComposeForm extends ImmutablePureComponent {
       alignItemsStart: shouldCondense,
       mt10: !shouldCondense,
       px15: !shouldCondense,
+      marginLeftAuto: shouldCondense,
     })
 
     return (
@@ -361,7 +367,21 @@ class ComposeForm extends ImmutablePureComponent {
                   <SchedulePostButton />
                 }
                 <GifSelectorButton small={shouldCondense} />
-                <EmojiPickerButton small={shouldCondense} />
+                <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+
+                {
+                  shouldCondense /* && (hasPoll || anyMedia || text) */ &&
+                  <div className={[_s.default, _s.justifyContentCenter].join(' ')}>
+                    <Button
+                      narrow
+                      onClick={this.handleSubmit}
+                      disabled={disabledButton}
+                      className={_s.px10}
+                    >
+                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+                    </Button>
+                  </div>
+                }
               </div>
 
               {

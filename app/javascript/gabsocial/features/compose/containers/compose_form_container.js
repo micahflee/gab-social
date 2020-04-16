@@ -21,6 +21,7 @@ const mapStateToProps = (state, { replyToId }) => {
   // console.log("isMatch:", isMatch, reduxReplyToId, replyToId)
 
   return {
+    isMatch,
     edit: !isMatch ? null : state.getIn(['compose', 'id']) !== null,
     text: !isMatch ? '' : state.getIn(['compose', 'text']),
     suggestions: !isMatch ? ImmutableList() : state.getIn(['compose', 'suggestions']),

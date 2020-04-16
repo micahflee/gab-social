@@ -5,15 +5,14 @@ export default class CharacterCounter extends PureComponent {
   static propTypes = {
     text: PropTypes.string.isRequired,
     max: PropTypes.number.isRequired,
-    small: PropTypes.bool,
   }
 
   render () {
-    const { text, max, small } = this.props
-    const actualRadius = small ? '10' : '16'
-    const radius = small ? 8 : 12
+    const { text, max } = this.props
+    const actualRadius = '16'
+    const radius = 12
     const circumference = 2 * Math.PI * radius
-    const diff = length(text) / max
+    const diff = Math.min(length(text), max) / max
     const dashoffset = circumference * (1 - diff)
 
     return (

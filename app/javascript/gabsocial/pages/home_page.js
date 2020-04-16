@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
+import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import GroupsPanel from '../components/panel/groups_panel'
 import ListsPanel from '../components/panel/lists_panel'
@@ -13,6 +14,14 @@ import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 
+const messages = defineMessages({
+  home: { id: 'home', defaultMessage: 'Home' },
+})
+
+const mapStateToProps = (state) => ({
+  totalQueuedItemsCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+})
+
 const mapDispatchToProps = (dispatch) => ({
   onOpenHomePageSettingsModal() {
     dispatch(openModal('HOME_TIMELINE_SETTINGS'))
@@ -20,23 +29,28 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default
-@connect(null, mapDispatchToProps)
+@injectIntl
+@connect(mapStateToProps, mapDispatchToProps)
 class HomePage extends PureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
+    children: PropTypes.node.isRequired,
+    totalQueuedItemsCount: PropTypes.number.isRequired,
     onOpenHomePageSettingsModal: PropTypes.func.isRequired,
   }
 
-  componentDidMount() {
-    document.title = '(1) Home - Gab'
-  }
-
   render() {
-    const { children, onOpenHomePageSettingsModal } = this.props
+    const {
+      intl,
+      children,
+      totalQueuedItemsCount,
+      onOpenHomePageSettingsModal,
+    } = this.props
 
     return (
       <DefaultLayout
-        title='Home'
+        title={intl.formatMessage(messages.home)}
         actions={[
           {
             icon: 'ellipsis',
@@ -56,6 +70,10 @@ class HomePage extends PureComponent {
           </Fragment>
         )}
       >
+        <PageTitle
+          path={intl.formatMessage(messages.home)}
+          badge={totalQueuedItemsCount}
+        />
         <TimelineComposeBlock autoFocus={false} />
         <Divider />
         {children}

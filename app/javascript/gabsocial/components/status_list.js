@@ -9,7 +9,8 @@ import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
 import { fetchStatus } from '../actions/statuses';
-import StatusContainer from '../containers/status_container';
+// import StatusContainer from '../containers/status_container';
+import Status from '../features/status';
 import ScrollableList from './scrollable_list';
 import TimelineQueueButtonHeader from './timeline_queue_button_header';
 import ColumnIndicator from './column_indicator';
@@ -173,7 +174,7 @@ class StatusList extends ImmutablePureComponent {
         />
       ) : (
         <Fragment key={statusId}>
-          <StatusContainer
+          <Status
             id={statusId}
             onMoveUp={this.handleMoveUp}
             onMoveDown={this.handleMoveDown}
@@ -184,7 +185,7 @@ class StatusList extends ImmutablePureComponent {
           />
           {
             promotedStatus && index === promotion.position &&
-            <StatusContainer
+            <Status
               id={promotion.status_id}
               contextType={timelineId}
               promoted
@@ -197,7 +198,7 @@ class StatusList extends ImmutablePureComponent {
 
     if (scrollableContent && featuredStatusIds) {
       scrollableContent = featuredStatusIds.map(statusId => (
-        <StatusContainer
+        <Status
           key={`f-${statusId}`}
           id={statusId}
           featured

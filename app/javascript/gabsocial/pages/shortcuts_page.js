@@ -8,39 +8,17 @@ import UserPanel from '../components/panel/user_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import HashtagsPanel from '../components/panel/hashtags_panel'
 import DefaultLayout from '../layouts/default_layout'
-import TimelineComposeBlock from '../components/timeline_compose_block'
-import Divider from '../components/divider'
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenHomePageSettingsModal() {
-    dispatch(openModal('HOME_TIMELINE_SETTINGS'))
-  },
-})
 
 export default
-@connect(null, mapDispatchToProps)
 class ShortcutsPage extends PureComponent {
 
-  static propTypes = {
-    onOpenHomePageSettingsModal: PropTypes.func.isRequired,
-  }
-
-  componentDidMount() {
-    document.title = '(1) Home - Gab'
-  }
-
   render() {
-    const { children, onOpenHomePageSettingsModal } = this.props
+    const { children } = this.props
 
     return (
       <DefaultLayout
         title='Shortcuts'
-        actions={[
-          {
-            icon: 'ellipsis',
-            onClick: onOpenHomePageSettingsModal,
-          },
-        ]}
+        actions={[]}
         layout={(
           <Fragment>
             <UserPanel />
@@ -53,8 +31,6 @@ class ShortcutsPage extends PureComponent {
           </Fragment>
         )}
       >
-        <TimelineComposeBlock autoFocus={false} />
-        <Divider />
         {children}
       </DefaultLayout>
     )

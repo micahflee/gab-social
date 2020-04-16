@@ -2,14 +2,15 @@ import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Map as ImmutableMap } from 'immutable'
-import classNames from 'classnames'
 import { createSelector } from 'reselect'
 import detectPassiveEvents from 'detect-passive-events'
 import { changeSetting } from '../../actions/settings'
 import { useEmoji } from '../../actions/emojis'
+import { closePopover } from '../../actions/popover'
 import { EmojiPicker as EmojiPickerAsync } from '../../features/ui/util/async_components'
 import { buildCustomEmojis } from '../emoji/emoji'
 import PopoverLayout from './popover_layout'
+import ColumnIndicator from '../column_indicator'
 
 import '!style-loader!css-loader!emoji-mart/css/emoji-mart.css'
 
@@ -36,151 +37,6 @@ let EmojiPicker, Emoji // load asynchronously
 const backgroundImageFn = () => `${assetHost}/emoji/sheet.png`
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
-const categoriesSort = [
-  'recent',
-  'custom',
-  'people',
-  'nature',
-  'foods',
-  'activity',
-  'places',
-  'objects',
-  'symbols',
-  'flags',
-];
-
-@injectIntl
-class EmojiPickerMenu extends ImmutablePureComponent {
-
-  static propTypes = {
-    custom_emojis: ImmutablePropTypes.list,
-    frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
-    loading: PropTypes.bool,
-    onClose: PropTypes.func.isRequired,
-    onPick: PropTypes.func.isRequired,
-    style: PropTypes.object,
-    arrowOffsetLeft: PropTypes.string,
-    arrowOffsetTop: PropTypes.string,
-    intl: PropTypes.object.isRequired,
-    skinTone: PropTypes.number.isRequired,
-    onSkinTone: PropTypes.func.isRequired,
-  };
-
-  static defaultProps = {
-    style: {},
-    loading: true,
-    frequentlyUsedEmojis: [],
-  };
-
-  state = {
-    modifierOpen: false,
-  };
-
-  handleDocumentClick = e => {
-    if (this.node && !this.node.contains(e.target)) {
-      this.props.onClose();
-    }
-  }
-
-  componentDidMount () {
-    document.addEventListener('click', this.handleDocumentClick, false);
-    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions);
-  }
-
-  componentWillUnmount () {
-    document.removeEventListener('click', this.handleDocumentClick, false);
-    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions);
-  }
-
-  setRef = c => {
-    this.node = c;
-  }
-
-  getI18n = () => {
-    const { intl } = this.props;
-
-    return {
-      search: intl.formatMessage(messages.emoji_search),
-      notfound: intl.formatMessage(messages.emoji_not_found),
-      categories: {
-        search: intl.formatMessage(messages.search_results),
-        recent: intl.formatMessage(messages.recent),
-        people: intl.formatMessage(messages.people),
-        nature: intl.formatMessage(messages.nature),
-        foods: intl.formatMessage(messages.food),
-        activity: intl.formatMessage(messages.activity),
-        places: intl.formatMessage(messages.travel),
-        objects: intl.formatMessage(messages.objects),
-        symbols: intl.formatMessage(messages.symbols),
-        flags: intl.formatMessage(messages.flags),
-        custom: intl.formatMessage(messages.custom),
-      },
-    };
-  }
-
-  handleClick = emoji => {
-    if (!emoji.native) {
-      emoji.native = emoji.colons;
-    }
-
-    this.props.onClose();
-    this.props.onPick(emoji);
-  }
-
-  handleModifierOpen = () => {
-    this.setState({ modifierOpen: true });
-  }
-
-  handleModifierClose = () => {
-    this.setState({ modifierOpen: false });
-  }
-
-  handleModifierChange = modifier => {
-    this.props.onSkinTone(modifier);
-  }
-
-  render () {
-    const { loading, style, intl, custom_emojis, skinTone, frequentlyUsedEmojis } = this.props;
-
-    if (loading) {
-      return <div style={{ width: 340 }} />;
-    }
-
-    const title = intl.formatMessage(messages.emoji);
-    const { modifierOpen } = this.state
-
-    return (
-      <div className={classNames('emoji-picker-dropdown__menu', { selecting: modifierOpen })} style={style} ref={this.setRef}>
-        <EmojiPicker
-          backgroundImageFn={backgroundImageFn}
-          custom={buildCustomEmojis(custom_emojis)}
-          title={title}
-          i18n={this.getI18n()}
-          onClick={this.handleClick}
-          include={categoriesSort}
-          recent={frequentlyUsedEmojis}
-          skin={skinTone}
-          emojiSize={24}
-          set='twitter'
-          color='#30CE7D'
-          emoji=''
-          autoFocus
-          emojiTooltip
-        />
-
-        {/*<ModifierPicker
-          active={modifierOpen}
-          modifier={skinTone}
-          onOpen={this.handleModifierOpen}
-          onClose={this.handleModifierClose}
-          onChange={this.handleModifierChange}
-        />*/}
-      </div>
-    );
-  }
-
-}
-
 const perLine = 8
 const lines = 2
 
@@ -201,7 +57,20 @@ const DEFAULTS = [
   'sunglasses',
   'heart',
   'ok_hand',
-];
+]
+
+const categoriesSort = [
+  'recent',
+  'custom',
+  'people',
+  'nature',
+  'foods',
+  'activity',
+  'places',
+  'objects',
+  'symbols',
+  'flags',
+]
 
 const getFrequentlyUsedEmojis = createSelector([
   state => state.getIn(['settings', 'frequentlyUsedEmojis'], ImmutableMap()),
@@ -219,7 +88,7 @@ const getFrequentlyUsedEmojis = createSelector([
   }
 
   return emojis;
-});
+})
 
 const getCustomEmojis = createSelector([
   state => state.get('custom_emojis'),
@@ -236,106 +105,187 @@ const getCustomEmojis = createSelector([
   return 0;
 }));
 
+@injectIntl
+class EmojiPickerMenu extends ImmutablePureComponent {
+
+  static propTypes = {
+    customEmojis: ImmutablePropTypes.list,
+    frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
+    loading: PropTypes.bool,
+    onClose: PropTypes.func.isRequired,
+    onPick: PropTypes.func.isRequired,
+    arrowOffsetLeft: PropTypes.string,
+    arrowOffsetTop: PropTypes.string,
+    intl: PropTypes.object.isRequired,
+    skinTone: PropTypes.number.isRequired,
+    onSkinTone: PropTypes.func.isRequired,
+  }
+
+  static defaultProps = {
+    loading: true,
+    frequentlyUsedEmojis: [],
+  }
+
+  getI18n = () => {
+    const { intl } = this.props
+
+    return {
+      search: intl.formatMessage(messages.emoji_search),
+      notfound: intl.formatMessage(messages.emoji_not_found),
+      categories: {
+        search: intl.formatMessage(messages.search_results),
+        recent: intl.formatMessage(messages.recent),
+        people: intl.formatMessage(messages.people),
+        nature: intl.formatMessage(messages.nature),
+        foods: intl.formatMessage(messages.food),
+        activity: intl.formatMessage(messages.activity),
+        places: intl.formatMessage(messages.travel),
+        objects: intl.formatMessage(messages.objects),
+        symbols: intl.formatMessage(messages.symbols),
+        flags: intl.formatMessage(messages.flags),
+        custom: intl.formatMessage(messages.custom),
+      },
+    }
+  }
+
+  handleClick = emoji => {
+    if (!emoji.native) {
+      emoji.native = emoji.colons
+    }
+
+    this.props.onClose()
+    this.props.onPick(emoji)
+  }
+
+  handleModifierChange = modifier => {
+    this.props.onSkinTone(modifier)
+  }
+
+  render () {
+    const {
+      loading,
+      intl,
+      customEmojis,
+      skinTone,
+      frequentlyUsedEmojis,
+    } = this.props
+
+    if (loading) {
+      return (
+        <div style={{ width: 340, height: 425 }}>
+          <ColumnIndicator type='loading' />
+        </div>
+      )
+    }
+
+    const title = intl.formatMessage(messages.emoji)
+
+    return (
+      <EmojiPicker
+        backgroundImageFn={backgroundImageFn}
+        custom={buildCustomEmojis(customEmojis)}
+        title={title}
+        i18n={this.getI18n()}
+        onClick={this.handleClick}
+        include={categoriesSort}
+        recent={frequentlyUsedEmojis}
+        skin={skinTone}
+        emojiSize={24}
+        set='twitter'
+        color='#30CE7D'
+        emoji=''
+        autoFocus
+        emojiTooltip
+        onSkinChange={this.handleModifierChange}
+      />
+    )
+  }
+
+}
+
 const mapStateToProps = (state) => ({
-  custom_emojis: getCustomEmojis(state),
+  customEmojis: getCustomEmojis(state),
   skinTone: state.getIn(['settings', 'skinTone']),
   frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),
-});
+})
 
 const mapDispatchToProps = (dispatch, { onPickEmoji }) => ({
+  onClosePopover() {
+    dispatch(closePopover())
+  },
+
   onSkinTone: skinTone => {
-    dispatch(changeSetting(['skinTone'], skinTone));
+    dispatch(changeSetting(['skinTone'], skinTone))
   },
 
   onPickEmoji: emoji => {
-    dispatch(useEmoji(emoji));
+    dispatch(useEmoji(emoji))
 
     if (onPickEmoji) {
-      onPickEmoji(emoji);
+      onPickEmoji(emoji)
     }
   },
-});
+})
 
 export default
-@injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
 class EmojiPickerPopover extends ImmutablePureComponent {
 
   static propTypes = {
-    custom_emojis: ImmutablePropTypes.list,
+    customEmojis: ImmutablePropTypes.list,
     frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
     intl: PropTypes.object.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
     onSkinTone: PropTypes.func.isRequired,
     skinTone: PropTypes.number.isRequired,
-  };
+    onClosePopover: PropTypes.func.isRequired,
+  }
 
   state = {
-    active: false,
     loading: false,
-  };
+  }
 
   componentWillMount = () => {
-    this.setState({ active: true });
-
     if (!EmojiPicker) {
-      this.setState({ loading: true });
+      this.setState({ loading: true })
 
-      EmojiPickerAsync().then(EmojiMart => {
-        EmojiPicker = EmojiMart.Picker;
-        Emoji       = EmojiMart.Emoji;
+      EmojiPickerAsync().then((EmojiMart) => {
+        EmojiPicker = EmojiMart.Picker
+        Emoji       = EmojiMart.Emoji
 
-        this.setState({ loading: false });
+        this.setState({ loading: false })
       }).catch(() => {
-        this.setState({ loading: false });
-      });
+        this.setState({ loading: false })
+      })
     }
   }
 
   onHideDropdown = () => {
-    this.setState({ active: false });
-  }
-
-  onToggle = (e) => {
-    if (!this.state.loading && (!e.key || e.key === 'Enter')) {
-      if (this.state.active) {
-        this.onHideDropdown();
-      } else {
-        this.onShowDropdown(e);
-      }
-    }
-  }
-
-  handleKeyDown = e => {
-    if (e.key === 'Escape') {
-      this.onHideDropdown();
-    }
+    this.props.onClosePopover()
   }
 
   render () {
     const {
-      intl,
       onPickEmoji,
       onSkinTone,
       skinTone,
-      frequentlyUsedEmojis
+      frequentlyUsedEmojis,
+      customEmojis,
     } = this.props
     
-    const { active, loading } = this.state
+    const { loading } = this.state
 
     return (
       <PopoverLayout width={340}>
-        <div onKeyDown={this.handleKeyDown}>
-          <EmojiPickerMenu
-            custom_emojis={this.props.custom_emojis}
-            loading={loading}
-            onClose={this.onHideDropdown}
-            onPick={onPickEmoji}
-            onSkinTone={onSkinTone}
-            skinTone={skinTone}
-            frequentlyUsedEmojis={frequentlyUsedEmojis}
-          />
-        </div>
+        <EmojiPickerMenu
+          customEmojis={customEmojis}
+          loading={loading}
+          onClose={this.onHideDropdown}
+          onPick={onPickEmoji}
+          onSkinTone={onSkinTone}
+          skinTone={skinTone}
+          frequentlyUsedEmojis={frequentlyUsedEmojis}
+        />
       </PopoverLayout>
     )
   }

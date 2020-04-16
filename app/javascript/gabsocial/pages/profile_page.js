@@ -61,8 +61,6 @@ class ProfilePage extends ImmutablePureComponent {
       params: { username },
     } = this.props
 
-    console.log("acount:", account)
-
     const title = !!account ? account.get('display_name') : username
 
     return (
