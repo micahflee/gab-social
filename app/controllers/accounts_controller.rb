@@ -49,6 +49,7 @@ class AccountsController < ReactController
       statuses.merge!(hashtag_scope)    if tag_requested?
       statuses.merge!(only_media_scope) if media_requested?
       statuses.merge!(no_replies_scope) unless replies_requested?
+      statuses.merge!(only_replies_scope) unless comments_only_requested?
     end
   end
 
@@ -66,6 +67,10 @@ class AccountsController < ReactController
 
   def no_replies_scope
     Status.without_replies
+  end
+
+  def only_replies_scope
+    Status.only_replies
   end
 
   def hashtag_scope
@@ -97,6 +102,8 @@ class AccountsController < ReactController
       short_account_media_url(@account, max_id: max_id, min_id: min_id)
     elsif replies_requested?
       short_account_with_replies_url(@account, max_id: max_id, min_id: min_id)
+    elsif comments_only_requested?
+      short_account_comments_only_url(@account, max_id: max_id, min_id: min_id)
     else
       short_account_url(@account, max_id: max_id, min_id: min_id)
     end
@@ -108,6 +115,10 @@ class AccountsController < ReactController
 
   def replies_requested?
     request.path.ends_with?('/with_replies')
+  end
+
+  def comments_only_requested?
+    request.path.ends_with?('/comments_only')
   end
 
   def tag_requested?

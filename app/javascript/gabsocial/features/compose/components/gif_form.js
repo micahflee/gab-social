@@ -12,7 +12,7 @@ const mapStateToProps = (state) => ({
 
 export default
 @connect(mapStateToProps)
-class UploadForm extends ImmutablePureComponent {
+class GifForm extends ImmutablePureComponent {
 
   static propTypes = {
     mediaIds: ImmutablePropTypes.list.isRequired,
@@ -30,22 +30,8 @@ class UploadForm extends ImmutablePureComponent {
     return (
       <div className={_s.default}>
         <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-          {
-            mediaIds.map(id => (
-              <Upload id={id} key={id} />
-            ))
-          }
+          <Upload id={id} key={id} />
         </div>
-
-        {
-          !mediaIds.isEmpty() &&
-          <SensitiveMediaButton />
-        }
-
-        {
-          isUploading &&
-          <ProgressBar small progress={uploadProgress} />
-        }
       </div>
     )
   }

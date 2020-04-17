@@ -165,13 +165,14 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     // filter verified and following here too
     const params = {
       max_id: maxId,
-      // only_verified: onlyVerified,
-      // only_following: onlyFollowing,
       exclude_types: activeFilter === 'all' ? null : excludeTypesFromFilter(activeFilter),
       // exclude_types: activeFilter === 'all'
       //   ? excludeTypesFromSettings(getState())
       //   : excludeTypesFromFilter(activeFilter),
     };
+
+    if (!!onlyVerified) params.only_verified = onlyVerified
+    if (!!onlyFollowing) params.only_following = onlyFollowing
 
     if (!maxId && notifications.get('items').size > 0) {
       params.since_id = notifications.getIn(['items', 0, 'id']);

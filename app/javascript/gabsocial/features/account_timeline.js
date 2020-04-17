@@ -12,15 +12,17 @@ const messages = defineMessages({
 
 const emptyList = ImmutableList()
 
-const mapStateToProps = (state, { account, withReplies = false }) => {
+const mapStateToProps = (state, { account, commentsOnly = false }) => {
   const accountId = !!account ? account.getIn(['id'], null) : -1
 
-  const path = withReplies ? `${accountId}:with_replies` : accountId
+  const path = commentsOnly ? `${accountId}:comments_only` : accountId
+
+  console.log("commentsOnly, path:", commentsOnly, path)
 
   return {
     accountId,
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], emptyList),
-    featuredStatusIds: withReplies ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned`, 'items'], emptyList),
+    featuredStatusIds: commentsOnly ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned`, 'items'], emptyList),
     isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading']),
     hasMore: state.getIn(['timelines', `account:${path}`, 'hasMore']),
   }
@@ -38,33 +40,33 @@ class AccountTimeline extends ImmutablePureComponent {
     featuredStatusIds: ImmutablePropTypes.list,
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
-    withReplies: PropTypes.bool,
+    commentsOnly: PropTypes.bool,
     intl: PropTypes.object.isRequired,
   }
 
   componentWillMount() {
-    const { accountId, withReplies } = this.props
+    const { accountId, commentsOnly } = this.props
 
     if (accountId && accountId !== -1) {
       this.props.dispatch(fetchAccountIdentityProofs(accountId))
 
-      if (!withReplies) {
+      if (!commentsOnly) {
         this.props.dispatch(expandAccountFeaturedTimeline(accountId))
       }
 
-      this.props.dispatch(expandAccountTimeline(accountId, { withReplies }))
+      this.props.dispatch(expandAccountTimeline(accountId, { commentsOnly }))
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId) || nextProps.withReplies !== this.props.withReplies) {
+    if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId) || nextProps.commentsOnly !== this.props.commentsOnly) {
       this.props.dispatch(fetchAccountIdentityProofs(nextProps.accountId))
 
-      if (!nextProps.withReplies) {
+      if (!nextProps.commentsOnly) {
         this.props.dispatch(expandAccountFeaturedTimeline(nextProps.accountId))
       }
 
-      this.props.dispatch(expandAccountTimeline(nextProps.accountId, { withReplies: nextProps.withReplies }))
+      this.props.dispatch(expandAccountTimeline(nextProps.accountId, { commentsOnly: nextProps.commentsOnly }))
     }
   }
 
@@ -72,7 +74,7 @@ class AccountTimeline extends ImmutablePureComponent {
     if (this.props.accountId && this.props.accountId !== -1) {
       this.props.dispatch(expandAccountTimeline(this.props.accountId, {
         maxId,
-        withReplies: this.props.withReplies
+        commentsOnly: this.props.commentsOnly
       }))
     }
   }
@@ -88,6 +90,8 @@ class AccountTimeline extends ImmutablePureComponent {
     } = this.props
 
     if (!account) return null
+
+    console.log("statusIds:", statusIds)
 
     return (
       <StatusList

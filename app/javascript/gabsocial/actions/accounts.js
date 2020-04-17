@@ -100,12 +100,11 @@ function getFromDB(dispatch, getState, index, id) {
 
 export function fetchAccount(id) {
   return (dispatch, getState) => {
-    dispatch(fetchRelationships([id]));
-
     if (id === -1 || getState().getIn(['accounts', id], null) !== null) {
       return;
     }
 
+    dispatch(fetchRelationships([id]));
     dispatch(fetchAccountRequest(id));
 
     openDB().then(db => getFromDB(
@@ -128,8 +127,13 @@ export function fetchAccount(id) {
 
 export function fetchAccountByUsername(username) {
   return (dispatch, getState) => {
+    if (!username) {
+      return;
+    }
+
     api(getState).get(`/api/v1/account_by_username/${username}`).then(response => {
-      dispatch(importFetchedAccount(response.data));
+      dispatch(importFetchedAccount(response.data))
+      dispatch(fetchRelationships([response.data.id]))
     }).then(() => {
       dispatch(fetchAccountSuccess());
     }).catch(error => {

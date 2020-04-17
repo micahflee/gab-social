@@ -4,6 +4,7 @@ class Api::V1::NotificationsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :read, :'read:notifications' }, except: [:clear, :dismiss, :mark_read]
   before_action -> { doorkeeper_authorize! :write, :'write:notifications' }, only: [:clear, :dismiss, :mark_read]
   before_action :require_user!
+  before_action :set_filter_params
   after_action :insert_pagination_headers, only: :index
 
   respond_to :json
@@ -49,7 +50,7 @@ class Api::V1::NotificationsController < Api::BaseController
   end
 
   def browserable_account_notifications
-    current_account.notifications.browserable(exclude_types, from_account)
+    current_account.notifications.browserable(exclude_types, from_account, params[:only_verified], params[:only_following])
   end
 
   def target_statuses_from_notifications
@@ -84,6 +85,13 @@ class Api::V1::NotificationsController < Api::BaseController
     val = params.permit(exclude_types: [])[:exclude_types] || []
     val = [val] unless val.is_a?(Enumerable)
     val
+  end
+
+  def set_filter_params
+    params.permit(
+      :only_verified,
+      :only_following
+    )
   end
 
   def from_account

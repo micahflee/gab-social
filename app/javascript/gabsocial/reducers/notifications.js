@@ -224,6 +224,7 @@ export default function notifications(state = initialState, action) {
   case NOTIFICATIONS_FILTER_SET:
     return state.withMutations(mutable => {
       mutable.set('items', ImmutableList()).set('hasMore', true)
+      console.log("NOTIFICATIONS_FILTER_SET:", action.path, action.value)
       mutable.setIn(['filter', action.path], action.value)
     })
   case NOTIFICATIONS_SCROLL_TOP:

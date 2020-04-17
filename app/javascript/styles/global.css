@@ -356,6 +356,11 @@ body {
   background-color: #DE2960;
 }
 
+.backgroundColorDangerDark_onHover:hover {
+  background-color: #c72c5b;
+}
+
+
 .colorPrimary {
   color: #2d3436;
 }

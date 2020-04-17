@@ -16,6 +16,7 @@ const initialState = ImmutableMap({
   results: [],
   chosenUrl: '',
   searchText: '',
+  next: 0,
   loading: false,
   error: false,
 })
@@ -27,7 +28,8 @@ export default function (state = initialState, action) {
     return state.set('loading', true)
   case GIF_RESULTS_FETCH_SUCCESS:
     return state.withMutations(map => {
-      map.set('results', action.results);
+      map.set('results', action.data.results);
+      map.set('next', action.data.next);
       map.set('error', false);
       map.set('loading', false);
     });

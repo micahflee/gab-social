@@ -136,6 +136,7 @@ export default class Button extends PureComponent {
       backgroundSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary,
       backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black,
       backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
+      backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger,
 
       backgroundColorBrand_onHover: color === COLORS.brand && outline,
       colorWhite_onHover: !!children && color === COLORS.brand && outline,

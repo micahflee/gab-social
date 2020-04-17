@@ -61,7 +61,8 @@ class ProfilePage extends ImmutablePureComponent {
       params: { username },
     } = this.props
 
-    const title = !!account ? account.get('display_name') : username
+    const name = !!account ? account.get('display_name_html') : ''
+    console.log("name:", name, account)
 
     return (
       <ProfileLayout
@@ -75,7 +76,7 @@ class ProfilePage extends ImmutablePureComponent {
           </Fragment>
         )}
       >
-        <PageTitle path={title} />
+        <PageTitle path={`${name} (@${username})`} />
         {
           !account && <ColumnIndicator type='loading' />
         }

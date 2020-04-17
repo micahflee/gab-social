@@ -193,8 +193,8 @@ class ComposeForm extends ImmutablePureComponent {
         selectionStart = selectionEnd;
       }
 
-      this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
-      this.autosuggestTextarea.textbox.focus();
+      // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
+    // this.autosuggestTextarea.textbox.focus();
     }
   }
 
@@ -330,6 +330,14 @@ class ComposeForm extends ImmutablePureComponent {
               <div className={[_s.default, _s.px15].join(' ')}>
                 <UploadForm replyToId={replyToId} />
               </div>
+            }
+
+            { /*
+              (isUploading || hasGif) &&
+              <div className={[_s.default, _s.px15].join(' ')}>
+                <UploadForm replyToId={replyToId} />
+              </div>
+             */
             }
 
             {

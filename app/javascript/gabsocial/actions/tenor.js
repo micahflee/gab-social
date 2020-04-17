@@ -21,7 +21,7 @@ export const fetchGifCategories = () => {
 
     dispatch(fetchGifCategoriesRequest())
 
-    api(getState).get('/api/v1/gifs').then(response => {
+    api(getState).get('/api/v1/gifs/categories').then(response => {
       dispatch(fetchGifCategoriesSuccess(response.data.tags))
     }).catch(function (error) {
       dispatch(fetchGifCategoriesFail(error))
@@ -29,23 +29,24 @@ export const fetchGifCategories = () => {
   }
 }
 
-export const fetchGifResults = (maxId) => {
+export const fetchGifResults = (expand) => {
   return function (dispatch, getState) {
     if (!me) return
 
     dispatch(fetchGifResultsRequest())
 
-    const searchText = getState().getIn(['tenor', 'searchText'], '');
+    const search = getState().getIn(['tenor', 'searchText'], '');
+    const pos = 0 //expand ? getState().getIn(['tenor', 'results'], []).length
 
-    axios.get(`https://api.tenor.com/v1/search?q=${searchText}&media_filter=minimal&limit=30&key=${tenorkey}`)
-      .then((response) => {
-        console.log('response:', response)
-        dispatch(fetchGifResultsSuccess(response.data.results))
-      }).catch(function (error) {
-        dispatch(fetchGifResultsFail(error))
-      })
+    api(getState).get('/api/v1/gifs/search', { search, pos }).then((response) => {
+      console.log("response.data:", response.data)
+      dispatch(fetchGifResultsSuccess(response.data))
+    }).catch(function (error) {
+      dispatch(fetchGifResultsFail(error))
+    })
   }
 }
+
 
 export const clearGifResults = () => ({
   type: GIFS_CLEAR_RESULTS,
@@ -69,10 +70,10 @@ function fetchGifResultsRequest() {
   }
 }
 
-function fetchGifResultsSuccess(results) {
+function fetchGifResultsSuccess(data) {
   return {
     type: GIF_RESULTS_FETCH_SUCCESS,
-    results,
+    data,
   }
 }
 

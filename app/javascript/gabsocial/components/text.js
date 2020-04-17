@@ -5,6 +5,7 @@ const cx = classNames.bind(_s)
 const COLORS = {
   primary: 'primary',
   secondary: 'secondary',
+  tertiary: 'tertiary',
   brand: 'brand',
   error: 'error',
   white: 'white',
@@ -78,6 +79,7 @@ export default class Text extends PureComponent {
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,
+      colorTertiary: color === COLORS.tertiary,
       colorBrand: color === COLORS.brand,
       colorWhite: color === COLORS.white,
       colorGabPro: color === COLORS.pro,

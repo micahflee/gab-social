@@ -105,14 +105,6 @@ class StatusActionBar extends ImmutablePureComponent {
     }
   }
 
-  handleQuoteClick = () => {
-    if (me) {
-      this.props.onQuote(this.props.status, this.context.router.history)
-    } else {
-      this.props.onOpenUnauthorizedModal()
-    }
-  }
-
   handleFavoriteClick = () => {
     if (me) {
       this.props.onFavorite(this.props.status)
@@ -123,15 +115,27 @@ class StatusActionBar extends ImmutablePureComponent {
 
   handleRepostClick = e => {
     if (me) {
-      this.props.onRepost(this.props.status, e)
+      // this.props.onRepost(this.props.status, e)
+      this.props.onQuote(this.props.status, this.context.router.history)
     } else {
       this.props.onOpenUnauthorizedModal()
     }
   }
 
   handleShareClick = () => {
-    console.log("handleShareClick:", this.shareButton, this.props.status)
     this.props.onOpenStatusSharePopover(this.shareButton, this.props.status)
+  }
+
+  openLikesList = () => {
+    
+  }
+
+  toggleCommentsVisible = () => {
+    
+  }
+
+  openRepostsList = () => {
+    
   }
 
   setShareButton = (n) => {
@@ -176,6 +180,7 @@ class StatusActionBar extends ImmutablePureComponent {
       text: 1,
       cursorPointer: 1,
       fontWeightNormal: 1,
+      underline_onHover: 1,
       mr10: 1,
       py5: 1,
     })
@@ -187,7 +192,7 @@ class StatusActionBar extends ImmutablePureComponent {
           <div className={[_s.default, _s.flexRow, _s.px5].join(' ')}>
             {
               favoriteCount > 0 &&
-              <button className={interactionBtnClasses}>
+              <button className={interactionBtnClasses} onClick={this.openLikesList}>
                 <Text color='secondary' size='small'>
                   {formatMessage(messages.likesLabel, {
                     number: favoriteCount,
@@ -197,7 +202,7 @@ class StatusActionBar extends ImmutablePureComponent {
             }
             {
               replyCount > 0 &&
-              <button className={interactionBtnClasses}>
+              <button className={interactionBtnClasses} onClick={this.toggleCommentsVisible}>
                 <Text color='secondary' size='small'>
                   {formatMessage(messages.commentsLabel, {
                     number: replyCount,
@@ -207,7 +212,7 @@ class StatusActionBar extends ImmutablePureComponent {
             }
             {
               repostCount > 0 &&
-              <button className={interactionBtnClasses}>
+              <button className={interactionBtnClasses} onClick={this.openRepostsList}>
                 <Text color='secondary' size='small'>
                   {formatMessage(messages.repostsLabel, {
                     number: repostCount,

@@ -111,7 +111,6 @@ const makeMapStateToProps = () => {
       ancestorsIds,
       descendantsIds,
       askReplyConfirmation: state.getIn(['compose', 'text']).trim().length !== 0,
-      domain: state.getIn(['meta', 'domain']),
     };
   };
 
@@ -135,7 +134,7 @@ class Status extends ImmutablePureComponent {
     descendantsIds: ImmutablePropTypes.list,
     intl: PropTypes.object.isRequired,
     askReplyConfirmation: PropTypes.bool,
-    domain: PropTypes.string.isRequired,
+    contextType: PropTypes.string,
   };
 
   state = {
@@ -412,7 +411,8 @@ class Status extends ImmutablePureComponent {
       ancestorsIds,
       descendantsIds,
       intl,
-      domain
+      contextType,
+      commentsLimited,
     } = this.props
 
     let ancestors, descendants
@@ -441,11 +441,13 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     };
 
+    console.log("descendantsIds.size > 0:", descendantsIds.size > 0)
+
     return (
       <div ref={this.setRef} className={_s.mb15}>
         <Block>
           {
-            /* ancestors */
+            /* : todo : ancestors if is comment */
           }
 
           <HotKeys handlers={handlers}>
@@ -453,13 +455,10 @@ class Status extends ImmutablePureComponent {
               
               <StatusContainer
                 id={status.get('id')}
-                contextType={'timelineId'}
-                showThread
-                borderless={descendantsIds && descendantsIds.size > 0}
+                contextType={contextType}
                 // onOpenVideo={this.handleOpenVideo}
                 // onOpenMedia={this.handleOpenMedia}
                 // onToggleHidden={this.handleToggleHidden}
-                // domain={domain}
                 // showMedia={this.state.showMedia}
                 // onToggleMediaVisibility={this.handleToggleMediaVisibility}
               />
@@ -472,7 +471,10 @@ class Status extends ImmutablePureComponent {
             <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
           }
 
-          <CommentList descendants={descendantsIds} />
+          <CommentList
+            commentsLimited={commentsLimited}
+            descendants={descendantsIds}
+          />
         </Block>
       </div>
     )

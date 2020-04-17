@@ -26,13 +26,12 @@ export default class ProfileLayout extends ImmutablePureComponent {
         noHeader
         noComposeButton
       >
-
-        <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pl15, _s.py15].join(' ')}>
+        <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pr15].join(' ')}>
           <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
 
             <ProfileHeader account={account} />
 
-            <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pr15, _s.py15].join(' ')}>
+            <div className={[_s.default, _s.width100PC, _s.flexRow, _s.justifyContentSpaceBetween, _s.py15].join(' ')}>
               <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
                 <div className={_s.default}>
                   {children}
@@ -40,7 +39,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
               </div>
 
               <div className={[_s.default, _s.width340PX].join(' ')}>
-                <Sticky top={15} enabled>
+                <Sticky top={63} enabled>
                   <div className={[_s.default, _s.width340PX].join(' ')}>
                     {layout}
                   </div>

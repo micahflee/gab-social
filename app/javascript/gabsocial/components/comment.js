@@ -52,7 +52,7 @@ class Comment extends ImmutablePureComponent {
     // : todo : add media
 
     return (
-      <div className={[_s.default, _s.px10, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
+      <div className={[_s.default, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
         <div className={[_s.default].join(' ')} style={style}>
 
           <div className={[_s.default, _s.flexRow].join(' ')}>

@@ -99,7 +99,7 @@ class GifPickerModal extends PureComponent {
   }
 
   handleSelectGifResult = (resultId) => {
-
+    console.log("handleSelectGifResult:", resultId)
   }
 
   render() {

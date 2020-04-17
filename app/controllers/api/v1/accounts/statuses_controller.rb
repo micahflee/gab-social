@@ -32,6 +32,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
 
     statuses.merge!(only_media_scope) if truthy_param?(:only_media)
     statuses.merge!(no_replies_scope) if truthy_param?(:exclude_replies)
+    statuses.merge!(only_replies_scope) if truthy_param?(:only_comments)
     statuses.merge!(no_reblogs_scope) if truthy_param?(:exclude_reblogs)
     statuses.merge!(hashtag_scope)    if params[:tagged].present?
 
@@ -64,6 +65,10 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
     Status.without_replies
   end
 
+  def only_replies_scope
+    Status.only_replies
+  end
+
   def no_reblogs_scope
     Status.without_reblogs
   end
@@ -79,7 +84,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   end
 
   def pagination_params(core_params)
-    params.slice(:limit, :only_media, :exclude_replies).permit(:limit, :only_media, :exclude_replies).merge(core_params)
+    params.slice(:limit, :only_media, :exclude_replies, :only_comments).permit(:limit, :only_media, :exclude_replies, :only_comments).merge(core_params)
   end
 
   def insert_pagination_headers

@@ -33,29 +33,31 @@ class LoadMore extends PureComponent {
     const { disabled, visible, gap, intl } = this.props
 
     return (
-      <Button
-        block
-        radiusSmall
-        backgroundColor='tertiary'
-        color='primary'
-        disabled={disabled || !visible}
-        style={{ visibility: visible ? 'visible' : 'hidden' }}
-        onClick={this.handleClick}
-        aria-label={intl.formatMessage(messages.load_more)}
-      >
-        {
-          !gap &&
-          <Text color='inherit'>
-            {intl.formatMessage(messages.load_more)}
-          </Text>
-        }
-        {
-          gap &&
-          <Text align='center'>
-            <Icon id='ellipsis' />
-          </Text>
-        }
-      </Button>
+      <div className={[_s.default, _s.py10, _s.px10].join(' ')}>
+        <Button
+          block
+          radiusSmall
+          backgroundColor='tertiary'
+          color='primary'
+          disabled={disabled || !visible}
+          style={{ visibility: visible ? 'visible' : 'hidden' }}
+          onClick={this.handleClick}
+          aria-label={intl.formatMessage(messages.load_more)}
+        >
+          {
+            !gap &&
+            <Text color='inherit'>
+              {intl.formatMessage(messages.load_more)}
+            </Text>
+          }
+          {
+            gap &&
+            <Text align='center'>
+              <Icon id='ellipsis' />
+            </Text>
+          }
+        </Button>
+      </div>
     )
   }
 

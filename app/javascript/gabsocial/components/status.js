@@ -84,7 +84,6 @@ class Status extends ImmutablePureComponent {
     hidden: PropTypes.bool,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
-    showThread: PropTypes.bool,
     getScrollPosition: PropTypes.func,
     updateScrollBottom: PropTypes.func,
     cacheMediaWidth: PropTypes.func,
@@ -93,7 +92,6 @@ class Status extends ImmutablePureComponent {
     promoted: PropTypes.bool,
     onOpenProUpgradeModal: PropTypes.func,
     intl: PropTypes.object.isRequired,
-    borderless: PropTypes.bool,
     isChild: PropTypes.bool,
   }
 
@@ -267,10 +265,8 @@ class Status extends ImmutablePureComponent {
       intl,
       hidden,
       featured,
-      showThread,
       group,
       promoted,
-      borderless,
       isChild,
     } = this.props
 
@@ -386,8 +382,8 @@ class Status extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      radiusSmall: !borderless && !isChild,
-      // mb15: !borderless && !isChild,
+      radiusSmall: !isChild,
+      // mb15: !isChild,
       // backgroundColorPrimary: 1,
       pb15: featured,
       borderBottom1PX: featured && !isChild,
@@ -397,9 +393,9 @@ class Status extends ImmutablePureComponent {
     const innerContainerClasses = cx({
       default: 1,
       overflowHidden: 1,
-      radiusSmall: !borderless,
-      borderColorSecondary: !borderless,
-      border1PX: !borderless,
+      radiusSmall: isChild,
+      borderColorSecondary: isChild,
+      border1PX: isChild,
       pb10: isChild && status.get('media_attachments').size === 0,
       pb5: isChild && status.get('media_attachments').size > 1,
       cursorPointer: isChild,
@@ -409,7 +405,7 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-          className={containerClasses}
+        className={containerClasses}
           tabIndex={this.props.muted ? null : 0}
           data-featured={featured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}

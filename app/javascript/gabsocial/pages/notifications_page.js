@@ -1,5 +1,6 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
+import queryString from 'query-string'
 import { setFilter } from '../actions/notifications'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
@@ -8,13 +9,22 @@ import NotificationFilterPanel from '../components/panel/notification_filter_pan
 import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
 
+const filters = [
+  'all',
+  'mention',
+  'favourite',
+  'reblog',
+  'poll',
+  'follow',
+]
+
 const messages = defineMessages({
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
-  mentions: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
-  likes: { id: 'likes', defaultMessage: 'Likes' },
-  reposts: { id: 'reposts', defaultMessage: 'Reposts' },
-  polls: { id: 'polls', defaultMessage: 'Poll' },
-  follows: { id: 'notifications.filter.follows', defaultMessage: 'Follows' },
+  mention: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
+  favourite: { id: 'likes', defaultMessage: 'Likes' },
+  reblog: { id: 'reposts', defaultMessage: 'Reposts' },
+  poll: { id: 'polls', defaultMessage: 'Poll' },
+  follow: { id: 'notifications.filter.follows', defaultMessage: 'Follows' },
   all: { id: 'notifications.filter.all', defaultMessage: 'All' },
 })
 
@@ -39,16 +49,31 @@ class NotificationsPage extends PureComponent {
   }
 
   static propTypes = {
-    setFilter: PropTypes.func.isRequired,
-    selectedFilter: PropTypes.string.isRequired,
+    children: PropTypes.node.isRequired,
     intl: PropTypes.object.isRequired,
     notificationCount: PropTypes.number.isRequired,
+    setFilter: PropTypes.func.isRequired,
+    selectedFilter: PropTypes.string.isRequired,
   }
 
-  // : todo : on pop change filter active type
+  componentDidMount() {
+    this.checkForQueryStringChange(this.context.router.route.location)
+  }
 
-  onClick(notificationType) {
-    this.props.setFilter('active', notificationType)
+  checkForQueryStringChange = (location) => {
+    try {
+      const qp = queryString.parse(location.search)
+      const view = `${qp.view}`.toLowerCase()
+      if (filters.indexOf(view) > -1) {
+        this.onChangeActiveFilter(view)
+      }
+    } catch (error) {
+      //
+    }
+  }
+
+  onChangeActiveFilter(notificationType) {
+    this.props.setFilter(notificationType)
     
     if (notificationType === 'all') {
       this.context.router.history.push('/notifications')
@@ -59,44 +84,17 @@ class NotificationsPage extends PureComponent {
 
   render() {
     const {
-      intl,
       children,
+      intl,
+      notificationCount,
       selectedFilter,
-      notificationCount
     } = this.props
 
-    const tabs = [
-      {
-        title: intl.formatMessage(messages.all),
-        onClick: () => this.onClick('all'),
-        active: selectedFilter === 'all',
-      },
-      {
-        title: intl.formatMessage(messages.mentions),
-        onClick: () => this.onClick('mention'),
-        active: selectedFilter === 'mention',
-      },
-      {
-        title: intl.formatMessage(messages.likes),
-        onClick: () => this.onClick('favourite'),
-        active: selectedFilter === 'favourite',
-      },
-      {
-        title: intl.formatMessage(messages.reposts),
-        onClick: () => this.onClick('reblog'),
-        active: selectedFilter === 'reblog',
-      },
-      {
-        title: intl.formatMessage(messages.polls),
-        onClick: () => this.onClick('poll'),
-        active: selectedFilter === 'poll',
-      },
-      {
-        title: intl.formatMessage(messages.follows),
-        onClick: () => this.onClick('follow'),
-        active: selectedFilter === 'follow',
-      },
-    ]
+    const tabs = filters.map((filter) => ({ 
+      title: intl.formatMessage(messages[filter]),
+      onClick: () => this.onChangeActiveFilter(filter),
+      active: selectedFilter === filter,
+    }))
 
     return (
       <DefaultLayout

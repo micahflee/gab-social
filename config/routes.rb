@@ -329,11 +329,15 @@ Rails.application.routes.draw do
       resources :gab_trends, only: [:index]
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]
-      resources :gifs, only: [:index]
       resources :suggestions, only: [:index, :destroy]
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]
       resources :trends, only: [:index]
+
+      namespace :gifs do
+        get :categories
+        get :search
+      end
 
       resources :conversations, only: [:index, :destroy] do
         member do
@@ -462,6 +466,7 @@ Rails.application.routes.draw do
 
   get '/tags/:tag', to: 'react#react'
   get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
+  get '/:username/comments_only', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
   get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
   get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
   get '/:username/posts/:statusId/reblogs', to: 'statuses#show', username: username_regex

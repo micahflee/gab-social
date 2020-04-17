@@ -38,7 +38,9 @@ const makeGetStatusIds = () => createSelector([
   });
 });
 
-const mapStateToProps = (state, {timelineId}) => {
+const mapStateToProps = (state, { timelineId }) => {
+  if (!timelineId) return {}
+  
   const getStatusIds = makeGetStatusIds();
   const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
@@ -181,15 +183,15 @@ class StatusList extends ImmutablePureComponent {
             contextType={timelineId}
             group={group}
             withGroupAdmin={withGroupAdmin}
-            showThread
+            commentsLimited
           />
-          {
+          { /* : todo : */
             promotedStatus && index === promotion.position &&
             <Status
               id={promotion.status_id}
               contextType={timelineId}
               promoted
-              showThread
+              commentsLimited
             />
           }
         </Fragment>
@@ -205,7 +207,7 @@ class StatusList extends ImmutablePureComponent {
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           contextType={timelineId}
-          showThread
+          commentsLimited
         />
       )).concat(scrollableContent)
     }

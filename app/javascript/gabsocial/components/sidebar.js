@@ -106,8 +106,6 @@ class Sidebar extends ImmutablePureComponent {
     const acct = account.get('acct')
     const isPro = account.get('is_pro')
 
-    console.log('showCommunityTimeline:', showCommunityTimeline)
-
     const menuItems = [
       {
         title: 'Home',
