@@ -12,6 +12,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attribute :pinned, if: :pinnable?
 
   attribute :content, unless: :source_requested?
+  attribute :rich_content, unless: :source_requested?
   attribute :text, if: :source_requested?
 
   belongs_to :reblog, serializer: REST::StatusSerializer
@@ -69,6 +70,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def content
     Formatter.instance.format(object).strip
+  end
+
+  def rich_content
+    Formatter.instance.format(object, use_markdown: true).strip
   end
 
   def url

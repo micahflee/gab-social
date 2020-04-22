@@ -5,8 +5,8 @@ class Api::V1::StatusesController < Api::BaseController
 
   before_action -> { authorize_if_got_token! :read, :'read:statuses' }, except: [:create, :update, :destroy]
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :update, :destroy]
-  before_action :require_user!, except:  [:show, :context, :card]
-  before_action :set_status, only:       [:show, :context, :card, :update, :revisions]
+  before_action :require_user!, except:  [:show, :comments, :context, :card]
+  before_action :set_status, only:       [:show, :comments, :context, :card, :update, :revisions]
 
   respond_to :json
 
@@ -14,11 +14,22 @@ class Api::V1::StatusesController < Api::BaseController
   # breaking backwards-compatibility. Arbitrarily high number to cover most
   # conversations as quasi-unlimited, it would be too much work to render more
   # than this anyway
-  CONTEXT_LIMIT = 4_096
+  # : TODO :
+  CONTEXT_LIMIT = 4_096 
 
   def show
     @status = cache_collection([@status], Status).first
     render json: @status, serializer: REST::StatusSerializer
+  end
+
+  def comments
+    descendants_results = @status.descendants(CONTEXT_LIMIT, current_account)
+    loaded_descendants  = cache_collection(descendants_results, Status)
+    
+    @context = Context.new(descendants: loaded_descendants)
+    statuses = [@status] + @context.descendants
+
+    render json: @context, serializer: REST::ContextSerializer, relationships: StatusRelationshipsPresenter.new(statuses, current_user&.account_id)
   end
 
   def context
@@ -42,6 +53,7 @@ class Api::V1::StatusesController < Api::BaseController
   def create
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
+                                         markdown: status_params[:markdown],
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
@@ -93,6 +105,7 @@ class Api::V1::StatusesController < Api::BaseController
   def status_params
     params.permit(
       :status,
+      :markdown,
       :in_reply_to_id,
       :quote_of_id,
       :sensitive,

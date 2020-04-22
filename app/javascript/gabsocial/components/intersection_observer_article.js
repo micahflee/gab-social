@@ -135,10 +135,7 @@ class IntersectionObserverArticle extends React.Component {
           data-id={id}
           tabIndex='0'
         >
-          {
-            children &&
-            React.cloneElement(children, { hidden: true })
-          }
+          {React.cloneElement(children, { isHidden: true })}
         </article>
       )
     }
@@ -151,10 +148,7 @@ class IntersectionObserverArticle extends React.Component {
         data-id={id}
         tabIndex='0'
       >
-        {
-          children &&
-          React.cloneElement(children, { hidden: false })
-        }
+        {React.cloneElement(children, { isHidden: false, isIntersecting })}
       </article>
     )
   }

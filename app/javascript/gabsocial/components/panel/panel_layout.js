@@ -10,10 +10,10 @@ export default class PanelLayout extends PureComponent {
     children: PropTypes.node,
     headerButtonTitle: PropTypes.string,
     headerButtonAction: PropTypes.func,
-    headerButtonTo: PropTypes.func,
+    headerButtonTo: PropTypes.string,
     footerButtonTitle: PropTypes.string,
     footerButtonAction: PropTypes.func,
-    footerButtonTo: PropTypes.func,
+    footerButtonTo: PropTypes.string,
     noPadding: PropTypes.bool,
   }
 

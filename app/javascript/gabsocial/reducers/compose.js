@@ -54,7 +54,7 @@ const initialState = ImmutableMap({
   spoiler_text: '',
   privacy: null,
   text: '',
-  markdown_text: '',
+  markdown: null,
   focusDate: null,
   caretPosition: null,
   preselectDate: null,
@@ -248,6 +248,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_CHANGE:
     return state
       .set('text', action.text)
+      .set('markdown', action.markdown)
       .set('idempotencyKey', uuid());
   case COMPOSE_COMPOSING_CHANGE:
     return state.set('is_composing', action.value);

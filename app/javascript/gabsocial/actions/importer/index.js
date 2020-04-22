@@ -1,4 +1,5 @@
 import { normalizeAccount, normalizeStatus, normalizePoll } from './normalizer';
+import { fetchContext } from '../statuses'
 
 export const ACCOUNT_IMPORT  = 'ACCOUNT_IMPORT';
 export const ACCOUNTS_IMPORT = 'ACCOUNTS_IMPORT';
@@ -78,6 +79,10 @@ export function importFetchedStatuses(statuses) {
       if (status.poll && status.poll.id) {
         pushUnique(polls, normalizePoll(status.poll));
       }
+
+      // if (status.replies_count > 0) {
+      //   dispatch(fetchComments(status.id));
+      // }
     }
 
     statuses.forEach(processStatus);

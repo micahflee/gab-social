@@ -2,11 +2,11 @@ import isEqual from 'lodash.isequal'
 
 export default class PageTitle extends PureComponent {
   static propTypes = {
-    badge: PropTypes.oneOf([
+    badge: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.string,
     ]),
-    path: PropTypes.oneOf([
+    path: PropTypes.oneOfType([
       PropTypes.sting,
       PropTypes.array,
     ]),

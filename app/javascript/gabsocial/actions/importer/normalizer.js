@@ -62,9 +62,10 @@ export function normalizeStatus(status, normalOldStatus) {
     const spoilerText   = normalStatus.spoiler_text || '';
     const searchContent = [spoilerText, status.content].join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n');
     const emojiMap      = makeEmojiMap(normalStatus);
+    const theContent = !!normalStatus.rich_content ? normalStatus.rich_content : normalStatus.content;
 
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
-    normalStatus.contentHtml  = emojify(normalStatus.content, emojiMap);
+    normalStatus.contentHtml  = emojify(theContent, emojiMap);
     normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
     normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
   }

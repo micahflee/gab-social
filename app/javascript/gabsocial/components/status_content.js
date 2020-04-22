@@ -1,7 +1,6 @@
-import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { FormattedMessage, injectIntl, defineMessages } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
 import { isRtl } from '../utils/rtl'
 import Button from './button'
@@ -34,7 +33,6 @@ class StatusContent extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    reblogStatus: PropTypes.string,
     expanded: PropTypes.bool,
     onExpandedToggle: PropTypes.func,
     onClick: PropTypes.func,
@@ -47,6 +45,13 @@ class StatusContent extends ImmutablePureComponent {
     hidden: true,
     collapsed: null, // `collapsed: null` indicates that an element doesn't need collapsing, while `true` or `false` indicates that it does (and is/isn't).
   }
+
+  updateOnProps = [
+    'status',
+    'expanded',
+    'collapsable',
+    'isComment',
+  ]
 
   _updateStatusLinks() {
     const node = this.node

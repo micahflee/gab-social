@@ -99,9 +99,9 @@ class ModalRoot extends PureComponent {
 
   componentDidUpdate(prevProps, prevState, { visible }) {
     if (visible) {
-      document.body.classList.add('with-modals--active')
+      document.body.classList.add(_s.overflowYHidden)
     } else {
-      document.body.classList.remove('with-modals--active')
+      document.body.classList.remove(_s.overflowYHidden)
     }
   }
 

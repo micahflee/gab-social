@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_10_224203) do
+ActiveRecord::Schema.define(version: 2020_04_20_223346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -711,6 +711,7 @@ ActiveRecord::Schema.define(version: 2020_03_10_224203) do
     t.integer "group_id"
     t.bigint "quote_of_id"
     t.datetime "revised_at"
+    t.text "markdown"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
     t.index ["group_id"], name: "index_statuses_on_group_id"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"

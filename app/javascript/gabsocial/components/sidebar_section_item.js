@@ -80,13 +80,11 @@ export default class SidebarSectionItem extends PureComponent {
       fontSize15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
-      colorSecondary: !hovering && !active && !me && !shouldShowActive,
-      colorPrimary: shouldShowActive || me,
+      colorPrimary: 1,
     })
 
     const iconClasses = cx({
-      fillColorSecondary: !hovering && !active && !shouldShowActive,
-      fillColorBlack: shouldShowActive,
+      fillColorBlack: 1,
     })
 
     const countClasses = cx({

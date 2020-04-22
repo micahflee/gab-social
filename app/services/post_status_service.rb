@@ -9,6 +9,7 @@ class PostStatusService < BaseService
   # @param [Account] account Account from which to post
   # @param [Hash] options
   # @option [String] :text Message
+  # @option [String] :markdown Optional message in markdown
   # @option [Status] :thread Optional status to reply to
   # @option [Boolean] :sensitive
   # @option [String] :visibility
@@ -25,6 +26,7 @@ class PostStatusService < BaseService
     @account     = account
     @options     = options
     @text        = @options[:text] || ''
+    @markdown    = @options[:markdown]
     @in_reply_to = @options[:thread]
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
@@ -171,6 +173,7 @@ class PostStatusService < BaseService
   def status_attributes
     {
       text: @text,
+      markdown: @markdown,
       group_id: @options[:group_id],
       quote_of_id: @options[:quote_of_id],
       media_attachments: @media || [],

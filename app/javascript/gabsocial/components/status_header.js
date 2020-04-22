@@ -5,6 +5,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import classNames from 'classnames/bind'
 import { openPopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
+import { me } from '../initial_state'
 import RelativeTimestamp from './relative_timestamp'
 import DisplayName from './display_name'
 import Text from './text'
@@ -48,77 +49,6 @@ class StatusHeader extends ImmutablePureComponent {
 
   handleOpenStatusEdits = () => {
     this.props.onOpenStatusRevisionsPopover(this.props.status)
-  }
-
-  handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.context.router.history);
-  }
-
-  handleEditClick = () => {
-    this.props.onEdit(this.props.status);
-  }
-
-  handlePinClick = () => {
-    this.props.onPin(this.props.status);
-  }
-
-  handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.context.router.history);
-  }
-
-  handleMuteClick = () => {
-    this.props.onMute(this.props.status.get('account'));
-  }
-
-  handleBlockClick = () => {
-    this.props.onBlock(this.props.status);
-  }
-
-  handleOpen = () => {
-    this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('id')}`);
-  }
-
-  handleEmbed = () => {
-    this.props.onEmbed(this.props.status);
-  }
-
-  handleReport = () => {
-    this.props.onReport(this.props.status);
-  }
-
-  handleConversationMuteClick = () => {
-    this.props.onMuteConversation(this.props.status);
-  }
-
-  handleCopy = () => {
-    const url = this.props.status.get('url');
-    const textarea = document.createElement('textarea');
-
-    textarea.textContent = url;
-    textarea.style.position = 'fixed';
-
-    document.body.appendChild(textarea);
-
-    try {
-      textarea.select();
-      document.execCommand('copy');
-    } catch (e) {
-      //
-    } finally {
-      document.body.removeChild(textarea);
-    }
-  }
-
-  handleGroupRemoveAccount = () => {
-    const { status } = this.props;
-
-    this.props.onGroupRemoveAccount(status.getIn(['group', 'id']), status.getIn(['account', 'id']));
-  }
-
-  handleGroupRemovePost = () => {
-    const { status } = this.props;
-
-    this.props.onGroupRemoveStatus(status.getIn(['group', 'id']), status.get('id'));
   }
 
   setStatusOptionsButton = n => {
@@ -167,7 +97,7 @@ class StatusHeader extends ImmutablePureComponent {
               </NavLink>
 
               {
-                !reduced &&
+                !reduced && !!me &&
                 <Button
                   text
                   backgroundColor='none'

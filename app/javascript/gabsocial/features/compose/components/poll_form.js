@@ -197,9 +197,9 @@ class PollForm extends ImmutablePureComponent {
                 icon='add'
                 iconWidth='14px'
                 iconHeight='14px'
-                iconClassName={[_s.fillColorBrand, _s.mr5].join(' ')}
+                iconClassName={_s.mr5}
               >
-                <Text color='brand'>
+                <Text color='inherit'>
                   {intl.formatMessage(messages.add_option)}
                 </Text>
               </Button>

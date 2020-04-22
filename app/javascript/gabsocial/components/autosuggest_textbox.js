@@ -52,7 +52,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     tokenStart: 0,
   }
 
-  onChange = (e, value, selectionStart) => {
+  onChange = (e, value, selectionStart, markdown) => {
     if (!isObject(e)) {
       e = {
         target: {
@@ -60,8 +60,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
           selectionStart,
         },
       }
-
-      console.log("new e:", e)
     }
 
     const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
@@ -76,7 +74,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       this.props.onSuggestionsClearRequested();
     }
 
-    this.props.onChange(e);
+    this.props.onChange(e, markdown);
   }
 
   onKeyDown = (e) => {

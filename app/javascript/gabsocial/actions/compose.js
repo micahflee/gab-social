@@ -77,10 +77,12 @@ export const ensureComposeIsVisible = (getState, routerHistory) => {
   }
 };
 
-export function changeCompose(text) {
+export function changeCompose(text, markdown) {
+  console.log("changeCompose:", markdown)
   return {
     type: COMPOSE_CHANGE,
     text: text,
+    markdown: markdown,
   };
 };
 
@@ -173,7 +175,7 @@ export function submitCompose(routerHistory, group) {
     if (!me) return;
 
     let status = getState().getIn(['compose', 'text'], '');
-    const statusMarkdown = getState().getIn(['compose', 'text_markdown'], '');
+    const markdown = getState().getIn(['compose', 'markdown'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
 
     // : hack :
@@ -182,10 +184,12 @@ export function submitCompose(routerHistory, group) {
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
       return hasProtocol ? match : `http://${match}`
     })
-    // statusMarkdown = statusMarkdown.replace(urlRegex, (match) =>{
+    // markdown = statusMarkdown.replace(urlRegex, (match) =>{
     //   const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
     //   return hasProtocol ? match : `http://${match}`
     // })
+
+    console.log("markdown:", markdown)
 
     dispatch(submitComposeRequest());
     dispatch(closeModal());
@@ -202,7 +206,7 @@ export function submitCompose(routerHistory, group) {
 
     api(getState)[method](endpoint, {
       status,
-      // statusMarkdown,
+      markdown,
       scheduled_at,
       in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),

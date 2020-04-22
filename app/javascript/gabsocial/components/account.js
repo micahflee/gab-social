@@ -92,7 +92,7 @@ class Account extends ImmutablePureComponent {
     onMute: PropTypes.func.isRequired,
     onMuteNotifications: PropTypes.func,
     intl: PropTypes.object.isRequired,
-    hidden: PropTypes.bool,
+    isHidden: PropTypes.bool,
     actionIcon: PropTypes.string,
     actionTitle: PropTypes.string,
     onActionClick: PropTypes.func,
@@ -134,7 +134,7 @@ class Account extends ImmutablePureComponent {
     const {
       account,
       intl,
-      hidden,
+      isHidden,
       onActionClick,
       actionIcon,
       actionTitle,
@@ -146,7 +146,7 @@ class Account extends ImmutablePureComponent {
 
     if (!account) return null
 
-    if (hidden) {
+    if (isHidden) {
       return (
         <Fragment>
           {account.get('display_name')}
@@ -207,7 +207,6 @@ class Account extends ImmutablePureComponent {
     const dismissBtn = (
       <Button
         narrow
-        circle
         backgroundColor='none'
         className={_s.px5}
         onClick={dismissAction}

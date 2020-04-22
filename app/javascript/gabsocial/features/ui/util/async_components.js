@@ -29,6 +29,6 @@ export function Notifications() { return import(/* webpackChunkName: "features/n
 export function Reposts() { return import(/* webpackChunkName: "features/reposts" */'../../reposts') }
 export function ReportModal() { return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal') }
 export function Search() { return import(/*webpackChunkName: "features/search" */'../../search') }
-export function Status() { return import(/* webpackChunkName: "features/status" */'../../status') }
+export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
 export function Video() { return import(/* webpackChunkName: "components/video" */'../../../components/video') }

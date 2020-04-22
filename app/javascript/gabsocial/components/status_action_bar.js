@@ -2,66 +2,23 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
-import { openModal } from '../actions/modal'
-import { openPopover } from '../actions/popover'
-import { me } from '../initial_state'
 import Text from './text'
-import Button from './button'
 import StatusActionBarItem from './status_action_bar_item'
 
 const messages = defineMessages({
-  delete: { id: 'status.delete', defaultMessage: 'Delete' },
-  edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
-  mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
-  block: { id: 'account.block', defaultMessage: 'Block @{name}' },
-  reply: { id: 'status.reply', defaultMessage: 'Reply' },
   comment: { id: 'status.comment', defaultMessage: 'Comment' },
-  more: { id: 'status.more', defaultMessage: 'More' },
   share: { id: 'status.share', defaultMessage: 'Share' },
-  replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
-  repost: { id: 'repost', defaultMessage: 'Repost' },
-  quote: { id: 'status.quote', defaultMessage: 'Quote' },
-  repost_private: { id: 'status.repost_private', defaultMessage: 'Repost to original audience' },
-  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Un-repost' },
+  repost: { id: 'status.repost', defaultMessage: 'Repost' },
   cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
-  cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
   likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
   repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
   commentsLabel: { id: 'comments.label', defaultMessage: '{number, plural, one {# comment} other {# comments}}' },
-  open: { id: 'status.open', defaultMessage: 'Expand this status' },
-  report: { id: 'status.report', defaultMessage: 'Report @{name}' },
-  muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
-  unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
-  pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
-  unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
-  embed: { id: 'status.embed', defaultMessage: 'Embed' },
-  admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
-  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
-  group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
-  group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenUnauthorizedModal() {
-    dispatch(openModal('UNAUTHORIZED'))
-  },
-  onOpenStatusSharePopover(targetRef, status) {
-    console.log("targetRef, status:", targetRef, status)
-    dispatch(openPopover('STATUS_SHARE', {
-      status,
-      targetRef,
-      position: 'top',
-    }))
-  },
 })
 
 const cx = classNames.bind(_s)
 
 export default
-@connect(null, mapDispatchToProps)
 @injectIntl
 class StatusActionBar extends ImmutablePureComponent {
 
@@ -70,72 +27,43 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    onOpenUnauthorizedModal: PropTypes.func.isRequired,
-    onOpenStatusSharePopover: PropTypes.func.isRequired,
-    onReply: PropTypes.func,
-    onQuote: PropTypes.func,
-    onFavorite: PropTypes.func,
-    onRepost: PropTypes.func,
-    onDelete: PropTypes.func,
-    onMention: PropTypes.func,
-    onMute: PropTypes.func,
-    onBlock: PropTypes.func,
-    onReport: PropTypes.func,
-    onEmbed: PropTypes.func,
-    onMuteConversation: PropTypes.func,
-    onPin: PropTypes.func,
-    withDismiss: PropTypes.bool,
-    withGroupAdmin: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    onFavorite: PropTypes.func.isRequired,
+    onShare: PropTypes.func.isRequired,
+    onReply: PropTypes.func.isRequired,
+    onQuote: PropTypes.func.isRequired,
+    status: ImmutablePropTypes.map.isRequired,
   }
 
-  // Avoid checking props that are functions (and whose equality will always
-  // evaluate to false. See react-immutable-pure-component for usage.
-  updateOnProps = [
-    'status',
-    'withDismiss',
-  ]
+  updateOnProps = ['status']
 
   handleReplyClick = () => {
-    if (me) {
-      this.props.onReply(this.props.status, this.context.router.history)
-    } else {
-      this.props.onOpenUnauthorizedModal()
-    }
+    this.props.onReply(this.props.status, this.context.router.history)
   }
 
   handleFavoriteClick = () => {
-    if (me) {
-      this.props.onFavorite(this.props.status)
-    } else {
-      this.props.onOpenUnauthorizedModal()
-    }
+    this.props.onFavorite(this.props.status)
   }
 
-  handleRepostClick = e => {
-    if (me) {
-      // this.props.onRepost(this.props.status, e)
-      this.props.onQuote(this.props.status, this.context.router.history)
-    } else {
-      this.props.onOpenUnauthorizedModal()
-    }
+  handleRepostClick = (e) => {
+    // this.props.onRepost(this.props.status, e)
+    this.props.onQuote(this.props.status, this.context.router.history)
   }
 
   handleShareClick = () => {
-    this.props.onOpenStatusSharePopover(this.shareButton, this.props.status)
+    this.props.onShare(this.shareButton, this.props.status)
   }
 
   openLikesList = () => {
-    
+    // : todo :
   }
 
   toggleCommentsVisible = () => {
-    
+    // : todo :
   }
 
   openRepostsList = () => {
-    
+    // : todo :
   }
 
   setShareButton = (n) => {
@@ -143,7 +71,7 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   render() {
-    const { status, intl: { formatMessage } } = this.props
+    const { status, intl } = this.props
 
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
 
@@ -194,7 +122,7 @@ class StatusActionBar extends ImmutablePureComponent {
               favoriteCount > 0 &&
               <button className={interactionBtnClasses} onClick={this.openLikesList}>
                 <Text color='secondary' size='small'>
-                  {formatMessage(messages.likesLabel, {
+                  {intl.formatMessage(messages.likesLabel, {
                     number: favoriteCount,
                   })}
                 </Text>
@@ -204,7 +132,7 @@ class StatusActionBar extends ImmutablePureComponent {
               replyCount > 0 &&
               <button className={interactionBtnClasses} onClick={this.toggleCommentsVisible}>
                 <Text color='secondary' size='small'>
-                  {formatMessage(messages.commentsLabel, {
+                  {intl.formatMessage(messages.commentsLabel, {
                     number: replyCount,
                   })}
                 </Text>
@@ -214,7 +142,7 @@ class StatusActionBar extends ImmutablePureComponent {
               repostCount > 0 &&
               <button className={interactionBtnClasses} onClick={this.openRepostsList}>
                 <Text color='secondary' size='small'>
-                  {formatMessage(messages.repostsLabel, {
+                  {intl.formatMessage(messages.repostsLabel, {
                     number: repostCount,
                   })}
                 </Text>
@@ -225,19 +153,19 @@ class StatusActionBar extends ImmutablePureComponent {
         <div className={innerContainerClasses}>
           <div className={[_s.default, _s.flexRow, _s.py2, _s.width100PC].join(' ')}>
             <StatusActionBarItem
-              title={formatMessage(messages.like)}
+              title={intl.formatMessage(messages.like)}
               icon={!!status.get('favourited') ? 'liked' : 'like'}
               active={!!status.get('favourited')}
               onClick={this.handleFavoriteClick}
             />
             <StatusActionBarItem
-              title={formatMessage(messages.comment)}
+              title={intl.formatMessage(messages.comment)}
               icon='comment'
               onClick={this.handleReplyClick}
             />
             <StatusActionBarItem
-              title={formatMessage(messages.repost)}
-              altTitle={!publicStatus ? formatMessage(messages.cannot_repost) : ''}
+              title={intl.formatMessage(messages.repost)}
+              altTitle={!publicStatus ? intl.formatMessage(messages.cannot_repost) : ''}
               icon={!publicStatus ? 'lock' : 'repost'}
               disabled={!publicStatus}
               active={!!status.get('reblogged')}
@@ -245,7 +173,7 @@ class StatusActionBar extends ImmutablePureComponent {
             />
             <StatusActionBarItem
               buttonRef={this.setShareButton}
-              title={formatMessage(messages.share)}
+              title={intl.formatMessage(messages.share)}
               icon='share'
               onClick={this.handleShareClick}
             />

@@ -29,19 +29,19 @@ export default class MediaContainer extends PureComponent {
   };
 
   handleOpenMedia = (media, index) => {
-    document.body.classList.add('with-modals--active');
+    document.body.classList.add(_s.overflowYHidden);
     this.setState({ media, index });
   }
 
   handleOpenVideo = (video, time) => {
     const media = ImmutableList([video]);
 
-    document.body.classList.add('with-modals--active');
+    document.body.classList.add(_s.overflowYHidden);
     this.setState({ media, time });
   }
 
   handleCloseMedia = () => {
-    document.body.classList.remove('with-modals--active');
+    document.body.classList.remove(_s.overflowYHidden);
     this.setState({ media: null, index: null, time: null });
   }
 

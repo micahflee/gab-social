@@ -1,47 +1,50 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import { injectIntl, defineMessages } from 'react-intl';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { HotKeys } from 'react-hotkeys';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { injectIntl } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { HotKeys } from 'react-hotkeys'
 import classNames from 'classnames/bind'
-import { me, displayMedia } from '../initial_state';
+import { me, displayMedia } from '../initial_state'
 import StatusCard from './status_card'
-import { MediaGallery, Video } from '../features/ui/util/async_components';
+import { MediaGallery, Video } from '../features/ui/util/async_components'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
-import StatusActionBar from './status_action_bar';
-import Poll from './poll';
+import StatusActionBar from './status_action_bar'
+import Poll from './poll'
 import StatusHeader from './status_header'
-import Text from './text'
+import CommentList from './comment_list'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
-import Bundle from '../features/ui/util/bundle';
+import Bundle from '../features/ui/util/bundle'
 
 const cx = classNames.bind(_s)
 
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
-  const displayName = status.getIn(['account', 'display_name']);
+  if (!intl || !status) return ''
 
-  // : todo :
+  const displayName = status.getIn(['account', 'display_name'])
+
   const values = [
-    // displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
-    // status.get('spoiler_text') && status.get('hidden')
-    //   ? status.get('spoiler_text')
-    //   : status.get('search_index').slice(status.get('spoiler_text').length),
-    // intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
-    // status.getIn(['account', 'acct']),
-  ];
+    displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
+    status.get('spoiler_text') && status.get('hidden')
+      ? status.get('spoiler_text')
+      : status.get('search_index').slice(status.get('spoiler_text').length),
+    intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
+    `@${status.getIn(['account', 'acct'])}`,
+  ]
 
   if (rebloggedByText) {
-    values.push(rebloggedByText);
+    values.push(rebloggedByText)
   }
 
-  return values.join(', ');
-};
+  return values.join(', ')
+}
 
-export const defaultMediaVisibility = status => {
+export const defaultMediaVisibility = (status) => {
   if (!status) return undefined
+
+  // console.log("status:", status)
 
   if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
     status = status.get('reblog')
@@ -50,63 +53,68 @@ export const defaultMediaVisibility = status => {
   return (displayMedia !== 'hide_all' && !status.get('sensitive')) || displayMedia === 'show_all'
 }
 
-const messages = defineMessages({
-  filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
-})
-
 export default
 @injectIntl
 class Status extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
     status: ImmutablePropTypes.map,
+    descendantsIds: ImmutablePropTypes.list,
+    isChild: PropTypes.bool,
+    isPromoted: PropTypes.bool,
+    isFeatured: PropTypes.bool,
+    isMuted: PropTypes.bool,
+    isHidden: PropTypes.bool,
+    isIntersecting: PropTypes.bool,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
-    onShowRevisions: PropTypes.func,
     onQuote: PropTypes.func,
     onFavorite: PropTypes.func,
-    onRepost: PropTypes.func,
-    onDelete: PropTypes.func,
-    onEdit: PropTypes.func,
     onMention: PropTypes.func,
-    onPin: PropTypes.func,
     onOpenMedia: PropTypes.func,
     onOpenVideo: PropTypes.func,
-    onBlock: PropTypes.func,
-    onEmbed: PropTypes.func,
     onHeightChange: PropTypes.func,
     onToggleHidden: PropTypes.func,
-    muted: PropTypes.bool,
-    hidden: PropTypes.bool,
+    onShare: PropTypes.func,
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
+    onFetchComments: PropTypes.func,
     getScrollPosition: PropTypes.func,
     updateScrollBottom: PropTypes.func,
     cacheMediaWidth: PropTypes.func,
     cachedMediaWidth: PropTypes.number,
-    group: ImmutablePropTypes.map,
-    promoted: PropTypes.bool,
-    onOpenProUpgradeModal: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-    isChild: PropTypes.bool,
+    contextType: PropTypes.string,
   }
 
   // Avoid checking props that are functions (and whose equality will always
   // evaluate to false. See react-immutable-pure-component for usage.
-  updateOnProps = ['status', 'account', 'muted', 'hidden']
+  updateOnProps = [
+    'status',
+    'descendantsIds',
+    'isChild',
+    'isPromoted',
+    'isFeatured',
+    'isMuted',
+    'isHidden',
+    'isIntersecting',
+  ]
 
   state = {
+    loadedComments: false,
     showMedia: defaultMediaVisibility(this.props.status),
     statusId: undefined,
+    height: undefined,
   }
 
   // Track height changes we know about to compensate scrolling
   componentDidMount() {
-    this.didShowCard = !this.props.muted && !this.props.hidden && this.props.status && this.props.status.get('card');
+    const { isMuted, isHidden, status } = this.props
+    this.didShowCard = !isMuted && !isHidden && status && status.get('card')
   }
 
   getSnapshotBeforeUpdate() {
@@ -118,38 +126,100 @@ class Status extends ImmutablePureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.loadedComments) {
+      return {
+        loadedComments: true
+      }
+    }
+
     if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
       return {
         showMedia: defaultMediaVisibility(nextProps.status),
         statusId: nextProps.status.get('id'),
-      };
+      }
     }
 
-    return null;
+    return null
   }
 
   // Compensate height changes
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const doShowCard = !this.props.muted && !this.props.hidden && this.props.status && this.props.status.get('card');
+    if (!prevState.loadedComments && this.state.loadedComments && this.props.status) {
+      const commentCount = this.props.status.get('replies_count');
+      if (commentCount > 0) {
+        this.props.onFetchComments(this.props.status.get('id'))
+        this._measureHeight(prevState.height !== this.state.height)
+      }
+    }
+
+    const doShowCard = !this.props.isMuted && !this.props.isHidden && this.props.status && this.props.status.get('card')
 
     if (doShowCard && !this.didShowCard) {
-      this.didShowCard = true;
+      this.didShowCard = true
 
       if (snapshot !== null && this.props.updateScrollBottom) {
         if (this.node && this.node.offsetTop < snapshot.top) {
-          this.props.updateScrollBottom(snapshot.height - snapshot.top);
+          this.props.updateScrollBottom(snapshot.height - snapshot.top)
         }
       }
     }
   }
 
+  handleMoveUp = id => {
+    const { status, ancestorsIds, descendantsIds } = this.props;
+
+    if (id === status.get('id')) {
+      this._selectChild(ancestorsIds.size - 1, true);
+    } else {
+      let index = ancestorsIds.indexOf(id);
+
+      if (index === -1) {
+        index = descendantsIds.indexOf(id);
+        this._selectChild(ancestorsIds.size + index, true);
+      } else {
+        this._selectChild(index - 1, true);
+      }
+    }
+  }
+
+  handleMoveDown = id => {
+    const { status, ancestorsIds, descendantsIds } = this.props;
+
+    if (id === status.get('id')) {
+      this._selectChild(ancestorsIds.size + 1, false);
+    } else {
+      let index = ancestorsIds.indexOf(id);
+
+      if (index === -1) {
+        index = descendantsIds.indexOf(id);
+        this._selectChild(ancestorsIds.size + index + 2, false);
+      } else {
+        this._selectChild(index + 1, false);
+      }
+    }
+  }
+
+  _selectChild(index, align_top) {
+    const container = this.node;
+    const element = container.querySelectorAll('.focusable')[index];
+
+    if (element) {
+      if (align_top && container.scrollTop > element.offsetTop) {
+        element.scrollIntoView(true);
+      } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
+        element.scrollIntoView(false);
+      }
+      element.focus();
+    }
+  }
+
   componentWillUnmount() {
     if (this.node && this.props.getScrollPosition) {
-      const position = this.props.getScrollPosition();
+      const position = this.props.getScrollPosition()
       if (position !== null && this.node.offsetTop < position.top) {
         requestAnimationFrame(() => {
-          this.props.updateScrollBottom(position.height - position.top);
-        });
+          this.props.updateScrollBottom(position.height - position.top)
+        })
       }
     }
   }
@@ -160,11 +230,11 @@ class Status extends ImmutablePureComponent {
 
   handleClick = () => {
     if (this.props.onClick) {
-      this.props.onClick();
-      return;
+      this.props.onClick()
+      return
     }
 
-    if (!this.context.router) return;
+    if (!this.context.router) return
 
     this.context.router.history.push(
       `/${this._properStatus().getIn(['account', 'acct'])}/posts/${this._properStatus().get('id')}`
@@ -173,57 +243,53 @@ class Status extends ImmutablePureComponent {
 
   handleExpandClick = e => {
     if (e.button === 0) {
-      if (!this.context.router) return;
+      if (!this.context.router) return
 
       this.context.router.history.push(
         `/${this._properStatus().getIn(['account', 'acct'])}/posts/${this._properStatus().get('id')}`
-      );
+      )
     }
-  };
-
-  handleExpandedToggle = () => {
-    this.props.onToggleHidden(this._properStatus());
-  };
-
-  renderLoadingMediaGallery() {
-    return <div className='media_gallery' style={{ height: '110px' }} />;
   }
 
-  renderLoadingVideoPlayer() {
-    return <div className='media-spoiler-video' style={{ height: '110px' }} />;
+  handleExpandedToggle = () => {
+    this.props.onToggleHidden(this._properStatus())
+  }
+
+  renderLoadingMedia() {
+    return <div className={_s.backgroundColorPanel} style={{ height: '110px' }} />
   }
 
   handleOpenVideo = (media, startTime) => {
-    this.props.onOpenVideo(media, startTime);
-  };
+    this.props.onOpenVideo(media, startTime)
+  }
 
   handleHotkeyReply = e => {
-    e.preventDefault();
-    this.props.onReply(this._properStatus(), this.context.router.history);
-  };
+    e.preventDefault()
+    this.props.onReply(this._properStatus(), this.context.router.history)
+  }
 
   handleHotkeyFavorite = () => {
-    this.props.onFavorite(this._properStatus());
-  };
+    this.props.onFavorite(this._properStatus())
+  }
 
-  handleHotkeyBoost = e => {
-    this.props.onRepost(this._properStatus(), e);
-  };
+  handleHotkeyRepost = e => {
+    this.props.onQuote(this._properStatus(), e)
+  }
 
   handleHotkeyMention = e => {
-    e.preventDefault();
-    this.props.onMention(this._properStatus().get('account'), this.context.router.history);
-  };
+    e.preventDefault()
+    this.props.onMention(this._properStatus().get('account'), this.context.router.history)
+  }
 
   handleHotkeyOpen = () => {
     this.context.router.history.push(
       `/${this._properStatus().getIn(['account', 'acct'])}/posts/${this._properStatus().get('id')}`
-    );
-  };
+    )
+  }
 
   handleHotkeyOpenProfile = () => {
-    this.context.router.history.push(`/${this._properStatus().getIn(['account', 'acct'])}`);
-  };
+    this.context.router.history.push(`/${this._properStatus().getIn(['account', 'acct'])}`)
+  }
 
   handleHotkeyMoveUp = e => {
     this.props.onMoveUp(this.props.status.get('id'), e.target.getAttribute('data-featured'))
@@ -251,63 +317,73 @@ class Status extends ImmutablePureComponent {
     return status
   }
 
-  handleRef = c => {
-    this.node = c
+  _measureHeight (heightJustChanged) {
+    try {
+      scheduleIdleTask(() => this.node && this.setState({ height: Math.ceil(this.node.scrollHeight) + 1 }))
+      
+      if (heightJustChanged) {
+        this.props.onHeightChange()
+      } 
+    } catch (error) {
+      
+    }
   }
 
-
-  handleOpenProUpgradeModal = () => {
-    this.props.onOpenProUpgradeModal();
+  handleRef = c => {
+    this.node = c
+    this._measureHeight()
   }
 
   render() {
     const {
       intl,
-      hidden,
-      featured,
-      group,
-      promoted,
+      status,
+      isFeatured,
+      isPromoted,
       isChild,
+      isHidden,
+      descendantsIds,
+      commentsLimited,
     } = this.props
-
-    let media = null
-    let rebloggedByText, reblogContent
-
-    //   rebloggedByText = intl.formatMessage(
-    //     { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
-    //     { name: status.getIn(['account', 'acct']) }
-    //   );
-
-    //   reblogContent = status.get('contentHtml');
-    //   status = status.get('reblog');
-    // }
-
-    const { status, ...other } = this.props;
 
     if (!status) return null
 
-    if (hidden) {
+    let media, reblogContent, rebloggedByText = null
+
+    if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
+      rebloggedByText = intl.formatMessage(
+        { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
+        { name: status.getIn(['account', 'acct']) }
+      )
+      reblogContent = status.get('contentHtml')
+    }
+
+    const handlers = this.props.isMuted ? {} : {
+      reply: this.handleHotkeyReply,
+      favorite: this.handleHotkeyFavorite,
+      repost: this.handleHotkeyRepost,
+      mention: this.handleHotkeyMention,
+      open: this.handleHotkeyOpen,
+      openProfile: this.handleHotkeyOpenProfile,
+      moveUp: this.handleHotkeyMoveUp,
+      moveDown: this.handleHotkeyMoveDown,
+      toggleHidden: this.handleHotkeyToggleHidden,
+      toggleSensitive: this.handleHotkeyToggleSensitive,
+    }
+
+     if (isHidden) {
       return (
-        <div ref={this.handleRef}>
-          {status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}
-          {status.get('content')}
-        </div>
+        <HotKeys handlers={handlers}>
+          <div ref={this.handleRef} className={classNames({ focusable: !this.props.muted })} tabIndex='0'>
+            {status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}
+            {status.get('content')}
+          </div>
+        </HotKeys>
       );
     }
 
     if (status.get('filtered') || status.getIn(['reblog', 'filtered'])) {
-      const minHandlers = this.props.muted ? {} : {
-        moveUp: this.handleHotkeyMoveUp,
-        moveDown: this.handleHotkeyMoveDown,
-      }
-
-      return (
-        <HotKeys handlers={minHandlers}>
-          <div className='status__wrapper status__wrapper--filtered focusable' tabIndex='0' ref={this.handleRef}>
-            <Text>{intl.formatMessage(messages.filtered)}</Text>
-          </div>
-        </HotKeys>
-      )
+      return null
     }
 
     if (status.get('poll')) {
@@ -317,7 +393,7 @@ class Status extends ImmutablePureComponent {
         const video = status.getIn(['media_attachments', 0])
 
         media = (
-          <Bundle fetchComponent={Video} loading={this.renderLoadingVideoPlayer}>
+          <Bundle fetchComponent={Video} loading={this.renderLoadingMedia}>
             {Component => (
               <Component
                 inline
@@ -339,7 +415,7 @@ class Status extends ImmutablePureComponent {
         )
       } else {
         media = (
-          <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery}>
+          <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMedia}>
             {Component => (
               <Component
                 reduced={isChild}
@@ -367,27 +443,16 @@ class Status extends ImmutablePureComponent {
       )
     }
 
-    const handlers = this.props.muted ? {} : {
-      reply: this.handleHotkeyReply,
-      favorite: this.handleHotkeyFavorite,
-      boost: this.handleHotkeyBoost,
-      mention: this.handleHotkeyMention,
-      open: this.handleHotkeyOpen,
-      openProfile: this.handleHotkeyOpenProfile,
-      moveUp: this.handleHotkeyMoveUp,
-      moveDown: this.handleHotkeyMoveDown,
-      toggleHidden: this.handleHotkeyToggleHidden,
-      toggleSensitive: this.handleHotkeyToggleSensitive,
-    }
-
     const containerClasses = cx({
       default: 1,
       radiusSmall: !isChild,
-      // mb15: !isChild,
-      // backgroundColorPrimary: 1,
-      pb15: featured,
-      borderBottom1PX: featured && !isChild,
-      borderColorSecondary: featured && !isChild,
+      pb15: isFeatured,
+      radiusSmall: !isChild,
+      backgroundColorPrimary: !isChild,
+      mb15: !isChild,
+      border1PX: !isChild,
+      borderBottom1PX: isFeatured && !isChild,
+      borderColorSecondary: !isChild,
     })
 
     const innerContainerClasses = cx({
@@ -405,9 +470,9 @@ class Status extends ImmutablePureComponent {
     return (
       <HotKeys handlers={handlers}>
         <div
-        className={containerClasses}
-          tabIndex={this.props.muted ? null : 0}
-          data-featured={featured ? 'true' : null}
+          className={containerClasses}
+          tabIndex={this.props.isMuted ? null : 0}
+          data-featured={isFeatured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
           // onClick={this.handleClick}
@@ -416,7 +481,7 @@ class Status extends ImmutablePureComponent {
 
             <div data-id={status.get('id')}>
 
-              <StatusPrepend status={status} promoted={promoted} featured={featured} />
+              <StatusPrepend status={status} isPromoted={isPromoted} isFeatured={isFeatured} />
 
               <StatusHeader status={status} reduced={isChild} />
 
@@ -442,7 +507,13 @@ class Status extends ImmutablePureComponent {
 
               {
                 !isChild &&
-                <StatusActionBar status={status} {...other} />
+                <StatusActionBar
+                  status={status}
+                  onFavorite={this.props.onFavorite}
+                  onReply={this.props.onReply}
+                  onQuote={this.props.onQuote}
+                  onShare={this.props.onShare}
+                />
               }
 
               {
@@ -451,11 +522,24 @@ class Status extends ImmutablePureComponent {
                   <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                 </div>
               }
+
+              {
+                descendantsIds && !isChild && descendantsIds.size > 0 &&
+                <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
+              }
+              
+              {
+                descendantsIds && !isChild && descendantsIds.size > 0 &&
+                <CommentList
+                  commentsLimited={commentsLimited}
+                  descendants={descendantsIds}
+                />
+              }
             </div>
           </div>
         </div>
       </HotKeys>
-    );
+    )
   }
 
 }

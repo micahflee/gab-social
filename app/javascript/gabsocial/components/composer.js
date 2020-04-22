@@ -2,8 +2,12 @@ import {
   Editor,
   EditorState,
   CompositeDecorator,
-  RichUtils
+  RichUtils,
+  convertToRaw,
+  convertFromRaw
 } from 'draft-js'
+import { draftToMarkdown } from 'markdown-draft-js'
+// import draftToMarkdown from 'draftjs-to-markdown'
 import { urlRegex } from '../features/compose/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
@@ -101,13 +105,33 @@ class Composer extends PureComponent {
 
   onChange = (editorState) => {
     this.setState({ editorState })
-    const text = editorState.getCurrentContent().getPlainText('\u0001')
+    const content = this.state.editorState.getCurrentContent();
+    const text = content.getPlainText('\u0001')
     
     const selectionState = editorState.getSelection()
     const selectionStart = selectionState.getStartOffset()
 
-    this.props.onChange(null, text, selectionStart)
+    const rawObject = convertToRaw(content);
+    const markdownString = draftToMarkdown(rawObject);
+    // const markdownString = draftToMarkdown(rawObject, {
+    //   trigger: '#',
+    //   separator: ' ',
+    // });
+
+    console.log("markdownString:", markdownString)
+
+    this.props.onChange(null, text, selectionStart, markdownString)
   }
+
+// **bold**
+// *italic*
+// __underline__
+// ~strikethrough~
+// # title
+// > quote
+// `code`
+// ```code```
+
 
   focus = () => {
     this.textbox.editor.focus()

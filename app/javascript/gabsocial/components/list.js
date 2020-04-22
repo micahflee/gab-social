@@ -6,7 +6,10 @@ import ListItem from './list_item'
 export default class List extends ImmutablePureComponent {
 
   static propTypes = {
-    items: PropTypes.array,
+    items: PropTypes.oneOfType([
+      PropTypes.array,
+      // immutatable...
+    ]),
     scrollKey: PropTypes.string,
     emptyMessage: PropTypes.any,
     size: PropTypes.oneOf([

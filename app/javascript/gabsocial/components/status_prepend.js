@@ -19,25 +19,25 @@ class StatusPrepend extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     status: ImmutablePropTypes.map,
-    featured: PropTypes.bool,
-    promoted: PropTypes.bool,
+    isFeatured: PropTypes.bool,
+    isPromoted: PropTypes.bool,
   }
 
   render() {
     const {
       intl,
       status,
-      featured,
-      promoted,
+      isFeatured,
+      isPromoted,
     } = this.props
 
     if (!status) return null
 
     const isRepost = (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object')
 
-    if (!featured && !promoted && !isRepost) return null
+    if (!isFeatured && !isPromoted && !isRepost) return null
 
-    const iconId = featured ? 'pin' : promoted ? 'star' : 'repost'
+    const iconId = isFeatured ? 'pin' : isPromoted ? 'star' : 'repost'
 
     return (
       <div className={[_s.default, _s.width100PC, _s.alignItemsStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
@@ -71,7 +71,7 @@ class StatusPrepend extends ImmutablePureComponent {
           {
             !isRepost &&
             <Text color='secondary' size='small'>
-              {intl.formatMessage(featured ? messages.pinned : messages.promoted)}
+              {intl.formatMessage(isFeatured ? messages.pinned : messages.promoted)}
             </Text>
           }
         </div>

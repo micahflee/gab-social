@@ -9,8 +9,7 @@ import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
 import { fetchStatus } from '../actions/statuses';
-// import StatusContainer from '../containers/status_container';
-import Status from '../features/status';
+import StatusContainer from '../containers/status_container';
 import ScrollableList from './scrollable_list';
 import TimelineQueueButtonHeader from './timeline_queue_button_header';
 import ColumnIndicator from './column_indicator';
@@ -48,7 +47,7 @@ const mapStateToProps = (state, { timelineId }) => {
     statusIds: getStatusIds(state, { type: timelineId.substring(0,5) === 'group' ? 'group' : timelineId, id: timelineId }),
     isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
-    hasMore:   state.getIn(['timelines', timelineId, 'hasMore']),
+    hasMore: state.getIn(['timelines', timelineId, 'hasMore']),
     totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
     promotion: promotion,
     promotedStatus: promotion && state.getIn(['statuses', promotion.status_id])
@@ -175,35 +174,26 @@ class StatusList extends ImmutablePureComponent {
           onClick={onLoadMore}
         />
       ) : (
-        <Fragment key={statusId}>
-          <Status
-            id={statusId}
-            onMoveUp={this.handleMoveUp}
-            onMoveDown={this.handleMoveDown}
-            contextType={timelineId}
-            group={group}
-            withGroupAdmin={withGroupAdmin}
-            commentsLimited
-          />
-          { /* : todo : */
-            promotedStatus && index === promotion.position &&
-            <Status
-              id={promotion.status_id}
-              contextType={timelineId}
-              promoted
-              commentsLimited
-            />
-          }
-        </Fragment>
+        <StatusContainer
+          key={statusId}
+          id={statusId}
+          onMoveUp={this.handleMoveUp}
+          onMoveDown={this.handleMoveDown}
+          contextType={timelineId}
+          // : todo :
+          // group={group}
+          // withGroupAdmin={withGroupAdmin}
+          commentsLimited
+        />
       ))
     ) : null;
 
     if (scrollableContent && featuredStatusIds) {
       scrollableContent = featuredStatusIds.map(statusId => (
-        <Status
+        <StatusContainer
           key={`f-${statusId}`}
           id={statusId}
-          featured
+          isFeatured
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           contextType={timelineId}

@@ -311,6 +311,7 @@ Rails.application.routes.draw do
         end
 
         member do
+          get :comments
           get :context
           get :card
           get :revisions

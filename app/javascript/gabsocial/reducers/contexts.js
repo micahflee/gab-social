@@ -1,16 +1,19 @@
 import {
   ACCOUNT_BLOCK_SUCCESS,
   ACCOUNT_MUTE_SUCCESS,
-} from '../actions/accounts';
-import { CONTEXT_FETCH_SUCCESS } from '../actions/statuses';
-import { TIMELINE_DELETE, TIMELINE_UPDATE } from '../actions/timelines';
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
-import compareId from '../utils/compare_id';
+} from '../actions/accounts'
+import {
+  COMMENTS_FETCH_SUCCESS,
+  CONTEXT_FETCH_SUCCESS,
+} from '../actions/statuses'
+import { TIMELINE_DELETE, TIMELINE_UPDATE } from '../actions/timelines'
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
+import compareId from '../utils/compare_id'
 
 const initialState = ImmutableMap({
   inReplyTos: ImmutableMap(),
   replies: ImmutableMap(),
-});
+})
 
 const normalizeContext = (immutableState, id, ancestors, descendants) => immutableState.withMutations(state => {
   state.update('inReplyTos', immutableAncestors => immutableAncestors.withMutations(inReplyTos => {
@@ -96,6 +99,8 @@ export default function replies(state = initialState, action) {
     return filterContexts(state, action.relationship, action.statuses);
   case CONTEXT_FETCH_SUCCESS:
     return normalizeContext(state, action.id, action.ancestors, action.descendants);
+  case COMMENTS_FETCH_SUCCESS:
+    return normalizeContext(state, action.id, ImmutableList(), action.descendants);
   case TIMELINE_DELETE:
     return deleteFromContexts(state, [action.id]);
   case TIMELINE_UPDATE:

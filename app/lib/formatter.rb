@@ -2,6 +2,7 @@
 
 require 'singleton'
 require_relative './sanitize_config'
+require 'redcarpet'
 
 class Formatter
   include Singleton
@@ -9,12 +10,24 @@ class Formatter
 
   include ActionView::Helpers::TextHelper
 
+  class CustomRender < Redcarpet::Render::HTML
+    def paragraph(text)
+      %(<p>#{text}</p>)
+    end
+  end
+
   def format(status, **options)
-    raw_content    = status.text
-    raw_content    = ActionController::Base.helpers.strip_tags(raw_content) if status.id <= 11063737261633602 # #TODO: Migration fix
+    if options[:use_markdown]
+      raw_content = status.markdown
+      return '' if raw_content.blank?
+    else
+      raw_content = status.text
+    end
+
+    raw_content = ActionController::Base.helpers.strip_tags(raw_content) if status.id <= 11063737261633602 # #TODO: Migration fix
 
     if status.reblog?
-      status         = status.proper
+      status = status.proper
     end
 
     if options[:inline_poll_options] && status.preloadable_poll
@@ -33,9 +46,33 @@ class Formatter
     linkable_accounts << status.account
 
     html = raw_content
+
+    # puts "BOLLI 1: " + html
+
     html = encode_and_link_urls(html, linkable_accounts)
+
+    # puts "BOLLI 2: " + html
+
+    if options[:use_markdown]
+      html = convert_headers(html)
+      html = convert_strong(html)
+      html = convert_italic(html)
+      html = convert_strikethrough(html)
+      html = convert_code(html)
+      html = convert_codeblock(html)
+      html = convert_links(html)
+      html = convert_lists(html)
+      html = convert_ordered_lists(html)
+      # puts "BOLLI 3: " + html
+    end
+
     html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
+    # puts "BOLLI 4: " + html
+
     html = simple_format(html, {}, sanitize: false)
+
+    # puts "BOLLI 5: " + html
+
     html = html.delete("\n")
 
     html.html_safe # rubocop:disable Rails/OutputSafety
@@ -295,5 +332,81 @@ class Formatter
 
   def mention_html(account)
     "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(TagManager.instance.url_for(account))}\" class=\"u-url mention\">@#{encode(account.acct)}</a>"
+  end
+
+  def convert_headers(html)
+    html.gsub(/^\#{1,6}.*$/) do |header|
+      weight = 0
+      header.split('').each do |char|
+        break unless char == '#'
+        weight += 1
+      end
+      content = header.sub(/^\#{1,6}/, '')
+      "<h#{weight}>#{content}</h#{weight}>"
+    end
+  end
+
+  def convert_strong(html)
+    html.gsub(/\*{2}.*\*{2}|_{2}.*_{2}/) do |strong|
+      content = strong.gsub(/\*{2}|_{2}/, '')
+      "<strong>#{content}</strong>"
+    end
+  end
+
+  def convert_italic(html)
+    html.gsub(/\*{1}(\w|\s)+\*{1}|_{1}(\w|\s)+_{1}/) do |italic|
+      content = italic.gsub(/\*{1}|_{1}/, '')
+      "<em>#{content}</em>"
+    end
+  end
+
+  def convert_strikethrough(html)
+    html.gsub(/~~(\w|\s)+~~/) do |strike|
+      content = strike.gsub(/~~/, '')
+      "<strike>#{content}</strike>"
+    end
+  end
+
+  def convert_code(html)
+    html.gsub(/`(\w|\s)+`/) do |code|
+      content = code.gsub(/`/, '')
+      "<code>#{content}</code>"
+    end
+  end
+
+  def convert_codeblock(html)
+    html.gsub(/```\w*(.*(\r\n|\r|\n))+```/) do |code|
+      lang = code.match(/```\w+/)[0].gsub(/`/, '')
+      content = code.gsub(/```\w+/, '```').gsub(/`/, '')
+      "<pre class=\"#{lang}\"><code>#{content}</code></pre>"
+    end
+  end
+
+  def convert_links(html)
+    html.gsub(/\[(\w|\s)+\]\((\w|\W)+\)/) do |anchor|
+      link_text = anchor.match(/\[(\w|\s)+\]/)[0].gsub(/[\[\]]/, '')
+      href = anchor.match(/\((\w|\W)+\)/)[0].gsub(/\(|\)/, '')
+      "<a href=\"#{href}\">#{link_text}</a>"
+    end
+  end
+
+  def convert_lists(html)
+    html.gsub(/(\-.+(\r|\n|\r\n))+/) do |list|
+      items = "<ul>\n"
+      list.gsub(/\-.+/) do |li|
+        items << "<li>#{li.sub(/^\-/, '').strip}</li>\n"
+      end
+      items << "</ul>\n"
+    end
+  end
+
+  def convert_ordered_lists(html)
+    html.gsub(/(\d\..+(\r|\n|\r\n))+/) do |list|
+      items = "<ol>\n"
+      list.gsub(/\d.+/) do |li|
+        items << "<li>#{li.sub(/^\d\./, '').strip}</li>\n"
+      end
+      items << "</ol>\n"
+    end
   end
 end

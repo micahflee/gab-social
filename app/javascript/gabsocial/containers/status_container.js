@@ -1,4 +1,5 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl';
+import { defineMessages, injectIntl } from 'react-intl'
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import {
   replyCompose,
   mentionCompose,
@@ -12,7 +13,6 @@ import {
   pin,
   unpin,
 } from '../actions/interactions';
-import { blockAccount } from '../actions/accounts';
 import {
   muteStatus,
   unmuteStatus,
@@ -20,12 +20,13 @@ import {
   editStatus,
   hideStatus,
   revealStatus,
+  fetchComments,
 } from '../actions/statuses';
 import { initMuteModal } from '../actions/mutes';
 import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
-import { boostModal, deleteModal } from '../initial_state';
-// import { showAlertForError } from '../actions/alerts';
+import { openPopover } from '../actions/popover';
+import { me, boostModal, deleteModal } from '../initial_state';
 import {
   createRemovedAccount,
   groupRemoveStatus,
@@ -46,17 +47,53 @@ const messages = defineMessages({
 const makeMapStateToProps = () => {
   const getStatus = makeGetStatus();
 
-  const mapStateToProps = (state, props) => ({
-    status: getStatus(state, props),
-    replies: state.getIn(['contexts', 'replies', props.id]),
-  });
+  const mapStateToProps = (state, props) => {
+    const status = getStatus(state, props)
 
-  return mapStateToProps;
+    // : todo : if is comment (i.e. if any ancestorsIds) use comment not status
+
+    let descendantsIds = ImmutableList()
+
+    if (status) {
+      let indent = -1
+      descendantsIds = descendantsIds.withMutations(mutable => {
+        const ids = [status.get('id')]
+      
+        while (ids.length > 0) {
+          let id = ids.shift();
+          const replies = state.getIn(['contexts', 'replies', id])
+
+          if (status.get('id') !== id) {
+            mutable.push(ImmutableMap({
+              statusId: id,
+              indent: indent,
+            }))
+          }
+
+          if (replies) {
+            replies.reverse().forEach(reply => {
+              ids.unshift(reply)
+            });
+            indent++
+            indent = Math.min(2, indent)
+          }
+        }
+      })
+    }
+
+    return {
+      status,
+      descendantsIds
+    }
+  }
+
+  return mapStateToProps
 };
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
-
   onReply (status, router) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch((_, getState) => {
       const state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
@@ -72,6 +109,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onQuote (status, router) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch((_, getState) => {
       const state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
@@ -87,6 +126,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onModalRepost (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     if (status.get('reblogged')) {
       dispatch(unrepost(status));
     } else {
@@ -94,7 +135,17 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
+  onShare(targetRef, status) {
+    dispatch(openPopover('STATUS_SHARE', {
+      status,
+      targetRef,
+      position: 'top',
+    }))
+  },
+
   onRepost (status, e) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     if (e.shiftKey || !boostModal) {
       this.onModalRepost(status);
     } else {
@@ -103,21 +154,24 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onShowRevisions (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(openModal('STATUS_REVISION', { status }));
   },
 
   onFavorite (status) {
-    console.log('onFavorite...', status)
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     if (status.get('favourited')) {
-      console.log('unfav...')
       dispatch(unfavorite(status));
     } else {
-      console.log('fav...')
       dispatch(favorite(status));
     }
   },
 
   onPin (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     if (status.get('pinned')) {
       dispatch(unpin(status));
     } else {
@@ -133,6 +187,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onDelete (status, history) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+    
     if (!deleteModal) {
       dispatch(deleteStatus(status.get('id'), history));
     } else {
@@ -145,10 +201,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onEdit (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(editStatus(status));
   },
 
   onMention (account, router) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(mentionCompose(account, router));
   },
 
@@ -161,6 +221,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onBlock (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     const account = status.get('account')
     dispatch(openModal('BLOCK_ACCOUNT', {
       accountId: account.get('id'),
@@ -168,10 +230,14 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onReport (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(initReport(status.get('account'), status));
   },
 
   onMute (account) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(initMuteModal(account));
   },
 
@@ -184,6 +250,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onToggleHidden (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     if (status.get('hidden')) {
       dispatch(revealStatus(status.get('id')));
     } else {
@@ -192,17 +260,20 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onGroupRemoveAccount(groupId, accountId) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(createRemovedAccount(groupId, accountId));
   },
 
   onGroupRemoveStatus(groupId, statusId) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
     dispatch(groupRemoveStatus(groupId, statusId));
   },
 
-  onOpenProUpgradeModal() {
-    dispatch(openModal('PRO_UPGRADE'));
+  onFetchComments(statusId) {
+    dispatch(fetchComments(statusId))
   },
-
 });
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Status));

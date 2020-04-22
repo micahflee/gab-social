@@ -25,7 +25,8 @@ const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u20
 const maxPostCharacterCount = 3000
 
 const messages = defineMessages({
-  placeholder: { id: 'compose_form.placeholder', defaultMessage: 'What is on your mind?' },
+  placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
+  commentPlaceholder: { id: 'compose_form.comment_placeholder', defaultMessage: "Write a comment..." },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
   publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
@@ -87,8 +88,8 @@ class ComposeForm extends ImmutablePureComponent {
     showSearch: false,
   };
 
-  handleChange = (e) => {
-    this.props.onChange(e.target.value);
+  handleChange = (e, markdown) => {
+    this.props.onChange(e.target.value, markdown);
   }
 
   handleComposeFocus = () => {
@@ -244,6 +245,7 @@ class ComposeForm extends ImmutablePureComponent {
 
     const parentContainerClasses = cx({
       default: 1,
+      width100PC: 1,
       flexRow: !shouldCondense,
       pb10: !shouldCondense,
     })
@@ -309,7 +311,7 @@ class ComposeForm extends ImmutablePureComponent {
 
             <AutosuggestTextbox
               ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-              placeholder={intl.formatMessage(messages.placeholder)}
+              placeholder={intl.formatMessage(shouldCondense ? messages.commentPlaceholder : messages.placeholder)}
               disabled={disabled}
               value={this.props.text}
               onChange={this.handleChange}
@@ -327,12 +329,12 @@ class ComposeForm extends ImmutablePureComponent {
 
             {
               (isUploading || anyMedia) &&
-              <div className={[_s.default, _s.px15].join(' ')}>
+              <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
                 <UploadForm replyToId={replyToId} />
               </div>
             }
 
-            { /*
+            { /* : todo : for gif
               (isUploading || hasGif) &&
               <div className={[_s.default, _s.px15].join(' ')}>
                 <UploadForm replyToId={replyToId} />
@@ -342,13 +344,19 @@ class ComposeForm extends ImmutablePureComponent {
 
             {
               !edit && hasPoll &&
-              <div className={[_s.default, _s.px15].join(' ')}>
+              <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
                 <PollFormContainer replyToId={replyToId} />
               </div>
             }
 
             {
-              /* : todo : quoteOfId && <StatusContainer id={quoteOfId} /> */
+              quoteOfId &&
+              <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                <StatusContainer
+                  id={quoteOfId}
+                  isChild
+                />
+              </div>
             }
 
             <div className={actionsContainerClasses}>

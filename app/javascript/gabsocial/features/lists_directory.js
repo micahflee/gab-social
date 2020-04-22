@@ -33,15 +33,18 @@ export default
 class ListsDirectory extends ImmutablePureComponent {
 
   static propTypes = {
-    params: PropTypes.object.isRequired,
-    onFetchLists: PropTypes.func.isRequired,
-    lists: ImmutablePropTypes.list,
     intl: PropTypes.object.isRequired,
+    lists: ImmutablePropTypes.list,
+    onFetchLists: PropTypes.func.isRequired,
   }
 
   state = {
     fetched: false,
   }
+
+  updateOnProps = [
+    'lists'
+  ]
 
   componentWillMount() {
     this.props.onFetchLists()

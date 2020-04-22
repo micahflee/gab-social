@@ -46,8 +46,8 @@ const mapStateToProps = (state, { replyToId }) => {
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onChange(text) {
-    dispatch(changeCompose(text))
+  onChange(text, markdown) {
+    dispatch(changeCompose(text, markdown))
   },
 
   onSubmit(router, group) {

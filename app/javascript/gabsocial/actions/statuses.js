@@ -18,6 +18,10 @@ export const CONTEXT_FETCH_REQUEST = 'CONTEXT_FETCH_REQUEST';
 export const CONTEXT_FETCH_SUCCESS = 'CONTEXT_FETCH_SUCCESS';
 export const CONTEXT_FETCH_FAIL    = 'CONTEXT_FETCH_FAIL';
 
+export const COMMENTS_FETCH_REQUEST = 'COMMENTS_FETCH_REQUEST';
+export const COMMENTS_FETCH_SUCCESS = 'COMMENTS_FETCH_SUCCESS';
+export const COMMENTS_FETCH_FAIL    = 'COMMENTS_FETCH_FAIL';
+
 export const STATUS_MUTE_REQUEST = 'STATUS_MUTE_REQUEST';
 export const STATUS_MUTE_SUCCESS = 'STATUS_MUTE_SUCCESS';
 export const STATUS_MUTE_FAIL    = 'STATUS_MUTE_FAIL';
@@ -84,8 +88,6 @@ function getFromDB(dispatch, getState, accountIndex, index, id) {
 export function fetchStatus(id) {
   return (dispatch, getState) => {
     const skipLoading = getState().getIn(['statuses', id], null) !== null;
-
-    dispatch(fetchContext(id));
 
     if (skipLoading) {
       return;
@@ -205,6 +207,24 @@ export function fetchContext(id) {
   };
 };
 
+export function fetchComments(id) {
+  return (dispatch, getState) => {
+    dispatch(fetchCommentsRequest(id));
+
+    api(getState).get(`/api/v1/statuses/${id}/comments`).then(response => {
+      dispatch(importFetchedStatuses(response.data.descendants));
+      dispatch(fetchCommentsSuccess(id, response.data.descendants));
+
+    }).catch(error => {
+      if (error.response && error.response.status === 404) {
+        dispatch(deleteFromTimelines(id));
+      }
+
+      dispatch(fetchCommentsFail(id, error));
+    });
+  };
+};
+
 export function fetchContextRequest(id) {
   return {
     type: CONTEXT_FETCH_REQUEST,
@@ -225,6 +245,30 @@ export function fetchContextSuccess(id, ancestors, descendants) {
 export function fetchContextFail(id, error) {
   return {
     type: CONTEXT_FETCH_FAIL,
+    id,
+    error,
+    skipAlert: true,
+  };
+};
+
+export function fetchCommentsRequest(id) {
+  return {
+    type: COMMENTS_FETCH_REQUEST,
+    id,
+  };
+};
+
+export function fetchCommentsSuccess(id, descendants) {
+  return {
+    type: COMMENTS_FETCH_SUCCESS,
+    id,
+    descendants,
+  };
+};
+
+export function fetchCommentsFail(id, error) {
+  return {
+    type: COMMENTS_FETCH_FAIL,
     id,
     error,
     skipAlert: true,
