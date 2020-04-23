@@ -14,8 +14,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onAddOption(title) {
-    dispatch(addPollOption(title));
+  onAddOption() {
+    dispatch(addPollOption(''))
   },
 
   onRemoveOption(index) {

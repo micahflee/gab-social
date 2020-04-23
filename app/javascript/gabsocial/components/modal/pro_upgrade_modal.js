@@ -45,7 +45,6 @@ class ProUpgradeModal extends ImmutablePureComponent {
         </div>
 
         <Button
-          centered
           backgroundColor='brand'
           color='white'
           icon='pro'

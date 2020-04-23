@@ -120,7 +120,7 @@ class Create extends ImmutablePureComponent {
 					placeholder={'New group title...'}
 				/>
 
-				<Divider invisible />
+				<Divider isInvisible />
 
 				<Textarea
 					title={intl.formatMessage(messages.description)}
@@ -130,7 +130,7 @@ class Create extends ImmutablePureComponent {
 					placeholder={'Some group description...'}
 				/>
 
-				<Divider invisible />
+				<Divider isInvisible />
 
 				<FileInput
 					title={intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
@@ -140,11 +140,9 @@ class Create extends ImmutablePureComponent {
 					height='145px'
 				/>
 
-				<Divider invisible />
+				<Divider isInvisible />
 
-				<Button
-					className={_s.ml10}
-				>
+				<Button className={_s.ml10}>
 					<Text color='white'>
 						{intl.formatMessage(!!group ? messages.update : messages.create)}
 					</Text>

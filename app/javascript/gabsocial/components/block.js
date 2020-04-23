@@ -1,7 +1,10 @@
+/**
+ * Renders a block component
+ */
 export default class Block extends PureComponent {
 
   static propTypes = {
-    children: PropTypes.node,
+    children: PropTypes.any,
   }
 
   render() {

@@ -132,3 +132,9 @@ export const getAccountGallery = createSelector([
 
   return medias;
 });
+
+export const getOrderedLists = createSelector([state => state.get('lists')], lists => {
+  if (!lists) return lists
+
+  return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')))
+})

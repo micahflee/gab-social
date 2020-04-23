@@ -1,8 +1,6 @@
 const AppsIcon = ({
   className = '',
-  width = '16px',
-  height = '16px',
-  viewBox = '0 0 80 80',
+  size = '16px',
   title = 'Apps',
 }) => (
   <svg
@@ -11,9 +9,9 @@ const AppsIcon = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 80 80'
     xmlSpace='preserve'
     aria-label={title}
   >

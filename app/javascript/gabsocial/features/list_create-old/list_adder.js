@@ -1,20 +1,12 @@
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { defineMessages, injectIntl } from 'react-intl';
-import { createSelector } from 'reselect';
+import { getOrderedLists } from '../../selectors'
 import { setupListAdder, resetListAdder } from '../../actions/lists';
 import List from './components/list';
 import Account from '../../components/account';
 import Button from '../../components/button';
 // import NewListForm from '../lists_directory/components/new_list_form';
-
-const getOrderedLists = createSelector([state => state.get('lists')], lists => {
-  if (!lists) {
-    return lists;
-  }
-
-  return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')));
-});
 
 const mapStateToProps = (state, { accountId }) => ({
   listIds: getOrderedLists(state).map(list => list.get('id')),

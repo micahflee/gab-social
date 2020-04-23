@@ -40,7 +40,6 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
         </div>
 
         <Button
-          centered
           backgroundColor='brand'
           color='white'
           icon='pro'

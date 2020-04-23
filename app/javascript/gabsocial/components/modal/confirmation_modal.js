@@ -58,7 +58,7 @@ class ConfirmationModal extends PureComponent {
           <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
             <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
 
-              <Heading size='h1' center>
+              <Heading size='h1' isCentered>
                 {title}
               </Heading>
 

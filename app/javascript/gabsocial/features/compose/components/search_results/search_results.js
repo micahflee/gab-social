@@ -12,6 +12,8 @@ import Button from '../../../../components/button'
 import Text from '../../../../components/text'
 import Account from '../../../../components/account'
 
+// : todo :
+
 export default class SearchResults extends ImmutablePureComponent {
 
   static propTypes = {
@@ -51,7 +53,7 @@ export default class SearchResults extends ImmutablePureComponent {
             </Heading>
             <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
               <Button
-                text
+                isText
                 backgroundColor='none'
                 color='brand'
                 to='/search/people'

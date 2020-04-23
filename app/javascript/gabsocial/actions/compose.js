@@ -162,15 +162,14 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
     }
   };
 
-  if (response.data.visibility !== 'direct') {
+  if (response.data.in_reply_to_id === null && response.data.visibility === 'public') {
     insertIfOnline('home');
-  } else if (response.data.in_reply_to_id === null && response.data.visibility === 'public') {
     insertIfOnline('community');
     insertIfOnline('public');
   }
 }
 
-export function submitCompose(routerHistory, group) {
+export function submitCompose(group, replyToId=null) {
   return function (dispatch, getState) {
     if (!me) return;
 
@@ -188,6 +187,8 @@ export function submitCompose(routerHistory, group) {
     //   const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
     //   return hasProtocol ? match : `http://${match}`
     // })
+
+    const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null) || replyToId
 
     console.log("markdown:", markdown)
 
@@ -208,7 +209,7 @@ export function submitCompose(routerHistory, group) {
       status,
       markdown,
       scheduled_at,
-      in_reply_to_id: getState().getIn(['compose', 'in_reply_to'], null),
+      in_reply_to_id: inReplyToId,
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
       media_ids: media.map(item => item.get('id')),
       sensitive: getState().getIn(['compose', 'sensitive']),
@@ -221,9 +222,6 @@ export function submitCompose(routerHistory, group) {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
       },
     }).then(function (response) {
-      if (response.data.visibility === 'direct' && getState().getIn(['conversations', 'mounted']) <= 0 && routerHistory) {
-        routerHistory.push('/messages');
-      }
       handleComposeSubmit(dispatch, getState, response, status);
     }).catch(function (error) {
       dispatch(submitComposeFail(error));

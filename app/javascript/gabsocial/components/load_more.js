@@ -35,7 +35,7 @@ class LoadMore extends PureComponent {
     return (
       <div className={[_s.default, _s.py10, _s.px10].join(' ')}>
         <Button
-          block
+          isBlock
           radiusSmall
           backgroundColor='tertiary'
           color='primary'
@@ -53,7 +53,7 @@ class LoadMore extends PureComponent {
           {
             gap &&
             <Text align='center'>
-              <Icon id='ellipsis' />
+              <Icon id='ellipsis' size='14px' />
             </Text>
           }
         </Button>

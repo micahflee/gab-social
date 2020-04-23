@@ -131,8 +131,7 @@ class GifPickerModal extends PureComponent {
               onClick={this.onHandleCloseModal}
               color='secondary'
               icon='close'
-              iconWidth='10px'
-              iconWidth='10px'
+              iconSize='10px'
             />
           </div>
           <div className={[_s.default, _s.heightMin50VH, _s.heightMax80VH, _s.overflowYScroll].join(' ')}>
@@ -258,8 +257,8 @@ class GifCategoriesCollection extends PureComponent {
                   height={150}
                   src={category.image}
                 />
-                <div className={[_s.default, _s.positionAbsolute, _s.videoPlayerControlsBackground, _s.right0, _s.bottom0, _s.left0, _s.py10, _s.px10].join(' ')}>
-                  <Text color='white' weight='bold' size='large' align='left'>
+                <div className={[_s.default, _s.posAbs, _s.videoPlayerControlsBackground, _s.right0, _s.bottom0, _s.left0, _s.py10, _s.px10].join(' ')}>
+                  <Text color='white' weight='bold' size='large'>
                     {category.searchterm}
                   </Text>
                 </div>

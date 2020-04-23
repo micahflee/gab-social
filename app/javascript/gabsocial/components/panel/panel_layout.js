@@ -45,7 +45,7 @@ export default class PanelLayout extends PureComponent {
                   (!!headerButtonTitle && (!!headerButtonAction || !!headerButtonTo)) &&
                   <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
                     <Button
-                      text
+                      isText
                       backgroundColor='none'
                       color='brand'
                       to={headerButtonTo}
@@ -82,14 +82,14 @@ export default class PanelLayout extends PureComponent {
             (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo)) &&
             <div className={[_s.default, _s.borderColorSecondary, _s.borderTop1PX].join(' ')}>
               <Button
-                text
+                isText
                 color='none'
                 backgroundColor='none'
                 to={footerButtonTo}
                 onClick={footerButtonAction}
                 className={[_s.px15, _s.py15, _s.backgroundSubtle_onHover].join(' ')}
               >
-                <Text color='brand' align='left' size='medium'>
+                <Text color='brand' size='medium'>
                   {footerButtonTitle}
                 </Text>
               </Button>

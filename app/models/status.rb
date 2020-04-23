@@ -291,7 +291,7 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where(account: [account] + account.following)
+      query = where(account: [account] + account.following).without_replies
 
       # if account.user.allows_group_in_home_feed?
       #   query = query.or(where(group: account.groups))
@@ -301,7 +301,7 @@ class Status < ApplicationRecord
     end
 
     def as_group_timeline(group)
-      where(group: group)
+      where(group: group).without_replies
     end
 
     def as_direct_timeline(account, limit = 20, max_id = nil, since_id = nil, cache_ids = false)
@@ -352,7 +352,7 @@ class Status < ApplicationRecord
     end
 
     def as_tag_timeline(tag, account = nil, local_only = false)
-      query = timeline_scope(local_only).tagged_with(tag)
+      query = timeline_scope(local_only).tagged_with(tag).without_replies
 
       apply_timeline_filters(query, account, local_only)
     end

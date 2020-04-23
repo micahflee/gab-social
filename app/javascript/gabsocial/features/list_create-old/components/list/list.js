@@ -20,6 +20,8 @@ const mapDispatchToProps = (dispatch, { listId }) => ({
   onAdd: () => dispatch(addToListAdder(listId)),
 });
 
+// : todo :
+
 export default
 @connect(MapStateToProps, mapDispatchToProps)
 @injectIntl

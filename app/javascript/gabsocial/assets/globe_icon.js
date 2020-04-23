@@ -1,9 +1,7 @@
 // : todo : fill, stroke colors
 const GlobeIcon = ({
   className = '',
-  width = '12px',
-  height = '12px',
-  viewBox = '0 0 28 28',
+  size = '12px',
   title = 'Globe',
 }) => (
   <svg
@@ -12,9 +10,9 @@ const GlobeIcon = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 28 28'
     xmlSpace='preserve'
     aria-label={title}
   >

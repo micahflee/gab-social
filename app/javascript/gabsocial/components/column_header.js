@@ -1,6 +1,6 @@
-import TabBar from './tab_bar'
 import Button from './button'
 import Heading from './heading'
+import TabBar from './tab_bar'
 
 export default class ColumnHeader extends PureComponent {
 
@@ -44,8 +44,7 @@ export default class ColumnHeader extends PureComponent {
             backgroundColor='none'
             className={[_s.alignItemsCenter, _s.pl0, _s.justifyContentCenter].join(' ')}
             icon='back'
-            iconWidth='20px'
-            iconHeight='20px'
+            iconSize='20px'
             iconClassName={[_s.mr5, _s.fillColorPrimary].join(' ')}
             onClick={this.handleBackClick}
           />
@@ -57,10 +56,7 @@ export default class ColumnHeader extends PureComponent {
           </Heading>
         </div>
 
-        {
-          !!tabs &&
-          <TabBar tabs={tabs} />
-        }
+        <TabBar tabs={tabs} />
 
         {
           !!actions &&
@@ -75,8 +71,7 @@ export default class ColumnHeader extends PureComponent {
                   className={[_s.ml5, _s.fillColorBrand_onHover, _s.backgroundColorBrandLightOpaque_onHover, _s.px10].join(' ')}
                   icon={action.icon}
                   iconClassName={_s.inheritFill}
-                  iconWidth='15px'
-                  iconHeight='15px'
+                  iconSize='15px'
                 />
               ))
             }

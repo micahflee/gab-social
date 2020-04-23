@@ -7,7 +7,7 @@ export default class PageTitle extends PureComponent {
       PropTypes.string,
     ]),
     path: PropTypes.oneOfType([
-      PropTypes.sting,
+      PropTypes.string,
       PropTypes.array,
     ]),
   }

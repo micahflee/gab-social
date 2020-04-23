@@ -36,7 +36,7 @@ export default class CommentList extends ImmutablePureComponent {
           size > 0 && size > max &&
           <div className={[_s.default, _s.flexRow, _s.px15, _s.pb5, _s.mb10, _s.alignItemsCenter].join(' ')}>
             <Button
-              text
+              isText
               backgroundColor='none'
               color='tertiary'
             >

@@ -1,19 +1,19 @@
-import { defineMessages, injectIntl } from 'react-intl';
-import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import Account from '../../components/account';
-import PanelLayout from './panel_layout';
+import { defineMessages, injectIntl } from 'react-intl'
+import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import Account from '../../components/account'
+import PanelLayout from './panel_layout'
 
 const messages = defineMessages({
   dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
   title: { id: 'who_to_follow.title', defaultMessage: 'Who to Follow' },
   show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
-});
+})
 
 const mapStateToProps = (state) => ({
   suggestions: state.getIn(['suggestions', 'items']),
-});
+})
 
 const mapDispatchToProps = (dispatch) => ({
   fetchSuggestions: () => dispatch(fetchSuggestions()),
@@ -26,25 +26,26 @@ export default
 class WhoToFollowPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    suggestions: ImmutablePropTypes.list.isRequired,
-    fetchSuggestions: PropTypes.func.isRequired,
     dismissSuggestion: PropTypes.func.isRequired,
+    fetchSuggestions: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+    suggestions: ImmutablePropTypes.list.isRequired,
+  }
+
+  updateOnProps = [
+    'suggestions',
+  ]
 
   componentDidMount () {
-    this.props.fetchSuggestions();
+    this.props.fetchSuggestions()
   }
 
   render() {
-    const { intl, /* suggestions, */ dismissSuggestion } = this.props;
-    // : testing!!! :
-    const suggestions = [
-      "1","1","1",
-    ]
-    // if (suggestions.isEmpty()) {
-    //   return null;
-    // }
+    const { intl, suggestions, dismissSuggestion } = this.props
+
+    if (suggestions.isEmpty()) {
+      return null
+    }
 
     return (
       <PanelLayout
@@ -53,16 +54,18 @@ class WhoToFollowPanel extends ImmutablePureComponent {
         footerButtonTo='/explore'
       >
         <div className={_s.default}>
-          {suggestions && suggestions.map(accountId => (
-            <Account
-              showDismiss
-              key={accountId}
-              id={accountId}
-              dismissAction={dismissSuggestion}
-            />
-          ))}
+          {
+            suggestions.map(accountId => (
+              <Account
+                showDismiss
+                key={accountId}
+                id={accountId}
+                dismissAction={dismissSuggestion}
+              />
+            ))
+          }
         </div>
       </PanelLayout>
-    );
-  };
-};
+    )
+  }
+}

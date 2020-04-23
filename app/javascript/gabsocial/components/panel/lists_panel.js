@@ -1,16 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import { createSelector } from 'reselect'
+import { getOrderedLists } from '../../selectors'
 import { fetchLists } from '../../actions/lists'
 import PanelLayout from './panel_layout'
 import List from '../list'
-
-const getOrderedLists = createSelector([state => state.get('lists')], lists => {
-  if (!lists) return lists
-
-  return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')))
-})
 
 const messages = defineMessages({
   title: { id: 'lists.subheading', defaultMessage: 'Your Lists' },

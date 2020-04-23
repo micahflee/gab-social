@@ -1,8 +1,6 @@
 const ListIcon = ({
   className = '',
-  width = '26px',
-  height = '26px',
-  viewBox = '0 0 64 64',
+  size = '26px',
   title = 'List',
 }) => (
   <svg
@@ -11,9 +9,9 @@ const ListIcon = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 64 64'
     xmlSpace='preserve'
     aria-label={title}
   >

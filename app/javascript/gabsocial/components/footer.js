@@ -2,6 +2,8 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import NotificationCounter from '../notification_counter';
 
+// : todo :
+
 const links = [
   <NavLink key='pr1' className='footer-bar__link' to='/home' data-preview-title-id='column.home'>
     <i className='tabs-bar__link__icon home' />

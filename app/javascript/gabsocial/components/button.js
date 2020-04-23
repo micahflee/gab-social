@@ -3,8 +3,10 @@ import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import Icon from './icon'
 
+// Bind CSS Modules global variable `_s` to classNames module
 const cx = classNames.bind(_s)
 
+// Define colors for enumeration for Button component `color`, `backgroundColor` props
 const COLORS = {
   primary: 'primary',
   secondary: 'secondary',
@@ -16,29 +18,60 @@ const COLORS = {
   none: 'none',
 }
 
+/**
+ * Renders a button component
+ * @param {string} [props.backgroundColor='brand'] - background color of the button
+ * @param {func|node} [props.buttonRef] - ref to send to button component
+ * @param {string} [props.className] - add custom className
+ * @param {string} [props.color='white'] - text color of the button
+ * @param {string} [props.href] - href to send to on click
+ * @param {string} [props.icon] - prepend icon id
+ * @param {string} [props.iconClassName] - add custom className to icon
+ * @param {string} [props.iconSize] - size of the icon
+ * @param {bool} [props.isBlock] - if button is width: 100%
+ * @param {bool} [props.isDisabled] - if the button is disabled
+ * @param {bool} [props.isNarrow] - if the button is narrow
+ * @param {bool} [props.isOutline] - if the button is outline design
+ * @param {bool} [props.noClasses] - if the button has no default classes
+ * @param {func} [props.onClick] - function to call on button click
+ * @param {func} [props.onMouseEnter] - function to call on button mouse enter
+ * @param {func} [props.onMouseLeave] - function to call on button mouse leave
+ * @param {bool} [props.radiusSmall] - if the button has small radius
+ * @param {bool} [props.text] - if the button is just text (i.e. link)
+ * @param {bool} [props.title] - `title` attribute for button
+ * @param {bool} [props.to] - `to` to send to on click
+ * @param {bool} [props.type] - `type` attribute for button
+ * @param {bool} [props.underlineOnHover] - if the button has underline on hover
+ */
 export default class Button extends PureComponent {
 
   static propTypes = {
-    children: PropTypes.node,
-    to: PropTypes.string,
-    href: PropTypes.string,
-    onClick: PropTypes.func,
-    className: PropTypes.string,
-    icon: PropTypes.string,
-    iconWidth: PropTypes.string,
-    iconHeight: PropTypes.string,
-    iconClassName: PropTypes.string,
-    color: PropTypes.string,
     backgroundColor: PropTypes.string,
-    block: PropTypes.bool,
-    text: PropTypes.bool,
-    disabled: PropTypes.bool,
-    outline: PropTypes.bool,
-    narrow: PropTypes.bool,
-    underlineOnHover: PropTypes.bool,
-    radiusSmall: PropTypes.bool,
+    buttonRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.node,
+    ]),
+    children: PropTypes.node,
+    className: PropTypes.string,
+    color: PropTypes.string,
+    href: PropTypes.string,
+    icon: PropTypes.string,
+    iconClassName: PropTypes.string,
+    iconSize: PropTypes.string,
+    isBlock: PropTypes.bool,
+    isDisabled: PropTypes.bool,
+    isNarrow: PropTypes.bool,
+    isText: PropTypes.bool,
     noClasses: PropTypes.bool,
-    buttonRef: PropTypes.func,
+    onClick: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    isOutline: PropTypes.bool,
+    radiusSmall: PropTypes.bool,
+    title: PropTypes.string,
+    to: PropTypes.string,
+    type: PropTypes.string,
+    underlineOnHover: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -47,15 +80,18 @@ export default class Button extends PureComponent {
   }
 
   handleClick = (e) => {
-    if (!this.props.disabled && this.props.onClick) {
+    if (!this.props.isDisabled && this.props.onClick) {
       this.props.onClick(e)
     }
   }
 
   setRef = (c) => {
-    const { buttonRef } = this.props
-    if (buttonRef) buttonRef(c)
-    this.node = c
+    try {
+      this.node = c
+      this.props.buttonRef(c) 
+    } catch (error) {
+      //
+    }
   }
 
   focus() {
@@ -64,36 +100,31 @@ export default class Button extends PureComponent {
 
   render() {
     const {
-      block,
-      className,
-      disabled,
-      text,
-      to,
-      icon,
-      iconWidth,
-      iconHeight,
-      iconClassName,
-      children,
-      href,
-      outline,
-      color,
       backgroundColor,
-      underlineOnHover,
-      narrow,
-      radiusSmall,
+      children,
+      className,
+      color,
+      href,
+      icon,
+      iconClassName,
+      iconSize,
+      isBlock,
+      isDisabled,
+      isNarrow,
+      isOutline,
+      isText,
       noClasses,
-      ...otherProps
+      onClick,
+      onMouseEnter,
+      onMouseLeave,
+      radiusSmall,
+      title,
+      to,
+      type,
+      underlineOnHover,
     } = this.props
 
-    const theIcon = !!icon ? (
-      <Icon
-        id={icon}
-        width={iconWidth}
-        height={iconHeight}
-        className={iconClassName}
-      />
-    ) : undefined
-
+    // Style the component according to props
     const classes = noClasses ? className : cx(className, {
       default: 1,
       noUnderline: 1,
@@ -102,8 +133,8 @@ export default class Button extends PureComponent {
       textAlignCenter: 1,
       outlineNone: 1,
       flexRow: !!children && !!icon,
-      cursorNotAllowed: disabled,
-      opacity05: disabled,
+      cursorNotAllowed: isDisabled,
+      opacity05: isDisabled,
 
       backgroundColorPrimary: backgroundColor === COLORS.white,
       backgroundColorBlack: backgroundColor === COLORS.black,
@@ -119,17 +150,17 @@ export default class Button extends PureComponent {
       colorWhite: !!children && color === COLORS.white,
       colorBrand: !!children && color === COLORS.brand,
 
-      borderColorBrand: color === COLORS.brand && outline,
-      border1PX: outline,
+      borderColorBrand: color === COLORS.brand && isOutline,
+      border1PX: isOutline,
 
-      circle: !text,
+      circle: !isText,
       radiusSmall: radiusSmall,
 
-      py5: narrow,
-      py10: !text && !narrow,
-      px15: !text,
+      py5: isNarrow,
+      py10: !isText && !isNarrow,
+      px15: !isText,
 
-      width100PC: block,
+      width100PC: isBlock,
 
       underline_onHover: underlineOnHover,
 
@@ -138,16 +169,24 @@ export default class Button extends PureComponent {
       backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
       backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger,
 
-      backgroundColorBrand_onHover: color === COLORS.brand && outline,
-      colorWhite_onHover: !!children && color === COLORS.brand && outline,
+      backgroundColorBrand_onHover: color === COLORS.brand && isOutline,
+      colorWhite_onHover: !!children && color === COLORS.brand && isOutline,
 
       fillColorSecondary: !!icon && color === COLORS.secondary,
       fillColorWhite: !!icon && color === COLORS.white,
       fillColorBrand: !!icon && color === COLORS.brand,
-      fillColorWhite_onHover: !!icon && color === COLORS.brand && outline,
+      fillColorWhite_onHover: !!icon && color === COLORS.brand && isOutline,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'
+
+    const theIcon = !!icon ? (
+      <Icon
+        id={icon}
+        size={iconSize}
+        className={iconClassName}
+      />
+    ) : undefined
 
     const theChildren = !!icon ? (
       <Fragment>
@@ -156,22 +195,34 @@ export default class Button extends PureComponent {
       </Fragment>
     ) : children
 
-    const options = {
-      disabled,
-      className: classes,
-      ref: this.setRef,
-      to: to || undefined,
-      href: href || undefined,
-      onClick: this.handleClick || undefined,
-      ...otherProps,
+    const handlers = {
+      onClick: !!onClick ? this.handleClick : undefined,
+      onMouseEnter: !!onMouseEnter ? onMouseEnter : undefined,
+      onMouseLeave: !!onMouseLeave ? onMouseLeave : undefined,
     }
 
     if (tagName === 'NavLink' && !!to) {
       return (
-        <NavLink {...options}>
+        <NavLink
+          title={title}
+          className={classes}
+          disabled={isDisabled}
+          to={to}
+          {...handlers}
+        >
           {theChildren}
         </NavLink>
       )
+    }
+
+    const options = {
+      title,
+      type,
+      disabled: isDisabled,
+      className: classes,
+      href: href || undefined,
+      ref: this.setRef,
+      ...handlers,
     }
 
     return React.createElement(tagName, options, theChildren)

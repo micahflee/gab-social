@@ -21,6 +21,7 @@ class EditProfileModal extends ImmutablePureComponent {
 
     return (
       <ModalLayout>
+        test
       </ModalLayout>
     )
   }

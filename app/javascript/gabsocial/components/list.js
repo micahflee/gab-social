@@ -1,4 +1,5 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import Block from './block'
 import ScrollableList from './scrollable_list'
 import ListItem from './list_item'
@@ -8,7 +9,8 @@ export default class List extends ImmutablePureComponent {
   static propTypes = {
     items: PropTypes.oneOfType([
       PropTypes.array,
-      // immutatable...
+      ImmutablePropTypes.map,
+      ImmutablePropTypes.list,
     ]),
     scrollKey: PropTypes.string,
     emptyMessage: PropTypes.any,

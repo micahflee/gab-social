@@ -151,7 +151,7 @@ class Item extends ImmutablePureComponent {
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={[_s.default, _s.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius, width: `${width}%` }}>
+        <div className={[_s.default, _s.posAbs].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius, width: `${width}%` }}>
           <a className={[_s.default, _s.heigh100PC, _s.width100PC, _s.cursorPointer].join(' ')} href={attachment.get('remote_url')} target='_blank' rel='noreferrer noopener'>
             <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.default, _s.heigh100PC, _s.width100PC].join(' ')} />
           </a>
@@ -216,7 +216,7 @@ class Item extends ImmutablePureComponent {
             playsInline
           />
 
-          <div className={[_s.default, _s.positionAbsolute, _s.z2, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
+          <div className={[_s.default, _s.posAbs, _s.z2, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
             <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
           </div>
         </div>
@@ -224,7 +224,7 @@ class Item extends ImmutablePureComponent {
     }
 
     return (
-      <div className={[_s.defeault, _s.positionAbsolute].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
+      <div className={[_s.defeault, _s.posAbs].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
         {
           !visible && !this.state.loaded &&
           <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.default, _s.heigh100PC, _s.width100PC].join(' ')} />
@@ -257,6 +257,7 @@ class MediaGallery extends PureComponent {
 
   static defaultProps = {
     standalone: false,
+    height: 110,
   };
 
   state = {
@@ -517,7 +518,7 @@ class MediaGallery extends PureComponent {
     //If reduced (i.e. like in a quoted post)
     //then we need to make media smaller
     if (reduced) {
-      style.height = width / 2
+      style.height = width / 2 || '50%'
     }
 
     if (!visible) {
@@ -568,7 +569,7 @@ class MediaGallery extends PureComponent {
 
         {
           visible && sensitive &&
-          <div className={[_s.positionAbsolute, _s.z2, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}>
+          <div className={[_s.posAbs, _s.z2, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}>
             <Button
               title={intl.formatMessage(messages.toggle_visible)}
               icon='hidden'

@@ -43,10 +43,6 @@ class ComposeForm extends ImmutablePureComponent {
     composeFocused: false,
   }
 
-  static contextTypes = {
-    router: PropTypes.object,
-  };
-
   static propTypes = {
     intl: PropTypes.object.isRequired,
     edit: PropTypes.bool,
@@ -81,6 +77,7 @@ class ComposeForm extends ImmutablePureComponent {
     scheduledAt: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
     replyToId: PropTypes.string,
+    reduxReplyToId: PropTypes.string,
     hasPoll: PropTypes.bool,
   };
 
@@ -141,7 +138,7 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    this.props.onSubmit(this.context.router ? this.context.router.history : null, this.props.group);
+    this.props.onSubmit(this.props.group, this.props.replyToId);
   }
 
   onSuggestionsClearRequested = () => {
@@ -234,15 +231,18 @@ class ComposeForm extends ImmutablePureComponent {
       scheduledAt,
       spoiler,
       replyToId,
+      reduxReplyToId,
       hasPoll,
       isUploading,
       isMatch,
+      isChangingUpload,
+      isSubmitting,
     } = this.props
-    const disabled = this.props.isSubmitting;
+    const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
-    const disabledButton = disabled || isUploading || this.props.isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
+    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
-
+    
     const parentContainerClasses = cx({
       default: 1,
       width100PC: 1,
@@ -272,6 +272,12 @@ class ComposeForm extends ImmutablePureComponent {
       marginLeftAuto: shouldCondense,
     })
 
+    const commentPublishBtnClasses = cx({
+      default: 1,
+      justifyContentCenter: 1,
+      displayNone: length(this.props.text) === 0 || anyMedia,
+    })
+
     return (
       <div className={parentContainerClasses}>
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
@@ -287,6 +293,16 @@ class ComposeForm extends ImmutablePureComponent {
             ref={this.setForm}
             onClick={this.handleClick}
           >
+
+            {
+              !!reduxReplyToId && !shouldCondense &&
+              <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                <StatusContainer
+                  id={reduxReplyToId}
+                  isChild
+                />
+              </div>
+            }
 
             {
               !!spoiler &&
@@ -311,7 +327,7 @@ class ComposeForm extends ImmutablePureComponent {
 
             <AutosuggestTextbox
               ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-              placeholder={intl.formatMessage(shouldCondense ? messages.commentPlaceholder : messages.placeholder)}
+              placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) ? messages.commentPlaceholder : messages.placeholder)}
               disabled={disabled}
               value={this.props.text}
               onChange={this.handleChange}
@@ -350,7 +366,7 @@ class ComposeForm extends ImmutablePureComponent {
             }
 
             {
-              quoteOfId &&
+              !!quoteOfId &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
                   id={quoteOfId}
@@ -386,10 +402,10 @@ class ComposeForm extends ImmutablePureComponent {
                 <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
 
                 {
-                  shouldCondense /* && (hasPoll || anyMedia || text) */ &&
-                  <div className={[_s.default, _s.justifyContentCenter].join(' ')}>
+                  shouldCondense &&
+                  <div className={commentPublishBtnClasses}>
                     <Button
-                      narrow
+                      isNarrow
                       onClick={this.handleSubmit}
                       disabled={disabledButton}
                       className={_s.px10}
@@ -405,12 +421,11 @@ class ComposeForm extends ImmutablePureComponent {
                 <CharacterCounter max={maxPostCharacterCount} text={text} />
               }
 
-              { /* : todo : show send on shouldCondense if any text */
-                !shouldCondense &&
+              {
+                !shouldCondense && !disabledButton &&
                 <Button
                   className={[_s.fontSize15PX, _s.px15].join(' ')}
                   onClick={this.handleSubmit}
-                  disabled={disabledButton}
                 >
                   {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
                 </Button>

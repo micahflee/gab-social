@@ -196,7 +196,7 @@ class Sidebar extends ImmutablePureComponent {
     return (
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
-          <div className={[_s.default, _s.positionFixed, _s.top0, _s.height100PC].join(' ')}>
+          <div className={[_s.default, _s.posFixed, _s.top0, _s.height100PC].join(' ')}>
             <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
 
               <SidebarHeader />
@@ -228,7 +228,7 @@ class Sidebar extends ImmutablePureComponent {
 
               <Responsive min={Constants.BREAKPOINT_SMALL}>
                 <Button
-                  block
+                  isBlock
                   onClick={this.handleOpenComposeModal}
                   className={[_s.py15, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
                 >

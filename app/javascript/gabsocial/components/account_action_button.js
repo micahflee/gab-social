@@ -1,54 +1,160 @@
-wimport classNames from 'classnames/bind'
-
-const cx = classNames.bind(_s)
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { injectIntl, defineMessages } from 'react-intl'
+import {
+  followAccount,
+  unfollowAccount,
+  unblockAccount,
+} from '../actions/accounts'
+import { openModal } from '../actions/modal'
+import { me, unfollowModal } from '../initial_state'
+import Button from './button'
+import Text from './text'
 
 // : todo :
 
-export default class AccountActionButton extends PureComponent {
+const messages = defineMessages({
+  follow: { id: 'follow', defaultMessage: 'Follow' },
+  following: { id: 'following', defaultMessage: 'Following' },
+  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
+  requested: { id: 'requested', defaultMessage: 'Requested' },
+  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
+  blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onFollow(account) {
+    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
+      if (unfollowModal) {
+        dispatch(openModal('UNFOLLOW', {
+          accountId: account.get('id'),
+        }));
+      } else {
+        dispatch(unfollowAccount(account.get('id')));
+      }
+    } else {
+      dispatch(followAccount(account.get('id')));
+    }
+  },
+
+  onBlock(account) {
+    if (account.getIn(['relationship', 'blocking'])) {
+      dispatch(unblockAccount(account.get('id')));
+    } else {
+      dispatch(openModal('BLOCK_ACCOUNT', {
+        accountId: account.get('id'),
+      }));
+    }
+  },
+
+});
+
+export default
+@injectIntl
+@connect(null, mapDispatchToProps)
+class AccountActionButton extends ImmutablePureComponent {
+
   static propTypes = {
-    children: PropTypes.any,
-    size: PropTypes.oneOf(Object.keys(SIZES)),
-    center: PropTypes.bool,
+    account: ImmutablePropTypes.map,
+    intl: PropTypes.object.isRequired,
+    isSmall: PropTypes.bool,
+    onBlock: PropTypes.func.isRequired,
+    onFollow: PropTypes.func.isRequired,
   }
 
-  static defaultProps = {
-    size: SIZES.h1,
+  updateOnProps = [
+    'account',
+  ]
+
+  handleFollow = () => {
+    this.props.onFollow(this.props.account)
+  }
+
+  handleBlock = () => {
+    this.props.onBlock(this.props.account)
   }
 
   render() {
-    const { children, size, center } = this.props
+    const {
+      account,
+      intl,
+      isSmall,
+    } = this.props
 
-    const classes = cx({
-      default: 1,
-      text: 1,
-      textAlignCenter: center,
+    if (!account) return null
 
-      colorPrimary: [SIZES.h1, SIZES.h3].indexOf(size) > -1,
-      colorSecondary: [SIZES.h2, SIZES.h4, SIZES.h5].indexOf(size) > -1,
+    // Wait until the relationship is loaded
+    if (!account.get('relationship')) return null
 
-      fontSize24PX: size === SIZES.h1,
-      fontSize19PX: size === SIZES.h2,
-      fontSize16PX: size === SIZES.h3,
-      fontSize13PX: size === SIZES.h4,
-      fontSize12PX: size === SIZES.h5,
+    // Don't show if is me
+    if (account.get('id') === me) return null
 
-      mt5: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
+    const isBlockedBy = account.getIn(['relationship', 'blocked_by'])
 
-      lineHeight2: size === SIZES.h5,
-      py2: size === SIZES.h5,
+    // Don't show
+    if (isBlockedBy) return null
 
-      // fontWeightNormal: weight === WEIGHTS.normal,
-      fontWeightMedium: [SIZES.h1, SIZES.h5].indexOf(size) > -1,
-      fontWeightBold: [SIZES.h3, SIZES.h4].indexOf(size) > -1,
-    })
+    let buttonText = ''
+    let buttonOptions = {}
 
-    return React.createElement(
-      size,
-      {
-        className: classes,
-        role: 'heading',
-      },
-      children,
+    const isRequested = account.getIn(['relationship', 'requested'])
+    const isBlocking = account.getIn(['relationship', 'blocking'])
+    const isFollowing = account.getIn(['relationship', 'following'])
+
+    if (isRequested) {
+      buttonText = intl.formatMessage(messages.requested)
+      buttonOptions = {
+        onClick: this.handleFollow,
+        color: 'primary',
+        backgroundColor: 'tertiary',
+      }
+    } else if (isBlocking) {
+      buttonText = intl.formatMessage(messages.blocked)
+      buttonOptions = {
+        onClick: this.handleBlock,
+        color: 'white',
+        backgroundColor: 'danger',
+      }
+    } else if (isFollowing) {
+      buttonText = intl.formatMessage(messages.following)
+      buttonOptions = {
+        onClick: this.handleFollow,
+        color: 'white',
+        backgroundColor: 'brand',
+      }
+    } else {
+      buttonText = intl.formatMessage(messages.follow)
+      buttonOptions = {
+        onClick: this.handleFollow,
+        color: 'brand',
+        backgroundColor: 'none',
+        isOutline: true,
+      }
+    }
+
+    const textClassName = isSmall ? null : _s.px10
+    const textSize = isSmall ? 'normal' : 'medium'
+    const textWeight = isSmall ? 'normal' : 'bold'
+
+    return (
+      <Button
+        {...buttonOptions}
+        isNarrow
+        className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+      >
+        <Text
+          color='inherit'
+          weight={textWeight}
+          size={textSize}
+          className={textClassName}
+        >
+          {buttonText}
+        </Text>
+      </Button>
     )
   }
+
 }

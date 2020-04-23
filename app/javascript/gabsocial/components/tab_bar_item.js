@@ -4,19 +4,29 @@ import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
+// Bind CSS Modules global variable `_s` to classNames module
 const cx = classNames.bind(_s)
 
+/**
+ * Renders a tab bar item component
+ * @param {string} [props.icon] - icon to use
+ * @param {bool} [props.isLarge] - to style the tab bar larger
+ * @param {bool} [props.isActive] - if item is active
+ * @param {func} [props.onClick] - function to call on click
+ * @param {string} [props.title] - title to use
+ * @param {string} [props.to] - location to direct to on click
+ */
 export default
 @withRouter
 class TabBarItem extends PureComponent {
+
   static propTypes = {
-    location: PropTypes.object.isRequired,
-    title: PropTypes.string,
-    onClick: PropTypes.func,
     icon: PropTypes.string,
+    isLarge: PropTypes.bool,
+    isActive: PropTypes.bool,
+    onClick: PropTypes.func,
+    title: PropTypes.string,
     to: PropTypes.string,
-    large: PropTypes.bool,
-    active: PropTypes.bool,
   }
 
   state = {
@@ -24,6 +34,8 @@ class TabBarItem extends PureComponent {
   }
 
   componentDidUpdate(prevProps) {
+    // If user navigates to different page, ensure tab bar item
+    // with this.props.to that is on location is set to active.
     if (this.props.location !== prevProps.location) {
       const isCurrent = this.props.to === this.props.location.pathname
 
@@ -39,13 +51,16 @@ class TabBarItem extends PureComponent {
       to,
       onClick,
       location,
-      large,
+      isLarge,
       icon,
-      active
+      isActive,
     } = this.props
     const { isCurrent } = this.state
 
-    const isActive = active || (isCurrent === -1 ? to === location.pathname : false)
+    // Combine state, props, location to make absolutely
+    // sure of active status.
+    const active = isActive ||
+      (isCurrent === -1 ? to === location.pathname : false)
 
     const containerClasses = cx({
       default: 1,
@@ -60,10 +75,10 @@ class TabBarItem extends PureComponent {
       outlineNone: 1,
       cursorPointer: 1,
       backgroundTransparent: 1,
-      borderColorTransparent: !isActive,
-      borderColorBrand: isActive,
-      mr5: large,
-      mr2: !large,
+      borderColorTransparent: !active,
+      borderColorBrand: active,
+      mr5: isLarge,
+      mr2: !isLarge,
     })
 
     const textParentClasses = cx({
@@ -72,21 +87,21 @@ class TabBarItem extends PureComponent {
       alignItemsCenter: 1,
       justifyContentCenter: 1,
       radiusSmall: 1,
-      px10: !large,
-      px15: large,
-      backgroundSubtle2Dark_onHover: !isActive,
+      px10: !isLarge,
+      px15: isLarge,
+      backgroundSubtle2Dark_onHover: !active,
     })
 
     const textOptions = {
-      size: !!large ? 'normal' : 'small',
-      color: isActive ? 'brand' : large ? 'secondary' : 'primary',
-      weight: isActive ? 'bold' : large ? 'medium' : 'normal',
+      size: !!isLarge ? 'normal' : 'small',
+      color: active ? 'brand' : isLarge ? 'secondary' : 'primary',
+      weight: active ? 'bold' : isLarge ? 'medium' : 'normal',
     }
 
     const iconOptions = {
       id: icon,
-      width: !!large ? 20 : 14,
-      height: !!large ? 20 : 14,
+      width: !!isLarge ? 20 : 14,
+      height: !!isLarge ? 20 : 14,
     }
 
     return (
@@ -97,17 +112,20 @@ class TabBarItem extends PureComponent {
         noClasses
       >
         <span className={textParentClasses}>
-          { !!title &&
-          <Text {...textOptions}>
-            {title}
-          </Text>
+          {
+            !!title &&
+            <Text {...textOptions}>
+              {title}
+            </Text>
           }
 
-          { !!icon &&
+          {
+            !!icon &&
             <Icon {...iconOptions} />
           }
         </span>
       </Button>
     )
   }
+
 }

@@ -1,6 +1,5 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import debounce from 'lodash.debounce'
 import classNames from 'classnames/bind'
 import { openPopover, closePopover } from '../actions/popover'
 import Icon from './icon'
@@ -12,7 +11,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openPopover('USER_INFO', props))
   },
   closeUserInfoPopover() {
-    dispatch(closePopover())
+    dispatch(closePopover('USER_INFO'))
   }
 })
 
@@ -31,20 +30,29 @@ class DisplayName extends ImmutablePureComponent {
     noUsername: PropTypes.bool,
   }
 
-  handleMouseEnter = debounce(() => {
-    this.props.openUserInfoPopover({
-      targetRef: this.node,
-      position: 'top',
-      account: this.props.account,
-    })
-  }, 1000, { leading: true })
+  mouseOverTimeout = null
 
-  handleMouseLeave = debounce(() => {
-    this.props.closeUserInfoPopover()
-  }, 1000, { leading: true })
+  handleMouseEnter = () => {
+    if (this.mouseOverTimeout) return null
+    this.mouseOverTimeout = setTimeout(() => {
+      this.props.openUserInfoPopover({
+        targetRef: this.node,
+        position: 'top',
+        account: this.props.account,
+      })
+    }, 650)
+  }
+
+  handleMouseLeave = () => {
+    if (this.mouseOverTimeout) {
+      clearTimeout(this.mouseOverTimeout)
+      this.mouseOverTimeout = null
+      this.props.closeUserInfoPopover()
+    }
+  }
 
   setRef = (n) => {
-    this.node = n;
+    this.node = n
   }
 
   render() {
@@ -105,12 +113,12 @@ class DisplayName extends ImmutablePureComponent {
       !!large ? '19px' :
       !!small ? '14px' : '16px'
 
-    const domain = account.get('acct').split('@')[1];
+    const domain = account.get('acct').split('@')[1]
     const isRemoteUser = !!domain
 
+    // : todo : remote
     console.log("domain, isRemoteUser:", domain, isRemoteUser)
-    
-    // : todo :
+
     return (
       <span {...containerOptions} ref={this.setRef}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
@@ -122,19 +130,19 @@ class DisplayName extends ImmutablePureComponent {
           </bdi>
           {
             account.get('is_verified') &&
-            <Icon id='verified' width={iconSize} height={iconSize} className={_s.default} />
+            <Icon id='verified' size={iconSize} className={_s.default} />
           }
           {
             account.get('is_pro') &&
-            <Icon id='pro' width='16px' height='16px' className={_s.default} />
+            <Icon id='pro' size={iconSize} className={_s.default} />
           }
           {
             account.get('is_donor') &&
-            <Icon id='donor' width='16px' height='16px' className={_s.default} />
+            <Icon id='donor' size={iconSize} className={_s.default} />
           }
           {
             account.get('is_investor') &&
-            <Icon id='investor' width='16px' height='16px' className={_s.default} />
+            <Icon id='investor' size={iconSize} className={_s.default} />
           }
         </div>
         {

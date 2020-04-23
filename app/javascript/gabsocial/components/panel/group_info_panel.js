@@ -37,17 +37,17 @@ class GroupInfoPanel extends ImmutablePureComponent {
               {group.get('title')}
             </Heading>
 
-            <Divider small />
+            <Divider isSmall />
 
             <div className={[_s.default, _s.flexRow, _s.justifyContentCenter].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-                <Icon id='group' height='14px' width='14px' />
+                <Icon id='group' size='14px' />
                 <Text size='small' className={_s.ml5}>
                   {intl.formatMessage(messages.members)}
                 </Text>
               </div>
               <Button
-                text
+                isText
                 to={`/groups/${group.get('id')}/members`}
                 color='brand'
                 backgroundColor='none'
@@ -61,7 +61,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
               </Button>
             </div>
 
-            <Divider small />
+            <Divider isSmall />
 
             <Text>
               {group.get('description')}

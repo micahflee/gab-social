@@ -72,8 +72,7 @@ export default class ListItem extends PureComponent {
           !!icon &&
           <Icon
             id={icon}
-            width={iconSize}
-            height={iconSize}
+            size={iconSize}
             className={iconClasses}
           />
         }
@@ -86,8 +85,7 @@ export default class ListItem extends PureComponent {
           !hideArrow &&
           <Icon
             id='angle-right'
-            width='10px'
-            height='10px'
+            size='10px'
             className={[_s.marginLeftAuto, _s.fillColorBlack].join(' ')}
           />
         }

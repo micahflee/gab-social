@@ -24,7 +24,6 @@ export default
 class StatusVisibilityButton extends PureComponent {
 
   static propTypes = {
-    onClick: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     small: PropTypes.bool,
     onOpenPopover: PropTypes.func.isRequired,

@@ -70,7 +70,6 @@ class HashtagTimelineSettingsModal extends ImmutablePureComponent {
         </div>
 
         <Button
-          centered
           backgroundColor='brand'
           color='white'
           className={_s.justifyContentCenter}

@@ -1,8 +1,6 @@
 const MinimizeFullscreenIcon = ({
   className = '',
-  width = '24px',
-  height = '24px',
-  viewBox = '0 0 32 32',
+  size = '24px',
   title = 'Minimize Fullscreen',
 }) => (
   <svg
@@ -11,9 +9,9 @@ const MinimizeFullscreenIcon = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 32 32'
     xmlSpace='preserve'
     aria-label={title}
   >

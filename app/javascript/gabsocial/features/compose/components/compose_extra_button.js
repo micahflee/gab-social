@@ -47,13 +47,12 @@ export default class ComposeExtraButton extends PureComponent {
         <Button
           className={btnClasses}
           title={title}
-          disabled={disabled}
+          isDisabled={disabled}
           onClick={onClick}
           backgroundColor='none'
           iconClassName={iconClasses}
           icon={icon}
-          iconWidth={iconSize}
-          iconHeight={iconSize}
+          iconSize={iconSize}
         />
         {children}
       </div>

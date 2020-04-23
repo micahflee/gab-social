@@ -53,6 +53,7 @@ import RepostIcon from '../assets/repost_icon'
 import RichTextIcon from '../assets/rich_text_icon'
 import SearchIcon from '../assets/search_icon'
 import SearchAltIcon from '../assets/search_alt_icon'
+import SelectIcon from '../assets/select_icon'
 import ShareIcon from '../assets/share_icon'
 import ShopIcon from '../assets/shop_icon'
 import StrikethroughIcon from '../assets/strikethrough_icon'
@@ -121,6 +122,7 @@ const ICONS = {
   'rich-text': RichTextIcon,
   'search': SearchIcon,
   'search-alt': SearchAltIcon,
+  'select': SelectIcon,
   'share': ShareIcon,
   'shop': ShopIcon,
   'strikethrough': StrikethroughIcon,
@@ -141,17 +143,16 @@ export default class Icon extends PureComponent {
   static propTypes = {
     id: PropTypes.string.isRequired,
     className: PropTypes.string,
-    width: PropTypes.string,
-    height: PropTypes.string,
+    size: PropTypes.string,
   }
 
   render() {
-    const { id, ...options } = this.props
+    const { id, size, className } = this.props
 
     // : todo : add all required icons
     const Asset = ICONS[id] || CircleIcon
 
-    return <Asset {...options} />
+    return <Asset size={size} className={className} />
 
   }
 

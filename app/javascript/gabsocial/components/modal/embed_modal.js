@@ -99,7 +99,7 @@ class EmbedModal extends ImmutablePureComponent {
             />
             {
               !oembed && 
-              <Icon id='loading' height='34px' width='34px' className={[_s.positionAbsolute, _s.z3].join(' ')} />
+              <Icon id='loading' size='34px' className={[_s.posAbs, _s.z3].join(' ')} />
             }
           </div>
 

@@ -135,8 +135,7 @@ class RichTextEditorBar extends PureComponent {
           className={[_s.px10, _s.noSelect, _s.marginLeftAuto].join(' ')}
           icon='fullscreen'
           iconClassName={_s.inheritFill}
-          iconWidth='12px'
-          iconHeight='12px'
+          iconSize='12px'
           radiusSmall
         />
       </div>
@@ -196,8 +195,7 @@ class StyleButton extends PureComponent {
         title={label}
         icon={icon}
         iconClassName={_s.inheritFill}
-        iconWidth='12px'
-        iconHeight='12px'
+        iconSize='12px'
         radiusSmall
       />
     )

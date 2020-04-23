@@ -1,16 +1,14 @@
 const LoadingIcon = ({
   className = '',
-  width = '24px',
-  height = '24px',
-  viewBox = '0 0 100 100',
+  size = '24px',
 }) => (
   <svg
     className={className}
     xmlns='http://www.w3.org/2000/svg'
     style={{shapeRendering: 'auto'}}
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 100 100'
     preserveAspectRatio='xMidYMid'
   >
     <g transform='translate(82,50)'>

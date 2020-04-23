@@ -65,8 +65,7 @@ class ModalLayout extends PureComponent {
                 onClick={this.onHandleCloseModal}
                 color='secondary'
                 icon='close'
-                iconWidth='10px'
-                iconWidth='10px'
+                iconSize='10px'
               />
             }
           </div>

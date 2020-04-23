@@ -456,7 +456,7 @@ class Video extends PureComponent {
 
     const seekHandleClasses = cx({
       default: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       circle: 1,
       px10: 1,
       py10: 1,
@@ -472,13 +472,13 @@ class Video extends PureComponent {
       default: 1,
       radiusSmall: 1,
       mt10: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       height4PX: 1,
     })
 
     const volumeControlClasses = cx({
       default: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       backgroundColorOpaque: 1,
       videoPlayerVolume: 1,
       height122PX: 1,
@@ -503,7 +503,7 @@ class Video extends PureComponent {
             width={32}
             height={32}
             ref={this.setCanvasRef}
-            className={[_s.default, _s.positionAbsolute, _s.height100PC, _s.width100PC, _s.top0, _s.left0].join(' ')}
+            className={[_s.default, _s.posAbs, _s.height100PC, _s.width100PC, _s.top0, _s.left0].join(' ')}
           />
         }
 
@@ -550,19 +550,19 @@ class Video extends PureComponent {
           ref={this.setVolumeRef}
         >
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.positionAbsolute, _s.width4PX, _s.ml10, _s.backgroundColorPrimaryOpaque].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.posAbs, _s.width4PX, _s.ml10, _s.backgroundColorPrimaryOpaque].join(' ')}
             style={{
               height: '102px',
             }}
           />
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.positionAbsolute, _s.width4PX, _s.ml10, _s.backgroundColorPrimary].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.width4PX, _s.ml10, _s.backgroundColorPrimary].join(' ')}
             style={{
               height: `${volumeHeight}px`
             }}
           />
           <span
-            className={[_s.default, _s.cursorPointer, _s.positionAbsolute, _s.circle, _s.px5, _s.boxShadow1, _s.marginBottomNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
+            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.marginBottomNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -571,7 +571,7 @@ class Video extends PureComponent {
           />
         </div>
 
-        <div className={[_s.default, _s.z2, _s.px15, _s.videoPlayerControlsBackground, _s.positionAbsolute, _s.bottom0, _s.right0, _s.left0].join(' ')}>
+        <div className={[_s.default, _s.z2, _s.px15, _s.videoPlayerControlsBackground, _s.posAbs, _s.bottom0, _s.right0, _s.left0].join(' ')}>
 
           <div
             className={[_s.default, _s.cursorPointer, _s.height22PX, _s.videoPlayerSeek].join(' ')}
@@ -594,13 +594,12 @@ class Video extends PureComponent {
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.pb5, _s.noSelect].join(' ')}>
             <Button
-              narrow
+              isNarrow
               backgroundColor='none'
               aria-label={intl.formatMessage(paused ? messages.play : messages.pause)}
               onClick={this.togglePlay}
               icon={paused ? 'play' : 'pause'}
-              iconWidth='16px'
-              iconHeight='16px'
+              iconSize='16px'
               iconClassName={_s.fillColorWhite}
               className={_s.pl0}
             />
@@ -613,14 +612,13 @@ class Video extends PureComponent {
               </Text>
 
               <Button
-                narrow
+                isNarrow
                 backgroundColor='none'
                 type='button'
                 aria-label={intl.formatMessage(muted ? messages.unmute : messages.mute)}
                 onClick={this.toggleMute}
                 icon={muted ? 'audio-mute' : 'audio'}
-                iconWidth='24px'
-                iconHeight='24px'
+                iconSize='24px'
                 iconClassName={_s.fillColorWhite}
                 className={[_s.px10, _s.ml10].join(' ')}
                 onMouseEnter={this.handleMouseEnterAudio}
@@ -628,13 +626,12 @@ class Video extends PureComponent {
               />
 
               <Button
-                narrow
+                isNarrow
                 backgroundColor='none'
                 aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
                 onClick={this.toggleFullscreen}
                 icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
-                iconWidth='20px'
-                iconHeight='20px'
+                iconSize='20px'
                 iconClassName={_s.fillColorWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
               />

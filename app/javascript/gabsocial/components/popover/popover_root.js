@@ -145,10 +145,7 @@ class PopoverRoot extends PureComponent {
   }
 
   render() {
-    const {
-      type,
-      props,
-    } = this.props
+    const { type, props } = this.props
     const visible = !!type
 
     console.log("POPOVER_COMPONENTS[type]:", type, POPOVER_COMPONENTS[type]);

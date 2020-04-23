@@ -65,7 +65,7 @@ export default class FileInput extends PureComponent {
           />
           {
             !file &&
-            <div className={[_s.positionAbsolute, _s.cursorPointer].join(' ')}>
+            <div className={[_s.posAbs, _s.cursorPointer].join(' ')}>
               <Text size='medium' color='secondary'>
                 Click Here to Upload
               </Text>

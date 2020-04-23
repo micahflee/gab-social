@@ -32,8 +32,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeUploadCompose(id, { description }));
   },
 
-  onSubmit (router) {
-    dispatch(submitCompose(router));
+  onSubmit () {
+    dispatch(submitCompose());
   },
 
 });
@@ -69,7 +69,7 @@ class Upload extends ImmutablePureComponent {
 
   handleSubmit = () => {
     this.handleInputBlur()
-    this.props.onSubmit(this.context.router.history)
+    this.props.onSubmit()
   }
 
   handleUndoClick = e => {
@@ -117,7 +117,7 @@ class Upload extends ImmutablePureComponent {
 
     const descriptionContainerClasses = cx({
       default: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       right0: 1,
       bottom0: 1,
       left0: 1,
@@ -149,10 +149,9 @@ class Upload extends ImmutablePureComponent {
             title={intl.formatMessage(messages.delete)}
             onClick={this.handleUndoClick}
             icon='close'
-            iconWidth='10px'
-            iconHeight='10px'
+            iconSize='10px'
             iconClassName={_s.inherit}
-            className={[_s.top0, _s.right0, _s.positionAbsolute, _s.mr5, _s.mt5, _s.px10].join(' ')}
+            className={[_s.top0, _s.right0, _s.posAbs, _s.mr5, _s.mt5, _s.px10].join(' ')}
           />
 
           <div className={descriptionContainerClasses}>

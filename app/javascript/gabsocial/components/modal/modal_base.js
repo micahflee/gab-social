@@ -137,13 +137,13 @@ class ModalBase extends PureComponent {
           <Fragment>
             <div
               role='presentation'
-              className={[_s.default, _s.backgroundColorOpaque, _s.positionFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
+              className={[_s.default, _s.backgroundColorOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
             />
             <div
               ref={this.setDialog}
               role='dialog'
               onClick={this.handleOnClose}
-              className={[_s.default, _s.positionFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+              className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             >
               {children}
             </div>

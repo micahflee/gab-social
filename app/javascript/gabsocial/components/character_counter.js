@@ -1,5 +1,10 @@
 import { length } from 'stringz'
 
+/**
+ * Renders a character counter
+ * @param {string} props.text - text to use to measure
+ * @param {number} props.max - max text allowed
+ */
 export default class CharacterCounter extends PureComponent {
 
   static propTypes = {
@@ -9,6 +14,7 @@ export default class CharacterCounter extends PureComponent {
 
   render () {
     const { text, max } = this.props
+
     const actualRadius = '16'
     const radius = 12
     const circumference = 2 * Math.PI * radius
@@ -20,7 +26,6 @@ export default class CharacterCounter extends PureComponent {
         <svg width={actualRadius * 2} height={actualRadius * 2} viewBox={`0 0 ${actualRadius * 2} ${actualRadius * 2}`}>
           <circle fill='none' cx={actualRadius} cy={actualRadius} r={radius} fill="none" stroke="#e6e6e6" strokeWidth="2" />
           <circle style={{
-              // transform: 'rotate(-90deg)',
               strokeDashoffset: dashoffset,
               strokeDasharray: circumference,
             }}

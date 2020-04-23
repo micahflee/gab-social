@@ -31,9 +31,8 @@ class Search extends PureComponent {
     submitted: PropTypes.bool,
     onShow: PropTypes.func.isRequired,
     onChange: PropTypes.func.isRequired,
-    onKeyUp: PropTypes.func.isRequired,
     withOverlay: PropTypes.bool,
-    handleClear: PropTypes.func.isRequired,
+    onClear: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
   }
 
@@ -78,7 +77,7 @@ class Search extends PureComponent {
     const {
       value,
       submitted,
-      handleClear,
+      onClear,
       withOverlay
     } = this.props
     const { expanded } = this.state
@@ -97,7 +96,7 @@ class Search extends PureComponent {
           onKeyUp={this.handleKeyUp}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
-          onClear={handleClear}
+          onClear={onClear}
         />
 
         {

@@ -27,7 +27,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
 
     const classes = cx({
       default: 1,
-      positionFixed: 1,
+      posFixed: 1,
       displayNone: !hasItems,
       top80PX: 1,
       z4: 1,
@@ -37,7 +37,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
     return (
       <div className={classes}>
         <Button
-          narrow
+          isNarrow
           color='white'
           backgroundColor='brand'
           onClick={onClick}

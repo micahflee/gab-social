@@ -43,7 +43,7 @@ export default class StatusActionBarItem extends PureComponent {
     return (
       <div className={[_s.default, _s.flexNormal, _s.px5].join(' ')}>
         <Button
-          block
+          isBlock
           radiusSmall
           backgroundColor='none'
           title={altTitle}
@@ -51,11 +51,9 @@ export default class StatusActionBarItem extends PureComponent {
           buttonRef={buttonRef}
           className={btnClasses}
           onClick={onClick}
-          active={active}
-          disabled={disabled}
+          isDisabled={disabled}
           icon={icon}
-          iconWidth='16px'
-          iconHeight='16px'
+          iconSize='16px'
           iconClassName={[_s.default, _s.mr10, _s.inheritFill].join(' ')}
         >
           <Text color='inherit' size='small' weight={weight}>

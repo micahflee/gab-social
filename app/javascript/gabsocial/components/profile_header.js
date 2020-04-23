@@ -1,18 +1,11 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import Sticky from 'react-stickynode'
 import classNames from 'classnames/bind'
-import {
-  followAccount,
-  unfollowAccount,
-  blockAccount,
-  unblockAccount,
-} from '../actions/accounts'
-import { openPopover, closePopover } from '../actions/popover'
-import { initReport } from '../actions/reports'
-import { openModal } from '../actions/modal'
-import { unfollowModal, me } from '../initial_state'
+import { openPopover } from '../actions/popover'
+import { me } from '../initial_state'
+import AccountActionButton from './account_action_button'
 import Avatar from './avatar'
 import Button from './button'
 import DisplayName from './display_name'
@@ -25,72 +18,28 @@ import Text from './text'
 const cx = classNames.bind(_s)
 
 const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
-  following: { id: 'following', defaultMessage: 'Following' },
-  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
-  requested: { id: 'requested', defaultMessage: 'Requested' },
-  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
-  blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
 })
 
-const mapStateToProps = (state) => ({
-  
-})
-
-const mapDispatchToProps = (dispatch, { intl }) => ({
+const mapDispatchToProps = (dispatch) => ({
 
   openProfileOptionsPopover(props) {
-    console.log('props:', props)
     dispatch(openPopover('PROFILE_OPTIONS', props))
-  },
-
-  onFollow(account) {
-    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
-      if (unfollowModal) {
-        dispatch(openModal('UNFOLLOW', {
-          accountId: account.get('id'),
-        }));
-      } else {
-        dispatch(unfollowAccount(account.get('id')));
-      }
-    } else {
-      dispatch(followAccount(account.get('id')));
-    }
-  },
-
-  onBlock(account) {
-    if (account.getIn(['relationship', 'blocking'])) {
-      dispatch(unblockAccount(account.get('id')));
-    } else {
-      dispatch(openModal('BLOCK_ACCOUNT', {
-        accountId: account.get('id'),
-      }));
-    }
-  },
-
-  onRepostToggle(account) {
-    if (account.getIn(['relationship', 'showing_reblogs'])) {
-      dispatch(followAccount(account.get('id'), false));
-    } else {
-      dispatch(followAccount(account.get('id'), true));
-    }
   },
 
 });
 
 export default
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(null, mapDispatchToProps)
 @injectIntl
 class ProfileHeader extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
-    onFollow: PropTypes.func.isRequired,
-    onBlock: PropTypes.func.isRequired,
     openProfileOptionsPopover: PropTypes.func.isRequired,
   }
 
@@ -105,14 +54,6 @@ class ProfileHeader extends ImmutablePureComponent {
       position: 'top',
       account: this.props.account,
     })
-  }
-
-  handleFollow = () => {
-    this.props.onFollow(this.props.account)
-  }
-
-  handleBlock = () => {
-    this.props.onBlock(this.props.account)
   }
 
   // : todo :
@@ -178,64 +119,11 @@ class ProfileHeader extends ImmutablePureComponent {
 
     const headerSrc = !!account ? account.get('header') : ''
     const headerMissing = headerSrc.indexOf('/headers/original/missing.png') > -1 || !headerSrc
-    const avatarSize = headerMissing ? '75' : '150'
-
-    let buttonText = ''
-    let buttonOptions = {}
-
-    if (!account) {
-      //
-    } else {
-      if (!account.get('relationship')) {
-        // Wait until the relationship is loaded
-      } else {
-        const isRequested = account.getIn(['relationship', 'requested'])
-        const isBlocking = account.getIn(['relationship', 'blocking'])
-        const isFollowing = account.getIn(['relationship', 'following'])
-        const isBlockedBy = account.getIn(['relationship', 'blocked_by'])
-
-        if (isRequested) {
-          buttonText = intl.formatMessage(messages.requested)
-          buttonOptions = {
-            onClick: this.handleFollow,
-            color: 'primary',
-            backgroundColor: 'tertiary',
-          }
-        } else if (isBlocking) {
-          buttonText = intl.formatMessage(messages.blocked)
-          buttonOptions = {
-            onClick: this.handleBlock,
-            color: 'white',
-            backgroundColor: 'danger',
-          }
-        } else if (isFollowing) {
-          buttonText = intl.formatMessage(messages.following)
-          buttonOptions = {
-            onClick: this.handleFollow,
-            color: 'white',
-            backgroundColor: 'brand',
-          }
-        } else if (isBlockedBy) {
-          //Don't show
-        }
-        else {
-          buttonText = intl.formatMessage(messages.follow)
-          buttonOptions = {
-            onClick: this.handleFollow,
-            color: 'brand',
-            backgroundColor: 'none',
-            outline: true,
-          }
-        }
-      }
-    }
-
-    console.log('buttonOptions:', buttonText, buttonOptions)
-    console.log('account: ', account)
+    const avatarSize = headerMissing ? 75 : 150
 
     const avatarContainerClasses = cx({
       circle: 1,
-      marginTopNeg75PX: !headerMissing,
+      mtNeg75PX: !headerMissing,
       borderColorWhite: 1,
       border2PX: 1,
     })
@@ -263,7 +151,7 @@ class ProfileHeader extends ImmutablePureComponent {
           !headerMissing &&
           <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
             <Image
-              alt='Cover Photo'
+              alt={intl.formatMessage(messages.headerPhoto)}
               className={_s.height350PX}
               src={headerSrc}
             />
@@ -281,7 +169,7 @@ class ProfileHeader extends ImmutablePureComponent {
               <DisplayName account={account} multiline large />
               {
                 account && account.get('locked') &&
-                <Icon id='lock-filled' height='14px' width='14px' className={[_s.mt10, _s.ml10].join(' ')} />
+                <Icon id='lock-filled' size='14px' className={[_s.mt10, _s.ml10].join(' ')} />
               }
               {
                 /* : todo :
@@ -294,7 +182,7 @@ class ProfileHeader extends ImmutablePureComponent {
           <Sticky enabled onStateChange={this.onStickyStateChange}>
             <div className={[_s.default, _s.flexRow, _s.backgroundColorSecondary3, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX].join(' ')}>
               <div className={tabBarContainerClasses}>
-                <TabBar tabs={tabs} large />
+                <TabBar tabs={tabs} isLarge />
               </div>
 
               <div className={stickyBarContainerClasses}>
@@ -308,7 +196,7 @@ class ProfileHeader extends ImmutablePureComponent {
                 account && account.get('id') === me &&
                 <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
                   <Button
-                    outline
+                    isOutline
                     backgroundColor='none'
                     color='brand'
                     className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
@@ -331,10 +219,9 @@ class ProfileHeader extends ImmutablePureComponent {
                 <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
                   <div ref={this.setOpenMoreNodeRef}>
                     <Button
-                      outline
+                      isOutline
                       icon='ellipsis'
-                      iconWidth='18px'
-                      iconHeight='18px'
+                      iconSize='18px'
                       iconClassName={_s.inheritFill}
                       color='brand'
                       backgroundColor='none'
@@ -345,11 +232,10 @@ class ProfileHeader extends ImmutablePureComponent {
 
                   <form action='https://chat.gab.com/private-message' method='POST'>
                     <Button
+                      isOutline
                       type='submit'
-                      outline
                       icon='chat'
-                      iconWidth='18px'
-                      iconHeight='18px'
+                      iconSize='18px'
                       iconClassName={_s.inheritFill}
                       color='brand'
                       backgroundColor='none'
@@ -358,23 +244,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     <input type='hidden' value={account.get('username')} name='username' />
                   </form>
 
-                  {
-                    !!buttonText &&
-                    <Button
-                      {...buttonOptions}
-                      narrow
-                      className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                    >
-                      <Text
-                        color='inherit'
-                        weight='bold'
-                        size='medium'
-                        className={_s.px10}
-                      >
-                        {buttonText}
-                      </Text>
-                    </Button>
-                  }
+                  <AccountActionButton account={account} />
 
                 </div>
               }

@@ -7,7 +7,7 @@ import SensitiveMediaButton from './sensitive_media_button'
 const mapStateToProps = (state) => ({
   mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
   isUploading: state.getIn(['compose', 'is_uploading']),
-  uploadProgress: state.getIn(['compose', 'progress']),
+  uploadProgress: state.getIn(['compose', 'progress'], 0),
 });
 
 export default

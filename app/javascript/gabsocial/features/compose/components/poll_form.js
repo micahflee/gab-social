@@ -34,16 +34,15 @@ class PollFormOption extends ImmutablePureComponent {
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   handleOptionTitleChange = e => {
     this.props.onChange(this.props.index, e.target.value);
-  };
+  }
 
   handleOptionRemove = () => {
     this.props.onRemove(this.props.index);
-  };
-
+  }
 
   handleToggleMultiple = e => {
     this.props.onToggleMultiple();
@@ -103,13 +102,11 @@ class PollFormOption extends ImmutablePureComponent {
         {
           index > 1 &&
           <Button
-            narrow
-            circle
+            isNarrow
             backgroundColor='none'
             className={[_s.ml5, _s.justifyContentCenter].join(' ')}
             icon='close'
-            iconWidth='8px'
-            iconHeight='8px'
+            iconSize='8px'
             iconClassName={_s.fillColorSecondary}
             disabled={index <= 1}
             title={intl.formatMessage(messages.remove_option)}
@@ -117,7 +114,7 @@ class PollFormOption extends ImmutablePureComponent {
           />
         }
       </li>
-    );
+    )
   }
 
 }
@@ -139,19 +136,15 @@ class PollForm extends ImmutablePureComponent {
     onFetchSuggestions: PropTypes.func.isRequired,
     onSuggestionSelected: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
-  handleAddOption = () => {
-    this.props.onAddOption('');
-  };
-
-  handleSelectDuration = e => {
-    this.props.onChangeSettings(e.target.value, this.props.isMultiple);
-  };
+  handleSelectDuration = (e) => {
+    this.props.onChangeSettings(e.target.value, this.props.isMultiple)
+  }
 
   handleToggleMultiple = () => {
-    this.props.onChangeSettings(this.props.expiresIn, !this.props.isMultiple);
-  };
+    this.props.onChangeSettings(this.props.expiresIn, !this.props.isMultiple)
+  }
 
   render() {
     const {
@@ -161,8 +154,9 @@ class PollForm extends ImmutablePureComponent {
       onChangeOption,
       onRemoveOption,
       intl,
+      onAddOption,
       ...otherProps
-    } = this.props;
+    } = this.props
 
     if (!options) return null
 
@@ -189,14 +183,13 @@ class PollForm extends ImmutablePureComponent {
           {
             options.size < 4 && (
               <Button
-                outline
+                isOutline
                 backgroundColor='none'
                 color='brand'
                 className={[_s.alignItemsCenter, _s.mr10].join(' ')}
-                onClick={this.handleAddOption}
+                onClick={onAddOption}
                 icon='add'
-                iconWidth='14px'
-                iconHeight='14px'
+                iconSize='14px'
                 iconClassName={_s.mr5}
               >
                 <Text color='inherit'>

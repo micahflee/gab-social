@@ -42,7 +42,7 @@ class CommentHeader extends ImmutablePureComponent {
             <Fragment>
               <DotTextSeperator />
               <Button
-                text
+                isText
                 underlineOnHover
                 backgroundColor='none'
                 color='tertiary'
@@ -61,7 +61,7 @@ class CommentHeader extends ImmutablePureComponent {
             <Fragment>
               <DotTextSeperator />
                 <Button
-                  text
+                  isText
                   underlineOnHover
                   backgroundColor='none'
                   color='tertiary'
@@ -81,7 +81,7 @@ class CommentHeader extends ImmutablePureComponent {
             <Fragment>
               <DotTextSeperator />
                 <Button
-                  text
+                  isText
                   underlineOnHover
                   backgroundColor='none'
                   color='tertiary'
@@ -99,7 +99,7 @@ class CommentHeader extends ImmutablePureComponent {
           <DotTextSeperator />
 
           <Button
-            text
+            isText
             underlineOnHover
             backgroundColor='none'
             color='tertiary'

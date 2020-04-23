@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind'
 
+// Bind CSS Modules global variable `_s` to classNames module
 const cx = classNames.bind(_s)
 
+// Define colors for enumeration for Text component `color` prop
 const COLORS = {
   primary: 'primary',
   secondary: 'secondary',
@@ -10,9 +12,9 @@ const COLORS = {
   error: 'error',
   white: 'white',
   inherit: 'inherit',
-  pro: 'pro',
 }
 
+// Define sizes for enumeration for Text component `size` prop
 const SIZES = {
   extraSmall: 'extraSmall',
   small: 'small',
@@ -22,6 +24,7 @@ const SIZES = {
   extraLarge: 'extraLarge',
 }
 
+// Define weights for enumeration for Text component `weight` prop
 const WEIGHTS = {
   normal: 'normal',
   medium: 'medium',
@@ -29,27 +32,42 @@ const WEIGHTS = {
   extraBold: 'extraBold',
 }
 
+// Define alignments for enumeration for Text component `align` prop
 const ALIGNMENTS = {
   center: 'center',
   left: 'left',
 }
 
+/**
+ * Renders a text component
+ * @param {string} [props.align='left] - the alignment of the text
+ * @param {bool} [props.isBadge] - to style the text as a badge
+ * @param {string} [props.className] - add custom className
+ * @param {string} [props.color='primary'] color of the text
+ * @param {bool} [props.hasUnderline] - if the text is underlined
+ * @param {string} [props.htmlFor] - define the `for` attribute on the tag
+ * @param {string} [props.size='normal'] size of the text
+ * @param {string} [props.tagName='span'] tagName of the text element
+ * @param {string} [props.weight='normal'] weight of the text
+ */
 export default class Text extends PureComponent {
+
   static propTypes = {
-    tagName: PropTypes.string,
-    className: PropTypes.string,
-    children: PropTypes.any,
-    color: PropTypes.oneOf(Object.keys(COLORS)),
-    size: PropTypes.oneOf(Object.keys(SIZES)),
-    weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
     align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
-    underline: PropTypes.bool,
-    badge: PropTypes.bool,
+    isBadge: PropTypes.bool,
+    children: PropTypes.any,
+    className: PropTypes.string,
+    color: PropTypes.oneOf(Object.keys(COLORS)),
+    hasUnderline: PropTypes.bool,
     htmlFor: PropTypes.string,
+    size: PropTypes.oneOf(Object.keys(SIZES)),
+    tagName: PropTypes.string,
+    weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
   }
 
   static defaultProps = {
     tagName: 'span',
+    align: ALIGNMENTS.left,
     color: COLORS.primary,
     size: SIZES.normal,
     weight: WEIGHTS.normal,
@@ -63,26 +81,26 @@ export default class Text extends PureComponent {
       color,
       size,
       weight,
-      underline,
       align,
       htmlFor,
-      badge
+      isBadge,
+      hasUnderline,
     } = this.props
 
+    // Style the component according to props
     const classes = cx(className, {
       default: 1,
       text: 1,
 
-      radiusSmall: badge,
-      lineHeight15: badge,
-      px5: badge,
+      radiusSmall: isBadge,
+      lineHeight15: isBadge,
+      px5: isBadge,
 
       colorPrimary: color === COLORS.primary,
       colorSecondary: color === COLORS.secondary,
       colorTertiary: color === COLORS.tertiary,
       colorBrand: color === COLORS.brand,
       colorWhite: color === COLORS.white,
-      colorGabPro: color === COLORS.pro,
       inherit: color === COLORS.inherit,
 
       fontSize19PX: size === SIZES.large,
@@ -99,7 +117,7 @@ export default class Text extends PureComponent {
       textAlignLeft: align === ALIGNMENTS.left,
       textAlignCenter: align === ALIGNMENTS.center,
 
-      underline: underline,
+      underline: hasUnderline,
     })
 
     return React.createElement(
@@ -111,4 +129,5 @@ export default class Text extends PureComponent {
       children,
     )
   }
+
 }

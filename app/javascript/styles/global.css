@@ -395,7 +395,6 @@ body {
   background-color: #c72c5b;
 }
 
-
 .colorPrimary {
   color: #2d3436;
 }
@@ -484,19 +483,11 @@ body {
   line-height: 2em;
 }
 
-.positionFixed {
+.posFixed {
   position: fixed;
 }
 
-.positionSticky {
-  position: sticky;
-}
-
-.positionRelative {
-  position: relative;
-}
-
-.positionAbsolute {
+.posAbs {
   position: absolute;
 }
 
@@ -934,23 +925,23 @@ body {
   margin-top: 5px;
 }
 
-.marginTopAuto {
+.mtAuto {
   margin-top: auto;
 }
 
-.marginTopNeg30PX {
+.mtNeg30PX {
   margin-top: -30px;
 }
 
-.marginTopNeg75PX {
+.mtNeg75PX {
   margin-top: -75px;
 }
 
-.paddingTop5625PC {
+.pt5625PC {
   padding-top: 56.25%;
 }
 
-.paddingTop25PC {
+.pt25PC {
   padding-top: 25%;
 }
 

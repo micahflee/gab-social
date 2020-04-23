@@ -120,7 +120,7 @@ export default class Card extends ImmutablePureComponent {
     return (
       <div
         ref={this.setRef}
-        className={[_s.default, _s.backgroundColorSecondary3, _s.positionAbsolute, _s.top0, _s.right0, _s.bottom0, _s.left0, _s.statusCardVideo].join(' ')}
+        className={[_s.default, _s.backgroundColorSecondary3, _s.posAbs, _s.top0, _s.right0, _s.bottom0, _s.left0, _s.statusCardVideo].join(' ')}
         dangerouslySetInnerHTML={content}
       />
     )
@@ -162,8 +162,8 @@ export default class Card extends ImmutablePureComponent {
         <p className={[_s.default, _s.displayFlex, _s.text, _s.my5, _s.overflowWrapBreakWord, _s.colorSecondary, _s.fontSize13PX, _s.fontWeightNormal].join(' ')}>
           {trim(card.get('description') || '', maxDescription)}
         </p>
-        <span className={[_s.default, _s.marginTopAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
-          <Icon id='link' width='10px' height='10px' className={[_s.fillColorSecondary, _s.mr5].join(' ')} fixedWidth />
+        <span className={[_s.default, _s.mtAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
+          <Icon id='link' size='10px' className={[_s.fillColorSecondary, _s.mr5].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
@@ -172,7 +172,7 @@ export default class Card extends ImmutablePureComponent {
     // : todo : use <Image />
     let embed = ''
     const thumbnail = interactive ?
-      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.positionAbsolute, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
+      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.posAbs, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
       <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width330PX, _s.height220PX].join(' ')} />
 
@@ -191,16 +191,16 @@ export default class Card extends ImmutablePureComponent {
         <div className={[_s.default, _s.width100PC, _s.px10].join(' ')}>
           <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}>
             <div className={[_s.default, _s.width100PC].join(' ')}>
-              <div className={[_s.default, _s.width100PC, _s.paddingTop5625PC].join(' ')}>
+              <div className={[_s.default, _s.width100PC, _s.pt5625PC].join(' ')}>
                 { !!embed && embed}
                 { !embed && thumbnail}
                 { !embed &&
-                  <div className={[_s.default, _s.positionAbsolute, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+                  <div className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
                     <button
                       className={[_s.default, _s.cursorPointer, _s.backgroundColorOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
                       onClick={this.handleEmbedClick}
                     >
-                      <Icon id={iconVariant} className={[_s.fillColorWhite].join(' ')} />
+                      <Icon id={iconVariant} size='22px' className={[_s.fillColorWhite].join(' ')} />
                     </button>
                   </div>
                 }
@@ -219,7 +219,7 @@ export default class Card extends ImmutablePureComponent {
     } else {
       embed = (
         <div className={[_s.default, _s.py15, _s.px15, _s.width72PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Icon id='website' width='22px' height='22px' className={_s.fillColorSecondary} />
+          <Icon id='website' size='22px' className={_s.fillColorSecondary} />
         </div>
       )
     }

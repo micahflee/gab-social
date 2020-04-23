@@ -49,10 +49,13 @@ class PopoverBase extends ImmutablePureComponent {
     onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     position: PropTypes.string,
-    openPopoverType: PropTypes.number,
+    openPopoverType: PropTypes.string,
     visible: PropTypes.bool,
     targetRef: PropTypes.node,
-    innerRef: PropTypes.node,
+    innerRef: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.func,
+    ]),
   }
 
   static defaultProps = {
@@ -123,7 +126,6 @@ class PopoverBase extends ImmutablePureComponent {
     })
 
     console.log('targetRef:', targetRef)
-
 
     return (
       <Manager>

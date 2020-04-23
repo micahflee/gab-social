@@ -7,6 +7,8 @@ const messages = defineMessages({
     group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
 });
 
+// : todo :
+
 export default
 @injectIntl
 class GroupPanel extends ImmutablePureComponent {

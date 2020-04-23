@@ -1,27 +1,33 @@
 import classnames from 'classnames/bind'
 
+// Bind CSS Modules global variable `_s` to classNames module
 const cx = classnames.bind(_s)
 
+/**
+ * Renders a divider component
+ * @param {bool} [props.isInvisible] - to style the tab bar larger
+ * @param {bool} [props.isSmall] - if item is active
+ */
 export default class Divider extends PureComponent {
+
   static propTypes = {
-    small: PropTypes.bool,
-    invisible: PropTypes.bool,
+    isInvisible: PropTypes.bool,
+    isSmall: PropTypes.bool,
   }
 
   render() {
-    const { small, invisible } = this.props
+    const { isSmall, isInvisible } = this.props
 
     const classes = cx({
       default: 1,
-      borderBottom1PX: !invisible,
-      borderColorSecondary2: !invisible,
+      borderBottom1PX: !isInvisible,
+      borderColorSecondary2: !isInvisible,
       width100PC: 1,
-      mb15: !small,
-      my10: small || invisible,
+      mb15: !isSmall,
+      my10: isSmall || isInvisible,
     })
 
-    return (
-      <div className={classes} />
-    )
+    return <div className={classes} />
   }
+
 }

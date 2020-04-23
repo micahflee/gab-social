@@ -89,7 +89,7 @@ class StatusList extends ImmutablePureComponent {
     withGroupAdmin: PropTypes.bool,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
-    promotion: PropTypes.object,
+    promotion: PropTypes.object, // : todo :
     promotedStatus: ImmutablePropTypes.map,
     fetchStatus: PropTypes.func,
   };

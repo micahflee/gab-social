@@ -8,8 +8,14 @@ export default class Image extends PureComponent {
     alt: PropTypes.string.isRequired,
     src: PropTypes.string,
     className: PropTypes.string,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    width: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    height: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     fit: PropTypes.oneOf(['contain', 'cover', 'tile', 'none']),
     nullable: PropTypes.bool,
     lazy: PropTypes.bool,

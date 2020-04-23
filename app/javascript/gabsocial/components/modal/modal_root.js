@@ -20,6 +20,7 @@ import BoostModal from './boost_modal'
 import CommunityTimelineSettingsModal from './community_timeline_settings_modal'
 import ComposeModal from './compose_modal'
 import ConfirmationModal from './confirmation_modal'
+import EditProfileModal from './edit_profile_modal'
 import GifPickerModal from './gif_picker_modal'
 import GroupCreateModal from './group_create_modal'
 import GroupDeleteModal from './group_delete_modal'
@@ -46,6 +47,7 @@ const MODAL_COMPONENTS = {
   COMMUNITY_TIMELINE_SETTINGS: () => Promise.resolve({ default: CommunityTimelineSettingsModal }),
   COMPOSE: () => Promise.resolve({ default: ComposeModal }),
   CONFIRM: () => Promise.resolve({ default: ConfirmationModal }),
+  EDIT_PROFILE: () => Promise.resolve({ default: EditProfileModal }),
   EMBED: () => Promise.resolve({ default: EmbedModal }),
   GIF_PICKER: () => Promise.resolve({ default: GifPickerModal }),
   GROUP_CREATE: () => Promise.resolve({ default: GroupCreateModal }),

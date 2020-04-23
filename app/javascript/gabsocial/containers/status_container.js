@@ -276,4 +276,4 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 });
 
-export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Status));
+export default connect(makeMapStateToProps, mapDispatchToProps)(Status);

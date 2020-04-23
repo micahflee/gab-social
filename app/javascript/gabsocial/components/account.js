@@ -16,33 +16,16 @@ import { openModal } from '../actions/modal'
 import { initMuteModal } from '../actions/mutes'
 import { unfollowModal } from '../initial_state'
 import { makeGetAccount } from '../selectors'
+import AccountActionButton from './account_action_button'
 import Avatar from './avatar'
 import DisplayName from './display_name'
 import Button from './button'
-import Text from './text'
 
-const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
-  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
-  requested: { id: 'requested', defaultMessage: 'Requested' },
-  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
-  unmute: { id: 'unmute', defaultMessage: 'Unmute' },
-  mute_notifications: { id: 'account.mute_notifications', defaultMessage: 'Mute notifications from @{name}' },
-  unmute_notifications: { id: 'account.unmute_notifications', defaultMessage: 'Unmute notifications from @{name}' },
-  unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
+const makeMapStateToProps = (state, props) => ({
+  account: makeGetAccount()(state, props.id),
 })
 
-const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount()
-
-  const mapStateToProps = (state, props) => ({
-    account: getAccount(state, props.id),
-  })
-
-  return mapStateToProps
-}
-
-const mapDispatchToProps = (dispatch, { intl }) => ({
+const mapDispatchToProps = (dispatch) => ({
 
   onFollow (account) {
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
@@ -102,25 +85,13 @@ class Account extends ImmutablePureComponent {
     dismissAction: PropTypes.func,
   }
 
-  handleFollow = () => {
-    this.props.onFollow(this.props.account)
-  }
-
-  handleBlock = () => {
-    this.props.onBlock(this.props.account)
-  }
-
-  handleMute = () => {
-    this.props.onMute(this.props.account)
-  }
-
-  handleMuteNotifications = () => {
-    this.props.onMuteNotifications(this.props.account, true)
-  }
-
-  handleUnmuteNotifications = () => {
-    this.props.onMuteNotifications(this.props.account, false)
-  }
+  updateOnProps = [
+    'account',
+    'isHidden',
+    'compact',
+    'expanded',
+    'showDismiss',
+  ]
 
   handleAction = () => {
     this.props.onActionClick(this.props.account)
@@ -155,64 +126,26 @@ class Account extends ImmutablePureComponent {
       )
     }
 
-    // : todo : cleanup
-    let buttonOptions
-    let buttonText
-
-    if (onActionClick && actionIcon) {
-      buttonText = actionTitle
-      buttonOptions = {
-        onClick: this.handleAction,
-        outline: true,
-        color: 'brand',
-        backgroundColor: 'none',
-      }
-    } else if (account.get('id') !== me && account.get('relationship', null) !== null) {
-      const following = account.getIn(['relationship', 'following'])
-      const requested = account.getIn(['relationship', 'requested'])
-      const blocking = account.getIn(['relationship', 'blocking'])
-
-      // : todo :
-      // unmute
-
-      if (requested || blocking) {
-        buttonText = intl.formatMessage(requested ? messages.requested : messages.unblock)
-        buttonOptions = {
-          narrow: true,
-          onClick: requested ? this.handleUnrequest : this.handleBlock,
-          color: 'primary',
-          backgroundColor: 'tertiary',
-          className: _s.mt5,
-        }
-      } else if (!account.get('moved') || following) {
-        buttonOptions = {
-          narrow: true,
-          outline: !following,
-          color: !following ? 'brand' : 'white',
-          backgroundColor: !following ? 'none' : 'brand',
-          className: _s.mt5,
-          onClick: this.handleFollow,
-        }
-        buttonText = intl.formatMessage(following ? messages.unfollow : messages.follow)
-      }
-    }
-
-    const button = !buttonOptions ? null : (
-      <Button {...buttonOptions}>
-        <Text color='inherit'>{buttonText}</Text>
+    const actionButton = (onActionClick && actionIcon) ? (
+      <Button
+        onClick={this.handleAction}
+        isOutline={true}
+        color='brand'
+        backgroundColor='none'
+      >
+        {actionTitle}
       </Button>
-    )
+    ) :  <AccountActionButton account={account} isSmall />
 
     const avatarSize = compact ? 42 : 52
-    const dismissBtn = (
+    const dismissBtn = !showDismiss ? null : (
       <Button
-        narrow
+        isNarrow
         backgroundColor='none'
         className={_s.px5}
         onClick={dismissAction}
         icon='close'
-        iconWidth='8px'
-        iconHeight='8px'
+        iconSize='8px'
         iconClassName={_s.fillColorSecondary}
       />
     )
@@ -235,12 +168,12 @@ class Account extends ImmutablePureComponent {
             className={[_s.default, _s.alignItemsStart, _s.px10, _s.flexGrow1].join(' ')}
           >
             <DisplayName account={account} multiline={compact} />
-            {!compact && button}
+            {!compact && actionButton}
           </NavLink>
 
           <div className={[_s.default].join(' ')}>
-            {showDismiss && dismissBtn}
-            {compact && button}
+            {dismissBtn}
+            {compact && actionButton}
           </div>
 
         </div>

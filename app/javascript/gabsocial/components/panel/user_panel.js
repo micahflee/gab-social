@@ -6,6 +6,7 @@ import classNames from 'classnames/bind'
 import { me } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import { shortNumberFormat } from '../../utils/numbers'
+import { openModal } from '../../actions/modal'
 import Button from '../button'
 import DisplayName from '../display_name'
 import Avatar from '../avatar'
@@ -20,24 +21,36 @@ const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
   edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
+  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
 })
 
 const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenEditProfile() {
+    dispatch(openModal('EDIT_PROFILE'))
+  },
+})
+
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class UserPanel extends ImmutablePureComponent {
   static propTypes = {
-    account: ImmutablePropTypes.map,
+    account: ImmutablePropTypes.map.isRequired,
     intl: PropTypes.object.isRequired,
+    onOpenEditProfile: PropTypes.func.isRequired,
   }
 
   state = {
     hovering: false,
   }
+
+  updateOnProps = [
+    'account'
+  ]
 
   handleOnMouseEnter = () => {
     this.setState({ hovering: true })
@@ -47,12 +60,16 @@ class UserPanel extends ImmutablePureComponent {
     this.setState({ hovering: false })
   }
 
+  handleOnOpenEditProfile = () => {
+    this.props.onOpenEditProfile()
+  }
+
   render() {
     const { account, intl } = this.props
     const { hovering } = this.state
 
     const buttonClasses = cx({
-      positionAbsolute: 1,
+      posAbs: 1,
       mt10: 1,
       mr10: 1,
       top0: 1,
@@ -60,14 +77,17 @@ class UserPanel extends ImmutablePureComponent {
       displayNone: !hovering,
     })
 
+    const acct = account.get('acct')
+
     return (
       <PanelLayout noPadding>
         <div
           className={[_s.default, _s.height122PX].join(' ')}
-          onMouseEnter={() => this.handleOnMouseEnter()}
-          onMouseLeave={() => this.handleOnMouseLeave()}
+          onMouseEnter={this.handleOnMouseEnter}
+          onMouseLeave={this.handleOnMouseLeave}
         >
           <Image
+            alt={intl.formatMessage(messages.headerPhoto)}
             className={_s.height122PX}
             src={account.get('header_static')}
           />
@@ -76,6 +96,7 @@ class UserPanel extends ImmutablePureComponent {
             backgroundColor='secondary'
             radiusSmall
             className={buttonClasses}
+            onClick={this.handleOnOpenEditProfile}
           >
             {intl.formatMessage(messages.edit_profile)}
           </Button>
@@ -83,9 +104,9 @@ class UserPanel extends ImmutablePureComponent {
 
         <NavLink
           className={[_s.default, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
-          to={`/${account.get('acct')}`}
+          to={`/${acct}`}
         >
-          <div className={[_s.default, _s.marginTopNeg30PX, _s.circle, _s.borderColorWhite, _s.border2PX].join(' ')}>
+          <div className={[_s.default, _s.mtNeg30PX, _s.circle, _s.borderColorWhite, _s.border2PX].join(' ')}>
             <Avatar account={account} size={62} />
           </div>
           <div className={[_s.default, _s.ml15].join(' ')}>
@@ -95,17 +116,17 @@ class UserPanel extends ImmutablePureComponent {
 
         <div className={[_s.default, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
           <UserStat
-            to={`/${account.get('acct')}`}
+            to={`/${acct}`}
             title={intl.formatMessage(messages.gabs)}
             value={shortNumberFormat(account.get('statuses_count'))}
           />
           <UserStat
-            to={`/${account.get('acct')}/followers`}
+            to={`/${acct}/followers`}
             title={intl.formatMessage(messages.followers)}
             value={shortNumberFormat(account.get('followers_count'))}
           />
           <UserStat
-            to={`/${account.get('acct')}/following`}
+            to={`/${acct}/following`}
             title={intl.formatMessage(messages.follows)}
             value={shortNumberFormat(account.get('following_count'))}
           />

@@ -26,9 +26,18 @@ class IntersectionObserverArticle extends React.Component {
 
   static propTypes = {
     intersectionObserverWrapper: PropTypes.object.isRequired,
-    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    index: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    listLength: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    id: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    index: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
+    listLength: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+    ]),
     saveHeightKey: PropTypes.string,
     cachedHeight: PropTypes.number,
     onHeightChange: PropTypes.func,

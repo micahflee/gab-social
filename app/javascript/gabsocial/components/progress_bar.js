@@ -24,28 +24,26 @@ export default class ProgressBar extends PureComponent {
       width: `${completed}%`,
     }
 
-    const containerOptions = {
-      href,
-      className: cx({
-        default: 1,
-        backgroundPanel: !small,
-        backgroundSubtle2: small,
-        noUnderline: 1,
-        circle: 1,
-        overflowHidden: 1,
-        cursorPointer: 1,
-        height22PX: !small,
-        height4PX: small,
-      }),
-    }
+    const containerClassName = cx({
+      default: 1,
+      backgroundPanel: !small,
+      backgroundSubtle2: small,
+      noUnderline: 1,
+      circle: 1,
+      overflowHidden: 1,
+      cursorPointer: 1,
+      height22PX: !small,
+      height4PX: small,
+    })
 
     return (
       <Button 
+        href={href}
         noClasses
-        {...containerOptions}
+        className={containerClassName}
       >
         <div className={[_s.default, _s.backgroundColorBrandDark, _s.circle, _s.height100PC].join(' ')} style={style} />
-        <div className={[_s.default, _s.positionAbsolute,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+        <div className={[_s.default, _s.posAbs,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
           {
             !!title &&
             <Text size='small' weight='bold' color='white'>

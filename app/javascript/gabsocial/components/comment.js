@@ -17,19 +17,9 @@ const messages = defineMessages({
   follow: { id: 'follow', defaultMessage: 'Follow' },
 })
 
-const makeMapStateToProps = () => {
-  const getStatus = makeGetStatus()
-
-  const mapStateToProps = (state, props) => {
-    const status = getStatus(state, props)
-
-    return {
-      status,
-    }
-  }
-
-  return mapStateToProps
-}
+const makeMapStateToProps = (state, props) => ({
+  status: makeGetStatus()(state, props)
+})
 
 export default
 @injectIntl
@@ -81,7 +71,7 @@ class Comment extends ImmutablePureComponent {
               <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
                 
                 <Button
-                  text
+                  isText
                   radiusSmall
                   backgroundColor='none'
                   color='tertiary'
@@ -93,7 +83,7 @@ class Comment extends ImmutablePureComponent {
                 </Button>
 
                 <Button
-                  text
+                  isText
                   radiusSmall
                   backgroundColor='none'
                   color='tertiary'
@@ -105,7 +95,7 @@ class Comment extends ImmutablePureComponent {
                 </Button>
 
                 <Button
-                  text
+                  isText
                   radiusSmall
                   backgroundColor='none'
                   color='tertiary'

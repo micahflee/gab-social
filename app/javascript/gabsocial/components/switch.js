@@ -45,7 +45,7 @@ export default class Switch extends PureComponent {
       height20PX: 1,
       width20PX: 1,
       circle: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       backgroundSubtle2: !checked,
       backgroundColorPrimary: checked,
       left0: !checked,

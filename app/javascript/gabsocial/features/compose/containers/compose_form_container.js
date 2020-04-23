@@ -18,8 +18,6 @@ const mapStateToProps = (state, { replyToId }) => {
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
   const isMatch = reduxReplyToId || replyToId ? reduxReplyToId === replyToId : true
 
-  // console.log("isMatch:", isMatch, reduxReplyToId, replyToId)
-
   return {
     isMatch,
     edit: !isMatch ? null : state.getIn(['compose', 'id']) !== null,
@@ -41,6 +39,7 @@ const mapStateToProps = (state, { replyToId }) => {
     scheduledAt: !isMatch ? null : state.getIn(['compose', 'scheduled_at']),
     account: state.getIn(['accounts', me]),
     hasPoll: !isMatch ? false : state.getIn(['compose', 'poll']),
+    reduxReplyToId,
   }
 }
 
@@ -50,8 +49,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changeCompose(text, markdown))
   },
 
-  onSubmit(router, group) {
-    dispatch(submitCompose(router, group))
+  onSubmit(group, replyToId) {
+    dispatch(submitCompose(group, replyToId))
   },
 
   onClearSuggestions() {

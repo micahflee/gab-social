@@ -91,11 +91,11 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           {
             (isMember || isAdmin) &&
-            <div className={[_s.default, _s.flexRow, _s.positionAbsolute, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.posAbs, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
               {
                 isMember &&
                 <Text
-                  badge
+                  isBadge
                   className={_s.backgroundColorWhite}
                   size='extraSmall'
                   color='brand'
@@ -106,7 +106,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
               {
                 isAdmin &&
                 <Text
-                  badge
+                  isBadge
                   className={[_s.backgroundColorBlack, _s.ml5].join(' ')}
                   size='extraSmall'
                   color='white'

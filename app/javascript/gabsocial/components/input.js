@@ -91,7 +91,7 @@ export default class Input extends PureComponent {
         <div className={[_s.default, _s.backgroundColorPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
           {
             !!prependIcon &&
-            <Icon id={prependIcon} width='16px' height='16px' className={[_s.ml15, _s.mr5].join(' ')} />
+            <Icon id={prependIcon} size='16px' className={[_s.ml15, _s.mr5].join(' ')} />
           }
 
           <input
@@ -117,8 +117,7 @@ export default class Input extends PureComponent {
               onClick={onClear}
               icon='close'
               iconClassName={_s.inheritFill}
-              iconHeight='10px'
-              iconWidth='10px'
+              iconSize='10px'
             />
           }
         </div>

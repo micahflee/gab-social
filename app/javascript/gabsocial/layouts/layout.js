@@ -49,7 +49,7 @@ export default class Layout extends PureComponent {
 
           {
             !noHeader &&
-            <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary2, _s.backgroundColorSecondary3, _s.z3, _s.top0, _s.positionFixed].join(' ')}>
+            <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary2, _s.backgroundColorSecondary3, _s.z3, _s.top0, _s.posFixed].join(' ')}>
               <div className={[_s.default, _s.height53PX, _s.pl15, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
                 <div className={[_s.default, _s.width645PX].join(' ')}>
                   <ColumnHeader

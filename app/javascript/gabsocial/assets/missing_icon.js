@@ -1,8 +1,6 @@
 const MissingIcon = ({
   className = '',
-  width = '32px',
-  height = '32px',
-  viewBox = '0 0 84 84',
+  size = '32px',
   title = 'Missing',
 }) => (
   <svg
@@ -11,9 +9,9 @@ const MissingIcon = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={width}
-    height={height}
-    viewBox={viewBox}
+    width={size}
+    height={size}
+    viewBox='0 0 84 84'
     xmlSpace='preserve'
     aria-label={title}
   >

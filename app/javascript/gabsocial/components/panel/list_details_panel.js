@@ -55,10 +55,10 @@ class ListDetailsPanel extends ImmutablePureComponent {
             </Text>
           </div>
 
-          <Divider small />
+          <Divider isSmall />
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-            <Icon id='calendar' width='12px' height='12px' className={_s.fillColorSecondary} />
+            <Icon id='calendar' size='12px' className={_s.fillColorSecondary} />
             <Text
               size='small'
               color='secondary'
@@ -72,11 +72,11 @@ class ListDetailsPanel extends ImmutablePureComponent {
             </Text>
           </div>
 
-          <Divider small />
+          <Divider isSmall />
 
           <div className={[_s.default].join(' ')}>
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-              <Icon id='group' width='12px' height='12px' className={_s.fillColorSecondary} />
+              <Icon id='group' size='12px' className={_s.fillColorSecondary} />
               <Text
                 size='small'
                 color='secondary'

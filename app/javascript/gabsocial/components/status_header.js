@@ -99,12 +99,11 @@ class StatusHeader extends ImmutablePureComponent {
               {
                 !reduced && !!me &&
                 <Button
-                  text
+                  isText
                   backgroundColor='none'
                   color='none'
                   icon='ellipsis'
-                  iconWidth='20px'
-                  iconHeight='20px'
+                  iconSize='20px'
                   iconClassName={_s.fillColorSecondary}
                   className={_s.marginLeftAuto}
                   onClick={this.handleOpenStatusOptionsPopover}
@@ -115,7 +114,7 @@ class StatusHeader extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.lineHeight15].join(' ')}>
               <Button
-                text
+                isText
                 underlineOnHover
                 backgroundColor='none'
                 color='none'
@@ -128,14 +127,14 @@ class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
 
-              <Icon id={visibilityIcon} width='12px' height='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
+              <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
 
               {
                 !!status.get('group') &&
                 <Fragment>
                   <DotTextSeperator />
                   <Button
-                    text
+                    isText
                     underlineOnHover
                     backgroundColor='none'
                     color='none'
@@ -154,7 +153,7 @@ class StatusHeader extends ImmutablePureComponent {
                 <Fragment>
                   <DotTextSeperator />
                   <Button
-                    text
+                    isText
                     underlineOnHover
                     backgroundColor='none'
                     color='none'

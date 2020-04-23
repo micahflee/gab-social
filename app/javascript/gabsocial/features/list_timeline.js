@@ -30,7 +30,10 @@ class ListTimeline extends ImmutablePureComponent {
   static propTypes = {
     params: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    list: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
+    list: PropTypes.oneOfType([
+      ImmutablePropTypes.map,
+      PropTypes.bool,
+    ]),
     intl: PropTypes.object.isRequired,
   };
 

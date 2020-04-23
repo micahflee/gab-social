@@ -201,7 +201,7 @@ class StatusContent extends ImmutablePureComponent {
 
       const mentionLinks = status.get('mentions').map(item => (
         <Button
-          text
+          isText
           backgroundColor='none'
           to={`/${item.get('acct')}`}
           href={`/${item.get('acct')}`}
@@ -253,7 +253,7 @@ class StatusContent extends ImmutablePureComponent {
 
           <div className={spoilerContainerClasses}>
             <div className={[_s.default, _s.flexRow, _s.mr5].join(' ')}>
-              <Icon id='warning' height='14px' width='14px' className={[_s.fillColorBlack, _s.mt2, _s.mr5].join(' ')}/>
+              <Icon id='warning' size='14px' className={[_s.fillColorBlack, _s.mt2, _s.mr5].join(' ')}/>
               <div
                 className={_s.statusContent}
                 dangerouslySetInnerHTML={spoilerContent}
@@ -263,7 +263,7 @@ class StatusContent extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.mt10, _s.alignItemsStart].join(' ')}>
               <Button
-                narrow
+                isNarrow
                 radiusSmall
                 backgroundColor='tertiary'
                 color='primary'
@@ -317,7 +317,7 @@ class StatusContent extends ImmutablePureComponent {
           {
             this.state.collapsed &&
             <Button
-              text
+              isText
               underlineOnHover
               color='primary'
               backgroundColor='none'

@@ -1,7 +1,7 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { createSelector } from 'reselect'
 import { defineMessages, injectIntl } from 'react-intl'
+import { getOrderedLists } from '../selectors'
 import { fetchLists } from '../actions/lists'
 import ColumnIndicator from '../components/column_indicator'
 import List from '../components/list'
@@ -9,12 +9,6 @@ import List from '../components/list'
 const messages = defineMessages({
   add: { id: 'lists.new.create', defaultMessage: 'Add List' },
   empty: { id: 'empty_column.lists', defaultMessage: 'You don\'t have any lists yet. When you create one, it will show up here.' },
-})
-
-const getOrderedLists = createSelector([state => state.get('lists')], lists => {
-  if (!lists) return lists
-
-  return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')))
 })
 
 const mapStateToProps = (state) => ({
@@ -46,7 +40,7 @@ class ListsDirectory extends ImmutablePureComponent {
     'lists'
   ]
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onFetchLists()
       .then(() => this.setState({ fetched: true }))
       .catch(() => this.setState({ fetched: true }))

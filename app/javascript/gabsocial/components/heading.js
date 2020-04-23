@@ -1,7 +1,9 @@
 import classNames from 'classnames/bind'
 
+// Bind CSS Modules global variable `_s` to classNames module
 const cx = classNames.bind(_s)
 
+// Define sizes for enumeration for Heading component `size` prop
 const SIZES = {
   h1: 'h1',
   h2: 'h2',
@@ -11,11 +13,17 @@ const SIZES = {
   h6: 'h6',
 }
 
+/**
+ * Renders an H-tag
+ * @param {bool} [props.isCentered] - if text is centered within the element
+ * @param {string} [props.size='h1'] - the size of the heading
+ */
 export default class Heading extends PureComponent {
+
   static propTypes = {
     children: PropTypes.any,
+    isCentered: PropTypes.bool,
     size: PropTypes.oneOf(Object.keys(SIZES)),
-    center: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -25,6 +33,7 @@ export default class Heading extends PureComponent {
   render() {
     const { children, size, center } = this.props
 
+    // Each size has it's own custom style
     const classes = cx({
       default: 1,
       text: 1,
@@ -44,7 +53,6 @@ export default class Heading extends PureComponent {
       lineHeight2: size === SIZES.h5,
       py2: size === SIZES.h5,
 
-      // fontWeightNormal: weight === WEIGHTS.normal,
       fontWeightMedium: [SIZES.h1, SIZES.h5].indexOf(size) > -1,
       fontWeightBold: [SIZES.h3, SIZES.h4].indexOf(size) > -1,
     })
@@ -58,4 +66,5 @@ export default class Heading extends PureComponent {
       children,
     )
   }
+
 }

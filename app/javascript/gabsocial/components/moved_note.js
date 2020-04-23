@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom'
 import DisplayName from './display_name'
 import Icon from './icon'
 
+// : todo :
 export default class MovedNote extends ImmutablePureComponent {
 
   static contextTypes = {

@@ -77,7 +77,7 @@ export default class MediaItem extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       top0: 1,
       height100PC: 1,
       width100PC: 1,
@@ -96,7 +96,7 @@ export default class MediaItem extends ImmutablePureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.width25PC, _s.paddingTop25PC].join(' ')}>
+      <div className={[_s.default, _s.width25PC, _s.pt25PC].join(' ')}>
         <div className={containerClasses}>
           <NavLink
             to={status.get('url')} /* : todo : */
@@ -125,20 +125,19 @@ export default class MediaItem extends ImmutablePureComponent {
               />
             }
 
-            <div className={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.height100PC, _s.width100PC, _s.z3, _s.positionAbsolute].join(' ')}>
+            <div className={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.height100PC, _s.width100PC, _s.z3, _s.posAbs].join(' ')}>
               {
                 !visible &&
                 <Icon
                   id='hidden'
-                  width='22px'
-                  height='22px'
+                  size='22px'
                   className={[_s.fillColorWhite].join('')}
                 />
               }
 
               {
                 !!badge &&
-                <div className={[_s.default, _s.positionAbsolute, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr5, _s.my5, _s.bottom0, _s.right0].join(' ')}>
+                <div className={[_s.default, _s.posAbs, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr5, _s.my5, _s.bottom0, _s.right0].join(' ')}>
                   <Text size='extraSmall' color='white'>
                     {badge}
                   </Text>

@@ -62,12 +62,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             hasNote &&
             <Fragment>
               <div className={_s.dangerousContent} dangerouslySetInnerHTML={content} />
-              <Divider small />
+              <Divider isSmall />
             </Fragment>
           }
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-            <Icon id='calendar' width='12px' height='12px' className={_s.fillColorSecondary} />
+            <Icon id='calendar' size='12px' className={_s.fillColorSecondary} />
             <Text
               size='small'
               color='secondary'
@@ -85,7 +85,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             <div className={[_s.default]}>
               {identityProofs.map((proof, i) => (
                 <Fragment>
-                  <Divider small />
+                  <Divider isSmall />
                   <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-identity-proof-${i}`}>
                     <dt
                       className={_s.dangerousContent}
@@ -96,7 +96,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                     <dd className='verified'>
                       <a href={proof.get('proof_url')} target='_blank' rel='noopener noreferrer'>
                         <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
-                          <Icon id='check' className='verified__mark' />
+                          <Icon id='check' size='12px' className='verified__mark' />
                         </span>
                       </a>
                       <a href={proof.get('profile_url')} target='_blank' rel='noopener noreferrer'>
@@ -113,7 +113,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
               {
                 fields.map((pair, i) => (
                   <Fragment>
-                    <Divider small />
+                    <Divider isSmall />
                     <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-field-${i}`}>
                       <dt
                         className={[_s.text, _s.dangerousContent].join(' ')}

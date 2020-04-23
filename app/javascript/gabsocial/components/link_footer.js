@@ -104,7 +104,7 @@ class LinkFooter extends PureComponent {
 
               return (
                 <Button
-                  text
+                  isText
                   underlineOnHover
                   color='none'
                   backgroundColor='none'

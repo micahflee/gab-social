@@ -1,20 +1,21 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { Map as ImmutableMap } from 'immutable'
 import { autoPlayGif } from '../initial_state'
 import Image from './image'
 
-export default
-class Avatar extends ImmutablePureComponent {
+/**
+ * Renders an avatar component
+ * @param {map} [props.account] - the account for image
+ * @param {number} [props.size=40] - the size of the avatar
+ */
+export default class Avatar extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
-    size: PropTypes.number.isRequired,
-    animate: PropTypes.bool,
+    size: PropTypes.number,
   }
 
   static defaultProps = {
-    animate: autoPlayGif,
     size: 40,
   }
 
@@ -41,17 +42,17 @@ class Avatar extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, size, animate } = this.props
+    const { account, size } = this.props
     const { hovering, sameImg } = this.state
 
-    const shouldAnimate = animate || !sameImg
+    const shouldAnimate = autoPlayGif || !sameImg
 
     const options = {
       alt: !account ? 'Avatar' : account.get('display_name'),
       className: [_s.default, _s.circle, _s.overflowHidden].join(' '),
       onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
       onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,
-      src: !account ? undefined : account.get((hovering || animate) ? 'avatar' : 'avatar_static'),
+      src: !account ? undefined : account.get((hovering || autoPlayGif) ? 'avatar' : 'avatar_static'),
       alt: !account ? undefined : account.get('display_name'),
       style: {
         width: `${size}px`,

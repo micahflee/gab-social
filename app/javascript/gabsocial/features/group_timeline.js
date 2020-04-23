@@ -35,7 +35,10 @@ class GroupTimeline extends ImmutablePureComponent {
 		dispatch: PropTypes.func.isRequired,
 		columnId: PropTypes.string,
 		hasUnread: PropTypes.bool,
-		group: PropTypes.oneOfType([ImmutablePropTypes.map, PropTypes.bool]),
+		group: PropTypes.oneOfType([
+			ImmutablePropTypes.map,
+			PropTypes.bool,
+		]),
 		relationships: ImmutablePropTypes.map,
 		intl: PropTypes.object.isRequired,
 	}

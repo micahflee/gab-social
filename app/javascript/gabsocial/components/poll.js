@@ -87,7 +87,7 @@ class Poll extends ImmutablePureComponent {
 
     const chartClasses = cx({
       default: 1,
-      positionAbsolute: 1,
+      posAbs: 1,
       top0: 1,
       left0: 1,
       radiusSmall: 1,
@@ -199,9 +199,9 @@ class Poll extends ImmutablePureComponent {
           {
             !showResults &&
             <Button
-              narrow
+              isNarrow
               className={_s.mr10}
-              disabled={disabled}
+              isDisabled={disabled}
               onClick={this.handleVote}
             >
               <Text color='inherit' size='small' className={_s.px10}>

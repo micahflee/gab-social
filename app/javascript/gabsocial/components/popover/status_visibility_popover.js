@@ -106,7 +106,7 @@ class StatusVisibilityDropdown extends PureComponent {
                   onClick={() => this.handleChange(option.value)}
                   className={containerClasses}
                 >
-                  <Icon id={option.icon} height='16px' width='16px' className={iconClasses} />
+                  <Icon id={option.icon} size='16px' className={iconClasses} />
                   <div className={[_s.default, _s.px10, _s.pt2].join(' ')}>
                     <Text size='medium' color={isActive ? 'white' : 'primary'}>
                       {option.title}

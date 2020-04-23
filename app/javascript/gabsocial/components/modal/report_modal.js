@@ -151,9 +151,9 @@ class ReportModal extends ImmutablePureComponent {
             }
             
             <Button
-              disabled={isSubmitting}
+              isDisabled={isSubmitting}
               onClick={this.handleSubmit}
-              className={_s.marginTopAuto}
+              className={_s.mtAuto}
             >
               {intl.formatMessage(messages.submit)}
             </Button>

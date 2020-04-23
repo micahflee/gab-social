@@ -145,7 +145,7 @@ class Status extends ImmutablePureComponent {
   // Compensate height changes
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!prevState.loadedComments && this.state.loadedComments && this.props.status) {
-      const commentCount = this.props.status.get('replies_count');
+      const commentCount = this.props.status.get('replies_count')
       if (commentCount > 0) {
         this.props.onFetchComments(this.props.status.get('id'))
         this._measureHeight(prevState.height !== this.state.height)
@@ -166,50 +166,50 @@ class Status extends ImmutablePureComponent {
   }
 
   handleMoveUp = id => {
-    const { status, ancestorsIds, descendantsIds } = this.props;
+    const { status, ancestorsIds, descendantsIds } = this.props
 
     if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size - 1, true);
+      this._selectChild(ancestorsIds.size - 1, true)
     } else {
-      let index = ancestorsIds.indexOf(id);
+      let index = ancestorsIds.indexOf(id)
 
       if (index === -1) {
-        index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index, true);
+        index = descendantsIds.indexOf(id)
+        this._selectChild(ancestorsIds.size + index, true)
       } else {
-        this._selectChild(index - 1, true);
+        this._selectChild(index - 1, true)
       }
     }
   }
 
   handleMoveDown = id => {
-    const { status, ancestorsIds, descendantsIds } = this.props;
+    const { status, ancestorsIds, descendantsIds } = this.props
 
     if (id === status.get('id')) {
-      this._selectChild(ancestorsIds.size + 1, false);
+      this._selectChild(ancestorsIds.size + 1, false)
     } else {
-      let index = ancestorsIds.indexOf(id);
+      let index = ancestorsIds.indexOf(id)
 
       if (index === -1) {
-        index = descendantsIds.indexOf(id);
-        this._selectChild(ancestorsIds.size + index + 2, false);
+        index = descendantsIds.indexOf(id)
+        this._selectChild(ancestorsIds.size + index + 2, false)
       } else {
-        this._selectChild(index + 1, false);
+        this._selectChild(index + 1, false)
       }
     }
   }
 
   _selectChild(index, align_top) {
-    const container = this.node;
-    const element = container.querySelectorAll('.focusable')[index];
+    const container = this.node
+    const element = container.querySelectorAll('.focusable')[index]
 
     if (element) {
       if (align_top && container.scrollTop > element.offsetTop) {
-        element.scrollIntoView(true);
+        element.scrollIntoView(true)
       } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
-        element.scrollIntoView(false);
+        element.scrollIntoView(false)
       }
-      element.focus();
+      element.focus()
     }
   }
 
@@ -358,7 +358,7 @@ class Status extends ImmutablePureComponent {
       reblogContent = status.get('contentHtml')
     }
 
-    const handlers = this.props.isMuted ? {} : {
+    const handlers = (this.props.isMuted || isChild) ? {} : {
       reply: this.handleHotkeyReply,
       favorite: this.handleHotkeyFavorite,
       repost: this.handleHotkeyRepost,
@@ -379,7 +379,7 @@ class Status extends ImmutablePureComponent {
             {status.get('content')}
           </div>
         </HotKeys>
-      );
+      )
     }
 
     if (status.get('filtered') || status.getIn(['reblog', 'filtered'])) {
@@ -421,7 +421,6 @@ class Status extends ImmutablePureComponent {
                 reduced={isChild}
                 media={status.get('media_attachments')}
                 sensitive={status.get('sensitive')}
-                height={110}
                 onOpenMedia={this.props.onOpenMedia}
                 cacheWidth={this.props.cacheMediaWidth}
                 defaultWidth={this.props.cachedMediaWidth}
@@ -501,7 +500,7 @@ class Status extends ImmutablePureComponent {
               {
                 !!status.get('quote') && !isChild &&
                 <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
-                  <Status status={status.get('quoted_status')} isChild />
+                  <Status status={status.get('quoted_status')} isChild intl={intl} />
                 </div>
               }
 

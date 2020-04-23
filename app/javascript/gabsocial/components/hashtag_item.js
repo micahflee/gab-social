@@ -32,8 +32,8 @@ export default class HashtagItem extends ImmutablePureComponent {
       <NavLink
         to='/tags/test'
         className={[_s.default, _s.noUnderline, _s.backgroundSubtle_onHover, _s.px15, _s.py5].join(' ')}
-        onMouseEnter={() => this.handleOnMouseEnter()}
-        onMouseLeave={() => this.handleOnMouseLeave()}
+        onMouseEnter={this.handleOnMouseEnter}
+        onMouseLeave={this.handleOnMouseLeave}
       >
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           <div>
@@ -42,13 +42,12 @@ export default class HashtagItem extends ImmutablePureComponent {
             </Text>
           </div>
           <Button
-            text
+            isText
             backgroundColor='none'
             color='none'
             title='Remove'
             icon='caret-down'
-            iconWidth='8px'
-            iconHeight='8px'
+            iconSize='8px'
             iconClassName={_s.fillColorSecondary}
             className={_s.marginLeftAuto}
           />
