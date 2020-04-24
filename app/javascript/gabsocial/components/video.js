@@ -604,7 +604,7 @@ class Video extends PureComponent {
               className={_s.pl0}
             />
 
-            <div className={[_s.default, _s.marginLeftAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+            <div className={[_s.default, _s.mlAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
               <Text color='white' size='small'>
                 {formatTime(currentTime)}
                 &nbsp;/&nbsp;

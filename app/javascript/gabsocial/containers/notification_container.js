@@ -1,18 +1,18 @@
 import { List as ImmutableList } from 'immutable'
-import { openModal } from '../../../actions/modal'
-import { mentionCompose } from '../../../actions/compose'
+import { openModal } from '../actions/modal'
+import { mentionCompose } from '../actions/compose'
 import {
   reblog,
   favorite,
   unreblog,
   unfavorite,
-} from '../../../actions/interactions'
+} from '../actions/interactions'
 import {
   hideStatus,
   revealStatus,
-} from '../../../actions/statuses'
-import { boostModal } from '../../../initial_state'
-import { makeGetNotification } from '../../../selectors'
+} from '../actions/statuses'
+import { boostModal } from '../initial_state'
+import { makeGetNotification } from '../selectors'
 import Notification from '../components/notification'
 
 const getAccountFromState = (state, accountId) => {

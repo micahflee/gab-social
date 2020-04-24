@@ -54,6 +54,10 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     const content = { __html: account.get('note_emojified') }
     const memberSinceDate = intl.formatDate(account.get('created_at'), { month: 'long', year: 'numeric' })
     const hasNote = !!content ? (account.get('note').length > 0 && account.get('note') !== '<p></p>') : false
+    const isPro = account.get('is_pro')
+    const isDonor = account.get('is_donor')
+    const isInvestor = account.get('is_investor')
+    const hasBadges = isPro || isDonor || isInvestor
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
@@ -80,6 +84,18 @@ class ProfileInfoPanel extends ImmutablePureComponent {
               }
             </Text>
           </div>
+            
+          {
+            hasBadges &&
+            <Fragment>
+              <Divider isSmall />
+              <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+                { isPro && <Icon id='pro' size='16px' className={_s.mr5} /> }
+                { isInvestor && <Icon id='investor' size='16px' className={_s.mr5} /> }
+                { isDonor && <Icon id='donor' size='16px' /> }
+              </div>
+            </Fragment>
+          }
 
           {(fields.size > 0 || identityProofs.size > 0) && (
             <div className={[_s.default]}>
@@ -121,7 +137,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                         title={pair.get('name')}
                       />
                       <dd
-                        className={[_s.dangerousContent, _s.marginLeftAuto].join(' ')}
+                        className={[_s.dangerousContent, _s.mlAuto].join(' ')}
                         title={pair.get('value_plain')}
                         dangerouslySetInnerHTML={{ __html: pair.get('value_emojified') }}
                       />

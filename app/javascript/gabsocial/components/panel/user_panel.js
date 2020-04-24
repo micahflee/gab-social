@@ -106,11 +106,11 @@ class UserPanel extends ImmutablePureComponent {
           className={[_s.default, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
           to={`/${acct}`}
         >
-          <div className={[_s.default, _s.mtNeg30PX, _s.circle, _s.borderColorWhite, _s.border2PX].join(' ')}>
-            <Avatar account={account} size={62} />
+          <div className={[_s.default, _s.mtNeg32PX, _s.circle, _s.borderColorWhite, _s.border6PX].join(' ')}>
+            <Avatar account={account} size={62} noHover />
           </div>
           <div className={[_s.default, _s.ml15].join(' ')}>
-            <DisplayName account={account} multiline />
+            <DisplayName account={account} isMultiline noRelationship noHover />
           </div>
         </NavLink>
 

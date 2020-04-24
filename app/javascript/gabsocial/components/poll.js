@@ -166,7 +166,7 @@ class Poll extends ImmutablePureComponent {
 
             {
               showResults &&
-                <span className={_s.marginLeftAuto}>
+                <span className={_s.mlAuto}>
                   {Math.round(percent)}%
                 </span>
             }

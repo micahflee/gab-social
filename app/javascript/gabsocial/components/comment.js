@@ -1,20 +1,17 @@
-import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { makeGetStatus } from '../selectors';
-import CommentHeader from './comment_header'
 import Avatar from './avatar'
 import Button from './button'
-import DisplayName from './display_name'
-import DotTextSeperator from './dot_text_seperator'
-import RelativeTimestamp from './relative_timestamp'
-import Text from './text'
+import CommentHeader from './comment_header'
 import StatusContent from './status_content'
+import Text from './text'
 
 const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
+  reply: { id: 'status.reply', defaultMessage: 'Reply' },
+  like: { id: 'status.like', defaultMessage: 'Like' },
 })
 
 const makeMapStateToProps = (state, props) => ({
@@ -27,14 +24,23 @@ export default
 class Comment extends ImmutablePureComponent {
 
   static propTypes = {
+    indent: PropTypes.number,
+    intl: PropTypes.object.isRequired,
     status: ImmutablePropTypes.map.isRequired,
-    indent: ImmutablePropTypes.number,
   }
 
-  render() {
-    const { status, indent } = this.props
+  updateOnProps = [
+    'status',
+    'indent',
+  ]
 
-    console.log("status:", status)
+  render() {
+    const {
+      indent,
+      intl,
+      status,
+    } = this.props
+
     const style = {
       paddingLeft: `${indent * 40}px`,
     }
@@ -55,63 +61,55 @@ class Comment extends ImmutablePureComponent {
             </NavLink>
 
             <div className={[_s.default, _s.flexNormal].join(' ')}>
-              <div className={[_s.default, _s.px10, _s.py5, _s.radiusSmall, _s.backgroundSubtle].join(' ')}>
-                <div className={_s.pt2}>
-                  <CommentHeader status={status} />
-                </div>
-                <div className={[_s.py5].join(' ')}>
-                  <StatusContent
-                    status={status}
-                    onClick={this.handleClick}
-                    isComment
-                    collapsable
-                  />
-                </div>
+              <div className={[_s.default, _s.px10, _s.pt5, _s.pb10, _s.radiusSmall, _s.backgroundSubtle].join(' ')}>
+                <CommentHeader status={status} />
+                <StatusContent
+                  status={status}
+                  onClick={this.handleClick}
+                  isComment
+                  collapsable
+                />
               </div>
+
               <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
-                
-                <Button
-                  isText
-                  radiusSmall
-                  backgroundColor='none'
-                  color='tertiary'
-                  className={[_s.px5, _s.backgroundSubtle_onHover, _s.py2, _s.mr5].join(' ')}
-                >
-                  <Text size='extraSmall' color='inherit' weight='bold'>
-                    Like
-                  </Text>
-                </Button>
-
-                <Button
-                  isText
-                  radiusSmall
-                  backgroundColor='none'
-                  color='tertiary'
-                  className={[_s.px5, _s.backgroundSubtle_onHover, _s.py2, _s.mr5].join(' ')}
-                >
-                  <Text size='extraSmall' color='inherit' weight='bold'>
-                    Reply
-                  </Text>
-                </Button>
-
-                <Button
-                  isText
-                  radiusSmall
-                  backgroundColor='none'
-                  color='tertiary'
-                  className={[_s.px5, _s.backgroundSubtle_onHover, _s.py2, _s.mr5].join(' ')}
-                >
-                  <Text size='extraSmall' color='inherit' weight='bold'>
-                    ···
-                  </Text>
-                </Button>
-
+                <CommentButton title={intl.formatMessage(messages.like)} />
+                <CommentButton title={intl.formatMessage(messages.reply)} />
+                <CommentButton title='···' />
               </div>
+
             </div>
           </div>
 
         </div>
       </div>
+    )
+  }
+
+}
+
+class CommentButton extends PureComponent {
+
+  static propTypes = {
+    onClick: PropTypes.func.isRequired,
+    title: PropTypes.string.isRequired,
+  }
+
+  render() {
+    const { onClick, title } = this.props
+
+    return (
+      <Button
+        isText
+        radiusSmall
+        backgroundColor='none'
+        color='tertiary'
+        className={[_s.px5, _s.backgroundSubtle_onHover, _s.py2, _s.mr5].join(' ')}
+        onClick={onClick}
+      >
+        <Text size='extraSmall' color='inherit' weight='bold'>
+          {title}
+        </Text>
+      </Button>
     )
   }
 

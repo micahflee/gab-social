@@ -50,7 +50,6 @@ const messages = defineMessages({
   admin_account: { id: 'admin_account', defaultMessage: 'Open moderation interface' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
   add_or_remove_from_shortcuts: { id: 'account.add_or_remove_from_shortcuts', defaultMessage: 'Add or Remove from shortcuts' },
-  accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
   accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
   domainBlocked: { id: 'account.domain_blocked', defaultMessage: 'Domain hidden' },

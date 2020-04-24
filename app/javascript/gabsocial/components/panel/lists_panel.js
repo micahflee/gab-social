@@ -58,9 +58,8 @@ class ListsPanel extends ImmutablePureComponent {
         footerButtonTo={count > maxCount ? '/lists' : undefined}
         noPadding
       >
-        <div className={_s.default}>
+        <div className={[_s.default, _s.boxShadowNone].join(' ')}>
           <List
-            unrounded
             scrollKey='lists_sidebar_panel'
             items={listItems}
           />

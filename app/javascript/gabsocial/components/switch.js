@@ -34,7 +34,7 @@ export default class Switch extends PureComponent {
       width50PX: 1,
       circle: 1,
       border1PX: 1,
-      marginLeftAuto: 1,
+      mlAuto: 1,
       borderColorSecondary: 1,
       backgroundColorBrand: checked,
     })

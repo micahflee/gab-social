@@ -1,3 +1,5 @@
+import { withRouter } from 'react-router-dom'
+import queryString from 'query-string'
 import {
   changeSearch,
   clearSearch,
@@ -19,6 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default
+@withRouter
 @connect(mapStateToProps, mapDispatchToProps)
 class Search extends PureComponent {
 
@@ -41,6 +44,18 @@ class Search extends PureComponent {
   }
 
   textbox = React.createRef()
+
+  componentDidUpdate(prevProps) {
+    // If user navigates to different page, ensure tab bar item
+    // with this.props.to that is on location is set to active.
+    if (this.props.location !== prevProps.location) {
+      const isCurrent = this.props.to === this.props.location.pathname
+
+      if (this.state.isCurrent !== isCurrent) {
+        this.setState({ isCurrent })
+      }
+    }
+  }
 
   handleChange = (e) => {
     this.props.onChange(e.target.value)

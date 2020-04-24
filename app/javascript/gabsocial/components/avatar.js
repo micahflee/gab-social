@@ -1,17 +1,31 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { autoPlayGif } from '../initial_state'
+import { openPopover, closePopover } from '../actions/popover'
 import Image from './image'
+
+const mapDispatchToProps = (dispatch) => ({
+  openUserInfoPopover(props) {
+    dispatch(openPopover('USER_INFO', props))
+  },
+  closeUserInfoPopover() {
+    dispatch(closePopover('USER_INFO'))
+  }
+})
 
 /**
  * Renders an avatar component
  * @param {map} [props.account] - the account for image
  * @param {number} [props.size=40] - the size of the avatar
  */
-export default class Avatar extends ImmutablePureComponent {
+export default
+@connect(null, mapDispatchToProps)
+class Avatar extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
+    noHover: PropTypes.bool,
+    openUserInfoPopover: PropTypes.func.isRequired,
     size: PropTypes.number,
   }
 
@@ -24,6 +38,14 @@ export default class Avatar extends ImmutablePureComponent {
     sameImg: !this.props.account ? false : this.props.account.get('avatar') === this.props.account.get('avatar_static'),
   }
 
+  updateOnProps = [
+    'account',
+    'noHover',
+    'size',
+  ]
+
+  mouseOverTimeout = null
+
   componentDidUpdate (prevProps) {
     if (prevProps.account !== this.props.account) {
       this.setState({
@@ -33,12 +55,30 @@ export default class Avatar extends ImmutablePureComponent {
   }
 
   handleMouseEnter = () => {
-    // : todo : user popover
     this.setState({ hovering: true })
+
+    if (this.mouseOverTimeout || this.props.noHover) return null
+    this.mouseOverTimeout = setTimeout(() => {
+      this.props.openUserInfoPopover({
+        targetRef: this.node,
+        position: 'top',
+        account: this.props.account,
+      })
+    }, 650)
   }
 
   handleMouseLeave = () => {
     this.setState({ hovering: false })
+
+    if (this.mouseOverTimeout && !this.props.noHover) {
+      clearTimeout(this.mouseOverTimeout)
+      this.mouseOverTimeout = null
+      this.props.closeUserInfoPopover()
+    }
+  }
+
+  setRef = (n) => {
+    this.node = n
   }
 
   render() {
@@ -46,10 +86,14 @@ export default class Avatar extends ImmutablePureComponent {
     const { hovering, sameImg } = this.state
 
     const shouldAnimate = autoPlayGif || !sameImg
+    const isPro = !!account ? account.get('is_pro') : false
+    const alt = !account ? '' : `${account.get('display_name')} ${isPro ? '(PRO)' : ''}`.trim()
+    const classes = [_s.default, _s.circle, _s.overflowHidden]
+    if (isPro) {
+      classes.push(_s.boxShadowAvatarPro)
+    }
 
     const options = {
-      alt: !account ? 'Avatar' : account.get('display_name'),
-      className: [_s.default, _s.circle, _s.overflowHidden].join(' '),
       onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
       onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,
       src: !account ? undefined : account.get((hovering || autoPlayGif) ? 'avatar' : 'avatar_static'),
@@ -61,7 +105,12 @@ export default class Avatar extends ImmutablePureComponent {
     }
 
     return (
-      <Image {...options} />
+      <Image
+        alt={alt}
+        ref={this.setRef}
+        className={classes.join(' ')}
+        {...options}
+      />
     )
   }
 

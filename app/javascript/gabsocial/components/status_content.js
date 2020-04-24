@@ -238,6 +238,7 @@ class StatusContent extends ImmutablePureComponent {
       const containerClasses = cx({
         statusContent: 1,
         px15: !isComment,
+        outlineNone: 1,
       })
 
       return (

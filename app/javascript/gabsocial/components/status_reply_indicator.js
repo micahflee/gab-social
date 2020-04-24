@@ -50,9 +50,9 @@ class ReplyIndicator extends ImmutablePureComponent {
 
           <NavLink to={`/${status.getIn(['account', 'acct'])}`} className='reply-indicator__display-name'>
             <div className='reply-indicator__display-avatar'>
-              <Avatar account={status.get('account')} size={24} />
+              <Avatar account={status.get('account')} size={24} noHover />
             </div>
-            <DisplayName account={status.get('account')} />
+            <DisplayName account={status.get('account')} noHover />
           </NavLink>
         </div>
 

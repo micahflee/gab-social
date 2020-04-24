@@ -114,7 +114,7 @@ class LinkFooter extends PureComponent {
                   onClick={linkFooterItem.onClick || null}
                   className={[_s.my5, _s.pr15].join(' ')}
                 >
-                  <Text size='small' color='secondary'>
+                  <Text size='small' color='tertiary'>
                     {linkFooterItem.text}
                   </Text>
                 </Button>
@@ -123,11 +123,11 @@ class LinkFooter extends PureComponent {
           }
         </nav>
 
-        <Text size='small' color='secondary' className={_s.mt10}>
+        <Text size='small' color='tertiary' className={_s.mt10}>
           © {currentYear} Gab AI, Inc.
         </Text>
 
-        <Text size='small' color='secondary' tagName='p' className={_s.mt10}>
+        <Text size='small' color='tertiary' tagName='p' className={_s.mt10}>
           <FormattedMessage
             id='getting_started.open_source_notice'
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'

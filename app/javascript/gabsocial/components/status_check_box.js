@@ -76,7 +76,7 @@ class StatusCheckBox extends ImmutablePureComponent {
           {media}
         </div>
 
-        <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+        <div className={[_s.default, _s.mlAuto].join(' ')}>
           <Switch checked={checked} onChange={onToggle} disabled={disabled} />
         </div>
       </div>

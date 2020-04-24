@@ -1,5 +1,5 @@
 // import SearchContainer from '../compose/containers/search_container';
-import SearchResultsContainer from './compose/containers/search_results_container';
+import SearchResults from './compose/components/search_results';
 
 export default class Search extends PureComponent {
 
@@ -10,7 +10,7 @@ export default class Search extends PureComponent {
 
         <div className='drawer__pager'>
           <div className='drawer__inner darker'>
-            <SearchResultsContainer />
+            <SearchResults />
           </div>
         </div>
       </div>

@@ -36,14 +36,14 @@ export default class PanelLayout extends PureComponent {
         <Block>
           {
             (title || subtitle) &&
-            <div className={[_s.default, _s.px15, _s.py10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
+            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-                <Heading size='h3'>
+                <Heading size='h2'>
                   {title}
                 </Heading>
                 {
                   (!!headerButtonTitle && (!!headerButtonAction || !!headerButtonTo)) &&
-                  <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+                  <div className={[_s.default, _s.mlAuto].join(' ')}>
                     <Button
                       isText
                       backgroundColor='none'
@@ -80,7 +80,7 @@ export default class PanelLayout extends PureComponent {
 
           {
             (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo)) &&
-            <div className={[_s.default, _s.borderColorSecondary, _s.borderTop1PX].join(' ')}>
+            <div className={_s.default}>
               <Button
                 isText
                 color='none'

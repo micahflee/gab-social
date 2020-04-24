@@ -108,21 +108,33 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     });
   },
 
-  onQuote (status, router) {
+  onRepost (targetRef, status, ) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
+    
+    dispatch(openPopover('REPOST_OPTIONS', {
+      status,
+      targetRef,
+      position: 'top',
+    }))
 
-    dispatch((_, getState) => {
-      const state = getState();
-      if (state.getIn(['compose', 'text']).trim().length !== 0) {
-        dispatch(openModal('CONFIRM', {
-          message: intl.formatMessage(messages.quoteMessage),
-          confirm: intl.formatMessage(messages.quoteConfirm),
-          onConfirm: () => dispatch(quoteCompose(status, router)),
-        }));
-      } else {
-        dispatch(quoteCompose(status, router));
-      }
-    });
+    // if (e.shiftKey || !boostModal) {
+    //   this.onModalRepost(status);
+    // } else {
+    //   dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }));
+    // }
+
+    // dispatch((_, getState) => {
+    //   const state = getState();
+    //   if (state.getIn(['compose', 'text']).trim().length !== 0) {
+    //     dispatch(openModal('CONFIRM', {
+    //       message: intl.formatMessage(messages.quoteMessage),
+    //       confirm: intl.formatMessage(messages.quoteConfirm),
+    //       onConfirm: () => dispatch(quoteCompose(status, router)),
+    //     }));
+    //   } else {
+    //     dispatch(quoteCompose(status, router));
+    //   }
+    // });
   },
 
   onModalRepost (status) {
@@ -141,16 +153,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       targetRef,
       position: 'top',
     }))
-  },
-
-  onRepost (status, e) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    if (e.shiftKey || !boostModal) {
-      this.onModalRepost(status);
-    } else {
-      dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }));
-    }
   },
 
   onShowRevisions (status) {

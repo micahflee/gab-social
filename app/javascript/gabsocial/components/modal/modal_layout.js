@@ -53,7 +53,7 @@ class ModalLayout extends PureComponent {
       <div style={{width: `${width}px`}}>
         <Block>
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
-            <Heading size='h3'>
+            <Heading size='h2'>
               {title}
             </Heading>
             {
@@ -61,7 +61,7 @@ class ModalLayout extends PureComponent {
               <Button
                 backgroundColor='none'
                 title={intl.formatMessage(messages.close)}
-                className={_s.marginLeftAuto}
+                className={_s.mlAuto}
                 onClick={this.onHandleCloseModal}
                 color='secondary'
                 icon='close'

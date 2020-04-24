@@ -127,7 +127,7 @@ class GifPickerModal extends PureComponent {
             <Button
               backgroundColor='none'
               title={intl.formatMessage(messages.close)}
-              className={_s.marginLeftAuto}
+              className={_s.mlAuto}
               onClick={this.onHandleCloseModal}
               color='secondary'
               icon='close'

@@ -34,7 +34,7 @@ class UnauthorizedModal extends ImmutablePureComponent {
           <Text className={_s.mb15}>
             {intl.formatMessage(messages.text)}
           </Text>
-          <Button href='/auth/sign_up' className={[_s.width240PX, _s.marginLeftAuto, _s.marginLeftAuto].join(' ')}>
+          <Button href='/auth/sign_up' className={[_s.width240PX, _s.mlAuto, _s.mlAuto].join(' ')}>
             {intl.formatMessage(messages.register)}
           </Button>
         </div>

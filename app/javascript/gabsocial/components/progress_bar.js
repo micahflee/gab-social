@@ -42,11 +42,11 @@ export default class ProgressBar extends PureComponent {
         noClasses
         className={containerClassName}
       >
-        <div className={[_s.default, _s.backgroundColorBrandDark, _s.circle, _s.height100PC].join(' ')} style={style} />
+        <div className={[_s.default, _s.backgroundColorBrand, _s.circle, _s.height100PC, _s.backgroundCandy].join(' ')} style={style} />
         <div className={[_s.default, _s.posAbs,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
           {
             !!title &&
-            <Text size='small' weight='bold' color='white'>
+            <Text size='small' weight='bold' color='white' className={_s.textShadow}>
               {title}
             </Text>
           }

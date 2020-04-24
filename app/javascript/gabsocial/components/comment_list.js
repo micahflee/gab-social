@@ -44,7 +44,7 @@ export default class CommentList extends ImmutablePureComponent {
                 View more comments
               </Text>
             </Button>
-            <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+            <div className={[_s.default, _s.mlAuto].join(' ')}>
               <Text color='tertiary'>
                 {max}
                 &nbsp;of&nbsp;

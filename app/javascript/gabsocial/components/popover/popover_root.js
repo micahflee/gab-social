@@ -8,6 +8,7 @@ import DatePickerPopover from './date_picker_popover'
 import EmojiPickerPopover from './emoji_picker_popover'
 import GroupInfoPopover from './group_info_popover'
 import ProfileOptionsPopover from './profile_options_popover'
+import RepostOptionsPopover from './repost_options_popover'
 import SearchPopover from './search_popover'
 import SidebarMorePopover from './sidebar_more_popover'
 import StatusOptionsPopover from './status_options_popover'
@@ -23,6 +24,7 @@ const POPOVER_COMPONENTS = {
   EMOJI_PICKER: () => Promise.resolve({ default: EmojiPickerPopover }),
   GROUP_INFO: () => GroupInfoPopover,
   PROFILE_OPTIONS: () => Promise.resolve({ default: ProfileOptionsPopover }),
+  REPOST_OPTIONS: () => Promise.resolve({ default: RepostOptionsPopover }),
   SEARCH: () => Promise.resolve({ default: SearchPopover }),
   SIDEBAR_MORE: () => Promise.resolve({ default: SidebarMorePopover }),
   STATUS_OPTIONS: () => Promise.resolve({ default: StatusOptionsPopover }),

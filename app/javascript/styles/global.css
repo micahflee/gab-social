@@ -207,6 +207,10 @@ body {
   border-radius: 8px;
 }
 
+.borderColorSecondary3 {
+  border-color: #F6F6F9;
+}
+
 .borderColorSecondary2 {
   border-color: #e5e9ed;
 }
@@ -249,6 +253,10 @@ body {
 
 .border2PX {
   border-width: 2px;
+}
+
+.border6PX {
+  border-width: 6px;
 }
 
 .borderBottom2PX {
@@ -307,12 +315,36 @@ body {
   pointer-events: none !important;
 }
 
+.backgroundCandy {
+  background-image: linear-gradient(-45deg, 
+    rgba(255, 255, 255, 0.15) 10%, 
+    rgba(255, 255, 255, 0) 10%,
+    rgba(255, 255, 255, 0) 20%,
+    rgba(255, 255, 255, 0.15) 20%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0) 40%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0) 50%,
+    rgba(255, 255, 255, 0) 60%,
+    rgba(255, 255, 255, 0.15) 60%,
+    rgba(255, 255, 255, 0.15) 70%,
+    rgba(255, 255, 255, 0) 70%,
+    rgba(255, 255, 255, 0) 80%,
+    rgba(255, 255, 255, 0.15) 80%,
+    rgba(255, 255, 255, 0.15) 90%,
+    rgba(255, 255, 255, 0) 90%,
+    rgba(255, 255, 255, 0)
+  );
+}
+
 .backgroundTransparent {
   background-color: transparent;
 }
 
 .backgroundPanel {
-  background-color: #aaa;
+  background-color: #ccc;
 }
 
 .backgroundSubtle {
@@ -827,8 +859,8 @@ body {
   object-fit: cover;
 }
 
-.shadow {
-  /* todo */
+.textShadow {
+  text-shadow: 0 0 5px #000;
 }
 
 .z1 {
@@ -897,11 +929,11 @@ body {
   margin-left: 10px;
 }
 
-.marginLeftAuto {
+.mlAuto {
   margin-left: auto;
 }
 
-.marginRightAuto {
+.mrAuto {
   margin-right: auto;
 }
 
@@ -929,8 +961,8 @@ body {
   margin-top: auto;
 }
 
-.mtNeg30PX {
-  margin-top: -30px;
+.mtNeg32PX {
+  margin-top: -32px;
 }
 
 .mtNeg75PX {
@@ -980,6 +1012,10 @@ body {
 
 .pl0 {
   padding-left: 0;
+}
+
+.pl25 {
+  padding-left: 25px;
 }
 
 .pr0 {
@@ -1047,6 +1083,22 @@ body {
 
 .boxShadow2 {
   box-shadow: 0 0 15px -5px rgba(0,0,0,0.15);
+}
+
+.boxShadowBlock {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.boxShadowNone .boxShadowBlock {
+  box-shadow: none !important;
+}
+
+.boxShadowAvatarPro {
+  box-shadow: 0 0 0 2px #F7D230;
+}
+
+.boxShadowProfileAvatar {
+  box-shadow: 0 0 0 6px #F6F6F9;
 }
 
 .listStyleNone {

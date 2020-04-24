@@ -1,28 +1,29 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import classNames from 'classnames/bind'
 import { length } from 'stringz'
-import CharacterCounter from '../../../../components/character_counter'
-import UploadForm from '../upload_form'
-import AutosuggestTextbox from '../../../../components/autosuggest_textbox'
-import PollButton from '../../components/poll_button'
-import UploadButton from '../media_upload_button'
-import SpoilerButton from '../../components/spoiler_button'
-import RichTextEditorButton from '../../components/rich_text_editor_button'
-import GifSelectorButton from '../../components/gif_selector_button'
-import StatusVisibilityButton from '../../components/status_visibility_button'
-import EmojiPickerButton from '../../components/emoji_picker_button'
-import PollFormContainer from '../../containers/poll_form_container'
-import SchedulePostButton from '../schedule_post_button'
-import StatusContainer from '../../../../containers/status_container'
-import Button from '../../../../components/button'
-import Avatar from '../../../../components/avatar'
-import { isMobile } from '../../../../utils/is_mobile'
-import { countableText } from '../../util/counter'
-
-const allowedAroundShortCode = '><\u0085\u0020\u00a0\u1680\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u202f\u205f\u3000\u2028\u2029\u0009\u000a\u000b\u000c\u000d'
-const maxPostCharacterCount = 3000
+import { isMobile } from '../../../utils/is_mobile'
+import { countableText } from '../util/counter'
+import {
+  CX,
+  MAX_POST_CHARACTER_COUNT,
+  ALLOWED_AROUND_SHORT_CODE,
+} from '../../../constants'
+import AutosuggestTextbox from '../../../components/autosuggest_textbox'
+import Avatar from '../../../components/avatar'
+import Button from '../../../components/button'
+import CharacterCounter from '../../../components/character_counter'
+import EmojiPickerButton from './emoji_picker_button'
+import GifSelectorButton from './gif_selector_button'
+import PollButton from './poll_button'
+import PollForm from './poll_form'
+import RichTextEditorButton from './rich_text_editor_button'
+import SchedulePostButton from './schedule_post_button'
+import SpoilerButton from './spoiler_button'
+import StatusContainer from '../../../containers/status_container'
+import StatusVisibilityButton from './status_visibility_button'
+import UploadButton from './media_upload_button'
+import UploadForm from './upload_form'
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
@@ -32,8 +33,6 @@ const messages = defineMessages({
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
 });
-
-const cx = classNames.bind(_s)
 
 export default
 @injectIntl
@@ -134,7 +133,7 @@ class ComposeForm extends ImmutablePureComponent {
     const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
 
-    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > maxPostCharacterCount || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
+    if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > MAX_POST_CHARACTER_COUNT || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
     }
 
@@ -211,7 +210,7 @@ class ComposeForm extends ImmutablePureComponent {
   handleEmojiPick = (data) => {
     const { text } = this.props
     const position = this.autosuggestTextarea.textbox.selectionStart
-    const needsSpace = data.custom && position > 0 && !allowedAroundShortCode.includes(text[position - 1])
+    const needsSpace = data.custom && position > 0 && !ALLOWED_AROUND_SHORT_CODE.includes(text[position - 1])
 
     this.props.onPickEmoji(position, data, needsSpace)
   }
@@ -240,17 +239,17 @@ class ComposeForm extends ImmutablePureComponent {
     } = this.props
     const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
-    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > maxPostCharacterCount || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
+    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
     
-    const parentContainerClasses = cx({
+    const parentContainerClasses = CX({
       default: 1,
       width100PC: 1,
       flexRow: !shouldCondense,
       pb10: !shouldCondense,
     })
 
-    const childContainerClasses = cx({
+    const childContainerClasses = CX({
       default: 1,
       flexWrap: 1,
       overflowHidden: 1,
@@ -262,17 +261,17 @@ class ComposeForm extends ImmutablePureComponent {
       px5: shouldCondense,
     })
 
-    const actionsContainerClasses = cx({
+    const actionsContainerClasses = CX({
       default: 1,
       flexRow: 1,
       alignItemsCenter: !shouldCondense,
       alignItemsStart: shouldCondense,
       mt10: !shouldCondense,
       px15: !shouldCondense,
-      marginLeftAuto: shouldCondense,
+      mlAuto: shouldCondense,
     })
 
-    const commentPublishBtnClasses = cx({
+    const commentPublishBtnClasses = CX({
       default: 1,
       justifyContentCenter: 1,
       displayNone: length(this.props.text) === 0 || anyMedia,
@@ -284,7 +283,7 @@ class ComposeForm extends ImmutablePureComponent {
           {
             shouldCondense &&
             <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
-              <Avatar account={account} size={28} />
+              <Avatar account={account} size={28} noHover />
             </div>
           }
 
@@ -361,7 +360,7 @@ class ComposeForm extends ImmutablePureComponent {
             {
               !edit && hasPoll &&
               <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
-                <PollFormContainer replyToId={replyToId} />
+                <PollForm replyToId={replyToId} />
               </div>
             }
 
@@ -376,7 +375,7 @@ class ComposeForm extends ImmutablePureComponent {
             }
 
             <div className={actionsContainerClasses}>
-              <div className={[_s.default, _s.flexRow, _s.marginRightAuto].join(' ')}>
+              <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
                 {
                   !shouldCondense &&
                   <RichTextEditorButton />
@@ -418,7 +417,7 @@ class ComposeForm extends ImmutablePureComponent {
 
               {
                 !shouldCondense &&
-                <CharacterCounter max={maxPostCharacterCount} text={text} />
+                <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
               }
 
               {

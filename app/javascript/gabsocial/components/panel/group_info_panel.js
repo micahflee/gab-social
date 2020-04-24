@@ -33,7 +33,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
           !!group &&
           <Fragment>
 
-            <Heading size='h3'>
+            <Heading size='h2'>
               {group.get('title')}
             </Heading>
 
@@ -51,7 +51,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                 to={`/groups/${group.get('id')}/members`}
                 color='brand'
                 backgroundColor='none'
-                className={_s.marginLeftAuto}
+                className={_s.mlAuto}
               >
                 <Text color='inherit' weight='medium' size='normal' className={_s.underline_onHover}>
                   {shortNumberFormat(group.get('member_count'))}

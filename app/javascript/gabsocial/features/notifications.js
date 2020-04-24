@@ -8,13 +8,13 @@ import {
   expandNotifications,
   scrollTopNotifications,
   dequeueNotifications,
-} from '../../actions/notifications'
-import NotificationContainer from './containers/notification_container'
+} from '../actions/notifications'
+import NotificationContainer from '../containers/notification_container'
 // import ColumnSettingsContainer from './containers/column_settings_container'
-import ScrollableList from '../../components/scrollable_list'
-import LoadMore from '../../components/load_more'
-import TimelineQueueButtonHeader from  '../../components/timeline_queue_button_header'
-import Block from  '../../components/block'
+import ScrollableList from '../components/scrollable_list'
+import LoadMore from '../components/load_more'
+import TimelineQueueButtonHeader from  '../components/timeline_queue_button_header'
+import Block from  '../components/block'
 
 const mapStateToProps = (state) => ({
   notifications: state.getIn(['notifications', 'items']),

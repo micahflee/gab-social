@@ -1,6 +1,7 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
+import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
@@ -22,23 +23,19 @@ export default
 @injectIntl
 class StatusActionBar extends ImmutablePureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   static propTypes = {
     intl: PropTypes.object.isRequired,
     onFavorite: PropTypes.func.isRequired,
     onShare: PropTypes.func.isRequired,
     onReply: PropTypes.func.isRequired,
-    onQuote: PropTypes.func.isRequired,
+    onRepost: PropTypes.func.isRequired,
     status: ImmutablePropTypes.map.isRequired,
   }
 
   updateOnProps = ['status']
 
   handleReplyClick = () => {
-    this.props.onReply(this.props.status, this.context.router.history)
+    this.props.onReply(this.props.status)
   }
 
   handleFavoriteClick = () => {
@@ -46,8 +43,7 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   handleRepostClick = (e) => {
-    // this.props.onRepost(this.props.status, e)
-    this.props.onQuote(this.props.status, this.context.router.history)
+    this.props.onRepost(this.repostButton, this.props.status, e)
   }
 
   handleShareClick = () => {
@@ -64,6 +60,10 @@ class StatusActionBar extends ImmutablePureComponent {
 
   openRepostsList = () => {
     // : todo :
+  }
+
+  setRepostButton = (n) => {
+    this.repostButton = n
   }
 
   setShareButton = (n) => {
@@ -85,6 +85,8 @@ class StatusActionBar extends ImmutablePureComponent {
       status.get('media_attachments').size > 0 ||
       !!status.get('quote')
     ) && !hasInteractions
+
+    const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
     const containerClasses = cx({
       default: 1,
@@ -108,6 +110,7 @@ class StatusActionBar extends ImmutablePureComponent {
       text: 1,
       cursorPointer: 1,
       fontWeightNormal: 1,
+      noUnderline: 1,
       underline_onHover: 1,
       mr10: 1,
       py5: 1,
@@ -117,7 +120,7 @@ class StatusActionBar extends ImmutablePureComponent {
       <div className={containerClasses}>
         {
           hasInteractions &&
-          <div className={[_s.default, _s.flexRow, _s.px5].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.alignItemsEnd, _s.px5].join(' ')}>
             {
               favoriteCount > 0 &&
               <button className={interactionBtnClasses} onClick={this.openLikesList}>
@@ -130,13 +133,16 @@ class StatusActionBar extends ImmutablePureComponent {
             }
             {
               replyCount > 0 &&
-              <button className={interactionBtnClasses} onClick={this.toggleCommentsVisible}>
+              <NavLink
+                className={interactionBtnClasses}
+                to={statusUrl}
+              >
                 <Text color='secondary' size='small'>
                   {intl.formatMessage(messages.commentsLabel, {
                     number: replyCount,
                   })}
                 </Text>
-              </button>
+              </NavLink>
             }
             {
               repostCount > 0 &&
@@ -169,6 +175,7 @@ class StatusActionBar extends ImmutablePureComponent {
               icon={!publicStatus ? 'lock' : 'repost'}
               disabled={!publicStatus}
               active={!!status.get('reblogged')}
+              buttonRef={this.setRepostButton}
               onClick={this.handleRepostClick}
             />
             <StatusActionBarItem

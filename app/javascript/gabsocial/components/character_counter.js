@@ -12,10 +12,10 @@ export default class CharacterCounter extends PureComponent {
     max: PropTypes.number.isRequired,
   }
 
-  render () {
+  render() {
     const { text, max } = this.props
 
-    const actualRadius = '16'
+    const actualRadius = 16
     const radius = 12
     const circumference = 2 * Math.PI * radius
     const diff = Math.min(length(text), max) / max
@@ -23,9 +23,22 @@ export default class CharacterCounter extends PureComponent {
 
     return (
       <div className={[_s.default, _s.mr10, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
-        <svg width={actualRadius * 2} height={actualRadius * 2} viewBox={`0 0 ${actualRadius * 2} ${actualRadius * 2}`}>
-          <circle fill='none' cx={actualRadius} cy={actualRadius} r={radius} fill="none" stroke="#e6e6e6" strokeWidth="2" />
-          <circle style={{
+        <svg
+          width={actualRadius * 2}
+          height={actualRadius * 2}
+          viewBox={`0 0 ${actualRadius * 2} ${actualRadius * 2}`}
+        >
+          <circle
+            fill='none'
+            cx={actualRadius}
+            cy={actualRadius}
+            r={radius}
+            fill='none'
+            stroke='#e6e6e6'
+            strokeWidth='2'
+          />
+          <circle
+            style={{
               strokeDashoffset: dashoffset,
               strokeDasharray: circumference,
             }}
@@ -33,7 +46,7 @@ export default class CharacterCounter extends PureComponent {
             cx={actualRadius}
             cy={actualRadius}
             r={radius}
-            strokeWidth="2"
+            strokeWidth='2'
             strokeLinecap='round'
             stroke='#21cf7a'
           />

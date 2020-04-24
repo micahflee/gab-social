@@ -19,6 +19,7 @@ export default class Image extends PureComponent {
     fit: PropTypes.oneOf(['contain', 'cover', 'tile', 'none']),
     nullable: PropTypes.bool,
     lazy: PropTypes.bool,
+    ref: PropTypes.func,
   }
 
   static defaultProps = {
@@ -36,6 +37,7 @@ export default class Image extends PureComponent {
 
   render() {
     const {
+      alt,
       src,
       fit,
       className,
@@ -64,6 +66,7 @@ export default class Image extends PureComponent {
 
     return (
       <img
+        alt={alt}
         className={classes}
         {...otherProps}
         src={src}

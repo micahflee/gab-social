@@ -4,7 +4,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import PanelLayout from './panel_layout'
 import HashtagItem from '../hashtag_item'
-import Button from '../button'
 
 const messages = defineMessages({
   title: { id: 'hashtags.title', defaultMessage: 'Popular Hashtags' },
@@ -30,6 +29,10 @@ class HashtagsPanel extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
   }
 
+  updateOnProps = [
+    'hashtags',
+  ]
+
   componentDidMount() {
     this.props.fetchHashtags()
   }
@@ -37,27 +40,23 @@ class HashtagsPanel extends ImmutablePureComponent {
   render() {
     const { intl, hashtags } = this.props
 
-    // !!! TESTING !!!
-    // if (hashtags.isEmpty()) {
-    //   return null
-    // }
+    if (hashtags.isEmpty()) {
+      return null
+    }
 
     return (
       <PanelLayout
         noPadding
         title={intl.formatMessage(messages.title)}
         footerButtonTitle={intl.formatMessage(messages.show_all)}
-        footerButtonTo='/explore'
+        footerButtonTo='/search'
       >
         <div className={_s.default}>
-          { /* hashtags && hashtags.map(hashtag => (
-            <HashtagingItem key={hashtag.get('name')} hashtag={hashtag} />
-          )) */ }
-          <HashtagItem />
-          <HashtagItem />
-          <HashtagItem />
-          <HashtagItem />
-          <HashtagItem />
+          {
+            hashtags.map(hashtag => (
+              <HashtagItem key={hashtag.get('name')} hashtag={hashtag} />
+            ))
+          }
         </div>
       </PanelLayout>
     )

@@ -86,7 +86,7 @@ export default class ListItem extends PureComponent {
           <Icon
             id='angle-right'
             size='10px'
-            className={[_s.marginLeftAuto, _s.fillColorBlack].join(' ')}
+            className={[_s.mlAuto, _s.fillColorSecondary].join(' ')}
           />
         }
       </Button>

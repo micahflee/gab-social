@@ -121,7 +121,7 @@ class Account extends ImmutablePureComponent {
       return (
         <Fragment>
           {account.get('display_name')}
-          {account.get('username')}
+          {`@${account.get('username')}`}
         </Fragment>
       )
     }
@@ -151,8 +151,8 @@ class Account extends ImmutablePureComponent {
     )
 
     return (
-      <div className={[_s.default, _s.mt5, _s.mb15].join(' ')}>
-        <div className={[_s.default, _s.flexRow].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py5, _s.backgroundSubtle_onHover, _s.mb5].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
 
           <NavLink
             className={[_s.default, _s.noUnderline].join(' ')}
@@ -165,9 +165,9 @@ class Account extends ImmutablePureComponent {
           <NavLink
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
-            className={[_s.default, _s.alignItemsStart, _s.px10, _s.flexGrow1].join(' ')}
+            className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.px10, _s.flexGrow1].join(' ')}
           >
-            <DisplayName account={account} multiline={compact} />
+            <DisplayName account={account} isMultiline={compact} />
             {!compact && actionButton}
           </NavLink>
 

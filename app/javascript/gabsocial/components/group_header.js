@@ -81,7 +81,7 @@ class GroupHeader extends ImmutablePureComponent {
             <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
                 <TabBar tabs={tabs} />
-                <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.marginLeftAuto].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
                   <Button
                     color='primary'
                     backgroundColor='tertiary'

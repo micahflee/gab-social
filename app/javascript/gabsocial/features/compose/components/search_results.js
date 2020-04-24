@@ -1,20 +1,33 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
-import HashtagItem from '../../../../components/hashtag_item'
-import Icon from '../../../../components/icon'
-import { WhoToFollowPanel } from '../../../../components/panel'
+import { withRouter } from 'react-router-dom';
+import { fetchSuggestions, dismissSuggestion } from '../../../actions/suggestions';
+import HashtagItem from '../../../components/hashtag_item'
+import Icon from '../../../components/icon'
+import { WhoToFollowPanel } from '../../../components/panel'
 // import TrendsPanel from '../../ui/components/trends_panel'
-import GroupListItem from '../../../../components/group_list_item'
-import Block from '../../../../components/block'
-import Heading from '../../../../components/heading'
-import Button from '../../../../components/button'
-import Text from '../../../../components/text'
-import Account from '../../../../components/account'
+import GroupListItem from '../../../components/group_list_item'
+import Block from '../../../components/block'
+import Heading from '../../../components/heading'
+import Button from '../../../components/button'
+import Text from '../../../components/text'
+import Account from '../../../components/account'
 
-// : todo :
+const mapStateToProps = (state) => ({
+  results: state.getIn(['search', 'results']),
+  suggestions: state.getIn(['suggestions', 'items']),
+});
 
-export default class SearchResults extends ImmutablePureComponent {
+const mapDispatchToProps = (dispatch) => ({
+  fetchSuggestions: () => dispatch(fetchSuggestions()),
+  dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
+});
+
+export default
+@withRouter
+@connect(mapStateToProps, mapDispatchToProps)
+class SearchResults extends ImmutablePureComponent {
 
   static propTypes = {
     results: ImmutablePropTypes.map.isRequired,
@@ -46,12 +59,12 @@ export default class SearchResults extends ImmutablePureComponent {
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, 5) : results.get('accounts').size;
       accounts = (
-        <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.mb15].join(' ')}>
-            <Heading size='h3'>
+        <div className={[_s.default, _s.py15].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.mb15, _s.px15].join(' ')}>
+            <Heading size='h2'>
               People
             </Heading>
-            <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+            <div className={[_s.default, _s.mlAuto].join(' ')}>
               <Button
                 isText
                 backgroundColor='none'
@@ -66,7 +79,7 @@ export default class SearchResults extends ImmutablePureComponent {
           </div>
 
           {
-            results.get('accounts').slice(0, size).map(accountId => <Account expanded key={accountId} id={accountId} />)
+            results.get('accounts').slice(0, size).map(accountId => <Account compact key={accountId} id={accountId} />)
           }
         </div>
       );

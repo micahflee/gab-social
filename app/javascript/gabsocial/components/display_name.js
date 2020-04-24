@@ -1,17 +1,20 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import classNames from 'classnames/bind'
+import { me } from '../initial_state'
+import {
+  CX,
+  POPOVER_USER_INFO,
+} from '../constants'
 import { openPopover, closePopover } from '../actions/popover'
 import Icon from './icon'
-
-const cx = classNames.bind(_s)
+import Text from './text'
 
 const mapDispatchToProps = (dispatch) => ({
   openUserInfoPopover(props) {
-    dispatch(openPopover('USER_INFO', props))
+    dispatch(openPopover(POPOVER_USER_INFO, props))
   },
   closeUserInfoPopover() {
-    dispatch(closePopover('USER_INFO'))
+    dispatch(closePopover(POPOVER_USER_INFO))
   }
 })
 
@@ -23,12 +26,23 @@ class DisplayName extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     openUserInfoPopover: PropTypes.func.isRequired,
     closeUserInfoPopover: PropTypes.func.isRequired,
-    multiline: PropTypes.bool,
-    small: PropTypes.bool,
-    large: PropTypes.bool,
+    isLarge: PropTypes.bool,
+    isMultiline: PropTypes.bool,
+    isSmall: PropTypes.bool,
     noHover: PropTypes.bool,
+    noRelationship: PropTypes.bool,
     noUsername: PropTypes.bool,
   }
+
+  updateOnProps = [
+    'account',
+    'isMultiline',
+    'isSmall',
+    'isLarge',
+    'noHover',
+    'noRelationship',
+    'noUsername',
+  ]
 
   mouseOverTimeout = null
 
@@ -58,41 +72,38 @@ class DisplayName extends ImmutablePureComponent {
   render() {
     const {
       account,
-      multiline,
-      large,
+      isMultiline,
+      isLarge,
       noHover,
       noUsername,
-      small
+      noRelationship,
+      isSmall
     } = this.props
 
     if (!account) return null
 
-    const containerOptions = {
-      className: cx({
-        default: 1,
-        maxWidth100PC: 1,
-        alignItemsCenter: !multiline,
-        flexRow: !multiline,
-        cursorPointer: !noHover,
-      }),
-      onMouseEnter: noHover ? undefined : this.handleMouseEnter,
-      onMouseLeave: noHover ? undefined : this.handleMouseLeave,
-    }
+    const containerClassName = CX({
+      default: 1,
+      maxWidth100PC: 1,
+      alignItemsCenter: !isMultiline,
+      flexRow: !isMultiline,
+      cursorPointer: !noHover,
+    })
 
-    const displayNameClasses = cx({
+    const displayNameClasses = CX({
       text: 1,
       overflowWrapBreakWord: 1,
       whiteSpaceNoWrap: 1,
       fontWeightBold: 1,
       colorPrimary: 1,
       mr2: 1,
-      lineHeight125: !small,
-      fontSize14PX: small,
-      fontSize15PX: !large,
-      fontSize24PX: large && !small,
+      lineHeight125: !isSmall,
+      fontSize14PX: isSmall,
+      fontSize15PX: !isLarge,
+      fontSize24PX: isLarge && !isSmall,
     })
 
-    const usernameClasses = cx({
+    const usernameClasses = CX({
       text: 1,
       displayFlex: 1,
       flexNormal: 1,
@@ -101,57 +112,83 @@ class DisplayName extends ImmutablePureComponent {
       textOverflowEllipsis: 1,
       colorSecondary: 1,
       fontWeightNormal: 1,
-      lineHeight15: multiline,
-      lineHeight125: !multiline,
-      ml5: !multiline,
-      fontSize14PX: small,
-      fontSize15PX: !large,
-      fontSize16PX: large && !small,
+      lineHeight15: isMultiline,
+      lineHeight125: !isMultiline,
+      ml5: !isMultiline,
+      fontSize14PX: isSmall,
+      fontSize15PX: !isLarge,
+      fontSize16PX: isLarge && !isSmall,
     })
 
     const iconSize =
-      !!large ? '19px' :
-      !!small ? '14px' : '16px'
+      !!isLarge ? '19px' :
+      !!isSmall ? '14px' : '16px'
 
     const domain = account.get('acct').split('@')[1]
     const isRemoteUser = !!domain
+
+    let relationshipLabel
+    if (me && account) {
+      const accountId = account.get('id')
+      const isFollowedBy = (me !==  accountId && account.getIn(['relationship', 'followed_by']))
+
+      if (isFollowedBy) {
+        relationshipLabel = 'Follows you'//intl.formatMessage(messages.accountFollowsYou)
+      }
+    }
+
+    // {
+    //   /* : todo : audio-mute
+    //   account.getIn(['relationship', 'muting'])
+    //   */
+    // }
 
     // : todo : remote
     console.log("domain, isRemoteUser:", domain, isRemoteUser)
 
     return (
-      <span {...containerOptions} ref={this.setRef}>
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+      <div
+        className={containerClassName}
+        onMouseEnter={noHover ? undefined : this.handleMouseEnter}
+        onMouseLeave={noHover ? undefined : this.handleMouseLeave}
+        ref={this.setRef}
+      >
+        <span className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}
               dangerouslySetInnerHTML={{ __html: account.get('display_name_html') }}
             />
+            {
+              !noRelationship && account.get('locked') &&
+              <Icon id='lock-filled' size={iconSize} className={_s.ml5} />
+            }
           </bdi>
           {
             account.get('is_verified') &&
             <Icon id='verified' size={iconSize} className={_s.default} />
           }
-          {
-            account.get('is_pro') &&
-            <Icon id='pro' size={iconSize} className={_s.default} />
-          }
-          {
-            account.get('is_donor') &&
-            <Icon id='donor' size={iconSize} className={_s.default} />
-          }
-          {
-            account.get('is_investor') &&
-            <Icon id='investor' size={iconSize} className={_s.default} />
-          }
-        </div>
+        </span>
         {
           !noUsername &&
           <span className={usernameClasses}>
             @{account.get('acct')}
+            {
+              !noRelationship && !!relationshipLabel &&
+              <span className={[_s.default, _s.ml5, _s.justifyContentCenter].join(' ')}>
+                <Text
+                  size='extraSmall'
+                  isBadge
+                  color='tertiary'
+                  className={[_s.backgroundSubtle2, _s.py2].join(' ')}
+                >
+                  {relationshipLabel}
+                </Text>
+              </span>
+            }
           </span>
         }
-      </span>
+      </div>
     )
   }
 

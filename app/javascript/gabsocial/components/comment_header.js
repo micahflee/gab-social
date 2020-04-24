@@ -26,7 +26,7 @@ class CommentHeader extends ImmutablePureComponent {
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
 
     return (
-      <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1].join(' ')}>
+      <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.flexGrow1].join(' ')}>
 
         <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsCenter].join(' ')}>
           <NavLink
@@ -34,7 +34,7 @@ class CommentHeader extends ImmutablePureComponent {
             to={`/${status.getIn(['account', 'acct'])}`}
             title={status.getIn(['account', 'acct'])}
           >
-            <DisplayName account={status.get('account')} small />
+            <DisplayName account={status.get('account')} isSmall />
           </NavLink>
 
           {

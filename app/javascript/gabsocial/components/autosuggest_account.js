@@ -30,7 +30,7 @@ class AutosuggestAccount extends ImmutablePureComponent {
         <div className='autosuggest-account__icon'>
           <Avatar account={account} size={18} />
         </div>
-        <DisplayName account={account} />
+        <DisplayName account={account} noRelationship noHover />
       </div>
     );
   }

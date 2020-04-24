@@ -73,7 +73,7 @@ class Status extends ImmutablePureComponent {
     isIntersecting: PropTypes.bool,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
-    onQuote: PropTypes.func,
+    onRepost: PropTypes.func,
     onFavorite: PropTypes.func,
     onMention: PropTypes.func,
     onOpenMedia: PropTypes.func,
@@ -448,10 +448,12 @@ class Status extends ImmutablePureComponent {
       pb15: isFeatured,
       radiusSmall: !isChild,
       backgroundColorPrimary: !isChild,
+      boxShadowBlock: !isChild,
+      outlineNone: 1,
       mb15: !isChild,
-      border1PX: !isChild,
-      borderBottom1PX: isFeatured && !isChild,
-      borderColorSecondary: !isChild,
+      // border1PX: !isChild,
+      // borderBottom1PX: isFeatured && !isChild,
+      // borderColorSecondary: !isChild,
     })
 
     const innerContainerClasses = cx({
@@ -510,7 +512,7 @@ class Status extends ImmutablePureComponent {
                   status={status}
                   onFavorite={this.props.onFavorite}
                   onReply={this.props.onReply}
-                  onQuote={this.props.onQuote}
+                  onRepost={this.props.onRepost}
                   onShare={this.props.onShare}
                 />
               }

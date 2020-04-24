@@ -46,7 +46,7 @@ class LoadMore extends PureComponent {
         >
           {
             !gap &&
-            <Text color='inherit'>
+            <Text color='inherit' align='center'>
               {intl.formatMessage(messages.load_more)}
             </Text>
           }

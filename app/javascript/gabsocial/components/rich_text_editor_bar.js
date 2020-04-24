@@ -132,7 +132,7 @@ class RichTextEditorBar extends PureComponent {
           color='secondary'
           onClick={this.handleOnTogglePopoutEditor}
           title='Fullscreen'
-          className={[_s.px10, _s.noSelect, _s.marginLeftAuto].join(' ')}
+          className={[_s.px10, _s.noSelect, _s.mlAuto].join(' ')}
           icon='fullscreen'
           iconClassName={_s.inheritFill}
           iconSize='12px'

@@ -1,4 +1,5 @@
 import classNames from 'classnames/bind'
+import { urlRegex } from '../features/compose/util/url_regex'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
 import Image from './image'
@@ -71,6 +72,7 @@ export default class TrendingItem extends PureComponent {
 
     const correctedAuthor = author.replace('www.', '')
     const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
+    const descriptionHasLink = correctedDescription.match(urlRegex)
 
     const image = (
       <Image
@@ -105,7 +107,7 @@ export default class TrendingItem extends PureComponent {
           </div>
 
           {
-            !!correctedDescription &&
+            !!correctedDescription && !descriptionHasLink &&
             <div className={[_s.default, _s.heightMax56PX, _s.overflowHidden, _s.pt5, _s.mb5].join(' ')}>
               <Text size='small' color='secondary'>
                 {correctedDescription}

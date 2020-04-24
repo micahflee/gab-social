@@ -2,32 +2,37 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import Sticky from 'react-stickynode'
-import classNames from 'classnames/bind'
+import {
+  CX,
+  POPOVER_PROFILE_OPTIONS,
+  PLACEHOLDER_MISSING_HEADER_SRC,
+} from '../constants'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
 import AccountActionButton from './account_action_button'
 import Avatar from './avatar'
 import Button from './button'
 import DisplayName from './display_name'
-import Icon from './icon'
 import Image from './image'
 import MovedNote from './moved_note'
 import TabBar from './tab_bar'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
   headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
+  timeline: { id: 'timeline', defaultMessage: 'Timeline' },
+  comments: { id: 'comments', defaultMessage: 'Comments' },
+  media: { id: 'media', defaultMessage: 'Media' },
+  accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
 })
 
 const mapDispatchToProps = (dispatch) => ({
 
   openProfileOptionsPopover(props) {
-    dispatch(openPopover('PROFILE_OPTIONS', props))
+    dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
   },
 
 });
@@ -49,44 +54,19 @@ class ProfileHeader extends ImmutablePureComponent {
 
   handleOpenMore = () => {
     const { openProfileOptionsPopover, account } = this.props
+
     openProfileOptionsPopover({
+      account,
       targetRef: this.openMoreNode,
       position: 'top',
-      account: this.props.account,
     })
   }
 
-  // : todo :
-  makeInfo = () => {
-    const { account, intl } = this.props
-
-    const info = []
-
-    if (!account || !me) return info;
-
-    if (me !== account.get('id') && account.getIn(['relationship', 'followed_by'])) {
-      info.push(<span key='followed_by' className='relationship-tag'>{intl.formatMessage(messages.accountFollowsYou)}</span>);
-    } else if (me !== account.get('id') && account.getIn(['relationship', 'blocking'])) {
-      info.push(<span key='blocked' className='relationship-tag'>{intl.formatMessage(messages.accountBlocked)}</span>);
-    }
-
-    if (me !== account.get('id') && account.getIn(['relationship', 'muting'])) {
-      info.push(<span key='muted' className='relationship-tag'>{intl.formatMessage(messages.accountMuted)}</span>);
-    } else if (me !== account.get('id') && account.getIn(['relationship', 'domain_blocking'])) {
-      info.push(<span key='domain_blocked' className='relationship-tag'>{intl.formatMessage(messages.domainBlocked)}</span>);
-    }
-
-    return info
-  }
-
   onStickyStateChange = (status) => {
-    switch (status.status) {
-      case Sticky.STATUS_FIXED:
-        this.setState({ stickied: true })
-        break;
-      default:
-        this.setState({ stickied: false })
-        break;
+    if (status.status === Sticky.STATUS_FIXED) {
+      this.setState({ stickied: true })
+    } else {
+      this.setState({ stickied: false })
     }
   }
 
@@ -101,34 +81,30 @@ class ProfileHeader extends ImmutablePureComponent {
     const tabs = !account ? null : [
       {
         to: `/${account.get('acct')}`,
-        title: 'Timeline',
+        title: intl.formatMessage(messages.timeline),
       },
       {
         to: `/${account.get('acct')}/comments`,
-        title: 'Comments',
+        title: intl.formatMessage(messages.comments),
       },
       {
         to: `/${account.get('acct')}/media`,
-        title: 'Media',
-      },
-      {
-        to: '',
-        title: 'More',
+        title: intl.formatMessage(messages.media),
       },
     ]
 
     const headerSrc = !!account ? account.get('header') : ''
-    const headerMissing = headerSrc.indexOf('/headers/original/missing.png') > -1 || !headerSrc
+    const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
     const avatarSize = headerMissing ? 75 : 150
 
-    const avatarContainerClasses = cx({
+    const avatarContainerClasses = CX({
+      default: 1,
       circle: 1,
       mtNeg75PX: !headerMissing,
-      borderColorWhite: 1,
-      border2PX: 1,
+      boxShadowProfileAvatar: !headerMissing,
     })
 
-    const stickyBarContainerClasses = cx({
+    const stickyBarContainerClasses = CX({
       default: 1,
       flexRow: 1,
       px15: 1,
@@ -136,13 +112,10 @@ class ProfileHeader extends ImmutablePureComponent {
       displayNone: !stickied,
     })
 
-    const tabBarContainerClasses = cx({
+    const tabBarContainerClasses = CX({
       default: 1,
       displayNone: stickied,
     })
-
-
-    // : todo : "follows you", "mutual follow"
 
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
@@ -160,22 +133,13 @@ class ProfileHeader extends ImmutablePureComponent {
 
         <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary, _s.width100PC].join(' ')}>
 
-          <div className={[_s.default, _s.flexRow, _s.px15, _s.mb5].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
             <div className={avatarContainerClasses}>
-              <Avatar size={avatarSize} account={account} />
+              <Avatar size={avatarSize} account={account} noHover />
             </div>
 
-            <div className={[_s.default, _s.flexRow, _s.px15, _s.py10].join(' ')}>
-              <DisplayName account={account} multiline large />
-              {
-                account && account.get('locked') &&
-                <Icon id='lock-filled' size='14px' className={[_s.mt10, _s.ml10].join(' ')} />
-              }
-              {
-                /* : todo :
-                account.getIn(['relationship', 'muting'])
-                */
-              }
+            <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
+              <DisplayName account={account} isMultiline noRelationship isLarge noHover />
             </div>
           </div>
           
@@ -186,15 +150,15 @@ class ProfileHeader extends ImmutablePureComponent {
               </div>
 
               <div className={stickyBarContainerClasses}>
-                <Avatar size={36} account={account} />
+                <Avatar size={36} account={account} noHover />
                 <div className={[_s.default, _s.ml10].join(' ')}>
-                  <DisplayName account={account} noUsername large />
+                  <DisplayName account={account} noUsername noRelationship noHover isLarge />
                 </div>
               </div>
 
               {
                 account && account.get('id') === me &&
-                <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
                   <Button
                     isOutline
                     backgroundColor='none'
@@ -216,19 +180,18 @@ class ProfileHeader extends ImmutablePureComponent {
 
               {
                 account && account.get('id') !== me &&
-                <div className={[_s.default, _s.flexRow, _s.marginLeftAuto, _s.py5].join(' ')}>
-                  <div ref={this.setOpenMoreNodeRef}>
-                    <Button
-                      isOutline
-                      icon='ellipsis'
-                      iconSize='18px'
-                      iconClassName={_s.inheritFill}
-                      color='brand'
-                      backgroundColor='none'
-                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                      onClick={this.handleOpenMore}
-                    />
-                  </div>
+                <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                  <Button
+                    isOutline
+                    icon='ellipsis'
+                    iconSize='18px'
+                    iconClassName={_s.inheritFill}
+                    color='brand'
+                    backgroundColor='none'
+                    className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                    onClick={this.handleOpenMore}
+                    buttonRef={this.setOpenMoreNodeRef}
+                  />
 
                   <form action='https://chat.gab.com/private-message' method='POST'>
                     <Button

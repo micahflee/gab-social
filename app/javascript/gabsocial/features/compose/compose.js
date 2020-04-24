@@ -11,7 +11,7 @@ import { mascot } from '../../initial_state';
 import Motion from '../ui/util/optional_motion';
 import ComposeFormContainer from './containers/compose_form_container';
 // import SearchContainer from './containers/search_container';
-import SearchResultsContainer from './containers/search_results_container';
+import SearchResults from './components/search_results';
 import NavigationBar from './components/navigation_bar';
 import elephantUIPlane from '../../../images/logo_ui_column_footer.png';
 
@@ -93,7 +93,7 @@ class Compose extends ImmutablePureComponent {
           <Motion defaultStyle={{ x: isSearchPage ? 0 : -100 }} style={{ x: spring(showSearch || isSearchPage ? 0 : -100, { stiffness: 210, damping: 20 }) }}>
             {({ x }) => (
               <div className='drawer__inner darker' style={{ transform: `translateX(${x}%)`, visibility: x === -100 ? 'hidden' : 'visible' }}>
-                <SearchResultsContainer />
+                <SearchResults />
               </div>
             )}
           </Motion>

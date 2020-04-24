@@ -30,7 +30,7 @@ class SensitiveMediaItem extends PureComponent {
               {intl.formatMessage(messages.warning)}
             </Text>
           </div>
-          <div className={[_s.default, _s.justifyContentCenter, _s.marginLeftAuto].join(' ')}>
+          <div className={[_s.default, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
             <Button
               onClick={onClick}
               color='tertiary'

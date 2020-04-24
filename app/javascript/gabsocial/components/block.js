@@ -11,7 +11,7 @@ export default class Block extends PureComponent {
     const { children } = this.props
 
     return (
-      <div className={[_s.default, _s.backgroundColorPrimary, _s.overflowHidden, _s.radiusSmall, _s.borderColorSecondary, _s.border1PX].join(' ')}>
+      <div className={[_s.default, _s.boxShadowBlock, _s.backgroundColorPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}>
         {children}
       </div>
     )

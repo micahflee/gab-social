@@ -86,8 +86,8 @@ export function changeCompose(text, markdown) {
   };
 };
 
-export function replyCompose(status, routerHistory) {
-  return (dispatch, getState) => {
+export function replyCompose(status) {
+  return (dispatch) => {
     dispatch({
       type: COMPOSE_REPLY,
       status: status,
@@ -97,8 +97,8 @@ export function replyCompose(status, routerHistory) {
   };
 };
 
-export function quoteCompose(status, routerHistory) {
-  return (dispatch, getState) => {
+export function quoteCompose(status) {
+  return (dispatch) => {
     dispatch({
       type: COMPOSE_QUOTE,
       status: status,
@@ -120,8 +120,8 @@ export function resetCompose() {
   };
 };
 
-export function mentionCompose(account, routerHistory) {
-  return (dispatch, getState) => {
+export function mentionCompose(account) {
+  return (dispatch) => {
     dispatch({
       type: COMPOSE_MENTION,
       account: account,

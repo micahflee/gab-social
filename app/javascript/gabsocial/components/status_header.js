@@ -58,7 +58,7 @@ class StatusHeader extends ImmutablePureComponent {
   render() {
     const { status, reduced } = this.props
 
-    const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
+    const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
     const containerClasses = cx({
       default: 1,
@@ -93,7 +93,7 @@ class StatusHeader extends ImmutablePureComponent {
                 to={`/${status.getIn(['account', 'acct'])}`}
                 title={status.getIn(['account', 'acct'])}
               >
-                <DisplayName account={status.get('account')} />
+                <DisplayName account={status.get('account')} noRelationship />
               </NavLink>
 
               {
@@ -105,7 +105,7 @@ class StatusHeader extends ImmutablePureComponent {
                   icon='ellipsis'
                   iconSize='20px'
                   iconClassName={_s.fillColorSecondary}
-                  className={_s.marginLeftAuto}
+                  className={_s.mlAuto}
                   onClick={this.handleOpenStatusOptionsPopover}
                   buttonRef={this.setStatusOptionsButton}
                 />

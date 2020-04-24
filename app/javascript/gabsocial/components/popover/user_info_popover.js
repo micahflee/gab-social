@@ -28,11 +28,11 @@ export default class UserInfoPopover extends ImmutablePureComponent {
               to={to}
               className={[_s.default, _s.noUnderline, _s.flexGrow1].join(' ')}
             >
-              <Avatar account={account} size={42} />
-              <DisplayName account={account} multiline noHover />
+              <Avatar account={account} size={42} noHover />
+              <DisplayName account={account} isMultiline noHover />
             </NavLink>
 
-            <div className={[_s.default, _s.marginLeftAuto].join(' ')}>
+            <div className={[_s.default, _s.mlAuto, _s.right0, _s.posAbs, _s.mt5].join(' ')}>
               <AccountActionButton account={account} />
             </div>
           </div>

@@ -2,6 +2,15 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import classNames from 'classnames/bind'
 import { defineMessages, injectIntl } from 'react-intl'
+import {
+  addPollOption,
+  removePollOption,
+  changePollOption,
+  changePollSettings,
+  clearComposeSuggestions,
+  fetchComposeSuggestions,
+  selectComposeSuggestion,
+} from '../../../actions/compose'
 import Button from '../../../components/button'
 import Text from '../../../components/text'
 import Select from '../../../components/select'
@@ -19,108 +28,47 @@ const messages = defineMessages({
   days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
 })
 
-@injectIntl
-class PollFormOption extends ImmutablePureComponent {
+const mapStateToProps = (state) => ({
+  suggestions: state.getIn(['compose', 'suggestions']),
+  options: state.getIn(['compose', 'poll', 'options']),
+  expiresIn: state.getIn(['compose', 'poll', 'expires_in']),
+  isMultiple: state.getIn(['compose', 'poll', 'multiple']),
+})
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    isPollMultiple: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onToggleMultiple: PropTypes.func.isRequired,
-    suggestions: ImmutablePropTypes.list,
-    onClearSuggestions: PropTypes.func.isRequired,
-    onFetchSuggestions: PropTypes.func.isRequired,
-    onSuggestionSelected: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
+const mapDispatchToProps = (dispatch) => ({
+  onAddOption() {
+    dispatch(addPollOption(''))
+  },
 
-  handleOptionTitleChange = e => {
-    this.props.onChange(this.props.index, e.target.value);
-  }
+  onRemoveOption(index) {
+    dispatch(removePollOption(index))
+  },
 
-  handleOptionRemove = () => {
-    this.props.onRemove(this.props.index);
-  }
+  onChangeOption(index, title) {
+    dispatch(changePollOption(index, title))
+  },
 
-  handleToggleMultiple = e => {
-    this.props.onToggleMultiple();
-    e.preventDefault();
-    e.stopPropagation();
-  };
+  onChangeSettings(expiresIn, isMultiple) {
+    dispatch(changePollSettings(expiresIn, isMultiple))
+  },
 
-  onSuggestionsClearRequested = () => {
-    this.props.onClearSuggestions();
-  }
+  onClearSuggestions () {
+    dispatch(clearComposeSuggestions())
+  },
 
-  onSuggestionsFetchRequested = (token) => {
-    this.props.onFetchSuggestions(token);
-  }
+  onFetchSuggestions (token) {
+    dispatch(fetchComposeSuggestions(token))
+  },
 
-  onSuggestionSelected = (tokenStart, token, value) => {
-    this.props.onSuggestionSelected(tokenStart, token, value, ['poll', 'options', this.props.index]);
-  }
+  onSuggestionSelected (position, token, accountId, path) {
+    dispatch(selectComposeSuggestion(position, token, accountId, path))
+  },
 
-  render() {
-    const { isPollMultiple, title, index, intl } = this.props;
-
-    const toggleClasses = cx({
-      default: 1,
-      px10: 1,
-      py10: 1,
-      borderColorSecondary: 1,
-      border1PX: 1,
-      outlineNone: 1,
-      mr10: 1,
-      circle: !isPollMultiple,
-    })
-
-    return (
-      <li className={[_s.default, _s.flexRow, _s.mb10].join(' ')}>
-        <label className={[_s.default, _s.flexRow, _s.flexGrow1, _s.alignItemsCenter].join(' ')}>
-          <span
-            className={toggleClasses}
-            onClick={this.handleToggleMultiple}
-            role='button'
-            tabIndex='0'
-          />
-
-          <AutosuggestTextbox
-            placeholder={intl.formatMessage(messages.option_placeholder, { number: index + 1 })}
-            maxLength={25}
-            value={title}
-            onChange={this.handleOptionTitleChange}
-            suggestions={this.props.suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSuggestionSelected}
-            searchTokens={[':']}
-          />
-        </label>
-
-        {
-          index > 1 &&
-          <Button
-            isNarrow
-            backgroundColor='none'
-            className={[_s.ml5, _s.justifyContentCenter].join(' ')}
-            icon='close'
-            iconSize='8px'
-            iconClassName={_s.fillColorSecondary}
-            disabled={index <= 1}
-            title={intl.formatMessage(messages.remove_option)}
-            onClick={this.handleOptionRemove}
-          />
-        }
-      </li>
-    )
-  }
-
-}
+})
 
 export default
 @injectIntl
+@connect(mapStateToProps, mapDispatchToProps)
 class PollForm extends ImmutablePureComponent {
 
   static propTypes = {
@@ -166,6 +114,7 @@ class PollForm extends ImmutablePureComponent {
           {
             options.map((title, i) => (
               <PollFormOption
+                intl={intl}
                 title={title}
                 key={`poll-form-option-${i}`}
                 index={i}
@@ -237,6 +186,105 @@ class PollForm extends ImmutablePureComponent {
           </div>
         </div>
       </div>
+    )
+  }
+
+}
+
+class PollFormOption extends ImmutablePureComponent {
+
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    index: PropTypes.number.isRequired,
+    isPollMultiple: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    onRemove: PropTypes.func.isRequired,
+    onToggleMultiple: PropTypes.func.isRequired,
+    suggestions: ImmutablePropTypes.list,
+    onClearSuggestions: PropTypes.func.isRequired,
+    onFetchSuggestions: PropTypes.func.isRequired,
+    onSuggestionSelected: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
+  }
+
+  handleOptionTitleChange = e => {
+    this.props.onChange(this.props.index, e.target.value)
+  }
+
+  handleOptionRemove = () => {
+    this.props.onRemove(this.props.index)
+  }
+
+  handleToggleMultiple = e => {
+    this.props.onToggleMultiple()
+    e.preventDefault()
+    e.stopPropagation()
+  }
+
+  onSuggestionsClearRequested = () => {
+    this.props.onClearSuggestions()
+  }
+
+  onSuggestionsFetchRequested = (token) => {
+    this.props.onFetchSuggestions(token)
+  }
+
+  onSuggestionSelected = (tokenStart, token, value) => {
+    this.props.onSuggestionSelected(tokenStart, token, value, ['poll', 'options', this.props.index])
+  }
+
+  render() {
+    const { isPollMultiple, title, index, intl } = this.props
+
+    const toggleClasses = cx({
+      default: 1,
+      px10: 1,
+      py10: 1,
+      borderColorSecondary: 1,
+      border1PX: 1,
+      outlineNone: 1,
+      mr10: 1,
+      circle: !isPollMultiple,
+    })
+
+    return (
+      <li className={[_s.default, _s.flexRow, _s.mb10].join(' ')}>
+        <label className={[_s.default, _s.flexRow, _s.flexGrow1, _s.alignItemsCenter].join(' ')}>
+          <span
+            className={toggleClasses}
+            onClick={this.handleToggleMultiple}
+            role='button'
+            tabIndex='0'
+          />
+
+          <AutosuggestTextbox
+            placeholder={intl.formatMessage(messages.option_placeholder, { number: index + 1 })}
+            maxLength={25}
+            value={title}
+            onChange={this.handleOptionTitleChange}
+            suggestions={this.props.suggestions}
+            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+            onSuggestionSelected={this.onSuggestionSelected}
+            searchTokens={[':']}
+          />
+        </label>
+
+        {
+          index > 1 &&
+          <Button
+            isNarrow
+            backgroundColor='none'
+            className={[_s.ml5, _s.justifyContentCenter].join(' ')}
+            icon='close'
+            iconSize='8px'
+            iconClassName={_s.fillColorSecondary}
+            disabled={index <= 1}
+            title={intl.formatMessage(messages.remove_option)}
+            onClick={this.handleOptionRemove}
+          />
+        }
+      </li>
     )
   }
 

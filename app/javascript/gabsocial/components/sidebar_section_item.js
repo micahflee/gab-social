@@ -65,7 +65,6 @@ export default class SidebarSectionItem extends PureComponent {
       px10: 1,
       alignItemsCenter: 1,
       radiusSmall: 1,
-      mt2: 1,
       border1PX: 1,
       outlineNone: 1,
       borderColorTransparent: !shouldShowActive,
@@ -90,7 +89,7 @@ export default class SidebarSectionItem extends PureComponent {
     const countClasses = cx({
       default: 1,
       text: 1,
-      marginLeftAuto: 1,
+      mlAuto: 1,
       fontSize12PX: 1,
       px5: 1,
       mr2: 1,

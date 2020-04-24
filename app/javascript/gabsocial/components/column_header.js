@@ -60,7 +60,7 @@ export default class ColumnHeader extends PureComponent {
 
         {
           !!actions &&
-          <div className={[_s.default, _s.backgroundTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.marginLeftAuto].join(' ')}>
+          <div className={[_s.default, _s.backgroundTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
             {
               actions.map((action, i) => (
                 <Button
