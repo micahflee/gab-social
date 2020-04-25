@@ -23,7 +23,7 @@ export default class HashtagItem extends ImmutablePureComponent {
     return (
       <NavLink
         to={`/tags/${hashtag.get('name')}`}
-        className={[_s.default, _s.noUnderline, _s.backgroundSubtle_onHover, _s.px15, _s.py5].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.backgroundColorSubtle_onHover, _s.px15, _s.py5].join(' ')}
       >
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           <div>

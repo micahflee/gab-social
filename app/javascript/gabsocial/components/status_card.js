@@ -159,7 +159,7 @@ export default class Card extends ImmutablePureComponent {
     const description = (
       <div className={[_s.default, _s.flexNormal, _s.px10, _s.py10, _s.borderColorSecondary, _s.borderLeft1PX].join(' ')}>
         {title}
-        <p className={[_s.default, _s.displayFlex, _s.text, _s.my5, _s.overflowWrapBreakWord, _s.colorSecondary, _s.fontSize13PX, _s.fontWeightNormal].join(' ')}>
+        <p className={[_s.default, _s.displayFlex, _s.text, _s.mt5, _s.mb5, _s.overflowWrapBreakWord, _s.colorSecondary, _s.fontSize13PX, _s.fontWeightNormal].join(' ')}>
           {trim(card.get('description') || '', maxDescription)}
         </p>
         <span className={[_s.default, _s.mtAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fontSize13PX].join(' ')}>
@@ -189,7 +189,7 @@ export default class Card extends ImmutablePureComponent {
 
       return (
         <div className={[_s.default, _s.width100PC, _s.px10].join(' ')}>
-          <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}>
+          <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
             <div className={[_s.default, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.width100PC, _s.pt5625PC].join(' ')}>
                 { !!embed && embed}
@@ -197,7 +197,7 @@ export default class Card extends ImmutablePureComponent {
                 { !embed &&
                   <div className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
                     <button
-                      className={[_s.default, _s.cursorPointer, _s.backgroundColorOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
+                      className={[_s.default, _s.cursorPointer, _s.backgroundColorBlackOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
                       onClick={this.handleEmbedClick}
                     >
                       <Icon id={iconVariant} size='22px' className={[_s.fillColorWhite].join(' ')} />
@@ -228,7 +228,7 @@ export default class Card extends ImmutablePureComponent {
       <div className={[_s.default, _s.width100PC, _s.px10].join(' ')}>
         <a
           href={card.get('url')}
-          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.backgroundSubtle_onHover, _s.borderColorSecondary2, _s.border1PX, _s.radiusSmall].join(' ')}
+          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.backgroundColorSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
           rel='noopener noreferrer'
           ref={this.setRef}
         >

@@ -87,7 +87,7 @@ export default class PanelLayout extends PureComponent {
                 backgroundColor='none'
                 to={footerButtonTo}
                 onClick={footerButtonAction}
-                className={[_s.px15, _s.py15, _s.backgroundSubtle_onHover].join(' ')}
+                className={[_s.px15, _s.py15, _s.backgroundColorSubtle_onHover].join(' ')}
               >
                 <Text color='brand' size='medium'>
                   {footerButtonTitle}

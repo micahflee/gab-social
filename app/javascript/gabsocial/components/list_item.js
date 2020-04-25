@@ -45,7 +45,7 @@ export default class ListItem extends PureComponent {
       flexRow: 1,
       alignItemsCenter: 1,
       width100PC: 1,
-      backgroundSubtle_onHover: 1,
+      backgroundColorSubtle_onHover: 1,
       borderColorSecondary: !isLast,
       borderBottom1PX: !isLast,
     })
@@ -53,7 +53,7 @@ export default class ListItem extends PureComponent {
     const iconClasses = cx({
       mr10: !large,
       mr15: large,
-      fillColorBlack: 1,
+      fillColorPrimary: 1,
     })
 
     const textSize = small ? 'small' : large ? 'medium' : 'normal'

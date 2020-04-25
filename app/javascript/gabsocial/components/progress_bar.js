@@ -26,8 +26,8 @@ export default class ProgressBar extends PureComponent {
 
     const containerClassName = cx({
       default: 1,
-      backgroundPanel: !small,
-      backgroundSubtle2: small,
+      backgroundColorLoading: !small,
+      backgroundColorSubtle2: small,
       noUnderline: 1,
       circle: 1,
       overflowHidden: 1,

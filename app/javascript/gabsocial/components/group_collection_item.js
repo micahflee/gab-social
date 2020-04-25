@@ -60,13 +60,14 @@ class GroupCollectionItem extends ImmutablePureComponent {
       noUnderline: 1,
       overflowHidden: 1,
       borderColorSecondary: 1,
+      boxShadowBlock: 1,
       radiusSmall: 1,
-      border1PX: 1,
+      borderTop1PX: 1,
       mb10: 1,
       ml5: 1,
       mr5: 1,
       backgroundColorPrimary: 1,
-      backgroundSubtle_onHover: isMember,
+      backgroundColorSubtle_onHover: isMember,
     })
 
     return (
@@ -86,7 +87,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           {
             !coverSrc && (isMember || isAdmin) &&
-            <div className={[_s.default, _s.height40PX, _s.backgroundSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+            <div className={[_s.default, _s.height40PX, _s.backgroundColorSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
           }
 
           {
@@ -122,7 +123,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
               {group.get('title')}
             </Text>
 
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.my5].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.mt5, _s.mb5].join(' ')}>
               <Text color='secondary' size='small'>
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;

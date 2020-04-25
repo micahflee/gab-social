@@ -465,7 +465,7 @@ class Status extends ImmutablePureComponent {
       pb10: isChild && status.get('media_attachments').size === 0,
       pb5: isChild && status.get('media_attachments').size > 1,
       cursorPointer: isChild,
-      backgroundSubtle_onHover: isChild,
+      backgroundColorSubtle_onHover: isChild,
     })
 
     return (

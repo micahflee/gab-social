@@ -89,7 +89,7 @@ class TabBarItem extends PureComponent {
       radiusSmall: 1,
       px10: !isLarge,
       px15: isLarge,
-      backgroundSubtle2Dark_onHover: !active,
+      backgroundColorSubtle2Dark_onHover: !active,
     })
 
     const textOptions = {

@@ -62,7 +62,7 @@ export default class TrendingItem extends PureComponent {
       pb5: 1,
       borderColorSecondary: !isLast,
       borderBottom1PX: !isLast,
-      backgroundSubtle_onHover: 1,
+      backgroundColorSubtle_onHover: 1,
     })
 
     const subtitleClasses = cx({

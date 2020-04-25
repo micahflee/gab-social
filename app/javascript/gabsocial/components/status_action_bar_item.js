@@ -34,7 +34,7 @@ export default class StatusActionBarItem extends PureComponent {
       justifyContentCenter: 1,
       alignItemsCenter: 1,
       px10: 1,
-      backgroundSubtle_onHover: !disabled,
+      backgroundColorSubtle_onHover: !disabled,
     })
 
     const color = active ? 'brand' : 'secondary'

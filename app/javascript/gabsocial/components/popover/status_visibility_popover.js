@@ -90,7 +90,7 @@ class StatusVisibilityDropdown extends PureComponent {
                 cursorPointer: 1,
                 borderBottom1PX: !isLast,
                 borderColorSecondary: !isLast,
-                backgroundSubtle_onHover: !isActive,
+                backgroundColorSubtle_onHover: !isActive,
                 backgroundColorBrand: isActive,
               })
 

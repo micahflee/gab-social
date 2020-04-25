@@ -134,7 +134,7 @@ class PopoverBase extends ImmutablePureComponent {
           referenceElement={targetRef}
         >
           {({ ref, style, placement, arrowProps }) => (
-            <div ref={ref} style={style} data-placement={placement} className={[_s.my5, _s.boxShadow2].join(' ')}>
+            <div ref={ref} style={style} data-placement={placement} className={[_s.mt5, _s.mb5, _s.boxShadowPopover].join(' ')}>
               <div ref={arrowProps.ref} style={arrowProps.style} />
               <div ref={innerRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
                 {children}

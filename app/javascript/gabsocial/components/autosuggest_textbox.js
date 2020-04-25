@@ -234,7 +234,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       displayBlock: 1,
       outlineNone: 1,
       backgroundColorPrimary: !small,
-      backgroundSubtle: small,
+      backgroundColorSubtle: small,
       py15: !small,
       py10: small,
       fontSize16PX: !small,

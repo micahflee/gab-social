@@ -8,6 +8,9 @@ import assign from 'object-assign';
 import values from 'object.values';
 import isNaN from 'is-nan';
 import { decode as decodeBase64 } from './utils/base64';
+import cssVars from 'css-vars-ponyfill';
+
+cssVars()
 
 if (!Array.prototype.includes) {
   includes.shim();

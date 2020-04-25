@@ -112,6 +112,7 @@ class StatusActionBar extends ImmutablePureComponent {
       fontWeightNormal: 1,
       noUnderline: 1,
       underline_onHover: 1,
+      backgroundTransparent: 1,
       mr10: 1,
       py5: 1,
     })

@@ -257,7 +257,7 @@ class ComposeForm extends ImmutablePureComponent {
       alignItemsEnd: shouldCondense,
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
-      backgroundSubtle: shouldCondense,
+      backgroundColorSubtle: shouldCondense,
       px5: shouldCondense,
     })
 

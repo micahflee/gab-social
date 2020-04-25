@@ -57,7 +57,7 @@ class GroupListItem extends ImmutablePureComponent {
       default: 1,
       noUnderline: 1,
       overflowHidden: 1,
-      backgroundSubtle_onHover: 1,
+      backgroundColorSubtle_onHover: 1,
       borderColorSecondary: 1,
       radiusSmall: !slim,
       mt5: !slim,

@@ -461,7 +461,7 @@ class Video extends PureComponent {
       px10: 1,
       py10: 1,
       backgroundColorBrand: 1,
-      marginLeftNeg5PX: 1,
+      mlNeg5PX: 1,
       z3: 1,
       boxShadow1: 1,
       opacity0: !dragging,
@@ -479,7 +479,7 @@ class Video extends PureComponent {
     const volumeControlClasses = cx({
       default: 1,
       posAbs: 1,
-      backgroundColorOpaque: 1,
+      backgroundColorBlackOpaque: 1,
       videoPlayerVolume: 1,
       height122PX: 1,
       circle: 1,
@@ -562,7 +562,7 @@ class Video extends PureComponent {
             }}
           />
           <span
-            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.marginBottomNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
+            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -579,8 +579,8 @@ class Video extends PureComponent {
             ref={this.setSeekRef}
           >
 
-            <div className={[progressClasses, _s.backgroundPanel, _s.width100PC].join(' ')} />
-            <div className={[progressClasses, _s.backgroundSubtle].join(' ')} style={{ width: `${buffer}%` }} />
+            <div className={[progressClasses, _s.backgroundColorLoading, _s.width100PC].join(' ')} />
+            <div className={[progressClasses, _s.backgroundColorSubtle].join(' ')} style={{ width: `${buffer}%` }} />
             <div className={[progressClasses, _s.backgroundColorBrand].join(' ')} style={{ width: `${progress}%` }} />
 
             <span

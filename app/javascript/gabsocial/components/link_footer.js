@@ -112,7 +112,7 @@ class LinkFooter extends PureComponent {
                   href={linkFooterItem.to}
                   data-method={linkFooterItem.logout ? 'delete' : null}
                   onClick={linkFooterItem.onClick || null}
-                  className={[_s.my5, _s.pr15].join(' ')}
+                  className={[_s.mt5, _s.mb5, _s.pr15].join(' ')}
                 >
                   <Text size='small' color='tertiary'>
                     {linkFooterItem.text}

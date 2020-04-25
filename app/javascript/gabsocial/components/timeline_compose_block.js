@@ -53,7 +53,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     return (
       <section className={[_s.default, _s.mb15].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.backgroundSubtle, _s.borderTop1PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.alignItemsCenter, _s.flexRow].join(' ')}>
+          <div className={[_s.default, _s.backgroundColorSubtle, _s.borderTop1PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.alignItemsCenter, _s.flexRow].join(' ')}>
             <div className={_s.mr10}>
               <Avatar account={account} size={20} noHover />
             </div>

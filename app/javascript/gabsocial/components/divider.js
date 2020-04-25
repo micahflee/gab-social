@@ -21,7 +21,7 @@ export default class Divider extends PureComponent {
     const classes = cx({
       default: 1,
       borderBottom1PX: !isInvisible,
-      borderColorSecondary2: !isInvisible,
+      borderColorSecondary: !isInvisible,
       width100PC: 1,
       mb15: !isSmall,
       my10: isSmall || isInvisible,

@@ -151,7 +151,7 @@ class Account extends ImmutablePureComponent {
     )
 
     return (
-      <div className={[_s.default, _s.px15, _s.py5, _s.backgroundSubtle_onHover, _s.mb5].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py5, _s.backgroundColorSubtle_onHover, _s.mb5].join(' ')}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
 
           <NavLink

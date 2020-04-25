@@ -180,7 +180,7 @@ class DisplayName extends ImmutablePureComponent {
                   size='extraSmall'
                   isBadge
                   color='tertiary'
-                  className={[_s.backgroundSubtle2, _s.py2].join(' ')}
+                  className={[_s.backgroundColorSubtle2, _s.py2].join(' ')}
                 >
                   {relationshipLabel}
                 </Text>

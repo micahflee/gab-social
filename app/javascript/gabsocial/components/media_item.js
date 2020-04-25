@@ -91,8 +91,8 @@ export default class MediaItem extends ImmutablePureComponent {
       height100PC: 1,
       overflowHidden: 1,
       border1PX: 1,
-      borderColorSecondary: !small,
-      borderColorWhite: small,
+      borderColorPrimary: !small,
+      borderColorPrimary: small,
     })
 
     return (
@@ -137,7 +137,7 @@ export default class MediaItem extends ImmutablePureComponent {
 
               {
                 !!badge &&
-                <div className={[_s.default, _s.posAbs, _s.radiusSmall, _s.backgroundColorOpaque, _s.px5, _s.py5, _s.mr5, _s.my5, _s.bottom0, _s.right0].join(' ')}>
+                <div className={[_s.default, _s.posAbs, _s.radiusSmall, _s.backgroundColorBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
                   <Text size='extraSmall' color='white'>
                     {badge}
                   </Text>

@@ -83,7 +83,7 @@ export default class SidebarSectionItem extends PureComponent {
     })
 
     const iconClasses = cx({
-      fillColorBlack: 1,
+      fillColorPrimary: 1,
     })
 
     const countClasses = cx({

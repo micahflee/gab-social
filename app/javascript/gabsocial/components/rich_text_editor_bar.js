@@ -179,7 +179,7 @@ class StyleButton extends PureComponent {
       px10: 1,
       mr5: 1,
       noSelect: 1,
-      backgroundSubtle2Dark_onHover: 1,
+      backgroundColorSubtle2Dark_onHover: 1,
       backgroundColorBrandLight: active,
       // py10: !small,
       // py5: small,

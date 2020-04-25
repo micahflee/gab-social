@@ -35,7 +35,7 @@ class SensitiveMediaItem extends PureComponent {
               onClick={onClick}
               color='tertiary'
               backgroundColor='none'
-              className={_s.backgroundSubtle2Dark_onHover}
+              className={_s.backgroundColorSubtle2Dark_onHover}
             >
               <Text color='inherit' weight='bold' size='medium'>
                 {intl.formatMessage(messages.view)}

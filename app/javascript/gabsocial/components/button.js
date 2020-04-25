@@ -140,8 +140,8 @@ export default class Button extends PureComponent {
       backgroundColorBlack: backgroundColor === COLORS.black,
       backgroundColorBrand: backgroundColor === COLORS.brand,
       backgroundTransparent: backgroundColor === COLORS.none,
-      backgroundSubtle2: backgroundColor === COLORS.tertiary,
-      backgroundSubtle: backgroundColor === COLORS.secondary,
+      backgroundColorSubtle2: backgroundColor === COLORS.tertiary,
+      backgroundColorSubtle: backgroundColor === COLORS.secondary,
       backgroundColorDanger: backgroundColor === COLORS.danger,
       
       colorPrimary: !!children && color === COLORS.primary,
@@ -164,7 +164,7 @@ export default class Button extends PureComponent {
 
       underline_onHover: underlineOnHover,
 
-      backgroundSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary,
+      backgroundColorSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary,
       backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black,
       backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
       backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger,

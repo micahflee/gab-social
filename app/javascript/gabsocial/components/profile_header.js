@@ -131,7 +131,7 @@ class ProfileHeader extends ImmutablePureComponent {
           </div>
         }
 
-        <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary, _s.width100PC].join(' ')}>
+        <div className={[_s.default, _s.width100PC].join(' ')}>
 
           <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
             <div className={avatarContainerClasses}>
