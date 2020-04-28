@@ -22,10 +22,10 @@ class ListCreateModal extends ImmutablePureComponent {
     return (
       <ModalLayout
         title={intl.formatMessage(messages.title)}
-        width='500'
+        width={500}
         onClose={onClose}
       >
-        <ListCreate />
+        <ListCreate isModal />
       </ModalLayout>
     )
   }

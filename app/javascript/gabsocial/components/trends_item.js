@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import classNames from 'classnames/bind'
 import { urlRegex } from '../features/compose/util/url_regex'
 import Button from './button'
@@ -19,6 +20,7 @@ export default class TrendingItem extends PureComponent {
     author: PropTypes.string,
     publishDate: PropTypes.string,
     isLast: PropTypes.bool,
+    isHidden: PropTypes.bool,
     wide: PropTypes.bool,
   }
 
@@ -51,8 +53,23 @@ export default class TrendingItem extends PureComponent {
       publishDate,
       isLast,
       wide,
+      isHidden,
     } = this.props
     const { hovering } = this.state
+
+    const correctedAuthor = author.replace('www.', '')
+    const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
+    const descriptionHasLink = correctedDescription.match(urlRegex)
+
+    if (isHidden) {
+      return (
+        <Fragment>
+          {title}
+          {!descriptionHasLink && correctedDescription}
+          {correctedAuthor}
+        </Fragment>
+      )
+    }
 
     const containerClasses = cx({
       default: 1,
@@ -69,10 +86,6 @@ export default class TrendingItem extends PureComponent {
       ml5: 1,
       underline: hovering,
     })
-
-    const correctedAuthor = author.replace('www.', '')
-    const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
-    const descriptionHasLink = correctedDescription.match(urlRegex)
 
     const image = (
       <Image

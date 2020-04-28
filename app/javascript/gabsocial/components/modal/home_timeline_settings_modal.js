@@ -55,7 +55,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
 
     return (
       <ModalLayout
-        width='320'
+        width={320}
         title={intl.formatMessage(messages.title)}
         onClose={onClose}
       >

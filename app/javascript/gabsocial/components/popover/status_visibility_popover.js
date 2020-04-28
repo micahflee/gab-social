@@ -47,7 +47,7 @@ class StatusVisibilityDropdown extends PureComponent {
     this.props.onChange(value)
   }
 
-  componentWillMount () {
+  componentDidMount () {
     const { intl } = this.props
 
     this.options = [

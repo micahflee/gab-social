@@ -25,7 +25,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
     return (
       <ModalLayout
         title={intl.formatMessage(messages.title)}
-        width='460'
+        width={460}
         onClose={onClose}
       >
         <Text>

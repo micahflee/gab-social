@@ -43,10 +43,18 @@ class Notification extends ImmutablePureComponent {
     createdAt: PropTypes.string,
     statusId: PropTypes.string,
     type: PropTypes.string.isRequired,
+    isHidden: PropTypes.bool,
   }
 
   render() {
-    const { intl, accounts, createdAt, type, statusId } = this.props
+    const {
+      intl,
+      accounts,
+      createdAt,
+      type,
+      statusId,
+      isHidden,
+    } = this.props
     
     const count = !!accounts ? accounts.size : 0
 
@@ -81,6 +89,10 @@ class Notification extends ImmutablePureComponent {
         break
       default:
         return null
+    }
+
+    if (isHidden) {
+      // : todo :
     }
 
     return (

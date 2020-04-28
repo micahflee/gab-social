@@ -53,6 +53,7 @@ class Notifications extends ImmutablePureComponent {
   }
 
   handleLoadGap = (maxId) => {
+    // maxId={index > 0 ? notifications.getIn([index - 1, 'id']) : null}
     this.props.dispatch(expandNotifications({ maxId }))
   }
 
@@ -122,13 +123,7 @@ class Notifications extends ImmutablePureComponent {
       scrollableContent = this.scrollableContent
     } else if (notifications.size > 0 || hasMore) {
       scrollableContent = notifications.map((item, index) => item === null ? (
-        <LoadMore
-          gap
-          key={'gap:' + notifications.getIn([index + 1, 'id'])}
-          disabled={isLoading}
-          maxId={index > 0 ? notifications.getIn([index - 1, 'id']) : null}
-          onClick={this.handleLoadGap}
-        />
+        <LoadMore disabled={isLoading} onClick={this.handleLoadGap} />
       ) : (
         <NotificationContainer
           key={`notification-${index}`}

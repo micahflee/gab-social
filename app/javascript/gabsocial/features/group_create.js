@@ -2,12 +2,20 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
-import { changeValue, submit, setUp, reset } from '../actions/group_editor'
-import ColumnIndicator from '../components/column_indicator';
+import {
+	changeGroupTitle,
+	changeGroupDescription,
+	changeGroupCoverImage,
+	submit,
+	setGroup,
+	resetEditor,
+} from '../actions/group_editor'
+import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Divider from '../components/divider'
 import Input from '../components/input'
 import Text from '../components/text'
+import Form from '../components/form'
 import Textarea from '../components/textarea'
 import FileInput from '../components/file_input'
 
@@ -18,6 +26,8 @@ const messages = defineMessages({
 	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Banner image selected' },
 	create: { id: 'groups.form.create', defaultMessage: 'Create group' },
 	update: { id: 'groups.form.update', defaultMessage: 'Update group' },
+	titlePlaceholder: { id: 'groups.form.title_placeholder', defaultMessage: 'New group title...' },
+	descriptionPlaceholder: { id: 'groups.form.description_placeholder', defaultMessage: 'Some group description...' },
 })
 
 const mapStateToProps = (state, { params }) => {
@@ -27,26 +37,37 @@ const mapStateToProps = (state, { params }) => {
 	return {
 		group,
 		error: groupId && !group,
-		title: state.getIn(['group_editor', 'title']),
-		description: state.getIn(['group_editor', 'description']),
+		titleValue: state.getIn(['group_editor', 'title']),
+		descriptionValue: state.getIn(['group_editor', 'description']),
 		coverImage: state.getIn(['group_editor', 'coverImage']),
-		disabled: state.getIn(['group_editor', 'isSubmitting']),
+		isSubmitting: state.getIn(['group_editor', 'isSubmitting']),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	onTitleChange: value => dispatch(changeValue('title', value)),
-	onDescriptionChange: value => dispatch(changeValue('description', value)),
-	onCoverImageChange: value => dispatch(changeValue('coverImage', value)),
-	onSubmit: routerHistory => dispatch(submit(routerHistory)),
-	reset: () => dispatch(reset()),
-	setUp: group => dispatch(setUp(group)),
+	onTitleChange: (value) => {
+		dispatch(changeGroupTitle(value))
+	},
+	onDescriptionChange: (value) => {
+		dispatch(changeGroupDescription(value))
+	},
+	onCoverImageChange: (imageData) => {
+		console.log("imageData:", imageData)
+		dispatch(changeGroupCoverImage(imageData))
+	},
+	onResetEditor: () => {
+		dispatch(resetEditor())
+	},
+	onSetGroup: (group) => {
+		dispatch(setGroup(group))
+	},
+	onSubmit: (routerHistory) => dispatch(submit(routerHistory)),
 })
 
 export default
-@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class Create extends ImmutablePureComponent {
+@connect(mapStateToProps, mapDispatchToProps)
+class GroupCreate extends ImmutablePureComponent {
 
 	static contextTypes = {
 		router: PropTypes.object
@@ -54,43 +75,45 @@ class Create extends ImmutablePureComponent {
 
 	static propTypes = {
 		group: ImmutablePropTypes.map,
-		title: PropTypes.string.isRequired,
-		description: PropTypes.string.isRequired,
+		titleValue: PropTypes.string.isRequired,
+		descriptionValue: PropTypes.string.isRequired,
 		coverImage: PropTypes.object,
-		disabled: PropTypes.bool,
 		intl: PropTypes.object.isRequired,
 		onTitleChange: PropTypes.func.isRequired,
+		onDescriptionChange: PropTypes.func.isRequired,
+		onResetEditor: PropTypes.func.isRequired,
+		onSetGroup: PropTypes.func.isRequired,
 		onSubmit: PropTypes.func.isRequired,
-		onCloseModal: PropTypes.func,
+		isSubmitting: PropTypes.bool,
 	}
 
-	componentWillMount() {
+	updateOnProps = [
+		'group',
+		'titleValue',
+		'descriptionValue',
+		'coverImage',
+		'isSubmitting',
+	]
+
+	componentDidMount() {
 		if (!this.props.group) {
-			this.props.reset()
+			this.props.onResetEditor()
 		} else {
-			this.props.setUp(this.props.group)
+			this.props.onSetGroup(this.props.group)
 		}
 	}
 
 	componentWillReceiveProps(nextProps) {
 		if (this.props.group !== nextProps.group && !!nextProps.group) {
-			this.props.setUp(nextProps.group)
+			this.props.onSetGroup(nextProps.group)
 		}
 	}
 
-	handleTitleChange = e => {
-		this.props.onTitleChange(e.target.value)
-	}
-
-	handleDescriptionChange = e => {
-		this.props.onDescriptionChange(e.target.value)
-	}
-
-	handleCoverImageChange = e => {
+	handleCoverImageChange = (e) => {
 		this.props.onCoverImageChange(e.target.files[0])
 	}
 
-	handleSubmit = e => {
+	handleSubmit = (e) => {
 		e.preventDefault()
 		this.props.onSubmit(this.context.router.history)
 	}
@@ -99,11 +122,14 @@ class Create extends ImmutablePureComponent {
 		const {
 			group,
 			error,
-			title,
-			description,
+			titleValue,
+			descriptionValue,
 			coverImage,
-			disabled,
-			intl
+			intl,
+			onTitleChange,
+			onDescriptionChange,
+			isSubmitting,
+			onSubmit,
 		} = this.props
 
 		if (!group && error) {
@@ -111,30 +137,30 @@ class Create extends ImmutablePureComponent {
 		}
 
 		return (
-			<form onSubmit={this.handleSubmit}>
+			<Form onSubmit={onSubmit}>
 				<Input
 					title={intl.formatMessage(messages.title)}
-					value={title}
-					disabled={disabled}
-					onChange={this.handleTitleChange}
-					placeholder={'New group title...'}
+					value={titleValue}
+					onChange={onTitleChange}
+					disabled={isSubmitting}
+					placeholder={intl.formatMessage(messages.titlePlaceholder)}
 				/>
 
 				<Divider isInvisible />
 
 				<Textarea
 					title={intl.formatMessage(messages.description)}
-					value={description}
-					disabled={disabled}
-					onChange={this.handleDescriptionChange}
-					placeholder={'Some group description...'}
+					value={descriptionValue}
+					onChange={onDescriptionChange}
+					placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+					disabled={isSubmitting}
 				/>
 
 				<Divider isInvisible />
 
 				<FileInput
+					disabled={isSubmitting}
 					title={intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
-					disabled={disabled}
 					onChange={this.handleCoverImageChange}
 					width='340px'
 					height='145px'
@@ -142,13 +168,16 @@ class Create extends ImmutablePureComponent {
 
 				<Divider isInvisible />
 
-				<Button className={_s.ml10}>
-					<Text color='white'>
+				<Button
+					isDisabled={!titleValue || !descriptionValue && !isSubmitting}
+					onClick={this.handleSubmit}
+				>
+					<Text color='inherit' align='center'>
 						{intl.formatMessage(!!group ? messages.update : messages.create)}
 					</Text>
 				</Button>
 
-			</form>
+			</Form>
 		)
 	}
 

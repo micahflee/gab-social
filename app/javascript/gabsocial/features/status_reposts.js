@@ -23,7 +23,7 @@ const mapStateToProps = (state, props) => {
 
 export default
 @connect(mapStateToProps)
-class Reposts extends ImmutablePureComponent {
+class StatusReposts extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.object.isRequired,

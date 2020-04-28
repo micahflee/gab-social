@@ -13,8 +13,11 @@ export default class Textarea extends PureComponent {
     onKeyUp: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
-    onClear: PropTypes.func,
     title: PropTypes.string,
+  }
+
+  handleOnChange = (e) => {
+    this.props.onChange(e.target.value)
   }
 
   render() {
@@ -23,12 +26,10 @@ export default class Textarea extends PureComponent {
       prependIcon,
       value,
       hasClear,
-      onChange,
       onKeyUp,
       onFocus,
       onBlur,
-      onClear,
-      title
+      title,
     } = this.props
 
     const inputClasses = cx({
@@ -64,7 +65,7 @@ export default class Textarea extends PureComponent {
             type='text'
             placeholder={placeholder}
             value={value}
-            onChange={onChange}
+            onChange={this.handleOnChange}
             onKeyUp={onKeyUp}
             onFocus={onFocus}
             onBlur={onBlur}

@@ -27,7 +27,7 @@ class ColumnIndicator extends PureComponent {
   render() {
     const { type, message, intl } = this.props
 
-    const title = type !== 'error' ? intl.formatMessage(messages[type]) : message
+    const title = type !== 'error' && !message ? intl.formatMessage(messages[type]) : message
 
     return (
       <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.py15].join(' ')}>

@@ -161,7 +161,7 @@ class DisplayName extends ImmutablePureComponent {
             />
             {
               !noRelationship && account.get('locked') &&
-              <Icon id='lock-filled' size={iconSize} className={_s.ml5} />
+              <Icon id='lock-filled' size={iconSize} className={[_s.fillColorPrimary, _s.ml5].join(' ')} />
             }
           </bdi>
           {

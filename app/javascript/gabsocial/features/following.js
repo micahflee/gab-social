@@ -41,7 +41,7 @@ class Following extends ImmutablePureComponent {
     hasMore: PropTypes.bool,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { accountId } = this.props
 
     if (!!accountId && accountId !== -1) {
@@ -67,7 +67,7 @@ class Following extends ImmutablePureComponent {
       account,
       accountIds,
       hasMore,
-      intl
+      intl,
     } = this.props
 
     if (!account) return null

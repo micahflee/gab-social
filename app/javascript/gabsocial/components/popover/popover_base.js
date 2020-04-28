@@ -2,8 +2,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Manager, Reference, Popper } from 'react-popper'
 import classnames from 'classnames/bind'
-import spring from 'react-motion/lib/spring'
-import Motion from '../../features/ui/util/optional_motion'
 import { openPopover, closePopover } from '../../actions/popover'
 import { openModal, closeModal } from '../../actions/modal'
 import { isUserTouching } from '../../utils/is_mobile'
@@ -117,15 +115,12 @@ class PopoverBase extends ImmutablePureComponent {
       targetRef,
       innerRef,
     } = this.props
-    const open = this.state.id === openPopoverType
 
     const containerClasses = cx({
       default: 1,
       z4: 1,
       displayNone: !visible,
     })
-
-    console.log('targetRef:', targetRef)
 
     return (
       <Manager>

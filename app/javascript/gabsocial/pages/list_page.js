@@ -3,6 +3,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
+import {
+  MODAL_LIST_EDITOR,
+  // MODAL_LIST_TIMELINE_SETTINGS,
+} from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import DefaultLayout from '../layouts/default_layout'
@@ -18,15 +22,16 @@ const mapStateToProps = (state, props) => ({
   list: state.getIn(['lists', props.params.id]),
 })
 
-const mapDispatchToProps = (dispatch, { list }) => ({
-  onOpenListEditModal() {
-    dispatch(openModal('LIST_EDIT', {
-      list,
-    }))
+const mapDispatchToProps = (dispatch) => ({
+  onOpenListEditModal(list) {
+    if (!list) return
+    const listId = list.get('id')
+    dispatch(openModal(MODAL_LIST_EDITOR, { listId }))
   },
-  onOpenListTimelineSettingsModal() {
-    dispatch(openModal('LIST_TIMELINE_SETTINGS'))
-  },
+  // : todo :
+  // onOpenListTimelineSettingsModal() {
+  //   dispatch(openModal(MODAL_LIST_TIMELINE_SETTINGS))
+  // },
 })
 
 export default
@@ -39,42 +44,46 @@ class ListPage extends ImmutablePureComponent {
     list: ImmutablePropTypes.map,
     children: PropTypes.node.isRequired,
     onOpenListEditModal: PropTypes.func.isRequired,
-    onOpenListTimelineSettingsModal: PropTypes.func.isRequired,
+    // onOpenListTimelineSettingsModal: PropTypes.func.isRequired,
   }
   
+  handleOnOpenListEditModal = () => {
+    this.props.onOpenListEditModal(this.props.list)
+  }
+
   render() {
     const {
       intl,
       children,
       list,
       onOpenListEditModal,
-      onOpenListTimelineSettingsModal
+      // onOpenListTimelineSettingsModal
     } = this.props
 
     const title = !!list ? list.get('title') : ''
 
     return (
       <DefaultLayout
+        showBackBtn
         title={title}
         actions={[
           {
-            icon: 'list-edit',
-            onClick: onOpenListEditModal,
+            icon: 'cog',
+            onClick: this.handleOnOpenListEditModal,
           },
-          {
-            icon: 'ellipsis',
-            onClick: onOpenListTimelineSettingsModal,
-          },
+          // {
+          //   icon: 'ellipsis',
+          //   onClick: onOpenListTimelineSettingsModal,
+          // },
         ]}
         layout={(
           <Fragment>
-            <ListDetailsPanel />
+            <ListDetailsPanel list={list} onEdit={this.handleOnOpenListEditModal} />
             <TrendsPanel />
             <WhoToFollowPanel />
             <LinkFooter />
           </Fragment>
         )}
-        showBackBtn
       >
         <PageTitle path={[title, intl.formatMessage(messages.list)]} />
         { children }

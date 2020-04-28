@@ -1,37 +1,51 @@
 import detectPassiveEvents from 'detect-passive-events'
 import { closePopover } from '../../actions/popover'
+import {
+  POPOVER_CONTENT_WARNING,
+  POPOVER_DATE_PICKER,
+  POPOVER_EMOJI_PICKER,
+  POPOVER_GROUP_INFO,
+  POPOVER_PROFILE_OPTIONS,
+  POPOVER_REPOST_OPTIONS,
+  POPOVER_SEARCH,
+  POPOVER_SIDEBAR_MORE,
+  POPOVER_STATUS_OPTIONS,
+  POPOVER_STATUS_SHARE,
+  POPOVER_STATUS_VISIBILITY,
+  POPOVER_USER_INFO,
+} from '../../constants'
+import {
+  ContentWarningPopover,
+  DatePickerPopover,
+  EmojiPickerPopover,
+  GroupInfoPopover,
+  ProfileOptionsPopover,
+  RepostOptionsPopover,
+  SearchPopover,
+  SidebarMorePopover,
+  StatusOptionsPopover,
+  StatusSharePopover,
+  StatusVisibilityPopover,
+  UserInfoPopover,
+} from '../../features/ui/util/async_components'
 import Bundle from '../../features/ui/util/bundle'
-import BundleModalError from '../bundle_modal_error'
 import PopoverBase from './popover_base'
-import ContentWarningPopover from './content_warning_popover'
-import DatePickerPopover from './date_picker_popover'
-import EmojiPickerPopover from './emoji_picker_popover'
-import GroupInfoPopover from './group_info_popover'
-import ProfileOptionsPopover from './profile_options_popover'
-import RepostOptionsPopover from './repost_options_popover'
-import SearchPopover from './search_popover'
-import SidebarMorePopover from './sidebar_more_popover'
-import StatusOptionsPopover from './status_options_popover'
-import StatusSharePopover from './status_share_popover'
-import StatusVisibilityPopover from './status_visibility_popover'
-import UserInfoPopover from './user_info_popover'
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
-const POPOVER_COMPONENTS = {
-  CONTENT_WARNING: () => Promise.resolve({ default: ContentWarningPopover }),
-  DATE_PICKER: () => Promise.resolve({ default: DatePickerPopover }),
-  EMOJI_PICKER: () => Promise.resolve({ default: EmojiPickerPopover }),
-  GROUP_INFO: () => GroupInfoPopover,
-  PROFILE_OPTIONS: () => Promise.resolve({ default: ProfileOptionsPopover }),
-  REPOST_OPTIONS: () => Promise.resolve({ default: RepostOptionsPopover }),
-  SEARCH: () => Promise.resolve({ default: SearchPopover }),
-  SIDEBAR_MORE: () => Promise.resolve({ default: SidebarMorePopover }),
-  STATUS_OPTIONS: () => Promise.resolve({ default: StatusOptionsPopover }),
-  STATUS_SHARE: () => Promise.resolve({ default: StatusSharePopover }),
-  STATUS_VISIBILITY: () => Promise.resolve({ default: StatusVisibilityPopover }),
-  USER_INFO: () => Promise.resolve({ default: UserInfoPopover }),
-}
+const POPOVER_COMPONENTS = {}
+POPOVER_COMPONENTS[POPOVER_CONTENT_WARNING] = ContentWarningPopover
+POPOVER_COMPONENTS[POPOVER_DATE_PICKER] = DatePickerPopover
+POPOVER_COMPONENTS[POPOVER_EMOJI_PICKER] = EmojiPickerPopover
+POPOVER_COMPONENTS[POPOVER_GROUP_INFO] = GroupInfoPopover
+POPOVER_COMPONENTS[POPOVER_PROFILE_OPTIONS] = ProfileOptionsPopover
+POPOVER_COMPONENTS[POPOVER_REPOST_OPTIONS] = RepostOptionsPopover
+POPOVER_COMPONENTS[POPOVER_SEARCH] = SearchPopover
+POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
+POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
+POPOVER_COMPONENTS[POPOVER_STATUS_SHARE] = StatusSharePopover
+POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
+POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
 
 const mapStateToProps = (state) => ({
   type: state.getIn(['popover', 'popoverType']),
@@ -84,12 +98,8 @@ class PopoverRoot extends PureComponent {
     document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
-  setRef = c => {
+  setRef = (c) => {
     this.node = c
-  }
-
-  setFocusRef = c => {
-    this.focusedItem = c
   }
 
   handleKeyDown = e => {
@@ -150,8 +160,6 @@ class PopoverRoot extends PureComponent {
     const { type, props } = this.props
     const visible = !!type
 
-    console.log("POPOVER_COMPONENTS[type]:", type, POPOVER_COMPONENTS[type]);
-
     return (
       <PopoverBase
         visible={visible}
@@ -162,12 +170,12 @@ class PopoverRoot extends PureComponent {
           visible &&
           <Bundle
             fetchComponent={POPOVER_COMPONENTS[type]}
-            loading={this.renderLoading(type)}
+            loading={this.renderLoading()}
             error={this.renderError}
             renderDelay={200}
           >
             {
-              (SpecificComponent) => <SpecificComponent {...props} />
+              (Component) => <Component {...props} />
             }
           </Bundle>
         }

@@ -7,6 +7,7 @@ import Text from './text'
 const cx = classNames.bind(_s)
 
 export default class Input extends PureComponent {
+
   static propTypes = {
     placeholder: PropTypes.string,
     prependIcon: PropTypes.string,
@@ -23,6 +24,10 @@ export default class Input extends PureComponent {
     inputRef: PropTypes.func,
     id: PropTypes.string,
     hideLabel: PropTypes.bool,
+  }
+
+  handleOnChange = (e) => {
+    this.props.onChange(e.target.value)
   }
 
   render() {
@@ -55,6 +60,7 @@ export default class Input extends PureComponent {
       py5: small,
       backgroundTransparent: !readOnly,
       backgroundColorSubtle2: readOnly,
+      colorPrimary: !readOnly,
       colorSecondary: readOnly,
       fontSize15PX: !small,
       fontSize13PX: small,
@@ -101,7 +107,7 @@ export default class Input extends PureComponent {
             placeholder={placeholder}
             ref={inputRef}
             value={value}
-            onChange={onChange}
+            onChange={this.handleOnChange}
             onKeyUp={onKeyUp}
             onFocus={onFocus}
             onBlur={onBlur}

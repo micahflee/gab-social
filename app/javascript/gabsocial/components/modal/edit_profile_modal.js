@@ -28,10 +28,11 @@ class EditProfileModal extends ImmutablePureComponent {
   static propTypes = {
     account: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
   render() {
-    const { account, intl } = this.props
+    const { account, intl, onClose } = this.props
     
     const headerSrc = !!account ? account.get('header') : ''
 
@@ -40,6 +41,7 @@ class EditProfileModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.edit_profile)}
         noPadding
         width={460}
+        onClose={onClose}
       >
         <div className={[_s.default, _s.py5, _s.px5, _s.width100PC, _s.overflowHidden].join(' ')}>
           <Image

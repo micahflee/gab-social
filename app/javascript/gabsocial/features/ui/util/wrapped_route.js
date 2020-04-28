@@ -1,3 +1,4 @@
+import api from '../../../api'
 import { Route } from 'react-router-dom'
 import BundleColumnError from '../../../components/bundle_column_error'
 import Bundle from './bundle'
@@ -50,6 +51,15 @@ export default class WrappedRoute extends PureComponent {
       publicRoute,
       ...rest
     } = this.props
+
+    // : todo :
+    // api().get('/api/v1/accounts/verify_credentials')
+    // .then((res) => {
+    //   console.log("res:", res)
+    // })
+    // .catch((err) => {
+    //   console.log("err:", err)
+    // })
 
     if (!publicRoute && !me) {
       const actualUrl = encodeURIComponent(this.props.computedMatch.url)

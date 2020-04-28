@@ -7,6 +7,7 @@ import Account from './components/account'
 import ListEditorSearch from './components/list_editor_search'
 import EditListForm from './components/edit_list_form/edit_list_form'
 import Button from '../../components/button'
+import Form from '../../components/form'
 import Input from '../../components/input'
 
 const mapStateToProps = (state, { params }) => {
@@ -24,7 +25,7 @@ const mapStateToProps = (state, { params }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onInitialize: listId => dispatch(setupListEditor(listId)),
+  onInitialize: (listId) => dispatch(setupListEditor(listId)),
   onReset: () => dispatch(resetListEditor()),
 })
 
@@ -80,7 +81,7 @@ class ListEdit extends ImmutablePureComponent {
     console.log("title:", title)
 
     return (
-      <div>
+      <Form>
         <Input
           title={intl.formatMessage(messages.editListTitle)}
           placeholder='My new list title...'
@@ -90,8 +91,6 @@ class ListEdit extends ImmutablePureComponent {
         // disabled={disabled}
         />
 
-        {
-          /*
         <div className='compose-modal__header'>
           <h3 className='compose-modal__header__title'>
             {intl.formatMessage(messages.editList)}
@@ -119,9 +118,8 @@ class ListEdit extends ImmutablePureComponent {
             </div>
           </div>
         </div>
-          */ }
 
-      </div>
+      </Form>
     )
 
   }

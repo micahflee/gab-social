@@ -98,19 +98,21 @@ export const fetchListsRequest = () => ({
   type: LISTS_FETCH_REQUEST,
 });
 
-export const fetchListsSuccess = lists => ({
+export const fetchListsSuccess = (lists) => ({
   type: LISTS_FETCH_SUCCESS,
   lists,
 });
 
-export const fetchListsFail = error => ({
+export const fetchListsFail = (error) => ({
   type: LISTS_FETCH_FAIL,
   error,
 });
 
-export const submitListEditor = shouldReset => (dispatch, getState) => {
+export const submitListEditor = (shouldReset) => (dispatch, getState) => {
   const listId = getState().getIn(['listEditor', 'listId']);
   const title  = getState().getIn(['listEditor', 'title']);
+
+  console.log("submitListEditor:", title)
 
   if (listId === null) {
     dispatch(createList(title, shouldReset));
@@ -119,7 +121,7 @@ export const submitListEditor = shouldReset => (dispatch, getState) => {
   }
 };
 
-export const setupListEditor = listId => (dispatch, getState) => {
+export const setupListEditor = (listId) => (dispatch, getState) => {
   dispatch({
     type: LIST_EDITOR_SETUP,
     list: getState().getIn(['lists', listId]),
@@ -128,7 +130,7 @@ export const setupListEditor = listId => (dispatch, getState) => {
   dispatch(fetchListAccounts(listId));
 };
 
-export const changeListEditorTitle = value => ({
+export const changeListEditorTitle = (value) => ({
   type: LIST_EDITOR_TITLE_CHANGE,
   value,
 });
@@ -151,12 +153,12 @@ export const createListRequest = () => ({
   type: LIST_CREATE_REQUEST,
 });
 
-export const createListSuccess = list => ({
+export const createListSuccess = (list) => ({
   type: LIST_CREATE_SUCCESS,
   list,
 });
 
-export const createListFail = error => ({
+export const createListFail = (error) => ({
   type: LIST_CREATE_FAIL,
   error,
 });
@@ -195,7 +197,7 @@ export const resetListEditor = () => ({
   type: LIST_EDITOR_RESET,
 });
 
-export const deleteList = id => (dispatch, getState) => {
+export const deleteList = (id) => (dispatch, getState) => {
   if (!me) return;
 
   dispatch(deleteListRequest(id));
@@ -205,12 +207,12 @@ export const deleteList = id => (dispatch, getState) => {
     .catch(err => dispatch(deleteListFail(id, err)));
 };
 
-export const deleteListRequest = id => ({
+export const deleteListRequest = (id) => ({
   type: LIST_DELETE_REQUEST,
   id,
 });
 
-export const deleteListSuccess = id => ({
+export const deleteListSuccess = (id) => ({
   type: LIST_DELETE_SUCCESS,
   id,
 });
@@ -221,7 +223,7 @@ export const deleteListFail = (id, error) => ({
   error,
 });
 
-export const fetchListAccounts = listId => (dispatch, getState) => {
+export const fetchListAccounts = (listId) => (dispatch, getState) => {
   if (!me) return;
 
   dispatch(fetchListAccountsRequest(listId));
@@ -232,7 +234,7 @@ export const fetchListAccounts = listId => (dispatch, getState) => {
   }).catch(err => dispatch(fetchListAccountsFail(listId, err)));
 };
 
-export const fetchListAccountsRequest = id => ({
+export const fetchListAccountsRequest = (id) => ({
   type: LIST_ACCOUNTS_FETCH_REQUEST,
   id,
 });
@@ -250,7 +252,7 @@ export const fetchListAccountsFail = (id, error) => ({
   error,
 });
 
-export const fetchListSuggestions = q => (dispatch, getState) => {
+export const fetchListSuggestions = (q) => (dispatch, getState) => {
   if (!me) return;
 
   const params = {
@@ -277,7 +279,7 @@ export const clearListSuggestions = () => ({
   type: LIST_EDITOR_SUGGESTIONS_CLEAR,
 });
 
-export const changeListSuggestions = value => ({
+export const changeListSuggestions = (value) => ({
   type: LIST_EDITOR_SUGGESTIONS_CHANGE,
   value,
 });
@@ -361,7 +363,7 @@ export const setupListAdder = accountId => (dispatch, getState) => {
   dispatch(fetchAccountLists(accountId));
 };
 
-export const fetchAccountLists = accountId => (dispatch, getState) => {
+export const fetchAccountLists = (accountId) => (dispatch, getState) => {
   if (!me) return;
 
   dispatch(fetchAccountListsRequest(accountId));
@@ -371,7 +373,7 @@ export const fetchAccountLists = accountId => (dispatch, getState) => {
     .catch(err => dispatch(fetchAccountListsFail(accountId, err)));
 };
 
-export const fetchAccountListsRequest = id => ({
+export const fetchAccountListsRequest = (id) => ({
   type:LIST_ADDER_LISTS_FETCH_REQUEST,
   id,
 });
@@ -388,10 +390,10 @@ export const fetchAccountListsFail = (id, err) => ({
   err,
 });
 
-export const addToListAdder = listId => (dispatch, getState) => {
+export const addToListAdder = (listId) => (dispatch, getState) => {
   dispatch(addToList(listId, getState().getIn(['listAdder', 'accountId'])));
 };
 
-export const removeFromListAdder = listId => (dispatch, getState) => {
+export const removeFromListAdder = (listId) => (dispatch, getState) => {
   dispatch(removeFromList(listId, getState().getIn(['listAdder', 'accountId'])));
 };

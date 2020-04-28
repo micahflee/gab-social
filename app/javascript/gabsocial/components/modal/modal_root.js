@@ -2,73 +2,101 @@ import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
 import {
-  MuteModal,
-  ReportModal,
+  MODAL_ACTIONS,
+  MODAL_BLOCK_ACCOUNT,
+  MODAL_BLOCK_DOMAIN,
+  MODAL_BOOST,
+  MODAL_COMMUNITY_TIMELINE_SETTINGS,
+  MODAL_COMPOSE,
+  MODAL_CONFIRM,
+  MODAL_DISPLAY_OPTIONS,
+  MODAL_EDIT_PROFILE,
+  MODAL_EMBED,
+  MODAL_GIF_PICKER,
+  MODAL_GROUP_CREATE,
+  MODAL_GROUP_DELETE,
+  MODAL_GROUP_EDITOR,
+  MODAL_HASHTAG_TIMELINE_SETTINGS,
+  MODAL_HOME_TIMELINE_SETTINGS,
+  MODAL_HOTKEYS,
+  MODAL_LIST_CREATE,
+  MODAL_LIST_DELETE,
+  MODAL_LIST_EDITOR,
+  MODAL_LIST_TIMELINE_SETTINGS,
+  MODAL_MEDIA,
+  MODAL_MUTE,
+  MODAL_PRO_UPGRADE,
+  MODAL_REPORT,
+  MODAL_STATUS_REVISIONS,
+  MODAL_UNAUTHORIZED,
+  MODAL_UNFOLLOW,
+  MODAL_VIDEO,
+} from '../../constants'
+import {
+  ActionsModal,
+  BlockAccountModal,
+  BlockDomainModal,
+  BoostModal,
+  CommunityTimelineSettingsModal,
+  ComposeModal,
+  ConfirmationModal,
+  DisplayOptionsModal,
+  EditProfileModal,
   EmbedModal,
-  // ListEditor,
-  // ListAdder,
+  GifPickerModal,
+  GroupCreateModal,
+  GroupDeleteModal,
+  GroupEditorModal,
+  HashtagTimelineSettingsModal,
+  HomeTimelineSettingsModal,
+  HotkeysModal,
+  ListCreateModal,
+  ListDeleteModal,
+  ListEditorModal,
+  ListTimelineSettingsModal,
+  MediaModal,
+  MuteModal,
+  ProUpgradeModal,
+  ReportModal,
   StatusRevisionsModal,
+  UnauthorizedModal,
+  UnfollowModal,
+  VideoModal,
 } from '../../features/ui/util/async_components'
 
 import ModalBase from './modal_base'
 import BundleModalError from '../bundle_modal_error'
 
-import ActionsModal from './actions_modal'
-import BlockAccountModal from './block_account_modal'
-import BlockDomainModal from './block_domain_modal'
-import BoostModal from './boost_modal'
-import CommunityTimelineSettingsModal from './community_timeline_settings_modal'
-import ComposeModal from './compose_modal'
-import ConfirmationModal from './confirmation_modal'
-import EditProfileModal from './edit_profile_modal'
-import GifPickerModal from './gif_picker_modal'
-import GroupCreateModal from './group_create_modal'
-import GroupDeleteModal from './group_delete_modal'
-import GroupEditorModal from './group_editor_modal'
-import HashtagTimelineSettingsModal from './hashtag_timeline_settings_modal'
-import HomeTimelineSettingsModal from './home_timeline_settings_modal'
-import HotkeysModal from './hotkeys_modal'
-import ListCreateModal from './list_create_modal'
-import ListDeleteModal from './list_delete_modal'
-import ListEditorModal from './list_editor_modal'
-import ListTimelineSettingsModal from './list_timeline_settings_modal'
-import MediaModal from './media_modal'
-import ModalLoading from './modal_loading'
-import ProUpgradeModal from './pro_upgrade_modal'
-import VideoModal from './video_modal'
-import UnauthorizedModal from './unauthorized_modal'
-import UnfollowModal from './unfollow_modal'
-
-const MODAL_COMPONENTS = {
-  ACTIONS: () => Promise.resolve({ default: ActionsModal }),
-  BLOCK_ACCOUNT: () => Promise.resolve({ default: BlockAccountModal }),
-  BLOCK_DOMAIN: () => Promise.resolve({ default: BlockDomainModal }),
-  BOOST: () => Promise.resolve({ default: BoostModal }),
-  COMMUNITY_TIMELINE_SETTINGS: () => Promise.resolve({ default: CommunityTimelineSettingsModal }),
-  COMPOSE: () => Promise.resolve({ default: ComposeModal }),
-  CONFIRM: () => Promise.resolve({ default: ConfirmationModal }),
-  EDIT_PROFILE: () => Promise.resolve({ default: EditProfileModal }),
-  EMBED: () => Promise.resolve({ default: EmbedModal }),
-  GIF_PICKER: () => Promise.resolve({ default: GifPickerModal }),
-  GROUP_CREATE: () => Promise.resolve({ default: GroupCreateModal }),
-  GROUP_DELETE: () => Promise.resolve({ default: GroupDeleteModal }),
-  GROUP_EDITOR: () => Promise.resolve({ default: GroupEditorModal }),
-  HASHTAG_TIMELINE_SETTINGS: () => Promise.resolve({ default: HashtagTimelineSettingsModal }),
-  HOME_TIMELINE_SETTINGS: () => Promise.resolve({ default: HomeTimelineSettingsModal }),
-  HOTKEYS: () => Promise.resolve({ default: HotkeysModal }),
-  LIST_CREATE: () => Promise.resolve({ default: ListCreateModal }),
-  LIST_DELETE: () => Promise.resolve({ default: ListDeleteModal }),
-  LIST_EDITOR: () => Promise.resolve({ default: ListEditorModal }),
-  LIST_TIMELINE_SETTINGS: () => Promise.resolve({ default: ListTimelineSettingsModal }),
-  MEDIA: () => Promise.resolve({ default: MediaModal }),
-  MUTE: MuteModal,
-  PRO_UPGRADE: () => Promise.resolve({ default: ProUpgradeModal }),
-  REPORT: ReportModal,
-  STATUS_REVISIONS: StatusRevisionsModal,
-  UNAUTHORIZED: () => Promise.resolve({ default: UnauthorizedModal }),
-  UNFOLLOW: () => Promise.resolve({ default: UnfollowModal }),
-  VIDEO: () => Promise.resolve({ default: VideoModal }),
-}
+const MODAL_COMPONENTS = {}
+MODAL_COMPONENTS[MODAL_ACTIONS] = ActionsModal
+MODAL_COMPONENTS[MODAL_BLOCK_ACCOUNT] = BlockAccountModal
+MODAL_COMPONENTS[MODAL_BLOCK_DOMAIN] = BlockDomainModal
+MODAL_COMPONENTS[MODAL_BOOST] = BoostModal
+MODAL_COMPONENTS[MODAL_COMMUNITY_TIMELINE_SETTINGS] = CommunityTimelineSettingsModal
+MODAL_COMPONENTS[MODAL_COMPOSE] = ComposeModal
+MODAL_COMPONENTS[MODAL_CONFIRM] = ConfirmationModal
+MODAL_COMPONENTS[MODAL_DISPLAY_OPTIONS] = DisplayOptionsModal
+MODAL_COMPONENTS[MODAL_EDIT_PROFILE] = EditProfileModal
+MODAL_COMPONENTS[MODAL_EMBED] = EmbedModal
+MODAL_COMPONENTS[MODAL_GIF_PICKER] = GifPickerModal
+MODAL_COMPONENTS[MODAL_GROUP_CREATE] = GroupCreateModal
+MODAL_COMPONENTS[MODAL_GROUP_DELETE] = GroupDeleteModal
+MODAL_COMPONENTS[MODAL_GROUP_EDITOR] = GroupEditorModal
+MODAL_COMPONENTS[MODAL_HASHTAG_TIMELINE_SETTINGS] = HashtagTimelineSettingsModal
+MODAL_COMPONENTS[MODAL_HOME_TIMELINE_SETTINGS] = HomeTimelineSettingsModal
+MODAL_COMPONENTS[MODAL_HOTKEYS] = HotkeysModal
+MODAL_COMPONENTS[MODAL_LIST_CREATE] = ListCreateModal
+MODAL_COMPONENTS[MODAL_LIST_DELETE] = ListDeleteModal
+MODAL_COMPONENTS[MODAL_LIST_EDITOR] = ListEditorModal
+MODAL_COMPONENTS[MODAL_LIST_TIMELINE_SETTINGS] = ListTimelineSettingsModal
+MODAL_COMPONENTS[MODAL_MEDIA] = MediaModal
+MODAL_COMPONENTS[MODAL_MUTE] = MuteModal
+MODAL_COMPONENTS[MODAL_PRO_UPGRADE] = ProUpgradeModal
+MODAL_COMPONENTS[MODAL_REPORT] = ReportModal
+MODAL_COMPONENTS[MODAL_STATUS_REVISIONS] = StatusRevisionsModal
+MODAL_COMPONENTS[MODAL_UNAUTHORIZED] = UnauthorizedModal
+MODAL_COMPONENTS[MODAL_UNFOLLOW] = UnfollowModal
+MODAL_COMPONENTS[MODAL_VIDEO] = VideoModal
 
 const mapStateToProps = (state) => ({
   type: state.getIn(['modal', 'modalType']),

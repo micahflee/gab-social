@@ -11,6 +11,7 @@ import ChatIcon from '../assets/chat_icon'
 import CircleIcon from '../assets/circle_icon'
 import CloseIcon from '../assets/close_icon'
 import CodeIcon from '../assets/code_icon'
+import CogIcon from '../assets/cog_icon'
 import CommentIcon from '../assets/comment_icon'
 import CopyIcon from '../assets/copy_icon'
 import DissenterIcon from '../assets/dissenter_icon'
@@ -80,6 +81,7 @@ const ICONS = {
   'chat': ChatIcon,
   'close': CloseIcon,
   'code': CodeIcon,
+  'cog': CogIcon,
   'comment': CommentIcon,
   'copy': CopyIcon,
   'dissenter': DissenterIcon,

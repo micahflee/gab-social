@@ -30,6 +30,10 @@ export const UNPIN_REQUEST = 'UNPIN_REQUEST';
 export const UNPIN_SUCCESS = 'UNPIN_SUCCESS';
 export const UNPIN_FAIL    = 'UNPIN_FAIL';
 
+export const LIKES_FETCH_REQUEST = 'LIKES_FETCH_REQUEST';
+export const LIKES_FETCH_SUCCESS = 'LIKES_FETCH_SUCCESS';
+export const LIKES_FETCH_FAIL    = 'LIKES_FETCH_FAIL';
+
 export function repost(status) {
   return function (dispatch, getState) {
     if (!me) return;
@@ -306,5 +310,40 @@ export function unpinFail(status, error) {
     status,
     error,
     skipLoading: true,
+  };
+};
+
+export function fetchLikes(id) {
+  return (dispatch, getState) => {
+    dispatch(fetchLikesRequest(id));
+
+    api(getState).get(`/api/v1/statuses/${id}/favourited_by`).then(response => {
+      dispatch(importFetchedAccounts(response.data));
+      dispatch(fetchLikesSuccess(id, response.data));
+    }).catch(error => {
+      dispatch(fetchLikesFail(id, error));
+    });
+  };
+};
+
+export function fetchLikesRequest(id) {
+  return {
+    type: LIKES_FETCH_REQUEST,
+    id,
+  };
+};
+
+export function fetchLikesSuccess(id, accounts) {
+  return {
+    type: LIKES_FETCH_SUCCESS,
+    id,
+    accounts,
+  };
+};
+
+export function fetchLikesFail(id, error) {
+  return {
+    type: LIKES_FETCH_FAIL,
+    error,
   };
 };

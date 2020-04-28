@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
+import { MODAL_GROUP_CREATE } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
@@ -22,7 +23,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenGroupCreateModal() {
-    dispatch(openModal('GROUP_CREATE'))
+    dispatch(openModal(MODAL_GROUP_CREATE))
   },
 })
 
@@ -81,6 +82,7 @@ class GroupsPage extends PureComponent {
         showBackBtn
         title={title}
         actions={actions}
+        tabs={tabs}
         layout={(
           <Fragment>
             <WhoToFollowPanel />
@@ -88,7 +90,6 @@ class GroupsPage extends PureComponent {
             <LinkFooter />
           </Fragment>
         )}
-        tabs={tabs}
       >
         <PageTitle path={title} />
         { children }

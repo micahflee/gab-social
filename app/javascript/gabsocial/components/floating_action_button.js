@@ -31,8 +31,6 @@ class FloatingActionButton extends PureComponent {
     return (
       <Button
         onClick={onOpenCompose}
-        color='white'
-        backgroundColor='brand'
         className={[_s.posFixed, _s.z4, _s.py15, _s.mb15, _s.mr15, _s.bottom0, _s.right0].join(' ')}
         title={message}
         aria-label={message}

@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
+import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
@@ -34,10 +35,16 @@ class GroupCollectionItem extends ImmutablePureComponent {
   static propTypes = {
     group: ImmutablePropTypes.map,
     relationships: ImmutablePropTypes.map,
+    isHidden: PropTypes.bool,
   }
 
   render() {
-    const { intl, group, relationships } = this.props
+    const {
+      intl,
+      group,
+      relationships,
+      isHidden,
+    } = this.props
 
     if (!relationships) return null
 
@@ -53,7 +60,20 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
     const isMember = relationships.get('member')
     const isAdmin = relationships.get('admin')
-    const coverSrc = group.get('cover')
+    const coverSrc = group.get('cover_image_url') || ''
+    const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
+
+
+    if (isHidden) {
+      return (
+        <Fragment>
+          {group.get('title')}
+          {subtitle}
+          {isMember && intl.formatMessage(messages.member)}
+          {isAdmin && intl.formatMessage(messages.admin)}
+        </Fragment>
+      )
+    }
 
     const navLinkClasses = cx({
       default: 1,
@@ -77,7 +97,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
           className={navLinkClasses}
         >
           {
-            !!coverSrc &&
+            !!coverSrc && !coverMissing &&
             <Image
               src={coverSrc}
               alt={group.get('title')}
@@ -86,7 +106,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
           }
 
           {
-            !coverSrc && (isMember || isAdmin) &&
+            (!coverSrc || coverMissing) && (isMember || isAdmin) &&
             <div className={[_s.default, _s.height40PX, _s.backgroundColorSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
           }
 

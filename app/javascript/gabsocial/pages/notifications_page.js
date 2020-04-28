@@ -93,8 +93,10 @@ class NotificationsPage extends PureComponent {
     const tabs = filters.map((filter) => ({ 
       title: intl.formatMessage(messages[filter]),
       onClick: () => this.onChangeActiveFilter(filter),
-      active: selectedFilter === filter,
+      active: selectedFilter.toLowerCase() === filter.toLowerCase(),
     }))
+
+    console.log("selectedFilter, filter: ", tabs, selectedFilter)
 
     return (
       <DefaultLayout
@@ -117,4 +119,4 @@ class NotificationsPage extends PureComponent {
       </DefaultLayout>
     )
   }
-}
+}{}

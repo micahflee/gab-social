@@ -92,7 +92,7 @@ class GroupPage extends ImmutablePureComponent {
 					<Fragment>
 						<GroupInfoPanel group={group} />
 						<WhoToFollowPanel />
-						<GroupSidebarPanel slim />
+						<GroupSidebarPanel isSlim />
 						<LinkFooter />
 					</Fragment>
 				)}

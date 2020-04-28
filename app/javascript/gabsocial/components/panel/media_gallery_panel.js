@@ -66,11 +66,12 @@ class MediaGalleryPanel extends ImmutablePureComponent {
       >
         <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
           {
-            attachments.slice(0, 16).map((attachment) => (
+            attachments.slice(0, 16).map((attachment, i) => (
               <MediaItem
-                small
+                isSmall
                 key={attachment.get('id')}
                 attachment={attachment}
+                account={account}
               />
             ))
           }

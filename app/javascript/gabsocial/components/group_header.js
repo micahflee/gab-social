@@ -65,7 +65,7 @@ class GroupHeader extends ImmutablePureComponent {
       },
     ]
 
-    const coverSrc = !!group ? group.get('cover') : undefined
+    const coverSrc = !!group ? group.get('cover_image_url') : undefined
     const title = !!group ? group.get('title') : undefined
 
     return (

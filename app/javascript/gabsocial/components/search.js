@@ -57,8 +57,8 @@ class Search extends PureComponent {
     }
   }
 
-  handleChange = (e) => {
-    this.props.onChange(e.target.value)
+  handleChange = (value) => {
+    this.props.onChange(value)
   }
 
   handleFocus = () => {

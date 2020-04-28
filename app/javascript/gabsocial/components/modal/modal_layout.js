@@ -17,7 +17,6 @@ class ModalLayout extends PureComponent {
     title: PropTypes.string,
     children: PropTypes.node,
     onClose: PropTypes.func.isRequired,
-    handleCloseModal: PropTypes.func.isRequired,
     width: PropTypes.number,
     hideClose: PropTypes.bool,
     noPadding: PropTypes.bool,

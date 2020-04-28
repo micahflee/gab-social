@@ -98,8 +98,12 @@ class AccountGallery extends ImmutablePureComponent {
         >
 
           {
-            attachments.map((attachment) => (
-              <MediaItem key={attachment.get('id')} attachment={attachment} />
+            attachments.map((attachment, i) => (
+              <MediaItem
+                key={attachment.get('id')}
+                attachment={attachment}
+                account={account}
+              />
             ))
           }
 
@@ -108,16 +112,16 @@ class AccountGallery extends ImmutablePureComponent {
             <ColumnIndicator type='loading' />
           }
 
-          { /*
-            attachments.size === 0 &&
-            <ColumnIndicator type='empty' message={intl.formatMessage(messages.none)} />
-          */ }
-
           {
-            hasMore && !(isLoading && attachments.size === 0) &&
-            <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />
+            !isLoading && attachments.size === 0 &&
+            <ColumnIndicator type='error' message={intl.formatMessage(messages.none)} />
           }
         </div>
+
+        {
+          hasMore && !(isLoading && attachments.size === 0) &&
+          <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />
+        }
       </Block>
     )
   }

@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
@@ -9,6 +10,7 @@ export default class ListItem extends PureComponent {
   static propTypes = {
     icon: PropTypes.string,
     isLast: PropTypes.bool,
+    isHidden: PropTypes.bool,
     to: PropTypes.string,
     href: PropTypes.string,
     title: PropTypes.string,
@@ -29,7 +31,16 @@ export default class ListItem extends PureComponent {
       size,
       icon,
       hideArrow,
+      isHidden,
     } = this.props
+
+    if (isHidden) {
+      return (
+        <Fragment>
+          {title}
+        </Fragment>
+      )
+    }
 
     const small = size === 'small'
     const large = size === 'large'
@@ -77,7 +88,7 @@ export default class ListItem extends PureComponent {
           />
         }
 
-        <Text color='primary' size={textSize}>
+        <Text color='primary' size={textSize} className={[_s.overflowHidden, _s.flexNormal, _s.pr5, _s.textOverflowEllipsis].join(' ')}>
           {title}
         </Text>
 
@@ -86,7 +97,7 @@ export default class ListItem extends PureComponent {
           <Icon
             id='angle-right'
             size='10px'
-            className={[_s.mlAuto, _s.fillColorSecondary].join(' ')}
+            className={[_s.mlAuto, _s.fillColorSecondary, _s.flexShrink1].join(' ')}
           />
         }
       </Button>

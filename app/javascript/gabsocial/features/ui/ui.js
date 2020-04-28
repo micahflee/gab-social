@@ -6,6 +6,7 @@ import { Switch, Redirect, withRouter } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import { uploadCompose, resetCompose } from '../../actions/compose'
 import { expandHomeTimeline } from '../../actions/timelines'
+import { fetchGroups } from '../../actions/groups'
 import {
   initializeNotifications,
   expandNotifications,
@@ -40,7 +41,6 @@ import {
   BlockedAccounts,
   BlockedDomains,
   CommunityTimeline,
-  // Favorites,
   // Filters,
   Followers,
   Following,
@@ -61,17 +61,17 @@ import {
   ListTimeline,
   Mutes,
   Notifications,
-  Reposts,
   Search,
   // Shortcuts,
   Status,
+  StatusLikes,
+  StatusReposts,
 } from './util/async_components'
 import { me, meUsername } from '../../initial_state'
 
 // Dummy import, to make sure that <Status /> ends up in the application bundle.
 // Without this it ends up in ~8 very commonly used bundles.
 import '../../components/status'
-import { fetchGroups } from '../../actions/groups'
 
 const messages = defineMessages({
   beforeUnload: { id: 'ui.beforeunload', defaultMessage: 'Your draft will be lost if you leave Gab Social.' },
@@ -116,7 +116,7 @@ class SwitchingArea extends PureComponent {
     onLayoutChange: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     window.addEventListener('resize', this.handleResize, {
       passive: true
     })
@@ -209,10 +209,10 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={Status} content={children} componentParams={{ title: 'Status' }} />
 
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
-        <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={Reposts} content={children} componentParams={{ title: 'Reposts' }} />
+        <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
 
-        { /* <Redirect from='/@:username/posts/:statusId/favorites' to='/:username/posts/:statusId/favorites' />
-        <WrappedRoute path='/:username/posts/:statusId/favorites' page={BasicPage} component={Favorites} content={children} componentParams={{ title: 'Favorites' }} /> */ }
+        <Redirect from='/@:username/posts/:statusId/likes' to='/:username/posts/:statusId/likes' />
+        <WrappedRoute path='/:username/posts/:statusId/likes' page={BasicPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} />
 
         <WrappedRoute page={ErrorPage} component={GenericNotFound} content={children} />
       </Switch>
@@ -349,7 +349,13 @@ class UI extends PureComponent {
     }
   }
 
-  componentWillMount() {
+  // componentWillMount() {
+    
+  // }
+
+  componentDidMount() {
+    // if (!me) return
+
     window.addEventListener('beforeunload', this.handleBeforeUnload, false)
 
     document.addEventListener('dragenter', this.handleDragEnter, false)
@@ -370,15 +376,9 @@ class UI extends PureComponent {
       this.props.dispatch(expandHomeTimeline())
       this.props.dispatch(expandNotifications())
       this.props.dispatch(initializeNotifications())
-      this.props.dispatch(fetchGroups('member'))
 
       setTimeout(() => this.props.dispatch(fetchFilters()), 500)
     }
-  }
-
-  componentDidMount() {
-    if (!me) return
-
     // this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
     //   return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName)
     // }
@@ -435,7 +435,7 @@ class UI extends PureComponent {
   }
 
   handleHotkeyToggleHelp = () => {
-    this.props.dispatch(openModal("HOTKEYS"))
+    this.props.dispatch(openModal('HOTKEYS'))
   }
 
   handleHotkeyGoToHome = () => {
@@ -471,7 +471,7 @@ class UI extends PureComponent {
   }
 
   handleOpenComposeModal = () => {
-    this.props.dispatch(openModal("COMPOSE"))
+    this.props.dispatch(openModal('COMPOSE'))
   }
 
   render() {

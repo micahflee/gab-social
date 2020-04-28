@@ -6,7 +6,6 @@ import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
 import TrendsPanel from '../components/panel/trends_panel'
-import HashtagsPanel from '../components/panel/hashtags_panel'
 import DefaultLayout from '../layouts/default_layout'
 
 const messages = defineMessages({
@@ -53,7 +52,6 @@ class HashtagPage extends PureComponent {
           <Fragment>
             <ProgressPanel />
             <TrendsPanel />
-            <HashtagsPanel />
             <WhoToFollowPanel />
             <LinkFooter />
           </Fragment>

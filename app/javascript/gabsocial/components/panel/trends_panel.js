@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { fetchGabTrends } from '../../actions/gab_trends'
 import PanelLayout from './panel_layout'
 import ColumnIndicator from '../column_indicator'
+import ScrollableList from '../scrollable_list'
 import TrendingItem from '../trends_item'
 
 const messages = defineMessages({
@@ -29,7 +30,7 @@ class TrendsPanel extends ImmutablePureComponent {
     onFetchGabTrends: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.onFetchGabTrends()
   }
 
@@ -47,19 +48,26 @@ class TrendsPanel extends ImmutablePureComponent {
             <ColumnIndicator type='loading' />
           }
           {
-            gabtrends && gabtrends.slice(0, 8).map((trend, i) => (
-              <TrendingItem
-                key={`gab-trend-${i}`}
-                index={i + 1}
-                isLast={i === 7}
-                url={trend.get('url')}
-                title={trend.get('title')}
-                description={trend.get('description')}
-                imageUrl={trend.get('image')}
-                publishDate={trend.get('date_published')}
-                author={trend.getIn(['author', 'name'], '')}
-              />
-            ))
+            !gabtrends.isEmpty() && 
+            <ScrollableList
+              scrollKey='trending-items'
+            >
+              {
+                gabtrends.slice(0, 8).map((trend, i) => (
+                  <TrendingItem
+                    key={`gab-trend-${i}`}
+                    index={i + 1}
+                    isLast={i === 7}
+                    url={trend.get('url')}
+                    title={trend.get('title')}
+                    description={trend.get('description')}
+                    imageUrl={trend.get('image')}
+                    publishDate={trend.get('date_published')}
+                    author={trend.getIn(['author', 'name'], '')}
+                  />
+                ))
+              }
+            </ScrollableList>
           }
         </div>
       </PanelLayout>

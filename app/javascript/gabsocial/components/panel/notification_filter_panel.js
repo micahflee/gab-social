@@ -9,7 +9,7 @@ import SettingSwitch from '../setting_switch'
 const messages = defineMessages({
   title: { id: 'notification_filters', defaultMessage: 'Notification Filters' },
   onlyVerified: { id: 'notification_only_verified', defaultMessage: 'Only Verified Users' },
-  onlyFollowing: { id: 'notification_only_following', defaultMessage: 'Only People I Follow' },
+  // onlyFollowing: { id: 'notification_only_following', defaultMessage: 'Only People I Follow' },
 })
 
 const mapStateToProps = (state) => ({
@@ -55,13 +55,14 @@ class NotificationFilterPanel extends ImmutablePureComponent {
           label={intl.formatMessage(messages.onlyVerified)}
         />
 
-        <SettingSwitch
+        { /* : todo :
+          <SettingSwitch
           prefix='notification'
           settings={settings}
           settingPath={'onlyFollowing'}
           onChange={onChange}
           label={intl.formatMessage(messages.onlyFollowing)}
-        />
+        /> */ }
       </PanelLayout>
     )
   }

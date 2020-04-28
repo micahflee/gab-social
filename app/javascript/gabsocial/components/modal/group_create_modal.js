@@ -4,7 +4,7 @@ import ModalLayout from './modal_layout'
 import GroupCreate from '../../features/group_create'
 
 const messages = defineMessages({
-  title: { id: 'create_group', defaultMessage: 'Create Group' },
+  title: { id: 'create_group', defaultMessage: 'Create group' },
 })
 
 export default
@@ -22,7 +22,7 @@ class GroupCreateModal extends ImmutablePureComponent {
     return (
       <ModalLayout
         title={intl.formatMessage(messages.title)}
-        width='440'
+        width={440}
         onClose={onClose}
       >
         <GroupCreate onCloseModal={onClose} />

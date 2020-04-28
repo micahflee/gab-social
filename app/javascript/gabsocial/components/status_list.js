@@ -43,8 +43,13 @@ const mapStateToProps = (state, { timelineId }) => {
   const getStatusIds = makeGetStatusIds();
   const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
+  const statusIds = getStatusIds(state, {
+    type: timelineId.substring(0,5) === 'group' ? 'group' : timelineId,
+    id: timelineId
+  })
+
   return {
-    statusIds: getStatusIds(state, { type: timelineId.substring(0,5) === 'group' ? 'group' : timelineId, id: timelineId }),
+    statusIds,
     isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
     hasMore: state.getIn(['timelines', timelineId, 'hasMore']),

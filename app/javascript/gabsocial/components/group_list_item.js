@@ -4,6 +4,7 @@ import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
+import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
 import Image from './image'
 import Text from './text'
@@ -31,6 +32,7 @@ class GroupListItem extends ImmutablePureComponent {
     relationships: ImmutablePropTypes.map,
     slim: PropTypes.bool,
     isLast: PropTypes.bool,
+    isHidden: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -39,9 +41,16 @@ class GroupListItem extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, group, relationships, slim, isLast } = this.props
+    const {
+      intl,
+      group,
+      relationships,
+      slim,
+      isLast,
+      isHidden,
+    } = this.props
 
-    if (!relationships) return null
+    if (!relationships || !group) return null
 
     const unreadCount = relationships.get('unread_count')
 
@@ -53,6 +62,15 @@ class GroupListItem extends ImmutablePureComponent {
       </Fragment>
     ) : intl.formatMessage(messages.no_recent_activity)
 
+    if (isHidden) {
+      return (
+        <Fragment>
+          {group.get('title')}
+          {subtitle}
+        </Fragment>
+      )
+    }
+    
     const containerClasses = cx({
       default: 1,
       noUnderline: 1,
@@ -80,10 +98,12 @@ class GroupListItem extends ImmutablePureComponent {
       default: 1,
       px10: 1,
       mt5: 1,
+      flexShrink1: slim,
       mb10: !slim,
     })
 
-    const coverSrc = group.get('cover')
+    const coverSrc = group.get('cover_image_url') || ''
+    const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
 
     return (
       <NavLink
@@ -92,7 +112,7 @@ class GroupListItem extends ImmutablePureComponent {
       >
 
         {
-          (!!coverSrc || slim) &&
+          (!!coverSrc || slim) && !coverMissing &&
           <Image
             src={coverSrc}
             alt={group.get('title')}

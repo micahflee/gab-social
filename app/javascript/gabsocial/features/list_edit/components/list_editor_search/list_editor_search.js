@@ -12,9 +12,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: value => dispatch(fetchListSuggestions(value)),
+  onSubmit: (value) => dispatch(fetchListSuggestions(value)),
   onClear: () => dispatch(clearListSuggestions()),
-  onChange: value => dispatch(changeListSuggestions(value)),
+  onChange: (value) => dispatch(changeListSuggestions(value)),
 });
 
 export default

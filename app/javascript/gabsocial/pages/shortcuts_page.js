@@ -6,7 +6,6 @@ import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
 import UserPanel from '../components/panel/user_panel'
 import TrendsPanel from '../components/panel/trends_panel'
-import HashtagsPanel from '../components/panel/hashtags_panel'
 import DefaultLayout from '../layouts/default_layout'
 
 export default
@@ -24,7 +23,6 @@ class ShortcutsPage extends PureComponent {
             <UserPanel />
             <ProgressPanel />
             <TrendsPanel />
-            <HashtagsPanel />
             <WhoToFollowPanel />
             <GroupSidebarPanel />
             <LinkFooter />

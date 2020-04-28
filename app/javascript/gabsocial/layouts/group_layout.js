@@ -32,7 +32,7 @@ export default class GroupLayout extends ImmutablePureComponent {
         actions={actions}
         showBackBtn={showBackBtn}
       >
-        <div className={[_s.default, _s.width1015PX, _s.pl15, _s.py15].join(' ')}>
+        <div className={[_s.default, _s.width100PC].join(' ')}>
 
           <GroupHeader group={group} relationships={relationships} />
 

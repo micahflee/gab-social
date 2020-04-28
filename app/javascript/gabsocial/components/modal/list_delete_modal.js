@@ -1,6 +1,5 @@
 import { injectIntl, defineMessages } from 'react-intl'
-import { makeGetAccount } from '../../selectors'
-import { blockAccount } from '../../actions/accounts'
+import { deleteList } from '../../actions/lists'
 import ConfirmationModal from './confirmation_modal'
 
 const messages = defineMessages({
@@ -10,14 +9,14 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onConfirm(account) {
-    // dispatch(blockAccount(account.get('id')))
+  onConfirm(listId) {
+    dispatch(deleteList(listId))
   },
 })
 
 export default
-@connect(null, mapDispatchToProps)
 @injectIntl
+@connect(null, mapDispatchToProps)
 class ListDeleteModal extends PureComponent {
 
   static propTypes = {
@@ -27,17 +26,17 @@ class ListDeleteModal extends PureComponent {
   }
 
   handleClick = () => {
-    this.props.onConfirm(this.props.account)
+    this.props.onConfirm(this.props.list.get('id'))
   }
 
   render() {
     const { list, intl, onClose } = this.props
 
     const title = intl.formatMessage(messages.title, {
-      list: !!list ? account.get('title') : '',
+      list: !!list ? list.get('title') : '',
     })
     const message = intl.formatMessage(messages.listMessage, {
-      list: !!list ? account.get('title') : '',
+      list: !!list ? list.get('title') : '',
     })
 
     return (

@@ -36,19 +36,34 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     'suggestions',
   ]
 
-  componentDidMount () {
-    this.props.fetchSuggestions()
+  state = {
+    fetched: false,
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
+      return {
+        fetched: true
+      }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevState.fetched && this.state.fetched) {
+      this.props.fetchSuggestions()
+    }
   }
 
   render() {
     const { intl, suggestions, dismissSuggestion } = this.props
 
-    if (suggestions.isEmpty()) {
-      return null
-    }
+    if (suggestions.isEmpty()) return null
 
     return (
       <PanelLayout
+        noPadding
         title={intl.formatMessage(messages.title)}
         footerButtonTitle={intl.formatMessage(messages.show_more)}
         footerButtonTo='/explore'
@@ -57,6 +72,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
           {
             suggestions.map(accountId => (
               <Account
+                compact
                 showDismiss
                 key={accountId}
                 id={accountId}

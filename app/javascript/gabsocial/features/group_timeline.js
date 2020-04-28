@@ -85,7 +85,7 @@ class GroupTimeline extends ImmutablePureComponent {
 		}
 
 		return (
-			<StatusListContainer
+			<StatusList
 				alwaysPrepend
 				scrollKey={`group_timeline-${columnId}`}
 				timelineId={`group:${id}`}

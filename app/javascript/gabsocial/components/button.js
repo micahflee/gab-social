@@ -164,13 +164,13 @@ export default class Button extends PureComponent {
 
       underline_onHover: underlineOnHover,
 
-      backgroundColorSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary,
-      backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black,
-      backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand,
-      backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger,
+      backgroundColorSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary && !isDisabled,
+      backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black && !isDisabled,
+      backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand && !isDisabled,
+      backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger && !isDisabled,
 
-      backgroundColorBrand_onHover: color === COLORS.brand && isOutline,
-      colorWhite_onHover: !!children && color === COLORS.brand && isOutline,
+      backgroundColorBrand_onHover: color === COLORS.brand && isOutline && !isDisabled,
+      colorWhite_onHover: !!children && color === COLORS.brand && isOutline && !isDisabled,
 
       fillColorSecondary: !!icon && color === COLORS.secondary,
       fillColorWhite: !!icon && color === COLORS.white,

@@ -165,7 +165,7 @@ class Account extends ImmutablePureComponent {
           <NavLink
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
-            className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.px10, _s.flexGrow1].join(' ')}
+            className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}
           >
             <DisplayName account={account} isMultiline={compact} />
             {!compact && actionButton}

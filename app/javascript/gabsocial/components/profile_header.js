@@ -6,7 +6,9 @@ import {
   CX,
   POPOVER_PROFILE_OPTIONS,
   PLACEHOLDER_MISSING_HEADER_SRC,
+  MODAL_EDIT_PROFILE,
 } from '../constants'
+import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
 import AccountActionButton from './account_action_button'
@@ -27,12 +29,17 @@ const messages = defineMessages({
   comments: { id: 'comments', defaultMessage: 'Comments' },
   media: { id: 'media', defaultMessage: 'Media' },
   accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
+  editProfile: { id: "account.edit_profile", defaultMessage: "Edit profile" },
 })
 
 const mapDispatchToProps = (dispatch) => ({
 
   openProfileOptionsPopover(props) {
     dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
+  },
+
+  onEditProfile() {
+    dispatch(openModal(MODAL_EDIT_PROFILE))
   },
 
 });
@@ -45,11 +52,16 @@ class ProfileHeader extends ImmutablePureComponent {
   static propTypes = {
     account: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
+    onEditProfile: PropTypes.func.isRequired,
     openProfileOptionsPopover: PropTypes.func.isRequired,
   }
 
   state = {
     stickied: false,
+  }
+
+  handleOnEditProfile = () => {
+    this.props.onEditProfile()
   }
 
   handleOpenMore = () => {
@@ -164,15 +176,10 @@ class ProfileHeader extends ImmutablePureComponent {
                     backgroundColor='none'
                     color='brand'
                     className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                    href=''
+                    onClick={this.handleOnEditProfile}
                   >
-                    <Text
-                      color='inherit'
-                      weight='bold'
-                      size='medium'
-                      className={[_s.px15].join(' ')}
-                    >
-                      Edit Profile
+                    <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
+                      {intl.formatMessage(messages.editProfile)}
                     </Text>
                   </Button>
                 </div>

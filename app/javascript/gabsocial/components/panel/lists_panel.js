@@ -32,8 +32,28 @@ class ListsPanel extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
   }
 
-  componentWillMount() {
-    this.props.onFetchLists()
+  state = {
+    fetched: false,
+  }
+
+  updateOnProps = [
+    'lists',
+  ]
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
+      return {
+        fetched: true,
+      }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevState.fetched && this.state.fetched) {
+      this.props.onFetchLists()
+    }
   }
 
   render() {

@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { defineMessages, injectIntl } from 'react-intl'
+import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { shortNumberFormat } from '../../utils/numbers'
@@ -9,6 +9,7 @@ import Divider from '../divider'
 import Heading from '../heading'
 import Icon from '../icon'
 import Text from '../text'
+import RelativeTimestamp from '../relative_timestamp'
 
 const messages = defineMessages({
   title: { id: 'about', defaultMessage: 'About' },
@@ -27,15 +28,19 @@ class GroupInfoPanel extends ImmutablePureComponent {
   render() {
     const { intl, group } = this.props
 
+    console.log("group:", group)
+
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
         {
           !!group &&
           <Fragment>
 
-            <Heading size='h2'>
-              {group.get('title')}
-            </Heading>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+              <Text weight='medium'>
+                {group.get('title')}
+              </Text>
+            </div>
 
             <Divider isSmall />
 
@@ -59,6 +64,23 @@ class GroupInfoPanel extends ImmutablePureComponent {
                   {intl.formatMessage(messages.members)}
                 </Text>
               </Button>
+            </div>
+
+            <Divider isSmall />
+
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+              <Icon id='calendar' size='12px' className={_s.fillColorSecondary} />
+              <Text
+                size='small'
+                color='secondary'
+                className={_s.ml5}
+              >
+                {
+                  <FormattedMessage id='lists.panel_created' defaultMessage='Created: {date}' values={{
+                    date: <RelativeTimestamp timestamp={group.get('created_at')} />,
+                  }} />
+                }
+              </Text>
             </div>
 
             <Divider isSmall />

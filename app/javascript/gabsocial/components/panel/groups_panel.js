@@ -1,9 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
+import { fetchGroups } from '../../actions/groups'
 import PanelLayout from './panel_layout'
 import GroupListItem from '../group_list_item'
-import Button from '../button'
+import ScrollableList from '../scrollable_list'
 
 const messages = defineMessages({
   title: { id: 'groups.sidebar-panel.title', defaultMessage: 'Groups you\'re in' },
@@ -15,13 +16,41 @@ const mapStateToProps = (state) => ({
   groupIds: state.getIn(['group_lists', 'member']),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onFetchGroups: (type) => {
+    dispatch(fetchGroups(type))
+  }
+})
+
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class GroupSidebarPanel extends ImmutablePureComponent {
   static propTypes = {
     groupIds: ImmutablePropTypes.list,
-    slim: PropTypes.bool,
+    isLazy: PropTypes.bool, 
+    isSlim: PropTypes.bool,
+    onFetchGroups: PropTypes.func.isRequired,
+  }
+
+  state = {
+    fetched: false,
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
+      return {
+        fetched: true
+      }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!prevState.fetched && this.state.fetched && this.props.isLazy) {
+      this.props.onFetchGroups('member')
+    }
   }
 
   render() {
@@ -42,16 +71,20 @@ class GroupSidebarPanel extends ImmutablePureComponent {
         noPadding={slim}
       >
         <div className={_s.default}>
-          {
-            groupIds.slice(0, maxCount).map((groupId, i) => (
-              <GroupListItem
-                key={`group-panel-item-${groupId}`}
-                id={groupId}
-                slim={slim}
-                isLast={groupIds.length - 1 === i}
-              />
-            ))
-          }
+          <ScrollableList
+            scrollKey='groups-panel'
+          >
+            {
+              groupIds.slice(0, maxCount).map((groupId, i) => (
+                <GroupListItem
+                  key={`group-panel-item-${groupId}`}
+                  id={groupId}
+                  slim={slim}
+                  isLast={groupIds.length - 1 === i}
+                />
+              ))
+            }
+          </ScrollableList>
         </div>
       </PanelLayout>
     )

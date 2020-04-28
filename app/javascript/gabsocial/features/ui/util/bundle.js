@@ -1,7 +1,7 @@
 import {
   fetchBundleRequest,
   fetchBundleSuccess,
-  fetchBundleFail
+  fetchBundleFail,
 } from '../../../actions/bundles'
 
 const mapDispatchToProps = (dispatch) => ({

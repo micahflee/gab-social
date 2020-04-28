@@ -13,13 +13,14 @@ const cx = classNames.bind(_s)
 export default class MediaItem extends ImmutablePureComponent {
 
   static propTypes = {
+    account: ImmutablePropTypes.map.isRequired,
     attachment: ImmutablePropTypes.map.isRequired,
-    small: PropTypes.bool
+    isSmall: PropTypes.bool,
   }
 
   state = {
-    visible: displayMedia !== 'hide_all' && !this.props.attachment.getIn(['status', 'sensitive']) || displayMedia === 'show_all',
     loaded: false,
+    visible: displayMedia !== 'hide_all' && !this.props.attachment.getIn(['status', 'sensitive']) || displayMedia === 'show_all',
   }
 
   componentDidMount() {
@@ -59,7 +60,11 @@ export default class MediaItem extends ImmutablePureComponent {
   }
 
   render() {
-    const { attachment, small } = this.props
+    const {
+      account,
+      attachment,
+      isSmall,
+    } = this.props
     const { visible, loaded } = this.state
 
     const status = attachment.get('status')
@@ -81,8 +86,8 @@ export default class MediaItem extends ImmutablePureComponent {
       top0: 1,
       height100PC: 1,
       width100PC: 1,
-      py5: !small,
-      px5: !small,
+      py2: !isSmall,
+      px2: !isSmall,
     })
 
     const linkClasses = cx({
@@ -91,15 +96,16 @@ export default class MediaItem extends ImmutablePureComponent {
       height100PC: 1,
       overflowHidden: 1,
       border1PX: 1,
-      borderColorPrimary: !small,
-      borderColorPrimary: small,
+      borderColorPrimary: 1,
     })
+
+    const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`;
 
     return (
       <div className={[_s.default, _s.width25PC, _s.pt25PC].join(' ')}>
         <div className={containerClasses}>
           <NavLink
-            to={status.get('url')} /* : todo : */
+            to={statusUrl}
             title={title}
             className={linkClasses}
           >

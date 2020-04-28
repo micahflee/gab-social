@@ -196,7 +196,7 @@ export default class ScrollableList extends PureComponent {
     return firstChild && firstChild.key;
   }
 
-  handleLoadMore = e => {
+  handleLoadMore = (e) => {
     e.preventDefault();
     this.props.onLoadMore();
   }
@@ -213,9 +213,7 @@ export default class ScrollableList extends PureComponent {
     } = this.props
     const childrenCount = React.Children.count(children);
 
-    const trackScroll = true; //placeholder
-
-    const loadMore = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null;
+    const loadMore = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null
 
     if (showLoading) {
       return <ColumnIndicator type='loading' />
@@ -232,7 +230,7 @@ export default class ScrollableList extends PureComponent {
                   index={index}
                   listLength={childrenCount}
                   intersectionObserverWrapper={this.intersectionObserverWrapper}
-                  saveHeightKey={trackScroll ? `${this.context.router.route.location.key}:${scrollKey}` : null}
+                  saveHeightKey={`${this.context.router.route.location.key}:${scrollKey}`}
                 >
                   {
                     React.cloneElement(child, {
