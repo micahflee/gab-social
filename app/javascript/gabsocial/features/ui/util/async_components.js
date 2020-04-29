@@ -59,6 +59,7 @@ export function ReportModal() { return import(/* webpackChunkName: "modals/repor
 export function RepostOptionsPopover() { return import(/* webpackChunkName: "components/repost_options_popover" */'../../../components/popover/repost_options_popover') }
 export function Search() { return import(/*webpackChunkName: "features/search" */'../../search') }
 export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
+export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
 export function SearchPopover() { return import(/* webpackChunkName: "components/search_popover" */'../../../components/popover/search_popover') }
 export function SidebarMorePopover() { return import(/* webpackChunkName: "components/sidebar_more_popover" */'../../../components/popover/sidebar_more_popover') }
 export function StatusLikes() { return import(/* webpackChunkName: "features/status_likes" */'../../status_likes') }

@@ -27,8 +27,8 @@ export default class ComposeExtraButton extends PureComponent {
     } = this.props
 
     const btnClasses = cx({
-      backgroundColorSubtle_onHover: !active,
-      backgroundColorBrandLight: active,
+      bgSubtle_onHover: !active,
+      bgBrandLight: active,
       py10: !small,
       px10: !small,
       py5: small,
@@ -37,8 +37,8 @@ export default class ComposeExtraButton extends PureComponent {
     })
 
     const iconClasses = cx({
-      fillColorSecondary: !active,
-      fillColorWhite: active,
+      fillSecondary: !active,
+      fillWhite: active,
     })
 
     const iconSize = !!small ? '14px' : '16px'

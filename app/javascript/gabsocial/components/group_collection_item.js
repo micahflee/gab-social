@@ -86,8 +86,8 @@ class GroupCollectionItem extends ImmutablePureComponent {
       mb10: 1,
       ml5: 1,
       mr5: 1,
-      backgroundColorPrimary: 1,
-      backgroundColorSubtle_onHover: isMember,
+      bgPrimary: 1,
+      bgSubtle_onHover: isMember,
     })
 
     return (
@@ -107,7 +107,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           {
             (!coverSrc || coverMissing) && (isMember || isAdmin) &&
-            <div className={[_s.default, _s.height40PX, _s.backgroundColorSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+            <div className={[_s.default, _s.height40PX, _s.bgSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
           }
 
           {
@@ -117,7 +117,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
                 isMember &&
                 <Text
                   isBadge
-                  className={_s.backgroundColorWhite}
+                  className={_s.bgWhite}
                   size='extraSmall'
                   color='brand'
                 >
@@ -128,7 +128,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
                 isAdmin &&
                 <Text
                   isBadge
-                  className={[_s.backgroundColorBlack, _s.ml5].join(' ')}
+                  className={[_s.bgBlack, _s.ml5].join(' ')}
                   size='extraSmall'
                   color='white'
                 >

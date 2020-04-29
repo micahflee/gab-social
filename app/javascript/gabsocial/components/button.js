@@ -37,6 +37,8 @@ const COLORS = {
  * @param {func} [props.onMouseEnter] - function to call on button mouse enter
  * @param {func} [props.onMouseLeave] - function to call on button mouse leave
  * @param {bool} [props.radiusSmall] - if the button has small radius
+ * @param {bool} [props.rel] - rel for the button
+ * @param {bool} [props.target] - target for the button
  * @param {bool} [props.text] - if the button is just text (i.e. link)
  * @param {bool} [props.title] - `title` attribute for button
  * @param {bool} [props.to] - `to` to send to on click
@@ -68,6 +70,8 @@ export default class Button extends PureComponent {
     onMouseLeave: PropTypes.func,
     isOutline: PropTypes.bool,
     radiusSmall: PropTypes.bool,
+    rel: PropTypes.string,
+    target: PropTypes.string,
     title: PropTypes.string,
     to: PropTypes.string,
     type: PropTypes.string,
@@ -118,6 +122,8 @@ export default class Button extends PureComponent {
       onMouseEnter,
       onMouseLeave,
       radiusSmall,
+      rel,
+      target,
       title,
       to,
       type,
@@ -136,13 +142,13 @@ export default class Button extends PureComponent {
       cursorNotAllowed: isDisabled,
       opacity05: isDisabled,
 
-      backgroundColorPrimary: backgroundColor === COLORS.white,
-      backgroundColorBlack: backgroundColor === COLORS.black,
-      backgroundColorBrand: backgroundColor === COLORS.brand,
-      backgroundTransparent: backgroundColor === COLORS.none,
-      backgroundColorSubtle2: backgroundColor === COLORS.tertiary,
-      backgroundColorSubtle: backgroundColor === COLORS.secondary,
-      backgroundColorDanger: backgroundColor === COLORS.danger,
+      bgPrimary: backgroundColor === COLORS.white,
+      bgBlack: backgroundColor === COLORS.black,
+      bgBrand: backgroundColor === COLORS.brand,
+      bgTransparent: backgroundColor === COLORS.none,
+      bgSecondary: backgroundColor === COLORS.tertiary,
+      bgSubtle: backgroundColor === COLORS.secondary,
+      bgDanger: backgroundColor === COLORS.danger,
       
       colorPrimary: !!children && color === COLORS.primary,
       colorSecondary: !!children && color === COLORS.secondary,
@@ -164,18 +170,18 @@ export default class Button extends PureComponent {
 
       underline_onHover: underlineOnHover,
 
-      backgroundColorSubtle2Dark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary && !isDisabled,
-      backgroundColorBlackOpaque_onHover: backgroundColor === COLORS.black && !isDisabled,
-      backgroundColorBrandDark_onHover: backgroundColor === COLORS.brand && !isDisabled,
-      backgroundColorDangerDark_onHover: backgroundColor === COLORS.danger && !isDisabled,
+      bgSecondaryDark_onHover: backgroundColor === COLORS.tertiary || backgroundColor === COLORS.secondary && !isDisabled,
+      bgBlackOpaque_onHover: backgroundColor === COLORS.black && !isDisabled,
+      bgBrandDark_onHover: backgroundColor === COLORS.brand && !isDisabled,
+      bgDangerDark_onHover: backgroundColor === COLORS.danger && !isDisabled,
 
-      backgroundColorBrand_onHover: color === COLORS.brand && isOutline && !isDisabled,
+      bgBrand_onHover: color === COLORS.brand && isOutline && !isDisabled,
       colorWhite_onHover: !!children && color === COLORS.brand && isOutline && !isDisabled,
 
-      fillColorSecondary: !!icon && color === COLORS.secondary,
-      fillColorWhite: !!icon && color === COLORS.white,
-      fillColorBrand: !!icon && color === COLORS.brand,
-      fillColorWhite_onHover: !!icon && color === COLORS.brand && isOutline,
+      fillSecondary: !!icon && color === COLORS.secondary,
+      fillWhite: !!icon && color === COLORS.white,
+      fillBrand: !!icon && color === COLORS.brand,
+      fillWhite_onHover: !!icon && color === COLORS.brand && isOutline,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'
@@ -216,6 +222,8 @@ export default class Button extends PureComponent {
     }
 
     const options = {
+      rel,
+      target,
       title,
       type,
       disabled: isDisabled,

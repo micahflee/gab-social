@@ -96,11 +96,11 @@ class Notification extends ImmutablePureComponent {
     }
 
     return (
-      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.backgroundColorSubtle_onHover].join(' ')}>
+      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.bgSubtle_onHover].join(' ')}>
         <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
           <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
-            <Icon id={icon} size='20px' className={[_s.fillColorPrimary, _s.mt5].join(' ')} />
+            <Icon id={icon} size='20px' className={[_s.fillPrimary, _s.mt5].join(' ')} />
 
             <div className={[_s.default, _s.ml15, _s.flexNormal].join(' ')}>
               <div className={[_s.default, _s.flexRow].join(' ')}>

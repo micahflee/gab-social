@@ -11,7 +11,9 @@ import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
 import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
-import SidebarHeader from './sidebar_header'
+import Heading from './heading'
+import Pills from './pills'
+import Divider from './divider'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -27,6 +29,8 @@ const messages = defineMessages({
   lists: { id: 'column.lists', defaultMessage: 'Lists' },
   apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
   more: { id: 'sidebar.more', defaultMessage: 'More' },
+  explore: { id: 'explore', defaultMessage: 'Explore' },
+  menu: { id: 'menu', defaultMessage: 'Menu' },
   pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
   trends: { id: 'promo.trends', defaultMessage: 'Trends' },
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
@@ -73,6 +77,10 @@ class Sidebar extends ImmutablePureComponent {
     openSidebarMorePopover: PropTypes.func.isRequired,
     notificationCount: PropTypes.number.isRequired,
     homeItemsQueueCount: PropTypes.number.isRequired,
+    actions: PropTypes.array,
+    tabs: PropTypes.array,
+    title: PropTypes.string,
+    showBackBtn: PropTypes.bool,
   }
 
   handleOpenComposeModal = () => {
@@ -98,6 +106,10 @@ class Sidebar extends ImmutablePureComponent {
       homeItemsQueueCount,
       showCommunityTimeline,
       moreOpen,
+      actions,
+      tabs,
+      title,
+      showBackBtn,
     } = this.props
 
     // : todo :
@@ -196,13 +208,23 @@ class Sidebar extends ImmutablePureComponent {
     return (
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
-          <div className={[_s.default, _s.posFixed, _s.top0, _s.height100PC].join(' ')}>
+          <div className={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}>
             <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
-
-              <SidebarHeader />
-
+              <div className={_s.default}>
+                <div className={[_s.default, _s.px5, _s.py10].join(' ')}>
+                  <Heading size='h1'>
+                    {title}
+                  </Heading>
+                </div>
+                {
+                  !!tabs &&
+                  <div className={[_s.default, _s.mt10, _s.pb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                    <Pills pills={tabs} />
+                  </div>
+                }
+              </div>
               <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.mb15].join(' ')}>
-                <SidebarSectionTitle>Menu</SidebarSectionTitle>
+                <SidebarSectionTitle>{intl.formatMessage(messages.menu)}</SidebarSectionTitle>
                 {
                   menuItems.map((menuItem, i) => {
                     if (menuItem.hidden) return null
@@ -212,13 +234,7 @@ class Sidebar extends ImmutablePureComponent {
                     )
                   })
                 }
-                { /* <SidebarSectionTitle>Shortcuts</SidebarSectionTitle> */ }
-                {
-                  shortcutItems.map((shortcutItem, i) => (
-                    <SidebarSectionItem {...shortcutItem} key={`sidebar-item-shortcut-${i}`} />
-                  ))
-                }
-                <SidebarSectionTitle>Explore</SidebarSectionTitle>
+                <SidebarSectionTitle>{intl.formatMessage(messages.explore)}</SidebarSectionTitle>
                 {
                   exploreItems.map((exploreItem, i) => (
                     <SidebarSectionItem {...exploreItem} key={`sidebar-item-explore-${i}`} />
@@ -230,7 +246,7 @@ class Sidebar extends ImmutablePureComponent {
                 <Button
                   isBlock
                   onClick={this.handleOpenComposeModal}
-                  className={[_s.py15, _s.fontSize15PX, _s.fontWeightBold].join(' ')}
+                  className={[_s.py15, _s.fs15PX, _s.fontWeightBold].join(' ')}
                 >
                   Gab
                 </Button>

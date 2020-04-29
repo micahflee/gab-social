@@ -12,7 +12,7 @@ import DefaultLayout from '../layouts/default_layout'
 const messages = defineMessages({
   groups: { id: 'groups', defaultMessage: 'Groups' },
   featured: { id: 'featured', defaultMessage: 'Featured' },
-  new: { id: 'new', defaultMessage: 'New' },
+  new: { id: 'new', defaultMessage: 'Just Added' },
   myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
   admin: { id: 'admin', defaultMessage: 'Admin' },
 })
@@ -50,7 +50,7 @@ class GroupsPage extends PureComponent {
     const actions = []
     const tabs = [
       {
-        title: intl.formatMessage(messages.groups),
+        title: intl.formatMessage(messages.featured),
         to: '/groups',
       },
       {

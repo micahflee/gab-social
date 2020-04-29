@@ -104,7 +104,7 @@ class StatusHeader extends ImmutablePureComponent {
                   color='none'
                   icon='ellipsis'
                   iconSize='20px'
-                  iconClassName={_s.fillColorSecondary}
+                  iconClassName={_s.fillSecondary}
                   className={_s.mlAuto}
                   onClick={this.handleOpenStatusOptionsPopover}
                   buttonRef={this.setStatusOptionsButton}
@@ -127,7 +127,7 @@ class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
 
-              <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillColorSecondary].join(' ')} />
+              <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillSecondary].join(' ')} />
 
               {
                 !!status.get('group') &&

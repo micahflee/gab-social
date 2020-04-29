@@ -216,7 +216,7 @@ class Item extends ImmutablePureComponent {
             playsInline
           />
 
-          <div className={[_s.default, _s.posAbs, _s.z2, _s.radiusSmall, _s.backgroundColorBlackOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
+          <div className={[_s.default, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
             <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
           </div>
         </div>
@@ -574,7 +574,7 @@ class MediaGallery extends PureComponent {
               title={intl.formatMessage(messages.toggle_visible)}
               icon='hidden'
               backgroundColor='none'
-              className={[_s.px10, _s.backgroundColorBlackOpaque_onHover].join(' ')}
+              className={[_s.px10, _s.bgBlackOpaque_onHover].join(' ')}
               onClick={this.handleOpen}
             />
           </div>

@@ -92,8 +92,8 @@ class Poll extends ImmutablePureComponent {
       left0: 1,
       radiusSmall: 1,
       height100PC: 1,
-      backgroundColorSubtle2: !leading,
-      backgroundColorBrandLight: leading,
+      bgSecondary: !leading,
+      bgBrandLight: leading,
     })
 
     const inputClasses = cx('poll__input', {
@@ -107,11 +107,11 @@ class Poll extends ImmutablePureComponent {
       py10: showResults,
       mb10: 1,
       border1PX: !showResults,
-      fillColorSecondary: !showResults,
+      fillSecondary: !showResults,
       circle: !showResults,
       cursorPointer: !showResults,
-      backgroundColorSubtle_onHover: !showResults,
-      backgroundColorSubtle: !showResults && active,
+      bgSubtle_onHover: !showResults,
+      bgSubtle: !showResults && active,
     })
 
     const textContainerClasses = cx({

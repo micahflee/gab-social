@@ -36,18 +36,18 @@ export default class Switch extends PureComponent {
       border1PX: 1,
       mlAuto: 1,
       borderColorSecondary: 1,
-      backgroundColorBrand: checked,
+      bgBrand: checked,
     })
 
     const checkboxLabelClasses = cx({
       default: 1,
-      margin1PX: 1,
+      m1PX: 1,
       height20PX: 1,
       width20PX: 1,
       circle: 1,
       posAbs: 1,
-      backgroundColorSubtle2: !checked,
-      backgroundColorPrimary: checked,
+      bgSecondary: !checked,
+      bgPrimary: checked,
       left0: !checked,
       right0: checked,
     })

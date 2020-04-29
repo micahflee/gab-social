@@ -460,7 +460,7 @@ class Video extends PureComponent {
       circle: 1,
       px10: 1,
       py10: 1,
-      backgroundColorBrand: 1,
+      bgBrand: 1,
       mlNeg5PX: 1,
       z3: 1,
       boxShadow1: 1,
@@ -479,7 +479,7 @@ class Video extends PureComponent {
     const volumeControlClasses = cx({
       default: 1,
       posAbs: 1,
-      backgroundColorBlackOpaque: 1,
+      bgBlackOpaque: 1,
       videoPlayerVolume: 1,
       height122PX: 1,
       circle: 1,
@@ -550,19 +550,19 @@ class Video extends PureComponent {
           ref={this.setVolumeRef}
         >
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.posAbs, _s.width4PX, _s.ml10, _s.backgroundColorPrimaryOpaque].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.posAbs, _s.width4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
             style={{
               height: '102px',
             }}
           />
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.width4PX, _s.ml10, _s.backgroundColorPrimary].join(' ')}
+            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.width4PX, _s.ml10, _s.bgPrimary].join(' ')}
             style={{
               height: `${volumeHeight}px`
             }}
           />
           <span
-            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.backgroundColorPrimary, _s.z3].join(' ')}
+            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -579,9 +579,9 @@ class Video extends PureComponent {
             ref={this.setSeekRef}
           >
 
-            <div className={[progressClasses, _s.backgroundColorLoading, _s.width100PC].join(' ')} />
-            <div className={[progressClasses, _s.backgroundColorSubtle].join(' ')} style={{ width: `${buffer}%` }} />
-            <div className={[progressClasses, _s.backgroundColorBrand].join(' ')} style={{ width: `${progress}%` }} />
+            <div className={[progressClasses, _s.bgLoading, _s.width100PC].join(' ')} />
+            <div className={[progressClasses, _s.bgSubtle].join(' ')} style={{ width: `${buffer}%` }} />
+            <div className={[progressClasses, _s.bgBrand].join(' ')} style={{ width: `${progress}%` }} />
 
             <span
               className={seekHandleClasses}
@@ -600,7 +600,7 @@ class Video extends PureComponent {
               onClick={this.togglePlay}
               icon={paused ? 'play' : 'pause'}
               iconSize='16px'
-              iconClassName={_s.fillColorWhite}
+              iconClassName={_s.fillWhite}
               className={_s.pl0}
             />
 
@@ -619,7 +619,7 @@ class Video extends PureComponent {
                 onClick={this.toggleMute}
                 icon={muted ? 'audio-mute' : 'audio'}
                 iconSize='24px'
-                iconClassName={_s.fillColorWhite}
+                iconClassName={_s.fillWhite}
                 className={[_s.px10, _s.ml10].join(' ')}
                 onMouseEnter={this.handleMouseEnterAudio}
                 onMouseLeave={this.handleMouseLeaveAudio}
@@ -632,7 +632,7 @@ class Video extends PureComponent {
                 onClick={this.toggleFullscreen}
                 icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
                 iconSize='20px'
-                iconClassName={_s.fillColorWhite}
+                iconClassName={_s.fillWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
               />
             </div>

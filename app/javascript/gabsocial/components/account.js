@@ -115,6 +115,7 @@ class Account extends ImmutablePureComponent {
       expanded,
       dismissAction,
       showDismiss,
+      withBio,
     } = this.props
 
     if (!account) return null
@@ -148,13 +149,15 @@ class Account extends ImmutablePureComponent {
         onClick={dismissAction}
         icon='close'
         iconSize='8px'
-        iconClassName={_s.fillColorSecondary}
+        iconClassName={_s.fillSecondary}
       />
     )
 
+    const content = { __html: account.get('note_emojified') }
+
     return (
-      <div className={[_s.default, _s.px15, _s.py5, _s.backgroundColorSubtle_onHover, _s.mb5].join(' ')}>
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.alignItemsStart].join(' ')}>
 
           <NavLink
             className={[_s.default, _s.noUnderline].join(' ')}
@@ -164,20 +167,28 @@ class Account extends ImmutablePureComponent {
             <Avatar account={account} size={avatarSize} />
           </NavLink>
 
-          <NavLink
-            title={account.get('acct')}
-            to={`/${account.get('acct')}`}
-            className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}
-          >
-            <DisplayName account={account} isMultiline={compact} />
-            {!compact && actionButton}
-          </NavLink>
+          <div className={[_s.default, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
+            <div className={[_s.default, _s.flexRow].join(' ')}>
+              <NavLink
+                title={account.get('acct')}
+                to={`/${account.get('acct')}`}
+                className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
+              >
+                <DisplayName account={account} isMultiline={compact} />
+                {!compact && actionButton}
+              </NavLink>
 
-          <div className={[_s.default].join(' ')}>
-            {dismissBtn}
-            {compact && actionButton}
+              <div className={[_s.default].join(' ')}>
+                {dismissBtn}
+                {compact && actionButton}
+              </div>
+            </div>
+
+            {
+              withBio &&
+              <div className={[_s.py5, _s.dangerousContent].join(' ')} dangerouslySetInnerHTML={content} />
+            }
           </div>
-
         </div>
       </div>
     )

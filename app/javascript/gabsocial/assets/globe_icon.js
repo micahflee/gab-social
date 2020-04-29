@@ -1,4 +1,3 @@
-// : todo : fill, stroke colors
 const GlobeIcon = ({
   className = '',
   size = '12px',

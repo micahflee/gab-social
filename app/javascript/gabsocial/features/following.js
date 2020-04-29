@@ -88,7 +88,7 @@ class Following extends ImmutablePureComponent {
           >
             {
               !!accountIds && accountIds.map((id) => (
-                <Account key={`following-${id}`} id={id} compact />
+                <Account key={`following-${id}`} id={id} compact withBio />
               ))
             }
           </ScrollableList>

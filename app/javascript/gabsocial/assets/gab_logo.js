@@ -1,6 +1,5 @@
 const GabLogo = ({
-  className = _s.fillColorBrand,
-  size = '50px',
+  className = _s.fillBrand,
 }) => (
   <svg
     className={className}
@@ -8,8 +7,8 @@ const GabLogo = ({
     xmlns='http://www.w3.org/2000/svg'
     x='0px'
     y='0px'
-    width={size}
-    height={size}
+    width='50px'
+    height='30px'
     viewBox='0 0 50 30'
     xmlSpace='preserve'
   >

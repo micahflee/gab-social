@@ -69,35 +69,35 @@ export default class SidebarSectionItem extends PureComponent {
       outlineNone: 1,
       borderColorTransparent: !shouldShowActive,
       borderColorSecondary: shouldShowActive,
-      backgroundTransparent: !shouldShowActive,
-      backgroundColorPrimary: shouldShowActive,
+      bgTransparent: !shouldShowActive,
+      bgPrimary: shouldShowActive,
     })
 
     const textClasses = cx({
       default: 1,
       fontWeightNormal: 1,
-      fontSize15PX: 1,
+      fs15PX: 1,
       text: 1,
       textOverflowEllipsis: 1,
       colorPrimary: 1,
     })
 
     const iconClasses = cx({
-      fillColorPrimary: 1,
+      fillPrimary: 1,
     })
 
     const countClasses = cx({
       default: 1,
       text: 1,
       mlAuto: 1,
-      fontSize12PX: 1,
+      fs12PX: 1,
       px5: 1,
       mr2: 1,
       lineHeight15: 1,
       ml5: 1,
       colorSecondary: !isNotifications,
       colorWhite: isNotifications,
-      backgroundColorBrand: isNotifications,
+      bgBrand: isNotifications,
       radiusSmall: isNotifications,
     })
 
@@ -110,7 +110,7 @@ export default class SidebarSectionItem extends PureComponent {
         buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.width100PC, _s.backgroundTransparent].join(' ')}
+        className={[_s.default, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.width100PC, _s.bgTransparent].join(' ')}
       >
         <div className={containerClasses}>
           {

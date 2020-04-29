@@ -2,9 +2,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import classNames from 'classnames/bind'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
+import Responsive from '../features/ui/util/responsive_component'
 
 const messages = defineMessages({
   comment: { id: 'status.comment', defaultMessage: 'Comment' },
@@ -16,8 +20,6 @@ const messages = defineMessages({
   repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
   commentsLabel: { id: 'comments.label', defaultMessage: '{number, plural, one {# comment} other {# comments}}' },
 })
-
-const cx = classNames.bind(_s)
 
 export default
 @injectIntl
@@ -88,14 +90,14 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       px10: 1,
       mt10: !shouldCondense,
       mt5: shouldCondense,
     })
 
-    const innerContainerClasses = cx({
+    const innerContainerClasses = CX({
       default: 1,
       py2: 1,
       flexRow: 1,
@@ -105,14 +107,14 @@ class StatusActionBar extends ImmutablePureComponent {
       mt5: hasInteractions,
     })
 
-    const interactionBtnClasses = cx({
+    const interactionBtnClasses = CX({
       default: 1,
       text: 1,
       cursorPointer: 1,
       fontWeightNormal: 1,
       noUnderline: 1,
       underline_onHover: 1,
-      backgroundTransparent: 1,
+      bgTransparent: 1,
       mr10: 1,
       py5: 1,
     })
@@ -179,12 +181,14 @@ class StatusActionBar extends ImmutablePureComponent {
               buttonRef={this.setRepostButton}
               onClick={this.handleRepostClick}
             />
-            <StatusActionBarItem
-              buttonRef={this.setShareButton}
-              title={intl.formatMessage(messages.share)}
-              icon='share'
-              onClick={this.handleShareClick}
-            />
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <StatusActionBarItem
+                buttonRef={this.setShareButton}
+                title={intl.formatMessage(messages.share)}
+                icon='share'
+                onClick={this.handleShareClick}
+              />
+            </Responsive>
           </div>
         </div>
       </div>

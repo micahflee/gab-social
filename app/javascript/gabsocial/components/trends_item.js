@@ -1,27 +1,24 @@
 import { Fragment } from 'react'
-import classNames from 'classnames/bind'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import { urlRegex } from '../features/ui/util/url_regex'
+import {
+  CX,
+  DEFAULT_REL,
+} from '../constants'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
 import Image from './image'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
-const cx = classNames.bind(_s)
-
-export default class TrendingItem extends PureComponent {
+export default class TrendingItem extends ImmutablePureComponent {
 
   static propTypes = {
     index: PropTypes.number,
-    url: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    imageUrl: PropTypes.string,
-    author: PropTypes.string,
-    publishDate: PropTypes.string,
+    trend: ImmutablePropTypes.map.isRequired,
     isLast: PropTypes.bool,
     isHidden: PropTypes.bool,
-    wide: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -45,19 +42,18 @@ export default class TrendingItem extends PureComponent {
   render() {
     const {
       index,
-      url,
-      title,
-      description,
-      imageUrl,
-      author,
-      publishDate,
+      trend,
       isLast,
-      wide,
       isHidden,
     } = this.props
     const { hovering } = this.state
 
-    const correctedAuthor = author.replace('www.', '')
+    if (!trend) return null
+
+    const title = trend.get('title')
+    const description = trend.get('description')
+      
+    const correctedAuthor = trend.getIn(['author', 'name'], '').replace('www.', '')
     const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
     const descriptionHasLink = correctedDescription.match(urlRegex)
 
@@ -71,7 +67,7 @@ export default class TrendingItem extends PureComponent {
       )
     }
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       noUnderline: 1,
       px15: 1,
@@ -82,35 +78,29 @@ export default class TrendingItem extends PureComponent {
       backgroundColorSubtle_onHover: 1,
     })
 
-    const subtitleClasses = cx({
+    const subtitleClasses = CX({
       ml5: 1,
       underline: hovering,
     })
 
-    const image = (
-      <Image
-        nullable
-        width='116px'
-        height='78px'
-        alt={title}
-        src={imageUrl}
-        className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
-      />
-    )
-
     return (
       <Button
         noClasses
-        href={url}
+        href={trend.get('url')}
         target='_blank'
-        rel='noopener noreferrer'
+        rel={DEFAULT_REL}
         className={containerClasses}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        {
-          !wide && image
-        }
+        <Image
+          nullable
+          width='116px'
+          height='78px'
+          alt={title}
+          src={trend.get('image')}
+          className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
+        />
 
         <div className={[_s.default, _s.flexNormal, _s.pb5].join(' ')}>
           <div className={_s.default}>
@@ -127,6 +117,7 @@ export default class TrendingItem extends PureComponent {
               </Text>
             </div>
           }
+          
           <div className={[_s.default, _s.flexRow].join(' ')}>
             <Text color='secondary' size='small'>
               {index}
@@ -137,13 +128,14 @@ export default class TrendingItem extends PureComponent {
             </Text>
             <DotTextSeperator />
             <Text color='secondary' size='small' className={subtitleClasses}>
-              <RelativeTimestamp timestamp={publishDate} />
+              <RelativeTimestamp timestamp={trend.get('date_published')} />
             </Text>
             {
               hovering &&
               <Text color='secondary' size='small' className={_s.ml10}>→</Text>
             }
           </div>
+
         </div>
       </Button>
     )

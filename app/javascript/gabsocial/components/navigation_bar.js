@@ -5,8 +5,9 @@ import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
-import ColumnHeader from './column_header'
+import { CX } from '../constants'
 import Search from './search'
+import Avatar from './avatar'
 import Icon from './icon'
 
 const mapStateToProps = (state) => ({
@@ -25,6 +26,10 @@ class NavigationBar extends ImmutablePureComponent {
     showBackBtn: PropTypes.bool,
   }
 
+  handleProfileClick = () => {
+
+  }
+
   render() {
     const {
       title,
@@ -34,39 +39,117 @@ class NavigationBar extends ImmutablePureComponent {
       account,
     } = this.props
 
-    const isPro = account.get('is_pro')
-
     return (
-      <div className={[_s.default, _s.height53PX, _s.flexRow, _s.backgroundColorPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
-        <div className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
-          <div className={[_s.default, _s.width240PX].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX].join(' ')}>
-              <h1 className={[_s.default].join(' ')}>
-                <NavLink to='/' aria-label='Gab' className={[_s.default, _s.flexRow, _s.noSelect, _s.noUnderline, _s.height50PX, _s.cursorPointer, _s.px10].join(' ')}>
-                  <Icon id='gab-logo' />
+      <div className={[_s.default, _s.z4, _s.height53PX, _s.width100PC].join(' ')}>
+        <div className={[_s.default, _s.height53PX, _s.bgBrand, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+
+          <div className={[_s.default, _s.flexRow, _s.width1255PX].join(' ')}>
+
+            <div className={[_s.default, _s.flexRow].join(' ')}>
+
+              <h1 className={[_s.default, _s.mr15].join(' ')}>
+                <NavLink to='/' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
+                  <Icon id='gab-logo' className={_s.fillWhite} />
                 </NavLink>
               </h1>
+
+              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                <div className={[_s.default, _s.width340PX].join(' ')}>
+                  <Search />
+                </div>
+              </Responsive>
+
             </div>
-          </div>
-        </div>
-        <div className={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}>
-          <div className={[_s.default, _s.height53PX, _s.pl15, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
-            <div className={[_s.default, _s.width645PX].join(' ')}>
-              <ColumnHeader
-                title={title}
-                showBackBtn={showBackBtn}
-                actions={actions}
-                tabs={tabs}
-              />
-            </div>
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s.default, _s.width340PX].join(' ')}>
-                <Search />
+
+            <div className={[_s.default, _s.mlAuto].join(' ')}>
+              <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
+                <NavigationBarButton title='Home' icon='home' to='/home' />
+                
+                <NavigationBarButtonDivider />
+
+                <NavigationBarButton icon='notifications' to='/notifications' />
+                <NavigationBarButton icon='cog' to='/notifications' />
+
+                <NavigationBarButtonDivider />
+
+                <button onClick={this.handleProfileClick} className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}>
+                  <Avatar account={account} size={32} />
+                </button>
               </div>
-            </Responsive>
+            </div>
+
           </div>
+
         </div>
       </div>
+    )
+  }
+
+}
+
+class NavigationBarButtonDivider extends PureComponent {
+
+  render() {
+    return (
+      <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgBrandDark].join(' ')} />
+    )
+  }
+
+}
+
+class NavigationBarButton extends PureComponent {
+
+  static propTypes = {
+    title: PropTypes.string,
+    icon: PropTypes.string,
+    to: PropTypes.string,
+    onClick: PropTypes.func,
+  }
+
+  render() {
+    const {
+      title,
+      icon,
+      to,
+      onClick,
+    } = this.props
+
+    const active = false
+
+    const classes = CX({
+      default: 1,
+      height53PX: 1,
+      flexRow: 1,
+      alignItemsCenter: 1,
+      justifyContentCenter: 1,
+      outlineNone: 1,
+      px10: !!title,
+      px5: !title,
+      cursorPointer: 1,
+      bgTransparent: 1,
+      colorWhite: !!title,
+      fs13PX: !!title,
+      fontWeightNormal: !!title,
+      textUppercase: !!title,
+    })
+
+    const iconClasses = CX({
+      fillWhite: !!title || active,
+      fillBrandDark: !title,
+      mr10: !!title,
+    })
+
+    const iconSize = !!title ? 16 : 18
+
+    return (
+      <button
+        noClasses
+        color='white'
+        className={classes}
+      >
+        <Icon className={iconClasses} id={icon} size={iconSize} />
+        {title}
+      </button>
     )
   }
 

@@ -26,7 +26,6 @@ export default class TabBar extends PureComponent {
               key={`tab-bar-item-${i}`}
               title={tab.title}
               onClick={tab.onClick}
-              icon={tab.icon}
               to={tab.to}
               isActive={tab.active}
               isLarge={isLarge}

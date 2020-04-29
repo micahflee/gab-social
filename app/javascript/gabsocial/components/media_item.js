@@ -137,13 +137,13 @@ export default class MediaItem extends ImmutablePureComponent {
                 <Icon
                   id='hidden'
                   size='22px'
-                  className={[_s.fillColorWhite].join('')}
+                  className={[_s.fillWhite].join('')}
                 />
               }
 
               {
                 !!badge &&
-                <div className={[_s.default, _s.posAbs, _s.radiusSmall, _s.backgroundColorBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
+                <div className={[_s.default, _s.posAbs, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
                   <Text size='extraSmall' color='white'>
                     {badge}
                   </Text>

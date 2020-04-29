@@ -108,6 +108,7 @@ class ProfileHeader extends ImmutablePureComponent {
     const headerSrc = !!account ? account.get('header') : ''
     const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
     const avatarSize = headerMissing ? 75 : 150
+    const top = headerMissing ? -30 : -380
 
     const avatarContainerClasses = CX({
       default: 1,
@@ -131,96 +132,101 @@ class ProfileHeader extends ImmutablePureComponent {
 
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
+        <Sticky top={top} enabled onStateChange={this.onStickyStateChange}>
+          <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
 
-        {
-          !headerMissing &&
-          <div className={[_s.default, _s.height350PX, _s.width100PC, _s.radiusSmall, _s.overflowHidden].join(' ')}>
-            <Image
-              alt={intl.formatMessage(messages.headerPhoto)}
-              className={_s.height350PX}
-              src={headerSrc}
-            />
-          </div>
-        }
-
-        <div className={[_s.default, _s.width100PC].join(' ')}>
-
-          <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
-            <div className={avatarContainerClasses}>
-              <Avatar size={avatarSize} account={account} noHover />
-            </div>
-
-            <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
-              <DisplayName account={account} isMultiline noRelationship isLarge noHover />
-            </div>
-          </div>
-          
-          <Sticky enabled onStateChange={this.onStickyStateChange}>
-            <div className={[_s.default, _s.flexRow, _s.backgroundColorSecondary3, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX].join(' ')}>
-              <div className={tabBarContainerClasses}>
-                <TabBar tabs={tabs} isLarge />
-              </div>
-
-              <div className={stickyBarContainerClasses}>
-                <Avatar size={36} account={account} noHover />
-                <div className={[_s.default, _s.ml10].join(' ')}>
-                  <DisplayName account={account} noUsername noRelationship noHover isLarge />
-                </div>
-              </div>
-
+            <div className={[_s.default, _s.width1015PX].join(' ')}>
               {
-                account && account.get('id') === me &&
-                <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
-                  <Button
-                    isOutline
-                    backgroundColor='none'
-                    color='brand'
-                    className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                    onClick={this.handleOnEditProfile}
-                  >
-                    <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
-                      {intl.formatMessage(messages.editProfile)}
-                    </Text>
-                  </Button>
-                </div>
-              }
-
-              {
-                account && account.get('id') !== me &&
-                <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
-                  <Button
-                    isOutline
-                    icon='ellipsis'
-                    iconSize='18px'
-                    iconClassName={_s.inheritFill}
-                    color='brand'
-                    backgroundColor='none'
-                    className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                    onClick={this.handleOpenMore}
-                    buttonRef={this.setOpenMoreNodeRef}
+                !headerMissing &&
+                <div className={[_s.default, _s.height350PX, _s.width100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
+                  <Image
+                    alt={intl.formatMessage(messages.headerPhoto)}
+                    className={_s.height350PX}
+                    src={headerSrc}
                   />
-
-                  <form action='https://chat.gab.com/private-message' method='POST'>
-                    <Button
-                      isOutline
-                      type='submit'
-                      icon='chat'
-                      iconSize='18px'
-                      iconClassName={_s.inheritFill}
-                      color='brand'
-                      backgroundColor='none'
-                      className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                    />
-                    <input type='hidden' value={account.get('username')} name='username' />
-                  </form>
-
-                  <AccountActionButton account={account} />
-
                 </div>
               }
+
+              <div className={[_s.default, _s.width100PC].join(' ')}>
+
+                <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
+                  <div className={avatarContainerClasses}>
+                    <Avatar size={avatarSize} account={account} noHover />
+                  </div>
+
+                  <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
+                    <DisplayName account={account} isMultiline noRelationship isLarge noHover />
+                  </div>
+                </div>
+
+
+                <div className={[_s.default, _s.flexRow, _s.bgPrimary, _s.height53PX].join(' ')}>
+                  <div className={tabBarContainerClasses}>
+                    <TabBar tabs={tabs} isLarge />
+                  </div>
+
+                  <div className={stickyBarContainerClasses}>
+                    <Avatar size={36} account={account} noHover />
+                    <div className={[_s.default, _s.ml10].join(' ')}>
+                      <DisplayName account={account} noUsername noRelationship noHover isLarge />
+                    </div>
+                  </div>
+
+                  {
+                    account && account.get('id') === me &&
+                    <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                      <Button
+                        isOutline
+                        backgroundColor='none'
+                        color='brand'
+                        className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                        onClick={this.handleOnEditProfile}
+                      >
+                        <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
+                          {intl.formatMessage(messages.editProfile)}
+                        </Text>
+                      </Button>
+                    </div>
+                  }
+
+                  {
+                    account && account.get('id') !== me &&
+                    <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                      <Button
+                        isOutline
+                        icon='ellipsis'
+                        iconSize='18px'
+                        iconClassName={_s.inheritFill}
+                        color='brand'
+                        backgroundColor='none'
+                        className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                        onClick={this.handleOpenMore}
+                        buttonRef={this.setOpenMoreNodeRef}
+                      />
+
+                      <form action='https://chat.gab.com/private-message' method='POST'>
+                        <Button
+                          isOutline
+                          type='submit'
+                          icon='chat'
+                          iconSize='18px'
+                          iconClassName={_s.inheritFill}
+                          color='brand'
+                          backgroundColor='none'
+                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                        />
+                        <input type='hidden' value={account.get('username')} name='username' />
+                      </form>
+
+                      <AccountActionButton account={account} />
+
+                    </div>
+                  }
+                </div>
+              </div>
             </div>
-          </Sticky>
-        </div>
+          </div>
+        </Sticky>
       </div>
     )
   }

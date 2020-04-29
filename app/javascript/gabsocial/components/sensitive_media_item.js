@@ -24,7 +24,7 @@ class SensitiveMediaItem extends PureComponent {
 
     return (
       <div className={[_s.default, _s.px15, _s.pt5].join(' ')}>
-        <div className={[_s.default, _s.flexRow, _s.radiusSmall, _s.backgroundColorSecondary3, _s.py10, _s.px15, _s.height100PC, _s.width100PC].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.radiusSmall, _s.bgTertiary, _s.py10, _s.px15, _s.height100PC, _s.width100PC].join(' ')}>
           <div className={[_s.default, _s.justifyContentCenter, _s.flexNormal].join(' ')}>
             <Text color='secondary'>
               {intl.formatMessage(messages.warning)}
@@ -35,7 +35,7 @@ class SensitiveMediaItem extends PureComponent {
               onClick={onClick}
               color='tertiary'
               backgroundColor='none'
-              className={_s.backgroundColorSubtle2Dark_onHover}
+              className={_s.bgSecondaryDark_onHover}
             >
               <Text color='inherit' weight='bold' size='medium'>
                 {intl.formatMessage(messages.view)}

@@ -11,7 +11,7 @@ export default class SidebarSectionTitle extends PureComponent {
 
     return (
       <div className={[_s.default, _s.py5, _s.px10, _s.mt10].join(' ')}>
-        <Text size='small' weight='bold' color='tertiary'>
+        <Text color='tertiary'>
           {children}
         </Text>
       </div>

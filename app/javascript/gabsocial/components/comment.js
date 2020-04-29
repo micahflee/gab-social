@@ -61,7 +61,7 @@ class Comment extends ImmutablePureComponent {
             </NavLink>
 
             <div className={[_s.default, _s.flexNormal].join(' ')}>
-              <div className={[_s.default, _s.px10, _s.pt5, _s.pb10, _s.radiusSmall, _s.backgroundColorSubtle].join(' ')}>
+              <div className={[_s.default, _s.px10, _s.pt5, _s.pb10, _s.radiusSmall, _s.bgSubtle].join(' ')}>
                 <CommentHeader status={status} />
                 <StatusContent
                   status={status}
@@ -103,7 +103,7 @@ class CommentButton extends PureComponent {
         radiusSmall
         backgroundColor='none'
         color='tertiary'
-        className={[_s.px5, _s.backgroundColorSubtle_onHover, _s.py2, _s.mr5].join(' ')}
+        className={[_s.px5, _s.bgSubtle_onHover, _s.py2, _s.mr5].join(' ')}
         onClick={onClick}
       >
         <Text size='extraSmall' color='inherit' weight='bold'>

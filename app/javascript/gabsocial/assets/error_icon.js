@@ -1,5 +1,5 @@
 const ErrorIcon = ({
-  className = _s.fillColorPrimary,
+  className = _s.fillPrimary,
   size = '32px',
   title = 'Error',
 }) => (

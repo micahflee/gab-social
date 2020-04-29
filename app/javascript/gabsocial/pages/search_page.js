@@ -39,10 +39,6 @@ class SearchPage extends PureComponent {
         to: '/search/groups'
       },
       {
-        title: 'Gabs',
-        to: '/search/gabs'
-      },
-      {
         title: 'Trends',
         to: '/search/trends'
       },

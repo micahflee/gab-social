@@ -98,9 +98,9 @@ class DisplayName extends ImmutablePureComponent {
       colorPrimary: 1,
       mr2: 1,
       lineHeight125: !isSmall,
-      fontSize14PX: isSmall,
-      fontSize15PX: !isLarge,
-      fontSize24PX: isLarge && !isSmall,
+      fs14PX: isSmall,
+      fs15PX: !isLarge,
+      fs24PX: isLarge && !isSmall,
     })
 
     const usernameClasses = CX({
@@ -115,9 +115,9 @@ class DisplayName extends ImmutablePureComponent {
       lineHeight15: isMultiline,
       lineHeight125: !isMultiline,
       ml5: !isMultiline,
-      fontSize14PX: isSmall,
-      fontSize15PX: !isLarge,
-      fontSize16PX: isLarge && !isSmall,
+      fs14PX: isSmall,
+      fs15PX: !isLarge,
+      fs16PX: isLarge && !isSmall,
     })
 
     const iconSize =
@@ -161,7 +161,7 @@ class DisplayName extends ImmutablePureComponent {
             />
             {
               !noRelationship && account.get('locked') &&
-              <Icon id='lock-filled' size={iconSize} className={[_s.fillColorPrimary, _s.ml5].join(' ')} />
+              <Icon id='lock-filled' size={iconSize} className={[_s.fillPrimary, _s.ml5].join(' ')} />
             }
           </bdi>
           {
@@ -180,7 +180,7 @@ class DisplayName extends ImmutablePureComponent {
                   size='extraSmall'
                   isBadge
                   color='tertiary'
-                  className={[_s.backgroundColorSubtle2, _s.py2].join(' ')}
+                  className={[_s.bgSecondary, _s.py2].join(' ')}
                 >
                   {relationshipLabel}
                 </Text>

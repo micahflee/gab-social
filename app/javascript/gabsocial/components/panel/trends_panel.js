@@ -3,9 +3,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { fetchGabTrends } from '../../actions/gab_trends'
 import PanelLayout from './panel_layout'
-import ColumnIndicator from '../column_indicator'
 import ScrollableList from '../scrollable_list'
-import TrendingItem from '../trends_item'
+import TrendsItem from '../trends_item'
 
 const messages = defineMessages({
   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
@@ -30,6 +29,10 @@ class TrendsPanel extends ImmutablePureComponent {
     onFetchGabTrends: PropTypes.func.isRequired,
   }
 
+  updateOnProps = [
+    'gabtrends',
+  ]
+
   componentDidMount() {
     this.props.onFetchGabTrends()
   }
@@ -42,34 +45,21 @@ class TrendsPanel extends ImmutablePureComponent {
         noPadding
         title={intl.formatMessage(messages.title)}
       >
-        <div className={_s.default}>
+        <ScrollableList
+          showLoading={gabtrends.size == 0}
+          scrollKey='trending-items'
+        >
           {
-            gabtrends.isEmpty() &&
-            <ColumnIndicator type='loading' />
+            gabtrends.slice(0, 8).map((trend, i) => (
+              <TrendsItem
+                key={`gab-trend-${i}`}
+                index={i + 1}
+                isLast={i === 7}
+                trend={trend}
+              />
+            ))
           }
-          {
-            !gabtrends.isEmpty() && 
-            <ScrollableList
-              scrollKey='trending-items'
-            >
-              {
-                gabtrends.slice(0, 8).map((trend, i) => (
-                  <TrendingItem
-                    key={`gab-trend-${i}`}
-                    index={i + 1}
-                    isLast={i === 7}
-                    url={trend.get('url')}
-                    title={trend.get('title')}
-                    description={trend.get('description')}
-                    imageUrl={trend.get('image')}
-                    publishDate={trend.get('date_published')}
-                    author={trend.getIn(['author', 'name'], '')}
-                  />
-                ))
-              }
-            </ScrollableList>
-          }
-        </div>
+        </ScrollableList>
       </PanelLayout>
     )
   }

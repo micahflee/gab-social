@@ -56,7 +56,7 @@ export default class ListItem extends PureComponent {
       flexRow: 1,
       alignItemsCenter: 1,
       width100PC: 1,
-      backgroundColorSubtle_onHover: 1,
+      bgSubtle_onHover: 1,
       borderColorSecondary: !isLast,
       borderBottom1PX: !isLast,
     })
@@ -64,7 +64,7 @@ export default class ListItem extends PureComponent {
     const iconClasses = cx({
       mr10: !large,
       mr15: large,
-      fillColorPrimary: 1,
+      fillPrimary: 1,
     })
 
     const textSize = small ? 'small' : large ? 'medium' : 'normal'
@@ -97,7 +97,7 @@ export default class ListItem extends PureComponent {
           <Icon
             id='angle-right'
             size='10px'
-            className={[_s.mlAuto, _s.fillColorSecondary, _s.flexShrink1].join(' ')}
+            className={[_s.mlAuto, _s.fillSecondary, _s.flexShrink1].join(' ')}
           />
         }
       </Button>

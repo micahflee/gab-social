@@ -8,7 +8,6 @@ export default class Textarea extends PureComponent {
     placeholder: PropTypes.string,
     prependIcon: PropTypes.string,
     value: PropTypes.string,
-    hasClear: PropTypes.bool,
     onChange: PropTypes.func,
     onKeyUp: PropTypes.func,
     onFocus: PropTypes.func,
@@ -25,7 +24,6 @@ export default class Textarea extends PureComponent {
       placeholder,
       prependIcon,
       value,
-      hasClear,
       onKeyUp,
       onFocus,
       onBlur,
@@ -39,14 +37,13 @@ export default class Textarea extends PureComponent {
       lineHeight125: 1,
       displayBlock: 1,
       py10: 1,
-      backgroundTransparent: 1,
-      fontSize15PX: 1,
+      bgTransparent: 1,
+      fs15PX: 1,
       flexGrow1: 1,
       heightMax100VH: 1,
       resizeVertical: 1,
       px5: !!prependIcon,
       pl15: !prependIcon,
-      pr15: !hasClear,
     })
 
     return (
@@ -59,7 +56,7 @@ export default class Textarea extends PureComponent {
             </Text>
           </div>
         }
-        <div className={[_s.default, _s.backgroundColorPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.radiusSmall, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s.default, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.radiusSmall, _s.alignItemsCenter].join(' ')}>
           <textarea
             className={inputClasses}
             type='text'

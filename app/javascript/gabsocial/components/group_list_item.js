@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
 import Image from './image'
@@ -17,10 +17,8 @@ const messages = defineMessages({
 
 const mapStateToProps = (state, { id }) => ({
   group: state.getIn(['groups', id]),
-  relationships: state.getIn(['group_relationships', id]),
+  relatioships: state.getIn(['group_relationships', id]),
 })
-
-const cx = classNames.bind(_s)
 
 export default
 @connect(mapStateToProps)
@@ -50,17 +48,21 @@ class GroupListItem extends ImmutablePureComponent {
       isHidden,
     } = this.props
 
-    if (!relationships || !group) return null
+    if (!group) return null
 
-    const unreadCount = relationships.get('unread_count')
+    let unreadCount, subtitle
 
-    const subtitle = unreadCount > 0 ? (
-      <Fragment>
-        {shortNumberFormat(unreadCount)}
-        &nbsp;
-        {intl.formatMessage(messages.new_statuses)}
-      </Fragment>
-    ) : intl.formatMessage(messages.no_recent_activity)
+    if (relationships) {
+      unreadCount = relationships.get('unread_count')
+
+      subtitle = unreadCount > 0 ? (
+        <Fragment>
+          {shortNumberFormat(unreadCount)}
+          &nbsp;
+          {intl.formatMessage(messages.new_statuses)}
+        </Fragment>
+      ) : intl.formatMessage(messages.no_recent_activity)
+    }
 
     if (isHidden) {
       return (
@@ -71,22 +73,21 @@ class GroupListItem extends ImmutablePureComponent {
       )
     }
     
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       noUnderline: 1,
       overflowHidden: 1,
-      backgroundColorSubtle_onHover: 1,
+      bgSubtle_onHover: 1,
       borderColorSecondary: 1,
       radiusSmall: !slim,
-      mt5: !slim,
-      mb10: !slim,
+      mb10: !slim && !isLast,
       border1PX: !slim,
       borderBottom1PX: slim && !isLast,
       flexRow: slim,
       py5: slim,
     })
 
-    const imageClasses = cx({
+    const imageClasses = CX({
       height122PX: !slim,
       radiusSmall: slim,
       height72PX: slim,
@@ -94,7 +95,7 @@ class GroupListItem extends ImmutablePureComponent {
       ml15: slim,
     })
 
-    const textContainerClasses = cx({
+    const textContainerClasses = CX({
       default: 1,
       px10: 1,
       mt5: 1,
@@ -134,9 +135,12 @@ class GroupListItem extends ImmutablePureComponent {
             </Text>
           }
 
-          <Text color='secondary' size='small' className={_s.mt5}>
-            {subtitle}
-          </Text>
+          {
+            subtitle &&
+            <Text color='secondary' size='small' className={_s.mt5}>
+              {subtitle}
+            </Text>
+          }
 
         </div>
       </NavLink>

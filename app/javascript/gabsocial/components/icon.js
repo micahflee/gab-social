@@ -19,6 +19,7 @@ import DonorIcon from '../assets/donor_icon'
 import EllipsisIcon from '../assets/ellipsis_icon'
 import EmailIcon from '../assets/email_icon'
 import ErrorIcon from '../assets/error_icon'
+import ExploreIcon from '../assets/explore_icon'
 import FullscreenIcon from '../assets/fullscreen_icon'
 import GabLogoIcon from '../assets/gab_logo'
 import GifIcon from '../assets/gif_icon'
@@ -89,6 +90,7 @@ const ICONS = {
   'ellipsis': EllipsisIcon,
   'email': EmailIcon,
   'error': ErrorIcon,
+  'explore': ExploreIcon,
   'fullscreen': FullscreenIcon,
   'gab-logo': GabLogoIcon,
   'gif': GifIcon,

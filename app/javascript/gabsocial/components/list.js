@@ -51,7 +51,7 @@ export default class List extends ImmutablePureComponent {
             ))
           }
         </ScrollableList>
-    </Block>
+      </Block>
     )
   }
 

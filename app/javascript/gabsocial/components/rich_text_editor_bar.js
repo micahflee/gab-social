@@ -116,7 +116,7 @@ class RichTextEditorBar extends PureComponent {
     if (!rteControlsVisible || !isPro) return null
 
     return (
-      <div className={[_s.default, _s.backgroundColorPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
+      <div className={[_s.default, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
         {
           RTE_ITEMS.map((item, i) => (
             <StyleButton
@@ -179,8 +179,8 @@ class StyleButton extends PureComponent {
       px10: 1,
       mr5: 1,
       noSelect: 1,
-      backgroundColorSubtle2Dark_onHover: 1,
-      backgroundColorBrandLight: active,
+      bgSecondaryDark_onHover: 1,
+      bgBrandLight: active,
       // py10: !small,
       // py5: small,
       // px5: small,

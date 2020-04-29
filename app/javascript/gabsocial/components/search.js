@@ -1,12 +1,13 @@
 import { withRouter } from 'react-router-dom'
 import queryString from 'query-string'
+import { CX } from '../constants'
 import {
   changeSearch,
   clearSearch,
   submitSearch,
   showSearch,
 } from '../actions/search'
-import Input from './input'
+import Button from './button'
 
 const mapStateToProps = (state) => ({
   value: state.getIn(['search', 'value']),
@@ -40,7 +41,7 @@ class Search extends PureComponent {
   }
 
   state = {
-    expanded: false,
+    focused: false,
   }
 
   textbox = React.createRef()
@@ -57,17 +58,17 @@ class Search extends PureComponent {
     }
   }
 
-  handleChange = (value) => {
-    this.props.onChange(value)
+  handleOnChange = (e) => {
+    this.props.onChange(e.target.value)
   }
 
-  handleFocus = () => {
-    this.setState({ expanded: true })
+  handleOnFocus = () => {
+    this.setState({ focused: true })
     this.props.onShow()
   }
 
-  handleBlur = () => {
-    this.setState({ expanded: false })
+  handleOnBlur = () => {
+    this.setState({ focused: false })
   }
 
   handleKeyUp = (e) => {
@@ -88,42 +89,78 @@ class Search extends PureComponent {
     this.textbox = n
   }
 
+  handleSubmit = () => {
+    this.props.onSubmit()
+  }
+
   render() {
     const {
       value,
       submitted,
       onClear,
-      withOverlay
     } = this.props
-    const { expanded } = this.state
+    const { focused } = this.state
+    const highlighted = focused || `${value}`.length > 0
 
-    const hasValue = value ? value.length > 0 || submitted : 0
+    const inputClasses = CX({
+      default: 1,
+      text: 1,
+      outlineNone: 1,
+      lineHeight125: 1,
+      displayBlock: 1,
+      py7: 1,
+      bgTransparent: !highlighted,
+      colorPrimary: 1,
+      fs14PX: 1,
+      flexGrow1: 1,
+      radiusSmall: 1,
+      pl15: 1,
+      searchInput: 1,
+    })
 
+    const containerClasses = CX({
+      default: 1,
+      bgBrandLight: !highlighted,
+      bgWhite: highlighted,
+      flexRow: 1,
+      radiusSmall: 1,
+      alignItemsCenter: 1,
+    })
+
+    const prependIconColor = highlighted ? 'brand' : 'white'
+
+    const id = 'nav-search'
+      
     return (
       <div className={[_s.default, _s.justifyContentCenter, _s.height53PX].join(' ')}>
-        <Input
-          hasClear
-          value={value}
-          inputRef={this.setTextbox}
-          id='search'
-          prependIcon='search'
-          placeholder='Search Gab'
-          onChange={this.handleChange}
-          onKeyUp={this.handleKeyUp}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onClear={onClear}
-          hideLabel
-          title='Search'
-        />
+        <div className={containerClasses}>
+          <label className={_s.visiblyHidden} htmlFor={id}>Search</label>
 
-        {
-          withOverlay &&
-          {/*<Overlay show={expanded && !hasValue} placement='bottom' target={this}>
-            <SearchPopout />
-        </Overlay>*/}
-        }
+          <input
+            id={id}
+            className={inputClasses}
+            type='text'
+            placeholder='Search for people, groups or news'
+            ref={this.setTextbox}
+            value={value}
+            onKeyUp={this.handleKeyUp}
+            onChange={this.handleOnChange}
+            onFocus={this.handleOnFocus}
+            onBlur={this.handleOnBlur}
+          />
 
+          <Button
+            className={[_s.px10, _s.mr5].join(' ')}
+            tabIndex='0'
+            title='...'
+            backgroundColor='none'
+            color={prependIconColor}
+            onClick={this.handleSubmit}
+            icon='search'
+            iconClassName={_s.inheritFill}
+            iconSize='16px'
+          />
+        </div>
       </div>
     )
   }

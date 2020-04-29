@@ -17,15 +17,14 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchGroups: (type) => {
-    dispatch(fetchGroups(type))
-  }
+  onFetchGroups: (type) => dispatch(fetchGroups(type))
 })
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class GroupSidebarPanel extends ImmutablePureComponent {
+
   static propTypes = {
     groupIds: ImmutablePropTypes.list,
     isLazy: PropTypes.bool, 
@@ -36,6 +35,12 @@ class GroupSidebarPanel extends ImmutablePureComponent {
   state = {
     fetched: false,
   }
+
+  updateOnProps = [
+    'groupIds',
+    'isLazy',
+    'isSlim',
+  ]
 
   componentDidMount() {
     if (!this.props.isLazy) {
@@ -76,23 +81,20 @@ class GroupSidebarPanel extends ImmutablePureComponent {
         footerButtonTo={count > maxCount ? '/groups/browse/member' : undefined}
         noPadding={slim}
       >
-        <div className={_s.default}>
-          <ScrollableList
-            scrollKey='groups-panel'
-          >
-            {
-              groupIds.slice(0, maxCount).map((groupId, i) => (
-                <GroupListItem
-                  key={`group-panel-item-${groupId}`}
-                  id={groupId}
-                  slim={slim}
-                  isLast={groupIds.length - 1 === i}
-                />
-              ))
-            }
-          </ScrollableList>
-        </div>
+        <ScrollableList scrollKey='groups_panel'>
+          {
+            groupIds.slice(0, maxCount).map((groupId, i) => (
+              <GroupListItem
+                key={`group-panel-item-${groupId}`}
+                id={groupId}
+                slim={slim}
+                isLast={groupIds.count() - 1 === i}
+              />
+            ))
+          }
+        </ScrollableList>
       </PanelLayout>
     )
   }
+
 }

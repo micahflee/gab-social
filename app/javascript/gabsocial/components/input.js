@@ -58,12 +58,12 @@ export default class Input extends PureComponent {
       displayBlock: 1,
       py10: !small,
       py5: small,
-      backgroundTransparent: !readOnly,
-      backgroundColorSubtle2: readOnly,
+      bgTransparent: !readOnly,
+      bgSecondary: readOnly,
       colorPrimary: !readOnly,
       colorSecondary: readOnly,
-      fontSize15PX: !small,
-      fontSize13PX: small,
+      fs15PX: !small,
+      fs13PX: small,
       flexGrow1: 1,
       circle: 1,
       px5: !!prependIcon,
@@ -87,10 +87,10 @@ export default class Input extends PureComponent {
             </Text>
           </div>
         }
-        <div className={[_s.default, _s.backgroundColorPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s.default, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
           {
             !!prependIcon &&
-            <Icon id={prependIcon} size='16px' className={[_s.fillColorPrimary, _s.ml15, _s.mr5].join(' ')} />
+            <Icon id={prependIcon} size='16px' className={[_s.fillPrimary, _s.ml15, _s.mr5].join(' ')} />
           }
 
           {

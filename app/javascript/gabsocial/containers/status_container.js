@@ -48,7 +48,13 @@ const makeMapStateToProps = () => {
   const getStatus = makeGetStatus();
 
   const mapStateToProps = (state, props) => {
-    const status = getStatus(state, props)
+    const statusId = props.id || props.params.statusId
+    const username = props.params ? props.params.username : undefined
+
+    const status = getStatus(state, {
+      id: statusId,
+      username: username,
+    })
 
     // : todo : if is comment (i.e. if any ancestorsIds) use comment not status
 

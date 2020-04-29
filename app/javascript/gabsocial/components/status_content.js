@@ -85,7 +85,7 @@ class StatusContent extends ImmutablePureComponent {
         
         if (descendent.classList.contains('invisible')) {
           descendent.classList.remove('invisible')
-          descendent.classList.add(_s.fontSize0, _s.text, _s.inherit)
+          descendent.classList.add(_s.fs0, _s.text, _s.inherit)
         }
         if (descendent.classList.contains('ellipsis')) {
           descendent.classList.remove('ellipsis')
@@ -254,7 +254,7 @@ class StatusContent extends ImmutablePureComponent {
 
           <div className={spoilerContainerClasses}>
             <div className={[_s.default, _s.flexRow, _s.mr5].join(' ')}>
-              <Icon id='warning' size='14px' className={[_s.fillColorPrimary, _s.mt2, _s.mr5].join(' ')}/>
+              <Icon id='warning' size='14px' className={[_s.fillPrimary, _s.mt2, _s.mr5].join(' ')}/>
               <div
                 className={_s.statusContent}
                 dangerouslySetInnerHTML={spoilerContent}

@@ -55,7 +55,6 @@ class MediaGalleryPanel extends ImmutablePureComponent {
     } = this.props
 
     if (!account || !attachments) return null
-    if (attachments.size === 0) return null
 
     return (
       <PanelLayout
@@ -63,19 +62,22 @@ class MediaGalleryPanel extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
         headerButtonTitle={intl.formatMessage(messages.show_all)}
         headerButtonTo={`/${account.get('acct')}/media`}
-      >
-        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
-          {
-            attachments.slice(0, 16).map((attachment, i) => (
-              <MediaItem
-                isSmall
-                key={attachment.get('id')}
-                attachment={attachment}
-                account={account}
-              />
-            ))
-          }
-        </div>
+      > 
+        {
+          attachments.size > 0 &&
+          <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
+            {
+              attachments.slice(0, 16).map((attachment, i) => (
+                <MediaItem
+                  isSmall
+                  key={attachment.get('id')}
+                  attachment={attachment}
+                  account={account}
+                />
+              ))
+            }
+          </div>
+        }
       </PanelLayout>
     )
   }

@@ -49,7 +49,7 @@ class ListDetailsPanel extends ImmutablePureComponent {
           <Divider isSmall />
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-            <Icon id='calendar' size='12px' className={_s.fillColorSecondary} />
+            <Icon id='calendar' size='12px' className={_s.fillSecondary} />
             <Text
               size='small'
               color='secondary'

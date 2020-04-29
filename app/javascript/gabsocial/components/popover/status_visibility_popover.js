@@ -90,14 +90,14 @@ class StatusVisibilityDropdown extends PureComponent {
                 cursorPointer: 1,
                 borderBottom1PX: !isLast,
                 borderColorSecondary: !isLast,
-                backgroundColorSubtle_onHover: !isActive,
-                backgroundColorBrand: isActive,
+                bgSubtle_onHover: !isActive,
+                bgBrand: isActive,
               })
 
               const iconClasses = cx({
                 ml10: 1,
                 mt2: 1,
-                fillColorWhite: isActive,
+                fillWhite: isActive,
               })
 
               return (

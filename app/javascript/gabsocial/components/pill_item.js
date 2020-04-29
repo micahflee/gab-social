@@ -1,25 +1,14 @@
 import { withRouter } from 'react-router-dom'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
 
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classNames.bind(_s)
-
-/**
- * Renders a tab bar item component
- * @param {bool} [props.isLarge] - to style the tab bar larger
- * @param {bool} [props.isActive] - if item is active
- * @param {func} [props.onClick] - function to call on click
- * @param {string} [props.title] - title to use
- * @param {string} [props.to] - location to direct to on click
- */
 export default
 @withRouter
-class TabBarItem extends PureComponent {
+class PillItem extends PureComponent {
 
   static propTypes = {
-    isLarge: PropTypes.bool,
+    icon: PropTypes.string,
     isActive: PropTypes.bool,
     onClick: PropTypes.func,
     title: PropTypes.string,
@@ -48,7 +37,6 @@ class TabBarItem extends PureComponent {
       to,
       onClick,
       location,
-      isLarge,
       isActive,
     } = this.props
     const { isCurrent } = this.state
@@ -58,40 +46,36 @@ class TabBarItem extends PureComponent {
     const active = isActive ||
       (isCurrent === -1 ? to === location.pathname : false)
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
-      height53PX: 1,
       noUnderline: 1,
       text: 1,
-      displayFlex: 1,
       alignItemsCenter: 1,
       justifyContentCenter: 1,
-      borderBottom2PX: 1,
       py5: 1,
       outlineNone: 1,
       cursorPointer: 1,
-      bgTransparent: 1,
-      borderColorTransparent: !active,
-      borderColorBrand: active,
-      mr5: isLarge,
-      mr2: !isLarge,
+      circle: 1,
+      bgSecondary: !active,
+      bgSecondaryDark_onHover: !active,
+      bgBrand: active,
+      mr5: 1,
+      mb5: 1,
     })
 
-    const textParentClasses = cx({
+    const textParentClasses = CX({
       default: 1,
       height100PC: 1,
       alignItemsCenter: 1,
       justifyContentCenter: 1,
-      radiusSmall: 1,
-      px10: !isLarge,
-      px15: isLarge,
-      bgSecondaryDark_onHover: !active,
+      py2: 1,
+      px15: 1,
     })
 
     const textOptions = {
-      size: !!isLarge ? 'normal' : 'small',
-      color: active ? 'brand' : isLarge ? 'secondary' : 'primary',
-      weight: active ? 'bold' : isLarge ? 'medium' : 'normal',
+      size: 'small',
+      color: active ? 'white' : 'secondary',
+      weight: active ? 'bold' : 'medium',
     }
 
     return (
@@ -109,5 +93,4 @@ class TabBarItem extends PureComponent {
       </Button>
     )
   }
-
 }

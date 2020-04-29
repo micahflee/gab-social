@@ -1,14 +1,14 @@
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
 
-const cx = classNames.bind(_s)
-
 export default class ProgressBar extends PureComponent {
+
   static propTypes = {
     progress: PropTypes.number,
     small: PropTypes.bool,
     title: PropTypes.string,
+    href: PropTypes.string,
   }
 
   render() {
@@ -16,7 +16,7 @@ export default class ProgressBar extends PureComponent {
       progress,
       small,
       title,
-      href
+      href,
     } = this.props
 
     const completed = Math.min(parseFloat(progress), 100)
@@ -24,10 +24,10 @@ export default class ProgressBar extends PureComponent {
       width: `${completed}%`,
     }
 
-    const containerClassName = cx({
+    const containerClassName = CX({
       default: 1,
-      backgroundColorLoading: !small,
-      backgroundColorSubtle2: small,
+      bgLoading: !small,
+      bgSecondary: small,
       noUnderline: 1,
       circle: 1,
       overflowHidden: 1,
@@ -42,7 +42,7 @@ export default class ProgressBar extends PureComponent {
         noClasses
         className={containerClassName}
       >
-        <div className={[_s.default, _s.backgroundColorBrand, _s.circle, _s.height100PC, _s.backgroundCandy].join(' ')} style={style} />
+        <div className={[_s.default, _s.bgBrand, _s.circle, _s.height100PC, _s.backgroundCandy].join(' ')} style={style} />
         <div className={[_s.default, _s.posAbs,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
           {
             !!title &&

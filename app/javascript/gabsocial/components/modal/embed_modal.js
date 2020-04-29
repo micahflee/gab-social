@@ -89,7 +89,7 @@ class EmbedModal extends ImmutablePureComponent {
             {intl.formatMessage(messages.preview)}
           </Text>
 
-          <div className={[_s.default, _s.width100PC, _s.backgroundColorSubtle, _s.height220PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          <div className={[_s.default, _s.width100PC, _s.bgSubtle, _s.height220PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
             <iframe
               className={[_s.default, _s.width100PC, _s.height100PC, _s.z2].join(' ')}
               frameBorder='0'

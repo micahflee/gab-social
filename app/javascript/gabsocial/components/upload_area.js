@@ -54,7 +54,7 @@ class UploadArea extends PureComponent {
       >
         {({ backgroundOpacity, backgroundScale }) => (
           <div
-            className={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.backgroundColorPrimaryOpaque, _s.width100PC, _s.height100PC, _s.posAbs, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+            className={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.bgPrimaryOpaque, _s.width100PC, _s.height100PC, _s.posAbs, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             style={{
               visibility: active ? 'visible' : 'hidden',
               opacity: backgroundOpacity
@@ -62,7 +62,7 @@ class UploadArea extends PureComponent {
           >
             <div className={[_s.default, _s.width340PX, _s.height260PX, _s.px10, _s.py10].join(' ')}>
               <div
-                className={[_s.default, _s.posAbs, _s.backgroundColorPrimary, _s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
+                className={[_s.default, _s.posAbs, _s.bgPrimary, _s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
                 style={{
                   transform: `scale(${backgroundScale})`
                 }}

@@ -103,11 +103,11 @@ export default class Text extends PureComponent {
       colorWhite: color === COLORS.white,
       inherit: color === COLORS.inherit,
 
-      fontSize19PX: size === SIZES.large,
-      fontSize15PX: size === SIZES.medium,
-      fontSize14PX: size === SIZES.normal,
-      fontSize13PX: size === SIZES.small,
-      fontSize12PX: size === SIZES.extraSmall,
+      fs19PX: size === SIZES.large,
+      fs15PX: size === SIZES.medium,
+      fs14PX: size === SIZES.normal,
+      fs13PX: size === SIZES.small,
+      fs12PX: size === SIZES.extraSmall,
 
       fontWeightNormal: weight === WEIGHTS.normal,
       fontWeightMedium: weight === WEIGHTS.medium,

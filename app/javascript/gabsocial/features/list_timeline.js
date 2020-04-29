@@ -10,6 +10,7 @@ import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Text from '../components/text'
+import Block from '../components/block'
 
 const mapStateToProps = (state, props) => ({
   list: state.getIn(['lists', props.params.id]),
@@ -85,7 +86,7 @@ class ListTimeline extends ImmutablePureComponent {
     }
 
     const emptyMessage = (
-      <div className={[_s.default].join(' ')}>
+      <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
         <FormattedMessage
           id='empty_column.list'
           defaultMessage='There is nothing in this list yet. When members of this list post new statuses, they will appear here.'
@@ -95,7 +96,7 @@ class ListTimeline extends ImmutablePureComponent {
           onClick={this.handleEditClick}
           className={[_s.mt10]}
         >
-          <Text color='inherit'>
+          <Text color='inherit' align='center'>
             <FormattedMessage id='list.click_to_add' defaultMessage='Click here to add people' />
           </Text>
         </Button>

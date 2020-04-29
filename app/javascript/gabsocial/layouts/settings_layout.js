@@ -14,13 +14,13 @@ export default class SettingsLayout extends PureComponent {
     const { children, actions, tabs, title } = this.props
 
     return (
-      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.backgroundColorSecondary3].join(' ')}>
+      <div className={[_s.default, _s.flexRow, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
 
         <Sidebar />
 
         <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1, _s.borderColorSecondary, _s.borderLeft1PX].join(' ')}>
 
-          <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.backgroundColorSecondary3, _s.z3, _s.top0, _s.posFixed].join(' ')}>
+          <div className={[_s.default, _s.height53PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgTertiary, _s.z3, _s.top0, _s.posFixed].join(' ')}>
             <div className={[_s.default, _s.height53PX, _s.pl15, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
               <div className={[_s.default, _s.width100PC].join(' ')}>
                 <ColumnHeader

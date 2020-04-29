@@ -257,7 +257,7 @@ class ComposeForm extends ImmutablePureComponent {
       alignItemsEnd: shouldCondense,
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
-      backgroundColorSubtle: shouldCondense,
+      bgSubtle: shouldCondense,
       px5: shouldCondense,
     })
 
@@ -427,7 +427,7 @@ class ComposeForm extends ImmutablePureComponent {
                   isDisabled={disabledButton}
                   backgroundColor='none'
                   color='brand'
-                  className={[_s.fontSize15PX, _s.px15].join(' ')}
+                  className={[_s.fs15PX, _s.px15].join(' ')}
                   onClick={this.handleSubmit}
                 >
                   {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}

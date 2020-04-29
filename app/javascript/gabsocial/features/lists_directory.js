@@ -16,9 +16,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchLists() {
-    return dispatch(fetchLists())
-  },
+  onFetchLists: () => dispatch(fetchLists()),
 })
 
 export default
@@ -37,7 +35,7 @@ class ListsDirectory extends ImmutablePureComponent {
   }
 
   updateOnProps = [
-    'lists'
+    'lists',
   ]
 
   componentDidMount() {

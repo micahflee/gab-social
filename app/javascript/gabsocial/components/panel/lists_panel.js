@@ -17,9 +17,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchLists() {
-    return dispatch(fetchLists())
-  },
+  onFetchLists: () => dispatch(fetchLists()),
 })
 
 export default
@@ -64,7 +62,7 @@ class ListsPanel extends ImmutablePureComponent {
 
     const maxCount = 6
 
-    const listItems = lists.slice(0, maxCount).map(list => ({
+    const listItems = lists.slice(0, maxCount).map((list) => ({
       to: `/lists/${list.get('id')}`,
       title: list.get('title'),
     }))
@@ -79,10 +77,7 @@ class ListsPanel extends ImmutablePureComponent {
         noPadding
       >
         <div className={[_s.default, _s.boxShadowNone].join(' ')}>
-          <List
-            scrollKey='lists_sidebar_panel'
-            items={listItems}
-          />
+          <List scrollKey='lists_sidebar_panel' items={listItems} />
         </div>
       </PanelLayout>
     )

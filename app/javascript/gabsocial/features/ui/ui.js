@@ -63,7 +63,7 @@ import {
   Notifications,
   Search,
   // Shortcuts,
-  Status,
+  StatusFeature,
   StatusLikes,
   StatusReposts,
 } from './util/async_components'
@@ -206,7 +206,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
 
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
-        <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={Status} content={children} componentParams={{ title: 'Status' }} />
+        <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status' }} />
 
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
         <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
@@ -497,7 +497,7 @@ class UI extends PureComponent {
 
     return (
       <div ref={this.setRef}>
-        <LoadingBar className={[_s.height1PX, _s.z3, _s.backgroundColorBrandLight].join(' ')} />
+        <LoadingBar className={[_s.height1PX, _s.z3, _s.bgBrandLight].join(' ')} />
 
         <SwitchingArea location={location} onLayoutChange={this.handleLayoutChange}>
           {children}

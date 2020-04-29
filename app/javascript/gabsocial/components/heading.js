@@ -42,11 +42,11 @@ export default class Heading extends PureComponent {
       colorPrimary: [SIZES.h1, SIZES.h2].indexOf(size) > -1,
       colorSecondary: [SIZES.h3, SIZES.h4, SIZES.h5].indexOf(size) > -1,
 
-      fontSize24PX: size === SIZES.h1,
-      fontSize19PX: size === SIZES.h2,
-      fontSize16PX: size === SIZES.h3,
-      fontSize13PX: size === SIZES.h4,
-      fontSize12PX: size === SIZES.h5,
+      fs24PX: size === SIZES.h1,
+      fs19PX: size === SIZES.h2,
+      fs16PX: size === SIZES.h3,
+      fs13PX: size === SIZES.h4,
+      fs12PX: size === SIZES.h5,
 
       mt5: [SIZES.h4].indexOf(size) > -1,
 

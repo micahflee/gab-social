@@ -444,10 +444,9 @@ class Status extends ImmutablePureComponent {
 
     const containerClasses = cx({
       default: 1,
-      radiusSmall: !isChild,
       pb15: isFeatured,
       radiusSmall: !isChild,
-      backgroundColorPrimary: !isChild,
+      bgPrimary: !isChild,
       boxShadowBlock: !isChild,
       outlineNone: 1,
       mb15: !isChild,
@@ -465,7 +464,7 @@ class Status extends ImmutablePureComponent {
       pb10: isChild && status.get('media_attachments').size === 0,
       pb5: isChild && status.get('media_attachments').size > 1,
       cursorPointer: isChild,
-      backgroundColorSubtle_onHover: isChild,
+      bgSubtle_onHover: isChild,
     })
 
     return (

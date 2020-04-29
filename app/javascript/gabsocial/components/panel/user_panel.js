@@ -2,19 +2,20 @@ import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import classNames from 'classnames/bind'
 import { me } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import { shortNumberFormat } from '../../utils/numbers'
 import { openModal } from '../../actions/modal'
+import {
+  CX,
+  MODAL_EDIT_PROFILE,
+} from '../../constants'
+import PanelLayout from './panel_layout'
+import Avatar from '../avatar'
 import Button from '../button'
 import DisplayName from '../display_name'
-import Avatar from '../avatar'
 import Image from '../image'
 import UserStat from '../user_stat'
-import PanelLayout from './panel_layout'
-
-const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   gabs: { id: 'account.posts', defaultMessage: 'Gabs' },
@@ -30,7 +31,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenEditProfile() {
-    dispatch(openModal('EDIT_PROFILE'))
+    dispatch(openModal(MODAL_EDIT_PROFILE))
   },
 })
 
@@ -38,6 +39,7 @@ export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class UserPanel extends ImmutablePureComponent {
+
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
     intl: PropTypes.object.isRequired,
@@ -60,15 +62,15 @@ class UserPanel extends ImmutablePureComponent {
     this.setState({ hovering: false })
   }
 
-  handleOnOpenEditProfile = () => {
-    this.props.onOpenEditProfile()
-  }
-
   render() {
-    const { account, intl } = this.props
+    const {
+      account,
+      intl,
+      onOpenEditProfile,
+    } = this.props
     const { hovering } = this.state
 
-    const buttonClasses = cx({
+    const buttonClasses = CX({
       posAbs: 1,
       mt10: 1,
       mr10: 1,
@@ -96,7 +98,7 @@ class UserPanel extends ImmutablePureComponent {
             backgroundColor='secondary'
             radiusSmall
             className={buttonClasses}
-            onClick={this.handleOnOpenEditProfile}
+            onClick={onOpenEditProfile}
           >
             {intl.formatMessage(messages.edit_profile)}
           </Button>
@@ -134,4 +136,5 @@ class UserPanel extends ImmutablePureComponent {
       </PanelLayout>
     )
   }
+
 }

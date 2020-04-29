@@ -41,14 +41,20 @@ export function submitSearch() {
     }).then(response => {
       if (response.data.accounts) {
         dispatch(importFetchedAccounts(response.data.accounts));
+        dispatch(fetchRelationships(response.data.accounts.map(item => item.id)));
       }
 
       if (response.data.statuses) {
         dispatch(importFetchedStatuses(response.data.statuses));
       }
 
+      console.log("response.data.", response.data)
+
+      // if (response.data.groups) {
+      //   dispatch(importFetchedStatuses(response.data.statuses));
+      // }
+
       dispatch(fetchSearchSuccess(response.data));
-      dispatch(fetchRelationships(response.data.accounts.map(item => item.id)));
     }).catch(error => {
       dispatch(fetchSearchFail(error));
     });

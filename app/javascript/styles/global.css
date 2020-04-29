@@ -12,8 +12,8 @@
   --font_size_extra_large: 19px;
   --font_size_extra_extra_large: 24px;
 
-  --color_brand-dark: #38a16b;
-  --color_brand-light: #36e991;
+  --color_brand-dark: #378e61;
+  --color_brand-light: #63DA9D;
   --color_brand-light-opaque: rgb(54, 233, 145, .125);
   --color_brand: #21cf7a;
 
@@ -30,7 +30,7 @@
   --solid_color_primary-opaque:rgba(255, 255, 255,.6);
   --solid_color_secondary: #e2e8ec;
   --solid_color_secondary-dark: #d9e0e5;
-  --solid_color_tertiary: #f6f6f9;
+  --solid_color_tertiary: #f5f5f7;
   --solid_color_block: #f5f8fa;
 
   --text_color_primary: #2d3436;
@@ -214,6 +214,7 @@ body {
 
 .justifyContentSpaceBetween { justify-content: space-between; }
 .justifyContentCenter { justify-content: center; }
+.justifyContentEnd { justify-content: flex-end; }
 
 .overflowHidden {
   overflow-x: hidden;
@@ -229,6 +230,8 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.textUppercase { text-transform: uppercase; }
 
 .whiteSpaceNoWrap { white-space: nowrap; }
 
@@ -295,39 +298,39 @@ body {
   );
 }
 
-.backgroundTransparent { background-color: transparent; }
+.bgTransparent { background-color: transparent; }
 
-.backgroundColorLoading { background-color: #ccc; }
+.bgLoading { background-color: #ccc; }
 
-.backgroundColorSubtle { background-color: var(--solid_color_block); }
-.backgroundColorSubtle_onHover:hover { background-color: var(--solid_color_block); }
+.bgSubtle { background-color: var(--solid_color_block); }
+.bgSubtle_onHover:hover { background-color: var(--solid_color_block); }
 
-.backgroundColorSubtle2 { background-color: var(--solid_color_secondary); }
-.backgroundColorSubtle2Dark_onHover:hover { background-color: var(--solid_color_secondary-dark); }
+.bgSecondary { background-color: var(--solid_color_secondary); }
+.bgSecondaryDark_onHover:hover { background-color: var(--solid_color_secondary-dark); }
 
-.backgroundColorSecondary3 { background-color: var(--solid_color_tertiary); }
+.bgTertiary { background-color: var(--solid_color_tertiary); }
 
-.backgroundColorPrimary { background-color: var(--solid_color_primary); }
-.backgroundColorPrimaryOpaque { background-color: var(--solid_color_primary-opaque) }
+.bgPrimary { background-color: var(--solid_color_primary); }
+.bgPrimaryOpaque { background-color: var(--solid_color_primary-opaque) }
 
-.backgroundColorWhite { background-color: var(--color_white); }
+.bgWhite { background-color: var(--color_white); }
 
-.backgroundColorBlack { background-color: var(--color_black); }
-.backgroundColorBlackOpaque { background-color: var(--color_black-opaquer); }
-.backgroundColorBlackOpaque_onHover:hover { background-color: var(--color_black-opaque); }
+.bgBlack { background-color: var(--color_black); }
+.bgBlackOpaque { background-color: var(--color_black-opaquer); }
+.bgBlackOpaque_onHover:hover { background-color: var(--color_black-opaque); }
 
-.backgroundColorBrand { background-color: var(--color_brand); }
-.backgroundColorBrand_onHover:hover { background-color: var(--color_brand); }
+.bgBrand { background-color: var(--color_brand); }
+.bgBrand_onHover:hover { background-color: var(--color_brand); }
 
-.backgroundColorBrandLight { background-color: var(--color_brand-light); }
-.backgroundColorBrandLightOpaque { background-color: var(--color_brand-light-opaque); }
-.backgroundColorBrandLightOpaque_onHover:hover { background-color: var(--color_brand-light-opaque); }
+.bgBrandLight { background-color: var(--color_brand-light); }
+.bgBrandLightOpaque { background-color: var(--color_brand-light-opaque); }
+.bgBrandLightOpaque_onHover:hover { background-color: var(--color_brand-light-opaque); }
 
-.backgroundColorBrandDark { background-color: var(--color_brand-dark); }
-.backgroundColorBrandDark_onHover:hover { background-color: var(--color_brand-dark); }
+.bgBrandDark { background-color: var(--color_brand-dark); }
+.bgBrandDark_onHover:hover { background-color: var(--color_brand-dark); }
 
-.backgroundColorDanger { background-color: var(--color_red); }
-.backgroundColorDangerDark_onHover:hover { background-color: var(--color_red-dark); }
+.bgDanger { background-color: var(--color_red); }
+.bgDangerDark_onHover:hover { background-color: var(--color_red-dark); }
 
 /*  */
 
@@ -344,14 +347,15 @@ body {
 
 /*  */
 
-.fillColorPrimary { fill: var(--text_color_primary); }
-.fillColorSecondary { fill: var(--text_color_secondary); }
+.fillPrimary { fill: var(--text_color_primary); }
+.fillSecondary { fill: var(--text_color_secondary); }
 
-.fillColorWhite { fill: var(--color_white); }
-.fillColorWhite_onHover:hover { fill: var(--color_white); }
+.fillWhite { fill: var(--color_white); }
+.fillWhite_onHover:hover { fill: var(--color_white); }
 
-.fillColorBrand { fill: var(--color_brand); }
-.fillColorBrand_onHover:hover { fill: var(--color_brand);}
+.fillBrand { fill: var(--color_brand); }
+.fillBrandDark { fill: var(--color_brand-dark); }
+.fillBrand_onHover:hover { fill: var(--color_brand);}
 
 .fillColorGabPro { fill: var(--color_gold); }
 
@@ -391,12 +395,12 @@ body {
 .heightMax100VH { max-height: 100vh; }
 .heightMax80VH { max-height: 80vh; }
 .heightMax56PX { max-height: 56px; }
+.heightCalc53PX { height: calc(100vh - 53px); }
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }
 .heightMin50PX { min-height: 50px; }
 
-.height100VH { height: 100vh; }
 .height100PC { height: 100%; }
 .height350PX { height: 350px; }
 .height260PX { height: 260px; }
@@ -405,7 +409,6 @@ body {
 .height122PX { height: 122px; }
 .height72PX { height: 72px; }
 .height53PX { height: 53px; }
-.height50PX { height: 50px; }
 .height40PX { height: 40px; }
 .height24PX { height: 24px; }
 .height22PX { height: 22px; }
@@ -418,6 +421,7 @@ body {
 .width100PC { width: 100%; }
 .width50PC { width: 50%; }
 .width25PC { width: 25%; }
+.width1255PX { width: 1255px; }
 .width1015PX { width: 1015px; }
 .width645PX { width: 645px; }
 .width340PX { width: 340px; }
@@ -429,6 +433,7 @@ body {
 .width50PX { width: 50px; }
 .width20PX { width: 20px; }
 .width4PX { width: 4px; }
+.width1PX { width: 1px; }
 
 
 @media (min-width: 1480px) {
@@ -507,6 +512,8 @@ body {
   .width1015PX {
     max-width: 600px;
     width: 100%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .width645PX {
@@ -526,14 +533,14 @@ body {
 .textAlignLeft { text-align: left; }
 .textAlignCenter { text-align: center; }
 
-.fontSize24PX { font-size: var(--font_size_extra_extra_large); }
-.fontSize19PX { font-size: var(--font_size_extra_large); }
-.fontSize16PX { font-size: var(--font_size_large); }
-.fontSize15PX { font-size: var(--font_size_medium); }
-.fontSize14PX { font-size: var(--font_size_normal); }
-.fontSize13PX { font-size: var(--font_size_small); }
-.fontSize12PX { font-size: var(--font_size_extra_small); }
-.fontSize0 { font-size: 0; }
+.fs24PX { font-size: var(--font_size_extra_extra_large); }
+.fs19PX { font-size: var(--font_size_extra_large); }
+.fs16PX { font-size: var(--font_size_large); }
+.fs15PX { font-size: var(--font_size_medium); }
+.fs14PX { font-size: var(--font_size_normal); }
+.fs13PX { font-size: var(--font_size_small); }
+.fs12PX { font-size: var(--font_size_extra_small); }
+.fs0 { font-size: 0; }
 
 .fontWeightNormal { font-weight: 400; }
 .fontWeightMedium { font-weight: 500; }
@@ -562,7 +569,7 @@ body {
   margin-bottom: 10px;
 }
 
-.margin1PX { margin: 1px; }
+.m1PX { margin: 1px; }
 
 .mr15 { margin-right: 15px; }
 .mr10 { margin-right: 10px; }
@@ -602,9 +609,12 @@ body {
 
 .pl25 { padding-left: 25px; }
 .pl15 { padding-left: 15px; }
+.pl10 { padding-left: 10px; }
+.pl5 { padding-left: 5px; }
 .pl0 { padding-left: 0; }
 
 .pr15 { padding-right: 15px; }
+.pr10 { padding-right: 10px; }
 .pr5 { padding-right: 5px; }
 .pr0 { padding-right: 0; }
 
@@ -616,6 +626,11 @@ body {
 .py5 {
   padding-top: 5px;
   padding-bottom: 5px;
+}
+
+.py7 {
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 .py10 {
@@ -658,6 +673,7 @@ body {
 
 .boxShadowNone .boxShadowBlock {
   box-shadow: none !important;
+  border-radius: 0 !important;
 }
 
 .boxShadowAvatarPro {
@@ -725,6 +741,19 @@ body {
 
 .visibilityHidden {
   visibility: hidden;
+}
+
+.searchInput::placeholder {
+  color: rgba(255,255,255,0.65);
+  opacity: 1;
+}
+
+.searchInput:-ms-input-placeholder {
+  color: rgba(255,255,255,0.65);
+}
+
+.searchInput::-ms-input-placeholder {
+  color: rgba(255,255,255,0.65);
 }
 
 /**

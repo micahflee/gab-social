@@ -45,14 +45,14 @@ export default class ColumnHeader extends PureComponent {
             className={[_s.alignItemsCenter, _s.pl0, _s.justifyContentCenter].join(' ')}
             icon='back'
             iconSize='20px'
-            iconClassName={[_s.mr5, _s.fillColorPrimary].join(' ')}
+            iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
             onClick={this.handleBackClick}
           />
         }
 
         <div className={[_s.default, _s.height100PC, _s.justifyContentCenter, _s.mr10].join(' ')}>
           <Heading size='h1'>
-            {title}
+
           </Heading>
         </div>
         
@@ -63,7 +63,7 @@ export default class ColumnHeader extends PureComponent {
 
         {
           !!actions &&
-          <div className={[_s.default, _s.backgroundTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
+          <div className={[_s.default, _s.bgTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
             {
               actions.map((action, i) => (
                 <Button

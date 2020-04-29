@@ -137,7 +137,7 @@ class ModalBase extends PureComponent {
           <Fragment>
             <div
               role='presentation'
-              className={[_s.default, _s.backgroundColorBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
+              className={[_s.default, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
             />
             <div
               ref={this.setDialog}
