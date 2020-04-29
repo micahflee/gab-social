@@ -1,6 +1,6 @@
 import { Fragment } from 'react'
 import classNames from 'classnames/bind'
-import { urlRegex } from '../features/compose/util/url_regex'
+import { urlRegex } from '../features/ui/util/url_regex'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
 import Image from './image'

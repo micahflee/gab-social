@@ -246,24 +246,21 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       return (
         <Fragment>
           <div className={[_s.default, _s.flexGrow1, _s.maxWidth100PC].join(' ')}>
-            <div className={[_s.default].join(' ')}>
+            <Composer
+              inputRef={this.setTextbox}
+              disabled={disabled}
+              placeholder={placeholder}
+              autoFocus={autoFocus}
+              value={value}
+              onChange={this.onChange}
+              onKeyDown={this.onKeyDown}
+              onKeyUp={onKeyUp}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onPaste={this.onPaste}
+              small={small}
+            />
 
-              <Composer
-                inputRef={this.setTextbox}
-                disabled={disabled}
-                placeholder={placeholder}
-                autoFocus={autoFocus}
-                value={value}
-                onChange={this.onChange}
-                onKeyDown={this.onKeyDown}
-                onKeyUp={onKeyUp}
-                onFocus={this.onFocus}
-                onBlur={this.onBlur}
-                onPaste={this.onPaste}
-                small={small}
-              />
-
-            </div>
             {children}
           </div>
           { /* : todo :  put in popover */ }

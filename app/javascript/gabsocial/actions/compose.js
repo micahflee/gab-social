@@ -2,7 +2,7 @@ import api from '../api';
 import { CancelToken, isCancel } from 'axios';
 import throttle from 'lodash.throttle'
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
-import { urlRegex } from '../features/compose/util/url_regex'
+import { urlRegex } from '../features/ui/util/url_regex'
 import { tagHistory } from '../settings';
 import { useEmoji } from './emojis';
 import resizeImage from '../utils/resize_image';

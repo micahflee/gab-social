@@ -55,8 +55,11 @@ export default class ColumnHeader extends PureComponent {
             {title}
           </Heading>
         </div>
-
-        <TabBar tabs={tabs} />
+        
+        {
+          !!tabs &&
+          <TabBar tabs={tabs} />
+        }
 
         {
           !!actions &&
@@ -65,10 +68,10 @@ export default class ColumnHeader extends PureComponent {
               actions.map((action, i) => (
                 <Button
                   backgroundColor='none'
-                  color='secondary'
+                  color='primary'
                   onClick={() => action.onClick()}
                   key={`column-header-action-btn-${i}`}
-                  className={[_s.ml5, _s.fillColorBrand_onHover, _s.backgroundColorBrandLightOpaque_onHover, _s.px10].join(' ')}
+                  className={[_s.ml5, _s.px10].join(' ')}
                   icon={action.icon}
                   iconClassName={_s.inheritFill}
                   iconSize='15px'

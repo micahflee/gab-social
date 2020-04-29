@@ -1,36 +1,45 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
-import classNames from 'classnames/bind'
+import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover, closePopover } from '../actions/popover'
-import { initReport } from '../actions/reports'
 import { openModal } from '../actions/modal'
-import { unfollowModal, me } from '../initial_state'
-import Avatar from './avatar'
+import { joinGroup, leaveGroup } from '../actions/groups'
+import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import Button from './button'
 import Block from './block'
-import Icon from './icon'
 import Image from './image'
 import TabBar from './tab_bar'
 import Text from './text'
 
-const cx = classNames.bind(_s)
-
 const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
-  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
-  requested: { id: 'requested', defaultMessage: 'Requested' },
-  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
-  profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  join: { id: 'groups.join', defaultMessage: 'Join group' },
+  leave: { id: 'groups.leave', defaultMessage: 'Leave group' },
+  share: { id: 'status.share', defaultMessage: 'Share' },
+  removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
+  group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
+  group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
 })
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
+  toggleMembership(group, relationships) {
+    if (relationships.get('member')) {
+      dispatch(leaveGroup(group.get('id')));
+    } else {
+      dispatch(joinGroup(group.get('id')));
+    }
+  },
+
+  onShare() {
+
+  },
+
+  onOpenGroupOptions() {
+
+  },
+
   openProfileOptionsPopover(props) {
-    console.log('props:', props)
-    dispatch(openPopover('PROFILE_OPTIONS', props))
+    dispatch(openPopover('GROUP_OPTIONS', props))
   },
 
 });
@@ -41,32 +50,59 @@ export default
 class GroupHeader extends ImmutablePureComponent {
 
   static propTypes = {
-    intl: PropTypes.object.isRequired,
     group: ImmutablePropTypes.map,
+    intl: PropTypes.object.isRequired,
+    onToggleMembership: PropTypes.func.isRequired,
+    onShare: PropTypes.func.isRequired,
+    onOpenGroupOptions: PropTypes.func.isRequired,
     relationships: ImmutablePropTypes.map,
   }
 
-  
+  handleOnToggleMembership = () => {
+    const { group, relationships } = this.props
+    this.props.onToggleMembership(group, relationships);
+  }
+
   render() {
-    const { intl, relationships, group } = this.props
+    const {
+      group,
+      intl,
+      onShare,
+      onOpenGroupOptions,
+      relationships,
+    } = this.props
 
     const tabs = !group ? null : [
       {
         to: `/groups/${group.get('id')}`,
         title: 'Latest',
       },
-      {
-        to: `/groups/${group.get('id')}/pinned`,
-        title: 'Pinned',
-      },
-      {
-        to: `/groups/${group.get('id')}/popular`,
-        title: 'Popular',
-      },
     ]
 
-    const coverSrc = !!group ? group.get('cover_image_url') : undefined
+    const coverSrc = !!group ? group.get('cover_image_url') : ''
+    const coverSrcMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const title = !!group ? group.get('title') : undefined
+
+    let actionButtonTitle
+    let actionButtonOptions = {}
+    if (relationships) {
+      const isMember = relationships.get('member')
+      actionButtonTitle = intl.formatMessage(!isMember ? messages.join : messages.leave)
+      if (isMember) {
+        actionButtonOptions = {
+          backgroundColor: 'tertiary',
+          color: 'primary',
+        }
+      }
+    }
+
+    // : todo :
+    // {group.get('archived') && <Icon id='lock' title={intl.formatMessage(messages.group_archived)} />}
+
+    // const adminMenu = [
+    // 	{ text: intl.formatMessage(messages.edit), to: `/groups/${group.get('id')}/edit` },
+    // 	{ text: intl.formatMessage(messages.removed_accounts), to: `/groups/${group.get('id')}/removed-accounts` },
+    // ]
 
     return (
       <div className={[_s.default, _s.z1, _s.width100PC, _s.mb15].join(' ')}>
@@ -74,32 +110,35 @@ class GroupHeader extends ImmutablePureComponent {
           <div className={[_s.default, _s.width100PC].join(' ')}>
             
             {
-              !!coverSrc &&
+              coverSrc && !coverSrcMissing &&
               <Image className={_s.height350PX} src={coverSrc} alt={title} />
             }
-            
+
             <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
                 <TabBar tabs={tabs} />
                 <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
-                  <Button
-                    color='primary'
-                    backgroundColor='tertiary'
-                    radiusSmall
-                    className={_s.mr5}
-                  >
-                    <Text color='inherit' size='small'>
-                      Leave/Join
+                  {
+                    !!actionButtonTitle &&
+                    <Button
+                      radiusSmall
+                      className={_s.mr5}
+                      {...actionButtonOptions}
+                    >
+                      <Text color='inherit' size='small'>
+                        {actionButtonTitle}
                       </Text>
-                  </Button>
+                    </Button>
+                  }
                   <Button
                     color='primary'
                     backgroundColor='tertiary'
                     radiusSmall
                     className={_s.mr5}
+                    onClick={onShare}
                   >
                     <Text color='inherit' size='small'>
-                      Share
+                      {intl.formatMessage(messages.share)}
                     </Text>
                   </Button>
                   <Button
@@ -108,6 +147,7 @@ class GroupHeader extends ImmutablePureComponent {
                     backgroundColor='tertiary'
                     className={_s.mr5}
                     icon='ellipsis'
+                    onClick={onOpenGroupOptions}
                   />
                 </div>
               </div>

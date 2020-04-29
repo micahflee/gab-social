@@ -105,13 +105,16 @@ class Search extends PureComponent {
           hasClear
           value={value}
           inputRef={this.setTextbox}
+          id='search'
           prependIcon='search'
-          placeholder='Search on Gab...'
+          placeholder='Search Gab'
           onChange={this.handleChange}
           onKeyUp={this.handleKeyUp}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}
           onClear={onClear}
+          hideLabel
+          title='Search'
         />
 
         {

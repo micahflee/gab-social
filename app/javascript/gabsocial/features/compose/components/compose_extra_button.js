@@ -33,6 +33,7 @@ export default class ComposeExtraButton extends PureComponent {
       px10: !small,
       py5: small,
       px5: small,
+      mr2: !children,
     })
 
     const iconClasses = cx({
@@ -42,18 +43,27 @@ export default class ComposeExtraButton extends PureComponent {
 
     const iconSize = !!small ? '14px' : '16px'
 
+    const button = (
+      <Button
+        className={btnClasses}
+        title={title}
+        isDisabled={disabled}
+        onClick={onClick}
+        backgroundColor='none'
+        iconClassName={iconClasses}
+        icon={icon}
+        iconSize={iconSize}
+        buttonRef={!children ? buttonRef : undefined}
+      />
+    )
+
+    if (!children) {
+      return button
+    }
+
     return (
       <div className={[_s.default, _s.mr2].join(' ')} ref={buttonRef}>
-        <Button
-          className={btnClasses}
-          title={title}
-          isDisabled={disabled}
-          onClick={onClick}
-          backgroundColor='none'
-          iconClassName={iconClasses}
-          icon={icon}
-          iconSize={iconSize}
-        />
+        {button}
         {children}
       </div>
     )

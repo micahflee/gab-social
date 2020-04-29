@@ -83,6 +83,7 @@ class Account extends ImmutablePureComponent {
     expanded: PropTypes.bool,
     showDismiss: PropTypes.bool,
     dismissAction: PropTypes.func,
+    withBio: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -91,6 +92,7 @@ class Account extends ImmutablePureComponent {
     'compact',
     'expanded',
     'showDismiss',
+    'withBio',
   ]
 
   handleAction = () => {

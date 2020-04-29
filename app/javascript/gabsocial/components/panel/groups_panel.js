@@ -37,6 +37,12 @@ class GroupSidebarPanel extends ImmutablePureComponent {
     fetched: false,
   }
 
+  componentDidMount() {
+    if (!this.props.isLazy) {
+      this.props.onFetchGroups('member')
+    }
+  }
+
   static getDerivedStateFromProps(nextProps, prevState) {
     if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
       return {

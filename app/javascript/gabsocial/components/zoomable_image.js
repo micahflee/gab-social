@@ -24,7 +24,7 @@ const clamp = (min, max, value) => Math.min(max, Math.max(min, value));
 //     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
 //   }
 // }
-
+// : todo :
 
 export default class ZoomableImage extends PureComponent {
 

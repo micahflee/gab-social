@@ -22,7 +22,7 @@ export default class Input extends PureComponent {
     small: PropTypes.bool,
     readOnly: PropTypes.string,
     inputRef: PropTypes.func,
-    id: PropTypes.string,
+    id: PropTypes.string.isRequired,
     hideLabel: PropTypes.bool,
   }
 
@@ -71,13 +71,6 @@ export default class Input extends PureComponent {
       pr15: !hasClear,
     })
 
-    const titleClasses = cx({
-      default: 1,
-      mb10: 1,
-      pl15: 1,
-      displayNone: hideLabel,
-    })
-
     const btnClasses = cx({
       displayNone: !value || value.length === 0,
       px10: 1,
@@ -87,8 +80,8 @@ export default class Input extends PureComponent {
     return (
       <Fragment>
         {
-          !!title &&
-          <div className={titleClasses}>
+          !!title && !hideLabel &&
+          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
             <Text htmlFor={id} size='small' weight='medium' color='secondary' tagName='label'>
               {title}
             </Text>
@@ -100,6 +93,11 @@ export default class Input extends PureComponent {
             <Icon id={prependIcon} size='16px' className={[_s.fillColorPrimary, _s.ml15, _s.mr5].join(' ')} />
           }
 
+          {
+            !!title && hideLabel &&
+            <label className={_s.visiblyHidden} htmlFor={id}>{title}</label>
+          }
+          
           <input
             id={id}
             className={inputClasses}

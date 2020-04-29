@@ -23,7 +23,6 @@ export default class ProfileLayout extends ImmutablePureComponent {
     return (
       <Layout
         noRightSidebar
-        noHeader
         noComposeButton
       >
         <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentSpaceBetween, _s.pr15].join(' ')}>

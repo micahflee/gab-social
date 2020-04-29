@@ -3,7 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { length } from 'stringz'
 import { isMobile } from '../../../utils/is_mobile'
-import { countableText } from '../util/counter'
+import { countableText } from '../../ui/util/counter'
 import {
   CX,
   MAX_POST_CHARACTER_COUNT,
@@ -239,7 +239,7 @@ class ComposeForm extends ImmutablePureComponent {
     } = this.props
     const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
-    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (text.length !== 0 && text.trim().length === 0 && !anyMedia);
+    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text) !== 0 && length(text.trim()) === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
     
     const parentContainerClasses = CX({
@@ -406,7 +406,7 @@ class ComposeForm extends ImmutablePureComponent {
                     <Button
                       isNarrow
                       onClick={this.handleSubmit}
-                      disabled={disabledButton}
+                      isDisabled={disabledButton}
                       className={_s.px10}
                     >
                       {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
@@ -421,8 +421,12 @@ class ComposeForm extends ImmutablePureComponent {
               }
 
               {
-                !shouldCondense && !disabledButton &&
+                !shouldCondense &&
                 <Button
+                  isOutline
+                  isDisabled={disabledButton}
+                  backgroundColor='none'
+                  color='brand'
                   className={[_s.fontSize15PX, _s.px15].join(' ')}
                   onClick={this.handleSubmit}
                 >

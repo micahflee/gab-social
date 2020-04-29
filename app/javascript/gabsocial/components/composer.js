@@ -8,7 +8,7 @@ import {
 } from 'draft-js'
 import { draftToMarkdown } from 'markdown-draft-js'
 // import draftToMarkdown from 'draftjs-to-markdown'
-import { urlRegex } from '../features/compose/util/url_regex'
+import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
 

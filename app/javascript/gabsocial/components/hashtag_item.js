@@ -9,12 +9,13 @@ export default class HashtagItem extends ImmutablePureComponent {
 
   static propTypes = {
     hashtag: ImmutablePropTypes.map.isRequired,
+    isCompact: PropTypes.bool,
   }
 
   updateOnProps = ['hashtag']
 
   render() {
-    const { hashtag } = this.props
+    const { hashtag, isCompact } = this.props
 
     const count = hashtag.get('history').map((block) => {
       return parseInt(block.get('uses'))
@@ -31,22 +32,28 @@ export default class HashtagItem extends ImmutablePureComponent {
               {hashtag.get('name')}
             </Text>
           </div>
-          <Button
-            isText
-            backgroundColor='none'
-            color='none'
-            title='Remove'
-            icon='close'
-            iconSize='8px'
-            iconClassName={_s.fillColorSecondary}
-            className={_s.mlAuto}
-          />
+          {
+            !isCompact &&
+            <Button
+              isText
+              backgroundColor='none'
+              color='none'
+              title='Remove'
+              icon='close'
+              iconSize='8px'
+              iconClassName={_s.fillColorSecondary}
+              className={_s.mlAuto}
+            />
+          }
         </div>
-        <Text color='secondary' size='small' className={_s.py2}>
-          <FormattedMessage id='number_of_gabs' defaultMessage='{count} Gabs' values={{
-            count,
-          }} />
-        </Text>
+        {
+          !isCompact &&
+          <Text color='secondary' size='small' className={_s.py2}>
+            <FormattedMessage id='number_of_gabs' defaultMessage='{count} Gabs' values={{
+              count,
+            }} />
+          </Text>
+        }
       </NavLink>
     )
   }

@@ -45,13 +45,13 @@
   --solid_color_secondary: #4f5050;
   --solid_color_secondary-dark: #424343;
   --solid_color_tertiary: #333;
-  --solid_color_block: #3d3d3d;
+  --solid_color_block: #2d2d2d;
 
   --text_color_primary: #fff;
   --text_color_secondary: #7b7b7b;
   --text_color_tertiary: #656565;
 
-  --border_color_secondary: #424141;*/
+  --border_color_secondary: #424141; */
 
   /* BLACK THEME */
   /* --solid_color_primary: #13171b;
@@ -243,6 +243,7 @@ body {
 .bottomRightRadiusSmall { border-bottom-right-radius: var(--radius-small); }
 .bottomLeftRadiusSmall { border-bottom-left-radius: var(--radius-small); }
 
+.borderColorWhite { border-color: var(--color_white); }
 .borderColorPrimary { border-color: var(--solid_color_primary); }
 .borderColorSecondary { border-color: var(--border_color_secondary); }
 .borderColorBrand { border-color: var(--color_brand); }
@@ -589,7 +590,7 @@ body {
 
 .pt5625PC { padding-top: 56.25%; }
 .pt25PC { padding-top: 25%; }
-
+.pt53PX { padding-top: 53px; }
 .pt15 { padding-top: 15px; }
 .pt10 { padding-top: 10px; }
 .pt5 { padding-top: 5px; }
@@ -711,6 +712,16 @@ body {
   display: block;
   position: absolute;
 } */
+
+.visiblyHidden {
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0;
+  composes: posAbs;
+}
 
 .visibilityHidden {
   visibility: hidden;

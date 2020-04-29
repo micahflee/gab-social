@@ -478,21 +478,22 @@ class UI extends PureComponent {
     const { draggingOver } = this.state
     const { children, location } = this.props
 
-    const handlers = me ? {
-      help: this.handleHotkeyToggleHelp,
-      new: this.handleHotkeyNew,
-      search: this.handleHotkeySearch,
-      forceNew: this.handleHotkeyForceNew,
-      back: this.handleHotkeyBack,
-      goToHome: this.handleHotkeyGoToHome,
-      goToNotifications: this.handleHotkeyGoToNotifications,
-      goToStart: this.handleHotkeyGoToStart,
-      goToFavorites: this.handleHotkeyGoToFavorites,
-      goToProfile: this.handleHotkeyGoToProfile,
-      goToBlocked: this.handleHotkeyGoToBlocked,
-      goToMuted: this.handleHotkeyGoToMuted,
-      goToRequests: this.handleHotkeyGoToRequests,
-    } : {}
+    // : todo :
+    // const handlers = me ? {
+    //   help: this.handleHotkeyToggleHelp,
+    //   new: this.handleHotkeyNew,
+    //   search: this.handleHotkeySearch,
+    //   forceNew: this.handleHotkeyForceNew,
+    //   back: this.handleHotkeyBack,
+    //   goToHome: this.handleHotkeyGoToHome,
+    //   goToNotifications: this.handleHotkeyGoToNotifications,
+    //   goToStart: this.handleHotkeyGoToStart,
+    //   goToFavorites: this.handleHotkeyGoToFavorites,
+    //   goToProfile: this.handleHotkeyGoToProfile,
+    //   goToBlocked: this.handleHotkeyGoToBlocked,
+    //   goToMuted: this.handleHotkeyGoToMuted,
+    //   goToRequests: this.handleHotkeyGoToRequests,
+    // } : {}
 
     return (
       <div ref={this.setRef}>

@@ -113,23 +113,21 @@ export default class SidebarSectionItem extends PureComponent {
         className={[_s.default, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.width100PC, _s.backgroundTransparent].join(' ')}
       >
         <div className={containerClasses}>
-          <div className={[_s.default]}>
-            {
-              icon && 
-              <Icon id={icon} className={iconClasses} size={iconSize} />
-            }
-            
-            {
-              image &&
-              <Image
-                alt={title}
-                className={_s.circle}
-                width={iconSize}
-                height={iconSize}
-                src={image}
-              />
-            }
-          </div>
+          {
+            icon && 
+            <Icon id={icon} className={iconClasses} size={iconSize} />
+          }
+          
+          {
+            image &&
+            <Image
+              alt={title}
+              className={_s.circle}
+              width={iconSize}
+              height={iconSize}
+              src={image}
+            />
+          }
           
           <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
             <span className={textClasses}>{title}</span>
