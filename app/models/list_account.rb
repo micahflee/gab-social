@@ -12,7 +12,7 @@
 class ListAccount < ApplicationRecord
   belongs_to :list
   belongs_to :account
-  belongs_to :follow
+  belongs_to :follow, optional: true
 
   validates :account_id, uniqueness: { scope: :list_id }
 
@@ -21,6 +21,6 @@ class ListAccount < ApplicationRecord
   private
 
   def set_follow
-    self.follow = Follow.find_by(account_id: list.account_id, target_account_id: account.id)
+    self.follow = Follow.find_by!(account_id: list.account_id, target_account_id: account.id) unless list.account_id == account.id
   end
 end
