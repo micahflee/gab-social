@@ -7,6 +7,10 @@ import Layout from '../layouts/layout'
 
 const messages = defineMessages({
   search: { id: 'search', defaultMessage: 'Search' },
+  top: { id: 'top', defaultMessage: 'Top' },
+  people: { id: 'people', defaultMessage: 'People' },
+  groups: { id: 'groups', defaultMessage: 'Groups' },
+  hashtags: { id: 'hashtags', defaultMessage: 'Hashtags' },
 })
 
 export default
@@ -19,31 +23,24 @@ class SearchPage extends PureComponent {
   }
 
   render() {
-    const {
-      intl,
-      children,
-    } = this.props
+    const { intl, children } = this.props
 
     const title = intl.formatMessage(messages.search)
     const tabs = [
       {
-        title: 'Top',
+        title: intl.formatMessage(messages.top),
         to: '/search'
       },
       {
-        title: 'People',
+        title: intl.formatMessage(messages.people),
         to: '/search/people'
       },
       {
-        title: 'Groups',
+        title: intl.formatMessage(messages.groups),
         to: '/search/groups'
       },
       {
-        title: 'Trends',
-        to: '/search/trends'
-      },
-      {
-        title: 'Hashtags',
+        title: intl.formatMessage(messages.hashtags),
         to: '/search/hashtags'
       },
     ]

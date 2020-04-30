@@ -60,3 +60,27 @@ export const MODAL_STATUS_REVISIONS = 'STATUS_REVISIONS'
 export const MODAL_UNAUTHORIZED = 'UNAUTHORIZED'
 export const MODAL_UNFOLLOW = 'UNFOLLOW'
 export const MODAL_VIDEO = 'VIDEO'
+
+export const FONT_SIZES_EXTRA_SMALL = '12px'
+export const FONT_SIZES_SMALL = '13px'
+export const FONT_SIZES_NORMAL = '14px'
+export const FONT_SIZES_MEDIUM = '15px'
+export const FONT_SIZES_LARGE = '16px'
+export const FONT_SIZES_EXTRA_LARGE = '17px'
+
+export const FONT_SIZES = {
+  'extra-small': FONT_SIZES_EXTRA_SMALL,
+  small: FONT_SIZES_SMALL,
+  normal: FONT_SIZES_NORMAL,
+  medium: FONT_SIZES_MEDIUM,
+  large: FONT_SIZES_LARGE,
+  'extra-large': FONT_SIZES_EXTRA_LARGE,
+}
+export const THEMES = [
+  'light',
+  'muted',
+  'black',
+]
+
+export const DEFAULT_THEME = 'light'
+export const DEFAULT_FONT_SIZE = 'normal'

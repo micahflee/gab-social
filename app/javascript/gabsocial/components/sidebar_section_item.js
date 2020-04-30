@@ -52,7 +52,7 @@ export default class SidebarSectionItem extends PureComponent {
     const { hovering } = this.state
 
     const iconSize = '16px'
-    const currentPathname = this.context.router.route.location.pathname
+    const currentPathname = this.context.router ? this.context.router.route.location.pathname : undefined
     const shouldShowActive = hovering || active || currentPathname === to || currentPathname === href
     const isNotifications = to === '/notifications'
 

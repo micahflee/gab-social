@@ -32,18 +32,18 @@ export default class GroupLayout extends ImmutablePureComponent {
         actions={actions}
         showBackBtn={showBackBtn}
       >
-        <div className={[_s.default, _s.width100PC].join(' ')}>
+        <div className={[_s.default, _s.width100PC, _s.pl15].join(' ')}>
 
           <GroupHeader group={group} relationships={relationships} />
 
-          <div className={[_s.default, _s.flexRow, _s.width100PC, _s.justifyContentSpaceBetween].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.width100PC, _s.justifyContentEnd].join(' ')}>
             <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
               <div className={_s.default}>
                 {children}
               </div>
             </div>
 
-            <div className={[_s.default, _s.width340PX].join(' ')}>
+            <div className={[_s.default, _s.ml15, _s.width340PX].join(' ')}>
               <Sticky top={73} enabled>
                 <div className={[_s.default, _s.width340PX].join(' ')}>
                   {layout}

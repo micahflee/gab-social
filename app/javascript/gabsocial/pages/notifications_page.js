@@ -96,8 +96,6 @@ class NotificationsPage extends PureComponent {
       active: selectedFilter.toLowerCase() === filter.toLowerCase(),
     }))
 
-    console.log("selectedFilter, filter: ", tabs, selectedFilter)
-
     return (
       <DefaultLayout
         title={intl.formatMessage(messages.notifications)}

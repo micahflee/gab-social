@@ -1,5 +1,5 @@
 import api from '../api';
-import { me, tenorkey } from '../initial_state'
+import { me } from '../initial_state'
 
 export const GIFS_CLEAR_RESULTS = 'GIFS_CLEAR_RESULTS'
 export const GIF_SET_SELECTED = 'GIF_SET_SELECTED'

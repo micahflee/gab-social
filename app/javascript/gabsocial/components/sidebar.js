@@ -154,11 +154,6 @@ class Sidebar extends ImmutablePureComponent {
         to: '/lists',
       },
       {
-        title: 'Chat',
-        icon: 'chat',
-        href: 'https://chat.gab.com',
-      },
-      {
         title: 'More',
         icon: 'more',
         onClick: this.handleOpenSidebarMorePopover,
@@ -183,6 +178,11 @@ class Sidebar extends ImmutablePureComponent {
     ]
 
     const exploreItems = [
+      {
+        title: 'Chat',
+        icon: 'chat',
+        href: 'https://chat.gab.com',
+      },
       {
         title: 'Apps',
         icon: 'apps',

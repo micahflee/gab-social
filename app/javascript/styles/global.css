@@ -1,17 +1,4 @@
 :root {
-  --radius-small: 8px;
-  --radius-circle: 9999px;
-
-  /* Default Font Sizes */
-
-  --font_size_extra_small: 12px;
-  --font_size_small: 13px;
-  --font_size_normal: 14px;
-  --font_size_medium: 15px;
-  --font_size_large: 16px;
-  --font_size_extra_large: 19px;
-  --font_size_extra_extra_large: 24px;
-
   --color_brand-dark: #378e61;
   --color_brand-light: #63DA9D;
   --color_brand-light-opaque: rgb(54, 233, 145, .125);
@@ -25,7 +12,26 @@
   --color_red: #de2960;
   --color_red-dark: #c72c5b;
 
-  /* LIGHT THEME */
+  --fs_xs: 0.8571428571rem;
+  --fs_s: 0.9285714286rem;
+  --fs_n: 1rem;
+  --fs_m: 1.0714285714rem;
+  --fs_l: 1.1428571429rem;
+  --fs_xl: 1.3571428571rem;
+  --fs_xxl: 1.7142857143;
+}
+
+:root {
+  --radius-small: 0;
+  --radius-circle: 0;
+}
+
+:root[rounded] {
+  --radius-small: 8px;
+  --radius-circle: 9999px;
+}
+
+:root[theme='light'] {
   --solid_color_primary: #fff;
   --solid_color_primary-opaque:rgba(255, 255, 255,.6);
   --solid_color_secondary: #e2e8ec;
@@ -38,9 +44,10 @@
   --text_color_tertiary: #777;
 
   --border_color_secondary: #ececed;
+}
 
-  /* MUTED THEME */
-  /* --solid_color_primary: #222;
+:root[theme='muted'] {
+  --solid_color_primary: #222;
   --solid_color_primary-opaque:rgba(34, 34, 34, .6);
   --solid_color_secondary: #4f5050;
   --solid_color_secondary-dark: #424343;
@@ -51,10 +58,11 @@
   --text_color_secondary: #7b7b7b;
   --text_color_tertiary: #656565;
 
-  --border_color_secondary: #424141; */
+  --border_color_secondary: #424141;
+}
 
-  /* BLACK THEME */
-  /* --solid_color_primary: #13171b;
+:root[theme='black'] {
+  --solid_color_primary: #13171b;
   --solid_color_primary-opaque:rgba(19, 23, 27, .6);
   --solid_color_secondary: #4f5050;
   --solid_color_secondary-dark: #424343;
@@ -65,7 +73,7 @@
   --text_color_secondary: #61686E;
   --text_color_tertiary: #656565;
 
-  --border_color_secondary: #212020; */
+  --border_color_secondary: #212020;
 }
 
 html,
@@ -90,10 +98,10 @@ body {
 .statusContent * {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: var(--font_size_medium);
+  font-size: var(--fs_m);
   overflow-wrap: break-word;
   color: var(--text_color_primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
 }
 
 .statusContent p {
@@ -114,7 +122,7 @@ body {
 }
 
 .statusContent h1 {
-  font-size: var(--font_size_extra_large);
+  font-size: var(--fs_xl);
   font-weight: 700;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
@@ -131,7 +139,7 @@ body {
 .dangerousContent * {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: var(--font_size_normal);
+  font-size: var(--fs_n);
   overflow-wrap: break-word;
   color: var(--text_color_primary);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
@@ -533,13 +541,13 @@ body {
 .textAlignLeft { text-align: left; }
 .textAlignCenter { text-align: center; }
 
-.fs24PX { font-size: var(--font_size_extra_extra_large); }
-.fs19PX { font-size: var(--font_size_extra_large); }
-.fs16PX { font-size: var(--font_size_large); }
-.fs15PX { font-size: var(--font_size_medium); }
-.fs14PX { font-size: var(--font_size_normal); }
-.fs13PX { font-size: var(--font_size_small); }
-.fs12PX { font-size: var(--font_size_extra_small); }
+.fs24PX { font-size: var(--fs_xxl); }
+.fs19PX { font-size: var(--fs_xl); }
+.fs16PX { font-size: var(--fs_l); }
+.fs15PX { font-size: var(--fs_m); }
+.fs14PX { font-size: var(--fs_n); }
+.fs13PX { font-size: var(--fs_s); }
+.fs12PX { font-size: var(--fs_xs); }
 .fs0 { font-size: 0; }
 
 .fontWeightNormal { font-weight: 400; }
@@ -711,7 +719,7 @@ body {
 .select {
   height: 42px;
   line-height: 42px;
-  font-size: var(--font_size_extra_large);
+  font-size: var(--fs_xl);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
@@ -765,7 +773,7 @@ body {
 
 /* :global(.public-DraftEditorPlaceholder-inner) {
   font-weight: 400;
-  font-size: var(--font_size_large);
+  font-size: var(--fs_l);
 } */
 
 :global(.RichEditor-blockquote) {
@@ -779,7 +787,7 @@ body {
 :global(.public-DraftStyleDefault-pre) {
   background-color: rgba(0,0,0,.05);
   font-family: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-  font-size: var(--font_size_large);
+  font-size: var(--fs_l);
   padding: 10px 20px;
 }
 

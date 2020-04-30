@@ -7,10 +7,15 @@ import uuid from '../utils/uuid';
 
 const initialState = ImmutableMap({
   saved: true,
-
   onboarded: false,
-
   skinTone: 1,
+
+  // displayOptions: ImmutableMap({
+  //   fontSize: 'normal',
+  //   radiusSmallEnabled: true,
+  //   radiusCircleEnabled: true,
+  //   theme: 'light',
+  // }),
 
   home: ImmutableMap({
     shows: ImmutableMap({

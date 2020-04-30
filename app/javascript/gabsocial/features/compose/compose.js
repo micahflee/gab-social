@@ -7,7 +7,6 @@ import {
   mountCompose,
   unmountCompose,
 } from '../../actions/compose';
-import { mascot } from '../../initial_state';
 import Motion from '../ui/util/optional_motion';
 import ComposeFormContainer from './containers/compose_form_container';
 import NavigationBar from './components/navigation_bar';
@@ -83,9 +82,6 @@ class Compose extends ImmutablePureComponent {
 
             <ComposeFormContainer />
 
-            <div className='drawer__inner__gabsocial'>
-              <img alt='' draggable='false' src={mascot || elephantUIPlane} />
-            </div>
           </div>}
         </div>
       </div>

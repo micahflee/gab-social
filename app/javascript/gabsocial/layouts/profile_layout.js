@@ -5,6 +5,7 @@ import ProfileHeader from '../components/profile_header'
 import NavigationBar from '../components/navigation_bar'
 
 export default class ProfileLayout extends ImmutablePureComponent {
+
   static propTypes = {
     children: PropTypes.node.isRequired,
     account: ImmutablePropTypes.map,

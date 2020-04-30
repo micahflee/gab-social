@@ -1,14 +1,15 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { NavLink } from 'react-router-dom'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
 import { CX } from '../constants'
-import Search from './search'
 import Avatar from './avatar'
+import Button from './button'
 import Icon from './icon'
+import Search from './search'
+import Text from './text'
 
 const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
@@ -48,9 +49,9 @@ class NavigationBar extends ImmutablePureComponent {
             <div className={[_s.default, _s.flexRow].join(' ')}>
 
               <h1 className={[_s.default, _s.mr15].join(' ')}>
-                <NavLink to='/' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
+                <Button to='/' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
                   <Icon id='gab-logo' className={_s.fillWhite} />
-                </NavLink>
+                </Button>
               </h1>
 
               <Responsive min={BREAKPOINT_EXTRA_SMALL}>
@@ -68,12 +69,12 @@ class NavigationBar extends ImmutablePureComponent {
                 <NavigationBarButtonDivider />
 
                 <NavigationBarButton icon='notifications' to='/notifications' />
-                <NavigationBarButton icon='cog' to='/notifications' />
+                <NavigationBarButton icon='cog' href='/settings/preferences' />
 
                 <NavigationBarButtonDivider />
 
                 <button onClick={this.handleProfileClick} className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}>
-                  <Avatar account={account} size={32} />
+                  <Avatar account={account} size={32} noHover />
                 </button>
               </div>
             </div>
@@ -103,7 +104,7 @@ class NavigationBarButton extends PureComponent {
     title: PropTypes.string,
     icon: PropTypes.string,
     to: PropTypes.string,
-    onClick: PropTypes.func,
+    href: PropTypes.string,
   }
 
   render() {
@@ -111,7 +112,7 @@ class NavigationBarButton extends PureComponent {
       title,
       icon,
       to,
-      onClick,
+      href,
     } = this.props
 
     const active = false
@@ -131,6 +132,7 @@ class NavigationBarButton extends PureComponent {
       fs13PX: !!title,
       fontWeightNormal: !!title,
       textUppercase: !!title,
+      noUnderline: 1,
     })
 
     const iconClasses = CX({
@@ -142,14 +144,21 @@ class NavigationBarButton extends PureComponent {
     const iconSize = !!title ? 16 : 18
 
     return (
-      <button
-        noClasses
+      <Button
+        to={to}
+        href={href}
         color='white'
         className={classes}
+        noClasses
       >
         <Icon className={iconClasses} id={icon} size={iconSize} />
-        {title}
-      </button>
+        {
+          !!title &&
+          <Text color='white'>
+            {title}
+          </Text>
+        }
+      </Button>
     )
   }
 

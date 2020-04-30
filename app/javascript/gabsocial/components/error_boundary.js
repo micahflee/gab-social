@@ -1,3 +1,5 @@
+import Layout from '../layouts/layout'
+
 export default class ErrorBoundary extends PureComponent {
 
   static propTypes = {
