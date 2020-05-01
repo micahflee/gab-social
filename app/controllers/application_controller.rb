@@ -99,8 +99,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_theme
-    return Setting.theme
-    current_user.setting_theme
+    'light'
+    # : todo :
+    # current_user.setting_theme
   end
 
   def cache_collection(raw, klass)

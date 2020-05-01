@@ -16,7 +16,7 @@ class HashtagQueryService < BaseService
 
   private
 
-  def tags_for(names)
-    Tag.matching_name(Array(names).take(LIMIT_PER_MODE)) if names.present?
+  def tags_for(tags)
+    Tag.where(name: tags.map(&:downcase)).limit(LIMIT_PER_MODE) if tags.presence
   end
 end
