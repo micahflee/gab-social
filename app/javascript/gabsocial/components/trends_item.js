@@ -50,8 +50,8 @@ export default class TrendingItem extends ImmutablePureComponent {
 
     if (!trend) return null
 
-    const title = trend.get('title')
-    const description = trend.get('description')
+    const title = trend.get('title') || ''
+    const description = trend.get('description') || ''
       
     const correctedAuthor = trend.getIn(['author', 'name'], '').replace('www.', '')
     const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
