@@ -5,7 +5,10 @@ import Text from './text'
 export default class ProgressBar extends PureComponent {
 
   static propTypes = {
-    progress: PropTypes.number,
+    progress: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]).isRequired,
     small: PropTypes.bool,
     title: PropTypes.string,
     href: PropTypes.string,

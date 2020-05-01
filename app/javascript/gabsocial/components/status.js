@@ -3,7 +3,7 @@ import { injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import classNames from 'classnames/bind'
-import { me, displayMedia } from '../initial_state'
+import { me, displayMedia, compactMode } from '../initial_state'
 import StatusCard from './status_card'
 import { MediaGallery, Video } from '../features/ui/util/async_components'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
@@ -43,8 +43,6 @@ export const textForScreenReader = (intl, status, rebloggedByText = false) => {
 
 export const defaultMediaVisibility = (status) => {
   if (!status) return undefined
-
-  // console.log("status:", status)
 
   if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
     status = status.get('reblog')
@@ -337,7 +335,6 @@ class Status extends ImmutablePureComponent {
   render() {
     const {
       intl,
-      status,
       isFeatured,
       isPromoted,
       isChild,
@@ -345,6 +342,8 @@ class Status extends ImmutablePureComponent {
       descendantsIds,
       commentsLimited,
     } = this.props
+    
+    let { status } = this.props
 
     if (!status) return null
 
@@ -356,6 +355,7 @@ class Status extends ImmutablePureComponent {
         { name: status.getIn(['account', 'acct']) }
       )
       reblogContent = status.get('contentHtml')
+      status = status.get('reblog')
     }
 
     const handlers = (this.props.isMuted || isChild) ? {} : {
@@ -445,14 +445,15 @@ class Status extends ImmutablePureComponent {
     const containerClasses = cx({
       default: 1,
       pb15: isFeatured,
-      radiusSmall: !isChild,
+      radiusSmall: !isChild && !compactMode,
       bgPrimary: !isChild,
-      boxShadowBlock: !isChild,
+      boxShadowBlock: !isChild && !compactMode,
       outlineNone: 1,
-      mb15: !isChild,
-      // border1PX: !isChild,
-      // borderBottom1PX: isFeatured && !isChild,
-      // borderColorSecondary: !isChild,
+      mb15: !isChild && !compactMode,
+      borderRight1PX: !isChild && compactMode,
+      borderLeft1PX: !isChild && compactMode,
+      borderBottom1PX: !isChild && compactMode,
+      borderColorSecondary: !isChild && compactMode,
     })
 
     const innerContainerClasses = cx({
@@ -481,7 +482,7 @@ class Status extends ImmutablePureComponent {
 
             <div data-id={status.get('id')}>
 
-              <StatusPrepend status={status} isPromoted={isPromoted} isFeatured={isFeatured} />
+              <StatusPrepend status={this.props.status} isPromoted={isPromoted} isFeatured={isFeatured} />
 
               <StatusHeader status={status} reduced={isChild} />
 
@@ -517,19 +518,19 @@ class Status extends ImmutablePureComponent {
               }
 
               {
-                !isChild && !!me &&
+                !isChild && !compactMode && !!me &&
                 <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
                   <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                 </div>
               }
 
               {
-                descendantsIds && !isChild && descendantsIds.size > 0 &&
+                descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
                 <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
               }
               
               {
-                descendantsIds && !isChild && descendantsIds.size > 0 &&
+                descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
                 <CommentList
                   commentsLimited={commentsLimited}
                   descendants={descendantsIds}

@@ -125,7 +125,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       }
     ],
@@ -170,7 +170,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Toggle visibility",
+        "defaultMessage": "Hide media",
         "id": "media_gallery.toggle_visible"
       },
       {
@@ -314,7 +314,7 @@
         "id": "status.repost_private"
       },
       {
-        "defaultMessage": "Un-repost",
+        "defaultMessage": "Remove Repost",
         "id": "status.cancel_repost_private"
       },
       {
@@ -435,7 +435,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hide entire domain",
+        "defaultMessage": "Block entire domain",
         "id": "confirmations.domain_block.confirm"
       },
       {
@@ -523,7 +523,7 @@
         "id": "confirmations.block.confirm"
       },
       {
-        "defaultMessage": "Hide entire domain",
+        "defaultMessage": "Block entire domain",
         "id": "confirmations.domain_block.confirm"
       },
       {
@@ -621,11 +621,11 @@
         "id": "account.media"
       },
       {
-        "defaultMessage": "Hide everything from {domain}",
+        "defaultMessage": "Block domain {domain}",
         "id": "account.block_domain"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
@@ -661,7 +661,7 @@
         "id": "navigation_bar.blocks"
       },
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "navigation_bar.domain_blocks"
       },
       {
@@ -785,7 +785,7 @@
         "id": "navigation_bar.blocks"
       },
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "navigation_bar.domain_blocks"
       },
       {
@@ -943,7 +943,7 @@
         "id": "privacy.public.short"
       },
       {
-        "defaultMessage": "Post to public timelines",
+        "defaultMessage": "Visible for anyone on or off Gab",
         "id": "privacy.public.long"
       },
       {
@@ -959,7 +959,7 @@
         "id": "privacy.private.short"
       },
       {
-        "defaultMessage": "Post to followers only",
+        "defaultMessage": "Visible for your followers only",
         "id": "privacy.private.long"
       },
       {
@@ -1191,15 +1191,15 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "column.domain_blocks"
       },
       {
-        "defaultMessage": "Unhide {domain}",
+        "defaultMessage": "Unblock domain {domain}",
         "id": "account.unblock_domain"
       },
       {
-        "defaultMessage": "There are no hidden domains yet.",
+        "defaultMessage": "There are no blocked domains yet.",
         "id": "empty_column.domain_blocks"
       }
     ],
@@ -1322,7 +1322,7 @@
         "id": "navigation_bar.blocks"
       },
       {
-        "defaultMessage": "Hidden domains",
+        "defaultMessage": "Blocked domains",
         "id": "navigation_bar.domain_blocks"
       },
       {
@@ -1962,7 +1962,7 @@
         "id": "status.repost_private"
       },
       {
-        "defaultMessage": "Un-repost",
+        "defaultMessage": "Remove Repost",
         "id": "status.cancel_repost_private"
       },
       {
@@ -2121,7 +2121,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Un-repost",
+        "defaultMessage": "Remove Repost",
         "id": "status.cancel_repost_private"
       },
       {
@@ -2129,7 +2129,7 @@
         "id": "status.repost"
       },
       {
-        "defaultMessage": "You can press {combo} to skip this next time",
+        "defaultMessage": "You can press Shift + Repost to skip this next time",
         "id": "boost_modal.combo"
       }
     ],

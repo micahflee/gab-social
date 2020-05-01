@@ -29,8 +29,8 @@ en_GB:
         setting_aggregate_reblogs: Do not show new reposts for gabs that have been recently reposted (only affects newly-received reposts)
         setting_default_language: The language of your gabs can be detected automatically, but it's not always accurate
         setting_display_media_default: Hide media marked as sensitive
-        setting_display_media_hide_all: Always hide all media
-        setting_display_media_show_all: Always show media marked as sensitive
+        setting_display_media_hide_all: Always hide media
+        setting_display_media_show_all: Always show media
         setting_hide_network: Who you follow and who follows you will not be shown on your profile
         setting_noindex: Affects your public profile and status pages
         setting_show_application: The application you use to gab will be displayed in the detailed view of your gabs

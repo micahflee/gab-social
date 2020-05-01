@@ -18,7 +18,7 @@
   --fs_m: 1.0714285714rem;
   --fs_l: 1.1428571429rem;
   --fs_xl: 1.3571428571rem;
-  --fs_xxl: 1.7142857143;
+  --fs_xxl: 1.7142857143rem;
 }
 
 :root {
@@ -372,6 +372,7 @@ body {
 .top0 { top: 0; }
 .top80PX { top: 80px; }
 .top60PC { top: 60%; }
+.top50PC { top: 50%; }
 
 .bottom0 { bottom: 0; }
 .bottomAuto { bottom: auto; }
@@ -425,6 +426,7 @@ body {
 .height1PX { height: 1px; }
 
 .maxWidth100PC { max-width: 100%; }
+.maxWidth640PX { max-width: 640px; }
 
 .width100PC { width: 100%; }
 .width50PC { width: 50%; }

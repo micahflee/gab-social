@@ -22,7 +22,7 @@ const messages = defineMessages({
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Hidden domains' },
+  domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Blocked domains' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
@@ -211,11 +211,14 @@ class Sidebar extends ImmutablePureComponent {
           <div className={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}>
             <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
               <div className={_s.default}>
-                <div className={[_s.default, _s.px5, _s.py10].join(' ')}>
-                  <Heading size='h1'>
-                    {title}
-                  </Heading>
-                </div>
+                {
+                  !!title &&
+                  <div className={[_s.default, _s.px5, _s.py10].join(' ')}>
+                    <Heading size='h1'>
+                      {title}
+                    </Heading>
+                  </div>
+                }
                 {
                   !!tabs &&
                   <div className={[_s.default, _s.mt10, _s.pb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>

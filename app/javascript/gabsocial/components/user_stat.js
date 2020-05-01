@@ -14,6 +14,7 @@ export default class UserStat extends PureComponent {
     to: PropTypes.string.isRequired,
     value: PropTypes.oneOfType([
       PropTypes.string,
+      PropTypes.number,
       PropTypes.object,
     ]).isRequired,
   }

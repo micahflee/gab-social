@@ -38,8 +38,6 @@ class GroupsCollection extends ImmutablePureComponent {
 
 		const halfCount = parseInt(groupIds.size / 2)
 
-		console.log("halfCount", halfCount)
-
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
 				<div className={[_s.default, _s.flexNormal].join(' ')}>

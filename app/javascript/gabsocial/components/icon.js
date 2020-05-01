@@ -1,6 +1,8 @@
 import AddIcon from '../assets/add_icon'
 import AngleRightIcon from '../assets/angle_right_icon'
 import AppsIcon from '../assets/apps_icon'
+import ArrowLeftIcon from '../assets/arrow_left_icon'
+import ArrowRightIcon from '../assets/arrow_right_icon'
 import AudioIcon from '../assets/audio_icon'
 import AudioMuteIcon from '../assets/audio_mute_icon'
 import BackIcon from '../assets/back_icon'
@@ -73,6 +75,8 @@ const ICONS = {
   'add': AddIcon,
   'angle-right': AngleRightIcon,
   'apps': AppsIcon,
+  'arrow-left': ArrowLeftIcon,
+  'arrow-right': ArrowRightIcon,
   'audio': AudioIcon,
   'audio-mute': AudioMuteIcon,
   'back': BackIcon,

@@ -19,7 +19,7 @@ export default class Image extends PureComponent {
     fit: PropTypes.oneOf(['contain', 'cover', 'tile', 'none']),
     nullable: PropTypes.bool,
     lazy: PropTypes.bool,
-    ref: PropTypes.func,
+    imageRef: PropTypes.func,
   }
 
   static defaultProps = {
@@ -43,6 +43,7 @@ export default class Image extends PureComponent {
       className,
       nullable,
       lazy,
+      imageRef,
       ...otherProps
     } = this.props
     const { error } = this.state
@@ -69,6 +70,7 @@ export default class Image extends PureComponent {
         alt={alt}
         className={classes}
         {...otherProps}
+        ref={imageRef}
         src={src}
         onError={this.handleOnError}
       />

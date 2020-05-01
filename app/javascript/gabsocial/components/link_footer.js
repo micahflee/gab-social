@@ -9,6 +9,7 @@ import {
   source_url,
   me,
 } from '../initial_state'
+import { DEFAULT_REL } from '../constants'
 import Text from './text'
 import Button from './button'
 
@@ -133,7 +134,7 @@ class LinkFooter extends PureComponent {
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'
             values={{
               gitlab: (
-                <a href={source_url} className={_s.inherit} rel='noopener noreferrer' target='_blank'>
+                <a href={source_url} className={_s.inherit} rel={DEFAULT_REL} target='_blank'>
                   {repository}
                 </a>
               )

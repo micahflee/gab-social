@@ -4,12 +4,12 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import { fetchMutes, expandMutes } from '../actions/mutes'
 import Account from '../components/account'
-import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
 const mapStateToProps = (state) => ({
   accountIds: state.getIn(['user_lists', 'mutes', 'items']),
   hasMore: !!state.getIn(['user_lists', 'mutes', 'next']),
+  isLoading: state.getIn(['user_lists', 'mutes', 'isLoading'], true),
 })
 
 export default
@@ -22,6 +22,7 @@ class Mutes extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
     hasMore: PropTypes.bool,
     accountIds: ImmutablePropTypes.list,
+    isLoading: PropTypes.bool,
   }
 
   componentWillMount() {
@@ -33,21 +34,18 @@ class Mutes extends ImmutablePureComponent {
   }, 300, { leading: true })
 
   render() {
-    const { hasMore, accountIds } = this.props
-
-    if (!accountIds) {
-      return <ColumnIndicator type='loading' />
-    }
+    const { hasMore, accountIds, isLoading } = this.props
 
     return (
       <ScrollableList
         scrollKey='mutes'
         onLoadMore={this.handleLoadMore}
         hasMore={hasMore}
+        isLoading={isLoading}
         emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
       >
         {
-          accountIds.map(id =>
+          accountIds && accountIds.map(id =>
             <Account key={`mutes-${id}`} id={id} compact />
           )
         }

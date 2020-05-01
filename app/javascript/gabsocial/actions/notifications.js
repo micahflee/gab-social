@@ -157,15 +157,10 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       return;
     }
 
-    console.log('activeFilter:', activeFilter)
-    // console.log('excludeTypesFromSettings(getState()):', excludeTypesFromSettings(getState()))
-    console.log('excludeTypesFromFilter(activeFilter):', excludeTypesFromFilter(activeFilter))
-
-    // : todo :
-    // filter verified and following here too
     const params = {
       max_id: maxId,
       exclude_types: activeFilter === 'all' ? null : excludeTypesFromFilter(activeFilter),
+      // : todo : ?
       // exclude_types: activeFilter === 'all'
       //   ? excludeTypesFromSettings(getState())
       //   : excludeTypesFromFilter(activeFilter),
@@ -179,8 +174,6 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     }
 
     dispatch(expandNotificationsRequest(isLoadingMore));
-
-    console.log("params:", params)
 
     api(getState).get('/api/v1/notifications', { params }).then(response => {
       const next = getLinks(response).refs.find(link => link.rel === 'next');

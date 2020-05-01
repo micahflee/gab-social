@@ -8,18 +8,16 @@ import List from '../list'
 const messages = defineMessages({
   delete: { id: 'status.delete', defaultMessage: 'Delete' },
   edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  mention: { id: 'status.mention', defaultMessage: 'Mention @{name}' },
   mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
   block: { id: 'account.block', defaultMessage: 'Block @{name}' },
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
-  comment: { id: 'status.comment', defaultMessage: 'Comment' },
   more: { id: 'status.more', defaultMessage: 'More' },
   share: { id: 'status.share', defaultMessage: 'Share' },
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
   repost: { id: 'repost', defaultMessage: 'Repost' },
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
   repost_private: { id: 'status.repost_private', defaultMessage: 'Repost to original audience' },
-  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Un-repost' },
+  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
   cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
@@ -34,9 +32,19 @@ const messages = defineMessages({
   group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
 })
 
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+})
+
 export default
 @injectIntl
+@connect(mapStateToProps, mapDispatchToProps)
 class StatusOptionsPopover extends ImmutablePureComponent {
+
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     account: ImmutablePropTypes.map.isRequired,
@@ -56,7 +64,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
   }
 
-  updateOnProps = ['status', 'account']
+  updateOnProps = [
+    'status',
+    'account',
+  ]
 
   handleConversationMuteClick = () => {
     this.props.onMuteConversation(this.props.status);
@@ -111,7 +122,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     }
   }
 
-  getItems = () => {
+  render() {
     const {
       status,
       intl,
@@ -123,114 +134,104 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
     let menu = [];
 
-    if (!me) return menu
+    if (me) {
+      // if (status.getIn(['account', 'id']) === me) {
+        menu.push({
+          icon: 'audio-mute',
+          hideArrow: true,
+          title: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
+          onClick: this.handleConversationMuteClick,
+        })
+      // }
 
-    if (status.getIn(['account', 'id']) === me) {
-      menu.push({
-        icon: 'mute',
-        hideArrow: true,
-        title: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
-        onClick: this.handleConversationMuteClick,
-      })
-    }
-
-    if (status.getIn(['account', 'id']) === me) {
-      if (publicStatus) {
+      // if (status.getIn(['account', 'id']) === me) {
+      //   if (publicStatus) {
+          menu.push({
+            icon: 'pin',
+            hideArrow: true,
+            title: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin),
+            onClick: this.handlePinClick,
+          })
+        // } else {
+          // if (status.get('visibility') === 'private') {
+            menu.push({
+              icon: 'repost',
+              hideArrow: true,
+              title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
+              onClick: this.handleRepostClick
+            })
+        //   }
+        // }
+        menu.push({
+          icon: 'trash',
+          hideArrow: true,
+          title: intl.formatMessage(messages.delete),
+          action: this.handleDeleteClick
+        });
+        menu.push({
+          icon: 'pencil',
+          hideArrow: true,
+          title: intl.formatMessage(messages.edit), action:
+          this.handleEditClick
+        });
+      // } else {
+        menu.push({
+          icon: 'audio-mute',
+          hideArrow: true,
+          title: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }),
+          action: this.handleMuteClick
+        });
         menu.push({
           icon: 'circle',
           hideArrow: true,
-          title: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin),
-          onClick: this.handlePinClick,
-        })
-      } else {
-        if (status.get('visibility') === 'private') {
+          title: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }),
+          action: this.handleBlockClick
+        });
+        menu.push({
+          icon: 'circle',
+          hideArrow: true,
+          title: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }),
+          action: this.handleReport
+        });
+
+        // : todo :
+        // if (withGroupAdmin) {
           menu.push({
             icon: 'circle',
             hideArrow: true,
-            title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
-            onClick: this.handleRepostClick
-          })
-        }
-      }
-      menu.push({
-        icon: 'circle',
-        hideArrow: true,
-        title: intl.formatMessage(messages.delete),
-        action: this.handleDeleteClick
-      });
-      menu.push({
-        icon: 'circle',
-        hideArrow: true,
-        title: intl.formatMessage(messages.edit), action:
-        this.handleEditClick
-      });
-    } else {
-      menu.push({
-        icon: 'comment',
-        hideArrow: true,
-        title: intl.formatMessage(messages.mention, { name: status.getIn(['account', 'username']) }),
-        action: this.handleMentionClick
-      });
-      menu.push({
-        icon: 'mute',
-        hideArrow: true,
-        title: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }),
-        action: this.handleMuteClick
-      });
-      menu.push({
-        icon: 'circle',
-        hideArrow: true,
-        title: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }),
-        action: this.handleBlockClick
-      });
-      menu.push({
-        icon: 'circle',
-        hideArrow: true,
-        title: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }),
-        action: this.handleReport
-      });
+            title: intl.formatMessage(messages.group_remove_account),
+            action: this.handleGroupRemoveAccount
+          });
+          menu.push({
+            icon: 'circle',
+            hideArrow: true,
+            title: intl.formatMessage(messages.group_remove_post),
+            action: this.handleGroupRemovePost
+          });
+        // }
 
-      // if (withGroupAdmin) {
-      //   menu.push({
-      //     icon: 'circle',
-      //     hideArrow: true,
-      //     title: intl.formatMessage(messages.group_remove_account),
-      //     action: this.handleGroupRemoveAccount
-      //   });
-      //   menu.push({
-      //     icon: 'circle',
-      //     hideArrow: true,
-      //     title: intl.formatMessage(messages.group_remove_post),
-      //     action: this.handleGroupRemovePost
-      //   });
+        // if (isStaff) {
+          menu.push({
+            title: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }),
+            href: `/admin/accounts/${status.getIn(['account', 'id'])}`
+          });
+          menu.push({
+            title: intl.formatMessage(messages.admin_status),
+            href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}`
+          });
+        // }
       // }
-
-      if (isStaff) {
-        menu.push({
-          title: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }),
-          href: `/admin/accounts/${status.getIn(['account', 'id'])}`
-        });
-        menu.push({
-          title: intl.formatMessage(messages.admin_status),
-          href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}`
-        });
-      }
     }
-
-    return menu;
-  }
-
-  render() {
-    const items = this.getItems()
 
     return (
       <PopoverLayout className={_s.width240PX}>
         <List
           size='large'
           scrollKey='profile_options'
-          items={items}
+          items={menu}
         />
       </PopoverLayout>
     )
   }
+
 }

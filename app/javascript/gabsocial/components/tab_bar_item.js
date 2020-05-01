@@ -1,10 +1,7 @@
 import { withRouter } from 'react-router-dom'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
-
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classNames.bind(_s)
 
 /**
  * Renders a tab bar item component
@@ -27,7 +24,7 @@ class TabBarItem extends PureComponent {
   }
 
   state = {
-    isCurrent: -1,
+    isCurrent: false,
   }
 
   componentDidUpdate(prevProps) {
@@ -55,10 +52,9 @@ class TabBarItem extends PureComponent {
 
     // Combine state, props, location to make absolutely
     // sure of active status.
-    const active = isActive ||
-      (isCurrent === -1 ? to === location.pathname : false)
+    const active = isActive || to === location.pathname || isCurrent
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       height53PX: 1,
       noUnderline: 1,
@@ -77,7 +73,7 @@ class TabBarItem extends PureComponent {
       mr2: !isLarge,
     })
 
-    const textParentClasses = cx({
+    const textParentClasses = CX({
       default: 1,
       height100PC: 1,
       alignItemsCenter: 1,

@@ -18,6 +18,7 @@ const mapStateToProps = (state, { account }) => {
     accountId,
     accountIds: state.getIn(['user_lists', 'following', accountId, 'items']),
     hasMore: !!state.getIn(['user_lists', 'following', accountId, 'next']),
+    isLoading: state.getIn(['user_lists', 'following', accountId, 'isLoading'], true),
   }
 }
 
@@ -39,6 +40,7 @@ class Following extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     accountId: PropTypes.string,
     hasMore: PropTypes.bool,
+    isLoading: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -68,6 +70,7 @@ class Following extends ImmutablePureComponent {
       accountIds,
       hasMore,
       intl,
+      isLoading,
     } = this.props
 
     if (!account) return null
@@ -83,6 +86,7 @@ class Following extends ImmutablePureComponent {
           <ScrollableList
             scrollKey='following'
             hasMore={hasMore}
+            isLoading={isLoading}
             onLoadMore={this.handleLoadMore}
             emptyMessage={intl.formatMessage(messages.empty)}
           >

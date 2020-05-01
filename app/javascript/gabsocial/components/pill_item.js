@@ -16,7 +16,7 @@ class PillItem extends PureComponent {
   }
 
   state = {
-    isCurrent: -1,
+    isCurrent: false,
   }
 
   componentDidUpdate(prevProps) {
@@ -43,8 +43,7 @@ class PillItem extends PureComponent {
 
     // Combine state, props, location to make absolutely
     // sure of active status.
-    const active = isActive ||
-      (isCurrent === -1 ? to === location.pathname : false)
+    const active = isActive || to === location.pathname || isCurrent
 
     const containerClasses = CX({
       default: 1,

@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind'
 export const CX = classNames.bind(_s)
 
-export const APP_NAME = 'Gab'
+export const APP_NAME = 'Gab Social'
 
 export const DEFAULT_REL = 'noopener noreferrer'
 

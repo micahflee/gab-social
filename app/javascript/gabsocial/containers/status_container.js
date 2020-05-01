@@ -39,8 +39,6 @@ const messages = defineMessages({
   deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
   replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
   replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
-  quoteConfirm: { id: 'confirmations.quote.confirm', defaultMessage: 'Quote' },
-  quoteMessage: { id: 'confirmations.quote.message', defaultMessage: 'Quoting now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
   blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
 });
 
@@ -114,33 +112,18 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     });
   },
 
-  onRepost (targetRef, status, ) {
+  onRepost (targetRef, status, e) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
     
-    dispatch(openPopover('REPOST_OPTIONS', {
-      status,
-      targetRef,
-      position: 'top',
-    }))
-
-    // if (e.shiftKey || !boostModal) {
-    //   this.onModalRepost(status);
-    // } else {
-    //   dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }));
-    // }
-
-    // dispatch((_, getState) => {
-    //   const state = getState();
-    //   if (state.getIn(['compose', 'text']).trim().length !== 0) {
-    //     dispatch(openModal('CONFIRM', {
-    //       message: intl.formatMessage(messages.quoteMessage),
-    //       confirm: intl.formatMessage(messages.quoteConfirm),
-    //       onConfirm: () => dispatch(quoteCompose(status, router)),
-    //     }));
-    //   } else {
-    //     dispatch(quoteCompose(status, router));
-    //   }
-    // });
+    if (e.shiftKey) {
+      this.onModalRepost(status);
+    } else {
+      dispatch(openPopover('REPOST_OPTIONS', {
+        status,
+        targetRef,
+        position: 'top',
+      }))
+    }
   },
 
   onModalRepost (status) {
@@ -185,13 +168,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(pin(status));
     }
-  },
-
-  onEmbed (status) {
-    // dispatch(openModal('EMBED', {
-    //   url: status.get('url'),
-    //   onError: error => dispatch(showAlertForError(error)),
-    // }));
   },
 
   onDelete (status, history) {

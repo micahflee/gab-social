@@ -69,8 +69,6 @@ const expandNormalizedNotifications = (state, notifications, next) => {
   
   let items = ImmutableList()
 
-  console.log("notifications:", notifications)
-
   notifications.forEach((n) => {
     const notification = notificationToMap(n)
     const statusId = notification.get('status')
@@ -136,8 +134,6 @@ const expandNormalizedNotifications = (state, notifications, next) => {
     }
   }
 
-  console.log("final items: ", items)
-
   return state.withMutations(mutable => {
     if (!items.isEmpty()) {
       mutable.update('items', list => {
@@ -149,11 +145,7 @@ const expandNormalizedNotifications = (state, notifications, next) => {
           item => item !== null && compareId(item.get('id'), items.first().get('id')) > 0
         )
 
-        // console.log("firstIndex, lastIndex: ", firstIndex, lastIndex)
-
         const pop = list.take(firstIndex).concat(items, list.skip(lastIndex))
-
-        // console.log("pop:", pop)
 
         return pop
       })
@@ -224,7 +216,6 @@ export default function notifications(state = initialState, action) {
   case NOTIFICATIONS_FILTER_SET:
     return state.withMutations(mutable => {
       mutable.set('items', ImmutableList()).set('hasMore', true)
-      console.log("NOTIFICATIONS_FILTER_SET:", action.path, action.value)
       mutable.setIn(['filter', action.path], action.value)
     })
   case NOTIFICATIONS_SCROLL_TOP:

@@ -49,7 +49,7 @@ class NavigationBar extends ImmutablePureComponent {
             <div className={[_s.default, _s.flexRow].join(' ')}>
 
               <h1 className={[_s.default, _s.mr15].join(' ')}>
-                <Button to='/' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
+                <Button to='/' isText title='Gab' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
                   <Icon id='gab-logo' className={_s.fillWhite} />
                 </Button>
               </h1>
@@ -68,14 +68,21 @@ class NavigationBar extends ImmutablePureComponent {
                 
                 <NavigationBarButtonDivider />
 
-                <NavigationBarButton icon='notifications' to='/notifications' />
-                <NavigationBarButton icon='cog' href='/settings/preferences' />
+                <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
+                <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
 
                 <NavigationBarButtonDivider />
-
-                <button onClick={this.handleProfileClick} className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}>
-                  <Avatar account={account} size={32} noHover />
-                </button>
+              
+                {
+                  !!account &&
+                  <button
+                    title={account.get('display_name')}
+                    onClick={this.handleProfileClick}
+                    className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
+                  >
+                    <Avatar account={account} size={32} noHover />
+                  </button>
+                }
               </div>
             </div>
 
@@ -105,6 +112,7 @@ class NavigationBarButton extends PureComponent {
     icon: PropTypes.string,
     to: PropTypes.string,
     href: PropTypes.string,
+    attrTitle: PropTypes.string,
   }
 
   render() {
@@ -113,6 +121,7 @@ class NavigationBarButton extends PureComponent {
       icon,
       to,
       href,
+      attrTitle,
     } = this.props
 
     const active = false
@@ -124,15 +133,16 @@ class NavigationBarButton extends PureComponent {
       alignItemsCenter: 1,
       justifyContentCenter: 1,
       outlineNone: 1,
-      px10: !!title,
-      px5: !title,
       cursorPointer: 1,
       bgTransparent: 1,
+      noUnderline: 1,
+      px10: !!title,
+      px5: !title,
       colorWhite: !!title,
       fs13PX: !!title,
       fontWeightNormal: !!title,
       textUppercase: !!title,
-      noUnderline: 1,
+      bgBrandDark_onHover: !!title,
     })
 
     const iconClasses = CX({
@@ -141,12 +151,13 @@ class NavigationBarButton extends PureComponent {
       mr10: !!title,
     })
 
-    const iconSize = !!title ? 16 : 18
+    const iconSize = !!title ? '16px' : '18px'
 
     return (
       <Button
         to={to}
         href={href}
+        attrTitle={attrTitle}
         color='white'
         className={classes}
         noClasses

@@ -122,7 +122,7 @@
   "empty_column.blocks": "You haven't blocked any users yet.",
   "empty_column.community": "本站時間軸暫時未有內容，快寫一點東西來搶頭香啊！",
   "empty_column.direct": "你沒有個人訊息。當你發出或接收個人訊息，就會在這裡出現。",
-  "empty_column.domain_blocks": "There are no hidden domains yet.",
+  "empty_column.domain_blocks": "There are no blocked domains yet.",
   "empty_column.favorited_statuses": "You don't have any favorite toots yet. When you favorite one, it will show up here.",
   "empty_column.favorites": "No one has favorited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",

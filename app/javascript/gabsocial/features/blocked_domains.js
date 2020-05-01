@@ -7,9 +7,9 @@ import ColumnIndicator from '../components/column_indicator'
 import List from '../components/list'
 
 const messages = defineMessages({
-  heading: { id: 'column.domain_blocks', defaultMessage: 'Hidden domains' },
-  unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unhide {domain}' },
-  emptyMessage: { id: 'empty_column.domain_blocks', defaultMessage: 'There are no hidden domains yet.' },
+  heading: { id: 'column.domain_blocks', defaultMessage: 'Blocked domains' },
+  unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
+  emptyMessage: { id: 'empty_column.domain_blocks', defaultMessage: 'There are no blocked domains yet.' },
 });
 
 const mapDispatchToProps = (dispatch) => ({

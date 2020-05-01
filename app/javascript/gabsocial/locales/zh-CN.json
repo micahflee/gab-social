@@ -122,7 +122,7 @@
   "empty_column.blocks": "You haven't blocked any users yet.",
   "empty_column.community": "本站时间轴暂时没有内容，快嘟几个来抢头香啊！",
   "empty_column.direct": "你还没有使用过私信。当你发出或者收到私信时，它会在这里显示。",
-  "empty_column.domain_blocks": "There are no hidden domains yet.",
+  "empty_column.domain_blocks": "There are no blocked domains yet.",
   "empty_column.favorited_statuses": "You don't have any favorite toots yet. When you favorite one, it will show up here.",
   "empty_column.favorites": "No one has favorited this toot yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",

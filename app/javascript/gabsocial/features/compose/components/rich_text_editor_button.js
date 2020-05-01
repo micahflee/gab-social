@@ -5,7 +5,7 @@ import ComposeExtraButton from './compose_extra_button'
 const messages = defineMessages({
   marked: { id: 'compose_form.spoiler.marked', defaultMessage: 'Text is hidden behind warning' },
   unmarked: { id: 'compose_form.spoiler.unmarked', defaultMessage: 'Text is not hidden' },
-  title: { id: 'compose_form.spoiler.title', defaultMessage: 'Warning' },
+  title: { id: 'compose_form.rte.title', defaultMessage: 'Rich Text Editor' },
 })
 
 const mapStateToProps = (state) => ({

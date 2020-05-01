@@ -4,7 +4,7 @@ import StatusList from '../components/status_list'
 
 const messages = defineMessages({
   title: { id: 'column.home', defaultMessage: 'Home' },
-  empty: { id: 'empty_column.home', defaultMessage: 'Your home timeline is empty. Start following other users to recieve their content here.' },
+  empty: { id: 'empty_timeline.home', defaultMessage: 'Your home timeline is empty. Start following other users to recieve their content here.' },
 })
 
 const mapStateToProps = (state) => ({

@@ -4,7 +4,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
 import Account from '../components/account'
-import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
@@ -14,6 +13,7 @@ const messages = defineMessages({
 const mapStateToProps = (state) => ({
   accountIds: state.getIn(['user_lists', 'blocks', 'items']),
   hasMore: !!state.getIn(['user_lists', 'blocks', 'next']),
+  isLoading: state.getIn(['user_lists', 'blocks', 'isLoading'], true),
 })
 
 export default
@@ -26,6 +26,7 @@ class Blocks extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
     accountIds: ImmutablePropTypes.list,
     hasMore: PropTypes.bool,
+    isLoading: PropTypes.bool,
     intl: PropTypes.object.isRequired,
   }
 
@@ -41,12 +42,9 @@ class Blocks extends ImmutablePureComponent {
     const {
       intl,
       accountIds,
-      hasMore
+      hasMore,
+      isLoading,
     } = this.props
-
-    if (!accountIds) {
-      return <ColumnIndicator type='loading' />
-    }
 
     const emptyMessage = intl.formatMessage(messages.empty)
 
@@ -56,9 +54,10 @@ class Blocks extends ImmutablePureComponent {
         onLoadMore={this.handleLoadMore}
         hasMore={hasMore}
         emptyMessage={emptyMessage}
+        isLoading={isLoading}
       >
         {
-          accountIds.map(id =>
+          !!accountIds && accountIds.map(id =>
             <Account key={`blocked-${id}`} id={id} compact />
           )
         }

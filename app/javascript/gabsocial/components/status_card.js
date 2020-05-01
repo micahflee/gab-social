@@ -2,6 +2,7 @@ import Immutable from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import punycode from 'punycode'
+import { DEFAULT_REL } from '../constants'
 import Icon from './icon'
 
 const IDNA_PREFIX = 'xn--'
@@ -144,7 +145,7 @@ export default class Card extends ImmutablePureComponent {
           className={[_s.default, _s.displayFlex, _s.text, _s.noUnderline, _s.overflowWrapBreakWord, _s.colorPrimary, _s.fs15PX, _s.fontWeightMedium].join(' ')}
           href={card.get('url')}
           title={card.get('title')}
-          rel='noopener noreferrer'
+          rel={DEFAULT_REL}
           target='_blank'
         >
           {card.get('title')}
@@ -229,7 +230,7 @@ export default class Card extends ImmutablePureComponent {
         <a
           href={card.get('url')}
           className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bgSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
-          rel='noopener noreferrer'
+          rel={DEFAULT_REL}
           ref={this.setRef}
         >
           {embed}

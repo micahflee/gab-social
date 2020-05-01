@@ -1,6 +1,8 @@
 import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
+import ModalBase from './modal_base'
+import BundleModalError from '../bundle_modal_error'
 import {
   MODAL_ACTIONS,
   MODAL_BLOCK_ACCOUNT,
@@ -63,9 +65,6 @@ import {
   UnfollowModal,
   VideoModal,
 } from '../../features/ui/util/async_components'
-
-import ModalBase from './modal_base'
-import BundleModalError from '../bundle_modal_error'
 
 const MODAL_COMPONENTS = {}
 MODAL_COMPONENTS[MODAL_ACTIONS] = ActionsModal
@@ -135,12 +134,12 @@ class ModalRoot extends PureComponent {
     }
   }
 
-  renderLoading = modalId => () => {
-    return ['MEDIA', 'VIDEO', 'BOOST', 'CONFIRM', 'ACTIONS'].indexOf(modalId) === -1 ? <ModalLoading /> : null
+  renderLoading = () => {
+    return <ModalLoading />
   }
 
-  renderError = (props) => {
-    return <BundleModalError {...props} onClose={this.onClickClose} />
+  renderError = () => {
+    return <BundleModalError {...this.props} onClose={this.onClickClose} />
   }
 
   onClickClose = () => {
@@ -157,12 +156,12 @@ class ModalRoot extends PureComponent {
           visible &&
           <Bundle
             fetchComponent={MODAL_COMPONENTS[type]}
-            loading={this.renderLoading(type)}
+            loading={this.renderLoading}
             error={this.renderError}
             renderDelay={200}
           >
             {
-              (SpecificComponent) => <SpecificComponent {...props} onClose={this.onClickClose} />
+              (Component) => <Component {...props} onClose={this.onClickClose} />
             }
           </Bundle>
         }

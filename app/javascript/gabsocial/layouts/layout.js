@@ -17,7 +17,6 @@ export default class Layout extends PureComponent {
     showBackBtn: PropTypes.bool,
     noSidebar: PropTypes.bool,
     noRightSidebar: PropTypes.bool,
-    noHeader: PropTypes.bool,
     noComposeButton: PropTypes.bool,
   }
 
@@ -31,7 +30,6 @@ export default class Layout extends PureComponent {
       tabs,
       noSidebar,
       noRightSidebar,
-      noHeader,
       noComposeButton,
     } = this.props
 

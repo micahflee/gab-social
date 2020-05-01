@@ -12,7 +12,7 @@ const messages = defineMessages({
 const makeMapStateToProps = () => {
   const mapStateToProps = (state) => ({
     acceptContentTypes: state.getIn(['media_attachments', 'accept_content_types']),
-    disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size > 3 || state.getIn(['compose', 'media_attachments']).some(m => m.get('type') === 'video')),
+    disabled: state.getIn(['compose', 'is_uploading']) || (state.getIn(['compose', 'media_attachments']).size + state.getIn(['compose', 'pending_media_attachments']) > 3 || state.getIn(['compose', 'media_attachments']).some(m => m.get('type') === 'video')),
     unavailable: state.getIn(['compose', 'poll']) !== null,
     resetFileKey: state.getIn(['compose', 'resetFileKey']),
   })

@@ -107,7 +107,7 @@ class Avatar extends ImmutablePureComponent {
     return (
       <Image
         alt={alt}
-        ref={this.setRef}
+        imageRef={this.setRef}
         className={classes.join(' ')}
         {...options}
       />

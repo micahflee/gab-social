@@ -122,7 +122,7 @@
   "empty_column.blocks": "You haven't blocked any users yet.",
   "empty_column.community": "ლოკალური თაიმლაინი ცარიელია. დაწერეთ რაიმე ღიად ან ქენით რაიმე სხვა!",
   "empty_column.direct": "ჯერ პირდაპირი წერილები არ გაქვთ. როდესაც მიიღებთ ან გააგზავნით, გამოჩნდება აქ.",
-  "empty_column.domain_blocks": "There are no hidden domains yet.",
+  "empty_column.domain_blocks": "There are no blocked domains yet.",
   "empty_column.favorited_statuses": "You don't have any favorite gabs yet. When you favorite one, it will show up here.",
   "empty_column.favorites": "No one has favorited this gab yet. When someone does, they will show up here.",
   "empty_column.follow_requests": "You don't have any follow requests yet. When you receive one, it will show up here.",

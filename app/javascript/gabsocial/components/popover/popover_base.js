@@ -1,33 +1,20 @@
+import detectPassiveEvents from 'detect-passive-events'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Manager, Reference, Popper } from 'react-popper'
-import classnames from 'classnames/bind'
-import { openPopover, closePopover } from '../../actions/popover'
-import { openModal, closeModal } from '../../actions/modal'
+import { closePopover } from '../../actions/popover'
+import { CX } from '../../constants'
 import { isUserTouching } from '../../utils/is_mobile'
 
-const cx = classnames.bind(_s)
-
-let id = 0
+const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 const mapStateToProps = (state) => ({
-  isModalOpen: state.getIn(['modal', 'modalType']) === 'ACTIONS',
+  isModalOpen: !!state.getIn(['modal', 'modalType']),
   popoverPlacement: state.getIn(['popover', 'placement']),
-  openPopoverType: state.getIn(['popover', 'popoverType']),
 })
 
-const mapDispatchToProps = (dispatch, { status, items }) => ({
-  onOpen(id, onItemClick, popoverPlacement, keyboard) {
-    // dispatch(isUserTouching() ? openModal('ACTIONS', {
-    //   status,
-    //   actions: items,
-    //   onClick: onItemClick,
-    // }) : openPopover(id, popoverPlacement, keyboard))
-  },
-  onClose(id) {
-    dispatch(closeModal())
-    dispatch(closePopover(id))
-  },
+const mapDispatchToProps = (dispatch) => ({
+  onClose: (type) => dispatch(closePopover(type)),
 })
 
 export default
@@ -44,10 +31,8 @@ class PopoverBase extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     isUserTouching: PropTypes.func,
     isModalOpen: PropTypes.bool.isRequired,
-    onOpen: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     position: PropTypes.string,
-    openPopoverType: PropTypes.string,
     visible: PropTypes.bool,
     targetRef: PropTypes.node,
     innerRef: PropTypes.oneOfType([
@@ -61,23 +46,57 @@ class PopoverBase extends ImmutablePureComponent {
     position: 'bottom',
   }
 
-  state = {
-    id: id++,
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClick, false)
+    document.addEventListener('keydown', this.handleKeyDown, false)
+    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
-  handleClose = () => {
-    this.props.onClose(this.state.id)
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClick, false)
+    document.removeEventListener('keydown', this.handleKeyDown, false)
+    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
   }
 
-  handleKeyDown = e => {
+  handleDocumentClick = (e) => {
+    const { targetRef, visible, onClose } = this.props
+    
+    const containsTargetRef = !targetRef ? false : targetRef.contains(e.target)
+
+    if (this.node &&  !this.node.contains(e.target) && !containsTargetRef && visible) {
+      onClose()
+    }
+  }
+
+  handleKeyDown = (e) => {
+    const items = Array.from(this.node.getElementsByTagName('a'))
+    const index = items.indexOf(document.activeElement)
+    let element
+
     switch (e.key) {
+    case 'ArrowDown':
+      element = items[index + 1]
+      if (element) element.focus()
+      break
+    case 'ArrowUp':
+      element = items[index - 1]
+      if (element) element.focus()
+      break
+    case 'Home':
+      element = items[0]
+      if (element) element.focus()
+      break
+    case 'End':
+      element = items[items.length - 1]
+      if (element) element.focus()
+      break
     case 'Escape':
       this.handleClose()
       break
     }
   }
 
-  handleItemClick = e => {
+  handleItemClick = (e) => {
     const i = Number(e.currentTarget.getAttribute('data-index'))
     const { action, to } = this.props.items[i]
 
@@ -92,17 +111,16 @@ class PopoverBase extends ImmutablePureComponent {
     }
   }
 
-  setTargetRef = c => {
-    this.target = c
+  handleClose = () => {
+    this.props.onClose()
   }
 
-  findTarget = () => {
-    return this.target
-  }
-
-  componentWillUnmount = () => {
-    if (this.state.id === this.props.openPopoverType) {
-      this.handleClose()
+  setRef = (n) => {
+    try {
+      this.node = n
+      this.props.innerRef = n
+    } catch (error) {
+      //
     }
   }
 
@@ -111,12 +129,10 @@ class PopoverBase extends ImmutablePureComponent {
       children,
       visible,
       position,
-      openPopoverType,
       targetRef,
-      innerRef,
     } = this.props
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       z4: 1,
       displayNone: !visible,
@@ -131,7 +147,7 @@ class PopoverBase extends ImmutablePureComponent {
           {({ ref, style, placement, arrowProps }) => (
             <div ref={ref} style={style} data-placement={placement} className={[_s.mt5, _s.mb5, _s.boxShadowPopover].join(' ')}>
               <div ref={arrowProps.ref} style={arrowProps.style} />
-              <div ref={innerRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
+              <div ref={this.setRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
                 {children}
               </div>
             </div>

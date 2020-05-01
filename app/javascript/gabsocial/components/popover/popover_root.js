@@ -1,5 +1,3 @@
-import detectPassiveEvents from 'detect-passive-events'
-import { closePopover } from '../../actions/popover'
 import {
   POPOVER_CONTENT_WARNING,
   POPOVER_DATE_PICKER,
@@ -31,8 +29,6 @@ import {
 import Bundle from '../../features/ui/util/bundle'
 import PopoverBase from './popover_base'
 
-const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
-
 const POPOVER_COMPONENTS = {}
 POPOVER_COMPONENTS[POPOVER_CONTENT_WARNING] = ContentWarningPopover
 POPOVER_COMPONENTS[POPOVER_DATE_PICKER] = DatePickerPopover
@@ -52,108 +48,23 @@ const mapStateToProps = (state) => ({
   props: state.getIn(['popover', 'popoverProps'], {}),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onClose(optionalType) {
-    dispatch(closePopover(optionalType))
-  },
-})
-
 export default
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps)
 class PopoverRoot extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string,
     props: PropTypes.object,
-    onClose: PropTypes.func.isRequired,
   }
 
-  // getSnapshotBeforeUpdate() {
-  //   return { visible: !!this.props.type }
-  // }
-
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
-  static propTypes = {
-    onClose: PropTypes.func.isRequired,
-  }
-
-  handleDocumentClick = e => {
-    if (this.node && !this.node.contains(e.target)) {
-      this.props.onClose()
+  getSnapshotBeforeUpdate() {
+    return {
+      visible: !!this.props.type
     }
   }
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick, false)
-    document.addEventListener('keydown', this.handleKeyDown, false)
-    document.addEventListener('touchend', this.handleDocumentClick, listenerOptions)
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('click', this.handleDocumentClick, false)
-    document.removeEventListener('keydown', this.handleKeyDown, false)
-    document.removeEventListener('touchend', this.handleDocumentClick, listenerOptions)
-  }
-
-  setRef = (c) => {
-    this.node = c
-  }
-
-  handleKeyDown = e => {
-    const items = Array.from(this.node.getElementsByTagName('a'))
-    const index = items.indexOf(document.activeElement)
-    let element
-
-    switch (e.key) {
-    case 'ArrowDown':
-      element = items[index + 1]
-      if (element) element.focus()
-      break
-    case 'ArrowUp':
-      element = items[index - 1]
-      if (element) element.focus()
-      break
-    case 'Home':
-      element = items[0]
-      if (element) element.focus()
-      break
-    case 'End':
-      element = items[items.length - 1]
-      if (element) element.focus()
-      break
-    }
-  }
-
-  handleItemKeyDown = e => {
-    if (e.key === 'Enter') {
-      this.handleClick(e)
-    }
-  }
-
-  handleClick = e => {
-    const i = Number(e.currentTarget.getAttribute('data-index'))
-    const { action, to } = this.props.items[i]
-
-    this.props.onClose()
-
-    if (typeof action === 'function') {
-      e.preventDefault()
-      action(e)
-    } else if (to) {
-      e.preventDefault()
-      this.context.router.history.push(to)
-    }
-  }
-
-  renderError = () => {
-    return null
-  }
-
-  renderLoading = () => {
-    return null
+  renderEmpty = () => {
+    return <div />
   }
 
   render() {
@@ -170,8 +81,8 @@ class PopoverRoot extends PureComponent {
           visible &&
           <Bundle
             fetchComponent={POPOVER_COMPONENTS[type]}
-            loading={this.renderLoading()}
-            error={this.renderError}
+            loading={this.renderEmpty}
+            error={this.renderEmpty}
             renderDelay={200}
           >
             {

@@ -246,19 +246,20 @@ export function submitComposeFail(error) {
   return {
     type: COMPOSE_SUBMIT_FAIL,
     error: error,
-  };
-};
+  }
+}
 
 export function uploadCompose(files) {
   return function (dispatch, getState) {
-    if (!me) return;
+    if (!me) return
 
-    const uploadLimit = 4;
-    const media  = getState().getIn(['compose', 'media_attachments']);
+    const uploadLimit = 4
+    const media  = getState().getIn(['compose', 'media_attachments'])
+    const pending  = getState().getIn(['compose', 'pending_media_attachments'])
     const progress = new Array(files.length).fill(0);
     let total = Array.from(files).reduce((a, v) => a + v.size, 0);
 
-    if (files.length + media.size > uploadLimit) {
+    if (files.length + media.size + pending > uploadLimit) {
       // dispatch(showAlert(undefined, messages.uploadErrorLimit));
       return;
     }
@@ -273,7 +274,7 @@ export function uploadCompose(files) {
     for (const [i, f] of Array.from(files).entries()) {
       if (media.size + i > 3) break;
 
-      resizeImage(f).then(file => {
+      resizeImage(f).then((file) => {
         const data = new FormData();
         data.append('file', file);
         // Account for disparity in size of original image and resized data
@@ -285,7 +286,7 @@ export function uploadCompose(files) {
             dispatch(uploadComposeProgress(progress.reduce((a, v) => a + v, 0), total));
           },
         }).then(({ data }) => dispatch(uploadComposeSuccess(data)));
-      }).catch(error => dispatch(uploadComposeFail(error)));
+      }).catch(error => dispatch(uploadComposeFail(error, true)));
     };
   };
 };
@@ -318,10 +319,11 @@ export function changeUploadComposeSuccess(media) {
   };
 };
 
-export function changeUploadComposeFail(error) {
+export function changeUploadComposeFail(error, decrement = false) {
   return {
     type: COMPOSE_UPLOAD_CHANGE_FAIL,
     error: error,
+    decrement: decrement,
     skipLoading: true,
   };
 };

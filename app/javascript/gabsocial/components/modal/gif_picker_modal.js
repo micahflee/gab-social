@@ -86,8 +86,8 @@ class GifPickerModal extends PureComponent {
     this.props.handleFetchCategories()
   }
 
-  onChange = (e) => {
-    this.props.handleOnChange(e.target.value)
+  onChange = (value) => {
+    this.props.handleOnChange(value)
   }
 
   onHandleCloseModal = () => {

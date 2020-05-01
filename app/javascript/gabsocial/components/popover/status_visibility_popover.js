@@ -10,11 +10,11 @@ const cx = classNames.bind(_s)
 
 const messages = defineMessages({
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  public_long: { id: 'privacy.public.long', defaultMessage: 'Post to public timelines' },
+  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
   private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
-  private_long: { id: 'privacy.private.long', defaultMessage: 'Post to followers only' },
+  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
   change_privacy: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
   visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
 })
@@ -43,14 +43,14 @@ class StatusVisibilityDropdown extends PureComponent {
     intl: PropTypes.object.isRequired,
   }
 
-  handleChange = value => {
+  handleChange = (value) => {
     this.props.onChange(value)
   }
 
-  componentDidMount () {
-    const { intl } = this.props
+  render () {
+    const { intl, value } = this.props
 
-    this.options = [
+    const options = [
       {
         icon: 'globe',
         value: 'public',
@@ -70,18 +70,14 @@ class StatusVisibilityDropdown extends PureComponent {
         subtitle: intl.formatMessage(messages.private_long)
       },
     ]
-  }
-
-  render () {
-    const { value } = this.props
 
     return (
-      <PopoverLayout className={_s.width240PX}>
+      <PopoverLayout width={300}>
         <div className={[_s.default].join(' ')}>
           {
-            this.options.map((option, i) => {
+            options.map((option, i) => {
               const isActive = option.value === value
-              const isLast = i === this.options.length - 1
+              const isLast = i === options.length - 1
 
               const containerClasses = cx({
                 default: 1,

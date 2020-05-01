@@ -4,6 +4,7 @@ import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List as ImmutableList } from 'immutable'
+import { DEFAULT_REL } from '../../constants'
 import PanelLayout from './panel_layout'
 import Divider from '../divider'
 import Icon from '../icon'
@@ -110,12 +111,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
                     { /* : todo : */}
                     <dd className='verified'>
-                      <a href={proof.get('proof_url')} target='_blank' rel='noopener noreferrer'>
+                      <a href={proof.get('proof_url')} target='_blank' rel={DEFAULT_REL}>
                         <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
                           <Icon id='check' size='12px' className='verified__mark' />
                         </span>
                       </a>
-                      <a href={proof.get('profile_url')} target='_blank' rel='noopener noreferrer'>
+                      <a href={proof.get('profile_url')} target='_blank' rel={DEFAULT_REL}>
                         <span
                           className={_s.dangerousContent}
                           dangerouslySetInnerHTML={{ __html: ' ' + proof.get('provider_username') }}

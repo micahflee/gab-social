@@ -14,7 +14,6 @@ import Text from './text'
 const messages = defineMessages({
   join: { id: 'groups.join', defaultMessage: 'Join group' },
   leave: { id: 'groups.leave', defaultMessage: 'Leave group' },
-  share: { id: 'status.share', defaultMessage: 'Share' },
   removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
   group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
   group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
@@ -28,10 +27,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     } else {
       dispatch(joinGroup(group.get('id')));
     }
-  },
-
-  onShare() {
-
   },
 
   onOpenGroupOptions() {
@@ -53,7 +48,6 @@ class GroupHeader extends ImmutablePureComponent {
     group: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
     onToggleMembership: PropTypes.func.isRequired,
-    onShare: PropTypes.func.isRequired,
     onOpenGroupOptions: PropTypes.func.isRequired,
     relationships: ImmutablePropTypes.map,
   }
@@ -67,7 +61,6 @@ class GroupHeader extends ImmutablePureComponent {
     const {
       group,
       intl,
-      onShare,
       onOpenGroupOptions,
       relationships,
     } = this.props
@@ -130,17 +123,7 @@ class GroupHeader extends ImmutablePureComponent {
                       </Text>
                     </Button>
                   }
-                  <Button
-                    color='primary'
-                    backgroundColor='tertiary'
-                    radiusSmall
-                    className={_s.mr5}
-                    onClick={onShare}
-                  >
-                    <Text color='inherit' size='small'>
-                      {intl.formatMessage(messages.share)}
-                    </Text>
-                  </Button>
+                 
                   <Button
                     radiusSmall
                     color='primary'

@@ -75,10 +75,10 @@ class Search extends PureComponent {
     const { value } = this.props
 
     if (e.key === 'Enter') {
-      e.preventDefault();
+      e.preventDefault()
 
-      this.props.onSubmit();
-      this.context.router.history.push(`/search?q=${value}`);
+      this.props.onSubmit()
+      this.context.router.history.push(`/search?q=${value}`)
 
     } else if (e.key === 'Escape') {
       this.textbox.blur()

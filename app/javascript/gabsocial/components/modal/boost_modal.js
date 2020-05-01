@@ -1,20 +1,16 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { defineMessages, injectIntl } from 'react-intl';
-import Button from '../button';
-import StatusContent from '../status_content';
-import Avatar from '../avatar';
-import RelativeTimestamp from '../relative_timestamp';
-import DisplayName from '../display_name';
-import Icon from '../icon';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { defineMessages, injectIntl } from 'react-intl'
+import Button from '../button'
+import StatusContainer from '../../containers/status_container'
+import Text from '../text'
+import ModalLayout from './modal_layout'
 
 const messages = defineMessages({
-  cancel_repost: { id: 'status.cancel_repost_private', defaultMessage: 'Un-repost' },
+  removeRepost: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
   repost: { id: 'status.repost', defaultMessage: 'Repost' },
-  combo: { id: 'boost_modal.combo', defaultMessage: 'You can press {combo} to skip this next time' },
-});
-
-// : todo :
+  combo: { id: 'boost_modal.combo', defaultMessage: 'You can press Shift + Repost to skip this next time' },
+})
 
 export default
 @injectIntl
@@ -22,86 +18,62 @@ class BoostModal extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     onRepost: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   componentDidMount() {
-    this.button.focus();
+    this.button.focus()
   }
 
   handleRepost = () => {
-    this.props.onRepost(this.props.status);
-    this.props.onClose();
-  }
-
-  handleAccountClick = (e) => {
-    if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      this.props.onClose();
-      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}`);
-    }
-  }
-
-  handleStatusClick = (e) => {
-    if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      this.props.onClose();
-      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('url')}`);
-    }
+    this.props.onRepost(this.props.status)
+    this.props.onClose()
   }
 
   setRef = (c) => {
-    this.button = c;
+    this.button = c
   }
 
   render () {
-    const { status, intl } = this.props;
-    const buttonText = status.get('reblogged') ? messages.cancel_repost : messages.repost;
-
-    const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('url')}`;
+    const { status, onClose, intl } = this.props
+    
+    const buttonText = status.get('reblogged') ? messages.removeRepost : messages.repost
 
     return (
-      <div className='modal-root__modal boost-modal'>
-        <div className='boost-modal__container'>
-          <div className='status light'>
-            <div className='boost-modal__status-header'>
-              <div className='boost-modal__status-time'>
-                <a onClick={this.handleStatusClick} href={statusUrl} className='status__relative-time'>
-                  <RelativeTimestamp timestamp={status.get('created_at')} />
-                </a>
-              </div>
-
-              <a onClick={this.handleAccountClick} href={`/${status.getIn(['account', 'acct'])}`} className='status__display-name'>
-                <div className='status__avatar'>
-                  <Avatar account={status.get('account')} size={48} />
-                </div>
-
-                <DisplayName account={status.get('account')} />
-              </a>
-            </div>
-
-            <StatusContent status={status} />
-          </div>
-        </div>
-
-        <div className='boost-modal__action-bar'>
-          <div>
-            {intl.formatMessage(messages.combo, {
-              values: {
-                combo: <span>Shift + <Icon id='retweet' /></span>
-              }
-            })}
-          </div>
-          <Button text={intl.formatMessage(buttonText)} onClick={this.handleRepost} ref={this.setRef} />
-        </div>
+      <ModalLayout
+        title={intl.formatMessage(messages.repost)}
+        noPadding
+        width={480}
+        onClose={onClose}
+      >
+      
+      <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+        <StatusContainer
+          id={status.get('id')}
+          isChild
+        />
       </div>
-    );
+
+        <div className={[_s.default, _s.justifyContentCenter, _s.px15, _s.mt5, _s.mb15].join(' ')}>
+          <Text align='center'>
+            {intl.formatMessage(messages.combo)}
+          </Text>
+          <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.my10, _s.pt15, _s.pb5].join(' ')}>
+            <Button onClick={this.handleRepost} buttonRef={this.setRef}>
+              <Text color='inherit' className={_s.px15}>
+                {intl.formatMessage(buttonText)}
+              </Text>
+            </Button>
+          </div>
+        </div>
+      </ModalLayout>
+    )
   }
 
 }

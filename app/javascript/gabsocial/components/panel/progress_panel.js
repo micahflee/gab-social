@@ -25,6 +25,8 @@ class ProgressPanel extends PureComponent {
 
     const value = Math.min(parseFloat(monthlyExpensesComplete), 100)
 
+    console.log("monthlyExpensesComplete:", monthlyExpensesComplete)
+
     return (
       <PanelLayout
         title={intl.formatMessage(messages.operationsTitle)}

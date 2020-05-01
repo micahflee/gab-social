@@ -3,6 +3,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { me } from '../initial_state' 
 import StatusContainer from '../containers/status_container'
 import Avatar from './avatar'
 import Icon from './icon'
@@ -11,6 +12,7 @@ import DisplayName from './display_name'
 
 const messages = defineMessages({
   poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
+  ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
   mentionedInPost: { id: 'mentioned_in_post', defaultMessage: 'mentioned you in their post' },
   mentionedInComment: { id: 'mentioned_in_comment', defaultMessage: 'mentioned you in their comment' },
   followedYouOne: { id: 'followed_you_one', defaultMessage: 'followed you' },
@@ -21,6 +23,7 @@ const messages = defineMessages({
   repostedStatusMultiple: { id: 'reposted_status_multiple', defaultMessage: 'and {count} others reposted your status' },
 })
 
+// : todo :
 const notificationForScreenReader = (intl, message, timestamp) => {
   const output = [message]
 
@@ -84,8 +87,14 @@ class Notification extends ImmutablePureComponent {
         })
         break
       case 'poll':
+        let msg = messages.poll
+        if (accounts.size === 1) {
+          if (accounts.first().get('id') === me) {
+            msg = messages.ownPoll
+          }
+        }
         icon = 'poll'
-        message = intl.formatMessage(messages.poll)
+        message = intl.formatMessage(msg)
         break
       default:
         return null

@@ -1,9 +1,7 @@
-import classNames from 'classnames/bind'
+import { compactMode } from '../initial_state'
+import { CX } from '../constants'
 import Button from './button'
-import Icon from './icon'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 export default class StatusActionBarItem extends PureComponent {
   static propTypes = {
@@ -30,18 +28,34 @@ export default class StatusActionBarItem extends PureComponent {
       altTitle
     } = this.props
 
-    const btnClasses = cx({
+    const containerClasses = CX({
+      default: 1,
+      px5: !compactMode,
+      px10: compactMode,
+      flexNormal: !compactMode,
+    })
+
+    const btnClasses = CX({
       justifyContentCenter: 1,
       alignItemsCenter: 1,
-      px10: 1,
+      px10: !compactMode,
+      px15: compactMode,
+      pt10: compactMode,
       bgSubtle_onHover: !disabled,
+    })
+
+    const iconClasses = CX({
+      default: 1,
+      inheritFill: 1,
+      mr10: !!title,
     })
 
     const color = active ? 'brand' : 'secondary'
     const weight = active ? 'bold' : 'medium'
+    const iconSize = compactMode ? '14px' : '16px'
 
     return (
-      <div className={[_s.default, _s.flexNormal, _s.px5].join(' ')}>
+      <div className={containerClasses}>
         <Button
           isBlock
           radiusSmall
@@ -53,12 +67,15 @@ export default class StatusActionBarItem extends PureComponent {
           onClick={onClick}
           isDisabled={disabled}
           icon={icon}
-          iconSize='16px'
-          iconClassName={[_s.default, _s.mr10, _s.inheritFill].join(' ')}
-        >
-          <Text color='inherit' size='small' weight={weight}>
-            {title}
-          </Text>
+          iconSize={iconSize}
+          iconClassName={iconClasses}
+        > 
+          {
+            !!title &&
+            <Text color='inherit' size='small' weight={weight}>
+              {title}
+            </Text>
+          }
         </Button>
       </div>
     )

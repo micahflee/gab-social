@@ -1,13 +1,12 @@
-import classNames from 'classnames'
 import { defineMessages, injectIntl } from 'react-intl'
 import ReactSwipeableViews from 'react-swipeable-views'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { CX } from '../../constants'
 import Video from '../video'
 import ExtendedVideoPlayer from '../extended_video_player'
 import Button from '../button'
 import ImageLoader from '../image_loader'
-import Icon from '../icon'
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -16,9 +15,7 @@ const messages = defineMessages({
   viewContext: { id: 'lightbox.view_context', defaultMessage: 'View context' },
 })
 
-export const previewState = 'previewMediaModal';
-
-// : todo :
+export const previewState = 'previewMediaModal'
 
 export default
 @injectIntl
@@ -30,115 +27,158 @@ class MediaModal extends ImmutablePureComponent {
     index: PropTypes.number.isRequired,
     onClose: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
-  };
+  }
 
   static contextTypes = {
     router: PropTypes.object,
-  };
+  }
 
   state = {
     index: null,
     navigationHidden: false,
-  };
+  }
+
+  updateOnProps = [
+    'media',
+    'status',
+    'index',
+  ]
 
   handleSwipe = (index) => {
-    this.setState({ index: index % this.props.media.size });
+    this.setState({ index: index % this.props.media.size })
   }
 
   handleNextClick = () => {
-    this.setState({ index: (this.getIndex() + 1) % this.props.media.size });
+    this.setState({ index: (this.getIndex() + 1) % this.props.media.size })
   }
 
   handlePrevClick = () => {
-    this.setState({ index: (this.props.media.size + this.getIndex() - 1) % this.props.media.size });
+    this.setState({ index: (this.props.media.size + this.getIndex() - 1) % this.props.media.size })
   }
 
   handleChangeIndex = (e) => {
-    const index = Number(e.currentTarget.getAttribute('data-index'));
-    this.setState({ index: index % this.props.media.size });
+    const index = Number(e.currentTarget.getAttribute('data-index'))
+    this.setState({ index: index % this.props.media.size })
   }
 
   handleKeyDown = (e) => {
-    switch(e.key) {
-    case 'ArrowLeft':
-      this.handlePrevClick();
-      e.preventDefault();
-      e.stopPropagation();
-      break;
-    case 'ArrowRight':
-      this.handleNextClick();
-      e.preventDefault();
-      e.stopPropagation();
-      break;
+    switch (e.key) {
+      case 'ArrowLeft':
+        this.handlePrevClick()
+        e.preventDefault()
+        e.stopPropagation()
+        break
+      case 'ArrowRight':
+        this.handleNextClick()
+        e.preventDefault()
+        e.stopPropagation()
+        break
     }
   }
 
-  componentDidMount () {
-    window.addEventListener('keydown', this.handleKeyDown, false);
+  componentDidMount() {
+    window.addEventListener('keydown', this.handleKeyDown, false)
 
     if (this.context.router) {
-      const history = this.context.router.history;
+      const history = this.context.router.history
 
-      history.push(history.location.pathname, previewState);
+      history.push(history.location.pathname, previewState)
 
       this.unlistenHistory = history.listen(() => {
-        this.props.onClose();
-      });
+        this.props.onClose()
+      })
     }
   }
 
-  componentWillUnmount () {
-    window.removeEventListener('keydown', this.handleKeyDown);
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.handleKeyDown)
 
     if (this.context.router) {
-      this.unlistenHistory();
+      this.unlistenHistory()
 
       if (this.context.router.history.location.state === previewState) {
-        this.context.router.history.goBack();
+        this.context.router.history.goBack()
       }
     }
   }
 
-  getIndex () {
-    return this.state.index !== null ? this.state.index : this.props.index;
+  getIndex() {
+    return this.state.index !== null ? this.state.index : this.props.index
   }
 
   toggleNavigation = () => {
     this.setState(prevState => ({
       navigationHidden: !prevState.navigationHidden,
-    }));
-  };
+    }))
+  }
 
   handleStatusClick = e => {
     if (e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      e.preventDefault();
-      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('id')}`);
+      e.preventDefault()
+      this.context.router.history.push(`/${this.props.status.getIn(['account', 'acct'])}/posts/${this.props.status.get('id')}`)
     }
   }
 
-  render () {
-    const { media, status, intl, onClose } = this.props;
-    const { navigationHidden } = this.state;
+  render() {
+    const {
+      media,
+      status,
+      intl,
+      onClose,
+    } = this.props
+    const { navigationHidden } = this.state
 
-    const index = this.getIndex();
-    let pagination = [];
+    const index = this.getIndex()
+    let pagination = []
 
-    const leftNav  = media.size > 1 && <button tabIndex='0' className='media-modal__nav media-modal__nav--left' onClick={this.handlePrevClick} aria-label={intl.formatMessage(messages.previous)}><Icon id='chevron-left' fixedWidth /></button>;
-    const rightNav = media.size > 1 && <button tabIndex='0' className='media-modal__nav  media-modal__nav--right' onClick={this.handleNextClick} aria-label={intl.formatMessage(messages.next)}><Icon id='chevron-right' fixedWidth /></button>;
+    const leftNav = media.size > 1 && (
+      <Button
+        tabIndex='0'
+        backgroundColor='black'
+        className={[_s.py15, _s.posFixed, _s.top50PC, _s.left0, _s.mt10, _s.ml10].join(' ')}
+        onClick={this.handlePrevClick}
+        aria-label={intl.formatMessage(messages.previous)}
+        icon='arrow-left'
+        iconSize='18px'
+      />
+    )
+    const rightNav = media.size > 1 && (
+      <Button
+        tabIndex='0'
+        backgroundColor='black'
+        className={[_s.py15, _s.posFixed, _s.top50PC, _s.right0, _s.mt10, _s.mr10].join(' ')}
+        onClick={this.handleNextClick}
+        aria-label={intl.formatMessage(messages.next)}
+        icon='arrow-right'
+        iconSize='18px'
+      />
+    )
 
     if (media.size > 1) {
       pagination = media.map((item, i) => {
-        const classes = ['media-modal__button'];
-        if (i === index) {
-          classes.push('media-modal__button--active');
-        }
-        return (<li className='media-modal__page-dot' key={i}><button tabIndex='0' className={classes.join(' ')} onClick={this.handleChangeIndex} data-index={i}>{i + 1}</button></li>);
-      });
+        const btnClasses = CX({
+          default: 1,
+          px5: 1,
+          py5: 1,
+          outlineNone: 1,
+          colorPrimary: 1,
+          circle: 1,
+          cursorPointer: 1,
+          bgPrimaryOpaque: i !== index,
+          bgPrimary: i === index,
+        })
+
+        return (
+          <li className={[_s.default, _s.px5].join(' ')} key={`media-pagination-${i}`}>
+            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i} />
+          </li>
+        )
+      })
     }
 
     const content = media.map((image) => {
-      const width  = image.getIn(['meta', 'original', 'width']) || null;
-      const height = image.getIn(['meta', 'original', 'height']) || null;
+      const width = image.getIn(['meta', 'original', 'width']) || null
+      const height = image.getIn(['meta', 'original', 'height']) || null
 
       if (image.get('type') === 'image') {
         return (
@@ -151,9 +191,9 @@ class MediaModal extends ImmutablePureComponent {
             key={image.get('url')}
             onClick={this.toggleNavigation}
           />
-        );
+        )
       } else if (image.get('type') === 'video') {
-        const { time } = this.props;
+        const { time } = this.props
 
         return (
           <Video
@@ -168,7 +208,7 @@ class MediaModal extends ImmutablePureComponent {
             alt={image.get('description')}
             key={image.get('url')}
           />
-        );
+        )
       } else if (image.get('type') === 'gifv') {
         return (
           <ExtendedVideoPlayer
@@ -181,11 +221,11 @@ class MediaModal extends ImmutablePureComponent {
             alt={image.get('description')}
             onClick={this.toggleNavigation}
           />
-        );
+        )
       }
 
-      return null;
-    }).toArray();
+      return null
+    }).toArray()
 
     // you can't use 100vh, because the viewport height is taller
     // than the visible part of the document in some mobile
@@ -194,26 +234,25 @@ class MediaModal extends ImmutablePureComponent {
     const swipeableViewsStyle = {
       width: '100%',
       height: '100%',
-    };
+    }
 
-    const containerStyle = {
-      alignItems: 'center', // center vertically
-    };
-
-    const navigationClassName = classNames('media-modal__navigation', {
-      'media-modal__navigation--hidden': navigationHidden,
-    });
+    const navigationClasses = CX({
+      default: 1,
+      displayNone: navigationHidden,
+    })
 
     return (
-      <div className='modal-root__modal media-modal'>
+      <div className={[_s.default, _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
         <div
-          className='media-modal__closer'
+          className={[_s.default, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
           role='presentation'
           onClick={onClose}
         >
           <ReactSwipeableViews
             style={swipeableViewsStyle}
-            containerStyle={containerStyle}
+            containerStyle={{
+              alignItems: 'center',
+            }}
             onChangeIndex={this.handleSwipe}
             onSwitching={this.handleSwitching}
             index={index}
@@ -222,26 +261,36 @@ class MediaModal extends ImmutablePureComponent {
           </ReactSwipeableViews>
         </div>
 
-        <div className={navigationClassName}>
-          <Button className='media-modal__close' title={intl.formatMessage(messages.close)} icon='times' onClick={onClose} size={40} />
+        <div className={navigationClasses}>
+          <Button
+            title={intl.formatMessage(messages.close)}
+            icon='close'
+            backgroundColor='black'
+            onClick={onClose}
+            iconSize='14px'
+            className={[_s.py15, _s.posFixed, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}
+          />
 
           {leftNav}
           {rightNav}
 
-          {status && (
+          { /** : todo : 
+            status &&
             <div className={classNames('media-modal__meta', { 'media-modal__meta--shifted': media.size > 1 })}>
               <a href={status.get('url')} onClick={this.handleStatusClick}>
                 {intl.formatMessage(messages.viewContext)}
               </a>
             </div>
-          )}
+            */
+          }
 
-          <ul className='media-modal__pagination'>
-            {pagination}
-          </ul>
         </div>
+
+        <ul className={[_s.default, _s.posAbsolute, _s.bottom0, _s.mb15, _s.flexRow, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15, _s.listStyleNone].join(' ')}>
+          {pagination}
+        </ul>
       </div>
-    );
+    )
   }
 
 }

@@ -51,8 +51,9 @@ export default class SidebarSectionItem extends PureComponent {
     } = this.props
     const { hovering } = this.state
 
+    const noRouter = !this.context.router
     const iconSize = '16px'
-    const currentPathname = this.context.router ? this.context.router.route.location.pathname : undefined
+    const currentPathname = noRouter ? '' : this.context.router.route.location.pathname
     const shouldShowActive = hovering || active || currentPathname === to || currentPathname === href
     const isNotifications = to === '/notifications'
 
@@ -103,8 +104,8 @@ export default class SidebarSectionItem extends PureComponent {
 
     return (
       <Button
-        to={to}
-        href={href}
+        to={noRouter ? undefined : to}
+        href={noRouter ? (to || href) : href}
         onClick={onClick}
         noClasses
         buttonRef={buttonRef}

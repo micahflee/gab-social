@@ -81,7 +81,6 @@ function main ( ) {
     });
 
     const reactComponents = document.querySelectorAll('[data-component]');
-    console.log("reactComponents:", reactComponents)
 
     if (reactComponents.length > 0) {
       import(/* webpackChunkName: "containers/media_container" */ '../gabsocial/containers/media_container')

@@ -5,7 +5,7 @@ import { openModal } from '../../../actions/modal'
 const messages = defineMessages({
   marked: { id: 'compose_form.spoiler.marked', defaultMessage: 'Text is hidden behind warning' },
   unmarked: { id: 'compose_form.spoiler.unmarked', defaultMessage: 'Text is not hidden' },
-  title: { id: 'compose_form.spoiler.title', defaultMessage: 'Warning' },
+  title: { id: 'compose_form.gif.title', defaultMessage: 'Insert gif' },
 })
 
 const mapStateToProps = (state) => ({

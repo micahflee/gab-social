@@ -195,10 +195,13 @@ class Composer extends PureComponent {
     return (
       <div className={_s.default}>
 
-        <RichTextEditorBar
-          editorState={editorState}
-          onChange={this.onChange}
-        />
+        { /** : todo : */
+          !small &&
+          <RichTextEditorBar
+            editorState={editorState}
+            onChange={this.onChange}
+          />
+        }
 
         <div
           onClick={this.focus}
