@@ -54,7 +54,7 @@ class Search extends ImmutablePureComponent {
     const showHashtags = pathname === '/search/hashtags'
     const showGroups = pathname === '/search/groups'
     const isTop = !showPeople && !showHashtags && !showGroups
-    const theLimit = 10
+    const theLimit = 4
 
     let accounts, statuses, hashtags, groups
     

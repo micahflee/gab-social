@@ -1,36 +1,39 @@
-import ImmutablePropTypes from 'react-immutable-proptypes'
-import ImmutablePureComponent from 'react-immutable-pure-component'
-import ProgressBar from '../../../../components/progress_bar'
-import Upload from '../media_upload_item'
-import SensitiveMediaButton from '../sensitive_media_button'
+import { clearSelectedGif } from '../../../actions/tenor'
+import Image from '../../../components/image'
 
-const mapStateToProps = (state) => ({
-  mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
-  isUploading: state.getIn(['compose', 'is_uploading']),
-  uploadProgress: state.getIn(['compose', 'progress']),
-});
+const mapDispatchToProps = (dispatch) => ({
+  onClearSelectedGif() {
+    dispatch(clearSelectedGif())
+  },
+})
 
 export default
-@connect(mapStateToProps)
-class GifForm extends ImmutablePureComponent {
+@connect(null, mapDispatchToProps)
+class GifForm extends PureComponent {
 
   static propTypes = {
-    mediaIds: ImmutablePropTypes.list.isRequired,
-    isUploading: PropTypes.bool,
-    uploadProgress: PropTypes.number,
-  };
+    onClearSelectedGif: PropTypes.func.isRequired,
+    replyToId: PropTypes.string,
+    small: PropTypes.bool,
+    selectedGifSrc: PropTypes.string.isRequired,
+  }
 
   render () {
     const {
-      mediaIds,
-      isUploading,
-      uploadProgress,
+      selectedGifSrc,
+      small,
     } = this.props
+
+    if (!selectedGifSrc) return null
 
     return (
       <div className={_s.default}>
         <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-          <Upload id={id} key={id} />
+          <Image
+            width='auto'
+            src={selectedGifSrc}
+            className={[_s.maxWidth100PC, _s.radiusSmall, _s.height260PX].join(' ')}
+          />
         </div>
       </div>
     )

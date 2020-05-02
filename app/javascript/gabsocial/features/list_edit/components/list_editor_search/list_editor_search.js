@@ -30,8 +30,8 @@ class ListEditorSearch extends PureComponent {
     onClear: PropTypes.func.isRequired,
   };
 
-  handleChange = e => {
-    this.props.onChange(e.target.value);
+  handleChange = (value) => {
+    this.props.onChange(value);
   }
 
   handleKeyUp = e => {

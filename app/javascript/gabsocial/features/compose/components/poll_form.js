@@ -7,14 +7,11 @@ import {
   removePollOption,
   changePollOption,
   changePollSettings,
-  clearComposeSuggestions,
-  fetchComposeSuggestions,
-  selectComposeSuggestion,
 } from '../../../actions/compose'
 import Button from '../../../components/button'
 import Text from '../../../components/text'
 import Select from '../../../components/select'
-import AutosuggestTextbox from '../../../components/autosuggest_textbox'
+import Input from '../../../components/input'
 
 const cx = classNames.bind(_s)
 
@@ -29,7 +26,6 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  suggestions: state.getIn(['compose', 'suggestions']),
   options: state.getIn(['compose', 'poll', 'options']),
   expiresIn: state.getIn(['compose', 'poll', 'expires_in']),
   isMultiple: state.getIn(['compose', 'poll', 'multiple']),
@@ -52,18 +48,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(changePollSettings(expiresIn, isMultiple))
   },
 
-  onClearSuggestions () {
-    dispatch(clearComposeSuggestions())
-  },
-
-  onFetchSuggestions (token) {
-    dispatch(fetchComposeSuggestions(token))
-  },
-
-  onSuggestionSelected (position, token, accountId, path) {
-    dispatch(selectComposeSuggestion(position, token, accountId, path))
-  },
-
 })
 
 export default
@@ -79,10 +63,6 @@ class PollForm extends ImmutablePureComponent {
     onAddOption: PropTypes.func.isRequired,
     onRemoveOption: PropTypes.func.isRequired,
     onChangeSettings: PropTypes.func.isRequired,
-    suggestions: ImmutablePropTypes.list,
-    onClearSuggestions: PropTypes.func.isRequired,
-    onFetchSuggestions: PropTypes.func.isRequired,
-    onSuggestionSelected: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
@@ -200,15 +180,11 @@ class PollFormOption extends ImmutablePureComponent {
     onChange: PropTypes.func.isRequired,
     onRemove: PropTypes.func.isRequired,
     onToggleMultiple: PropTypes.func.isRequired,
-    suggestions: ImmutablePropTypes.list,
-    onClearSuggestions: PropTypes.func.isRequired,
-    onFetchSuggestions: PropTypes.func.isRequired,
-    onSuggestionSelected: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
-  handleOptionTitleChange = e => {
-    this.props.onChange(this.props.index, e.target.value)
+  handleOptionTitleChange = (value) => {
+    this.props.onChange(this.props.index, value)
   }
 
   handleOptionRemove = () => {
@@ -219,18 +195,6 @@ class PollFormOption extends ImmutablePureComponent {
     this.props.onToggleMultiple()
     e.preventDefault()
     e.stopPropagation()
-  }
-
-  onSuggestionsClearRequested = () => {
-    this.props.onClearSuggestions()
-  }
-
-  onSuggestionsFetchRequested = (token) => {
-    this.props.onFetchSuggestions(token)
-  }
-
-  onSuggestionSelected = (tokenStart, token, value) => {
-    this.props.onSuggestionSelected(tokenStart, token, value, ['poll', 'options', this.props.index])
   }
 
   render() {
@@ -257,16 +221,11 @@ class PollFormOption extends ImmutablePureComponent {
             tabIndex='0'
           />
 
-          <AutosuggestTextbox
+          <Input
             placeholder={intl.formatMessage(messages.option_placeholder, { number: index + 1 })}
-            maxLength={25}
+            maxLength={64}
             value={title}
             onChange={this.handleOptionTitleChange}
-            suggestions={this.props.suggestions}
-            onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-            onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-            onSuggestionSelected={this.onSuggestionSelected}
-            searchTokens={[':']}
           />
         </label>
 

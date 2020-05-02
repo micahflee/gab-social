@@ -67,6 +67,10 @@ export default
 @injectIntl
 class Sidebar extends ImmutablePureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   static propTypes = {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
@@ -92,6 +96,18 @@ class Sidebar extends ImmutablePureComponent {
       targetRef: this.moreBtnRef,
       position: 'top',
     })
+  }
+
+  historyBack = () => {
+    if (window.history && window.history.length === 1) {
+      this.context.router.history.push('/home')
+    } else {
+      this.context.router.history.goBack()
+    }
+  }
+
+  handleBackClick = () => {
+    this.historyBack()
   }
 
   setMoreButtonRef = n => {
@@ -213,7 +229,17 @@ class Sidebar extends ImmutablePureComponent {
               <div className={_s.default}>
                 {
                   !!title &&
-                  <div className={[_s.default, _s.px5, _s.py10].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.px5, _s.py10].join(' ')}>
+                    <Button
+                      noClasses
+                      color='primary'
+                      backgroundColor='none'
+                      className={[_s.alignItemsCenter, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
+                      icon='back'
+                      iconSize='20px'
+                      iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
+                      onClick={this.handleBackClick}
+                    />
                     <Heading size='h1'>
                       {title}
                     </Heading>

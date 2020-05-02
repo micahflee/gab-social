@@ -2,7 +2,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Button from './button'
 import Comment from './comment'
+import ScrollableList from './scrollable_list'
 import Text from './text'
+import { PureComponent } from 'react';
 
 export default class CommentList extends ImmutablePureComponent {
 
@@ -11,34 +13,44 @@ export default class CommentList extends ImmutablePureComponent {
     descendants: ImmutablePropTypes.list,
   }
 
+  handleLoadMore = () => {
+    //
+  }
+
   render() {
     const {
       descendants,
       commentsLimited,
     } = this.props
 
+    const upperLimit = 6
     const size = descendants.size
-    const max = Math.min(commentsLimited ? 2 : 6, size)
-    console.log("max:", size, max)
+    const max = Math.min(commentsLimited ? 2 : upperLimit, size)
+
+    const Wrapper = !commentsLimited ? ScrollableList : DummyContainer
+    console.log("Wrapper:", Wrapper)
 
     return (
       <div>
+        <Wrapper scrollKey='comments'>
+          {
+            descendants.slice(0, max).map((descendant, i) => (
+              <Comment
+                key={`comment-${descendant.get('statusId')}-${i}`}
+                id={descendant.get('statusId')}
+                indent={descendant.get('indent')}
+              />
+            ))
+          }
+        </Wrapper>
         {
-          descendants.slice(0, max).map((descendant, i) => (
-            <Comment
-              key={`comment-${descendant.get('statusId')}-${i}`}
-              id={descendant.get('statusId')}
-              indent={descendant.get('indent')}
-            />
-          ))
-        }
-        {
-          size > 0 && size > max &&
+          size > 0 && size > max && commentsLimited &&
           <div className={[_s.default, _s.flexRow, _s.px15, _s.pb5, _s.mb10, _s.alignItemsCenter].join(' ')}>
             <Button
               isText
               backgroundColor='none'
               color='tertiary'
+              onClick={this.handleLoadMore}
             >
               <Text weight='bold' color='inherit'>
                 View more comments
@@ -57,4 +69,10 @@ export default class CommentList extends ImmutablePureComponent {
     )
   }
 
+}
+
+class DummyContainer extends PureComponent {
+  render() {
+    return <div>{this.props.children}</div>
+  }
 }

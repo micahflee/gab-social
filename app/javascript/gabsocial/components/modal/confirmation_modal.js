@@ -9,9 +9,9 @@ export default
 class ConfirmationModal extends PureComponent {
 
   static propTypes = {
-    title: PropTypes.node.isRequired,
-    message: PropTypes.node.isRequired,
-    confirm: PropTypes.string.isRequired,
+    title: PropTypes.any.isRequired,
+    message: PropTypes.any.isRequired,
+    confirm: PropTypes.any.isRequired,
     onClose: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
     secondary: PropTypes.string,

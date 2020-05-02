@@ -7,6 +7,7 @@ import detectPassiveEvents from 'detect-passive-events'
 import { changeSetting } from '../../actions/settings'
 import { useEmoji } from '../../actions/emojis'
 import { closePopover } from '../../actions/popover'
+import { insertEmojiCompose } from '../../actions/compose'
 import { EmojiPicker as EmojiPickerAsync } from '../../features/ui/util/async_components'
 import { buildCustomEmojis } from '../emoji/emoji'
 import PopoverLayout from './popover_layout'
@@ -209,21 +210,19 @@ const mapStateToProps = (state) => ({
   frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),
 })
 
-const mapDispatchToProps = (dispatch, { onPickEmoji }) => ({
+const mapDispatchToProps = (dispatch) => ({
   onClosePopover() {
     dispatch(closePopover())
   },
 
-  onSkinTone: skinTone => {
+  onSkinTone: (skinTone) => {
     dispatch(changeSetting(['skinTone'], skinTone))
   },
 
-  onPickEmoji: emoji => {
+  onPickEmoji: (emoji) => {
     dispatch(useEmoji(emoji))
-
-    if (onPickEmoji) {
-      onPickEmoji(emoji)
-    }
+    console.log("emoji:", emoji)
+    dispatch(insertEmojiCompose(0, emoji, false))
   },
 })
 
@@ -274,7 +273,7 @@ class EmojiPickerPopover extends ImmutablePureComponent {
     } = this.props
     
     const { loading } = this.state
-
+    
     return (
       <PopoverLayout width={340}>
         <EmojiPickerMenu

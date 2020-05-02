@@ -21,7 +21,7 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
-  toggleMembership(group, relationships) {
+  onToggleMembership(group, relationships) {
     if (relationships.get('member')) {
       dispatch(leaveGroup(group.get('id')));
     } else {
@@ -116,6 +116,7 @@ class GroupHeader extends ImmutablePureComponent {
                     <Button
                       radiusSmall
                       className={_s.mr5}
+                      onClick={this.handleOnToggleMembership}
                       {...actionButtonOptions}
                     >
                       <Text color='inherit' size='small'>

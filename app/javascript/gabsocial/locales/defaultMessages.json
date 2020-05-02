@@ -379,7 +379,7 @@
         "id": "status.show_more"
       },
       {
-        "defaultMessage": "Show less",
+        "defaultMessage": "Hide",
         "id": "status.show_less"
       }
     ],

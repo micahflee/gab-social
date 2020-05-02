@@ -197,7 +197,7 @@ export default class ScrollableList extends PureComponent {
   }
 
   handleLoadMore = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     this.props.onLoadMore();
   }
 

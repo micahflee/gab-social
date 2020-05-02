@@ -9,7 +9,7 @@ class Api::V1::GifsController < Api::BaseController
 
   def categories
     uri = URI('https://api.tenor.com/v1/categories')
-    theOptions = { :key => "QHFJ0C5EWGBH" }
+    theOptions = { :key => "TENOR_KEY" }
     uri.query = URI.encode_www_form(theOptions)
 
     res = Net::HTTP.get_response(uri)
@@ -19,7 +19,7 @@ class Api::V1::GifsController < Api::BaseController
   def search
     uri = URI('https://api.tenor.com/v1/search')
     theOptions = {
-      :key => "QHFJ0C5EWGBH",
+      :key => "TENOR_KEY",
       :media_filter => "minimal",
       :limit => 30,
       :q => params[:search],

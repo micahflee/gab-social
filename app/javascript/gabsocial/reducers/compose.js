@@ -170,11 +170,13 @@ const updateSuggestionTags = (state, token) => {
 };
 
 const insertEmoji = (state, position, emojiData, needsSpace) => {
-  const oldText = state.get('text');
-  const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native;
+  const oldText = state.get('text')
+  const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native
+  const text = `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`
+  console.log("insertEmoji reducer:", emoji, position, emojiData, needsSpace, text)
 
   return state.merge({
-    text: `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`,
+    text,
     focusDate: new Date(),
     caretPosition: position + emoji.length + 1,
     idempotencyKey: uuid(),
@@ -248,10 +250,14 @@ export default function compose(state = initialState, action) {
       .set('privacy', action.value)
       .set('idempotencyKey', uuid());
   case COMPOSE_CHANGE:
-    return state
-      .set('text', action.text)
-      .set('markdown', action.markdown)
-      .set('idempotencyKey', uuid());
+    return state.withMutations(map => {
+      map.set('text', action.text)
+      map.set('markdown', action.markdown)
+      map.set('idempotencyKey', uuid())
+      if (action.replyId) {
+        map.set('in_reply_to', action.replyId)
+      }
+    })
   case COMPOSE_COMPOSING_CHANGE:
     return state.set('is_composing', action.value);
   case COMPOSE_REPLY:

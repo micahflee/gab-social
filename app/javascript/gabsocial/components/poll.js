@@ -75,9 +75,11 @@ class Poll extends ImmutablePureComponent {
     const { selected } = this.state
     const percent = poll.get('votes_count') === 0 ? 0 : (option.get('votes_count') / poll.get('votes_count')) * 100
     const leading = poll.get('options').filterNot(other => other.get('title') === option.get('title')).every(other => option.get('votes_count') > other.get('votes_count'))
+    const optionHasNoVotes = option.get('votes_count') === 0
     const active = !!selected[`${optionIndex}`]
     const showResults = poll.get('voted') || poll.get('expired')
     const multiple = poll.get('multiple')
+    const correctedWidthPercent = optionHasNoVotes ? 100 : percent
 
     let titleEmojified = option.get('title_emojified')
     if (!titleEmojified) {
@@ -92,10 +94,12 @@ class Poll extends ImmutablePureComponent {
       left0: 1,
       radiusSmall: 1,
       height100PC: 1,
-      bgSecondary: !leading,
+      bgSecondary: !leading && !optionHasNoVotes,
+      bgTertiary: !leading && optionHasNoVotes,
       bgBrandLight: leading,
     })
 
+    // : todo :
     const inputClasses = cx('poll__input', {
       'poll__input--checkbox': multiple,
       'poll__input--active': active,
@@ -107,7 +111,7 @@ class Poll extends ImmutablePureComponent {
       py10: showResults,
       mb10: 1,
       border1PX: !showResults,
-      fillSecondary: !showResults,
+      borderColorSecondary: !showResults,
       circle: !showResults,
       cursorPointer: !showResults,
       bgSubtle_onHover: !showResults,
@@ -127,7 +131,7 @@ class Poll extends ImmutablePureComponent {
       <li className={listItemClasses} key={option.get('title')}>
         {
           showResults && (
-            <Motion defaultStyle={{ width: 0 }} style={{ width: spring(percent, { stiffness: 180, damping: 12 }) }}>
+            <Motion defaultStyle={{ width: 0 }} style={{ width: spring(correctedWidthPercent, { stiffness: 180, damping: 24 }) }}>
               {({ width }) =>
                 <span className={chartClasses} style={{ width: `${width}%` }} />
               }
@@ -139,7 +143,7 @@ class Poll extends ImmutablePureComponent {
           <Text
             size='medium'
             color='primary'
-            weight={leading ? 'bold' : 'normal'}
+            weight={(leading && showResults) ? 'bold' : 'normal'}
             className={[_s.displayFlex, _s.flexRow, _s.width100PC, _s.alignItemsCenter].join(' ')}
           >
             {

@@ -158,19 +158,23 @@ class MediaModal extends ImmutablePureComponent {
       pagination = media.map((item, i) => {
         const btnClasses = CX({
           default: 1,
-          px5: 1,
-          py5: 1,
+          width10PX: 1,
+          height10PX: 1,
           outlineNone: 1,
-          colorPrimary: 1,
           circle: 1,
           cursorPointer: 1,
+          colorPrimary: i === index,
+          lineHeight0825: i === index,
           bgPrimaryOpaque: i !== index,
           bgPrimary: i === index,
         })
+        const activeText = i === index ? '•' : ''
 
         return (
           <li className={[_s.default, _s.px5].join(' ')} key={`media-pagination-${i}`}>
-            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i} />
+            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i}>
+              {activeText}
+            </button>
           </li>
         )
       })
@@ -234,6 +238,9 @@ class MediaModal extends ImmutablePureComponent {
     const swipeableViewsStyle = {
       width: '100%',
       height: '100%',
+      alignItems: 'center',
+      display: 'flex',
+      justifyContent: 'center',
     }
 
     const navigationClasses = CX({
@@ -244,7 +251,7 @@ class MediaModal extends ImmutablePureComponent {
     return (
       <div className={[_s.default, _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
         <div
-          className={[_s.default, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
+          className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
           role='presentation'
           onClick={onClose}
         >
@@ -252,6 +259,7 @@ class MediaModal extends ImmutablePureComponent {
             style={swipeableViewsStyle}
             containerStyle={{
               alignItems: 'center',
+              width: '100%',
             }}
             onChangeIndex={this.handleSwipe}
             onSwitching={this.handleSwitching}
@@ -286,7 +294,7 @@ class MediaModal extends ImmutablePureComponent {
 
         </div>
 
-        <ul className={[_s.default, _s.posAbsolute, _s.bottom0, _s.mb15, _s.flexRow, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15, _s.listStyleNone].join(' ')}>
+        <ul className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15, _s.flexRow, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15, _s.listStyleNone].join(' ')}>
           {pagination}
         </ul>
       </div>

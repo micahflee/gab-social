@@ -100,8 +100,22 @@ class Composer extends PureComponent {
   }
 
   state = {
+    markdownText: '',
+    plainText: '',
     editorState: EditorState.createEmpty(compositeDecorator),
   }
+  
+  static getDerivedStateFromProps(nextProps, prevState) {
+    // if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
+    //   return {
+    //     fetched: true
+    //   }
+    // }
+
+    return null
+  }
+
+  // EditorState.createWithContent(ContentState.createFromText('Hello'))
 
   onChange = (editorState) => {
     this.setState({ editorState })
@@ -123,15 +137,14 @@ class Composer extends PureComponent {
     this.props.onChange(null, text, selectionStart, markdownString)
   }
 
-// **bold**
-// *italic*
-// __underline__
-// ~strikethrough~
-// # title
-// > quote
-// `code`
-// ```code```
-
+  // **bold**
+  // *italic*
+  // __underline__
+  // ~strikethrough~
+  // # title
+  // > quote
+  // `code`
+  // ```code```
 
   focus = () => {
     this.textbox.editor.focus()
@@ -168,7 +181,7 @@ class Composer extends PureComponent {
       disabled,
       placeholder,
       autoFocus,
-      // value,
+      value,
       onChange,
       onKeyDown,
       onKeyUp,

@@ -9,48 +9,39 @@ export default class ExtendedVideoPlayer extends PureComponent {
     controls: PropTypes.bool.isRequired,
     muted: PropTypes.bool.isRequired,
     onClick: PropTypes.func,
-  };
+  }
 
   handleLoadedData = () => {
     if (this.props.time) {
-      this.video.currentTime = this.props.time;
+      this.video.currentTime = this.props.time
     }
   }
 
   componentDidMount () {
-    this.video.addEventListener('loadeddata', this.handleLoadedData);
+    this.video.addEventListener('loadeddata', this.handleLoadedData)
   }
 
   componentWillUnmount () {
-    this.video.removeEventListener('loadeddata', this.handleLoadedData);
+    this.video.removeEventListener('loadeddata', this.handleLoadedData)
   }
 
   setRef = (c) => {
-    this.video = c;
+    this.video = c
   }
 
   handleClick = e => {
-    e.stopPropagation();
-    const handler = this.props.onClick;
-    if (handler) handler();
+    e.stopPropagation()
+    const handler = this.props.onClick
+    if (handler) handler()
   }
 
   render () {
-    const { src, muted, controls, alt } = this.props;
-
-    // .extended-video-player {
-    //   @include size(100%);
-    //   @include flex(center, center);
-
-    //   video {
-    //     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
-    //   }
-    // }
-
+    const { src, muted, controls, alt } = this.props
 
     return (
-      <div className='extended-video-player'>
+      <div className={[_s.default, _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
         <video
+          className={[_s.default, _s.maxWidth100PC, _s.heightMax100PC].join(' ')}
           playsInline
           ref={this.setRef}
           src={src}
@@ -64,7 +55,7 @@ export default class ExtendedVideoPlayer extends PureComponent {
           onClick={this.handleClick}
         />
       </div>
-    );
+    )
   }
 
 }

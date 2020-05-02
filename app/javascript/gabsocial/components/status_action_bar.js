@@ -42,7 +42,7 @@ class StatusActionBar extends ImmutablePureComponent {
   updateOnProps = ['status']
 
   handleReplyClick = () => {
-    this.props.onReply(this.props.status)
+    this.props.onReply(this.props.status, null, true)
   }
 
   handleFavoriteClick = () => {

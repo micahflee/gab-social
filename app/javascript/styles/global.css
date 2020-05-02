@@ -7,7 +7,7 @@
   --color_white: #fff;
   --color_black: #2d3436;
   --color_black-opaque: rgba(0, 0, 0, .8);
-  --color_black-opaquer: rgba(0, 0, 0, .5);
+  --color_black-opaquer: rgba(0, 0, 0, .65);
   --color_gold: #ffd700;
   --color_red: #de2960;
   --color_red-dark: #c72c5b;
@@ -99,6 +99,7 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   font-size: var(--fs_m);
+  line-height: 1.3125;
   overflow-wrap: break-word;
   color: var(--text_color_primary);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
@@ -140,6 +141,7 @@ body {
   margin-top: 0;
   margin-bottom: 0;
   font-size: var(--fs_n);
+  line-height: 1.3125;
   overflow-wrap: break-word;
   color: var(--text_color_primary);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
@@ -384,6 +386,7 @@ body {
 
 /*  */
 
+.lineHeight0825 { line-height: 0.825em; }
 .lineHeight125 { line-height: 1.25em; }
 .lineHeight15 { line-height: 1.5em; }
 .lineHeight2 { line-height: 2em; }
@@ -402,12 +405,15 @@ body {
 }
 
 .heightMax100VH { max-height: 100vh; }
+.heightMax100PC { max-height: 100%; }
 .heightMax80VH { max-height: 80vh; }
+.heightMax200PX { max-height: 200px; }
 .heightMax56PX { max-height: 56px; }
 .heightCalc53PX { height: calc(100vh - 53px); }
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }
+.heightMin100PX { min-height: 100px; }
 .heightMin50PX { min-height: 50px; }
 
 .height100PC { height: 100%; }
@@ -422,8 +428,10 @@ body {
 .height24PX { height: 24px; }
 .height22PX { height: 22px; }
 .height20PX { height: 20px; }
+.height10PX { height: 10px; }
 .height4PX { height: 4px; }
 .height1PX { height: 1px; }
+.heightAuto { height: auto; }
 
 .maxWidth100PC { max-width: 100%; }
 .maxWidth640PX { max-width: 640px; }
@@ -442,9 +450,10 @@ body {
 .width72PX { width: 72px; }
 .width50PX { width: 50px; }
 .width20PX { width: 20px; }
+.width10PX { width: 10px; }
 .width4PX { width: 4px; }
 .width1PX { width: 1px; }
-
+.widthAuto { width: auto; }
 
 @media (min-width: 1480px) {
   .width1015PX {
@@ -561,9 +570,8 @@ body {
 .underline { text-decoration: underline; }
 .underline_onHover:hover { text-decoration: underline; }
 
-.objectFitCover {
-  object-fit: cover;
-}
+.objectFitCover { object-fit: cover; }
+.objectFitContain { object-fit: contain; }
 
 .textShadow {
   text-shadow: 0 0 5px var(--color_black);

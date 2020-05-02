@@ -56,8 +56,8 @@ class ReportModal extends ImmutablePureComponent {
     onClose: PropTypes.func.isRequired,
   }
 
-  handleCommentChange = e => {
-    this.props.dispatch(changeReportComment(e.target.value))
+  handleCommentChange = (e) => {
+    this.props.dispatch(changeReportComment(value))
   }
 
   handleForwardChange = e => {

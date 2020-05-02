@@ -1,4 +1,5 @@
 import { Fragment } from 'react'
+import { injectIntl, defineMessages } from 'react-intl'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -13,6 +14,14 @@ import DotTextSeperator from './dot_text_seperator'
 import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
+
+const messages = defineMessages({
+  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
+  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
+  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
+  unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
+  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
+})
 
 const cx = classNames.bind(_s)
 
@@ -33,10 +42,12 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 export default
+@injectIntl
 @connect(null, mapDispatchToProps)
 class StatusHeader extends ImmutablePureComponent {
 
   static propTypes = {
+    intl: PropTypes.object.isRequired,
     status: ImmutablePropTypes.map,
     onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
     onOpenStatusOptionsPopover: PropTypes.func.isRequired,
@@ -56,7 +67,11 @@ class StatusHeader extends ImmutablePureComponent {
   }
 
   render() {
-    const { status, reduced } = this.props
+    const {
+      intl,
+      reduced,
+      status,
+    } = this.props
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
@@ -68,7 +83,22 @@ class StatusHeader extends ImmutablePureComponent {
     })
 
     const avatarSize = reduced ? 20 : 46
-    const visibilityIcon = 'globe'
+
+    const visibility = status.get('visibility')
+
+    let visibilityIcon
+    let visibilityText
+    
+    if (visibility === 'private') {
+      visibilityIcon = 'lock-filled'
+      visibilityText = intl.formatMessage(messages.private_long)
+    } else if (visibility === 'unlisted') {
+      visibilityIcon = 'unlock-filled'
+      visibilityText = `${intl.formatMessage(messages.unlisted_short)} - ${intl.formatMessage(messages.unlisted_long)}`
+    } else {
+      visibilityIcon = 'globe'
+      visibilityText = `${intl.formatMessage(messages.public_short)} - ${intl.formatMessage(messages.public_long)}`
+    }
 
     return (
       <div className={containerClasses}>
@@ -126,8 +156,10 @@ class StatusHeader extends ImmutablePureComponent {
               </Button>
 
               <DotTextSeperator />
-
-              <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.displayInline, _s.ml5, _s.fillSecondary].join(' ')} />
+              
+              <span title={visibilityText} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
+                <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.fillSecondary].join(' ')} />
+              </span>
 
               {
                 !!status.get('group') &&

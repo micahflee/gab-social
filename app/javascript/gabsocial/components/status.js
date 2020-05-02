@@ -10,6 +10,7 @@ import ComposeFormContainer from '../features/compose/containers/compose_form_co
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
 import StatusActionBar from './status_action_bar'
+import StatusMedia from './status_media'
 import Poll from './poll'
 import StatusHeader from './status_header'
 import CommentList from './comment_list'
@@ -87,6 +88,7 @@ class Status extends ImmutablePureComponent {
     cacheMediaWidth: PropTypes.func,
     cachedMediaWidth: PropTypes.number,
     contextType: PropTypes.string,
+    commentsLimited: PropTypes.bool,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -124,7 +126,7 @@ class Status extends ImmutablePureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.loadedComments) {
+    if (!nextProps.isHidden && (nextProps.isIntersecting || !nextProps.commentsLimited) && !prevState.loadedComments) {
       return {
         loadedComments: true
       }
@@ -132,6 +134,7 @@ class Status extends ImmutablePureComponent {
 
     if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
       return {
+        loadedComments: false,
         showMedia: defaultMediaVisibility(nextProps.status),
         statusId: nextProps.status.get('id'),
       }
@@ -142,6 +145,7 @@ class Status extends ImmutablePureComponent {
 
   // Compensate height changes
   componentDidUpdate(prevProps, prevState, snapshot) {
+    // timeline lazy loading comments
     if (!prevState.loadedComments && this.state.loadedComments && this.props.status) {
       const commentCount = this.props.status.get('replies_count')
       if (commentCount > 0) {
@@ -163,7 +167,7 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  handleMoveUp = id => {
+  handleMoveUp = (id) => {
     const { status, ancestorsIds, descendantsIds } = this.props
 
     if (id === status.get('id')) {
@@ -347,7 +351,7 @@ class Status extends ImmutablePureComponent {
 
     if (!status) return null
 
-    let media, reblogContent, rebloggedByText = null
+    let reblogContent, rebloggedByText = null
 
     if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
       rebloggedByText = intl.formatMessage(
@@ -386,62 +390,6 @@ class Status extends ImmutablePureComponent {
       return null
     }
 
-    if (status.get('poll')) {
-      media = <Poll pollId={status.get('poll')} />
-    } else if (status.get('media_attachments').size > 0) {
-      if (status.getIn(['media_attachments', 0, 'type']) === 'video') {
-        const video = status.getIn(['media_attachments', 0])
-
-        media = (
-          <Bundle fetchComponent={Video} loading={this.renderLoadingMedia}>
-            {Component => (
-              <Component
-                inline
-                preview={video.get('preview_url')}
-                blurhash={video.get('blurhash')}
-                src={video.get('url')}
-                alt={video.get('description')}
-                aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
-                width={this.props.cachedMediaWidth}
-                height={110}
-                sensitive={status.get('sensitive')}
-                onOpenVideo={this.handleOpenVideo}
-                cacheWidth={this.props.cacheMediaWidth}
-                visible={this.state.showMedia}
-                onToggleVisibility={this.handleToggleMediaVisibility}
-              />
-            )}
-          </Bundle>
-        )
-      } else {
-        media = (
-          <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMedia}>
-            {Component => (
-              <Component
-                reduced={isChild}
-                media={status.get('media_attachments')}
-                sensitive={status.get('sensitive')}
-                onOpenMedia={this.props.onOpenMedia}
-                cacheWidth={this.props.cacheMediaWidth}
-                defaultWidth={this.props.cachedMediaWidth}
-                visible={this.state.showMedia}
-                onToggleVisibility={this.handleToggleMediaVisibility}
-              />
-            )}
-          </Bundle>
-        )
-      }
-    } else if (status.get('spoiler_text').length === 0 && status.get('card')) {
-      media = (
-        <StatusCard
-          onOpenMedia={this.props.onOpenMedia}
-          card={status.get('card')}
-          cacheWidth={this.props.cacheMediaWidth}
-          defaultWidth={this.props.cachedMediaWidth}
-        />
-      )
-    }
-
     const containerClasses = cx({
       default: 1,
       pb15: isFeatured,
@@ -476,7 +424,7 @@ class Status extends ImmutablePureComponent {
           data-featured={isFeatured ? 'true' : null}
           aria-label={textForScreenReader(intl, status, rebloggedByText)}
           ref={this.handleRef}
-          // onClick={this.handleClick}
+          onClick={isChild ? this.handleClick : undefined}
         >
           <div className={innerContainerClasses}>
 
@@ -497,7 +445,17 @@ class Status extends ImmutablePureComponent {
                 />
               </div>
 
-              {media}
+              <StatusMedia
+                isChild={isChild}
+                status={status}
+                onOpenMedia={this.props.onOpenMedia}
+                cacheWidth={this.props.cacheMediaWidth}
+                defaultWidth={this.props.cachedMediaWidth}
+                visible={this.state.showMedia}
+                onToggleVisibility={this.handleToggleMediaVisibility}
+                width={this.props.cachedMediaWidth}
+                onOpenVideo={this.handleOpenVideo}
+              />
 
               {
                 !!status.get('quote') && !isChild &&

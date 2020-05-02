@@ -45,12 +45,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
         </div>
 
         <Button
-          backgroundColor='brand'
-          color='white'
-          icon='pro'
           href='https://pro.gab.com'
-          className={_s.justifyContentCenter}
-          iconClassName={[_s.mr5, _s.fillWhite].join(' ')}
         >
           <Text color='inherit' weight='bold' align='center'>
             {intl.formatMessage(messages.title)}

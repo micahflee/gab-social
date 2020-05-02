@@ -49,8 +49,9 @@ export const mapDispatchToProps = (dispatch, { onClose }) => ({
     }
   },
 
-  handleSelectResult: (resultId) => {
-
+  handleSelectResult: (result) => {
+    dispatch(setSelectedGif(result))
+    onClose()
   },
 
   // dispatchSubmit: (e) => {
@@ -70,11 +71,11 @@ class GifPickerModal extends PureComponent {
     handleCloseModal: PropTypes.func.isRequired,
     handleFetchCategories: PropTypes.func.isRequired,
     handleOnChange: PropTypes.func.isRequired,
+    handleSelectResult: PropTypes.func.isRequired,
     categories: PropTypes.array.isRequired,
     results: PropTypes.array.isRequired,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    chosenUrl: PropTypes.string,
     searchText: PropTypes.string,
   }
 
@@ -98,8 +99,8 @@ class GifPickerModal extends PureComponent {
     this.props.handleOnChange(category)
   }
 
-  handleSelectGifResult = (resultId) => {
-    console.log("handleSelectGifResult:", resultId)
+  handleSelectGifResult = (resultBlock) => {
+    this.props.handleSelectResult(resultBlock)
   }
 
   render() {
@@ -109,7 +110,7 @@ class GifPickerModal extends PureComponent {
       results,
       loading,
       error,
-      searchText
+      searchText,
     } = this.props
 
     return (
@@ -165,6 +166,7 @@ class GifPickerModal extends PureComponent {
 }
 
 class GifResultsCollectionColumn extends PureComponent {
+
   static propTypes = {
     results: PropTypes.array.isRequired,
     handleSelectGifResult: PropTypes.func.isRequired,
@@ -183,8 +185,8 @@ class GifResultsCollectionColumn extends PureComponent {
         results.map((result, i) => (
           <button
             key={`gif-result-item-${i}`}
-            onClick={() => this.onClick(result.id)}
-            className={[_s.default, _s.cursorPointer, _s.px2, _s.py2].join(' ')}
+            onClick={() => this.onClick(result)}
+            className={[_s.default, _s.outlineNone, _s.bgTransparent, _s.cursorPointer, _s.px2, _s.py2].join(' ')}
           >
             <Image
               height={result.media[0].tinygif.dims[1]}
@@ -196,9 +198,11 @@ class GifResultsCollectionColumn extends PureComponent {
       </div>
     )
   }
+
 }
 
 class GifResultsCollection extends PureComponent {
+
   static propTypes = {
     results: PropTypes.array.isRequired,
     handleSelectGifResult: PropTypes.func.isRequired,
@@ -250,7 +254,7 @@ class GifCategoriesCollection extends PureComponent {
             <button
               key={`gif-category-${i}`}
               onClick={() => this.onClick(category.searchterm)}
-              className={[_s.default, _s.px2, _s.py2, _s.width50PC].join(' ')}
+              className={[_s.default, _s.outlineNone, _s.bgTransparent, _s.px2, _s.py2, _s.width50PC].join(' ')}
             >
               <div className={[_s.default, _s.cursorPointer].join(' ')}>
                 <Image
@@ -269,4 +273,5 @@ class GifCategoriesCollection extends PureComponent {
       </div>
     )
   }
+
 }

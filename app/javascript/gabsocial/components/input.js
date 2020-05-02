@@ -24,6 +24,7 @@ export default class Input extends PureComponent {
     inputRef: PropTypes.func,
     id: PropTypes.string.isRequired,
     hideLabel: PropTypes.bool,
+    maxLength: PropTypes.number,
   }
 
   handleOnChange = (e) => {
@@ -46,7 +47,8 @@ export default class Input extends PureComponent {
       readOnly,
       inputRef,
       id,
-      hideLabel
+      hideLabel,
+      maxLength,
     } = this.props
 
     const inputClasses = cx({
@@ -87,7 +89,7 @@ export default class Input extends PureComponent {
             </Text>
           </div>
         }
-        <div className={[_s.default, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s.default, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
           {
             !!prependIcon &&
             <Icon id={prependIcon} size='16px' className={[_s.fillPrimary, _s.ml15, _s.mr5].join(' ')} />
@@ -110,6 +112,7 @@ export default class Input extends PureComponent {
             onFocus={onFocus}
             onBlur={onBlur}
             readOnly={readOnly}
+            maxLength={maxLength}
           />
 
           {

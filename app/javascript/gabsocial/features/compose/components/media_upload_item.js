@@ -7,6 +7,7 @@ import { submitCompose } from '../../../actions/compose';
 import Button from '../../../components/button'
 import Image from '../../../components/image'
 import Input from '../../../components/input'
+import Text from '../../../components/text'
 
 const cx = classNames.bind(_s)
 
@@ -15,27 +16,20 @@ const messages = defineMessages({
   delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
 })
 
-const mapStateToProps = (state, { id, otherProps }) => {
-  console.log("otherProps:", otherProps)
-  return {
-    media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
-  }
-}
+const mapStateToProps = (state, { id }) => ({
+  media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
+})
 
 const mapDispatchToProps = (dispatch) => ({
-
-  onUndo: id => {
-    dispatch(undoUploadCompose(id));
+  onUndo: (id) => {
+    dispatch(undoUploadCompose(id))
   },
-
   onDescriptionChange: (id, description) => {
-    dispatch(changeUploadCompose(id, { description }));
+    dispatch(changeUploadCompose(id, { description }))
   },
-
   onSubmit () {
-    dispatch(submitCompose());
+    dispatch(submitCompose())
   },
-
 });
 
 export default
@@ -72,13 +66,13 @@ class Upload extends ImmutablePureComponent {
     this.props.onSubmit()
   }
 
-  handleUndoClick = e => {
+  handleUndoClick = (e) => {
     e.stopPropagation()
     this.props.onUndo(this.props.media.get('id'))
   }
 
-  handleInputChange = e => {
-    this.setState({ dirtyDescription: e.target.value })
+  handleInputChange = (value) => {
+    this.setState({ dirtyDescription: value })
   }
 
   handleMouseEnter = () => {
@@ -128,8 +122,6 @@ class Upload extends ImmutablePureComponent {
       displayNone: !active,
     })
 
-    console.log("media:", media)
-
     return (
       <div
         tabIndex='0'
@@ -144,6 +136,12 @@ class Upload extends ImmutablePureComponent {
             className={[_s.default, _s.height158PX].join(' ')}
             src={media.get('preview_url')}
           />
+          {
+            media.get('type') === 'gifv' &&
+            <div className={[_s.default, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.ml10, _s.mt10, _s.top0, _s.left0].join(' ')}>
+              <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
+            </div>
+          }
           <Button
             backgroundColor='black'
             color='white'

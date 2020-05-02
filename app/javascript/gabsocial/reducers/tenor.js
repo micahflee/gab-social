@@ -1,6 +1,7 @@
 import {
   GIFS_CLEAR_RESULTS,
   GIF_SET_SELECTED,
+  GIF_CLEAR_SELECTED,
   GIF_CHANGE_SEARCH_TEXT,
   GIF_RESULTS_FETCH_REQUEST,
   GIF_RESULTS_FETCH_SUCCESS,
@@ -14,11 +15,15 @@ import { Map as ImmutableMap } from 'immutable'
 const initialState = ImmutableMap({
   categories: [],
   results: [],
-  chosenUrl: '',
   searchText: '',
   next: 0,
   loading: false,
   error: false,
+  selectedGif: ImmutableMap({
+    id: '',
+    title: '',
+    src: '',
+  })
 })
 
 export default function (state = initialState, action) {
@@ -48,7 +53,13 @@ export default function (state = initialState, action) {
   case GIFS_CLEAR_RESULTS:
     return state.set('results', [])
   case GIF_SET_SELECTED:
-    return state.set('chosenUrl', action.url)
+    return state.set('selectedGif', ImmutableMap({
+      id: action.result.id,
+      title: action.result.title,
+      src: action.result.media[0].gif.url,
+    }))
+  case GIF_CLEAR_SELECTED:
+    return state.set('selectedGif', ImmutableMap())
   case GIF_CHANGE_SEARCH_TEXT:
     return state.set('searchText', action.text.trim());
   default:

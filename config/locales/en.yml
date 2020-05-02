@@ -724,7 +724,7 @@ en:
       limit: You have reached the maximum amount of lists
   media_attachments:
     validations:
-      images_and_video: Cannot attach a video to a status that already contains images
+      images_and_video: Cannot attach a video or gif to a status that already contains images
       too_many: Cannot attach more than 4 files
   migrations:
     acct: username@domain of the new account

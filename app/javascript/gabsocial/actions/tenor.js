@@ -52,9 +52,14 @@ export const clearGifResults = () => ({
   type: GIFS_CLEAR_RESULTS,
 })
 
-export const setSelectedGif = (url) => ({
+export const clearSelectedGif = () => ({
+  type: GIF_CLEAR_SELECTED,
+  result,
+})
+
+export const setSelectedGif = (result) => ({
   type: GIF_SET_SELECTED,
-  url,
+  result,
 })
 
 export function changeGifSearchText(text) {

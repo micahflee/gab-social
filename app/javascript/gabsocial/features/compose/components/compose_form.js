@@ -24,6 +24,8 @@ import StatusContainer from '../../../containers/status_container'
 import StatusVisibilityButton from './status_visibility_button'
 import UploadButton from './media_upload_button'
 import UploadForm from './upload_form'
+import GifForm from './gif_form'
+import Input from '../../../components/input'
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
@@ -78,6 +80,7 @@ class ComposeForm extends ImmutablePureComponent {
     replyToId: PropTypes.string,
     reduxReplyToId: PropTypes.string,
     hasPoll: PropTypes.bool,
+    selectedGifSrc: PropTypes.string,
   };
 
   static defaultProps = {
@@ -85,7 +88,7 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   handleChange = (e, markdown) => {
-    this.props.onChange(e.target.value, markdown);
+    this.props.onChange(e.target.value, markdown, this.props.replyToId)
   }
 
   handleComposeFocus = () => {
@@ -156,8 +159,8 @@ class ComposeForm extends ImmutablePureComponent {
     this.props.onSuggestionSelected(tokenStart, token, value, ['spoiler_text']);
   }
 
-  handleChangeSpoilerText = (e) => {
-    this.props.onChangeSpoilerText(e.target.value);
+  handleChangeSpoilerText = (value) => {
+    this.props.onChangeSpoilerText(value)
   }
 
   componentDidMount() {
@@ -169,7 +172,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.autosuggestTextarea) return;
+    if (!this.autosuggestTextarea) return
 
     // This statement does several things:
     // - If we're beginning a reply, and,
@@ -196,15 +199,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   setAutosuggestTextarea = (c) => {
-    this.autosuggestTextarea = c;
+    this.autosuggestTextarea = c
   }
 
   setForm = (c) => {
     this.form = c
-  }
-
-  setSpoilerText = (c) => {
-    this.spoilerText = c
   }
 
   handleEmojiPick = (data) => {
@@ -236,12 +235,13 @@ class ComposeForm extends ImmutablePureComponent {
       isMatch,
       isChangingUpload,
       isSubmitting,
+      selectedGifSrc,
     } = this.props
     const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text) !== 0 && length(text.trim()) === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
-    
+  
     const parentContainerClasses = CX({
       default: 1,
       width100PC: 1,
@@ -294,7 +294,7 @@ class ComposeForm extends ImmutablePureComponent {
           >
 
             {
-              !!reduxReplyToId && !shouldCondense &&
+              !!reduxReplyToId && !shouldCondense && isModalOpen &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
                   id={reduxReplyToId}
@@ -306,19 +306,13 @@ class ComposeForm extends ImmutablePureComponent {
             {
               !!spoiler &&
               <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-                <AutosuggestTextbox
+                <Input
                   placeholder={intl.formatMessage(messages.spoiler_placeholder)}
                   value={this.props.spoilerText}
                   onChange={this.handleChangeSpoilerText}
-                  onKeyDown={this.handleKeyDown}
                   disabled={!this.props.spoiler}
-                  ref={this.setSpoilerText}
-                  suggestions={this.props.suggestions}
-                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                  onSuggestionSelected={this.onSpoilerSuggestionSelected}
-                  searchTokens={[':']}
                   prependIcon='warning'
+                  maxLength={256}
                   id='cw-spoiler-input'
                 />
               </div>
@@ -349,12 +343,17 @@ class ComposeForm extends ImmutablePureComponent {
               </div>
             }
 
-            { /* : todo : for gif
-              (isUploading || hasGif) &&
+            {
+              /*
+              !!selectedGifSrc && !anyMedia &&
               <div className={[_s.default, _s.px15].join(' ')}>
-                <UploadForm replyToId={replyToId} />
+                <GifForm
+                  replyToId={replyToId}
+                  small={shouldCondense}
+                  selectedGifSrc={selectedGifSrc}
+                />
               </div>
-             */
+              */
             }
 
             {
@@ -365,7 +364,7 @@ class ComposeForm extends ImmutablePureComponent {
             }
 
             {
-              !!quoteOfId &&
+              !!quoteOfId && isModalOpen &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
                   id={quoteOfId}
@@ -376,29 +375,21 @@ class ComposeForm extends ImmutablePureComponent {
 
             <div className={actionsContainerClasses}>
               <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
-                {
-                  !shouldCondense &&
-                  <RichTextEditorButton />
-                }
+                
+                <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+
                 <UploadButton small={shouldCondense} />
+                { /* <GifSelectorButton small={shouldCondense} /> */ }
+                
                 {
                   !edit && !shouldCondense &&
                   <PollButton />
                 }
-                {
-                  !shouldCondense &&
-                  <StatusVisibilityButton />
-                }
-                {
-                  !shouldCondense &&
-                  <SpoilerButton />
-                }
-                {
-                  !shouldCondense &&
-                  <SchedulePostButton />
-                }
-                <GifSelectorButton small={shouldCondense} />
-                <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+                
+                { !shouldCondense && <StatusVisibilityButton /> }
+                { !shouldCondense && <SpoilerButton /> }
+                { !shouldCondense && <SchedulePostButton /> }
+                { /* !shouldCondense && <RichTextEditorButton /> */ }
 
                 {
                   shouldCondense &&

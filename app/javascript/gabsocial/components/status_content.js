@@ -10,8 +10,8 @@ import Text from './text'
 const MAX_HEIGHT = 200
 
 const messages = defineMessages({
-  showMore: { id: 'status.show_more', defaultMessage: 'Show more' },
-  showLess: { id: 'status.show_less', defaultMessage: 'Show less' },
+  show: { id: 'status.show_more', defaultMessage: 'Show' },
+  hide: { id: 'status.show_less', defaultMessage: 'Hide' },
   readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
 })
 
@@ -220,7 +220,7 @@ class StatusContent extends ImmutablePureComponent {
         )
       }
 
-      const toggleText = intl.formatMessage(hidden ? messages.showMore : messages.showLess)
+      const toggleText = intl.formatMessage(hidden ? messages.show : messages.hide)
 
       const spoilerContainerClasses = cx({
         default: 1,

@@ -57,12 +57,6 @@ class PopoverRoot extends PureComponent {
     props: PropTypes.object,
   }
 
-  getSnapshotBeforeUpdate() {
-    return {
-      visible: !!this.props.type
-    }
-  }
-
   renderEmpty = () => {
     return <div />
   }

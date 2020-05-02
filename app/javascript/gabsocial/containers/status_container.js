@@ -1,4 +1,4 @@
-import { defineMessages, injectIntl } from 'react-intl'
+import { FormattedMessage } from 'react-intl'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import {
   replyCompose,
@@ -34,16 +34,8 @@ import {
 import { makeGetStatus } from '../selectors';
 import Status from '../components/status';
 
-const messages = defineMessages({
-  deleteConfirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
-  deleteMessage: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
-  replyConfirm: { id: 'confirmations.reply.confirm', defaultMessage: 'Reply' },
-  replyMessage: { id: 'confirmations.reply.message', defaultMessage: 'Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' },
-  blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
-});
-
 const makeMapStateToProps = () => {
-  const getStatus = makeGetStatus();
+  const getStatus = makeGetStatus()
 
   const mapStateToProps = (state, props) => {
     const statusId = props.id || props.params.statusId
@@ -62,9 +54,12 @@ const makeMapStateToProps = () => {
       let indent = -1
       descendantsIds = descendantsIds.withMutations(mutable => {
         const ids = [status.get('id')]
-      
+
+        const r = state.getIn(['contexts', 'replies', ids[0]])
+        console.log("r:", r)
+
         while (ids.length > 0) {
-          let id = ids.shift();
+          let id = ids.shift()
           const replies = state.getIn(['contexts', 'replies', id])
 
           if (status.get('id') !== id) {
@@ -94,22 +89,22 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 };
 
-const mapDispatchToProps = (dispatch, { intl }) => ({
-  onReply (status, router) {
+const mapDispatchToProps = (dispatch) => ({
+  onReply (status, router, showModal) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
     dispatch((_, getState) => {
       const state = getState();
       if (state.getIn(['compose', 'text']).trim().length !== 0) {
         dispatch(openModal('CONFIRM', {
-          message: intl.formatMessage(messages.replyMessage),
-          confirm: intl.formatMessage(messages.replyConfirm),
+          message: <FormattedMessage id='confirmations.reply.message' defaultMessage='Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' />,
+          confirm: <FormattedMessage id='confirmations.reply.confirm' defaultMessage='Reply' />,
           onConfirm: () => dispatch(replyCompose(status, router)),
-        }));
+        }))
       } else {
-        dispatch(replyCompose(status, router));
+        dispatch(replyCompose(status, router, showModal));
       }
-    });
+    })
   },
 
   onRepost (targetRef, status, e) {
@@ -177,8 +172,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       dispatch(deleteStatus(status.get('id'), history));
     } else {
       dispatch(openModal('CONFIRM', {
-        message: intl.formatMessage(messages.deleteMessage),
-        confirm: intl.formatMessage(messages.deleteConfirm),
+        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
+        confirm: <FormattedMessage id='confirmations.delete.confirm' defaultMessage='Delete' />,
         onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
       }));
     }

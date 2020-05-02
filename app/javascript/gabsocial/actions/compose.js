@@ -1,6 +1,7 @@
 import api from '../api';
 import { CancelToken, isCancel } from 'axios';
 import throttle from 'lodash.throttle'
+import moment from 'moment-mini'
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
 import { urlRegex } from '../features/ui/util/url_regex'
 import { tagHistory } from '../settings';
@@ -77,23 +78,26 @@ export const ensureComposeIsVisible = (getState, routerHistory) => {
   }
 };
 
-export function changeCompose(text, markdown) {
-  console.log("changeCompose:", markdown)
+export function changeCompose(text, markdown, replyId) {
+  console.log("changeCompose:", text)
   return {
     type: COMPOSE_CHANGE,
     text: text,
     markdown: markdown,
+    replyId: replyId,
   };
 };
 
-export function replyCompose(status) {
+export function replyCompose(status, router, showModal) {
   return (dispatch) => {
     dispatch({
       type: COMPOSE_REPLY,
       status: status,
     });
 
-    dispatch(openModal('COMPOSE'));
+    if (showModal) {
+      dispatch(openModal('COMPOSE'));
+    }
   };
 };
 
@@ -169,7 +173,7 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   }
 }
 
-export function submitCompose(group, replyToId=null) {
+export function submitCompose(group, replyToId = null) {
   return function (dispatch, getState) {
     if (!me) return;
 
@@ -202,8 +206,7 @@ export function submitCompose(group, replyToId=null) {
     const method = id === null ? 'post' : 'put';
 
     const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
-    // : todo :
-    // if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
+    if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
     api(getState)[method](endpoint, {
       status,

@@ -122,7 +122,7 @@ class DisplayName extends ImmutablePureComponent {
 
     const iconSize =
       !!isLarge ? '19px' :
-      !!isSmall ? '14px' : '16px'
+      !!isSmall ? '14px' : '15px'
 
     const domain = account.get('acct').split('@')[1]
     const isRemoteUser = !!domain

@@ -345,7 +345,7 @@
   "status.report": "Report @{name}",
   "status.sensitive_warning": "Деликатно съдържание",
   "status.share": "Share",
-  "status.show_less": "Show less",
+  "status.show_less": "Hide",
   "status.show_less_all": "Show less for all",
   "status.show_more": "Show more",
   "status.show_more_all": "Show more for all",

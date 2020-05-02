@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import isObject from 'lodash.isobject'
 import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import Textarea from 'react-textarea-autosize'
 import { isRtl } from '../utils/rtl'
 import { textAtCursorMatchesToken } from '../utils/cursor_token_match'
 import AutosuggestAccount from './autosuggest_account'
@@ -226,27 +227,56 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       direction: isRtl(value) ? 'rtl' : 'ltr',
     }
 
-    const textClasses = cx({
+    const textareaClasses = cx({
       default: 1,
-      lineHeight125: 1,
+      font: 1,
+      wrap: 1,
       resizeNone: 1,
-      text: 1,
-      displayBlock: 1,
+      bgTransparent: 1,
       outlineNone: 1,
-      bgPrimary: !small,
-      bgSubtle: small,
-      py15: !small,
-      py10: small,
+      lineHeight125: 1,
+      height100PC: small,
+      width100PC: !small,
+      pt15: !small,
+      px15: !small,
+      px10: small,
+      pb10: !small,
       fs16PX: !small,
       fs14PX: small,
-      mr5: small,
+      heightMax200PX: small,
+      heightMax80VH: !small,
+      heightMin100PX: !small,
+    })
+
+    const textareaContainerClasses = cx({
+      default: 1,
+      maxWidth100PC: 1,
+      flexGrow1: small,
+      height100PC: small,
+      justifyContentCenter: small,
     })
 
     if (textarea) {
       return (
         <Fragment>
-          <div className={[_s.default, _s.flexGrow1, _s.maxWidth100PC].join(' ')}>
-            <Composer
+          <div className={textareaContainerClasses}>
+            <Textarea
+              inputRef={this.setTextbox}
+              className={textareaClasses}
+              disabled={disabled}
+              placeholder={placeholder}
+              autoFocus={false}
+              value={value}
+              onChange={this.onChange}
+              // onKeyDown={this.onKeyDown}
+              // onKeyUp={onKeyUp}
+              // onFocus={this.onFocus}
+              // onBlur={this.onBlur}
+              // onPaste={this.onPaste}
+              aria-autocomplete='list'
+            />
+
+            {/*<Composer
               inputRef={this.setTextbox}
               disabled={disabled}
               placeholder={placeholder}
@@ -259,7 +289,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               onBlur={this.onBlur}
               onPaste={this.onPaste}
               small={small}
-            />
+            />*/}
 
             {children}
           </div>

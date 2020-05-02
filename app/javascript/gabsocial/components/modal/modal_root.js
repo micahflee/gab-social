@@ -135,7 +135,7 @@ class ModalRoot extends PureComponent {
   }
 
   renderLoading = () => {
-    return <ModalLoading />
+    return null
   }
 
   renderError = () => {

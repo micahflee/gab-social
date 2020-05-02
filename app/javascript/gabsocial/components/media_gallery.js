@@ -309,10 +309,11 @@ class MediaGallery extends PureComponent {
     } = this.props
     const { visible } = this.state
 
-    const width = this.state.width || defaultWidth;
+    let width = this.state.width || defaultWidth
+    if (reduced) width = width / 2
 
-    const style = {};
-    const size = media.take(4).size;
+    const style = {}
+    const size = media.take(4).size
 
     const standard169 = width / (16 / 9);
     const standard169_percent = 100 / (16 / 9);
@@ -517,9 +518,9 @@ class MediaGallery extends PureComponent {
 
     //If reduced (i.e. like in a quoted post)
     //then we need to make media smaller
-    if (reduced) {
-      style.height = width / 2 || '50%'
-    }
+    // if (reduced) {
+    //   style.height = width / 2 || '50%'
+    // }
 
     if (!visible) {
       style.height = 'auto'
@@ -573,7 +574,7 @@ class MediaGallery extends PureComponent {
             <Button
               title={intl.formatMessage(messages.toggle_visible)}
               icon='hidden'
-              backgroundColor='none'
+              backgroundColor='black'
               className={[_s.px10, _s.bgBlackOpaque_onHover].join(' ')}
               onClick={this.handleOpen}
             />

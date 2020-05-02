@@ -22,7 +22,7 @@ class LoadMore extends PureComponent {
   }
 
   handleClick = (e) => {
-    this.props.onClick()
+    this.props.onClick(e)
   }
 
   render() {
