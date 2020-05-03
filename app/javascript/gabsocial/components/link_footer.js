@@ -54,11 +54,12 @@ class LinkFooter extends PureComponent {
         text: intl.formatMessage(messages.help),
         requiresUser: true,
       },
-      {
-        onClick: onOpenHotkeys,
-        text: intl.formatMessage(messages.hotkeys),
-        requiresUser: true,
-      },
+      // : todo :
+      // {
+      //   onClick: onOpenHotkeys,
+      //   text: intl.formatMessage(messages.hotkeys),
+      //   requiresUser: true,
+      // },
       {
         to: '/auth/edit',
         text: intl.formatMessage(messages.security),

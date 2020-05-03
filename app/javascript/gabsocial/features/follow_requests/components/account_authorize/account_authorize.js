@@ -12,15 +12,9 @@ const messages = defineMessages({
   reject: { id: 'follow_request.reject', defaultMessage: 'Reject' },
 });
 
-const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount();
-
-  const mapStateToProps = (state, props) => ({
-    account: getAccount(state, props.id),
-  });
-
-  return mapStateToProps;
-};
+const makeMapStateToProps = () => ({
+  account: makeGetAccount()(state, props.id),
+})
 
 const mapDispatchToProps = (dispatch, { id }) => ({
   onAuthorize() {

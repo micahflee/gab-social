@@ -5,32 +5,34 @@ import Layout from './layout'
 import GroupHeader from '../components/group_header'
 
 export default class GroupLayout extends ImmutablePureComponent {
+
   static propTypes = {
     actions: PropTypes.array,
+    children: PropTypes.node,
     group: ImmutablePropTypes.map,
-    relationships: ImmutablePropTypes.map,
     layout: PropTypes.object,
+    relationships: ImmutablePropTypes.map,
     showBackBtn: PropTypes.bool,
+    title: PropTypes.string,
   }
 
   render() {
     const {
-      group,
-      children,
-      layout,
-      showBackBtn,
       actions,
+      children,
+      group,
+      layout,
       relationships,
+      showBackBtn,
+      title,
     } = this.props
-
-    const title = !!group ? group.get('title') : undefined
 
     return (
       <Layout
         noRightSidebar
-        title={title}
         actions={actions}
         showBackBtn={showBackBtn}
+        title={title}
       >
         <div className={[_s.default, _s.width100PC, _s.pl15].join(' ')}>
 

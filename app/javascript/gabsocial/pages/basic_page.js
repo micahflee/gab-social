@@ -1,11 +1,12 @@
 import { Fragment } from 'react'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import LinkFooter from '../components/link_footer'
+import TrendsPanel from '../components/panel/trends_panel'
+import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 
 export default class BasicPage extends PureComponent {
+
   static propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
@@ -31,4 +32,5 @@ export default class BasicPage extends PureComponent {
       </DefaultLayout>
     )
   }
+
 }

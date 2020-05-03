@@ -56,7 +56,7 @@ const makeMapStateToProps = () => {
         const ids = [status.get('id')]
 
         const r = state.getIn(['contexts', 'replies', ids[0]])
-        console.log("r:", r)
+        // console.log("r:", r)
 
         while (ids.length > 0) {
           let id = ids.shift()
@@ -253,6 +253,15 @@ const mapDispatchToProps = (dispatch) => ({
   onFetchComments(statusId) {
     dispatch(fetchComments(statusId))
   },
+
+  onOpenLikes(status) {
+    dispatch(openModal('STATUS_LIKES', { status }))
+  },
+    
+  onOpenReposts(status) {
+    dispatch(openModal('STATUS_REPOSTS', { status }))
+  },
+
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(Status);

@@ -265,7 +265,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               className={textareaClasses}
               disabled={disabled}
               placeholder={placeholder}
-              autoFocus={false}
+            dautoFocus={false}
               value={value}
               onChange={this.onChange}
               // onKeyDown={this.onKeyDown}

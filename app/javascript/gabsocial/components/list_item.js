@@ -56,6 +56,8 @@ export default class ListItem extends PureComponent {
       flexRow: 1,
       alignItemsCenter: 1,
       width100PC: 1,
+      outlineNone: 1,
+      bgTransparent: 1,
       bgSubtle_onHover: 1,
       borderColorSecondary: !isLast,
       borderBottom1PX: !isLast,

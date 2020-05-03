@@ -37,6 +37,8 @@ class StatusActionBar extends ImmutablePureComponent {
     onReply: PropTypes.func.isRequired,
     onRepost: PropTypes.func.isRequired,
     status: ImmutablePropTypes.map.isRequired,
+    onOpenLikes: PropTypes.func.isRequired,
+    onOpenReposts: PropTypes.func.isRequired,
   }
 
   updateOnProps = ['status']
@@ -58,15 +60,11 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   openLikesList = () => {
-    // : todo :
-  }
-
-  toggleCommentsVisible = () => {
-    // : todo :
+    this.props.onOpenLikes(this.props.status)
   }
 
   openRepostsList = () => {
-    // : todo :
+    this.props.onOpenReposts(this.props.status)
   }
 
   setRepostButton = (n) => {

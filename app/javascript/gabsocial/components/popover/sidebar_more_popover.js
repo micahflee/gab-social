@@ -1,6 +1,7 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import {  MODAL_DISPLAY_OPTIONS } from '../../constants'
 import { openModal } from '../../actions/modal'
+import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
@@ -13,6 +14,7 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenDisplayModal: () => {
+    dispatch(closePopover())
     dispatch(openModal(MODAL_DISPLAY_OPTIONS))
   },
 })
@@ -54,7 +56,7 @@ class SidebarMorePopover extends PureComponent {
             },
             {
               title: intl.formatMessage(messages.logout),
-              href: '/auth/log_out',
+              href: '/auth/sign_out',
             },
           ]}
         />

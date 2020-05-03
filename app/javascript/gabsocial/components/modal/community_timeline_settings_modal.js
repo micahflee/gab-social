@@ -8,7 +8,7 @@ import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
 const messages = defineMessages({
-  title: { id: 'community_timeline_settings', defaultMessage: 'Community Timeline Settings' },
+  title: { id: 'community_timeline_settings', defaultMessage: 'Community Feed Settings' },
   saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
   onlyMedia: { id: 'community.column_settings.media_only', defaultMessage: 'Media Only' },
   showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
@@ -18,17 +18,15 @@ const mapStateToProps = (state) => ({
   settings: state.getIn(['settings', 'community']),
 })
 
-const mapDispatchToProps = (dispatch, { onClose }) => {
-  return {
-    onChange(key, checked) {
-      dispatch(changeSetting(['community', ...key], checked))
-    },
-    onSave() {
-      dispatch(saveSettings())
-      onClose()
-    },
-  }
-}
+const mapDispatchToProps = (dispatch, { onClose }) => ({
+  onChange(key, checked) {
+    dispatch(changeSetting(['community', ...key], checked))
+  },
+  onSave() {
+    dispatch(saveSettings())
+    onClose()
+  },
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
@@ -39,6 +37,7 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     settings: ImmutablePropTypes.map.isRequired,
     onChange: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   }
 
@@ -47,10 +46,16 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, settings, onChange, onClose } = this.props
+    const {
+      intl,
+      settings,
+      onChange,
+      onClose,
+    } = this.props
 
     return (
       <ModalLayout
+        onClose={onClose}
         width={320}
         title={intl.formatMessage(messages.title)}
       >

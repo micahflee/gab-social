@@ -50,36 +50,12 @@ class GroupPage extends ImmutablePureComponent {
 			relationships,
 		} = this.props
 
-		// <div className="column-header__wrapper">
-		// 	<h1 className="column-header">
-		// 		<Link to={`/groups/${id}`} className={classNames('btn grouped active')}>
-		// 			{intl.formatMessage(messages.tabLatest)}
-		// 		</Link>
-
-		// 		<div className='column-header__buttons'>
-		// 			<button
-		// 				className={classNames('column-header__button', { 'active': !collapsed })}
-		// 				title={intl.formatMessage(collapsed ? messages.show : messages.hide)}
-		// 				aria-label={intl.formatMessage(collapsed ? messages.show : messages.hide)}
-		// 				aria-pressed={collapsed ? 'false' : 'true'}
-		// 				onClick={this.handleToggleClick}
-		// 			><Icon id='sliders' /></button>
-		// 		</div>
-		// 	</h1>
-		// 	{!collapsed && <div className='column-header__collapsible'>
-		// 		<div className='column-header__collapsible-inner'>
-		// 			<div className='column-header__collapsible__extra'>
-		// 				<ColumnSettingsContainer />
-		// 			</div>
-		// 		</div>
-		// 	</div>}
-		// </div>
-
 		const groupTitle = !!group ? group.get('title') : ''
 
 		return (
 			<GroupLayout
 				showBackBtn
+				title={intl.formatMessage(messages.group)}
 				group={group}
 				relationships={relationships}
 				actions={[

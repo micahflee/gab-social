@@ -1,6 +1,12 @@
 import { injectIntl, defineMessages } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { changeSetting, saveSettings } from '../../actions/settings'
+import {
+  DEFAULT_THEME,
+  DEFAULT_FONT_SIZE,
+  FONT_SIZES,
+} from '../../constants'
 import ModalLayout from './modal_layout'
 import Button from '../button'
 import Text from '../text'
@@ -12,12 +18,15 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  settings: state.getIn(['notifications', 'filter']),
+  displayOptionsSettings: state.getIn(['settings', 'displayOptions']),
+  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize'], DEFAULT_FONT_SIZE),
+  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange(path, value) {
-    dispatch(setFilter(path, value))
+  onChange(key, value) {
+    dispatch(changeSetting(['displayOptions', key], value))
+    dispatch(saveSettings())
   },
 })
 
@@ -27,34 +36,47 @@ export default
 class DisplayOptionsModal extends ImmutablePureComponent {
 
   static propTypes = {
-    isSubmitting: PropTypes.bool.isRequired,
-    account: PropTypes.object.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
+    fontSize: PropTypes.string,
     intl: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    displayOptionsSettings: ImmutablePropTypes.map,
+    theme: PropTypes.string,
     onChange: PropTypes.func.isRequired,
-    settings: ImmutablePropTypes.map.isRequired,
+    onClose: PropTypes.func.isRequired,
   }
 
-  handleClick = () => {
-    this.props.onClose()
-    this.props.onConfirm(this.props.account, this.props.notifications)
+  updateOnProps = [
+    'fontSize',
+    'displayOptionsSettings',
+    'theme',
+  ]
+
+  handleOnFontSizeChange = (e) => {
+    const fontSizeNames = Object.keys(FONT_SIZES)
+    const index = fontSizeNames[e.target.value]
+
+    this.props.onChange('fontSize', index)
   }
 
-  // document.documentElement.style.setProperty("--color-surface", "black");
-  
+  handleOnThemeSelected = (e) => {
+    this.props.onChange('theme', e.target.value)
+  }
+
+  handleOnRadiusKeyDisabled = (key, checked) => {
+    this.props.onChange(key, checked)
+  }
+
   render() {
     const {
-      account,
+      fontSize,
+      displayOptionsSettings,
       intl,
-      settings,
-      onChange,
+      theme,
       onClose,
     } = this.props
 
-    // theme - light, muted, dark
-    // text size - extra small, small, normal, medium, large, extra large
-    // rounded borders
+    const fontSizeNames = Object.keys(FONT_SIZES)
+    const currentFontSizeIndex = fontSizeNames.indexOf(fontSize)
 
     return (
       <ModalLayout
@@ -64,85 +86,164 @@ class DisplayOptionsModal extends ImmutablePureComponent {
       >
 
         <div className={[_s.default, _s.mb15].join(' ')}>
-          <Text>
+          <Text align='center' color='secondary' size='medium'>
             {intl.formatMessage(messages.message)}
           </Text>
         </div>
 
-        <div className={[_s.default, _s.mb10].join(' ')}>
-          <Text weight='bold' color='secondary'>
+        <div className={[_s.default, _s.mb15].join(' ')}>
+          <Text weight='bold' size='small' color='secondary'>
             Font Size
           </Text>
           <div className={[_s.default, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
-            test
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+              <span className={[_s.default, _s.text, _s.colorPrimary].join(' ')} style={{fontSize: '12px'}}>
+                Aa
+              </span>
+              <input
+                type='range'
+                min='0'
+                value={currentFontSizeIndex}
+                max={fontSizeNames.length - 1}
+                onInput={this.handleOnFontSizeChange}
+                onChange={this.handleOnFontSizeChange}
+                className={[_s.flexGrow1, _s.outlineNone, _s.ml15, _s.mr15].join(' ')}
+              />
+              <span className={[_s.default, _s.text, _s.colorPrimary].join(' ')} style={{fontSize: '18px'}}>
+                Aa
+              </span>
+            </div>
           </div>
         </div>
 
-        <div className={[_s.default, _s.mb10].join(' ')}>
-          <Text weight='bold' color='secondary'>
+        <div className={[_s.default, _s.mb15].join(' ')}>
+          <Text weight='bold' size='small' color='secondary'>
             Rounded
           </Text>
           <div className={[_s.default, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
             <SettingSwitch
-              prefix='notification'
-              settings={settings}
-              settingPath={'onlyVerified'}
-              onChange={onChange}
-              label={'Small Radius'}
+              prefix='displayOptions'
+              settings={displayOptionsSettings}
+              settingPath={'radiusSmallDisabled'}
+              onChange={this.handleOnRadiusKeyDisabled}
+              label={'Small Radius Disabled'}
             />
 
             <SettingSwitch
-              prefix='notification'
-              settings={settings}
-              settingPath={'onlyVerified'}
-              onChange={onChange}
-              label={'Circle Radius'}
+              prefix='displayOptions'
+              settings={displayOptionsSettings}
+              settingPath={'radiusCircleDisabled'}
+              onChange={this.handleOnRadiusKeyDisabled}
+              label={'Circles Disabled'}
             />
           </div>
         </div>
 
         <div className={[_s.default, _s.mb10].join(' ')}>
-          <Text weight='bold' color='secondary'>
+          <Text weight='bold' size='small' color='secondary'>
             Theme
           </Text>
-          <div className={[_s.default, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
+          <div className={[_s.default, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
 
-            <div className={[_s.default, _s.py10, _s.px10, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.bgPrimary, _s.radiusSmall]}>
-                <Text>
-                  Light
-                </Text>
-              </div>
-            </div>
+            <ThemeBlock
+              title='Light'
+              value='light'
+              checked={theme === 'light'}
+              onChange={this.handleOnThemeSelected}
+              style={{
+                borderColor: '#ececed',
+                backgroundColor: '#fff',
+                color: '#2d3436',
+              }}
+            />
 
-            <div className={[_s.default, _s.py10, _s.px10, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.bgPrimary, _s.radiusSmall]}>
-                <Text>
-                  Muted
-                </Text>
-              </div>
-            </div>
+            <ThemeBlock
+              title='Muted'
+              value='muted'
+              checked={theme === 'muted'}
+              onChange={this.handleOnThemeSelected}
+              style={{
+                borderColor: '#424141',
+                backgroundColor: '#222',
+                color: '#fff',
+              }}
+            />
 
-            <div className={[_s.default, _s.py10, _s.px10, _s.flexGrow1].join(' ')}>
-              <div className={[_s.default, _s.bgPrimary, _s.radiusSmall]}>
-                <Text>
-                  Black
-                </Text>
-              </div>
-            </div>
+            <ThemeBlock
+              title='Black'
+              value='black'
+              checked={theme === 'black'}
+              onChange={this.handleOnThemeSelected}
+              style={{
+                borderColor: '#212020',
+                backgroundColor: '#13171b',
+                color: '#cccbcb',
+              }}
+            />
 
           </div>
         </div>
-        
-        <div className={[_s.mlAuto, _s.mrAuto].join(' ')}>
-          <Button>
-            <Text size='medium' color='inherit'>
+
+        <div className={[_s.mlAuto, _s.my10, _s.mrAuto].join(' ')}>
+          <Button onClick={onClose}>
+            <Text size='medium' color='inherit' className={_s.px10}>
               Done
             </Text>
           </Button>
         </div>
 
-      </ModalLayout> 
+      </ModalLayout>
+    )
+  }
+
+}
+
+class ThemeBlock extends PureComponent {
+
+  static propTypes = {
+    checked: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    title: PropTypes.string,
+    value: PropTypes.string,
+    style: PropTypes.object,
+  }
+
+  render() {
+    const {
+      checked,
+      onChange,
+      title,
+      value,
+      style,
+    } = this.props
+
+    const id = `theme-${value}`
+
+    return (
+      <label className={[_s.default, _s.px10, _s.flexGrow1].join(' ')} htmlFor={id}>
+        <div
+          className={[_s.default, _s.borderBottom6PX, _s.alignItemsCenter, _s.flexRow, _s.py10, _s.px15, _s.radiusSmall].join(' ')}
+          style={style}
+        >
+          <input
+            type='radio'
+            name='theme'
+            value={value}
+            id={id}
+            checked={checked}
+            onChange={onChange}
+          />
+          <Text
+            align='center'
+            size='medium'
+            weight='bold'
+            color='inherit'
+            className={[_s.py10, _s.flexGrow1].join(' ')}
+          >
+            {title}
+          </Text>
+        </div>
+      </label>
     )
   }
 

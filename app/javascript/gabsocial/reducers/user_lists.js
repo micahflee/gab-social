@@ -23,6 +23,7 @@ import {
 } from '../actions/accounts'
 import {
   REPOSTS_FETCH_SUCCESS,
+  LIKES_FETCH_SUCCESS,
 } from '../actions/interactions'
 import {
   BLOCKS_FETCH_REQUEST,
@@ -52,7 +53,7 @@ const initialState = ImmutableMap({
   followers: ImmutableMap(),
   following: ImmutableMap(),
   reblogged_by: ImmutableMap(),
-  favorited_by: ImmutableMap(),
+  liked_by: ImmutableMap(),
   follow_requests: ImmutableMap(),
   blocks: ImmutableMap(),
   mutes: ImmutableMap(),
@@ -103,6 +104,8 @@ export default function userLists(state = initialState, action) {
     return state.setIn(['following', action.id, 'isLoading'], false);
   case REPOSTS_FETCH_SUCCESS:
     return state.setIn(['reblogged_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
+  case LIKES_FETCH_SUCCESS:
+    return state.setIn(['liked_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
   case FOLLOW_REQUESTS_FETCH_SUCCESS:
     return state.setIn(['follow_requests', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['follow_requests', 'next'], action.next).setIn(['follow_requests', 'isLoading'], false);
   case FOLLOW_REQUESTS_EXPAND_SUCCESS:

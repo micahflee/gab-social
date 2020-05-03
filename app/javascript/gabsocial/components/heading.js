@@ -31,13 +31,13 @@ export default class Heading extends PureComponent {
   }
 
   render() {
-    const { children, size, center } = this.props
+    const { children, size, isCentered } = this.props
 
     // Each size has it's own custom style
     const classes = cx({
       default: 1,
       text: 1,
-      textAlignCenter: center,
+      textAlignCenter: isCentered,
 
       colorPrimary: [SIZES.h1, SIZES.h2].indexOf(size) > -1,
       colorSecondary: [SIZES.h3, SIZES.h4, SIZES.h5].indexOf(size) > -1,

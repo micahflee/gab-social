@@ -14,8 +14,6 @@ class ConfirmationModal extends PureComponent {
     confirm: PropTypes.any.isRequired,
     onClose: PropTypes.func.isRequired,
     onConfirm: PropTypes.func.isRequired,
-    secondary: PropTypes.string,
-    onSecondary: PropTypes.func,
     intl: PropTypes.object.isRequired,
     onCancel: PropTypes.func,
   }
@@ -27,11 +25,6 @@ class ConfirmationModal extends PureComponent {
   handleClick = () => {
     this.props.onClose()
     this.props.onConfirm()
-  }
-
-  handleSecondary = () => {
-    this.props.onClose()
-    this.props.onSecondary()
   }
 
   handleCancel = () => {
@@ -49,7 +42,6 @@ class ConfirmationModal extends PureComponent {
       title,
       message,
       confirm,
-      secondary
     } = this.props
 
     return (
@@ -74,19 +66,11 @@ class ConfirmationModal extends PureComponent {
                     onClick={this.handleCancel}
                     className={[_s.mr10, _s.flexGrow1].join(' ')}
                   >
-                    <Text size='medium' weight='bold' color='inherit'>
+                    <Text size='medium' weight='bold' align='center' color='inherit'>
                       <FormattedMessage id='confirmation_modal.cancel' defaultMessage='Cancel' />
                     </Text>
                   </Button>
-                  
-                  { /**
-                    : todo :
-                     */
-                    secondary !== undefined && (
-                      <Button text={secondary} onClick={this.handleSecondary} />
-                    )
-                  }
-
+                
                   <Button 
                     backgroundColor='brand'
                     color='white'
@@ -94,7 +78,7 @@ class ConfirmationModal extends PureComponent {
                     ref={this.setRef}
                     className={_s.flexGrow1}
                   >
-                    <Text size='medium' weight='bold' color='inherit'>
+                    <Text size='medium' weight='bold' align='center' color='inherit'>
                       {confirm}
                     </Text>
                   </Button>

@@ -56,6 +56,8 @@ export const MODAL_MEDIA = 'MEDIA'
 export const MODAL_MUTE = 'MUTE'
 export const MODAL_PRO_UPGRADE = 'PRO_UPGRADE'
 export const MODAL_REPORT = 'REPORT'
+export const MODAL_STATUS_LIKES = 'STATUS_LIKES'
+export const MODAL_STATUS_REPOSTS = 'STATUS_REPOSTS'
 export const MODAL_STATUS_REVISIONS = 'STATUS_REVISIONS'
 export const MODAL_UNAUTHORIZED = 'UNAUTHORIZED'
 export const MODAL_UNFOLLOW = 'UNFOLLOW'
@@ -69,13 +71,14 @@ export const FONT_SIZES_LARGE = '16px'
 export const FONT_SIZES_EXTRA_LARGE = '17px'
 
 export const FONT_SIZES = {
-  'extra-small': FONT_SIZES_EXTRA_SMALL,
-  small: FONT_SIZES_SMALL,
-  normal: FONT_SIZES_NORMAL,
-  medium: FONT_SIZES_MEDIUM,
-  large: FONT_SIZES_LARGE,
-  'extra-large': FONT_SIZES_EXTRA_LARGE,
+  'extra-small': '12px',
+  small: '13px',
+  normal: '14px',
+  medium: '15px',
+  large: '16px',
+  'extra-large': '17px',
 }
+
 export const THEMES = [
   'light',
   'muted',

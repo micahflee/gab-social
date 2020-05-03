@@ -2,6 +2,7 @@ import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
+import Block from './block'
 import ColumnIndicator from './column_indicator'
 import LoadMore from './load_more'
 
@@ -250,7 +251,11 @@ export default class ScrollableList extends PureComponent {
       );
     }
 
-    return <ColumnIndicator type='error' message={emptyMessage} />
+    return (
+      <Block>
+        <ColumnIndicator type='error' message={emptyMessage} />
+      </Block>
+    )
   }
 
 }

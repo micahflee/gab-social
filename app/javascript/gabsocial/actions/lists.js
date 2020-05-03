@@ -258,8 +258,7 @@ export const fetchListSuggestions = (q) => (dispatch, getState) => {
   const params = {
     q,
     resolve: false,
-    limit: 4,
-    following: true,
+    limit: 25,
   };
 
   api(getState).get('/api/v1/accounts/search', { params }).then(({ data }) => {

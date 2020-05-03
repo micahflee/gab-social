@@ -71,7 +71,8 @@ class ListTimeline extends ImmutablePureComponent {
   }
 
   handleEditClick = () => {
-    this.props.dispatch(openModal('LIST_EDITOR', { listId: this.props.params.id }))
+    console.log("handleEditClick:", this.props.params.id)
+    this.props.dispatch(openModal('LIST_EDITOR', { id: this.props.params.id }))
   }
 
   render() {
@@ -86,20 +87,22 @@ class ListTimeline extends ImmutablePureComponent {
     }
 
     const emptyMessage = (
-      <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
+      <div className={[_s.default, _s.py15, _s.px15, _s.alignItemsCenter].join(' ')}>
         <FormattedMessage
           id='empty_column.list'
           defaultMessage='There is nothing in this list yet. When members of this list post new statuses, they will appear here.'
         />
 
-        <Button
-          onClick={this.handleEditClick}
-          className={[_s.mt10]}
-        >
-          <Text color='inherit' align='center'>
-            <FormattedMessage id='list.click_to_add' defaultMessage='Click here to add people' />
-          </Text>
-        </Button>
+        <div className={_s.mt10}>
+          <Button
+            onClick={this.handleEditClick}
+            className={[_s.mt10]}
+          >
+            <Text color='inherit' align='center'>
+              <FormattedMessage id='list.click_to_add' defaultMessage='Click here to add people' />
+            </Text>
+          </Button>
+        </div>
       </div>
     )
 

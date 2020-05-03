@@ -1,34 +1,44 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import StatusLikes from '../../features/status_likes'
 import ModalLayout from './modal_layout'
-import ListEdit from '../../features/list_edit'
 
 const messages = defineMessages({
-  title: { id: 'lists.edit', defaultMessage: 'Edit list' },
+  title: { id: 'likes', defaultMessage: 'Likes' },
 })
 
 export default
 @injectIntl
-class ListEditorModal extends ImmutablePureComponent {
+class StatusLikesModal extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
+    status: ImmutablePropTypes.map.isRequired,
   }
 
   render() {
-    const { intl, onClose, id } = this.props
+    const {
+      intl,
+      onClose,
+      status,
+    } = this.props
+
+    const params = {
+      statusId: status.get('id'),
+    }
 
     return (
       <ModalLayout
         title={intl.formatMessage(messages.title)}
-        width={500}
+        width={460}
         onClose={onClose}
         noPadding
       >
-        <ListEdit id={id} />
+        <StatusLikes params={params} />
       </ModalLayout>
     )
   }
+
 }

@@ -1,43 +1,23 @@
-import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings';
-import { STORE_HYDRATE } from '../actions/store';
-import { EMOJI_USE } from '../actions/emojis';
-import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists';
-import { Map as ImmutableMap, fromJS } from 'immutable';
-import uuid from '../utils/uuid';
+import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings'
+import { STORE_HYDRATE } from '../actions/store'
+import { EMOJI_USE } from '../actions/emojis'
+import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists'
+import { Map as ImmutableMap, fromJS } from 'immutable'
+import uuid from '../utils/uuid'
 
 const initialState = ImmutableMap({
   saved: true,
   onboarded: false,
   skinTone: 1,
 
-  // displayOptions: ImmutableMap({
-  //   fontSize: 'normal',
-  //   radiusSmallEnabled: true,
-  //   radiusCircleEnabled: true,
-  //   theme: 'light',
-  // }),
+  displayOptions: ImmutableMap({
+    fontSize: 'normal',
+    radiusSmallDisabled: false,
+    radiusCircleDisabled: false,
+    theme: 'light',
+  }),
 
   home: ImmutableMap({
-    shows: ImmutableMap({
-      photos: true,
-      polls: true,
-      reply: true,
-      repost: true,
-      videos: true,
-    }),
-  }),
-
-  lists: ImmutableMap({
-    shows: ImmutableMap({
-      photos: true,
-      polls: true,
-      reply: true,
-      repost: true,
-      videos: true,
-    }),
-  }),
-
-  groups: ImmutableMap({
     shows: ImmutableMap({
       photos: true,
       polls: true,

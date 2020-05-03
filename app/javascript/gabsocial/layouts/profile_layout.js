@@ -1,17 +1,16 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Sticky from 'react-stickynode'
-import ProfileHeader from '../components/profile_header'
 import NavigationBar from '../components/navigation_bar'
+import ProfileHeader from '../components/profile_header'
 
 export default class ProfileLayout extends ImmutablePureComponent {
 
   static propTypes = {
-    children: PropTypes.node.isRequired,
     account: ImmutablePropTypes.map,
+    children: PropTypes.node.isRequired,
     layout: PropTypes.object,
     title: PropTypes.string,
-    showBackBtn: PropTypes.bool,
   }
 
   render() {
@@ -20,7 +19,6 @@ export default class ProfileLayout extends ImmutablePureComponent {
       children,
       layout,
       title,
-      showBackBtn,
     } = this.props
 
     return (

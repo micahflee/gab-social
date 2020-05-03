@@ -147,6 +147,7 @@ class Search extends PureComponent {
             onChange={this.handleOnChange}
             onFocus={this.handleOnFocus}
             onBlur={this.handleOnBlur}
+            autoComplete='off'
           />
 
           <Button

@@ -65,6 +65,8 @@ export function SidebarMorePopover() { return import(/* webpackChunkName: "compo
 export function StatusLikes() { return import(/* webpackChunkName: "features/status_likes" */'../../status_likes') }
 export function StatusOptionsPopover() { return import(/* webpackChunkName: "components/status_options_popover" */'../../../components/popover/status_options_popover') }
 export function StatusReposts() { return import(/* webpackChunkName: "features/status_reposts" */'../../status_reposts') }
+export function StatusLikesModal() { return import(/* webpackChunkName: "modals/status_likes_modal" */'../../../components/modal/status_likes_modal') }
+export function StatusRepostsModal() { return import(/* webpackChunkName: "modals/status_reposts_modal" */'../../../components/modal/status_reposts_modal') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
 export function StatusSharePopover() { return import(/* webpackChunkName: "components/status_share_popover" */'../../../components/popover/status_share_popover') }
 export function StatusVisibilityPopover() { return import(/* webpackChunkName: "components/status_visibility_popover" */'../../../components/popover/status_visibility_popover') }

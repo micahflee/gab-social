@@ -1,52 +1,58 @@
 import Sticky from 'react-stickynode'
-import Search from '../components/search'
-import ColumnHeader from '../components/column_header'
 import Sidebar from '../components/sidebar'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import NavigationBar from '../components/navigation_bar'
+// : todo :
 // import Footer from '../components/footer'
 import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
 
 export default class Layout extends PureComponent {
+
   static propTypes = {
     actions: PropTypes.array,
-    tabs: PropTypes.array,
+    children: PropTypes.node,
     layout: PropTypes.object,
-    title: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-    noSidebar: PropTypes.bool,
-    noRightSidebar: PropTypes.bool,
     noComposeButton: PropTypes.bool,
+    noRightSidebar: PropTypes.bool,
+    noSidebar: PropTypes.bool,
+    showBackBtn: PropTypes.bool,
+    tabs: PropTypes.array,
+    title: PropTypes.string,
   }
 
   render() {
     const {
-      children,
-      title,
-      showBackBtn,
-      layout,
       actions,
-      tabs,
-      noSidebar,
-      noRightSidebar,
+      children,
+      layout,
       noComposeButton,
+      noRightSidebar,
+      noSidebar,
+      showBackBtn,
+      tabs,
+      title,
     } = this.props
 
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
 
         <NavigationBar
-          title={title}
-          tabs={tabs}
           actions={actions}
+          tabs={tabs}
+          title={title}
         />
 
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
           {
             !noSidebar &&
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <Sidebar title={title} tabs={tabs} actions={actions} />
+              <Sidebar
+                actions={actions}
+                showBackBtn={showBackBtn}
+                tabs={tabs}
+                title={title}
+              />
             </Responsive>
           }
 

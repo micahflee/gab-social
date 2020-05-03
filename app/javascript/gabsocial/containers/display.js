@@ -5,39 +5,55 @@ import {
   DEFAULT_FONT_SIZE,
 } from '../constants'
 
-export default class Display extends PureComponent {
+const mapStateToProps = (state) => ({
+  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize']),
+  radiusSmallDisabled: state.getIn(['settings', 'displayOptions', 'radiusSmallDisabled']),
+  radiusCircleDisabled: state.getIn(['settings', 'displayOptions', 'radiusCircleDisabled']),
+  theme: state.getIn(['settings', 'displayOptions', 'theme']),
+})
+
+export default
+@connect(mapStateToProps)
+class Display extends PureComponent {
 
   static propTypes = {
-    theme: PropTypes.string.isRequired,
-    rounded: PropTypes.bool.isRequired,
     fontSize: PropTypes.string.isRequired,
+    radiusSmallDisabled: PropTypes.bool.isRequired,
+    radiusCircleDisabled: PropTypes.bool.isRequired,
+    theme: PropTypes.string.isRequired,
   }
 
   state = {
     theme: this.props.theme,
-    rounded: this.props.rounded,
+    radiusSmallDisabled: this.props.radiusSmallDisabled,
+    radiusCircleDisabled: this.props.radiusCircleDisabled,
     fontSize: this.props.fontSize,
   }
 
   static defaultProps = {
-    theme: 'BLACK',
-    rounded: false,
+    theme: 'light',
+    radiusSmallDisabled: true,
+    radiusCircleDisabled: true,
     fontSize: 'normal',
   }
 
   componentDidMount() {
     this.updateTheme(this.state.theme)
-    this.updateRounded(this.state.rounded)
+    this.updateRadiusSmallDisabled(this.state.radiusSmallDisabled)
+    this.updateRadiusCircleDisabled(this.state.radiusCircleDisabled)
     this.updateFontSizes(this.state.fontSize)
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    console.log("nextProps:", nextProps)
     if (nextProps.theme !== prevState.theme ||
-      nextProps.rounded !== prevState.rounded ||
+      nextProps.radiusSmallDisabled !== prevState.radiusSmallDisabled ||
+      nextProps.radiusCircleDisabled !== prevState.radiusCircleDisabled ||
       nextProps.fontSize !== prevState.fontSize) {
       return {
         theme: nextProps.theme,
-        rounded: nextProps.rounded,
+        radiusSmallDisabled: nextProps.radiusSmallDisabled,
+        radiusCircleDisabled: nextProps.radiusCircleDisabled,
         fontSize: nextProps.fontSize,
       }
     }
@@ -50,8 +66,12 @@ export default class Display extends PureComponent {
       this.updateTheme(this.state.theme)
     }
 
-    if (prevState.rounded !== this.state.rounded) {
-      this.updateRounded(this.state.rounded)
+    if (prevState.radiusSmallDisabled !== this.state.radiusSmallDisabled) {
+      this.updateRadiusSmallDisabled(this.state.radiusSmallDisabled)
+    }
+
+    if (prevState.radiusCircleDisabled !== this.state.radiusCircleDisabled) {
+      this.updateRadiusCircleDisabled(this.state.radiusCircleDisabled)
     }
     
     if (prevState.fontSize !== this.state.fontSize) {
@@ -59,16 +79,24 @@ export default class Display extends PureComponent {
     }
   }
 
-  updateRounded(rounded) {
-    if (rounded) {
-      document.documentElement.removeAttribute('rounded')
+  updateRadiusSmallDisabled(disabled) {
+    if (disabled) {
+      document.documentElement.setAttribute('no-radius', '');
     } else {
-      document.documentElement.setAttribute('rounded', '')
+      document.documentElement.removeAttribute('no-radius')
+    }
+  }
+
+  updateRadiusCircleDisabled(disabled) {
+    if (disabled) {
+      document.documentElement.setAttribute('no-circle', '');
+    } else {
+      document.documentElement.removeAttribute('no-circle')
     }
   }
 
   updateFontSizes(fontSize) {
-    let correctedFontSize = fontSize.toUpperCase()
+    let correctedFontSize = fontSize.toLowerCase()
     if (!FONT_SIZES.hasOwnProperty(correctedFontSize)) {
       correctedFontSize = DEFAULT_FONT_SIZE
     }
@@ -78,7 +106,7 @@ export default class Display extends PureComponent {
 
   updateTheme(theme) {
     let correctedTheme = theme.toLowerCase()
-    if (!THEMES.hasOwnProperty(correctedTheme)) {
+    if (THEMES.indexOf(correctedTheme) < 0) {
       correctedTheme = DEFAULT_THEME
     }
 

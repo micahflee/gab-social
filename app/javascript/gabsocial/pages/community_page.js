@@ -12,7 +12,7 @@ import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 
 const messages = defineMessages({
-  community: { 'id': 'column.community', 'defaultMessage': 'Community timeline' },
+  community: { 'id': 'column.community', 'defaultMessage': 'Community feed' },
 })
 
 const mapDispatchToProps = (dispatch) => ({

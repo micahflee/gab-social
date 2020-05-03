@@ -26,7 +26,7 @@ class ProofProvider::Keybase::ConfigSerializer < ActiveModel::Serializer
   end
 
   def brand_color
-    '#282c37'
+    '#21D07B'
   end
 
   def description

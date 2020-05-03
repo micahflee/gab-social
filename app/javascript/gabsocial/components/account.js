@@ -135,6 +135,8 @@ class Account extends ImmutablePureComponent {
         isOutline={true}
         color='brand'
         backgroundColor='none'
+        icon={actionIcon}
+        iconSize='10px'
       >
         {actionTitle}
       </Button>

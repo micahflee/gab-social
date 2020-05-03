@@ -38,17 +38,13 @@ const messages = defineMessages({
   donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
 })
 
-const mapStateToProps = (state) => {
-  const getAccount = makeGetAccount()
-
-  return {
-    account: getAccount(state, me),
-    moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
-    notificationCount: state.getIn(['notifications', 'unread']),
-    homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
-    showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
-  }
-}
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+  moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
+  notificationCount: state.getIn(['notifications', 'unread']),
+  homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
+})
 
 const mapDispatchToProps = (dispatch) => ({
   onClose() {
@@ -91,7 +87,7 @@ class Sidebar extends ImmutablePureComponent {
     this.props.onOpenComposeModal()
   }
 
-  handleOpenSidebarMorePopover =() => {
+  handleOpenSidebarMorePopover = () => {
     this.props.openSidebarMorePopover({
       targetRef: this.moreBtnRef,
       position: 'top',
@@ -226,23 +222,46 @@ class Sidebar extends ImmutablePureComponent {
         <div className={[_s.default, _s.width240PX].join(' ')}>
           <div className={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}>
             <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
-              <div className={_s.default}>
+              <div className={[_s.default, _s.width100PC].join(' ')}>
                 {
                   !!title &&
-                  <div className={[_s.default, _s.flexRow, _s.px5, _s.py10].join(' ')}>
-                    <Button
-                      noClasses
-                      color='primary'
-                      backgroundColor='none'
-                      className={[_s.alignItemsCenter, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
-                      icon='back'
-                      iconSize='20px'
-                      iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
-                      onClick={this.handleBackClick}
-                    />
+                  <div className={[_s.default, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
+                    {
+                      showBackBtn &&
+                      <Button
+                        noClasses
+                        color='primary'
+                        backgroundColor='none'
+                        className={[_s.alignItemsCenter, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
+                        icon='arrow-left'
+                        iconSize='24px'
+                        iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
+                        onClick={this.handleBackClick}
+                      />
+                    }
                     <Heading size='h1'>
                       {title}
                     </Heading>
+                    {
+                      !!actions &&
+                      <div className={[_s.default, _s.bgTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
+                        {
+                          actions.map((action, i) => (
+                            <Button
+                              isNarrow
+                              backgroundColor='none'
+                              color='primary'
+                              onClick={() => action.onClick()}
+                              key={`action-btn-${i}`}
+                              className={[_s.ml5, _s.px5].join(' ')}
+                              icon={action.icon}
+                              iconClassName={_s.fillPrimary}
+                              iconSize='14px'
+                            />
+                          ))
+                        }
+                      </div>
+                    }
                   </div>
                 }
                 {

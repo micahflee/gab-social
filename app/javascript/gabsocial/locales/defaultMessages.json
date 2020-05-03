@@ -1688,7 +1688,7 @@
   {
     "descriptors": [
       {
-        "defaultMessage": "Search among people you follow",
+        "defaultMessage": "Search people...",
         "id": "lists.search"
       }
     ],

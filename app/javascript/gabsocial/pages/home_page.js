@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
+import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
 import IntersectionObserverArticle from '../components/intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
 import PageTitle from '../features/ui/util/page_title'
@@ -25,7 +26,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenHomePageSettingsModal() {
-    dispatch(openModal('HOME_TIMELINE_SETTINGS'))
+    dispatch(openModal(MODAL_HOME_TIMELINE_SETTINGS))
   },
 })
 
@@ -35,10 +36,10 @@ export default
 class HomePage extends PureComponent {
 
   static propTypes = {
-    intl: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
-    totalQueuedItemsCount: PropTypes.number.isRequired,
+    intl: PropTypes.object.isRequired,
     onOpenHomePageSettingsModal: PropTypes.func.isRequired,
+    totalQueuedItemsCount: PropTypes.number.isRequired,
   }
 
   intersectionObserverWrapper = new IntersectionObserverWrapper()
@@ -58,7 +59,6 @@ class HomePage extends PureComponent {
   detachIntersectionObserver() {
     this.intersectionObserverWrapper.disconnect()
   }
-
 
   render() {
     const {
@@ -110,13 +110,18 @@ class HomePage extends PureComponent {
           </Fragment>
         )}
       >
+
         <PageTitle
           path={intl.formatMessage(messages.home)}
           badge={totalQueuedItemsCount}
         />
+        
         <TimelineComposeBlock autoFocus={false} />
+        
         <Divider />
+
         {children}
+
       </DefaultLayout>
     )
   }

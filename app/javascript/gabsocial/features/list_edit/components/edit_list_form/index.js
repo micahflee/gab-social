@@ -1,1 +1,0 @@
-export { default } from './edit_list_form'

@@ -1,7 +1,4 @@
-import classnames from 'classnames/bind'
-
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classnames.bind(_s)
+import { CX } from '../constants'
 
 /**
  * Renders a divider component
@@ -18,7 +15,7 @@ export default class Divider extends PureComponent {
   render() {
     const { isSmall, isInvisible } = this.props
 
-    const classes = cx({
+    const classes = CX({
       default: 1,
       borderBottom1PX: !isInvisible,
       borderColorSecondary: !isInvisible,

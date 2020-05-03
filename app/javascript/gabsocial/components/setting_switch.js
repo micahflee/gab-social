@@ -16,6 +16,14 @@ export default class SettingSwitch extends ImmutablePureComponent {
     onChange: PropTypes.func.isRequired,
   }
 
+  updateOnProps = [
+    'prefix',
+    'settings',
+    'settingPath',
+    'description',
+    'label',
+  ]
+
   onChange = ({ target }) => {
     this.props.onChange(this.props.settingPath, target.checked)
   }

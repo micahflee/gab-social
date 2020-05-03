@@ -21,17 +21,15 @@ const mapStateToProps = (state) => ({
   settings: state.getIn(['settings', 'list']),
 })
 
-const mapDispatchToProps = (dispatch, { onClose }) => {
-  return {
-    onChange(key, checked) {
-      dispatch(changeSetting(['list', ...key], checked))
-    },
-    onSave() {
-      dispatch(saveSettings())
-      onClose()
-    },
-  }
-}
+const mapDispatchToProps = (dispatch, { onClose }) => ({
+  onChange(key, checked) {
+    dispatch(changeSetting(['list', ...key], checked))
+  },
+  onSave() {
+    dispatch(saveSettings())
+    onClose()
+  },
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)

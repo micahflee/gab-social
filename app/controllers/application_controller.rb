@@ -99,7 +99,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_theme
-    'light'
+    'default'
     # : todo :
     # current_user.setting_theme
   end

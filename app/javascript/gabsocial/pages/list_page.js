@@ -26,7 +26,7 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenListEditModal(list) {
     if (!list) return
     const listId = list.get('id')
-    dispatch(openModal(MODAL_LIST_EDITOR, { listId }))
+    dispatch(openModal(MODAL_LIST_EDITOR, { id: listId }))
   },
   // : todo :
   // onOpenListTimelineSettingsModal() {
@@ -65,7 +65,7 @@ class ListPage extends ImmutablePureComponent {
     return (
       <DefaultLayout
         showBackBtn
-        title={title}
+        title={intl.formatMessage(messages.list)}
         actions={[
           {
             icon: 'cog',

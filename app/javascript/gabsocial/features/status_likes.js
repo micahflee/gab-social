@@ -1,72 +1,70 @@
-import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import ColumnIndicator from '../components/column_indicator'
+import { FormattedMessage } from 'react-intl'
 import { fetchLikes } from '../actions/interactions'
+import { fetchStatus } from '../actions/statuses'
+import { makeGetStatus } from '../selectors'
 import Account from '../components/account'
+import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
-const messages = defineMessages({
-  refresh: { id: 'refresh', defaultMessage: 'Refresh' },
-});
+const mapStateToProps = (state, props) => {
+  const getStatus = makeGetStatus()
+  const status = getStatus(state, {
+    id: props.params.statusId,
+    username: props.params.username,
+  })
 
-const mapStateToProps = (state, props) => ({
-  accountIds: state.getIn(['user_lists', 'favourited_by', props.params.statusId]),
-});
+  return {
+    status,
+    accountIds: state.getIn(['user_lists', 'liked_by', props.params.statusId]),
+  }
+}
 
 export default
-@injectIntl
 @connect(mapStateToProps)
-class StatusLikes extends ImmutablePureComponent {
+class StatusReposts extends ImmutablePureComponent {
 
   static propTypes = {
     params: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired,
-    shouldUpdateScroll: PropTypes.func,
     accountIds: ImmutablePropTypes.list,
-    multiColumn: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-  };
+    status: ImmutablePropTypes.map,
+  }
 
   componentWillMount () {
-    if (!this.props.accountIds) {
-      this.props.dispatch(fetchLikes(this.props.params.statusId));
-    }
+    this.props.dispatch(fetchLikes(this.props.params.statusId))
+    this.props.dispatch(fetchStatus(this.props.params.statusId))
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
-      this.props.dispatch(fetchLikes(nextProps.params.statusId));
+      this.props.dispatch(fetchLikes(nextProps.params.statusId))
+      this.props.dispatch(fetchStatus(nextProps.params.statusId))
     }
-  }
-
-  handleRefresh = () => {
-    this.props.dispatch(fetchLikes(this.props.params.statusId));
   }
 
   render () {
-    const { intl, shouldUpdateScroll, accountIds, multiColumn } = this.props;
+    const { accountIds, status } = this.props
 
     if (!accountIds) {
       return <ColumnIndicator type='loading' />
+    } else if (!status) {
+      return <ColumnIndicator type='missing' />
     }
 
-    const emptyMessage = <FormattedMessage id='empty_column.favourites' defaultMessage='No one has favourited this toot yet. When someone does, they will show up here.' />;
-
     return (
-      <div>
-        <ScrollableList
-          scrollKey='favourites'
-          shouldUpdateScroll={shouldUpdateScroll}
-          emptyMessage={emptyMessage}
-          bindToDocument={!multiColumn}
-        >
-          {accountIds.map(id =>
-            <Account key={id} id={id} withNote={false} />,
-          )}
-        </ScrollableList>
-      </div>
-    );
+      <ScrollableList
+        scrollKey='likes'
+        emptyMessage={<FormattedMessage id='status.likes.empty' defaultMessage='No one has liked this gab yet. When someone does, they will show up here.' />}
+      >
+        {
+          accountIds.map(id =>
+            <Account key={id} id={id} />
+          )
+        }
+      </ScrollableList>
+    )
   }
 
 }

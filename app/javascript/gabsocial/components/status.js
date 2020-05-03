@@ -89,6 +89,8 @@ class Status extends ImmutablePureComponent {
     cachedMediaWidth: PropTypes.number,
     contextType: PropTypes.string,
     commentsLimited: PropTypes.bool,
+    onOpenLikes: PropTypes.func.isRequired,
+    onOpenReposts: PropTypes.func.isRequired,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -472,6 +474,8 @@ class Status extends ImmutablePureComponent {
                   onReply={this.props.onReply}
                   onRepost={this.props.onRepost}
                   onShare={this.props.onShare}
+                  onOpenLikes={this.props.onOpenLikes}
+                  onOpenReposts={this.props.onOpenReposts}
                 />
               }
 

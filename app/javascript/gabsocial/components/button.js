@@ -138,6 +138,7 @@ export default class Button extends PureComponent {
       cursorPointer: 1,
       textAlignCenter: 1,
       outlineNone: 1,
+      // outlineOnFocus: !isText,
       flexRow: !!children && !!icon,
       cursorNotAllowed: isDisabled,
       opacity05: isDisabled,
@@ -221,6 +222,9 @@ export default class Button extends PureComponent {
       )
     }
 
+    const isLogout = href === '/auth/sign_out'
+    const dataMethod = isLogout ? 'delete' : undefined
+
     const options = {
       rel,
       target,
@@ -230,6 +234,7 @@ export default class Button extends PureComponent {
       className: classes,
       href: href || undefined,
       ref: this.setRef,
+      'data-method': dataMethod,
       ...handlers,
     }
 

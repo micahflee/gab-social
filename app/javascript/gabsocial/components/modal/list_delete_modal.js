@@ -1,3 +1,5 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
 import { deleteList } from '../../actions/lists'
 import ConfirmationModal from './confirmation_modal'
@@ -9,24 +11,24 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onConfirm(listId) {
-    dispatch(deleteList(listId))
-  },
+  onConfirm: (listId) => dispatch(deleteList(listId)),
 })
 
 export default
 @injectIntl
 @connect(null, mapDispatchToProps)
-class ListDeleteModal extends PureComponent {
+class ListDeleteModal extends ImmutablePureComponent {
 
   static propTypes = {
-    list: PropTypes.object.isRequired,
-    onConfirm: PropTypes.func.isRequired,
+    list: ImmutablePropTypes.map.isRequired,
     intl: PropTypes.object.isRequired,
+    onConfirm: PropTypes.func.isRequired,
   }
 
   handleClick = () => {
     this.props.onConfirm(this.props.list.get('id'))
+    // : todo :
+    // redirect back to /lists
   }
 
   render() {
