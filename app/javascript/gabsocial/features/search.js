@@ -109,14 +109,16 @@ class Search extends ImmutablePureComponent {
               Showing {size} of {results.get('groups').size} results
             </Text>
           </div>
-          {
-            results.get('groups').slice(0, size).map(group => (
-              <GroupListItem
-                key={`search-${group.get('name')}`}
-                id={group.get('id')}
-              />
-            ))
-          }
+          <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
+            {
+              results.get('groups').slice(0, size).map(group => (
+                <GroupListItem
+                  key={`search-${group.get('name')}`}
+                  id={group.get('id')}
+                />
+              ))
+            }
+          </div>
         </PanelLayout>
       )
     }

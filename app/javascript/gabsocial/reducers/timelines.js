@@ -92,7 +92,8 @@ const updateTimelineQueue = (state, timeline, status) => {
   let alreadyExists = queuedStatuses.find(existingQueuedStatus => existingQueuedStatus.get('id') === status.get('id'));
   if (!alreadyExists) alreadyExists = listedStatuses.find(existingListedStatusId => existingListedStatusId === status.get('id'));
 
-  if (alreadyExists) {
+  const isReply = !!status.get('in_reply_to_id')
+  if (alreadyExists || isReply) {
     return state;
   }
 

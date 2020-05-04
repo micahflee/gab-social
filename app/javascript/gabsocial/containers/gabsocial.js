@@ -79,6 +79,16 @@ export default class GabSocial extends PureComponent {
       this.disconnect = store.dispatch(connectUserStream())
       store.dispatch(connectStatusUpdateStream())
     }
+
+    console.log('%c Gab Social ', [
+      , 'color: #30CE7D'
+      , 'display: block'
+      , 'line-height: 80px'
+      , 'font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif'
+      , 'font-size: 36px'
+      , 'text-align: center'
+      , 'font-weight: bold'
+    ].join(';'))
   }
 
   componentWillUnmount () {

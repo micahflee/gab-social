@@ -277,6 +277,8 @@ class ComposeForm extends ImmutablePureComponent {
       displayNone: length(this.props.text) === 0 || anyMedia,
     })
 
+    console.log("reduxReplyToId:", reduxReplyToId, shouldCondense, isModalOpen)
+
     return (
       <div className={parentContainerClasses}>
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
@@ -294,7 +296,7 @@ class ComposeForm extends ImmutablePureComponent {
           >
 
             {
-              !!reduxReplyToId && !shouldCondense && isModalOpen &&
+              !!reduxReplyToId && isModalOpen &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
                   id={reduxReplyToId}
@@ -344,7 +346,7 @@ class ComposeForm extends ImmutablePureComponent {
             }
 
             {
-              /*
+              /* : todo :
               !!selectedGifSrc && !anyMedia &&
               <div className={[_s.default, _s.px15].join(' ')}>
                 <GifForm

@@ -163,18 +163,14 @@ class MediaModal extends ImmutablePureComponent {
           outlineNone: 1,
           circle: 1,
           cursorPointer: 1,
-          colorPrimary: i === index,
-          lineHeight0825: i === index,
           bgPrimaryOpaque: i !== index,
           bgPrimary: i === index,
+          boxShadowDot: i === index,
         })
-        const activeText = i === index ? '•' : ''
 
         return (
           <li className={[_s.default, _s.px5].join(' ')} key={`media-pagination-${i}`}>
-            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i}>
-              {activeText}
-            </button>
+            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i} />
           </li>
         )
       })

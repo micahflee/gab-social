@@ -1,5 +1,6 @@
 import api from '../api';
 import { fetchRelationships } from './accounts';
+import { fetchGroupsSuccess, fetchGroupRelationships } from './groups'
 import { importFetchedAccounts, importFetchedStatuses } from './importer';
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE';
@@ -48,11 +49,10 @@ export function submitSearch() {
         dispatch(importFetchedStatuses(response.data.statuses));
       }
 
-      console.log("response.data.", response.data)
-
-      // if (response.data.groups) {
-      //   dispatch(importFetchedStatuses(response.data.statuses));
-      // }
+      if (response.data.groups) {
+        dispatch(fetchGroupsSuccess(response.data.groups))
+        dispatch(fetchGroupRelationships(response.data.groups.map(item => item.id)))
+      }
 
       dispatch(fetchSearchSuccess(response.data));
     }).catch(error => {

@@ -166,7 +166,8 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
     }
   };
 
-  if (response.data.in_reply_to_id === null && response.data.visibility === 'public') {
+  if (response.data.visibility === 'public') {
+    // console.log("response.data.in_reply_to_id:", response.data.in_reply_to_id)
     insertIfOnline('home');
     insertIfOnline('community');
     insertIfOnline('public');

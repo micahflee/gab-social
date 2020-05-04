@@ -78,20 +78,6 @@ class StatusContent extends ImmutablePureComponent {
       } else {
         link.setAttribute('title', link.href)
       }
-
-      const descendents = link.getElementsByTagName('*')
-      for (let j = 0; j < descendents.length; j++) {
-        const descendent = descendents[j];
-        
-        if (descendent.classList.contains('invisible')) {
-          descendent.classList.remove('invisible')
-          descendent.classList.add(_s.fs0, _s.text, _s.inherit)
-        }
-        if (descendent.classList.contains('ellipsis')) {
-          descendent.classList.remove('ellipsis')
-          descendent.classList.add(_s.noSelect, _s.text, _s.inherit)
-        } 
-      }
     }
 
     if (
@@ -299,7 +285,7 @@ class StatusContent extends ImmutablePureComponent {
 
       const statusContentClasses = cx({
         statusContent: 1,
-        height220PX: collapsed,
+        height215PX: collapsed,
         overflowHidden: collapsed,
       })
 

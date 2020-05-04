@@ -1,21 +1,21 @@
-import { createSelector } from 'reselect';
-import { List as ImmutableList } from 'immutable';
-import { me } from '../initial_state';
+import { createSelector } from 'reselect'
+import { List as ImmutableList } from 'immutable'
+import { me } from '../initial_state'
 
-const getAccountBase = (state, id) => state.getIn(['accounts', id], null);
-const getAccountCounters = (state, id) => state.getIn(['accounts_counters', id], null);
-const getAccountRelationship = (state, id) => state.getIn(['relationships', id], null);
-const getAccountMoved = (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])]);
+const getAccountBase = (state, id) => state.getIn(['accounts', id], null)
+const getAccountCounters = (state, id) => state.getIn(['accounts_counters', id], null)
+const getAccountRelationship = (state, id) => state.getIn(['relationships', id], null)
+const getAccountMoved = (state, id) => state.getIn(['accounts', state.getIn(['accounts', id, 'moved'])])
 
 export const makeGetAccount = () => {
   return createSelector([getAccountBase, getAccountCounters, getAccountRelationship, getAccountMoved], (base, counters, relationship, moved) => {
     if (base === null) {
-      return null;
+      return null
     }
 
     return base.merge(counters).withMutations(map => {
-      map.set('relationship', relationship);
-      map.set('moved', moved);
+      map.set('relationship', relationship)
+      map.set('moved', moved)
     });
   });
 };
@@ -26,12 +26,12 @@ const toServerSideType = columnType => {
     case 'notifications':
     case 'public':
     case 'thread':
-      return columnType;
+      return columnType
     default:
       if (columnType.indexOf('list:') > -1) {
-        return 'home';
+        return 'home'
       } else {
-        return 'public'; // community, account, hashtag
+        return 'public' // community, account, hashtag
       }
   }
 };
@@ -66,6 +66,7 @@ export const regexFromFilters = filters => {
 export const makeGetStatus = () => {
   return createSelector(
     [
+      (state) => state,
       (state, { id }) => state.getIn(['statuses', id]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
@@ -76,19 +77,33 @@ export const makeGetStatus = () => {
       getFilters,
     ],
 
-    (statusBase, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
+    (state, statusBase, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
       if (!statusBase) {
-        return null;
+        return null
       }
 
       const accountUsername = accountBase.get('acct');
       //Must be owner of status if username exists
       if (accountUsername !== username && username !== undefined) {
-        return null;
+        return null
       }
 
       if (statusRepost) {
-        statusRepost = statusRepost.set('account', accountRepost);
+        statusRepost = statusRepost.set('account', accountRepost)
+
+        //Check if theres a quoted post that
+        const statusRepostQuoteId = statusRepost.get('quote_of_id')
+        if (!!statusRepostQuoteId) {
+          //Get repost's quoted post
+          let repostedQuotedStatus = state.getIn(['statuses', statusRepostQuoteId])
+          if (repostedQuotedStatus) {
+            //Get/set account and set quoted_status
+            const repostedQuotedStatusAccount = state.getIn(['accounts', repostedQuotedStatus.get('account')])
+            repostedQuotedStatus = repostedQuotedStatus.set('account', repostedQuotedStatusAccount)
+
+            statusRepost = statusRepost.set('quoted_status', repostedQuotedStatus)
+          }
+        }
       } else {
         statusRepost = null;
       }
@@ -96,6 +111,8 @@ export const makeGetStatus = () => {
       if (quotedStatus) {
         quotedStatus = quotedStatus.set('account', accountQuoted);
       }
+
+      //Find ancestor status
 
       const regex = (accountRepost || accountBase).get('id') !== me && regexFromFilters(filters);
       const filtered = regex && regex.test(statusBase.get('reblog') ? statusRepost.get('search_index') : statusBase.get('search_index'));

@@ -45,21 +45,8 @@ class IntersectionObserverArticle extends React.Component {
   }
 
   state = {
-    isHidden: false, // set to true in requestIdleCallback to trigger un-render
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    const isUnrendered = !this.state.isIntersecting && (this.state.isHidden || this.props.cachedHeight);
-    const willBeUnrendered = !nextState.isIntersecting && (nextState.isHidden || nextProps.cachedHeight);
-
-    // If we're going from rendered to unrendered (or vice versa) then update
-    if (!!isUnrendered !== !!willBeUnrendered) {
-      return true;
-    }
-
-    // Otherwise, diff based on props
-    const propsToDiff = isUnrendered ? updateOnPropsForUnrendered : updateOnPropsForRendered;
-    return !propsToDiff.every(prop => is(nextProps[prop], this.props[prop]));
+    isIntersecting: false,
+    isHidden: true,
   }
 
   componentDidMount() {
@@ -81,6 +68,20 @@ class IntersectionObserverArticle extends React.Component {
     this.componentMounted = false;
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const isUnrendered = !this.state.isIntersecting && (this.state.isHidden || this.props.cachedHeight);
+    const willBeUnrendered = !nextState.isIntersecting && (nextState.isHidden || nextProps.cachedHeight);
+
+    // If we're going from rendered to unrendered (or vice versa) then update
+    if (!!isUnrendered !== !!willBeUnrendered) {
+      return true;
+    }
+
+    // Otherwise, diff based on props
+    const propsToDiff = isUnrendered ? updateOnPropsForUnrendered : updateOnPropsForRendered;
+    return !propsToDiff.every(prop => is(nextProps[prop], this.props[prop]));
+  }
+  
   handleIntersection = (entry) => {
     this.entry = entry;
 
@@ -113,9 +114,6 @@ class IntersectionObserverArticle extends React.Component {
   hideIfNotIntersecting = () => {
     if (!this.componentMounted) return
 
-    // When the browser gets a chance, test if we're still not intersecting,
-    // and if so, set our isHidden to true to trigger an unrender. The point of
-    // this is to save DOM nodes and avoid using up too much memory.
     this.setState((prevState) => ({ isHidden: !prevState.isIntersecting }))
   }
 

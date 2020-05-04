@@ -22,10 +22,9 @@ class Api::V1::StatusesController < Api::BaseController
     render json: @status, serializer: REST::StatusSerializer
   end
 
-  # direct descendants only
+  # all desendants
   def comments
-    descendants_results = @status.descendants(CONTEXT_LIMIT, current_account, nil, nil, 1)
-    puts "descendants_results: " + descendants_results.inspect
+    descendants_results = @status.descendants(CONTEXT_LIMIT, current_account, nil, nil)
     loaded_descendants  = cache_collection(descendants_results, Status)
     
     @context = Context.new(descendants: loaded_descendants)

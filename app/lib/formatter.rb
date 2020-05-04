@@ -47,12 +47,9 @@ class Formatter
 
     html = raw_content
 
-    # puts "BOLLI 1: " + html
-
     html = encode_and_link_urls(html, linkable_accounts)
 
-    # puts "BOLLI 2: " + html
-
+    # : todo :
     if options[:use_markdown]
       html = convert_headers(html)
       html = convert_strong(html)
@@ -63,15 +60,11 @@ class Formatter
       html = convert_links(html)
       html = convert_lists(html)
       html = convert_ordered_lists(html)
-      # puts "BOLLI 3: " + html
     end
 
     html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
-    # puts "BOLLI 4: " + html
 
     html = simple_format(html, {}, sanitize: false)
-
-    # puts "BOLLI 5: " + html
 
     html = html.delete("\n")
 

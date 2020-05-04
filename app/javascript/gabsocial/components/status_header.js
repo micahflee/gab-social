@@ -16,6 +16,7 @@ import Button from './button'
 import Avatar from './avatar'
 
 const messages = defineMessages({
+  edited: { id: 'status.edited', defaultMessage: 'Edited' },
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
   public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
@@ -193,7 +194,7 @@ class StatusHeader extends ImmutablePureComponent {
                     className={_s.ml5}
                   >
                     <Text size='small' color='secondary'>
-                      Edited
+                      {intl.formatMessage(messages.edited)}
                     </Text>
                   </Button>
                 </Fragment>

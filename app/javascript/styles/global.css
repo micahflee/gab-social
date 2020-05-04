@@ -109,6 +109,10 @@ body {
   min-height: 18px;
 }
 
+.statusContent p:not(:last-of-type) {
+  margin-bottom: 18px;
+}
+
 .statusContent em {
   font-style: italic;
 }
@@ -345,6 +349,10 @@ body {
 .bgDanger { background-color: var(--color_red); }
 .bgDangerDark_onHover:hover { background-color: var(--color_red-dark); }
 
+.bgPro { background-color: var(--color_gold); }
+.bgDonor { background-color: #4DA6FF; }
+.bgInvestor { background-color: #6DD900; }
+
 /*  */
 
 .colorPrimary { color: var(--text_color_primary); }
@@ -389,7 +397,6 @@ body {
 
 /*  */
 
-.lineHeight0825 { line-height: 0.825em; }
 .lineHeight125 { line-height: 1.25em; }
 .lineHeight15 { line-height: 1.5em; }
 .lineHeight2 { line-height: 2em; }
@@ -424,6 +431,7 @@ body {
 .height350PX { height: 350px; }
 .height260PX { height: 260px; }
 .height220PX { height: 220px; }
+.height215PX { height: 215px; }
 .height158PX { height: 158px; }
 .height122PX { height: 122px; }
 .height72PX { height: 72px; }
@@ -439,6 +447,7 @@ body {
 
 .maxWidth100PC { max-width: 100%; }
 .maxWidth640PX { max-width: 640px; }
+.maxWidth100PC42PX { max-width: calc(100% - 42px); }
 
 .width100PC { width: 100%; }
 .width50PC { width: 50%; }
@@ -692,6 +701,7 @@ body {
 .boxShadow1 { box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25); }
 .boxShadowPopover { box-shadow: 0 0 15px -5px rgba(0,0,0,0.15); }
 .boxShadowBlock { box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
+.boxShadowDot { box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 6px #000; }
 
 .boxShadowNone .boxShadowBlock {
   box-shadow: none !important;
@@ -743,6 +753,23 @@ body {
   margin: -3px 0 0;
   height: 20px;
   width: 20px;
+}
+
+:global(.invisible) {
+  font-size: 0px;
+  display: inline;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+}
+
+:global(.ellipsis) {
+  display: inline;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  color: inherit;
+  user-select: none;
 }
 
 /* .videoPlayerVolume:before {

@@ -39,6 +39,7 @@ class Status extends ImmutablePureComponent {
   render() {
     const { status } = this.props
     
+    // : todo :
     // - if comment render as such
     
     if (!status) {
@@ -46,7 +47,7 @@ class Status extends ImmutablePureComponent {
     }
 
     return (
-      <StatusContainer {...this.props} />
+      <StatusContainer {...this.props} contextType='feature' />
     )
   }
 

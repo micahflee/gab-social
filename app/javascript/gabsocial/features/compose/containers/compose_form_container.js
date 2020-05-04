@@ -15,7 +15,8 @@ import { me } from '../../../initial_state'
 const mapStateToProps = (state, { replyToId }) => {
 
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
-  const isMatch = reduxReplyToId || replyToId ? reduxReplyToId === replyToId : true
+  let isMatch = !!reduxReplyToId
+  if (!isMatch) isMatch = replyToId ? reduxReplyToId === replyToId : true
 
   if (!isMatch) {
     return {

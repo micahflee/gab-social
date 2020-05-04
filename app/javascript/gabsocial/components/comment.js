@@ -30,7 +30,7 @@ const makeMapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onReply (status, router) {
+  onReply(status, router) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
     dispatch((_, getState) => {
@@ -46,7 +46,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
     })
   },
-  onFavorite (status) {
+  onFavorite(status) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
     if (status.get('favourited')) {
@@ -57,6 +57,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onOpenStatusOptions(status) {
     dispatch(openPopover('STATUS_OPTOINS', { status }))
+  },
+  onOpenLikes(status) {
+    dispatch(openModal('STATUS_LIKES', { status }))
+  },
+  onOpenReposts(status) {
+    dispatch(openModal('STATUS_REPOSTS', { status }))
   },
 })
 
@@ -74,6 +80,8 @@ class Comment extends ImmutablePureComponent {
     onReply: PropTypes.func.isRequired,
     onFavorite: PropTypes.func.isRequired,
     onOpenStatusOptions: PropTypes.func.isRequired,
+    onOpenLikes: PropTypes.func.isRequired,
+    onOpenReposts: PropTypes.func.isRequired,
   }
 
   updateOnProps = [
@@ -85,6 +93,8 @@ class Comment extends ImmutablePureComponent {
 
   state = {
     showMedia: defaultMediaVisibility(this.props.status),
+    statusId: undefined,
+    height: undefined,
   }
 
   handleOnReply = () => {
@@ -117,7 +127,7 @@ class Comment extends ImmutablePureComponent {
     }
 
     const style = {
-      paddingLeft: `${indent * 40}px`,
+      paddingLeft: `${indent * 42}px`,
     }
 
     return (
@@ -133,9 +143,13 @@ class Comment extends ImmutablePureComponent {
               <Avatar account={status.get('account')} size={32} />
             </NavLink>
 
-            <div className={[_s.default, _s.flexNormal].join(' ')}>
+            <div className={[_s.default, _s.flexShrink1, _s.maxWidth100PC42PX].join(' ')}>
               <div className={[_s.default, _s.px10, _s.pt5, _s.pb10, _s.radiusSmall, _s.bgSubtle].join(' ')}>
-                <CommentHeader status={status} />
+                <CommentHeader
+                  status={status}
+                  onOpenLikes={this.props.onOpenLikes}
+                  onOpenReposts={this.props.onOpenReposts}
+                />
                 <StatusContent
                   status={status}
                   onClick={this.handleClick}
@@ -159,7 +173,7 @@ class Comment extends ImmutablePureComponent {
 
               <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
                 <CommentButton
-                  title={intl.formatMessage(status.get('favourited') ? messages.unlike: messages.like)}
+                  title={intl.formatMessage(status.get('favourited') ? messages.unlike : messages.like)}
                   onClick={this.handleOnFavorite}
                 />
                 <CommentButton

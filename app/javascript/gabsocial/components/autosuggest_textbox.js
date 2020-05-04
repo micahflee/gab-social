@@ -235,6 +235,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       bgTransparent: 1,
       outlineNone: 1,
       lineHeight125: 1,
+      colorPrimary: 1,
       height100PC: small,
       width100PC: !small,
       pt15: !small,
@@ -265,7 +266,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               className={textareaClasses}
               disabled={disabled}
               placeholder={placeholder}
-            dautoFocus={false}
+              autoFocus={false}
               value={value}
               onChange={this.onChange}
               // onKeyDown={this.onKeyDown}

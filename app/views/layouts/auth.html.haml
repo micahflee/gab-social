@@ -1,8 +1,10 @@
 - content_for :header_tags do
   = javascript_pack_tag 'public', integrity: true, crossorigin: 'anonymous'
+  %link(rel='stylesheet' href='/legacy/common.css')
+  %link(rel='stylesheet' href='/legacy/default.css')
 
 - content_for :content do
-  .container-alt
+  .container
     .logo-container
       %h1
         = link_to root_path do

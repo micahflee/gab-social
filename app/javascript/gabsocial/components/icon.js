@@ -17,7 +17,6 @@ import CogIcon from '../assets/cog_icon'
 import CommentIcon from '../assets/comment_icon'
 import CopyIcon from '../assets/copy_icon'
 import DissenterIcon from '../assets/dissenter_icon'
-import DonorIcon from '../assets/donor_icon'
 import EllipsisIcon from '../assets/ellipsis_icon'
 import EmailIcon from '../assets/email_icon'
 import ErrorIcon from '../assets/error_icon'
@@ -31,7 +30,6 @@ import GroupAddIcon from '../assets/group_add_icon'
 import HappyIcon from '../assets/happy_icon'
 import HiddenIcon from '../assets/hidden_icon'
 import HomeIcon from '../assets/home_icon'
-import InvestorIcon from '../assets/investor_icon'
 import ItalicIcon from '../assets/italic_icon'
 import LikeIcon from '../assets/like_icon'
 import LikedIcon from '../assets/liked_icon'
@@ -52,7 +50,6 @@ import PencilIcon from '../assets/pencil_icon'
 import PinIcon from '../assets/pin_icon'
 import PlayIcon from '../assets/play_icon'
 import PollIcon from '../assets/poll_icon'
-import ProIcon from '../assets/pro_icon'
 import RepostIcon from '../assets/repost_icon'
 import RichTextIcon from '../assets/rich_text_icon'
 import SearchIcon from '../assets/search_icon'
@@ -90,7 +87,6 @@ const ICONS = {
   'comment': CommentIcon,
   'copy': CopyIcon,
   'dissenter': DissenterIcon,
-  'donor': DonorIcon,
   'ellipsis': EllipsisIcon,
   'email': EmailIcon,
   'error': ErrorIcon,
@@ -104,7 +100,6 @@ const ICONS = {
   'hidden': HiddenIcon,
   'happy': HappyIcon,
   'home': HomeIcon,
-  'investor': InvestorIcon,
   'italic': ItalicIcon,
   'like': LikeIcon,
   'liked': LikedIcon,
@@ -125,7 +120,6 @@ const ICONS = {
   'pin': PinIcon,
   'play': PlayIcon,
   'poll': PollIcon,
-  'pro': ProIcon,
   'repost': RepostIcon,
   'rich-text': RichTextIcon,
   'search': SearchIcon,

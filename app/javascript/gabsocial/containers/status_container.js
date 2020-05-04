@@ -3,7 +3,6 @@ import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import {
   replyCompose,
   mentionCompose,
-  quoteCompose,
 } from '../actions/compose';
 import {
   repost,
@@ -21,12 +20,13 @@ import {
   hideStatus,
   revealStatus,
   fetchComments,
+  fetchAncestors,
 } from '../actions/statuses';
 import { initMuteModal } from '../actions/mutes';
 import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
 import { openPopover } from '../actions/popover';
-import { me, boostModal, deleteModal } from '../initial_state';
+import { me, deleteModal } from '../initial_state';
 import {
   createRemovedAccount,
   groupRemoveStatus,
@@ -46,17 +46,13 @@ const makeMapStateToProps = () => {
       username: username,
     })
 
-    // : todo : if is comment (i.e. if any ancestorsIds) use comment not status
-
     let descendantsIds = ImmutableList()
+    let ancestorStatus
 
-    if (status) {
+    if (status && status.get('replies_count') > 0) {
       let indent = -1
       descendantsIds = descendantsIds.withMutations(mutable => {
         const ids = [status.get('id')]
-
-        const r = state.getIn(['contexts', 'replies', ids[0]])
-        // console.log("r:", r)
 
         while (ids.length > 0) {
           let id = ids.shift()
@@ -75,14 +71,26 @@ const makeMapStateToProps = () => {
             });
             indent++
             indent = Math.min(2, indent)
+          } else {
+            indent = 0 // reset
           }
         }
       })
     }
+    
+    if (status && status.get('in_reply_to_account_id')) {
+      // : todo :
+      // console.log("FIND ANCESTOR")
+      const ids = [status.get('id')]
+      const reps = state.getIn(['contexts', 'inReplyTos'])
+    }
+
+    // console.log("ancestorStatus:", ancestorStatus)
 
     return {
       status,
-      descendantsIds
+      descendantsIds,
+      ancestorStatus,
     }
   }
 
@@ -252,6 +260,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onFetchComments(statusId) {
     dispatch(fetchComments(statusId))
+  },
+
+  onFetchAncestors(statusId) {
+    dispatch(fetchAncestors(statusId))
   },
 
   onOpenLikes(status) {

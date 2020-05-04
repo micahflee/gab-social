@@ -11,24 +11,23 @@ export default class CommentList extends ImmutablePureComponent {
   static propTypes = {
     commentsLimited: PropTypes.bool,
     descendants: ImmutablePropTypes.list,
-  }
-
-  handleLoadMore = () => {
-    //
+    onViewComments: PropTypes.func.isRequired,
   }
 
   render() {
     const {
       descendants,
       commentsLimited,
+      onViewComments
     } = this.props
 
-    const upperLimit = 6
     const size = descendants.size
+    const upperLimit = commentsLimited ? 6 : size
     const max = Math.min(commentsLimited ? 2 : upperLimit, size)
 
+    console.log("size, max:", size, max)
+
     const Wrapper = !commentsLimited ? ScrollableList : DummyContainer
-    console.log("Wrapper:", Wrapper)
 
     return (
       <div>
@@ -50,7 +49,7 @@ export default class CommentList extends ImmutablePureComponent {
               isText
               backgroundColor='none'
               color='tertiary'
-              onClick={this.handleLoadMore}
+              onClick={onViewComments}
             >
               <Text weight='bold' color='inherit'>
                 View more comments

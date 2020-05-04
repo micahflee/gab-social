@@ -45,7 +45,6 @@ class Display extends PureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    console.log("nextProps:", nextProps)
     if (nextProps.theme !== prevState.theme ||
       nextProps.radiusSmallDisabled !== prevState.radiusSmallDisabled ||
       nextProps.radiusCircleDisabled !== prevState.radiusCircleDisabled ||

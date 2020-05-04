@@ -19,12 +19,13 @@ export default
 class SearchFilterPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    group: ImmutablePropTypes.list.isRequired,
     intl: PropTypes.object.isRequired,
   }
 
   render() {
-    const { intl, group } = this.props
+    const { intl } = this.props
+
+    // verified or not
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>

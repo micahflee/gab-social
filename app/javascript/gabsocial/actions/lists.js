@@ -112,8 +112,6 @@ export const submitListEditor = (shouldReset) => (dispatch, getState) => {
   const listId = getState().getIn(['listEditor', 'listId']);
   const title  = getState().getIn(['listEditor', 'title']);
 
-  console.log("submitListEditor:", title)
-
   if (listId === null) {
     dispatch(createList(title, shouldReset));
   } else {

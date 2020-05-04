@@ -84,7 +84,7 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     ]
 
     return (
-      <PopoverLayout width={220}>
+      <PopoverLayout>
         <List
           scrollKey='repost_options'
           items={listItems}

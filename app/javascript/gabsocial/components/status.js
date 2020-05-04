@@ -4,14 +4,11 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import classNames from 'classnames/bind'
 import { me, displayMedia, compactMode } from '../initial_state'
-import StatusCard from './status_card'
-import { MediaGallery, Video } from '../features/ui/util/async_components'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
 import StatusActionBar from './status_action_bar'
 import StatusMedia from './status_media'
-import Poll from './poll'
 import StatusHeader from './status_header'
 import CommentList from './comment_list'
 
@@ -26,13 +23,14 @@ export const textForScreenReader = (intl, status, rebloggedByText = false) => {
 
   const displayName = status.getIn(['account', 'display_name'])
 
+  // : todo :
   const values = [
-    displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
-    status.get('spoiler_text') && status.get('hidden')
-      ? status.get('spoiler_text')
-      : status.get('search_index').slice(status.get('spoiler_text').length),
-    intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
-    `@${status.getIn(['account', 'acct'])}`,
+    // displayName.length === 0 ? status.getIn(['account', 'acct']).split('@')[0] : displayName,
+    // status.get('spoiler_text') && status.get('hidden')
+    //   ? status.get('spoiler_text')
+    //   : status.get('search_index').slice(status.get('spoiler_text').length),
+    // intl.formatDate(status.get('created_at'), { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }),
+    // `@${status.getIn(['account', 'acct'])}`,
   ]
 
   if (rebloggedByText) {
@@ -64,6 +62,7 @@ class Status extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     status: ImmutablePropTypes.map,
     descendantsIds: ImmutablePropTypes.list,
+    ancestorStatus: ImmutablePropTypes.map,
     isChild: PropTypes.bool,
     isPromoted: PropTypes.bool,
     isFeatured: PropTypes.bool,
@@ -136,7 +135,7 @@ class Status extends ImmutablePureComponent {
 
     if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
       return {
-        loadedComments: false,
+        loadedComments: false, //reset
         showMedia: defaultMediaVisibility(nextProps.status),
         statusId: nextProps.status.get('id'),
       }
@@ -418,6 +417,8 @@ class Status extends ImmutablePureComponent {
       bgSubtle_onHover: isChild,
     })
 
+    console.log("status:", status)
+
     return (
       <HotKeys handlers={handlers}>
         <div
@@ -496,6 +497,7 @@ class Status extends ImmutablePureComponent {
                 <CommentList
                   commentsLimited={commentsLimited}
                   descendants={descendantsIds}
+                  onViewComments={this.handleClick}
                 />
               }
             </div>

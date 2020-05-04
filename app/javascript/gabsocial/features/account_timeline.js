@@ -91,8 +91,6 @@ class AccountTimeline extends ImmutablePureComponent {
 
     if (!account) return null
 
-    console.log("statusIds:", statusIds)
-
     return (
       <StatusList
         scrollKey='account_timeline'

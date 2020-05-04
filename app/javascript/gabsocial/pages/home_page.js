@@ -72,10 +72,11 @@ class HomePage extends PureComponent {
       <DefaultLayout
         title={intl.formatMessage(messages.home)}
         actions={[
-          {
-            icon: 'ellipsis',
-            onClick: onOpenHomePageSettingsModal,
-          },
+          // : todo :
+          // {
+          //   icon: 'ellipsis',
+          //   onClick: onOpenHomePageSettingsModal,
+          // },
         ]}
         layout={(
           <Fragment>
