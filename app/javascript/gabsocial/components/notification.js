@@ -144,6 +144,7 @@ class Notification extends ImmutablePureComponent {
                 !!statusId &&
                 <div className={[_s.default, _s.pt10, _s.mt5].join(' ')}>
                   <StatusContainer
+                    contextType='notification'
                     id={statusId}
                     isChild
                   />

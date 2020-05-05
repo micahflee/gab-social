@@ -40,6 +40,7 @@ import LoadingIcon from '../assets/loading_icon'
 import LockIcon from '../assets/lock_icon'
 import LockFilledIcon from '../assets/lock_filled_icon'
 import MediaIcon from '../assets/media_icon'
+import MicIcon from '../assets/mic_icon'
 import MinimizeFullscreenIcon from '../assets/minimize_fullscreen_icon'
 import MissingIcon from '../assets/missing_icon'
 import MoreIcon from '../assets/more_icon'
@@ -110,6 +111,7 @@ const ICONS = {
   'lock': LockIcon,
   'lock-filled': LockFilledIcon,
   'media': MediaIcon,
+  'mic': MicIcon,
   'minimize-fullscreen': MinimizeFullscreenIcon,
   'missing': MissingIcon,
   'more': MoreIcon,

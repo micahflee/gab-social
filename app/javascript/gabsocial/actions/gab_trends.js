@@ -7,8 +7,6 @@ export const GAB_TRENDS_RESULTS_FETCH_FAIL = 'GAB_TRENDS_RESULTS_FETCH_FAIL'
 
 export const fetchGabTrends = () => {
   return function (dispatch, getState) {
-    if (!me) return
-
     dispatch(fetchGabTrendsRequest())
 
     api(getState).get('/api/v1/gab_trends').then(response => {

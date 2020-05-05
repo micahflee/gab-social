@@ -10,6 +10,9 @@ import { replyCompose } from '../actions/compose'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { makeGetStatus } from '../selectors'
+import {
+  CX,
+} from '../constants'
 import { me } from '../initial_state'
 import Avatar from './avatar'
 import Button from './button'
@@ -74,9 +77,11 @@ class Comment extends ImmutablePureComponent {
   static propTypes = {
     indent: PropTypes.number,
     intl: PropTypes.object.isRequired,
+    ancestorAccountId: PropTypes.string.isRequired,
     status: ImmutablePropTypes.map.isRequired,
     isHidden: PropTypes.bool,
     isIntersecting: PropTypes.bool,
+    isHighlighted: PropTypes.bool,
     onReply: PropTypes.func.isRequired,
     onFavorite: PropTypes.func.isRequired,
     onOpenStatusOptions: PropTypes.func.isRequired,
@@ -89,6 +94,7 @@ class Comment extends ImmutablePureComponent {
     'indent',
     'isHidden',
     'isIntersecting',
+    'isHighlighted',
   ]
 
   state = {
@@ -115,6 +121,8 @@ class Comment extends ImmutablePureComponent {
       intl,
       status,
       isHidden,
+      isHighlighted,
+      ancestorAccountId,
     } = this.props
 
     if (isHidden) {
@@ -130,6 +138,16 @@ class Comment extends ImmutablePureComponent {
       paddingLeft: `${indent * 42}px`,
     }
 
+    const contentClasses = CX({
+      default: 1,
+      px10: 1,
+      pt5: 1,
+      pb10: 1,
+      radiusSmall: 1,
+      bgSubtle: !isHighlighted,
+      highlightedComment: isHighlighted,
+    })
+
     return (
       <div className={[_s.default, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
         <div className={[_s.default].join(' ')} style={style}>
@@ -144,8 +162,9 @@ class Comment extends ImmutablePureComponent {
             </NavLink>
 
             <div className={[_s.default, _s.flexShrink1, _s.maxWidth100PC42PX].join(' ')}>
-              <div className={[_s.default, _s.px10, _s.pt5, _s.pb10, _s.radiusSmall, _s.bgSubtle].join(' ')}>
+              <div className={contentClasses}>
                 <CommentHeader
+                  ancestorAccountId={ancestorAccountId}
                   status={status}
                   onOpenLikes={this.props.onOpenLikes}
                   onOpenReposts={this.props.onOpenReposts}

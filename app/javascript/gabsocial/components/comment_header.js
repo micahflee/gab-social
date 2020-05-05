@@ -6,6 +6,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import Button from './button'
 import DisplayName from './display_name'
 import DotTextSeperator from './dot_text_seperator'
+import Icon from './icon'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
@@ -21,6 +22,7 @@ class CommentHeader extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    ancestorAccountId: PropTypes.string.isRequired,
     status: ImmutablePropTypes.map.isRequired,
     openLikesList: PropTypes.func.isRequired,
     openRepostsList: PropTypes.func.isRequired,
@@ -38,12 +40,16 @@ class CommentHeader extends ImmutablePureComponent {
     const {
       intl,
       status,
+      ancestorAccountId,
     } = this.props
+
+    if (!status) return null
 
     const repostCount = status.get('reblogs_count')
     const favoriteCount = status.get('favourites_count')
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
+    const isOwner = ancestorAccountId === status.getIn(['account', 'id'])
 
     return (
       <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.flexGrow1].join(' ')}>
@@ -56,6 +62,16 @@ class CommentHeader extends ImmutablePureComponent {
           >
             <DisplayName account={status.get('account')} isSmall />
           </NavLink>
+
+          {
+            isOwner &&
+            <div className={[_s.default, _s.alignItemsCenter, _s.ml5].join(' ')}>
+              <span className={_s.visiblyHidden}>
+                Original Gabber
+              </span>
+              <Icon id='mic' size='10px' className={_s.fillBrand} />
+            </div>
+          }
 
           {
             status.get('revised_at') !== null &&

@@ -38,10 +38,7 @@ class Status extends ImmutablePureComponent {
 
   render() {
     const { status } = this.props
-    
-    // : todo :
-    // - if comment render as such
-    
+  
     if (!status) {
       return <ColumnIndicator type='loading' />
     }

@@ -20,7 +20,7 @@ import {
   hideStatus,
   revealStatus,
   fetchComments,
-  fetchAncestors,
+  fetchContext,
 } from '../actions/statuses';
 import { initMuteModal } from '../actions/mutes';
 import { initReport } from '../actions/reports';
@@ -33,6 +33,40 @@ import {
 } from '../actions/groups';
 import { makeGetStatus } from '../selectors';
 import Status from '../components/status';
+
+const getDescendants = (state, status, highlightStatusId) => {
+  let descendantsIds = ImmutableList()
+  let indent = -1
+
+  descendantsIds = descendantsIds.withMutations(mutable => {
+    const ids = [status.get('id')]
+
+    while (ids.length > 0) {
+      let id = ids.shift()
+      const replies = state.getIn(['contexts', 'replies', id])
+
+      if (status.get('id') !== id) {
+        mutable.push(ImmutableMap({
+          statusId: id,
+          indent: indent,
+          isHighlighted: highlightStatusId === id,
+        }))
+      }
+
+      if (replies) {
+        replies.reverse().forEach(reply => {
+          ids.unshift(reply)
+        });
+        indent++
+        indent = Math.min(2, indent)
+      } else {
+        indent = 0 // reset
+      }
+    }
+  })
+
+  return descendantsIds
+}
 
 const makeMapStateToProps = () => {
   const getStatus = makeGetStatus()
@@ -48,49 +82,41 @@ const makeMapStateToProps = () => {
 
     let descendantsIds = ImmutableList()
     let ancestorStatus
+    
+    let fetchedContext = false
+    if (status && status.get('in_reply_to_account_id')) {
+      fetchedContext = true
 
-    if (status && status.get('replies_count') > 0) {
-      let indent = -1
-      descendantsIds = descendantsIds.withMutations(mutable => {
-        const ids = [status.get('id')]
-
-        while (ids.length > 0) {
-          let id = ids.shift()
-          const replies = state.getIn(['contexts', 'replies', id])
-
-          if (status.get('id') !== id) {
-            mutable.push(ImmutableMap({
-              statusId: id,
-              indent: indent,
-            }))
-          }
-
-          if (replies) {
-            replies.reverse().forEach(reply => {
-              ids.unshift(reply)
-            });
-            indent++
-            indent = Math.min(2, indent)
-          } else {
-            indent = 0 // reset
-          }
+      let inReplyTos = state.getIn(['contexts', 'inReplyTos'])
+      
+      let ancestorsIds = ImmutableList()
+      ancestorsIds = ancestorsIds.withMutations(mutable => {
+        let id = statusId;
+  
+        while (id) {
+          mutable.unshift(id)
+          id = inReplyTos.get(id)
         }
       })
-    }
-    
-    if (status && status.get('in_reply_to_account_id')) {
-      // : todo :
-      // console.log("FIND ANCESTOR")
-      const ids = [status.get('id')]
-      const reps = state.getIn(['contexts', 'inReplyTos'])
+  
+      const ancestorStatusId = ancestorsIds.get(0)
+      ancestorStatus = getStatus(state, {
+        id: ancestorStatusId,
+      })
+      descendantsIds = getDescendants(state, ancestorStatus, statusId)
     }
 
-    // console.log("ancestorStatus:", ancestorStatus)
+    if (status && status.get('replies_count') > 0 && !fetchedContext) {
+      descendantsIds = getDescendants(state, status)
+    }
+
+    const isComment = !!status ? !!status.get('in_reply_to_id') : false
 
     return {
       status,
-      descendantsIds,
       ancestorStatus,
+      descendantsIds,
+      isComment,
     }
   }
 
@@ -262,8 +288,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchComments(statusId))
   },
 
-  onFetchAncestors(statusId) {
-    dispatch(fetchAncestors(statusId))
+  onFetchContext(statusId) {
+    dispatch(fetchContext(statusId))
   },
 
   onOpenLikes(status) {

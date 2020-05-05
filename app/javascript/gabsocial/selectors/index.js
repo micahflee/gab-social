@@ -78,13 +78,16 @@ export const makeGetStatus = () => {
     ],
 
     (state, statusBase, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
+      console.log("statusBase:", statusBase)
       if (!statusBase) {
+        console.log("return null 1")
         return null
       }
 
       const accountUsername = accountBase.get('acct');
       //Must be owner of status if username exists
       if (accountUsername !== username && username !== undefined) {
+        console.log("return null 2")
         return null
       }
 

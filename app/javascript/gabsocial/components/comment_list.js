@@ -12,20 +12,20 @@ export default class CommentList extends ImmutablePureComponent {
     commentsLimited: PropTypes.bool,
     descendants: ImmutablePropTypes.list,
     onViewComments: PropTypes.func.isRequired,
+    ancestorAccountId: PropTypes.string.isRequired,
   }
 
   render() {
     const {
       descendants,
       commentsLimited,
-      onViewComments
+      onViewComments,
+      ancestorAccountId
     } = this.props
 
     const size = descendants.size
     const upperLimit = commentsLimited ? 6 : size
     const max = Math.min(commentsLimited ? 2 : upperLimit, size)
-
-    console.log("size, max:", size, max)
 
     const Wrapper = !commentsLimited ? ScrollableList : DummyContainer
 
@@ -37,7 +37,9 @@ export default class CommentList extends ImmutablePureComponent {
               <Comment
                 key={`comment-${descendant.get('statusId')}-${i}`}
                 id={descendant.get('statusId')}
+                ancestorAccountId={ancestorAccountId}
                 indent={descendant.get('indent')}
+                isHighlighted={descendant.get('isHighlighted')}
               />
             ))
           }

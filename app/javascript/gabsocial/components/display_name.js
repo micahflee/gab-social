@@ -144,7 +144,7 @@ class DisplayName extends ImmutablePureComponent {
     // }
 
     // : todo : remote
-    console.log("domain, isRemoteUser:", domain, isRemoteUser)
+    // console.log("domain, isRemoteUser:", domain, isRemoteUser)
 
     return (
       <div

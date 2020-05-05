@@ -69,6 +69,7 @@ class Status extends ImmutablePureComponent {
     isMuted: PropTypes.bool,
     isHidden: PropTypes.bool,
     isIntersecting: PropTypes.bool,
+    isComment: PropTypes.bool,
     onClick: PropTypes.func,
     onReply: PropTypes.func,
     onRepost: PropTypes.func,
@@ -82,6 +83,7 @@ class Status extends ImmutablePureComponent {
     onMoveUp: PropTypes.func,
     onMoveDown: PropTypes.func,
     onFetchComments: PropTypes.func,
+    onFetchContext: PropTypes.func,
     getScrollPosition: PropTypes.func,
     updateScrollBottom: PropTypes.func,
     cacheMediaWidth: PropTypes.func,
@@ -103,6 +105,7 @@ class Status extends ImmutablePureComponent {
     'isMuted',
     'isHidden',
     'isIntersecting',
+    'isComment',
   ]
 
   state = {
@@ -127,6 +130,8 @@ class Status extends ImmutablePureComponent {
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.isChild) return null
+
     if (!nextProps.isHidden && (nextProps.isIntersecting || !nextProps.commentsLimited) && !prevState.loadedComments) {
       return {
         loadedComments: true
@@ -147,11 +152,14 @@ class Status extends ImmutablePureComponent {
   // Compensate height changes
   componentDidUpdate(prevProps, prevState, snapshot) {
     // timeline lazy loading comments
-    if (!prevState.loadedComments && this.state.loadedComments && this.props.status) {
+    if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild) {
       const commentCount = this.props.status.get('replies_count')
-      if (commentCount > 0) {
+      if (commentCount > 0 && !this.props.isComment) {
         this.props.onFetchComments(this.props.status.get('id'))
-        this._measureHeight(prevState.height !== this.state.height)
+        // this._measureHeight(prevState.height !== this.state.height)
+      } else {
+        console.log("before fetch:", this.props.status)
+        this.props.onFetchContext(this.props.status.get('id'))
       }
     }
 
@@ -311,7 +319,11 @@ class Status extends ImmutablePureComponent {
   }
 
   _properStatus() {
-    const { status } = this.props
+    const { status, ancestorStatus } = this.props
+
+    if (ancestorStatus) {
+      return ancestorStatus
+    }
 
     if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
       return status.get('reblog')
@@ -346,6 +358,8 @@ class Status extends ImmutablePureComponent {
       isHidden,
       descendantsIds,
       commentsLimited,
+      ancestorStatus,
+      isComment,
     } = this.props
     
     let { status } = this.props
@@ -354,13 +368,17 @@ class Status extends ImmutablePureComponent {
 
     let reblogContent, rebloggedByText = null
 
-    if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
-      rebloggedByText = intl.formatMessage(
-        { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
-        { name: status.getIn(['account', 'acct']) }
-      )
-      reblogContent = status.get('contentHtml')
-      status = status.get('reblog')
+    if (ancestorStatus) {
+      status = ancestorStatus
+    } else {
+      if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
+        rebloggedByText = intl.formatMessage(
+          { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
+          { name: status.getIn(['account', 'acct']) }
+        )
+        reblogContent = status.get('contentHtml')
+        status = status.get('reblog')
+      }
     }
 
     const handlers = (this.props.isMuted || isChild) ? {} : {
@@ -417,8 +435,6 @@ class Status extends ImmutablePureComponent {
       bgSubtle_onHover: isChild,
     })
 
-    console.log("status:", status)
-
     return (
       <HotKeys handlers={handlers}>
         <div
@@ -433,7 +449,12 @@ class Status extends ImmutablePureComponent {
 
             <div data-id={status.get('id')}>
 
-              <StatusPrepend status={this.props.status} isPromoted={isPromoted} isFeatured={isFeatured} />
+              <StatusPrepend
+                status={this.props.status}
+                isPromoted={isPromoted}
+                isFeatured={isFeatured}
+                isComment={isComment}
+              />
 
               <StatusHeader status={status} reduced={isChild} />
 
@@ -495,6 +516,7 @@ class Status extends ImmutablePureComponent {
               {
                 descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
                 <CommentList
+                  ancestorAccountId={status.getIn(['account', 'id'])}
                   commentsLimited={commentsLimited}
                   descendants={descendantsIds}
                   onViewComments={this.handleClick}

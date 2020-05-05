@@ -296,9 +296,10 @@ class ComposeForm extends ImmutablePureComponent {
           >
 
             {
-              !!reduxReplyToId && isModalOpen &&
+              !!reduxReplyToId && isModalOpen && !shouldCondense &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
+                  contextType='compose'
                   id={reduxReplyToId}
                   isChild
                 />
@@ -369,6 +370,7 @@ class ComposeForm extends ImmutablePureComponent {
               !!quoteOfId && isModalOpen &&
               <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                 <StatusContainer
+                  contextType='compose'
                   id={quoteOfId}
                   isChild
                 />

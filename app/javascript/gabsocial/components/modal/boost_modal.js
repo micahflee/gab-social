@@ -55,6 +55,7 @@ class BoostModal extends ImmutablePureComponent {
       
       <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
         <StatusContainer
+          contextType='boost-modal'
           id={status.get('id')}
           isChild
         />

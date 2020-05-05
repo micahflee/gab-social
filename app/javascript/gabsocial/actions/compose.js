@@ -167,7 +167,6 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   };
 
   if (response.data.visibility === 'public') {
-    // console.log("response.data.in_reply_to_id:", response.data.in_reply_to_id)
     insertIfOnline('home');
     insertIfOnline('community');
     insertIfOnline('public');
@@ -184,8 +183,12 @@ export function submitCompose(group, replyToId = null) {
 
     // : hack :
     //Prepend http:// to urls in status that don't have protocol
-    status = status.replace(urlRegex, (match) =>{
+    status = status.replace(urlRegex, (match, a, b, c) =>{
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
+      //Make sure not a remote mention like @someone@somewhere.com
+      if (!hasProtocol) {
+        if (status.indexOf(`@${match}`) > -1) return match
+      }
       return hasProtocol ? match : `http://${match}`
     })
     // markdown = statusMarkdown.replace(urlRegex, (match) =>{
@@ -195,7 +198,7 @@ export function submitCompose(group, replyToId = null) {
 
     const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null) || replyToId
 
-    console.log("markdown:", markdown)
+    // console.log("markdown:", markdown)
 
     dispatch(submitComposeRequest());
     dispatch(closeModal());

@@ -152,7 +152,9 @@ body {
 }
 
 .statusContent a,
-.dangerousContent a {
+.dangerousContent a,
+.statusContent a *,
+.dangerousContent a * {
   color: var(--color_brand);
   text-decoration: none;
 }
@@ -790,6 +792,10 @@ body {
 
 .visibilityHidden {
   visibility: hidden;
+}
+
+.highlightedComment {
+  background-color: rgba(224, 234, 66, .3);
 }
 
 .searchInput::placeholder {
