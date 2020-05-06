@@ -80,11 +80,13 @@ const makeMapStateToProps = () => {
       username: username,
     })
 
+    let fetchedContext = false
     let descendantsIds = ImmutableList()
     let ancestorStatus
     
-    let fetchedContext = false
-    if (status && status.get('in_reply_to_account_id')) {
+    //
+
+    if (status && status.get('in_reply_to_account_id') && !props.isChild) {
       fetchedContext = true
 
       let inReplyTos = state.getIn(['contexts', 'inReplyTos'])
@@ -100,11 +102,15 @@ const makeMapStateToProps = () => {
       })
   
       const ancestorStatusId = ancestorsIds.get(0)
-      ancestorStatus = getStatus(state, {
-        id: ancestorStatusId,
-      })
-      descendantsIds = getDescendants(state, ancestorStatus, statusId)
+      if (ancestorStatusId !== statusId) {
+        ancestorStatus = getStatus(state, {
+          id: ancestorStatusId,
+        })
+        descendantsIds = getDescendants(state, ancestorStatus, statusId)
+      }
     }
+
+    //
 
     if (status && status.get('replies_count') > 0 && !fetchedContext) {
       descendantsIds = getDescendants(state, status)

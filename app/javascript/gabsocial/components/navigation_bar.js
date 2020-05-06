@@ -7,6 +7,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import { CX } from '../constants'
 import Avatar from './avatar'
 import Button from './button'
+import Heading from './heading'
 import Icon from './icon'
 import Search from './search'
 import Text from './text'
@@ -48,11 +49,31 @@ class NavigationBar extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.flexRow].join(' ')}>
 
-              <h1 className={[_s.default, _s.mr15].join(' ')}>
-                <Button to='/' isText title='Gab' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                  <Icon id='gab-logo' className={_s.fillWhite} />
-                </Button>
-              </h1>
+              <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                {
+                  !!account &&
+                  <button
+                    title={account.get('display_name')}
+                    onClick={this.handleProfileClick}
+                    className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
+                  >
+                    <Avatar account={account} size={32} noHover />
+                  </button>
+                }
+                <div className={[_s.default, _s.height53PX, _s.justifyContentCenter, _s.mlAuto, _s.mrAuto].join(' ')}>
+                  <Heading size='h1'>
+                    {title}
+                  </Heading>
+                </div>
+              </Responsive>
+
+              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                <h1 className={[_s.default, _s.mr15].join(' ')}>
+                  <Button to='/' isText title='Gab' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
+                    <Icon id='gab-logo' className={_s.fillWhite} />
+                  </Button>
+                </h1>
+              </Responsive>
 
               <Responsive min={BREAKPOINT_EXTRA_SMALL}>
                 <div className={[_s.default, _s.width340PX].join(' ')}>
@@ -64,25 +85,34 @@ class NavigationBar extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.mlAuto].join(' ')}>
               <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
-                <NavigationBarButton title='Home' icon='home' to='/home' />
+
+                <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                  <div>
+                    { /** actions */}
+                  </div>
+                </Responsive>
+
+                <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                  <NavigationBarButton title='Home' icon='home' to='/home' />
+                  
+                  <NavigationBarButtonDivider />
+
+                  <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
+                  <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
+
+                  <NavigationBarButtonDivider />
                 
-                <NavigationBarButtonDivider />
-
-                <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
-                <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
-
-                <NavigationBarButtonDivider />
-              
-                {
-                  !!account &&
-                  <button
-                    title={account.get('display_name')}
-                    onClick={this.handleProfileClick}
-                    className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
-                  >
-                    <Avatar account={account} size={32} noHover />
-                  </button>
-                }
+                  {
+                    !!account &&
+                    <button
+                      title={account.get('display_name')}
+                      onClick={this.handleProfileClick}
+                      className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
+                    >
+                      <Avatar account={account} size={32} noHover />
+                    </button>
+                  }
+                </Responsive>
               </div>
             </div>
 

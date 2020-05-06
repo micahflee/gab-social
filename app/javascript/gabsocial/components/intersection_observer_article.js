@@ -46,7 +46,7 @@ class IntersectionObserverArticle extends React.Component {
 
   state = {
     isIntersecting: false,
-    isHidden: true,
+    isHidden: false,
   }
 
   componentDidMount() {
@@ -142,7 +142,7 @@ class IntersectionObserverArticle extends React.Component {
           data-id={id}
           tabIndex='0'
         >
-          {React.cloneElement(children, { isHidden: true })}
+          {React.cloneElement(children, { isHidden: true, cachedHeight })}
         </article>
       )
     }
@@ -155,7 +155,7 @@ class IntersectionObserverArticle extends React.Component {
         data-id={id}
         tabIndex='0'
       >
-        {React.cloneElement(children, { isHidden: false, isIntersecting })}
+        {React.cloneElement(children, { isHidden: false, isIntersecting, cachedHeight })}
       </article>
     )
   }

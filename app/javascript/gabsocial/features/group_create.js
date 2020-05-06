@@ -52,7 +52,6 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(changeGroupDescription(value))
 	},
 	onCoverImageChange: (imageData) => {
-		console.log("imageData:", imageData)
 		dispatch(changeGroupCoverImage(imageData))
 	},
 	onResetEditor: () => {

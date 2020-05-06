@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import punycode from 'punycode'
 import { DEFAULT_REL } from '../constants'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Icon from './icon'
 
 const IDNA_PREFIX = 'xn--'
@@ -67,7 +68,7 @@ export default class Card extends ImmutablePureComponent {
     embedded: false,
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!Immutable.is(this.props.card, nextProps.card)) {
       this.setState({ embedded: false })
     }
@@ -111,12 +112,12 @@ export default class Card extends ImmutablePureComponent {
     }
   }
 
-  renderVideo () {
-    const { card }  = this.props
-    const content   = { __html: addAutoPlay(card.get('html')) }
+  renderVideo() {
+    const { card } = this.props
+    const content = { __html: addAutoPlay(card.get('html')) }
     const { width } = this.state
-    const ratio     = card.get('width') / card.get('height')
-    const height    = width / ratio
+    const ratio = card.get('width') / card.get('height')
+    const height = width / ratio
 
     return (
       <div
@@ -127,7 +128,7 @@ export default class Card extends ImmutablePureComponent {
     )
   }
 
-  render () {
+  render() {
     const { card } = this.props
     const { width, embedded } = this.state
 
@@ -175,7 +176,14 @@ export default class Card extends ImmutablePureComponent {
     const thumbnail = interactive ?
       <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.posAbs, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
-      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width330PX, _s.height220PX].join(' ')} />
+      (
+        <ResponsiveClassesComponent
+          classNames={[_s.default, _s.height220PX, _s.width330PX].join(' ')}
+          classNamesSmall={[_s.default, _s.height260PX, _s.width100PC].join(' ')}
+        >
+          <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width100PC, _s.height100PC].join(' ')} />
+        </ResponsiveClassesComponent>
+      )
 
     if (interactive) {
       if (embedded) {
@@ -193,9 +201,9 @@ export default class Card extends ImmutablePureComponent {
           <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
             <div className={[_s.default, _s.width100PC].join(' ')}>
               <div className={[_s.default, _s.width100PC, _s.pt5625PC].join(' ')}>
-                { !!embed && embed}
-                { !embed && thumbnail}
-                { !embed &&
+                {!!embed && embed}
+                {!embed && thumbnail}
+                {!embed &&
                   <div className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
                     <button
                       className={[_s.default, _s.cursorPointer, _s.bgBlackOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
@@ -229,12 +237,17 @@ export default class Card extends ImmutablePureComponent {
       <div className={[_s.default, _s.width100PC, _s.px10].join(' ')}>
         <a
           href={card.get('url')}
-          className={[_s.default, _s.cursorPointer, _s.flexRow, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bgSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
           rel={DEFAULT_REL}
           ref={this.setRef}
+          className={[_s.default, _s.cursorPointer, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bgSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
         >
-          {embed}
-          {description}
+          <ResponsiveClassesComponent
+            classNames={[_s.default, _s.flexRow, _s.width100PC].join(' ')}
+            classNamesSmall={!cardImg ? undefined : [_s.default, _s.width100PC].join(' ')}
+          >
+            {embed}
+            {description}
+          </ResponsiveClassesComponent>
         </a>
       </div>
     )

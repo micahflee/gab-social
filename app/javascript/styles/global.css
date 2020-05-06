@@ -228,6 +228,7 @@ body {
 .alignItemsCenter { align-items: center; }
 
 .justifyContentSpaceBetween { justify-content: space-between; }
+.justifyContentSpaceAround { justify-content: space-around; }
 .justifyContentCenter { justify-content: center; }
 .justifyContentEnd { justify-content: flex-end; }
 
@@ -390,6 +391,7 @@ body {
 .top50PC { top: 50%; }
 
 .bottom0 { bottom: 0; }
+.bottom50PX { bottom: 50px; }
 .bottomAuto { bottom: auto; }
 
 .left0 { left: 0px; }
@@ -504,6 +506,10 @@ body {
   .width240PX {
     width: 230px;
   }
+
+  .width1255PX {
+    width: 1140px;
+  }
 }
 
 @media (min-width: 1080px) and (max-width: 1160px) {
@@ -522,6 +528,10 @@ body {
   .width240PX {
     width: 210px;
   }
+
+  .width1255PX {
+    width: 1060px;
+  }
 }
 
 @media (min-width: 992px) and (max-width: 1080px) {
@@ -539,6 +549,10 @@ body {
 
   .width240PX {
     width: 100px;
+  }
+
+  .width1255PX {
+    width: 950px;
   }
 }
 
@@ -561,6 +575,10 @@ body {
 
   .width240PX {
     width: 0px;
+  }
+
+  .width1255PX {
+    width: 100%;
   }
 }
 

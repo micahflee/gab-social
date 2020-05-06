@@ -2,10 +2,10 @@ import Sticky from 'react-stickynode'
 import Sidebar from '../components/sidebar'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import NavigationBar from '../components/navigation_bar'
-// : todo :
-// import Footer from '../components/footer'
+import FooterBar from '../components/footer_bar'
 import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
 export default class Layout extends PureComponent {
 
@@ -55,48 +55,57 @@ export default class Layout extends PureComponent {
               />
             </Responsive>
           }
+          
+          <ResponsiveClassesComponent
+            classNames={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesSmall={[_s.default, _s.width100PC].join(' ')}
+          >
+            <main role='main'>
 
-          <main role='main' className={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}>
+              <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
 
-            <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
+                {
+                  noRightSidebar && children
+                }
 
-              {
-                noRightSidebar && children
-              }
-
-              {
-                !noRightSidebar &&
-                <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
-                  <div className={_s.default}>
-                    {children}
+                {
+                  !noRightSidebar &&
+                  <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
+                    <div className={_s.default}>
+                      {children}
+                    </div>
                   </div>
-                </div>
-              }
+                }
 
-              {
-                !noRightSidebar &&
-                <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                  <div className={[_s.default, _s.width340PX, _s.ml15].join(' ')}>
-                    <Sticky top={73} enabled>
-                      <div className={[_s.default, _s.width340PX].join(' ')}>
-                        {layout}
-                      </div>
-                    </Sticky>
-                  </div>
-                </Responsive>
-              }
+                {
+                  !noRightSidebar &&
+                  <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                    <div className={[_s.default, _s.width340PX, _s.ml15].join(' ')}>
+                      <Sticky top={73} enabled>
+                        <div className={[_s.default, _s.width340PX].join(' ')}>
+                          {layout}
+                        </div>
+                      </Sticky>
+                    </div>
+                  </Responsive>
+                }
 
-              {
-                !noComposeButton &&
-                <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                  <FloatingActionButton />
-                </Responsive>
-              }
+                {
+                  !noComposeButton &&
+                  <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                    <FloatingActionButton />
+                  </Responsive>
+                }
 
-            </div>
+              </div>
 
-          </main>
+            </main>
+          </ResponsiveClassesComponent>
         </div>
+
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          <FooterBar title={title} />
+        </Responsive>
       </div>
     )
   }

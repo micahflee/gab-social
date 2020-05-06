@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Avatar from './avatar'
 import Block from './block'
 import Heading from './heading'
@@ -52,7 +53,10 @@ class TimelineComposeBlock extends ImmutablePureComponent {
 
     return (
       <section className={[_s.default, _s.mb15].join(' ')}>
-        <Block>
+        <ResponsiveClassesComponent
+          classNames={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}
+          classNamesXS={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden].join(' ')}
+        >
           <div className={[_s.default, _s.bgSubtle, _s.borderTop1PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.alignItemsCenter, _s.flexRow].join(' ')}>
             <div className={_s.mr10}>
               <Avatar account={account} size={20} noHover />
@@ -62,7 +66,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
             </Heading>
           </div>
           <ComposeFormContainer {...rest} />
-        </Block>
+        </ResponsiveClassesComponent>
       </section>
     )
   }

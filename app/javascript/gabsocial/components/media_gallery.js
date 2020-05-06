@@ -253,6 +253,7 @@ class MediaGallery extends PureComponent {
     visible: PropTypes.bool,
     onToggleVisibility: PropTypes.func,
     reduced: PropTypes.bool,
+    isComment: PropTypes.bool,
   };
 
   static defaultProps = {

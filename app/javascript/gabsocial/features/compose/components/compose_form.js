@@ -277,8 +277,6 @@ class ComposeForm extends ImmutablePureComponent {
       displayNone: length(this.props.text) === 0 || anyMedia,
     })
 
-    console.log("reduxReplyToId:", reduxReplyToId, shouldCondense, isModalOpen)
-
     return (
       <div className={parentContainerClasses}>
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>

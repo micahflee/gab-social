@@ -175,7 +175,7 @@ class Comment extends ImmutablePureComponent {
                   isComment
                   collapsable
                 />
-                <div className={[_s.default].join(' ')}>
+                <div className={[_s.default, _s.mt5].join(' ')}>
                   <StatusMedia
                     isComment
                     status={status}

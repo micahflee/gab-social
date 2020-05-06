@@ -1,12 +1,13 @@
 'use strict'
 
 import detectPassiveEvents from 'detect-passive-events'
-
-const BREAKPOINT_EXTRA_LARGE = 1480
-const BREAKPOINT_LARGE = 1280
-const BREAKPOINT_MEDIUM = 1160
-const BREAKPOINT_SMALL = 1080
-const BREAKPOINT_EXTRA_SMALL = 992
+import {
+  BREAKPOINT_EXTRA_LARGE,
+  BREAKPOINT_LARGE,
+  BREAKPOINT_MEDIUM,
+  BREAKPOINT_SMALL,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
 
 const LAYOUT_BREAKPOINT = 630
 
@@ -32,20 +33,6 @@ export function breakpointSmall(width) {
 
 export function breakpointExtraSmall(width) {
   return width < BREAKPOINT_EXTRA_SMALL
-}
-
-export function getScreenBreakpoint(width) {
-  if (width > BREAKPOINT_EXTRA_LARGE) {
-    return 'BREAKPOINT_EXTRA_LARGE'
-  } else if (width > BREAKPOINT_MEDIUM && width < BREAKPOINT_LARGE) {
-    return 'BREAKPOINT_LARGE'
-  } else if (width > BREAKPOINT_SMALL && width < BREAKPOINT_MEDIUM) {
-    return 'BREAKPOINT_MEDIUM'
-  } else if (width > BREAKPOINT_EXTRA_SMALL && width < BREAKPOINT_SMALL) {
-    return 'BREAKPOINT_SMALL'
-  } else {
-    return 'BREAKPOINT_EXTRA_SMALL'
-  }
 }
 
 export const getWindowDimension = () => {

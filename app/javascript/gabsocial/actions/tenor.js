@@ -40,7 +40,6 @@ export const fetchGifResults = (expand) => {
     const pos = 0 //expand ? getState().getIn(['tenor', 'results'], []).length
 
     api(getState).get('/api/v1/gifs/search', { search, pos }).then((response) => {
-      console.log("response.data:", response.data)
       dispatch(fetchGifResultsSuccess(response.data))
     }).catch(function (error) {
       dispatch(fetchGifResultsFail(error))

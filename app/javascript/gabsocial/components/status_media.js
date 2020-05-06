@@ -69,6 +69,7 @@ export default class StatusMedia extends ImmutablePureComponent {
             {Component => (
               <Component
                 inline
+                isComment={isComment}
                 preview={video.get('preview_url')}
                 blurhash={video.get('blurhash')}
                 src={video.get('url')}
@@ -90,6 +91,7 @@ export default class StatusMedia extends ImmutablePureComponent {
           <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMedia}>
             {Component => (
               <Component
+                isComment={isComment}
                 reduced={isChild}
                 media={status.get('media_attachments')}
                 sensitive={status.get('sensitive')}
@@ -110,6 +112,7 @@ export default class StatusMedia extends ImmutablePureComponent {
           onOpenMedia={onOpenMedia}
           cacheWidth={cacheWidth}
           defaultWidth={defaultWidth}
+          isComment={isComment}
         />
       )
     }

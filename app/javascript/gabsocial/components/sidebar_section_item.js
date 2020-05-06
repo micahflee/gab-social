@@ -1,9 +1,11 @@
-import classNames from 'classnames/bind'
+import {
+  CX,
+  BREAKPOINT_SMALL
+} from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Image from './image'
-
-const cx = classNames.bind(_s)
+import Responsive from '../features/ui/util/responsive_component'
 
 export default class SidebarSectionItem extends PureComponent {
 
@@ -57,7 +59,7 @@ export default class SidebarSectionItem extends PureComponent {
     const shouldShowActive = hovering || active || currentPathname === to || currentPathname === href
     const isNotifications = to === '/notifications'
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       maxWidth100PC: 1,
       width100PC: 1,
@@ -74,7 +76,7 @@ export default class SidebarSectionItem extends PureComponent {
       bgPrimary: shouldShowActive,
     })
 
-    const textClasses = cx({
+    const textClasses = CX({
       default: 1,
       fontWeightNormal: 1,
       fs15PX: 1,
@@ -83,11 +85,11 @@ export default class SidebarSectionItem extends PureComponent {
       colorPrimary: 1,
     })
 
-    const iconClasses = cx({
+    const iconClasses = CX({
       fillPrimary: 1,
     })
 
-    const countClasses = cx({
+    const countClasses = CX({
       default: 1,
       text: 1,
       mlAuto: 1,
@@ -130,9 +132,11 @@ export default class SidebarSectionItem extends PureComponent {
             />
           }
           
-          <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
-            <span className={textClasses}>{title}</span>
-          </div>
+          <Responsive min={BREAKPOINT_SMALL}>
+            <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
+              <span className={textClasses}>{title}</span>
+            </div>
+          </Responsive>
 
           {
             count > 0 &&

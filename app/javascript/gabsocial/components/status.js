@@ -4,7 +4,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
 import classNames from 'classnames/bind'
 import { me, displayMedia, compactMode } from '../initial_state'
+import scheduleIdleTask from '../utils/schedule_idle_task'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
+import ColumnIndicator from './column_indicator'
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
 import StatusActionBar from './status_action_bar'
@@ -133,12 +136,14 @@ class Status extends ImmutablePureComponent {
     if (nextProps.isChild) return null
 
     if (!nextProps.isHidden && (nextProps.isIntersecting || !nextProps.commentsLimited) && !prevState.loadedComments) {
+      console.log("111111111111111111111111111111111111", nextProps.isHidden, nextProps.isIntersecting)
       return {
         loadedComments: true
       }
     }
 
     if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
+      console.log("2222222222222222222222222222222222222")
       return {
         loadedComments: false, //reset
         showMedia: defaultMediaVisibility(nextProps.status),
@@ -154,12 +159,14 @@ class Status extends ImmutablePureComponent {
     // timeline lazy loading comments
     if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild) {
       const commentCount = this.props.status.get('replies_count')
-      if (commentCount > 0 && !this.props.isComment) {
-        this.props.onFetchComments(this.props.status.get('id'))
-        // this._measureHeight(prevState.height !== this.state.height)
-      } else {
-        console.log("before fetch:", this.props.status)
+      if (this.props.isComment) {
         this.props.onFetchContext(this.props.status.get('id'))
+        this._measureHeight(prevState.height !== this.state.height)
+      } else {
+        if (commentCount > 0) {
+          this._measureHeight(prevState.height !== this.state.height)
+          this.props.onFetchComments(this.props.status.get('id'))
+        }
       }
     }
 
@@ -170,6 +177,7 @@ class Status extends ImmutablePureComponent {
 
       if (snapshot !== null && this.props.updateScrollBottom) {
         if (this.node && this.node.offsetTop < snapshot.top) {
+          console.log("updateScrollBottom")
           this.props.updateScrollBottom(snapshot.height - snapshot.top)
         }
       }
@@ -332,15 +340,15 @@ class Status extends ImmutablePureComponent {
     return status
   }
 
-  _measureHeight (heightJustChanged) {
+  _measureHeight(heightJustChanged) {
     try {
       scheduleIdleTask(() => this.node && this.setState({ height: Math.ceil(this.node.scrollHeight) + 1 }))
-      
+
       if (heightJustChanged) {
         this.props.onHeightChange()
-      } 
+      }
     } catch (error) {
-      
+      //
     }
   }
 
@@ -360,11 +368,17 @@ class Status extends ImmutablePureComponent {
       commentsLimited,
       ancestorStatus,
       isComment,
+      contextType,
     } = this.props
-    
+    // const { height } = this.state
+
     let { status } = this.props
 
     if (!status) return null
+
+    if (isComment && !ancestorStatus && !isChild) {
+      return <ColumnIndicator type='loading' />
+    }
 
     let reblogContent, rebloggedByText = null
 
@@ -394,31 +408,23 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     }
 
-     if (isHidden) {
-      return (
-        <HotKeys handlers={handlers}>
-          <div ref={this.handleRef} className={classNames({ focusable: !this.props.muted })} tabIndex='0'>
-            {status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}
-            {status.get('content')}
-          </div>
-        </HotKeys>
-      )
-    }
-
-    if (status.get('filtered') || status.getIn(['reblog', 'filtered'])) {
-      return null
-    }
+    const parentClasses = cx({
+      pb15: !isChild && !compactMode,
+    })
 
     const containerClasses = cx({
-      default: 1,
-      pb15: isFeatured,
       radiusSmall: !isChild && !compactMode,
       bgPrimary: !isChild,
       boxShadowBlock: !isChild && !compactMode,
-      outlineNone: 1,
-      mb15: !isChild && !compactMode,
       borderRight1PX: !isChild && compactMode,
       borderLeft1PX: !isChild && compactMode,
+      borderBottom1PX: !isChild && compactMode,
+      borderColorSecondary: !isChild && compactMode,
+    })
+
+    const containerClassesXS = cx({
+      bgPrimary: !isChild,
+      boxShadowBlock: !isChild && !compactMode,
       borderBottom1PX: !isChild && compactMode,
       borderColorSecondary: !isChild && compactMode,
     })
@@ -435,95 +441,117 @@ class Status extends ImmutablePureComponent {
       bgSubtle_onHover: isChild,
     })
 
+    if (status.get('filtered') || status.getIn(['reblog', 'filtered'])) {
+      return null
+    }
+
+    if (isHidden) {
+      return (
+        <HotKeys handlers={handlers}>
+          <div ref={this.handleRef} className={parentClasses} tabIndex='0'>
+            {status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}
+            {status.get('content')}
+          </div>
+        </HotKeys>
+      )
+    }
+
     return (
       <HotKeys handlers={handlers}>
-        <div
-          className={containerClasses}
-          tabIndex={this.props.isMuted ? null : 0}
-          data-featured={isFeatured ? 'true' : null}
-          aria-label={textForScreenReader(intl, status, rebloggedByText)}
-          ref={this.handleRef}
-          onClick={isChild ? this.handleClick : undefined}
-        >
-          <div className={innerContainerClasses}>
+        <div className={parentClasses}>
+          <ResponsiveClassesComponent
+            classNames={containerClasses}
+            classNamesXS={containerClassesXS}
+          >
+            <div
+              className={[_s.default, _s.outlineNone].join(' ')}
+              tabIndex={this.props.isMuted ? null : 0}
+              data-featured={isFeatured ? 'true' : null}
+              aria-label={textForScreenReader(intl, status, rebloggedByText)}
+              ref={this.handleRef}
+              onClick={isChild ? this.handleClick : undefined}
+            >
+              <div className={innerContainerClasses}>
 
-            <div data-id={status.get('id')}>
+                <div data-id={status.get('id')}>
 
-              <StatusPrepend
-                status={this.props.status}
-                isPromoted={isPromoted}
-                isFeatured={isFeatured}
-                isComment={isComment}
-              />
+                  <StatusPrepend
+                    status={this.props.status}
+                    isPromoted={isPromoted}
+                    isFeatured={isFeatured}
+                    isComment={isComment && !isChild}
+                  />
 
-              <StatusHeader status={status} reduced={isChild} />
+                  <StatusHeader status={status} reduced={isChild} />
 
-              <div className={_s.default}>
-                <StatusContent
-                  status={status}
-                  reblogContent={reblogContent}
-                  onClick={this.handleClick}
-                  expanded={!status.get('hidden')}
-                  onExpandedToggle={this.handleExpandedToggle}
-                  collapsable
-                />
+                  <div className={_s.default}>
+                    <StatusContent
+                      status={status}
+                      reblogContent={reblogContent}
+                      onClick={this.handleClick}
+                      expanded={!status.get('hidden')}
+                      onExpandedToggle={this.handleExpandedToggle}
+                      collapsable={contextType !== 'feature'}
+                    />
+                  </div>
+
+                  <StatusMedia
+                    isChild={isChild}
+                    status={status}
+                    onOpenMedia={this.props.onOpenMedia}
+                    cacheWidth={this.props.cacheMediaWidth}
+                    defaultWidth={this.props.cachedMediaWidth}
+                    visible={this.state.showMedia}
+                    onToggleVisibility={this.handleToggleMediaVisibility}
+                    width={this.props.cachedMediaWidth}
+                    onOpenVideo={this.handleOpenVideo}
+                  />
+
+                  {
+                    !!status.get('quote') && !isChild &&
+                    <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
+                      <Status status={status.get('quoted_status')} isChild intl={intl} />
+                    </div>
+                  }
+
+                  {
+                    !isChild &&
+                    <StatusActionBar
+                      status={status}
+                      onFavorite={this.props.onFavorite}
+                      onReply={this.props.onReply}
+                      onRepost={this.props.onRepost}
+                      onShare={this.props.onShare}
+                      onOpenLikes={this.props.onOpenLikes}
+                      onOpenReposts={this.props.onOpenReposts}
+                    />
+                  }
+
+                  {
+                    !isChild && !compactMode && !!me &&
+                    <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
+                      <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
+                    </div>
+                  }
+
+                  {
+                    descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
+                    <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+                  }
+
+                  {
+                    descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
+                    <CommentList
+                      ancestorAccountId={status.getIn(['account', 'id'])}
+                      commentsLimited={commentsLimited}
+                      descendants={descendantsIds}
+                      onViewComments={this.handleClick}
+                    />
+                  }
+                </div>
               </div>
-
-              <StatusMedia
-                isChild={isChild}
-                status={status}
-                onOpenMedia={this.props.onOpenMedia}
-                cacheWidth={this.props.cacheMediaWidth}
-                defaultWidth={this.props.cachedMediaWidth}
-                visible={this.state.showMedia}
-                onToggleVisibility={this.handleToggleMediaVisibility}
-                width={this.props.cachedMediaWidth}
-                onOpenVideo={this.handleOpenVideo}
-              />
-
-              {
-                !!status.get('quote') && !isChild &&
-                <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
-                  <Status status={status.get('quoted_status')} isChild intl={intl} />
-                </div>
-              }
-
-              {
-                !isChild &&
-                <StatusActionBar
-                  status={status}
-                  onFavorite={this.props.onFavorite}
-                  onReply={this.props.onReply}
-                  onRepost={this.props.onRepost}
-                  onShare={this.props.onShare}
-                  onOpenLikes={this.props.onOpenLikes}
-                  onOpenReposts={this.props.onOpenReposts}
-                />
-              }
-
-              {
-                !isChild && !compactMode && !!me &&
-                <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
-                  <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
-                </div>
-              }
-
-              {
-                descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
-                <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}/>
-              }
-              
-              {
-                descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
-                <CommentList
-                  ancestorAccountId={status.getIn(['account', 'id'])}
-                  commentsLimited={commentsLimited}
-                  descendants={descendantsIds}
-                  onViewComments={this.handleClick}
-                />
-              }
             </div>
-          </div>
+          </ResponsiveClassesComponent>
         </div>
       </HotKeys>
     )

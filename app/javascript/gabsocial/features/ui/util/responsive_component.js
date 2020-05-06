@@ -3,6 +3,7 @@ import { getWindowDimension } from '../../../utils/is_mobile'
 const initialState = getWindowDimension()
 
 export default class Responsive extends PureComponent {
+
   static propTypes = {
     min: PropTypes.number,
     max: PropTypes.number,
@@ -18,6 +19,7 @@ export default class Responsive extends PureComponent {
   }
 
   componentDidMount() {
+    this.handleResize()
     window.addEventListener('resize', this.handleResize, false)
   }
 
@@ -43,4 +45,5 @@ export default class Responsive extends PureComponent {
 
     return shouldRender ? children : null
   }
+
 }

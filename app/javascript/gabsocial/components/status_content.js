@@ -169,7 +169,12 @@ class StatusContent extends ImmutablePureComponent {
   }
 
   render() {
-    const { status, intl, isComment } = this.props
+    const {
+      collapsable,
+      intl,
+      isComment,
+      status,
+    } = this.props
     const { collapsed } = this.state
 
     if (status.get('content').length === 0) return null
@@ -302,7 +307,7 @@ class StatusContent extends ImmutablePureComponent {
             onMouseUp={this.handleMouseUp}
           />
           {
-            this.state.collapsed &&
+            this.state.collapsed && collapsable &&
             <Button
               isText
               underlineOnHover
