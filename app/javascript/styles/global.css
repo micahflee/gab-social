@@ -464,6 +464,7 @@ body {
 .width250PX { width: 240px; }
 .width240PX { width: 240px; }
 .width160PX { width: 160px; }
+.width84PX { width: 84px; }
 .width72PX { width: 72px; }
 .width50PX { width: 50px; }
 .width20PX { width: 20px; }
@@ -536,19 +537,19 @@ body {
 
 @media (min-width: 992px) and (max-width: 1080px) {
   .width1015PX {
-    width: 850px;
+    width: 780px;
   }
 
   .width645PX {
-    width: 525px;
+    width: 470px;
   }
 
   .width340PX {
-    width: 300px;
+    width: 285px;
   }
 
   .width240PX {
-    width: 100px;
+    width: 170px;
   }
 
   .width1255PX {
@@ -813,7 +814,7 @@ body {
 }
 
 .highlightedComment {
-  background-color: rgba(224, 234, 66, .3);
+  background-color: rgba(224, 234, 66, .25);
 }
 
 .searchInput::placeholder {

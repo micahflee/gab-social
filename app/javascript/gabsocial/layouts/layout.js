@@ -6,6 +6,7 @@ import FooterBar from '../components/footer_bar'
 import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
+import Pills from '../components/pills'
 
 export default class Layout extends PureComponent {
 
@@ -41,6 +42,7 @@ export default class Layout extends PureComponent {
           actions={actions}
           tabs={tabs}
           title={title}
+          showBackBtn={showBackBtn}
         />
 
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
@@ -58,7 +60,8 @@ export default class Layout extends PureComponent {
           
           <ResponsiveClassesComponent
             classNames={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
-            classNamesSmall={[_s.default, _s.width100PC].join(' ')}
+            classNamesSmall={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesXS={[_s.default, _s.width100PC].join(' ')}
           >
             <main role='main'>
 
@@ -71,6 +74,16 @@ export default class Layout extends PureComponent {
                 {
                   !noRightSidebar &&
                   <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
+
+                    {
+                      !!tabs &&
+                      <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                        <div className={[_s.default, _s.mt10, _s.pb15].join(' ')}>
+                          <Pills pills={tabs} />
+                        </div>
+                      </Responsive>
+                    }
+
                     <div className={_s.default}>
                       {children}
                     </div>

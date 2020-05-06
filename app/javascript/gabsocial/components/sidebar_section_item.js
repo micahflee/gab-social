@@ -1,11 +1,10 @@
 import {
   CX,
-  BREAKPOINT_SMALL
 } from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Image from './image'
-import Responsive from '../features/ui/util/responsive_component'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
 export default class SidebarSectionItem extends PureComponent {
 
@@ -76,19 +75,6 @@ export default class SidebarSectionItem extends PureComponent {
       bgPrimary: shouldShowActive,
     })
 
-    const textClasses = CX({
-      default: 1,
-      fontWeightNormal: 1,
-      fs15PX: 1,
-      text: 1,
-      textOverflowEllipsis: 1,
-      colorPrimary: 1,
-    })
-
-    const iconClasses = CX({
-      fillPrimary: 1,
-    })
-
     const countClasses = CX({
       default: 1,
       text: 1,
@@ -118,7 +104,7 @@ export default class SidebarSectionItem extends PureComponent {
         <div className={containerClasses}>
           {
             icon && 
-            <Icon id={icon} className={iconClasses} size={iconSize} />
+            <Icon id={icon} className={_s.fillPrimary} size={iconSize} />
           }
           
           {
@@ -132,11 +118,14 @@ export default class SidebarSectionItem extends PureComponent {
             />
           }
           
-          <Responsive min={BREAKPOINT_SMALL}>
-            <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
-              <span className={textClasses}>{title}</span>
-            </div>
-          </Responsive>
+          <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
+            <ResponsiveClassesComponent
+              classNames={[_s.default, _s.fontWeightNormal, _s.fs15PX, _s.text, _s.textOverflowEllipsis, _s.colorPrimary].join(' ')}
+              classNamesSmall={[_s.default, _s.fontWeightNormal, _s.fs13PX, _s.text, _s.textOverflowEllipsis, _s.colorPrimary].join(' ')}
+            >
+              {title}
+            </ResponsiveClassesComponent>
+          </div>
 
           {
             count > 0 &&

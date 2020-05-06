@@ -13,7 +13,6 @@ import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
 import Pills from './pills'
-import Divider from './divider'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },

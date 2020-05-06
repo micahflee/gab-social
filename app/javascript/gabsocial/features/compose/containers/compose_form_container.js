@@ -76,6 +76,7 @@ const mapStateToProps = (state, { replyToId }) => {
 const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId }) => ({
 
   onChange(text, markdown, newReplyToId) {
+    // : todo :
     console.log("text:", text, newReplyToId, replyToId, reduxReplyToId)
     dispatch(changeCompose(text, markdown, newReplyToId))
   },
