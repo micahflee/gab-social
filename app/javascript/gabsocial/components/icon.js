@@ -6,6 +6,7 @@ import ArrowRightIcon from '../assets/arrow_right_icon'
 import AudioIcon from '../assets/audio_icon'
 import AudioMuteIcon from '../assets/audio_mute_icon'
 import BackIcon from '../assets/back_icon'
+import BlockIcon from '../assets/block_icon'
 import BlockquoteIcon from '../assets/blockquote_icon'
 import BoldIcon from '../assets/bold_icon'
 import CalendarIcon from '../assets/calendar_icon'
@@ -61,6 +62,7 @@ import ShopIcon from '../assets/shop_icon'
 import StrikethroughIcon from '../assets/strikethrough_icon'
 import SubtractIcon from '../assets/subtract_icon'
 import TextSizeIcon from '../assets/text_size_icon'
+import TrashIcon from '../assets/trash_icon'
 import TrendsIcon from '../assets/trends_icon'
 import ULListIcon from '../assets/ul_list_icon'
 import UnderlineIcon from '../assets/underline_icon'
@@ -78,6 +80,7 @@ const ICONS = {
   'audio': AudioIcon,
   'audio-mute': AudioMuteIcon,
   'back': BackIcon,
+  'block': BlockIcon,
   'blockquote': BlockquoteIcon,
   'bold': BoldIcon,
   'calendar': CalendarIcon,
@@ -132,6 +135,7 @@ const ICONS = {
   'strikethrough': StrikethroughIcon,
   'subtract': SubtractIcon,
   'text-size': TextSizeIcon,
+  'trash': TrashIcon,
   'trends': TrendsIcon,
   'ul-list': ULListIcon,
   'underline': UnderlineIcon,

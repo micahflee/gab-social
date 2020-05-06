@@ -58,14 +58,23 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(favorite(status))
     }
   },
-  onOpenStatusOptions(status) {
-    dispatch(openPopover('STATUS_OPTOINS', { status }))
+  onOpenStatusOptions(targetRef, status) {
+    dispatch(openPopover('STATUS_OPTIONS', {
+      targetRef,
+      status,
+      position: 'top',
+    }))
   },
   onOpenLikes(status) {
     dispatch(openModal('STATUS_LIKES', { status }))
   },
   onOpenReposts(status) {
     dispatch(openModal('STATUS_REPOSTS', { status }))
+  },
+  onOpenStatusRevisionsPopover(status) {
+    dispatch(openModal('STATUS_REVISIONS', {
+      status,
+    }))
   },
 })
 
@@ -87,6 +96,7 @@ class Comment extends ImmutablePureComponent {
     onOpenStatusOptions: PropTypes.func.isRequired,
     onOpenLikes: PropTypes.func.isRequired,
     onOpenReposts: PropTypes.func.isRequired,
+    onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
   }
 
   updateOnProps = [
@@ -103,6 +113,10 @@ class Comment extends ImmutablePureComponent {
     height: undefined,
   }
 
+  handleClick = () => {
+    //
+  }
+
   handleOnReply = () => {
     this.props.onReply(this.props.status)
   }
@@ -112,7 +126,11 @@ class Comment extends ImmutablePureComponent {
   }
 
   handleOnOpenStatusOptions = () => {
-    this.props.onOpenStatusOptions(this.props.status)
+    this.props.onOpenStatusOptions(this.moreNode, this.props.status)
+  }
+
+  setMoreNode = (c) => {
+    this.moreNode = c
   }
 
   render() {
@@ -150,7 +168,7 @@ class Comment extends ImmutablePureComponent {
 
     return (
       <div className={[_s.default, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
-        <div className={[_s.default].join(' ')} style={style}>
+        <div className={_s.default} style={style}>
 
           <div className={[_s.default, _s.flexRow].join(' ')}>
             <NavLink
@@ -166,6 +184,7 @@ class Comment extends ImmutablePureComponent {
                 <CommentHeader
                   ancestorAccountId={ancestorAccountId}
                   status={status}
+                  onOpenRevisions={this.props.onOpenStatusRevisionsPopover}
                   onOpenLikes={this.props.onOpenLikes}
                   onOpenReposts={this.props.onOpenReposts}
                 />
@@ -199,10 +218,12 @@ class Comment extends ImmutablePureComponent {
                   title={intl.formatMessage(messages.reply)}
                   onClick={this.handleOnReply}
                 />
-                <CommentButton
-                  title='···'
-                  onClick={this.handleOnOpenStatusOptions}
-                />
+                <div ref={this.setMoreNode}>
+                  <CommentButton
+                    title='···'
+                    onClick={this.handleOnOpenStatusOptions}
+                  />
+                </div>
               </div>
 
             </div>

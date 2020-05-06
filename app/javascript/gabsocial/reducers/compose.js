@@ -269,14 +269,8 @@ export default function compose(state = initialState, action) {
       map.set('caretPosition', null);
       map.set('preselectDate', new Date());
       map.set('idempotencyKey', uuid());
-
-      if (action.status.get('spoiler_text').length > 0) {
-        map.set('spoiler', true);
-        map.set('spoiler_text', action.status.get('spoiler_text'));
-      } else {
-        map.set('spoiler', false);
-        map.set('spoiler_text', '');
-      }
+      map.set('spoiler', false);
+      map.set('spoiler_text', '');
     });
   case COMPOSE_QUOTE:
     return state.withMutations(map => {
@@ -287,14 +281,8 @@ export default function compose(state = initialState, action) {
       map.set('caretPosition', null);
       map.set('preselectDate', new Date());
       map.set('idempotencyKey', uuid());
-
-      if (action.status.get('spoiler_text').length > 0) {
-        map.set('spoiler', true);
-        map.set('spoiler_text', action.status.get('spoiler_text'));
-      } else {
-        map.set('spoiler', false);
-        map.set('spoiler_text', '');
-      }
+      map.set('spoiler', false);
+      map.set('spoiler_text', '');
     });
   case COMPOSE_REPLY_CANCEL:
   case COMPOSE_RESET:

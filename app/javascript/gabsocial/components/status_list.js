@@ -25,6 +25,8 @@ const makeGetStatusIds = () => createSelector([
     const statusForId = statuses.get(id);
     let showStatus    = true;
 
+    console.log("columnSettings:", columnSettings)
+
     if (columnSettings.getIn(['shows', 'reblog']) === false) {
       showStatus = showStatus && statusForId.get('reblog') === null;
     }
@@ -91,7 +93,6 @@ class StatusList extends ImmutablePureComponent {
     queuedItemSize: PropTypes.number,
     onDequeueTimeline: PropTypes.func,
     group: ImmutablePropTypes.map,
-    withGroupAdmin: PropTypes.bool,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
     promotion: PropTypes.object, // : todo :
@@ -164,7 +165,19 @@ class StatusList extends ImmutablePureComponent {
   }
 
   render () {
-    const { statusIds, featuredStatusIds, onLoadMore, timelineId, totalQueuedItemsCount, isLoading, isPartial, withGroupAdmin, group, promotion, promotedStatus, ...other }  = this.props;
+    const {
+      statusIds,
+      featuredStatusIds,
+      onLoadMore,
+      timelineId,
+      totalQueuedItemsCount,
+      isLoading,
+      isPartial,
+      group,
+      promotion,
+      promotedStatus,
+      ...other
+    }  = this.props
 
     if (isPartial) {
       return <ColumnIndicator type='loading' />
@@ -185,9 +198,6 @@ class StatusList extends ImmutablePureComponent {
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           contextType={timelineId}
-          // : todo :
-          // group={group}
-          // withGroupAdmin={withGroupAdmin}
           commentsLimited
         />
       ))

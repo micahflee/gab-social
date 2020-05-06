@@ -31,10 +31,11 @@ class FloatingActionButton extends PureComponent {
     return (
       <Button
         onClick={onOpenCompose}
-        className={[_s.posFixed, _s.z4, _s.py15, _s.mb15, _s.mr15, _s.bottom50PX, _s.right0].join(' ')}
+        className={[_s.posFixed, _s.z4, _s.py15, _s.mb15, _s.mr15, _s.bottom50PX, _s.height60PX, _s.width60PX, _s.right0, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
         title={message}
         aria-label={message}
         icon='pencil'
+        iconSize='20px'
       />
     )
   }

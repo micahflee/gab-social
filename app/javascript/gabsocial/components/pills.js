@@ -1,3 +1,4 @@
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import PillItem from './pill_item'
 
 /**
@@ -14,7 +15,10 @@ export default class Pills extends PureComponent {
     const { pills } = this.props
 
     return (
-      <div className={[_s.default, _s.flexWrap, _s.px5, _s.flexRow].join(' ')}>
+      <ResponsiveClassesComponent
+        classNames={[_s.default, _s.flexWrap, _s.px5, _s.flexRow].join(' ')}
+        classNamesXS={[_s.default, _s.overflowYHidden, _s.overflowXScroll, _s.noScrollbar, _s.pl10, _s.pr15, _s.flexRow].join(' ')}
+      >
         {
           !!pills &&
           pills.map((tab, i) => (
@@ -27,7 +31,7 @@ export default class Pills extends PureComponent {
             />
           ))
         }
-      </div>
+      </ResponsiveClassesComponent>
     )
   }
 

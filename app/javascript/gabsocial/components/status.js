@@ -95,6 +95,7 @@ class Status extends ImmutablePureComponent {
     commentsLimited: PropTypes.bool,
     onOpenLikes: PropTypes.func.isRequired,
     onOpenReposts: PropTypes.func.isRequired,
+    isComposeModalOpen: PropTypes.bool,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -136,14 +137,12 @@ class Status extends ImmutablePureComponent {
     if (nextProps.isChild) return null
 
     if (!nextProps.isHidden && (nextProps.isIntersecting || !nextProps.commentsLimited) && !prevState.loadedComments) {
-      console.log("111111111111111111111111111111111111", nextProps.isHidden, nextProps.isIntersecting)
       return {
         loadedComments: true
       }
     }
 
     if (nextProps.status && nextProps.status.get('id') !== prevState.statusId) {
-      console.log("2222222222222222222222222222222222222")
       return {
         loadedComments: false, //reset
         showMedia: defaultMediaVisibility(nextProps.status),
@@ -369,6 +368,7 @@ class Status extends ImmutablePureComponent {
       ancestorStatus,
       isComment,
       contextType,
+      isComposeModalOpen,
     } = this.props
     // const { height } = this.state
 
@@ -423,10 +423,12 @@ class Status extends ImmutablePureComponent {
     })
 
     const containerClassesXS = cx({
+      default: 1,
       bgPrimary: !isChild,
       boxShadowBlock: !isChild && !compactMode,
+      borderTop1PX: !isChild,
       borderBottom1PX: !isChild && compactMode,
-      borderColorSecondary: !isChild && compactMode,
+      borderColorSecondary: !isChild,
     })
 
     const innerContainerClasses = cx({
@@ -482,7 +484,10 @@ class Status extends ImmutablePureComponent {
                     isComment={isComment && !isChild}
                   />
 
-                  <StatusHeader status={status} reduced={isChild} />
+                  <StatusHeader
+                    status={status}
+                    reduced={isChild}
+                  />
 
                   <div className={_s.default}>
                     <StatusContent
@@ -497,6 +502,7 @@ class Status extends ImmutablePureComponent {
 
                   <StatusMedia
                     isChild={isChild}
+                    isComposeModalOpen={isComposeModalOpen}
                     status={status}
                     onOpenMedia={this.props.onOpenMedia}
                     cacheWidth={this.props.cacheMediaWidth}

@@ -91,7 +91,6 @@ class GroupTimeline extends ImmutablePureComponent {
 				timelineId={`group:${id}`}
 				onLoadMore={this.handleLoadMore}
 				group={group}
-				withGroupAdmin={relationships && relationships.get('admin')}
 				emptyMessage={intl.formatMessage(messages.empty)}
 			/>
 		)

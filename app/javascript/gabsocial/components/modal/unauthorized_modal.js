@@ -23,23 +23,24 @@ class UnauthorizedModal extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, onClose } = this.props
 
     return (
       <ModalLayout
         title={intl.formatMessage(messages.signup)}
         onClose={onClose}
+        width={400}
       >
         <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
-          <Text className={_s.mb15}>
+          <Text className={_s.mb15} align='center'>
             {intl.formatMessage(messages.text)}
           </Text>
-          <Button href='/auth/sign_up' className={[_s.width240PX, _s.mlAuto, _s.mlAuto].join(' ')}>
+          <Button isBlock href='/auth/sign_up' className={[_s.mr15, _s.ml15, _s.mlAuto, _s.mrAuto].join(' ')}>
             {intl.formatMessage(messages.register)}
           </Button>
         </div>
-        <div className={[_s.default, _s.px10, _s.py10].join(' ')}>
-          <Text color='secondary'>
+        <div className={[_s.default, _s.px10, _s.py5].join(' ')}>
+          <Text color='secondary' size='small' align='center'>
             {
               intl.formatMessage(messages.login, {
                 login: (

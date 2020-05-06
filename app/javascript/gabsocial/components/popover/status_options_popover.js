@@ -1,7 +1,28 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { defineMessages, injectIntl } from 'react-intl'
-import { me, isStaff } from '../../initial_state'
+import { FormattedMessage, defineMessages, injectIntl } from 'react-intl'
+import { me, isStaff, boostModal, deleteModal } from '../../initial_state'
+import {
+  repost,
+  unrepost,
+  pin,
+  unpin,
+} from '../../actions/interactions';
+import {
+  muteStatus,
+  unmuteStatus,
+  deleteStatus,
+  editStatus,
+} from '../../actions/statuses';
+import {
+  fetchGroupRelationships,
+  createRemovedAccount,
+  groupRemoveStatus,
+} from '../../actions/groups'
+import { initMuteModal } from '../../actions/mutes'
+import { initReport } from '../../actions/reports'
+import { openModal } from '../../actions/modal'
+import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
@@ -16,7 +37,7 @@ const messages = defineMessages({
   replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
   repost: { id: 'repost', defaultMessage: 'Repost' },
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
-  repost_private: { id: 'status.repost_private', defaultMessage: 'Repost to original audience' },
+  repost_private: { id: 'status.repost', defaultMessage: 'Repost' },
   cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
   cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
@@ -30,14 +51,128 @@ const messages = defineMessages({
   admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
   group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
   group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
+  repostWithComment: { id: 'repost_with_comment', defaultMessage: 'Repost with comment' },
 })
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { status }) => {
+  if (!me) return null
 
-})
+  const groupId = status ? status.getIn(['group', 'id']) : undefined
+  const groupRelationships = state.getIn(['group_relationships', groupId])
+
+  return {
+    groupId,
+    groupRelationships,
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
 
+  onMuteConversation(status) {
+    dispatch(closePopover())
+
+    if (status.get('muted')) {
+      dispatch(unmuteStatus(status.get('id')))
+    } else {
+      dispatch(muteStatus(status.get('id')))
+    }
+  },
+
+  onPin(status) {
+    dispatch(closePopover())
+
+    if (status.get('pinned')) {
+      dispatch(unpin(status))
+    } else {
+      dispatch(pin(status))
+    }
+  },
+
+  onQuote(status, router) {
+    dispatch(closePopover())
+
+    dispatch((_, getState) => {
+      const state = getState()
+      if (state.getIn(['compose', 'text']).trim().length !== 0) {
+        dispatch(openModal(MODAL_CONFIRM, {
+          message: intl.formatMessage(messages.quoteMessage),
+          confirm: intl.formatMessage(messages.quoteConfirm),
+          onConfirm: () => dispatch(quoteCompose(status, router)),
+        }))
+      } else {
+        dispatch(quoteCompose(status, router))
+      }
+    })
+  },
+
+  onRepost(status) {
+    dispatch(closePopover())
+    const alreadyReposted = status.get('reblogged')
+
+    if (boostModal && !alreadyReposted) {
+      dispatch(openModal(MODAL_BOOST, {
+        status,
+        onRepost: () => dispatch(repost(status)),
+      }))
+    } else {
+      if (alreadyReposted) {
+        dispatch(unrepost(status))
+      } else {
+        dispatch(repost(status))
+      }
+    }
+  },
+
+  onDelete(status, history) {
+    dispatch(closePopover())
+
+    if (!deleteModal) {
+      dispatch(deleteStatus(status.get('id'), history))
+    } else {
+      dispatch(openModal('CONFIRM', {
+        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
+        confirm: <FormattedMessage id='confirmations.delete.confirm' defaultMessage='Delete' />,
+        onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
+      }))
+    }
+  },
+
+  onEdit(status) {
+    dispatch(closePopover())
+    dispatch(editStatus(status))
+  },
+
+  onMute(account) {
+    dispatch(closePopover())
+    dispatch(initMuteModal(account))
+  },
+
+  onBlock(status) {
+    dispatch(closePopover())
+    const account = status.get('account')
+    dispatch(openModal('BLOCK_ACCOUNT', {
+      accountId: account.get('id'),
+    }))
+  },
+
+  onReport(status) {
+    dispatch(closePopover())
+    dispatch(initReport(status.get('account'), status))
+  },
+
+  onGroupRemoveAccount(groupId, accountId) {
+    dispatch(closePopover())
+    dispatch(createRemovedAccount(groupId, accountId))
+  },
+
+  onGroupRemoveStatus(groupId, statusId) {
+    dispatch(closePopover())
+    dispatch(groupRemoveStatus(groupId, statusId))
+  },
+
+  onFetchGroupRelationships(groupId) {
+    dispatch(fetchGroupRelationships([groupId]))
+  }
 })
 
 export default
@@ -47,184 +182,187 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
-    account: ImmutablePropTypes.map.isRequired,
-    onOpenUnauthorizedModal: PropTypes.func.isRequired,
-    onOpenStatusSharePopover: PropTypes.func.isRequired,
-    onReply: PropTypes.func,
-    onQuote: PropTypes.func,
-    onFavorite: PropTypes.func,
-    onRepost: PropTypes.func,
-    onDelete: PropTypes.func,
-    onMention: PropTypes.func,
-    onMute: PropTypes.func,
-    onBlock: PropTypes.func,
-    onReport: PropTypes.func,
-    onMuteConversation: PropTypes.func,
-    onPin: PropTypes.func,
+    groupRelationships: ImmutablePropTypes.map,
+    groupId: PropTypes.string,
+    onQuote: PropTypes.func.isRequired,
+    onRepost: PropTypes.func.isRequired,
+    onDelete: PropTypes.func.isRequired,
+    onMute: PropTypes.func.isRequired,
+    onBlock: PropTypes.func.isRequired,
+    onReport: PropTypes.func.isRequired,
+    onMuteConversation: PropTypes.func.isRequired,
+    onPin: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
+    onFetchGroupRelationships: PropTypes.func.isRequired,
   }
 
   updateOnProps = [
     'status',
-    'account',
+    'groupRelationships',
   ]
 
-  handleConversationMuteClick = () => {
-    this.props.onMuteConversation(this.props.status);
+  componentDidMount() {
+    if (!this.props.groupRelationships && this.props.groupId) {
+      this.props.onFetchGroupRelationships(this.props.groupId)
+    }
   }
-  
-  handleGroupRemoveAccount = () => {
-    const { status } = this.props;
 
-    this.props.onGroupRemoveAccount(status.getIn(['group', 'id']), status.getIn(['account', 'id']));
+  handleConversationMuteClick = () => {
+    this.props.onMuteConversation(this.props.status)
+  }
+
+  handleGroupRemoveAccount = () => {
+    const { status } = this.props
+
+    this.props.onGroupRemoveAccount(status.getIn(['group', 'id']), status.getIn(['account', 'id']))
   }
 
   handleGroupRemovePost = () => {
-    const { status } = this.props;
+    const { status } = this.props
 
-    this.props.onGroupRemoveStatus(status.getIn(['group', 'id']), status.get('id'));
+    this.props.onGroupRemoveStatus(status.getIn(['group', 'id']), status.get('id'))
   }
 
   handleReport = () => {
-    this.props.onReport(this.props.status);
+    this.props.onReport(this.props.status)
   }
 
   handleBlockClick = () => {
-    this.props.onBlock(this.props.status);
+    this.props.onBlock(this.props.status)
   }
 
   handleMuteClick = () => {
-    this.props.onMute(this.props.status.get('account'));
-  }
-
-  handleMentionClick = () => {
-    this.props.onMention(this.props.status.get('account'), this.context.router.history);
+    this.props.onMute(this.props.status.get('account'))
   }
 
   handlePinClick = () => {
-    this.props.onPin(this.props.status);
+    this.props.onPin(this.props.status)
   }
 
   handleDeleteClick = () => {
-    this.props.onDelete(this.props.status, this.context.router.history);
+    this.props.onDelete(this.props.status)
   }
 
   handleEditClick = () => {
-    this.props.onEdit(this.props.status);
+    this.props.onEdit(this.props.status)
   }
 
   handleRepostClick = (e) => {
-    if (me) {
-      // this.props.onRepost(this.props.status, e)
-      this.props.onQuote(this.props.status, this.context.router.history)
-    } else {
-      this.props.onOpenUnauthorizedModal()
-    }
+    this.props.onRepost(this.props.status, e)
   }
 
   render() {
     const {
       status,
       intl,
-      account,
+      groupRelationships,
     } = this.props
 
     const mutingConversation = status.get('muted')
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
+    const isReply = !!status.get('in_reply_to_id')
+    const withGroupAdmin = !!groupRelationships ? groupRelationships.get('admin') : false
+    console.log("withGroupAdmin:", withGroupAdmin, groupRelationships ? groupRelationships.get('admin') : '')
 
-    let menu = [];
+    let menu = []
 
     if (me) {
-      // if (status.getIn(['account', 'id']) === me) {
+      if (status.getIn(['account', 'id']) === me) {
         menu.push({
           icon: 'audio-mute',
           hideArrow: true,
           title: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
           onClick: this.handleConversationMuteClick,
         })
-      // }
+      }
 
-      // if (status.getIn(['account', 'id']) === me) {
-      //   if (publicStatus) {
+      if (isReply) {
+        menu.push({
+          icon: 'repost',
+          hideArrow: true,
+          title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
+          onClick: this.handleRepostClick,
+        })
+        menu.push({
+          icon: 'pencil',
+          hideArrow: true,
+          title: intl.formatMessage(messages.repostWithComment),
+          onClick: this.handleRepostClick,
+        })
+      }
+
+      if (status.getIn(['account', 'id']) === me) {
+        if (publicStatus) {
           menu.push({
             icon: 'pin',
             hideArrow: true,
             title: intl.formatMessage(status.get('pinned') ? messages.unpin : messages.pin),
             onClick: this.handlePinClick,
           })
-        // } else {
-          // if (status.get('visibility') === 'private') {
-            menu.push({
-              icon: 'repost',
-              hideArrow: true,
-              title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
-              onClick: this.handleRepostClick
-            })
-        //   }
-        // }
+        }
+        
         menu.push({
           icon: 'trash',
           hideArrow: true,
           title: intl.formatMessage(messages.delete),
-          action: this.handleDeleteClick
-        });
+          onClick: this.handleDeleteClick,
+        })
         menu.push({
           icon: 'pencil',
           hideArrow: true,
-          title: intl.formatMessage(messages.edit), action:
-          this.handleEditClick
-        });
-      // } else {
+          title: intl.formatMessage(messages.edit),
+          onClick: this.handleEditClick,
+        })
+      } else {
         menu.push({
           icon: 'audio-mute',
           hideArrow: true,
           title: intl.formatMessage(messages.mute, { name: status.getIn(['account', 'username']) }),
-          action: this.handleMuteClick
-        });
+          onClick: this.handleMuteClick,
+        })
         menu.push({
-          icon: 'circle',
+          icon: 'block',
           hideArrow: true,
           title: intl.formatMessage(messages.block, { name: status.getIn(['account', 'username']) }),
-          action: this.handleBlockClick
-        });
+          onClick: this.handleBlockClick,
+        })
         menu.push({
-          icon: 'circle',
+          icon: 'warning',
           hideArrow: true,
           title: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }),
-          action: this.handleReport
-        });
+          onClick: this.handleReport,
+        })
 
-        // : todo :
-        // if (withGroupAdmin) {
+        if (withGroupAdmin) {
           menu.push({
-            icon: 'circle',
+            icon: 'trash',
             hideArrow: true,
             title: intl.formatMessage(messages.group_remove_account),
-            action: this.handleGroupRemoveAccount
-          });
+            onClick: this.handleGroupRemoveAccount,
+          })
           menu.push({
-            icon: 'circle',
+            icon: 'trash',
             hideArrow: true,
             title: intl.formatMessage(messages.group_remove_post),
-            action: this.handleGroupRemovePost
-          });
-        // }
+            onClick: this.handleGroupRemovePost,
+          })
+        }
 
-        // if (isStaff) {
+        if (isStaff) {
           menu.push({
             title: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }),
             href: `/admin/accounts/${status.getIn(['account', 'id'])}`
-          });
+          })
           menu.push({
             title: intl.formatMessage(messages.admin_status),
             href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}`
-          });
-        // }
-      // }
+          })
+        }
+      }
     }
 
     return (
-      <PopoverLayout className={_s.width240PX}>
+      <PopoverLayout>
         <List
           size='large'
           scrollKey='profile_options'

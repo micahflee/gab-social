@@ -230,6 +230,7 @@ class StatusContent extends ImmutablePureComponent {
         statusContent: 1,
         px15: !isComment,
         outlineNone: 1,
+        mt5: isComment,
       })
 
       return (
@@ -290,8 +291,10 @@ class StatusContent extends ImmutablePureComponent {
 
       const statusContentClasses = cx({
         statusContent: 1,
-        height215PX: collapsed,
+        height215PX: collapsed & !isComment,
+        height122PX: collapsed && isComment,
         overflowHidden: collapsed,
+        mt5: isComment,
       })
 
       return (

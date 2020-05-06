@@ -238,6 +238,7 @@ body {
 }
 
 .overflowYHidden { overflow-y: hidden; }
+.overflowXScroll { overflow-x: scroll; }
 
 .textOverflowEllipsis {
   max-width: 100%;
@@ -439,6 +440,7 @@ body {
 .height158PX { height: 158px; }
 .height122PX { height: 122px; }
 .height72PX { height: 72px; }
+.height60PX { height: 60px; }
 .height53PX { height: 53px; }
 .height40PX { height: 40px; }
 .height24PX { height: 24px; }
@@ -451,6 +453,7 @@ body {
 
 .maxWidth100PC { max-width: 100%; }
 .maxWidth640PX { max-width: 640px; }
+.maxWidth180PX { max-width: 180px; }
 .maxWidth100PC42PX { max-width: calc(100% - 42px); }
 
 .width100PC { width: 100%; }
@@ -466,6 +469,7 @@ body {
 .width160PX { width: 160px; }
 .width84PX { width: 84px; }
 .width72PX { width: 72px; }
+.width60PX { width: 60px; }
 .width50PX { width: 50px; }
 .width20PX { width: 20px; }
 .width10PX { width: 10px; }
@@ -659,6 +663,7 @@ body {
 .pb10 { padding-bottom: 10px; }
 .pb5 { padding-bottom: 5px; }
 
+.pl35 { padding-left: 35px; }
 .pl25 { padding-left: 25px; }
 .pl15 { padding-left: 15px; }
 .pl10 { padding-left: 10px; }
@@ -828,6 +833,14 @@ body {
 
 .searchInput::-ms-input-placeholder {
   color: rgba(255,255,255,0.65);
+}
+
+.noScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.noScrollbar {
+  -ms-overflow-style: none;
 }
 
 /**

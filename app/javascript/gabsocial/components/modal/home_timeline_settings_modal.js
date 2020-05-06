@@ -61,29 +61,33 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
       >
       
         <div className={[_s.default, _s.pb10].join(' ')}>
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'polls']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showPolls)}
-          />
+          {
+            /*
+            <SettingSwitch
+              prefix='home_timeline'
+              settings={settings}
+              settingPath={['shows', 'polls']}
+              onChange={onChange}
+              label={intl.formatMessage(messages.showPolls)}
+            />
 
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'photos']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showPhotos)}
-          />
+            <SettingSwitch
+              prefix='home_timeline'
+              settings={settings}
+              settingPath={['shows', 'photos']}
+              onChange={onChange}
+              label={intl.formatMessage(messages.showPhotos)}
+            />
 
-          <SettingSwitch
-            prefix='home_timeline'
-            settings={settings}
-            settingPath={['shows', 'videos']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showVideos)}
-          />
+            <SettingSwitch
+              prefix='home_timeline'
+              settings={settings}
+              settingPath={['shows', 'videos']}
+              onChange={onChange}
+              label={intl.formatMessage(messages.showVideos)}
+            />
+            */
+          }
 
           <SettingSwitch
             prefix='home_timeline'

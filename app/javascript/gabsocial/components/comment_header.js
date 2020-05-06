@@ -14,6 +14,7 @@ const messages = defineMessages({
   edited: { id: 'status.edited', defaultMessage: 'Edited' },
   likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
   repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
+  original: { id: 'original_gabber', defaultMessage: 'Original Gabber' },
 })
 
 export default
@@ -24,8 +25,9 @@ class CommentHeader extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     ancestorAccountId: PropTypes.string.isRequired,
     status: ImmutablePropTypes.map.isRequired,
-    openLikesList: PropTypes.func.isRequired,
-    openRepostsList: PropTypes.func.isRequired,
+    onOpenLikes: PropTypes.func.isRequired,
+    onOpenReposts: PropTypes.func.isRequired,
+    onOpenRevisions: PropTypes.func.isRequired,
   }
 
   openLikesList = () => {
@@ -34,6 +36,10 @@ class CommentHeader extends ImmutablePureComponent {
 
   openRepostsList = () => {
     this.props.onOpenReposts(this.props.status)
+  }
+
+  openRevisions = () => {
+    this.props.onOpenRevisions(this.props.status)
   }
 
   render() {
@@ -52,25 +58,48 @@ class CommentHeader extends ImmutablePureComponent {
     const isOwner = ancestorAccountId === status.getIn(['account', 'id'])
 
     return (
-      <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.flexGrow1].join(' ')}>
+      <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.maxWidth100PC, _s.flexGrow1].join(' ')}>
 
-        <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.overflowHidden, _s.width100PC, _s.maxWidth100PC, _s.alignItemsCenter].join(' ')}>
           <NavLink
             className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
             to={`/${status.getIn(['account', 'acct'])}`}
             title={status.getIn(['account', 'acct'])}
           >
-            <DisplayName account={status.get('account')} isSmall />
+            <DisplayName
+              account={status.get('account')}
+              isSmall
+              isComment
+            />
           </NavLink>
 
           {
             isOwner &&
             <div className={[_s.default, _s.alignItemsCenter, _s.ml5].join(' ')}>
               <span className={_s.visiblyHidden}>
-                Original Gabber
+                {intl.formatMessage(messages.original)}
               </span>
               <Icon id='mic' size='10px' className={_s.fillBrand} />
             </div>
+          }
+
+          {
+            !!status.get('group') &&
+            <Fragment>
+              <DotTextSeperator />
+              <Button
+                isText
+                underlineOnHover
+                backgroundColor='none'
+                color='tertiary'
+                to={`/groups/${status.getIn(['group', 'id'])}`}
+                className={_s.ml5}
+              >
+                <Text size='extraSmall' color='inherit'>
+                  {status.getIn(['group', 'title'])}
+                </Text>
+              </Button>
+            </Fragment>
           }
 
           {
@@ -82,7 +111,7 @@ class CommentHeader extends ImmutablePureComponent {
                 underlineOnHover
                 backgroundColor='none'
                 color='tertiary'
-                onClick={this.handleOpenStatusEdits}
+                onClick={this.openRevisions}
                 className={_s.ml5}
               >
                 <Text size='extraSmall' color='inherit'>

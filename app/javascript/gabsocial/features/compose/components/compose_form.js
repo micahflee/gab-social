@@ -14,27 +14,25 @@ import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
 import CharacterCounter from '../../../components/character_counter'
 import EmojiPickerButton from './emoji_picker_button'
-import GifSelectorButton from './gif_selector_button'
 import PollButton from './poll_button'
 import PollForm from './poll_form'
-import RichTextEditorButton from './rich_text_editor_button'
 import SchedulePostButton from './schedule_post_button'
 import SpoilerButton from './spoiler_button'
 import StatusContainer from '../../../containers/status_container'
 import StatusVisibilityButton from './status_visibility_button'
 import UploadButton from './media_upload_button'
 import UploadForm from './upload_form'
-import GifForm from './gif_form'
 import Input from '../../../components/input'
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
   commentPlaceholder: { id: 'compose_form.comment_placeholder', defaultMessage: "Write a comment..." },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Gab' },
+  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
+  publishEdit: { id: 'compose_form.publish_edit', defaultMessage: 'Publish Edit' },
   publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
-});
+})
 
 export default
 @injectIntl
@@ -194,7 +192,7 @@ class ComposeForm extends ImmutablePureComponent {
       }
 
       // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
-    // this.autosuggestTextarea.textbox.focus();
+      // this.autosuggestTextarea.textbox.focus();
     }
   }
 
@@ -241,7 +239,7 @@ class ComposeForm extends ImmutablePureComponent {
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text) !== 0 && length(text.trim()) === 0 && !anyMedia);
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
-  
+
     const parentContainerClasses = CX({
       default: 1,
       width100PC: 1,
@@ -278,158 +276,210 @@ class ComposeForm extends ImmutablePureComponent {
     })
 
     return (
-      <div className={parentContainerClasses}>
-        <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
-          {
-            shouldCondense &&
-            <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
-              <Avatar account={account} size={28} noHover />
+      <div className={[_s.default, _s.width100PC].join(' ')}>
+        {
+          shouldCondense &&
+          <div className={parentContainerClasses}>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+
+              <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
+                <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
+                  <Avatar account={account} size={28} noHover />
+                </div>
+
+                <div
+                  className={childContainerClasses}
+                  ref={this.setForm}
+                  onClick={this.handleClick}
+                >
+
+                  <AutosuggestTextbox
+                    ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+                    placeholder={intl.formatMessage(messages.commentPlaceholder)}
+                    disabled={disabled}
+                    value={this.props.text}
+                    onChange={this.handleChange}
+                    suggestions={this.props.suggestions}
+                    onKeyDown={this.handleKeyDown}
+                    onFocus={this.handleComposeFocus}
+                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                    onSuggestionSelected={this.onSuggestionSelected}
+                    onPaste={onPaste}
+                    autoFocus={shouldAutoFocus}
+                    small={shouldCondense}
+                    textarea
+                  />
+
+                  <div className={actionsContainerClasses}>
+                    <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
+
+                      <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+
+                      <UploadButton small={shouldCondense} />
+
+                      <div className={commentPublishBtnClasses}>
+                        <Button
+                          isNarrow
+                          onClick={this.handleSubmit}
+                          isDisabled={disabledButton}
+                          className={_s.px10}
+                        >
+                          {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+                        </Button>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              {
+                (isUploading || anyMedia) &&
+                <div className={[_s.default, _s.width100PC, _s.pl35, _s.mt5].join(' ')}>
+                  <UploadForm
+                    replyToId={replyToId}
+                    isModalOpen={isModalOpen}
+                  />
+                </div>
+              }
             </div>
-          }
+          </div>
+        }
 
-          <div
-            className={childContainerClasses}
-            ref={this.setForm}
-            onClick={this.handleClick}
-          >
-
-            {
-              !!reduxReplyToId && isModalOpen && !shouldCondense &&
-              <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                <StatusContainer
-                  contextType='compose'
-                  id={reduxReplyToId}
-                  isChild
-                />
-              </div>
-            }
-
-            {
-              !!spoiler &&
-              <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-                <Input
-                  placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-                  value={this.props.spoilerText}
-                  onChange={this.handleChangeSpoilerText}
-                  disabled={!this.props.spoiler}
-                  prependIcon='warning'
-                  maxLength={256}
-                  id='cw-spoiler-input'
-                />
-              </div>
-            }
-
-            <AutosuggestTextbox
-              ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-              placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) ? messages.commentPlaceholder : messages.placeholder)}
-              disabled={disabled}
-              value={this.props.text}
-              onChange={this.handleChange}
-              suggestions={this.props.suggestions}
-              onKeyDown={this.handleKeyDown}
-              onFocus={this.handleComposeFocus}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-              onSuggestionSelected={this.onSuggestionSelected}
-              onPaste={onPaste}
-              autoFocus={shouldAutoFocus}
-              small={shouldCondense}
-              textarea
-            />
-
-            {
-              (isUploading || anyMedia) &&
-              <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
-                <UploadForm replyToId={replyToId} />
-              </div>
-            }
-
-            {
-              /* : todo :
-              !!selectedGifSrc && !anyMedia &&
-              <div className={[_s.default, _s.px15].join(' ')}>
-                <GifForm
-                  replyToId={replyToId}
-                  small={shouldCondense}
-                  selectedGifSrc={selectedGifSrc}
-                />
-              </div>
-              */
-            }
-
-            {
-              !edit && hasPoll &&
-              <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
-                <PollForm replyToId={replyToId} />
-              </div>
-            }
-
-            {
-              !!quoteOfId && isModalOpen &&
-              <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                <StatusContainer
-                  contextType='compose'
-                  id={quoteOfId}
-                  isChild
-                />
-              </div>
-            }
-
-            <div className={actionsContainerClasses}>
-              <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
-                
-                <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
-
-                <UploadButton small={shouldCondense} />
-                { /* <GifSelectorButton small={shouldCondense} /> */ }
-                
-                {
-                  !edit && !shouldCondense &&
-                  <PollButton />
-                }
-                
-                { !shouldCondense && <StatusVisibilityButton /> }
-                { !shouldCondense && <SpoilerButton /> }
-                { !shouldCondense && <SchedulePostButton /> }
-                { /* !shouldCondense && <RichTextEditorButton /> */ }
+        {
+          !shouldCondense &&
+          <div className={parentContainerClasses}>
+            <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
+              <div
+                className={childContainerClasses}
+                ref={this.setForm}
+                onClick={this.handleClick}
+              >
 
                 {
-                  shouldCondense &&
-                  <div className={commentPublishBtnClasses}>
-                    <Button
-                      isNarrow
-                      onClick={this.handleSubmit}
-                      isDisabled={disabledButton}
-                      className={_s.px10}
-                    >
-                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
-                    </Button>
+                  !!reduxReplyToId && isModalOpen &&
+                  <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                    <StatusContainer
+                      contextType='compose'
+                      id={reduxReplyToId}
+                      isChild
+                    />
                   </div>
                 }
+
+                {
+                  !!spoiler &&
+                  <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                    <Input
+                      placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                      value={this.props.spoilerText}
+                      onChange={this.handleChangeSpoilerText}
+                      disabled={!this.props.spoiler}
+                      prependIcon='warning'
+                      maxLength={256}
+                      id='cw-spoiler-input'
+                    />
+                  </div>
+                }
+
+                <AutosuggestTextbox
+                  ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+                  placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
+                  disabled={disabled}
+                  value={this.props.text}
+                  onChange={this.handleChange}
+                  suggestions={this.props.suggestions}
+                  onKeyDown={this.handleKeyDown}
+                  onFocus={this.handleComposeFocus}
+                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                  onSuggestionSelected={this.onSuggestionSelected}
+                  onPaste={onPaste}
+                  autoFocus={shouldAutoFocus}
+                  small={shouldCondense}
+                  textarea
+                />
+
+                {
+                  (isUploading || anyMedia) &&
+                  <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
+                    <UploadForm
+                      replyToId={replyToId}
+                      isModalOpen={isModalOpen}
+                    />
+                  </div>
+                }
+
+                {
+                  /* : todo :
+                  !!selectedGifSrc && !anyMedia &&
+                  <div className={[_s.default, _s.px15].join(' ')}>
+                    <GifForm
+                      replyToId={replyToId}
+                      small={shouldCondense}
+                      selectedGifSrc={selectedGifSrc}
+                    />
+                  </div>
+                  */
+                }
+
+                {
+                  !edit && hasPoll &&
+                  <div className={[_s.default, _s.px15, _s.mt5].join(' ')}>
+                    <PollForm replyToId={replyToId} />
+                  </div>
+                }
+
+                {
+                  !!quoteOfId && isModalOpen &&
+                  <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                    <StatusContainer
+                      contextType='compose'
+                      id={quoteOfId}
+                      isChild
+                    />
+                  </div>
+                }
+
+                <div className={actionsContainerClasses}>
+                  <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
+
+                    <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+
+                    <UploadButton small={shouldCondense} />
+                    { /* <GifSelectorButton small={shouldCondense} /> */}
+
+                    {
+                      !edit &&
+                      <PollButton />
+                    }
+
+                    <StatusVisibilityButton />
+                    <SpoilerButton />
+                    <SchedulePostButton />
+                    { /* !shouldCondense && <RichTextEditorButton /> */}
+                  </div>
+
+                  <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
+
+                  <Button
+                    isOutline
+                    isDisabled={disabledButton}
+                    backgroundColor='none'
+                    color='brand'
+                    className={[_s.fs15PX, _s.px15].join(' ')}
+                    onClick={this.handleSubmit}
+                  >
+                    {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
+                  </Button>
+                </div>
+
               </div>
-
-              {
-                !shouldCondense &&
-                <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
-              }
-
-              {
-                !shouldCondense &&
-                <Button
-                  isOutline
-                  isDisabled={disabledButton}
-                  backgroundColor='none'
-                  color='brand'
-                  className={[_s.fs15PX, _s.px15].join(' ')}
-                  onClick={this.handleSubmit}
-                >
-                  {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
-                </Button>
-              }
             </div>
-
           </div>
-        </div>
+        }
       </div>
     )
   }

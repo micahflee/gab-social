@@ -78,7 +78,7 @@ export default class Layout extends PureComponent {
                     {
                       !!tabs &&
                       <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                        <div className={[_s.default, _s.mt10, _s.pb15].join(' ')}>
+                        <div className={[_s.default, _s.pb15].join(' ')}>
                           <Pills pills={tabs} />
                         </div>
                       </Responsive>

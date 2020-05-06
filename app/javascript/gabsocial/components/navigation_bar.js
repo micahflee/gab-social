@@ -128,7 +128,7 @@ class NavigationBar extends ImmutablePureComponent {
                     noClasses
                     color='primary'
                     backgroundColor='none'
-                    className={[_s.alignItemsCenter, _s.height53PX, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
+                    className={[_s.height53PX, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
                     icon='arrow-left'
                     iconSize='32px'
                     iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}

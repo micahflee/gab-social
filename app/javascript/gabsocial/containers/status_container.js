@@ -9,29 +9,17 @@ import {
   favorite,
   unrepost,
   unfavorite,
-  pin,
-  unpin,
 } from '../actions/interactions';
 import {
-  muteStatus,
-  unmuteStatus,
-  deleteStatus,
-  editStatus,
   hideStatus,
   revealStatus,
   fetchComments,
   fetchContext,
 } from '../actions/statuses';
-import { initMuteModal } from '../actions/mutes';
-import { initReport } from '../actions/reports';
 import { openModal } from '../actions/modal';
 import { openPopover } from '../actions/popover';
-import { me, deleteModal } from '../initial_state';
-import {
-  createRemovedAccount,
-  groupRemoveStatus,
-} from '../actions/groups';
-import { makeGetStatus } from '../selectors';
+import { me } from '../initial_state';
+import { makeGetStatus } from '../selectors'
 import Status from '../components/status';
 
 const getDescendants = (state, status, highlightStatusId) => {
@@ -123,6 +111,7 @@ const makeMapStateToProps = () => {
       ancestorStatus,
       descendantsIds,
       isComment,
+      isComposeModalOpen: state.getIn(['modal', 'modalType']) === 'COMPOSE',
     }
   }
 
@@ -195,36 +184,6 @@ const mapDispatchToProps = (dispatch) => ({
     }
   },
 
-  onPin (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    if (status.get('pinned')) {
-      dispatch(unpin(status));
-    } else {
-      dispatch(pin(status));
-    }
-  },
-
-  onDelete (status, history) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-    
-    if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history));
-    } else {
-      dispatch(openModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
-        confirm: <FormattedMessage id='confirmations.delete.confirm' defaultMessage='Delete' />,
-        onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
-      }));
-    }
-  },
-
-  onEdit (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    dispatch(editStatus(status));
-  },
-
   onMention (account, router) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
@@ -239,35 +198,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openModal('VIDEO', { media, time }));
   },
 
-  onBlock (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    const account = status.get('account')
-    dispatch(openModal('BLOCK_ACCOUNT', {
-      accountId: account.get('id'),
-    }))
-  },
-
-  onReport (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    dispatch(initReport(status.get('account'), status));
-  },
-
-  onMute (account) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    dispatch(initMuteModal(account));
-  },
-
-  onMuteConversation (status) {
-    if (status.get('muted')) {
-      dispatch(unmuteStatus(status.get('id')));
-    } else {
-      dispatch(muteStatus(status.get('id')));
-    }
-  },
-
   onToggleHidden (status) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
@@ -276,18 +206,6 @@ const mapDispatchToProps = (dispatch) => ({
     } else {
       dispatch(hideStatus(status.get('id')));
     }
-  },
-
-  onGroupRemoveAccount(groupId, accountId) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    dispatch(createRemovedAccount(groupId, accountId));
-  },
-
-  onGroupRemoveStatus(groupId, statusId) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    dispatch(groupRemoveStatus(groupId, statusId));
   },
 
   onFetchComments(statusId) {

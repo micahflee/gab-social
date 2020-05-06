@@ -15,8 +15,9 @@ export default
 class UploadForm extends ImmutablePureComponent {
 
   static propTypes = {
-    mediaIds: ImmutablePropTypes.list.isRequired,
+    isModalOpen: PropTypes.bool,
     isUploading: PropTypes.bool,
+    mediaIds: ImmutablePropTypes.list.isRequired,
     uploadProgress: PropTypes.number,
   };
 

@@ -32,6 +32,7 @@ class DisplayName extends ImmutablePureComponent {
     noHover: PropTypes.bool,
     noRelationship: PropTypes.bool,
     noUsername: PropTypes.bool,
+    isComment: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -42,6 +43,7 @@ class DisplayName extends ImmutablePureComponent {
     'noHover',
     'noRelationship',
     'noUsername',
+    'isComment',
   ]
 
   mouseOverTimeout = null
@@ -77,7 +79,8 @@ class DisplayName extends ImmutablePureComponent {
       noHover,
       noUsername,
       noRelationship,
-      isSmall
+      isSmall,
+      isComment,
     } = this.props
 
     if (!account) return null
@@ -122,6 +125,7 @@ class DisplayName extends ImmutablePureComponent {
 
     const iconSize =
       !!isLarge ? '19px' :
+      !!isComment ? '12px' :
       !!isSmall ? '14px' : '15px'
 
     const domain = account.get('acct').split('@')[1]
@@ -153,7 +157,7 @@ class DisplayName extends ImmutablePureComponent {
         onMouseLeave={noHover ? undefined : this.handleMouseLeave}
         ref={this.setRef}
       >
-        <span className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+        <span className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.maxWidth180PX, _s.maxWidth100PC].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}

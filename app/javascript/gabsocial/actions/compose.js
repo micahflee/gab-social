@@ -1,4 +1,5 @@
 import api from '../api';
+import { FormattedMessage } from 'react-intl'
 import { CancelToken, isCancel } from 'axios';
 import throttle from 'lodash.throttle'
 import moment from 'moment-mini'
@@ -13,6 +14,7 @@ import { updateTimeline, dequeueTimeline } from './timelines';
 import { defineMessages } from 'react-intl';
 import { openModal, closeModal } from './modal';
 import { me } from '../initial_state';
+import { makeGetStatus } from '../selectors'
 
 let cancelFetchComposeSuggestionsAccounts;
 
@@ -79,14 +81,88 @@ export const ensureComposeIsVisible = (getState, routerHistory) => {
 };
 
 export function changeCompose(text, markdown, replyId) {
-  console.log("changeCompose:", text)
-  return {
-    type: COMPOSE_CHANGE,
-    text: text,
-    markdown: markdown,
-    replyId: replyId,
-  };
-};
+  return function (dispatch, getState) {
+    const reduxReplyToId = getState().getIn(['compose', 'in_reply_to'])
+    const existingText = getState().getIn(['compose', 'text']).trim()
+    const isModalOpen = getState().getIn(['modal', 'modalType']) === 'COMPOSE'
+
+    let status
+    if (!!replyId) {
+      status = getState().getIn(['statuses', replyId])
+      status = makeGetStatus()(getState(), {
+        id: status.get('id')
+      })
+    }
+
+    if (!!replyId && replyId !== reduxReplyToId && !isModalOpen) {
+      if (existingText.length === 0 && text.trim().length > 0) {
+        dispatch({
+          type: COMPOSE_REPLY,
+          status: status,
+        })
+        dispatch({
+          type: COMPOSE_CHANGE,
+          text: text,
+          markdown: markdown,
+        })
+      } else if (existingText.length > 0 && text.trim().length > 0) {
+        dispatch(openModal('CONFIRM', {
+          message: <FormattedMessage id='confirmations.reply.message' defaultMessage='Replying now will overwrite the message you are currently composing. Are you sure you want to proceed?' />,
+          confirm: <FormattedMessage id='confirmations.reply.confirm' defaultMessage='Reply' />,
+          onConfirm: () => {
+            dispatch({
+              type: COMPOSE_REPLY,
+              status: status,
+            })
+            dispatch({
+              type: COMPOSE_CHANGE,
+              text: text,
+              markdown: markdown,
+            })
+          }
+        }))
+      } else {
+        dispatch({
+          type: COMPOSE_REPLY_CANCEL,
+        })
+      }
+    } else if (!replyId && !!reduxReplyToId && !isModalOpen) {
+      if (existingText.length === 0 && text.trim().length > 0) {
+        dispatch({
+          type: COMPOSE_REPLY_CANCEL,
+        })
+        dispatch({
+          type: COMPOSE_CHANGE,
+          text: text,
+          markdown: markdown,
+        })
+      } else if (existingText.length > 0 && text.trim().length > 0) {
+        dispatch(openModal('CONFIRM', {
+          message: <FormattedMessage id='confirmations.new_compose.message' defaultMessage='Composing now will overwrite the reply you are currently writing. Are you sure you want to proceed?' />,
+          confirm: <FormattedMessage id='confirmations.new_compose.confirm' defaultMessage='Yes' />,
+          onConfirm: () => {
+            dispatch({
+              type: COMPOSE_REPLY_CANCEL,
+            })
+            dispatch({
+              type: COMPOSE_CHANGE,
+              text: text,
+              markdown: markdown,
+            })
+          },
+        }))    
+      } else {
+        //
+      }
+    } else {
+      dispatch({
+        type: COMPOSE_CHANGE,
+        text: text,
+        markdown: markdown,
+      })
+    }
+  }
+}
 
 export function replyCompose(status, router, showModal) {
   return (dispatch) => {

@@ -54,13 +54,14 @@ const addAutoPlay = html => {
   return html
 }
 
-export default class Card extends ImmutablePureComponent {
+export default class StatusCard extends ImmutablePureComponent {
 
   static propTypes = {
     card: ImmutablePropTypes.map,
     onOpenMedia: PropTypes.func.isRequired,
     defaultWidth: PropTypes.number,
     cacheWidth: PropTypes.func,
+    isReduced: PropTypes.bool,
   }
 
   state = {
@@ -129,7 +130,7 @@ export default class Card extends ImmutablePureComponent {
   }
 
   render() {
-    const { card } = this.props
+    const { card, isReduced } = this.props
     const { width, embedded } = this.state
 
     if (card === null) return null
@@ -199,22 +200,25 @@ export default class Card extends ImmutablePureComponent {
       return (
         <div className={[_s.default, _s.width100PC, _s.px10].join(' ')}>
           <div className={[_s.default, _s.overflowHidden, _s.width100PC, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
-            <div className={[_s.default, _s.width100PC].join(' ')}>
-              <div className={[_s.default, _s.width100PC, _s.pt5625PC].join(' ')}>
-                {!!embed && embed}
-                {!embed && thumbnail}
-                {!embed &&
-                  <div className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-                    <button
-                      className={[_s.default, _s.cursorPointer, _s.bgBlackOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
-                      onClick={this.handleEmbedClick}
-                    >
-                      <Icon id={iconVariant} size='22px' className={[_s.fillWhite].join(' ')} />
-                    </button>
-                  </div>
-                }
+            {
+              !isReduced &&
+              <div className={[_s.default, _s.width100PC].join(' ')}>
+                <div className={[_s.default, _s.width100PC, _s.pt5625PC].join(' ')}>
+                  {!!embed && embed}
+                  {!embed && thumbnail}
+                  {!embed &&
+                    <div className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+                      <button
+                        className={[_s.default, _s.cursorPointer, _s.bgBlackOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
+                        onClick={this.handleEmbedClick}
+                      >
+                        <Icon id={iconVariant} size='22px' className={[_s.fillWhite].join(' ')} />
+                      </button>
+                    </div>
+                  }
+                </div>
               </div>
-            </div>
+            }
             {description}
           </div>
         </div>
@@ -245,7 +249,7 @@ export default class Card extends ImmutablePureComponent {
             classNames={[_s.default, _s.flexRow, _s.width100PC].join(' ')}
             classNamesSmall={!cardImg ? undefined : [_s.default, _s.width100PC].join(' ')}
           >
-            {embed}
+            {!isReduced && embed}
             {description}
           </ResponsiveClassesComponent>
         </a>

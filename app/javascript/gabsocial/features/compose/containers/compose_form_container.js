@@ -15,12 +15,24 @@ import { me } from '../../../initial_state'
 const mapStateToProps = (state, { replyToId }) => {
 
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
-  let isMatch = !!reduxReplyToId
-  if (!isMatch) isMatch = replyToId ? reduxReplyToId === replyToId : true
+  const isModalOpen = state.getIn(['modal', 'modalType']) === 'COMPOSE'
+  let isMatch;
+
+  if (!!reduxReplyToId && !!replyToId && replyToId === reduxReplyToId) {
+    isMatch = true
+  } else if (!reduxReplyToId && !replyToId) {
+    isMatch = true
+  } else {
+    isMatch = false
+  }
+
+  if (isModalOpen) isMatch = true
 
   if (!isMatch) {
     return {
       isMatch,
+      isModalOpen,
+      reduxReplyToId,
       edit: null,
       text: '',
       suggestions: ImmutableList(),
@@ -35,20 +47,22 @@ const mapStateToProps = (state, { replyToId }) => {
       isUploading: false,
       showSearch: false,
       anyMedia: false,
-      isModalOpen: false,
       quoteOfId: null,
       scheduledAt: null,
       account: state.getIn(['accounts', me]),
       hasPoll: false,
       selectedGifSrc: null,
-      reduxReplyToId
     }
   }
 
   // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
 
+  // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen)
+
   return {
     isMatch,
+    isModalOpen,
+    reduxReplyToId,
     edit: state.getIn(['compose', 'id']) !== null,
     text: state.getIn(['compose', 'text']),
     suggestions: state.getIn(['compose', 'suggestions']),
@@ -63,21 +77,17 @@ const mapStateToProps = (state, { replyToId }) => {
     isUploading: state.getIn(['compose', 'is_uploading']),
     showSearch: state.getIn(['search', 'submitted']) && !state.getIn(['search', 'hidden']),
     anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
-    isModalOpen: state.getIn(['modal', 'modalType']) === 'COMPOSE',
     quoteOfId: state.getIn(['compose', 'quote_of_id']),
     scheduledAt: state.getIn(['compose', 'scheduled_at']),
     account: state.getIn(['accounts', me]),
     hasPoll: state.getIn(['compose', 'poll']),
     selectedGifSrc: state.getIn(['tenor', 'selectedGif', 'src']),
-    reduxReplyToId,
   }
 }
 
 const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId }) => ({
 
   onChange(text, markdown, newReplyToId) {
-    // : todo :
-    console.log("text:", text, newReplyToId, replyToId, reduxReplyToId)
     dispatch(changeCompose(text, markdown, newReplyToId))
   },
 

@@ -42,6 +42,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
     } = this.props
 
     if (modal) {
+      console.log("modal timeline composer: ", this.props)
       return (
         <section className={_s.default}>
           <div className={[_s.default, _s.flexRow].join(' ')}>
