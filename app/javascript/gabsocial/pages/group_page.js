@@ -59,10 +59,11 @@ class GroupPage extends ImmutablePureComponent {
 				group={group}
 				relationships={relationships}
 				actions={[
-					{
-						icon: 'ellipsis',
-						onClick: null,
-					},
+					// : todo :
+					// {
+					// 	icon: 'ellipsis',
+					// 	onClick: null,
+					// },
 				]}
 				layout={(
 					<Fragment>

@@ -246,7 +246,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       fs14PX: small,
       heightMax200PX: small,
       heightMax80VH: !small,
-      heightMin100PX: !small,
+      heightMin80PX: !small,
     })
 
     const textareaContainerClasses = cx({

@@ -65,7 +65,10 @@ export default class Layout extends PureComponent {
           >
             <main role='main'>
 
-              <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
+              <ResponsiveClassesComponent
+                classNames={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}
+                classNamesXS={[_s.default, _s.width1015PX, _s.justifyContentEnd, _s.pb15].join(' ')}
+              >
 
                 {
                   noRightSidebar && children
@@ -78,7 +81,7 @@ export default class Layout extends PureComponent {
                     {
                       !!tabs &&
                       <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                        <div className={[_s.default, _s.pb15].join(' ')}>
+                        <div className={[_s.default, _s.py15].join(' ')}>
                           <Pills pills={tabs} />
                         </div>
                       </Responsive>
@@ -110,7 +113,7 @@ export default class Layout extends PureComponent {
                   </Responsive>
                 }
 
-              </div>
+              </ResponsiveClassesComponent>
 
             </main>
           </ResponsiveClassesComponent>

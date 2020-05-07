@@ -2,7 +2,10 @@ import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
-import { MODAL_GROUP_CREATE } from '../constants'
+import {
+  MODAL_GROUP_CREATE,
+  MODAL_PRO_UPGRADE,
+} from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
@@ -22,8 +25,12 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenGroupCreateModal() {
-    dispatch(openModal(MODAL_GROUP_CREATE))
+  onOpenGroupCreateModal(isPro) {
+    if (!isPro) {
+      dispatch(openModal(MODAL_PRO_UPGRADE))
+    } else {
+      dispatch(openModal(MODAL_GROUP_CREATE))
+    }
   },
 })
 
@@ -39,6 +46,10 @@ class GroupsPage extends PureComponent {
     onOpenGroupCreateModal: PropTypes.func.isRequired,
   }
 
+  handleOnOpenGroupCreateModal = () => {
+    this.props.onOpenGroupCreateModal(this.props.isPro)
+  }
+
   render() {
     const {
       intl,
@@ -47,7 +58,12 @@ class GroupsPage extends PureComponent {
       onOpenGroupCreateModal,
     } = this.props
 
-    const actions = []
+    const actions = [
+      {
+        icon: 'add',
+        onClick: this.handleOnOpenGroupCreateModal,
+      },
+    ]
     const tabs = [
       {
         title: intl.formatMessage(messages.featured),
@@ -64,11 +80,6 @@ class GroupsPage extends PureComponent {
     ]
 
     if (isPro) {
-      actions.push({
-        icon: 'add',
-        onClick: onOpenGroupCreateModal,
-      })
-
       tabs.push({
         title: intl.formatMessage(messages.admin),
         to: '/groups/browse/admin',
@@ -79,7 +90,6 @@ class GroupsPage extends PureComponent {
 
     return (
       <DefaultLayout
-        showBackBtn
         title={title}
         actions={actions}
         tabs={tabs}

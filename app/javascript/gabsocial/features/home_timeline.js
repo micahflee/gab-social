@@ -22,7 +22,7 @@ class HomeTimeline extends PureComponent {
     isPartial: PropTypes.bool,
   }
 
-  handleLoadMore = maxId => {
+  handleLoadMore = (maxId) => {
     this.props.dispatch(expandHomeTimeline({ maxId }))
   }
 

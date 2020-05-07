@@ -15,6 +15,7 @@ import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
+import PullToRefresher from '../components/pull_to_refresher'
 
 const messages = defineMessages({
   home: { id: 'home', defaultMessage: 'Home' },
@@ -116,6 +117,8 @@ class HomePage extends PureComponent {
           badge={totalQueuedItemsCount}
         />
         
+        <PullToRefresher />
+
         <TimelineComposeBlock autoFocus={false} />
         
         <Divider />

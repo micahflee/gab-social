@@ -17,15 +17,13 @@ import ColumnIndicator from './column_indicator';
 const makeGetStatusIds = () => createSelector([
   (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
   (state, { type, id }) => state.getIn(['timelines', id, 'items'], ImmutableList()),
-  (state)           => state.get('statuses'),
+  (state) => state.get('statuses'),
 ], (columnSettings, statusIds, statuses) => {
   return statusIds.filter(id => {
     if (id === null) return true;
 
     const statusForId = statuses.get(id);
-    let showStatus    = true;
-
-    console.log("columnSettings:", columnSettings)
+    let showStatus = true;
 
     if (columnSettings.getIn(['shows', 'reblog']) === false) {
       showStatus = showStatus && statusForId.get('reblog') === null;
@@ -41,12 +39,12 @@ const makeGetStatusIds = () => createSelector([
 
 const mapStateToProps = (state, { timelineId }) => {
   if (!timelineId) return {}
-  
+
   const getStatusIds = makeGetStatusIds();
   const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
   const statusIds = getStatusIds(state, {
-    type: timelineId.substring(0,5) === 'group' ? 'group' : timelineId,
+    type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
     id: timelineId
   })
 
@@ -136,10 +134,14 @@ class StatusList extends ImmutablePureComponent {
   }
 
   handleLoadOlder = debounce(() => {
-    this.props.onLoadMore(this.props.statusIds.size > 0 ? this.props.statusIds.last() : undefined);
+    this.props.onLoadMore(this.props.statusIds.size > 0 ? this.props.statusIds.last() : undefined)
   }, 300, { leading: true })
 
-  _selectChild (index, align_top) {
+  handleReload = debounce(() => {
+    this.props.onLoadMore()
+  }, 300, { leading: true })
+
+  _selectChild(index, align_top) {
     const container = this.node.node;
     const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`);
 
@@ -164,7 +166,7 @@ class StatusList extends ImmutablePureComponent {
     this.node = c;
   }
 
-  render () {
+  render() {
     const {
       statusIds,
       featuredStatusIds,
@@ -177,7 +179,7 @@ class StatusList extends ImmutablePureComponent {
       promotion,
       promotedStatus,
       ...other
-    }  = this.props
+    } = this.props
 
     if (isPartial) {
       return <ColumnIndicator type='loading' />
@@ -192,15 +194,15 @@ class StatusList extends ImmutablePureComponent {
           onClick={onLoadMore}
         />
       ) : (
-        <StatusContainer
-          key={statusId}
-          id={statusId}
-          onMoveUp={this.handleMoveUp}
-          onMoveDown={this.handleMoveDown}
-          contextType={timelineId}
-          commentsLimited
-        />
-      ))
+          <StatusContainer
+            key={statusId}
+            id={statusId}
+            onMoveUp={this.handleMoveUp}
+            onMoveDown={this.handleMoveDown}
+            contextType={timelineId}
+            commentsLimited
+          />
+        ))
     ) : null;
 
     if (scrollableContent && featuredStatusIds) {

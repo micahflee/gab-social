@@ -1,6 +1,8 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchGroups } from '../actions/groups'
+import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import Responsive from './ui/util/responsive_component'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 import GroupCollectionItem from '../components/group_collection_item'
@@ -40,24 +42,37 @@ class GroupsCollection extends ImmutablePureComponent {
 
 		return (
 			<div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
-				<div className={[_s.default, _s.flexNormal].join(' ')}>
-					<ScrollableList scrollKey='group-collection-column-1'>
-						{
-							groupIds.slice(0, halfCount).map((groupId, i) => (
-								<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
-							))
-						}
-					</ScrollableList>
-				</div>
-				<div className={[_s.default, _s.flexNormal].join(' ')}>
-					<ScrollableList scrollKey='group-collection-column-2'>
-						{
-							groupIds.slice(halfCount, groupIds.size).map((groupId, i) => (
-								<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
-							))
-						}
-					</ScrollableList>
-				</div>
+				<Responsive max={BREAKPOINT_EXTRA_SMALL}>
+					<div className={[_s.default, _s.width100PC, _s.px5].join(' ')}>
+						<ScrollableList scrollKey='group-collection-column-1'>
+							{
+								groupIds.map((groupId, i) => (
+									<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+								))
+							}
+						</ScrollableList>
+					</div>
+				</Responsive>
+				<Responsive min={BREAKPOINT_EXTRA_SMALL}>
+					<div className={[_s.default, _s.flexNormal].join(' ')}>
+						<ScrollableList scrollKey='group-collection-column-1'>
+							{
+								groupIds.slice(0, halfCount).map((groupId, i) => (
+									<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+								))
+							}
+						</ScrollableList>
+					</div>
+					<div className={[_s.default, _s.flexNormal].join(' ')}>
+						<ScrollableList scrollKey='group-collection-column-2'>
+							{
+								groupIds.slice(halfCount, groupIds.size).map((groupId, i) => (
+									<GroupCollectionItem key={`group-collection-item-${i}`} id={groupId} />
+								))
+							}
+						</ScrollableList>
+					</div>
+				</Responsive>
 			</div>
 		)
 	}

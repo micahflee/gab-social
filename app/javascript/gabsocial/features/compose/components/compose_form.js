@@ -8,8 +8,10 @@ import {
   CX,
   MAX_POST_CHARACTER_COUNT,
   ALLOWED_AROUND_SHORT_CODE,
+  BREAKPOINT_EXTRA_SMALL,
 } from '../../../constants'
 import AutosuggestTextbox from '../../../components/autosuggest_textbox'
+import Responsive from '../../ui/util/responsive_component'
 import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
 import CharacterCounter from '../../../components/character_counter'
@@ -462,7 +464,9 @@ class ComposeForm extends ImmutablePureComponent {
                     { /* !shouldCondense && <RichTextEditorButton /> */}
                   </div>
 
-                  <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
+                  <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                    <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
+                  </Responsive>
 
                   <Button
                     isOutline

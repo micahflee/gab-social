@@ -47,6 +47,7 @@ class SearchPage extends PureComponent {
 
     return (
       <Layout
+        noComposeButton
         title={title}
         showBackBtn
         tabs={tabs}

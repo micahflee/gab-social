@@ -30,6 +30,7 @@ export function GroupCreate() { return import(/* webpackChunkName: "features/gro
 export function GroupCreateModal() { return import(/* webpackChunkName: "components/group_create_modal" */'../../../components/modal/group_create_modal') }
 export function GroupDeleteModal() { return import(/* webpackChunkName: "components/group_delete_modal" */'../../../components/modal/group_delete_modal') }
 export function GroupEditorModal() { return import(/* webpackChunkName: "components/group_editor_modal" */'../../../components/modal/group_editor_modal') }
+export function GroupMembersModal() { return import(/* webpackChunkName: "components/group_members_modal" */'../../../components/modal/group_members_modal') }
 export function GroupInfoPopover() { return import(/* webpackChunkName: "components/group_info_popover" */'../../../components/popover/group_info_popover') }
 export function GroupMembers() { return import(/* webpackChunkName: "features/group_members" */'../../group_members') }
 export function GroupRemovedAccounts() { return import(/* webpackChunkName: "features/group_removed_accounts" */'../../group_removed_accounts') }
