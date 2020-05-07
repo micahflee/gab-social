@@ -3,6 +3,9 @@ import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
+import { BREAKPOINT_EXTRA_SMALL } from '../../constants'
+import Responsive from '../../features/ui/util/responsive_component'
+import CardView from '../card_view'
 
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -145,7 +148,14 @@ class ModalBase extends PureComponent {
               onClick={this.handleOnClose}
               className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             >
-              {children}
+              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                {children}
+              </Responsive>
+              <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                <CardView>
+                  {children}
+                </CardView>
+              </Responsive>
             </div>
           </Fragment>
         }

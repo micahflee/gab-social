@@ -141,21 +141,22 @@ export default class StatusCard extends ImmutablePureComponent {
     const horizontal = (card.get('width') > card.get('height') && (card.get('width') + 100 >= width)) || card.get('type') !== 'link' || embedded
     const interactive = card.get('type') !== 'link'
 
+    const cardTitle = `${card.get('title')}`.trim()
     const title = interactive ?
       (
         <a
           className={[_s.default, _s.displayFlex, _s.text, _s.noUnderline, _s.overflowWrapBreakWord, _s.colorPrimary, _s.fs15PX, _s.fontWeightMedium].join(' ')}
           href={card.get('url')}
-          title={card.get('title')}
+          title={cardTitle}
           rel={DEFAULT_REL}
           target='_blank'
         >
-          {card.get('title')}
+          {cardTitle}
         </a>
       )
       : (
         <span className={[_s.default, _s.displayFlex, _s.text, _s.overflowWrapBreakWord, _s.colorPrimary, _s.fs15PX, _s.fontWeightMedium].join(' ')}>
-          {card.get('title')}
+          {cardTitle}
         </span>
       )
 

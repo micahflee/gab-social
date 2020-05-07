@@ -1,47 +1,41 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
-import { quoteCompose } from '../../actions/compose'
-import { repost, unrepost } from '../../actions/interactions'
+import {
+  MODAL_GROUP_CREATE,
+  MODAL_GROUP_MEMBERS,
+  MODAL_GROUP_REMOVED_ACCOUNTS,
+} from '../../constants'
 import { openModal } from '../../actions/modal'
-import { boostModal, me } from '../../initial_state'
+import { closePopover } from '../../actions/popover'
+import { me } from '../../initial_state'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
 const messages = defineMessages({
-  repost: { id: 'repost', defaultMessage: 'Repost' },
-  repostWithComment: { id: 'repost_with_comment', defaultMessage: 'Repost with comment' },
+  groupMembers: { id: 'group_members', defaultMessage: 'Group members' },
+  removedMembers: { id: 'group_removed_members', defaultMessage: 'Removed accounts' },
+  editGroup: { id: 'edit_group', defaultMessage: 'Edit group' },
 });
 
-const mapDispatchToProps = (dispatch, { intl }) => ({
-  onQuote (status, router) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+const mapDispatchToProps = (dispatch) => ({
 
-    dispatch((_, getState) => {
-      const state = getState();
-      if (state.getIn(['compose', 'text']).trim().length !== 0) {
-        dispatch(openModal('CONFIRM', {
-          message: intl.formatMessage(messages.quoteMessage),
-          confirm: intl.formatMessage(messages.quoteConfirm),
-          onConfirm: () => dispatch(quoteCompose(status, router)),
-        }));
-      } else {
-        dispatch(quoteCompose(status, router));
-      }
-    });
+  onOpenEditGroup(group) {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_GROUP_CREATE, { group }))
   },
 
-  onRepost (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    if (status.get('reblogged')) {
-      dispatch(unrepost(status));
-    } else {
-      dispatch(repost(status));
-    }
+  onOpenRemovedMembers(groupId) {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_GROUP_REMOVED_ACCOUNTS, { groupId }))
   },
+
+  onOpenGroupMembers(groupId) {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_GROUP_MEMBERS, { groupId }))
+  },
+
 });
-
 
 export default
 @injectIntl
@@ -50,19 +44,24 @@ class GroupOptionsPopover extends ImmutablePureComponent {
 
   static defaultProps = {
     intl: PropTypes.object.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    onQuote: PropTypes.func.isRequired,
-    onRepost: PropTypes.func.isRequired,
+    group: ImmutablePropTypes.map.isRequired,
+    onOpenEditGroup: PropTypes.func.isRequired,
+    onOpenRemovedMembers: PropTypes.func.isRequired,
+    onOpenGroupMembers: PropTypes.func.isRequired,
   }
 
-  updateOnProps = ['status']
+  updateOnProps = ['group']
 
-  handleOnRepost = () => {
-    
+  handleEditGroup = () => {
+    this.props.onOpenEditGroup(this.props.group)
   }
 
-  handleOnQuote = () => {
-    
+  handleOnOpenRemovedMembers = () => {
+    this.props.onOpenRemovedMembers(this.props.group.get('id'))
+  }
+
+  handleOnOpenGroupMembers = () => {
+    this.props.onOpenGroupMembers(this.props.group.get('id'))
   }
 
   render() {
@@ -71,22 +70,28 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     const listItems = [
       {
         hideArrow: true,
-        icon: 'repost',
-        title: intl.formatMessage(messages.repost),
-        onClick: this.handleOnRepost,
+        icon: 'group',
+        title: intl.formatMessage(messages.groupMembers),
+        onClick: this.handleOnOpenGroupMembers,
+      },
+      {
+        hideArrow: true,
+        icon: 'block',
+        title: intl.formatMessage(messages.removedMembers),
+        onClick: this.handleOnOpenRemovedMembers,
       },
       {
         hideArrow: true,
         icon: 'pencil',
-        title: intl.formatMessage(messages.repostWithComment),
-        onClick: this.handleBlockDomain,
+        title: intl.formatMessage(messages.editGroup),
+        onClick: this.handleEditGroup,
       }
     ]
 
     return (
-      <PopoverLayout>
+      <PopoverLayout width={210}>
         <List
-          scrollKey='repost_options'
+          scrollKey='group_options'
           items={listItems}
           size='large'
         />

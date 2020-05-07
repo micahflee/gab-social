@@ -77,6 +77,10 @@ class HomePage extends PureComponent {
             icon: 'ellipsis',
             onClick: onOpenHomePageSettingsModal,
           },
+          {
+            icon: 'search',
+            onClick: onOpenHomePageSettingsModal,
+          },
         ]}
         layout={(
           <Fragment>

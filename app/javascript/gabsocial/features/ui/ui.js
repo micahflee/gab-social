@@ -153,8 +153,8 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/groups/browse/admin' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'admin' }} />
 
         <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group' }} />
-        <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
-        <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
+        { /* <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} /> 
+        <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />  */}
         <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group' }} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
@@ -208,11 +208,12 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status' }} />
 
+        { /*
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
         <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
 
         <Redirect from='/@:username/posts/:statusId/likes' to='/:username/posts/:statusId/likes' />
-        <WrappedRoute path='/:username/posts/:statusId/likes' page={BasicPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} />
+        <WrappedRoute path='/:username/posts/:statusId/likes' page={BasicPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} /> */ }
 
         <WrappedRoute page={ErrorPage} component={GenericNotFound} content={children} />
       </Switch>

@@ -19,11 +19,8 @@ const initialState = ImmutableMap({
 
   home: ImmutableMap({
     shows: ImmutableMap({
-      photos: true,
-      polls: true,
       reply: true,
       repost: true,
-      videos: true,
     }),
   }),
 

@@ -8,7 +8,7 @@ export default class CardView extends PureComponent {
     const { children } = this.props
 
     return (
-      <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}>
+      <div title='cardview' className={[_s.default].join(' ')}>
         {children}
       </div>
     )

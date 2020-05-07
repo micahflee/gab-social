@@ -61,7 +61,7 @@ class NavigationBar extends ImmutablePureComponent {
 
     return (
       <div className={[_s.default, _s.z4, _s.height53PX, _s.width100PC].join(' ')}>
-        <div className={[_s.default, _s.height53PX, _s.bgBrand, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+        <div className={[_s.default, _s.height53PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
           <div className={[_s.default, _s.flexRow, _s.width1255PX].join(' ')}>
 
@@ -71,8 +71,16 @@ class NavigationBar extends ImmutablePureComponent {
               <div className={[_s.default, _s.flexRow].join(' ')}>
 
                 <h1 className={[_s.default, _s.mr15].join(' ')}>
-                  <Button to='/' isText title='Gab' aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                    <Icon id='gab-logo' className={_s.fillWhite} />
+                  <Button
+                    to='/'
+                    isText
+                    title='Gab'
+                    aria-label='Gab'
+                    color='none'
+                    backgroundColor='none'
+                    className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
+                  >
+                    <Icon id='gab-logo' className={_s.fillNavigationBrand} />
                   </Button>
                 </h1>
 
@@ -131,7 +139,7 @@ class NavigationBar extends ImmutablePureComponent {
                     className={[_s.height53PX, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
                     icon='arrow-left'
                     iconSize='32px'
-                    iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
+                    iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
                     onClick={this.handleBackClick}
                   />
                 }
@@ -139,7 +147,9 @@ class NavigationBar extends ImmutablePureComponent {
               
               <div className={[_s.default, _s.height53PX, _s.justifyContentCenter, _s.mlAuto, _s.mrAuto].join(' ')}>
                 <Heading size='h1'>
-                  {title}
+                  <span className={_s.colorNavigation}>
+                    {title}
+                  </span>
                 </Heading>
               </div>
 
@@ -157,8 +167,8 @@ class NavigationBar extends ImmutablePureComponent {
                           key={`action-btn-${i}`}
                           className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
                           icon={action.icon}
-                          iconClassName={_s.fillPrimary}
-                          iconSize='14px'
+                          iconClassName={_s.fillNavigation}
+                          iconSize='18px'
                         />
                       ))
                     }
@@ -181,7 +191,7 @@ class NavigationBarButtonDivider extends PureComponent {
 
   render() {
     return (
-      <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgBrandDark].join(' ')} />
+      <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
     )
   }
 
@@ -218,18 +228,18 @@ class NavigationBarButton extends PureComponent {
       cursorPointer: 1,
       bgTransparent: 1,
       noUnderline: 1,
+      colorNavigation: 1,
       px10: !!title,
       px5: !title,
       colorWhite: !!title,
       fs13PX: !!title,
       fontWeightNormal: !!title,
       textUppercase: !!title,
-      bgBrandDark_onHover: !!title,
     })
 
     const iconClasses = CX({
-      fillWhite: !!title || active,
-      fillBrandDark: !title,
+      fillNavigation: !!title || active,
+      fillNavigationBlend: !title,
       mr10: !!title,
     })
 
@@ -240,7 +250,6 @@ class NavigationBarButton extends PureComponent {
         to={to}
         href={href}
         attrTitle={attrTitle}
-        color='white'
         className={classes}
         noClasses
       >

@@ -17,8 +17,6 @@ const mapStateToProps = (state, { account, commentsOnly = false }) => {
 
   const path = commentsOnly ? `${accountId}:comments_only` : accountId
 
-  console.log("commentsOnly, path:", commentsOnly, path)
-
   return {
     accountId,
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], emptyList),

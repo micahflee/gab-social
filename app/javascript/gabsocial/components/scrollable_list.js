@@ -128,6 +128,10 @@ export default class ScrollableList extends PureComponent {
       const { innerHeight } = this.window;
       const offset = scrollHeight - scrollTop - innerHeight;
 
+      if (scrollTop < -60 && this.props.onReload) {
+        // reload
+      }
+
       if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
         this.props.onLoadMore();
       }

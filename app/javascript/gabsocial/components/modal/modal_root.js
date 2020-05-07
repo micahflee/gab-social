@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
@@ -17,8 +18,8 @@ import {
   MODAL_GIF_PICKER,
   MODAL_GROUP_CREATE,
   MODAL_GROUP_DELETE,
-  MODAL_GROUP_EDITOR,
   MODAL_GROUP_MEMBERS,
+  MODAL_GROUP_REMOVED_ACCOUNTS,
   MODAL_HASHTAG_TIMELINE_SETTINGS,
   MODAL_HOME_TIMELINE_SETTINGS,
   MODAL_HOTKEYS,
@@ -51,8 +52,8 @@ import {
   GifPickerModal,
   GroupCreateModal,
   GroupDeleteModal,
-  GroupEditorModal,
   GroupMembersModal,
+  GroupRemovedAccountsModal,
   HashtagTimelineSettingsModal,
   HomeTimelineSettingsModal,
   HotkeysModal,
@@ -86,8 +87,8 @@ MODAL_COMPONENTS[MODAL_EMBED] = EmbedModal
 MODAL_COMPONENTS[MODAL_GIF_PICKER] = GifPickerModal
 MODAL_COMPONENTS[MODAL_GROUP_CREATE] = GroupCreateModal
 MODAL_COMPONENTS[MODAL_GROUP_DELETE] = GroupDeleteModal
-MODAL_COMPONENTS[MODAL_GROUP_EDITOR] = GroupEditorModal
 MODAL_COMPONENTS[MODAL_GROUP_MEMBERS] = GroupMembersModal
+MODAL_COMPONENTS[MODAL_GROUP_REMOVED_ACCOUNTS] = GroupRemovedAccountsModal
 MODAL_COMPONENTS[MODAL_HASHTAG_TIMELINE_SETTINGS] = HashtagTimelineSettingsModal
 MODAL_COMPONENTS[MODAL_HOME_TIMELINE_SETTINGS] = HomeTimelineSettingsModal
 MODAL_COMPONENTS[MODAL_HOTKEYS] = HotkeysModal
@@ -158,8 +159,6 @@ class ModalRoot extends PureComponent {
   render() {
     const { type, props } = this.props
     const visible = !!type
-
-    // : todo : init card view if mobile
 
     return (
       <ModalBase onClose={this.onClickClose} type={type}>

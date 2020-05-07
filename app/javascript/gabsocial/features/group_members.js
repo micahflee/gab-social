@@ -1,86 +1,101 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import {
 	fetchMembers,
 	expandMembers,
 	updateRole,
 	createRemovedAccount,
-} from '../actions/groups';
-import { FormattedMessage } from 'react-intl';
-import Account from '../components/account';
-import ScrollableList from '../components/scrollable_list';
+} from '../actions/groups'
+import { FormattedMessage } from 'react-intl'
+import Account from '../components/account'
+import ScrollableList from '../components/scrollable_list'
 
-const mapStateToProps = (state, { params: { id } }) => ({
-	group: state.getIn(['groups', id]),
-	relationships: state.getIn(['group_relationships', id]),
-	accountIds: state.getIn(['user_lists', 'groups', id, 'items']),
-	hasMore: !!state.getIn(['user_lists', 'groups', id, 'next']),
-});
+const mapStateToProps = (state, { groupId }) => ({
+	group: state.getIn(['groups', groupId]),
+	relationships: state.getIn(['group_relationships', groupId]),
+	accountIds: state.getIn(['user_lists', 'groups', groupId, 'items']),
+	hasMore: !!state.getIn(['user_lists', 'groups', groupId, 'next']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	onFetchMembers(groupId) {
+		dispatch(fetchMembers(groupId))
+	},
+	onExpandMembers(groupId) {
+		dispatch(expandMembers(groupId))
+	},
+})
 
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class GroupMembers extends ImmutablePureComponent {
 
 	static propTypes = {
-		params: PropTypes.object.isRequired,
-		dispatch: PropTypes.func.isRequired,
+		groupId: PropTypes.string.isRequired,
 		accountIds: ImmutablePropTypes.list,
 		hasMore: PropTypes.bool,
-	};
+		onExpandMembers: PropTypes.func.isRequired,
+		onFetchMembers: PropTypes.func.isRequired,
+	}
 
 	componentWillMount() {
-		const { params: { id } } = this.props;
+		const { groupId } = this.props
 
-		this.props.dispatch(fetchMembers(id));
+		this.props.onFetchMembers(groupId)
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.params.id !== this.props.params.id) {
-			this.props.dispatch(fetchMembers(nextProps.params.id));
+		if (nextProps.groupId !== this.props.groupId) {
+			this.props.onFetchMembers(nextProps.groupId)
 		}
 	}
 
 	handleLoadMore = debounce(() => {
-		this.props.dispatch(expandMembers(this.props.params.id));
-	}, 300, { leading: true });
+		this.props.onExpandMembers(this.props.groupId)
+	}, 300, { leading: true })
 
 	render() {
-		const { accountIds, hasMore, group, relationships, dispatch } = this.props;
-
-		if (!group || !accountIds || !relationships) {
-			return <LoadingIndicator />
-		}
+		const {
+			accountIds,
+			hasMore,
+			group,
+			relationships,
+			dispatch,
+		} = this.props
 
 		return (
 			<ScrollableList
-				scrollKey='members'
+				scrollKey='group-members'
 				hasMore={hasMore}
+				showLoading={(!group || !accountIds || !relationships)}
 				onLoadMore={this.handleLoadMore}
 				emptyMessage={<FormattedMessage id='group.members.empty' defaultMessage='This group does not has any members.' />}
 			>
-				{accountIds.map(id => {
-					let menu = [];
+				{
+					accountIds && accountIds.map((id) => {
+						let menu = []
 
-					if (relationships.get('admin')) {
-						menu = [
-							{ text: 'Remove from group', action: () => dispatch(createRemovedAccount(group.get('id'), id)) },
-							{ text: 'Make administrator', action: () => dispatch(updateRole(group.get('id'), id, 'admin')) },
-						]
-					}
+						if (relationships.get('admin')) {
+							menu = [
+								{ text: 'Remove from group', action: () => dispatch(createRemovedAccount(group.get('id'), id)) },
+								{ text: 'Make administrator', action: () => dispatch(updateRole(group.get('id'), id, 'admin')) },
+							]
+						}
 
-					return (
-						<div className="group-account-wrapper" key={id}>
-							<Account id={id} actionIcon="none" onActionClick={() => true} />
-							{ /*
-								menu.length > 0 && <DropdownMenuContainer items={menu} icon='ellipsis-h' size={18} direction='right' />
-								*/
-							}
-						</div>
-					);
-				})}
+						return (
+							<Account
+								compact
+								key={id}
+								id={id}
+								actionIcon='ellipsis'
+								onActionClick={() => true}
+							/>
+						)
+					})
+				}
 			</ScrollableList>
-		);
+		)
 	}
 
 }

@@ -29,12 +29,12 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
-  onOpenGroupOptions() {
-
-  },
-
-  openProfileOptionsPopover(props) {
-    dispatch(openPopover('GROUP_OPTIONS', props))
+  onOpenGroupOptions(targetRef, group) {
+    dispatch(openPopover('GROUP_OPTIONS', {
+      targetRef,
+      group,
+      position: 'top',
+    }))
   },
 
 });
@@ -57,11 +57,18 @@ class GroupHeader extends ImmutablePureComponent {
     this.props.onToggleMembership(group, relationships);
   }
 
+  handleOnOpenGroupOptions = () => {
+    this.props.onOpenGroupOptions(this.infoBtn, this.props.group)
+  }
+
+  setInfoBtn = (c) => {
+    this.infoBtn = c;
+  }
+
   render() {
     const {
       group,
       intl,
-      onOpenGroupOptions,
       relationships,
     } = this.props
 
@@ -131,7 +138,8 @@ class GroupHeader extends ImmutablePureComponent {
                     backgroundColor='tertiary'
                     className={_s.mr5}
                     icon='ellipsis'
-                    onClick={onOpenGroupOptions}
+                    onClick={this.handleOnOpenGroupOptions}
+                    buttonRef={this.setInfoBtn}
                   />
                 </div>
               </div>

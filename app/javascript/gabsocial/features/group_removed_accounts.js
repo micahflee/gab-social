@@ -1,26 +1,25 @@
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import ImmutablePropTypes from 'react-immutable-proptypes';
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
-import ColumnIndicator from '../components/column_indicator';
 import {
 	fetchRemovedAccounts,
 	expandRemovedAccounts,
 	removeRemovedAccount,
-} from '../actions/groups';
-import { FormattedMessage } from 'react-intl';
-import Account from '../components/account';
-import ScrollableList from '../components/scrollable_list';
-import { defineMessages, injectIntl } from 'react-intl';
+} from '../actions/groups'
+import { FormattedMessage } from 'react-intl'
+import Account from '../components/account'
+import ScrollableList from '../components/scrollable_list'
+import { defineMessages, injectIntl } from 'react-intl'
 
 const messages = defineMessages({
 	remove: { id: 'groups.removed_accounts', defaultMessage: 'Allow joining' },
-});
+})
 
-const mapStateToProps = (state, { params: { id } }) => ({
-	group: state.getIn(['groups', id]),
-	accountIds: state.getIn(['user_lists', 'groups_removed_accounts', id, 'items']),
-	hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', id, 'next']),
-});
+const mapStateToProps = (state, { groupId }) => ({
+	group: state.getIn(['groups', groupId]),
+	accountIds: state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'items']),
+	hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'next']),
+})
 
 export default
 @connect(mapStateToProps)
@@ -28,49 +27,50 @@ export default
 class GroupRemovedAccounts extends ImmutablePureComponent {
 
 	static propTypes = {
-		params: PropTypes.object.isRequired,
+		groupId: PropTypes.string.isRequired,
 		dispatch: PropTypes.func.isRequired,
 		accountIds: ImmutablePropTypes.list,
 		hasMore: PropTypes.bool,
-	};
+	}
 
 	componentWillMount() {
-		const { params: { id } } = this.props;
+		const { groupId } = this.props
 
-		this.props.dispatch(fetchRemovedAccounts(id));
+		this.props.dispatch(fetchRemovedAccounts(groupId))
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.params.id !== this.props.params.id) {
-			this.props.dispatch(fetchRemovedAccounts(nextProps.params.id));
+		if (nextProps.groupId !== this.props.groupId) {
+			this.props.dispatch(fetchRemovedAccounts(nextProps.groupId))
 		}
 	}
 
 	handleLoadMore = debounce(() => {
-		this.props.dispatch(expandRemovedAccounts(this.props.params.id));
-	}, 300, { leading: true });
+		this.props.dispatch(expandRemovedAccounts(this.props.groupId))
+	}, 300, { leading: true })
 
 	render() {
-		const { accountIds, hasMore, group, intl } = this.props;
-
-		if (!group || !accountIds) {
-			return <ColumnIndicator type='loading' />
-		}
+		const { accountIds, hasMore, group, intl } = this.props
 
 		return (
 			<ScrollableList
 				scrollKey='removed_accounts'
 				hasMore={hasMore}
+				showLoading={(!group || !accountIds)}
 				onLoadMore={this.handleLoadMore}
 				emptyMessage={<FormattedMessage id='group.removed_accounts.empty' defaultMessage='This group does not has any removed accounts.' />}
 			>
-				{accountIds.map(id => (<Account
-					key={id}
-					id={id}
-					actionIcon='remove'
-					onActionClick={() => this.props.dispatch(removeRemovedAccount(group.get('id'), id))}
-					actionTitle={intl.formatMessage(messages.remove)}
-				/>))}
+				{
+					accountIds && accountIds.map((id) => (
+						<Account
+							key={id}
+							id={id}
+							actionIcon='subtract'
+							onActionClick={() => this.props.dispatch(removeRemovedAccount(group.get('id'), id))}
+							actionTitle={intl.formatMessage(messages.remove)}
+						/>
+					))
+				}
 			</ScrollableList>
 		)
 	}

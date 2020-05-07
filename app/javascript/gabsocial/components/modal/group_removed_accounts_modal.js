@@ -1,14 +1,14 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import ModalLayout from './modal_layout'
-import GroupMembers from '../../features/group_members'
+import GroupRemovedAccounts from '../../features/group_removed_accounts'
 
 const messages = defineMessages({
-  title: { id: 'group_members', defaultMessage: 'Group members' },
+  title: { id: 'group_removed', defaultMessage: 'Removed accounts' },
 })
 
 export default
 @injectIntl
-class GroupMembersModal extends PureComponent {
+class GroupRemovedAccountsModal extends PureComponent {
 
   static propTypes = {
     groupId: PropTypes.string.isRequired,
@@ -30,7 +30,7 @@ class GroupMembersModal extends PureComponent {
         onClose={onClose}
         noPadding
       >
-        <GroupMembers groupId={groupId} onCloseModal={onClose} />
+        <GroupRemovedAccounts groupId={groupId} onCloseModal={onClose} />
       </ModalLayout>
     )
   }

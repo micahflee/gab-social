@@ -17,6 +17,7 @@ export default class BasicPage extends PureComponent {
 
     return (
       <DefaultLayout
+        noComposeButton
         showBackBtn
         title={title}
         layout={(

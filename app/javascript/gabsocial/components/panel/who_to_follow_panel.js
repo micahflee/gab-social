@@ -65,8 +65,8 @@ class WhoToFollowPanel extends ImmutablePureComponent {
       <PanelLayout
         noPadding
         title={intl.formatMessage(messages.title)}
-        footerButtonTitle={intl.formatMessage(messages.show_more)}
-        footerButtonTo='/explore'
+        // footerButtonTitle={intl.formatMessage(messages.show_more)}
+        // footerButtonTo='/explore'
       >
         <div className={_s.default}>
           {

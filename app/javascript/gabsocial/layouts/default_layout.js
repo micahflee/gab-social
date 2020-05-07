@@ -7,6 +7,7 @@ export default class DefaultLayout extends PureComponent {
     children: PropTypes.node.isRequired,
     layout: PropTypes.object,
     showBackBtn: PropTypes.bool,
+    noComposeButton: PropTypes.bool,
     tabs: PropTypes.array,
     title: PropTypes.string.isRequired,
   }
@@ -19,6 +20,7 @@ export default class DefaultLayout extends PureComponent {
       showBackBtn,
       tabs,
       title,
+      noComposeButton,
     } = this.props
 
     return (
@@ -28,6 +30,7 @@ export default class DefaultLayout extends PureComponent {
         showBackBtn={showBackBtn}
         tabs={tabs}
         title={title}
+        noComposeButton={noComposeButton}
       >
         {children}
       </Layout>

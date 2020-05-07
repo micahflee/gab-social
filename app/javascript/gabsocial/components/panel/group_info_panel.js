@@ -2,11 +2,12 @@ import { Fragment } from 'react'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { openModal } from '../../actions/modal'
+import { MODAL_GROUP_MEMBERS } from '../../constants'
 import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import Button from '../button'
 import Divider from '../divider'
-import Heading from '../heading'
 import Icon from '../icon'
 import Text from '../text'
 import RelativeTimestamp from '../relative_timestamp'
@@ -16,19 +17,30 @@ const messages = defineMessages({
   members: { id: 'members', defaultMessage: 'Members' },
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenGroupMembersModal(groupId) {
+    console.log("onOpenGroupMembersModal:", groupId)
+    dispatch(openModal(MODAL_GROUP_MEMBERS, { groupId }))
+  },
+})
+
 export default
 @injectIntl
+@connect(null, mapDispatchToProps)
 class GroupInfoPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    group: ImmutablePropTypes.list.isRequired,
+    group: ImmutablePropTypes.map.isRequired,
     intl: PropTypes.object.isRequired,
+    onOpenGroupMembersModal: PropTypes.func.isRequired,
+  }
+
+  handleOnOpenGroupMembersModal = () => {
+    this.props.onOpenGroupMembersModal(this.props.group.get('id'))
   }
 
   render() {
     const { intl, group } = this.props
-
-    console.log("group:", group)
 
     return (
       <PanelLayout title={intl.formatMessage(messages.title)}>
@@ -53,10 +65,10 @@ class GroupInfoPanel extends ImmutablePureComponent {
               </div>
               <Button
                 isText
-                to={`/groups/${group.get('id')}/members`}
                 color='brand'
                 backgroundColor='none'
                 className={_s.mlAuto}
+                onClick={this.handleOnOpenGroupMembersModal}
               >
                 <Text color='inherit' weight='medium' size='normal' className={_s.underline_onHover}>
                   {shortNumberFormat(group.get('member_count'))}

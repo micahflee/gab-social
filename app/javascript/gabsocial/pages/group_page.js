@@ -33,7 +33,7 @@ class GroupPage extends ImmutablePureComponent {
 	static propTypes = {
 		intl: PropTypes.object.isRequired,
 		group: ImmutablePropTypes.map,
-		chilren: PropTypes.node.isRequired,
+		children: PropTypes.node.isRequired,
 		relationships: ImmutablePropTypes.map,
 		fetchGroup: PropTypes.func.isRequired,
 	}

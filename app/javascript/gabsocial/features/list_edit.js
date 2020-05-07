@@ -229,7 +229,7 @@ class ListEdit extends ImmutablePureComponent {
                         key={`remove-from-list-${accountId}`}
                         id={accountId}
                         onActionClick={() => this.handleAddOrRemoveFromList(accountId)}
-                        actionIcon={'subtract'}
+                        actionIcon='subtract'
                       />
                     ))
                   }

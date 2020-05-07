@@ -1,8 +1,11 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
+import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import Responsive from '../features/ui/util/responsive_component'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import SearchFilterPanel from '../components/panel/search_filter_panel'
+import Search from '../components/search'
 import Layout from '../layouts/layout'
 
 const messages = defineMessages({
@@ -59,6 +62,11 @@ class SearchPage extends PureComponent {
         )}
       >
         <PageTitle path={title} />
+        
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          <Search />
+        </Responsive>
+
         {children}
       </Layout>
     )
