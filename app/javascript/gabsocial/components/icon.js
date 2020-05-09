@@ -96,7 +96,7 @@ const ICONS = {
   'error': ErrorIcon,
   'explore': ExploreIcon,
   'fullscreen': FullscreenIcon,
-  'gab-logo': GabLogoIcon,
+  'logo': GabLogoIcon,
   'gif': GifIcon,
   'globe': GlobeIcon,
   'group': GroupIcon,

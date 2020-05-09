@@ -7,6 +7,7 @@ import {
   POPOVER_PROFILE_OPTIONS,
   PLACEHOLDER_MISSING_HEADER_SRC,
   MODAL_EDIT_PROFILE,
+  BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
@@ -19,6 +20,7 @@ import Image from './image'
 import MovedNote from './moved_note'
 import TabBar from './tab_bar'
 import Text from './text'
+import Responsive from '../features/ui/util/responsive_component';
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -51,6 +53,7 @@ class ProfileHeader extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map,
+    children: PropTypes.any,
     intl: PropTypes.object.isRequired,
     onEditProfile: PropTypes.func.isRequired,
     openProfileOptionsPopover: PropTypes.func.isRequired,
@@ -87,7 +90,11 @@ class ProfileHeader extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, intl } = this.props
+    const {
+      account,
+      children,
+      intl,
+    } = this.props
     const { stickied } = this.state
 
     const tabs = !account ? null : [
@@ -108,7 +115,7 @@ class ProfileHeader extends ImmutablePureComponent {
     const headerSrc = !!account ? account.get('header') : ''
     const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
     const avatarSize = headerMissing ? 75 : 150
-    const top = headerMissing ? -30 : -380
+    const top = headerMissing ? -46 : -380
 
     const avatarContainerClasses = CX({
       default: 1,
@@ -130,55 +137,51 @@ class ProfileHeader extends ImmutablePureComponent {
       displayNone: stickied,
     })
 
+    const mobileAvatarContainerClasses = CX({
+      default: 1,
+      circle: 1,
+      boxShadowProfileAvatar: 1,
+      mtNeg50PX: !headerMissing,
+    })
+
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
-        <Sticky top={top} enabled onStateChange={this.onStickyStateChange}>
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
 
-            <div className={[_s.default, _s.width1015PX].join(' ')}>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
               {
                 !headerMissing &&
-                <div className={[_s.default, _s.height350PX, _s.width100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
+                <div className={[_s.default, _s.height200PX, _s.px10, _s.width100PC, _s.mt10, _s.overflowHidden].join(' ')}>
                   <Image
                     alt={intl.formatMessage(messages.headerPhoto)}
-                    className={_s.height350PX}
+                    className={[_s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.height100PC].join(' ')}
                     src={headerSrc}
                   />
                 </div>
               }
               {
                 headerMissing &&
-                <div className={[_s.default, _s.py10, _s.width100PC].join(' ')} />
+                <div className={[_s.default, _s.height20PX, _s.width100PC].join(' ')} />
               }
 
               <div className={[_s.default, _s.width100PC].join(' ')}>
 
-                <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
-                  <div className={avatarContainerClasses}>
-                    <Avatar size={avatarSize} account={account} noHover />
+                <div className={[_s.default, _s.alignItemsCenter, _s.px15, _s.mb5].join(' ')}>
+                  <div className={mobileAvatarContainerClasses}>
+                    <Avatar size={100} account={account} noHover />
                   </div>
 
-                  <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
                     <DisplayName account={account} isMultiline noRelationship isLarge noHover />
                   </div>
                 </div>
 
 
-                <div className={[_s.default, _s.flexRow, _s.bgPrimary, _s.height53PX].join(' ')}>
-                  <div className={tabBarContainerClasses}>
-                    <TabBar tabs={tabs} isLarge />
-                  </div>
-
-                  <div className={stickyBarContainerClasses}>
-                    <Avatar size={36} account={account} noHover />
-                    <div className={[_s.default, _s.ml10].join(' ')}>
-                      <DisplayName account={account} noUsername noRelationship noHover isLarge />
-                    </div>
-                  </div>
-
+                <div className={[_s.default, _s.bgPrimary, _s.alignItemsCenter].join(' ')}>
                   {
                     account && account.get('id') === me &&
-                    <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                    <div className={[_s.default,_s.py5].join(' ')}>
                       <Button
                         isOutline
                         backgroundColor='none'
@@ -195,18 +198,7 @@ class ProfileHeader extends ImmutablePureComponent {
 
                   {
                     account && account.get('id') !== me &&
-                    <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
-                      <Button
-                        isOutline
-                        icon='ellipsis'
-                        iconSize='18px'
-                        iconClassName={_s.inheritFill}
-                        color='brand'
-                        backgroundColor='none'
-                        className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                        onClick={this.handleOpenMore}
-                        buttonRef={this.setOpenMoreNodeRef}
-                      />
+                    <div className={[_s.default, _s.flexRow, _s.py5].join(' ')}>
 
                       <form action='https://chat.gab.com/private-message' method='POST'>
                         <Button
@@ -221,16 +213,148 @@ class ProfileHeader extends ImmutablePureComponent {
                         />
                         <input type='hidden' value={account.get('username')} name='username' />
                       </form>
+                      
+                      <div className={[_s.default, _s.flexRow, _s.pb3, _s.mr10].join(' ')}>
+                        <AccountActionButton account={account} />
+                      </div>
 
-                      <AccountActionButton account={account} />
+                      <div>
+                        <Button
+                          isOutline
+                          icon='ellipsis'
+                          iconSize='18px'
+                          iconClassName={_s.inheritFill}
+                          color='brand'
+                          backgroundColor='none'
+                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
+                          onClick={this.handleOpenMore}
+                          buttonRef={this.setOpenMoreNodeRef}
+                        />
+                      </div>
 
                     </div>
                   }
+
+                  <div className={[_s.default, _s.width100PC, _s.px15, _s.mt15, _s.mb10, _s.pt15, _s.pb10].join(' ')}>
+                    {children}
+                  </div>
+
+                  <div className={[_s.default, _s.mt10].join(' ')}>
+                    <TabBar tabs={tabs} isLarge />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </Sticky>
+
+        </Responsive>
+
+        { /** desktop */ }
+        <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+          <Sticky top={top} enabled onStateChange={this.onStickyStateChange}>
+            <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+
+              <div className={[_s.default, _s.width1015PX].join(' ')}>
+                {
+                  !headerMissing &&
+                  <div className={[_s.default, _s.height350PX, _s.width100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
+                    <Image
+                      alt={intl.formatMessage(messages.headerPhoto)}
+                      className={_s.height100PC}
+                      src={headerSrc}
+                    />
+                  </div>
+                }
+                {
+                  headerMissing &&
+                  <div className={[_s.default, _s.height20PX, _s.width100PC].join(' ')} />
+                }
+
+                <div className={[_s.default, _s.width100PC].join(' ')}>
+
+                  <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
+                    <div className={avatarContainerClasses}>
+                      <Avatar size={avatarSize} account={account} noHover />
+                    </div>
+
+                    <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
+                      <DisplayName account={account} isMultiline noRelationship isLarge noHover />
+                    </div>
+                  </div>
+
+
+                  <div className={[_s.default, _s.flexRow, _s.bgPrimary, _s.height53PX].join(' ')}>
+                    <div className={tabBarContainerClasses}>
+                      <TabBar tabs={tabs} isLarge />
+                    </div>
+
+                    <div className={stickyBarContainerClasses}>
+                      <Avatar size={36} account={account} noHover />
+                      <div className={[_s.default, _s.ml10].join(' ')}>
+                        <DisplayName account={account} noUsername noRelationship noHover isLarge />
+                      </div>
+                    </div>
+
+                    {
+                      account && account.get('id') === me &&
+                      <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                        <Button
+                          isOutline
+                          backgroundColor='none'
+                          color='brand'
+                          className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                          onClick={this.handleOnEditProfile}
+                        >
+                          <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
+                            {intl.formatMessage(messages.editProfile)}
+                          </Text>
+                        </Button>
+                      </div>
+                    }
+
+                    {
+                      account && account.get('id') !== me &&
+                      <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                        <div>
+                          <Button
+                            isOutline
+                            icon='ellipsis'
+                            iconSize='18px'
+                            iconClassName={_s.inheritFill}
+                            color='brand'
+                            backgroundColor='none'
+                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                            onClick={this.handleOpenMore}
+                            buttonRef={this.setOpenMoreNodeRef}
+                          />
+                        </div>
+
+                        <form action='https://chat.gab.com/private-message' method='POST'>
+                          <Button
+                            isOutline
+                            type='submit'
+                            icon='chat'
+                            iconSize='18px'
+                            iconClassName={_s.inheritFill}
+                            color='brand'
+                            backgroundColor='none'
+                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                          />
+                          <input type='hidden' value={account.get('username')} name='username' />
+                        </form>
+
+                        <div className={[_s.default, _s.flexRow, _s.pb3].join(' ')}>
+                          <AccountActionButton account={account} />
+                        </div>
+
+                      </div>
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Sticky>
+        </Responsive>
       </div>
     )
   }

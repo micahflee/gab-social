@@ -4,7 +4,7 @@ import Button from './button'
 import Comment from './comment'
 import ScrollableList from './scrollable_list'
 import Text from './text'
-import { PureComponent } from 'react';
+import Dummy from './dummy'
 
 export default class CommentList extends ImmutablePureComponent {
 
@@ -27,7 +27,7 @@ export default class CommentList extends ImmutablePureComponent {
     const upperLimit = commentsLimited ? 6 : size
     const max = Math.min(commentsLimited ? 2 : upperLimit, size)
 
-    const Wrapper = !commentsLimited ? ScrollableList : DummyContainer
+    const Wrapper = !commentsLimited ? ScrollableList : Dummy
 
     return (
       <div>
@@ -70,10 +70,4 @@ export default class CommentList extends ImmutablePureComponent {
     )
   }
 
-}
-
-class DummyContainer extends PureComponent {
-  render() {
-    return <div>{this.props.children}</div>
-  }
 }

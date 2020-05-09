@@ -5,6 +5,8 @@ import { me, favouritesCount } from '../../initial_state'
 import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import UserStat from '../user_stat'
+import Dummy from '../dummy'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 const messages = defineMessages({
   gabs: { id: 'account.gabs', defaultMessage: 'Gabs' },
@@ -20,32 +22,45 @@ class ProfileStatsPanel extends ImmutablePureComponent {
   static propTypes = {
     account: ImmutablePropTypes.map,
     intl: PropTypes.object.isRequired,
+    noPanel: PropTypes.bool,
   }
 
   render() {
-    const { intl, account } = this.props
+    const {
+      intl,
+      account,
+      noPanel
+    } = this.props
 
     if (!account) return null
 
+    const Wrapper = noPanel ? Dummy : PanelLayout
+
     return (
-      <PanelLayout>
+      <Wrapper>
         {
           !!account &&
-          <div className={[_s.default, _s.flexRow].join(' ')}>
+          <ResponsiveClassesComponent
+            classNames={[_s.default, _s.flexRow].join(' ')}
+            classNamesXS={[_s.default, _s.flexRow, _s.mt15, _s.pt10].join(' ')}
+          >
             <UserStat
               title={intl.formatMessage(messages.gabs)}
               value={shortNumberFormat(account.get('statuses_count'))}
               to={`/${account.get('acct')}`}
+              isCentered={noPanel}
             />
             <UserStat
               title={intl.formatMessage(messages.follows)}
               value={shortNumberFormat(account.get('following_count'))}
               to={`/${account.get('acct')}/following`}
+              isCentered={noPanel}
             />
             <UserStat
               title={intl.formatMessage(messages.followers)}
               value={shortNumberFormat(account.get('followers_count'))}
               to={`/${account.get('acct')}/followers`}
+              isCentered={noPanel}
             />
             {
               account.get('id') === me &&
@@ -53,11 +68,12 @@ class ProfileStatsPanel extends ImmutablePureComponent {
                 title={intl.formatMessage(messages.likes)}
                 value={shortNumberFormat(favouritesCount)}
                 to={`/${account.get('acct')}/likes`}
+                isCentered={noPanel}
               />
             }
-          </div>
+          </ResponsiveClassesComponent>
         }
-      </PanelLayout>
+      </Wrapper>
     )
   }
 }

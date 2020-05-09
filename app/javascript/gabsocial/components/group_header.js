@@ -4,7 +4,11 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover, closePopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
 import { joinGroup, leaveGroup } from '../actions/groups'
-import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
+import {
+  PLACEHOLDER_MISSING_HEADER_SRC,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
+import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Block from './block'
 import Image from './image'
@@ -46,6 +50,7 @@ class GroupHeader extends ImmutablePureComponent {
 
   static propTypes = {
     group: ImmutablePropTypes.map,
+    children: PropTypes.any,
     intl: PropTypes.object.isRequired,
     onToggleMembership: PropTypes.func.isRequired,
     onOpenGroupOptions: PropTypes.func.isRequired,
@@ -67,6 +72,7 @@ class GroupHeader extends ImmutablePureComponent {
 
   render() {
     const {
+      children,
       group,
       intl,
       relationships,
@@ -90,8 +96,8 @@ class GroupHeader extends ImmutablePureComponent {
       actionButtonTitle = intl.formatMessage(!isMember ? messages.join : messages.leave)
       if (isMember) {
         actionButtonOptions = {
-          backgroundColor: 'tertiary',
-          color: 'primary',
+          backgroundColor: 'danger',
+          color: 'white',
         }
       }
     }
@@ -99,25 +105,24 @@ class GroupHeader extends ImmutablePureComponent {
     // : todo :
     // {group.get('archived') && <Icon id='lock' title={intl.formatMessage(messages.group_archived)} />}
 
-    // const adminMenu = [
-    // 	{ text: intl.formatMessage(messages.edit), to: `/groups/${group.get('id')}/edit` },
-    // 	{ text: intl.formatMessage(messages.removed_accounts), to: `/groups/${group.get('id')}/removed-accounts` },
-    // ]
-
     return (
       <div className={[_s.default, _s.z1, _s.width100PC, _s.mb15].join(' ')}>
-        <Block>
-          <div className={[_s.default, _s.width100PC].join(' ')}>
-            
-            {
-              coverSrc && !coverSrcMissing &&
-              <Image className={_s.height350PX} src={coverSrc} alt={title} />
-            }
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
 
-            <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
-              <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
-                <TabBar tabs={tabs} />
-                <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
+              {
+                coverSrc && !coverSrcMissing &&
+                <Image className={_s.height200PX} src={coverSrc} alt={title} />
+              }
+
+              <div className={[_s.default, _s.width100PC].join(' ')}>
+
+                <div className={[_s.default, _s.width100PC, _s.px15, _s.mt10, _s.py10].join(' ')}>
+                  {children}
+                </div>
+
+                <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderTop1PX, _s.borderColorSecondary, _s.mt5, _s.pt15, _s.height100PC, _s.px15].join(' ')}>
                   {
                     !!actionButtonTitle &&
                     <Button
@@ -126,12 +131,12 @@ class GroupHeader extends ImmutablePureComponent {
                       onClick={this.handleOnToggleMembership}
                       {...actionButtonOptions}
                     >
-                      <Text color='inherit' size='small'>
+                      <Text color='inherit' size='small' className={_s.px10}>
                         {actionButtonTitle}
                       </Text>
                     </Button>
                   }
-                 
+
                   <Button
                     radiusSmall
                     color='primary'
@@ -142,10 +147,60 @@ class GroupHeader extends ImmutablePureComponent {
                     buttonRef={this.setInfoBtn}
                   />
                 </div>
+
+                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.mt15, _s.pt10, _s.px10].join(' ')}>
+
+                  <TabBar tabs={tabs} />
+
+                </div>
               </div>
             </div>
           </div>
-        </Block>
+        </Responsive>
+
+        { /** desktop */}
+        <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+          <Block>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+
+              {
+                coverSrc && !coverSrcMissing &&
+                <Image className={_s.height350PX} src={coverSrc} alt={title} />
+              }
+
+              <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
+                  <TabBar tabs={tabs} />
+                  <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
+                    {
+                      !!actionButtonTitle &&
+                      <Button
+                        radiusSmall
+                        className={_s.mr5}
+                        onClick={this.handleOnToggleMembership}
+                        {...actionButtonOptions}
+                      >
+                        <Text color='inherit' size='small' className={_s.px10}>
+                          {actionButtonTitle}
+                        </Text>
+                      </Button>
+                    }
+
+                    <Button
+                      radiusSmall
+                      color='primary'
+                      backgroundColor='tertiary'
+                      className={_s.mr5}
+                      icon='ellipsis'
+                      onClick={this.handleOnOpenGroupOptions}
+                      buttonRef={this.setInfoBtn}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Block>
+        </Responsive>
       </div>
     )
   }

@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom'
+import { CX } from '../constants'
 import Text from './text'
 
 /**
@@ -17,6 +18,7 @@ export default class UserStat extends PureComponent {
       PropTypes.number,
       PropTypes.object,
     ]).isRequired,
+    isCentered: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -32,21 +34,36 @@ export default class UserStat extends PureComponent {
   }
 
   render() {
-    const { to, title, value } = this.props
+    const {
+      to,
+      title,
+      value,
+      isCentered,
+    } = this.props
     const { hovering } = this.state
+
+    const align = isCentered ? 'center' : 'left'
+    const containerClasses = CX({
+      default: 1,
+      cursorPointer: 1,
+      noUnderline: 1,
+      flexNormal: isCentered,
+      flexGrow1: !isCentered,
+      pr15: !isCentered,
+    })
 
     return (
       <NavLink
         to={to}
         title={`${value} ${title}`}
-        className={[_s.default, _s.flexGrow1, _s.cursorPointer, _s.noUnderline, _s.pr15].join(' ')}
+        className={containerClasses}
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
       >
-        <Text size='large' weight='bold' color='brand'>
+        <Text size='large' weight='bold' color='brand' align={align}>
           {value}
         </Text>
-        <Text size='small' weight='medium' color='secondary' hasUnderline={hovering}>
+        <Text size='small' weight='medium' color='secondary' hasUnderline={hovering} align={align}>
           {title}
         </Text>
       </NavLink>

@@ -80,7 +80,7 @@ class NavigationBar extends ImmutablePureComponent {
                     backgroundColor='none'
                     className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
                   >
-                    <Icon id='gab-logo' className={_s.fillNavigationBrand} />
+                    <Icon id='logo' className={_s.fillNavigationBrand} />
                   </Button>
                 </h1>
 

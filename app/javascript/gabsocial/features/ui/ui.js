@@ -170,7 +170,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/notifications' exact page={NotificationsPage} component={Notifications} content={children} />
 
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
-        <WrappedRoute path='/search/people' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/people' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/groups' exact page={SearchPage} component={Search} content={children} />
 
@@ -350,12 +350,8 @@ class UI extends PureComponent {
     }
   }
 
-  // componentWillMount() {
-    
-  // }
-
   componentDidMount() {
-    // if (!me) return
+    if (!me) return
 
     window.addEventListener('beforeunload', this.handleBeforeUnload, false)
 
@@ -373,13 +369,12 @@ class UI extends PureComponent {
       window.setTimeout(() => Notification.requestPermission(), 120 * 1000)
     }
 
-    if (me) {
-      this.props.dispatch(expandHomeTimeline())
-      this.props.dispatch(expandNotifications())
-      this.props.dispatch(initializeNotifications())
+    this.props.dispatch(expandHomeTimeline())
+    this.props.dispatch(initializeNotifications())
 
-      setTimeout(() => this.props.dispatch(fetchFilters()), 500)
-    }
+    setTimeout(() => {
+      this.props.dispatch(fetchFilters())
+    }, 500)
     // this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
     //   return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName)
     // }
@@ -394,11 +389,11 @@ class UI extends PureComponent {
     document.removeEventListener('dragend', this.handleDragEnd)
   }
 
-  setRef = c => {
+  setRef = (c) => {
     this.node = c
   }
 
-  handleHotkeyNew = e => {
+  handleHotkeyNew = (e) => {
     e.preventDefault()
 
     const element = this.node.querySelector('.compose-form__autosuggest-wrapper textarea')
@@ -408,7 +403,7 @@ class UI extends PureComponent {
     }
   }
 
-  handleHotkeySearch = e => {
+  handleHotkeySearch = (e) => {
     e.preventDefault()
 
     const element = this.node.querySelector('.search__input')
@@ -418,7 +413,7 @@ class UI extends PureComponent {
     }
   }
 
-  handleHotkeyForceNew = e => {
+  handleHotkeyForceNew = (e) => {
     this.handleHotkeyNew(e)
     this.props.dispatch(resetCompose())
   }
@@ -431,7 +426,7 @@ class UI extends PureComponent {
     }
   }
 
-  setHotkeysRef = c => {
+  setHotkeysRef = (c) => {
     this.hotkeys = c
   }
 

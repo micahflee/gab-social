@@ -71,7 +71,7 @@ export default class ErrorBoundary extends PureComponent {
 
               <h1 className={[_s.default, _s.mr15].join(' ')}>
                 <Button href='/' isText aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                  <Icon id='gab-logo' className={_s.fillWhite} />
+                  <Icon id='logo' className={_s.fillWhite} />
                 </Button>
               </h1>
 

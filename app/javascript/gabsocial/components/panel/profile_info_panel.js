@@ -9,6 +9,7 @@ import PanelLayout from './panel_layout'
 import Divider from '../divider'
 import Icon from '../icon'
 import Text from '../text'
+import Dummy from '../dummy'
 
 const messages = defineMessages({
   title: { id: 'about', defaultMessage: 'About' },
@@ -39,6 +40,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
   static propTypes = {
     identityProofs: ImmutablePropTypes.list,
     account: ImmutablePropTypes.map,
+    noPanel: PropTypes.bool,
     intl: PropTypes.object.isRequired,
   }
 
@@ -47,7 +49,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, account, identityProofs } = this.props
+    const {
+      intl,
+      account,
+      identityProofs,
+      noPanel
+    } = this.props
 
     if (!account) return null
 
@@ -60,8 +67,10 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     const isInvestor = account.get('is_investor')
     const hasBadges = isPro || isDonor || isInvestor
 
+    const Wrapper = noPanel ? Dummy : PanelLayout
+
     return (
-      <PanelLayout title={intl.formatMessage(messages.title)}>
+      <Wrapper title={intl.formatMessage(messages.title)}>
         <div className={[_s.default].join(' ')}>
           {
             hasNote &&
@@ -166,7 +175,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
           )}
 
         </div>
-      </PanelLayout>
+      </Wrapper>
     )
   }
 }

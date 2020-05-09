@@ -1,16 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { FormattedMessage } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import { fetchSuggestions, dismissSuggestion } from '../actions/suggestions'
+import { me } from '../initial_state'
 import HashtagItem from '../components/hashtag_item'
-import Icon from '../components/icon'
-import { WhoToFollowPanel } from '../components/panel'
-// import TrendsPanel from '../ui/components/trends_panel'
 import GroupListItem from '../components/group_list_item'
-import Block from '../components/block'
-import Heading from '../components/heading'
-import Button from '../components/button'
 import Text from '../components/text'
 import Account from '../components/account'
 import PanelLayout from '../components/panel/panel_layout'
@@ -91,7 +85,7 @@ class Search extends ImmutablePureComponent {
       )
     }
 
-    if (results.get('groups') && results.get('groups').size > 0 && (isTop || showGroups)) {
+    if (results.get('groups') && results.get('groups').size > 0 && me && (isTop || showGroups)) {
       const size = isTop ? Math.min(results.get('groups').size, theLimit) : results.get('groups').size;
       const isMax = size === results.get('groups').size
 
@@ -123,7 +117,7 @@ class Search extends ImmutablePureComponent {
       )
     }
 
-    if (results.get('hashtags') && results.get('hashtags').size > 0 && (isTop || showHashtags)) {
+    if (results.get('hashtags') && results.get('hashtags').size > 0 && me && (isTop || showHashtags)) {
       const size = isTop ? Math.min(results.get('hashtags').size, theLimit) : results.get('hashtags').size;
       const isMax = size === results.get('hashtags').size
 

@@ -27,6 +27,14 @@ export default class ComposeExtraButton extends PureComponent {
     } = this.props
 
     const btnClasses = cx({
+      default: 1,
+      circle: 1,
+      noUnderline: 1,
+      font: 1,
+      cursorPointer: 1,
+      textAlignCenter: 1,
+      outlineNone: 1,
+      bgTransparent: 1,
       bgSubtle_onHover: !active,
       bgBrandLight: active,
       py10: !small,
@@ -45,6 +53,7 @@ export default class ComposeExtraButton extends PureComponent {
 
     const button = (
       <Button
+        noClasses
         className={btnClasses}
         title={title}
         isDisabled={disabled}

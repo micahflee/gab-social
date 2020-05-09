@@ -1,3 +1,4 @@
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component';
 import TabBarItem from './tab_bar_item'
 
 /**
@@ -16,7 +17,10 @@ export default class TabBar extends PureComponent {
     const { tabs, isLarge } = this.props
 
     return (
-      <div className={[_s.default, _s.height53PX, _s.px5, _s.flexRow].join(' ')}>
+      <ResponsiveClassesComponent
+        classNames={[_s.default, _s.height53PX, _s.px5, _s.flexRow].join(' ')}
+        classNamesXS={[_s.default, _s.height40PX, _s.px5, _s.flexRow].join(' ')}
+      >
         {
           // Check for if tabs exist or not.
           // We don't `return null` because it maintains 53px height if no tabs.
@@ -32,7 +36,7 @@ export default class TabBar extends PureComponent {
             />
           ))
         }
-      </div>
+      </ResponsiveClassesComponent>
     )
   }
 

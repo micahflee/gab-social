@@ -35,6 +35,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setFilter(value) {
+    console.log("SETTING ACTIVE FILTER:", value)
     dispatch(setFilter('active', value))
   },
 })
@@ -56,7 +57,9 @@ class NotificationsPage extends PureComponent {
     selectedFilter: PropTypes.string.isRequired,
   }
 
-  componentDidMount() {
+  componentWill
+
+  UNSAFE_componentWillMount() {
     this.checkForQueryStringChange(this.context.router.route.location)
   }
 

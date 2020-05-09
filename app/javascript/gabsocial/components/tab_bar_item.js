@@ -56,7 +56,7 @@ class TabBarItem extends PureComponent {
 
     const containerClasses = CX({
       default: 1,
-      height53PX: 1,
+      height100PC: 1,
       noUnderline: 1,
       text: 1,
       displayFlex: 1,

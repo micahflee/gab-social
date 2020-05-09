@@ -201,8 +201,9 @@ class Composer extends PureComponent {
       pt15: !small,
       px15: !small,
       px10: small,
-      pt10: small,
-      pb10: 1,
+      pt5: small,
+      pb5: small,
+      pb10: !small,
     })
 
     return (

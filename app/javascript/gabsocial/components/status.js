@@ -535,9 +535,12 @@ class Status extends ImmutablePureComponent {
 
                   {
                     !isChild && !compactMode && !!me &&
-                    <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}>
+                    <ResponsiveClassesComponent
+                      classNames={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}
+                      classNamesXS={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px10, _s.mb10].join(' ')}
+                    >
                       <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
-                    </div>
+                    </ResponsiveClassesComponent>
                   }
 
                   {

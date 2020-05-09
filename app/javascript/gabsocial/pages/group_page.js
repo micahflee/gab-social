@@ -4,11 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchGroup } from '../actions/groups'
 import PageTitle from '../features/ui/util/page_title'
-import GroupInfoPanel from '../components/panel/group_info_panel'
 import GroupLayout from '../layouts/group_layout'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import GroupSidebarPanel from '../components/panel/groups_panel'
-import LinkFooter from '../components/link_footer'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 
@@ -21,8 +17,10 @@ const mapStateToProps = (state, { params: { id } }) => ({
 	relationships: state.getIn(['group_relationships', id]),
 })
 
-const mapDispatchToProps = () => ({
-	fetchGroup,
+const mapDispatchToProps = (dispatch) => ({
+	onFetchGroup(groupId) {
+		dispatch(fetchGroup(groupId))
+	}
 })
 
 export default
@@ -35,11 +33,12 @@ class GroupPage extends ImmutablePureComponent {
 		group: ImmutablePropTypes.map,
 		children: PropTypes.node.isRequired,
 		relationships: ImmutablePropTypes.map,
-		fetchGroup: PropTypes.func.isRequired,
+		onFetchGroup: PropTypes.func.isRequired,
 	}
 	
 	componentDidMount() {
-		this.props.fetchGroup(this.props.params.id)
+		console.log("group page mounted:", this.props.params.id)
+		this.props.onFetchGroup(this.props.params.id)
 	}
 
 	render() {
@@ -65,14 +64,6 @@ class GroupPage extends ImmutablePureComponent {
 					// 	onClick: null,
 					// },
 				]}
-				layout={(
-					<Fragment>
-						<GroupInfoPanel group={group} />
-						<WhoToFollowPanel />
-						<GroupSidebarPanel isSlim />
-						<LinkFooter />
-					</Fragment>
-				)}
 			>
 				<PageTitle path={[groupTitle, intl.formatMessage(messages.group)]} />
 

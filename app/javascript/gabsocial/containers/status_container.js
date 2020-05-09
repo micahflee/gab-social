@@ -208,20 +208,24 @@ const mapDispatchToProps = (dispatch) => ({
     }
   },
 
+  onOpenLikes(status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
+    dispatch(openModal('STATUS_LIKES', { status }))
+  },
+    
+  onOpenReposts(status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
+    dispatch(openModal('STATUS_REPOSTS', { status }))
+  },
+  
   onFetchComments(statusId) {
     dispatch(fetchComments(statusId))
   },
 
   onFetchContext(statusId) {
     dispatch(fetchContext(statusId))
-  },
-
-  onOpenLikes(status) {
-    dispatch(openModal('STATUS_LIKES', { status }))
-  },
-    
-  onOpenReposts(status) {
-    dispatch(openModal('STATUS_REPOSTS', { status }))
   },
 
 });

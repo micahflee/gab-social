@@ -2,8 +2,8 @@ import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
-import IntersectionObserverArticle from '../components/intersection_observer_article'
-import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
+// import IntersectionObserverArticle from '../components/intersection_observer_article'
+// import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
 import PageTitle from '../features/ui/util/page_title'
 import GroupsPanel from '../components/panel/groups_panel'
 import ListsPanel from '../components/panel/lists_panel'
@@ -43,23 +43,23 @@ class HomePage extends PureComponent {
     totalQueuedItemsCount: PropTypes.number.isRequired,
   }
 
-  intersectionObserverWrapper = new IntersectionObserverWrapper()
+  // intersectionObserverWrapper = new IntersectionObserverWrapper()
 
-  componentDidMount() {
-    this.attachIntersectionObserver()
-  }
+  // componentDidMount() {
+  //   this.attachIntersectionObserver()
+  // }
 
-  componentWillUnmount() {
-    this.detachIntersectionObserver()
-  }
+  // componentWillUnmount() {
+  //   this.detachIntersectionObserver()
+  // }
 
-  attachIntersectionObserver() {
-    this.intersectionObserverWrapper.connect()
-  }
+  // attachIntersectionObserver() {
+  //   this.intersectionObserverWrapper.connect()
+  // }
 
-  detachIntersectionObserver() {
-    this.intersectionObserverWrapper.disconnect()
-  }
+  // detachIntersectionObserver() {
+  //   this.intersectionObserverWrapper.disconnect()
+  // }
 
   render() {
     const {
@@ -87,30 +87,9 @@ class HomePage extends PureComponent {
             <UserPanel />
             <ProgressPanel />
             <TrendsPanel />
-            <IntersectionObserverArticle
-              id={'home-sidebar-lists-panel'}
-              listLength={7}
-              index={4}
-              intersectionObserverWrapper={this.intersectionObserverWrapper}
-            >
-              <ListsPanel />
-            </IntersectionObserverArticle>
-            <IntersectionObserverArticle
-              id={'home-sidebar-wtf-panel'}
-              listLength={7}
-              index={5}
-              intersectionObserverWrapper={this.intersectionObserverWrapper}
-            >
-              <WhoToFollowPanel />
-            </IntersectionObserverArticle>
-            <IntersectionObserverArticle
-              id={'home-sidebar-groups-panel'}
-              listLength={7}
-              index={6}
-              intersectionObserverWrapper={this.intersectionObserverWrapper}
-            >
-              <GroupsPanel isLazy />
-            </IntersectionObserverArticle>
+            <ListsPanel />
+            <WhoToFollowPanel />
+            <GroupsPanel />
             <LinkFooter />
           </Fragment>
         )}

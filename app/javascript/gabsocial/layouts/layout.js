@@ -1,7 +1,9 @@
 import Sticky from 'react-stickynode'
 import Sidebar from '../components/sidebar'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import { me } from '../initial_state'
 import NavigationBar from '../components/navigation_bar'
+import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
@@ -38,12 +40,19 @@ export default class Layout extends PureComponent {
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
 
-        <NavigationBar
-          actions={actions}
-          tabs={tabs}
-          title={title}
-          showBackBtn={showBackBtn}
-        />
+        {
+          me &&
+          <NavigationBar
+            actions={actions}
+            tabs={tabs}
+            title={title}
+            showBackBtn={showBackBtn}
+          />
+        }
+        {
+          !me &&
+          <LoggedOutNavigationBar />
+        }
 
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
           {
@@ -57,7 +66,7 @@ export default class Layout extends PureComponent {
               />
             </Responsive>
           }
-          
+
           <ResponsiveClassesComponent
             classNames={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
             classNamesSmall={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}

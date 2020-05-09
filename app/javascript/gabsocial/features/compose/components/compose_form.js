@@ -12,6 +12,7 @@ import {
 } from '../../../constants'
 import AutosuggestTextbox from '../../../components/autosuggest_textbox'
 import Responsive from '../../ui/util/responsive_component'
+import ResponsiveClassesComponent from '../../ui/util/responsive_classes_component'
 import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
 import CharacterCounter from '../../../components/character_counter'
@@ -254,6 +255,8 @@ class ComposeForm extends ImmutablePureComponent {
       flexWrap: 1,
       overflowHidden: 1,
       flex1: 1,
+      heightMin28PX: 1,
+      py2: shouldCondense,
       alignItemsEnd: shouldCondense,
       flexRow: shouldCondense,
       radiusSmall: shouldCondense,
@@ -267,8 +270,9 @@ class ComposeForm extends ImmutablePureComponent {
       alignItemsCenter: !shouldCondense,
       alignItemsStart: shouldCondense,
       mt10: !shouldCondense,
-      px15: !shouldCondense,
+      px10: !shouldCondense,
       mlAuto: shouldCondense,
+      flexWrap: !shouldCondense,
     })
 
     const commentPublishBtnClasses = CX({
@@ -285,7 +289,7 @@ class ComposeForm extends ImmutablePureComponent {
             <div className={[_s.default, _s.width100PC].join(' ')}>
 
               <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
-                <div className={[_s.default, _s.mr10, _s.mt5].join(' ')}>
+                <div className={[_s.default, _s.mr10].join(' ')}>
                   <Avatar account={account} size={28} noHover />
                 </div>
 

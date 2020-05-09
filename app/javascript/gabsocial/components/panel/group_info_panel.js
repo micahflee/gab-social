@@ -8,6 +8,7 @@ import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import Button from '../button'
 import Divider from '../divider'
+import Dummy from '../dummy'
 import Icon from '../icon'
 import Text from '../text'
 import RelativeTimestamp from '../relative_timestamp'
@@ -19,7 +20,6 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenGroupMembersModal(groupId) {
-    console.log("onOpenGroupMembersModal:", groupId)
     dispatch(openModal(MODAL_GROUP_MEMBERS, { groupId }))
   },
 })
@@ -33,6 +33,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
     group: ImmutablePropTypes.map.isRequired,
     intl: PropTypes.object.isRequired,
     onOpenGroupMembersModal: PropTypes.func.isRequired,
+    noPanel: PropTypes.bool,
   }
 
   handleOnOpenGroupMembersModal = () => {
@@ -40,10 +41,12 @@ class GroupInfoPanel extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, group } = this.props
+    const { intl, group, noPanel } = this.props
+
+    const Wrapper = noPanel ? Dummy : PanelLayout
 
     return (
-      <PanelLayout title={intl.formatMessage(messages.title)}>
+      <Wrapper title={intl.formatMessage(messages.title)}>
         {
           !!group &&
           <Fragment>
@@ -102,7 +105,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
             </Text>
           </Fragment>
         }
-      </PanelLayout>
+      </Wrapper>
     )
   }
 }

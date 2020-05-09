@@ -12,6 +12,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
+import BackButton from './back_button'
 import Pills from './pills'
 
 const messages = defineMessages({
@@ -227,16 +228,7 @@ class Sidebar extends ImmutablePureComponent {
                   <div className={[_s.default, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
                     {
                       showBackBtn &&
-                      <Button
-                        noClasses
-                        color='primary'
-                        backgroundColor='none'
-                        className={[_s.alignItemsCenter, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
-                        icon='arrow-left'
-                        iconSize='24px'
-                        iconClassName={[_s.mr5, _s.fillPrimary].join(' ')}
-                        onClick={this.handleBackClick}
-                      />
+                      <BackButton />
                     }
                     <Heading size='h1'>
                       {title}

@@ -1,5 +1,6 @@
 import { withRouter } from 'react-router-dom'
 import queryString from 'query-string'
+import { me } from '../initial_state'
 import { CX } from '../constants'
 import {
   changeSearch,
@@ -128,7 +129,7 @@ class Search extends PureComponent {
     })
 
     const prependIconColor = highlighted ? 'brand' : 'white'
-
+    const placeholder = !me ? 'Search Gab' : 'Search for people, groups or news'
     const id = 'nav-search'
       
     return (
@@ -140,7 +141,7 @@ class Search extends PureComponent {
             id={id}
             className={inputClasses}
             type='text'
-            placeholder='Search for people, groups or news'
+            placeholder={placeholder}
             ref={this.setTextbox}
             value={value}
             onKeyUp={this.handleKeyUp}

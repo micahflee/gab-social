@@ -157,6 +157,8 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       return;
     }
 
+    console.log("activeFilter:", activeFilter)
+
     const params = {
       max_id: maxId,
       exclude_types: activeFilter === 'all' ? null : excludeTypesFromFilter(activeFilter),

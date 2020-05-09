@@ -5,10 +5,6 @@ import { fetchAccountByUsername } from '../actions/accounts'
 import { makeGetAccount } from '../selectors'
 import { me } from '../initial_state'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import ProfileStatsPanel from '../components/panel/profile_stats_panel'
-import ProfileInfoPanel from '../components/panel/profile_info_panel'
-import MediaGalleryPanel from '../components/panel/media_gallery_panel'
 import ColumnIndicator from '../components/column_indicator'
 import ProfileLayout from '../layouts/profile_layout'
 
@@ -66,14 +62,7 @@ class ProfilePage extends ImmutablePureComponent {
     return (
       <ProfileLayout
         account={account}
-        layout={(
-          <Fragment>
-            <ProfileStatsPanel account={account} />
-            <ProfileInfoPanel account={account} />
-            { !unavailable && <MediaGalleryPanel account={account} /> }
-            <LinkFooter />
-          </Fragment>
-        )}
+        title={name}
       >
         <PageTitle path={`${name} (@${username})`} />
         {
