@@ -30,15 +30,9 @@ class Item extends ImmutablePureComponent {
         // Wait for relationships
         if (!relationships) return null;
 
-        const unreadCount = relationships.get('unread_count');
-
         return (
             <Link to={`/groups/${group.get('id')}`} className="group-sidebar-panel__item">
                 <div className="group-sidebar-panel__item__title">{group.get('title')}</div>
-                <div className="group-sidebar-panel__item__meta">
-                    {unreadCount > 0 && <span className="group-sidebar-panel__item__meta__unread">{shortNumberFormat(unreadCount)} {intl.formatMessage(messages.new_statuses)}</span>}
-                    {unreadCount === 0 && <span>{intl.formatMessage(messages.no_recent_activity)}</span>}
-                </div>
             </Link>
         );
     }
