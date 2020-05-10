@@ -25,7 +25,6 @@
 #  group_id               :integer
 #  quote_of_id            :bigint(8)
 #  revised_at             :datetime
-#  markdown               :text
 #
 
 class Status < ApplicationRecord

@@ -399,7 +399,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
   create_table "list_accounts", force: :cascade do |t|
     t.bigint "list_id", null: false
     t.bigint "account_id", null: false
-    t.bigint "follow_id", default: 1
+    t.bigint "follow_id", null: false
     t.index ["account_id", "list_id"], name: "index_list_accounts_on_account_id_and_list_id", unique: true
     t.index ["follow_id"], name: "index_list_accounts_on_follow_id"
     t.index ["list_id", "account_id"], name: "index_list_accounts_on_list_id_and_account_id"
@@ -710,7 +710,6 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
     t.integer "group_id"
     t.bigint "quote_of_id"
     t.datetime "revised_at"
-    t.text "markdown"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
     t.index ["group_id"], name: "index_statuses_on_group_id"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
