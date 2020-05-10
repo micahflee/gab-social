@@ -7,6 +7,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import { CX } from '../constants'
 import Avatar from './avatar'
+import BackButton from './back_button'
 import Button from './button'
 import Heading from './heading'
 import Icon from './icon'
@@ -21,28 +22,12 @@ export default
 @connect(mapStateToProps)
 class NavigationBar extends ImmutablePureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   static propTypes = {
     account: ImmutablePropTypes.map,
     actions: PropTypes.array,
     tabs: PropTypes.array,
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
-  }
-
-  historyBack = () => {
-    if (window.history && window.history.length === 1) {
-      this.context.router.history.push('/home')
-    } else {
-      this.context.router.history.goBack()
-    }
-  }
-
-  handleBackClick = () => {
-    this.historyBack()
   }
 
   handleProfileClick = () => {
@@ -119,7 +104,7 @@ class NavigationBar extends ImmutablePureComponent {
             
             { /** Mobile */}
             <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s.default, _s.width84PX, _s.pl10].join(' ')}>
+              <div className={[_s.default, _s.width84PX, _s.alignItemsStart, _s.pl10].join(' ')}>
                 {
                   !!account && !showBackBtn &&
                   <button
@@ -132,15 +117,11 @@ class NavigationBar extends ImmutablePureComponent {
                 }
                 {
                   showBackBtn &&
-                  <Button
-                    noClasses
-                    color='primary'
-                    backgroundColor='none'
-                    className={[_s.height53PX, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
-                    icon='arrow-left'
-                    iconSize='32px'
+                  <BackButton
+                    className={_s.height53PX}
+                    icon='angle-left'
+                    iconSize='18px'
                     iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
-                    onClick={this.handleBackClick}
                   />
                 }
               </div>

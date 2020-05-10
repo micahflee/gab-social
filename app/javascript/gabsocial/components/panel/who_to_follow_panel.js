@@ -36,24 +36,8 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     'suggestions',
   ]
 
-  state = {
-    fetched: false,
-  }
-
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
-      return {
-        fetched: true
-      }
-    }
-
-    return null
-  }
-
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevState.fetched && this.state.fetched) {
-      this.props.fetchSuggestions()
-    }
+  componentDidMount() {
+    this.props.fetchSuggestions()
   }
 
   render() {

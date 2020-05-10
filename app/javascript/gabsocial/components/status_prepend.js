@@ -39,8 +39,6 @@ class StatusPrepend extends ImmutablePureComponent {
 
     const isRepost = (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object')
 
-    console.log("isComment:", isComment)
-
     if (!isFeatured && !isPromoted && !isRepost && !isComment) return null
 
     let iconId

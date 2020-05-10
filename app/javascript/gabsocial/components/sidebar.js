@@ -63,10 +63,6 @@ export default
 @injectIntl
 class Sidebar extends ImmutablePureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object,
-  }
-
   static propTypes = {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
@@ -92,18 +88,6 @@ class Sidebar extends ImmutablePureComponent {
       targetRef: this.moreBtnRef,
       position: 'top',
     })
-  }
-
-  historyBack = () => {
-    if (window.history && window.history.length === 1) {
-      this.context.router.history.push('/home')
-    } else {
-      this.context.router.history.goBack()
-    }
-  }
-
-  handleBackClick = () => {
-    this.historyBack()
   }
 
   setMoreButtonRef = n => {
@@ -221,14 +205,16 @@ class Sidebar extends ImmutablePureComponent {
       <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
         <div className={[_s.default, _s.width240PX].join(' ')}>
           <div className={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.overflowYScroll].join(' ')}>
+            <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}>
               <div className={[_s.default, _s.width100PC].join(' ')}>
                 {
                   !!title &&
                   <div className={[_s.default, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
                     {
                       showBackBtn &&
-                      <BackButton />
+                      <BackButton
+                        icon='arrow-left'
+                      />
                     }
                     <Heading size='h1'>
                       {title}

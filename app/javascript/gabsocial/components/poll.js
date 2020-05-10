@@ -5,6 +5,7 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import classNames from 'classnames/bind'
 import escapeTextContentForBrowser from 'escape-html'
 import spring from 'react-motion/lib/spring'
+import { me } from '../initial_state'
 import Motion from '../features/ui/util/optional_motion'
 import { vote } from '../actions/polls'
 import emojify from './emoji/emoji'
@@ -202,7 +203,7 @@ class Poll extends ImmutablePureComponent {
 
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
           {
-            !showResults &&
+            !showResults && me &&
             <Button
               isNarrow
               className={_s.mr10}

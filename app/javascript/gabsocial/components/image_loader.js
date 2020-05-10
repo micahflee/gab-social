@@ -1,30 +1,8 @@
-import classNames from 'classnames';
-import { LoadingBar } from 'react-redux-loading-bar';
-import ZoomableImage from './zoomable_image';
-
-// .image-loader {
-//   position: relative;
-
-//   @include flex(center, center, column);
-//   @include size(100%);
-
-//   &__preview-canvas {
-//     object-fit: contain;
-
-//     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
-//     @include background-image("", contain, center, repeat);
-//   }
-
-//   &--amorphous & {
-//     &__preview-canvas {
-//       display: none;
-//     }
-//   }
-
-//   .loading-bar {
-//     position: relative;
-//   }
-// }
+import { LoadingBar } from 'react-redux-loading-bar'
+import {
+  CX,
+} from '../constants'
+import ZoomableImage from './zoomable_image'
 
 export default class ImageLoader extends PureComponent {
 
@@ -54,7 +32,7 @@ export default class ImageLoader extends PureComponent {
 
   get canvasContext() {
     if (!this.canvas) {
-      return null;
+      return null
     }
 
     this._canvasContext = this._canvasContext || this.canvas.getContext('2d');
@@ -151,12 +129,39 @@ export default class ImageLoader extends PureComponent {
   }
 
   render () {
-    const { alt, src, width, height, onClick } = this.props;
-    const { loading } = this.state;
+    const { alt, src, width, height, onClick } = this.props
+    const { loading } = this.state
 
-    const className = classNames('image-loader', {
-      'image-loader--loading': loading,
-      'image-loader--amorphous': !this.hasSize(),
+    // .image-loader {
+    //   position: relative;
+
+    //   @include flex(center, center, column);
+    //   @include size(100%);
+
+    //   &__preview-canvas {
+    //     object-fit: contain;
+
+    //     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
+    //     @include background-image("", contain, center, repeat);
+    //   }
+
+    //   &--amorphous & {
+    //     &__preview-canvas {
+    //       display: none;
+    //     }
+    //   }
+
+    //   .loading-bar {
+    //     position: relative;
+    //   }
+    // }
+
+    const className = CX({
+      default: 1,
+      width100PC: 1,
+      height100PC: 1,
+      // 'image-loader--loading': loading,
+      // 'image-loader--amorphous': !this.hasSize(),
     });
 
     return (
@@ -164,7 +169,7 @@ export default class ImageLoader extends PureComponent {
         <LoadingBar loading={loading ? 1 : 0} className='loading-bar' style={{ width: this.state.width || width }} />
         {loading ? (
           <canvas
-            className='image-loader__preview-canvas'
+            className={[_s.default, _s.objectFitCover].join(' ')}
             ref={this.setCanvasRef}
             width={width}
             height={height}

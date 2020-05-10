@@ -37,7 +37,6 @@ class GroupPage extends ImmutablePureComponent {
 	}
 	
 	componentDidMount() {
-		console.log("group page mounted:", this.props.params.id)
 		this.props.onFetchGroup(this.props.params.id)
 	}
 
@@ -54,16 +53,9 @@ class GroupPage extends ImmutablePureComponent {
 		return (
 			<GroupLayout
 				showBackBtn
-				title={intl.formatMessage(messages.group)}
+				title={groupTitle}
 				group={group}
 				relationships={relationships}
-				actions={[
-					// : todo :
-					// {
-					// 	icon: 'ellipsis',
-					// 	onClick: null,
-					// },
-				]}
 			>
 				<PageTitle path={[groupTitle, intl.formatMessage(messages.group)]} />
 

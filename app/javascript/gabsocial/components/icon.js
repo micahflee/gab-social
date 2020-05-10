@@ -1,5 +1,6 @@
 import AddIcon from '../assets/add_icon'
 import AngleRightIcon from '../assets/angle_right_icon'
+import AngleLeftIcon from '../assets/angle_left_icon'
 import AppsIcon from '../assets/apps_icon'
 import ArrowLeftIcon from '../assets/arrow_left_icon'
 import ArrowRightIcon from '../assets/arrow_right_icon'
@@ -74,6 +75,7 @@ import WebsiteIcon from '../assets/website_icon'
 const ICONS = {
   'add': AddIcon,
   'angle-right': AngleRightIcon,
+  'angle-left': AngleLeftIcon,
   'apps': AppsIcon,
   'arrow-left': ArrowLeftIcon,
   'arrow-right': ArrowRightIcon,

@@ -1,3 +1,4 @@
+import { CX } from '../constants'
 import Button from './button'
 
 export default class BackButton extends PureComponent {
@@ -7,7 +8,8 @@ export default class BackButton extends PureComponent {
   }
 
   static propTypes = {
-    classNames: PropTypes.string,
+    className: PropTypes.string,
+    icon: PropTypes.string,
     iconClassName: PropTypes.string,
     iconSize: PropTypes.string,
   }
@@ -26,18 +28,29 @@ export default class BackButton extends PureComponent {
 
   render() {
     const {
-      classNames,
+      className,
+      icon,
       iconClassName,
       iconSize,
     } = this.props
-              
+
+    const classes = CX(className, {
+       alignItemsCenter: 1,
+       bgTransparent: 1,
+       mr5: 1,
+       cursorPointer: 1,
+       outlineNone: 1,
+       default: 1,
+       justifyContentCenter: 1,
+    })
+
     return (
       <Button
         noClasses
         color='primary'
         backgroundColor='none'
-        className={classNames || [_s.alignItemsCenter, _s.bgTransparent, _s.mr5, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
-        icon='arrow-left'
+        className={classes}
+        icon={icon || 'angle-left'}
         iconSize={iconSize || '24px'}
         iconClassName={iconClassName || [_s.mr5, _s.fillPrimary].join(' ')}
         onClick={this.handleBackClick}

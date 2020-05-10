@@ -33,6 +33,7 @@ class DisplayName extends ImmutablePureComponent {
     noRelationship: PropTypes.bool,
     noUsername: PropTypes.bool,
     isComment: PropTypes.bool,
+    isCentered: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -44,6 +45,7 @@ class DisplayName extends ImmutablePureComponent {
     'noRelationship',
     'noUsername',
     'isComment',
+    'isCentered',
   ]
 
   mouseOverTimeout = null
@@ -81,6 +83,7 @@ class DisplayName extends ImmutablePureComponent {
       noRelationship,
       isSmall,
       isComment,
+      isCentered,
     } = this.props
 
     if (!account) return null
@@ -91,6 +94,7 @@ class DisplayName extends ImmutablePureComponent {
       alignItemsCenter: !isMultiline,
       flexRow: !isMultiline,
       cursorPointer: !noHover,
+      alignItemsCenter: isCentered,
     })
 
     const displayNameClasses = CX({
@@ -124,9 +128,9 @@ class DisplayName extends ImmutablePureComponent {
     })
 
     const iconSize =
-      !!isLarge ? '19px' :
-      !!isComment ? '12px' :
-      !!isSmall ? '14px' : '15px'
+      !!isLarge ? 19 :
+      !!isComment ? 12 :
+      !!isSmall ? 14 : 15
 
     const domain = account.get('acct').split('@')[1]
     const isRemoteUser = !!domain
@@ -157,20 +161,20 @@ class DisplayName extends ImmutablePureComponent {
         onMouseLeave={noHover ? undefined : this.handleMouseLeave}
         ref={this.setRef}
       >
-        <span className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.maxWidth180PX, _s.maxWidth100PC].join(' ')}>
+        <span className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.maxWidth100PC].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}
               dangerouslySetInnerHTML={{ __html: account.get('display_name_html') }}
             />
             {
-              !noRelationship && account.get('locked') &&
-              <Icon id='lock-filled' size={iconSize} className={[_s.fillPrimary, _s.ml5].join(' ')} />
+              account.get('locked') &&
+              <Icon id='lock-filled' size={`${iconSize - 3}px`} className={[_s.fillPrimary, _s.ml5].join(' ')} />
             }
           </bdi>
           {
             account.get('is_verified') &&
-            <Icon id='verified' size={iconSize} className={_s.default} />
+            <Icon id='verified' size={`${iconSize}px`} className={[_s.ml5, _s.default].join(' ')} />
           }
         </span>
         {

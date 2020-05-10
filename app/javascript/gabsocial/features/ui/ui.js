@@ -370,6 +370,7 @@ class UI extends PureComponent {
     }
 
     this.props.dispatch(expandHomeTimeline())
+    this.props.dispatch(expandNotifications())
     this.props.dispatch(initializeNotifications())
 
     setTimeout(() => {

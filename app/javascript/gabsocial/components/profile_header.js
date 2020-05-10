@@ -173,7 +173,13 @@ class ProfileHeader extends ImmutablePureComponent {
                   </div>
 
                   <div className={[_s.default, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
-                    <DisplayName account={account} isMultiline noRelationship isLarge noHover />
+                    <DisplayName
+                      account={account}
+                      isMultiline
+                      isLarge
+                      isCentered
+                      noHover
+                    />
                   </div>
                 </div>
 
@@ -214,7 +220,7 @@ class ProfileHeader extends ImmutablePureComponent {
                         <input type='hidden' value={account.get('username')} name='username' />
                       </form>
                       
-                      <div className={[_s.default, _s.flexRow, _s.pb3, _s.mr10].join(' ')}>
+                      <div className={[_s.default, _s.flexRow, _s.mr10].join(' ')}>
                         <AccountActionButton account={account} />
                       </div>
 
@@ -278,7 +284,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     </div>
 
                     <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
-                      <DisplayName account={account} isMultiline noRelationship isLarge noHover />
+                      <DisplayName account={account} isMultiline isLarge noHover />
                     </div>
                   </div>
 

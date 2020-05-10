@@ -148,14 +148,7 @@ class ModalBase extends PureComponent {
               onClick={this.handleOnClose}
               className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             >
-              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                {children}
-              </Responsive>
-              <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                <CardView>
-                  {children}
-                </CardView>
-              </Responsive>
+              {children}
             </div>
           </Fragment>
         }

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { FormattedMessage } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchAccountByUsername } from '../actions/accounts'
@@ -6,6 +6,7 @@ import { makeGetAccount } from '../selectors'
 import { me } from '../initial_state'
 import PageTitle from '../features/ui/util/page_title'
 import ColumnIndicator from '../components/column_indicator'
+import Block from '../components/block'
 import ProfileLayout from '../layouts/profile_layout'
 
 const mapStateToProps = (state, { params: { username } }) => {
@@ -63,6 +64,7 @@ class ProfilePage extends ImmutablePureComponent {
       <ProfileLayout
         account={account}
         title={name}
+        unavailable={unavailable}
       >
         <PageTitle path={`${name} (@${username})`} />
         {
@@ -73,6 +75,12 @@ class ProfilePage extends ImmutablePureComponent {
           React.cloneElement(children, {
             account,
           })
+        }
+        {
+          unavailable &&
+          <ColumnIndicator type='error' message={
+            <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
+          } />
         }
       </ProfileLayout>
     )

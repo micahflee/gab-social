@@ -16,6 +16,7 @@ const filters = [
   'reblog',
   'poll',
   'follow',
+  'follow_requests',
 ]
 
 const messages = defineMessages({
@@ -25,6 +26,7 @@ const messages = defineMessages({
   reblog: { id: 'reposts', defaultMessage: 'Reposts' },
   poll: { id: 'polls', defaultMessage: 'Poll' },
   follow: { id: 'notifications.filter.follows', defaultMessage: 'Follows' },
+  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   all: { id: 'notifications.filter.all', defaultMessage: 'All' },
 })
 
@@ -35,7 +37,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setFilter(value) {
-    console.log("SETTING ACTIVE FILTER:", value)
     dispatch(setFilter('active', value))
   },
 })

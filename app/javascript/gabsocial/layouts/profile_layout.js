@@ -21,6 +21,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     children: PropTypes.node.isRequired,
     title: PropTypes.string,
+    unavailable: PropTypes.bool,
   }
 
   render() {
@@ -28,6 +29,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
       account,
       children,
       title,
+      unavailable,
     } = this.props
 
     return (
@@ -101,7 +103,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
                         <div className={[_s.default, _s.width340PX].join(' ')}>
                           <ProfileStatsPanel account={account} />
                           <ProfileInfoPanel account={account} />
-                          <MediaGalleryPanel account={account} />
+                          { !unavailable && <MediaGalleryPanel account={account} /> }
                           <LinkFooter />
                         </div>
                       </Sticky>

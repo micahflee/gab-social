@@ -65,7 +65,7 @@ class StatusSharePopover extends ImmutablePureComponent {
   render() {
     const { intl, status } = this.props
 
-    const mailToHref = !status ? undefined : `mailto:?subject=&body=${status.get('url')}`
+    const mailToHref = !status ? undefined : `mailto:?subject=Gab&body=${status.get('url')}`
 
     return (
       <PopoverLayout width={220}>

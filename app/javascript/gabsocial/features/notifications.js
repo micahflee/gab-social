@@ -117,7 +117,7 @@ class Notifications extends ImmutablePureComponent {
 
     // : todo : include follow requests
 
-    console.log('--0--notifications:', notifications)
+    console.log('--0--notifications:', hasMore)
 
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent

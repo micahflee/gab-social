@@ -1,6 +1,5 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
-import { fetchSuggestions, dismissSuggestion } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { List as ImmutableList } from 'immutable'
@@ -27,13 +26,8 @@ const mapStateToProps = (state, { account }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchSuggestions: () => dispatch(fetchSuggestions()),
-  dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
-})
-
 export default
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, null)
 @injectIntl
 class ProfileInfoPanel extends ImmutablePureComponent {
 
@@ -42,10 +36,6 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     noPanel: PropTypes.bool,
     intl: PropTypes.object.isRequired,
-  }
-
-  componentDidMount() {
-    this.props.fetchSuggestions()
   }
 
   render() {

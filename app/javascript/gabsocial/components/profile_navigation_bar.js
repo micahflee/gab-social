@@ -18,8 +18,8 @@ export default class ProfileNavigationBar extends PureComponent {
           <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
 
             <BackButton
-              classNames={[_s.height53PX, _s.bgTransparent, _s.ml10, _s.mr10, _s.cursorPointer, _s.outlineNone, _s.default, _s.justifyContentCenter].join(' ')}
-              iconSize='32px'
+              className={[_s.height53PX, _s.pl10, _s.pr10].join(' ')}
+              iconSize='18px'
               iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
             />
 
