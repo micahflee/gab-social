@@ -16,7 +16,7 @@ class Api::V1::GroupsController < Api::BaseController
       when 'new'
         @groups = Group.where(is_archived: false).limit(24).order('created_at DESC').all
       when 'member'
-        @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.unread_count DESC, group_accounts.id DESC').all
+        @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.id DESC').all
       when 'admin'
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account, role: :admin }).all
     end

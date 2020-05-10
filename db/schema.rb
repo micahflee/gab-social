@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_154012) do
+ActiveRecord::Schema.define(version: 2020_05_10_034822) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -327,7 +327,6 @@ ActiveRecord::Schema.define(version: 2020_04_30_154012) do
     t.string "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "unread_count", default: 0
     t.index ["account_id", "group_id"], name: "index_group_accounts_on_account_id_and_group_id", unique: true
     t.index ["account_id"], name: "index_group_accounts_on_account_id"
     t.index ["group_id", "account_id"], name: "index_group_accounts_on_group_id_and_account_id"
@@ -400,7 +399,11 @@ ActiveRecord::Schema.define(version: 2020_04_30_154012) do
   create_table "list_accounts", force: :cascade do |t|
     t.bigint "list_id", null: false
     t.bigint "account_id", null: false
+<<<<<<< HEAD
     t.bigint "follow_id", default: nil
+=======
+    t.bigint "follow_id", default: 1
+>>>>>>> f3c3a66e6... Removed unread_count from group_accounts
     t.index ["account_id", "list_id"], name: "index_list_accounts_on_account_id_and_list_id", unique: true
     t.index ["follow_id"], name: "index_list_accounts_on_follow_id"
     t.index ["list_id", "account_id"], name: "index_list_accounts_on_list_id_and_account_id"

@@ -9,10 +9,10 @@
 #  role              :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
-#  unread_count      :integer          default(0)
 #
 
 class GroupAccount < ApplicationRecord
+  self.ignored_columns = ["unread_count"]
   enum role: { admin: "admin" }
 
   belongs_to :group

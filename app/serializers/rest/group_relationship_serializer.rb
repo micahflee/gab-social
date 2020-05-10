@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class REST::GroupRelationshipSerializer < ActiveModel::Serializer
-  attributes :id, :member, :admin, :unread_count
+  attributes :id, :member, :admin
 
   def id
     object.id.to_s
@@ -15,7 +15,4 @@ class REST::GroupRelationshipSerializer < ActiveModel::Serializer
     instance_options[:relationships].admin[object.id] ? true : false
   end
 
-  def unread_count
-    instance_options[:relationships].unread_count[object.id] || 0
-  end
 end
