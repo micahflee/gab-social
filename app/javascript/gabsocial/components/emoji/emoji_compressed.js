@@ -82,7 +82,7 @@ Object.keys(emojiIndex.emojis).forEach(key => {
   const searchData = [native, short_names, search];
   if (unicodeToUnifiedName(native) !== unified) {
     // unified name can't be derived from unicodeToUnifiedName
-    // searchData.push(unified);
+    searchData.push(unified);
   }
 
   // shortCodesToEmojiData[key].push(searchData);
