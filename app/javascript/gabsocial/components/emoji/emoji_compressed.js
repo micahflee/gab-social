@@ -85,7 +85,7 @@ Object.keys(emojiIndex.emojis).forEach(key => {
     searchData.push(unified);
   }
 
-  // shortCodesToEmojiData[key].push(searchData);
+  shortCodesToEmojiData[key].push(searchData);
 });
 
 // JSON.parse/stringify is to emulate what @preval is doing and avoid any
