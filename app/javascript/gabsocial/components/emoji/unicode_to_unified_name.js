@@ -6,7 +6,6 @@ function padLeft(str, num) {
 }
 
 exports.unicodeToUnifiedName = (str) => {
-  if (!str) return '';
   let output = '';
   for (let i = 0; i < str.length; i += 2) {
     if (i > 0) {
