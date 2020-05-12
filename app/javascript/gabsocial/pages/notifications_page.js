@@ -16,7 +16,6 @@ const filters = [
   'reblog',
   'poll',
   'follow',
-  'follow_requests',
 ]
 
 const messages = defineMessages({

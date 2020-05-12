@@ -1,7 +1,5 @@
 import { LoadingBar } from 'react-redux-loading-bar'
-import {
-  CX,
-} from '../constants'
+import { CX  } from '../constants'
 import ZoomableImage from './zoomable_image'
 
 export default class ImageLoader extends PureComponent {
