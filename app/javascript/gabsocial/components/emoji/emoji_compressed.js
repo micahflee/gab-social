@@ -55,16 +55,16 @@ Object.keys(emojiMap).forEach(key => {
 
   if (unicodeToFilename(key) !== filename) {
     // filename can't be derived using unicodeToFilename
-    filenameData.push(filename);
+    // filenameData.push(filename);
   }
 
   if (typeof shortcode === 'undefined') {
-    emojisWithoutShortCodes.push(filenameData);
+    // emojisWithoutShortCodes.push(filenameData);
   } else {
     if (!Array.isArray(shortCodesToEmojiData[shortcode])) {
       shortCodesToEmojiData[shortcode] = [[]];
     }
-    shortCodesToEmojiData[shortcode][0].push(filenameData);
+    // shortCodesToEmojiData[shortcode][0].push(filenameData);
   }
 });
 
@@ -82,10 +82,10 @@ Object.keys(emojiIndex.emojis).forEach(key => {
   const searchData = [native, short_names, search];
   if (unicodeToUnifiedName(native) !== unified) {
     // unified name can't be derived from unicodeToUnifiedName
-    searchData.push(unified);
+    // searchData.push(unified);
   }
 
-  shortCodesToEmojiData[key].push(searchData);
+  // shortCodesToEmojiData[key].push(searchData);
 });
 
 // JSON.parse/stringify is to emulate what @preval is doing and avoid any

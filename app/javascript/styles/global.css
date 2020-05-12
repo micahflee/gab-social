@@ -1,5 +1,4 @@
 :root {
-  --color_highlight: #CCF3DF;
   --color_brand-dark: #378e61;
   --color_brand-light: #63DA9D;
   --color_brand-light-opaque: rgb(54, 233, 145, .125);
@@ -93,14 +92,6 @@
   --navigation_blend: var(--text_color_secondary) !important;
   --navigation_primary: var(--text_color_primary) !important;
   --navigation_brand: var(--color_brand) !important;
-}
-
-::selection {
-  background: var(--color_highlight);
-}
-
-::-moz-selection {
-  background: var(--color_highlight);
 }
 
 html,
@@ -678,7 +669,7 @@ body {
 .mb5 { margin-bottom: 5px; }
 .mbNeg5PX { margin-bottom: -5px; }
 
-.mt15 { margin-top: 10px; }
+.mt15 { margin-top: 15px; }
 .mt10 { margin-top: 10px; }
 .mt5 { margin-top: 5px; }
 .mt2 { margin-top: 2px; }
