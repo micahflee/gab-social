@@ -55,16 +55,16 @@ Object.keys(emojiMap).forEach(key => {
 
   if (unicodeToFilename(key) !== filename) {
     // filename can't be derived using unicodeToFilename
-    // filenameData.push(filename);
+    filenameData.push(filename);
   }
 
   if (typeof shortcode === 'undefined') {
-    // emojisWithoutShortCodes.push(filenameData);
+    emojisWithoutShortCodes.push(filenameData);
   } else {
     if (!Array.isArray(shortCodesToEmojiData[shortcode])) {
       shortCodesToEmojiData[shortcode] = [[]];
     }
-    // shortCodesToEmojiData[shortcode][0].push(filenameData);
+    shortCodesToEmojiData[shortcode][0].push(filenameData);
   }
 });
 
