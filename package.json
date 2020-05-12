@@ -92,7 +92,7 @@
     "dotenv": "^8.0.0",
     "draft-js": "^0.11.4",
     "draftjs-to-markdown": "^0.6.0",
-    "emoji-mart": "^3.0.0",
+    "emoji-mart": "Gargron/emoji-mart#build",
     "es6-symbol": "^3.1.1",
     "escape-html": "^1.0.3",
     "exif-js": "^2.3.0",
