@@ -1,4 +1,5 @@
 :root {
+  --color_highlight: #CCF3DF;
   --color_brand-dark: #378e61;
   --color_brand-light: #63DA9D;
   --color_brand-light-opaque: rgb(54, 233, 145, .125);
@@ -42,6 +43,14 @@
   --navigation_blend: var(--color_brand-dark);
   --navigation_primary: var(--color_white);
   --navigation_brand: var(--color_white);
+}
+
+::selection {
+  background: var(--color_highlight);
+}
+
+::-moz-selection {
+  background: var(--color_highlight);
 }
 
 :root[no-circle] {
