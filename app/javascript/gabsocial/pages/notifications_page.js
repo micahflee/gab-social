@@ -58,8 +58,6 @@ class NotificationsPage extends PureComponent {
     selectedFilter: PropTypes.string.isRequired,
   }
 
-  componentWill
-
   UNSAFE_componentWillMount() {
     this.checkForQueryStringChange(this.context.router.route.location)
   }

@@ -12,7 +12,7 @@ export const shortNumberFormat = (number) => {
 
   return (
     <Fragment>
-      <FormattedNumber value={number / 1000} maximumFractionDigits={1} />k
+      <FormattedNumber value={number / 1000} maximumFractionDigits={1} />
     </Fragment>
   )
 }
