@@ -45,7 +45,7 @@
     ],
     "collectCoverageFrom": [
       "app/javascript/gabsocial/**/*.js",
-      "!app/javascript/gabsocial/features/emoji/emoji_compressed.js",
+      "!app/javascript/gabsocial/components/emoji/emoji_compressed.js",
       "!app/javascript/gabsocial/locales/locale-data/*.js",
       "!app/javascript/gabsocial/service_worker/entry.js",
       "!app/javascript/gabsocial/test_setup.js"
