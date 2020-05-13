@@ -27,7 +27,7 @@ function main ( ) {
   const IntlMessageFormat = require('intl-messageformat').default;
   const { timeAgoString } = require('../gabsocial/components/relative_timestamp');
   const { delegate } = require('rails-ujs');
-  const emojify = require('../gabsocial/components/emoji/emoji').default;
+  // const emojify = require('../gabsocial/components/emoji/emoji').default;
   const { getLocale } = require('../gabsocial/locales');
   const { messages } = getLocale();
   //(Rjc) 2019-05-24 defined but never used
@@ -57,9 +57,9 @@ function main ( ) {
       minute: 'numeric',
     });
 
-    [].forEach.call(document.querySelectorAll('.emojify'), (content) => {
-      content.innerHTML = emojify(content.innerHTML);
-    });
+    // [].forEach.call(document.querySelectorAll('.emojify'), (content) => {
+    //   content.innerHTML = emojify(content.innerHTML);
+    // });
 
     [].forEach.call(document.querySelectorAll('time.formatted'), (content) => {
       const datetime = new Date(content.getAttribute('datetime'));
@@ -154,7 +154,7 @@ function main ( ) {
     const name = document.querySelector('.card .display-name strong');
     if (name) {
       if (target.value) {
-        name.innerHTML = emojify(escapeTextContentForBrowser(target.value));
+        // name.innerHTML = emojify(escapeTextContentForBrowser(target.value));
       } else {
         name.textContent = document.querySelector('#default_account_display_name').textContent;
       }
