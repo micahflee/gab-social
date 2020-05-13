@@ -7,13 +7,17 @@ import Avatar from '../avatar'
 import DisplayName from '../display_name'
 
 export default class UserInfoPopover extends ImmutablePureComponent {
+
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
+    isXS: PropTypes.bool,
   }
 
   render() {
-    const { account } = this.props
+    const { account, isXS } = this.props
 
+    if (isXS) return null
+    
     const content = !account ? null : { __html: account.get('note_emojified') }
     const to = !account ? '' : `/${account.get('acct')}`
     

@@ -73,11 +73,11 @@ class ModalBase extends PureComponent {
     }
   }
 
-  componentDidMount () {
+  componentDidMount() {
     window.addEventListener('keyup', this.handleKeyUp, false)
   }
 
-  componentWillReceiveProps (nextProps) {
+  componentWillReceiveProps(nextProps) {
     if (!!nextProps.children && !this.props.children) {
       this.activeElement = document.activeElement
 
@@ -92,7 +92,7 @@ class ModalBase extends PureComponent {
     }
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate(prevProps) {
     if (!this.props.children && !!prevProps.children) {
       this.getSiblings().forEach(sibling => sibling.removeAttribute('inert'))
     }
@@ -104,7 +104,7 @@ class ModalBase extends PureComponent {
     }
   }
 
-  componentWillUnmount () {
+  componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp)
   }
 
@@ -120,7 +120,7 @@ class ModalBase extends PureComponent {
     this.dialog = n
   }
 
-  render () {
+  render() {
     const { children } = this.props
 
     const visible = !!children
@@ -142,14 +142,26 @@ class ModalBase extends PureComponent {
               role='presentation'
               className={[_s.default, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
             />
-            <div
-              ref={this.setDialog}
-              role='dialog'
-              onClick={this.handleOnClose}
-              className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
-            >
-              {children}
-            </div>
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <div
+                ref={this.setDialog}
+                role='dialog'
+                onClick={this.handleOnClose}
+                className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+              >
+                {children}
+              </div>
+            </Responsive>
+            <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+              <div
+                ref={this.setDialog}
+                role='dialog'
+                onClick={this.handleOnClose}
+                className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentEnd, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+              >
+                {children}
+              </div>
+            </Responsive>
           </Fragment>
         }
       </div>

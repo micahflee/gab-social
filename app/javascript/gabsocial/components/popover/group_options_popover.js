@@ -48,6 +48,7 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     onOpenEditGroup: PropTypes.func.isRequired,
     onOpenRemovedMembers: PropTypes.func.isRequired,
     onOpenGroupMembers: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   updateOnProps = ['group']
@@ -65,7 +66,7 @@ class GroupOptionsPopover extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, isXS } = this.props
 
     const listItems = [
       {
@@ -89,7 +90,7 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     ]
 
     return (
-      <PopoverLayout width={210}>
+      <PopoverLayout width={210} isXS={isXS}>
         <List
           scrollKey='group_options'
           items={listItems}

@@ -9,10 +9,8 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 
-const LAYOUT_BREAKPOINT = 630
-
 export function isMobile(width) {
-  return width <= LAYOUT_BREAKPOINT
+  return width <= BREAKPOINT_EXTRA_SMALL
 }
 
 export function breakpointExtraLarge(width) {

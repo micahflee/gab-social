@@ -78,6 +78,7 @@ class RepostOptionsPopover extends ImmutablePureComponent {
     onQuote: PropTypes.func.isRequired,
     onRepost: PropTypes.func.isRequired,
     status: ImmutablePropTypes.map.isRequired,
+    isXS: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -93,12 +94,12 @@ class RepostOptionsPopover extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, status } = this.props
+    const { intl, status, isXS } = this.props
 
     const alreadyReposted = status.get('reblogged')
 
     return (
-      <PopoverLayout width={220}>
+      <PopoverLayout width={220} isXS={isXS}>
         <List
           scrollKey='repost_options'
           size='large'

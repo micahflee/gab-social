@@ -1,8 +1,7 @@
 import {
-  POPOVER_CONTENT_WARNING,
+  BREAKPOINT_EXTRA_SMALL,
   POPOVER_DATE_PICKER,
   POPOVER_EMOJI_PICKER,
-  POPOVER_GROUP_INFO,
   POPOVER_GROUP_OPTIONS,
   POPOVER_PROFILE_OPTIONS,
   POPOVER_REPOST_OPTIONS,
@@ -14,10 +13,8 @@ import {
   POPOVER_USER_INFO,
 } from '../../constants'
 import {
-  ContentWarningPopover,
   DatePickerPopover,
   EmojiPickerPopover,
-  GroupInfoPopover,
   GroupOptionsPopover,
   ProfileOptionsPopover,
   RepostOptionsPopover,
@@ -28,14 +25,18 @@ import {
   StatusVisibilityPopover,
   UserInfoPopover,
 } from '../../features/ui/util/async_components'
+
+import { closePopover } from '../../actions/popover'
+import { getWindowDimension } from '../../utils/is_mobile'
 import Bundle from '../../features/ui/util/bundle'
+import ModalBase from '../modal/modal_base'
 import PopoverBase from './popover_base'
 
+const initialState = getWindowDimension()
+
 const POPOVER_COMPONENTS = {}
-POPOVER_COMPONENTS[POPOVER_CONTENT_WARNING] = ContentWarningPopover
 POPOVER_COMPONENTS[POPOVER_DATE_PICKER] = DatePickerPopover
 POPOVER_COMPONENTS[POPOVER_EMOJI_PICKER] = EmojiPickerPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_INFO] = GroupInfoPopover
 POPOVER_COMPONENTS[POPOVER_GROUP_OPTIONS] = GroupOptionsPopover
 POPOVER_COMPONENTS[POPOVER_PROFILE_OPTIONS] = ProfileOptionsPopover
 POPOVER_COMPONENTS[POPOVER_REPOST_OPTIONS] = RepostOptionsPopover
@@ -51,13 +52,37 @@ const mapStateToProps = (state) => ({
   props: state.getIn(['popover', 'popoverProps'], {}),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onClose: (type) => dispatch(closePopover(type)),
+})
+
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class PopoverRoot extends PureComponent {
 
   static propTypes = {
     type: PropTypes.string,
     props: PropTypes.object,
+    onClose: PropTypes.func.isRequired,
+  }
+
+  state = {
+    width: initialState.width,
+  }
+
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
+  handleResize = () => {
+    const { width } = getWindowDimension()
+
+    this.setState({ width })
   }
 
   renderEmpty = () => {
@@ -65,11 +90,17 @@ class PopoverRoot extends PureComponent {
   }
 
   render() {
-    const { type, props } = this.props
+    const { type, props, onClose } = this.props
+    const { width } = this.state
+
     const visible = !!type
 
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
+    const Wrapper = isXS ? ModalBase : PopoverBase
+
     return (
-      <PopoverBase
+      <Wrapper
+        onClose={onClose}
         visible={visible}
         innerRef={this.setRef}
         {...props}
@@ -83,11 +114,11 @@ class PopoverRoot extends PureComponent {
             renderDelay={200}
           >
             {
-              (Component) => <Component {...props} />
+              (Component) => <Component isXS={isXS} {...props} />
             }
           </Bundle>
         }
-      </PopoverBase>
+      </Wrapper>
     )
   }
 

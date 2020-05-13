@@ -49,7 +49,7 @@ class ModalLayout extends PureComponent {
     })
 
     return (
-      <div style={{width: `${width}px`}}>
+      <div style={{width: `${width}px`}} className={_s.modal}>
         <Block>
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
             <Heading size='h2'>

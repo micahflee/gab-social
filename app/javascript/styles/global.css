@@ -619,6 +619,31 @@ body {
   .width1255PX {
     width: 100%;
   }
+
+  :global(.emoji-mart) {
+    border: 0 !important;
+    border-radius: 0 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .modal {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 100% !important;
+  }
+
+  .modal:after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 70px;
+    height: 6px;
+    background-color: var(--solid_color_primary);
+    border-radius: var(--radius-circle);
+    left: calc(100% / 2 - 35px);
+    top: -20px;
+  }
 }
 
 .textAlignLeft { text-align: left; }

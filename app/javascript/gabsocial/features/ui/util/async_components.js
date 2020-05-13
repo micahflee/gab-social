@@ -12,7 +12,6 @@ export function Compose() { return import(/* webpackChunkName: "features/compose
 export function ComposeForm() { return import(/* webpackChunkName: "components/compose_form" */'../../compose/components/compose_form') }
 export function ComposeModal() { return import(/* webpackChunkName: "components/compose_modal" */'../../../components/modal/compose_modal') }
 export function ConfirmationModal() { return import(/* webpackChunkName: "components/confirmation_modal" */'../../../components/modal/confirmation_modal') }
-export function ContentWarningPopover() { return import(/* webpackChunkName: "components/content_warning_popover" */'../../../components/popover/content_warning_popover') }
 export function DatePickerPopover() { return import(/* webpackChunkName: "components/date_picker_popover" */'../../../components/popover/date_picker_popover') }
 export function DisplayOptionsModal() { return import(/* webpackChunkName: "components/display_options_modal" */'../../../components/modal/display_options_modal') }
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }
@@ -31,7 +30,6 @@ export function GroupCreateModal() { return import(/* webpackChunkName: "compone
 export function GroupDeleteModal() { return import(/* webpackChunkName: "components/group_delete_modal" */'../../../components/modal/group_delete_modal') }
 export function GroupRemovedAccountsModal() { return import(/* webpackChunkName: "components/group_removed_accounts_modal" */'../../../components/modal/group_removed_accounts_modal') }
 export function GroupMembersModal() { return import(/* webpackChunkName: "components/group_members_modal" */'../../../components/modal/group_members_modal') }
-export function GroupInfoPopover() { return import(/* webpackChunkName: "components/group_info_popover" */'../../../components/popover/group_info_popover') }
 export function GroupOptionsPopover() { return import(/* webpackChunkName: "components/group_options_popover" */'../../../components/popover/group_options_popover') }
 export function GroupMembers() { return import(/* webpackChunkName: "features/group_members" */'../../group_members') }
 export function GroupRemovedAccounts() { return import(/* webpackChunkName: "features/group_removed_accounts" */'../../group_removed_accounts') }

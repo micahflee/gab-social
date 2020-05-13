@@ -38,12 +38,14 @@ const mapDispatchToProps = (dispatch,  { isPro }) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 class DatePickerPopover extends PureComponent {
+
   static propTypes = {
     date: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
     isPro: PropTypes.bool,
     position: PropTypes.string,
     small: PropTypes.bool,
+    isXS: PropTypes.bool,
   }
 
   handleSetDate = (date) => {
@@ -55,13 +57,13 @@ class DatePickerPopover extends PureComponent {
   }
 
   render() {
-    const { date, isPro } = this.props
+    const { date, isPro, isXS } = this.props
 
     const datePickerDisabled = !isPro
     const withPortal = isMobile(window.innerWidth)
 
     return (
-      <PopoverLayout width={331}>
+      <PopoverLayout width={331} isXS={isXS}>
         <div className={[_s.default].join(' ')}>
           <DatePicker
             inline
@@ -116,4 +118,5 @@ class DatePickerPopover extends PureComponent {
       </PopoverLayout>
     )
   }
+  
 }

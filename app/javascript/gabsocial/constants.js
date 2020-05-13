@@ -18,10 +18,8 @@ export const URL_DISSENTER_SHOP = 'https://shop.dissenter.com'
 
 export const PLACEHOLDER_MISSING_HEADER_SRC = '/original/missing.png'
 
-export const POPOVER_CONTENT_WARNING = 'CONTENT_WARNING'
 export const POPOVER_DATE_PICKER = 'DATE_PICKER'
 export const POPOVER_EMOJI_PICKER = 'EMOJI_PICKER'
-export const POPOVER_GROUP_INFO = 'GROUP_INFO'
 export const POPOVER_GROUP_OPTIONS = 'GROUP_OPTIONS'
 export const POPOVER_PROFILE_OPTIONS = 'PROFILE_OPTIONS'
 export const POPOVER_REPOST_OPTIONS = 'REPOST_OPTIONS'

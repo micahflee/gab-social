@@ -142,6 +142,10 @@ export default
 @connect(makeMapStateToProps, mapDispatchToProps)
 class ProfileOptionsPopover extends PureComponent {
 
+  static defaultProps = {
+    isXS: PropTypes.bool,
+  }
+
   makeMenu() {
     const { account, intl, domain } = this.props;
 
@@ -302,10 +306,11 @@ class ProfileOptionsPopover extends PureComponent {
   }
 
   render() {
+    const { isXS } = this.props
     const listItems = this.makeMenu()
 
     return (
-      <PopoverLayout className={_s.width250PX}>
+      <PopoverLayout width={250} isXS={isXS}>
         <List
           scrollKey='profile_options'
           items={listItems}

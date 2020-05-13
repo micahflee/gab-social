@@ -27,6 +27,7 @@ class SidebarMorePopover extends PureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     onOpenDisplayModal: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   handleOnOpenDisplayModal = () => {
@@ -34,10 +35,12 @@ class SidebarMorePopover extends PureComponent {
   }
 
   render() {
-    const { intl } = this.props
+    const { intl, isXS } = this.props
+
+    if (isXS) return null
 
     return (
-      <PopoverLayout className={_s.width240PX}>
+      <PopoverLayout width={240}>
         <List
           size='large'
           scrollKey='profile_options'

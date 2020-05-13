@@ -237,6 +237,7 @@ class EmojiPickerPopover extends ImmutablePureComponent {
     onSkinTone: PropTypes.func.isRequired,
     skinTone: PropTypes.number.isRequired,
     onClosePopover: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   state = {
@@ -269,12 +270,13 @@ class EmojiPickerPopover extends ImmutablePureComponent {
       skinTone,
       frequentlyUsedEmojis,
       customEmojis,
+      isXS,
     } = this.props
     
     const { loading } = this.state
     
     return (
-      <PopoverLayout width={340}>
+      <PopoverLayout width={340} isXS={isXS}>
         <EmojiPickerMenu
           customEmojis={customEmojis}
           loading={loading}

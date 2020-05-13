@@ -41,6 +41,7 @@ class StatusVisibilityDropdown extends PureComponent {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
+    isXS: PropTypes.bool,
   }
 
   handleChange = (value) => {
@@ -48,7 +49,7 @@ class StatusVisibilityDropdown extends PureComponent {
   }
 
   render () {
-    const { intl, value } = this.props
+    const { intl, value, isXS } = this.props
 
     const options = [
       {
@@ -72,7 +73,7 @@ class StatusVisibilityDropdown extends PureComponent {
     ]
 
     return (
-      <PopoverLayout width={300}>
+      <PopoverLayout width={300} isXS={isXS}>
         <div className={[_s.default].join(' ')}>
           {
             options.map((option, i) => {

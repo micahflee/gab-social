@@ -35,6 +35,7 @@ class StatusSharePopover extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     onClosePopover: PropTypes.func.isRequired,
     onOpenEmbedModal: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   handleOnOpenEmbedModal = () => {
@@ -63,12 +64,12 @@ class StatusSharePopover extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, status } = this.props
+    const { intl, status, isXS } = this.props
 
     const mailToHref = !status ? undefined : `mailto:?subject=Gab&body=${status.get('url')}`
 
     return (
-      <PopoverLayout width={220}>
+      <PopoverLayout width={220} isXS={isXS}>
         <List
           size='large'
           scrollKey='status_share_options'

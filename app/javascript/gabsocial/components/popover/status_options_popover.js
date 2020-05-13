@@ -194,11 +194,13 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     onPin: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     onFetchGroupRelationships: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   updateOnProps = [
     'status',
     'groupRelationships',
+    'isXS',
   ]
 
   componentDidMount() {
@@ -256,13 +258,13 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       status,
       intl,
       groupRelationships,
+      isXS,
     } = this.props
 
     const mutingConversation = status.get('muted')
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
     const isReply = !!status.get('in_reply_to_id')
     const withGroupAdmin = !!groupRelationships ? groupRelationships.get('admin') : false
-    console.log("withGroupAdmin:", withGroupAdmin, groupRelationships ? groupRelationships.get('admin') : '')
 
     let menu = []
 
@@ -362,7 +364,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     }
 
     return (
-      <PopoverLayout>
+      <PopoverLayout isXS={isXS}>
         <List
           size='large'
           scrollKey='profile_options'

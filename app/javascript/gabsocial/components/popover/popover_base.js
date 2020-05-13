@@ -2,7 +2,6 @@ import detectPassiveEvents from 'detect-passive-events'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { Manager, Reference, Popper } from 'react-popper'
-import { closePopover } from '../../actions/popover'
 import { CX } from '../../constants'
 import { isUserTouching } from '../../utils/is_mobile'
 
@@ -13,12 +12,8 @@ const mapStateToProps = (state) => ({
   popoverPlacement: state.getIn(['popover', 'placement']),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onClose: (type) => dispatch(closePopover(type)),
-})
-
 export default
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps)
 class PopoverBase extends ImmutablePureComponent {
 
   static contextTypes = {
