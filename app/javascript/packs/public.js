@@ -90,7 +90,6 @@ function main ( ) {
               component.removeChild(child);
             });
           });
-
           const content = document.createElement('div');
 
           ReactDOM.render(<MediaContainer locale={locale} components={reactComponents} />, content);
@@ -98,7 +97,7 @@ function main ( ) {
           scrollToDetailedStatus();
         })
         .catch(error => {
-          console.error(error);
+          console.error("hello larry-1", error);
           scrollToDetailedStatus();
         });
     } else {
@@ -228,7 +227,7 @@ function main ( ) {
         }, 700);
       }
     } catch (err) {
-      console.error(err);
+      console.error("hello larry-2", err);
     }
 
     input.readonly = oldReadOnly;
@@ -236,5 +235,5 @@ function main ( ) {
 }
 
 loadPolyfills().then(main).catch(error => {
-  console.error(error);
+  console.error("hello larry-3", error);
 });
