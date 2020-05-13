@@ -399,11 +399,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
   create_table "list_accounts", force: :cascade do |t|
     t.bigint "list_id", null: false
     t.bigint "account_id", null: false
-<<<<<<< HEAD
-    t.bigint "follow_id", default: nil
-=======
     t.bigint "follow_id", default: 1
->>>>>>> f3c3a66e6... Removed unread_count from group_accounts
     t.index ["account_id", "list_id"], name: "index_list_accounts_on_account_id_and_list_id", unique: true
     t.index ["follow_id"], name: "index_list_accounts_on_follow_id"
     t.index ["list_id", "account_id"], name: "index_list_accounts_on_list_id_and_account_id"
