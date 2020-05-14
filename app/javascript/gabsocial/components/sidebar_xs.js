@@ -63,10 +63,6 @@ class SidebarXS extends ImmutablePureComponent {
     onCloseSidebar: PropTypes.func.isRequired,
   }
 
-  state = {
-    moreOpen: false,
-  }
-
   componentDidUpdate () {
     if (!me) return
 
@@ -77,26 +73,17 @@ class SidebarXS extends ImmutablePureComponent {
     }
   }
 
-  toggleMore = () => {
-    this.setState({ moreOpen: !this.state.moreOpen })
-  }
-
   handleSidebarClose = () => {
     this.props.onCloseSidebar()
-    this.setState({ moreOpen: false })
   }
 
   render () {
     const { sidebarOpen, intl, account } = this.props
-    const { moreOpen } = this.state
 
     if (!me || !account) return null
 
     const acct = account.get('acct')
     const isPro = account.get('is_pro')
-
-    const moreIcon = moreOpen ? 'minus' : 'plus'
-    const moreContainerStyle = { display: moreOpen ? 'block' : 'none' }
 
     const mainItems = [
       {
@@ -211,7 +198,7 @@ class SidebarXS extends ImmutablePureComponent {
     return (
       <div className={containerClasses}>
         <div className={[_s.default, _s.posFixed, _s.top0, _s.left0, _s.right0, _s.bgBlackOpaque, _s.bottom0].join(' ')} role='button' onClick={this.handleSidebarClose} />
-        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.saveAreaInsetPL, _s.minWidth330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxWidth80PC].join(' ')}>
+        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.saveAreaInsetPT, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.minWidth330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxWidth80PC].join(' ')}>
 
           <div className={[_s.default, _s.flexRow, _s.px15, _s.height53PX, _s.width100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
             <Heading size='h2'>Account Info</Heading>

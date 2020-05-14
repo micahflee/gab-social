@@ -21,6 +21,7 @@ class ProPanel extends PureComponent {
   render() {
     const { intl, isPro } = this.props
 
+    // : todo :
     // if (isPro) return null
 
     return (
@@ -31,7 +32,7 @@ class ProPanel extends PureComponent {
         <Button
           isBlock
           href={URL_GAB_PRO}
-          icon='bold'
+          icon='pro'
           iconSize='14px'
           className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
         >

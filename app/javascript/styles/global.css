@@ -106,9 +106,16 @@
   --navigation_search: var(--solid_color_block) !important;
 }
 
+html {
+  padding-top: env(safe-area-inset-top, 0);
+  padding-right: env(safe-area-inset-right, 0);
+  padding-left: env(safe-area-inset-left, 0);
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
 html,
 body {
-  height: 100%;
+  min-height: 100%;
   margin: 0;
   padding: 0;
   background-color: var(--solid_color_tertiary);
