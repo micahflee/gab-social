@@ -639,6 +639,11 @@ body {
     min-width: 100% !important;
   }
 
+  .modal > div {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
   .modal:after {
     content: '';
     display: block;

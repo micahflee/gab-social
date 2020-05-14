@@ -224,19 +224,22 @@ class ProfileHeader extends ImmutablePureComponent {
                         <AccountActionButton account={account} />
                       </div>
 
-                      <div>
-                        <Button
-                          isOutline
-                          icon='ellipsis'
-                          iconSize='18px'
-                          iconClassName={_s.inheritFill}
-                          color='brand'
-                          backgroundColor='none'
-                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
-                          onClick={this.handleOpenMore}
-                          buttonRef={this.setOpenMoreNodeRef}
-                        />
-                      </div>
+                      {
+                        !!me &&
+                        <div>
+                          <Button
+                            isOutline
+                            icon='ellipsis'
+                            iconSize='18px'
+                            iconClassName={_s.inheritFill}
+                            color='brand'
+                            backgroundColor='none'
+                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
+                            onClick={this.handleOpenMore}
+                            buttonRef={this.setOpenMoreNodeRef}
+                          />
+                        </div>
+                      }
 
                     </div>
                   }
@@ -321,19 +324,22 @@ class ProfileHeader extends ImmutablePureComponent {
                     {
                       account && account.get('id') !== me &&
                       <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
-                        <div>
-                          <Button
-                            isOutline
-                            icon='ellipsis'
-                            iconSize='18px'
-                            iconClassName={_s.inheritFill}
-                            color='brand'
-                            backgroundColor='none'
-                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                            onClick={this.handleOpenMore}
-                            buttonRef={this.setOpenMoreNodeRef}
-                          />
-                        </div>
+                        {
+                          !!me &&
+                          <div>
+                            <Button
+                              isOutline
+                              icon='ellipsis'
+                              iconSize='18px'
+                              iconClassName={_s.inheritFill}
+                              color='brand'
+                              backgroundColor='none'
+                              className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                              onClick={this.handleOpenMore}
+                              buttonRef={this.setOpenMoreNodeRef}
+                            />
+                          </div>
+                        }
 
                         <form action='https://chat.gab.com/private-message' method='POST'>
                           <Button

@@ -128,12 +128,13 @@ class Search extends PureComponent {
       default: 1,
       searchNavigation: (!highlighted && isInNav && theme === 'light') || (isInNav && theme !== 'light'),
       bgWhite: (highlighted && isInNav && theme === 'light'),
+      bgPrimary: !isInNav,
       flexRow: 1,
       radiusSmall: 1,
       alignItemsCenter: 1,
     })
 
-    const prependIconColor = highlighted ? 'brand' : 'white'
+    const prependIconColor = (highlighted || !isInNav) ? 'brand' : 'white'
     const placeholder = !me ? 'Search Gab' : 'Search for people, groups or news'
     const id = 'nav-search'
       

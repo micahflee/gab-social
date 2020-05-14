@@ -84,6 +84,7 @@ class GroupCreate extends ImmutablePureComponent {
 		onSetGroup: PropTypes.func.isRequired,
 		onSubmit: PropTypes.func.isRequired,
 		isSubmitting: PropTypes.bool,
+		onClose: PropTypes.func,
 	}
 
 	updateOnProps = [
@@ -114,6 +115,7 @@ class GroupCreate extends ImmutablePureComponent {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
+		if (this.props.onClose) this.props.onClose()
 		this.props.onSubmit(this.context.router.history)
 	}
 

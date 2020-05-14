@@ -47,6 +47,7 @@ class UnfollowModal extends PureComponent {
   render() {
     const { account, intl } = this.props
 
+    // : TODO :
     // , {
     //   message: <FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
     //   confirm: intl.formatMessage(messages.unfollowConfirm),

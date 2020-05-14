@@ -53,6 +53,7 @@ import PencilIcon from '../assets/pencil_icon'
 import PinIcon from '../assets/pin_icon'
 import PlayIcon from '../assets/play_icon'
 import PollIcon from '../assets/poll_icon'
+import ProIcon from '../assets/pro_icon'
 import RepostIcon from '../assets/repost_icon'
 import RichTextIcon from '../assets/rich_text_icon'
 import SearchIcon from '../assets/search_icon'
@@ -127,6 +128,7 @@ const ICONS = {
   'pin': PinIcon,
   'play': PlayIcon,
   'poll': PollIcon,
+  'pro': ProIcon,
   'repost': RepostIcon,
   'rich-text': RichTextIcon,
   'search': SearchIcon,

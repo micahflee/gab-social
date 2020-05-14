@@ -13,6 +13,7 @@ import Heading from './heading'
 import Text from './text'
 import List from './list'
 import { closeSidebar } from '../actions/sidebar'
+import { openModal } from '../actions/modal'
 import { shortNumberFormat } from '../utils/numbers'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
@@ -46,6 +47,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onCloseSidebar: () => dispatch(closeSidebar()),
+  onOpenDisplayModel() {
+    dispatch(openModal())
+  }
 })
 
 export default @connect(mapStateToProps, mapDispatchToProps)
@@ -109,7 +113,7 @@ class SidebarXS extends ImmutablePureComponent {
       },
       {
         icon: 'shop',
-        href: 'https://shop.gab.com',
+        href: 'https://shop.dissenter.com',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.shop),
       },
@@ -170,6 +174,19 @@ class SidebarXS extends ImmutablePureComponent {
       {
         icon: 'user',
         to: '/filters',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.filters),
+      },
+      {
+        // : todo :
+        icon: 'user',
+        onClick: this.handleSidebarClose, //on open display model
+        title: intl.formatMessage(messages.filters),
+      },
+      {
+        // : todo :
+        icon: 'user',
+        href: 'https://help.gab.com',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.filters),
       },

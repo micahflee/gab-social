@@ -1,11 +1,15 @@
 import { Fragment } from 'react'
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
-import classNames from 'classnames/bind'
+import { getWindowDimension } from '../../utils/is_mobile'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
-import { BREAKPOINT_EXTRA_SMALL } from '../../constants'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../../constants'
 import Responsive from '../../features/ui/util/responsive_component'
-import CardView from '../card_view'
+
+const initialState = getWindowDimension()
 
 const messages = defineMessages({
   confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
@@ -26,8 +30,6 @@ const mapDispatchToProps = (dispatch) => ({
   },
 })
 
-const cx = classNames.bind(_s)
-
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
@@ -42,10 +44,12 @@ class ModalBase extends PureComponent {
     composeId: PropTypes.string,
     composeText: PropTypes.string,
     type: PropTypes.string,
+    isCenteredXS: PropTypes.bool,
   }
 
   state = {
     revealed: !!this.props.children,
+    width: initialState.width,
   }
 
   activeElement = this.state.revealed ? document.activeElement : null
@@ -74,7 +78,9 @@ class ModalBase extends PureComponent {
   }
 
   componentDidMount() {
+    this.handleResize()
     window.addEventListener('keyup', this.handleKeyUp, false)
+    window.addEventListener('resize', this.handleResize, false)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -104,8 +110,15 @@ class ModalBase extends PureComponent {
     }
   }
 
+  handleResize = () => {
+    const { width } = getWindowDimension()
+
+    this.setState({ width })
+  }
+
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp)
+    window.removeEventListener('resize', this.handleResize, false)
   }
 
   getSiblings = () => {
@@ -121,16 +134,33 @@ class ModalBase extends PureComponent {
   }
 
   render() {
-    const { children } = this.props
+    const { children, isCenteredXS } = this.props
+    const { width } = this.state
 
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const visible = !!children
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       z4: 1,
       height100PC: visible,
       width100PC: visible,
       displayNone: !visible,
+    })
+
+    const dialogClasses = CX({
+      default: 1,
+      posFixed: 1,
+      alignItemsCenter: 1,
+      justifyContentCenter: !isXS || isCenteredXS,
+      justifyContentEnd: isXS && !isCenteredXS,
+      z4: 1,
+      width100PC: 1,
+      height100PC: 1,
+      top0: 1,
+      rightAuto: 1,
+      bottomAuto: 1,
+      left0: 1,
     })
 
     return (
@@ -142,26 +172,14 @@ class ModalBase extends PureComponent {
               role='presentation'
               className={[_s.default, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
             />
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <div
-                ref={this.setDialog}
-                role='dialog'
-                onClick={this.handleOnClose}
-                className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentCenter, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
-              >
-                {children}
-              </div>
-            </Responsive>
-            <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div
-                ref={this.setDialog}
-                role='dialog'
-                onClick={this.handleOnClose}
-                className={[_s.default, _s.posFixed, _s.alignItemsCenter, _s.justifyContentEnd, _s.z4, _s.width100PC, _s.height100PC, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
-              >
-                {children}
-              </div>
-            </Responsive>
+            <div
+              ref={this.setDialog}
+              role='dialog'
+              onClick={this.handleOnClose}
+              className={dialogClasses}
+            >
+              {children}
+            </div>
           </Fragment>
         }
       </div>

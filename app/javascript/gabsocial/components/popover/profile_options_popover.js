@@ -14,6 +14,7 @@ import {
 import { muteAccount } from '../../actions/accounts'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
+import { closePopover } from '../../actions/popover'
 import { blockDomain, unblockDomain } from '../../actions/domain_blocks'
 import { unfollowModal, autoPlayGif, me, isStaff } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
@@ -83,6 +84,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onBlock(account) {
+    dispatch(closePopover())
+  
     if (account.getIn(['relationship', 'blocking'])) {
       dispatch(unblockAccount(account.get('id')));
     } else {
@@ -93,10 +96,12 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onMention(account) {
+    dispatch(closePopover())
     dispatch(mentionCompose(account));
   },
 
   onRepostToggle(account) {
+    dispatch(closePopover())
     if (account.getIn(['relationship', 'showing_reblogs'])) {
       dispatch(followAccount(account.get('id'), false));
     } else {
@@ -105,10 +110,12 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onReport(account) {
+    dispatch(closePopover())
     dispatch(initReport(account));
   },
 
   onMute(account) {
+    dispatch(closePopover())
     if (account.getIn(['relationship', 'muting'])) {
       dispatch(unmuteAccount(account.get('id')));
     } else {
@@ -119,16 +126,19 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   },
 
   onBlockDomain(domain) {
+    dispatch(closePopover())
     dispatch(openModal('BLOCK_DOMAIN', {
       domain,
     }));
   },
 
   onUnblockDomain(domain) {
+    dispatch(closePopover())
     dispatch(unblockDomain(domain));
   },
 
   onAddToList(account) {
+    dispatch(closePopover())
     dispatch(openModal('LIST_ADDER', {
       accountId: account.get('id'),
     }));

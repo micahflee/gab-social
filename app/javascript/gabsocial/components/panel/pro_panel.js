@@ -31,15 +31,16 @@ class ProPanel extends PureComponent {
         <Button
           isBlock
           href={URL_GAB_PRO}
-          icon='arrow-up'
-          className={[_s.justifyContentCenter].join(' ')}
+          icon='bold'
+          iconSize='14px'
+          className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
         >
           <Text
             color='inherit'
             weight='medium'
             size='medium'
             align='center'
-            className={_s.ml5}
+            className={_s.ml10}
           >
             {intl.formatMessage(messages.title)}
           </Text>

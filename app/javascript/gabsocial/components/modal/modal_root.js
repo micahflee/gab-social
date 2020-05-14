@@ -107,6 +107,17 @@ MODAL_COMPONENTS[MODAL_UNAUTHORIZED] = UnauthorizedModal
 MODAL_COMPONENTS[MODAL_UNFOLLOW] = UnfollowModal
 MODAL_COMPONENTS[MODAL_VIDEO] = VideoModal
 
+const CENTERED_XS_MODALS = [
+  MODAL_BLOCK_ACCOUNT,
+  MODAL_BLOCK_DOMAIN,
+  MODAL_CONFIRM,
+  MODAL_GROUP_DELETE,
+  MODAL_LIST_DELETE,
+  MODAL_MUTE,
+  MODAL_UNAUTHORIZED,
+  MODAL_UNFOLLOW,
+]
+
 const mapStateToProps = (state) => ({
   type: state.getIn(['modal', 'modalType']),
   props: state.getIn(['modal', 'modalProps'], {}),
@@ -161,7 +172,11 @@ class ModalRoot extends PureComponent {
     const visible = !!type
 
     return (
-      <ModalBase onClose={this.onClickClose} type={type}>
+      <ModalBase 
+        onClose={this.onClickClose}
+        isCenteredXS={CENTERED_XS_MODALS.indexOf(type) > -1}
+        type={type}
+      >
         {
           visible &&
           <Bundle

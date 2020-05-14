@@ -1,4 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl'
+import { me } from '../initial_state'
 import { openModal } from '../actions/modal'
 import Button from './button'
 
@@ -14,6 +15,7 @@ export default
 @injectIntl
 @connect(null, mapDispatchToProps)
 class FloatingActionButton extends PureComponent {
+
   static propTypes = {
     intl: PropTypes.object.isRequired,
     onOpenCompose: PropTypes.func.isRequired,
@@ -25,6 +27,8 @@ class FloatingActionButton extends PureComponent {
 
   render() {
     const { intl, onOpenCompose } = this.props
+
+    if (!me) return null
 
     const message = intl.formatMessage(messages.gab)
 
@@ -39,4 +43,5 @@ class FloatingActionButton extends PureComponent {
       />
     )
   }
+  
 }

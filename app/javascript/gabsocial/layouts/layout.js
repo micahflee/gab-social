@@ -1,5 +1,8 @@
 import Sticky from 'react-stickynode'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
 import { me } from '../initial_state'
 import Sidebar from '../components/sidebar'
 import SidebarXS from '../components/sidebar_xs'
@@ -37,6 +40,16 @@ export default class Layout extends PureComponent {
       tabs,
       title,
     } = this.props
+
+    const mainBlockClasses = CX({
+      default: 1,
+      width1015PX: 1,
+      flexRow: 1,
+      justifyContentEnd: 1,
+      py15: 1,
+      mlAuto: !me,
+      mrAuto: !me,
+    })
 
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
@@ -80,7 +93,7 @@ export default class Layout extends PureComponent {
             <main role='main'>
 
               <ResponsiveClassesComponent
-                classNames={[_s.default, _s.width1015PX, _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}
+                classNames={mainBlockClasses}
                 classNamesXS={[_s.default, _s.width1015PX, _s.justifyContentEnd, _s.pb15].join(' ')}
               >
 

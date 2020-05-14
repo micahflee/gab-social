@@ -42,7 +42,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
 
           <ResponsiveClassesComponent
             classNames={[_s.default, _s.flexRow, _s.py5, _s.px10, _s.width330PX, _s.mlAuto].join(' ')}
-            classNamesXS={[_s.default, _s.flexRow, _s.py5, _s.px10, _s.width100PC].join(' ')}
+            classNamesXS={[_s.default, _s.flexRow, _s.pb5, _s.px10, _s.width100PC].join(' ')}
           >
 
             <Button
@@ -51,7 +51,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
               color='white'
               backgroundColor='none'
               href='/auth/log_in'
-              className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter, _s.py5].join(' ')}
+              className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter, _s.py7].join(' ')}
             >
               <Text color='inherit' weight='medium' align='center'>
                 Log in
@@ -63,7 +63,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
               color='brand'
               backgroundColor='white'
               href='/auth/sign_up'
-              className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.ml5, _s.flexGrow1, _s.py5].join(' ')}
+              className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.ml5, _s.flexGrow1, _s.py7].join(' ')}
             >
               <Text color='inherit' weight='bold' align='center'>
                 Sign up

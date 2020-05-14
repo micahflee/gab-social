@@ -37,6 +37,11 @@ class NavigationBar extends ImmutablePureComponent {
     onOpenSidebar: PropTypes.func.isRequired,
   }
 
+  handleProfileClick = () => {
+    // : todo :
+    // open menu
+  }
+
   render() {
     const {
       title,

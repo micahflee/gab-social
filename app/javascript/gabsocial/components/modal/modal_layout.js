@@ -13,6 +13,7 @@ const messages = defineMessages({
 export default
 @injectIntl
 class ModalLayout extends PureComponent {
+
   static propTypes = {
     title: PropTypes.string,
     children: PropTypes.node,
@@ -20,6 +21,7 @@ class ModalLayout extends PureComponent {
     width: PropTypes.number,
     hideClose: PropTypes.bool,
     noPadding: PropTypes.bool,
+    isXS: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -37,7 +39,8 @@ class ModalLayout extends PureComponent {
       intl,
       width,
       hideClose,
-      noPadding
+      noPadding,
+      isXS,
     } = this.props
 
     const childrenContainerClasses = cx({
@@ -49,14 +52,14 @@ class ModalLayout extends PureComponent {
     })
 
     return (
-      <div style={{width: `${width}px`}} className={_s.modal}>
+      <div style={{width: `${width}px`}} className={[_s.default, _s.modal].join(' ')}>
         <Block>
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
             <Heading size='h2'>
               {title}
             </Heading>
             {
-              !hideClose &&
+              !hideClose && !isXS &&
               <Button
                 backgroundColor='none'
                 title={intl.formatMessage(messages.close)}
