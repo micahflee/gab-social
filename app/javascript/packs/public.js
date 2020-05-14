@@ -97,7 +97,7 @@ function main ( ) {
           scrollToDetailedStatus();
         })
         .catch(error => {
-          console.error("hello larry-1", error);
+          console.error(error);
           scrollToDetailedStatus();
         });
     } else {
@@ -227,7 +227,7 @@ function main ( ) {
         }, 700);
       }
     } catch (err) {
-      console.error("hello larry-2", err);
+      console.error(err);
     }
 
     input.readonly = oldReadOnly;
@@ -235,5 +235,5 @@ function main ( ) {
 }
 
 loadPolyfills().then(main).catch(error => {
-  console.error("hello larry-3", error);
+  console.error(error);
 });

@@ -79,6 +79,17 @@ class PopoverRoot extends PureComponent {
     window.removeEventListener('resize', this.handleResize, false)
   }
 
+  componentDidUpdate() {
+    const { type } = this.props
+    const { width } = this.state
+
+    if (width <= BREAKPOINT_EXTRA_SMALL && !!type) {
+      document.body.classList.add(_s.overflowYHidden)
+    } else {
+      document.body.classList.remove(_s.overflowYHidden)
+    }
+  }
+
   handleResize = () => {
     const { width } = getWindowDimension()
 

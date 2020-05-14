@@ -10,6 +10,7 @@ import MediaGalleryPanel from '../components/panel/media_gallery_panel'
 import NavigationBar from '../components/navigation_bar'
 import FooterBar from '../components/footer_bar'
 import ProfileHeader from '../components/profile_header'
+import FloatingActionButton from '../components/floating_action_button'
 import ProfileNavigationBar from '../components/profile_navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
 import Responsive from '../features/ui/util/responsive_component';
@@ -71,11 +72,12 @@ export default class ProfileLayout extends ImmutablePureComponent {
 
             </div>
 
+            <FloatingActionButton />
+
           </main>
 
-          <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-            <FooterBar />
-          </Responsive>
+          <FooterBar />
+
         </Responsive>
 
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>

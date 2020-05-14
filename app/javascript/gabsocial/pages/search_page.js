@@ -66,7 +66,9 @@ class SearchPage extends PureComponent {
         <PageTitle path={title} />
         
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <Search />
+          <div className={[_s.default, _s.px10].join(' ')}>
+            <Search />
+          </div>
         </Responsive>
 
         {children}

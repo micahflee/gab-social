@@ -93,19 +93,19 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                 { 
                   isPro &&
                   <div className={[_s.mr5, _s.radiusSmall, _s.bgPro, _s.py2, _s.px5].join(' ')}>
-                    <Text weight='bold' size='small' color='white' isBadge>PRO</Text>
+                    <Text weight='bold' size='small' className={_s.colorBGPrimary} isBadge>PRO</Text>
                   </div>
                 }
                 {
                   isInvestor && 
                   <div className={[_s.mr5, _s.radiusSmall, _s.bgInvestor, _s.py2, _s.px5].join(' ')}>
-                    <Text weight='bold' size='small' color='white' isBadge>INVESTOR</Text>
+                    <Text weight='bold' size='small' className={_s.colorBGPrimary} isBadge>INVESTOR</Text>
                   </div>
                 }
                 {
                   isDonor &&
                   <div className={[_s.mr5, _s.radiusSmall, _s.bgDonor, _s.py2, _s.px5].join(' ')}>
-                    <Text weight='bold' size='small' color='white' isBadge>DONOR</Text>
+                    <Text weight='bold' size='small' className={_s.colorBGPrimary} isBadge>DONOR</Text>
                   </div>
                 }
               </div>

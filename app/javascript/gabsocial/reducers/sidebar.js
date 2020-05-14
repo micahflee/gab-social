@@ -1,12 +1,19 @@
-import { SIDEBAR_OPEN, SIDEBAR_CLOSE } from '../actions/sidebar';
+import {
+  SIDEBAR_OPEN,
+  SIDEBAR_CLOSE,
+} from '../actions/sidebar'
 
-export default function sidebar(state={}, action) {
+const initialState = {
+  open: false,
+}
+
+export default function sidebar(state = initialState, action) {
   switch(action.type) {
   case SIDEBAR_OPEN:
-    return { sidebarOpen: true };
+    return { open: true }
   case SIDEBAR_CLOSE:
-    return { sidebarOpen: false };
+    return { open: false }
   default:
-    return state;
+    return state
   }
-};
+}

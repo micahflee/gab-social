@@ -1,10 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { openSidebar } from '../actions/sidebar'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
-import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import { CX } from '../constants'
 import Avatar from './avatar'
 import BackButton from './back_button'
@@ -18,8 +18,14 @@ const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenSidebar() {
+    dispatch(openSidebar())
+  }
+})
+
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class NavigationBar extends ImmutablePureComponent {
 
   static propTypes = {
@@ -28,10 +34,7 @@ class NavigationBar extends ImmutablePureComponent {
     tabs: PropTypes.array,
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
-  }
-
-  handleProfileClick = () => {
-
+    onOpenSidebar: PropTypes.func.isRequired,
   }
 
   render() {
@@ -41,6 +44,7 @@ class NavigationBar extends ImmutablePureComponent {
       actions,
       tabs,
       account,
+      onOpenSidebar,
     } = this.props
 
 
@@ -70,7 +74,7 @@ class NavigationBar extends ImmutablePureComponent {
                 </h1>
 
                 <div className={[_s.default, _s.width340PX].join(' ')}>
-                  <Search />
+                  <Search isInNav />
                 </div>
 
               </div>
@@ -109,7 +113,7 @@ class NavigationBar extends ImmutablePureComponent {
                   !!account && !showBackBtn &&
                   <button
                     title={account.get('display_name')}
-                    onClick={this.handleProfileClick}
+                    onClick={onOpenSidebar}
                     className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter].join(' ')}
                   >
                     <Avatar account={account} size={32} noHover />
@@ -135,26 +139,34 @@ class NavigationBar extends ImmutablePureComponent {
               </div>
 
               <div className={[_s.default, _s.width84PX, _s.pr15].join(' ')}>
-                {
-                  !!actions &&
-                  <div className={[_s.default, _s.bgTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
-                    {
-                      actions.map((action, i) => (
-                        <Button
-                          isNarrow
-                          backgroundColor='none'
-                          color='primary'
-                          onClick={() => action.onClick()}
-                          key={`action-btn-${i}`}
-                          className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
-                          icon={action.icon}
-                          iconClassName={_s.fillNavigation}
-                          iconSize='18px'
-                        />
-                      ))
-                    }
-                  </div>
-                }
+                <div className={[_s.default, _s.bgTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
+                  {
+                    actions && actions.map((action, i) => (
+                      <Button
+                        isNarrow
+                        backgroundColor='none'
+                        color='primary'
+                        onClick={() => action.onClick()}
+                        key={`action-btn-${i}`}
+                        className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
+                        icon={action.icon}
+                        iconClassName={_s.fillNavigation}
+                        iconSize='18px'
+                      />
+                    ))
+                  }
+                  <Button
+                    isNarrow
+                    backgroundColor='none'
+                    color='primary'
+                    to='/search'
+                    key={`action-btn-search`}
+                    className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
+                    icon='search'
+                    iconClassName={_s.fillNavigation}
+                    iconSize='18px'
+                  />
+                </div>
               </div>
               
             </Responsive>

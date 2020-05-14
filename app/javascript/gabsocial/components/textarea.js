@@ -42,6 +42,7 @@ export default class Textarea extends PureComponent {
       flexGrow1: 1,
       heightMax100VH: 1,
       resizeVertical: 1,
+      colorPrimary: 1,
       px5: !!prependIcon,
       pl15: !prependIcon,
     })

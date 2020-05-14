@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
+import { me } from '../initial_state'
 // import IntersectionObserverArticle from '../components/intersection_observer_article'
 // import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
 import PageTitle from '../features/ui/util/page_title'
@@ -10,6 +11,7 @@ import ListsPanel from '../components/panel/lists_panel'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
+import ProPanel from '../components/panel/pro_panel'
 import UserPanel from '../components/panel/user_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
@@ -23,6 +25,7 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => ({
   totalQueuedItemsCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -41,6 +44,7 @@ class HomePage extends PureComponent {
     intl: PropTypes.object.isRequired,
     onOpenHomePageSettingsModal: PropTypes.func.isRequired,
     totalQueuedItemsCount: PropTypes.number.isRequired,
+    isPro: PropTypes.bool,
   }
 
   // intersectionObserverWrapper = new IntersectionObserverWrapper()
@@ -67,6 +71,7 @@ class HomePage extends PureComponent {
       children,
       totalQueuedItemsCount,
       onOpenHomePageSettingsModal,
+      isPro,
     } = this.props
 
     return (
@@ -77,15 +82,12 @@ class HomePage extends PureComponent {
             icon: 'ellipsis',
             onClick: onOpenHomePageSettingsModal,
           },
-          {
-            icon: 'search',
-            onClick: onOpenHomePageSettingsModal,
-          },
         ]}
         layout={(
           <Fragment>
             <UserPanel />
             <ProgressPanel />
+            <ProPanel isPro={isPro} />
             <TrendsPanel />
             <ListsPanel />
             <WhoToFollowPanel />

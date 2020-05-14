@@ -13,6 +13,7 @@ import Button from './button'
 const mapStateToProps = (state) => ({
   value: state.getIn(['search', 'value']),
   submitted: state.getIn(['search', 'submitted']),
+  theme: state.getIn(['settings', 'displayOptions', 'theme']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -39,6 +40,8 @@ class Search extends PureComponent {
     withOverlay: PropTypes.bool,
     onClear: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
+    isInNav: PropTypes.bool.isRequired,
+    theme: PropTypes.string,
   }
 
   state = {
@@ -99,6 +102,8 @@ class Search extends PureComponent {
       value,
       submitted,
       onClear,
+      isInNav,
+      theme,
     } = this.props
     const { focused } = this.state
     const highlighted = focused || `${value}`.length > 0
@@ -110,7 +115,7 @@ class Search extends PureComponent {
       lineHeight125: 1,
       displayBlock: 1,
       py7: 1,
-      bgTransparent: !highlighted,
+      bgTransparent: 1,
       colorPrimary: 1,
       fs14PX: 1,
       flexGrow1: 1,
@@ -121,8 +126,8 @@ class Search extends PureComponent {
 
     const containerClasses = CX({
       default: 1,
-      bgBrandLight: !highlighted,
-      bgWhite: highlighted,
+      searchNavigation: (!highlighted && isInNav && theme === 'light') || (isInNav && theme !== 'light'),
+      bgWhite: (highlighted && isInNav && theme === 'light'),
       flexRow: 1,
       radiusSmall: 1,
       alignItemsCenter: 1,
@@ -159,7 +164,7 @@ class Search extends PureComponent {
             color={prependIconColor}
             onClick={this.handleSubmit}
             icon='search'
-            iconClassName={_s.inheritFill}
+            iconClassName={_s.fillInherit}
             iconSize='16px'
           />
         </div>

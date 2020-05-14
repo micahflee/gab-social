@@ -66,6 +66,7 @@ class Status extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
     descendantsIds: ImmutablePropTypes.list,
     ancestorStatus: ImmutablePropTypes.map,
+    isNotification: PropTypes.bool,
     isChild: PropTypes.bool,
     isPromoted: PropTypes.bool,
     isFeatured: PropTypes.bool,
@@ -247,6 +248,8 @@ class Status extends ImmutablePureComponent {
   }
 
   handleClick = () => {
+    // : todo : if clicked on isNotification statusactionbaritem do not go to new page
+
     if (this.props.onClick) {
       this.props.onClick()
       return
@@ -363,6 +366,7 @@ class Status extends ImmutablePureComponent {
       isPromoted,
       isChild,
       isHidden,
+      isNotification,
       descendantsIds,
       commentsLimited,
       ancestorStatus,
@@ -437,8 +441,8 @@ class Status extends ImmutablePureComponent {
       radiusSmall: isChild,
       borderColorSecondary: isChild,
       border1PX: isChild,
-      pb10: isChild && status.get('media_attachments').size === 0,
-      pb5: isChild && status.get('media_attachments').size > 1,
+      pb10: isChild && status.get('media_attachments').size === 0 && !isNotification,
+      pb5: isChild && status.get('media_attachments').size > 1 && !isNotification,
       cursorPointer: isChild,
       bgSubtle_onHover: isChild,
     })
@@ -521,7 +525,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    !isChild &&
+                    (!isChild || isNotification) &&
                     <StatusActionBar
                       status={status}
                       onFavorite={this.props.onFavorite}

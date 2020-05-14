@@ -60,7 +60,7 @@ class CommentHeader extends ImmutablePureComponent {
     return (
       <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.maxWidth100PC, _s.flexGrow1].join(' ')}>
 
-        <div className={[_s.default, _s.flexRow, _s.overflowHidden, _s.width100PC, _s.maxWidth100PC, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.overflowHidden, _s.width100PC, _s.maxWidth100PC, _s.alignItemsCenter].join(' ')}>
           <NavLink
             className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
             to={`/${status.getIn(['account', 'acct'])}`}

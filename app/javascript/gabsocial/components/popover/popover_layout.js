@@ -24,7 +24,7 @@ export default class PopoverLayout extends PureComponent {
 
     if (isXS) {
       return (
-        <div className={[_s.default, _s.bgPrimary, _s.overflowHidden, _s.modal, _s.topRightRadiusSmall, _s.topLeftRadiusSmall].join(' ')}>
+        <div className={[_s.default, _s.bgPrimary, _s.modal, _s.topRightRadiusSmall, _s.topLeftRadiusSmall].join(' ')}>
           {
             !!title &&
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
@@ -33,7 +33,7 @@ export default class PopoverLayout extends PureComponent {
               </Heading>
             </div>
           }
-          <div className={[_s.default, _s.heightMax80VH, _s.overflowYScroll].join(' ')}>
+          <div className={[_s.default, _s.heightMax80VH, _s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.overflowYScroll].join(' ')}>
             {children}
           </div>
         </div>

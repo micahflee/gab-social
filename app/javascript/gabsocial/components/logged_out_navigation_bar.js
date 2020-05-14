@@ -35,7 +35,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
             />
 
             <div className={[_s.default, _s.flexGrow1, _s.mr10].join(' ')}>
-              <Search />
+              <Search isInNav />
             </div>
 
           </ResponsiveClassesComponent>

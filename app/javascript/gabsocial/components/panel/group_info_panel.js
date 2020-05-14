@@ -61,7 +61,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.flexRow, _s.justifyContentCenter].join(' ')}>
               <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-                <Icon id='group' size='14px' />
+                <Icon id='group' size='14px' className={_s.fillPrimary} />
                 <Text size='small' className={_s.ml5}>
                   {intl.formatMessage(messages.members)}
                 </Text>

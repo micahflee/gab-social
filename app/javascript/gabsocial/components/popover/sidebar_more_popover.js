@@ -55,7 +55,7 @@ class SidebarMorePopover extends PureComponent {
             },
             {
               title: intl.formatMessage(messages.settings),
-              href: '/settings',
+              href: '/settings/preferences',
             },
             {
               title: intl.formatMessage(messages.logout),

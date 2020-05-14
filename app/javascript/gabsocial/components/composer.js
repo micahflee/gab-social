@@ -196,6 +196,7 @@ class Composer extends PureComponent {
       default: 1,
       cursorText: 1,
       text: 1,
+      colorPrimary: 1,
       fs16PX: !small,
       fs14PX: small,
       pt15: !small,

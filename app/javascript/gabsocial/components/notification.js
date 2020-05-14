@@ -147,6 +147,7 @@ class Notification extends ImmutablePureComponent {
                     contextType='notification'
                     id={statusId}
                     isChild
+                    isNotification
                   />
                 </div>
               }

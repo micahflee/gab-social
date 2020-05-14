@@ -1,7 +1,8 @@
 import Sticky from 'react-stickynode'
-import Sidebar from '../components/sidebar'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import { me } from '../initial_state'
+import Sidebar from '../components/sidebar'
+import SidebarXS from '../components/sidebar_xs'
 import NavigationBar from '../components/navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
@@ -39,6 +40,10 @@ export default class Layout extends PureComponent {
 
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
+
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          <SidebarXS />
+        </Responsive>
 
         {
           me &&
