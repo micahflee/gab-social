@@ -495,7 +495,7 @@ class UI extends PureComponent {
     // } : {}
 
     return (
-      <div ref={this.setRef}>
+      <div ref={this.setRef} className={_s.gabsocial}>
         <LoadingBar className={[_s.height1PX, _s.z3, _s.bgBrandLight].join(' ')} />
 
         <SwitchingArea location={location} onLayoutChange={this.handleLayoutChange}>
