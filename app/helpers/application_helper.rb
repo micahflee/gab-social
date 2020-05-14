@@ -122,4 +122,9 @@ module ApplicationHelper
     text = word_wrap(text, line_width: line_width - 2, break_sequence: break_sequence)
     text.split("\n").map { |line| '> ' + line }.join("\n")
   end
+
+  def theme
+    # : todo :
+    return 'light'
+  end
 end
