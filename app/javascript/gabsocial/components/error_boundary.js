@@ -64,8 +64,8 @@ export default class ErrorBoundary extends PureComponent {
 
     return (
       <div className={[_s.default, _s.heightMin100VH, _s.width100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-        <div className={[_s.default, _s.height53PX, _s.bgBrand, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
-          <div className={[_s.default, _s.flexRow, _s.width1255PX].join(' ')}>
+        <div className={[_s.default, _s.heightMin53PX, _s.bgBrand, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+          <div className={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.width1255PX].join(' ')}>
 
             <div className={[_s.default, _s.flexRow].join(' ')}>
 

@@ -33,14 +33,18 @@ class FloatingActionButton extends PureComponent {
     const message = intl.formatMessage(messages.gab)
 
     return (
-      <Button
-        onClick={onOpenCompose}
-        className={[_s.posFixed, _s.z4, _s.py15, _s.mb15, _s.mr15, _s.bottom55PX, _s.height60PX, _s.width60PX, _s.right0, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-        title={message}
-        aria-label={message}
-        icon='pencil'
-        iconSize='20px'
-      />
+      <div
+        className={[_s.posFixed, _s.z4, _s.mb15, _s.mr15, _s.bottom55PX, _s.right0].join(' ')}
+      >
+        <Button
+          onClick={onOpenCompose}
+          className={[_s.py15, _s.height60PX, _s.saveAreaInsetMR, _s.saveAreaInsetMB, _s.width60PX, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+          title={message}
+          aria-label={message}
+          icon='pencil'
+          iconSize='20px'
+        />
+      </div>
     )
   }
   

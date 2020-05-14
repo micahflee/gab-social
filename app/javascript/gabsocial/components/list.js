@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import Block from './block'
 import ScrollableList from './scrollable_list'
 import ListItem from './list_item'
+import Dummy from './dummy'
 
 export default class List extends ImmutablePureComponent {
 
@@ -32,9 +33,11 @@ export default class List extends ImmutablePureComponent {
       onLoadMore
     } = this.props
 
+    const Wrapper = !!scrollKey ? ScrollableList : Dummy
+
     return (
       <Block>
-        <ScrollableList
+        <Wrapper
           onLoadMore={onLoadMore}
           hasMore={hasMore}
           scrollKey={scrollKey}
@@ -50,7 +53,7 @@ export default class List extends ImmutablePureComponent {
               />
             ))
           }
-        </ScrollableList>
+        </Wrapper>
       </Block>
     )
   }

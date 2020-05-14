@@ -9,21 +9,21 @@ export default class LoggedOutNavigationBar extends PureComponent {
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
   }
-
+   
   render() {
     return (
       <ResponsiveClassesComponent
-        classNames={[_s.default, _s.z4, _s.height53PX, _s.width100PC].join(' ')}
-        classNamesXS={[_s.default, _s.z4, _s.height98PX, _s.width100PC].join(' ')}
+        classNames={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}
+        classNamesXS={[_s.default, _s.z4, _s.heightMin98PX, _s.width100PC].join(' ')}
       >
         <ResponsiveClassesComponent
-          classNames={[_s.default, _s.height53PX, _s.flexRow, _s.flexWrap, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
-          classNamesXS={[_s.default, _s.height98PX, _s.flexRow, _s.flexWrap, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
+          classNames={[_s.default, _s.heightMin53PX, _s.flexRow, _s.flexWrap, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
+          classNamesXS={[_s.default, _s.heightMin98PX, _s.flexRow, _s.flexWrap, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
         >
 
           <ResponsiveClassesComponent
-            classNames={[_s.default, _s.flexRow, _s.width330PX].join(' ')}
-            classNamesXS={[_s.default, _s.flexRow, _s.width100PC].join(' ')}
+            classNames={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR,  _s.width330PX].join(' ')}
+            classNamesXS={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.width100PC].join(' ')}
           >
 
             <Button

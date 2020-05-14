@@ -211,7 +211,7 @@ class SidebarXS extends ImmutablePureComponent {
     return (
       <div className={containerClasses}>
         <div className={[_s.default, _s.posFixed, _s.top0, _s.left0, _s.right0, _s.bgBlackOpaque, _s.bottom0].join(' ')} role='button' onClick={this.handleSidebarClose} />
-        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.width330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxWidth80PC].join(' ')}>
+        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.saveAreaInsetPL, _s.minWidth330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxWidth80PC].join(' ')}>
 
           <div className={[_s.default, _s.flexRow, _s.px15, _s.height53PX, _s.width100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
             <Heading size='h2'>Account Info</Heading>
@@ -270,7 +270,10 @@ class SidebarXS extends ImmutablePureComponent {
             </div>
 
             <div className={[_s.default, _s.mb15, _s.boxShadowNone].join(' ')}>
-              <List items={mainItems} />
+              <List
+                items={mainItems}
+                size='large'
+              />
             </div>
 
           </div>

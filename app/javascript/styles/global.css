@@ -464,8 +464,10 @@ body {
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }
+.heightMin98PX { min-height: 98px; }
 .heightMin80PX { min-height: 80px; }
 .heightMin58PX { min-height: 58px; }
+.heightMin53PX { min-height: 53px; }
 .heightMin50PX { min-height: 50px; }
 .heightMin28PX { min-height: 28px; }
 
@@ -495,6 +497,8 @@ body {
 .maxWidth640PX { max-width: 640px; }
 .maxWidth180PX { max-width: 180px; }
 .maxWidth100PC42PX { max-width: calc(100% - 42px); }
+
+.minWidth330PX { min-width: 330px; }
 
 .width100PC { width: 100%; }
 .width50PC { width: 50%; }
@@ -917,9 +921,28 @@ body {
   -ms-overflow-style: none;
 }
 
-.footerChin {
-  padding-bottom: 0;
+.saveAreaInsetPB {
   padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.saveAreaInsetPT {
+  padding-top: env(safe-area-inset-top, 0);
+}
+
+.saveAreaInsetPL {
+  padding-left: env(safe-area-inset-left, 0);
+}
+
+.saveAreaInsetPR {
+  padding-right: env(safe-area-inset-right, 0);
+}
+
+.saveAreaInsetMR {
+  margin-right: env(safe-area-inset-right, 0);
+}
+
+.saveAreaInsetMB {
+  margin-bottom: env(safe-area-inset-bottom, 0);
 }
 
 .bgNavigation {

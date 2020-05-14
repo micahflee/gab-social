@@ -54,10 +54,10 @@ class NavigationBar extends ImmutablePureComponent {
 
 
     return (
-      <div className={[_s.default, _s.z4, _s.height53PX, _s.width100PC].join(' ')}>
-        <div className={[_s.default, _s.height53PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+      <div className={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}>
+        <div className={[_s.default, _s.heightMin53PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
-          <div className={[_s.default, _s.flexRow, _s.width1255PX].join(' ')}>
+          <div className={[_s.default, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.width1255PX].join(' ')}>
 
             { /** Default */}
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>

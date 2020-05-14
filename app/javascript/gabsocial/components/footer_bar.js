@@ -52,7 +52,7 @@ class FooterBar extends PureComponent {
     return (
       <div className={[_s.default, _s.z4, _s.heightMin58PX, _s.width100PC].join(' ')}>
         <div className={[_s.default, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.heightMin58PX, _s.width100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.heightMin58PX, _s.footerChin, _s.justifyContentSpaceAround].join(' ')}>
+          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.heightMin58PX, _s.saveAreaInsetPB, _s.justifyContentSpaceAround].join(' ')}>
             {
               buttons.map((props) => {
                 const classes = CX({
