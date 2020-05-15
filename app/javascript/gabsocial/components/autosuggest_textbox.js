@@ -94,7 +94,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     switch (e.key) {
     case 'Escape':
       if (suggestions.size === 0 || suggestionsHidden) {
-        document.querySelector('.ui').parentElement.focus();
+        document.querySelector('#gabsocial').focus()
       } else {
         e.preventDefault();
         this.setState({ suggestionsHidden: true });
@@ -267,11 +267,11 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               autoFocus={false}
               value={value}
               onChange={this.onChange}
-              // onKeyDown={this.onKeyDown}
-              // onKeyUp={onKeyUp}
-              // onFocus={this.onFocus}
-              // onBlur={this.onBlur}
-              // onPaste={this.onPaste}
+              onKeyDown={this.onKeyDown}
+              onKeyUp={onKeyUp}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onPaste={this.onPaste}
               aria-autocomplete='list'
             />
 
