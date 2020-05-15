@@ -6,15 +6,11 @@ import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
-import Button from './button'
-import DotTextSeperator from './dot_text_seperator'
 import Image from './image'
 import Text from './text'
 
 const messages = defineMessages({
   members: { id: 'groups.card.members', defaultMessage: 'Members' },
-  new_statuses: { id: 'groups.sidebar-panel.item.view', defaultMessage: 'new gabs' },
-  no_recent_activity: { id: 'groups.sidebar-panel.item.no_recent_activity', defaultMessage: 'No recent activity' },
   viewGroup: { id: 'view_group', defaultMessage: 'View Group' },
   member: { id: 'member', defaultMessage: 'Member' },
   admin: { id: 'admin', defaultMessage: 'Admin' },
@@ -48,16 +44,6 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
     if (!relationships) return null
 
-    const unreadCount = relationships.get('unread_count')
-
-    const subtitle = unreadCount > 0 ? (
-      <Fragment>
-        {shortNumberFormat(unreadCount)}
-        &nbsp;
-        {intl.formatMessage(messages.new_statuses)}
-      </Fragment>
-    ) : intl.formatMessage(messages.no_recent_activity)
-
     const isMember = relationships.get('member')
     const isAdmin = relationships.get('admin')
     const coverSrc = group.get('cover_image_url') || ''
@@ -68,7 +54,6 @@ class GroupCollectionItem extends ImmutablePureComponent {
       return (
         <Fragment>
           {group.get('title')}
-          {subtitle}
           {isMember && intl.formatMessage(messages.member)}
           {isAdmin && intl.formatMessage(messages.admin)}
         </Fragment>
@@ -148,10 +133,6 @@ class GroupCollectionItem extends ImmutablePureComponent {
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;
                 {intl.formatMessage(messages.members)}
-              </Text>
-              <DotTextSeperator />
-              <Text color='secondary' size='small' className={_s.ml5}>
-                {subtitle}
               </Text>
             </div>
           </div>

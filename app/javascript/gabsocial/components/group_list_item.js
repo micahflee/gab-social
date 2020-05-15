@@ -11,13 +11,10 @@ import Text from './text'
 
 const messages = defineMessages({
   members: { id: 'groups.card.members', defaultMessage: 'Members' },
-  new_statuses: { id: 'groups.sidebar-panel.item.view', defaultMessage: 'new gabs' },
-  no_recent_activity: { id: 'groups.sidebar-panel.item.no_recent_activity', defaultMessage: 'No recent activity' },
 })
 
 const mapStateToProps = (state, { id }) => ({
   group: state.getIn(['groups', id]),
-  relatioships: state.getIn(['group_relationships', id]),
 })
 
 export default
@@ -27,7 +24,6 @@ class GroupListItem extends ImmutablePureComponent {
 
   static propTypes = {
     group: ImmutablePropTypes.map,
-    relationships: ImmutablePropTypes.map,
     slim: PropTypes.bool,
     isLast: PropTypes.bool,
     isHidden: PropTypes.bool,
@@ -42,7 +38,6 @@ class GroupListItem extends ImmutablePureComponent {
     const {
       intl,
       group,
-      relationships,
       slim,
       isLast,
       isHidden,
@@ -50,25 +45,10 @@ class GroupListItem extends ImmutablePureComponent {
 
     if (!group) return null
 
-    let unreadCount, subtitle
-
-    if (relationships) {
-      unreadCount = relationships.get('unread_count')
-
-      subtitle = unreadCount > 0 ? (
-        <Fragment>
-          {shortNumberFormat(unreadCount)}
-          &nbsp;
-          {intl.formatMessage(messages.new_statuses)}
-        </Fragment>
-      ) : intl.formatMessage(messages.no_recent_activity)
-    }
-
     if (isHidden) {
       return (
         <Fragment>
           {group.get('title')}
-          {subtitle}
         </Fragment>
       )
     }
@@ -132,13 +112,6 @@ class GroupListItem extends ImmutablePureComponent {
               {shortNumberFormat(group.get('member_count'))}
               &nbsp;
               {intl.formatMessage(messages.members)}
-            </Text>
-          }
-
-          {
-            subtitle &&
-            <Text color='secondary' size='small' className={_s.mt5}>
-              {subtitle}
             </Text>
           }
 
