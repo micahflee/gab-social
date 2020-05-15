@@ -86,7 +86,7 @@ class RepostOptionsPopover extends ImmutablePureComponent {
   ]
 
   handleOnQuote = () => {
-    this.props.onQuote(this.props.status, this.context.router.history)
+    this.props.onQuote(this.props.status, this.context.router)
   }
 
   handleOnRepost = () => {

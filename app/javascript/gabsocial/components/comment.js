@@ -83,6 +83,10 @@ export default
 @connect(makeMapStateToProps, mapDispatchToProps)
 class Comment extends ImmutablePureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+
   static propTypes = {
     indent: PropTypes.number,
     intl: PropTypes.object.isRequired,
@@ -118,7 +122,7 @@ class Comment extends ImmutablePureComponent {
   }
 
   handleOnReply = () => {
-    this.props.onReply(this.props.status)
+    this.props.onReply(this.props.status, this.context.router)
   }
 
   handleOnFavorite = () => {

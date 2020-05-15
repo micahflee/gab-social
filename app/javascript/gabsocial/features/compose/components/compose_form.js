@@ -141,7 +141,7 @@ class ComposeForm extends ImmutablePureComponent {
       return;
     }
 
-    this.props.onSubmit(this.props.group, this.props.replyToId);
+    this.props.onSubmit(this.props.group, this.props.replyToId, this.context.router);
   }
 
   onSuggestionsClearRequested = () => {

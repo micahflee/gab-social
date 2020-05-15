@@ -185,10 +185,10 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/settings/billing' exact page={SettingsPage} component={Billing} content={children} />
         */ }
 
-        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Accounts' }} />
+        { /* <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Accounts' }} />
         <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={BlockedDomains} content={children} componentParams={{ title: 'Blocked Domains' }} />
-        { /* <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} /> */ }
-        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} />
+        <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} />
+        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} /> */ }
 
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />

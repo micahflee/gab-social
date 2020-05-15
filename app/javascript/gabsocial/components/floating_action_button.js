@@ -37,7 +37,7 @@ class FloatingActionButton extends PureComponent {
         className={[_s.posFixed, _s.z4, _s.mb15, _s.mr15, _s.bottom55PX, _s.right0].join(' ')}
       >
         <Button
-          onClick={onOpenCompose}
+          to='/compose'
           className={[_s.py15, _s.height60PX, _s.saveAreaInsetMR, _s.saveAreaInsetMB, _s.width60PX, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
           title={message}
           aria-label={message}

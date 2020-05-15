@@ -137,36 +137,36 @@ class SidebarXS extends ImmutablePureComponent {
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.lists),
       },
-      {
-        icon: 'group',
-        to: '/follow_requests',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.follow_requests),
-      },
-      {
-        icon: 'block',
-        to: '/blocks',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.blocks),
-      },
-      {
-        icon: 'website',
-        to: '/domain_blocks',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.domain_blocks),
-      },
-      {
-        icon: 'audio-mute',
-        to: '/mutes',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.mutes),
-      },
-      {
-        icon: 'report',
-        to: '/filters',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.filters),
-      },
+      // {
+      //   icon: 'group',
+      //   to: '/follow_requests',
+      //   onClick: this.handleSidebarClose,
+      //   title: intl.formatMessage(messages.follow_requests),
+      // },
+      // {
+      //   icon: 'block',
+      //   to: '/blocks',
+      //   onClick: this.handleSidebarClose,
+      //   title: intl.formatMessage(messages.blocks),
+      // },
+      // {
+      //   icon: 'website',
+      //   to: '/settings/domain_blocks',
+      //   onClick: this.handleSidebarClose,
+      //   title: intl.formatMessage(messages.domain_blocks),
+      // },
+      // {
+      //   icon: 'audio-mute',
+      //   to: '/mutes',
+      //   onClick: this.handleSidebarClose,
+      //   title: intl.formatMessage(messages.mutes),
+      // },
+      // {
+      //   icon: 'report',
+      //   to: '/filters',
+      //   onClick: this.handleSidebarClose,
+      //   title: intl.formatMessage(messages.filters),
+      // },
       {
         onClick: this.props.onOpenDisplayModel, //on open display model
         title: intl.formatMessage(messages.display),

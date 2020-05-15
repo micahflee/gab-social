@@ -12,10 +12,10 @@ import {
 } from '../../../actions/compose'
 import { me } from '../../../initial_state'
 
-const mapStateToProps = (state, { replyToId }) => {
+const mapStateToProps = (state, { replyToId, isStandalone }) => {
 
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
-  const isModalOpen = state.getIn(['modal', 'modalType']) === 'COMPOSE'
+  const isModalOpen = state.getIn(['modal', 'modalType']) === 'COMPOSE' || isStandalone
   let isMatch;
 
   if (!!reduxReplyToId && !!replyToId && replyToId === reduxReplyToId) {
@@ -55,10 +55,6 @@ const mapStateToProps = (state, { replyToId }) => {
     }
   }
 
-  // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
-
-  // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen)
-
   return {
     isMatch,
     isModalOpen,
@@ -91,8 +87,8 @@ const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId }) => ({
     dispatch(changeCompose(text, markdown, newReplyToId))
   },
 
-  onSubmit(group, replyToId) {
-    dispatch(submitCompose(group, replyToId))
+  onSubmit(group, replyToId, router) {
+    dispatch(submitCompose(group, replyToId, router))
   },
 
   onClearSuggestions() {

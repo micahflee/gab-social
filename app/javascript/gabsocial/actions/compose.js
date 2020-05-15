@@ -3,6 +3,7 @@ import { FormattedMessage } from 'react-intl'
 import { CancelToken, isCancel } from 'axios';
 import throttle from 'lodash.throttle'
 import moment from 'moment-mini'
+import { isMobile } from '../utils/is_mobile'
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
 import { urlRegex } from '../features/ui/util/url_regex'
 import { tagHistory } from '../settings';
@@ -171,20 +172,30 @@ export function replyCompose(status, router, showModal) {
       status: status,
     });
 
-    if (showModal) {
-      dispatch(openModal('COMPOSE'));
+    if (isMobile(window.innerWidth)) {
+      router.history.push('/compose')
+    } else {
+      if (showModal) {
+        dispatch(openModal('COMPOSE'));
+      }
     }
   };
 };
 
-export function quoteCompose(status) {
+export function quoteCompose(status, router) {
   return (dispatch) => {
     dispatch({
       type: COMPOSE_QUOTE,
       status: status,
     });
 
-    dispatch(openModal('COMPOSE'));
+    if (isMobile(window.innerWidth)) {
+      router.history.push('/compose')
+    } else {
+      if (showModal) {
+        dispatch(openModal('COMPOSE'));
+      }
+    }
   };
 };
 
@@ -249,7 +260,7 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   }
 }
 
-export function submitCompose(group, replyToId = null) {
+export function submitCompose(group, replyToId = null, router) {
   return function (dispatch, getState) {
     if (!me) return;
 
@@ -287,6 +298,10 @@ export function submitCompose(group, replyToId = null) {
 
     const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
     if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
+
+    if (isMobile(window)) {
+      router.history.goBack()
+    }
 
     api(getState)[method](endpoint, {
       status,

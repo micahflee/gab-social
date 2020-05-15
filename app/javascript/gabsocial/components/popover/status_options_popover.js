@@ -180,6 +180,10 @@ export default
 @connect(mapStateToProps, mapDispatchToProps)
 class StatusOptionsPopover extends ImmutablePureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+  
   static propTypes = {
     status: ImmutablePropTypes.map.isRequired,
     groupRelationships: ImmutablePropTypes.map,

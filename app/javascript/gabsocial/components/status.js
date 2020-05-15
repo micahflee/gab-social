@@ -284,9 +284,13 @@ class Status extends ImmutablePureComponent {
     this.props.onOpenVideo(media, startTime)
   }
 
-  handleHotkeyReply = e => {
+  handleHotkeyReply = (e) => {
     e.preventDefault()
-    this.props.onReply(this._properStatus(), this.context.router.history)
+    this.props.onReply(this._properStatus(), this.context.router)
+  }
+
+  handleOnReply = (status) => {
+    this.props.onReply(status || this._properStatus(), this.context.router)
   }
 
   handleHotkeyFavorite = () => {
@@ -299,7 +303,7 @@ class Status extends ImmutablePureComponent {
 
   handleHotkeyMention = e => {
     e.preventDefault()
-    this.props.onMention(this._properStatus().get('account'), this.context.router.history)
+    this.props.onMention(this._properStatus().get('account'), this.context.router)
   }
 
   handleHotkeyOpen = () => {
@@ -532,7 +536,7 @@ class Status extends ImmutablePureComponent {
                     <StatusActionBar
                       status={status}
                       onFavorite={this.props.onFavorite}
-                      onReply={this.props.onReply}
+                      onReply={this.handleOnReply}
                       onRepost={this.props.onRepost}
                       onShare={this.props.onShare}
                       onOpenLikes={this.props.onOpenLikes}

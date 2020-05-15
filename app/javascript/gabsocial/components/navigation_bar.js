@@ -1,11 +1,15 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openSidebar } from '../actions/sidebar'
+import { openPopover } from '../actions/popover'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
-import { CX } from '../constants'
+import {
+  CX,
+  POPOVER_NAV_SETTINGS,
+} from '../constants'
 import Avatar from './avatar'
 import BackButton from './back_button'
 import Button from './button'
@@ -23,8 +27,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openSidebar())
   },
 
-  onOpenNavSettingsPopover() {
-    dispatch(openPopover())
+  onOpenNavSettingsPopover(targetRef) {
+    dispatch(openPopover(POPOVER_NAV_SETTINGS, {
+      targetRef,
+      position: 'top',
+    }))
   }
 })
 
@@ -42,9 +49,12 @@ class NavigationBar extends ImmutablePureComponent {
     onOpenNavSettingsPopover: PropTypes.func.isRequired,
   }
 
-  handleProfileClick = () => {
-    // : todo :
-    // open menu
+  handleOnOpenNavSettingsPopover = () => {
+    this.props.onOpenNavSettingsPopover(this.avatarNode)
+  }
+
+  setAvatarNode = (c) => {
+    this.avatarNode = c
   }
 
   render() {
@@ -104,8 +114,9 @@ class NavigationBar extends ImmutablePureComponent {
                   {
                     !!account &&
                     <button
+                      ref={this.setAvatarNode}
                       title={account.get('display_name')}
-                      onClick={this.handleProfileClick}
+                      onClick={this.handleOnOpenNavSettingsPopover}
                       className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
                     >
                       <Avatar account={account} size={32} noHover />
