@@ -192,9 +192,7 @@ export function quoteCompose(status, router) {
     if (isMobile(window.innerWidth)) {
       router.history.push('/compose')
     } else {
-      if (showModal) {
-        dispatch(openModal('COMPOSE'));
-      }
+      dispatch(openModal('COMPOSE'));
     }
   };
 };
