@@ -1,6 +1,7 @@
 import { FormattedMessage } from 'react-intl'
 import classNames from 'classnames/bind'
 import { shortNumberFormat } from '../utils/numbers'
+import { scrollTo } from '../utils/scroll_to'
 import Button from './button'
 import Text from './text'
 
@@ -20,8 +21,14 @@ export default class TimelineQueueButtonHeader extends PureComponent {
     itemType: 'item',
   }
 
-  render () {
-    const { count, itemType, onClick } = this.props
+  handleOnClick = () => {
+    scrollTo(document.documentElement, 0, 500)
+
+    this.props.onClick()
+  }
+
+  render() {
+    const { count, itemType } = this.props
 
     const hasItems = count > 0
 
@@ -38,7 +45,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
             isNarrow
             color='white'
             backgroundColor='brand'
-            onClick={onClick}
+            onClick={this.handleOnClick}
           >
             {
               hasItems &&
