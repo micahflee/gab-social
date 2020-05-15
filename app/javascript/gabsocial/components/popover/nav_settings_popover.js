@@ -2,10 +2,12 @@ import { defineMessages, injectIntl } from 'react-intl'
 import {  MODAL_DISPLAY_OPTIONS } from '../../constants'
 import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
+import { meUsername } from '../../initial_state'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
 const messages = defineMessages({
+  profile: { id: 'account.profile', defaultMessage: 'Profile' },
   display: { id: 'display_options', defaultMessage: 'Display Options' },
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   settings: { id: 'settings', defaultMessage: 'Settings' },
@@ -45,6 +47,10 @@ class NavSettingsPopover extends PureComponent {
           size='large'
           scrollKey='profile_options'
           items={[
+            {
+              title: intl.formatMessage(messages.profile),
+              to: `/${meUsername}`
+            },
             {
               title: intl.formatMessage(messages.help),
               href: 'https://help.gab.com',
