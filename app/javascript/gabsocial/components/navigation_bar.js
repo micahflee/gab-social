@@ -248,7 +248,6 @@ class NavigationBarButton extends PureComponent {
       colorWhite: !!title,
       fs13PX: !!title,
       fontWeightNormal: !!title,
-      textUppercase: !!title,
     })
 
     const iconClasses = CX({

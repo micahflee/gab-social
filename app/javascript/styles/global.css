@@ -279,8 +279,6 @@ body {
   white-space: nowrap;
 }
 
-.textUppercase { text-transform: uppercase; }
-
 .whiteSpaceNoWrap { white-space: nowrap; }
 
 .outlineNone { outline: none; }
