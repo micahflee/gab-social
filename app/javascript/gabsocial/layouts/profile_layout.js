@@ -123,6 +123,8 @@ export default class ProfileLayout extends ImmutablePureComponent {
 
             </div>
 
+            <FloatingActionButton isDesktop />
+
           </main>
         </Responsive>
 
