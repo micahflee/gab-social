@@ -290,7 +290,7 @@ class Status extends ImmutablePureComponent {
   }
 
   handleOnReply = (status) => {
-    this.props.onReply(status || this._properStatus(), this.context.router)
+    this.props.onReply(status || this._properStatus(), this.context.router, true)
   }
 
   handleHotkeyFavorite = () => {
