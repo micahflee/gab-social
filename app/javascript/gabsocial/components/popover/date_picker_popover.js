@@ -22,9 +22,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setScheduledAt (date, isPro) {
-    dispatch(closePopover())
-    
     if (!isPro) {
+      dispatch(closePopover())
       return dispatch(openModal(MODAL_PRO_UPGRADE))
     }
 
