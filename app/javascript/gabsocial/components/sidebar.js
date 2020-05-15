@@ -43,7 +43,6 @@ const mapStateToProps = (state) => ({
   moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
   notificationCount: state.getIn(['notifications', 'unread']),
   homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
-  showCommunityTimeline: state.getIn(['settings', 'community', 'shows', 'inSidebar']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -66,7 +65,6 @@ class Sidebar extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     account: ImmutablePropTypes.map,
-    showCommunityTimeline: PropTypes.bool,
     moreOpen: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onOpenComposeModal: PropTypes.func.isRequired,
@@ -100,7 +98,6 @@ class Sidebar extends ImmutablePureComponent {
       account,
       notificationCount,
       homeItemsQueueCount,
-      showCommunityTimeline,
       moreOpen,
       actions,
       tabs,
@@ -120,12 +117,6 @@ class Sidebar extends ImmutablePureComponent {
         icon: 'home',
         to: '/home',
         count: homeItemsQueueCount,
-      },
-      {
-        title: 'Community',
-        icon: 'community',
-        to: '/timeline/all',
-        hidden: !showCommunityTimeline,
       },
       {
         title: 'Notifications',
@@ -174,6 +165,11 @@ class Sidebar extends ImmutablePureComponent {
     ]
 
     const exploreItems = [
+      {
+        title: 'All',
+        icon: 'community',
+        to: '/timeline/all',
+      },
       {
         title: 'Chat',
         icon: 'chat',

@@ -11,7 +11,6 @@ const messages = defineMessages({
   title: { id: 'community_timeline_settings', defaultMessage: 'Community Feed Settings' },
   saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
   onlyMedia: { id: 'community.column_settings.media_only', defaultMessage: 'Media Only' },
-  showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
 })
 
 const mapStateToProps = (state) => ({
@@ -61,14 +60,6 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
       >
       
         <div className={[_s.default, _s.pb10].join(' ')}>
-          <SettingSwitch
-            prefix='community_timeline'
-            settings={settings}
-            settingPath={['shows', 'inSidebar']}
-            onChange={onChange}
-            label={intl.formatMessage(messages.showInSidebar)}
-          />
-
           <SettingSwitch
             prefix='community_timeline'
             settings={settings}

@@ -26,7 +26,6 @@ const initialState = ImmutableMap({
 
   community: ImmutableMap({
     shows: ImmutableMap({
-      inSidebar: false,
       onlyMedia: false,
     }),
   }),
