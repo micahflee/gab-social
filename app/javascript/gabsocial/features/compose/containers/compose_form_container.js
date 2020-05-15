@@ -91,7 +91,7 @@ const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId, isStandalone 
   },
 
   onSubmit(group, replyToId, router) {
-    dispatch(submitCompose(group, replyToId, router))
+    dispatch(submitCompose(group, replyToId, router, isStandalone))
   },
 
   onClearSuggestions() {

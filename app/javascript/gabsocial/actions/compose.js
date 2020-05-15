@@ -260,7 +260,7 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   }
 }
 
-export function submitCompose(group, replyToId = null, router) {
+export function submitCompose(group, replyToId = null, router, isStandalone) {
   return function (dispatch, getState) {
     if (!me) return;
 
@@ -299,7 +299,7 @@ export function submitCompose(group, replyToId = null, router) {
     const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
     if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
-    if (isMobile(window.innerWidth) && router) {
+    if (isMobile(window.innerWidth) && router && isStandalone) {
       router.history.goBack()
     }
 

@@ -20,10 +20,11 @@ const mapStateToProps = (state) => ({
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
-const mapDispatchToProps = (dispatch,  { isPro }) => ({
-  setScheduledAt (date) {
+const mapDispatchToProps = (dispatch) => ({
+  setScheduledAt (date, isPro) {
+    dispatch(closePopover())
+    
     if (!isPro) {
-      dispatch(closePopover())
       return dispatch(openModal(MODAL_PRO_UPGRADE))
     }
 
@@ -49,11 +50,11 @@ class DatePickerPopover extends PureComponent {
   }
 
   handleSetDate = (date) => {
-    this.props.setScheduledAt(date)
+    this.props.setScheduledAt(date, this.props.isPro)
   }
   
   handleRemoveDate = () => {
-    this.props.setScheduledAt(null)
+    this.props.setScheduledAt(null, this.props.isPro)
   }
 
   render() {
