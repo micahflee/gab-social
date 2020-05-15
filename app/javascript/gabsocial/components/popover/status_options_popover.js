@@ -14,6 +14,7 @@ import {
   deleteStatus,
   editStatus,
 } from '../../actions/statuses';
+import { quoteCompose } from '../../actions/compose'
 import {
   fetchGroupRelationships,
   createRemovedAccount,
@@ -257,6 +258,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     this.props.onRepost(this.props.status, e)
   }
 
+  handleQuoteClick = (e) => {
+    this.props.onQuote(this.props.status, this.context.router)
+  }
+
   render() {
     const {
       status,
@@ -293,7 +298,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
           icon: 'pencil',
           hideArrow: true,
           title: intl.formatMessage(messages.repostWithComment),
-          onClick: this.handleRepostClick,
+          onClick: this.handleQuoteClick,
         })
       }
 

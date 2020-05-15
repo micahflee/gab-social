@@ -28,6 +28,9 @@ const mapStateToProps = (state, { replyToId, isStandalone }) => {
 
   if (isModalOpen) isMatch = true
 
+  // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
+  // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen, isStandalone)
+
   if (!isMatch) {
     return {
       isMatch,
@@ -81,10 +84,10 @@ const mapStateToProps = (state, { replyToId, isStandalone }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId }) => ({
+const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId, isStandalone }) => ({
 
   onChange(text, markdown, newReplyToId) {
-    dispatch(changeCompose(text, markdown, newReplyToId))
+    dispatch(changeCompose(text, markdown, newReplyToId, isStandalone))
   },
 
   onSubmit(group, replyToId, router) {

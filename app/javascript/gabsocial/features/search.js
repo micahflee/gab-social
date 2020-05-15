@@ -37,7 +37,7 @@ class Search extends ImmutablePureComponent {
     const { results, location } = this.props
     const { isSmallScreen } = this.state
 
-    console.log("results:", results)
+    // console.log("results:", results)
 
     if (results.isEmpty() && isSmallScreen) {
       return null

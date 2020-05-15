@@ -21,8 +21,7 @@ class ProPanel extends PureComponent {
   render() {
     const { intl, isPro } = this.props
 
-    // : todo :
-    // if (isPro) return null
+    if (isPro) return null
 
     return (
       <PanelLayout

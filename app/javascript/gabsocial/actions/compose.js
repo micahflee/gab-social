@@ -81,11 +81,11 @@ export const ensureComposeIsVisible = (getState, routerHistory) => {
   }
 };
 
-export function changeCompose(text, markdown, replyId) {
+export function changeCompose(text, markdown, replyId, isStandalone) {
   return function (dispatch, getState) {
     const reduxReplyToId = getState().getIn(['compose', 'in_reply_to'])
     const existingText = getState().getIn(['compose', 'text']).trim()
-    const isModalOpen = getState().getIn(['modal', 'modalType']) === 'COMPOSE'
+    const isModalOpen = getState().getIn(['modal', 'modalType']) === 'COMPOSE' || isStandalone
 
     let status
     if (!!replyId) {
@@ -299,7 +299,7 @@ export function submitCompose(group, replyToId = null, router) {
     const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
     if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
-    if (isMobile(window)) {
+    if (isMobile(window.innerWidth) && router) {
       router.history.goBack()
     }
 

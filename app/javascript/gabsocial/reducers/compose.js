@@ -173,7 +173,7 @@ const insertEmoji = (state, position, emojiData, needsSpace) => {
   const oldText = state.get('text')
   const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native
   const text = `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`
-  console.log("insertEmoji reducer:", emoji, position, emojiData, needsSpace, text)
+  // console.log("insertEmoji reducer:", emoji, position, emojiData, needsSpace, text)
 
   return state.merge({
     text,

@@ -177,7 +177,7 @@ class Status extends ImmutablePureComponent {
 
       if (snapshot !== null && this.props.updateScrollBottom) {
         if (this.node && this.node.offsetTop < snapshot.top) {
-          console.log("updateScrollBottom")
+          // console.log("updateScrollBottom")
           this.props.updateScrollBottom(snapshot.height - snapshot.top)
         }
       }

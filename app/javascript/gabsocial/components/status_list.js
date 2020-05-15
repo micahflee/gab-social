@@ -123,7 +123,7 @@ class StatusList extends ImmutablePureComponent {
   }
 
   fetchContextsForInitialStatuses = (statusIds) => {
-    console.log("fetchContextsForInitialStatuses:", statusIds)
+    // console.log("fetchContextsForInitialStatuses:", statusIds)
     for (let i = 0; i < statusIds.length; i++) {
       const statusId = statusIds[i];
       this.props.onFetchContext(statusId)

@@ -41,6 +41,10 @@ export default
 @injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object,
+  }
+  
   state = {
     composeFocused: false,
   }
