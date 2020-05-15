@@ -39,7 +39,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.pb5, _s.posSticky, _s.top120PX, _s.alignItemsCenter, _s.z4].join(' ')}>
+      <div className={[_s.default, _s.pb5, _s.posSticky, _s.top120PX, _s.alignItemsCenter, _s.z3].join(' ')}>
         <div className={classes}>
           <Button
             isNarrow
