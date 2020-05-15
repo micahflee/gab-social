@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -101,7 +102,16 @@ class Notification extends ImmutablePureComponent {
     }
 
     if (isHidden) {
-      // : todo :
+      return (
+        <Fragment>
+          {
+            accounts && accounts.slice(0, 1).map((account, i) => (
+              <DisplayName key={i} account={account} noUsername />
+            ))
+          }
+          {message}
+        </Fragment>
+      )
     }
 
     return (
@@ -114,7 +124,7 @@ class Notification extends ImmutablePureComponent {
             <div className={[_s.default, _s.ml15, _s.flexNormal].join(' ')}>
               <div className={[_s.default, _s.flexRow].join(' ')}>
                 {
-                  accounts.slice(0, 8).map((account, i) => (
+                  accounts && accounts.slice(0, 8).map((account, i) => (
                     <NavLink
                       to={`/${account.get('acct')}`}
                       key={`fav-avatar-${i}`}
@@ -129,7 +139,7 @@ class Notification extends ImmutablePureComponent {
                 <div className={[_s.default, _s.flexRow].join(' ')}>
                   <div className={_s.text}>
                     {
-                      accounts.slice(0, 1).map((account, i) => (
+                      accounts && accounts.slice(0, 1).map((account, i) => (
                         <DisplayName key={i} account={account} noUsername />
                       ))
                     }
