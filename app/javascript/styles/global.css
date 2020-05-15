@@ -380,6 +380,7 @@ body {
 .bgBrandDark { background-color: var(--color_brand-dark); }
 .bgBrandDark_onHover:hover { background-color: var(--color_brand-dark); }
 
+.bgRed { background-color: red; }
 .bgDanger { background-color: var(--color_red); }
 .bgDangerDark_onHover:hover { background-color: var(--color_red-dark); }
 
@@ -493,6 +494,7 @@ body {
 .maxWidth100PC42PX { max-width: calc(100% - 42px); }
 
 .minWidth330PX { min-width: 330px; }
+.minWidth14PX { min-width: 14px; }
 
 .width100PC { width: 100%; }
 .width50PC { width: 50%; }
@@ -737,6 +739,7 @@ body {
 
 .pl35 { padding-left: 35px; }
 .pl25 { padding-left: 25px; }
+.pl20 { padding-left: 20px; }
 .pl15 { padding-left: 15px; }
 .pl10 { padding-left: 10px; }
 .pl5 { padding-left: 5px; }

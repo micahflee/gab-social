@@ -3,15 +3,25 @@ import { me } from '../initial_state'
 import { CX } from '../constants'
 import Button from './button'
 
+const mapStateToProps = (state) => ({
+  notificationCount: state.getIn(['notifications', 'unread']),
+})
+
 export default
 @withRouter
+@connect(mapStateToProps)
 class FooterBar extends PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
   }
 
+  static propTypes = {
+    notificationCount: PropTypes.number.isRequired,
+  }
+
   render() {
+    const { notificationCount } = this.props
     if (!me) return false
 
     const noRouter = !this.context.router
@@ -68,6 +78,13 @@ class FooterBar extends PureComponent {
                 })
                 
                 const color = props.active ? 'brand' : 'secondary'
+                const childIcon = props.to === '/notifications' && notificationCount > 0 ? (
+                  <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt5, _s.pl20].join(' ')}>
+                    <span className={[_s.bgRed, _s.colorWhite, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '12px'}}>
+                      {notificationCount}
+                    </span>
+                  </div>
+                ) : null
 
                 return (
                   <Button
@@ -80,7 +97,9 @@ class FooterBar extends PureComponent {
                     href={props.href}
                     title={props.title}
                     className={classes}
-                  />
+                  >
+                    {childIcon}
+                  </Button>
                 )
               })
             }
