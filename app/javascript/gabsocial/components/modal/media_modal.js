@@ -256,6 +256,10 @@ class MediaModal extends ImmutablePureComponent {
             containerStyle={{
               alignItems: 'center',
               width: '100%',
+              height: '100%',
+            }}
+            slideStyle={{
+              height: '100%',
             }}
             onChangeIndex={this.handleSwipe}
             onSwitching={this.handleSwitching}
