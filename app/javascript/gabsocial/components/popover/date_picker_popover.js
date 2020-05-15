@@ -61,7 +61,6 @@ class DatePickerPopover extends PureComponent {
     const { date, isPro, isXS } = this.props
 
     const datePickerDisabled = !isPro
-    const withPortal = isMobile(window.innerWidth)
 
     return (
       <PopoverLayout width={331} isXS={isXS}>
@@ -79,7 +78,6 @@ class DatePickerPopover extends PureComponent {
             dateFormat='MMM d, yyyy h:mm aa'
             disabled={datePickerDisabled}
             showTimeSelect
-            withPortal={withPortal}
             popperModifiers={{
               offset: {
                 enabled: true,
