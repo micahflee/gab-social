@@ -294,7 +294,7 @@ export function submitCompose(group, replyToId = null, router, isStandalone) {
       : `/api/v1/statuses/${id}`;
     const method = id === null ? 'post' : 'put';
 
-    const scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
+    let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
     if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
     if (isMobile(window.innerWidth) && router && isStandalone) {
