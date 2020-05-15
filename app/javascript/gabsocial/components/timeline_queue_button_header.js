@@ -27,35 +27,34 @@ export default class TimelineQueueButtonHeader extends PureComponent {
 
     const classes = cx({
       default: 1,
-      posFixed: 1,
       displayNone: !hasItems,
-      top80PX: 1,
-      z4: 1,
-      center160PX: 1,
+      mtNeg26PX: 1,
     })
 
     return (
-      <div className={classes}>
-        <Button
-          isNarrow
-          color='white'
-          backgroundColor='brand'
-          onClick={onClick}
-        >
-          {
-            hasItems &&
-            <Text color='inherit' size='small'>
-              <FormattedMessage
-                id='timeline_queue.label'
-                defaultMessage='{count} new {type}'
-                values={{
-                  count: shortNumberFormat(count),
-                  type: count === 1 ? itemType : `${itemType}s`,
-                }}
-              />
-            </Text>
-          }
-        </Button>
+      <div className={[_s.default, _s.pb5, _s.posSticky, _s.top120PX, _s.alignItemsCenter, _s.z4].join(' ')}>
+        <div className={classes}>
+          <Button
+            isNarrow
+            color='white'
+            backgroundColor='brand'
+            onClick={onClick}
+          >
+            {
+              hasItems &&
+              <Text color='inherit' size='small'>
+                <FormattedMessage
+                  id='timeline_queue.label'
+                  defaultMessage='{count} new {type}'
+                  values={{
+                    count: shortNumberFormat(count),
+                    type: count === 1 ? itemType : `${itemType}s`,
+                  }}
+                />
+              </Text>
+            }
+          </Button>
+        </div>
       </div>
     )
   }

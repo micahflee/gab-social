@@ -420,7 +420,7 @@ body {
 
 .topNeg80PX { top: -80px; }
 .top0 { top: 0; }
-.top80PX { top: 80px; }
+.top120PX { top: 120px; }
 .top60PC { top: 60%; }
 .top50PC { top: 50%; }
 
@@ -448,10 +448,6 @@ body {
 .noSelect { user-select: none; }
 
 .resizeVertical { resize: vertical; }
-
-.center160PX {
-  left: calc(100vw / 2 - 80px);
-}
 
 .heightMax100VH { max-height: 100vh; }
 .heightMax100PC { max-height: 100%; }
@@ -508,7 +504,6 @@ body {
 .width330PX { width: 330px; }
 .width250PX { width: 240px; }
 .width240PX { width: 240px; }
-.width160PX { width: 160px; }
 .width84PX { width: 84px; }
 .width72PX { width: 72px; }
 .width60PX { width: 60px; }
@@ -722,6 +717,7 @@ body {
 .mt5 { margin-top: 5px; }
 .mt2 { margin-top: 2px; }
 .mtAuto { margin-top: auto; }
+.mtNeg26PX { margin-top: -26px; }
 .mtNeg32PX { margin-top: -32px; }
 .mtNeg50PX { margin-top: -50px; }
 .mtNeg75PX { margin-top: -75px; }
