@@ -21,6 +21,10 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onOpenSidebar() {
     dispatch(openSidebar())
+  },
+
+  onOpenNavSettingsPopover() {
+    dispatch(openPopover())
   }
 })
 
@@ -35,6 +39,7 @@ class NavigationBar extends ImmutablePureComponent {
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
     onOpenSidebar: PropTypes.func.isRequired,
+    onOpenNavSettingsPopover: PropTypes.func.isRequired,
   }
 
   handleProfileClick = () => {

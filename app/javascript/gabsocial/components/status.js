@@ -136,7 +136,7 @@ class Status extends ImmutablePureComponent {
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.isChild) return null
-
+    
     if (!nextProps.isHidden && (nextProps.isIntersecting || !nextProps.commentsLimited) && !prevState.loadedComments) {
       return {
         loadedComments: true
@@ -159,7 +159,7 @@ class Status extends ImmutablePureComponent {
     // timeline lazy loading comments
     if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild) {
       const commentCount = this.props.status.get('replies_count')
-      if (this.props.isComment) {
+      if (this.props.isComment && !this.props.ancestorStatus) {
         this.props.onFetchContext(this.props.status.get('id'))
         this._measureHeight(prevState.height !== this.state.height)
       } else {
@@ -381,7 +381,9 @@ class Status extends ImmutablePureComponent {
     if (!status) return null
 
     if (isComment && !ancestorStatus && !isChild) {
-      return <ColumnIndicator type='loading' />
+      // Wait to load...
+      // return <ColumnIndicator type='loading' />
+      return null
     }
 
     let reblogContent, rebloggedByText = null

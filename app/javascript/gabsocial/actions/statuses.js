@@ -189,8 +189,13 @@ export function deleteStatusFail(id, error) {
   };
 };
 
-export function fetchContext(id) {
+export function fetchContext(id, ensureIsReply) {
   return (dispatch, getState) => {
+    if (ensureIsReply) {
+      const isReply = !!getState().getIn(['statuses', id, 'in_reply_to_id'], null)
+      if (!isReply) return;
+    }
+
     dispatch(fetchContextRequest(id));
 
     api(getState).get(`/api/v1/statuses/${id}/context`).then(response => {

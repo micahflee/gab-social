@@ -320,9 +320,9 @@ class ComposeForm extends ImmutablePureComponent {
                   <div className={actionsContainerClasses}>
                     <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
 
-                      <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+                      { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */ }
 
-                      <UploadButton small={shouldCondense} />
+                      { /* <UploadButton small={shouldCondense} /> */ }
 
                       <div className={commentPublishBtnClasses}>
                         <Button
@@ -452,7 +452,7 @@ class ComposeForm extends ImmutablePureComponent {
                 <div className={actionsContainerClasses}>
                   <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
 
-                    <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
+                    { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */ }
 
                     <UploadButton small={shouldCondense} />
                     { /* <GifSelectorButton small={shouldCondense} /> */}

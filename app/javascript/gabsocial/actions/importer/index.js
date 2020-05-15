@@ -79,10 +79,6 @@ export function importFetchedStatuses(statuses) {
       if (status.poll && status.poll.id) {
         pushUnique(polls, normalizePoll(status.poll));
       }
-
-      // if (status.replies_count > 0) {
-      //   dispatch(fetchComments(status.id));
-      // }
     }
 
     statuses.forEach(processStatus);

@@ -41,6 +41,7 @@ import {
   BlockedAccounts,
   BlockedDomains,
   CommunityTimeline,
+  Compose,
   // Filters,
   Followers,
   Following,
@@ -145,7 +146,7 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
 
-        <WrappedRoute path='/compose' exact page={CommunityPage} component={CommunityTimeline} content={children} />
+        <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Gab' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
 

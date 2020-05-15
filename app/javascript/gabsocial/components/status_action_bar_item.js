@@ -4,6 +4,7 @@ import Button from './button'
 import Text from './text'
 
 export default class StatusActionBarItem extends PureComponent {
+
   static propTypes = {
     title: PropTypes.string.isRequired,
     altTitle: PropTypes.string,
@@ -80,4 +81,5 @@ export default class StatusActionBarItem extends PureComponent {
       </div>
     )
   }
+
 }

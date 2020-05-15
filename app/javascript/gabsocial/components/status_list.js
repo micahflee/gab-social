@@ -8,7 +8,10 @@ import debounce from 'lodash.debounce'
 import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
-import { fetchStatus } from '../actions/statuses';
+import {
+  fetchStatus,
+  fetchContext,
+} from '../actions/statuses';
 import StatusContainer from '../containers/status_container';
 import ScrollableList from './scrollable_list';
 import TimelineQueueButtonHeader from './timeline_queue_button_header';
@@ -71,7 +74,10 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   }, 100),
   fetchStatus(id) {
     dispatch(fetchStatus(id));
-  }
+  },
+  onFetchContext(statusId) {
+    dispatch(fetchContext(statusId, true))
+  },
 });
 
 export default
@@ -96,7 +102,12 @@ class StatusList extends ImmutablePureComponent {
     promotion: PropTypes.object, // : todo :
     promotedStatus: ImmutablePropTypes.map,
     fetchStatus: PropTypes.func,
-  };
+    onFetchContext: PropTypes.func,
+  }
+
+  state = {
+    fetchedContext: false,
+  }
 
   componentDidMount() {
     this.handleDequeueTimeline();
@@ -109,6 +120,15 @@ class StatusList extends ImmutablePureComponent {
     if (promotion && !promotedStatus) {
       fetchStatus(promotion.status_id);
     }
+  }
+
+  fetchContextsForInitialStatuses = (statusIds) => {
+    console.log("fetchContextsForInitialStatuses:", statusIds)
+    for (let i = 0; i < statusIds.length; i++) {
+      const statusId = statusIds[i];
+      this.props.onFetchContext(statusId)
+    }
+    this.setState({ fetchedContext: true })
   }
 
   getFeaturedStatusCount = () => {
@@ -180,9 +200,22 @@ class StatusList extends ImmutablePureComponent {
       promotedStatus,
       ...other
     } = this.props
+    const { fetchedContext } = this.state
 
     if (isPartial) {
       return <ColumnIndicator type='loading' />
+    }
+
+    // : hack :
+    // if index is 0 or 1 and is comment, preload context
+    if (statusIds && !fetchedContext) {
+      const firstStatusId = statusIds.get(0)
+      const secondStatusId = statusIds.get(1)
+      let arr = []
+
+      if (!!firstStatusId) arr.push(firstStatusId)
+      if (!!secondStatusId) arr.push(secondStatusId)
+      if (arr.length > 0) this.fetchContextsForInitialStatuses(arr)
     }
 
     let scrollableContent = (isLoading || statusIds.size > 0) ? (

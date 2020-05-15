@@ -259,7 +259,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       return (
         <Fragment>
           <div className={textareaContainerClasses}>
-            {/*<Textarea
+            <Textarea
               inputRef={this.setTextbox}
               className={textareaClasses}
               disabled={disabled}
@@ -273,9 +273,9 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               // onBlur={this.onBlur}
               // onPaste={this.onPaste}
               aria-autocomplete='list'
-            />*/}
+            />
 
-            <Composer
+            {/*<Composer
               inputRef={this.setTextbox}
               disabled={disabled}
               placeholder={placeholder}
@@ -288,7 +288,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               onBlur={this.onBlur}
               onPaste={this.onPaste}
               small={small}
-            />
+            />*/}
 
             {children}
           </div>

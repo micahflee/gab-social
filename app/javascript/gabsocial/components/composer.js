@@ -4,7 +4,8 @@ import {
   CompositeDecorator,
   RichUtils,
   convertToRaw,
-  convertFromRaw
+  convertFromRaw,
+  ContentState,
 } from 'draft-js'
 import { draftToMarkdown } from 'markdown-draft-js'
 // import draftToMarkdown from 'draftjs-to-markdown'
@@ -115,6 +116,14 @@ class Composer extends PureComponent {
     return null
   }
 
+  componentDidUpdate (prevProps) {
+    // console.log("this.props.value:", this.props.value)
+    if (prevProps.value !== this.props.value) {
+      // const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value));
+      // this.setState({ editorState })
+    }
+  }
+
   // EditorState.createWithContent(ContentState.createFromText('Hello'))
 
   onChange = (editorState) => {
@@ -122,17 +131,17 @@ class Composer extends PureComponent {
     const content = this.state.editorState.getCurrentContent();
     const text = content.getPlainText('\u0001')
     
-    const selectionState = editorState.getSelection()
-    const selectionStart = selectionState.getStartOffset()
+    // const selectionState = editorState.getSelection()
+    // const selectionStart = selectionState.getStartOffset()
 
-    const rawObject = convertToRaw(content);
-    const markdownString = draftToMarkdown(rawObject);
+    // const rawObject = convertToRaw(content);
+    // const markdownString = draftToMarkdown(rawObject);
     // const markdownString = draftToMarkdown(rawObject, {
     //   trigger: '#',
     //   separator: ' ',
     // });
 
-    console.log("markdownString:", markdownString)
+    // console.log("text:", text, this.props.value)
 
     this.props.onChange(null, text, selectionStart, markdownString)
   }

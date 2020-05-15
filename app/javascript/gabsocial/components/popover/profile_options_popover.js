@@ -290,8 +290,6 @@ class ProfileOptionsPopover extends PureComponent {
   handleBlockDomain = () => {
     const domain = this.props.account.get('acct').split('@')[1]
 
-    console.log("handleBlockDomain:", domain)
-
     // : todo : alert
     if (!domain) return
 

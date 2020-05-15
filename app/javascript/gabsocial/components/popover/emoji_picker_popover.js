@@ -191,7 +191,9 @@ class EmojiPickerMenu extends ImmutablePureComponent {
         include={categoriesSort}
         recent={frequentlyUsedEmojis}
         skin={skinTone}
-        emojiSize={24}
+        perLine={8}
+        emojiSize={22}
+        sheetSize={32}
         set='twitter'
         color='#30CE7D'
         emoji=''

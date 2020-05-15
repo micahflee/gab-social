@@ -38,6 +38,8 @@ const messages = defineMessages({
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
   shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
   chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
+  help: { id: 'getting_started.help', defaultMessage: 'Help' },
+  display: { id: 'display_options', defaultMessage: 'Display Options' },
 })
 
 const mapStateToProps = (state) => ({
@@ -48,7 +50,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onCloseSidebar: () => dispatch(closeSidebar()),
   onOpenDisplayModel() {
-    dispatch(openModal())
+    dispatch(closeSidebar())
+    dispatch(openModal('DISPLAY_OPTIONS'))
   }
 })
 
@@ -61,6 +64,7 @@ class SidebarXS extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     sidebarOpen: PropTypes.bool,
     onCloseSidebar: PropTypes.func.isRequired,
+    onOpenDisplayModel: PropTypes.func.isRequired,
   }
 
   componentDidUpdate () {
@@ -87,13 +91,12 @@ class SidebarXS extends ImmutablePureComponent {
 
     const mainItems = [
       {
-        icon: 'user',
         to: `/${acct}`,
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.profile),
       },
       {
-        icon: 'arrow-up',
+        icon: 'pro',
         href: 'https://pro.gab.com',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.pro),
@@ -135,50 +138,45 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.lists),
       },
       {
-        icon: 'user',
+        icon: 'group',
         to: '/follow_requests',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.follow_requests),
       },
       {
-        icon: 'user',
+        icon: 'block',
         to: '/blocks',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.blocks),
       },
       {
-        icon: 'user',
+        icon: 'website',
         to: '/domain_blocks',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.domain_blocks),
       },
       {
-        icon: 'user',
+        icon: 'audio-mute',
         to: '/mutes',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.mutes),
       },
       {
-        icon: 'user',
+        icon: 'report',
         to: '/filters',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.filters),
       },
       {
-        // : todo :
-        icon: 'user',
-        onClick: this.handleSidebarClose, //on open display model
-        title: intl.formatMessage(messages.filters),
+        onClick: this.props.onOpenDisplayModel, //on open display model
+        title: intl.formatMessage(messages.display),
       },
       {
-        // : todo :
-        icon: 'user',
         href: 'https://help.gab.com',
         onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.filters),
+        title: intl.formatMessage(messages.help),
       },
       {
-        icon: 'user',
         href: '/auth/sign_out',
         title: intl.formatMessage(messages.logout),
       },
