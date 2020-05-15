@@ -99,7 +99,6 @@ class Notifications extends ImmutablePureComponent {
   }
 
   handleDequeueNotifications = () => {
-    window.scrollTo(0, 0)
     this.props.dispatch(dequeueNotifications())
   }
 
