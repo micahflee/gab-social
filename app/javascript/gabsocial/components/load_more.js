@@ -32,6 +32,8 @@ class LoadMore extends PureComponent {
       intl,
     } = this.props
 
+    if (!visible || disabled) return null
+
     return (
       <div className={[_s.default, _s.py10, _s.px10].join(' ')}>
         <Button

@@ -5,6 +5,7 @@ import IntersectionObserverArticle from './intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
 import Responsive from '../features/ui/util/responsive_component'
 import Block from './block'
+import Icon from './icon'
 import ColumnIndicator from './column_indicator'
 import LoadMore from './load_more'
 
@@ -253,6 +254,12 @@ export default class ScrollableList extends PureComponent {
             }
 
             {loadMore}
+            {
+              isLoading &&
+              <div className={[_s.default, _s.alignItemsCenter].join(' ')}>
+                <Icon id='loading' />
+              </div>
+            }
           </div>
         </div>
       );
