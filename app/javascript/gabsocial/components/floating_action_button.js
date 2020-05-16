@@ -23,10 +23,6 @@ class FloatingActionButton extends PureComponent {
     isDesktop: PropTypes.bool,
   }
 
-  shouldComponentUpdate(nextProps) {
-    return nextProps.message !== this.props.message
-  }
-
   render() {
     const {
       intl,
