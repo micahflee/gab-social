@@ -248,8 +248,6 @@ class Status extends ImmutablePureComponent {
   }
 
   handleClick = () => {
-    // : todo : if clicked on isNotification statusactionbaritem do not go to new page
-
     if (this.props.onClick) {
       this.props.onClick()
       return
@@ -482,7 +480,7 @@ class Status extends ImmutablePureComponent {
               data-featured={isFeatured ? 'true' : null}
               aria-label={textForScreenReader(intl, status, rebloggedByText)}
               ref={this.handleRef}
-              onClick={isChild ? this.handleClick : undefined}
+              onClick={isChild && !isNotification ? this.handleClick : undefined}
             >
               <div className={innerContainerClasses}>
 
