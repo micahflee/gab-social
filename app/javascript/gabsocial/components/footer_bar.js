@@ -41,21 +41,15 @@ class FooterBar extends PureComponent {
         active: currentPathname === '/notifications',
       },
       {
-
-        href: 'https://chat.gab.com',
-        icon: 'chat',
-        title: 'Chat',
+        to: '/groups',
+        icon: 'group',
+        title: 'Groups',
+        active: currentPathname === '/groups',
       },
       {
         href: 'https://trends.gab.com',
         icon: 'trends',
         title: 'Trends',
-      },
-      {
-        to: '/groups',
-        icon: 'group',
-        title: 'Groups',
-        active: currentPathname === '/groups',
       },
     ]
 
