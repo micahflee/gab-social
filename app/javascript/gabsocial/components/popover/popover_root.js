@@ -112,6 +112,10 @@ class PopoverRoot extends PureComponent {
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const Wrapper = isXS ? ModalBase : PopoverBase
 
+    //If is XS and popover is user info, dont show
+    //Since on mobile this should not be visible
+    if (isXS && type === POPOVER_USER_INFO) return null
+
     return (
       <Wrapper
         onClose={onClose}
