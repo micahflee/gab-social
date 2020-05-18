@@ -51,15 +51,15 @@ class ProfileStatsPanel extends ImmutablePureComponent {
               isCentered={noPanel}
             />
             <UserStat
-              title={intl.formatMessage(messages.follows)}
-              value={shortNumberFormat(account.get('following_count'))}
-              to={`/${account.get('acct')}/following`}
-              isCentered={noPanel}
-            />
-            <UserStat
               title={intl.formatMessage(messages.followers)}
               value={shortNumberFormat(account.get('followers_count'))}
               to={`/${account.get('acct')}/followers`}
+              isCentered={noPanel}
+            />
+            <UserStat
+              title={intl.formatMessage(messages.follows)}
+              value={shortNumberFormat(account.get('following_count'))}
+              to={`/${account.get('acct')}/following`}
               isCentered={noPanel}
             />
             {
