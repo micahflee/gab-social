@@ -1,6 +1,4 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import {  MODAL_DISPLAY_OPTIONS } from '../../constants'
-import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
 import { meUsername } from '../../initial_state'
 import PopoverLayout from './popover_layout'
@@ -15,9 +13,8 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenDisplayModal: () => {
+  onClosePopover() {
     dispatch(closePopover())
-    dispatch(openModal(MODAL_DISPLAY_OPTIONS))
   },
 })
 
@@ -28,12 +25,12 @@ class NavSettingsPopover extends PureComponent {
   
   static propTypes = {
     intl: PropTypes.object.isRequired,
-    onOpenDisplayModal: PropTypes.func.isRequired,
+    onClosePopover: PropTypes.func.isRequired,
     isXS: PropTypes.bool,
   }
 
-  handleOnOpenDisplayModal = () => {
-    this.props.onOpenDisplayModal()
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
   }
 
   render() {
@@ -49,7 +46,8 @@ class NavSettingsPopover extends PureComponent {
           items={[
             {
               title: intl.formatMessage(messages.profile),
-              to: `/${meUsername}`
+              to: `/${meUsername}`,
+              onClick: this.handleOnClosePopover,
             },
             {
               title: intl.formatMessage(messages.help),
