@@ -54,12 +54,12 @@ class Notifications extends ImmutablePureComponent {
 
   handleLoadGap = (maxId) => {
     // maxId={index > 0 ? notifications.getIn([index - 1, 'id']) : null}
-    this.props.dispatch(expandNotifications({ maxId }))
+    // this.props.dispatch(expandNotifications({ maxId }))
   }
 
   handleLoadOlder = debounce(() => {
     const last = this.props.notifications.last()
-    this.props.dispatch(expandNotifications({ maxId: last && last.get('id') }))
+    // this.props.dispatch(expandNotifications({ maxId: last && last.get('id') }))
   }, 300, { leading: true })
 
   handleScrollToTop = debounce(() => {
