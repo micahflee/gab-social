@@ -2,19 +2,12 @@
 
 require 'singleton'
 require_relative './sanitize_config'
-require 'redcarpet'
 
 class Formatter
   include Singleton
   include RoutingHelper
 
   include ActionView::Helpers::TextHelper
-
-  class CustomRender < Redcarpet::Render::HTML
-    def paragraph(text)
-      %(<p>#{text}</p>)
-    end
-  end
 
   def format(status, **options)
     if options[:use_markdown]
