@@ -353,7 +353,7 @@ class UI extends PureComponent {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     if (!me) return
 
     window.addEventListener('beforeunload', this.handleBeforeUnload, false)
@@ -372,13 +372,16 @@ class UI extends PureComponent {
       window.setTimeout(() => Notification.requestPermission(), 120 * 1000)
     }
 
-    this.props.dispatch(expandHomeTimeline())
-    this.props.dispatch(expandNotifications())
-    this.props.dispatch(initializeNotifications())
+    if (this.context.router.route.location.pathname === '/home') {
+      this.props.dispatch(expandHomeTimeline())
+    } else if (this.context.router.route.location.pathname === '/notifications') {
+      this.props.dispatch(expandNotifications())
+    }
 
-    setTimeout(() => {
-      this.props.dispatch(fetchFilters())
-    }, 500)
+    this.props.dispatch(initializeNotifications())
+  }
+
+  componentDidMount() {
     // this.hotkeys.__mousetrap__.stopCallback = (e, element) => {
     //   return ['TEXTAREA', 'SELECT', 'INPUT'].includes(element.tagName)
     // }
