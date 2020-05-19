@@ -45,10 +45,6 @@ class GabSocialMount extends PureComponent {
     showIntroduction: PropTypes.bool,
   }
 
-  componentDidMount() {
-
-  }
-
   render () {
     // Disabling introduction for launch
     // const { showIntroduction } = this.props
