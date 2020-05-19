@@ -85,7 +85,7 @@ class Status < ApplicationRecord
 
   default_scope { recent }
 
-  scope :recent, -> { reorder(id: :desc) }
+  scope :recent, -> { reorder(updated_at: :desc) }
   scope :remote, -> { where(local: false).or(where.not(uri: nil)) }
   scope :local,  -> { where(local: true).or(where(uri: nil)) }
 
