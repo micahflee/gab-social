@@ -31,7 +31,7 @@
   --solid_color_secondary-dark: #d9e0e5;
   --solid_color_tertiary: #f5f5f7;
   --solid_color_block: #f5f8fa;
-  --solid_color_highlight: rgba(224, 234, 66, .25);
+  --solid_color_highlight: rgba(224, 234, 66, .125);
 
   --text_color_primary: #2d3436;
   --text_color_secondary: #4b4f55;
@@ -70,7 +70,6 @@
   --solid_color_secondary-dark: #424343 !important;
   --solid_color_tertiary: #333 !important;
   --solid_color_block: #2d2d2d !important;
-  --solid_color_highlight: rgba(224, 234, 66, .1) !important;
 
   --text_color_primary: #fff !important;
   --text_color_secondary: #7b7b7b !important;
@@ -93,7 +92,6 @@
   --solid_color_secondary-dark: #424343 !important;
   --solid_color_tertiary: #000 !important;
   --solid_color_block: #202327 !important;
-  --solid_color_highlight: rgba(224, 234, 66, .1) !important;
 
   --text_color_primary: #cccbcb !important;
   --text_color_secondary: #61686E !important;
