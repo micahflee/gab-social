@@ -256,9 +256,7 @@ export default class ScrollableList extends PureComponent {
             {loadMore}
             {
               isLoading &&
-              <div className={[_s.default, _s.alignItemsCenter].join(' ')}>
-                <Icon id='loading' />
-              </div>
+              <ColumnIndicator type='loading' />
             }
           </div>
         </div>

@@ -35,7 +35,7 @@ class LoadMore extends PureComponent {
     if (!visible || disabled) return null
 
     return (
-      <div className={[_s.default, _s.py10, _s.px10].join(' ')}>
+      <div className={[_s.default, _s.py15, _s.px10].join(' ')}>
         <Button
           isBlock
           radiusSmall
