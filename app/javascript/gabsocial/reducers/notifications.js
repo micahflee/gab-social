@@ -52,6 +52,7 @@ const notificationToMap = (notification) => ImmutableMap({
 const makeSortedNotifications = (state) => {
   let finalSortedItems = ImmutableList()
   const items = state.get('items')
+  const lastReadId = state.get('lastReadId')
 
   const chunks = Range(0, items.count(), DEFAULT_NOTIFICATIONS_LIMIT)
     .map((chunkStart) => items.slice(chunkStart, chunkStart + DEFAULT_NOTIFICATIONS_LIMIT)) 
@@ -88,6 +89,7 @@ const makeSortedNotifications = (state) => {
           likes[statusId].push({
             account: notification.get('account'),
             created_at: notification.get('created_at'),
+            id: notification.get('id'),
           })
           break
         }
@@ -101,6 +103,7 @@ const makeSortedNotifications = (state) => {
           reposts[statusId].push({
             account: notification.get('account'),
             created_at: notification.get('created_at'),
+            id: notification.get('id'),
           })
           break
         }
@@ -121,10 +124,13 @@ const makeSortedNotifications = (state) => {
             const likeArr = likes[statusId]
             const accounts = likeArr.map((l) => l.account)
             const lastUpdated = likeArr[0]['created_at']
+            const isUnread = parseInt(likeArr[0]['id']) > lastReadId
+
             sortedItems = sortedItems.set(indexesForStatusesForFavorites[statusId], ImmutableMap({
               like: ImmutableMap({
                 accounts,
                 lastUpdated,
+                isUnread,
                 status: statusId,
               })
             }))
@@ -137,10 +143,13 @@ const makeSortedNotifications = (state) => {
             const repostArr = reposts[statusId]
             const accounts = repostArr.map((l) => l.account)
             const lastUpdated = repostArr[0]['created_at']
+            const isUnread = parseInt(repostArr[0]['id']) > lastReadId
+
             sortedItems = sortedItems.set(indexesForStatusesForReposts[statusId], ImmutableMap({
               repost: ImmutableMap({
                 accounts,
                 lastUpdated,
+                isUnread,
                 status: statusId,
               })
             }))

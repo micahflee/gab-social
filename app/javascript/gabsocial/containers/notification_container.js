@@ -18,25 +18,31 @@ const makeMapStateToProps = () => {
 
     if (isFollows) {
       let lastUpdated
+      let isUnread
+
       const list = props.notification.get('follow')
       let accounts = ImmutableList()
       list.forEach((item) => {
         const account = getAccountFromState(state, item.get('account'))
         accounts = accounts.set(accounts.size, account)
-        if (!lastUpdated) lastUpdated = item.get('created_at')
+        if (!lastUpdated) {
+          isUnread = parseInt(item.get('id')) > parseInt(lastReadId)
+          lastUpdated = item.get('created_at')
+        }
       })
   
       return {
         type: 'follow',
         accounts: accounts,
         createdAt: lastUpdated,
-        isUnread: false,
+        isUnread: isUnread,
         statusId: undefined,
       }
     } else if (isLikes || isReposts) {
       const theType = isLikes ? 'like' : 'repost'
       const list = props.notification.get(theType)
       let lastUpdated = list.get('lastUpdated')
+      let isUnread = list.get('isUnread')
 
       let accounts = ImmutableList()
       const accountIdArr = list.get('accounts')
@@ -51,7 +57,7 @@ const makeMapStateToProps = () => {
         type: theType,
         accounts: accounts,
         createdAt: lastUpdated,
-        isUnread: false,
+        isUnread: isUnread,
         statusId: list.get('status'),
       }
     } else if (!isGrouped) {
