@@ -12,6 +12,7 @@ import { List as ImmutableList } from 'immutable';
 import { unescapeHTML } from '../utils/html';
 import { getFilters, regexFromFilters } from '../selectors';
 import { me } from '../initial_state';
+import { NOTIFICATION_FILTERS } from '../constants'
 
 export const NOTIFICATIONS_INITIALIZE = 'NOTIFICATIONS_INITIALIZE';
 export const NOTIFICATIONS_UPDATE = 'NOTIFICATIONS_UPDATE';
@@ -157,16 +158,10 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       return;
     }
 
-    // console.log("activeFilter:", activeFilter)
-
     const params = {
       max_id: maxId,
       exclude_types: activeFilter === 'all' ? null : excludeTypesFromFilter(activeFilter),
-      // : todo : ?
-      // exclude_types: activeFilter === 'all'
-      //   ? excludeTypesFromSettings(getState())
-      //   : excludeTypesFromFilter(activeFilter),
-    };
+    }
 
     if (!!onlyVerified) params.only_verified = onlyVerified
     if (!!onlyFollowing) params.only_following = onlyFollowing
@@ -240,7 +235,9 @@ export function scrollTopNotifications(top) {
 };
 
 export function setFilter(path, value) {
-  return dispatch => {
+  return (dispatch) => {
+    if (path === 'active' && NOTIFICATION_FILTERS.indexOf(value) === -1) return
+
     dispatch({
       type: NOTIFICATIONS_FILTER_SET,
       path: path,

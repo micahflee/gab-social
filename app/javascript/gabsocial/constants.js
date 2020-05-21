@@ -88,4 +88,13 @@ export const THEMES = [
 ]
 
 export const DEFAULT_THEME = 'light'
-export const DEFAULT_FONT_SIZE = 'normal'
+export const DEFAULT_FONT_SIZE = 'normal' 
+
+export const NOTIFICATION_FILTERS = [
+  'all',
+  'mention',
+  'favourite',
+  'reblog',
+  'poll',
+  'follow',
+]

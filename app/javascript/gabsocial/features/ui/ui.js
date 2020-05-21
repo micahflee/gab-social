@@ -4,12 +4,14 @@ import { HotKeys } from 'react-hotkeys'
 import { defineMessages, injectIntl } from 'react-intl'
 import { Switch, Redirect, withRouter } from 'react-router-dom'
 import debounce from 'lodash.debounce'
+import queryString from 'query-string'
 import { uploadCompose, resetCompose } from '../../actions/compose'
 import { expandHomeTimeline } from '../../actions/timelines'
 import { fetchGroups } from '../../actions/groups'
 import {
   initializeNotifications,
   expandNotifications,
+  setFilter,
 } from '../../actions/notifications'
 import LoadingBar from '../../components/loading_bar'
 import { fetchFilters } from '../../actions/filters'
@@ -380,6 +382,15 @@ class UI extends PureComponent {
       this.setState({ fetchedHome: true })
       this.props.dispatch(expandHomeTimeline())
     } else if (pathname.startsWith('/notifications')) {
+      try {
+        const search = this.context.router.route.location.search
+        const qp = queryString.parse(search)
+        const view = `${qp.view}`.toLowerCase()
+        this.props.dispatch(setFilter('active', view))
+      } catch (error) {
+        //
+      }
+
       this.setState({ fetchedNotifications: true })
       this.props.dispatch(expandNotifications())
     }

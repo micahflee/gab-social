@@ -1,22 +1,13 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
-import queryString from 'query-string'
 import { setFilter } from '../actions/notifications'
+import { NOTIFICATION_FILTERS } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import NotificationFilterPanel from '../components/panel/notification_filter_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
-
-const filters = [
-  'all',
-  'mention',
-  'favourite',
-  'reblog',
-  'poll',
-  'follow',
-]
 
 const messages = defineMessages({
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
@@ -57,22 +48,6 @@ class NotificationsPage extends PureComponent {
     selectedFilter: PropTypes.string.isRequired,
   }
 
-  UNSAFE_componentWillMount() {
-    this.checkForQueryStringChange(this.context.router.route.location)
-  }
-
-  checkForQueryStringChange = (location) => {
-    try {
-      const qp = queryString.parse(location.search)
-      const view = `${qp.view}`.toLowerCase()
-      if (filters.indexOf(view) > -1) {
-        this.onChangeActiveFilter(view)
-      }
-    } catch (error) {
-      //
-    }
-  }
-
   onChangeActiveFilter(notificationType) {
     this.props.setFilter(notificationType)
     
@@ -91,7 +66,7 @@ class NotificationsPage extends PureComponent {
       selectedFilter,
     } = this.props
 
-    const tabs = filters.map((filter) => ({ 
+    const tabs = NOTIFICATION_FILTERS.map((filter) => ({ 
       title: intl.formatMessage(messages[filter]),
       onClick: () => this.onChangeActiveFilter(filter),
       active: selectedFilter.toLowerCase() === filter.toLowerCase(),
