@@ -2,13 +2,19 @@ import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { HotKeys } from 'react-hotkeys'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { me } from '../initial_state' 
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants' 
+import Responsive from '../features/ui/util/responsive_component'
 import StatusContainer from '../containers/status_container'
 import Avatar from './avatar'
 import Icon from './icon'
 import Text from './text'
+import DotTextSeperator from './dot_text_seperator'
+import RelativeTimestamp from './relative_timestamp'
 import DisplayName from './display_name'
 
 const messages = defineMessages({
@@ -23,15 +29,6 @@ const messages = defineMessages({
   repostedStatusOne: { id: 'reposted_status_one', defaultMessage: 'reposted your status' },
   repostedStatusMultiple: { id: 'reposted_status_multiple', defaultMessage: 'and {count} others reposted your status' },
 })
-
-// : todo :
-const notificationForScreenReader = (intl, message, timestamp) => {
-  const output = [message]
-
-  output.push(intl.formatDate(timestamp, { hour: '2-digit', minute: '2-digit', month: 'short', day: 'numeric' }))
-
-  return output.join(', ')
-}
 
 export default
 @injectIntl
@@ -48,6 +45,7 @@ class Notification extends ImmutablePureComponent {
     statusId: PropTypes.string,
     type: PropTypes.string.isRequired,
     isHidden: PropTypes.bool,
+    isUnread: PropTypes.bool,
   }
 
   render() {
@@ -58,12 +56,14 @@ class Notification extends ImmutablePureComponent {
       type,
       statusId,
       isHidden,
+      isUnread,
     } = this.props
     
     const count = !!accounts ? accounts.size : 0
 
     let message
     let icon
+
     switch (type) {
       case 'follow':
         icon = 'group'
@@ -114,29 +114,43 @@ class Notification extends ImmutablePureComponent {
       )
     }
 
+    const containerClasses = CX({
+      default: 1,
+      px10: 1,
+      cursorPointer: 1,
+      bgSubtle_onHover: !isUnread,
+      highlightedComment: isUnread,
+    })
+
     return (
-      <div className={[_s.default, _s.px10, _s.cursorPointer, _s.bgSubtle_onHover].join(' ')}>
+      <div
+        className={containerClasses}
+        tabIndex='0'
+        aria-label={`${message} ${createdAt}`}
+      >
         <div className={[_s.default, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
           <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
-            <Icon id={icon} size='20px' className={[_s.fillPrimary, _s.mt5].join(' ')} />
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <Icon id={icon} size='20px' className={[_s.fillPrimary, _s.minWidth20PX, _s.mt5, _s.mr15].join(' ')} />
+            </Responsive>
 
-            <div className={[_s.default, _s.ml15, _s.flexNormal].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
+            <div className={[_s.default, _s.flexNormal].join(' ')}>
+              <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
                 {
-                  accounts && accounts.slice(0, 8).map((account, i) => (
+                  accounts && accounts.map((account, i) => (
                     <NavLink
                       to={`/${account.get('acct')}`}
                       key={`fav-avatar-${i}`}
-                      className={_s.mr5}
+                      className={[_s.mr5, _s.mb5].join(' ')}
                     >
-                      <Avatar size={30} account={account} />
+                      <Avatar size={34} account={account} />
                     </NavLink>
                   ))
                 }
               </div>
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default, _s.flexRow].join(' ')}>
+              <div className={[_s.default, _s.pt5].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.alignItemsEnd].join(' ')}>
                   <div className={_s.text}>
                     {
                       accounts && accounts.slice(0, 1).map((account, i) => (
@@ -148,6 +162,15 @@ class Notification extends ImmutablePureComponent {
                     {' '}
                     {message}
                   </Text>
+                  {
+                    !!createdAt &&
+                    <Fragment>
+                      <DotTextSeperator />
+                      <Text size='small' color='tertiary' className={_s.ml5}>
+                        <RelativeTimestamp timestamp={createdAt} />
+                      </Text>
+                    </Fragment>
+                  }
                 </div>
               </div>
               {

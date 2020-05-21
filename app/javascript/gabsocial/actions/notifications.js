@@ -140,7 +140,7 @@ const excludeTypesFromFilter = filter => {
   return allTypes.filterNot(item => item === filter).toJS();
 };
 
-const noOp = () => { };
+const noOp = () => {}
 
 export function expandNotifications({ maxId } = {}, done = noOp) {
   return (dispatch, getState) => {
@@ -252,17 +252,20 @@ export function setFilter(path, value) {
 
 export function markReadNotifications() {
   return (dispatch, getState) => {
-    if (!me) return;
-    const top_notification = parseInt(getState().getIn(['notifications', 'items', 0, 'id']));
-    const last_read = getState().getIn(['notifications', 'lastRead']);
+    if (!me) return
+    
+    const topNotification = parseInt(getState().getIn(['notifications', 'items', 0, 'id']))
+    const lastReadId = getState().getIn(['notifications', 'lastReadId'])
 
-    if (top_notification && top_notification > last_read) {
-      api(getState).post('/api/v1/notifications/mark_read', { id: top_notification }).then(response => {
+    if (topNotification && topNotification > lastReadId && lastReadId !== -1) {
+      api(getState).post('/api/v1/notifications/mark_read', {
+        id: topNotification
+      }).then(() => {
         dispatch({
           type: NOTIFICATIONS_MARK_READ,
-          notification: top_notification,
-        });
-      });
+          notification: topNotification,
+        })
+      })
     }
   }
-};
+}

@@ -497,6 +497,7 @@ body {
 .maxWidth100PC42PX { max-width: calc(100% - 42px); }
 
 .minWidth330PX { min-width: 330px; }
+.minWidth20PX { min-width: 20px; }
 .minWidth14PX { min-width: 14px; }
 
 .width100PC { width: 100%; }

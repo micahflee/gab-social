@@ -1,17 +1,4 @@
 import { List as ImmutableList } from 'immutable'
-import { openModal } from '../actions/modal'
-import { mentionCompose } from '../actions/compose'
-import {
-  reblog,
-  favorite,
-  unreblog,
-  unfavorite,
-} from '../actions/interactions'
-import {
-  hideStatus,
-  revealStatus,
-} from '../actions/statuses'
-import { boostModal } from '../initial_state'
 import { makeGetNotification } from '../selectors'
 import Notification from '../components/notification'
 
@@ -27,25 +14,29 @@ const makeMapStateToProps = () => {
     const isLikes = !!props.notification.get('like')
     const isReposts = !!props.notification.get('repost')
     const isGrouped = isFollows || isLikes || isReposts
+    const lastReadId = state.getIn(['notifications', 'lastReadId'])
 
     if (isFollows) {
+      let lastUpdated
       const list = props.notification.get('follow')
-      
       let accounts = ImmutableList()
       list.forEach((item) => {
         const account = getAccountFromState(state, item.get('account'))
         accounts = accounts.set(accounts.size, account)
+        if (!lastUpdated) lastUpdated = item.get('created_at')
       })
   
       return {
         type: 'follow',
-        accounts: accounts, 
-        createdAt: undefined,
+        accounts: accounts,
+        createdAt: lastUpdated,
+        isUnread: false,
         statusId: undefined,
       }
     } else if (isLikes || isReposts) {
       const theType = isLikes ? 'like' : 'repost'
       const list = props.notification.get(theType)
+      let lastUpdated = list.get('lastUpdated')
 
       let accounts = ImmutableList()
       const accountIdArr = list.get('accounts')
@@ -59,7 +50,8 @@ const makeMapStateToProps = () => {
       return {
         type: theType,
         accounts: accounts,
-        createdAt: undefined,
+        createdAt: lastUpdated,
+        isUnread: false,
         statusId: list.get('status'),
       }
     } else if (!isGrouped) {
@@ -68,9 +60,10 @@ const makeMapStateToProps = () => {
       const statusId = notification.get('status')
 
       return {
-        accounts: !!account ? ImmutableList([account]) : ImmutableList(),
         type: notification.get('type'),
+        accounts: !!account ? ImmutableList([account]) : ImmutableList(),
         createdAt: notification.get('created_at'),
+        isUnread: lastReadId < notification.get('id'),
         statusId: statusId || undefined,
       }
     }
@@ -79,42 +72,4 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onMention: (account, router) => {
-    dispatch(mentionCompose(account, router))
-  },
-
-  onModalRepost (status) {
-    dispatch(repost(status))
-  },
-
-  onRepost (status, e) {
-    if (status.get('reblogged')) {
-      dispatch(unrepost(status))
-    } else {
-      if (e.shiftKey || !boostModal) {
-        this.onModalRepost(status)
-      } else {
-        dispatch(openModal('BOOST', { status, onRepost: this.onModalRepost }))
-      }
-    }
-  },
-
-  onFavorite (status) {
-    if (status.get('favourited')) {
-      dispatch(unfavorite(status))
-    } else {
-      dispatch(favorite(status))
-    }
-  },
-
-  onToggleHidden (status) {
-    if (status.get('hidden')) {
-      dispatch(revealStatus(status.get('id')))
-    } else {
-      dispatch(hideStatus(status.get('id')))
-    }
-  },
-})
-
-export default connect(makeMapStateToProps, mapDispatchToProps)(Notification)
+export default connect(makeMapStateToProps)(Notification)

@@ -11,25 +11,29 @@ import {
   NOTIFICATIONS_DEQUEUE,
   MAX_QUEUED_NOTIFICATIONS,
   NOTIFICATIONS_MARK_READ,
-} from '../actions/notifications';
+} from '../actions/notifications'
 import {
   ACCOUNT_BLOCK_SUCCESS,
   ACCOUNT_MUTE_SUCCESS,
-} from '../actions/accounts';
-import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines';
-import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
+} from '../actions/accounts'
+import { TIMELINE_DELETE, TIMELINE_DISCONNECT } from '../actions/timelines'
+import { Range, Map as ImmutableMap, List as ImmutableList } from 'immutable'
+import { unreadCount, lastReadNotificationId } from '../initial_state'
 import compareId from '../utils/compare_id';
-import { unreadCount } from '../initial_state';
+
+const DEFAULT_NOTIFICATIONS_LIMIT = 20
 
 const initialState = ImmutableMap({
   items: ImmutableList(),
+  sortedItems: ImmutableList(),
+  lastId: null,
   hasMore: true,
   top: false,
   unread: 0,
   isLoading: false,
   queuedNotifications: ImmutableList(), //max = MAX_QUEUED_NOTIFICATIONS
   totalQueuedNotificationsCount: 0, //used for queuedItems overflow for MAX_QUEUED_NOTIFICATIONS+
-  lastRead: -1,
+  lastReadId: -1,
   filter: ImmutableMap({
     active: 'all',
     onlyVerified: false,
@@ -37,7 +41,7 @@ const initialState = ImmutableMap({
   }),
 });
 
-const notificationToMap = notification => ImmutableMap({
+const notificationToMap = (notification) => ImmutableMap({
   id: notification.id,
   type: notification.type,
   account: notification.account.id,
@@ -45,98 +49,137 @@ const notificationToMap = notification => ImmutableMap({
   status: notification.status ? notification.status.id : null,
 });
 
-const normalizeNotification = (state, notification) => {
-  const top = state.get('top');
+const makeSortedNotifications = (state) => {
+  let finalSortedItems = ImmutableList()
+  const items = state.get('items')
 
-  if (!top) {
-    state = state.update('unread', unread => unread + 1);
-  }
-
-  return state.update('items', list => {
-    if (top && list.size > 40) {
-      list = list.take(20);
-    }
-
-    return list.unshift(notificationToMap(notification));
-  });
-};
-
-const expandNormalizedNotifications = (state, notifications, next) => {
-  //Grouped items
-  let follows = ImmutableList()
-  let likes = {}
-  let reposts = {}
+  const chunks = Range(0, items.count(), DEFAULT_NOTIFICATIONS_LIMIT)
+    .map((chunkStart) => items.slice(chunkStart, chunkStart + DEFAULT_NOTIFICATIONS_LIMIT)) 
   
-  let items = ImmutableList()
+  chunks.forEach((chunk) => {
+    let sortedItems = ImmutableList()
 
-  notifications.forEach((n) => {
-    const notification = notificationToMap(n)
-    const statusId = notification.get('status')
-    const type = notification.get('type')
+    let follows = ImmutableList()
+    let likes = {}
+    let reposts = {}
+  
+    let followIndex = -1
+    let indexesForStatusesForReposts = {}
+    let indexesForStatusesForFavorites = {}
 
-    switch (type) {
-      case 'follow': {
-        follows = follows.set(follows.size, notification)
-        break
+    chunk.forEach((notification) => {
+      const statusId = notification.get('status')
+      const type = notification.get('type')
+
+      switch (type) {
+        case 'follow': {
+          if (followIndex === -1) followIndex = sortedItems.size
+          sortedItems = sortedItems.set(followIndex, ImmutableMap())
+          follows = follows.set(follows.size, notification)
+          break
+        }
+        case 'favourite': {
+          if (likes[statusId] === undefined) {
+            let size = sortedItems.size
+            sortedItems = sortedItems.set(size, ImmutableMap())
+            indexesForStatusesForFavorites[statusId] = size
+            likes[statusId] = []
+          }
+          likes[statusId].push({
+            account: notification.get('account'),
+            created_at: notification.get('created_at'),
+          })
+          break
+        }
+        case 'reblog': {
+          if (reposts[statusId] === undefined) {
+            let size = sortedItems.size
+            sortedItems = sortedItems.set(size, ImmutableMap())
+            indexesForStatusesForReposts[statusId] = size
+            reposts[statusId] = []
+          }
+          reposts[statusId].push({
+            account: notification.get('account'),
+            created_at: notification.get('created_at'),
+          })
+          break
+        }
+        default: {
+          sortedItems = sortedItems.set(sortedItems.size, notification)
+          break
+        }
       }
-      case 'favourite': {
-        if (likes[statusId] === undefined) likes[statusId] = []
-        likes[statusId].push({
-          account: notification.get('account'),
-        })
-        break
+
+      if (follows.size > 0) {
+        sortedItems = sortedItems.set(followIndex, ImmutableMap({
+          follow: follows,
+        }))
       }
-      case 'reblog': {
-        if (reposts[statusId] === undefined) reposts[statusId] = []
-        reposts[statusId].push({
-          account: notification.get('account'),
-        })
-        break
+      if (Object.keys(likes).length > 0) {
+        for (const statusId in likes) {
+          if (likes.hasOwnProperty(statusId)) {
+            const likeArr = likes[statusId]
+            const accounts = likeArr.map((l) => l.account)
+            const lastUpdated = likeArr[0]['created_at']
+            sortedItems = sortedItems.set(indexesForStatusesForFavorites[statusId], ImmutableMap({
+              like: ImmutableMap({
+                accounts,
+                lastUpdated,
+                status: statusId,
+              })
+            }))
+          }
+        }
       }
-      default: {
-        items = items.set(items.size, notification)
-        break
+      if (Object.keys(reposts).length > 0) {
+        for (const statusId in reposts) {
+          if (reposts.hasOwnProperty(statusId)) {
+            const repostArr = reposts[statusId]
+            const accounts = repostArr.map((l) => l.account)
+            const lastUpdated = repostArr[0]['created_at']
+            sortedItems = sortedItems.set(indexesForStatusesForReposts[statusId], ImmutableMap({
+              repost: ImmutableMap({
+                accounts,
+                lastUpdated,
+                status: statusId,
+              })
+            }))
+          }
+        }
       }
-    }
+    })
+
+    finalSortedItems = finalSortedItems.concat(sortedItems)
   })
 
-  if (follows.size > 0) {
-    items = items.set(items.size, ImmutableMap({
-      follow: follows,
-    }))
-  }
-  if (Object.keys(likes).length > 0) {
-    for (const statusId in likes) {
-      if (likes.hasOwnProperty(statusId)) {
-        const likeArr = likes[statusId]
-        const accounts = likeArr.map((l) => l.account)
-        items = items.set(items.size, ImmutableMap({
-          like: ImmutableMap({
-            status: statusId,
-            accounts: accounts,
-          })
-        }))
-      }
-    }
-  }
-  if (Object.keys(reposts).length > 0) {
-    for (const statusId in reposts) {
-      if (reposts.hasOwnProperty(statusId)) {
-        const repostArr = reposts[statusId]
-        const accounts = repostArr.map((l) => l.account)
-        items = items.set(items.size, ImmutableMap({
-          repost: ImmutableMap({
-            status: statusId,
-            accounts: accounts,
-          })
-        }))
-      }
-    }
+  return state.set('sortedItems', finalSortedItems)
+}
+
+const normalizeNotification = (state, notification) => {
+  const top = state.get('top')
+
+  if (!top) {
+    state = state.update('unread', (unread) => unread + 1)
   }
 
-  return state.withMutations(mutable => {
+  state = state.update('items', (list) => {
+    if (top && list.size > 40) list = list.take(20)
+    return list.unshift(notificationToMap(notification))
+  })
+
+  return makeSortedNotifications(state)
+}
+
+const expandNormalizedNotifications = (state, notifications, next) => {
+  let items = ImmutableList()
+
+  notifications.forEach((n, i) => {
+    items = items.set(i, notificationToMap(n))
+  })
+
+  state = state.withMutations((mutable) => {
     if (!items.isEmpty()) {
-      mutable.update('items', list => {
+      mutable.update('items', (list) => {
         const lastIndex = 1 + list.findLastIndex(
           item => item !== null && (compareId(item.get('id'), items.last().get('id')) > 0 || item.get('id') === items.last().get('id'))
         )
@@ -145,35 +188,35 @@ const expandNormalizedNotifications = (state, notifications, next) => {
           item => item !== null && compareId(item.get('id'), items.first().get('id')) > 0
         )
 
-        const pop = list.take(firstIndex).concat(items, list.skip(lastIndex))
-
-        return pop
+        return list.take(firstIndex).concat(items, list.skip(lastIndex))
       })
     }
 
-    if (!next) {
-      mutable.set('hasMore', false);
-    }
+    if (!next) mutable.set('hasMore', false)
+    mutable.set('isLoading', false)
+  })
 
-    mutable.set('isLoading', false);
-  });
-};
-
-const filterNotifications = (state, relationship) => {
-  return state.update('items', list => list.filterNot(item => item !== null && item.get('account') === relationship.id));
-};
+  return makeSortedNotifications(state)
+}
 
 const updateTop = (state, top) => {
-  if (top) {
-    state = state.set('unread', 0);
-  }
+  return state.withMutations((mutable) => {
+    if (top) mutable.set('unread', 0)
+    mutable.set('top', top)
+  })
+}
 
-  return state.set('top', top);
-};
+const filterNotifications = (state, relationship) => {
+  const filterer = (list) => list.filterNot((item) => !!item && item.get('account') === relationship.id)
+  state = state.update('items', filterer)
+  return makeSortedNotifications(state)
+}
 
 const deleteByStatus = (state, statusId) => {
-  return state.update('items', list => list.filterNot(item => item !== null && item.get('status') === statusId));
-};
+  const filterer = (list) => list.filterNot((item) => !!item && item.get('status') === statusId)
+  state = state.update('items', filterer)
+  return makeSortedNotifications(state)
+}
 
 const updateNotificationsQueue = (state, notification, intlMessages, intlLocale) => {
   const queuedNotifications = state.getIn(['queuedNotifications'], ImmutableList());
@@ -181,9 +224,10 @@ const updateNotificationsQueue = (state, notification, intlMessages, intlLocale)
   const totalQueuedNotificationsCount = state.getIn(['totalQueuedNotificationsCount'], 0);
   const unread = state.getIn(['unread'], 0)
 
-  let alreadyExists = queuedNotifications.find(existingQueuedNotification => existingQueuedNotification.id === notification.id);
-  if (!alreadyExists) alreadyExists = listedNotifications.find(existingListedNotification => existingListedNotification.get('id') === notification.id);
-
+  let alreadyExists = queuedNotifications.find((existingQueuedNotification) => existingQueuedNotification.id === notification.id);
+  if (!alreadyExists) {
+    alreadyExists = listedNotifications.find((existingListedNotification) => existingListedNotification.get('id') === notification.id);
+  }
   if (alreadyExists) {
     return state;
   }
@@ -206,9 +250,12 @@ const updateNotificationsQueue = (state, notification, intlMessages, intlLocale)
 export default function notifications(state = initialState, action) {
   switch(action.type) {
   case NOTIFICATIONS_INITIALIZE:
-    return state.set('unread', unreadCount);
+    return state.withMutations((mutable) => {
+      mutable.set('unread', unreadCount)
+      mutable.set('lastReadId', lastReadNotificationId)
+    })
   case NOTIFICATIONS_MARK_READ:
-    return state.set('lastRead', action.notification);
+    return state.set('lastReadId', action.lastReadId);
   case NOTIFICATIONS_EXPAND_REQUEST:
     return state.set('isLoading', true);
   case NOTIFICATIONS_EXPAND_FAIL:
