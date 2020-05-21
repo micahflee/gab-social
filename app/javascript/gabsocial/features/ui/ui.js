@@ -245,6 +245,8 @@ class UI extends PureComponent {
   }
 
   state = {
+    fetchedHome: false,
+    fetchedNotifications: false,
     draggingOver: false,
   }
 
@@ -372,9 +374,13 @@ class UI extends PureComponent {
       window.setTimeout(() => Notification.requestPermission(), 120 * 1000)
     }
 
-    if (this.context.router.route.location.pathname === '/home') {
+    const pathname = this.context.router.route.location.pathname
+
+    if (pathname === '/home') {
+      this.setState({ fetchedHome: true })
       this.props.dispatch(expandHomeTimeline())
-    } else if (this.context.router.route.location.pathname === '/notifications') {
+    } else if (pathname.startsWith('/notifications')) {
+      this.setState({ fetchedNotifications: true })
       this.props.dispatch(expandNotifications())
     }
 
@@ -394,6 +400,20 @@ class UI extends PureComponent {
     document.removeEventListener('drop', this.handleDrop)
     document.removeEventListener('dragleave', this.handleDragLeave)
     document.removeEventListener('dragend', this.handleDragEnd)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location !== prevProps.location) {
+      const pathname = this.props.location.pathname
+
+      if (pathname === '/home' && !this.state.fetchedHome) {
+        this.setState({ fetchedHome: true })
+        this.props.dispatch(expandHomeTimeline())
+      } else if (pathname.startsWith('/notifications') && !this.state.fetchedNotifications) {
+        this.setState({ fetchedNotifications: true })
+        this.props.dispatch(expandNotifications())
+      }
+    }
   }
 
   setRef = (c) => {
