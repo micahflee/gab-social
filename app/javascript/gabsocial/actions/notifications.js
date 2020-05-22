@@ -147,22 +147,16 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
   return (dispatch, getState) => {
     if (!me) return
 
-    console.log("-1-expandNotifications:", maxId, done)
-
     const onlyVerified = getState().getIn(['notifications', 'filter', 'onlyVerified'])
     const onlyFollowing = getState().getIn(['notifications', 'filter', 'onlyFollowing'])
     const activeFilter = getState().getIn(['notifications', 'filter', 'active'])
     const notifications = getState().get('notifications')
     const isLoadingMore = !!maxId
 
-    console.log("-2-expandNotifications:", isLoadingMore)
-
     if (notifications.get('isLoading')) {
       done();
       return;
     }
-
-    console.log("-3-expandNotifications")
 
     const params = {
       max_id: maxId,
@@ -176,32 +170,20 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
       params.since_id = notifications.getIn(['items', 0, 'id']);
     }
 
-    console.log("-4-expandNotifications:", params)
-
     dispatch(expandNotificationsRequest(isLoadingMore));
 
     api(getState).get('/api/v1/notifications', { params }).then(response => {
-      console.log("-5-(res)-expandNotifications:", response)
       const next = getLinks(response).refs.find(link => link.rel === 'next');
-
-      console.log("-6-(res)-expandNotifications")
 
       dispatch(importFetchedAccounts(response.data.map(item => item.account)));
       dispatch(importFetchedStatuses(response.data.map(item => item.status).filter(status => !!status)));
 
-      console.log("-7-(res)-expandNotifications")
-
       dispatch(expandNotificationsSuccess(response.data, next ? next.uri : null, isLoadingMore));
-
-      console.log("-8-(res)-expandNotifications")
 
       fetchRelatedRelationships(dispatch, response.data);
 
-      console.log("-9-(res)-expandNotifications")
-
       done();
     }).catch(error => {
-      console.log("-10-(error)-expandNotifications:", error, isLoadingMore)
       dispatch(expandNotificationsFail(error, isLoadingMore));
       done();
     });
@@ -216,7 +198,6 @@ export function expandNotificationsRequest(isLoadingMore) {
 };
 
 export function expandNotificationsSuccess(notifications, next, isLoadingMore) {
-  console.log("-11-expandNotificationsSuccess:", notifications, next, isLoadingMore)
   return {
     type: NOTIFICATIONS_EXPAND_SUCCESS,
     notifications,
