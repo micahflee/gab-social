@@ -69,96 +69,98 @@ const makeSortedNotifications = (state) => {
     let indexesForStatusesForFavorites = {}
 
     chunk.forEach((notification) => {
-      const statusId = notification.get('status')
-      const type = notification.get('type')
+      if (!!notification) {
+        const statusId = notification.get('status')
+        const type = notification.get('type')
 
-      switch (type) {
-        case 'follow': {
-          if (followIndex === -1) followIndex = sortedItems.size
-          sortedItems = sortedItems.set(followIndex, ImmutableMap())
-          follows = follows.set(follows.size, notification)
-          break
-        }
-        case 'favourite': {
-          if (likes[statusId] === undefined) {
-            let size = sortedItems.size
-            sortedItems = sortedItems.set(size, ImmutableMap())
-            indexesForStatusesForFavorites[statusId] = size
-            likes[statusId] = []
+        switch (type) {
+          case 'follow': {
+            if (followIndex === -1) followIndex = sortedItems.size
+            sortedItems = sortedItems.set(followIndex, ImmutableMap())
+            follows = follows.set(follows.size, notification)
+            break
           }
-          likes[statusId].push({
-            account: notification.get('account'),
-            created_at: notification.get('created_at'),
-            id: notification.get('id'),
-          })
-          break
-        }
-        case 'reblog': {
-          if (reposts[statusId] === undefined) {
-            let size = sortedItems.size
-            sortedItems = sortedItems.set(size, ImmutableMap())
-            indexesForStatusesForReposts[statusId] = size
-            reposts[statusId] = []
+          case 'favourite': {
+            if (likes[statusId] === undefined) {
+              let size = sortedItems.size
+              sortedItems = sortedItems.set(size, ImmutableMap())
+              indexesForStatusesForFavorites[statusId] = size
+              likes[statusId] = []
+            }
+            likes[statusId].push({
+              account: notification.get('account'),
+              created_at: notification.get('created_at'),
+              id: notification.get('id'),
+            })
+            break
           }
-          reposts[statusId].push({
-            account: notification.get('account'),
-            created_at: notification.get('created_at'),
-            id: notification.get('id'),
-          })
-          break
-        }
-        default: {
-          sortedItems = sortedItems.set(sortedItems.size, notification)
-          break
-        }
-      }
-
-      if (follows.size > 0) {
-        sortedItems = sortedItems.set(followIndex, ImmutableMap({
-          follow: follows,
-        }))
-      }
-      if (Object.keys(likes).length > 0) {
-        for (const statusId in likes) {
-          if (likes.hasOwnProperty(statusId)) {
-            const likeArr = likes[statusId]
-            const accounts = likeArr.map((l) => l.account)
-            const lastUpdated = likeArr[0]['created_at']
-            const isUnread = parseInt(likeArr[0]['id']) > lastReadId
-
-            sortedItems = sortedItems.set(indexesForStatusesForFavorites[statusId], ImmutableMap({
-              like: ImmutableMap({
-                accounts,
-                lastUpdated,
-                isUnread,
-                status: statusId,
-              })
-            }))
+          case 'reblog': {
+            if (reposts[statusId] === undefined) {
+              let size = sortedItems.size
+              sortedItems = sortedItems.set(size, ImmutableMap())
+              indexesForStatusesForReposts[statusId] = size
+              reposts[statusId] = []
+            }
+            reposts[statusId].push({
+              account: notification.get('account'),
+              created_at: notification.get('created_at'),
+              id: notification.get('id'),
+            })
+            break
+          }
+          default: {
+            sortedItems = sortedItems.set(sortedItems.size, notification)
+            break
           }
         }
-      }
-      if (Object.keys(reposts).length > 0) {
-        for (const statusId in reposts) {
-          if (reposts.hasOwnProperty(statusId)) {
-            const repostArr = reposts[statusId]
-            const accounts = repostArr.map((l) => l.account)
-            const lastUpdated = repostArr[0]['created_at']
-            const isUnread = parseInt(repostArr[0]['id']) > lastReadId
 
-            sortedItems = sortedItems.set(indexesForStatusesForReposts[statusId], ImmutableMap({
-              repost: ImmutableMap({
-                accounts,
-                lastUpdated,
-                isUnread,
-                status: statusId,
-              })
-            }))
+        if (follows.size > 0) {
+          sortedItems = sortedItems.set(followIndex, ImmutableMap({
+            follow: follows,
+          }))
+        }
+        if (Object.keys(likes).length > 0) {
+          for (const statusId in likes) {
+            if (likes.hasOwnProperty(statusId)) {
+              const likeArr = likes[statusId]
+              const accounts = likeArr.map((l) => l.account)
+              const lastUpdated = likeArr[0]['created_at']
+              const isUnread = parseInt(likeArr[0]['id']) > lastReadId
+
+              sortedItems = sortedItems.set(indexesForStatusesForFavorites[statusId], ImmutableMap({
+                like: ImmutableMap({
+                  accounts,
+                  lastUpdated,
+                  isUnread,
+                  status: statusId,
+                })
+              }))
+            }
+          }
+        }
+        if (Object.keys(reposts).length > 0) {
+          for (const statusId in reposts) {
+            if (reposts.hasOwnProperty(statusId)) {
+              const repostArr = reposts[statusId]
+              const accounts = repostArr.map((l) => l.account)
+              const lastUpdated = repostArr[0]['created_at']
+              const isUnread = parseInt(repostArr[0]['id']) > lastReadId
+
+              sortedItems = sortedItems.set(indexesForStatusesForReposts[statusId], ImmutableMap({
+                repost: ImmutableMap({
+                  accounts,
+                  lastUpdated,
+                  isUnread,
+                  status: statusId,
+                })
+              }))
+            }
           }
         }
       }
     })
 
-    finalSortedItems = finalSortedItems.concat(sortedItems)
+    if (sortedItems.size > 0) finalSortedItems = finalSortedItems.concat(sortedItems)
   })
 
   return state.set('sortedItems', finalSortedItems)
