@@ -133,7 +133,7 @@ export default class ScrollableList extends PureComponent {
         // reload
       }
 
-      if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
+      if (1500 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
         this.props.onLoadMore();
       }
 
