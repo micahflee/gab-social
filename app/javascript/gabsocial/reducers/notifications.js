@@ -183,7 +183,8 @@ const expandNormalizedNotifications = (state, notifications, next) => {
   let items = ImmutableList()
 
   notifications.forEach((n, i) => {
-    items = items.set(i, notificationToMap(n))
+    const noti = notificationToMap(n)
+    if (!!noti) items = items.set(items.size, noti)
   })
 
   state = state.withMutations((mutable) => {
