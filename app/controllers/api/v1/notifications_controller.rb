@@ -12,7 +12,7 @@ class Api::V1::NotificationsController < Api::BaseController
   DEFAULT_NOTIFICATIONS_LIMIT = 20
 
   def index
-    @notifications = load_notifications
+    # @notifications = load_notifications
     @notifications = []
     render json: @notifications, each_serializer: REST::NotificationSerializer, relationships: StatusRelationshipsPresenter.new(target_statuses_from_notifications, current_user&.account_id)
   end
