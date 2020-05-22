@@ -1,12 +1,11 @@
 import { connectStream } from '../stream';
 import {
   deleteFromTimelines,
-  expandHomeTimeline,
   connectTimeline,
   disconnectTimeline,
   updateTimelineQueue,
 } from './timelines';
-import { updateNotificationsQueue, expandNotifications } from './notifications';
+import { updateNotificationsQueue } from './notifications';
 import { updateConversations } from './conversations';
 import { fetchFilters } from './filters';
 import { getLocale } from '../locales';
@@ -51,11 +50,7 @@ export function connectTimelineStream (timelineId, path, pollingRefresh = null, 
   });
 }
 
-const refreshHomeTimelineAndNotification = (dispatch, done) => {
-  dispatch(expandHomeTimeline({}, () => dispatch(expandNotifications({}, done))));
-};
-
-export const connectUserStream      = () => connectTimelineStream('home', 'user', refreshHomeTimelineAndNotification);
+export const connectUserStream      = () => connectTimelineStream('home', 'user');
 export const connectCommunityStream = ({ onlyMedia } = {}) => connectTimelineStream(`community${onlyMedia ? ':media' : ''}`, `public:local${onlyMedia ? ':media' : ''}`);
 export const connectHashtagStream   = (id, tag, accept) => connectTimelineStream(`hashtag:${id}`, `hashtag&tag=${tag}`, null, accept);
 export const connectListStream      = id => connectTimelineStream(`list:${id}`, `list&list=${id}`);
