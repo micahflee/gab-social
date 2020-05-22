@@ -291,9 +291,9 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where(account: [account] + account.following).without_replies
+      query = where('updated_at > ?', 30.days.ago)
       query.where(visibility: [:public, :unlisted, :private])
-      query.where('updated_at > ?', 45.days.ago)
+      query.where(account: [account] + account.following).without_replies
     end
 
     def as_group_timeline(group)
