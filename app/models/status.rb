@@ -290,14 +290,14 @@ class Status < ApplicationRecord
       where(language: nil).or where(language: account.chosen_languages)
     end
 
-    def as_home_timeline(account)
+    def as_home_timeline(account, max_id)
       query = where(account: [account] + account.following).without_replies
-
-      # if account.user.allows_group_in_home_feed?
-      #   query = query.or(where(group: account.groups))
-      # end
-
       query.where(visibility: [:public, :unlisted, :private])
+      if max_id.nil?
+        query.where('updated_at > ?', 60.days.ago)
+      else
+        query
+      end
     end
 
     def as_group_timeline(group)
