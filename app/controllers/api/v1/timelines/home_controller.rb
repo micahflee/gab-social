@@ -27,8 +27,9 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   end
 
   def home_statuses
+    theLimit = params[:max_id].nil? ? 10 : limit_param(DEFAULT_STATUSES_LIMIT)
     account_home_feed.get(
-      limit_param(DEFAULT_STATUSES_LIMIT),
+      theLimit,
       params[:max_id],
       params[:since_id],
       params[:min_id]
