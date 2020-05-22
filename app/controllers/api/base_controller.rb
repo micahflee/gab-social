@@ -92,6 +92,7 @@ class Api::BaseController < ApplicationController
   end
 
   def set_cache_headers
+    render json: []
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
   end
 end
