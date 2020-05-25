@@ -244,6 +244,7 @@ export default class StatusCard extends ImmutablePureComponent {
           href={card.get('url')}
           rel={DEFAULT_REL}
           ref={this.setRef}
+          target='_blank'
           className={[_s.default, _s.cursorPointer, _s.overflowHidden, _s.noUnderline, _s.width100PC, _s.bgSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
         >
           <ResponsiveClassesComponent
