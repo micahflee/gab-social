@@ -416,6 +416,7 @@ class Account < ApplicationRecord
         WHERE #{query} @@ #{textsearch}
           AND accounts.suspended_at IS NULL
           AND accounts.moved_to_account_id IS NULL
+          AND accounts.domain IS NULL
         ORDER BY rank DESC
         LIMIT ? OFFSET ?
       SQL
@@ -444,6 +445,7 @@ class Account < ApplicationRecord
             AND #{query} @@ #{textsearch}
             AND accounts.suspended_at IS NULL
             AND accounts.moved_to_account_id IS NULL
+            AND accounts.domain IS NULL
           GROUP BY accounts.id
           ORDER BY rank DESC
           LIMIT ? OFFSET ?
@@ -460,6 +462,7 @@ class Account < ApplicationRecord
           WHERE #{query} @@ #{textsearch}
             AND accounts.suspended_at IS NULL
             AND accounts.moved_to_account_id IS NULL
+            AND accounts.domain IS NULL
           GROUP BY accounts.id
           ORDER BY rank DESC
           LIMIT ? OFFSET ?
