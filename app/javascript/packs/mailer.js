@@ -1,2 +1,1 @@
-// : todo :
-// require('../styles/mailer.scss');
+require('../styles/mailer.css');
