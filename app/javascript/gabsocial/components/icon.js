@@ -61,6 +61,7 @@ import SearchAltIcon from '../assets/search_alt_icon'
 import SelectIcon from '../assets/select_icon'
 import ShareIcon from '../assets/share_icon'
 import ShopIcon from '../assets/shop_icon'
+import StarIcon from '../assets/star_icon'
 import StrikethroughIcon from '../assets/strikethrough_icon'
 import SubtractIcon from '../assets/subtract_icon'
 import TextSizeIcon from '../assets/text_size_icon'
@@ -136,6 +137,7 @@ const ICONS = {
   'select': SelectIcon,
   'share': ShareIcon,
   'shop': ShopIcon,
+  'star': StarIcon,
   'strikethrough': StrikethroughIcon,
   'subtract': SubtractIcon,
   'text-size': TextSizeIcon,
