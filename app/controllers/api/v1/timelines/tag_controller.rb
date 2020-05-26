@@ -2,6 +2,7 @@
 
 class Api::V1::Timelines::TagController < Api::BaseController
   before_action :load_tag
+  before_action :require_user!, only: [:show]
   after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   respond_to :json
