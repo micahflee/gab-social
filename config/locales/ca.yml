@@ -394,9 +394,6 @@ ca:
       contact_information:
         email: Introdueix una adreça de correu electrònic pública
         username: Nom d'usuari del contacte
-      custom_css:
-        desc_html: Modifica l'aspecte amb CSS carregat a cada pàgina
-        title: CSS personalitzat
       hero:
         desc_html: Es mostra en pàgina frontal. Recomanat al menys 600x100px. Si no es configura es mostrarà el del servidor
         title: Imatge d’heroi

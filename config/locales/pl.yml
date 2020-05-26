@@ -400,9 +400,6 @@ pl:
       contact_information:
         email: Służbowy adres e-mail
         username: Nazwa użytkownika do kontaktu
-      custom_css:
-        desc_html: Modyfikuj wygląd pliku CSS ładowanego na każdej stronie
-        title: Niestandardowy CSS
       hero:
         desc_html: Wyświetlany na stronie głównej. Zalecany jest rozmiar przynajmniej 600x100 pikseli. Jeżeli nie ustawiony, zostanie użyta miniatura serwera
         title: Obraz bohatera

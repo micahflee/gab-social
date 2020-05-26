@@ -369,9 +369,6 @@ sq:
       contact_information:
         email: Email biznesi
         username: Emër përdoruesi kontakti
-      custom_css:
-        desc_html: Modifikojeni pamjen me CSS të nagrkuar në çdo faqe
-        title: CSS Vetjake
       hero:
         desc_html: E shfaqur në faqen ballore. Këshillohet të paktën 600x100px. Kur nuk caktohet gjë, përdoret miniaturë e shërbyesit
         title: Figurë heroi

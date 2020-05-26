@@ -394,9 +394,6 @@ de:
       contact_information:
         email: Öffentliche E-Mail-Adresse
         username: Profilname für die Kontaktaufnahme
-      custom_css:
-        desc_html: Verändere das Aussehen mit CSS, dass auf jeder Seite geladen wird
-        title: Benutzerdefiniertes CSS
       hero:
         desc_html: Wird auf der Startseite angezeigt. Mindestens 600x100px sind empfohlen. Wenn es nicht gesetzt wurde, wird das Server-Thumbnail dafür verwendet
         title: Bild für Startseite

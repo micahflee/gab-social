@@ -383,9 +383,6 @@ sl:
       contact_information:
         email: Poslovna e-pošta
         username: Uporabniško ime stika
-      custom_css:
-        desc_html: Spremeni videz z naloženim CSS na vsaki strani
-        title: CSS po meri
   statuses:
     pin_errors:
       ownership: Trob nekoga drugega ne more biti pripet

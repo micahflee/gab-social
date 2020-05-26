@@ -371,9 +371,6 @@ eu:
       contact_information:
         email: Laneko e-mail helbidea
         username: Kontaktuaren erabiltzaile-izena
-      custom_css:
-        desc_html: Aldatu itxura orri bakoitzean kargatutako CSS bidez
-        title: CSS pertsonala
       hero:
         desc_html: Azaleko orrian bistaratua. Gutxienez 600x100px aholkatzen da. Ezartzen ez bada, zerbitzariaren irudia hartuko du
         title: Azaleko irudia

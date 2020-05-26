@@ -400,9 +400,6 @@ cs:
       contact_information:
         email: Pracovní e-mail
         username: Uživatelské jméno pro kontaktování
-      custom_css:
-        desc_html: Pozměnit vzhled pomocí šablony CSS načtené na každé stránce
-        title: Vlastní CSS
       hero:
         desc_html: Zobrazuje se na hlavní stránce. Doporučuje se rozlišení alespoň 600x100 px. Pokud toto není nastaveno, bude zobrazena miniatura serveru
         title: Hlavní obrázek

@@ -396,9 +396,6 @@ ko:
       contact_information:
         email: 공개할 메일 주소를 입력
         username: 연락 받을 관리자 유저네임
-      custom_css:
-        desc_html: 모든 페이지에 적용할 CSS
-        title: 커스텀 CSS
       hero:
         desc_html: 프론트페이지에 표시 됩니다. 최소 600x100픽셀을 권장합니다. 만약 설정되지 않았다면, 서버의 썸네일이 사용 됩니다
         title: 히어로 이미지

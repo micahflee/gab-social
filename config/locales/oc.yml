@@ -384,9 +384,6 @@ oc:
       contact_information:
         email: Picatz una adreça de corrièl
         username: Picatz un nom d’utilizaire
-      custom_css:
-        desc_html: Modificar l’estil amb una fuèlha CSS cargada sus cada pagina
-        title: CSS personalizada
       hero:
         desc_html: Mostrat en primièra pagina. Almens 600x100px recomandat. S’es pas configurat l’imatge del servidor serà mostrat
         title: Imatge de l’eròi

@@ -23,7 +23,6 @@ class Form::AdminSettings
     peers_api_enabled
     show_known_fediverse_at_about_page
     preview_sensitive_media
-    custom_css
     profile_directory
     thumbnail
     hero

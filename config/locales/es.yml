@@ -344,9 +344,6 @@ es:
       contact_information:
         email: Correo de trabajo
         username: Nombre de usuario
-      custom_css:
-        desc_html: Modificar el aspecto con CSS cargado en cada página
-        title: CSS personalizado
       hero:
         desc_html: Mostrado en la página principal. Recomendable al menos 600x100px. Por defecto se establece a la miniatura de la instancia
         title: Imagen de portada

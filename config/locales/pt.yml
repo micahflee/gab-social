@@ -372,9 +372,6 @@ pt:
       contact_information:
         email: Inserir um endereço de email para tornar público
         username: Insira um nome de utilizador
-      custom_css:
-        desc_html: Modificar a aparência com CSS carregado em cada página
-        title: CSS personalizado
       hero:
         desc_html: Apresentado na primeira página. Pelo menos 600x100px recomendados. Quando não é definido, é apresentado o thumbnail do servidor
         title: Imagem Hero

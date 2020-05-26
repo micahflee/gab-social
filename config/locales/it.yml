@@ -366,9 +366,6 @@ it:
         title: Seguiti predefiniti per i nuovi utenti
       contact_information:
         username: Nome utente del contatto
-      custom_css:
-        desc_html: Modifica l'aspetto con il CSS caricato in ogni pagina
-        title: CSS personalizzato
       hero:
         desc_html: Mostrata nella pagina iniziale. Almeno 600x100 px consigliati. Se non impostata, sarà usato il thumbnail del server
         title: Immagine dell'eroe

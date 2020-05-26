@@ -394,9 +394,6 @@ co:
       contact_information:
         email: E-mail prufissiunale
         username: Identificatore di cuntattu
-      custom_css:
-        desc_html: Mudificà l'apparenza cù CSS caricatu nant'à ogni pagina
-        title: CSS persunalizatu
       hero:
         desc_html: Affissatu nant’a pagina d’accolta. Ricumandemu almenu 600x100px. S’ellu ùn hè micca definiti, a vignetta di u servore sarà usata
         title: Ritrattu di cuprendula

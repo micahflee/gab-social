@@ -282,8 +282,6 @@ th:
       contact_information:
         email: อีเมลธุรกิจ
         username: ชื่อผู้ใช้ในการติดต่อ
-      custom_css:
-        title: CSS ที่กำหนดเอง
       profile_directory:
         title: เปิดใช้งานไดเรกทอรีโปรไฟล์
       registrations:

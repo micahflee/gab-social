@@ -397,9 +397,6 @@ sk:
       contact_information:
         email: Pracovný email
         username: Kontaktné užívateľské meno
-      custom_css:
-        desc_html: Uprav vzhľad pomocou CSS, ktoré je načítané na každej stránke
-        title: Vlastné CSS
       hero:
         desc_html: Zobrazuje sa na hlavnej stránke. Doporučuje sa rozlišenie aspoň 600x100px Pokiaľ nič nieje dodané, bude nastavený základný orázok serveru
         title: Obrázok hrdinu

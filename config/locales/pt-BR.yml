@@ -394,9 +394,6 @@ pt-BR:
       contact_information:
         email: E-mail
         username: Usuário de contato
-      custom_css:
-        desc_html: Modificar o visual com CSS que é carregado em todas as páginas
-        title: CSS customizado
       hero:
         desc_html: Aparece na página inicial. Ao menos 600x100px é recomendado. Se não estiver definido, o thumbnail da instância é usado no lugar
         title: Imagem de capa

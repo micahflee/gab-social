@@ -394,9 +394,6 @@ ja:
       contact_information:
         email: ビジネスメールアドレス
         username: 連絡先ユーザー名
-      custom_css:
-        desc_html: 全ページに適用されるCSSの編集
-        title: カスタムCSS
       hero:
         desc_html: フロントページに表示されます。サイズは600x100px以上推奨です。未設定の場合、標準のサムネイルが使用されます
         title: ヒーローイメージ

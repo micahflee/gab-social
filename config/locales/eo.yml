@@ -388,9 +388,6 @@ eo:
       contact_information:
         email: Publika retadreso
         username: Kontakta uzantnomo
-      custom_css:
-        desc_html: Ŝanĝi la aspekton per CSS ŝargita en ĉiu pago
-        title: Propra CSS
       hero:
         desc_html: Montrata en la ĉefpaĝo. Almenaŭ 600x100px rekomendita. Kiam ne agordita, la bildeto de la servilo estos uzata
         title: Kapbildo

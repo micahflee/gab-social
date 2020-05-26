@@ -339,9 +339,6 @@ da:
       contact_information:
         email: Forretnings email
         username: Kontakt brugernavn
-      custom_css:
-        desc_html: Ændre udseendet med CSS indlæst på hver side
-        title: Brugerdefineret CSS
       hero:
         desc_html: Vist på forsiden. Mindst 600x100px anbefales. Hvis ikke sat, vil dette falde tilbage til billedet fra serveren
         title: Billede af helt

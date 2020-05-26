@@ -394,9 +394,6 @@ nl:
       contact_information:
         email: Vul een openbaar gebruikt e-mailadres in
         username: Vul een gebruikersnaam in
-      custom_css:
-        desc_html: Het uiterlijk van deze server met CSS aanpassen
-        title: Aangepaste CSS
       hero:
         desc_html: Wordt op de voorpagina getoond. Tenminste 600x100px aanbevolen. Wanneer dit niet is ingesteld wordt de thumbnail van de Gab Socialserver getoond
         title: Hero-afbeelding

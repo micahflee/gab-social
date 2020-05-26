@@ -380,9 +380,6 @@ lt:
       contact_information:
         email: Verslo el paštas
         username: Kontaktinis slapyvardis
-      custom_css:
-        desc_html: Pakeisk išvaizdą su CSS užkraunamu kiekviename puslapyje
-        title: Asmeninis CSS
       hero:
         desc_html: Rodomas pagrindiniame puslapyje. Bent 600x100px rekomenduojama. Kai nenustatyta, renkamasi numatytą serverio nuotrauką
         title: Herojaus nuotrauka

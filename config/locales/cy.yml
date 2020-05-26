@@ -396,9 +396,6 @@ cy:
       contact_information:
         email: E-bost busnes
         username: Enw defnyddiwr cyswllt
-      custom_css:
-        desc_html: Addasu gwedd gyda CSS wedi lwytho ar bob tudalen
-        title: CSS wedi'i addasu
       hero:
         desc_html: Yn cael ei arddangos ar y dudadlen flaen. Awgrymir 600x100px oleia. Pan nad yw wedi ei osod, mae'n ymddangos fel mân-lun yr achos
         title: Delwedd arwr
