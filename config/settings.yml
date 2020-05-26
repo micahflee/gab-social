@@ -47,14 +47,45 @@ defaults: &defaults
     must_be_following: false
     must_be_following_dm: false
   reserved_usernames:
+    - about
+    - account
+    - accounts
     - admin
-    - support
-    - help
-    - root
-    - webmaster
     - administrator
+    - api
+    - blocks
+    - compose
+    - filters
+    - group
+    - groups
+    - help
+    - home
+    - inbox
+    - intent
+    - interact
+    - invites
+    - list
+    - lists
+    - manifest
+    - media
     - mod
     - moderator
+    - mutes
+    - notifications
+    - public
+    - root
+    - search
+    - settings
+    - share
+    - src
+    - support
+    - tag
+    - tags
+    - timeline
+    - user
+    - username
+    - users
+    - webmaster
   disallowed_hashtags: # space separated string or list of hashtags without the hash
   bootstrap_timeline_accounts: ''
   activity_api_enabled: true
