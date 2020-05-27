@@ -593,7 +593,7 @@ class Status extends ImmutablePureComponent {
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
                       {
-                        !commentsLimited &&
+                        !commentsLimited && descendantsIds.size > 1 &&
                         <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
                           <Text color='secondary' size='small'>
                             {intl.formatMessage(messages.sortBy)}
