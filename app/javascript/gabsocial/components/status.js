@@ -77,6 +77,7 @@ class Status extends ImmutablePureComponent {
     onClick: PropTypes.func,
     onReply: PropTypes.func,
     onRepost: PropTypes.func,
+    onQuote: PropTypes.func,
     onFavorite: PropTypes.func,
     onMention: PropTypes.func,
     onOpenMedia: PropTypes.func,
@@ -289,6 +290,10 @@ class Status extends ImmutablePureComponent {
 
   handleOnReply = (status) => {
     this.props.onReply(status || this._properStatus(), this.context.router, true)
+  }
+
+  handleOnQuote = (status) => {
+    this.props.onQuote(status || this._properStatus(), this.context.router)
   }
 
   handleHotkeyFavorite = () => {
@@ -539,6 +544,7 @@ class Status extends ImmutablePureComponent {
                       onShare={this.props.onShare}
                       onOpenLikes={this.props.onOpenLikes}
                       onOpenReposts={this.props.onOpenReposts}
+                      onQuote={this.handleOnQuote}
                     />
                   }
 

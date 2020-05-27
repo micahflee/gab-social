@@ -1,8 +1,13 @@
 import { FormattedMessage } from 'react-intl'
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
+import {
+  Map as ImmutableMap,
+  List as ImmutableList,
+  fromJS,
+} from 'immutable';
 import {
   replyCompose,
   mentionCompose,
+  quoteCompose,
 } from '../actions/compose';
 import {
   repost,
@@ -18,7 +23,14 @@ import {
 } from '../actions/statuses';
 import { openModal } from '../actions/modal';
 import { openPopover } from '../actions/popover';
-import { me } from '../initial_state';
+import {
+  me,
+  boostModal,
+} from '../initial_state'
+import {
+  MODAL_BOOST,
+  MODAL_CONFIRM,
+} from '../constants'
 import { makeGetStatus } from '../selectors'
 import Status from '../components/status';
 
@@ -136,38 +148,6 @@ const mapDispatchToProps = (dispatch) => ({
     })
   },
 
-  onRepost (targetRef, status, e) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-    
-    if (e.shiftKey) {
-      this.onModalRepost(status);
-    } else {
-      dispatch(openPopover('REPOST_OPTIONS', {
-        status,
-        targetRef,
-        position: 'top',
-      }))
-    }
-  },
-
-  onModalRepost (status) {
-    if (!me) return dispatch(openModal('UNAUTHORIZED'))
-
-    if (status.get('reblogged')) {
-      dispatch(unrepost(status));
-    } else {
-      dispatch(repost(status));
-    }
-  },
-
-  onShare(targetRef, status) {
-    dispatch(openPopover('STATUS_SHARE', {
-      status,
-      targetRef,
-      position: 'top',
-    }))
-  },
-
   onShowRevisions (status) {
     if (!me) return dispatch(openModal('UNAUTHORIZED'))
 
@@ -228,6 +208,41 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchContext(statusId))
   },
 
+  onQuote (status, router) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+    
+    dispatch((_, getState) => {
+      const state = getState()
+      if (state.getIn(['compose', 'text']).trim().length !== 0) {
+        dispatch(openModal(MODAL_CONFIRM, {
+          message: <FormattedMessage id='confirmations.quote.message' defaultMessage='Quoting now will overwrite the message you are currently composing. Are you sure you want to proceed?' />,
+          confirm: <FormattedMessage id='confirmations.quote.confirm' defaultMessage='Quote' />,
+          onConfirm: () => dispatch(quoteCompose(status, router)),
+        }))
+      } else {
+        dispatch(quoteCompose(status, router))
+      }
+    })
+  },
+
+  onRepost (status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+    
+    const alreadyReposted = status.get('reblogged')
+
+    if (boostModal && !alreadyReposted) {
+      dispatch(openModal(MODAL_BOOST, {
+        status,
+        onRepost: () => dispatch(repost(status)),
+      }))
+    } else {
+      if (alreadyReposted) {
+        dispatch(unrepost(status))
+      } else {
+        dispatch(repost(status))
+      }
+    }
+  },
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(Status);

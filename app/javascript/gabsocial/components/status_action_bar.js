@@ -5,15 +5,11 @@ import { NavLink } from 'react-router-dom'
 import { compactMode } from '../initial_state'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
-import {
-  CX,
-  BREAKPOINT_EXTRA_SMALL,
-} from '../constants'
-import Responsive from '../features/ui/util/responsive_component'
+import { CX } from '../constants'
 
 const messages = defineMessages({
   comment: { id: 'status.comment', defaultMessage: 'Comment' },
-  share: { id: 'status.share', defaultMessage: 'Share' },
+  quote: { id: 'status.quote', defaultMessage: 'Quote' },
   repost: { id: 'status.repost', defaultMessage: 'Repost' },
   cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
@@ -33,7 +29,7 @@ class StatusActionBar extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     onFavorite: PropTypes.func.isRequired,
-    onShare: PropTypes.func.isRequired,
+    onQuote: PropTypes.func.isRequired,
     onReply: PropTypes.func.isRequired,
     onRepost: PropTypes.func.isRequired,
     status: ImmutablePropTypes.map.isRequired,
@@ -51,12 +47,12 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onFavorite(this.props.status)
   }
 
-  handleRepostClick = (e) => {
-    this.props.onRepost(this.repostButton, this.props.status, e)
+  handleRepostClick = () => {
+    this.props.onRepost(this.props.status)
   }
 
-  handleShareClick = () => {
-    this.props.onShare(this.shareButton, this.props.status)
+  handleQuoteClick = () => {
+    this.props.onQuote(this.props.status)
   }
 
   openLikesList = () => {
@@ -69,10 +65,6 @@ class StatusActionBar extends ImmutablePureComponent {
 
   setRepostButton = (n) => {
     this.repostButton = n
-  }
-
-  setShareButton = (n) => {
-    this.shareButton = n
   }
 
   render() {
@@ -184,14 +176,13 @@ class StatusActionBar extends ImmutablePureComponent {
               buttonRef={this.setRepostButton}
               onClick={this.handleRepostClick}
             />
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <StatusActionBarItem
-                buttonRef={this.setShareButton}
-                title={compactMode ? '' : intl.formatMessage(messages.share)}
-                icon='share'
-                onClick={this.handleShareClick}
-              />
-            </Responsive>
+            <StatusActionBarItem
+              title={intl.formatMessage(messages.quote)}
+              altTitle={!publicStatus ? intl.formatMessage(messages.cannot_repost) : ''}
+              icon={!publicStatus ? 'lock' : 'quote'}
+              disabled={!publicStatus}
+              onClick={this.handleQuoteClick}
+            />
           </div>
         </div>
       </div>

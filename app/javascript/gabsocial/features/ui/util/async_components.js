@@ -57,7 +57,6 @@ export function Notifications() { return import(/* webpackChunkName: "features/n
 export function ProfileOptionsPopover() { return import(/* webpackChunkName: "components/profile_options_popover" */'../../../components/popover/profile_options_popover') }
 export function ProUpgradeModal() { return import(/* webpackChunkName: "components/pro_upgrade_modal" */'../../../components/modal/pro_upgrade_modal') }
 export function ReportModal() { return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal') }
-export function RepostOptionsPopover() { return import(/* webpackChunkName: "components/repost_options_popover" */'../../../components/popover/repost_options_popover') }
 export function Search() { return import(/*webpackChunkName: "features/search" */'../../search') }
 export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
 export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
@@ -69,7 +68,6 @@ export function StatusReposts() { return import(/* webpackChunkName: "features/s
 export function StatusLikesModal() { return import(/* webpackChunkName: "modals/status_likes_modal" */'../../../components/modal/status_likes_modal') }
 export function StatusRepostsModal() { return import(/* webpackChunkName: "modals/status_reposts_modal" */'../../../components/modal/status_reposts_modal') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
-export function StatusSharePopover() { return import(/* webpackChunkName: "components/status_share_popover" */'../../../components/popover/status_share_popover') }
 export function StatusVisibilityPopover() { return import(/* webpackChunkName: "components/status_visibility_popover" */'../../../components/popover/status_visibility_popover') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
