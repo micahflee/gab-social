@@ -98,7 +98,7 @@ class UserPanel extends ImmutablePureComponent {
             backgroundColor='secondary'
             radiusSmall
             className={buttonClasses}
-            onClick={onOpenEditProfile}
+            href='/settings/profile'
           >
             {intl.formatMessage(messages.edit_profile)}
           </Button>
