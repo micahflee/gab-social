@@ -1,7 +1,7 @@
-const CloseIcon = ({
+const RepostIcon = ({
   className = '',
   size = '16px',
-  title = 'Close',
+  title = 'Repost',
 }) => (
   <svg
     className={className}
@@ -21,4 +21,4 @@ const CloseIcon = ({
   </svg>
 )
 
-export default CloseIcon
+export default RepostIcon
