@@ -1,25 +1,36 @@
+import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { injectIntl } from 'react-intl'
+import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { HotKeys } from 'react-hotkeys'
-import classNames from 'classnames/bind'
+import {
+  CX,
+  COMMENT_SORTING_TYPE_NEWEST,
+  COMMENT_SORTING_TYPE_TOP,
+} from '../constants'
 import { me, displayMedia, compactMode } from '../initial_state'
 import scheduleIdleTask from '../utils/schedule_idle_task'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
-import ColumnIndicator from './column_indicator'
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
 import StatusActionBar from './status_action_bar'
 import StatusMedia from './status_media'
 import StatusHeader from './status_header'
 import CommentList from './comment_list'
+import Button from './button'
+import Text from './text'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/util/bundle'
 
-const cx = classNames.bind(_s)
+const messages = defineMessages({
+  sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
+  oldest: { id: 'comment_sort.oldest', defaultMessage: 'Oldest' },
+  newest: { id: 'comment_sort.newest', defaultMessage: 'Recent' },
+  top: { id: 'comment_sort.top', defaultMessage: 'Most Liked' },
+})
 
 export const textForScreenReader = (intl, status, rebloggedByText = false) => {
   if (!intl || !status) return ''
@@ -97,7 +108,9 @@ class Status extends ImmutablePureComponent {
     commentsLimited: PropTypes.bool,
     onOpenLikes: PropTypes.func.isRequired,
     onOpenReposts: PropTypes.func.isRequired,
+    onCommentSortOpen: PropTypes.func.isRequired,
     isComposeModalOpen: PropTypes.bool,
+    commentSortingType: PropTypes.string,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -112,6 +125,7 @@ class Status extends ImmutablePureComponent {
     'isHidden',
     'isIntersecting',
     'isComment',
+    'commentSortingType',
   ]
 
   state = {
@@ -361,9 +375,17 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleOnCommentSortOpen = () => {
+    this.props.onCommentSortOpen(this.commentSortButtonRef)
+  }
+
   handleRef = c => {
     this.node = c
     this._measureHeight()
+  }
+
+  setCommentSortButtonRef = (c) => {
+    this.commentSortButtonRef = c
   }
 
   render() {
@@ -380,6 +402,7 @@ class Status extends ImmutablePureComponent {
       isComment,
       contextType,
       isComposeModalOpen,
+      commentSortingType,
     } = this.props
     // const { height } = this.state
 
@@ -389,7 +412,6 @@ class Status extends ImmutablePureComponent {
 
     if (isComment && !ancestorStatus && !isChild) {
       // Wait to load...
-      // return <ColumnIndicator type='loading' />
       return null
     }
 
@@ -408,6 +430,13 @@ class Status extends ImmutablePureComponent {
       }
     }
 
+    let sortByTitle = intl.formatMessage(messages.oldest)
+    if (commentSortingType === COMMENT_SORTING_TYPE_NEWEST) {
+      sortByTitle = intl.formatMessage(messages.newest)
+    } else if (commentSortingType === COMMENT_SORTING_TYPE_TOP) {
+      sortByTitle = intl.formatMessage(messages.top)
+    }
+
     const handlers = (this.props.isMuted || isChild) ? {} : {
       reply: this.handleHotkeyReply,
       favorite: this.handleHotkeyFavorite,
@@ -421,11 +450,11 @@ class Status extends ImmutablePureComponent {
       toggleSensitive: this.handleHotkeyToggleSensitive,
     }
 
-    const parentClasses = cx({
+    const parentClasses = CX({
       pb15: !isChild && !compactMode,
     })
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       default: 1,
       radiusSmall: !isChild && !compactMode,
       bgPrimary: !isChild,
@@ -436,7 +465,7 @@ class Status extends ImmutablePureComponent {
       borderColorSecondary: !isChild && compactMode,
     })
 
-    const containerClassesXS = cx({
+    const containerClassesXS = CX({
       default: 1,
       bgPrimary: !isChild,
       boxShadowBlock: !isChild && !compactMode,
@@ -445,7 +474,7 @@ class Status extends ImmutablePureComponent {
       borderColorSecondary: !isChild,
     })
 
-    const innerContainerClasses = cx({
+    const innerContainerClasses = CX({
       default: 1,
       overflowHidden: 1,
       radiusSmall: isChild,
@@ -560,17 +589,36 @@ class Status extends ImmutablePureComponent {
 
                   {
                     descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
-                    <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
-                  }
+                    <Fragment>
+                      <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
-                  {
-                    descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
-                    <CommentList
-                      ancestorAccountId={status.getIn(['account', 'id'])}
-                      commentsLimited={commentsLimited}
-                      descendants={descendantsIds}
-                      onViewComments={this.handleClick}
-                    />
+                      {
+                        !commentsLimited &&
+                        <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
+                          <Text color='secondary' size='small'>
+                            {intl.formatMessage(messages.sortBy)}
+                          </Text>
+                          <Button
+                            isText
+                            backgroundColor='none'
+                            color='secondary'
+                            className={_s.ml5}
+                            buttonRef={this.setCommentSortButtonRef}
+                            onClick={this.handleOnCommentSortOpen}
+                          >
+                            <Text color='inherit' weight='medium' size='small'>
+                              {sortByTitle}
+                            </Text>
+                          </Button>
+                        </div>
+                      }
+                      <CommentList
+                        ancestorAccountId={status.getIn(['account', 'id'])}
+                        commentsLimited={commentsLimited}
+                        descendants={descendantsIds}
+                        onViewComments={this.handleClick}
+                      />
+                    </Fragment>
                   }
                 </div>
               </div>

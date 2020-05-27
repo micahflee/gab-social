@@ -19,6 +19,7 @@ export const URL_GAB_PRO = 'https://pro.gab.com'
 
 export const PLACEHOLDER_MISSING_HEADER_SRC = '/original/missing.png'
 
+export const POPOVER_COMMENT_SORTING_OPTIONS = 'COMMENT_SORTING_OPTIONS'
 export const POPOVER_DATE_PICKER = 'DATE_PICKER'
 export const POPOVER_EMOJI_PICKER = 'EMOJI_PICKER'
 export const POPOVER_GROUP_OPTIONS = 'GROUP_OPTIONS'
@@ -62,6 +63,10 @@ export const MODAL_STATUS_REVISIONS = 'STATUS_REVISIONS'
 export const MODAL_UNAUTHORIZED = 'UNAUTHORIZED'
 export const MODAL_UNFOLLOW = 'UNFOLLOW'
 export const MODAL_VIDEO = 'VIDEO'
+
+export const COMMENT_SORTING_TYPE_NEWEST = 'newest'
+export const COMMENT_SORTING_TYPE_OLDEST = 'oldest'
+export const COMMENT_SORTING_TYPE_TOP = 'most-liked'
 
 export const FONT_SIZES_EXTRA_SMALL = '12px'
 export const FONT_SIZES_SMALL = '13px'

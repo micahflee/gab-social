@@ -2,6 +2,7 @@ import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings'
 import { STORE_HYDRATE } from '../actions/store'
 import { EMOJI_USE } from '../actions/emojis'
 import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists'
+import { COMMENT_SORTING_TYPE_OLDEST } from '../constants'
 import { Map as ImmutableMap, fromJS } from 'immutable'
 import uuid from '../utils/uuid'
 
@@ -9,6 +10,7 @@ const initialState = ImmutableMap({
   saved: true,
   onboarded: false,
   skinTone: 1,
+  commentSorting: COMMENT_SORTING_TYPE_OLDEST,
 
   displayOptions: ImmutableMap({
     fontSize: 'normal',

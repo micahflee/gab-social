@@ -30,26 +30,69 @@ import {
 import {
   MODAL_BOOST,
   MODAL_CONFIRM,
+  POPOVER_COMMENT_SORTING_OPTIONS,
+  COMMENT_SORTING_TYPE_OLDEST,
+  COMMENT_SORTING_TYPE_NEWEST,
+  COMMENT_SORTING_TYPE_TOP,
 } from '../constants'
 import { makeGetStatus } from '../selectors'
 import Status from '../components/status';
 
-const getDescendants = (state, status, highlightStatusId) => {
+
+const sortReplies = (replyIds, state, type) => {
+  if (!replyIds) return replyIds
+
+  if (type === COMMENT_SORTING_TYPE_OLDEST || !type) {
+    return replyIds // default
+  } else if (type === COMMENT_SORTING_TYPE_NEWEST) {
+    return replyIds.reverse()
+  } else if (type === COMMENT_SORTING_TYPE_TOP) {
+    let statusList = []
+    replyIds.forEach((replyId) => {
+      const status = state.getIn(['statuses', replyId])
+      if (status) {
+        statusList.push({
+          id: replyId,
+          likeCount: status.get('favourites_count'),
+        })
+      }
+    })
+    statusList.sort((a, b) => parseFloat(b.likeCount) - parseFloat(a.likeCount))
+    
+    let newReplyIds = ImmutableList()
+    for (let i = 0; i < statusList.length; i++) {
+      const block = statusList[i];
+      newReplyIds = newReplyIds.set(i, block.id)   
+    }
+
+    return newReplyIds
+  }
+
+  return replyIds
+}
+
+const getDescendants = (state, status, highlightStatusId, commentSortingType) => {
   let descendantsIds = ImmutableList()
   let indent = -1
+  let index = 0
 
   descendantsIds = descendantsIds.withMutations(mutable => {
     const ids = [status.get('id')]
 
     while (ids.length > 0) {
       let id = ids.shift()
-      const replies = state.getIn(['contexts', 'replies', id])
+      
+      let replies = state.getIn(['contexts', 'replies', id])
+      // Sort only Top-level replies
+      if (index === 0) {
+        replies = sortReplies(replies, state, commentSortingType)
+      }
 
       if (status.get('id') !== id) {
         mutable.push(ImmutableMap({
           statusId: id,
           indent: indent,
-          isHighlighted: highlightStatusId === id,
+          isHighlighted: !!highlightStatusId && highlightStatusId === id,
         }))
       }
 
@@ -62,6 +105,8 @@ const getDescendants = (state, status, highlightStatusId) => {
       } else {
         indent = 0 // reset
       }
+
+      index++
     }
   })
 
@@ -74,6 +119,7 @@ const makeMapStateToProps = () => {
   const mapStateToProps = (state, props) => {
     const statusId = props.id || props.params.statusId
     const username = props.params ? props.params.username : undefined
+    const commentSortingType = state.getIn(['settings', 'commentSorting'])
 
     const status = getStatus(state, {
       id: statusId,
@@ -113,7 +159,7 @@ const makeMapStateToProps = () => {
     //
 
     if (status && status.get('replies_count') > 0 && !fetchedContext) {
-      descendantsIds = getDescendants(state, status)
+      descendantsIds = getDescendants(state, status, null, commentSortingType)
     }
 
     const isComment = !!status ? !!status.get('in_reply_to_id') : false
@@ -123,6 +169,7 @@ const makeMapStateToProps = () => {
       ancestorStatus,
       descendantsIds,
       isComment,
+      commentSortingType,
       isComposeModalOpen: state.getIn(['modal', 'modalType']) === 'COMPOSE',
     }
   }
@@ -243,6 +290,15 @@ const mapDispatchToProps = (dispatch) => ({
       }
     }
   },
+
+  onCommentSortOpen(targetRef, callback) {
+    dispatch(openPopover(POPOVER_COMMENT_SORTING_OPTIONS, {
+      targetRef,
+      callback,
+      position: 'top',
+    }))
+  }
+
 });
 
 export default connect(makeMapStateToProps, mapDispatchToProps)(Status);

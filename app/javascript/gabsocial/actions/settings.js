@@ -27,7 +27,7 @@ const debouncedSave = debounce((dispatch, getState) => {
   api().put('/api/web/settings', { data })
     .then(() => dispatch({ type: SETTING_SAVE }))
     .catch(() => { /* */ })
-}, 500, { trailing: true })
+}, 50, { trailing: true })
 
 export function saveSettings() {
   return (dispatch, getState) => debouncedSave(dispatch, getState)

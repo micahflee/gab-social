@@ -1,29 +1,27 @@
 import {
   BREAKPOINT_EXTRA_SMALL,
+  POPOVER_COMMENT_SORTING_OPTIONS,
   POPOVER_DATE_PICKER,
   POPOVER_EMOJI_PICKER,
   POPOVER_GROUP_OPTIONS,
   POPOVER_NAV_SETTINGS,
   POPOVER_PROFILE_OPTIONS,
-  POPOVER_REPOST_OPTIONS,
   POPOVER_SEARCH,
   POPOVER_SIDEBAR_MORE,
   POPOVER_STATUS_OPTIONS,
-  POPOVER_STATUS_SHARE,
   POPOVER_STATUS_VISIBILITY,
   POPOVER_USER_INFO,
 } from '../../constants'
 import {
+  CommentSortingOptionsPopover,
   DatePickerPopover,
   EmojiPickerPopover,
   GroupOptionsPopover,
   NavSettingsPopover,
   ProfileOptionsPopover,
-  RepostOptionsPopover,
   SearchPopover,
   SidebarMorePopover,
   StatusOptionsPopover,
-  StatusSharePopover,
   StatusVisibilityPopover,
   UserInfoPopover,
 } from '../../features/ui/util/async_components'
@@ -37,16 +35,15 @@ import PopoverBase from './popover_base'
 const initialState = getWindowDimension()
 
 const POPOVER_COMPONENTS = {}
+POPOVER_COMPONENTS[POPOVER_COMMENT_SORTING_OPTIONS] = CommentSortingOptionsPopover
 POPOVER_COMPONENTS[POPOVER_DATE_PICKER] = DatePickerPopover
 POPOVER_COMPONENTS[POPOVER_EMOJI_PICKER] = EmojiPickerPopover
 POPOVER_COMPONENTS[POPOVER_GROUP_OPTIONS] = GroupOptionsPopover
 POPOVER_COMPONENTS[POPOVER_NAV_SETTINGS] = NavSettingsPopover
 POPOVER_COMPONENTS[POPOVER_PROFILE_OPTIONS] = ProfileOptionsPopover
-POPOVER_COMPONENTS[POPOVER_REPOST_OPTIONS] = RepostOptionsPopover
 POPOVER_COMPONENTS[POPOVER_SEARCH] = SearchPopover
 POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
 POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
-POPOVER_COMPONENTS[POPOVER_STATUS_SHARE] = StatusSharePopover
 POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
 POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
 
