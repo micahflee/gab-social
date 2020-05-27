@@ -1,5 +1,9 @@
 import { compactMode } from '../initial_state'
-import { CX } from '../constants'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
+import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Text from './text'
 
@@ -73,9 +77,11 @@ export default class StatusActionBarItem extends PureComponent {
         > 
           {
             !!title &&
-            <Text color='inherit' size='small' weight={weight}>
-              {title}
-            </Text>
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <Text color='inherit' size='small' weight={weight}>
+                {title}
+              </Text>
+            </Responsive>
           }
         </Button>
       </div>
