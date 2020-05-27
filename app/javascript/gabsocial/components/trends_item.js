@@ -93,14 +93,18 @@ export default class TrendingItem extends ImmutablePureComponent {
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        <Image
-          nullable
-          width='116px'
-          height='78px'
-          alt={title}
-          src={trend.get('image')}
-          className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
-        />
+        {
+          /*
+          <Image
+            nullable
+            width='116px'
+            height='78px'
+            alt={title}
+            src={trend.get('image')}
+            className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
+          />
+          */
+        }
 
         <div className={[_s.default, _s.flexNormal, _s.pb5].join(' ')}>
           <div className={_s.default}>
