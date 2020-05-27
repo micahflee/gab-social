@@ -6,7 +6,7 @@ class ActivityPub::DeliveryWorker
   STOPLIGHT_FAILURE_THRESHOLD = 10
   STOPLIGHT_COOLDOWN = 60
 
-  sidekiq_options queue: 'push', retry: 16, dead: false
+  sidekiq_options queue: 'push', retry: 3, dead: false
 
   HEADERS = { 'Content-Type' => 'application/activity+json' }.freeze
 
