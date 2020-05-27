@@ -317,6 +317,7 @@ class Formatter
   end
 
   def mention_html(account)
+    return "<span>@#{encode(account.acct)}</span>" unless account.local?
     "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(TagManager.instance.url_for(account))}\" class=\"u-url mention\">@#{encode(account.acct)}</a>"
   end
 
