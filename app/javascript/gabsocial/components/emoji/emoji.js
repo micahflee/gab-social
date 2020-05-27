@@ -6,7 +6,7 @@ const trie = new Trie(Object.keys(unicodeMapping));
 
 const assetHost = process.env.CDN_HOST || '';
 
-const emojify = (str, customEmojis = {}) => {
+const emojify = (str, customEmojis = {}, plain = false) => {
   const tagCharsWithoutEmojis = '<&';
   const tagCharsWithEmojis = Object.keys(customEmojis).length ? '<&:' : '<&';
   let rtn = '', tagChars = tagCharsWithEmojis, invisible = 0;
@@ -34,7 +34,7 @@ const emojify = (str, customEmojis = {}) => {
         // if you want additional emoji handler, add statements below which set replacement and return true.
         if (shortname in customEmojis) {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
-          replacement = `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${shortname}" title="${shortname}" src="${filename}" />`;
+          replacement = plain ? '' : `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${shortname}" title="${shortname}" src="${filename}" />`;
           return true;
         }
         return false;
@@ -65,7 +65,7 @@ const emojify = (str, customEmojis = {}) => {
     } else { // matched to unicode emoji
       const { filename, shortCode } = unicodeMapping[match];
       const title = shortCode ? `:${shortCode}:` : '';
-      replacement = `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${match}" title="${title}" src="${assetHost}/emoji/${filename}.svg" />`;
+      replacement = plain ? '' : `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${match}" title="${title}" src="${assetHost}/emoji/${filename}.svg" />`;
       rend = i + match.length;
       // If the matched character was followed by VS15 (for selecting text presentation), skip it.
       if (str.codePointAt(rend) === 65038) {
@@ -75,7 +75,7 @@ const emojify = (str, customEmojis = {}) => {
     rtn += str.slice(0, i) + replacement;
     str = str.slice(rend);
   }
-  return rtn + str;
+  return `${rtn + str}`.trim();
 };
 
 export default emojify;

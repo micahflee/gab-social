@@ -58,12 +58,13 @@ class ProfilePage extends ImmutablePureComponent {
       params: { username },
     } = this.props
 
-    const name = !!account ? account.get('display_name_html') : ''
-
+    const nameHTML = !!account ? account.get('display_name_html') : ''
+    const name = !!account ? account.get('display_name_plain') : ''
+    
     return (
       <ProfileLayout
         account={account}
-        title={name}
+        titleHTML={nameHTML}
         unavailable={unavailable}
       >
         <PageTitle path={`${name} (@${username})`} />

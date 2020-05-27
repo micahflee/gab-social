@@ -17,6 +17,7 @@ export function normalizeAccount(account) {
   const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name;
 
   account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
+  account.display_name_plain = emojify(escapeTextContentForBrowser(displayName), emojiMap, true);
   account.note_emojified = emojify(account.note, emojiMap);
 
   if (account.fields) {

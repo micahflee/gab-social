@@ -21,7 +21,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
   static propTypes = {
     account: ImmutablePropTypes.map,
     children: PropTypes.node.isRequired,
-    title: PropTypes.string,
+    titleHTML: PropTypes.string,
     unavailable: PropTypes.bool,
   }
 
@@ -29,7 +29,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
     const {
       account,
       children,
-      title,
+      titleHTML,
       unavailable,
     } = this.props
 
@@ -38,7 +38,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           {
             !!me &&
-            <ProfileNavigationBar title={title} />
+            <ProfileNavigationBar titleHTML={titleHTML} />
           }
           {
             !me &&

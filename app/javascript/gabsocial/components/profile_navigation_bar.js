@@ -4,12 +4,12 @@ import Heading from './heading'
 export default class ProfileNavigationBar extends PureComponent {
 
   static propTypes = {
-    title: PropTypes.string,
+    titleHTML: PropTypes.string,
     showBackBtn: PropTypes.bool,
   }
 
   render() {
-    const { title } = this.props
+    const { titleHTML } = this.props
 
     return (
       <div className={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}>
@@ -26,7 +26,7 @@ export default class ProfileNavigationBar extends PureComponent {
             <div className={[_s.default, _s.heightMin53PX, _s.justifyContentCenter, _s.mrAuto].join(' ')}>
               <Heading size='h1'>
                 <span className={[_s.textOverflowEllipsis, _s.colorNavigation].join(' ')}>
-                  {title}
+                  <div dangerouslySetInnerHTML={{ __html: titleHTML }} />
                 </span>
               </Heading>
             </div>
