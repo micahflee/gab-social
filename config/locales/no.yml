@@ -543,7 +543,7 @@
       private: Kun offentlige tuter kan festes
       reblog: En fremheving kan ikke festes
     show_more: Vis mer
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Privat
       private_long: Synlig kun for følgere

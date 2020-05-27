@@ -727,7 +727,7 @@ es:
       reblog: Un repost no puede fijarse
     show_more: Mostrar más
     sign_in_to_participate: Regístrate para participar en la conversación
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Sólo mostrar a seguidores
       private_long: Solo mostrar a tus seguidores

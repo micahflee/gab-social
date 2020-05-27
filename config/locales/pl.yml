@@ -919,7 +919,7 @@ pl:
       vote: Głosuj
     show_more: Pokaż więcej
     sign_in_to_participate: Zaloguj się, aby udzielić się w tej konwersacji
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Tylko dla śledzących
       private_long: Widoczne tylko dla osób, które Cię śledzą

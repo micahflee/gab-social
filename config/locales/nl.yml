@@ -900,7 +900,7 @@ nl:
       vote: Stemmen
     show_more: Meer tonen
     sign_in_to_participate: Meld je aan om aan dit gesprek mee te doen
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Alleen volgers
       private_long: Alleen aan jouw volgers tonen

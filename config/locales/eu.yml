@@ -804,7 +804,7 @@ eu:
       reblog: Bultzada bat ezin da finkatu
     show_more: Erakutsi gehiago
     sign_in_to_participate: Eman izena elkarrizketan parte hartzeko
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Jarraitzaileak besterik ez
       private_long: Erakutsi jarraitzaileei besterik ez

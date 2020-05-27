@@ -899,7 +899,7 @@ co:
       vote: Vutà
     show_more: Vede di più
     sign_in_to_participate: Cunnettatevi per participà à a cunversazione
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Solu per l’abbunati
       private_long: Mustrà solu à l’abbunati

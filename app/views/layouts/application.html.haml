@@ -32,9 +32,7 @@
     %meta{ name: 'apple-mobile-web-app-capable', content: 'yes' }/
     %meta{ name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }/
 
-    - if @tag
-      = render 'tags/meta', tag: @tag, initial_state_json: @initial_state_json
-    - elsif @stream_entry && @account
+    - if @stream_entry && @account
       = render 'stream_entries/meta', stream_entry: @stream_entry, account: @account
     - elsif @account && @account.local?
       = render 'accounts/meta', account: @account, older_url: nil, newer_url: nil

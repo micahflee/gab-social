@@ -900,7 +900,7 @@ de:
       vote: Abstimmen
     show_more: Mehr anzeigen
     sign_in_to_participate: Melde dich an, um an der Konversation teilzuhaben
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Nur Folgende
       private_long: Nur für Folgende sichtbar

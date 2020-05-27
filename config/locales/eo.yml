@@ -891,7 +891,7 @@ eo:
       vote: Voĉdoni
     show_more: Montri pli
     sign_in_to_participate: Ensaluti por partopreni en la konversacio
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Montri nur al sekvantoj
       private_long: Montri nur al sekvantoj

@@ -930,7 +930,7 @@ ru:
       vote: Голосовать
     show_more: Ещё
     sign_in_to_participate: Войдите, чтобы принять участие в дискуссии
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Для подписчиков
       private_long: Показывать только подписчикам

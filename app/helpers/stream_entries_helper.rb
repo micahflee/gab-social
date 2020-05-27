@@ -65,24 +65,7 @@ module StreamEntriesHelper
   end
 
   def account_description(account)
-    prepend_str = [
-      [
-        number_to_human(account.statuses_count, strip_insignificant_zeros: true),
-        I18n.t('accounts.posts', count: account.statuses_count),
-      ].join(' '),
-
-      [
-        number_to_human(account.following_count, strip_insignificant_zeros: true),
-        I18n.t('accounts.following', count: account.following_count),
-      ].join(' '),
-
-      [
-        number_to_human(account.followers_count, strip_insignificant_zeros: true),
-        I18n.t('accounts.followers', count: account.followers_count),
-      ].join(' '),
-    ].join(', ')
-
-    [prepend_str, account.note].join(' · ')
+    return "The latest Gabs from #{display_name(account)} (@#{account.username}). #{account.note}"
   end
 
   def media_summary(status)
@@ -113,7 +96,7 @@ module StreamEntriesHelper
     status.preloadable_poll.options.map { |o| "[ ] #{o}" }.join("\n")
   end
 
-  def status_description(status)
+  def status_description(status, account)
     components = [[media_summary(status), status_text_summary(status)].reject(&:blank?).join(' · ')]
 
     if status.spoiler_text.blank?
@@ -121,7 +104,7 @@ module StreamEntriesHelper
       components << poll_summary(status)
     end
 
-    components.reject(&:blank?).join("\n\n")
+    return "#{display_name(account)} (@#{account.username}) on Gab. #{components.reject(&:blank?).join("\n\n")}"
   end
 
   def stream_link_target

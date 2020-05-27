@@ -801,7 +801,7 @@ sq:
       reblog: S’mund të fiksohet një përforcim
     show_more: Shfaq më tepër
     sign_in_to_participate: Bëni hyrjen, që të merrni pjesë te biseda
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Vetëm ndjekësve
       private_long: Shfaqua vetëm ndjekësve

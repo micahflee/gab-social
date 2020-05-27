@@ -693,7 +693,7 @@ ka:
       reblog: ბუსტი ვერ აიპინება
     show_more: მეტის ჩვენება
     sign_in_to_participate: საუბარში მონაწილეობისთვის გაიარეთ ავტორიზაცია
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: მხოლოდ-მიმდევრები
       private_long: აჩვენე მხოლოდ მიმდევრებს

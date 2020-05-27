@@ -820,7 +820,7 @@ lt:
       reblog: Pakeltos žinutės negali būti prisegtos
     show_more: Daugiau
     sign_in_to_participate: Prisijunkite jeigu norite dalyvauti pokalbyje
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Tik sekėjams
       private_long: Rodyti tik sekėjams

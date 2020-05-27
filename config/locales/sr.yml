@@ -820,7 +820,7 @@ sr:
       reblog: Подршка не може да се прикачи
     show_more: Прикажи још
     sign_in_to_participate: Пријавите се да учествујете у разговору
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Само пратиоци
       private_long: Прикажи само пратиоцима

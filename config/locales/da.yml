@@ -722,7 +722,7 @@ da:
       reblog: Fremhævede trut kan ikke fastgøres
     show_more: Vis mere
     sign_in_to_participate: Log ind for at deltage i samtalen
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Kun-følgere
       private_long: Vis kun til følgere

@@ -877,7 +877,7 @@ gl:
       vote: Votar
     show_more: Mostrar máis
     sign_in_to_participate: Conéctese para participar na conversa
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Só seguidoras
       private_long: Mostrar só as seguidoras

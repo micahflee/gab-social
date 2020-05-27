@@ -876,7 +876,7 @@ en_GB:
       vote: Vote
     show_more: Show more
     sign_in_to_participate: Sign in to participate in the conversation
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Followers-only
       private_long: Only show to followers

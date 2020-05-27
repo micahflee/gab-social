@@ -666,7 +666,7 @@ uk:
       private: Не можна закріпити непублічний пост
       reblog: Не можна закріпити просунутий пост
     show_more: Детальніше
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Для підписників
       private_long: Показувати тільки підписникам

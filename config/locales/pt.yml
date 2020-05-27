@@ -822,7 +822,7 @@ pt:
       vote: Votar
     show_more: Mostrar mais
     sign_in_to_participate: Inicie a sessão para participar na conversa
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Mostrar apenas para seguidores
       private_long: Mostrar apenas para seguidores

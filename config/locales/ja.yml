@@ -899,7 +899,7 @@ ja:
       vote: 投票
     show_more: もっと見る
     sign_in_to_participate: ログインして会話に参加
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: フォロワー限定
       private_long: フォロワーにのみ表示されます

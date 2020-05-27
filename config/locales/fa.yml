@@ -882,7 +882,7 @@ fa:
       vote: رأی
     show_more: نمایش
     sign_in_to_participate: برای شرکت در گفتگو وارد حساب خود شوید
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: خصوصی
       private_long: تنها پیگیران شما می‌بینند

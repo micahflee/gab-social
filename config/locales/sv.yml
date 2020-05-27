@@ -624,7 +624,7 @@ sv:
       private: Icke-offentliga toot kan inte fästas
       reblog: Knuffar kan inte fästas
     show_more: Visa mer
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Endast följare
       private_long: Visa endast till följare

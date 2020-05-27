@@ -900,7 +900,7 @@ pt-BR:
       vote: Votar
     show_more: Mostrar mais
     sign_in_to_participate: Entre para participar dessa conversa
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Apenas seguidores
       private_long: Mostrar apenas para seguidores

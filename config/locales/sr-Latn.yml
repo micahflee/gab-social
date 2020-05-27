@@ -533,7 +533,7 @@ sr-Latn:
       private: Tutovi koji nisu javni ne mogu da se prikače
       reblog: Podrška ne može da se prikači
     show_more: Prikaži još
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Samo pratioci
       private_long: Samo prikaži pratiocima

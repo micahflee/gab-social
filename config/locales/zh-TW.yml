@@ -684,7 +684,7 @@ zh-TW:
       private: 不能置頂非公開的嘟文
       reblog: 不能置頂轉嘟
     show_more: 顯示更多
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: 僅關注者
       private_long: 只有關注你的人能看到

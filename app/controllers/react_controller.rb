@@ -15,8 +15,9 @@ class ReactController < ApplicationController
   def set_data_for_meta
     return if find_route_matches
 
-    if request.path.starts_with?('/tags') && params[:tag].present?
-      @tag = Tag.find_normalized(params[:tag])
+    if request.path.count("/") == 1 && !request.path.include?("@")
+      acctFromPath = request.path.sub("/", "")
+      @account = Account.find_local!(acctFromPath)
     end
 
   end
@@ -31,7 +32,7 @@ class ReactController < ApplicationController
   end
 
   def find_route_matches
-    request.path.match(/\A\/(home|groups|lists|notifications|explore|follow_requests|blocks|domain_blocks|mutes)/)
+    request.path.match(/\A\/(home|group|groups|list|lists|notifications|explore|search|tags|compose|follow_requests|admin|account|settings|filters|timeline|blocks|domain_blocks|mutes)/)
   end
 
   def set_initial_state_json

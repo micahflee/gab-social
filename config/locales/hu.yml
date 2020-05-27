@@ -543,7 +543,7 @@ hu:
       private: Csak publikus tülköt tűzhetsz ki
       reblog: Reblogolt tülköt nem tudsz kitűzni
     show_more: Mutass többet
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Csak követőknek
       private_long: A tülk csak követőidnek jelenik meg

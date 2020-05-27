@@ -881,7 +881,7 @@ el:
       vote: Ψήφισε
     show_more: Δείξε περισσότερα
     sign_in_to_participate: Εγγράφου για να συμμετάσχεις στη συζήτηση
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: Μόνο ακόλουθοι
       private_long: Εμφάνιση μόνο σε ακόλουθους

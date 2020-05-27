@@ -607,7 +607,7 @@ th:
         other: "%{count} การลงคะแนน"
     show_more: แสดงเพิ่มเติม
     sign_in_to_participate: ลงชื่อเข้าเพื่อเข้าร่วมการสนทนา
-    title: '%{name}: "%{quote}"'
+    title: "%{name} on Gab: '%{quote}'"
     visibilities:
       private: ผู้ติดตามเท่านั้น
       private_long: แสดงต่อผู้ติดตามเท่านั้น
