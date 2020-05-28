@@ -1,52 +1,96 @@
 !!!
-%html{ lang: I18n.locale }
+%html{ lang: 'en' }
   %head
     %meta{ 'http-equiv' => 'Content-Type', 'content' => 'text/html; charset=utf-8' }/
     %meta{ name: 'viewport', content: 'width=device-width, initial-scale=1.0, shrink-to-fit=no' }
 
     %title/
 
-    = stylesheet_pack_tag 'mailer'
-  %body{ dir: locale_direction }
-    %table.email-table{ cellspacing: 0, cellpadding: 0 }
+    %style{ type: 'text/css' }
+      :css
+        body {
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+        }
+        a,
+        span,
+        p,
+        div,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+          font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+        }
+        a:hover,
+        a:active,
+        a:focus {
+          outline: 0;
+        }
+        .in-email-status a {
+          color: #3BCD80;
+          font-weight: 600;
+        }
+        span.MsoHyperlink {
+          mso-style-priority: 99;
+          color: inherit;
+        }
+        span.MsoHyperlinkFollowed {
+          mso-style-priority: 99;
+          color: inherit;
+        }
+
+  %body{ :style => "margin:0;padding:0;background-color:#eee;font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;" }
+    %table{:cellspacing => "0", :style => "margin:0 auto;width:100%;border-collapse:collapse;background-color:#eee;"}
       %tbody
         %tr
-          %td.email-body.email-start
-            .email-container
-              %table.content-section{ cellspacing: 0, cellpadding: 0 }
-                %tbody
-                  %tr
-                    %td.content-cell.header
-                      .email-row
-                        .col-6
-                          %table.column{ cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %tr
-                                %td.column-cell
-                                  = link_to root_url do
-                                    = image_tag full_pack_url('media/images/mailer/logo_full.png'), alt: 'Gab Social', height: 34, class: 'logo'
+          %td{:align => "center", :style => "padding:20px 23px 0 23px"}
+            %table{:style => "background-color:#fff;margin:0 auto;border-radius:5px;border-collapse:collapse", :width => "560"}
+              %tbody
+                %tr
+                  %td{:align => "center"}
+                    %table{:style => "margin:0 auto", :width => "500"}
+                      %tbody
+                        %tr
+                          %td{:align => "center", :style => "padding:40px 0 35px 0"}
+                            %a{:href => "https://gab.com", :style => "color:#3ACD80;text-decoration:none;outline:0;", :target => "_blank"}
+                              = image_tag full_pack_url('media/images/mailer/logo_sm_brand.svg'), alt: 'Gab Social', border: "0", height: 38, width: 62, :style => "height:38px;width:62px;"    
 
-    = yield
+                        = yield
 
-    %table.email-table{ cellspacing: 0, cellpadding: 0 }
-      %tbody
         %tr
-          %td.email-body.email-end
-            .email-container
-              %table.content-section{ cellspacing: 0, cellpadding: 0 }
-                %tbody
-                  %tr
-                    %td.content-cell.content-end
-                      != "&nbsp; "
-                  %tr
-                    %td.blank-cell.footer
-                      .email-row
-                        .col-6
-                          %table.column{ cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %td.column-cell
-                                %p= t 'about.hosted_on', domain: site_hostname
-                                %p= link_to t('application_mailer.notification_preferences'), settings_notifications_url
-                              %td.column-cell.text-right
-                                = link_to root_url do
-                                  = image_tag full_pack_url('media/images/mailer/logo_transparent.png'), alt: 'Gab Social', height: 24
+          %td{:align => "center", :style => "padding-top:20px"}
+            %table{:style => "margin:0 auto;border-collapse:collapse;background-color:#fff;border-radius:5px", :width => "560"}
+              %tbody
+                %tr
+                  %td{:colspan => "4", :style => "vertical-align:middle;background-color:#ccc;border-radius:5px;"}
+                    %table{:style => "background-color:#ccc;width:100%;border-radius:5px;border-collapse:collapse"}
+                      %tbody
+                        %tr
+                          %td{:align => "center", :style => "vertical-align:middle;padding:22px 0;"}
+                            %p{:style => "color:#fff;font-size:17px;margin:0;"} Questions? Simply email support@gab.com
+        
+        %tr
+          %td{:align => "center", :style => "padding-top:20px"}
+            %table{:style => "margin:0 auto;border-collapse:collapse;border-radius:5px", :width => "560"}
+              %tbody
+                %tr
+                  %td{:colspan => "4", :style => "vertical-align:middle;"}
+                    %table{:style => "width:100%;border-collapse:collapse"}
+                      %tbody
+                        %tr
+                          %td{:align => "center", :style => "vertical-align:middle;padding:22px 0 0 0;"}
+                            %p{:style => "color:#bbb;font-size:14px;margin:0;"} Gab AI, Inc.
+                        %tr
+                          %td{:align => "center", :style => "vertical-align:middle;padding:0 0 22px 0;"}
+                            %p{:style => "color:#bbb;font-size:14px;margin:0;"} 700 N. State Street, Clarks Summit, PA 18411
+       
+        %tr
+          %td{:align => "center", :style => "padding-top:29px;padding-bottom:50px"}
+            %table{:style => "width:100%"}
+              %tbody
+                %tr
+                  %td{:align => "center", :style => ""}
+                    %a{:href => "https://gab.com", :style => "color:#3ACD80;text-decoration:none;outline:0;", :target => "_blank"}
+                      = image_tag full_pack_url('media/images/mailer/logo_sm_brand.svg'), alt: 'Gab Social', border: "0", height: 28, width: 46, :style => "height:28px;width:46px;opacity:0.2;"

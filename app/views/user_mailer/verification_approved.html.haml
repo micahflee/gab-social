@@ -1,41 +1,23 @@
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.hero
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %table.hero-icon{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                                %tbody
-                                  %tr
-                                    %td
-                                      = image_tag full_pack_url('media/images/mailer/icon_done.png'), alt: ''
+%tr
+  %td{:align => "center"}
+    %h1{:style => "margin:0;font-weight:bold;font-size:30px;color:#444;text-align:center;"}= t 'user_mailer.verifications.approved.title'
 
-                              %h1= t 'user_mailer.verifications.approved.title'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{ :style => "margin:20px 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Thanks for your patience. We've reviewed your request and verified your account.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } The proof you sent has been deleted from our servers completely.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Thank you 🐸
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.content-start
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center
-                              %p= t 'user_mailer.verifications.approved.explanation_1'
-                              %p= t 'user_mailer.verifications.approved.explanation_2'
-                              %p= t 'user_mailer.verifications.approved.explanation_3'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            = link_to "Go to Gab Home", "https://gab.com/home", :style => "height:56px;padding:20px 30px;text-decoration:none;color:#fff;font-size:16px;margin:0;"

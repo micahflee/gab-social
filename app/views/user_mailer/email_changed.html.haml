@@ -1,58 +1,25 @@
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.hero
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %table.hero-icon{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                                %tbody
-                                  %tr
-                                    %td
-                                      = image_tag full_pack_url('media/images/mailer/icon_email.png'), alt: ''
+%tr
+  %td{:align => "center", :style => ""}
+    %h1{:style => "margin:0;font-weight:bold;font-size:30px;color:#444;text-align:center;"}= t 'devise.mailer.email_changed.title'
 
-                              %h1= t 'devise.mailer.email_changed.title'
-                              %p.lead= t 'devise.mailer.email_changed.explanation'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0 0;text-align:center;"}= t 'devise.mailer.email_changed.explanation'
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.content-start
-                  %table.column{ cellspacing: 0, cellpadding: 0 }
-                    %tbody
-                      %tr
-                        %td.column-cell.input-cell
-                          %table.input{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %tr
-                                %td= @resource.try(:unconfirmed_email) ? @resource.unconfirmed_email : @resource.email
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;font-weight:600;color:#000;margin:15px 0 0;text-align:center;"}= @resource.try(:unconfirmed_email) ? @resource.unconfirmed_email : @resource.email
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %p= t 'devise.mailer.email_changed.extra'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0 30px;text-align:center;"}= t 'devise.mailer.email_changed.extra'
+

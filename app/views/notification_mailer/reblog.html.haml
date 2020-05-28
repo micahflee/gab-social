@@ -1,45 +1,26 @@
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.hero
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %table.hero-icon{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                                %tbody
-                                  %tr
-                                    %td
-                                      = image_tag full_pack_url('media/images/mailer/icon_cached.png'), alt: ''
+%tr
+  %td{:align => "center"}
+    %h1{:style => "margin:0;font-weight:bold;font-size:30px;color:#444;text-align:center;"}= t 'notification_mailer.reblog.title'
 
-                              %h1= t 'notification_mailer.reblog.title'
-                              %p.lead= t('notification_mailer.reblog.body', name: @account.acct)
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;font-weight:600;color:#000;margin:15px 0 0;text-align:center;"}= t('notification_mailer.reblog.body', name: @account.acct)
 
-= render 'status', status: @status
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          = render 'status', status: @status
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.content-start.border-top
-                  %table.column{ cellspacing: 0, cellpadding: 0 }
-                    %tbody
-                      %tr
-                        %td.column-cell.button-cell
-                          %table.button{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %tr
-                                %td.button-primary
-                                  = link_to web_url("statuses/#{@status.id}") do
-                                    %span= t 'application_mailer.view_status'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            = link_to web_url("#{@status.account.username}/posts/#{@status.id}"), :style => "height:56px;padding:20px 30px;text-decoration:none;color:#fff;font-size:16px;margin:0;" do
+              %span{ :style => "color:#fff;font-size:16px;margin:0;" }= t 'application_mailer.view_status'

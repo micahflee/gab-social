@@ -1,63 +1,24 @@
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.hero
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %table.hero-icon.alert-icon{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                                %tbody
-                                  %tr
-                                    %td
-                                      = image_tag full_pack_url('media/images/mailer/icon_warning.png'), alt: ''
+%tr
+  %td{:align => "center"}
+    %h1{:style => "margin:0;font-weight:bold;font-size:30px;color:#444;text-align:center;"}= t "user_mailer.warning.title.#{@warning.action}"
 
-                              %h1= t "user_mailer.warning.title.#{@warning.action}"
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0 0;text-align:center;"}
+            - unless @warning.none_action?
+              %p= t "user_mailer.warning.explanation.#{@warning.action}"
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.content-start
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center
-                              - unless @warning.none_action?
-                                %p= t "user_mailer.warning.explanation.#{@warning.action}"
+            - unless @warning.text.blank?
+              = Formatter.instance.linkify(@warning.text)
 
-                              - unless @warning.text.blank?
-                                = Formatter.instance.linkify(@warning.text)
-
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell
-                  %table.column{ cellspacing: 0, cellpadding: 0 }
-                    %tbody
-                      %tr
-                        %td.column-cell.button-cell
-                          %table.button{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %tr
-                                %td.button-primary
-                                  = link_to about_url do
-                                    %span= t 'user_mailer.warning.review_server_policies'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            = link_to about_url do
+              %span{:style => "font-size:16px;color:#444;margin:15px 0 30px;"}= t 'user_mailer.warning.review_server_policies'

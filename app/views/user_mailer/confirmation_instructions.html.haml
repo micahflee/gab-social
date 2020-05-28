@@ -1,80 +1,23 @@
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.hero
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center.padded
-                              %table.hero-icon{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                                %tbody
-                                  %tr
-                                    %td
-                                      = image_tag full_pack_url('media/images/mailer/icon_email.png'), alt: ''
+%tr
+  %td{:align => "center", :style => ""}
+    %h1{:style => "margin:0;font-weight:bold;font-size:30px;color:#444;text-align:center;"}= t 'devise.mailer.confirmation_instructions.title'
 
-                              %h1= t 'devise.mailer.confirmation_instructions.title'
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0;text-align:center;"}= t @resource.approved? ? 'devise.mailer.confirmation_instructions.explanation' : 'devise.mailer.confirmation_instructions.explanation_when_pending', host: site_hostname
 
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell.content-start
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center
-                              %p= t @resource.approved? ? 'devise.mailer.confirmation_instructions.explanation' : 'devise.mailer.confirmation_instructions.explanation_when_pending', host: site_hostname
-
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell
-                  %table.column{ cellspacing: 0, cellpadding: 0 }
-                    %tbody
-                      %tr
-                        %td.column-cell.button-cell
-                          %table.button{ align: 'center', cellspacing: 0, cellpadding: 0 }
-                            %tbody
-                              %tr
-                                %td.button-primary
-                                  - if @resource.created_by_application
-                                    = link_to confirmation_url(@resource, confirmation_token: @token, redirect_to_app: 'true') do
-                                      %span= t 'devise.mailer.confirmation_instructions.action_with_app', app: @resource.created_by_application.name
-                                  - else
-                                    = link_to confirmation_url(@resource, confirmation_token: @token) do
-                                      %span= t 'devise.mailer.confirmation_instructions.action'
-
-%table.email-table{ cellspacing: 0, cellpadding: 0 }
-  %tbody
-    %tr
-      %td.email-body
-        .email-container
-          %table.content-section{ cellspacing: 0, cellpadding: 0 }
-            %tbody
-              %tr
-                %td.content-cell
-                  .email-row
-                    .col-6
-                      %table.column{ cellspacing: 0, cellpadding: 0 }
-                        %tbody
-                          %tr
-                            %td.column-cell.text-center
-                              %p= t 'devise.mailer.confirmation_instructions.extra_html', about_tos_path: about_url, policy_path: about_tos_url
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            - if @resource.created_by_application
+              = link_to confirmation_url(@resource, confirmation_token: @token, redirect_to_app: 'true'), { :style => "height:56px;padding:20px 30px;text-decoration:none;" } do
+                %span{ :style => "color:#fff;font-size:16px;margin:0;" }= t 'devise.mailer.confirmation_instructions.action_with_app', app: @resource.created_by_application.name
+            - else
+              = link_to confirmation_url(@resource, confirmation_token: @token), { :style => "height:56px;padding:20px 30px;text-decoration:none;" } do
+                %span{ :style => "color:#fff;font-size:16px;margin:0;" }= t 'devise.mailer.confirmation_instructions.action'
