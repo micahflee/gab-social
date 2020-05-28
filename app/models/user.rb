@@ -144,8 +144,6 @@ class User < ApplicationRecord
 
     if new_user && approved?
       prepare_new_user!
-    elsif new_user
-      notify_staff_about_pending_account!
     end
   end
 
@@ -317,13 +315,6 @@ class User < ApplicationRecord
   def prepare_returning_user!
     ActivityTracker.record('activity:logins', id)
     regenerate_feed! if needs_feed_update?
-  end
-
-  def notify_staff_about_pending_account!
-    User.staff.includes(:account).each do |u|
-      next unless u.allows_pending_account_emails?
-      AdminMailer.new_pending_account(u.account, self).deliver_later
-    end
   end
 
   def regenerate_feed!

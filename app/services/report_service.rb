@@ -9,7 +9,6 @@ class ReportService < BaseService
     @options        = options
 
     create_report!
-    notify_staff!
     forward_to_origin! if !@target_account.local? && ActiveModel::Type::Boolean.new.cast(@options[:forward])
 
     @report
@@ -24,15 +23,6 @@ class ReportService < BaseService
       comment: @comment,
       uri: @options[:uri]
     )
-  end
-
-  def notify_staff!
-    return if @report.unresolved_siblings?
-
-    User.staff.includes(:account).each do |u|
-      next unless u.allows_report_emails?
-      AdminMailer.new_report(u.account, @report).deliver_later
-    end
   end
 
   def forward_to_origin!
