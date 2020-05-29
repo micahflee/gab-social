@@ -3,7 +3,7 @@
 class ActivityPub::DistributionWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: 'push'
+  sidekiq_options queue: 'push', retry: 0, dead: true
 
   def perform(status_id)
     @status  = Status.find(status_id)

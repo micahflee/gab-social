@@ -10,8 +10,8 @@ class ActivityPub::InboxesController < Api::BaseController
     if unknown_deleted_account?
       head 202
     elsif signed_request_account
-      upgrade_account
-      process_payload
+      # upgrade_account
+      # process_payload
       head 202
     else
       render plain: signature_verification_failure_reason, status: 401
@@ -49,6 +49,6 @@ class ActivityPub::InboxesController < Api::BaseController
   end
 
   def process_payload
-    ActivityPub::ProcessingWorker.perform_async(signed_request_account.id, body, @account&.id)
+    # ActivityPub::ProcessingWorker.perform_async(signed_request_account.id, body, @account&.id)
   end
 end

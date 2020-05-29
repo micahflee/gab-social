@@ -73,12 +73,12 @@ Rails.application.routes.draw do
     resource :follow, only: [:create], controller: :account_follow
     resource :unfollow, only: [:create], controller: :account_unfollow
 
-    resource :outbox, only: [:show], module: :activitypub
-    resource :inbox, only: [:create], module: :activitypub
-    resources :collections, only: [:show], module: :activitypub
+    # resource :outbox, only: [:show], module: :activitypub
+    # resource :inbox, only: [:create], module: :activitypub
+    # resources :collections, only: [:show], module: :activitypub
   end
 
-  resource :inbox, only: [:create], module: :activitypub
+  # resource :inbox, only: [:create], module: :activitypub
 
   get  '/interact/:id', to: 'remote_interaction#new', as: :remote_interaction
   post '/interact/:id', to: 'remote_interaction#create'

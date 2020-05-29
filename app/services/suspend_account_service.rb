@@ -108,13 +108,13 @@ class SuspendAccountService < BaseService
   end
 
   def distribute_delete_actor!
-    ActivityPub::DeliveryWorker.push_bulk(delivery_inboxes) do |inbox_url|
-      [delete_actor_json, @account.id, inbox_url]
-    end
+    # ActivityPub::DeliveryWorker.push_bulk(delivery_inboxes) do |inbox_url|
+    #   [delete_actor_json, @account.id, inbox_url]
+    # end
 
-    ActivityPub::LowPriorityDeliveryWorker.push_bulk(low_priority_delivery_inboxes) do |inbox_url|
-      [delete_actor_json, @account.id, inbox_url]
-    end
+    # ActivityPub::LowPriorityDeliveryWorker.push_bulk(low_priority_delivery_inboxes) do |inbox_url|
+    #   [delete_actor_json, @account.id, inbox_url]
+    # end
   end
 
   def delete_actor_json
