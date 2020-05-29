@@ -5,6 +5,7 @@ import Button from './button'
 
 const mapStateToProps = (state) => ({
   notificationCount: state.getIn(['notifications', 'unread']),
+  homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
 })
 
 export default
@@ -21,7 +22,10 @@ class FooterBar extends PureComponent {
   }
 
   render() {
-    const { notificationCount } = this.props
+    const {
+      notificationCount,
+      homeItemsQueueCount,
+    } = this.props
     if (!me) return false
 
     const noRouter = !this.context.router
@@ -72,13 +76,24 @@ class FooterBar extends PureComponent {
                 })
                 
                 const color = props.active ? 'brand' : 'secondary'
-                const childIcon = props.to === '/notifications' && notificationCount > 0 ? (
-                  <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt5, _s.pl20].join(' ')}>
-                    <span className={[_s.bgRed, _s.colorWhite, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '12px'}}>
-                      {notificationCount}
-                    </span>
-                  </div>
-                ) : null
+                let childIcon;
+                if (props.to === '/notifications' && notificationCount > 0) {
+                  childIcon = (
+                    <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt5, _s.pl20].join(' ')}>
+                      <span className={[_s.bgRed, _s.colorWhite, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '12px'}}>
+                        {notificationCount}
+                      </span>
+                    </div>
+                  )
+                } else if (props.to === '/home' && homeItemsQueueCount > 0) {
+                  childIcon = (
+                    <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt2, _s.pl20].join(' ')}>
+                      <span className={[_s.colorBrand, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '18px'}}>
+                        •
+                      </span>
+                    </div>
+                  )
+                }
 
                 return (
                   <Button
