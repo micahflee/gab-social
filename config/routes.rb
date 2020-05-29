@@ -87,7 +87,7 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
     resource :preferences, only: [:show, :update]
     resource :notifications, only: [:show, :update]
-    resource :import, only: [:show, :create]
+    # resource :import, only: [:show, :create]
 
     namespace :billing do
       get :upgrade, to: 'upgrade#index', as: :upgrade

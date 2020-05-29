@@ -30,7 +30,6 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     n.item :data, safe_join([fa_icon('cloud-download fw'), t('settings.import_and_export')]), settings_export_url do |s|
-      s.item :import, safe_join([fa_icon('cloud-upload fw'), t('settings.import')]), settings_import_url
       s.item :export, safe_join([fa_icon('cloud-download fw'), t('settings.export')]), settings_export_url
     end
 
