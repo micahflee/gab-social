@@ -144,6 +144,16 @@ class ProfileHeader extends ImmutablePureComponent {
       mtNeg50PX: !headerMissing,
     })
 
+    const mobileDescriptionContainerClasses = CX({
+      default: 1,
+      width100PC: 1,
+      px15: 1,
+      mt5: !!me,
+      mb10: 1,
+      pt15: !!me,
+      pb10: 1,
+    })
+
     return (
       <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
@@ -203,48 +213,31 @@ class ProfileHeader extends ImmutablePureComponent {
                   }
 
                   {
-                    account && account.get('id') !== me &&
+                    account && account.get('id') !== me && !!me &&
                     <div className={[_s.default, _s.flexRow, _s.py5].join(' ')}>
-
-                      <form action='https://chat.gab.com/private-message' method='POST'>
-                        <Button
-                          isOutline
-                          type='submit'
-                          icon='chat'
-                          iconSize='18px'
-                          iconClassName={_s.inheritFill}
-                          color='brand'
-                          backgroundColor='none'
-                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                        />
-                        <input type='hidden' value={account.get('username')} name='username' />
-                      </form>
                       
                       <div className={[_s.default, _s.flexRow, _s.mr10].join(' ')}>
                         <AccountActionButton account={account} />
                       </div>
 
-                      {
-                        !!me &&
-                        <div>
-                          <Button
-                            isOutline
-                            icon='ellipsis'
-                            iconSize='18px'
-                            iconClassName={_s.inheritFill}
-                            color='brand'
-                            backgroundColor='none'
-                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
-                            onClick={this.handleOpenMore}
-                            buttonRef={this.setOpenMoreNodeRef}
-                          />
-                        </div>
-                      }
+                      <div>
+                        <Button
+                          isOutline
+                          icon='ellipsis'
+                          iconSize='18px'
+                          iconClassName={_s.inheritFill}
+                          color='brand'
+                          backgroundColor='none'
+                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
+                          onClick={this.handleOpenMore}
+                          buttonRef={this.setOpenMoreNodeRef}
+                        />
+                      </div>
 
                     </div>
                   }
 
-                  <div className={[_s.default, _s.width100PC, _s.px15, _s.mt15, _s.mb10, _s.pt15, _s.pb10].join(' ')}>
+                  <div className={mobileDescriptionContainerClasses}>
                     {children}
                   </div>
 
@@ -340,20 +333,6 @@ class ProfileHeader extends ImmutablePureComponent {
                             />
                           </div>
                         }
-
-                        <form action='https://chat.gab.com/private-message' method='POST'>
-                          <Button
-                            isOutline
-                            type='submit'
-                            icon='chat'
-                            iconSize='18px'
-                            iconClassName={_s.inheritFill}
-                            color='brand'
-                            backgroundColor='none'
-                            className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
-                          />
-                          <input type='hidden' value={account.get('username')} name='username' />
-                        </form>
 
                         <div className={[_s.default, _s.flexRow, _s.pb3].join(' ')}>
                           <AccountActionButton account={account} />
