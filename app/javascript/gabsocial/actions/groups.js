@@ -136,8 +136,8 @@ export const fetchGroups = (tab) => (dispatch, getState) => {
   if (!me) return
 
   // Don't refetch or fetch when loading
-  const isLoading = getState().getIn(['group_lists', tab, 'loading'])
-  const isFetched = getState().getIn(['group_lists', tab, 'fetched'])
+  const isLoading = getState().getIn(['group_lists', tab, 'isLoading'])
+  const isFetched = getState().getIn(['group_lists', tab, 'isFetched'])
 
   if (isLoading || isFetched) return
 

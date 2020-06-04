@@ -9,23 +9,23 @@ const tabs = ['new', 'featured', 'member', 'admin']
 
 const initialState = ImmutableMap({
   new: ImmutableMap({
-    fetched: false,
-    loading: false,
+    isFetched: false,
+    isLoading: false,
     items: ImmutableList(),
   }),
   featured: ImmutableMap({
-    fetched: false,
-    loading: false,
+    isFetched: false,
+    isLoading: false,
     items: ImmutableList(),
   }),
   member: ImmutableMap({
-    fetched: false,
-    loading: false,
+    isFetched: false,
+    isLoading: false,
     items: ImmutableList(),
   }),
   admin: ImmutableMap({
-    fetched: false,
-    loading: false,
+    isFetched: false,
+    isLoading: false,
     items: ImmutableList(),
   }),
 })
@@ -36,19 +36,19 @@ export default function groupLists(state = initialState, action) {
   switch(action.type) {
   case GROUPS_FETCH_REQUEST:
     return state.withMutations((mutable) => {
-      mutable.setIn([action.tab, 'loading'], true)
+      mutable.setIn([action.tab, 'isLoading'], true)
     });
   case GROUPS_FETCH_SUCCESS:
     return state.withMutations((mutable) => {
       mutable.setIn([action.tab, 'items'], ImmutableList(action.groups.map(item => item.id)))
-      mutable.setIn([action.tab, 'loading'], false)
-      mutable.setIn([action.tab, 'fetched'], true)
+      mutable.setIn([action.tab, 'isLoading'], false)
+      mutable.setIn([action.tab, 'isFetched'], true)
     })
   case GROUPS_FETCH_FAIL:
     return state.withMutations((mutable) => {
       mutable.setIn([action.tab, 'items'], ImmutableList())
-      mutable.setIn([action.tab, 'loading'], false)
-      mutable.setIn([action.tab, 'fetched'], true)
+      mutable.setIn([action.tab, 'isLoading'], false)
+      mutable.setIn([action.tab, 'isFetched'], true)
     })
   default:
     return state
