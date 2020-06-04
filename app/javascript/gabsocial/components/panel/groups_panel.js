@@ -13,7 +13,7 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  groupIds: state.getIn(['group_lists', 'member']),
+  groupIds: state.getIn(['group_lists', 'member', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

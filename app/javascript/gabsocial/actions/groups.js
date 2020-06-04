@@ -133,20 +133,27 @@ export function fetchGroupRelationshipsFail(error) {
 };
 
 export const fetchGroups = (tab) => (dispatch, getState) => {
-  if (!me) return;
+  if (!me) return
 
-  dispatch(fetchGroupsRequest());
+  // Don't refetch or fetch when loading
+  const isLoading = getState().getIn(['group_lists', tab, 'loading'])
+  const isFetched = getState().getIn(['group_lists', tab, 'fetched'])
+
+  if (isLoading || isFetched) return
+
+  dispatch(fetchGroupsRequest(tab))
 
   api(getState).get('/api/v1/groups?tab=' + tab)
     .then(({ data }) => {
-      dispatch(fetchGroupsSuccess(data, tab));
-      dispatch(fetchGroupRelationships(data.map(item => item.id)));
+      dispatch(fetchGroupsSuccess(data, tab))
+      dispatch(fetchGroupRelationships(data.map(item => item.id)))
     })
-    .catch(err => dispatch(fetchGroupsFail(err)));
-};
+    .catch((err) => dispatch(fetchGroupsFail(err, tab)))
+}
 
-export const fetchGroupsRequest = () => ({
+export const fetchGroupsRequest = (tab) => ({
   type: GROUPS_FETCH_REQUEST,
+  tab,
 });
 
 export const fetchGroupsSuccess = (groups, tab) => ({
@@ -155,9 +162,10 @@ export const fetchGroupsSuccess = (groups, tab) => ({
   tab,
 });
 
-export const fetchGroupsFail = error => ({
+export const fetchGroupsFail = (error, tab) => ({
   type: GROUPS_FETCH_FAIL,
   error,
+  tab,
 });
 
 export function joinGroup(id) {

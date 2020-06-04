@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { FormattedMessage } from 'react-intl'
 import { fetchGroups } from '../actions/groups'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Responsive from './ui/util/responsive_component'
@@ -8,7 +9,9 @@ import ScrollableList from '../components/scrollable_list'
 import GroupCollectionItem from '../components/group_collection_item'
 
 const mapStateToProps = (state, { activeTab }) => ({
-	groupIds: state.getIn(['group_lists', activeTab]),
+	groupIds: state.getIn(['group_lists', activeTab, 'items']),
+	isFetched: state.getIn(['group_lists', activeTab, 'isFetched']),
+	isLoading: state.getIn(['group_lists', activeTab, 'isLoading']),
 })
 
 export default
@@ -19,6 +22,8 @@ class GroupsCollection extends ImmutablePureComponent {
 		activeTab: PropTypes.string.isRequired,
 		dispatch: PropTypes.func.isRequired,
 		groupIds: ImmutablePropTypes.list,
+		isFetched: PropTypes.bool.isRequired,
+		isLoading: PropTypes.bool.isRequired,
 	}
 
 	componentWillMount() {
@@ -32,10 +37,16 @@ class GroupsCollection extends ImmutablePureComponent {
 	}
 
 	render() {
-		const { groupIds } = this.props
+		const {
+			groupIds,
+			isLoading,
+			isFetched,
+		} = this.props
 
-		if (!groupIds) {
+		if (isLoading && groupIds.size === 0) {
 			return <ColumnIndicator type='loading' />
+		} else if (isFetched && groupIds.size === 0) {
+			return <ColumnIndicator type='error' message={<FormattedMessage id='groups.empty' defaultMessage='There are no groups to display' />} />
 		}
 
 		const halfCount = parseInt(groupIds.size / 2)
