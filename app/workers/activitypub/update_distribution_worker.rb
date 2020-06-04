@@ -3,7 +3,7 @@
 class ActivityPub::UpdateDistributionWorker
   include Sidekiq::Worker
 
-  sidekiq_options queue: 'push'
+  sidekiq_options queue: 'push', retry: 0, dead: true
 
   def perform(account_id, options = {})
     @options = options.with_indifferent_access
