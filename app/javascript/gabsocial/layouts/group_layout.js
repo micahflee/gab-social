@@ -40,7 +40,6 @@ export default class GroupLayout extends ImmutablePureComponent {
         actions={actions}
         showBackBtn={showBackBtn}
         title={title}
-        noComposeButton
       >
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <div className={[_s.default, _s.width100PC].join(' ')}>
