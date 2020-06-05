@@ -76,6 +76,9 @@ const mapDispatchToProps = (dispatch) => ({
       status,
     }))
   },
+  onOpenMedia (media, index) {
+    dispatch(openModal('MEDIA', { media, index }));
+  },
 })
 
 export default
@@ -101,6 +104,7 @@ class Comment extends ImmutablePureComponent {
     onOpenLikes: PropTypes.func.isRequired,
     onOpenReposts: PropTypes.func.isRequired,
     onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
+    onOpenMedia: PropTypes.func.isRequired
   }
 
   updateOnProps = [
@@ -131,6 +135,10 @@ class Comment extends ImmutablePureComponent {
 
   handleOnOpenStatusOptions = () => {
     this.props.onOpenStatusOptions(this.moreNode, this.props.status)
+  }
+
+  handleToggleMediaVisibility = () => {
+    this.setState({ showMedia: !this.state.showMedia })
   }
 
   setMoreNode = (c) => {
@@ -208,7 +216,6 @@ class Comment extends ImmutablePureComponent {
                     visible={this.state.showMedia}
                     onToggleVisibility={this.handleToggleMediaVisibility}
                     width={this.props.cachedMediaWidth}
-                    onOpenVideo={this.handleOpenVideo}
                   />
                 </div>
               </div>
