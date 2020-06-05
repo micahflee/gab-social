@@ -1,10 +1,9 @@
 import { Fragment } from 'react'
+import throttle from 'lodash.throttle'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
 import { me } from '../initial_state'
-// import IntersectionObserverArticle from '../components/intersection_observer_article'
-// import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
 import PageTitle from '../features/ui/util/page_title'
 import GroupsPanel from '../components/panel/groups_panel'
 import ListsPanel from '../components/panel/lists_panel'
@@ -47,23 +46,37 @@ class HomePage extends PureComponent {
     isPro: PropTypes.bool,
   }
 
-  // intersectionObserverWrapper = new IntersectionObserverWrapper()
+  state = {
+    lazyLoaded: false,
+  }
 
-  // componentDidMount() {
-  //   this.attachIntersectionObserver()
-  // }
+  componentDidMount() {
+    this.window = window
+    this.documentElement = document.scrollingElement || document.documentElement
 
-  // componentWillUnmount() {
-  //   this.detachIntersectionObserver()
-  // }
+    this.window.addEventListener('scroll', this.handleScroll)
+  }
 
-  // attachIntersectionObserver() {
-  //   this.intersectionObserverWrapper.connect()
-  // }
+  componentWillUnmount() {
+    this.detachScrollListener()
+  }
 
-  // detachIntersectionObserver() {
-  //   this.intersectionObserverWrapper.disconnect()
-  // }
+  detachScrollListener = () => {
+    this.window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = throttle(() => {
+    if (this.window) {
+      const { scrollTop } = this.documentElement
+      
+      if (scrollTop > 25 && !this.state.lazyLoaded) {
+        this.setState({ lazyLoaded: true })
+        this.detachScrollListener()
+      }
+    }
+  }, 150, {
+    trailing: true,
+  })
 
   render() {
     const {
@@ -73,6 +86,7 @@ class HomePage extends PureComponent {
       onOpenHomePageSettingsModal,
       isPro,
     } = this.props
+    const { lazyLoaded } = this.state
 
     return (
       <DefaultLayout
@@ -89,9 +103,9 @@ class HomePage extends PureComponent {
             <ProgressPanel />
             <ProPanel isPro={isPro} />
             <TrendsPanel />
-            <ListsPanel />
-            <WhoToFollowPanel />
-            <GroupsPanel />
+            <ListsPanel isLazy shouldLoad={lazyLoaded} />
+            <WhoToFollowPanel isLazy shouldLoad={lazyLoaded} />
+            <GroupsPanel isLazy shouldLoad={lazyLoaded} />
             <LinkFooter />
           </Fragment>
         )}

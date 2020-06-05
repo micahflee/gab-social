@@ -21,6 +21,7 @@ export default class List extends ImmutablePureComponent {
     ]),
     onLoadMore: PropTypes.func,
     hasMore: PropTypes.bool,
+    showLoading: PropTypes.bool,
   }
 
   render() {
@@ -30,7 +31,8 @@ export default class List extends ImmutablePureComponent {
       emptyMessage,
       hasMore,
       size,
-      onLoadMore
+      onLoadMore,
+      showLoading,
     } = this.props
 
     const Wrapper = !!scrollKey ? ScrollableList : Dummy
@@ -42,6 +44,7 @@ export default class List extends ImmutablePureComponent {
           hasMore={hasMore}
           scrollKey={scrollKey}
           emptyMessage={emptyMessage}
+          showLoading={showLoading}
         >
           {
             items.map((item, i) => (

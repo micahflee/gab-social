@@ -24,10 +24,13 @@ export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class ListsPanel extends ImmutablePureComponent {
+
   static propTypes = {
     onFetchLists: PropTypes.func.isRequired,
     lists: ImmutablePropTypes.list,
     intl: PropTypes.object.isRequired,
+    isLazy: PropTypes.bool,
+    shouldLoad: PropTypes.bool,
   }
 
   state = {
@@ -36,21 +39,40 @@ class ListsPanel extends ImmutablePureComponent {
 
   updateOnProps = [
     'lists',
+    'isLazy',
+    'shouldLoad',
   ]
 
-  componentDidMount(prevProps, prevState, snapshot) {
-    this.props.onFetchLists()
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.shouldLoad && !prevState.fetched) {
+      return { fetched: true }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.fetched && this.state.fetched) {
+      this.props.onFetchLists()
+    }
+  }
+
+  componentDidMount() {
+    if (!this.props.isLazy) {
+      this.props.onFetchLists()
+      this.setState({ fetched: true })
+    }
   }
 
   render() {
     const { intl, lists } = this.props
-    const count = lists.count()
+    const { fetched } = this.state
 
-    if (count === 0) return null
+    const count = !!lists ? lists.count() : 0
 
     const maxCount = 6
 
-    const listItems = lists.slice(0, maxCount).map((list) => ({
+    const listItems = !!lists && lists.slice(0, maxCount).map((list) => ({
       to: `/lists/${list.get('id')}`,
       title: list.get('title'),
     }))
@@ -65,9 +87,14 @@ class ListsPanel extends ImmutablePureComponent {
         noPadding
       >
         <div className={[_s.default, _s.boxShadowNone].join(' ')}>
-          <List scrollKey='lists_sidebar_panel' items={listItems} />
+          <List
+            scrollKey='lists_sidebar_panel'
+            items={listItems}
+            showLoading={!fetched}
+          />
         </div>
       </PanelLayout>
     )
   }
+
 }

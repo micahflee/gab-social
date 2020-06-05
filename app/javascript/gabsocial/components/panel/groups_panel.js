@@ -30,6 +30,7 @@ class GroupSidebarPanel extends ImmutablePureComponent {
     isLazy: PropTypes.bool, 
     isSlim: PropTypes.bool,
     onFetchGroups: PropTypes.func.isRequired,
+    shouldLoad: PropTypes.bool,
   }
 
   state = {
@@ -40,37 +41,38 @@ class GroupSidebarPanel extends ImmutablePureComponent {
     'groupIds',
     'isLazy',
     'isSlim',
+    'shouldLoad',
   ]
 
-  componentDidMount() {
-    if (!this.props.isLazy) {
-      this.props.onFetchGroups('member')
-    }
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
-    if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
-      return {
-        fetched: true
-      }
+    if (nextProps.shouldLoad && !prevState.fetched) {
+      return { fetched: true }
     }
 
     return null
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!prevState.fetched && this.state.fetched && this.props.isLazy) {
+    if (!prevState.fetched && this.state.fetched) {
       this.props.onFetchGroups('member')
     }
   }
 
+  componentDidMount() {
+    if (!this.props.isLazy) {
+      this.props.onFetchGroups('member')
+      this.setState({ fetched: true })
+    }
+  }
+  
   render() {
     const { intl, groupIds, slim } = this.props
-    const count = groupIds.count()
+    const { fetched } = this.state
 
-    if (count === 0) return null
-
+    const count = !!groupIds ? groupIds.count() : 0
     const maxCount = slim ? 12 : 6
+
+    if (count === 0 && fetched) return null
 
     return (
       <PanelLayout
@@ -81,9 +83,12 @@ class GroupSidebarPanel extends ImmutablePureComponent {
         footerButtonTo={count > maxCount ? '/groups/browse/member' : undefined}
         noPadding={slim}
       >
-        <ScrollableList scrollKey='groups_panel'>
+        <ScrollableList
+          scrollKey='groups_panel'
+          showLoading={!fetched}
+        >
           {
-            groupIds.slice(0, maxCount).map((groupId, i) => (
+            groupIds && groupIds.slice(0, maxCount).map((groupId, i) => (
               <GroupListItem
                 key={`group-panel-item-${groupId}`}
                 id={groupId}

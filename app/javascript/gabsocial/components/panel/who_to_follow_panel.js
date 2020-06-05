@@ -30,14 +30,37 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     fetchSuggestions: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     suggestions: ImmutablePropTypes.list.isRequired,
+    isLazy: PropTypes.bool,
+  }
+
+  state = {
+    fetched: !this.props.isLazy,
   }
 
   updateOnProps = [
     'suggestions',
+    'isLazy',
+    'shouldLoad',
   ]
 
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.shouldLoad && !prevState.fetched) {
+      return { fetched: true }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.fetched && this.state.fetched) {
+      this.props.fetchSuggestions()
+    }
+  }
+
   componentDidMount() {
-    this.props.fetchSuggestions()
+    if (!this.props.isLazy) {
+      this.props.fetchSuggestions()
+    }
   }
 
   render() {
