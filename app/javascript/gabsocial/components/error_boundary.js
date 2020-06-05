@@ -134,7 +134,7 @@ export default class ErrorBoundary extends PureComponent {
                 <Text color='inherit'>
                   <FormattedMessage
                     id='errors.unexpected_crash.copy_stacktrace'
-                    defaultMessage='Copy stacktrace to clipboard'
+                    defaultMessage='Copy error to clipboard'
                   />
                 </Text>
               </Button>
