@@ -1,11 +1,8 @@
 import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import IntersectionObserverArticle from './intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
-import Responsive from '../features/ui/util/responsive_component'
 import Block from './block'
-import Icon from './icon'
 import ColumnIndicator from './column_indicator'
 import LoadMore from './load_more'
 
