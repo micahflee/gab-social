@@ -240,12 +240,12 @@ class ProfileOptionsPopover extends PureComponent {
       onClick: this.handleAddToList
     })
 
-    menu.push({
-      hideArrow: true,
-      icon: 'circle',
-      title: intl.formatMessage(messages.add_or_remove_from_shortcuts),
-      onClick: this.handleAddToShortcuts
-    })
+    // menu.push({
+    //   hideArrow: true,
+    //   icon: 'circle',
+    //   title: intl.formatMessage(messages.add_or_remove_from_shortcuts),
+    //   onClick: this.handleAddToShortcuts
+    // })
 
     if (isStaff) {
       menu.push({
