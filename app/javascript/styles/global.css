@@ -875,6 +875,12 @@ body {
   user-select: none;
 }
 
+:global(.ellipsis):after {
+  display: inline;
+  content: '…';
+  position: relative;
+}
+
 /* .videoPlayerVolume:before {
   content: '';
   display: block;

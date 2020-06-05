@@ -305,11 +305,11 @@ class Formatter
   def link_html(url)
     url    = Addressable::URI.parse(url).to_s
     prefix = url.match(/\Ahttps?:\/\/(www\.)?/).to_s
-    text   = url[prefix.length, 30]
-    suffix = url[prefix.length + 30..-1]
-    cutoff = url[prefix.length..-1].length > 30
+    text   = url[prefix.length, 45]
+    suffix = url[prefix.length + 45..-1]
+    cutoff = url[prefix.length..-1].length > 45
 
-    "<span aria-hidden=\"true\" class=\"invisible\">#{encode(prefix)}</span>#{encode(text)}<span aria-hidden=\"true\" class=\"invisible\">#{encode(suffix)}</span>" + (cutoff ? "<span aria-hidden=\"true\" class=\"ellipsis\">…</span>" : "")
+    "<span aria-hidden=\"true\" class=\"invisible\">#{encode(prefix)}</span>#{encode(text)}<span aria-hidden=\"true\" class=\"invisible\">#{encode(suffix)}</span>" + (cutoff ? "<span aria-hidden=\"true\" class=\"ellipsis\"></span>" : "")
   end
 
   def hashtag_html(tag)
