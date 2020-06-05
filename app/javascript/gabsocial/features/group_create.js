@@ -10,6 +10,7 @@ import {
 	setGroup,
 	resetEditor,
 } from '../actions/group_editor'
+import { closeModal } from '../actions/modal'
 import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Divider from '../components/divider'
@@ -60,7 +61,10 @@ const mapDispatchToProps = (dispatch) => ({
 	onSetGroup: (group) => {
 		dispatch(setGroup(group))
 	},
-	onSubmit: (routerHistory) => dispatch(submit(routerHistory)),
+	onSubmit: (routerHistory) => {
+		dispatch(submit(routerHistory))
+		dispatch(closeModal())
+	},
 })
 
 export default
