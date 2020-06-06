@@ -262,7 +262,7 @@ class NavigationBarButton extends PureComponent {
       <Button
         to={to}
         href={href}
-        attrTitle={attrTitle}
+        title={attrTitle}
         className={classes}
         noClasses
       >
