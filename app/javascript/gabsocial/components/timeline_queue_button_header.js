@@ -88,15 +88,24 @@ export default class TimelineQueueButtonHeader extends PureComponent {
 
     const hasItems = count > 0
 
-    const classes = cx({
+    const containerClasses = cx({
       default: 1,
-      displayNone: (!hasItems || hidden),
+      pb5: 1,
+      posSticky: !hidden,
+      top120PX: !hidden,
+      alignItemsCenter: 1,
+      z3: 1,
+    })
+
+    const innerContainerClasses = cx({
+      default: 1,
+      displayNone: !hasItems,
       mtNeg26PX: 1,
     })
 
     return (
-      <div className={[_s.default, _s.pb5, _s.posSticky, _s.top120PX, _s.alignItemsCenter, _s.z3].join(' ')}>
-        <div className={classes}>
+      <div className={containerClasses}>
+        <div className={innerContainerClasses}>
           <Button
             isNarrow
             color='white'
@@ -104,7 +113,7 @@ export default class TimelineQueueButtonHeader extends PureComponent {
             onClick={this.handleOnClick}
           >
             {
-              hasItems && !hidden && 
+              hasItems && 
               <Text color='inherit' size='small'>
                 <FormattedMessage
                   id='timeline_queue.label'
