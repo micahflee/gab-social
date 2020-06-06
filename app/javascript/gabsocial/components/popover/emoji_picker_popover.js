@@ -35,7 +35,7 @@ const messages = defineMessages({
 const assetHost = process.env.CDN_HOST || ''
 let EmojiPicker, Emoji // load asynchronously
 
-const backgroundImageFn = () => `${assetHost}/emoji/sheet_1.png`
+const backgroundImageFn = () => `${assetHost}/emoji/sheet_32.png`
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 const perLine = 8
@@ -192,7 +192,7 @@ class EmojiPickerMenu extends ImmutablePureComponent {
         recent={frequentlyUsedEmojis}
         skin={skinTone}
         perLine={8}
-        emojiSize={22}
+        emojiSize={29}
         sheetSize={32}
         set='twitter'
         color='#30CE7D'
