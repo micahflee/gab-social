@@ -341,15 +341,15 @@ class Status < ApplicationRecord
       end
     end
 
-    def as_public_timeline(account = nil, local_only = false)
-      query = timeline_scope(local_only).without_replies.where('statuses.updated_at > ?', 30.minutes.ago)
-      apply_timeline_filters(query, account, local_only)
+    def as_public_timeline(account = nil)
+      query = timeline_scope.without_replies.where('statuses.updated_at > ?', 30.minutes.ago)
+      apply_timeline_filters(query, account)
     end
 
-    def as_tag_timeline(tag, account = nil, local_only = true)
-      query = timeline_scope(local_only).tagged_with(tag).without_replies
+    def as_tag_timeline(tag, account = nil)
+      query = timeline_scope.tagged_with(tag).without_replies
 
-      apply_timeline_filters(query, account, local_only)
+      apply_timeline_filters(query, account)
     end
 
     def as_outbox_timeline(account)
@@ -416,24 +416,22 @@ class Status < ApplicationRecord
 
     private
 
-    def timeline_scope(local_only = false)
-      starting_scope = local_only ? Status.local : Status
-      starting_scope
+    def timeline_scope
+      Status.local
         .with_public_visibility
         .without_reblogs
     end
 
-    def apply_timeline_filters(query, account, local_only)
+    def apply_timeline_filters(query, account)
       if account.nil?
         filter_timeline_default(query)
       else
-        filter_timeline_for_account(query, account, local_only)
+        filter_timeline_for_account(query, account)
       end
     end
 
-    def filter_timeline_for_account(query, account, local_only)
+    def filter_timeline_for_account(query, account)
       query = query.not_excluded_by_account(account)
-      query = query.not_domain_blocked_by_account(account) unless local_only
       query = query.in_chosen_languages(account) if account.chosen_languages.present?
       query.merge(account_silencing_filter(account))
     end
