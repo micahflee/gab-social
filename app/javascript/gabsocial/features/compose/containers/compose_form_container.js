@@ -86,8 +86,8 @@ const mapStateToProps = (state, { replyToId, isStandalone }) => {
 
 const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId, isStandalone }) => ({
 
-  onChange(text, markdown, newReplyToId) {
-    dispatch(changeCompose(text, markdown, newReplyToId, isStandalone))
+  onChange(text, markdown, newReplyToId, position) {
+    dispatch(changeCompose(text, markdown, newReplyToId, isStandalone, position))
   },
 
   onSubmit(group, replyToId, router) {

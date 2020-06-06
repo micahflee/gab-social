@@ -93,7 +93,13 @@ class ComposeForm extends ImmutablePureComponent {
   };
 
   handleChange = (e, markdown) => {
-    this.props.onChange(e.target.value, markdown, this.props.replyToId)
+    let position = null
+    try {
+      position = this.autosuggestTextarea.textbox.selectionStart 
+    } catch (error) {
+      //
+    }
+    this.props.onChange(e.target.value, markdown, this.props.replyToId, position)
   }
 
   handleComposeFocus = () => {
@@ -131,11 +137,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleSubmit = () => {
-    // if (this.props.text !== this.autosuggestTextarea.textbox.value) {
-    //   // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
-    //   // Update the state to match the current text
-    //   this.props.onChange(this.autosuggestTextarea.textbox.value);
-    // }
+    if (this.props.text !== this.autosuggestTextarea.textbox.value) {
+      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+      // Update the state to match the current text
+      this.props.onChange(this.autosuggestTextarea.textbox.value);
+    }
 
     // Submit disabled:
     const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
@@ -198,8 +204,8 @@ class ComposeForm extends ImmutablePureComponent {
         selectionStart = selectionEnd;
       }
 
-      // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
-      // this.autosuggestTextarea.textbox.focus();
+      this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
+      this.autosuggestTextarea.textbox.focus();
     }
   }
 
@@ -318,7 +324,6 @@ class ComposeForm extends ImmutablePureComponent {
                     onPaste={onPaste}
                     autoFocus={shouldAutoFocus}
                     small={shouldCondense}
-                    textarea
                   />
 
                   <div className={actionsContainerClasses}>
@@ -409,7 +414,6 @@ class ComposeForm extends ImmutablePureComponent {
                   onPaste={onPaste}
                   autoFocus={shouldAutoFocus}
                   small={shouldCondense}
-                  textarea
                 />
 
                 {
@@ -456,7 +460,7 @@ class ComposeForm extends ImmutablePureComponent {
                 <div className={actionsContainerClasses}>
                   <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
 
-                    { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */ }
+                    <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
 
                     <UploadButton small={shouldCondense} />
                     { /* <GifSelectorButton small={shouldCondense} /> */}

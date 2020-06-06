@@ -35,7 +35,7 @@ const messages = defineMessages({
 const assetHost = process.env.CDN_HOST || ''
 let EmojiPicker, Emoji // load asynchronously
 
-const backgroundImageFn = () => `${assetHost}/emoji/sheet.png`
+const backgroundImageFn = () => `${assetHost}/emoji/sheet_1.png`
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
 const perLine = 8
@@ -223,7 +223,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   onPickEmoji: (emoji) => {
     dispatch(useEmoji(emoji))
-    dispatch(insertEmojiCompose(0, emoji, false))
+    dispatch(insertEmojiCompose(emoji, false))
   },
 })
 

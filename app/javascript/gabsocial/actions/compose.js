@@ -81,7 +81,7 @@ export const ensureComposeIsVisible = (getState, routerHistory) => {
   }
 };
 
-export function changeCompose(text, markdown, replyId, isStandalone) {
+export function changeCompose(text, markdown, replyId, isStandalone, caretPosition) {
   return function (dispatch, getState) {
     const reduxReplyToId = getState().getIn(['compose', 'in_reply_to'])
     const existingText = getState().getIn(['compose', 'text']).trim()
@@ -105,6 +105,7 @@ export function changeCompose(text, markdown, replyId, isStandalone) {
           type: COMPOSE_CHANGE,
           text: text,
           markdown: markdown,
+          caretPosition: caretPosition,
         })
       } else if (existingText.length > 0 && text.trim().length > 0) {
         dispatch(openModal('CONFIRM', {
@@ -119,6 +120,7 @@ export function changeCompose(text, markdown, replyId, isStandalone) {
               type: COMPOSE_CHANGE,
               text: text,
               markdown: markdown,
+              caretPosition: caretPosition,
             })
           }
         }))
@@ -136,6 +138,7 @@ export function changeCompose(text, markdown, replyId, isStandalone) {
           type: COMPOSE_CHANGE,
           text: text,
           markdown: markdown,
+          caretPosition: caretPosition,
         })
       } else if (existingText.length > 0 && text.trim().length > 0) {
         dispatch(openModal('CONFIRM', {
@@ -149,6 +152,7 @@ export function changeCompose(text, markdown, replyId, isStandalone) {
               type: COMPOSE_CHANGE,
               text: text,
               markdown: markdown,
+              caretPosition: caretPosition,
             })
           },
         }))    
@@ -160,6 +164,7 @@ export function changeCompose(text, markdown, replyId, isStandalone) {
         type: COMPOSE_CHANGE,
         text: text,
         markdown: markdown,
+        caretPosition: caretPosition,
       })
     }
   }
@@ -642,10 +647,9 @@ export function changeComposeVisibility(value) {
   };
 };
 
-export function insertEmojiCompose(position, emoji, needsSpace) {
+export function insertEmojiCompose(emoji, needsSpace) {
   return {
     type: COMPOSE_EMOJI_INSERT,
-    position,
     emoji,
     needsSpace,
   };

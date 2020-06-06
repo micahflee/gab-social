@@ -169,14 +169,13 @@ const updateSuggestionTags = (state, token) => {
   });
 };
 
-const insertEmoji = (state, position, emojiData, needsSpace) => {
-  const oldText = state.get('text')
-  const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native
-  const text = `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`
-  // console.log("insertEmoji reducer:", emoji, position, emojiData, needsSpace, text)
+const insertEmoji = (state, emojiData, needsSpace) => {
+  const position = state.get('caretPosition')
+  const oldText = state.get('text');
+  const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native;
 
   return state.merge({
-    text,
+    text: `${oldText.slice(0, position)}${emoji} ${oldText.slice(position)}`,
     focusDate: new Date(),
     caretPosition: position + emoji.length + 1,
     idempotencyKey: uuid(),
@@ -254,6 +253,7 @@ export default function compose(state = initialState, action) {
       map.set('text', action.text)
       map.set('markdown', action.markdown)
       map.set('idempotencyKey', uuid())
+      map.set('caretPosition', action.caretPosition)
       if (action.replyId) {
         map.set('in_reply_to', action.replyId)
       }
@@ -345,7 +345,7 @@ export default function compose(state = initialState, action) {
       return state;
     }
   case COMPOSE_EMOJI_INSERT:
-    return insertEmoji(state, action.position, action.emoji, action.needsSpace);
+    return insertEmoji(state, action.emoji, action.needsSpace);
   case COMPOSE_UPLOAD_CHANGE_SUCCESS:
     return state
       .set('is_changing_upload', false)

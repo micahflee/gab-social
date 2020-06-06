@@ -255,61 +255,27 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       justifyContentCenter: small,
     })
 
-    if (textarea) {
-      return (
-        <Fragment>
-          <div className={textareaContainerClasses}>
-            <Textarea
-              inputRef={this.setTextbox}
-              className={textareaClasses}
-              disabled={disabled}
-              placeholder={placeholder}
-              autoFocus={false}
-              value={value}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-              onKeyUp={onKeyUp}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              onPaste={this.onPaste}
-              aria-autocomplete='list'
-            />
-
-            {/*<Composer
-              inputRef={this.setTextbox}
-              disabled={disabled}
-              placeholder={placeholder}
-              autoFocus={autoFocus}
-              value={value}
-              onChange={this.onChange}
-              onKeyDown={this.onKeyDown}
-              onKeyUp={onKeyUp}
-              onFocus={this.onFocus}
-              onBlur={this.onBlur}
-              onPaste={this.onPaste}
-              small={small}
-            />*/}
-
-            {children}
-          </div>
-          { /* : todo :  put in popover */ }
-          <div className='autosuggest-textarea__suggestions-wrapper'>
-            <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
-              {suggestions.map(this.renderSuggestion)}
-            </div>
-          </div>
-        </Fragment>
-      )
-    }
-
     return (
-      <div className={[_s.default, _s.flexGrow1].join(' ')}>
-        <label className={[_s.default].join(' ')}>
-          <span style={{ display: 'none' }}>{placeholder}</span>
+      <Fragment>
+        <div className={textareaContainerClasses}>
+          <Textarea
+            inputRef={this.setTextbox}
+            className={textareaClasses}
+            disabled={disabled}
+            placeholder={placeholder}
+            autoFocus={false}
+            value={value}
+            onChange={this.onChange}
+            onKeyDown={this.onKeyDown}
+            onKeyUp={onKeyUp}
+            onFocus={this.onFocus}
+            onBlur={this.onBlur}
+            onPaste={this.onPaste}
+            aria-autocomplete='list'
+          />
 
-          <Input
-            type='text'
-            ref={this.setTextbox}
+          {/*<Composer
+            inputRef={this.setTextbox}
             disabled={disabled}
             placeholder={placeholder}
             autoFocus={autoFocus}
@@ -319,20 +285,21 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             onKeyUp={onKeyUp}
             onFocus={this.onFocus}
             onBlur={this.onBlur}
-            style={style}
-            aria-autocomplete='list'
-            id={id}
-            className={className}
-            maxLength={maxLength}
-            prependIcon={prependIcon}
-          />
-        </label>
+            onPaste={this.onPaste}
+            small={small}
+          />*/}
 
-        <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
-          {suggestions.map(this.renderSuggestion)}
+          {children}
         </div>
-      </div>
-    );
+
+        { /* : todo :  put in popover */ }
+        <div className='autosuggest-textarea__suggestions-wrapper'>
+          <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
+            {suggestions.map(this.renderSuggestion)}
+          </div>
+        </div>
+      </Fragment>
+    )
   }
 
 }
