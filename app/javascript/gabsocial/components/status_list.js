@@ -106,13 +106,20 @@ class StatusList extends ImmutablePureComponent {
   }
 
   state = {
+    refreshing: false,
     fetchedContext: false,
   }
 
   componentDidMount() {
     this.handleDequeueTimeline();
     this.fetchPromotedStatus();
-  };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.refreshing) {
+      this.setState({ refreshing: false })
+    }
+  }
 
   fetchPromotedStatus() {
     const { promotion, promotedStatus, fetchStatus } = this.props;
@@ -157,9 +164,13 @@ class StatusList extends ImmutablePureComponent {
     this.props.onLoadMore(this.props.statusIds.size > 0 ? this.props.statusIds.last() : undefined)
   }, 300, { leading: true })
 
-  handleReload = debounce(() => {
-    this.props.onLoadMore()
-  }, 300, { leading: true })
+  handleOnReload = debounce(() => {
+    // Only pull to refresh on home timeline for now
+    if (this.props.scrollKey === 'home_timeline' && !this.state.refreshing) {
+      this.props.onLoadMore()
+      this.setState({ refreshing: true })
+    }
+  }, 300, { trailing: true })
 
   _selectChild(index, align_top) {
     const container = this.node.node;
@@ -200,7 +211,7 @@ class StatusList extends ImmutablePureComponent {
       promotedStatus,
       ...other
     } = this.props
-    const { fetchedContext } = this.state
+    const { fetchedContext, refreshing } = this.state
 
     if (isPartial) {
       return <ColumnIndicator type='loading' />
@@ -262,8 +273,9 @@ class StatusList extends ImmutablePureComponent {
         <ScrollableList
           ref={this.setRef}
           isLoading={isLoading}
-          showLoading={isLoading && statusIds.size === 0}
+          showLoading={(isLoading && statusIds.size === 0) || refreshing}
           onLoadMore={onLoadMore && this.handleLoadOlder}
+          onReload={this.handleOnReload}
           {...other}
         >
           {scrollableContent}

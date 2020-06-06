@@ -31,6 +31,7 @@ export default class ScrollableList extends PureComponent {
   }
 
   state = {
+    pullToRefreshTriggered: false,
     cachedMediaWidth: 250, // Default media/card width using default Gab Social theme
   }
 
@@ -126,8 +127,11 @@ export default class ScrollableList extends PureComponent {
       const { innerHeight } = this.window;
       const offset = scrollHeight - scrollTop - innerHeight;
 
-      if (scrollTop < -60 && this.props.onReload) {
-        // reload
+      if (scrollTop < -80 && this.props.onReload && !this.state.pullToRefreshTriggered) {
+        this.setState({ pullToRefreshTriggered: true })
+      } else if (scrollTop > -10 && this.props.onReload && this.state.pullToRefreshTriggered) {
+        this.props.onReload()
+        this.setState({ pullToRefreshTriggered: false })
       }
 
       if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
