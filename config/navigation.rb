@@ -9,7 +9,6 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     n.item :preferences, safe_join([fa_icon('cog fw'), t('settings.preferences')]), settings_preferences_url, highlights_on: %r{/settings/preferences|/settings/notifications}
-    n.item :relationships, safe_join([fa_icon('users fw'), t('settings.relationships')]), relationships_url
     n.item :filters, safe_join([fa_icon('filter fw'), t('filters.index.title')]), filters_path, highlights_on: %r{/filters}
 
     n.item :security, safe_join([fa_icon('lock fw'), t('settings.account')]), edit_user_registration_url do |s|
@@ -24,16 +23,10 @@ SimpleNavigation::Configuration.run do |navigation|
 
     n.item :requests, safe_join([fa_icon('id-card-o fw'), t('verifications.requests.title')]), settings_verifications_requests_url
 
-    n.item :billing, safe_join([fa_icon('usd fw'), t('settings.billing')]), settings_billing_transactions_url do |s|
-      s.item :transactions, safe_join([fa_icon('bars fw'), t('settings.transactions')]), settings_billing_transactions_url
-      s.item :upgrade, safe_join([fa_icon('usd fw'), t('settings.upgrade')]), 'https://pro.gab.com'
-    end
-
     n.item :data, safe_join([fa_icon('cloud-download fw'), t('settings.import_and_export')]), settings_export_url do |s|
       s.item :export, safe_join([fa_icon('cloud-download fw'), t('settings.export')]), settings_export_url
     end
 
-    n.item :invites, safe_join([fa_icon('user-plus fw'), t('invites.title')]), invites_path, if: proc { Setting.min_invite_role == 'user' }
     n.item :development, safe_join([fa_icon('code fw'), t('settings.development')]), settings_applications_url
 
     n.item :moderation, safe_join([fa_icon('gavel fw'), t('moderation.title')]), admin_reports_url, if: proc { current_user.staff? } do |s|

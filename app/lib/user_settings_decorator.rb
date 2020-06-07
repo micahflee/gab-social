@@ -26,14 +26,11 @@ class UserSettingsDecorator
     user.settings['auto_play_gif']       = auto_play_gif_preference if change?('setting_auto_play_gif')
     user.settings['display_media']       = display_media_preference if change?('setting_display_media')
     user.settings['expand_spoilers']     = expand_spoilers_preference if change?('setting_expand_spoilers')
-    user.settings['reduce_motion']       = reduce_motion_preference if change?('setting_reduce_motion')
-    user.settings['system_font_ui']      = system_font_ui_preference if change?('setting_system_font_ui')
     user.settings['noindex']             = noindex_preference if change?('setting_noindex')
     user.settings['theme']               = theme_preference if change?('setting_theme')
     user.settings['hide_network']        = hide_network_preference if change?('setting_hide_network')
     user.settings['aggregate_reblogs']   = aggregate_reblogs_preference if change?('setting_aggregate_reblogs')
     user.settings['show_application']    = show_application_preference if change?('setting_show_application')
-    user.settings['advanced_layout']     = advanced_layout_preference if change?('setting_advanced_layout')
     user.settings['group_in_home_feed']  = group_in_home_feed_preference if change?('setting_group_in_home_feed')
   end
 
@@ -65,10 +62,6 @@ class UserSettingsDecorator
     boolean_cast_setting 'setting_delete_modal'
   end
 
-  def system_font_ui_preference
-    boolean_cast_setting 'setting_system_font_ui'
-  end
-
   def auto_play_gif_preference
     boolean_cast_setting 'setting_auto_play_gif'
   end
@@ -79,10 +72,6 @@ class UserSettingsDecorator
 
   def expand_spoilers_preference
     boolean_cast_setting 'setting_expand_spoilers'
-  end
-
-  def reduce_motion_preference
-    boolean_cast_setting 'setting_reduce_motion'
   end
 
   def noindex_preference
@@ -107,10 +96,6 @@ class UserSettingsDecorator
 
   def aggregate_reblogs_preference
     boolean_cast_setting 'setting_aggregate_reblogs'
-  end
-
-  def advanced_layout_preference
-    boolean_cast_setting 'setting_advanced_layout'
   end
 
   def group_in_home_feed_preference

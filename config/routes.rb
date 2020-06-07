@@ -141,9 +141,9 @@ Rails.application.routes.draw do
   end
 
   resources :emojis, only: [:show]
-  resources :invites, only: [:index, :create, :destroy]
+  # resources :invites, only: [:index, :create, :destroy]
   resources :filters, except: [:show]
-  resource :relationships, only: [:show, :update]
+  # resource :relationships, only: [:show, :update]
 
   get '/public', to: redirect('/home'), as: :public_timeline # homehack
   get '/media_proxy/:id/(*any)', to: 'media_proxy#show', as: :media_proxy

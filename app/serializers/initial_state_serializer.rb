@@ -32,8 +32,6 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:auto_play_gif]      = object.current_account.user.setting_auto_play_gif
       store[:display_media]      = object.current_account.user.setting_display_media
       store[:expand_spoilers]    = object.current_account.user.setting_expand_spoilers
-      store[:reduce_motion]      = object.current_account.user.setting_reduce_motion
-      store[:advanced_layout]    = object.current_account.user.setting_advanced_layout
       store[:group_in_home_feed] = object.current_account.user.setting_group_in_home_feed
       store[:is_staff]           = object.current_account.user.staff?
       store[:unread_count]       = unread_count object.current_account
