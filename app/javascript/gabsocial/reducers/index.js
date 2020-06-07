@@ -6,7 +6,6 @@ import compose from './compose'
 import contexts from './contexts'
 import conversations from './conversations'
 import custom_emojis from './custom_emojis'
-import domain_lists from './domain_lists'
 import filters from './filters'
 import gab_trends from './gab_trends'
 import groups from './groups'
@@ -47,7 +46,6 @@ const reducers = {
   contexts,
   conversations,
   custom_emojis,
-  domain_lists,
   filters,
   gab_trends,
   groups,

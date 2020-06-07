@@ -7,7 +7,6 @@ import BundleModalError from '../bundle_modal_error'
 import {
   MODAL_ACTIONS,
   MODAL_BLOCK_ACCOUNT,
-  MODAL_BLOCK_DOMAIN,
   MODAL_BOOST,
   MODAL_COMMUNITY_TIMELINE_SETTINGS,
   MODAL_COMPOSE,
@@ -41,7 +40,6 @@ import {
 import {
   ActionsModal,
   BlockAccountModal,
-  BlockDomainModal,
   BoostModal,
   CommunityTimelineSettingsModal,
   ComposeModal,
@@ -76,7 +74,6 @@ import {
 const MODAL_COMPONENTS = {}
 MODAL_COMPONENTS[MODAL_ACTIONS] = ActionsModal
 MODAL_COMPONENTS[MODAL_BLOCK_ACCOUNT] = BlockAccountModal
-MODAL_COMPONENTS[MODAL_BLOCK_DOMAIN] = BlockDomainModal
 MODAL_COMPONENTS[MODAL_BOOST] = BoostModal
 MODAL_COMPONENTS[MODAL_COMMUNITY_TIMELINE_SETTINGS] = CommunityTimelineSettingsModal
 MODAL_COMPONENTS[MODAL_COMPOSE] = ComposeModal
@@ -109,7 +106,6 @@ MODAL_COMPONENTS[MODAL_VIDEO] = VideoModal
 
 const CENTERED_XS_MODALS = [
   MODAL_BLOCK_ACCOUNT,
-  MODAL_BLOCK_DOMAIN,
   MODAL_CONFIRM,
   MODAL_GROUP_DELETE,
   MODAL_LIST_DELETE,

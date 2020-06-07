@@ -15,7 +15,6 @@ import { muteAccount } from '../../actions/accounts'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
-import { blockDomain, unblockDomain } from '../../actions/domain_blocks'
 import { unfollowModal, autoPlayGif, me, isStaff } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import PopoverLayout from './popover_layout'
@@ -24,7 +23,6 @@ import List from '../list'
 
 const messages = defineMessages({
   unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
-  blockDomainConfirm: { id: 'confirmations.domain_block.confirm', defaultMessage: 'Block entire domain' },
   blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -40,20 +38,16 @@ const messages = defineMessages({
   report: { id: 'account.report', defaultMessage: 'Report @{name}' },
   share: { id: 'account.share', defaultMessage: 'Share @{name}\'s profile' },
   media: { id: 'account.media', defaultMessage: 'Media' },
-  blockDomain: { id: 'account.block_domain', defaultMessage: 'Block domain {domain}' },
-  unblockDomain: { id: 'account.unblock_domain', defaultMessage: 'Unblock domain {domain}' },
   hideReposts: { id: 'account.hide_reblogs', defaultMessage: 'Hide reposts from @{name}' },
   showReposts: { id: 'account.show_reblogs', defaultMessage: 'Show reposts from @{name}' },
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Blocked domains' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   admin_account: { id: 'admin_account', defaultMessage: 'Open moderation interface' },
   add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
   add_or_remove_from_shortcuts: { id: 'account.add_or_remove_from_shortcuts', defaultMessage: 'Add or Remove from shortcuts' },
   accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
-  domainBlocked: { id: 'account.domain_blocked', defaultMessage: 'Domain hidden' },
 });
 
 const makeMapStateToProps = () => {
@@ -61,7 +55,6 @@ const makeMapStateToProps = () => {
 
   const mapStateToProps = (state, { account }) => ({
     account: getAccount(state, !!account ? account.get('id') : -1),
-    domain: state.getIn(['meta', 'domain']),
   });
 
   return mapStateToProps;
@@ -125,18 +118,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
-  onBlockDomain(domain) {
-    dispatch(closePopover())
-    dispatch(openModal('BLOCK_DOMAIN', {
-      domain,
-    }));
-  },
-
-  onUnblockDomain(domain) {
-    dispatch(closePopover())
-    dispatch(unblockDomain(domain));
-  },
-
   onAddToList(account) {
     dispatch(closePopover())
     dispatch(openModal('LIST_ADDER', {
@@ -157,7 +138,7 @@ class ProfileOptionsPopover extends PureComponent {
   }
 
   makeMenu() {
-    const { account, intl, domain } = this.props;
+    const { account, intl } = this.props;
 
     let menu = [];
 
@@ -219,20 +200,6 @@ class ProfileOptionsPopover extends PureComponent {
       onClick: this.handleReport
     })
 
-    if (account.get('acct') !== account.get('username')) {
-      const domain = account.get('acct').split('@')[1];
-
-      const isBlockingDomain = account.getIn(['relationship', 'domain_blocking'])
-      menu.push({
-        hideArrow: true,
-        icon: 'block',
-        title: intl.formatMessage(isBlockingDomain ? messages.unblockDomain : messages.blockDomain, {
-          domain,
-        }),
-        onClick: isBlockingDomain ? this.handleUnblockDomain : this.handleBlockDomain,
-      })
-    }
-
     menu.push({
       hideArrow: true,
       icon: 'list',
@@ -285,24 +252,6 @@ class ProfileOptionsPopover extends PureComponent {
 
   handleMute = () => {
     this.props.onMute(this.props.account);
-  }
-
-  handleBlockDomain = () => {
-    const domain = this.props.account.get('acct').split('@')[1]
-
-    // : todo : alert
-    if (!domain) return
-
-    this.props.onBlockDomain(domain)
-  }
-
-  handleUnblockDomain = () => {
-    const domain = this.props.account.get('acct').split('@')[1];
-
-    // : todo : alert
-    if (!domain) return;
-
-    this.props.onUnblockDomain(domain);
   }
 
   handleAddToList = () => {

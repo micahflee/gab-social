@@ -26,7 +26,6 @@ const messages = defineMessages({
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  domain_blocks: { id: 'navigation_bar.domain_blocks', defaultMessage: 'Hidden domains' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
   logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
@@ -154,12 +153,6 @@ class SidebarXS extends ImmutablePureComponent {
       //   to: '/blocks',
       //   onClick: this.handleSidebarClose,
       //   title: intl.formatMessage(messages.blocks),
-      // },
-      // {
-      //   icon: 'website',
-      //   to: '/settings/domain_blocks',
-      //   onClick: this.handleSidebarClose,
-      //   title: intl.formatMessage(messages.domain_blocks),
       // },
       // {
       //   icon: 'audio-mute',
