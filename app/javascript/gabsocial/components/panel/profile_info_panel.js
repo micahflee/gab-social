@@ -18,21 +18,11 @@ const messages = defineMessages({
   memberSince: { id: 'account.member_since', defaultMessage: 'Member since {date}' },
 })
 
-const mapStateToProps = (state, { account }) => {
-  const identityProofs = !!account ? state.getIn(['identity_proofs', account.get('id')], ImmutableList()) : ImmutableList()
-  return {
-    identityProofs,
-    domain: state.getIn(['meta', 'domain']),
-  }
-}
-
 export default
-@connect(mapStateToProps, null)
 @injectIntl
 class ProfileInfoPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    identityProofs: ImmutablePropTypes.list,
     account: ImmutablePropTypes.map,
     noPanel: PropTypes.bool,
     intl: PropTypes.object.isRequired,
@@ -42,7 +32,6 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     const {
       intl,
       account,
-      identityProofs,
       noPanel
     } = this.props
 
@@ -112,35 +101,9 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             </Fragment>
           }
 
-          {(fields.size > 0 || identityProofs.size > 0) && (
+          {
+            fields.size > 0 && 
             <div className={[_s.default]}>
-              {identityProofs.map((proof, i) => (
-                <Fragment>
-                  <Divider isSmall />
-                  <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-identity-proof-${i}`}>
-                    <dt
-                      className={_s.dangerousContent}
-                      dangerouslySetInnerHTML={{ __html: proof.get('provider') }}
-                    />
-
-                    { /* : todo : */}
-                    <dd className='verified'>
-                      <a href={proof.get('proof_url')} target='_blank' rel={DEFAULT_REL}>
-                        <span title={intl.formatMessage(messages.linkVerifiedOn, { date: intl.formatDate(proof.get('updated_at'), dateFormatOptions) })}>
-                          <Icon id='check' size='12px' className='verified__mark' />
-                        </span>
-                      </a>
-                      <a href={proof.get('profile_url')} target='_blank' rel={DEFAULT_REL}>
-                        <span
-                          className={_s.dangerousContent}
-                          dangerouslySetInnerHTML={{ __html: ' ' + proof.get('provider_username') }}
-                        />
-                      </a>
-                    </dd>
-                  </dl>
-                </Fragment>
-              ))}
-
               {
                 fields.map((pair, i) => (
                   <Fragment>
@@ -160,9 +123,8 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                   </Fragment>
                 ))
               }
-
             </div>
-          )}
+          }
 
         </div>
       </Wrapper>

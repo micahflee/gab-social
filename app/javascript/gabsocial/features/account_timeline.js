@@ -3,7 +3,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { List as ImmutableList } from 'immutable'
 import { injectIntl, defineMessages } from 'react-intl'
 import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../actions/timelines'
-import { fetchAccountIdentityProofs } from '../actions/identity_proofs'
 import StatusList from '../components/status_list'
 
 const messages = defineMessages({
@@ -46,8 +45,6 @@ class AccountTimeline extends ImmutablePureComponent {
     const { accountId, commentsOnly } = this.props
 
     if (accountId && accountId !== -1) {
-      this.props.dispatch(fetchAccountIdentityProofs(accountId))
-
       if (!commentsOnly) {
         this.props.dispatch(expandAccountFeaturedTimeline(accountId))
       }
@@ -58,8 +55,6 @@ class AccountTimeline extends ImmutablePureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId) || nextProps.commentsOnly !== this.props.commentsOnly) {
-      this.props.dispatch(fetchAccountIdentityProofs(nextProps.accountId))
-
       if (!nextProps.commentsOnly) {
         this.props.dispatch(expandAccountFeaturedTimeline(nextProps.accountId))
       }

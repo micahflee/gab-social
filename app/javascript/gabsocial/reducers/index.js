@@ -14,7 +14,6 @@ import group_lists from './group_lists'
 import group_relationships from './group_relationships'
 import hashtags from './hashtags'
 import height_cache from './height_cache'
-import identity_proofs from './identity_proofs'
 import lists from './lists'
 import listAdder from './list_adder'
 import listEditor from './list_editor'
@@ -54,7 +53,6 @@ const reducers = {
   group_relationships,
   hashtags,
   height_cache,
-  identity_proofs,
   lists,
   listAdder,
   listEditor,
