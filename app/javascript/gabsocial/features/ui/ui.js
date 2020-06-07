@@ -173,6 +173,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/lists/:id' page={ListPage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' exact page={NotificationsPage} component={Notifications} content={children} />
+        <WrappedRoute path='/notifications/follow_requests' exact page={NotificationsPage} component={FollowRequests} content={children} />
 
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/people' exact publicRoute page={SearchPage} component={Search} content={children} />
