@@ -1,6 +1,7 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { setFilter } from '../actions/notifications'
+import { me } from '../initial_state'
 import { NOTIFICATION_FILTERS } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
@@ -23,6 +24,7 @@ const messages = defineMessages({
 const mapStateToProps = (state) => ({
   selectedFilter: state.getIn(['notifications', 'filter', 'active']),
   notificationCount: state.getIn(['notifications', 'unread']),
+  locked: !!state.getIn(['accounts', me, 'locked']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -46,6 +48,7 @@ class NotificationsPage extends PureComponent {
     notificationCount: PropTypes.number.isRequired,
     setFilter: PropTypes.func.isRequired,
     selectedFilter: PropTypes.string.isRequired,
+    locked: PropTypes.bool,
   }
 
   onChangeActiveFilter(notificationType) {
@@ -53,6 +56,8 @@ class NotificationsPage extends PureComponent {
     
     if (notificationType === 'all') {
       this.context.router.history.push('/notifications')
+    } else if (notificationType === 'follow_requests') {
+      this.context.router.history.push(`/notifications/follow_requests`)
     } else {
       this.context.router.history.push(`/notifications?view=${notificationType}`)
     }
@@ -64,9 +69,15 @@ class NotificationsPage extends PureComponent {
       intl,
       notificationCount,
       selectedFilter,
+      locked
     } = this.props
 
-    const tabs = NOTIFICATION_FILTERS.map((filter) => ({ 
+    let filters = NOTIFICATION_FILTERS
+    if (!locked && filters.indexOf('follow_requests') > -1) {
+      filters.splice(filters.indexOf('follow_requests'))
+    }
+
+    const tabs = filters.map((filter) => ({ 
       title: intl.formatMessage(messages[filter]),
       onClick: () => this.onChangeActiveFilter(filter),
       active: selectedFilter.toLowerCase() === filter.toLowerCase(),

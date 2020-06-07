@@ -153,7 +153,7 @@ export function expandNotifications({ maxId } = {}, done = noOp) {
     const notifications = getState().get('notifications')
     const isLoadingMore = !!maxId
 
-    if (notifications.get('isLoading')) {
+    if (notifications.get('isLoading') || activeFilter === 'follow_requests') {
       done();
       return;
     }

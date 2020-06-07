@@ -97,6 +97,7 @@ export const NOTIFICATION_FILTERS = [
   'mention',
   'favourite',
   'reblog',
-  'poll',
   'follow',
+  'poll',
+  'follow_requests',
 ]
