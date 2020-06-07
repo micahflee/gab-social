@@ -20,6 +20,7 @@ import StatusHeader from './status_header'
 import CommentList from './comment_list'
 import Button from './button'
 import Text from './text'
+import ColumnIndicator from './column_indicator'
 
 // We use the component (and not the container) since we do not want
 // to use the progress bar to show download progress
@@ -585,6 +586,14 @@ class Status extends ImmutablePureComponent {
                     >
                       <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                     </ResponsiveClassesComponent>
+                  }
+
+                  {
+                    status.get('replies_count') > 0 && !commentsLimited && descendantsIds && descendantsIds.size === 0 &&
+                    <Fragment>
+                      <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+                      <ColumnIndicator type='loading' />
+                    </Fragment>
                   }
 
                   {
