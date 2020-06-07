@@ -1063,3 +1063,26 @@ body {
 :global(.react-datepicker__quarter-text--in-range) {
   background-color: var(--color_brand) !important;
 }
+
+:global(.react-datepicker__current-month),
+:global(.react-datepicker-time__header),
+:global(.react-datepicker-year-header),
+:global(.react-datepicker__day-name),
+:global(.react-datepicker__day),
+:global(.react-datepicker__time-name),
+:global(.react-datepicker__time-list-item) {
+  color: var(--text_color_primary) !important;
+}
+
+:global(.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list li.react-datepicker__time-list-item:hover),
+:global(.react-datepicker__day:hover),
+:global(.react-datepicker__month-text:hover),
+:global(.react-datepicker__quarter-text:hover) {
+  background-color: var(--solid_color_primary-opaque) !important;
+}
+
+:global(.react-datepicker),
+:global(.react-datepicker__time-container),
+:global(.react-datepicker__time) {
+  background-color: var(--solid_color_block) !important;
+}

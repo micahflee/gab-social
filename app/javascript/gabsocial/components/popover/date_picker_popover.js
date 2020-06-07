@@ -63,7 +63,7 @@ class DatePickerPopover extends PureComponent {
 
     return (
       <PopoverLayout width={331} isXS={isXS}>
-        <div className={[_s.default].join(' ')}>
+        <div className={[_s.default, _s.bgSubtle].join(' ')}>
           <DatePicker
             inline
             target={this}
