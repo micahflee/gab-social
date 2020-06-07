@@ -51,7 +51,7 @@ export default class Image extends PureComponent {
     const classes = cx(className, {
       default: 1,
       objectFitCover: !!src && fit === 'cover',
-      bgSecondary: 1,
+      bgSecondary: !src,
     })
 
     //If error and not our own image
