@@ -151,7 +151,7 @@ export const expandHomeTimeline = ({ maxId } = {}, done = noOp) => expandTimelin
 export const expandCommunityTimeline = ({ maxId, onlyMedia } = {}, done = noOp) => expandTimeline(`community${onlyMedia ? ':media' : ''}`, '/api/v1/timelines/public', { max_id: maxId, only_media: !!onlyMedia }, done);
 export const expandAccountTimeline = (accountId, { maxId, withReplies, commentsOnly } = {}) => expandTimeline(`account:${accountId}${withReplies ? ':with_replies' : ''}${commentsOnly ? ':comments_only' : ''}`, `/api/v1/accounts/${accountId}/statuses`, { only_comments: commentsOnly, exclude_replies: (!withReplies && !commentsOnly), max_id: maxId });
 export const expandAccountFeaturedTimeline = accountId => expandTimeline(`account:${accountId}:pinned`, `/api/v1/accounts/${accountId}/statuses`, { pinned: true });
-export const expandAccountMediaTimeline = (accountId, { maxId, limit } = {}) => expandTimeline(`account:${accountId}:media`, `/api/v1/accounts/${accountId}/statuses`, { max_id: maxId, only_media: true, limit: limit || 20 });
+export const expandAccountMediaTimeline = (accountId, { maxId, limit, mediaType } = {}) => expandTimeline(`account:${accountId}:media`, `/api/v1/accounts/${accountId}/statuses`, { max_id: maxId, only_media: true, limit: limit || 20, media_type: mediaType });
 export const expandListTimeline = (id, { maxId } = {}, done = noOp) => expandTimeline(`list:${id}`, `/api/v1/timelines/list/${id}`, { max_id: maxId }, done);
 export const expandGroupTimeline = (id, { maxId } = {}, done = noOp) => expandTimeline(`group:${id}`, `/api/v1/timelines/group/${id}`, { max_id: maxId }, done);
 export const expandHashtagTimeline = (hashtag, { maxId, tags } = {}, done = noOp) => {

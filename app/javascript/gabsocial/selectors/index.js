@@ -139,16 +139,27 @@ export const makeGetNotification = () => {
 export const getAccountGallery = createSelector([
   (state, id) => state.getIn(['timelines', `account:${id}:media`, 'items'], ImmutableList()),
   state => state.get('statuses'),
-], (statusIds, statuses) => {
-  let medias = ImmutableList();
+  (state, id, mediaType) => mediaType,
+], (statusIds, statuses, mediaType) => {
+  let medias = ImmutableList()
 
-  statusIds.forEach(statusId => {
-    const status = statuses.get(statusId);
-    medias = medias.concat(status.get('media_attachments').map(media => media.set('status', status)));
-  });
+  statusIds.forEach((statusId) => {
+    const status = statuses.get(statusId)
+    medias = medias.concat(
+      status.get('media_attachments')
+        .filter((media) => {
+          if (mediaType === 'video') {
+            return media.get('type') === 'video'
+          }
+          
+          return media.get('type') !== 'video'
+        })
+        .map((media) => media.set('status', status))
+    )
+  })
 
-  return medias;
-});
+  return medias
+})
 
 export const getOrderedLists = createSelector([state => state.get('lists')], lists => {
   if (!lists) return lists

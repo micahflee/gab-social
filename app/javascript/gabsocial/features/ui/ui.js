@@ -205,8 +205,11 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/@:username/following' to='/:username/following' />
         <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />
 
-        <Redirect from='/@:username/media' to='/:username/media' />
-        <WrappedRoute path='/:username/media' page={ProfilePage} component={AccountGallery} content={children} />
+        <Redirect from='/@:username/media' to='/:username/photos' />
+        <Redirect from='/@:username/photos' to='/:username/photos' />
+        <Redirect from='/:username/media' to='/:username/photos' />
+        <WrappedRoute path='/:username/photos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'photo' }} />
+        <WrappedRoute path='/:username/videos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'video' }} />
 
         <Redirect from='/@:username/likes' to='/:username/likes' />
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />

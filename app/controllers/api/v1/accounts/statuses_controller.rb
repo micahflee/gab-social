@@ -52,9 +52,19 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
     # Also, Avoid getting slow by not narrowing down by `statuses.account_id`.
     # When narrowing down by `statuses.account_id`, `index_statuses_20180106` will be used
     # and the table will be joined by `Merge Semi Join`, so the query will be slow.
-    @account.statuses.joins(:media_attachments).merge(@account.media_attachments).permitted_for(@account, current_account)
+    @account.statuses.joins(:media_attachments)
+            .merge(account_media_ids_query)
+            .permitted_for(@account, current_account)
             .paginate_by_max_id(limit_param(DEFAULT_STATUSES_LIMIT), params[:max_id], params[:since_id])
             .reorder(id: :desc).distinct(:id).pluck(:id)
+  end
+
+  def account_media_ids_query
+    if params[:media_type] == 'video'
+      @account.media_attachments.where(type: 2)
+    else
+      @account.media_attachments.where.not(type: 2)
+    end
   end
 
   def pinned_scope

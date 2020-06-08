@@ -12,12 +12,12 @@ const messages = defineMessages({
   none: { id: 'account_gallery.none', defaultMessage: 'No media to show.' },
 })
 
-const mapStateToProps = (state, { account }) => {
+const mapStateToProps = (state, { account, mediaType }) => {
   const accountId =  !!account ? account.get('id') : -1
 
   return {
     accountId,
-    attachments: getAccountGallery(state, accountId),
+    attachments: getAccountGallery(state, accountId, mediaType),
     isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading']),
     hasMore: state.getIn(['timelines', `account:${accountId}:media`, 'hasMore']),
   }
@@ -36,19 +36,32 @@ class AccountGallery extends ImmutablePureComponent {
     isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    mediaType: PropTypes.oneOf([
+      'photo',
+      'video',
+    ]),
   }
 
+  static defaultProps = {
+    mediaType: 'both'
+  } 
+
   componentDidMount() {
-    const { accountId } = this.props
+    const { accountId, mediaType } = this.props
 
     if (accountId && accountId !== -1) {
-      this.props.dispatch(expandAccountMediaTimeline(accountId))
+      this.props.dispatch(expandAccountMediaTimeline(accountId, { mediaType }))
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.accountId && nextProps.accountId !== this.props.accountId) {
-      this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId))
+    if (
+      (nextProps.accountId && nextProps.accountId !== this.props.accountId) ||
+      (nextProps.accountId && nextProps.mediaType !== this.props.mediaType)
+    ) {
+      this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId, {
+        mediaType: nextProps.mediaType,
+      }))
     }
   }
 
@@ -58,7 +71,7 @@ class AccountGallery extends ImmutablePureComponent {
     }
   }
 
-  handleScroll = e => {
+  handleScroll = (e) => {
     const { scrollTop, scrollHeight, clientHeight } = e.target
     const offset = scrollHeight - scrollTop - clientHeight
 
@@ -67,13 +80,16 @@ class AccountGallery extends ImmutablePureComponent {
     }
   }
 
-  handleLoadMore = maxId => {
+  handleLoadMore = (maxId) => {
     if (this.props.accountId && this.props.accountId !== -1) {
-      this.props.dispatch(expandAccountMediaTimeline(this.props.accountId, { maxId }))
+      this.props.dispatch(expandAccountMediaTimeline(this.props.accountId, {
+        maxId,
+        mediaType: this.props.mediaType,
+      }))
     }
   }
 
-  handleLoadOlder = e => {
+  handleLoadOlder = (e) => {
     e.preventDefault()
     this.handleScrollToBottom()
   }

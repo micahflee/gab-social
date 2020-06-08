@@ -29,7 +29,8 @@ const messages = defineMessages({
   headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
   timeline: { id: 'timeline', defaultMessage: 'Timeline' },
   comments: { id: 'comments', defaultMessage: 'Comments' },
-  media: { id: 'media', defaultMessage: 'Media' },
+  photos: { id: 'photos', defaultMessage: 'Photos' },
+  videos: { id: 'videos', defaultMessage: 'Videos' },
   accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
   editProfile: { id: "account.edit_profile", defaultMessage: "Edit profile" },
 })
@@ -107,8 +108,12 @@ class ProfileHeader extends ImmutablePureComponent {
         title: intl.formatMessage(messages.comments),
       },
       {
-        to: `/${account.get('acct')}/media`,
-        title: intl.formatMessage(messages.media),
+        to: `/${account.get('acct')}/photos`,
+        title: intl.formatMessage(messages.photos),
+      },
+      {
+        to: `/${account.get('acct')}/videos`,
+        title: intl.formatMessage(messages.videos),
       },
     ]
 
