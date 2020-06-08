@@ -6,19 +6,26 @@ const trie = new Trie(Object.keys(unicodeMapping));
 
 const assetHost = process.env.CDN_HOST || '';
 
-const emojify = (str, customEmojis = {}, plain = false) => {
+const emojify = (str, customEmojis = {}, plain = false, largeEnabled = false, forceLarge) => {
+  const originalStr = str
   const tagCharsWithoutEmojis = '<&';
   const tagCharsWithEmojis = Object.keys(customEmojis).length ? '<&:' : '<&';
   let rtn = '', tagChars = tagCharsWithEmojis, invisible = 0;
+  let emojiCount = 0
+  let hasText = false
 
   for (;;) {
     let match, i = 0, tag;
     while (i < str.length && (tag = tagChars.indexOf(str[i])) === -1 && (invisible || !(match = trie.search(str.slice(i))))) {
       i += str.codePointAt(i) < 65536 ? 1 : 2;
+      let x = trie.search(str.slice(i))
+      if (!x && str[i] !== ':') {
+        hasText = true
+      }
     }
 
-    let size = 16;
-    let mt = -3;
+    let size = forceLarge ? 36 : 16;
+    let mt = forceLarge ? 2 : -3;
 
     let rend, replacement = '';
     if (i === str.length) {
@@ -26,17 +33,29 @@ const emojify = (str, customEmojis = {}, plain = false) => {
     } else if (str[i] === ':') {
       if (!(() => {
         rend = str.indexOf(':', i + 1) + 1;
-        if (!rend) return false; // no pair of ':'
+        if (!rend) {
+          // no pair of ':'
+          hasText = true;
+          return false;
+        }
+
         const lt = str.indexOf('<', i + 1);
-        if (!(lt === -1 || lt >= rend)) return false; // tag appeared before closing ':'
+        if (!(lt === -1 || lt >= rend)) {
+          // tag appeared before closing ':'
+          hasText = true;
+          return false;
+        }
+
         const shortname = str.slice(i, rend);
         // now got a replacee as ':shortname:'
         // if you want additional emoji handler, add statements below which set replacement and return true.
         if (shortname in customEmojis) {
           const filename = autoPlayGif ? customEmojis[shortname].url : customEmojis[shortname].static_url;
           replacement = plain ? '' : `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${shortname}" title="${shortname}" src="${filename}" />`;
+          emojiCount++;
           return true;
         }
+        hasText = true;
         return false;
       })()) rend = ++i;
     } else if (tag >= 0) { // <, &
@@ -67,6 +86,7 @@ const emojify = (str, customEmojis = {}, plain = false) => {
       const title = shortCode ? `:${shortCode}:` : '';
       replacement = plain ? '' : `<img draggable="false" style="height:${size}px;width:${size}px;margin:${mt}px 0 0;font-family:'object-fit:contain',inherit;vertical-align:middle;-o-object-fit:contain;object-fit:contain;" alt="${match}" title="${title}" src="${assetHost}/emoji/${filename}.svg" />`;
       rend = i + match.length;
+      emojiCount++;
       // If the matched character was followed by VS15 (for selecting text presentation), skip it.
       if (str.codePointAt(rend) === 65038) {
         rend += 1;
@@ -75,6 +95,11 @@ const emojify = (str, customEmojis = {}, plain = false) => {
     rtn += str.slice(0, i) + replacement;
     str = str.slice(rend);
   }
+
+  if (emojiCount < 4 && largeEnabled && !forceLarge && !hasText) {
+    return emojify(originalStr, customEmojis, plain, largeEnabled, true);
+  }
+
   return `${rtn + str}`.trim();
 };
 
