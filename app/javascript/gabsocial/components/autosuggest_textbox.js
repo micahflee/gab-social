@@ -253,6 +253,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       maxWidth100PC: 1,
       flexGrow1: small,
       justifyContentCenter: small,
+      py5: small,
     })
 
     return (
