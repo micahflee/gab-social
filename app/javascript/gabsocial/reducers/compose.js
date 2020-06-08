@@ -264,7 +264,6 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.set('in_reply_to', action.status.get('id'));
       map.set('quote_of_id', null);
-      map.set('text', statusToTextMentions(state, action.status));
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
@@ -272,6 +271,11 @@ export default function compose(state = initialState, action) {
       map.set('idempotencyKey', uuid());
       map.set('spoiler', false);
       map.set('spoiler_text', '');
+      if (action.text) {
+        map.set('text', `${statusToTextMentions(state, action.status)}${action.text}`);
+      } else {
+        map.set('text', statusToTextMentions(state, action.status));
+      }
     });
   case COMPOSE_QUOTE:
     return state.withMutations(map => {

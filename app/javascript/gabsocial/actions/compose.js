@@ -100,12 +100,7 @@ export function changeCompose(text, markdown, replyId, isStandalone, caretPositi
         dispatch({
           type: COMPOSE_REPLY,
           status: status,
-        })
-        dispatch({
-          type: COMPOSE_CHANGE,
           text: text,
-          markdown: markdown,
-          caretPosition: caretPosition,
         })
       } else if (existingText.length > 0 && text.trim().length > 0) {
         dispatch(openModal('CONFIRM', {
