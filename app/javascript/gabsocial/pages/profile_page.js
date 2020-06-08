@@ -44,6 +44,7 @@ class ProfilePage extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     onFetchAccountByUsername: PropTypes.func.isRequired,
     unavailable: PropTypes.bool.isRequired,
+    noSidebar: PropTypes.bool,
   }
 
   componentDidMount() {
@@ -55,6 +56,7 @@ class ProfilePage extends ImmutablePureComponent {
       account,
       children,
       unavailable,
+      noSidebar,
       params: { username },
     } = this.props
 
@@ -66,6 +68,7 @@ class ProfilePage extends ImmutablePureComponent {
         account={account}
         titleHTML={nameHTML}
         unavailable={unavailable}
+        noSidebar={noSidebar}
       >
         <PageTitle path={`${name} (@${username})`} />
         {

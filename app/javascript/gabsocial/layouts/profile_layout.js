@@ -3,6 +3,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Sticky from 'react-stickynode'
 import { me } from '../initial_state'
+import { CX } from '../constants'
 import LinkFooter from '../components/link_footer'
 import ProfileStatsPanel from '../components/panel/profile_stats_panel'
 import ProfileInfoPanel from '../components/panel/profile_info_panel'
@@ -23,6 +24,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
     children: PropTypes.node.isRequired,
     titleHTML: PropTypes.string,
     unavailable: PropTypes.bool,
+    noSidebar: PropTypes.bool,
   }
 
   render() {
@@ -31,7 +33,15 @@ export default class ProfileLayout extends ImmutablePureComponent {
       children,
       titleHTML,
       unavailable,
+      noSidebar,
     } = this.props
+
+    const mainContentClasses = CX({
+      default: 1,
+      width645PX: !noSidebar,
+      width1015PX: noSidebar,
+      z1: 1,
+    })
 
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
@@ -100,17 +110,20 @@ export default class ProfileLayout extends ImmutablePureComponent {
                   <ProfileHeader account={account} />
 
                   <div className={[_s.default, _s.width1015PX, , _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
-                    <div className={[_s.default, _s.width340PX, _s.mr15].join(' ')}>
-                      <Sticky top={63} enabled>
-                        <div className={[_s.default, _s.width340PX].join(' ')}>
-                          <ProfileStatsPanel account={account} />
-                          <ProfileInfoPanel account={account} />
-                          { !unavailable && <MediaGalleryPanel account={account} /> }
-                          <LinkFooter />
-                        </div>
-                      </Sticky>
-                    </div>
-                    <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>
+                    {
+                      !noSidebar &&
+                      <div className={[_s.default, _s.width340PX, _s.mr15].join(' ')}>
+                        <Sticky top={63} enabled>
+                          <div className={[_s.default, _s.width340PX].join(' ')}>
+                            <ProfileStatsPanel account={account} />
+                            <ProfileInfoPanel account={account} />
+                            { !unavailable && <MediaGalleryPanel account={account} /> }
+                            <LinkFooter />
+                          </div>
+                        </Sticky>
+                      </div>
+                    }
+                    <div className={mainContentClasses}>
                       <div className={_s.default}>
                         {children}
                       </div>
