@@ -73,3 +73,4 @@ export function UnfollowModal() { return import(/* webpackChunkName: "components
 export function UserInfoPopover() { return import(/* webpackChunkName: "components/user_info_popover" */'../../../components/popover/user_info_popover') }
 export function Video() { return import(/* webpackChunkName: "components/video" */'../../../components/video') }
 export function VideoModal() { return import(/* webpackChunkName: "components/video_modal" */'../../../components/modal/video_modal') }
+export function VideoStatsPopover() { return import(/* webpackChunkName: "components/video_stats_popover" */'../../../components/popover/video_stats_popover') }

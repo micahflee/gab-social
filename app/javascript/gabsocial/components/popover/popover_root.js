@@ -11,6 +11,7 @@ import {
   POPOVER_STATUS_OPTIONS,
   POPOVER_STATUS_VISIBILITY,
   POPOVER_USER_INFO,
+  POPOVER_VIDEO_STATS,
 } from '../../constants'
 import {
   CommentSortingOptionsPopover,
@@ -24,6 +25,7 @@ import {
   StatusOptionsPopover,
   StatusVisibilityPopover,
   UserInfoPopover,
+  VideoStatsPopover,
 } from '../../features/ui/util/async_components'
 
 import { closePopover } from '../../actions/popover'
@@ -46,6 +48,7 @@ POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
 POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
 POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
 POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
+POPOVER_COMPONENTS[POPOVER_VIDEO_STATS] = VideoStatsPopover
 
 const mapStateToProps = (state) => ({
   type: state.getIn(['popover', 'popoverType']),
