@@ -204,8 +204,8 @@ class ComposeForm extends ImmutablePureComponent {
         selectionStart = selectionEnd;
       }
 
-      this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
-      this.autosuggestTextarea.textbox.focus();
+      // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
+      // this.autosuggestTextarea.textbox.focus();
     }
   }
 
