@@ -130,7 +130,7 @@ Rails.application.routes.draw do
     end
 
     resource :delete, only: [:show, :destroy]
-    resource :migration, only: [:show, :update]
+    # resource :migration, only: [:show, :update]
 
     resources :sessions, only: [:destroy]
     resources :scheduled_statuses, only: [:index, :destroy]
