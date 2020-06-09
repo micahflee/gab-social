@@ -2,8 +2,10 @@ import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
+import { me } from '../initial_state'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
 import Account from '../components/account'
+import Block from '../components/block'
 import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
@@ -11,31 +13,40 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'blocks', 'items']),
-  hasMore: !!state.getIn(['user_lists', 'blocks', 'next']),
-  isLoading: state.getIn(['user_lists', 'blocks', 'isLoading'], true),
+  accountIds: state.getIn(['user_lists', 'blocks', me, 'items']),
+  hasMore: !!state.getIn(['user_lists', 'blocks', me, 'next']),
+  isLoading: state.getIn(['user_lists', 'blocks', me, 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchBlocks() {
+    dispatch(fetchBlocks())
+  },
+  onExpandBlocks() {
+    dispatch(expandBlocks())
+  },
 })
 
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class Blocks extends ImmutablePureComponent {
 
   static propTypes = {
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
     accountIds: ImmutablePropTypes.list,
     hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
     intl: PropTypes.object.isRequired,
+    isLoading: PropTypes.bool,
+    onExpandBlocks: PropTypes.func.isRequired,
+    onFetchBlocks: PropTypes.func.isRequired,
   }
 
-  componentWillMount() {
-    this.props.dispatch(fetchBlocks())
+  componentDidMount() {
+    this.props.onFetchBlocks()
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandBlocks())
+    this.props.onExpandBlocks()
   }, 300, { leading: true })
 
   render() {
@@ -49,19 +60,25 @@ class Blocks extends ImmutablePureComponent {
     const emptyMessage = intl.formatMessage(messages.empty)
 
     return (
-      <ScrollableList
-        scrollKey='blocks'
-        onLoadMore={this.handleLoadMore}
-        hasMore={hasMore}
-        emptyMessage={emptyMessage}
-        isLoading={isLoading}
-      >
-        {
-          !!accountIds && accountIds.map(id =>
-            <Account key={`blocked-${id}`} id={id} compact />
-          )
-        }
-      </ScrollableList>
+      <Block>
+        <ScrollableList
+          scrollKey='blocked_accounts'
+          onLoadMore={this.handleLoadMore}
+          hasMore={hasMore}
+          isLoading={isLoading}
+          emptyMessage={emptyMessage}
+        >
+          {
+            !!accountIds && accountIds.map((id) =>
+              <Account
+                key={`blocked-accounts-${id}`}
+                id={id}
+                compact
+              />
+            )
+          }
+        </ScrollableList>
+      </Block>
     )
   }
 

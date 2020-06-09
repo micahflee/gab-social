@@ -284,11 +284,10 @@ export function expandMembers(id) {
   return (dispatch, getState) => {
     if (!me) return;
 
-    const url = getState().getIn(['user_lists', 'groups', id, 'next']);
+    const url = getState().getIn(['user_lists', 'groups', id, 'next'])
+    const isLoading = getState().getIn(['user_lists', 'groups', id, 'isLoading'])
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandMembersRequest(id));
 
@@ -375,10 +374,9 @@ export function expandRemovedAccounts(id) {
     if (!me) return;
 
     const url = getState().getIn(['user_lists', 'groups_removed_accounts', id, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'groups_removed_accounts', id, 'isLoading'])
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandRemovedAccountsRequest(id));
 

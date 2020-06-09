@@ -1,4 +1,5 @@
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
+import { me } from '../initial_state'
 import {
   FOLLOWERS_FETCH_REQUEST,
   FOLLOWERS_FETCH_SUCCESS,
@@ -61,27 +62,36 @@ const initialState = ImmutableMap({
   groups_removed_accounts: ImmutableMap(),
 });
 
+const setListFailed = (state, type, id) => {
+  return state.setIn([type, id], ImmutableMap({
+    next: null,
+    items: ImmutableList(),
+    isLoading: false,
+  }))
+}
+
 const normalizeList = (state, type, id, accounts, next) => {
   return state.setIn([type, id], ImmutableMap({
     next,
     items: ImmutableList(accounts.map(item => item.id)),
     isLoading: false,
-  }));
-};
+  }))
+}
 
 const appendToList = (state, type, id, accounts, next) => {
-  return state.updateIn([type, id], map => {
+  return state.updateIn([type, id], (map) => {
     return map
       .set('next', next)
       .set('isLoading', false)
       .update('items', (list) => {
-        list.concat(accounts.map(item => item.id))
+        return list.concat(accounts.map(item => item.id))
       })
-  });
-};
+  })
+}
 
 export default function userLists(state = initialState, action) {
   switch(action.type) {
+
   case FOLLOWERS_FETCH_SUCCESS:
     return normalizeList(state, 'followers', action.id, action.accounts, action.next);
   case FOLLOWERS_EXPAND_SUCCESS:
@@ -91,7 +101,8 @@ export default function userLists(state = initialState, action) {
     return state.setIn(['followers', action.id, 'isLoading'], true);
   case FOLLOWERS_FETCH_FAIL:
   case FOLLOWERS_EXPAND_FAIL:
-    return state.setIn(['followers', action.id, 'isLoading'], false);
+    return setListFailed(state, 'followers', action.id)
+
   case FOLLOWING_FETCH_SUCCESS:
     return normalizeList(state, 'following', action.id, action.accounts, action.next);
   case FOLLOWING_EXPAND_SUCCESS:
@@ -102,10 +113,13 @@ export default function userLists(state = initialState, action) {
   case FOLLOWING_FETCH_FAIL:
   case FOLLOWING_EXPAND_FAIL:
     return state.setIn(['following', action.id, 'isLoading'], false);
+
   case REPOSTS_FETCH_SUCCESS:
     return state.setIn(['reblogged_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
+
   case LIKES_FETCH_SUCCESS:
     return state.setIn(['liked_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
+
   case FOLLOW_REQUESTS_FETCH_SUCCESS:
     return state.setIn(['follow_requests', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['follow_requests', 'next'], action.next).setIn(['follow_requests', 'isLoading'], false);
   case FOLLOW_REQUESTS_EXPAND_SUCCESS:
@@ -119,36 +133,41 @@ export default function userLists(state = initialState, action) {
   case FOLLOW_REQUEST_AUTHORIZE_SUCCESS:
   case FOLLOW_REQUEST_REJECT_SUCCESS:
     return state.updateIn(['follow_requests', 'items'], list => list.filterNot(item => item === action.id));
-  case BLOCKS_FETCH_SUCCESS:
-    return state.setIn(['blocks', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['blocks', 'next'], action.next);
-  case BLOCKS_EXPAND_SUCCESS:
-    return state.updateIn(['blocks', 'items'], list => list.concat(action.accounts.map(item => item.id))).setIn(['blocks', 'next'], action.next);
+
   case BLOCKS_FETCH_REQUEST:
   case BLOCKS_EXPAND_REQUEST:
-    return state.setIn(['blocks', 'isLoading'], true);
+    return state.setIn(['blocks', me, 'isLoading'], true)
+  case BLOCKS_FETCH_SUCCESS:
+    return normalizeList(state, 'blocks', me, action.accounts, action.next)
+  case BLOCKS_EXPAND_SUCCESS:
+    return appendToList(state, 'blocks', me, action.accounts, action.next)
   case BLOCKS_FETCH_FAIL:
   case BLOCKS_EXPAND_FAIL:
-    return state.setIn(['blocks', 'isLoading'], false);
-  case MUTES_FETCH_SUCCESS:
-    return state.setIn(['mutes', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['mutes', 'next'], action.next);
-  case MUTES_EXPAND_SUCCESS:
-    return state.updateIn(['mutes', 'items'], list => list.concat(action.accounts.map(item => item.id))).setIn(['mutes', 'next'], action.next);
+    return setListFailed(state, 'blocks', me)
+
   case MUTES_FETCH_REQUEST:
   case MUTES_EXPAND_REQUEST:
-    return state.setIn(['mutes', 'isLoading'], true);
+    return state.setIn(['mutes', me, 'isLoading'], true)
+  case MUTES_FETCH_SUCCESS:
+    return normalizeList(state, 'mutes', me, action.accounts, action.next)
+  case MUTES_EXPAND_SUCCESS:
+    return appendToList(state, 'mutes', me, action.accounts, action.next)
   case MUTES_FETCH_FAIL:
   case MUTES_EXPAND_FAIL:
-    return state.setIn(['mutes', 'isLoading'], false);
+    return setListFailed(state, 'mutes', me)
+
   case GROUP_MEMBERS_FETCH_SUCCESS:
     return normalizeList(state, 'groups', action.id, action.accounts, action.next);
   case GROUP_MEMBERS_EXPAND_SUCCESS:
     return appendToList(state, 'groups', action.id, action.accounts, action.next);
+  
   case GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS:
     return normalizeList(state, 'groups_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS:
     return appendToList(state, 'groups_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS:
     return state.updateIn(['groups_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
+  
   default:
     return state;
   }

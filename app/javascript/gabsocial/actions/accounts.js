@@ -441,10 +441,9 @@ export function expandFollowers(id) {
     if (!me) return;
 
     const url = getState().getIn(['user_lists', 'followers', id, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'followers', id, 'isLoading']);
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandFollowersRequest(id));
 
@@ -454,7 +453,8 @@ export function expandFollowers(id) {
       dispatch(importFetchedAccounts(response.data));
       dispatch(expandFollowersSuccess(id, response.data, next ? next.uri : null));
       dispatch(fetchRelationships(response.data.map(item => item.id)));
-    }).catch(error => {
+    }).catch((error) => {
+      console.log("error:", error)
       dispatch(expandFollowersFail(id, error));
     });
   };
@@ -531,10 +531,9 @@ export function expandFollowing(id) {
     if (!me) return;
 
     const url = getState().getIn(['user_lists', 'following', id, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'following', id, 'isLoading']);
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandFollowingRequest(id));
 
@@ -583,6 +582,9 @@ export function fetchRelationships(accountIds) {
 
     if (newAccountIds.length === 0) {
       return;
+    } else if (newAccountIds.length == 1) {
+      const firstId = newAccountIds[0]
+      if (me === firstId) return;
     }
 
     dispatch(fetchRelationshipsRequest(newAccountIds));
@@ -658,11 +660,10 @@ export function expandFollowRequests() {
   return (dispatch, getState) => {
     if (!me) return;
 
-    const url = getState().getIn(['user_lists', 'follow_requests', 'next']);
+    const url = getState().getIn(['user_lists', 'follow_requests', me, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'follow_requests', me, 'isLoading']);
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandFollowRequestsRequest());
 

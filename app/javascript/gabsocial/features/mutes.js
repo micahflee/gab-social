@@ -2,54 +2,75 @@ import { injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
+import { me } from '../initial_state'
 import { fetchMutes, expandMutes } from '../actions/mutes'
 import Account from '../components/account'
+import Block from '../components/block'
 import ScrollableList from '../components/scrollable_list'
 
 const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'mutes', 'items']),
-  hasMore: !!state.getIn(['user_lists', 'mutes', 'next']),
-  isLoading: state.getIn(['user_lists', 'mutes', 'isLoading'], true),
+  accountIds: state.getIn(['user_lists', 'mutes', me, 'items']),
+  hasMore: !!state.getIn(['user_lists', 'mutes', me, 'next']),
+  isLoading: state.getIn(['user_lists', 'mutes', me, 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchMutes() {
+    dispatch(fetchMutes())
+  },
+  onExpandMutes() {
+    dispatch(expandMutes())
+  },
 })
 
 export default
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
 class Mutes extends ImmutablePureComponent {
 
   static propTypes = {
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    hasMore: PropTypes.bool,
     accountIds: ImmutablePropTypes.list,
+    hasMore: PropTypes.bool,
     isLoading: PropTypes.bool,
+    onExpandMutes: PropTypes.func.isRequired,
+    onFetchMutes: PropTypes.func.isRequired,
   }
 
   componentWillMount() {
-    this.props.dispatch(fetchMutes())
+    this.props.onFetchMutes()
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandMutes())
+    this.props.onExpandMutes()
   }, 300, { leading: true })
 
   render() {
-    const { hasMore, accountIds, isLoading } = this.props
+    const {
+      accountIds,
+      hasMore,
+      isLoading,
+    } = this.props
 
     return (
-      <ScrollableList
-        scrollKey='mutes'
-        onLoadMore={this.handleLoadMore}
-        hasMore={hasMore}
-        isLoading={isLoading}
-        emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
-      >
-        {
-          accountIds && accountIds.map(id =>
-            <Account key={`mutes-${id}`} id={id} compact />
-          )
-        }
-      </ScrollableList>
+      <Block>
+        <ScrollableList
+          scrollKey='mutes'
+          onLoadMore={this.handleLoadMore}
+          hasMore={hasMore}
+          isLoading={isLoading}
+          emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
+        >
+          {
+            !!accountIds && accountIds.map((id) =>
+              <Account
+                key={`mutes-${id}`}
+                id={id}
+                compact
+              />
+            )
+          }
+        </ScrollableList>
+      </Block>
     )
   }
 

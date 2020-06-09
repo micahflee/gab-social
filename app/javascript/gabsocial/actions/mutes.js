@@ -54,11 +54,10 @@ export function expandMutes() {
   return (dispatch, getState) => {
     if (!me) return;
     
-    const url = getState().getIn(['user_lists', 'mutes', 'next']);
+    const url = getState().getIn(['user_lists', 'mutes', me, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'mutes', me, 'isLoading']);
 
-    if (url === null) {
-      return;
-    }
+    if (url === null || isLoading) return
 
     dispatch(expandMutesRequest());
 

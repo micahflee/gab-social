@@ -10,9 +10,9 @@ import ScrollableList from '../components/scrollable_list'
 import Text from '../components/text'
 
 const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'follow_requests', 'items']),
-  isLoading: state.getIn(['user_lists', 'follow_requests', 'isLoading'], true),
-  hasMore: !!state.getIn(['user_lists', 'follow_requests', 'next']),
+  accountIds: state.getIn(['user_lists', 'follow_requests', me, 'items']),
+  isLoading: state.getIn(['user_lists', 'follow_requests', me, 'isLoading']),
+  hasMore: !!state.getIn(['user_lists', 'follow_requests', me, 'next']),
   locked: !!state.getIn(['accounts', me, 'locked']),
 })
 
