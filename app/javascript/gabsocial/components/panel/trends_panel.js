@@ -11,34 +11,47 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  gabtrends: state.getIn(['gab_trends', 'items']),
+  isError: state.getIn(['gab_trends', 'feed', 'isError']),
+  isLoading: state.getIn(['gab_trends', 'feed', 'isLoading']),
+  items: state.getIn(['gab_trends', 'feed', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchGabTrends: () => dispatch(fetchGabTrends()),
+  onfetchGabTrends: () => dispatch(fetchGabTrends('feed')),
 })
 
 export default
-@connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
+@connect(mapStateToProps, mapDispatchToProps)
 class TrendsPanel extends ImmutablePureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
-    gabtrends: ImmutablePropTypes.list.isRequired,
-    onFetchGabTrends: PropTypes.func.isRequired,
+    isError: PropTypes.bool,
+    isLoading: PropTypes.bool,
+    items: ImmutablePropTypes.list.isRequired,
+    onfetchGabTrends: PropTypes.func.isRequired,
   }
 
   updateOnProps = [
-    'gabtrends',
+    'items',
+    'isLoading',
+    'isError',
   ]
 
   componentDidMount() {
-    this.props.onFetchGabTrends()
+    this.props.onfetchGabTrends()
   }
 
   render() {
-    const { intl, gabtrends } = this.props
+    const {
+      intl,
+      isError,
+      isLoading,
+      items,
+    } = this.props
+
+    if (isError) return null
 
     return (
       <PanelLayout
@@ -46,11 +59,11 @@ class TrendsPanel extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
       >
         <ScrollableList
-          showLoading={gabtrends.size == 0}
+          isLoading={isLoading}
           scrollKey='trending-items'
         >
           {
-            gabtrends.slice(0, 8).map((trend, i) => (
+            items.slice(0, 8).map((trend, i) => (
               <TrendsItem
                 key={`gab-trend-${i}`}
                 index={i + 1}

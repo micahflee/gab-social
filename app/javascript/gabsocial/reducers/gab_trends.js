@@ -6,30 +6,41 @@ import {
 import {
   Map as ImmutableMap,
   List as ImmutableList,
-  fromJS
+  fromJS,
 } from 'immutable'
 
 const initialState = ImmutableMap({
-  items: ImmutableList(),
-  loading: false,
-  error: false,
+  feed: ImmutableMap({
+    items: ImmutableList(),
+    isLoading: false,
+    isError: false,
+  }),
 })
+
+const normalizeList = (state, type, items) => {
+  return state.set(type, ImmutableMap({
+    items: fromJS(items),
+    isLoading: false,
+    isError: false,
+  }))
+}
+
+const setListFailed = (state, type) => {
+  return state.set(type, ImmutableMap({
+    items: ImmutableList(),
+    isLoading: false,
+    isError: true,
+  }))
+}
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case GAB_TRENDS_RESULTS_FETCH_REQUEST:
-      return state.set('loading', true)
+      return state.setIn([action.feedType, 'isLoading'], true);
     case GAB_TRENDS_RESULTS_FETCH_SUCCESS:
-      return state.withMutations(map => {
-        map.set('items', fromJS(action.items));
-        map.set('error', false);
-        map.set('loading', false);
-      });
+      return normalizeList(state, action.feedType, action.items)
     case GAB_TRENDS_RESULTS_FETCH_FAIL:
-      return state.withMutations(map => {
-        map.set('error', !!action.error);
-        map.set('loading', false);
-      });
+      return setListFailed(state, action.feedType)
     default:
       return state
   }

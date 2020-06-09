@@ -5,34 +5,37 @@ export const GAB_TRENDS_RESULTS_FETCH_REQUEST = 'GAB_TRENDS_RESULTS_FETCH_REQUES
 export const GAB_TRENDS_RESULTS_FETCH_SUCCESS = 'GAB_TRENDS_RESULTS_FETCH_SUCCESS'
 export const GAB_TRENDS_RESULTS_FETCH_FAIL = 'GAB_TRENDS_RESULTS_FETCH_FAIL'
 
-export const fetchGabTrends = () => {
+export const fetchGabTrends = (feedType) => {
   return function (dispatch, getState) {
-    dispatch(fetchGabTrendsRequest())
+    dispatch(fetchGabTrendsRequest(feedType))
 
-    api(getState).get('/api/v1/gab_trends').then(response => {
-      dispatch(fetchGabTrendsSuccess(response.data.items))
+    api(getState).get(`/api/v1/gab_trends?type=${feedType}`).then(response => {
+      dispatch(fetchGabTrendsSuccess(response.data.items, feedType))
     }).catch(function (error) {
-      dispatch(fetchGabTrendsFail(error))
+      dispatch(fetchGabTrendsFail(error, feedType))
     })
   }
 }
 
-function fetchGabTrendsRequest() {
+function fetchGabTrendsRequest(feedType) {
   return {
     type: GAB_TRENDS_RESULTS_FETCH_REQUEST,
+    feedType,
   }
 }
 
-function fetchGabTrendsSuccess(items) {
+function fetchGabTrendsSuccess(items, feedType) {
   return {
     type: GAB_TRENDS_RESULTS_FETCH_SUCCESS,
     items,
+    feedType,
   }
 }
 
-function fetchGabTrendsFail(error) {
+function fetchGabTrendsFail(error, feedType) {
   return {
     type: GAB_TRENDS_RESULTS_FETCH_FAIL,
     error,
+    feedType,
   }
 }

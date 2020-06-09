@@ -6,20 +6,26 @@ class Api::V1::GabTrendsController < Api::BaseController
   skip_before_action :set_cache_headers
 
   def index
-    body = Redis.current.get("gabtrends")
-    
-    if body.nil?
-      uri = URI("https://trends.gab.com/trend-feed/json")
-      uri.query = URI.encode_www_form({})
+    type = params[:type]
+    if type == 'feed'
+      body = Redis.current.get("gabtrends")
+      
+      if body.nil?
+        uri = URI("https://trends.gab.com/trend-feed/json")
+        uri.query = URI.encode_www_form({})
 
-      res = Net::HTTP.get_response(uri)
-      if res.is_a?(Net::HTTPSuccess)
-        body = res.body
-        Redis.current.set("gabtrends", res.body) 
-        Redis.current.expire("gabtrends", 1.hour.seconds)
+        res = Net::HTTP.get_response(uri)
+        if res.is_a?(Net::HTTPSuccess)
+          body = res.body
+          Redis.current.set("gabtrends", res.body) 
+          Redis.current.expire("gabtrends", 1.hour.seconds)
+        end
       end
-    end
 
-    render json: body
+      render json: body
+    else
+      raise GabSocial::NotPermittedError
+    end
   end
+
 end
