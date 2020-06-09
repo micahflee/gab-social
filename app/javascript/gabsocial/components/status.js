@@ -597,7 +597,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    descendantsIds && !compactMode && !isChild && descendantsIds.size > 0 &&
+                    descendantsIds && !compactMode && !isChild && !isNotification && descendantsIds.size > 0 &&
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
