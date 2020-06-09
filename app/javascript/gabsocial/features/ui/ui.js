@@ -389,7 +389,12 @@ class UI extends PureComponent {
       try {
         const search = this.context.router.route.location.search
         const qp = queryString.parse(search)
-        const view = `${qp.view}`.toLowerCase()
+        let view = `${qp.view}`.toLowerCase()
+
+        if (pathname.startsWith('/notifications/follow_requests')) {
+          view = 'follow_requests'
+        }
+
         this.props.dispatch(setFilter('active', view))
       } catch (error) {
         //
