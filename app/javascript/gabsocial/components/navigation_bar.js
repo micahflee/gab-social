@@ -47,6 +47,7 @@ class NavigationBar extends ImmutablePureComponent {
     showBackBtn: PropTypes.bool,
     onOpenSidebar: PropTypes.func.isRequired,
     onOpenNavSettingsPopover: PropTypes.func.isRequired,
+    noSearch: PropTypes.bool,
   }
 
   handleOnOpenNavSettingsPopover = () => {
@@ -65,8 +66,8 @@ class NavigationBar extends ImmutablePureComponent {
       tabs,
       account,
       onOpenSidebar,
+      noSearch,
     } = this.props
-
 
     return (
       <div className={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}>
@@ -93,9 +94,12 @@ class NavigationBar extends ImmutablePureComponent {
                   </Button>
                 </h1>
 
-                <div className={[_s.default, _s.width340PX].join(' ')}>
-                  <Search isInNav />
-                </div>
+                {
+                  !noSearch &&
+                  <div className={[_s.default, _s.width340PX, _s.mr10].join(' ')}>
+                    <Search isInNav />
+                  </div>
+                }
 
               </div>
 
@@ -103,6 +107,7 @@ class NavigationBar extends ImmutablePureComponent {
                 <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
 
                   <NavigationBarButton title='Home' icon='home' to='/home' />
+                  <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                   
                   <NavigationBarButtonDivider />
 
