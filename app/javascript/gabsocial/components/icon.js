@@ -51,6 +51,7 @@ import OLListIcon from '../assets/ol_list_icon'
 import PauseIcon from '../assets/pause_icon'
 import PencilIcon from '../assets/pencil_icon'
 import PinIcon from '../assets/pin_icon'
+import PipIcon from '../assets/pip_icon'
 import PlayIcon from '../assets/play_icon'
 import PollIcon from '../assets/poll_icon'
 import ProIcon from '../assets/pro_icon'
@@ -128,6 +129,7 @@ const ICONS = {
   'pause': PauseIcon,
   'pencil': PencilIcon,
   'pin': PinIcon,
+  'pip': PipIcon,
   'play': PlayIcon,
   'poll': PollIcon,
   'pro': ProIcon,
