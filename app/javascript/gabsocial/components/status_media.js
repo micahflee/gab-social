@@ -85,6 +85,7 @@ export default class StatusMedia extends ImmutablePureComponent {
                 cacheWidth={cacheWidth}
                 visible={visible}
                 onToggleVisibility={onToggleVisibility}
+                meta={video.get('meta')}
               />
             )}
           </Bundle>
