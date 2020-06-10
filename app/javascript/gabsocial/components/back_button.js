@@ -12,10 +12,11 @@ export default class BackButton extends PureComponent {
     icon: PropTypes.string,
     iconClassName: PropTypes.string,
     iconSize: PropTypes.string,
+    toHome: PropTypes.bool,
   }
 
   historyBack = () => {
-    if (window.history && window.history.length === 1) {
+    if (window.history && window.history.length === 1 || this.props.toHome) {
       this.context.router.history.push('/home')
     } else {
       this.context.router.history.goBack()
