@@ -1,15 +1,25 @@
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { is } from 'immutable'
 import throttle from 'lodash.throttle'
-import classNames from 'classnames/bind'
 import { decode } from 'blurhash'
 import { isFullscreen, requestFullscreen, exitFullscreen } from '../utils/fullscreen'
 import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../utils/media_aspect_ratio'
+import {
+  openPopover,
+} from '../actions/popover'
 import { displayMedia } from '../initial_state'
+import {
+  CX,
+  POPOVER_VIDEO_STATS,
+} from '../constants'
 import Button from './button'
+import Icon from './icon'
 import Text from './text'
 
-const cx = classNames.bind(_s)
+// check every 50 ms (do not use lower values)
+const checkInterval  = 50.0
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },
@@ -21,9 +31,10 @@ const messages = defineMessages({
   exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
   sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
   hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
+  video_stats: { id: 'video.stats_label', defaultMessage: 'Video meta stats' },
 })
 
-const formatTime = secondsNum => {
+const formatTime = (secondsNum) => {
   let hours = Math.floor(secondsNum / 3600)
   let minutes = Math.floor((secondsNum - (hours * 3600)) / 60)
   let seconds = secondsNum - (hours * 3600) - (minutes * 60)
@@ -35,7 +46,7 @@ const formatTime = secondsNum => {
   return (hours === '00' ? '' : `${hours}:`) + `${minutes}:${seconds}`
 }
 
-export const findElementPosition = el => {
+export const findElementPosition = (el) => {
   let box
 
   if (el.getBoundingClientRect && el.parentNode) {
@@ -88,9 +99,20 @@ export const getPointerPosition = (el, event) => {
   return position
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenVideoStatsPopover(targetRef, meta) {
+    dispatch(openPopover(POPOVER_VIDEO_STATS, {
+      targetRef,
+      meta,
+      position: 'top',
+    }))
+  }
+})
+
 export default
 @injectIntl
-class Video extends PureComponent {
+@connect(null, mapDispatchToProps)
+class Video extends ImmutablePureComponent {
 
   static propTypes = {
     preview: PropTypes.string,
@@ -108,6 +130,8 @@ class Video extends PureComponent {
     intl: PropTypes.object.isRequired,
     blurhash: PropTypes.string,
     aspectRatio: PropTypes.number,
+    meta: ImmutablePropTypes.map,
+    onOpenVideoStatsPopover: PropTypes.func.isRequired,
   }
 
   state = {
@@ -116,6 +140,7 @@ class Video extends PureComponent {
     volume: 0.5,
     paused: true,
     dragging: false,
+    draggingVolume: false,
     containerWidth: this.props.width,
     fullscreen: false,
     hovered: false,
@@ -123,29 +148,102 @@ class Video extends PureComponent {
     hoveringVolumeButton: false,
     hoveringVolumeControl: false,
     revealed: this.props.visible !== undefined ? this.props.visible : (displayMedia !== 'hide_all' && !this.props.sensitive || displayMedia === 'show_all'),
+    pipAvailable: true,
+    isBuffering: false,
   }
 
+  bufferCheckInterval = null
+  lastPlayPos = 0
   volHeight = 100
   volOffset = 13
 
-  volHandleOffset = v => {
+  componentDidMount() {
+    const { meta, blurhash } = this.props
+
+    document.addEventListener('fullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
+    document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
+
+    if (blurhash) {
+      this._decode()
+    }
+
+    if (meta) {
+      this.setState({ duration: parseInt(meta.get('duration')) })
+    }
+
+    if ('pictureInPictureEnabled' in document) {
+      this.setState({ pipAvailable: true })
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
+    document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
+    
+    clearInterval(this.bufferCheckInterval)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
+      this.setState({ revealed: nextProps.visible })
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.revealed && !this.state.revealed && this.video) {
+      this.video.pause()
+    }
+    if (prevProps.blurhash !== this.props.blurhash && this.props.blurhash) {
+      this._decode()
+    }
+  }
+
+  checkBuffering = () => {
+    const { isBuffering, paused } = this.state
+    const { currentTime } = this.video
+
+    // checking offset should be at most the check interval
+    // but allow for some margin
+    let offset = (checkInterval - 20) / 1000
+
+    // if no buffering is currently detected,
+    // and the position does not seem to increase
+    // and the player isn't manually paused...
+    if (!isBuffering && currentTime < (this.lastPlayPos + offset) && !paused) {
+      this.setState({ isBuffering: true })
+    }
+
+    // if we were buffering but the player has advanced,
+    // then there is no buffering
+    if (isBuffering && currentTime > (this.lastPlayPos + offset) && !paused) {
+      this.setState({ isBuffering: false })
+    }
+
+    this.lastPlayPos = currentTime
+  }
+
+  volHandleOffset = (v) => {
     const offset = v * this.volHeight + this.volOffset
     return (offset > 110) ? 110 : offset
   }
 
-  setPlayerRef = c => {
-    this.player = c
+  setPlayerRef = (n) => {
+    this.player = n
 
-    if (c) {
+    if (n) {
       if (this.props.cacheWidth) this.props.cacheWidth(this.player.offsetWidth)
       this.setState({
-        containerWidth: c.offsetWidth,
+        containerWidth: n.offsetWidth,
       })
     }
   }
 
-  setVideoRef = c => {
-    this.video = c
+  setVideoRef = (n) => {
+    this.video = n
 
     if (this.video) {
       const { volume, muted } = this.video
@@ -156,26 +254,34 @@ class Video extends PureComponent {
     }
   }
 
-  setSeekRef = c => {
-    this.seek = c
+  setSeekRef = (n) => {
+    this.seek = n
   }
 
-  setVolumeRef = c => {
-    this.volume = c
+  setVolumeRef = (n) => {
+    this.volume = n
   }
 
-  setCanvasRef = c => {
-    this.canvas = c
+  setCanvasRef = (n) => {
+    this.canvas = n
   }
 
-  handleClickRoot = e => e.stopPropagation()
+  setSettingsBtnRef = (n) => {
+    this.settingsBtn = n
+  }
+
+  handleClickRoot = (e) => e.stopPropagation()
 
   handlePlay = () => {
     this.setState({ paused: false })
+
+    this.bufferCheckInterval = setInterval(this.checkBuffering, checkInterval)
   }
 
   handlePause = () => {
     this.setState({ paused: true })
+
+    clearInterval(this.bufferCheckInterval)
   }
 
   handleTimeUpdate = () => {
@@ -186,7 +292,7 @@ class Video extends PureComponent {
     })
   }
 
-  handleVolumeMouseDown = e => {
+  handleVolumeMouseDown = (e) => {
     document.addEventListener('mousemove', this.handleMouseVolSlide, true)
     document.addEventListener('mouseup', this.handleVolumeMouseUp, true)
     document.addEventListener('touchmove', this.handleMouseVolSlide, true)
@@ -196,16 +302,22 @@ class Video extends PureComponent {
 
     e.preventDefault()
     e.stopPropagation()
+
+    this.setState({ draggingVolume: true })
   }
 
   handleVolumeMouseUp = () => {
+    this.handleMouseLeaveVolumeControl()
+
     document.removeEventListener('mousemove', this.handleMouseVolSlide, true)
     document.removeEventListener('mouseup', this.handleVolumeMouseUp, true)
     document.removeEventListener('touchmove', this.handleMouseVolSlide, true)
     document.removeEventListener('touchend', this.handleVolumeMouseUp, true)
+
+    this.setState({ draggingVolume: false })
   }
 
-  handleMouseVolSlide = throttle(e => {
+  handleMouseVolSlide = throttle((e) => {
     const rect = this.volume.getBoundingClientRect()
     const y = 1 - ((e.clientY - rect.top) / this.volHeight)
 
@@ -221,7 +333,7 @@ class Video extends PureComponent {
     }
   }, 60)
 
-  handleMouseDown = e => {
+  handleMouseDown = (e) => {
     document.addEventListener('mousemove', this.handleMouseMove, true)
     document.addEventListener('mouseup', this.handleMouseUp, true)
     document.addEventListener('touchmove', this.handleMouseMove, true)
@@ -270,37 +382,21 @@ class Video extends PureComponent {
       requestFullscreen(this.player)
     }
   }
-
-  componentDidMount() {
-    document.addEventListener('fullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
-
-    if (this.props.blurhash) {
-      this._decode()
-    }
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (!is(nextProps.visible, this.props.visible) && nextProps.visible !== undefined) {
-      this.setState({ revealed: nextProps.visible })
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.revealed && !this.state.revealed && this.video) {
-      this.video.pause()
-    }
-    if (prevProps.blurhash !== this.props.blurhash && this.props.blurhash) {
-      this._decode()
+  
+  togglePip = () => {
+    try {
+      if (this.video !== document.pictureInPictureElement) {
+        if (this.state.paused) {
+          this.video.play()
+        }
+        setTimeout(() => { // : hack :
+          this.video.requestPictureInPicture()          
+        }, 500)
+      } else {
+        document.exitPictureInPicture()
+      }
+    } catch(e) {
+      //
     }
   }
 
@@ -332,17 +428,19 @@ class Video extends PureComponent {
     this.setState({ hoveringVolumeButton: true })
   }
 
-  handleMouseLeaveAudio = throttle(e => {
+  handleMouseLeaveAudio = throttle(() => {
     this.setState({ hoveringVolumeButton: false })
-  }, 2000)
+  }, 2500)
 
   handleMouseEnterVolumeControl = () => {
     this.setState({ hoveringVolumeControl: true })
   }
 
-  handleMouseLeaveVolumeControl = throttle(e => {
-    this.setState({ hoveringVolumeControl: false })
-  }, 2000)
+  handleMouseLeaveVolumeControl = throttle(() => {
+    if (!this.state.draggingVolume) {
+      this.setState({ hoveringVolumeControl: false })
+    }
+  }, 2500)
 
   toggleMute = () => {
     this.video.muted = !this.video.muted
@@ -383,6 +481,10 @@ class Video extends PureComponent {
     })
   }
 
+  handleOnClickSettings = () => {
+    this.props.onOpenVideoStatsPopover(this.settingsBtn, this.props.meta)
+  }
+
   render() {
     const {
       preview,
@@ -409,7 +511,9 @@ class Video extends PureComponent {
       muted,
       revealed,
       hoveringVolumeButton,
-      hoveringVolumeControl
+      hoveringVolumeControl,
+      pipAvailable,
+      isBuffering,
     } = this.state
 
     const progress = (currentTime / duration) * 100
@@ -454,21 +558,38 @@ class Video extends PureComponent {
 
     // : todo spoiler :
 
-    const seekHandleClasses = cx({
+    const mainContainerClasses = CX({
+      default: 1,
+      mt10: 1,
+      outlineNone: 1,
+    })
+
+    const seekHandleClasses = CX({
       default: 1,
       posAbs: 1,
       circle: 1,
-      px10: 1,
-      py10: 1,
-      bgBrand: 1,
+      height20PX: 1,
+      width20PX: 1,
+      bgTransparent: 1,
       mlNeg5PX: 1,
+      mr5: 1,
       z3: 1,
-      boxShadow1: 1,
+      alignItemsCenter: 1,
+      justifyContentCenter: 1,
       opacity0: !dragging,
       opacity1: dragging || hovered,
     })
 
-    const progressClasses = cx({
+    const seekInnerHandleClasses = CX({
+      default: 1,
+      circle: 1,
+      height14PX: 1,
+      width14PX: 1,
+      bgBrand: 1,
+      boxShadow1: 1,
+    })
+
+    const progressClasses = CX({
       default: 1,
       radiusSmall: 1,
       mt10: 1,
@@ -476,7 +597,7 @@ class Video extends PureComponent {
       height4PX: 1,
     })
 
-    const volumeControlClasses = cx({
+    const volumeControlClasses = CX({
       default: 1,
       posAbs: 1,
       bgBlackOpaque: 1,
@@ -486,9 +607,32 @@ class Video extends PureComponent {
       displayNone: !hoveringVolumeButton && !hoveringVolumeControl || !hovered,
     })
 
+    const videoControlsBackgroundClasses = CX({
+      default: 1,
+      z2: 1,
+      px15: 1,
+      videoPlayerControlsBackground: 1,
+      posAbs: 1,
+      bottom0: 1,
+      right0: 1,
+      left0: 1,
+      displayNone: !hovered && !paused,
+    })
+
+    const overlayClasses = CX({
+      default: 1,
+      top50PC: 1,
+      left50PC: 1,
+      posAbs: 1,
+      z2: 1,
+      alignItemsCenter: 1,
+      justifyContentCenter: 1,
+      displayNone: !paused,
+    })
+
     return (
       <div
-        className={[_s.default].join(' ')}
+        className={mainContainerClasses}
         style={playerStyle}
         ref={this.setPlayerRef}
         onMouseEnter={this.handleMouseEnter}
@@ -506,6 +650,22 @@ class Video extends PureComponent {
             className={[_s.default, _s.posAbs, _s.height100PC, _s.width100PC, _s.top0, _s.left0].join(' ')}
           />
         }
+
+        <div className={overlayClasses}>
+          {
+            paused && !isBuffering &&
+            <button
+              onClick={this.togglePlay}
+              className={[_s.default, _s.outlineNone, _s.cursorPointer, _s.alignItemsCenter, _s.justifyContentCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.height60PX, _s.width60PX].join(' ')}
+            >
+              <Icon id='play' size='24px' className={_s.fillWhite} />
+            </button>
+          }
+          {
+            isBuffering &&
+            <Icon id='loading' size='40px' className={[_s.default, _s.posAbs].join(' ')} />
+          }
+        </div>
 
         {
           revealed &&
@@ -571,7 +731,7 @@ class Video extends PureComponent {
           />
         </div>
 
-        <div className={[_s.default, _s.z2, _s.px15, _s.videoPlayerControlsBackground, _s.posAbs, _s.bottom0, _s.right0, _s.left0].join(' ')}>
+        <div className={videoControlsBackgroundClasses}>
 
           <div
             className={[_s.default, _s.cursorPointer, _s.height22PX, _s.videoPlayerSeek].join(' ')}
@@ -589,7 +749,9 @@ class Video extends PureComponent {
               style={{
                 left: `${progress}%`
               }}
-            />
+            >
+              <span className={seekInnerHandleClasses} />
+            </span>
           </div>
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.pb5, _s.noSelect].join(' ')}>
@@ -599,38 +761,67 @@ class Video extends PureComponent {
               aria-label={intl.formatMessage(paused ? messages.play : messages.pause)}
               onClick={this.togglePlay}
               icon={paused ? 'play' : 'pause'}
+              title={paused ? 'Play' : 'Pause'}
               iconSize='16px'
               iconClassName={_s.fillWhite}
               className={_s.pl0}
             />
 
-            <div className={[_s.default, _s.mlAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-              <Text color='white' size='small'>
-                {formatTime(currentTime)}
-                &nbsp;/&nbsp;
-                {formatTime(duration)}
-              </Text>
+            <Button
+              isNarrow
+              backgroundColor='none'
+              type='button'
+              aria-label={intl.formatMessage(muted ? messages.unmute : messages.mute)}
+              onClick={this.toggleMute}
+              icon={muted ? 'audio-mute' : 'audio'}
+              iconSize='24px'
+              iconClassName={_s.fillWhite}
+              className={[_s.px10, _s.mr10].join(' ')}
+              title='Volume'
+              onMouseEnter={this.handleMouseEnterAudio}
+              onMouseLeave={this.handleMouseLeaveAudio}
+            />
+            
+            <Text color='white' size='small'>
+              {formatTime(currentTime)}
+              &nbsp;/&nbsp;
+              {formatTime(duration)}
+            </Text>
 
+            <div className={[_s.default, _s.mlAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
               <Button
                 isNarrow
                 backgroundColor='none'
-                type='button'
-                aria-label={intl.formatMessage(muted ? messages.unmute : messages.mute)}
-                onClick={this.toggleMute}
-                icon={muted ? 'audio-mute' : 'audio'}
-                iconSize='24px'
+                aria-label={intl.formatMessage(messages.video_stats)}
+                onClick={this.handleOnClickSettings}
+                icon='cog'
+                iconSize='20px'
                 iconClassName={_s.fillWhite}
-                className={[_s.px10, _s.ml10].join(' ')}
-                onMouseEnter={this.handleMouseEnterAudio}
-                onMouseLeave={this.handleMouseLeaveAudio}
+                className={[_s.px10, _s.pr0].join(' ')}
+                buttonRef={this.setSettingsBtnRef}
+                title='Video stats'
               />
-
+              {
+                pipAvailable &&
+                <Button
+                  isNarrow
+                  backgroundColor='none'
+                  aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
+                  onClick={this.togglePip}
+                  icon='pip'
+                  iconSize='20px'
+                  iconClassName={_s.fillWhite}
+                  className={[_s.px10, _s.pr0].join(' ')}
+                  title='Picture in Picture'
+                />
+              }
               <Button
                 isNarrow
                 backgroundColor='none'
                 aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
                 onClick={this.toggleFullscreen}
                 icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
+                title={fullscreen ? 'Minimize fullscreen' : 'Fullscreen'}
                 iconSize='20px'
                 iconClassName={_s.fillWhite}
                 className={[_s.px10, _s.pr0].join(' ')}

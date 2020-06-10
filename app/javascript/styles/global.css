@@ -431,6 +431,7 @@ body {
 .bottomAuto { bottom: auto; }
 
 .left0 { left: 0px; }
+.left50PC { left: 50%; }
 
 .right0 { right: 0px; }
 .rightAuto { right: auto; }
@@ -483,6 +484,7 @@ body {
 .height24PX { height: 24px; }
 .height22PX { height: 22px; }
 .height20PX { height: 20px; }
+.height14PX { height: 14px; }
 .height10PX { height: 10px; }
 .height4PX { height: 4px; }
 .height1PX { height: 1px; }
@@ -514,6 +516,7 @@ body {
 .width60PX { width: 60px; }
 .width50PX { width: 50px; }
 .width20PX { width: 20px; }
+.width14PX { width: 14px; }
 .width10PX { width: 10px; }
 .width4PX { width: 4px; }
 .width1PX { width: 1px; }
@@ -840,7 +843,7 @@ body {
 
 .videoPlayerVolume {
   width: 24px;
-  right: 65px;
+  left: 68px;
   bottom: 60px;
 }
 
