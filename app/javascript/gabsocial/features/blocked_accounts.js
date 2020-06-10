@@ -72,7 +72,7 @@ class Blocks extends ImmutablePureComponent {
           emptyMessage={emptyMessage}
         >
           {
-            !!accountIds && accountIds.map((id) =>
+            accountIds && accountIds.map((id) =>
               <Account
                 key={`blocked-accounts-${id}`}
                 id={id}

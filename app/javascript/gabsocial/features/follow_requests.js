@@ -78,7 +78,7 @@ class FollowRequests extends ImmutablePureComponent {
           emptyMessage={<FormattedMessage id='empty_column.follow_requests' defaultMessage="You don't have any follow requests yet. When you receive one, it will show up here." />}
         >
           {
-            !!accountIds && accountIds.map(id =>
+            accountIds && accountIds.map((id) =>
               <AccountAuthorize key={id} id={id} />
             )
           }

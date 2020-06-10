@@ -91,7 +91,7 @@ class Following extends ImmutablePureComponent {
             emptyMessage={intl.formatMessage(messages.empty)}
           >
             {
-              !!accountIds && accountIds.map((id) => (
+              accountIds && accountIds.map((id) => (
                 <Account key={`following-${id}`} id={id} compact withBio />
               ))
             }

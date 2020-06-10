@@ -63,7 +63,7 @@ class Mutes extends ImmutablePureComponent {
           emptyMessage={<FormattedMessage id='empty_column.mutes' defaultMessage="You haven't muted any users yet." />}
         >
           {
-            !!accountIds && accountIds.map((id) =>
+            accountIds && accountIds.map((id) =>
               <Account
                 key={`mutes-${id}`}
                 id={id}
