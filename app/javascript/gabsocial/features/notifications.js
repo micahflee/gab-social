@@ -1,12 +1,15 @@
 import { Fragment } from 'react'
+import { withRouter } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
 import debounce from 'lodash.debounce'
+import throttle from 'lodash.throttle'
 import {
   expandNotifications,
   scrollTopNotifications,
   dequeueNotifications,
+  forceDequeueNotifications,
 } from '../actions/notifications'
 import NotificationContainer from '../containers/notification_container'
 import ScrollableList from '../components/scrollable_list'
@@ -21,17 +24,32 @@ const mapStateToProps = (state) => ({
   totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onDequeueNotifications() {
+    dispatch(dequeueNotifications())
+  },
+  onExpandNotifications(options) {
+    if (!options) dispatch(forceDequeueNotifications())
+    dispatch(expandNotifications(options))
+  },
+  onScrollTopNotifications(top) {
+    dispatch(scrollTopNotifications(top))
+  },
+})
+
 export default
-@connect(mapStateToProps)
+@withRouter
+@connect(mapStateToProps, mapDispatchToProps)
 class Notifications extends ImmutablePureComponent {
 
   static propTypes = {
-    sortedNotifications: ImmutablePropTypes.list.isRequired,
-    notifications: ImmutablePropTypes.list.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    isLoading: PropTypes.bool,
     hasMore: PropTypes.bool,
-    dequeueNotifications: PropTypes.func,
+    isLoading: PropTypes.bool,
+    notifications: ImmutablePropTypes.list.isRequired,
+    onDequeueNotifications: PropTypes.func.isRequired,
+    onExpandNotifications: PropTypes.func.isRequired,
+    onScrollTopNotifications: PropTypes.func.isRequired,
+    sortedNotifications: ImmutablePropTypes.list.isRequired,
     totalQueuedNotificationsCount: PropTypes.number,
   }
 
@@ -39,29 +57,42 @@ class Notifications extends ImmutablePureComponent {
     this.handleLoadOlder.cancel()
     this.handleScrollToTop.cancel()
     this.handleScroll.cancel()
-    this.props.dispatch(scrollTopNotifications(false))
+    this.props.onScrollTopNotifications(false)
   }
 
   componentDidMount() {
     this.handleDequeueNotifications()
-    this.props.dispatch(scrollTopNotifications(true))
+    this.props.onScrollTopNotifications(true)
   }
+
+  componentDidUpdate (prevProps) {
+    //Check if clicked on "notifications" button, if so, reload
+    if (prevProps.location.key !== this.props.location.key &&
+        prevProps.location.pathname === '/notifications' &&
+        this.props.location.pathname === '/notifications') {
+      this.handleReload()
+    }
+  }
+
+  handleReload = throttle(() => {
+    this.props.onExpandNotifications()
+  }, 5000)
 
   handleLoadOlder = debounce(() => {
     const last = this.props.notifications.last()
-    this.props.dispatch(expandNotifications({ maxId: last && last.get('id') }))
+    this.props.onExpandNotifications({ maxId: last && last.get('id') })
   }, 300, { leading: true })
 
   handleScrollToTop = debounce(() => {
-    this.props.dispatch(scrollTopNotifications(true))
+    this.props.onScrollTopNotifications(true)
   }, 100)
 
   handleScroll = debounce(() => {
-    this.props.dispatch(scrollTopNotifications(false))
+    this.props.onScrollTopNotifications(false)
   }, 100)
 
   handleDequeueNotifications = () => {
-    this.props.dispatch(dequeueNotifications())
+    this.props.onDequeueNotifications()
   }
 
   render() {

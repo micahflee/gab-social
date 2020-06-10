@@ -48,6 +48,15 @@ export function updateTimelineQueue(timeline, status, accept) {
   }
 };
 
+export function forceDequeueTimeline(timeline) {
+  return (dispatch) => {
+    dispatch({
+      type: TIMELINE_DEQUEUE,
+      timeline,
+    })
+  }
+}
+
 export function dequeueTimeline(timeline, expandFunc, optionalExpandArgs) {
   return (dispatch, getState) => {
     const queuedItems = getState().getIn(['timelines', timeline, 'queuedItems'], ImmutableList());

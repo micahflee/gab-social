@@ -1,5 +1,10 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import { expandHomeTimeline } from '../actions/timelines'
+import { withRouter } from 'react-router-dom'
+import throttle from 'lodash.throttle'
+import {
+  expandHomeTimeline,
+  forceDequeueTimeline,
+} from '../actions/timelines'
 import StatusList from '../components/status_list'
 
 const messages = defineMessages({
@@ -11,19 +16,23 @@ const mapStateToProps = (state) => ({
   isPartial: state.getIn(['timelines', 'home', 'isPartial']),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onExpandHomeTimeline(options) {
+    if (!options) dispatch(forceDequeueTimeline('home'))
+    dispatch(expandHomeTimeline(options))
+  },
+})
+
 export default
-@connect(mapStateToProps)
 @injectIntl
+@withRouter
+@connect(mapStateToProps, mapDispatchToProps)
 class HomeTimeline extends PureComponent {
 
   static propTypes = {
-    dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     isPartial: PropTypes.bool,
-  }
-
-  handleLoadMore = (maxId) => {
-    this.props.dispatch(expandHomeTimeline({ maxId }))
+    onExpandHomeTimeline: PropTypes.func.isRequired,
   }
 
   componentDidMount () {
@@ -32,18 +41,33 @@ class HomeTimeline extends PureComponent {
 
   componentDidUpdate (prevProps) {
     this._checkIfReloadNeeded(prevProps.isPartial, this.props.isPartial)
+    
+    //Check if clicked on "home" button, if so, reload
+    if (prevProps.location.key !== this.props.location.key &&
+        prevProps.location.pathname === '/home' &&
+        this.props.location.pathname === '/home') {
+      this.handleReload()
+    }
   }
 
   componentWillUnmount () {
     this._stopPolling()
   }
 
+  handleLoadMore = (maxId) => {
+    this.props.onExpandHomeTimeline({ maxId })
+  }
+
+  handleReload = throttle(() => {
+    this.props.onExpandHomeTimeline()
+  }, 5000)
+
   _checkIfReloadNeeded (wasPartial, isPartial) {
-    const { dispatch } = this.props
+    const { onExpandHomeTimeline } = this.props
 
     if (!wasPartial && isPartial) {
       this.polling = setInterval(() => {
-        dispatch(expandHomeTimeline())
+        onExpandHomeTimeline()
       }, 3000)
     } else if (wasPartial && !isPartial) {
       this._stopPolling()

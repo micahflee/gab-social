@@ -114,6 +114,14 @@ export function updateNotificationsQueue(notification, intlMessages, intlLocale,
   }
 };
 
+export function forceDequeueNotifications() {
+  return (dispatch,) => {
+    dispatch({
+      type: NOTIFICATIONS_DEQUEUE,
+    })
+  }
+}
+
 export function dequeueNotifications() {
   return (dispatch, getState) => {
     const queuedNotifications = getState().getIn(['notifications', 'queuedNotifications'], ImmutableList());
