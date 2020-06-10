@@ -6,10 +6,12 @@ import { me } from '../initial_state'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
 import Account from '../components/account'
 import Block from '../components/block'
+import Heading from '../components/heading'
 import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
   empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
 })
 
 const mapStateToProps = (state) => ({
@@ -19,12 +21,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchBlocks() {
-    dispatch(fetchBlocks())
-  },
-  onExpandBlocks() {
-    dispatch(expandBlocks())
-  },
+  onFetchBlocks: () => dispatch(fetchBlocks()),
+  onExpandBlocks: () => dispatch(expandBlocks()),
 })
 
 export default
@@ -61,6 +59,11 @@ class Blocks extends ImmutablePureComponent {
 
     return (
       <Block>
+        <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter].join(' ')}>
+          <Heading size='h2'>
+            {intl.formatMessage(messages.blocks)}
+          </Heading>
+        </div>
         <ScrollableList
           scrollKey='blocked_accounts'
           onLoadMore={this.handleLoadMore}

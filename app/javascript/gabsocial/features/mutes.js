@@ -6,6 +6,7 @@ import { me } from '../initial_state'
 import { fetchMutes, expandMutes } from '../actions/mutes'
 import Account from '../components/account'
 import Block from '../components/block'
+import Heading from '../components/heading'
 import ScrollableList from '../components/scrollable_list'
 
 const mapStateToProps = (state) => ({
@@ -15,12 +16,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchMutes() {
-    dispatch(fetchMutes())
-  },
-  onExpandMutes() {
-    dispatch(expandMutes())
-  },
+  onFetchMutes: () => dispatch(fetchMutes()),
+  onExpandMutes: () => dispatch(expandMutes()),
 })
 
 export default
@@ -53,6 +50,11 @@ class Mutes extends ImmutablePureComponent {
 
     return (
       <Block>
+        <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter].join(' ')}>
+          <Heading size='h2'>
+            <FormattedMessage id='navigation_bar.mutes' defaultMessage='Muted users' />
+          </Heading>
+        </div>
         <ScrollableList
           scrollKey='mutes'
           onLoadMore={this.handleLoadMore}

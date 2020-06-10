@@ -180,19 +180,9 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/groups' exact page={SearchPage} component={Search} content={children} />
 
-        { /*
-        <WrappedRoute path='/settings/account' exact page={SettingsPage} component={AccountSettings} content={children} />
-        <WrappedRoute path='/settings/profile' exact page={SettingsPage} component={ProfileSettings} content={children} />
-        <WrappedRoute path='/settings/relationships' exact page={SettingsPage} component={RelationshipSettings} content={children} />
-        <WrappedRoute path='/settings/development' exact page={SettingsPage} component={Development} content={children} />
-        <WrappedRoute path='/settings/billing' exact page={SettingsPage} component={Billing} content={children} />
-        */ }
-
-        { /* <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Accounts' }} />
-        <WrappedRoute path='/settings/domain-blocks' exact page={SettingsPage} component={BlockedDomains} content={children} componentParams={{ title: 'Blocked Domains' }} />
-        <WrappedRoute path='/settings/filters' exact page={SettingsPage} component={Filters} content={children} componentParams={{ title: 'Muted Words' }} />
-        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Accounts' }} /> */ }
-
+        <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Users' }} />
+        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Users' }} />
+        
         <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
