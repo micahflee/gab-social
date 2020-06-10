@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import { me } from '../initial_state'
 import Button from './button'
 import DisplayName from './display_name'
 import DotTextSeperator from './dot_text_seperator'
@@ -56,6 +57,7 @@ class CommentHeader extends ImmutablePureComponent {
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`;
     const isOwner = ancestorAccountId === status.getIn(['account', 'id'])
+    const myComment = status.getIn(['account', 'id']) === me
 
     return (
       <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.maxWidth100PC, _s.flexGrow1].join(' ')}>
@@ -127,11 +129,11 @@ class CommentHeader extends ImmutablePureComponent {
               <DotTextSeperator />
                 <Button
                   isText
-                  underlineOnHover
+                  underlineOnHover={myComment}
                   backgroundColor='none'
                   color='tertiary'
                   className={_s.ml5}
-                  onClick={this.openLikesList}
+                  onClick={myComment ? this.openLikesList : undefined}
                 >
                 <Text size='extraSmall' color='inherit'>
                   {intl.formatMessage(messages.likesLabel, {

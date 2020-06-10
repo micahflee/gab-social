@@ -2,7 +2,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { NavLink } from 'react-router-dom'
-import { compactMode } from '../initial_state'
+import {
+  me,
+  compactMode,
+} from '../initial_state'
 import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
 import { CX } from '../constants'
@@ -84,6 +87,7 @@ class StatusActionBar extends ImmutablePureComponent {
     ) && !hasInteractions
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
+    const myStatus = status.getIn(['account', 'id']) === me
 
     const containerClasses = CX({
       default: 1,
@@ -100,6 +104,18 @@ class StatusActionBar extends ImmutablePureComponent {
       borderTop1PX: !shouldCondense && !compactMode,
       borderColorSecondary: !shouldCondense && !compactMode,
       mt5: hasInteractions && !compactMode,
+    })
+
+    const likeBtnClasses = CX({
+      default: 1,
+      text: 1,
+      cursorPointer: myStatus,
+      fontWeightNormal: 1,
+      noUnderline: 1,
+      underline_onHover: myStatus,
+      bgTransparent: 1,
+      mr10: 1,
+      py5: 1,
     })
 
     const interactionBtnClasses = CX({
@@ -121,7 +137,11 @@ class StatusActionBar extends ImmutablePureComponent {
           <div className={[_s.default, _s.flexRow, _s.alignItemsEnd, _s.px5].join(' ')}>
             {
               favoriteCount > 0 &&
-              <button className={interactionBtnClasses} onClick={this.openLikesList}>
+              <button
+                className={likeBtnClasses}
+                onClick={this.openLikesList}
+                disabled={!myStatus}
+              >
                 <Text color='secondary' size='small'>
                   {intl.formatMessage(messages.likesLabel, {
                     number: favoriteCount,
