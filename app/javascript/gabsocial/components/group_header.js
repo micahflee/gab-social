@@ -88,10 +88,12 @@ class GroupHeader extends ImmutablePureComponent {
     const coverSrc = !!group ? group.get('cover_image_url') : ''
     const coverSrcMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const title = !!group ? group.get('title') : undefined
-
+    
+    let isAdmin = false
     let actionButtonTitle
     let actionButtonOptions = {}
     if (relationships) {
+      isAdmin = relationships.get('admin')
       const isMember = relationships.get('member')
       actionButtonTitle = intl.formatMessage(!isMember ? messages.join : messages.leave)
       if (isMember) {
@@ -136,16 +138,19 @@ class GroupHeader extends ImmutablePureComponent {
                       </Text>
                     </Button>
                   }
-
-                  <Button
-                    radiusSmall
-                    color='primary'
-                    backgroundColor='tertiary'
-                    className={_s.mr5}
-                    icon='ellipsis'
-                    onClick={this.handleOnOpenGroupOptions}
-                    buttonRef={this.setInfoBtn}
-                  />
+                  
+                  {
+                    isAdmin &&
+                    <Button
+                      radiusSmall
+                      color='primary'
+                      backgroundColor='tertiary'
+                      className={_s.mr5}
+                      icon='ellipsis'
+                      onClick={this.handleOnOpenGroupOptions}
+                      buttonRef={this.setInfoBtn}
+                    />
+                  }
                 </div>
 
                 <div className={[_s.default, _s.flexRow, _s.height100PC, _s.mt15, _s.pt10, _s.px10].join(' ')}>
@@ -186,15 +191,18 @@ class GroupHeader extends ImmutablePureComponent {
                       </Button>
                     }
 
-                    <Button
-                      radiusSmall
-                      color='primary'
-                      backgroundColor='tertiary'
-                      className={_s.mr5}
-                      icon='ellipsis'
-                      onClick={this.handleOnOpenGroupOptions}
-                      buttonRef={this.setInfoBtn}
-                    />
+                    {
+                      isAdmin &&
+                      <Button
+                        radiusSmall
+                        color='primary'
+                        backgroundColor='tertiary'
+                        className={_s.mr5}
+                        icon='ellipsis'
+                        onClick={this.handleOnOpenGroupOptions}
+                        buttonRef={this.setInfoBtn}
+                      />
+                    }
                   </div>
                 </div>
               </div>
