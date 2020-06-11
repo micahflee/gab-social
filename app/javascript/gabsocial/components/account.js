@@ -95,8 +95,8 @@ class Account extends ImmutablePureComponent {
     'withBio',
   ]
 
-  handleAction = () => {
-    this.props.onActionClick(this.props.account)
+  handleAction = (e) => {
+    this.props.onActionClick(this.props.account, e)
   }
 
   handleUnrequest = () => {

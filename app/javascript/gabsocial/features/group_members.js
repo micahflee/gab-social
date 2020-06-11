@@ -1,13 +1,12 @@
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
+import { FormattedMessage } from 'react-intl'
 import {
 	fetchMembers,
 	expandMembers,
-	updateRole,
-	createRemovedAccount,
 } from '../actions/groups'
-import { FormattedMessage } from 'react-intl'
+import { openPopover } from '../actions/popover'
 import Account from '../components/account'
 import ScrollableList from '../components/scrollable_list'
 
@@ -25,6 +24,14 @@ const mapDispatchToProps = (dispatch) => ({
 	onExpandMembers(groupId) {
 		dispatch(expandMembers(groupId))
 	},
+	onOpenGroupMemberOptions(targetRef, accountId, groupId) {
+		dispatch(openPopover('GROUP_MEMBER_OPTIONS', {
+			targetRef,
+			accountId,
+			groupId,
+			position: 'top',
+		}))
+	},
 })
 
 export default
@@ -37,6 +44,7 @@ class GroupMembers extends ImmutablePureComponent {
 		hasMore: PropTypes.bool,
 		onExpandMembers: PropTypes.func.isRequired,
 		onFetchMembers: PropTypes.func.isRequired,
+		onOpenGroupMemberOptions: PropTypes.func.isRequired,
 	}
 
 	componentWillMount() {
@@ -51,6 +59,10 @@ class GroupMembers extends ImmutablePureComponent {
 		}
 	}
 
+	handleOpenGroupMemberOptions = (e, accountId) => {
+		this.props.onOpenGroupMemberOptions(e.currentTarget, accountId, this.props.groupId)
+	}
+
 	handleLoadMore = debounce(() => {
 		this.props.onExpandMembers(this.props.groupId)
 	}, 300, { leading: true })
@@ -61,8 +73,9 @@ class GroupMembers extends ImmutablePureComponent {
 			hasMore,
 			group,
 			relationships,
-			dispatch,
 		} = this.props
+
+		const isAdmin = relationships.get('admin')
 
 		return (
 			<ScrollableList
@@ -73,26 +86,17 @@ class GroupMembers extends ImmutablePureComponent {
 				emptyMessage={<FormattedMessage id='group.members.empty' defaultMessage='This group does not has any members.' />}
 			>
 				{
-					accountIds && accountIds.map((id) => {
-						let menu = []
-
-						if (relationships.get('admin')) {
-							menu = [
-								{ text: 'Remove from group', action: () => dispatch(createRemovedAccount(group.get('id'), id)) },
-								{ text: 'Make administrator', action: () => dispatch(updateRole(group.get('id'), id, 'admin')) },
-							]
-						}
-
-						return (
-							<Account
-								compact
-								key={id}
-								id={id}
-								actionIcon='ellipsis'
-								onActionClick={() => true}
-							/>
-						)
-					})
+					accountIds && accountIds.map((id) => (
+						<Account
+							compact
+							key={id}
+							id={id}
+							actionIcon={!isAdmin ? undefined : 'ellipsis'}
+							onActionClick={(data, event) => {
+								return !isAdmin ? false : this.handleOpenGroupMemberOptions(event, id)
+							}}
+						/>
+					))
 				}
 			</ScrollableList>
 		)
