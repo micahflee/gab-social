@@ -20,9 +20,9 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onOpenEditGroup(group) {
+  onOpenEditGroup(groupId) {
     dispatch(closePopover())
-    dispatch(openModal(MODAL_GROUP_CREATE, { group }))
+    dispatch(openModal(MODAL_GROUP_CREATE, { groupId }))
   },
 
   onOpenRemovedMembers(groupId) {
@@ -54,7 +54,7 @@ class GroupOptionsPopover extends ImmutablePureComponent {
   updateOnProps = ['group']
 
   handleEditGroup = () => {
-    this.props.onOpenEditGroup(this.props.group)
+    this.props.onOpenEditGroup(this.props.group.get('id'))
   }
 
   handleOnOpenRemovedMembers = () => {

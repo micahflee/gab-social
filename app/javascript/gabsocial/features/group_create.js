@@ -167,6 +167,7 @@ class GroupCreate extends ImmutablePureComponent {
 					disabled={isSubmitting}
 					title={intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
 					onChange={this.handleCoverImageChange}
+					file={group ? group.get('cover_image_url') : undefined}
 					width='340px'
 					height='145px'
 				/>

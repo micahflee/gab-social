@@ -20,7 +20,7 @@ export default class FileInput extends PureComponent {
   }
 
   state = {
-    file: null,
+    file: this.props.file,
   }
 
   handleOnChange = (e) => {
