@@ -13,13 +13,16 @@ import { displayMedia } from '../initial_state'
 import {
   CX,
   POPOVER_VIDEO_STATS,
+  BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
+import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
-// check every 50 ms (do not use lower values)
-const checkInterval  = 50.0
+// check every 50 ms for buffer
+const checkInterval  = 50
+const FIXED_VAR = 6
 
 const messages = defineMessages({
   play: { id: 'video.play', defaultMessage: 'Play' },
@@ -37,7 +40,7 @@ const messages = defineMessages({
 const formatTime = (secondsNum) => {
   let hours = Math.floor(secondsNum / 3600)
   let minutes = Math.floor((secondsNum - (hours * 3600)) / 60)
-  let seconds = secondsNum - (hours * 3600) - (minutes * 60)
+  let seconds = Math.floor(secondsNum) - (hours * 3600) - (minutes * 60)
 
   if (hours < 10) hours = '0' + hours
   if (minutes < 10) minutes = '0' + minutes
@@ -203,12 +206,11 @@ class Video extends ImmutablePureComponent {
   }
 
   checkBuffering = () => {
-    const { isBuffering, paused } = this.state
-    const { currentTime } = this.video
+    const { isBuffering, paused, currentTime } = this.state
 
     // checking offset should be at most the check interval
     // but allow for some margin
-    let offset = (checkInterval - 20) / 1000
+    let offset = checkInterval / 1000
 
     // if no buffering is currently detected,
     // and the position does not seem to increase
@@ -279,7 +281,10 @@ class Video extends ImmutablePureComponent {
   }
 
   handlePause = () => {
-    this.setState({ paused: true })
+    this.setState({
+      paused: true,
+      isBuffering: false,
+    })
 
     clearInterval(this.bufferCheckInterval)
   }
@@ -287,8 +292,8 @@ class Video extends ImmutablePureComponent {
   handleTimeUpdate = () => {
     const { currentTime, duration } = this.video
     this.setState({
-      currentTime: Math.floor(currentTime),
-      duration: Math.floor(duration),
+      currentTime: currentTime.toFixed(FIXED_VAR),
+      duration: duration.toFixed(FIXED_VAR),
     })
   }
 
@@ -359,7 +364,7 @@ class Video extends ImmutablePureComponent {
 
   handleMouseMove = throttle(e => {
     const { x } = getPointerPosition(this.seek, e)
-    const currentTime = Math.floor(this.video.duration * x)
+    const currentTime = parseFloat(this.video.duration * x).toFixed(FIXED_VAR)
 
     if (!isNaN(currentTime)) {
       this.video.currentTime = currentTime
@@ -576,6 +581,7 @@ class Video extends ImmutablePureComponent {
       z3: 1,
       alignItemsCenter: 1,
       justifyContentCenter: 1,
+      videoEase: 1,
       opacity0: !dragging,
       opacity1: dragging || hovered,
     })
@@ -595,6 +601,7 @@ class Video extends ImmutablePureComponent {
       mt10: 1,
       posAbs: 1,
       height4PX: 1,
+      videoEase: 1,
     })
 
     const volumeControlClasses = CX({
@@ -654,15 +661,17 @@ class Video extends ImmutablePureComponent {
         <div className={overlayClasses}>
           {
             paused && !isBuffering &&
-            <button
-              onClick={this.togglePlay}
-              className={[_s.default, _s.outlineNone, _s.cursorPointer, _s.alignItemsCenter, _s.justifyContentCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.height60PX, _s.width60PX].join(' ')}
-            >
-              <Icon id='play' size='24px' className={_s.fillWhite} />
-            </button>
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <button
+                onClick={this.togglePlay}
+                className={[_s.default, _s.outlineNone, _s.cursorPointer, _s.alignItemsCenter, _s.justifyContentCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.height60PX, _s.width60PX].join(' ')}
+              >
+                <Icon id='play' size='24px' className={_s.fillWhite} />
+              </button>
+            </Responsive>
           }
           {
-            isBuffering &&
+            !paused && isBuffering &&
             <Icon id='loading' size='40px' className={[_s.default, _s.posAbs].join(' ')} />
           }
         </div>
@@ -801,20 +810,22 @@ class Video extends ImmutablePureComponent {
                 buttonRef={this.setSettingsBtnRef}
                 title='Video stats'
               />
-              {
-                pipAvailable &&
-                <Button
-                  isNarrow
-                  backgroundColor='none'
-                  aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
-                  onClick={this.togglePip}
-                  icon='pip'
-                  iconSize='20px'
-                  iconClassName={_s.fillWhite}
-                  className={[_s.px10, _s.pr0].join(' ')}
-                  title='Picture in Picture'
-                />
-              }
+              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                {
+                  pipAvailable &&
+                  <Button
+                    isNarrow
+                    backgroundColor='none'
+                    aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
+                    onClick={this.togglePip}
+                    icon='pip'
+                    iconSize='20px'
+                    iconClassName={_s.fillWhite}
+                    className={[_s.px10, _s.pr0].join(' ')}
+                    title='Picture in Picture'
+                  />
+                }
+              </Responsive>
               <Button
                 isNarrow
                 backgroundColor='none'

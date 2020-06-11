@@ -827,6 +827,10 @@ body {
   list-style: none;
 }
 
+.videoEase {
+  transition: left 0.25s linear, width 0.25s linear;
+}
+
 .videoPlayerControlsBackground {
   background: linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,.45) 60%, transparent);
 }
