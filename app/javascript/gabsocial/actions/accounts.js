@@ -454,7 +454,6 @@ export function expandFollowers(id) {
       dispatch(expandFollowersSuccess(id, response.data, next ? next.uri : null));
       dispatch(fetchRelationships(response.data.map(item => item.id)));
     }).catch((error) => {
-      console.log("error:", error)
       dispatch(expandFollowersFail(id, error));
     });
   };
