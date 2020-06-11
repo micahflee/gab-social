@@ -589,7 +589,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    status.get('replies_count') > 0 && !commentsLimited && descendantsIds && descendantsIds.size === 0 &&
+                    status.get('replies_count') > 0 && !commentsLimited && !isNotification && descendantsIds && descendantsIds.size === 0 &&
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
                       <ColumnIndicator type='loading' />
