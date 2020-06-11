@@ -18,6 +18,7 @@ import {
 import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Icon from './icon'
+import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
 
 // check every 50 ms for buffer
@@ -35,6 +36,7 @@ const messages = defineMessages({
   sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
   hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
   video_stats: { id: 'video.stats_label', defaultMessage: 'Video meta stats' },
+  toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
 })
 
 const formatTime = (secondsNum) => {
@@ -168,10 +170,6 @@ class Video extends ImmutablePureComponent {
     document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
     document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
 
-    if (blurhash) {
-      this._decode()
-    }
-
     if (meta) {
       this.setState({ duration: parseInt(meta.get('duration')) })
     }
@@ -200,28 +198,25 @@ class Video extends ImmutablePureComponent {
     if (prevState.revealed && !this.state.revealed && this.video) {
       this.video.pause()
     }
-    if (prevProps.blurhash !== this.props.blurhash && this.props.blurhash) {
-      this._decode()
-    }
   }
 
   checkBuffering = () => {
-    const { isBuffering, paused, currentTime } = this.state
+    const { isBuffering, paused } = this.state
+    if (!this.video) {
+      this.handlePause()
+      return
+    }
+    const { currentTime } = this.video
 
-    // checking offset should be at most the check interval
-    // but allow for some margin
+    // Checking offset should be at most the check interval but allow for some margin
     let offset = checkInterval / 1000
 
-    // if no buffering is currently detected,
-    // and the position does not seem to increase
-    // and the player isn't manually paused...
     if (!isBuffering && currentTime < (this.lastPlayPos + offset) && !paused) {
+      // If no buffering is currently detected, and the position does not seem to increase
+      // and the player isn't manually paused...
       this.setState({ isBuffering: true })
-    }
-
-    // if we were buffering but the player has advanced,
-    // then there is no buffering
-    if (isBuffering && currentTime > (this.lastPlayPos + offset) && !paused) {
+    } else if (isBuffering && currentTime > (this.lastPlayPos + offset) && !paused) {
+      // If we were buffering but the player has advanced, then there is no buffering
       this.setState({ isBuffering: false })
     }
 
@@ -262,10 +257,6 @@ class Video extends ImmutablePureComponent {
 
   setVolumeRef = (n) => {
     this.volume = n
-  }
-
-  setCanvasRef = (n) => {
-    this.canvas = n
   }
 
   setSettingsBtnRef = (n) => {
@@ -405,18 +396,6 @@ class Video extends ImmutablePureComponent {
     }
   }
 
-  _decode() {
-    const hash = this.props.blurhash
-    const pixels = decode(hash, 32, 32)
-
-    if (pixels && this.canvas) {
-      const ctx = this.canvas.getContext('2d')
-      const imageData = new ImageData(pixels, 32, 32)
-
-      ctx.putImageData(imageData, 0, 0)
-    }
-  }
-
   handleFullscreenChange = () => {
     this.setState({ fullscreen: isFullscreen() })
   }
@@ -500,7 +479,7 @@ class Video extends ImmutablePureComponent {
       alt,
       detailed,
       sensitive,
-      aspectRatio
+      aspectRatio,
     } = this.props
 
     const {
@@ -637,6 +616,10 @@ class Video extends ImmutablePureComponent {
       displayNone: !paused,
     })
 
+    if (!revealed && sensitive) {
+      return <SensitiveMediaItem onClick={this.toggleReveal} />
+    }
+
     return (
       <div
         className={mainContainerClasses}
@@ -647,16 +630,6 @@ class Video extends ImmutablePureComponent {
         onClick={this.handleClickRoot}
         tabIndex={0}
       >
-
-        {
-          !revealed &&
-          <canvas
-            width={32}
-            height={32}
-            ref={this.setCanvasRef}
-            className={[_s.default, _s.posAbs, _s.height100PC, _s.width100PC, _s.top0, _s.left0].join(' ')}
-          />
-        }
 
         <div className={overlayClasses}>
           {
@@ -676,32 +649,29 @@ class Video extends ImmutablePureComponent {
           }
         </div>
 
-        {
-          revealed &&
-          <video
-            className={[_s.default, _s.height100PC, _s.width100PC, _s.outlineNone].join(' ')}
-            playsInline
-            ref={this.setVideoRef}
-            src={src}
-            poster={preview}
-            preload={preload}
-            loop
-            role='button'
-            tabIndex='0'
-            aria-label={alt}
-            title={alt}
-            width={width}
-            height={height}
-            volume={volume}
-            onClick={this.togglePlay}
-            onPlay={this.handlePlay}
-            onPause={this.handlePause}
-            onTimeUpdate={this.handleTimeUpdate}
-            onLoadedData={this.handleLoadedData}
-            onProgress={this.handleProgress}
-            onVolumeChange={this.handleVolumeChange}
-          />
-        }
+        <video
+          className={[_s.default, _s.height100PC, _s.width100PC, _s.outlineNone].join(' ')}
+          playsInline
+          ref={this.setVideoRef}
+          src={src}
+          poster={preview}
+          preload={preload}
+          loop
+          role='button'
+          tabIndex='0'
+          aria-label={alt}
+          title={alt}
+          width={width}
+          height={height}
+          volume={volume}
+          onClick={this.togglePlay}
+          onPlay={this.handlePlay}
+          onPause={this.handlePause}
+          onTimeUpdate={this.handleTimeUpdate}
+          onLoadedData={this.handleLoadedData}
+          onProgress={this.handleProgress}
+          onVolumeChange={this.handleVolumeChange}
+        />
 
         { /* <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed })}>
           <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
@@ -841,8 +811,20 @@ class Video extends ImmutablePureComponent {
           </div>
 
         </div>
+
+        {
+          revealed && sensitive &&
+          <div className={[_s.posAbs, _s.z2, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}>
+            <Button
+              title={intl.formatMessage(messages.toggle_visible)}
+              icon='hidden'
+              backgroundColor='black'
+              className={[_s.px10, _s.bgBlackOpaque_onHover].join(' ')}
+              onClick={this.toggleReveal}
+            />
+          </div>
+        }
       </div>
     )
   }
-
 }
