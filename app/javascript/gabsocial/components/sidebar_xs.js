@@ -148,18 +148,18 @@ class SidebarXS extends ImmutablePureComponent {
       //   onClick: this.handleSidebarClose,
       //   title: intl.formatMessage(messages.follow_requests),
       // },
-      // {
-      //   icon: 'block',
-      //   to: '/blocks',
-      //   onClick: this.handleSidebarClose,
-      //   title: intl.formatMessage(messages.blocks),
-      // },
-      // {
-      //   icon: 'audio-mute',
-      //   to: '/mutes',
-      //   onClick: this.handleSidebarClose,
-      //   title: intl.formatMessage(messages.mutes),
-      // },
+      {
+        icon: 'block',
+        to: '/settings/blocks',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.blocks),
+      },
+      {
+        icon: 'audio-mute',
+        to: '/settings/mutes',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.mutes),
+      },
       // {
       //   icon: 'report',
       //   to: '/filters',

@@ -10,6 +10,8 @@ const messages = defineMessages({
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   settings: { id: 'settings', defaultMessage: 'Settings' },
   logout: { 'id': 'confirmations.logout.confirm', 'defaultMessage': 'Log out' },
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -52,6 +54,14 @@ class SidebarMorePopover extends PureComponent {
             {
               title: intl.formatMessage(messages.display),
               onClick: this.handleOnOpenDisplayModal,
+            },
+            {
+              title: intl.formatMessage(messages.blocks),
+              to: '/settings/blocks',
+            },
+            {
+              title: intl.formatMessage(messages.mutes),
+              to: '/settings/mutes',
             },
             {
               title: intl.formatMessage(messages.settings),
