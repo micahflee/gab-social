@@ -209,7 +209,7 @@ class Video extends ImmutablePureComponent {
     const { currentTime } = this.video
 
     // Checking offset should be at most the check interval but allow for some margin
-    let offset = checkInterval / 1000
+    let offset = (checkInterval - 30) / 1000
 
     if (!isBuffering && currentTime < (this.lastPlayPos + offset) && !paused) {
       // If no buffering is currently detected, and the position does not seem to increase
