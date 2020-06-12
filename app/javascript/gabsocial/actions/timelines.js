@@ -1,6 +1,7 @@
+import { Map as ImmutableMap, List as ImmutableList, toJS } from 'immutable';
 import { importFetchedStatus, importFetchedStatuses } from './importer';
 import api, { getLinks } from '../api';
-import { Map as ImmutableMap, List as ImmutableList, toJS } from 'immutable';
+import { fetchRelationships } from './accounts'
 
 export const TIMELINE_UPDATE = 'TIMELINE_UPDATE';
 export const TIMELINE_DELETE = 'TIMELINE_DELETE';
@@ -17,6 +18,13 @@ export const TIMELINE_CONNECT = 'TIMELINE_CONNECT';
 export const TIMELINE_DISCONNECT = 'TIMELINE_DISCONNECT';
 
 export const MAX_QUEUED_ITEMS = 40;
+
+const fetchStatusesAccountsRelationships = (dispatch, statuses) => {
+  const accountIds = statuses.map(item => item.account.id)
+  if (accountIds.length > 0) {
+    dispatch(fetchRelationships(accountIds));
+  }
+}
 
 export function updateTimeline(timeline, status, accept) {
   return dispatch => {
@@ -148,6 +156,7 @@ export function expandTimeline(timelineId, path, params = {}, done = noOp) {
       const next = getLinks(response).refs.find(link => link.rel === 'next');
       dispatch(importFetchedStatuses(response.data));
       dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore));
+      fetchStatusesAccountsRelationships(dispatch, response.data)
       done();
     }).catch(error => {
       dispatch(expandTimelineFail(timelineId, error, isLoadingMore));

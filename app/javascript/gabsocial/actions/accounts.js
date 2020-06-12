@@ -577,7 +577,10 @@ export function fetchRelationships(accountIds) {
     if (!me) return;
 
     const loadedRelationships = getState().get('relationships');
-    const newAccountIds = accountIds.filter(id => loadedRelationships.get(id, null) === null);
+    let newAccountIds = accountIds.filter((id) => {
+      if (id === me) return false
+      return loadedRelationships.get(id, null) === null
+    })
 
     if (newAccountIds.length === 0) {
       return;
@@ -585,6 +588,9 @@ export function fetchRelationships(accountIds) {
       const firstId = newAccountIds[0]
       if (me === firstId) return;
     }
+
+    // Unique
+    newAccountIds = Array.from(new Set(newAccountIds))
 
     dispatch(fetchRelationshipsRequest(newAccountIds));
 
