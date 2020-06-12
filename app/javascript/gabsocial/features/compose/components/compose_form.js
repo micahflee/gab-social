@@ -21,6 +21,7 @@ import PollButton from './poll_button'
 import PollForm from './poll_form'
 import SchedulePostButton from './schedule_post_button'
 import SpoilerButton from './spoiler_button'
+import RichTextEditorButton from './rich_text_editor_button'
 import StatusContainer from '../../../containers/status_container'
 import StatusVisibilityButton from './status_visibility_button'
 import UploadButton from './media_upload_button'
@@ -92,14 +93,8 @@ class ComposeForm extends ImmutablePureComponent {
     showSearch: false,
   };
 
-  handleChange = (e, markdown) => {
-    let position = null
-    try {
-      position = this.autosuggestTextarea.textbox.selectionStart 
-    } catch (error) {
-      //
-    }
-    this.props.onChange(e.target.value, markdown, this.props.replyToId, position)
+  handleChange = (e, selectionStart) => {
+    this.props.onChange(e.target.value, e.target.markdown, this.props.replyToId, selectionStart)
   }
 
   handleComposeFocus = () => {
@@ -137,11 +132,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleSubmit = () => {
-    if (this.props.text !== this.autosuggestTextarea.textbox.value) {
+    // if (this.props.text !== this.autosuggestTextarea.textbox.value) {
       // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
       // Update the state to match the current text
-      this.props.onChange(this.autosuggestTextarea.textbox.value);
-    }
+      // this.props.onChange(this.autosuggestTextarea.textbox.value);
+    // }
 
     // Submit disabled:
     const { isSubmitting, isChangingUpload, isUploading, anyMedia } = this.props;
@@ -218,6 +213,7 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleEmojiPick = (data) => {
+    // : todo : with rich text
     const { text } = this.props
     const position = this.autosuggestTextarea.textbox.selectionStart
     const needsSpace = data.custom && position > 0 && !ALLOWED_AROUND_SHORT_CODE.includes(text[position - 1])
@@ -474,7 +470,7 @@ class ComposeForm extends ImmutablePureComponent {
                     <StatusVisibilityButton />
                     <SpoilerButton />
                     <SchedulePostButton />
-                    { /* !shouldCondense && <RichTextEditorButton /> */}
+                    <RichTextEditorButton />
                   </div>
 
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>

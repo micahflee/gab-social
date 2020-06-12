@@ -1,9 +1,12 @@
-import escapeTextContentForBrowser from 'escape-html';
-import emojify from '../../components/emoji/emoji';
-import { unescapeHTML } from '../../utils/html';
-import { expandSpoilers } from '../../initial_state';
+import escapeTextContentForBrowser from 'escape-html'
+import { markdownToDraft } from 'markdown-draft-js'
+import { Remarkable } from 'remarkable'
+import * as entities from 'entities'
+import emojify from '../../components/emoji/emoji'
+import { unescapeHTML } from '../../utils/html'
+import { expandSpoilers } from '../../initial_state'
 
-const domParser = new DOMParser();
+const domParser = new DOMParser()
 
 const makeEmojiMap = record => record.emojis.reduce((obj, emoji) => {
   obj[`:${emoji.shortcode}:`] = emoji;
@@ -63,8 +66,40 @@ export function normalizeStatus(status, normalOldStatus) {
     const spoilerText   = normalStatus.spoiler_text || '';
     const searchContent = [spoilerText, status.content].join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n');
     const emojiMap      = makeEmojiMap(normalStatus);
-    const theContent = !!normalStatus.rich_content ? normalStatus.rich_content : normalStatus.content;
+    
+    let theContent
+    if (!!normalStatus.rich_content) {
+      theContent = normalStatus.rich_content
+      // let rawObject = markdownToDraft(theContent, {
+      //   preserveNewlines: true,
+      //   remarkablePreset: 'commonmark',
+      //   remarkableOptions: {
+      //     enable: {
+      //       inline: ['del', 'ins'],
+      //     }
+      //   }
+      // });
 
+      const md = new Remarkable({
+        html: false,
+        breaks: true,
+      })
+      let html = md.render(theContent)
+      html = entities.decodeHTML(html)
+      
+      theContent = html
+
+      console.log("html:", html)
+      console.log("theContent:", theContent)
+      console.log("status:", status)
+      console.log("normalStatus:", normalStatus)
+      // console.log("rawObject:", rawObject)
+    } else {
+      theContent = normalStatus.content
+    }
+    // let theContent = !!normalStatus.rich_content ? normalStatus.rich_content : normalStatus.content;
+
+    
     normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
     normalStatus.contentHtml  = emojify(theContent, emojiMap, false, true);
     normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
@@ -86,3 +121,21 @@ export function normalizePoll(poll) {
 
   return normalPoll;
 }
+
+
+// <p><h1>attention!</h1></p>
+// <p>#test @bob #nice https://bob.com http://techcrunch.com <del>strike it</del></p>
+// <p><del>https://twitter.com</del></p>
+// <p><em>@bobitalic</em></p>
+// <p><pre><code>jonincode</code></pre></p>
+
+// # attention!
+// #test @bob #nice https://bob.com http://techcrunch.com ~~strike it~~
+
+// ~~https://twitter.com~~
+
+// _@bobitalic_
+
+// ```
+// jonincode
+// ```

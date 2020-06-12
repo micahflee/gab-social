@@ -8,7 +8,6 @@ import {
   ContentState,
 } from 'draft-js'
 import { draftToMarkdown } from 'markdown-draft-js'
-// import draftToMarkdown from 'draftjs-to-markdown'
 import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
@@ -76,7 +75,6 @@ const compositeDecorator = new CompositeDecorator([
 const HANDLE_REGEX = /\@[\w]+/g;
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
 
-
 const mapDispatchToProps = (dispatch) => ({
 
 })
@@ -117,7 +115,6 @@ class Composer extends PureComponent {
   }
 
   componentDidUpdate (prevProps) {
-    // console.log("this.props.value:", this.props.value)
     if (prevProps.value !== this.props.value) {
       // const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value));
       // this.setState({ editorState })
@@ -126,24 +123,32 @@ class Composer extends PureComponent {
 
   // EditorState.createWithContent(ContentState.createFromText('Hello'))
 
-  onChange = (editorState) => {
+  onChange = (editorState, b, c, d) => {
     this.setState({ editorState })
-    const content = this.state.editorState.getCurrentContent();
+
+    const content = editorState.getCurrentContent();
     const text = content.getPlainText('\u0001')
     
-    // const selectionState = editorState.getSelection()
-    // const selectionStart = selectionState.getStartOffset()
+    const selectionState = editorState.getSelection()
+    const selectionStart = selectionState.getStartOffset()
 
-    // const rawObject = convertToRaw(content);
-    // const markdownString = draftToMarkdown(rawObject);
-    // const markdownString = draftToMarkdown(rawObject, {
-    //   trigger: '#',
-    //   separator: ' ',
-    // });
+    const rawObject = convertToRaw(content);
+    const markdownString = draftToMarkdown(rawObject, {
+      preserveNewlines: true,
+      remarkablePreset: 'commonmark',
+      remarkableOptions: {
+        disable: {
+          block: ['table']
+        },
+        enable: {
+          inline: ['del', 'ins'],
+        }
+      }
+    });
 
-    // console.log("text:", text, this.props.value)
+    console.log("text:", markdownString)
 
-    this.props.onChange(null, text, selectionStart, markdownString)
+    this.props.onChange(null, text, markdownString, selectionStart)
   }
 
   // **bold**
@@ -219,7 +224,7 @@ class Composer extends PureComponent {
     return (
       <div className={_s.default}>
 
-        { /** : todo : */
+        {
           !small &&
           <RichTextEditorBar
             editorState={editorState}
@@ -241,6 +246,9 @@ class Composer extends PureComponent {
             placeholder={placeholder}
             ref={this.setRef}
             readOnly={disabled}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            stripPastedStyles
           />
         </div>
       </div>

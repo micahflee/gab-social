@@ -53,19 +53,18 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     tokenStart: 0,
   }
 
-  onChange = (e, value, selectionStart, markdown) => {
+  onChange = (e, value, markdown, selectionStart) => {
     if (!isObject(e)) {
       e = {
         target: {
           value,
+          markdown,
           selectionStart,
         },
       }
     }
 
     const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
-
-    // console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
 
     if (token !== null && this.state.lastToken !== token) {
       this.setState({ lastToken: token, selectedSuggestion: 0, tokenStart });
@@ -75,7 +74,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       this.props.onSuggestionsClearRequested();
     }
 
-    this.props.onChange(e, markdown);
+    this.props.onChange(e);
   }
 
   onKeyDown = (e) => {
@@ -259,7 +258,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     return (
       <Fragment>
         <div className={textareaContainerClasses}>
-          <Textarea
+          {/*<Textarea
             inputRef={this.setTextbox}
             className={textareaClasses}
             disabled={disabled}
@@ -273,9 +272,9 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             onBlur={this.onBlur}
             onPaste={this.onPaste}
             aria-autocomplete='list'
-          />
+          />*/}
 
-          {/*<Composer
+          <Composer
             inputRef={this.setTextbox}
             disabled={disabled}
             placeholder={placeholder}
@@ -288,7 +287,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             onBlur={this.onBlur}
             onPaste={this.onPaste}
             small={small}
-          />*/}
+          />
 
           {children}
         </div>
