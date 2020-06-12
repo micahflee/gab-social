@@ -72,7 +72,7 @@
   --solid_color_block: #2d2d2d !important;
 
   --text_color_primary: #fff !important;
-  --text_color_secondary: #7b7b7b !important;
+  --text_color_secondary: #999 !important;
   --text_color_tertiary: #656565 !important;
 
   --border_color_secondary: #424141 !important;
@@ -88,16 +88,16 @@
 :root[theme='black'] {
   --solid_color_primary: #13171b !important;
   --solid_color_primary-opaque:rgba(19, 23, 27, .6) !important;
-  --solid_color_secondary: #4f5050 !important;
-  --solid_color_secondary-dark: #424343 !important;
+  --solid_color_secondary: #343434 !important;
+  --solid_color_secondary-dark: #282828 !important;
   --solid_color_tertiary: #000 !important;
   --solid_color_block: #202327 !important;
 
   --text_color_primary: #cccbcb !important;
-  --text_color_secondary: #61686E !important;
+  --text_color_secondary: #888 !important;
   --text_color_tertiary: #656565 !important;
 
-  --border_color_secondary: #212020 !important;
+  --border_color_secondary: #343434 !important;
 
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
