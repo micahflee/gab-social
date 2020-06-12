@@ -24,6 +24,8 @@
   --fs_xl: 1.3571428571rem;
   --fs_xxl: 1.7142857143rem;
 
+  --font_family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+
   /* Default light theme */
   --solid_color_primary: #fff;
   --solid_color_primary-opaque:rgba(255, 255, 255,.6);
@@ -133,7 +135,7 @@ body {
   line-height: 1.3125;
   overflow-wrap: break-word;
   color: var(--text_color_primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
 }
 
 .statusContent p {
@@ -179,7 +181,7 @@ body {
   line-height: 1.3125;
   overflow-wrap: break-word;
   color: var(--text_color_primary);
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
 }
 
 .statusContent a,
@@ -218,11 +220,11 @@ body {
   display: inline;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
 }
 
 .font {
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
 }
 
 .wrap {
@@ -871,14 +873,14 @@ body {
   display: inline;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
 }
 
 :global(.ellipsis) {
   display: inline;
   white-space: pre-wrap;
   word-wrap: break-word;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif;
+  font-family: var(--font_family);
   color: inherit;
   user-select: none;
 }
