@@ -22,6 +22,7 @@ const messages = defineMessages({
   blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -86,52 +87,61 @@ class AccountActionButton extends ImmutablePureComponent {
 
     if (!account) return null
 
-    // Wait until the relationship is loaded
-    if (!account.get('relationship')) return null
-
-    // Don't show if is me
-    if (account.get('id') === me) return null
-
-    const isBlockedBy = account.getIn(['relationship', 'blocked_by'])
-
-    // Don't show
-    if (isBlockedBy) return null
+    const isMe = account.get('id') === me
+      
+    // Wait until the relationship is loaded unless me
+    if (!account.get('relationship') && !isMe) return null
 
     let buttonText = ''
     let buttonOptions = {}
 
-    const isRequested = account.getIn(['relationship', 'requested'])
-    const isBlocking = account.getIn(['relationship', 'blocking'])
-    const isFollowing = account.getIn(['relationship', 'following'])
-
-    if (isRequested) {
-      buttonText = intl.formatMessage(messages.requested)
+    if (isMe) {
+      buttonText = intl.formatMessage(messages.edit_profile)
       buttonOptions = {
-        onClick: this.handleFollow,
-        color: 'primary',
-        backgroundColor: 'tertiary',
-      }
-    } else if (isBlocking) {
-      buttonText = intl.formatMessage(messages.blocked)
-      buttonOptions = {
-        onClick: this.handleBlock,
-        color: 'white',
-        backgroundColor: 'danger',
-      }
-    } else if (isFollowing) {
-      buttonText = intl.formatMessage(messages.following)
-      buttonOptions = {
-        onClick: this.handleFollow,
-        color: 'white',
-        backgroundColor: 'brand',
-      }
-    } else {
-      buttonText = intl.formatMessage(messages.follow)
-      buttonOptions = {
-        onClick: this.handleFollow,
+        href: '/settings/profile',
         color: 'brand',
         backgroundColor: 'none',
         isOutline: true,
+      }
+    } else {
+      const isBlockedBy = account.getIn(['relationship', 'blocked_by'])
+
+      // Don't show
+      if (isBlockedBy) return null
+
+      const isRequested = account.getIn(['relationship', 'requested'])
+      const isBlocking = account.getIn(['relationship', 'blocking'])
+      const isFollowing = account.getIn(['relationship', 'following'])
+
+      if (isRequested) {
+        buttonText = intl.formatMessage(messages.requested)
+        buttonOptions = {
+          onClick: this.handleFollow,
+          color: 'primary',
+          backgroundColor: 'tertiary',
+        }
+      } else if (isBlocking) {
+        buttonText = intl.formatMessage(messages.blocked)
+        buttonOptions = {
+          onClick: this.handleBlock,
+          color: 'white',
+          backgroundColor: 'danger',
+        }
+      } else if (isFollowing) {
+        buttonText = intl.formatMessage(messages.following)
+        buttonOptions = {
+          onClick: this.handleFollow,
+          color: 'white',
+          backgroundColor: 'brand',
+        }
+      } else {
+        buttonText = intl.formatMessage(messages.follow)
+        buttonOptions = {
+          onClick: this.handleFollow,
+          color: 'brand',
+          backgroundColor: 'none',
+          isOutline: true,
+        }
       }
     }
 
