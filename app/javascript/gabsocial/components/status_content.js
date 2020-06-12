@@ -223,6 +223,7 @@ class StatusContent extends ImmutablePureComponent {
 
       const statusContentClasses = cx({
         statusContent: 1,
+        outlineNone: 1,
         displayNone: hidden,
       })
 
@@ -248,7 +249,7 @@ class StatusContent extends ImmutablePureComponent {
             <div className={[_s.default, _s.flexRow, _s.mr5].join(' ')}>
               <Icon id='warning' size='14px' className={[_s.fillPrimary, _s.mt2, _s.mr5].join(' ')}/>
               <div
-                className={_s.statusContent}
+                className={[_s.statusContent, _s.outlineNone].join(' ')}
                 dangerouslySetInnerHTML={spoilerContent}
                 lang={status.get('language')}
               />
@@ -291,6 +292,7 @@ class StatusContent extends ImmutablePureComponent {
 
       const statusContentClasses = cx({
         statusContent: 1,
+        outlineNone: 1,
         height215PX: collapsed & !isComment,
         height122PX: collapsed && isComment,
         overflowHidden: collapsed,
@@ -330,6 +332,7 @@ class StatusContent extends ImmutablePureComponent {
 
     const containerClasses = cx({
       statusContent: 1,
+      outlineNone: 1,
       px15: !isComment,
       mb15: !isComment,
       mt5: isComment,

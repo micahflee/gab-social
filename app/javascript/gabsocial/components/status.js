@@ -503,7 +503,7 @@ class Status extends ImmutablePureComponent {
     }
 
     return (
-      <HotKeys handlers={handlers}>
+      <HotKeys handlers={handlers} className={_s.outlineNone}>
         <div className={parentClasses}>
           <ResponsiveClassesComponent
             classNames={containerClasses}

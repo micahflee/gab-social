@@ -134,7 +134,7 @@ class IntersectionObserverArticle extends React.Component {
     if (!isIntersecting && (isHidden || cachedHeight)) {
       return (
         <article
-          className={[_s.outlineNone].join(' ')}
+          className={_s.outlineNone}
           ref={this.handleRef}
           aria-posinset={index + 1}
           aria-setsize={listLength}
@@ -149,6 +149,7 @@ class IntersectionObserverArticle extends React.Component {
 
     return (
       <article
+        className={_s.outlineNone}
         ref={this.handleRef}
         aria-posinset={index + 1}
         aria-setsize={listLength}
