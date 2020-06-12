@@ -182,6 +182,7 @@ export default class StatusCard extends ImmutablePureComponent {
         <ResponsiveClassesComponent
           classNames={[_s.default, _s.height220PX, _s.width330PX].join(' ')}
           classNamesSmall={[_s.default, _s.height260PX, _s.width100PC].join(' ')}
+          classNamesXS={[_s.default, _s.height200PX, _s.width100PC].join(' ')}
         >
           <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width100PC, _s.height100PC].join(' ')} />
         </ResponsiveClassesComponent>
