@@ -24,7 +24,7 @@ import Responsive from '../features/ui/util/responsive_component';
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
   headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
   timeline: { id: 'timeline', defaultMessage: 'Timeline' },

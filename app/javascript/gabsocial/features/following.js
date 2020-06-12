@@ -23,7 +23,7 @@ const mapStateToProps = (state, { account }) => {
 }
 
 const messages = defineMessages({
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
   empty: { id: 'account.follows.empty', defaultMessage: 'This user doesn\'t follow anyone yet.' },
 })
 

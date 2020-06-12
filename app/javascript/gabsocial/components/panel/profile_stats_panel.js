@@ -11,7 +11,7 @@ import ResponsiveClassesComponent from '../../features/ui/util/responsive_classe
 const messages = defineMessages({
   gabs: { id: 'account.gabs', defaultMessage: 'Gabs' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
   likes: { id: 'likes', defaultMessage: 'Likes' },
 })
 

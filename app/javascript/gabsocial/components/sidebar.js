@@ -17,7 +17,7 @@ import Pills from './pills'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
   profile: { id: 'account.profile', defaultMessage: 'Profile' },
   preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
   follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },

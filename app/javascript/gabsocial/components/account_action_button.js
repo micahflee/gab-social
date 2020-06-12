@@ -21,7 +21,7 @@ const messages = defineMessages({
   unblock: { id: 'unblock', defaultMessage: 'Unblock' },
   blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Follows' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
   edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
 })
 

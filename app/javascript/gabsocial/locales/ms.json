@@ -11,7 +11,7 @@
   "account.follow": "Follow",
   "account.followers": "Followers",
   "account.followers.empty": "No one follows this user yet.",
-  "account.follows": "Follows",
+  "account.follows": "Following",
   "account.follows.empty": "This user doesn't follow anyone yet.",
   "account.follows_you": "Follows you",
   "account.hide_reposts": "Hide reposts from @{name}",
