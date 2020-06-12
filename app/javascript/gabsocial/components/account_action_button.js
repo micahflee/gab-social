@@ -30,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
         dispatch(openModal('UNFOLLOW', {
-          accountId: account.get('id'),
+          account,
         }));
       } else {
         dispatch(unfollowAccount(account.get('id')));

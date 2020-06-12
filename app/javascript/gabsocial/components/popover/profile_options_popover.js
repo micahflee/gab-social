@@ -22,7 +22,6 @@ import Text from '../text'
 import List from '../list'
 
 const messages = defineMessages({
-  unfollowConfirm: { id: 'confirmations.unfollow.confirm', defaultMessage: 'Unfollow' },
   blockAndReport: { id: 'confirmations.block.block_and_report', defaultMessage: 'Block & Report' },
   unfollow: { id: 'account.unfollow', defaultMessage: 'Unfollow' },
   follow: { id: 'account.follow', defaultMessage: 'Follow' },
@@ -66,7 +65,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
         dispatch(openModal('UNFOLLOW', {
-          accountId: account.get('id'),
+          account,
         }))
       } else {
         dispatch(unfollowAccount(account.get('id')))

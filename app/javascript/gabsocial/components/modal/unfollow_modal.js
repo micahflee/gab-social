@@ -1,43 +1,29 @@
-import { injectIntl, defineMessages } from 'react-intl'
-import { muteAccount } from '../../actions/accounts'
-
-const messages = defineMessages({
-  muteMessage: { id: 'confirmations.mute.message', defaultMessage: 'Are you sure you want to mute {name}?' },
-  cancel: { id: 'confirmation_modal.cancel', defaultMessage: 'Cancel' },
-  confirm: { id: 'confirmations.mute.confirm', defaultMessage: 'Mute' },
-})
-
-const mapStateToProps = (state) => ({
-  isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
-  account: state.getIn(['mutes', 'new', 'account']),
-})
+import { FormattedMessage } from 'react-intl'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import { unfollowAccount } from '../../actions/accounts'
+import ConfirmationModal from './confirmation_modal'
 
 const mapDispatchToProps = (dispatch) => ({
-  onConfirm(account, notifications) {
-    dispatch(muteAccount(account.get('id'), notifications))
+  onConfirm(accountId) {
+    dispatch(unfollowAccount(accountId))
   },
 })
 
 export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
-class UnfollowModal extends PureComponent {
+@connect(null, mapDispatchToProps)
+class UnfollowModal extends ImmutablePureComponent {
 
   static propTypes = {
     isSubmitting: PropTypes.bool.isRequired,
-    account: PropTypes.object.isRequired,
+    account: ImmutablePropTypes.map.isRequired,
     onConfirm: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
-
-  componentDidMount() {
-    this.button.focus()
   }
 
   handleClick = () => {
     this.props.onClose()
-    this.props.onConfirm(this.props.account, this.props.notifications)
+    this.props.onConfirm(this.props.account.get('id'))
   }
 
   handleCancel = () => {
@@ -45,25 +31,15 @@ class UnfollowModal extends PureComponent {
   }
 
   render() {
-    const { account, intl } = this.props
-
-    // : TODO :
-    // , {
-    //   message: <FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />,
-    //   confirm: intl.formatMessage(messages.unfollowConfirm),
-    //   onConfirm: () => dispatch(unfollowAccount(account.get('id'))),
-    // }));
+    const { account } = this.props
 
     return (
       <ConfirmationModal
-        title={`Mute @${account.get('acct')}`}
-        message={<FormattedMessage id='confirmations.mute.message' defaultMessage='Are you sure you want to mute @{name}?' values={{ name: account.get('acct') }} />}
-        confirm={<FormattedMessage id='mute' defaultMessage='Mute' />}
-        onClose={onClose}
-        onConfirm={() => {
-          // dispatch(blockDomain(domain))
-          // dispatch(blockDomain(domain))
-        }}
+        title={`Unfollow @${account.get('acct')}`}
+        message={<FormattedMessage id='confirmations.unfollow.message' defaultMessage='Are you sure you want to unfollow {name}?' values={{ name: <strong>@{account.get('acct')}</strong> }} />}
+        confirm={<FormattedMessage id='confirmations.unfollow.confirm' defaultMessage='Unfollow' />}
+        onClose={this.handleCancel}
+        onConfirm={this.handleClick}
       />
     )
   }
