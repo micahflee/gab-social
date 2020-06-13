@@ -15,6 +15,7 @@ import NotificationContainer from '../containers/notification_container'
 import ScrollableList from '../components/scrollable_list'
 import TimelineQueueButtonHeader from '../components/timeline_queue_button_header'
 import Block from '../components/block'
+import Account from '../components/account'
 
 const mapStateToProps = (state) => ({
   notifications: state.getIn(['notifications', 'items']),
@@ -22,6 +23,7 @@ const mapStateToProps = (state) => ({
   isLoading: state.getIn(['notifications', 'isLoading'], true),
   hasMore: state.getIn(['notifications', 'hasMore']),
   totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
+  selectedFilter: state.getIn(['notifications', 'filter', 'active']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -51,6 +53,7 @@ class Notifications extends ImmutablePureComponent {
     onScrollTopNotifications: PropTypes.func.isRequired,
     sortedNotifications: ImmutablePropTypes.list.isRequired,
     totalQueuedNotificationsCount: PropTypes.number,
+    selectedFilter: PropTypes.string.isRequired,
   }
 
   componentWillUnmount() {
@@ -101,21 +104,38 @@ class Notifications extends ImmutablePureComponent {
       isLoading,
       hasMore,
       totalQueuedNotificationsCount,
+      selectedFilter,
     } = this.props
 
     let scrollableContent = null
 
-    // : todo : include follow requests
-
     if (isLoading && this.scrollableContent) {
       scrollableContent = this.scrollableContent
-    } else if (sortedNotifications.size > 0 || hasMore) {
+    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter !== 'follow') {
       scrollableContent = sortedNotifications.map((item, index) => (
         <NotificationContainer
           key={`notification-${index}`}
           notification={item}
         />
       ))
+    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter === 'follow') {      
+      const followNotifications = []
+      sortedNotifications.forEach((block) => {
+        block.get('follow').forEach((item) => {
+          followNotifications.push(item)
+        })
+      })
+
+      scrollableContent = followNotifications.map((item, index) => {
+        return (
+          <Account
+            compact
+            withBio
+            key={`account-${index}`}
+            id={item.get('account')}
+          />
+        )
+      })
     }
 
     this.scrollableContent = scrollableContent
