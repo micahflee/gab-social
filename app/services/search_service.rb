@@ -16,9 +16,9 @@ class SearchService < BaseService
         results.merge!(url_resource_results) unless url_resource.nil? || @offset.positive? || (@options[:type].present? && url_resource_symbol != @options[:type].to_sym)
       elsif @query.present?
         results[:accounts] = perform_accounts_search! if account_searchable?
-        results[:statuses] = perform_statuses_search! if full_text_searchable?
-        results[:hashtags] = perform_hashtags_search! if hashtag_searchable?
-        results[:groups] = perform_groups_search!
+        results[:statuses] = perform_statuses_search! if full_text_searchable? && !account.nil?
+        results[:hashtags] = perform_hashtags_search! if hashtag_searchable? && !account.nil?
+        results[:groups] = perform_groups_search! if !account.nil?
       end
     end
   end
