@@ -121,9 +121,14 @@ class Notifications extends ImmutablePureComponent {
     } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter === 'follow') {      
       const followNotifications = []
       sortedNotifications.forEach((block) => {
-        block.get('follow').forEach((item) => {
-          followNotifications.push(item)
-        })
+        if (block) {
+          const followBlock = block.get('follow')
+          if (followBlock && followBlock.size > 0) {
+            followBlock.forEach((item) => {
+              followNotifications.push(item)
+            })
+          }
+        }
       })
 
       scrollableContent = followNotifications.map((item, index) => {
