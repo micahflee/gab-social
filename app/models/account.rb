@@ -417,7 +417,7 @@ class Account < ApplicationRecord
           AND accounts.suspended_at IS NULL
           AND accounts.moved_to_account_id IS NULL
           AND accounts.domain IS NULL
-        ORDER BY rank DESC
+        ORDER BY accounts.is_verified DESC
         LIMIT ? OFFSET ?
       SQL
 
@@ -429,47 +429,24 @@ class Account < ApplicationRecord
     def advanced_search_for(terms, account, limit = 10, following = false, offset = 0)
       textsearch, query = generate_query_for_search(terms)
 
-      if following
-        sql = <<-SQL.squish
-          WITH first_degree AS (
-            SELECT target_account_id
-            FROM follows
-            WHERE account_id = ?
-          )
-          SELECT
-            accounts.*,
-            (count(f.id) + 1) * ts_rank_cd(#{textsearch}, #{query}, 32) AS rank
-          FROM accounts
-          LEFT OUTER JOIN follows AS f ON (accounts.id = f.account_id AND f.target_account_id = ?) OR (accounts.id = f.target_account_id AND f.account_id = ?)
-          WHERE accounts.id IN (SELECT * FROM first_degree)
-            AND #{query} @@ #{textsearch}
-            AND accounts.suspended_at IS NULL
-            AND accounts.moved_to_account_id IS NULL
-            AND accounts.domain IS NULL
-          GROUP BY accounts.id
-          ORDER BY rank DESC
-          LIMIT ? OFFSET ?
-        SQL
+      sql = <<-SQL.squish
+        SELECT
+          accounts.*,
+          (count(f.id) + 1) * ts_rank_cd(#{textsearch}, #{query}, 32) AS rank,
+          (count(f.id) + 1) AS fc
+        FROM accounts
+        LEFT OUTER JOIN follows AS f ON (accounts.id = f.account_id AND f.target_account_id = ?) OR (accounts.id = f.target_account_id AND f.account_id = ?)
+        WHERE #{query} @@ #{textsearch}
+          AND accounts.suspended_at IS NULL
+          AND accounts.moved_to_account_id IS NULL
+          AND accounts.domain IS NULL
+        GROUP BY accounts.id
+        ORDER BY accounts.is_verified DESC, fc DESC, rank DESC
+        LIMIT ? OFFSET ?
+      SQL
 
-        records = find_by_sql([sql, account.id, account.id, account.id, limit, offset])
-      else
-        sql = <<-SQL.squish
-          SELECT
-            accounts.*,
-            (count(f.id) + 1) * ts_rank_cd(#{textsearch}, #{query}, 32) AS rank
-          FROM accounts
-          LEFT OUTER JOIN follows AS f ON (accounts.id = f.account_id AND f.target_account_id = ?) OR (accounts.id = f.target_account_id AND f.account_id = ?)
-          WHERE #{query} @@ #{textsearch}
-            AND accounts.suspended_at IS NULL
-            AND accounts.moved_to_account_id IS NULL
-            AND accounts.domain IS NULL
-          GROUP BY accounts.id
-          ORDER BY rank DESC
-          LIMIT ? OFFSET ?
-        SQL
+      records = find_by_sql([sql, account.id, account.id, limit, offset])
 
-        records = find_by_sql([sql, account.id, account.id, limit, offset])
-      end
 
       ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
       records
