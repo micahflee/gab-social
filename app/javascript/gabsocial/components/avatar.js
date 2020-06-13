@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import debounce from 'lodash.debounce'
 import { autoPlayGif } from '../initial_state'
 import { openPopover, closePopover } from '../actions/popover'
 import Image from './image'
@@ -54,23 +55,48 @@ class Avatar extends ImmutablePureComponent {
     }
   }
 
+  componentWillUnmount () {
+    document.removeEventListener('mousemove', this.handleMouseMove, true)
+    clearTimeout(this.mouseOverTimeout)
+  }
+
   handleMouseEnter = () => {
     this.setState({ hovering: true })
 
     if (this.mouseOverTimeout || this.props.noHover) return null
+
     this.mouseOverTimeout = setTimeout(() => {
       this.props.openUserInfoPopover({
         targetRef: this.node,
         position: 'top',
-        account: this.props.account,
+        accountId: this.props.account.get('id'),
       })
+      document.addEventListener('mousemove', this.handleMouseMove, true)
     }, 650)
   }
 
-  handleMouseLeave = () => {
+  handleMouseLeave = debounce((e) => {
     this.setState({ hovering: false })
+    this.attemptToHidePopover(e)
+  }, 250)
 
-    if (this.mouseOverTimeout && !this.props.noHover) {
+  handleMouseMove = debounce((e) => {
+    this.attemptToHidePopover(e)
+  }, 150)
+
+  attemptToHidePopover = (e) => {
+    const lastTarget = e.toElement || e.relatedTarget
+    if (!(lastTarget instanceof Element || lastTarget instanceof HTMLDocument)) return
+
+    const userInfoPopoverEl = document.getElementById('user-info-popover')
+
+    if (this.mouseOverTimeout &&
+        !this.props.noHover &&
+      (
+        (userInfoPopoverEl && lastTarget && !userInfoPopoverEl.contains(lastTarget)) ||
+        (!userInfoPopoverEl && lastTarget && this.node && !this.node.contains(lastTarget))
+      )) {
+      document.removeEventListener('mousemove', this.handleMouseMove, true)
       clearTimeout(this.mouseOverTimeout)
       this.mouseOverTimeout = null
       this.props.closeUserInfoPopover()

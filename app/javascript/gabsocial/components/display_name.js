@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import debounce from 'lodash.debounce'
 import { me } from '../initial_state'
 import {
   CX,
@@ -50,19 +51,43 @@ class DisplayName extends ImmutablePureComponent {
 
   mouseOverTimeout = null
 
+  componentWillUnmount () {
+    document.removeEventListener('mousemove', this.handleMouseMove, true)
+    clearTimeout(this.mouseOverTimeout)
+  }
+
   handleMouseEnter = () => {
     if (this.mouseOverTimeout) return null
     this.mouseOverTimeout = setTimeout(() => {
       this.props.openUserInfoPopover({
         targetRef: this.node,
         position: 'top',
-        account: this.props.account,
+        accountId: this.props.account.get('id'),
       })
+      document.addEventListener('mousemove', this.handleMouseMove, true)
     }, 650)
   }
 
-  handleMouseLeave = () => {
-    if (this.mouseOverTimeout) {
+  handleMouseLeave = debounce((e) => {
+    this.attemptToHidePopover(e)
+  }, 250)
+
+  handleMouseMove = debounce((e) => {
+    this.attemptToHidePopover(e)
+  }, 150)
+
+  attemptToHidePopover = (e) => {
+    const lastTarget = e.toElement || e.relatedTarget
+    if (!(lastTarget instanceof Element || lastTarget instanceof HTMLDocument)) return
+    
+    const userInfoPopoverEl = document.getElementById('user-info-popover')
+
+    if (this.mouseOverTimeout &&
+      (
+        (userInfoPopoverEl && lastTarget && !userInfoPopoverEl.contains(lastTarget)) ||
+        (!userInfoPopoverEl && lastTarget &&  this.node && !this.node.contains(lastTarget))
+      )) {
+      document.removeEventListener('mousemove', this.handleMouseMove, true)
       clearTimeout(this.mouseOverTimeout)
       this.mouseOverTimeout = null
       this.props.closeUserInfoPopover()
@@ -132,9 +157,6 @@ class DisplayName extends ImmutablePureComponent {
       !!isComment ? 12 :
       !!isSmall ? 14 : 15
 
-    const domain = account.get('acct').split('@')[1]
-    const isRemoteUser = !!domain
-
     let relationshipLabel
     if (me && account) {
       const accountId = account.get('id')
@@ -146,13 +168,11 @@ class DisplayName extends ImmutablePureComponent {
     }
 
     // {
-    //   /* : todo : audio-mute
+    //   /* : todo : audio-mute, bot
     //   account.getIn(['relationship', 'muting'])
     //   */
     // }
-
-    // : todo : remote
-    // console.log("domain, isRemoteUser:", domain, isRemoteUser)
+    // bot: { id: 'account.badges.bot', defaultMessage: 'Bot' },
 
     return (
       <div
