@@ -1,4 +1,3 @@
-import { compactMode } from '../initial_state'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -33,19 +32,10 @@ export default class StatusActionBarItem extends PureComponent {
       altTitle
     } = this.props
 
-    const containerClasses = CX({
-      default: 1,
-      px5: !compactMode,
-      px10: compactMode,
-      flexNormal: !compactMode,
-    })
-
     const btnClasses = CX({
       justifyContentCenter: 1,
       alignItemsCenter: 1,
-      px10: !compactMode,
-      px15: compactMode,
-      pt10: compactMode,
+      px10: 1,
       bgSubtle_onHover: !disabled,
     })
 
@@ -57,10 +47,9 @@ export default class StatusActionBarItem extends PureComponent {
 
     const color = active ? 'brand' : 'secondary'
     const weight = active ? 'bold' : 'medium'
-    const iconSize = compactMode ? '14px' : '16px'
 
     return (
-      <div className={containerClasses}>
+      <div className={[_s.default, _s.px5, _s.flexNormal].join(' ')}>
         <Button
           isBlock
           radiusSmall
@@ -72,7 +61,7 @@ export default class StatusActionBarItem extends PureComponent {
           onClick={onClick}
           isDisabled={disabled}
           icon={icon}
-          iconSize={iconSize}
+          iconSize='16px'
           iconClassName={iconClasses}
         > 
           {

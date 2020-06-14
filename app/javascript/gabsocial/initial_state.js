@@ -25,6 +25,5 @@ export const unreadCount = getMeta('unread_count');
 export const lastReadNotificationId = getMeta('last_read_notification_id');
 export const monthlyExpensesComplete = getMeta('monthly_expenses_complete');
 export const favouritesCount = getMeta('favourites_count');
-export const compactMode = false;
 
 export default initialState;

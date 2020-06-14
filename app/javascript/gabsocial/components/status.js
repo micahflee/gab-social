@@ -8,7 +8,7 @@ import {
   COMMENT_SORTING_TYPE_NEWEST,
   COMMENT_SORTING_TYPE_TOP,
 } from '../constants'
-import { me, displayMedia, compactMode } from '../initial_state'
+import { me, displayMedia } from '../initial_state'
 import scheduleIdleTask from '../utils/schedule_idle_task'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
@@ -452,26 +452,21 @@ class Status extends ImmutablePureComponent {
     }
 
     const parentClasses = CX({
-      pb15: !isChild && !compactMode,
+      pb15: !isChild,
     })
 
     const containerClasses = CX({
       default: 1,
-      radiusSmall: !isChild && !compactMode,
+      radiusSmall: !isChild,
       bgPrimary: !isChild,
-      boxShadowBlock: !isChild && !compactMode,
-      borderRight1PX: !isChild && compactMode,
-      borderLeft1PX: !isChild && compactMode,
-      borderBottom1PX: !isChild && compactMode,
-      borderColorSecondary: !isChild && compactMode,
+      boxShadowBlock: !isChild,
     })
 
     const containerClassesXS = CX({
       default: 1,
       bgPrimary: !isChild,
-      boxShadowBlock: !isChild && !compactMode,
+      boxShadowBlock: !isChild,
       borderTop1PX: !isChild,
-      borderBottom1PX: !isChild && compactMode,
       borderColorSecondary: !isChild,
     })
 
@@ -579,7 +574,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    !isChild && !compactMode && !!me &&
+                    !isChild && !!me &&
                     <ResponsiveClassesComponent
                       classNames={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}
                       classNamesXS={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px10, _s.mb10].join(' ')}
@@ -597,7 +592,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    descendantsIds && !compactMode && !isChild && !isNotification && descendantsIds.size > 0 &&
+                    descendantsIds && !isChild && !isNotification && descendantsIds.size > 0 &&
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 

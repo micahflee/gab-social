@@ -2,8 +2,6 @@ import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages, FormattedMessage } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { compactMode } from '../initial_state'
-import { CX } from '../constants'
 import Icon from './icon'
 import Text from './text'
 
@@ -47,16 +45,8 @@ class StatusPrepend extends ImmutablePureComponent {
     else if (isRepost) iconId = 'repost'
     else if (isComment) iconId = 'comment'
 
-    const containerClasses = CX({
-      default: 1,
-      width100PC: 1,
-      alignItemsStart: 1,
-      borderBottom1PX: !compactMode,
-      borderColorSecondary: !compactMode,
-    })
-
     return (
-      <div className={containerClasses}>
+      <div className={[_s.default, _s.width100PC, _s.alignItemsStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
         <div className={[_s.default, _s.width100PC, _s.flexRow, _s.alignItemsCenter, _s.py5, _s.px15].join(' ')}>
           <Icon id={iconId} size='12px' className={[_s.fillSecondary, _s.mr5].join(' ')} />
           {
