@@ -121,18 +121,18 @@ export default function userLists(state = initialState, action) {
     return state.setIn(['liked_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
 
   case FOLLOW_REQUESTS_FETCH_SUCCESS:
-    return state.setIn(['follow_requests', 'items'], ImmutableList(action.accounts.map(item => item.id))).setIn(['follow_requests', 'next'], action.next).setIn(['follow_requests', 'isLoading'], false);
+    return normalizeList(state, 'follow_requests', me, action.accounts, action.next);
   case FOLLOW_REQUESTS_EXPAND_SUCCESS:
-    return state.updateIn(['follow_requests', 'items'], list => list.concat(action.accounts.map(item => item.id))).setIn(['follow_requests', 'next'], action.next).setIn(['follow_requests', 'isLoading'], false);
+    return appendToList(state, 'follow_requests', action.id, action.accounts, action.next);
   case FOLLOW_REQUESTS_FETCH_REQUEST:
   case FOLLOW_REQUESTS_EXPAND_REQUEST:
-    return state.setIn(['follow_requests', 'isLoading'], true);
+    return state.setIn(['follow_requests', me, 'isLoading'], true);
   case FOLLOW_REQUESTS_FETCH_FAIL:
   case FOLLOW_REQUESTS_EXPAND_FAIL:
-    return state.setIn(['follow_requests', 'isLoading'], false);
+    return state.setIn(['follow_requests', me, 'isLoading'], false);
   case FOLLOW_REQUEST_AUTHORIZE_SUCCESS:
   case FOLLOW_REQUEST_REJECT_SUCCESS:
-    return state.updateIn(['follow_requests', 'items'], list => list.filterNot(item => item === action.id));
+    return state.updateIn(['follow_requests', me, 'items'], list => list.filterNot(item => item === action.id));
 
   case BLOCKS_FETCH_REQUEST:
   case BLOCKS_EXPAND_REQUEST:
