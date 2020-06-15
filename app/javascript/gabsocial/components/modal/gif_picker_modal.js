@@ -262,7 +262,7 @@ class GifCategoriesCollection extends PureComponent {
                   src={category.image}
                 />
                 <div className={[_s.default, _s.posAbs, _s.videoPlayerControlsBackground, _s.right0, _s.bottom0, _s.left0, _s.py10, _s.px10].join(' ')}>
-                  <Text color='white' weight='bold' size='large'>
+                  <Text color='white' weight='bold' size='extraLarge'>
                     {category.searchterm}
                   </Text>
                 </div>

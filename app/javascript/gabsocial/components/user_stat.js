@@ -60,7 +60,7 @@ export default class UserStat extends PureComponent {
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
       >
-        <Text size='large' weight='bold' color='brand' align={align}>
+        <Text size='extraLarge' weight='bold' color='brand' align={align}>
           {value}
         </Text>
         <Text size='small' weight='medium' color='secondary' hasUnderline={hovering} align={align}>

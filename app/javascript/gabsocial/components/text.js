@@ -103,7 +103,8 @@ export default class Text extends PureComponent {
       colorWhite: color === COLORS.white,
       inherit: color === COLORS.inherit,
 
-      fs19PX: size === SIZES.large,
+      fs19PX: size === SIZES.extraLarge,
+      fs16PX: size === SIZES.large,
       fs15PX: size === SIZES.medium,
       fs14PX: size === SIZES.normal,
       fs13PX: size === SIZES.small,
