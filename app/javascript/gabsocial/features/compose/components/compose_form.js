@@ -324,6 +324,7 @@ class ComposeForm extends ImmutablePureComponent {
                     onPaste={onPaste}
                     autoFocus={shouldAutoFocus}
                     small={shouldCondense}
+                    id='comment-composer'
                   />
 
                   <div className={actionsContainerClasses}>
@@ -414,6 +415,7 @@ class ComposeForm extends ImmutablePureComponent {
                   onPaste={onPaste}
                   autoFocus={shouldAutoFocus}
                   small={shouldCondense}
+                  id='main-composer'
                 />
 
                 {

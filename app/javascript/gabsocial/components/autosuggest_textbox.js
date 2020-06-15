@@ -259,7 +259,11 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     return (
       <Fragment>
         <div className={textareaContainerClasses}>
+          <label htmlFor={id} className={_s.visiblyHidden}>
+            {placeholder}
+          </label>
           <Textarea
+            id={id}
             inputRef={this.setTextbox}
             className={textareaClasses}
             disabled={disabled}
