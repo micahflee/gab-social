@@ -1,6 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import spring from 'react-motion/lib/spring'
-import Motion from '../features/ui/util/optional_motion'
+import Motion from '../features/ui/util/reduced_motion'
 import Text from './text'
 
 const messages = defineMessages({
