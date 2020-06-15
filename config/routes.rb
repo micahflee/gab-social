@@ -57,8 +57,8 @@ Rails.application.routes.draw do
       end
     end
 
-    get :remote_follow,  to: 'remote_follow#new'
-    post :remote_follow, to: 'remote_follow#create'
+    # get :remote_follow,  to: 'remote_follow#new'
+    # post :remote_follow, to: 'remote_follow#create'
 
     resources :statuses, only: [:show] do
       member do
@@ -149,9 +149,9 @@ Rails.application.routes.draw do
   get '/media_proxy/:id/(*any)', to: 'media_proxy#show', as: :media_proxy
 
   # Remote follow
-  resource :remote_unfollow, only: [:create]
-  resource :authorize_interaction, only: [:show, :create]
-  resource :share, only: [:show, :create]
+  # resource :remote_unfollow, only: [:create]
+  # resource :authorize_interaction, only: [:show, :create]
+  # resource :share, only: [:show, :create]
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
