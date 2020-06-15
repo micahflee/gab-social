@@ -3,7 +3,6 @@ import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { createSelector } from 'reselect';
-import sample from 'lodash.sample';
 import debounce from 'lodash.debounce'
 import { me } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
