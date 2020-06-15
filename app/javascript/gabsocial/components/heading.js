@@ -13,6 +13,15 @@ const SIZES = {
   h6: 'h6',
 }
 
+const ARIA_LEVELS = {
+  h1: '1',
+  h2: '2',
+  h3: '3',
+  h4: '4',
+  h5: '5',
+  h6: '6',
+}
+
 /**
  * Renders an H-tag
  * @param {bool} [props.isCentered] - if text is centered within the element
@@ -62,6 +71,7 @@ export default class Heading extends PureComponent {
       {
         className: classes,
         role: 'heading',
+        'aria-level': ARIA_LEVELS[size],
       },
       children,
     )
