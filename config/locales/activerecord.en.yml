@@ -10,7 +10,7 @@ en:
         account:
           attributes:
             username:
-              invalid: only letters, numbers and underscores
+              invalid: Only letters, numbers and underscores. No spaces.
         status:
           attributes:
             reblog:
