@@ -5,13 +5,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component';
 import { createSelector } from 'reselect';
 import sample from 'lodash.sample';
 import debounce from 'lodash.debounce'
-import { me, promotions } from '../initial_state';
+import { me } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
 import { scrollTopTimeline } from '../actions/timelines';
-import {
-  fetchStatus,
-  fetchContext,
-} from '../actions/statuses';
+import { fetchContext } from '../actions/statuses';
 import StatusContainer from '../containers/status_container';
 import ScrollableList from './scrollable_list';
 import TimelineQueueButtonHeader from './timeline_queue_button_header';
@@ -44,7 +41,6 @@ const mapStateToProps = (state, { timelineId }) => {
   if (!timelineId) return {}
 
   const getStatusIds = makeGetStatusIds();
-  const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
   const statusIds = getStatusIds(state, {
     type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
@@ -57,8 +53,6 @@ const mapStateToProps = (state, { timelineId }) => {
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
     hasMore: state.getIn(['timelines', timelineId, 'hasMore']),
     totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
-    promotion: promotion,
-    promotedStatus: promotion && state.getIn(['statuses', promotion.status_id])
   };
 };
 
@@ -72,9 +66,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   onScroll: debounce(() => {
     dispatch(scrollTopTimeline(ownProps.timelineId, false));
   }, 100),
-  fetchStatus(id) {
-    dispatch(fetchStatus(id));
-  },
   onFetchContext(statusId) {
     dispatch(fetchContext(statusId, true))
   },
@@ -99,9 +90,6 @@ class StatusList extends ImmutablePureComponent {
     group: ImmutablePropTypes.map,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
-    promotion: PropTypes.object, // : todo :
-    promotedStatus: ImmutablePropTypes.map,
-    fetchStatus: PropTypes.func,
     onFetchContext: PropTypes.func,
   }
 
@@ -112,20 +100,11 @@ class StatusList extends ImmutablePureComponent {
 
   componentDidMount() {
     this.handleDequeueTimeline();
-    this.fetchPromotedStatus();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (prevState.refreshing) {
       this.setState({ refreshing: false })
-    }
-  }
-
-  fetchPromotedStatus() {
-    const { promotion, promotedStatus, fetchStatus } = this.props;
-
-    if (promotion && !promotedStatus) {
-      fetchStatus(promotion.status_id);
     }
   }
 
@@ -207,8 +186,6 @@ class StatusList extends ImmutablePureComponent {
       isLoading,
       isPartial,
       group,
-      promotion,
-      promotedStatus,
       ...other
     } = this.props
     const { fetchedContext, refreshing } = this.state
