@@ -69,7 +69,7 @@ export default class ListItem extends PureComponent {
       fillPrimary: 1,
     })
 
-    const textSize = small ? 'small' : large ? 'medium' : 'normal'
+    const textSize = small ? 'small' : large ? 'large' : 'normal'
     const iconSize = large ? '14px' : '10px'
 
     return (
