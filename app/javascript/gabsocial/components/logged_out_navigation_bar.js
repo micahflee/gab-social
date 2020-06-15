@@ -50,7 +50,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
               isOutline
               color='white'
               backgroundColor='none'
-              href='/auth/log_in'
+              href='/auth/sign_in'
               className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter, _s.py7].join(' ')}
             >
               <Text color='inherit' weight='medium' align='center'>
