@@ -111,7 +111,6 @@ class Avatar extends ImmutablePureComponent {
     const { account, size } = this.props
     const { hovering, sameImg } = this.state
 
-    const shouldAnimate = autoPlayGif || !sameImg
     const isPro = !!account ? account.get('is_pro') : false
     const alt = !account ? '' : `${account.get('display_name')} ${isPro ? '(PRO)' : ''}`.trim()
     const classes = [_s.default, _s.circle, _s.overflowHidden]
@@ -120,9 +119,9 @@ class Avatar extends ImmutablePureComponent {
     }
 
     const options = {
-      onMouseEnter: shouldAnimate ? this.handleMouseEnter : undefined,
-      onMouseLeave: shouldAnimate ? this.handleMouseLeave : undefined,
-      src: !account ? undefined : account.get((hovering || autoPlayGif) ? 'avatar' : 'avatar_static'),
+      onMouseEnter: this.handleMouseEnter,
+      onMouseLeave: this.handleMouseLeave,
+      src: !account ? undefined : account.get(((hovering || autoPlayGif) && !sameImg) ? 'avatar' : 'avatar_static'),
       alt: !account ? undefined : account.get('display_name'),
       style: {
         width: `${size}px`,
