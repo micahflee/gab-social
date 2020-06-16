@@ -199,12 +199,12 @@ class ProfileOptionsPopover extends PureComponent {
       onClick: this.handleReport
     })
 
-    menu.push({
-      hideArrow: true,
-      icon: 'list',
-      title: intl.formatMessage(messages.add_to_list),
-      onClick: this.handleAddToList
-    })
+    // menu.push({
+    //   hideArrow: true,
+    //   icon: 'list',
+    //   title: intl.formatMessage(messages.add_to_list),
+    //   onClick: this.handleAddToList
+    // })
 
     // menu.push({
     //   hideArrow: true,
