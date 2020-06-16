@@ -1,18 +1,18 @@
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { makeGetAccount } from '../selectors';
-import Avatar from './avatar';
-import DisplayName from './display_name';
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { makeGetAccount } from '../selectors'
+import Avatar from './avatar'
+import DisplayName from './display_name'
 
 const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount();
+  const getAccount = makeGetAccount()
 
   const mapStateToProps = (state, { id }) => ({
     account: getAccount(state, id),
-  });
+  })
 
-  return mapStateToProps;
-};
+  return mapStateToProps
+}
 
 export default
 @connect(makeMapStateToProps)
@@ -23,16 +23,19 @@ class AutosuggestAccount extends ImmutablePureComponent {
   }
 
   render () {
-    const { account } = this.props;
+    const { account } = this.props
 
     return (
-      <div className='autosuggest-account' title={account.get('acct')}>
-        <div className='autosuggest-account__icon'>
-          <Avatar account={account} size={18} />
+      <div
+        className={[_s.default, _s.cursorPointer, _s.bgSubtle_onHover, _s.bgPrimary, _s.flexRow, _s.py10, _s.alignItemsCenter, _s.px10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}
+        title={account.get('acct')}
+      >
+        <Avatar account={account} size={26} />
+        <div className={_s.ml10}>
+          <DisplayName account={account} noRelationship noHover />
         </div>
-        <DisplayName account={account} noRelationship noHover />
       </div>
-    );
+    )
   }
 
 }
