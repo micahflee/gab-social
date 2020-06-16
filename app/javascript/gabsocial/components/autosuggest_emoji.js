@@ -24,7 +24,7 @@ export default class AutosuggestEmoji extends PureComponent {
     }
 
     return (
-      <div className={[_s.default, _s.cursorPointer, _s.bgSubtle_onHover, _s.bgPrimary, _s.flexRow, _s.py10, _s.alignItemsCenter, _s.px10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+      <div className={[_s.default, _s.cursorPointer, _s.bgSubtle_onHover, _s.flexRow, _s.py10, _s.alignItemsCenter, _s.px10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
         <img className='emojione' src={url} alt={emoji.native || emoji.colons} />
         <Text className={_s.ml10}>
           {emoji.colons}

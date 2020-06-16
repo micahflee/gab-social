@@ -1,17 +1,15 @@
 import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import isObject from 'lodash.isobject'
-import classNames from 'classnames/bind'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Textarea from 'react-textarea-autosize'
+import { CX } from '../constants'
 import { isRtl } from '../utils/rtl'
 import { textAtCursorMatchesToken } from '../utils/cursor_token_match'
 import AutosuggestAccount from './autosuggest_account'
 import AutosuggestEmoji from './autosuggest_emoji'
 import Input from './input'
 import Composer from './composer'
-
-const cx = classNames.bind(_s)
 
 export default class AutosuggestTextbox extends ImmutablePureComponent {
 
@@ -26,23 +24,17 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     onChange: PropTypes.func.isRequired,
     onKeyUp: PropTypes.func,
     onKeyDown: PropTypes.func,
-    autoFocus: PropTypes.bool,
-    className: PropTypes.string,
     id: PropTypes.string,
     searchTokens: PropTypes.arrayOf(PropTypes.string),
-    maxLength: PropTypes.number,
     onPaste: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     textarea: PropTypes.bool,
     small: PropTypes.bool,
-    prependIcon: PropTypes.string,
   }
 
   static defaultProps = {
-    autoFocus: true,
-    searchTokens: ['@', ':', '#'],
-    textarea: false,
+    searchTokens: ['@', ':'],
   }
 
   state = {
@@ -64,8 +56,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     }
 
     const [ tokenStart, token ] = textAtCursorMatchesToken(e.target.value, e.target.selectionStart, this.props.searchTokens);
-
-    // console.log('onChange', e.target.value, e.target, this.textbox, tokenStart, token)
 
     if (token !== null && this.state.lastToken !== token) {
       this.setState({ lastToken: token, selectedSuggestion: 0, tokenStart });
@@ -175,17 +165,16 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     if (typeof suggestion === 'object') {
       inner = <AutosuggestEmoji emoji={suggestion} />;
       key = suggestion.id;
-    } else if (suggestion[0] === '#') {
-      inner = suggestion;
-      key = suggestion;
     } else {
       inner = <AutosuggestAccount id={suggestion} />;
       key = suggestion;
     }
 
-    const classes = classNames('autosuggest-textarea__suggestions__item', {
-      selected: i === selectedSuggestion,
-    });
+    const isSelected = i === selectedSuggestion
+    const classes = CX({
+      bgPrimary: !isSelected,
+      bgSubtle: isSelected,
+    })
 
     return (
       <div
@@ -213,13 +202,8 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       disabled,
       placeholder,
       onKeyUp,
-      autoFocus,
       children,
-      className,
       id,
-      maxLength,
-      textarea,
-      prependIcon,
     } = this.props
 
     const { suggestionsHidden } = this.state
@@ -227,7 +211,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       direction: isRtl(value) ? 'rtl' : 'ltr',
     }
 
-    const textareaClasses = cx({
+    const textareaClasses = CX({
       default: 1,
       font: 1,
       wrap: 1,
@@ -248,7 +232,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       heightMin80PX: !small,
     })
 
-    const textareaContainerClasses = cx({
+    const textareaContainerClasses = CX({
       default: 1,
       maxWidth100PC: 1,
       flexGrow1: small,
@@ -297,12 +281,12 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
           {children}
         </div>
 
-        { /* : todo :  put in popover */ }
-        <div className='autosuggest-textarea__suggestions-wrapper'>
-          <div className={`autosuggest-textarea__suggestions ${suggestionsHidden || suggestions.isEmpty() ? '' : 'autosuggest-textarea__suggestions--visible'}`}>
+        {
+          !small && !suggestionsHidden && !suggestions.isEmpty() &&
+          <div className={[_s.default].join(' ')}>
             {suggestions.map(this.renderSuggestion)}
           </div>
-        </div>
+        }
       </Fragment>
     )
   }
