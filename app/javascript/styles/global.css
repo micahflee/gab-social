@@ -868,6 +868,11 @@ body {
   width: 20px;
 }
 
+:global(.emoji-mart-emoji span) {
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 :global(.invisible) {
   font-size: 0px;
   display: inline;
