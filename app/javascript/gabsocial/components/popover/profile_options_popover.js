@@ -43,7 +43,7 @@ const messages = defineMessages({
   blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   admin_account: { id: 'admin_account', defaultMessage: 'Open moderation interface' },
-  add_or_remove_from_list: { id: 'account.add_or_remove_from_list', defaultMessage: 'Add or Remove from lists' },
+  add_to_list: { id: 'lists.account.add', defaultMessage: 'Add to list' },
   add_or_remove_from_shortcuts: { id: 'account.add_or_remove_from_shortcuts', defaultMessage: 'Add or Remove from shortcuts' },
   accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
@@ -119,7 +119,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onAddToList(account) {
     dispatch(closePopover())
-    dispatch(openModal('LIST_ADDER', {
+    dispatch(openModal('LIST_ADD_USER', {
       accountId: account.get('id'),
     }));
   },
@@ -202,7 +202,7 @@ class ProfileOptionsPopover extends PureComponent {
     menu.push({
       hideArrow: true,
       icon: 'list',
-      title: intl.formatMessage(messages.add_or_remove_from_list),
+      title: intl.formatMessage(messages.add_to_list),
       onClick: this.handleAddToList
     })
 
