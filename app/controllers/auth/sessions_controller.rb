@@ -52,7 +52,13 @@ class Auth::SessionsController < Devise::SessionsController
   end
 
   def after_sign_in_path_for(resource)
-    return '/home'
+    last_url = stored_location_for(:user)
+
+    if home_paths(resource).include?(last_url)
+      root_path
+    else
+      last_url || root_path
+    end
   end
 
   def after_sign_out_path_for(_resource_or_scope)
