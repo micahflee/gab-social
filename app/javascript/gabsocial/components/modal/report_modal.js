@@ -2,13 +2,13 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { OrderedSet } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { changeReportComment, changeReportForward, submitReport } from '../../actions/reports'
+import { changeReportComment, submitReport } from '../../actions/reports'
 import { expandAccountTimeline } from '../../actions/timelines'
 import { makeGetAccount } from '../../selectors'
 import ModalLayout from './modal_layout'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 import Button from '../button'
 import StatusCheckBox from '../status_check_box'
-import Switch from '../switch'
 import Text from '../text'
 import Textarea from '../textarea'
 
@@ -17,8 +17,6 @@ const messages = defineMessages({
   placeholder: { id: 'report.placeholder', defaultMessage: 'Additional comments' },
   submit: { id: 'report.submit', defaultMessage: 'Submit' },
   hint: { id: 'report.hint', defaultMessage: 'The report will be sent to your server moderators. You can provide an explanation of why you are reporting this account below:' },
-  forwardHint: { id: 'report.forward_hint', defaultMessage: 'The account is from another server. Send an anonymized copy of the report there as well?' },
-  forward: { id: 'report.forward', defaultMessage: 'Forward to {target}' },
   target: { id: 'report.target', defaultMessage: 'Report {target}' },
 })
 
@@ -32,7 +30,6 @@ const makeMapStateToProps = () => {
       isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
       account: getAccount(state, accountId),
       comment: state.getIn(['reports', 'new', 'comment']),
-      forward: state.getIn(['reports', 'new', 'forward']),
       statusIds: OrderedSet(state.getIn(['timelines', `account:${accountId}:with_replies`, 'items'])).union(state.getIn(['reports', 'new', 'status_ids'])),
     }
   }
@@ -50,18 +47,13 @@ class ReportModal extends ImmutablePureComponent {
     account: ImmutablePropTypes.map,
     statusIds: ImmutablePropTypes.orderedSet.isRequired,
     comment: PropTypes.string.isRequired,
-    forward: PropTypes.bool,
     dispatch: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     onClose: PropTypes.func.isRequired,
   }
 
-  handleCommentChange = (e) => {
+  handleCommentChange = (value) => {
     this.props.dispatch(changeReportComment(value))
-  }
-
-  handleForwardChange = e => {
-    this.props.dispatch(changeReportForward(e.target.checked))
   }
 
   handleSubmit = () => {
@@ -91,13 +83,10 @@ class ReportModal extends ImmutablePureComponent {
       intl,
       statusIds,
       isSubmitting,
-      forward,
       onClose
     } = this.props
 
     if (!account) return null
-
-    const domain = account.get('acct').split('@')[1]
 
     return (
       <ModalLayout
@@ -108,8 +97,14 @@ class ReportModal extends ImmutablePureComponent {
         onClose={onClose}
       >
 
-        <div className={[_s.default, _s.flexRow].join(' ')}>
-          <div className={[_s.default, _s.width50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}>
+        <ResponsiveClassesComponent
+          classNames={[_s.default, _s.flexRow].join(' ')}
+          classNamesSmall={[_s.default, _s.flexColumnReverse].join(' ')}
+        >
+          <ResponsiveClassesComponent
+            classNames={[_s.default, _s.width50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
+            classNamesSmall={[_s.default, _s.width100PC, _s.py10, _s.px15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
+          >
             <Text color='secondary' size='small'>
               {intl.formatMessage(messages.hint)}
             </Text>
@@ -124,31 +119,6 @@ class ReportModal extends ImmutablePureComponent {
                 autoFocus
               />
             </div>
-
-            { /** : todo : */
-              domain &&
-              <div>
-                <Text color='secondary' size='small'>
-                  {intl.formatMessage(messages.forwardHint)}
-                </Text>
-
-                <div>
-                  <Switch 
-                    id='report-forward'
-                    checked={forward}
-                    disabled={isSubmitting}
-                    onChange={this.handleForwardChange}
-                    label={intl.formatMessage(messages.forward, {
-                      target: domain,
-                    })}
-                    labelProps={{
-                      size: 'small',
-                      color: 'secondary',
-                    }}
-                  />
-                </div>
-              </div>
-            }
             
             <Button
               isDisabled={isSubmitting}
@@ -157,18 +127,22 @@ class ReportModal extends ImmutablePureComponent {
             >
               {intl.formatMessage(messages.submit)}
             </Button>
-          </div>
+          </ResponsiveClassesComponent>
 
-          <div className={[_s.default, _s.width50PC].join(' ')}>
-            <div className={[_s.default, _s.heightMax80VH, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
+          <ResponsiveClassesComponent
+            classNames={[_s.default, _s.width50PC, _s.heightMax80VH].join(' ')}
+            classNamesSmall={[_s.default, _s.width100PC, _s.height260PX].join(' ')}
+          >
+            <div className={[_s.default, _s.height100PC, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
               {
                 statusIds.map(statusId => (
                   <StatusCheckBox id={statusId} key={statusId} disabled={isSubmitting} />
                 ))
               }
             </div>
-          </div>
-        </div>
+          </ResponsiveClassesComponent>
+        </ResponsiveClassesComponent>
+
       </ModalLayout>
     )
   }
