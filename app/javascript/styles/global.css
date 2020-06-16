@@ -169,6 +169,10 @@ pre {
   margin-bottom: 0.5rem;
 }
 
+.statusContent h1 * {
+  font-size: var(--fs_xl) !important;
+}
+
 .statusContent ul,
 .statusContent ol {
   padding-left: 40px;
@@ -181,6 +185,12 @@ pre {
 
 .statusContent ol {
   /* list-style-type: disc; */
+}
+
+.statusContent code {
+  background-color: rgba(0,0,0,.05);
+  padding-left: 0.5em;
+  padding-right: 0.5em;
 }
 
 .dangerousContent,

@@ -74,9 +74,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def rich_content
     Formatter.instance.format(object, use_markdown: true).strip
-    # raw_content = object.markdown
-    # return '' if raw_content.blank?
-    # raw_content.strip
   end
 
   def url

@@ -1,5 +1,4 @@
 import { RichUtils } from 'draft-js'
-import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
@@ -70,10 +69,6 @@ const RTE_ITEMS = [
   },
 ]
 
-const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
-})
-
 const mapStateToProps = (state) => {
   const getAccount = makeGetAccount()
   const account = getAccount(state, me)
@@ -86,13 +81,11 @@ const mapStateToProps = (state) => {
 }
 
 export default
-@injectIntl
 @connect(mapStateToProps)
 class RichTextEditorBar extends PureComponent {
 
   static propTypes = {
     editorState: PropTypes.object.isRequired,
-    intl: PropTypes.object.isRequired,
     isPro: PropTypes.bool.isRequired,
     rteControlsVisible: PropTypes.bool.isRequired,
     onChange: PropTypes.func.isRequired,
@@ -127,7 +120,7 @@ class RichTextEditorBar extends PureComponent {
             />
           ))
         }
-        <Button
+        {/*<Button
           backgroundColor='none'
           color='secondary'
           onClick={this.handleOnTogglePopoutEditor}
@@ -137,7 +130,7 @@ class RichTextEditorBar extends PureComponent {
           iconClassName={_s.inheritFill}
           iconSize='12px'
           radiusSmall
-        />
+        />*/}
       </div>
     )
   }

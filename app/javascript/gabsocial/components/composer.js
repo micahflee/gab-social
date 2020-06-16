@@ -4,10 +4,8 @@ import {
   CompositeDecorator,
   RichUtils,
   convertToRaw,
-  convertFromRaw,
-  ContentState,
 } from 'draft-js'
-import { draftToMarkdown } from 'markdown-draft-js'
+import draftToMarkdown from '../features/ui/util/draft-to-markdown'
 import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
@@ -134,7 +132,8 @@ class Composer extends PureComponent {
 
     const rawObject = convertToRaw(content);
     const markdownString = draftToMarkdown(rawObject, {
-      preserveNewlines: true,
+      escapeMarkdownCharacters: false,
+      preserveNewlines: false,
       remarkablePreset: 'commonmark',
       remarkableOptions: {
         disable: {
@@ -147,6 +146,7 @@ class Composer extends PureComponent {
     });
 
     console.log("text:", markdownString)
+    // console.log("html:", html)
 
     this.props.onChange(null, text, markdownString, selectionStart)
   }
@@ -154,11 +154,12 @@ class Composer extends PureComponent {
   // **bold**
   // *italic*
   // __underline__
-  // ~strikethrough~
-  // # title
+  // ~~strike~~
+  // # header
   // > quote
-  // `code`
-  // ```code```
+  // ```
+  // code
+  // ```
 
   focus = () => {
     this.textbox.editor.focus()

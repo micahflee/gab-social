@@ -3,7 +3,7 @@ import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { createSelector } from 'reselect';
-import sample from 'lodash.sample';
+// import sample from 'lodash.sample';
 import debounce from 'lodash.debounce'
 import { me, promotions } from '../initial_state';
 import { dequeueTimeline } from '../actions/timelines';
@@ -44,7 +44,7 @@ const mapStateToProps = (state, { timelineId }) => {
   if (!timelineId) return {}
 
   const getStatusIds = makeGetStatusIds();
-  const promotion = promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
+  const promotion = false//promotions.length > 0 && sample(promotions.filter(p => p.timeline_id === timelineId));
 
   const statusIds = getStatusIds(state, {
     type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
