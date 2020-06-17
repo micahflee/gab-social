@@ -1,4 +1,5 @@
 import {
+  getDefaultKeyBinding,
   Editor,
   EditorState,
   CompositeDecorator,
@@ -86,7 +87,6 @@ export default class Composer extends PureComponent {
     valueMarkdown: PropTypes.string,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
-    onKeyUp: PropTypes.func,
     onFocus: PropTypes.func,
     onBlur: PropTypes.func,
     onPaste: PropTypes.func,
@@ -94,6 +94,7 @@ export default class Composer extends PureComponent {
   }
 
   state = {
+    active: false,
     editorState: EditorState.createEmpty(compositeDecorator),
     plainText: this.props.value,
   }
@@ -158,8 +159,34 @@ export default class Composer extends PureComponent {
     this.props.onChange(null, plainText, markdownString, selectionStart)
   }
 
+  handleOnFocus = () => {
+    document.addEventListener('paste', this.handleOnPaste)
+    this.setState({ active: true })
+    this.props.onFocus()
+  }
+
+  handleOnBlur = () => {
+    document.removeEventListener('paste', this.handleOnPaste, true)
+    this.setState({ active: false })
+    this.props.onBlur()
+  }
+
   focus = () => {
-    this.textbox.editor.focus()
+    this.textbox.focus()
+  }
+
+  handleOnPaste = (e) => {
+    if (this.state.active) {
+      this.props.onPaste(e)
+    }
+  }
+
+  keyBindingFn = (e) => {
+    if (e.type === 'keydown') {
+      this.props.onKeyDown(e)
+    }
+
+    return getDefaultKeyBinding(e)
   }
 
   handleKeyCommand = (command) => {
@@ -193,7 +220,6 @@ export default class Composer extends PureComponent {
       disabled,
       placeholder,
       onKeyDown,
-      onKeyUp,
       onFocus,
       onBlur,
       onPaste,
@@ -231,7 +257,6 @@ export default class Composer extends PureComponent {
         >
           <Editor
             blockStyleFn={getBlockStyle}
-            // customStyleMap={styleMap}
             editorState={editorState}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
@@ -239,8 +264,9 @@ export default class Composer extends PureComponent {
             placeholder={placeholder}
             ref={this.setRef}
             readOnly={disabled}
-            onBlur={onBlur}
-            onFocus={onFocus}
+            onBlur={this.handleOnBlur}
+            onFocus={this.handleOnFocus}
+            keyBindingFn={this.keyBindingFn}
             stripPastedStyles
           />
         </div>

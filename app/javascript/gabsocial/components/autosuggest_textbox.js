@@ -210,30 +210,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     } = this.props
 
     const { suggestionsHidden } = this.state
-    const style = {
-      direction: isRtl(value) ? 'rtl' : 'ltr',
-    }
-
-    const textareaClasses = CX({
-      default: 1,
-      font: 1,
-      wrap: 1,
-      resizeNone: 1,
-      bgTransparent: 1,
-      outlineNone: 1,
-      lineHeight125: 1,
-      colorPrimary: 1,
-      width100PC: !small,
-      pt15: !small,
-      px15: !small,
-      px10: small,
-      pb10: !small,
-      fs16PX: !small,
-      fs14PX: small,
-      heightMax200PX: small,
-      heightMax80VH: !small,
-      heightMin80PX: !small,
-    })
 
     const textareaContainerClasses = CX({
       default: 1,
@@ -254,7 +230,6 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             inputRef={this.setTextbox}
             disabled={disabled}
             placeholder={placeholder}
-            autoFocus={autoFocus}
             value={value}
             valueMarkdown={valueMarkdown}
             onChange={this.onChange}
