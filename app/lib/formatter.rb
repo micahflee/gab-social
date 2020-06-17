@@ -106,28 +106,17 @@ class Formatter
     linkable_accounts << status.account
 
     html = raw_content
-    puts "TELLY FORMAT-1: " + html.to_s
     html = format_markdown(html) if options[:use_markdown]
-    puts "TELLY FORMAT-2: " + html.to_s
     html = encode_and_link_urls(html, linkable_accounts, keep_html: options[:use_markdown])
-    puts "TELLY FORMAT-3: " + html.to_s
     html = reformat(html, true) unless options[:use_markdown]
-    puts "TELLY FORMAT-4: " + html.to_s
     html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
 
-    puts "TELLY FORMAT-5: " + html.to_s
-
     unless options[:use_markdown]
-      puts "TELLY FORMAT-4: " + html
       html = html.gsub(/(?:\n\r?|\r\n?)/, '<br />')
       html = html.delete("\n")
     end
 
-    puts "TELLY FORMAT-6: " + html.to_s
-
     html.html_safe # rubocop:disable Rails/OutputSafety
-
-    puts "telly-html: " + html.to_s
 
     html
   end
