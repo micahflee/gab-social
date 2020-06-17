@@ -52,9 +52,10 @@ class Api::V1::StatusesController < Api::BaseController
   end
 
   def create
+    markdown = status_params[:markdown] unless status_params[:markdown] === status_params[:status]
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
-                                         markdown: status_params[:markdown],
+                                         markdown: markdown,
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
@@ -72,9 +73,10 @@ class Api::V1::StatusesController < Api::BaseController
 
   def update
     authorize @status, :update?
-    
+    markdown = status_params[:markdown] unless status_params[:markdown] === status_params[:status]
     @status = EditStatusService.new.call(@status,
                                          text: status_params[:status],
+                                         markdown: markdown,
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],

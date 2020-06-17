@@ -3,6 +3,73 @@
 require 'singleton'
 require_relative './sanitize_config'
 
+class HTMLRenderer < Redcarpet::Render::HTML
+  def block_code(code, language)
+    "<pre><code>#{encode(code).gsub("\n", "<br/>")}</code></pre>"
+  end
+
+  def block_quote(quote)
+    "<blockquote>#{quote}</blockquote>"
+  end
+
+  def codespan(code)
+    "<code>#{code}</code>"
+  end
+
+  def double_emphasis(text)
+    "<strong>#{text}</strong>"
+  end
+  
+  def emphasis(text)
+    "<em>#{text}</em>"
+  end
+  
+  def header(text, header_level)
+    "<h1>#{text}</h1>"
+  end
+  
+  def triple_emphasis(text)
+    "<b><em>#{text}</em></b>"
+  end
+  
+  def strikethrough(text)
+    "<del>#{text}</del>"
+  end
+  
+  def underline(text)
+    "<u>#{text}</u>"
+  end
+
+  def list(contents, list_type)
+    if list_type == :ordered
+      "<ol>#{contents}</ol>"
+    elsif list_type == :unordered
+      "<ul>#{contents}</ul>"
+    else
+      content
+    end
+  end
+  
+  def list_item(text, list_type)
+    "<li>#{text}</li>"
+  end
+
+  def autolink(link, link_type)
+    return link if link_type == :email
+    Formatter.instance.link_url(link)
+  end
+
+  private
+
+  def html_entities
+    @html_entities ||= HTMLEntities.new
+  end
+
+  def encode(html)
+    html_entities.encode(html)
+  end
+end
+
 class Formatter
   include Singleton
   include RoutingHelper
@@ -39,33 +106,28 @@ class Formatter
     linkable_accounts << status.account
 
     html = raw_content
-
-    html = encode_and_link_urls(html, linkable_accounts)
-
-    # : todo :
-    if options[:use_markdown]
-      html = convert_headers(html)
-      html = convert_strong(html)
-      html = convert_italic(html)
-      html = convert_strikethrough(html)
-      html = convert_code(html)
-      html = convert_codeblock(html)
-      html = convert_links(html)
-      html = convert_lists(html)
-      html = convert_ordered_lists(html)
-    end
-
+    html = format_markdown(html) if options[:use_markdown]
+    html = encode_and_link_urls(html, linkable_accounts, keep_html: options[:use_markdown])
+    html = reformat(html, true) unless options[:use_markdown]
     html = encode_custom_emojis(html, status.emojis, options[:autoplay]) if options[:custom_emojify]
 
-    html = simple_format(html, {}, sanitize: false)
-
-    html = html.delete("\n")
+    unless options[:use_markdown]
+      html = html.gsub(/(?:\n\r?|\r\n?)/, '<br />')
+      html = html.delete("\n")
+    end
 
     html.html_safe # rubocop:disable Rails/OutputSafety
+
+    html
   end
 
-  def reformat(html)
-    sanitize(html, Sanitize::Config::GABSOCIAL_STRICT)
+  def format_markdown(html)
+    html = markdown_formatter.render(html)
+    html.delete("\r").delete("\n")
+  end
+
+  def reformat(html, outgoing = false)
+    sanitize(html, Sanitize::Config::GABSOCIAL_STRICT.merge(outgoing: outgoing))
   rescue ArgumentError
     ''
   end
@@ -106,8 +168,7 @@ class Formatter
   end
 
   def format_field(account, str, **options)
-    return reformat(str).html_safe unless account.local? # rubocop:disable Rails/OutputSafety
-    html = encode_and_link_urls(str, me: true)
+    html = account.local? ? encode_and_link_urls(str, me: true) : reformat(str)
     html = encode_custom_emojis(html, account.emojis, options[:autoplay]) if options[:custom_emojify]
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
@@ -120,7 +181,42 @@ class Formatter
     html.html_safe # rubocop:disable Rails/OutputSafety
   end
 
+  def link_url(url)
+    "<a href=\"#{encode(url)}\" target=\"blank\" rel=\"nofollow noopener noreferrer\">#{link_html(url)}</a>"
+  end
+
   private
+
+  def markdown_formatter
+    extensions = {
+      autolink: false,
+      no_intra_emphasis: true,
+      fenced_code_blocks: true,
+      disable_indented_code_blocks: true,
+      strikethrough: true,
+      lax_spacing: true,
+      space_after_headers: true,
+      superscript: false,
+      underline: true,
+      highlight: false,
+      footnotes: false,
+    }
+
+    renderer = HTMLRenderer.new({
+      filter_html: false,
+      escape_html: false,
+      no_images: true,
+      no_styles: true,
+      safe_links_only: false,
+      hard_wrap: false,
+      no_links: true,
+      with_toc_data: false,
+      prettify: false,
+      link_attributes: nil
+    })
+
+    Redcarpet::Markdown.new(renderer, extensions)
+  end
 
   def html_entities
     @html_entities ||= HTMLEntities.new
@@ -138,7 +234,7 @@ class Formatter
       accounts = nil
     end
 
-    rewrite(html.dup, entities) do |entity|
+    rewrite(html.dup, entities, options[:keep_html]) do |entity|
       if entity[:url]
         link_to_url(entity, options)
       elsif entity[:hashtag]
@@ -208,7 +304,7 @@ class Formatter
     html
   end
 
-  def rewrite(text, entities)
+  def rewrite(text, entities, keep_html = false)
     text = text.to_s
 
     # Sort by start index
@@ -221,12 +317,12 @@ class Formatter
 
     last_index = entities.reduce(0) do |index, entity|
       indices = entity.respond_to?(:indices) ? entity.indices : entity[:indices]
-      result << encode(text[index...indices.first])
+      result << (keep_html ? text[index...indices.first] : encode(text[index...indices.first]))
       result << yield(entity)
       indices.last
     end
 
-    result << encode(text[last_index..-1])
+    result << (keep_html ? text[last_index..-1] : encode(text[last_index..-1]))
 
     result.flatten.join
   end
@@ -267,6 +363,29 @@ class Formatter
     standard = Extractor.extract_entities_with_indices(text, options)
 
     Extractor.remove_overlapping_entities(special + standard)
+  end
+
+  def html_friendly_extractor(html, options = {})
+    gaps = []
+    total_offset = 0
+
+    escaped = html.gsub(/<[^>]*>|&#[0-9]+;/) do |match|
+      total_offset += match.length - 1
+      end_offset = Regexp.last_match.end(0)
+      gaps << [end_offset - total_offset, total_offset]
+      "\u200b"
+    end
+
+    entities = Extractor.extract_hashtags_with_indices(escaped, :check_url_overlap => false) +
+               Extractor.extract_mentions_or_lists_with_indices(escaped)
+    Extractor.remove_overlapping_entities(entities).map do |extract|
+      pos = extract[:indices].first
+      offset_idx = gaps.rindex { |gap| gap.first <= pos }
+      offset = offset_idx.nil? ? 0 : gaps[offset_idx].last
+      next extract.merge(
+        :indices => [extract[:indices].first + offset, extract[:indices].last + offset]
+      )
+    end
   end
 
   def link_to_url(entity, options = {})
@@ -321,79 +440,4 @@ class Formatter
     "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(TagManager.instance.url_for(account))}\" class=\"u-url mention\">@#{encode(account.acct)}</a>"
   end
 
-  def convert_headers(html)
-    html.gsub(/^\#{1,6}.*$/) do |header|
-      weight = 0
-      header.split('').each do |char|
-        break unless char == '#'
-        weight += 1
-      end
-      content = header.sub(/^\#{1,6}/, '')
-      "<h#{weight}>#{content}</h#{weight}>"
-    end
-  end
-
-  def convert_strong(html)
-    html.gsub(/\*{2}.*\*{2}|_{2}.*_{2}/) do |strong|
-      content = strong.gsub(/\*{2}|_{2}/, '')
-      "<strong>#{content}</strong>"
-    end
-  end
-
-  def convert_italic(html)
-    html.gsub(/\*{1}(\w|\s)+\*{1}|_{1}(\w|\s)+_{1}/) do |italic|
-      content = italic.gsub(/\*{1}|_{1}/, '')
-      "<em>#{content}</em>"
-    end
-  end
-
-  def convert_strikethrough(html)
-    html.gsub(/~~(\w|\s)+~~/) do |strike|
-      content = strike.gsub(/~~/, '')
-      "<strike>#{content}</strike>"
-    end
-  end
-
-  def convert_code(html)
-    html.gsub(/`(\w|\s)+`/) do |code|
-      content = code.gsub(/`/, '')
-      "<code>#{content}</code>"
-    end
-  end
-
-  def convert_codeblock(html)
-    html.gsub(/```\w*(.*(\r\n|\r|\n))+```/) do |code|
-      lang = code.match(/```\w+/)[0].gsub(/`/, '')
-      content = code.gsub(/```\w+/, '```').gsub(/`/, '')
-      "<pre class=\"#{lang}\"><code>#{content}</code></pre>"
-    end
-  end
-
-  def convert_links(html)
-    html.gsub(/\[(\w|\s)+\]\((\w|\W)+\)/) do |anchor|
-      link_text = anchor.match(/\[(\w|\s)+\]/)[0].gsub(/[\[\]]/, '')
-      href = anchor.match(/\((\w|\W)+\)/)[0].gsub(/\(|\)/, '')
-      "<a href=\"#{href}\">#{link_text}</a>"
-    end
-  end
-
-  def convert_lists(html)
-    html.gsub(/(\-.+(\r|\n|\r\n))+/) do |list|
-      items = "<ul>\n"
-      list.gsub(/\-.+/) do |li|
-        items << "<li>#{li.sub(/^\-/, '').strip}</li>\n"
-      end
-      items << "</ul>\n"
-    end
-  end
-
-  def convert_ordered_lists(html)
-    html.gsub(/(\d\..+(\r|\n|\r\n))+/) do |list|
-      items = "<ol>\n"
-      list.gsub(/\d.+/) do |li|
-        items << "<li>#{li.sub(/^\d\./, '').strip}</li>\n"
-      end
-      items << "</ol>\n"
-    end
-  end
 end

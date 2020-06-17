@@ -46,7 +46,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
       return (
         <section className={_s.default}>
           <div className={[_s.default, _s.flexRow].join(' ')}>
-            <ComposeFormContainer {...rest} />
+            <ComposeFormContainer {...rest} modal={modal} />
           </div>
         </section>
       )

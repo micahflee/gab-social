@@ -7,8 +7,8 @@ import {
   convertFromRaw,
   ContentState,
 } from 'draft-js'
-import { draftToMarkdown } from 'markdown-draft-js'
-// import draftToMarkdown from 'draftjs-to-markdown'
+import draftToMarkdown from '../features/ui/util/draft-to-markdown'
+import markdownToDraft from '../features/ui/util/markdown-to-draft'
 import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
@@ -30,11 +30,11 @@ function handleStrategy(contentBlock, callback, contentState) {
   findWithRegex(HANDLE_REGEX, contentBlock, callback)
 }
 
-function hashtagStrategy (contentBlock, callback, contentState) {
+function hashtagStrategy(contentBlock, callback, contentState) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback)
 }
 
-function urlStrategy (contentBlock, callback, contentState) {
+function urlStrategy(contentBlock, callback, contentState) {
   findWithRegex(urlRegex, contentBlock, callback)
 }
 
@@ -73,24 +73,17 @@ const compositeDecorator = new CompositeDecorator([
   }
 ])
 
-const HANDLE_REGEX = /\@[\w]+/g;
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
+const HANDLE_REGEX = /\@[\w]+/g
+const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
-
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default
-@connect(null, mapDispatchToProps)
-class Composer extends PureComponent {
+export default class Composer extends PureComponent {
 
   static propTypes = {
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    autoFocus: PropTypes.bool,
     value: PropTypes.string,
+    valueMarkdown: PropTypes.string,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
@@ -101,59 +94,69 @@ class Composer extends PureComponent {
   }
 
   state = {
-    markdownText: '',
-    plainText: '',
     editorState: EditorState.createEmpty(compositeDecorator),
-  }
-  
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
-    //   return {
-    //     fetched: true
-    //   }
-    // }
-
-    return null
+    plainText: this.props.value,
   }
 
-  componentDidUpdate (prevProps) {
-    // console.log("this.props.value:", this.props.value)
-    if (prevProps.value !== this.props.value) {
-      // const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value));
-      // this.setState({ editorState })
+  componentDidMount() {
+    if (this.props.valueMarkdown) {
+      const rawData = markdownToDraft(this.props.valueMarkdown)
+      const contentState = convertFromRaw(rawData)
+      const editorState = EditorState.createWithContent(contentState)
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
+    } else if (this.props.value) {
+      editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
     }
   }
 
-  // EditorState.createWithContent(ContentState.createFromText('Hello'))
-
-  onChange = (editorState) => {
-    this.setState({ editorState })
-    const content = this.state.editorState.getCurrentContent();
-    const text = content.getPlainText('\u0001')
-    
-    // const selectionState = editorState.getSelection()
-    // const selectionStart = selectionState.getStartOffset()
-
-    // const rawObject = convertToRaw(content);
-    // const markdownString = draftToMarkdown(rawObject);
-    // const markdownString = draftToMarkdown(rawObject, {
-    //   trigger: '#',
-    //   separator: ' ',
-    // });
-
-    // console.log("text:", text, this.props.value)
-
-    this.props.onChange(null, text, selectionStart, markdownString)
+  componentDidUpdate() {
+    if (this.state.plainText !== this.props.value) {
+      let editorState
+      if (!this.props.value) {
+        editorState = EditorState.createEmpty(compositeDecorator)
+      } else {
+        editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+      }
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
+    }
   }
 
-  // **bold**
-  // *italic*
-  // __underline__
-  // ~strikethrough~
-  // # title
-  // > quote
-  // `code`
-  // ```code```
+  onChange = (editorState) => {
+    const content = editorState.getCurrentContent()
+    const plainText = content.getPlainText('\u0001')
+
+    this.setState({ editorState, plainText })
+
+    const selectionState = editorState.getSelection()
+    const selectionStart = selectionState.getStartOffset()
+
+    const rawObject = convertToRaw(content)
+    const markdownString = draftToMarkdown(rawObject, {
+      escapeMarkdownCharacters: false,
+      preserveNewlines: false,
+      remarkablePreset: 'commonmark',
+      remarkableOptions: {
+        disable: {
+          block: ['table']
+        },
+        enable: {
+          inline: ['del', 'ins'],
+        }
+      }
+    })
+
+    this.props.onChange(null, plainText, markdownString, selectionStart)
+  }
 
   focus = () => {
     this.textbox.editor.focus()
@@ -171,27 +174,24 @@ class Composer extends PureComponent {
     return false
   }
 
-  handleOnTogglePopoutEditor = () => {
-    //
-  }
-
   onTab = (e) => {
     const maxDepth = 4
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth))
   }
 
   setRef = (n) => {
-    this.textbox = n
+    try {
+      this.textbox = n
+      this.props.inputRef(n) 
+    } catch (error) {
+      //
+    }
   }
 
   render() {
     const {
-      inputRef,
       disabled,
       placeholder,
-      autoFocus,
-      value,
-      onChange,
       onKeyDown,
       onKeyUp,
       onFocus,
@@ -211,15 +211,13 @@ class Composer extends PureComponent {
       pt15: !small,
       px15: !small,
       px10: small,
-      pt5: small,
-      pb5: small,
       pb10: !small,
     })
 
     return (
       <div className={_s.default}>
 
-        { /** : todo : */
+        {
           !small &&
           <RichTextEditorBar
             editorState={editorState}
@@ -241,6 +239,9 @@ class Composer extends PureComponent {
             placeholder={placeholder}
             ref={this.setRef}
             readOnly={disabled}
+            onBlur={onBlur}
+            onFocus={onFocus}
+            stripPastedStyles
           />
         </div>
       </div>

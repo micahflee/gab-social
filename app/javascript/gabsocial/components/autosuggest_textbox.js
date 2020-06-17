@@ -15,6 +15,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
 
   static propTypes = {
     value: PropTypes.string,
+    valueMarkdown: PropTypes.string,
     suggestions: ImmutablePropTypes.list,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -45,11 +46,12 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     tokenStart: 0,
   }
 
-  onChange = (e, value, selectionStart, markdown) => {
+  onChange = (e, value, markdown, selectionStart) => {
     if (!isObject(e)) {
       e = {
         target: {
           value,
+          markdown,
           selectionStart,
         },
       }
@@ -65,7 +67,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       this.props.onSuggestionsClearRequested();
     }
 
-    this.props.onChange(e, markdown);
+    this.props.onChange(e);
   }
 
   onKeyDown = (e) => {
@@ -191,7 +193,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
   setTextbox = (c) => {
-    this.textbox = c;
+    this.textbox = c
   }
 
   render() {
@@ -203,6 +205,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       placeholder,
       onKeyUp,
       children,
+      valueMarkdown,
       id,
     } = this.props
 
@@ -246,29 +249,14 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
           <label htmlFor={id} className={_s.visiblyHidden}>
             {placeholder}
           </label>
-          <Textarea
-            id={id}
-            inputRef={this.setTextbox}
-            className={textareaClasses}
-            disabled={disabled}
-            placeholder={placeholder}
-            autoFocus={false}
-            value={value}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
-            onKeyUp={onKeyUp}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onPaste={this.onPaste}
-            aria-autocomplete='list'
-          />
 
-          {/*<Composer
+          <Composer
             inputRef={this.setTextbox}
             disabled={disabled}
             placeholder={placeholder}
             autoFocus={autoFocus}
             value={value}
+            valueMarkdown={valueMarkdown}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}
             onKeyUp={onKeyUp}
@@ -276,7 +264,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             onBlur={this.onBlur}
             onPaste={this.onPaste}
             small={small}
-          />*/}
+          />
 
           {children}
         </div>

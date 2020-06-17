@@ -1,9 +1,9 @@
-import escapeTextContentForBrowser from 'escape-html';
-import emojify from '../../components/emoji/emoji';
-import { unescapeHTML } from '../../utils/html';
-import { expandSpoilers } from '../../initial_state';
+import escapeTextContentForBrowser from 'escape-html'
+import emojify from '../../components/emoji/emoji'
+import { unescapeHTML } from '../../utils/html'
+import { expandSpoilers } from '../../initial_state'
 
-const domParser = new DOMParser();
+const domParser = new DOMParser()
 
 const makeEmojiMap = record => record.emojis.reduce((obj, emoji) => {
   obj[`:${emoji.shortcode}:`] = emoji;
@@ -86,3 +86,21 @@ export function normalizePoll(poll) {
 
   return normalPoll;
 }
+
+
+// <p><h1>attention!</h1></p>
+// <p>#test @bob #nice https://bob.com http://techcrunch.com <del>strike it</del></p>
+// <p><del>https://twitter.com</del></p>
+// <p><em>@bobitalic</em></p>
+// <p><pre><code>jonincode</code></pre></p>
+
+// # attention!
+// #test @bob #nice https://bob.com http://techcrunch.com ~~strike it~~
+
+// ~~https://twitter.com~~
+
+// _@bobitalic_
+
+// ```
+// jonincode
+// ```

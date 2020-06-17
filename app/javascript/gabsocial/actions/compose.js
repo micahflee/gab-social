@@ -263,12 +263,12 @@ export function submitCompose(group, replyToId = null, router, isStandalone) {
     if (!me) return;
 
     let status = getState().getIn(['compose', 'text'], '');
-    const markdown = getState().getIn(['compose', 'markdown'], '');
+    let markdown = getState().getIn(['compose', 'markdown'], '');
     const media  = getState().getIn(['compose', 'media_attachments']);
 
     // : hack :
     //Prepend http:// to urls in status that don't have protocol
-    status = status.replace(urlRegex, (match, a, b, c) =>{
+    status = `${status}`.replace(urlRegex, (match, a, b, c) =>{
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
       //Make sure not a remote mention like @someone@somewhere.com
       if (!hasProtocol) {
@@ -276,14 +276,19 @@ export function submitCompose(group, replyToId = null, router, isStandalone) {
       }
       return hasProtocol ? match : `http://${match}`
     })
-    // markdown = statusMarkdown.replace(urlRegex, (match) =>{
-    //   const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
-    //   return hasProtocol ? match : `http://${match}`
-    // })
+    markdown = !!markdown ? markdown.replace(urlRegex, (match) =>{
+      const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
+      if (!hasProtocol) {
+        if (status.indexOf(`@${match}`) > -1) return match
+      }
+      return hasProtocol ? match : `http://${match}`
+    }) : undefined
+    
+    if (status === markdown) {
+      markdown = undefined
+    }
 
     const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null) || replyToId
-
-    // console.log("markdown:", markdown)
 
     dispatch(submitComposeRequest());
     dispatch(closeModal());
@@ -706,9 +711,9 @@ export function changeScheduledAt(date) {
   };
 };
 
-export function changeRichTextEditorControlsVisibility(status) {
+export function changeRichTextEditorControlsVisibility(open) {
   return {
     type: COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
-    status: status,
+    open,
   }
 }
