@@ -366,9 +366,11 @@ export default function compose(state = initialState, action) {
         return item;
       }));
   case STATUS_EDIT:
+    const hasMarkdown = !!action.status.get('plain_markdown')
     return state.withMutations(map => {
       map.set('id', action.status.get('id'));
       map.set('text', unescapeHTML(expandMentions(action.status)));
+      map.set('markdown', action.status.get('plain_markdown'));
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('quote_of_id', action.status.get('quote_of_id'));
       map.set('privacy', action.status.get('visibility'));
@@ -376,7 +378,7 @@ export default function compose(state = initialState, action) {
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
-      map.set('rte_controls_visible', false);
+      map.set('rte_controls_visible', hasMarkdown);
 
       if (action.status.get('spoiler_text').length > 0) {
         map.set('spoiler', true);

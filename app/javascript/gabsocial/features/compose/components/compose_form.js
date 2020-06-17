@@ -45,7 +45,7 @@ class ComposeForm extends ImmutablePureComponent {
   static contextTypes = {
     router: PropTypes.object,
   }
-  
+
   state = {
     composeFocused: false,
   }
@@ -55,6 +55,7 @@ class ComposeForm extends ImmutablePureComponent {
     edit: PropTypes.bool,
     isMatch: PropTypes.bool,
     text: PropTypes.string.isRequired,
+    markdown: PropTypes.string,
     suggestions: ImmutablePropTypes.list,
     account: ImmutablePropTypes.map.isRequired,
     status: ImmutablePropTypes.map,
@@ -133,9 +134,9 @@ class ComposeForm extends ImmutablePureComponent {
 
   handleSubmit = () => {
     // if (this.props.text !== this.autosuggestTextarea.textbox.value) {
-      // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
-      // Update the state to match the current text
-      // this.props.onChange(this.autosuggestTextarea.textbox.value);
+    // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
+    // Update the state to match the current text
+    // this.props.onChange(this.autosuggestTextarea.textbox.value);
     // }
 
     // Submit disabled:
@@ -244,6 +245,7 @@ class ComposeForm extends ImmutablePureComponent {
       isSubmitting,
       selectedGifSrc,
     } = this.props
+
     const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
     const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text) !== 0 && length(text.trim()) === 0 && !anyMedia);
@@ -325,9 +327,9 @@ class ComposeForm extends ImmutablePureComponent {
                   <div className={actionsContainerClasses}>
                     <div className={[_s.default, _s.flexRow, _s.mrAuto].join(' ')}>
 
-                      { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */ }
+                      { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */}
 
-                      { /* <UploadButton small={shouldCondense} /> */ }
+                      { /* <UploadButton small={shouldCondense} /> */}
 
                       <div className={commentPublishBtnClasses}>
                         <Button
@@ -400,6 +402,7 @@ class ComposeForm extends ImmutablePureComponent {
                   placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
                   disabled={disabled}
                   value={this.props.text}
+                  valueMarkdown={this.props.markdown}
                   onChange={this.handleChange}
                   suggestions={this.props.suggestions}
                   onKeyDown={this.handleKeyDown}

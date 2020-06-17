@@ -26,7 +26,7 @@ class PostStatusService < BaseService
     @account     = account
     @options     = options
     @text        = @options[:text] || ''
-    @markdown    = @options[:markdown]
+    @markdown    = @options[:markdown] if @account.is_pro
     @in_reply_to = @options[:thread]
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?

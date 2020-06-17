@@ -7,6 +7,7 @@ class EditStatusService < BaseService
   # @param [Status] status Status being edited
   # @param [Hash] options
   # @option [String] :text Message
+  # @option [String] :markdown Optional message in markdown
   # @option [Boolean] :sensitive
   # @option [String] :visibility
   # @option [String] :spoiler_text
@@ -20,6 +21,7 @@ class EditStatusService < BaseService
     @account     = status.account
     @options     = options
     @text        = @options[:text] || ''
+    @markdown    = @options[:markdown] if @account.is_pro
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
 
@@ -119,6 +121,7 @@ class EditStatusService < BaseService
     {
       revised_at: Time.now,
       text: @text,
+      markdown: @markdown,
       media_attachments: @media || [],
       sensitive: (@options[:sensitive].nil? ? @account.user&.setting_default_sensitive : @options[:sensitive]) || @options[:spoiler_text].present?,
       spoiler_text: @options[:spoiler_text] || '',

@@ -39,6 +39,8 @@ const mapStateToProps = (state, props) => {
   // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
   // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen, isStandalone)
 
+  const edit = state.getIn(['compose', 'id'])
+
   if (!isMatch) {
     return {
       isMatch,
@@ -46,6 +48,7 @@ const mapStateToProps = (state, props) => {
       reduxReplyToId,
       edit: null,
       text: '',
+      markdown: null,
       suggestions: ImmutableList(),
       spoiler: false,
       spoilerText: '',
@@ -65,13 +68,14 @@ const mapStateToProps = (state, props) => {
       selectedGifSrc: null,
     }
   }
-
+  
   return {
     isMatch,
     isModalOpen,
     reduxReplyToId,
     edit: state.getIn(['compose', 'id']) !== null,
     text: state.getIn(['compose', 'text']),
+    markdown: state.getIn(['compose', 'markdown']),
     suggestions: state.getIn(['compose', 'suggestions']),
     spoiler: state.getIn(['compose', 'spoiler']),
     spoilerText: state.getIn(['compose', 'spoiler_text']),

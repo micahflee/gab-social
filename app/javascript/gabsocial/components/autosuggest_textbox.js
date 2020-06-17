@@ -17,6 +17,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
 
   static propTypes = {
     value: PropTypes.string,
+    valueMarkdown: PropTypes.string,
     suggestions: ImmutablePropTypes.list,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
@@ -214,6 +215,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       onKeyUp,
       autoFocus,
       children,
+      valueMarkdown,
       className,
       id,
       maxLength,
@@ -280,6 +282,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             placeholder={placeholder}
             autoFocus={autoFocus}
             value={value}
+            valueMarkdown={valueMarkdown}
             onChange={this.onChange}
             onKeyDown={this.onKeyDown}
             onKeyUp={onKeyUp}

@@ -4,9 +4,11 @@ import {
   CompositeDecorator,
   RichUtils,
   convertToRaw,
+  convertFromRaw,
   ContentState,
 } from 'draft-js'
 import draftToMarkdown from '../features/ui/util/draft-to-markdown'
+import markdownToDraft from '../features/ui/util/markdown-to-draft'
 import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'
@@ -81,6 +83,7 @@ export default class Composer extends PureComponent {
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
     value: PropTypes.string,
+    valueMarkdown: PropTypes.string,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
     onKeyUp: PropTypes.func,
@@ -93,6 +96,24 @@ export default class Composer extends PureComponent {
   state = {
     editorState: EditorState.createEmpty(compositeDecorator),
     plainText: this.props.value,
+  }
+
+  componentDidMount() {
+    if (this.props.valueMarkdown) {
+      const rawData = markdownToDraft(this.props.valueMarkdown)
+      const contentState = convertFromRaw(rawData)
+      const editorState = EditorState.createWithContent(contentState)
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
+    } else if (this.props.value) {
+      editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
+    }
   }
 
   componentDidUpdate() {
