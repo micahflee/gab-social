@@ -38,35 +38,35 @@ const RTE_ITEMS = [
   //   icon: 'circle',
   // },
   {
-    label: 'H1',
+    label: 'Title',
     style: 'header-one',
     type: 'block',
     icon: 'text-size',
   },
-  {
-    label: 'Blockquote',
-    style: 'blockquote',
-    type: 'block',
-    icon: 'blockquote',
-  },
-  {
-    label: 'Code Block',
-    style: 'code-block',
-    type: 'block',
-    icon: 'code',
-  },
-  {
-    label: 'UL',
-    style: 'unordered-list-item',
-    type: 'block',
-    icon: 'ul-list',
-  },
-  {
-    label: 'OL',
-    style: 'ordered-list-item',
-    type: 'block',
-    icon: 'ol-list',
-  },
+  // {
+  //   label: 'Blockquote',
+  //   style: 'blockquote',
+  //   type: 'block',
+  //   icon: 'blockquote',
+  // },
+  // {
+  //   label: 'Code Block',
+  //   style: 'code-block',
+  //   type: 'block',
+  //   icon: 'code',
+  // },
+  // {
+  //   label: 'UL',
+  //   style: 'unordered-list-item',
+  //   type: 'block',
+  //   icon: 'ul-list',
+  // },
+  // {
+  //   label: 'OL',
+  //   style: 'ordered-list-item',
+  //   type: 'block',
+  //   icon: 'ol-list',
+  // },
 ]
 
 const mapStateToProps = (state) => {

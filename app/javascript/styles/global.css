@@ -188,9 +188,10 @@ pre {
 }
 
 .statusContent code {
-  background-color: rgba(0,0,0,.05);
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  background-color: var(--border_color_secondary);
+  color: var(--text_color_secondary) !important;
+  font-size: var(--fs_n) !important;
+  padding: 0.25em 0.5em;
 }
 
 .dangerousContent,

@@ -109,7 +109,6 @@ export function fetchStatus(id) {
     }).then(() => {
       dispatch(fetchStatusSuccess(skipLoading));
     }, () => api(getState).get(`/api/v1/statuses/${id}`).then(response => {
-      console.log("response.data:", response.data)
       dispatch(importFetchedStatus(response.data));
       dispatch(fetchStatusSuccess(skipLoading));
     })).catch(error => {

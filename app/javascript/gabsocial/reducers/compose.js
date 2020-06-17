@@ -100,6 +100,7 @@ function clearAll(state) {
   return state.withMutations(map => {
     map.set('id', null);
     map.set('text', '');
+    map.set('markdown', null);
     map.set('spoiler', false);
     map.set('spoiler_text', '');
     map.set('is_submitting', false);
@@ -112,6 +113,8 @@ function clearAll(state) {
     map.set('poll', null);
     map.set('idempotencyKey', uuid());
     map.set('scheduled_at', null);
+    map.set('rte_controls_visible', false);
+    map.set('gif', false);
   });
 };
 
@@ -271,6 +274,7 @@ export default function compose(state = initialState, action) {
       map.set('idempotencyKey', uuid());
       map.set('spoiler', false);
       map.set('spoiler_text', '');
+      map.set('rte_controls_visible', false);
       if (action.text) {
         map.set('text', `${statusToTextMentions(state, action.status)}${action.text}`);
       } else {
@@ -289,6 +293,7 @@ export default function compose(state = initialState, action) {
       map.set('idempotencyKey', uuid());
       map.set('spoiler', false);
       map.set('spoiler_text', '');
+      map.set('rte_controls_visible', '');
     });
   case COMPOSE_REPLY_CANCEL:
   case COMPOSE_RESET:
@@ -371,6 +376,7 @@ export default function compose(state = initialState, action) {
       map.set('focusDate', new Date());
       map.set('caretPosition', null);
       map.set('idempotencyKey', uuid());
+      map.set('rte_controls_visible', false);
 
       if (action.status.get('spoiler_text').length > 0) {
         map.set('spoiler', true);
@@ -396,7 +402,7 @@ export default function compose(state = initialState, action) {
     return state.set('scheduled_at', action.date);
   case COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY:
     return state.withMutations(map => {
-      map.set('rte_controls_visible', !state.get('rte_controls_visible'));
+      map.set('rte_controls_visible', action.open || !state.get('rte_controls_visible'));
     });
   default:
     return state;

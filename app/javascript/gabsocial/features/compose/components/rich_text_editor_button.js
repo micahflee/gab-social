@@ -1,5 +1,7 @@
 import { injectIntl, defineMessages } from 'react-intl'
 import { changeRichTextEditorControlsVisibility } from '../../../actions/compose'
+import { openModal } from '../../../actions/modal'
+import { me } from '../../../initial_state'
 import ComposeExtraButton from './compose_extra_button'
 
 const messages = defineMessages({
@@ -10,14 +12,18 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => ({
   active: state.getIn(['compose', 'rte_controls_visible']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
 
-  onClick (status) {
-    dispatch(changeRichTextEditorControlsVisibility(status))
+  onChangeRichTextEditorControlsVisibility() {
+    dispatch(changeRichTextEditorControlsVisibility())
   },
 
+  onOpenProUpgradeModal() {
+    dispatch(openModal('PRO_UPGRADE'))
+  },
 })
 
 export default
@@ -29,14 +35,21 @@ class RichTextEditorButton extends PureComponent {
     active: PropTypes.bool,
     intl: PropTypes.object.isRequired,
     small: PropTypes.bool,
+    isPro: PropTypes.bool,
+    onOpenProUpgradeModal: PropTypes.func.isRequired,
+    onChangeRichTextEditorControlsVisibility: PropTypes.func.isRequired,
   }
 
   handleClick = (e) => {
     e.preventDefault()
-    this.props.onClick()
+    if (!this.props.isPro) {
+      this.props.onOpenProUpgradeModal()
+    } else {
+      this.props.onChangeRichTextEditorControlsVisibility()
+    }
   }
 
-  render () {
+  render() {
     const { active, intl, small } = this.props
 
     return (

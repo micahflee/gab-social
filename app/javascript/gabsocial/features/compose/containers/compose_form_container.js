@@ -12,7 +12,13 @@ import {
 } from '../../../actions/compose'
 import { me } from '../../../initial_state'
 
-const mapStateToProps = (state, { replyToId, isStandalone }) => {
+const mapStateToProps = (state, props) => {
+  const {
+    replyToId,
+    isStandalone,
+    shouldCondense,
+    modal,
+  } = props
 
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
   const isModalOpen = state.getIn(['modal', 'modalType']) === 'COMPOSE' || isStandalone
@@ -27,7 +33,9 @@ const mapStateToProps = (state, { replyToId, isStandalone }) => {
   }
 
   if (isModalOpen) isMatch = true
-
+  if (isModalOpen && shouldCondense) isMatch = false
+  if (isModalOpen && !modal) isMatch = false
+  
   // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
   // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen, isStandalone)
 

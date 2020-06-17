@@ -42,6 +42,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
           <Text>• Larger Video and Image Uploads</Text>
           <Text>• Receive the PRO Badge</Text>
           <Text>• Remove in-feed promotions</Text>
+          <Text>• Compose Rich Text posts (Bold, Italic, Underline and more)</Text>
         </div>
 
         <Button

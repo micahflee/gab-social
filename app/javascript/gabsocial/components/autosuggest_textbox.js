@@ -201,7 +201,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
   setTextbox = (c) => {
-    this.textbox = c;
+    this.textbox = c
   }
 
   render() {

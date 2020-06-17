@@ -4,6 +4,7 @@ import {
   CompositeDecorator,
   RichUtils,
   convertToRaw,
+  ContentState,
 } from 'draft-js'
 import draftToMarkdown from '../features/ui/util/draft-to-markdown'
 import { urlRegex } from '../features/ui/util/url_regex'
@@ -27,11 +28,11 @@ function handleStrategy(contentBlock, callback, contentState) {
   findWithRegex(HANDLE_REGEX, contentBlock, callback)
 }
 
-function hashtagStrategy (contentBlock, callback, contentState) {
+function hashtagStrategy(contentBlock, callback, contentState) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback)
 }
 
-function urlStrategy (contentBlock, callback, contentState) {
+function urlStrategy(contentBlock, callback, contentState) {
   findWithRegex(urlRegex, contentBlock, callback)
 }
 
@@ -70,22 +71,15 @@ const compositeDecorator = new CompositeDecorator([
   }
 ])
 
-const HANDLE_REGEX = /\@[\w]+/g;
-const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g;
+const HANDLE_REGEX = /\@[\w]+/g
+const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
-const mapDispatchToProps = (dispatch) => ({
-
-})
-
-export default
-@connect(null, mapDispatchToProps)
-class Composer extends PureComponent {
+export default class Composer extends PureComponent {
 
   static propTypes = {
     inputRef: PropTypes.func,
     disabled: PropTypes.bool,
     placeholder: PropTypes.string,
-    autoFocus: PropTypes.bool,
     value: PropTypes.string,
     onChange: PropTypes.func,
     onKeyDown: PropTypes.func,
@@ -97,40 +91,35 @@ class Composer extends PureComponent {
   }
 
   state = {
-    markdownText: '',
-    plainText: '',
     editorState: EditorState.createEmpty(compositeDecorator),
-  }
-  
-  static getDerivedStateFromProps(nextProps, prevState) {
-    // if (!nextProps.isHidden && nextProps.isIntersecting && !prevState.fetched) {
-    //   return {
-    //     fetched: true
-    //   }
-    // }
-
-    return null
+    plainText: this.props.value,
   }
 
-  componentDidUpdate (prevProps) {
-    if (prevProps.value !== this.props.value) {
-      // const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value));
-      // this.setState({ editorState })
+  componentDidUpdate() {
+    if (this.state.plainText !== this.props.value) {
+      let editorState
+      if (!this.props.value) {
+        editorState = EditorState.createEmpty(compositeDecorator)
+      } else {
+        editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+      }
+      this.setState({
+        editorState,
+        plainText: this.props.value,
+      })
     }
   }
 
-  // EditorState.createWithContent(ContentState.createFromText('Hello'))
+  onChange = (editorState) => {
+    const content = editorState.getCurrentContent()
+    const plainText = content.getPlainText('\u0001')
 
-  onChange = (editorState, b, c, d) => {
-    this.setState({ editorState })
+    this.setState({ editorState, plainText })
 
-    const content = editorState.getCurrentContent();
-    const text = content.getPlainText('\u0001')
-    
     const selectionState = editorState.getSelection()
     const selectionStart = selectionState.getStartOffset()
 
-    const rawObject = convertToRaw(content);
+    const rawObject = convertToRaw(content)
     const markdownString = draftToMarkdown(rawObject, {
       escapeMarkdownCharacters: false,
       preserveNewlines: false,
@@ -143,23 +132,10 @@ class Composer extends PureComponent {
           inline: ['del', 'ins'],
         }
       }
-    });
+    })
 
-    console.log("text:", markdownString)
-    // console.log("html:", html)
-
-    this.props.onChange(null, text, markdownString, selectionStart)
+    this.props.onChange(null, plainText, markdownString, selectionStart)
   }
-
-  // **bold**
-  // *italic*
-  // __underline__
-  // ~~strike~~
-  // # header
-  // > quote
-  // ```
-  // code
-  // ```
 
   focus = () => {
     this.textbox.editor.focus()
@@ -177,27 +153,24 @@ class Composer extends PureComponent {
     return false
   }
 
-  handleOnTogglePopoutEditor = () => {
-    //
-  }
-
   onTab = (e) => {
     const maxDepth = 4
     this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth))
   }
 
   setRef = (n) => {
-    this.textbox = n
+    try {
+      this.textbox = n
+      this.props.inputRef(n) 
+    } catch (error) {
+      //
+    }
   }
 
   render() {
     const {
-      inputRef,
       disabled,
       placeholder,
-      autoFocus,
-      value,
-      onChange,
       onKeyDown,
       onKeyUp,
       onFocus,
@@ -217,8 +190,6 @@ class Composer extends PureComponent {
       pt15: !small,
       px15: !small,
       px10: small,
-      pt5: small,
-      pb5: small,
       pb10: !small,
     })
 

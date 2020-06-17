@@ -370,7 +370,7 @@ class ComposeForm extends ImmutablePureComponent {
               >
 
                 {
-                  !!reduxReplyToId && isModalOpen &&
+                  !!reduxReplyToId && isModalOpen && isMatch &&
                   <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                     <StatusContainer
                       contextType='compose'
@@ -443,7 +443,7 @@ class ComposeForm extends ImmutablePureComponent {
                 }
 
                 {
-                  !!quoteOfId && isModalOpen &&
+                  !!quoteOfId && isModalOpen && isMatch &&
                   <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
                     <StatusContainer
                       contextType='compose'
