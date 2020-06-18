@@ -2,7 +2,7 @@ import { RichUtils } from 'draft-js'
 import classNames from 'classnames/bind'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
-import Button from './button'
+import Icon from './icon'
 
 const cx = classNames.bind(_s)
 
@@ -31,18 +31,18 @@ const RTE_ITEMS = [
     type: 'style',
     icon: 'strikethrough',
   },
-  // {
-  //   label: 'Monospace',
-  //   style: 'CODE',
-  //   type: 'style',
-  //   icon: 'circle',
-  // },
   {
-    label: 'Title',
-    style: 'header-one',
-    type: 'block',
-    icon: 'text-size',
+    label: 'Monospace',
+    style: 'CODE',
+    type: 'style',
+    icon: 'code',
   },
+  // {
+  //   label: 'Title',
+  //   style: 'header-one',
+  //   type: 'block',
+  //   icon: 'text-size',
+  // },
   // {
   //   label: 'Blockquote',
   //   style: 'blockquote',
@@ -138,6 +138,7 @@ class RichTextEditorBar extends PureComponent {
 }
 
 class StyleButton extends PureComponent {
+
   static propTypes = {
     onClick: PropTypes.func,
     label: PropTypes.string,
@@ -161,37 +162,37 @@ class StyleButton extends PureComponent {
     } = this.props
 
     const selection = editorState.getSelection()
-
     const currentStyle = editorState.getCurrentInlineStyle()
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType()
 
     const active = type === 'block' ? style === blockType : currentStyle.has(style)
-    const color = active ? 'white' : 'secondary'
+    const fillColor = active ? 'fillWhite' : 'fillSecondary'
 
     const btnClasses = cx({
+      default: 1,
+      noUnderline: 1,
+      cursorPointer: 1,
       px10: 1,
       mr5: 1,
       noSelect: 1,
       bgSecondaryDark_onHover: 1,
       bgBrandLight: active,
-      // py10: !small,
-      // py5: small,
-      // px5: small,
+      bgTransparent: 1,
+      radiusSmall: 1,
+      outlineNone: 1,
+      py10: 1,
     })
 
     return (
-      <Button
+      <button
         className={btnClasses}
-        backgroundColor='none'
-        color={color}
-        onClick={this.handleOnClick}
+        onMouseDown={this.handleOnClick}
         title={label}
-        icon={icon}
-        iconClassName={_s.inheritFill}
-        iconSize='12px'
-        radiusSmall
-      />
+      >
+        <Icon id={icon} size='12px' className={_s[fillColor]} />
+      </button>
     )
   }
+
 }
 

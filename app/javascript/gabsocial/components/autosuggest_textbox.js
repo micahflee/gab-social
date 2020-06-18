@@ -67,7 +67,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       this.props.onSuggestionsClearRequested();
     }
 
-    this.props.onChange(e);
+    this.props.onChange(e, e.target.selectionStart);
   }
 
   onKeyDown = (e) => {

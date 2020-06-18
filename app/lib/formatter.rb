@@ -13,7 +13,7 @@ class HTMLRenderer < Redcarpet::Render::HTML
   end
 
   def codespan(code)
-    "<code>#{code}</code>"
+    "<code>#{encode(code).gsub("\n", "<br/>")}</code>"
   end
 
   def double_emphasis(text)

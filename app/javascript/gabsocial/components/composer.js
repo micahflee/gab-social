@@ -74,6 +74,15 @@ const compositeDecorator = new CompositeDecorator([
   }
 ])
 
+const styleMap = {
+  'CODE': {
+    padding: '0.25em 0.5em',
+    backgroundColor: 'var(--border_color_secondary)',
+    color: 'var(--text_color_secondary)',
+    fontSize: 'var(--fs_n)',
+  },
+};
+
 const HANDLE_REGEX = /\@[\w]+/g
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
@@ -104,12 +113,13 @@ export default class Composer extends PureComponent {
       const rawData = markdownToDraft(this.props.valueMarkdown)
       const contentState = convertFromRaw(rawData)
       const editorState = EditorState.createWithContent(contentState)
+
       this.setState({
         editorState,
         plainText: this.props.value,
       })
     } else if (this.props.value) {
-      editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+      const editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
       this.setState({
         editorState,
         plainText: this.props.value,
@@ -123,7 +133,9 @@ export default class Composer extends PureComponent {
       if (!this.props.value) {
         editorState = EditorState.createEmpty(compositeDecorator)
       } else {
-        editorState = EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+        editorState = EditorState.moveFocusToEnd(
+          EditorState.push(this.state.editorState, ContentState.createFromText(this.props.value))
+        )
       }
       this.setState({
         editorState,
@@ -201,11 +213,6 @@ export default class Composer extends PureComponent {
     return false
   }
 
-  onTab = (e) => {
-    const maxDepth = 4
-    this.onChange(RichUtils.onTab(e, this.state.editorState, maxDepth))
-  }
-
   setRef = (n) => {
     try {
       this.textbox = n
@@ -219,10 +226,6 @@ export default class Composer extends PureComponent {
     const {
       disabled,
       placeholder,
-      onKeyDown,
-      onFocus,
-      onBlur,
-      onPaste,
       small,
     } = this.props
     const { editorState } = this.state
@@ -252,15 +255,15 @@ export default class Composer extends PureComponent {
         }
 
         <div
-          onClick={this.focus}
           className={editorContainerClasses}
+          onClick={this.handleOnFocus}
         >
           <Editor
             blockStyleFn={getBlockStyle}
             editorState={editorState}
+            customStyleMap={styleMap}
             handleKeyCommand={this.handleKeyCommand}
             onChange={this.onChange}
-            onTab={this.onTab}
             placeholder={placeholder}
             ref={this.setRef}
             readOnly={disabled}
