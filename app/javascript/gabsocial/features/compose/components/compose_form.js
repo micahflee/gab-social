@@ -475,7 +475,10 @@ class ComposeForm extends ImmutablePureComponent {
                     <StatusVisibilityButton />
                     <SpoilerButton />
                     <SchedulePostButton />
-                    <RichTextEditorButton />
+                    
+                    <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                      <RichTextEditorButton />
+                    </Responsive>
                   </div>
 
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>
