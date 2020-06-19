@@ -4,12 +4,12 @@
   .batch-table__row__content
     .status__content><
       - if status.proper.spoiler_text.blank?
-        = Formatter.instance.format(status.proper, custom_emojify: true)
+        = Formatter.instance.plaintext(status.proper)
       - else
         %details<
           %summary><
             %strong> Content warning: #{Formatter.instance.format_spoiler(status.proper)}
-          = Formatter.instance.format(status.proper, custom_emojify: true)
+          = Formatter.instance.plaintext(status.proper)
 
     - unless status.proper.media_attachments.empty?
       - if status.proper.media_attachments.first.video?
