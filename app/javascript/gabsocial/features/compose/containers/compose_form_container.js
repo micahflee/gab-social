@@ -34,12 +34,11 @@ const mapStateToProps = (state, props) => {
 
   if (isModalOpen) isMatch = true
   if (isModalOpen && shouldCondense) isMatch = false
-  if (isModalOpen && !modal) isMatch = false
+  if (isModalOpen && (!modal && !isStandalone)) isMatch = false
   
-  // console.log("isMatch:", isMatch, reduxReplyToId, replyToId, state.getIn(['compose', 'text']))
+  // console.log("isMatch:", isMatch, modal, isModalOpen, state.getIn(['compose', 'text']))
   // console.log("reduxReplyToId:", reduxReplyToId, isModalOpen, isStandalone)
-
-  const edit = state.getIn(['compose', 'id'])
+  // const edit = state.getIn(['compose', 'id'])
 
   if (!isMatch) {
     return {

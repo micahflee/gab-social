@@ -3,9 +3,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import isObject from 'lodash.isobject'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Textarea from 'react-textarea-autosize'
-import { CX } from '../constants'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
 import { isRtl } from '../utils/rtl'
 import { textAtCursorMatchesToken } from '../utils/cursor_token_match'
+import Responsive from '../features/ui/util/responsive_component'
 import AutosuggestAccount from './autosuggest_account'
 import AutosuggestEmoji from './autosuggest_emoji'
 import Input from './input'
@@ -219,27 +223,69 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       py5: small,
     })
 
+    const textareaClasses = CX({
+      default: 1,
+      font: 1,
+      wrap: 1,
+      resizeNone: 1,
+      bgTransparent: 1,
+      outlineNone: 1,
+      lineHeight125: 1,
+      colorPrimary: 1,
+      width100PC: !small,
+      pt15: !small,
+      px15: !small,
+      px10: small,
+      pb10: !small,
+      fs16PX: !small,
+      fs14PX: small,
+      heightMax200PX: small,
+      heightMax80VH: !small,
+      heightMin80PX: !small,
+    })
+
     return (
       <Fragment>
         <div className={textareaContainerClasses}>
           <label htmlFor={id} className={_s.visiblyHidden}>
             {placeholder}
           </label>
+          
+          <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+            <Textarea
+              id={id}
+              inputRef={this.setTextbox}
+              className={textareaClasses}
+              disabled={disabled}
+              placeholder={placeholder}
+              autoFocus={false}
+              value={value}
+              onChange={this.onChange}
+              onKeyDown={this.onKeyDown}
+              onKeyUp={onKeyUp}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onPaste={this.onPaste}
+              aria-autocomplete='list'
+            />
+          </Responsive>
 
-          <Composer
-            inputRef={this.setTextbox}
-            disabled={disabled}
-            placeholder={placeholder}
-            value={value}
-            valueMarkdown={valueMarkdown}
-            onChange={this.onChange}
-            onKeyDown={this.onKeyDown}
-            onKeyUp={onKeyUp}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onPaste={this.onPaste}
-            small={small}
-          />
+          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+            <Composer
+              inputRef={this.setTextbox}
+              disabled={disabled}
+              placeholder={placeholder}
+              value={value}
+              valueMarkdown={valueMarkdown}
+              onChange={this.onChange}
+              onKeyDown={this.onKeyDown}
+              onKeyUp={onKeyUp}
+              onFocus={this.onFocus}
+              onBlur={this.onBlur}
+              onPaste={this.onPaste}
+              small={small}
+            />
+          </Responsive>
 
           {children}
         </div>
