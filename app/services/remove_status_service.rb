@@ -22,8 +22,6 @@ class RemoveStatusService < BaseService
         remove_from_affected
         remove_reblogs
         remove_from_hashtags
-        remove_from_public
-        remove_from_media if status.media_attachments.any?
 
         @status.destroy!
       else
@@ -143,20 +141,6 @@ class RemoveStatusService < BaseService
       redis.publish("timeline:hashtag:#{hashtag}", @payload)
       redis.publish("timeline:hashtag:#{hashtag}:local", @payload) if @status.local?
     end
-  end
-
-  def remove_from_public
-    return unless @status.public_visibility?
-
-    redis.publish('timeline:public', @payload)
-    redis.publish('timeline:public:local', @payload) if @status.local?
-  end
-
-  def remove_from_media
-    return unless @status.public_visibility?
-
-    redis.publish('timeline:public:media', @payload)
-    redis.publish('timeline:public:local:media', @payload) if @status.local?
   end
 
   def lock_options

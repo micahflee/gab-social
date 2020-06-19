@@ -8,8 +8,6 @@ import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import ProgressPanel from '../components/panel/progress_panel'
 import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
-import TimelineComposeBlock from '../components/timeline_compose_block'
-import Divider from '../components/divider'
 
 const messages = defineMessages({
   community: { 'id': 'column.community', 'defaultMessage': 'Community feed' },
@@ -57,8 +55,6 @@ class CommunityPage extends PureComponent {
         )}
       >
         <PageTitle path={title} />
-        <TimelineComposeBlock autoFocus={false} />
-        <Divider />
         {children}
       </DefaultLayout>
     )

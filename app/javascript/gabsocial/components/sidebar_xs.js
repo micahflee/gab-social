@@ -131,12 +131,6 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.preferences),
       },
       {
-        icon: 'community',
-        to: '/timeline/all',
-        onClick: this.handleSidebarClose,
-        title: 'All'
-      },
-      {
         icon: 'list',
         to: '/lists',
         onClick: this.handleSidebarClose,

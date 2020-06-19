@@ -24,9 +24,6 @@ class FanOutOnWriteService < BaseService
     deliver_to_hashtags(status)
 
     return if status.reply? && status.in_reply_to_account_id != status.account_id
-
-    deliver_to_public(status)
-    deliver_to_media(status) if status.media_attachments.any?
   end
 
   private
@@ -96,20 +93,6 @@ class FanOutOnWriteService < BaseService
       Redis.current.publish("timeline:hashtag:#{hashtag}", @payload)
       Redis.current.publish("timeline:hashtag:#{hashtag}:local", @payload) if status.local?
     end
-  end
-
-  def deliver_to_public(status)
-    Rails.logger.debug "Delivering status #{status.id} to public timeline"
-
-    Redis.current.publish('timeline:public', @payload)
-    Redis.current.publish('timeline:public:local', @payload) if status.local?
-  end
-
-  def deliver_to_media(status)
-    Rails.logger.debug "Delivering status #{status.id} to media timeline"
-
-    Redis.current.publish('timeline:public:media', @payload)
-    Redis.current.publish('timeline:public:local:media', @payload) if status.local?
   end
 
   def deliver_to_own_conversation(status)

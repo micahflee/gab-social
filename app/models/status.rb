@@ -342,7 +342,7 @@ class Status < ApplicationRecord
     end
 
     def as_public_timeline(account = nil)
-      query = timeline_scope.without_replies.where('statuses.updated_at > ?', 30.minutes.ago)
+      query = timeline_scope.without_replies
       apply_timeline_filters(query, account)
     end
 
