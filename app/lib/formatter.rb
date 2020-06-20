@@ -27,6 +27,10 @@ class HTMLRenderer < Redcarpet::Render::HTML
   def header(text, header_level)
     "<h1>#{text}</h1>"
   end
+
+  def paragraph(text)
+    "<p>#{text}</p>"
+  end
   
   def triple_emphasis(text)
     "<b><em>#{text}</em></b>"
@@ -123,8 +127,9 @@ class Formatter
 
   def format_markdown(html)
     html = markdown_formatter.render(html)
-    # html.delete("\r").delete("\n")
-    html = html.gsub(/(?:\n\r?|\r\n?)/, '<br />')
+    html = html.gsub(/\n/, '<br />')
+    html.delete("\r").delete("\n")
+    html
   end
 
   def reformat(html, outgoing = false)
