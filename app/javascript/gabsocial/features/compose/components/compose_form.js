@@ -88,6 +88,7 @@ class ComposeForm extends ImmutablePureComponent {
     reduxReplyToId: PropTypes.string,
     hasPoll: PropTypes.bool,
     selectedGifSrc: PropTypes.string,
+    isPro: PropTypes.bool,
   };
 
   static defaultProps = {
@@ -244,6 +245,7 @@ class ComposeForm extends ImmutablePureComponent {
       isChangingUpload,
       isSubmitting,
       selectedGifSrc,
+      isPro,
     } = this.props
 
     const disabled = isSubmitting
@@ -322,6 +324,8 @@ class ComposeForm extends ImmutablePureComponent {
                     onPaste={onPaste}
                     autoFocus={shouldAutoFocus}
                     small={shouldCondense}
+                    isPro={isPro}
+                    isEdit={!!edit}
                     id='comment-composer'
                   />
 
@@ -414,6 +418,8 @@ class ComposeForm extends ImmutablePureComponent {
                   onPaste={onPaste}
                   autoFocus={shouldAutoFocus}
                   small={shouldCondense}
+                  isPro={isPro}
+                  isEdit={!!edit}
                   id='main-composer'
                 />
 

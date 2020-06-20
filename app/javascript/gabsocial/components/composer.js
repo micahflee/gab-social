@@ -18,6 +18,21 @@ import '!style-loader!css-loader!draft-js/dist/Draft.css'
 
 const cx = classNames.bind(_s)
 
+const markdownOptions = {
+  escapeMarkdownCharacters: false,
+  preserveNewlines: true,
+  remarkablePreset: 'commonmark',
+  remarkableOptions: {
+    disable: {
+      inline: ['links'],
+      block: ['table', 'heading'],
+    },
+    enable: {
+      inline: ['del', 'ins'],
+    }
+  }
+}
+
 const getBlockStyle = (block) => {
   switch (block.getType()) {
     case 'blockquote':
@@ -100,6 +115,8 @@ export default class Composer extends PureComponent {
     onBlur: PropTypes.func,
     onPaste: PropTypes.func,
     small: PropTypes.bool,
+    isPro: PropTypes.bool,
+    isEdit: PropTypes.bool,
   }
 
   state = {
@@ -109,8 +126,8 @@ export default class Composer extends PureComponent {
   }
 
   componentDidMount() {
-    if (this.props.valueMarkdown) {
-      const rawData = markdownToDraft(this.props.valueMarkdown)
+    if (this.props.valueMarkdown && this.props.isPro && this.props.isEdit) {
+      const rawData = markdownToDraft(this.props.valueMarkdown, markdownOptions)
       const contentState = convertFromRaw(rawData)
       const editorState = EditorState.createWithContent(contentState)
 
@@ -146,29 +163,23 @@ export default class Composer extends PureComponent {
 
   onChange = (editorState) => {
     const content = editorState.getCurrentContent()
-    const plainText = content.getPlainText('\u0001')
+    // const plainText = content.getPlainText('\u0001')
 
-    this.setState({ editorState, plainText })
+    const blocks = convertToRaw(editorState.getCurrentContent()).blocks
+    const value = blocks.map(block => (!block.text.trim() && '') || block.text).join('\n')
+
+    this.setState({
+      editorState,
+      plainText: value,
+    })
 
     const selectionState = editorState.getSelection()
     const selectionStart = selectionState.getStartOffset()
 
     const rawObject = convertToRaw(content)
-    const markdownString = draftToMarkdown(rawObject, {
-      escapeMarkdownCharacters: false,
-      preserveNewlines: false,
-      remarkablePreset: 'commonmark',
-      remarkableOptions: {
-        disable: {
-          block: ['table']
-        },
-        enable: {
-          inline: ['del', 'ins'],
-        }
-      }
-    })
+    const markdownString = this.props.isPro ? draftToMarkdown(rawObject,markdownOptions) : null
 
-    this.props.onChange(null, plainText, markdownString, selectionStart)
+    this.props.onChange(null, value, markdownString, selectionStart)
   }
 
   handleOnFocus = () => {
@@ -227,6 +238,7 @@ export default class Composer extends PureComponent {
       disabled,
       placeholder,
       small,
+      isPro,
     } = this.props
     const { editorState } = this.state
 
@@ -247,7 +259,7 @@ export default class Composer extends PureComponent {
       <div className={_s.default}>
 
         {
-          !small &&
+          !small && isPro &&
           <RichTextEditorBar
             editorState={editorState}
             onChange={this.onChange}

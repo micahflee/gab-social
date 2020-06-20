@@ -123,7 +123,8 @@ class Formatter
 
   def format_markdown(html)
     html = markdown_formatter.render(html)
-    html.delete("\r").delete("\n")
+    # html.delete("\r").delete("\n")
+    html = html.gsub(/(?:\n\r?|\r\n?)/, '<br />')
   end
 
   def reformat(html, outgoing = false)

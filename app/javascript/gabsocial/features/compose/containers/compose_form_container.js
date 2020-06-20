@@ -90,12 +90,13 @@ const mapStateToProps = (state, props) => {
     quoteOfId: state.getIn(['compose', 'quote_of_id']),
     scheduledAt: state.getIn(['compose', 'scheduled_at']),
     account: state.getIn(['accounts', me]),
+    isPro: state.getIn(['accounts', me, 'is_pro']),
     hasPoll: state.getIn(['compose', 'poll']),
     selectedGifSrc: state.getIn(['tenor', 'selectedGif', 'src']),
   }
 }
 
-const mapDispatchToProps = (dispatch, { reduxReplyToId, replyToId, isStandalone }) => ({
+const mapDispatchToProps = (dispatch, { isStandalone }) => ({
 
   onChange(text, markdown, newReplyToId, position) {
     dispatch(changeCompose(text, markdown, newReplyToId, isStandalone, position))

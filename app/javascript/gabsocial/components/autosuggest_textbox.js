@@ -36,6 +36,8 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     onBlur: PropTypes.func,
     textarea: PropTypes.bool,
     small: PropTypes.bool,
+    isPro: PropTypes.bool,
+    isEdit: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -211,6 +213,8 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
       children,
       valueMarkdown,
       id,
+      isPro,
+      isEdit,
     } = this.props
 
     const { suggestionsHidden } = this.state
@@ -284,6 +288,8 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
               onBlur={this.onBlur}
               onPaste={this.onPaste}
               small={small}
+              isEdit={isEdit}
+              isPro={isPro}
             />
           </Responsive>
 

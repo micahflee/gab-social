@@ -264,29 +264,21 @@ export function submitCompose(group, replyToId = null, router, isStandalone) {
 
     let status = getState().getIn(['compose', 'text'], '');
     let markdown = getState().getIn(['compose', 'markdown'], '');
-    const media  = getState().getIn(['compose', 'media_attachments']);
+    const media = getState().getIn(['compose', 'media_attachments']);
 
-    // : hack :
-    //Prepend http:// to urls in status that don't have protocol
-    status = `${status}`.replace(urlRegex, (match, a, b, c) =>{
+    const replacer = (match) => {
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
       //Make sure not a remote mention like @someone@somewhere.com
       if (!hasProtocol) {
         if (status.indexOf(`@${match}`) > -1) return match
       }
       return hasProtocol ? match : `http://${match}`
-    })
-    markdown = !!markdown ? markdown.replace(urlRegex, (match) =>{
-      const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
-      if (!hasProtocol) {
-        if (status.indexOf(`@${match}`) > -1) return match
-      }
-      return hasProtocol ? match : `http://${match}`
-    }) : undefined
-    
-    if (status === markdown) {
-      markdown = undefined
     }
+
+    // : hack :
+    //Prepend http:// to urls in status that don't have protocol
+    status = `${status}`.replace(urlRegex, replacer)
+    markdown = !!markdown ? `${markdown}`.replace(urlRegex, replacer) : undefined
 
     const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null) || replyToId
 
