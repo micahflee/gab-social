@@ -179,7 +179,7 @@ class Status extends ImmutablePureComponent {
         this.props.onFetchContext(this.props.status.get('id'))
         this._measureHeight(prevState.height !== this.state.height)
       } else {
-        if (commentCount > 0) {
+        if (commentCount > 0 && !this.props.commentsLimited) {
           this._measureHeight(prevState.height !== this.state.height)
           this.props.onFetchComments(this.props.status.get('id'))
         }
@@ -592,7 +592,7 @@ class Status extends ImmutablePureComponent {
                   }
 
                   {
-                    descendantsIds && !isChild && !isNotification && descendantsIds.size > 0 &&
+                    descendantsIds && !isChild && !isNotification && descendantsIds.size > 0 && !commentsLimited &&
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
