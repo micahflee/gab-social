@@ -1,6 +1,4 @@
 import { Fragment } from 'react'
-import ImmutablePureComponent from 'react-immutable-pure-component'
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import { urlRegex } from '../features/ui/util/url_regex'
 import {
   CX,
@@ -8,23 +6,28 @@ import {
 } from '../constants'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
-import Image from './image'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
-export default class TrendingItem extends ImmutablePureComponent {
+export default class TrendingItem extends PureComponent {
 
   static propTypes = {
     index: PropTypes.number,
-    trend: ImmutablePropTypes.map.isRequired,
     isLast: PropTypes.bool,
     isHidden: PropTypes.bool,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    author: PropTypes.string,
+    url: PropTypes.string,
+    date: PropTypes.string,
   }
 
   static defaultProps = {
     title: '',
     description: '',
     author: '',
+    url: '',
+    date: '',
   }
 
   state = {
@@ -42,25 +45,29 @@ export default class TrendingItem extends ImmutablePureComponent {
   render() {
     const {
       index,
-      trend,
       isLast,
       isHidden,
+      title,
+      description,
+      author,
+      url,
+      date,
     } = this.props
     const { hovering } = this.state
 
-    if (!trend) return null
+    if (!title || !url) return null
 
-    const title = `${trend.get('title')}`.trim()
-    const description = trend.get('description') || ''
+    const correctedTitle = `${title}`.trim()
+    let correctedDescription = description || ''
       
-    const correctedAuthor = trend.getIn(['author', 'name'], '').replace('www.', '')
-    const correctedDescription = description.length >= 120 ? `${description.substring(0, 120).trim()}...` : description
+    const correctedAuthor = `${author}`.replace('www.', '')
+    correctedDescription = correctedDescription.length >= 120 ? `${correctedDescription.substring(0, 120).trim()}...` : correctedDescription
     const descriptionHasLink = correctedDescription.match(urlRegex)
 
     if (isHidden) {
       return (
         <Fragment>
-          {title}
+          {correctedTitle}
           {!descriptionHasLink && correctedDescription}
           {correctedAuthor}
         </Fragment>
@@ -86,30 +93,18 @@ export default class TrendingItem extends ImmutablePureComponent {
     return (
       <Button
         noClasses
-        href={trend.get('url')}
+        href={url}
         target='_blank'
         rel={DEFAULT_REL}
         className={containerClasses}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
-        {
-          /*
-          <Image
-            nullable
-            width='116px'
-            height='78px'
-            alt={title}
-            src={trend.get('image')}
-            className={[_s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}
-          />
-          */
-        }
-
+      
         <div className={[_s.default, _s.flexNormal, _s.pb5].join(' ')}>
           <div className={_s.default}>
             <Text size='medium' color='primary' weight='bold'>
-              {title}
+              {correctedTitle}
             </Text>
           </div>
 
@@ -132,7 +127,7 @@ export default class TrendingItem extends ImmutablePureComponent {
             </Text>
             <DotTextSeperator />
             <Text color='secondary' size='small' className={subtitleClasses}>
-              <RelativeTimestamp timestamp={trend.get('date_published')} />
+              <RelativeTimestamp timestamp={date} />
             </Text>
             {
               hovering &&

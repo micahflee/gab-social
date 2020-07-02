@@ -15,6 +15,11 @@ const initialState = ImmutableMap({
     isLoading: false,
     isError: false,
   }),
+  partner: ImmutableMap({
+    items: {},
+    isLoading: false,
+    isError: false,
+  }),
 })
 
 const normalizeList = (state, type, items) => {
@@ -38,7 +43,17 @@ export default function (state = initialState, action) {
     case GAB_TRENDS_RESULTS_FETCH_REQUEST:
       return state.setIn([action.feedType, 'isLoading'], true);
     case GAB_TRENDS_RESULTS_FETCH_SUCCESS:
-      return normalizeList(state, action.feedType, action.items)
+      if (action.feedType === 'feed') {
+        return normalizeList(state, action.feedType, action.items.items)
+      } else if (action.feedType === 'partner') {
+        return state.set('partner', ImmutableMap({
+          items: action.items['trends'] || {},
+          isLoading: false,
+          isError: false,
+        }))
+      }
+
+      return state
     case GAB_TRENDS_RESULTS_FETCH_FAIL:
       return setListFailed(state, action.feedType)
     default:

@@ -18,7 +18,7 @@ export default class TabBar extends PureComponent {
 
     return (
       <ResponsiveClassesComponent
-        classNames={[_s.default, _s.height53PX, _s.px5, _s.flexRow].join(' ')}
+        classNames={[_s.default, _s.height53PX, _s.px5, _s.flexRow, _s.overflowXScroll, _s.noScrollbar].join(' ')}
         classNamesXS={[_s.default, _s.height40PX, _s.px5, _s.flexRow].join(' ')}
       >
         {

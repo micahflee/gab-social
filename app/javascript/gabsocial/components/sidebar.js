@@ -140,6 +140,11 @@ class Sidebar extends ImmutablePureComponent {
         to: '/lists',
       },
       {
+        title: 'Explore',
+        icon: 'explore',
+        to: '/explore',
+      },
+      {
         title: 'More',
         icon: 'more',
         onClick: this.handleOpenSidebarMorePopover,

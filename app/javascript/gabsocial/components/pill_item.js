@@ -23,7 +23,7 @@ class PillItem extends PureComponent {
     // If user navigates to different page, ensure tab bar item
     // with this.props.to that is on location is set to active.
     if (this.props.location !== prevProps.location) {
-      const isCurrent = this.props.to === this.props.location.pathname
+      const isCurrent = this.props.to === this.props.location.pathname && !this.props.location.search
 
       if (this.state.isCurrent !== isCurrent) {
         this.setState({ isCurrent })
@@ -43,7 +43,7 @@ class PillItem extends PureComponent {
 
     // Combine state, props, location to make absolutely
     // sure of active status.
-    const active = isActive || to === location.pathname || isCurrent
+    const active = isActive || (to === location.pathname && !location.search) || isCurrent
 
     const containerClasses = CX({
       default: 1,

@@ -37,6 +37,7 @@ import BasicPage from '../../pages/basic_page'
 import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
 import ProPage from '../../pages/pro_page'
+import ExplorePage from '../../pages/explore_page'
 
 import {
   AccountGallery,
@@ -45,6 +46,7 @@ import {
   BlockedDomains,
   CommunityTimeline,
   Compose,
+  Explore,
   // Filters,
   Followers,
   Following,
@@ -149,6 +151,8 @@ class SwitchingArea extends PureComponent {
       <Switch>
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
+        
+        <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose' }} />
 

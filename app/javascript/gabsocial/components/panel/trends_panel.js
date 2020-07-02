@@ -68,7 +68,11 @@ class TrendsPanel extends ImmutablePureComponent {
                 key={`gab-trend-${i}`}
                 index={i + 1}
                 isLast={i === 7}
-                trend={trend}
+                title={trend.get('title')}
+                description={trend.get('description')}
+                url={trend.get('url')}
+                author={trend.getIn(['author', 'name'], '')}
+                date={trend.get('date_published')}
               />
             ))
           }
