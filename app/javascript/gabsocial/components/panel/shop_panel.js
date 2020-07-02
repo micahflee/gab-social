@@ -1,5 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import { fetchFeaturedProducts } from '../../actions/shop'
+import { URL_DISSENTER_SHOP } from '../../constants'
 import PanelLayout from './panel_layout'
 import Image from '../image'
 import Text from '../text'
@@ -69,7 +70,7 @@ class ShopPanel extends PureComponent {
         noPadding
         title={intl.formatMessage(messages.title)}
         footerButtonTitle={intl.formatMessage(messages.shop_now)}
-        footerButtonTo='/'
+        footerButtonHref={URL_DISSENTER_SHOP}
       >
         <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
           {

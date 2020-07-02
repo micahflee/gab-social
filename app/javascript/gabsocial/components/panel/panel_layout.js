@@ -4,6 +4,7 @@ import Button from '../button'
 import Text from '../text'
 
 export default class PanelLayout extends PureComponent {
+
   static propTypes = {
     title: PropTypes.string,
     subtitle: PropTypes.string,
@@ -14,6 +15,7 @@ export default class PanelLayout extends PureComponent {
     footerButtonTitle: PropTypes.string,
     footerButtonAction: PropTypes.func,
     footerButtonTo: PropTypes.string,
+    footerButtonHref: PropTypes.string,
     noPadding: PropTypes.bool,
   }
 
@@ -27,6 +29,7 @@ export default class PanelLayout extends PureComponent {
       footerButtonTitle,
       footerButtonAction,
       footerButtonTo,
+      footerButtonHref,
       noPadding,
       children,
     } = this.props
@@ -79,13 +82,14 @@ export default class PanelLayout extends PureComponent {
           }
 
           {
-            (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo)) &&
+            (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo || !!footerButtonHref)) &&
             <div className={_s.default}>
               <Button
                 isText
                 color='none'
                 backgroundColor='none'
                 to={footerButtonTo}
+                href={footerButtonHref}
                 onClick={footerButtonAction}
                 className={[_s.px15, _s.py15, _s.bgSubtle_onHover].join(' ')}
               >
@@ -99,4 +103,5 @@ export default class PanelLayout extends PureComponent {
       </aside>
     )
   }
+
 }
