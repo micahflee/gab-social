@@ -15,6 +15,7 @@ export const ALLOWED_AROUND_SHORT_CODE = '><\u0085\u0020\u00a0\u1680\u2000\u2001
 export const MAX_POST_CHARACTER_COUNT = 3000
 
 export const URL_DISSENTER_SHOP = 'https://shop.dissenter.com'
+export const URL_DISSENTER_SHOP_DONATIONS = 'https://shop.dissenter.com/category/donations'
 export const URL_GAB_PRO = 'https://pro.gab.com'
 
 export const PLACEHOLDER_MISSING_HEADER_SRC = '/original/missing.png'
