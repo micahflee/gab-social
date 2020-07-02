@@ -1,7 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { withRouter } from 'react-router-dom'
-import { fetchSuggestions, dismissSuggestion } from '../actions/suggestions'
 import { me } from '../initial_state'
 import HashtagItem from '../components/hashtag_item'
 import GroupListItem from '../components/group_list_item'
@@ -14,14 +13,8 @@ const mapStateToProps = (state) => ({
   suggestions: state.getIn(['suggestions', 'items']),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchSuggestions: () => dispatch(fetchSuggestions()),
-  dismissSuggestion: account => dispatch(dismissSuggestion(account.get('id'))),
-});
-
 export default
 @withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class Search extends ImmutablePureComponent {
 
   static propTypes = {
@@ -36,8 +29,6 @@ class Search extends ImmutablePureComponent {
   render() {
     const { results, location } = this.props
     const { isSmallScreen } = this.state
-
-    // console.log("results:", results)
 
     if (results.isEmpty() && isSmallScreen) {
       return null
