@@ -70,6 +70,9 @@ export const COMMENT_SORTING_TYPE_NEWEST = 'newest'
 export const COMMENT_SORTING_TYPE_OLDEST = 'oldest'
 export const COMMENT_SORTING_TYPE_TOP = 'most-liked'
 
+export const SUGGESTION_TYPE_VERIFIED = 'verified'
+export const SUGGESTION_TYPE_RELATED = 'related'
+
 export const FONT_SIZES_EXTRA_SMALL = '12px'
 export const FONT_SIZES_SMALL = '13px'
 export const FONT_SIZES_NORMAL = '14px'
