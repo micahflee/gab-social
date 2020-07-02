@@ -24,6 +24,11 @@ class FanOutOnWriteService < BaseService
     deliver_to_hashtags(status)
 
     return if status.reply? && status.in_reply_to_account_id != status.account_id
+
+
+    if status.account.is_pro || status.account.is_donor || status.account.is_investor || status.account.is_verified
+      deliver_to_pro(status)
+    end
   end
 
   private
@@ -93,6 +98,12 @@ class FanOutOnWriteService < BaseService
       Redis.current.publish("timeline:hashtag:#{hashtag}", @payload)
       Redis.current.publish("timeline:hashtag:#{hashtag}:local", @payload) if status.local?
     end
+  end
+
+  def deliver_to_pro(status)
+    Rails.logger.debug "Delivering status #{status.id} to pro timeline"
+
+    Redis.current.publish('timeline:pro', @payload)
   end
 
   def deliver_to_own_conversation(status)

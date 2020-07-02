@@ -36,6 +36,7 @@ import ListsPage from '../../pages/lists_page'
 import BasicPage from '../../pages/basic_page'
 import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
+import ProPage from '../../pages/pro_page'
 
 import {
   AccountGallery,
@@ -64,6 +65,7 @@ import {
   ListTimeline,
   Mutes,
   Notifications,
+  ProTimeline,
   Search,
   // Shortcuts,
   StatusFeature,
@@ -151,6 +153,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
+        <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
 
         <WrappedRoute path='/groups' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/new' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'new' }} />

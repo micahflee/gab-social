@@ -55,6 +55,7 @@ export function Mutes() { return import(/* webpackChunkName: "features/mutes" */
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }
 export function Notifications() { return import(/* webpackChunkName: "features/notifications" */'../../notifications') }
+export function ProTimeline() { return import(/* webpackChunkName: "features/pro_timeline" */'../../pro_timeline') }
 export function ProfileOptionsPopover() { return import(/* webpackChunkName: "components/profile_options_popover" */'../../../components/popover/profile_options_popover') }
 export function ProUpgradeModal() { return import(/* webpackChunkName: "components/pro_upgrade_modal" */'../../../components/modal/pro_upgrade_modal') }
 export function ReportModal() { return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal') }

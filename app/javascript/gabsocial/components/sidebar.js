@@ -165,6 +165,11 @@ class Sidebar extends ImmutablePureComponent {
 
     const exploreItems = [
       {
+        title: 'Pro Feed',
+        icon: 'circle',
+        to: '/timeline/pro',
+      },
+      {
         title: 'Chat',
         icon: 'chat',
         href: 'https://chat.gab.com',

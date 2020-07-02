@@ -87,6 +87,10 @@ class BatchedRemoveStatusService < BaseService
     payload = @json_payloads[status.id]
 
     redis.pipelined do
+      if status.account.is_pro || status.account.is_donor || status.account.is_investor || status.account.is_verified
+        redis.publish('timeline:pro', payload)
+      end
+
       @tags[status.id].each do |hashtag|
         redis.publish("timeline:hashtag:#{hashtag}", payload)
         redis.publish("timeline:hashtag:#{hashtag}:local", payload) if status.local?

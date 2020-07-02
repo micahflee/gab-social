@@ -321,6 +321,7 @@ Rails.application.routes.draw do
         resource :direct, only: :show, controller: :direct
         resource :home, only: :show, controller: :home
         resource :public, only: :show, controller: :public
+        resource :pro, only: :show, controller: :pro
         resources :tag, only: :show
         resources :list, only: :show
         resources :group, only: :show

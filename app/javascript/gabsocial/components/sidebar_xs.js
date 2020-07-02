@@ -39,6 +39,7 @@ const messages = defineMessages({
   chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   display: { id: 'display_options', defaultMessage: 'Display Options' },
+  pro: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
 })
 
 const mapStateToProps = (state) => ({
@@ -95,6 +96,12 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.profile),
       },
       {
+        icon: 'list',
+        to: '/lists',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.lists),
+      },
+      {
         icon: 'pro',
         href: 'https://pro.gab.com',
         onClick: this.handleSidebarClose,
@@ -125,16 +132,16 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.search),
       },
       {
+        icon: 'circle',
+        to: '/timeline/pro',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.pro),
+      },
+      {
         icon: 'cog',
         href: '/settings/preferences',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.preferences),
-      },
-      {
-        icon: 'list',
-        to: '/lists',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.lists),
       },
       // {
       //   icon: 'group',

@@ -51,6 +51,7 @@ export function connectTimelineStream (timelineId, path, pollingRefresh = null, 
 }
 
 export const connectUserStream      = () => connectTimelineStream('home', 'user');
+export const connectProStream = () => connectTimelineStream('pro', 'pro');
 export const connectHashtagStream   = (id, tag, accept) => connectTimelineStream(`hashtag:${id}`, `hashtag&tag=${tag}`, null, accept);
 export const connectListStream      = id => connectTimelineStream(`list:${id}`, `list&list=${id}`);
 export const connectGroupStream      = id => connectTimelineStream(`group:${id}`, `group&group=${id}`);

@@ -296,8 +296,6 @@ const startWorker = (workerId) => {
   };
 
   const PUBLIC_ENDPOINTS = [
-    '/api/v1/streaming/public',
-    '/api/v1/streaming/public/local',
     '/api/v1/streaming/hashtag',
     '/api/v1/streaming/hashtag/local',
   ];
@@ -585,6 +583,10 @@ const startWorker = (workerId) => {
     });
   });
 
+  app.get('/api/v1/streaming/pro', (req, res) => {
+    streamFrom('timeline:pro', req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)));
+  });
+
   const wss = new WebSocketServer({ server, verifyClient: wsVerifyClient });
 
   wss.on('connection', (ws, req) => {
@@ -595,6 +597,9 @@ const startWorker = (workerId) => {
     let channel;
 
     switch (location.query.stream) {
+      case 'pro':
+        streamFrom('timeline:pro', req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
+        break;
       case 'statuscard':
         channel = `statuscard:${req.accountId}`;
         streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));

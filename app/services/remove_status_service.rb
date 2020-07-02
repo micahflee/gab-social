@@ -22,6 +22,7 @@ class RemoveStatusService < BaseService
         remove_from_affected
         remove_reblogs
         remove_from_hashtags
+        remove_from_pro
 
         @status.destroy!
       else
@@ -140,6 +141,12 @@ class RemoveStatusService < BaseService
     @tags.each do |hashtag|
       redis.publish("timeline:hashtag:#{hashtag}", @payload)
       redis.publish("timeline:hashtag:#{hashtag}:local", @payload) if @status.local?
+    end
+  end
+
+  def remove_from_pro
+    if @account.is_pro || @account.is_donor || @account.is_investor || @account.is_verified
+      redis.publish('timeline:pro', @payload)
     end
   end
 

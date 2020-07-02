@@ -96,6 +96,7 @@ class Status < ApplicationRecord
   scope :tagged_with, ->(tag) { joins(:statuses_tags).where(statuses_tags: { tag_id: tag }) }
   scope :excluding_silenced_accounts, -> { left_outer_joins(:account).where(accounts: { silenced_at: nil }) }
   scope :including_silenced_accounts, -> { left_outer_joins(:account).where.not(accounts: { silenced_at: nil }) }
+  scope :popular_accounts, -> { left_outer_joins(:account).where('accounts.is_investor=true OR accounts.is_donor=true OR accounts.is_verified=true OR accounts.is_pro=true') }
   scope :not_excluded_by_account, ->(account) { where.not(account_id: account.excluded_from_timeline_account_ids) }
   scope :not_domain_blocked_by_account, ->(account) { account.excluded_from_timeline_domains.blank? ? left_outer_joins(:account) : left_outer_joins(:account).where('accounts.domain IS NULL OR accounts.domain NOT IN (?)', account.excluded_from_timeline_domains) }
   scope :tagged_with_all, ->(tags) {
@@ -341,8 +342,13 @@ class Status < ApplicationRecord
       end
     end
 
+    def as_pro_timeline(account = nil)
+      query = timeline_scope.without_replies.popular_accounts.where('statuses.created_at > ?', 2.days.ago)
+      apply_timeline_filters(query, account)
+    end
+
     def as_public_timeline(account = nil)
-      query = timeline_scope.without_replies
+      query = timeline_scope.without_replies.where('statuses.created_at > ?', 15.minutes.ago)
       apply_timeline_filters(query, account)
     end
 
