@@ -1,36 +1,31 @@
 import { defineMessages, injectIntl } from 'react-intl'
-import {
-  fetchRelatedSuggestions,
-  dismissRelatedSuggestion,
-} from '../../actions/suggestions'
+import { fetchPopularSuggestions } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import Account from '../../components/account'
+import Account from '../account'
 import PanelLayout from './panel_layout'
 
 const messages = defineMessages({
   dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
-  title: { id: 'who_to_follow.title', defaultMessage: 'Who to Follow' },
+  title: { id: 'who_to_follow.title', defaultMessage: 'Verified Accounts to Follow' },
   show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
 })
 
 const mapStateToProps = (state) => ({
-  suggestions: state.getIn(['suggestions', 'related', 'items']),
+  suggestions: state.getIn(['suggestions', 'verified', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchRelatedSuggestions: () => dispatch(fetchRelatedSuggestions()),
-  dismissRelatedSuggestion: (account) => dispatch(dismissRelatedSuggestion(account.get('id'))),
+  fetchPopularSuggestions: () => dispatch(fetchPopularSuggestions()),
 })
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class WhoToFollowPanel extends ImmutablePureComponent {
+class VerifiedAccountsPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    dismissRelatedSuggestion: PropTypes.func.isRequired,
-    fetchRelatedSuggestions: PropTypes.func.isRequired,
+    fetchPopularSuggestions: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     suggestions: ImmutablePropTypes.list.isRequired,
     isLazy: PropTypes.bool,
@@ -56,22 +51,18 @@ class WhoToFollowPanel extends ImmutablePureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.fetched && this.state.fetched) {
-      this.props.fetchRelatedSuggestions()
+      this.props.fetchPopularSuggestions()
     }
   }
 
   componentDidMount() {
     if (!this.props.isLazy) {
-      this.props.fetchRelatedSuggestions()
+      this.props.fetchPopularSuggestions()
     }
   }
 
   render() {
-    const {
-      intl,
-      suggestions,
-      dismissRelatedSuggestion,
-    } = this.props
+    const { intl, suggestions } = this.props
 
     if (suggestions.isEmpty()) return null
 
@@ -79,18 +70,16 @@ class WhoToFollowPanel extends ImmutablePureComponent {
       <PanelLayout
         noPadding
         title={intl.formatMessage(messages.title)}
-        footerButtonTitle={intl.formatMessage(messages.show_more)}
-        footerButtonTo='/explore'
+        // footerButtonTitle={intl.formatMessage(messages.show_more)}
+        // footerButtonTo='/explore'
       >
         <div className={_s.default}>
           {
             suggestions.map(accountId => (
               <Account
                 compact
-                showDismiss
                 key={accountId}
                 id={accountId}
-                dismissAction={dismissRelatedSuggestion}
               />
             ))
           }

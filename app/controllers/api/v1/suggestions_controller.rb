@@ -5,12 +5,21 @@ class Api::V1::SuggestionsController < Api::BaseController
 
   before_action -> { doorkeeper_authorize! :read }
   before_action :require_user!
-  before_action :set_accounts
 
   respond_to :json
 
   def index
-    render json: @accounts, each_serializer: REST::AccountSerializer
+    type = params[:type]
+
+    if type == 'related'
+      @accounts = PotentialFriendshipTracker.get(current_account.id)
+      render json: @accounts, each_serializer: REST::AccountSerializer
+    elsif type == 'verified'
+      @accounts = VerifiedSuggestions.get(current_account.id)
+      render json: @accounts, each_serializer: REST::AccountSerializer
+    else
+      raise GabSocial::NotPermittedError
+    end
   end
 
   def destroy
@@ -18,9 +27,4 @@ class Api::V1::SuggestionsController < Api::BaseController
     render_empty
   end
 
-  private
-
-  def set_accounts
-    @accounts = PotentialFriendshipTracker.get(current_account.id)
-  end
 end
