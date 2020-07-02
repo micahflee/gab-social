@@ -327,6 +327,7 @@ Rails.application.routes.draw do
       end
 
       resources :gab_trends, only: [:index]
+      resources :shop, only: [:index]
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]
       resources :suggestions, only: [:index, :destroy]

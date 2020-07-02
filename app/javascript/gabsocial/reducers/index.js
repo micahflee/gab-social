@@ -29,6 +29,7 @@ import relationships from './relationships'
 import reports from './reports'
 import search from './search'
 import settings from './settings'
+import shop from './shop'
 import sidebar from './sidebar'
 import statuses from './statuses'
 import status_lists from './status_lists'
@@ -69,6 +70,7 @@ const reducers = {
   reports,
   search,
   settings,
+  shop,
   sidebar,
   statuses,
   status_lists,

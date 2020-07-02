@@ -9,6 +9,7 @@ import GroupsPanel from '../components/panel/groups_panel'
 import ListsPanel from '../components/panel/lists_panel'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
+import ShopPanel from '../components/panel/shop_panel'
 import ProgressPanel from '../components/panel/progress_panel'
 import ProPanel from '../components/panel/pro_panel'
 import UserPanel from '../components/panel/user_panel'
@@ -103,6 +104,7 @@ class HomePage extends PureComponent {
             <ProgressPanel />
             <ProPanel isPro={isPro} />
             <TrendsPanel />
+            <ShopPanel isLazy shouldLoad={lazyLoaded} />
             <ListsPanel isLazy shouldLoad={lazyLoaded} />
             <WhoToFollowPanel isLazy shouldLoad={lazyLoaded} />
             <GroupsPanel isLazy shouldLoad={lazyLoaded} />
