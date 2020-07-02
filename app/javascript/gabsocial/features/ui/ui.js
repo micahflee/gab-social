@@ -152,12 +152,12 @@ class SwitchingArea extends PureComponent {
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
         
-        <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
+        { /* <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} /> */ }
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
-        <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
+        { /* <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} /> */ }
 
         <WrappedRoute path='/groups' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/new' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'new' }} />

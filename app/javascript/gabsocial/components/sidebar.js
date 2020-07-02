@@ -139,11 +139,11 @@ class Sidebar extends ImmutablePureComponent {
         icon: 'list',
         to: '/lists',
       },
-      {
-        title: 'Explore',
-        icon: 'explore',
-        to: '/explore',
-      },
+      // {
+      //   title: 'Explore',
+      //   icon: 'explore',
+      //   to: '/explore',
+      // },
       {
         title: 'More',
         icon: 'more',
@@ -169,11 +169,11 @@ class Sidebar extends ImmutablePureComponent {
     ]
 
     const exploreItems = [
-      {
-        title: 'Pro Feed',
-        icon: 'circle',
-        to: '/timeline/pro',
-      },
+      // {
+      //   title: 'Pro Feed',
+      //   icon: 'circle',
+      //   to: '/timeline/pro',
+      // },
       {
         title: 'Chat',
         icon: 'chat',
