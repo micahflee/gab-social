@@ -15,6 +15,7 @@ const mapStateToProps = (state) => ({
 
 export default
 @withRouter
+@connect(mapStateToProps)
 class Search extends ImmutablePureComponent {
 
   static propTypes = {
