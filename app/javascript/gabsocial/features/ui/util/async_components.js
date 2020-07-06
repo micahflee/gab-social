@@ -1,6 +1,5 @@
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
 export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
-export function ActionsModal() { return import(/* webpackChunkName: "components/actions_modal" */'../../../components/modal/actions_modal') }
 export function BlockAccountModal() { return import(/* webpackChunkName: "components/block_account_modal" */'../../../components/modal/block_account_modal') }
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }

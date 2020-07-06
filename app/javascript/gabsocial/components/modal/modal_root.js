@@ -5,7 +5,6 @@ import Bundle from '../../features/ui/util/bundle'
 import ModalBase from './modal_base'
 import BundleModalError from '../bundle_modal_error'
 import {
-  MODAL_ACTIONS,
   MODAL_BLOCK_ACCOUNT,
   MODAL_BOOST,
   MODAL_COMMUNITY_TIMELINE_SETTINGS,
@@ -39,7 +38,6 @@ import {
   MODAL_VIDEO,
 } from '../../constants'
 import {
-  ActionsModal,
   BlockAccountModal,
   BoostModal,
   CommunityTimelineSettingsModal,
@@ -74,7 +72,6 @@ import {
 } from '../../features/ui/util/async_components'
 
 const MODAL_COMPONENTS = {}
-MODAL_COMPONENTS[MODAL_ACTIONS] = ActionsModal
 MODAL_COMPONENTS[MODAL_BLOCK_ACCOUNT] = BlockAccountModal
 MODAL_COMPONENTS[MODAL_BOOST] = BoostModal
 MODAL_COMPONENTS[MODAL_COMMUNITY_TIMELINE_SETTINGS] = CommunityTimelineSettingsModal
