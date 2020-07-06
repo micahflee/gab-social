@@ -283,6 +283,7 @@ export default class Composer extends PureComponent {
             onFocus={this.handleOnFocus}
             keyBindingFn={this.keyBindingFn}
             stripPastedStyles
+            spellCheck
           />
         </div>
       </div>
