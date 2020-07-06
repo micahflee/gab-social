@@ -7,6 +7,7 @@ import Text from './text'
 const cx = classNames.bind(_s)
 
 export default class ListItem extends PureComponent {
+
   static propTypes = {
     icon: PropTypes.string,
     isLast: PropTypes.bool,
@@ -14,9 +15,12 @@ export default class ListItem extends PureComponent {
     to: PropTypes.string,
     href: PropTypes.string,
     title: PropTypes.string,
+    subtitle: PropTypes.string,
+    isActive: PropTypes.bool,
     onClick: PropTypes.func,
     size: PropTypes.oneOf([
-      'small', 'large'
+      'small',
+      'large',
     ]),
     hideArrow: PropTypes.bool,
   }
@@ -32,7 +36,15 @@ export default class ListItem extends PureComponent {
       icon,
       hideArrow,
       isHidden,
+      subtitle,
+      isActive,
     } = this.props
+
+    if (!title) {
+      return (
+        <div className={[_s.default, _s.bgSecondary, _s.width100PC, _s.height4PX].join(' ')} />
+      )
+    }
 
     if (isHidden) {
       return (
@@ -44,6 +56,10 @@ export default class ListItem extends PureComponent {
 
     const small = size === 'small'
     const large = size === 'large'
+
+    const textSize = small ? 'small' : large ? 'large' : 'normal'
+    const iconSize = large ? '14px' : '10px'
+    const showActive = isActive !== undefined
 
     const containerClasses = cx({
       default: 1,
@@ -69,8 +85,11 @@ export default class ListItem extends PureComponent {
       fillPrimary: 1,
     })
 
-    const textSize = small ? 'small' : large ? 'large' : 'normal'
-    const iconSize = large ? '14px' : '10px'
+    const textContainerClasses = cx({
+      default: 1,
+      pr5: 1,
+      maxWidth100PC42PX: !hideArrow || showActive,
+    })
 
     return (
       <Button
@@ -89,10 +108,19 @@ export default class ListItem extends PureComponent {
             className={iconClasses}
           />
         }
+        
+        <div className={textContainerClasses}>
+          <Text color='primary' weight={!!subtitle ? 'bold' : 'normal'} size={textSize} className={[_s.overflowHidden, _s.flexNormal, _s.textOverflowEllipsis].join(' ')}>
+            {title}
+          </Text>
 
-        <Text color='primary' size={textSize} className={[_s.overflowHidden, _s.flexNormal, _s.pr5, _s.textOverflowEllipsis].join(' ')}>
-          {title}
-        </Text>
+          {
+            !!subtitle &&
+            <Text color='primary' size='small' className={[_s.overflowHidden, _s.flexNormal, _s.mt5].join(' ')}>
+              {subtitle}
+            </Text>
+          }
+        </div>
 
         {
           !hideArrow &&
@@ -102,7 +130,17 @@ export default class ListItem extends PureComponent {
             className={[_s.mlAuto, _s.fillSecondary, _s.flexShrink1].join(' ')}
           />
         }
+
+        {
+          !!showActive &&
+          <input
+            type='radio'
+            checked={isActive}
+            className={[_s.mlAuto, _s.flexShrink1].join(' ')}
+          />
+        }
       </Button>
     )
   }
+
 }
