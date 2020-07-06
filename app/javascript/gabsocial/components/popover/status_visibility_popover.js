@@ -24,12 +24,11 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   onChange (value) {
     dispatch(changeComposeVisibility(value))
     dispatch(closePopover())
   },
-
+  onClosePopover: () => dispatch(closePopover()),
 })
 
 export default
@@ -38,14 +37,19 @@ export default
 class StatusVisibilityDropdown extends PureComponent {
 
   static propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     isXS: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
+    onClosePopover: PropTypes.func.isRequired,
+    value: PropTypes.string.isRequired,
   }
 
   handleChange = (value) => {
     this.props.onChange(value)
+  }
+
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
   }
 
   render () {
@@ -73,7 +77,11 @@ class StatusVisibilityDropdown extends PureComponent {
     ]
 
     return (
-      <PopoverLayout width={300} isXS={isXS}>
+      <PopoverLayout
+        width={300}
+        isXS={isXS}
+        onClose={this.handleOnClosePopover}
+      >
         <div className={[_s.default].join(' ')}>
           {
             options.map((option, i) => {

@@ -124,6 +124,8 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }));
   },
 
+  onClosePopover: () => dispatch(closePopover()),
+
 });
 
 
@@ -261,12 +263,20 @@ class ProfileOptionsPopover extends PureComponent {
     // : todo :
   }
 
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
+  }
+
   render() {
     const { isXS } = this.props
     const listItems = this.makeMenu()
 
     return (
-      <PopoverLayout width={250} isXS={isXS}>
+      <PopoverLayout
+        width={250}
+        isXS={isXS}
+        onClose={this.handleOnClosePopover}
+      >
         <List
           scrollKey='profile_options'
           items={listItems}

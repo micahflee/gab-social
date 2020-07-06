@@ -15,6 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closePopover())
     dispatch(createRemovedAccount(groupId, accountId))
   },
+  onClosePopover:() => dispatch(closePopover()),
 })
 
 export default
@@ -25,8 +26,9 @@ class GroupMemberOptionsPopover extends PureComponent {
     accountId: PropTypes.string.isRequired,
     groupId: PropTypes.string.isRequired,
     isXS: PropTypes.bool,
-    onUpdateRole: PropTypes.func.isRequired,
+    onClosePopover: PropTypes.func.isRequired,
     onCreateRemovedAccount: PropTypes.func.isRequired,
+    onUpdateRole: PropTypes.func.isRequired,
   }
 
   handleOnRemoveFromGroup = () => {
@@ -35,6 +37,10 @@ class GroupMemberOptionsPopover extends PureComponent {
 
   handleOnMakeAdmin = () => {
 	  this.props.onUpdateRole(this.props.groupId, this.props.accountId, 'admin')
+  }
+
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
   }
 
   render() {
@@ -56,7 +62,11 @@ class GroupMemberOptionsPopover extends PureComponent {
     ]
 
     return (
-      <PopoverLayout width={210} isXS={isXS}>
+      <PopoverLayout
+        width={210}
+        isXS={isXS}
+        onClose={this.handleOnClosePopover}
+      >
         <List
           scrollKey='group_options'
           items={listItems}

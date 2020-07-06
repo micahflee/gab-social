@@ -278,7 +278,11 @@ class EmojiPickerPopover extends ImmutablePureComponent {
     const { loading } = this.state
     
     return (
-      <PopoverLayout width={340} isXS={isXS}>
+      <PopoverLayout
+        width={340}
+        isXS={isXS}
+        onClose={this.onHideDropdown}
+      >
         <EmojiPickerMenu
           customEmojis={customEmojis}
           loading={loading}

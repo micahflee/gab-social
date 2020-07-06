@@ -298,6 +298,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     }
 
     document.body.removeChild(textarea);
+    this.handleClosePopover()
+  }
+
+  handleClosePopover = () => {
     this.props.onClosePopover()
   }
 
@@ -383,35 +387,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
           title: intl.formatMessage(messages.report, { name: status.getIn(['account', 'username']) }),
           onClick: this.handleReport,
         })
-
-        if (withGroupAdmin) {
-          menu.push({
-            icon: 'trash',
-            hideArrow: true,
-            title: intl.formatMessage(messages.group_remove_account),
-            onClick: this.handleGroupRemoveAccount,
-          })
-          menu.push({
-            icon: 'trash',
-            hideArrow: true,
-            title: intl.formatMessage(messages.group_remove_post),
-            onClick: this.handleGroupRemovePost,
-          })
-        }
-
-        if (isStaff) {
-          menu.push({
-            title: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }),
-            href: `/admin/accounts/${status.getIn(['account', 'id'])}`
-          })
-          menu.push({
-            title: intl.formatMessage(messages.admin_status),
-            href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}`
-          })
-        }
       }
     }
 
+    menu.push(null)
     menu.push({
       icon: 'copy',
       hideArrow: true,
@@ -431,8 +410,40 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       onClick: this.handleOnOpenEmbedModal,
     })
 
+    if (withGroupAdmin) {
+      menu.push(null)
+      menu.push({
+        icon: 'trash',
+        hideArrow: true,
+        title: intl.formatMessage(messages.group_remove_account),
+        onClick: this.handleGroupRemoveAccount,
+      })
+      menu.push({
+        icon: 'trash',
+        hideArrow: true,
+        title: intl.formatMessage(messages.group_remove_post),
+        onClick: this.handleGroupRemovePost,
+      })
+    }
+    
+    if (isStaff) {
+      menu.push(null)
+
+      menu.push({
+        title: intl.formatMessage(messages.admin_account, { name: status.getIn(['account', 'username']) }),
+        href: `/admin/accounts/${status.getIn(['account', 'id'])}`
+      })
+      menu.push({
+        title: intl.formatMessage(messages.admin_status),
+        href: `/admin/accounts/${status.getIn(['account', 'id'])}/statuses/${status.get('id')}`
+      })
+    }
+
     return (
-      <PopoverLayout isXS={isXS}>
+      <PopoverLayout
+        isXS={isXS}
+        onClose={this.handleClosePopover}
+      >
         <List
           size='large'
           scrollKey='profile_options'

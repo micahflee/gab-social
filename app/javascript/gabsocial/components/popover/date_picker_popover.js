@@ -5,10 +5,7 @@ import { changeScheduledAt } from '../../actions/compose'
 import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
 import { me } from '../../initial_state'
-import {
-  MODAL_PRO_UPGRADE,
-} from '../../constants'
-import { isMobile } from '../../utils/is_mobile'
+import { MODAL_PRO_UPGRADE } from '../../constants'
 import PopoverLayout from './popover_layout'
 import Button from '../button'
 import Text from '../text'
@@ -33,6 +30,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(closePopover())
     }
   },
+
+  onClosePopover: () => dispatch(closePopover())
 })
 
 export default
@@ -46,6 +45,7 @@ class DatePickerPopover extends PureComponent {
     position: PropTypes.string,
     small: PropTypes.bool,
     isXS: PropTypes.bool,
+    onClosePopover: PropTypes.func.isRequired,
   }
 
   handleSetDate = (date) => {
@@ -56,13 +56,20 @@ class DatePickerPopover extends PureComponent {
     this.props.setScheduledAt(null, this.props.isPro)
   }
 
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
+  }
+
   render() {
     const { date, isPro, isXS } = this.props
-
     const datePickerDisabled = !isPro
 
     return (
-      <PopoverLayout width={331} isXS={isXS}>
+      <PopoverLayout
+        width={360}
+        isXS={isXS}
+        onClose={this.handleOnClosePopover}
+      >
         <div className={[_s.default, _s.bgSubtle].join(' ')}>
           <DatePicker
             inline

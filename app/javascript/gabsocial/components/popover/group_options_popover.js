@@ -35,6 +35,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openModal(MODAL_GROUP_MEMBERS, { groupId }))
   },
 
+  onClosePopover: () => dispatch(closePopover())
+
 });
 
 export default
@@ -43,12 +45,13 @@ export default
 class GroupOptionsPopover extends ImmutablePureComponent {
 
   static defaultProps = {
-    intl: PropTypes.object.isRequired,
     group: ImmutablePropTypes.map.isRequired,
-    onOpenEditGroup: PropTypes.func.isRequired,
-    onOpenRemovedMembers: PropTypes.func.isRequired,
-    onOpenGroupMembers: PropTypes.func.isRequired,
+    intl: PropTypes.object.isRequired,
     isXS: PropTypes.bool,
+    onClosePopover: PropTypes.func.isRequired,
+    onOpenEditGroup: PropTypes.func.isRequired,
+    onOpenGroupMembers: PropTypes.func.isRequired,
+    onOpenRemovedMembers: PropTypes.func.isRequired,
   }
 
   updateOnProps = ['group']
@@ -63,6 +66,10 @@ class GroupOptionsPopover extends ImmutablePureComponent {
 
   handleOnOpenGroupMembers = () => {
     this.props.onOpenGroupMembers(this.props.group.get('id'))
+  }
+
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
   }
 
   render() {
@@ -90,7 +97,11 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     ]
 
     return (
-      <PopoverLayout width={210} isXS={isXS}>
+      <PopoverLayout
+        width={210}
+        isXS={isXS}
+        onClose={this.handleOnClosePopover}
+      >
         <List
           scrollKey='group_options'
           items={listItems}

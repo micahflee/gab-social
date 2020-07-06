@@ -2,6 +2,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
+import { CX } from '../../constants'
 import PopoverLayout from './popover_layout'
 import Button from '../button'
 import Text from '../text'
@@ -67,9 +68,21 @@ class VideoStatsPopover extends ImmutablePureComponent {
       'bitrate',
     ]
 
+    const containerClasses = CX({
+      default: 1,
+      bgBlack: !isXS,
+      bgPrimary: !isXS,
+      px10: 1,
+      py10: 1,
+    })
+
     return (
-      <PopoverLayout isXS={isXS} width={320}>
-        <div className={[_s.default, _s.bgBlack, _s.px10, _s.py10].join(' ')}>
+      <PopoverLayout
+        isXS={isXS}
+        width={320}
+        onClose={this.handleOnClosePopover}
+      >
+        <div className={containerClasses}>
           <Button
             icon='close'
             iconSize='8px'
@@ -85,6 +98,7 @@ class VideoStatsPopover extends ImmutablePureComponent {
                 key={`video-stat-${key}`}
                 title={intl.formatMessage(messages[key])}
                 value={meta.get(key)}
+                isXS={isXS}
               />
             ))
           }
@@ -94,6 +108,7 @@ class VideoStatsPopover extends ImmutablePureComponent {
                 key={`video-stat-o-${key}`}
                 title={intl.formatMessage(messages[`original_${key}`])}
                 value={meta.getIn(['original', key])}
+                isXS={isXS}
               />
             ))
           }
@@ -108,21 +123,26 @@ class VideoStatsPopover extends ImmutablePureComponent {
 class VideoStatLine extends PureComponent {
 
   static propTypes = {
+    isXS: PropTypes.bool.isRequired,
     title: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
   }
 
   render() {
-    const { title, value } = this.props
+    const { isXS, title, value } = this.props
+
+    const color = isXS ? 'primary' : 'white'
 
     return (
       <div className={[_s.default, _s.flexRow, _s.pt2].join(' ')}>
         <div className={[_s.default, _s.width115PX, _s.alignItemsEnd, _s.mr5].join(' ')}>
-          <Text size='extraSmall' weight='medium' color='white'>
+          <Text size='extraSmall' weight='medium' color={color}>
             {title}
           </Text>
         </div>
-        <Text size='extraSmall' color='white'>{value}</Text>
+        <Text size='extraSmall' color={color}>
+          {value}
+        </Text>
       </div>
     )
   }
