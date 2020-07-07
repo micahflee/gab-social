@@ -12,7 +12,7 @@ class Api::V1::GroupsController < Api::BaseController
   def index
     case current_tab
       when 'featured'
-        @groups = Group.where(is_featured: true, is_archived: false).limit(50).all
+        @groups = Group.where(is_featured: true, is_archived: false).limit(100).all
       when 'new'
         @groups = Group.where(is_archived: false).limit(24).order('created_at DESC').all
       when 'member'
