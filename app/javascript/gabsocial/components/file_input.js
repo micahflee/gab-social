@@ -1,10 +1,8 @@
-import classNames from 'classnames/bind'
 import Image from './image'
 import Text from './text'
 
-const cx = classNames.bind(_s)
-
 export default class FileInput extends PureComponent {
+
   static propTypes = {
     onChange: PropTypes.func,
     file: PropTypes.any,
@@ -84,4 +82,5 @@ export default class FileInput extends PureComponent {
       </div>
     )
   }
+
 }
