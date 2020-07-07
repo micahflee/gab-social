@@ -6,7 +6,6 @@
 #  id                     :bigint(8)        not null, primary key
 #  uri                    :string
 #  text                   :text             default(""), not null
-#  markdown               :text
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  in_reply_to_id         :bigint(8)

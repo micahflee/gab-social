@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_10_034822) do
+ActiveRecord::Schema.define(version: 2020_07_07_212951) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "account_conversations", force: :cascade do |t|
@@ -166,6 +167,10 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
     t.boolean "is_investor", default: false, null: false
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), lower((domain)::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
+    t.index ["is_donor"], name: "index_accounts_on_is_donor"
+    t.index ["is_investor"], name: "index_accounts_on_is_investor"
+    t.index ["is_pro"], name: "index_accounts_on_is_pro"
+    t.index ["is_verified"], name: "index_accounts_on_is_verified"
     t.index ["moved_to_account_id"], name: "index_accounts_on_moved_to_account_id"
     t.index ["uri"], name: "index_accounts_on_uri"
     t.index ["url"], name: "index_accounts_on_url"
@@ -433,6 +438,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
     t.index ["scheduled_status_id"], name: "index_media_attachments_on_scheduled_status_id"
     t.index ["shortcode"], name: "index_media_attachments_on_shortcode", unique: true
     t.index ["status_id"], name: "index_media_attachments_on_status_id"
+    t.index ["type"], name: "index_media_attachments_on_type"
   end
 
   create_table "mentions", force: :cascade do |t|
@@ -827,6 +833,7 @@ ActiveRecord::Schema.define(version: 2020_05_10_034822) do
     t.string "unique_email"
     t.index ["account_id"], name: "index_users_on_account_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["created_at"], name: "index_users_on_created_at"
     t.index ["created_by_application_id"], name: "index_users_on_created_by_application_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
