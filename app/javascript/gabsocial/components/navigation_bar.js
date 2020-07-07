@@ -107,7 +107,7 @@ class NavigationBar extends ImmutablePureComponent {
                 <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
 
                   <NavigationBarButton title='Home' icon='home' to='/home' />
-                  { /* <NavigationBarButton title='Explore' icon='explore' to='/explore' /> */ }
+                  <NavigationBarButton title='Explore' icon='explore' to='/explore' />
 
                   <NavigationBarButtonDivider />
 

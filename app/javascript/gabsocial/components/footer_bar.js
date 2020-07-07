@@ -51,7 +51,7 @@ class FooterBar extends PureComponent {
         active: currentPathname === '/groups',
       },
       {
-        href: 'https://trends.gab.com',
+        to: '/explore',
         icon: 'trends',
         title: 'Trends',
         active: currentPathname === '/explore',
