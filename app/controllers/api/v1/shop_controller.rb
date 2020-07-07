@@ -13,14 +13,14 @@ class Api::V1::ShopController < Api::BaseController
       body = Redis.current.get("gabstore:featuredproducts")
         
       if body.nil?
-        uri = URI("https://shop.dissenter.com/product/group/json")
-        uri.query = URI.encode_www_form({})
-
-        res = Net::HTTP.get_response(uri)
-        if res.is_a?(Net::HTTPSuccess)
-          body = res.body
-          Redis.current.set("gabstore:featuredproducts", res.body) 
-          Redis.current.expire("gabstore:featuredproducts", 15.minutes.seconds)
+        Request.new(:get, "https://shop.dissenter.com/product/group/json").perform do |res|
+          if res.code == 200
+            body = res.body_with_limit
+            Redis.current.set("gabstore:featuredproducts", body) 
+            Redis.current.expire("gabstore:featuredproducts", 15.minutes.seconds)
+          else
+            body = nil
+          end
         end
       end
 

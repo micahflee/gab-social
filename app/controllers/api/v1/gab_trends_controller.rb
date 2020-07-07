@@ -11,14 +11,14 @@ class Api::V1::GabTrendsController < Api::BaseController
       body = Redis.current.get("gabtrends:feed")
       
       if body.nil?
-        uri = URI("https://trends.gab.com/trend-feed/json")
-        uri.query = URI.encode_www_form({})
-
-        res = Net::HTTP.get_response(uri)
-        if res.is_a?(Net::HTTPSuccess)
-          body = res.body
-          Redis.current.set("gabtrends:feed", res.body) 
-          Redis.current.expire("gabtrends:feed", 1.hour.seconds)
+        Request.new(:get, "https://trends.gab.com/trend-feed/json").perform do |res|
+          if res.code == 200
+            body = res.body_with_limit
+            Redis.current.set("gabtrends:feed", body) 
+            Redis.current.expire("gabtrends:feed", 1.hour.seconds)
+          else
+            body = nil
+          end
         end
       end
 
@@ -27,14 +27,14 @@ class Api::V1::GabTrendsController < Api::BaseController
       body = Redis.current.get("gabtrends:partner")
       
       if body.nil?
-        uri = URI("https://trends.gab.com/partner")
-        uri.query = URI.encode_www_form({})
-
-        res = Net::HTTP.get_response(uri)
-        if res.is_a?(Net::HTTPSuccess)
-          body = res.body
-          Redis.current.set("gabtrends:partner", res.body) 
+        Request.new(:get, "https://trends.gab.com/partner").perform do |res|
+          if res.code == 200
+            body = res.body_with_limit
+            Redis.current.set("gabtrends:partner", body) 
           Redis.current.expire("gabtrends:partner", 1.minute.seconds)
+          else
+            body = nil
+          end
         end
       end
 
