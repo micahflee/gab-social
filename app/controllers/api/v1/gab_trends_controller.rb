@@ -12,36 +12,44 @@ class Api::V1::GabTrendsController < Api::BaseController
       
       if body.nil? || body.empty?
         Request.new(:get, "https://trends.gab.com/trend-feed/json").perform do |res|
+          Rails.logger.debug "GabTrendsController: #{type} endpoint res code: #{res.code.to_s}"
           if res.code == 200
             body = res.body_with_limit
             Redis.current.set("gabtrends:feed", body) 
             Redis.current.expire("gabtrends:feed", 1.hour.seconds)
+            render json: body
           else
-            body = nil
+            render json: nil
           end
         end
+      else
+        render json: body
       end
-
-      render json: body
     elsif type == 'partner'
       body = Redis.current.get("gabtrends:partner")
       
       if body.nil? || body.empty?
         Request.new(:get, "https://trends.gab.com/partner").perform do |res|
+          Rails.logger.debug "GabTrendsController: #{type} endpoint res code: #{res.code.to_s}"
           if res.code == 200
             body = res.body_with_limit
             Redis.current.set("gabtrends:partner", body) 
             Redis.current.expire("gabtrends:partner", 1.minute.seconds)
+            render json: body
           else
-            body = nil
+            render json: nil
           end
         end
+      else
+        render json: body
       end
-
-      render json: body
     else
       raise GabSocial::NotPermittedError
     end
+
+  rescue HTTP::TimeoutError, HTTP::ConnectionError, OpenSSL::SSL::SSLError, HTTP::Error
+    Rails.logger.debug "Error fetching gabtrends feed: #{type}"
+    render json: nil
   end
 
 end
