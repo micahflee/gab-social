@@ -342,7 +342,7 @@ class Status < ApplicationRecord
     end
 
     def as_pro_timeline(account = nil)
-      query = timeline_scope.without_replies.popular_accounts.where('statuses.created_at > ?', 2.days.ago)
+      query = timeline_scope.without_replies.popular_accounts.where('statuses.created_at > ?', 2.hours.ago)
       apply_timeline_filters(query, account)
     end
 
