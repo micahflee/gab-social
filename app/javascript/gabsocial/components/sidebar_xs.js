@@ -39,7 +39,7 @@ const messages = defineMessages({
   chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   display: { id: 'display_options', defaultMessage: 'Display Options' },
-  pro: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
+  proFeed: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
 })
 
 const mapStateToProps = (state) => ({
@@ -114,18 +114,6 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.shop),
       },
       {
-        icon: 'trends',
-        href: 'https://trends.gab.com',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.trends),
-      },
-      {
-        icon: 'chat',
-        href: 'https://chat.gab.com',
-        onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.chat),
-      },
-      {
         icon: 'search',
         to: '/search',
         onClick: this.handleSidebarClose,
@@ -135,7 +123,7 @@ class SidebarXS extends ImmutablePureComponent {
         icon: 'circle',
         to: '/timeline/pro',
         onClick: this.handleSidebarClose,
-        title: intl.formatMessage(messages.pro),
+        title: intl.formatMessage(messages.proFeed),
       },
       {
         icon: 'cog',
