@@ -4,13 +4,15 @@ import queryString from 'query-string'
 import { fetchGabTrends } from '../actions/gab_trends'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Block from '../components/block'
+import Button from '../components/button'
+import ColumnIndicator from '../components/column_indicator'
 import Heading from '../components/heading'
+import Icon from '../components/icon'
+import Pills from '../components/pills'
+import Responsive from './ui/util/responsive_component';
+import TabBar from '../components/tab_bar'
 import Text from '../components/text'
 import TrendsItem from '../components/trends_item'
-import TabBar from '../components/tab_bar'
-import Pills from '../components/pills'
-import ColumnIndicator from '../components/column_indicator'
-import Responsive from './ui/util/responsive_component';
 
 // const messages = defineMessages({
 //   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
@@ -69,8 +71,6 @@ class Explore extends PureComponent {
     const qp = queryString.parse(search)
     const domain = qp.domain ? `${qp.domain}`.toLowerCase() : undefined
 
-    console.log("domain: ", qp, domain)
-
     if (!!domain) {
       this.setState({ activeDomain: domain })
     } else {
@@ -87,9 +87,6 @@ class Explore extends PureComponent {
     } = this.props
     const { activeDomain } = this.state
 
-    console.log("activeDomain:", activeDomain)
-    console.log("items:", items)
-
     if (isError || !isObject(items)) {
       return <div>error</div>
     }
@@ -101,8 +98,6 @@ class Explore extends PureComponent {
     let todaysTop = []
     let domainTabs = []
     try {
-      console.log("items.headline:", items.headline)
-
       headline = items.headline.title
       headlineLink = items.headline.href
       leadHeadlines = items.leadHeadlines
@@ -148,8 +143,6 @@ class Explore extends PureComponent {
       return <div>error</div>
     }
 
-    console.log("domainTabs:", domainTabs)
-    
     return (
       <div className={[_s.default, _s.width100PC].join(' ')}>
         <Block>
@@ -164,34 +157,49 @@ class Explore extends PureComponent {
             </Responsive>
           </div>
 
-          <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
-            <div className={[_s.default].join(' ')}>
-              { 
-                !activeDomain &&
-                leadHeadlines.map((lead) => (
-                  <div className={[_s.default].join(' ')}>
-                    <Text size='small'>
-                      {lead.title}
-                    </Text>
-                  </div>
-                ))
-              }
-            </div>
-            
+          <div className={[_s.default, _s.px15].join(' ')}>
             {
               !activeDomain &&
               <div className={[_s.default, _s.py15, _s.mt15, _s.mb15].join(' ')}>
                 <Heading size='h1'>
-                  <a href={headlineLink} className={[_s.noUnderline, _s.colorPrimary].join(' ')}>
+                  <a href={`https://trends.gab.com/trend?url=${headlineLink}`} className={[_s.noUnderline, _s.colorPrimary].join(' ')}>
                     {headline}
                   </a>
                 </Heading>
               </div>
             }
+            
+            {
+              !activeDomain && leadHeadlines.length > 0 &&
+                <div className={[_s.default, _s.mb15].join(' ')}>
+                  <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.justifyContentCenter].join(' ')}>
+                    <Heading size='h2'>
+                      <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
+                      Headlines
+                    </Heading>
+                  </div>
+                  {
+                    leadHeadlines.map((lead) => (
+                      <Button
+                        isText
+                        backgroundColor='none'
+                        color='primary'
+                        className={[_s.default, _s.py7].join(' ')}
+                        href={`https://trends.gab.com/trend?url=${lead.href}`}
+                      >
+                        <Text>
+                          {lead.title}
+                        </Text>
+                      </Button>
+                    ))
+                  }
+                </div>
+            }
 
             <div>
-              <div className={[_s.default, _s.px15, _s.py10, _s.bgSubtle, _s.justifyContentCenter].join(' ')}>
+              <div className={[_s.default, _s.px15, _s.mt15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.justifyContentCenter].join(' ')}>
                 <Heading size='h2'>
+                  <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
                   {todaysTopTitle}
                 </Heading>
               </div>
@@ -204,8 +212,9 @@ class Explore extends PureComponent {
                       title={block.pagePreview.title}
                       author={block.domain.domain}
                       description={block.pagePreview.description}
-                      url={block.pagePreview.url}
+                      url={`https://trends.gab.com/trend?url=${block.pagePreview.url}`}
                       date={block.created}
+                      isLast={todaysTop.length - 1 === i}
                     />
                   ))
                 }
