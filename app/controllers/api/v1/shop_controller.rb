@@ -12,7 +12,7 @@ class Api::V1::ShopController < Api::BaseController
     if type == 'featured_products'
       body = Redis.current.get("gabstore:featuredproducts")
         
-      if body.nil?
+      if body.nil? || body.empty?
         Request.new(:get, "https://shop.dissenter.com/product/group/json").perform do |res|
           if res.code == 200
             body = res.body_with_limit

@@ -10,7 +10,7 @@ class Api::V1::GabTrendsController < Api::BaseController
     if type == 'feed'
       body = Redis.current.get("gabtrends:feed")
       
-      if body.nil?
+      if body.nil? || body.empty?
         Request.new(:get, "https://trends.gab.com/trend-feed/json").perform do |res|
           if res.code == 200
             body = res.body_with_limit
@@ -26,12 +26,12 @@ class Api::V1::GabTrendsController < Api::BaseController
     elsif type == 'partner'
       body = Redis.current.get("gabtrends:partner")
       
-      if body.nil?
+      if body.nil? || body.empty?
         Request.new(:get, "https://trends.gab.com/partner").perform do |res|
           if res.code == 200
             body = res.body_with_limit
             Redis.current.set("gabtrends:partner", body) 
-          Redis.current.expire("gabtrends:partner", 1.minute.seconds)
+            Redis.current.expire("gabtrends:partner", 1.minute.seconds)
           else
             body = nil
           end
