@@ -1,4 +1,4 @@
-import api from '../api'
+import axios from 'axios'
 
 export const GAB_TRENDS_RESULTS_FETCH_REQUEST = 'GAB_TRENDS_RESULTS_FETCH_REQUEST'
 export const GAB_TRENDS_RESULTS_FETCH_SUCCESS = 'GAB_TRENDS_RESULTS_FETCH_SUCCESS'
@@ -8,7 +8,9 @@ export const fetchGabTrends = (feedType) => {
   return function (dispatch, getState) {
     dispatch(fetchGabTrendsRequest(feedType))
 
-    api(getState).get(`/api/v1/gab_trends?type=${feedType}`).then((response) => {
+    const url = feedType === 'partner' ? 'https://trends.gab.com/partner' : 'https://trends.gab.com/trend-feed/json'
+
+    axios.get(url).then((response) => {
       dispatch(fetchGabTrendsSuccess(response.data, feedType))
     }).catch(function (error) {
       dispatch(fetchGabTrendsFail(error, feedType))

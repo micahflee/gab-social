@@ -1,4 +1,4 @@
-import api from '../api'
+import axios from 'axios'
 import { me } from '../initial_state'
 
 export const SHOP_FEATURED_PRODUCTS_FETCH_REQUEST = 'SHOP_FEATURED_PRODUCTS_FETCH_REQUEST'
@@ -11,7 +11,7 @@ export const fetchFeaturedProducts = () => {
 
     dispatch(fetchFeaturedProductsRequest('featured'))
 
-    api(getState).get(`/api/v1/shop?type=featured_products`).then((response) => {
+    axios.get('https://shop.dissenter.com/product/group/json').then((response) => {
       try {
         dispatch(fetchFeaturedProductsSuccess(response.data.data, 'featured'))        
       } catch (error) {
