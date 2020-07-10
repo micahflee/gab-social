@@ -21,7 +21,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
           classNamesXS={[_s.default, _s.heightMin98PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
         >
 
-          <div className={[_s.default, _s.width1015PX, _s.flexRow, _s.flexWrap, _s.height100PC].join(' ')}>
+          <div className={[_s.default, _s.width1255PX, _s.flexRow, _s.flexWrap, _s.height100PC].join(' ')}>
           
             <ResponsiveClassesComponent
               classNames={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR,  _s.width330PX].join(' ')}
