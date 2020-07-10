@@ -38,14 +38,18 @@ import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
 import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
+import AboutPage from '../../pages/about_page'
+import AuthPage from '../../pages/auth_page'
 
 import {
+  About,
   AccountGallery,
   AccountTimeline,
   BlockedAccounts,
   BlockedDomains,
   CommunityTimeline,
   Compose,
+  DMCA,
   Explore,
   // Filters,
   Followers,
@@ -60,6 +64,7 @@ import {
   GroupTimeline,
   HashtagTimeline,
   HomeTimeline,
+  Investors,
   LikedStatuses,
   ListCreate,
   ListsDirectory,
@@ -67,12 +72,15 @@ import {
   ListTimeline,
   Mutes,
   Notifications,
+  PrivacyPolicy,
   ProTimeline,
   Search,
   // Shortcuts,
   StatusFeature,
   StatusLikes,
   StatusReposts,
+  TermsOfSale,
+  TermsOfService,
 } from './util/async_components'
 import { me, meUsername } from '../../initial_state'
 
@@ -151,7 +159,14 @@ class SwitchingArea extends PureComponent {
       <Switch>
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
-        
+
+        <WrappedRoute path='/about' publicRoute exact page={AboutPage} component={About} content={children} componentParams={{ title: 'About' }} />
+        <WrappedRoute path='/about/dmca' publicRoute exact page={AboutPage} component={DMCA} content={children} componentParams={{ title: 'DMCA' }} />
+        <WrappedRoute path='/about/investors' publicRoute exact page={AboutPage} component={Investors} content={children} componentParams={{ title: 'Investors' }} />
+        <WrappedRoute path='/about/privacy' publicRoute exact page={AboutPage} component={PrivacyPolicy} content={children} componentParams={{ title: 'Privacy Policy' }} />
+        <WrappedRoute path='/about/sales' publicRoute exact page={AboutPage} component={TermsOfSale} content={children} componentParams={{ title: 'Terms of Sale' }} />
+        <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
+
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose' }} />
