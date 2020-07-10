@@ -458,12 +458,6 @@ Rails.application.routes.draw do
   end
 
   get '/',           to: 'about#show', as: :homepage
-  get '/about',      to: 'about#more'
-  get '/about/tos',  to: 'about#terms'
-  get '/about/privacy',      to: 'about#privacy'
-  get '/about/investors',    to: 'about#investors'
-  get '/about/dmca',         to: 'about#dmca'
-  get '/about/sales',        to: 'about#sales'
 
   get '/tags/:tag', to: 'react#react'
   get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
@@ -482,6 +476,13 @@ Rails.application.routes.draw do
   # TODO : Consolidate
   get '/explore', to: 'directories#index', as: :explore
   get '/explore/:id', to: 'directories#show', as: :explore_hashtag
+
+  get '/about', to: 'about#more'
+  get '/about/tos', to: 'about#terms'
+  get '/about/privacy', to: 'about#privacy'
+  get '/about/investors', to: 'about#investors'
+  get '/about/dmca', to: 'about#dmca'
+  get '/about/sales', to: 'about#sales'
 
   resources :tags, only: [:show]
 
