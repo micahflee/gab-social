@@ -13,7 +13,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_account
   helper_method :current_session
-  helper_method :current_theme
   helper_method :single_user_mode?
   helper_method :use_seamless_external_login?
 
@@ -96,12 +95,6 @@ class ApplicationController < ActionController::Base
 
   def current_session
     @current_session ||= SessionActivation.find_by(session_id: cookies.signed['_session_id'])
-  end
-
-  def current_theme
-    'default'
-    # : todo :
-    # current_user.setting_theme
   end
 
   def cache_collection(raw, klass)

@@ -95,7 +95,6 @@ module ApplicationHelper
 
   def body_classes
     output = (@body_classes || '').split(' ')
-    output << "theme-#{current_theme.parameterize}"
     output << 'rtl' if locale_direction == 'rtl'
     output.reject(&:blank?).join(' ')
   end
