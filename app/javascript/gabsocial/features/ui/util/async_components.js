@@ -1,3 +1,4 @@
+export function About() { return import(/* webpackChunkName: "features/about/about" */'../../about/about') }
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
 export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
 export function BlockAccountModal() { return import(/* webpackChunkName: "components/block_account_modal" */'../../../components/modal/block_account_modal') }
@@ -12,6 +13,7 @@ export function ComposeModal() { return import(/* webpackChunkName: "components/
 export function ConfirmationModal() { return import(/* webpackChunkName: "components/confirmation_modal" */'../../../components/modal/confirmation_modal') }
 export function DatePickerPopover() { return import(/* webpackChunkName: "components/date_picker_popover" */'../../../components/popover/date_picker_popover') }
 export function DisplayOptionsModal() { return import(/* webpackChunkName: "components/display_options_modal" */'../../../components/modal/display_options_modal') }
+export function DMCA() { return import(/* webpackChunkName: "features/about/dmca" */'../../about/dmca') }
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
@@ -39,6 +41,7 @@ export function HashtagTimelineSettingsModal() { return import(/* webpackChunkNa
 export function HomeTimeline() { return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline') }
 export function HomeTimelineSettingsModal() { return import(/* webpackChunkName: "components/home_timeline_settings_modal" */'../../../components/modal/home_timeline_settings_modal') }
 export function HotkeysModal() { return import(/* webpackChunkName: "components/hotkeys_modal" */'../../../components/modal/hotkeys_modal') }
+export function Investors() { return import(/* webpackChunkName: "features/about/investors" */'../../about/investors') }
 export function ListAddUserModal() { return import(/* webpackChunkName: "features/list_add_user_modal" */'../../../components/modal/list_add_user_modal') }
 export function ListCreate() { return import(/* webpackChunkName: "features/list_create" */'../../list_create') }
 export function ListCreateModal() { return import(/* webpackChunkName: "components/list_create_modal" */'../../../components/modal/list_create_modal') }
@@ -55,6 +58,7 @@ export function Mutes() { return import(/* webpackChunkName: "features/mutes" */
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }
 export function Notifications() { return import(/* webpackChunkName: "features/notifications" */'../../notifications') }
+export function PrivacyPolicy() { return import(/* webpackChunkName: "features/about/privacy_policy" */'../../about/privacy_policy') }
 export function ProTimeline() { return import(/* webpackChunkName: "features/pro_timeline" */'../../pro_timeline') }
 export function ProfileOptionsPopover() { return import(/* webpackChunkName: "components/profile_options_popover" */'../../../components/popover/profile_options_popover') }
 export function ProUpgradeModal() { return import(/* webpackChunkName: "components/pro_upgrade_modal" */'../../../components/modal/pro_upgrade_modal') }
@@ -71,6 +75,8 @@ export function StatusLikesModal() { return import(/* webpackChunkName: "modals/
 export function StatusRepostsModal() { return import(/* webpackChunkName: "modals/status_reposts_modal" */'../../../components/modal/status_reposts_modal') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
 export function StatusVisibilityPopover() { return import(/* webpackChunkName: "components/status_visibility_popover" */'../../../components/popover/status_visibility_popover') }
+export function TermsOfSale() { return import(/* webpackChunkName: "features/about/terms_of_sale" */'../../about/terms_of_sale') }
+export function TermsOfService() { return import(/* webpackChunkName: "features/about/terms_of_service" */'../../about/terms_of_service') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
 export function UserInfoPopover() { return import(/* webpackChunkName: "components/user_info_popover" */'../../../components/popover/user_info_popover') }
