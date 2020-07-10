@@ -50,7 +50,7 @@ class LinkFooter extends PureComponent {
 
     const linkFooterItems = [
       {
-        to: '/help',
+        href: 'https://help.gab.com',
         text: intl.formatMessage(messages.help),
         requiresUser: true,
       },
@@ -61,7 +61,7 @@ class LinkFooter extends PureComponent {
       //   requiresUser: true,
       // },
       {
-        to: '/auth/edit',
+        href: '/auth/edit',
         text: intl.formatMessage(messages.security),
         requiresUser: true,
       },
@@ -70,7 +70,7 @@ class LinkFooter extends PureComponent {
         text: intl.formatMessage(messages.about),
       },
       {
-        to: '/settings/applications',
+        href: '/settings/applications',
         text: intl.formatMessage(messages.developers),
       },
       {
@@ -90,7 +90,7 @@ class LinkFooter extends PureComponent {
         text: intl.formatMessage(messages.privacy),
       },
       {
-        to: '/auth/sign_out',
+        href: '/auth/sign_out',
         text: intl.formatMessage(messages.logout),
         requiresUser: true,
         logout: true,
@@ -111,7 +111,8 @@ class LinkFooter extends PureComponent {
                   color='none'
                   backgroundColor='none'
                   key={`link-footer-item-${i}`}
-                  href={linkFooterItem.to}
+                  to={linkFooterItem.to}
+                  href={linkFooterItem.href}
                   data-method={linkFooterItem.logout ? 'delete' : null}
                   onClick={linkFooterItem.onClick || null}
                   className={[_s.mt5, _s.mb5, _s.pr15].join(' ')}
