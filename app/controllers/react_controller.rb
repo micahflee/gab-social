@@ -7,7 +7,7 @@ class ReactController < ApplicationController
   before_action :set_data_for_meta, only: :react
 
   def react
-    @body_classes = 'app-body'
+    #
   end
 
   private
