@@ -1,6 +1,7 @@
 - content_for :header_tags do
-  = preload_link_tag asset_pack_path('features/home_timeline.js'), crossorigin: 'anonymous'
-  = preload_link_tag asset_pack_path('features/notifications.js'), crossorigin: 'anonymous'
+  - if @current_user
+    = preload_link_tag asset_pack_path('features/home_timeline.js'), crossorigin: 'anonymous'
+    = preload_link_tag asset_pack_path('features/notifications.js'), crossorigin: 'anonymous'
 
   %meta{name: 'applicationServerKey', content: Rails.configuration.x.vapid_public_key}
   %script#initial-state{ type: 'application/json' }!= json_escape(@initial_state_json)
