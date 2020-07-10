@@ -9,7 +9,7 @@ class AddProUsersFeedMaterializedView < ActiveRecord::Migration[5.2]
               OR accounts.is_donor=true 
               OR accounts.is_verified=true 
               OR accounts.is_pro=true
-        SQL 
+        SQL
     }
   end
 end
