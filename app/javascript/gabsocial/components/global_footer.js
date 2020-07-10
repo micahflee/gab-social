@@ -93,7 +93,7 @@ export default class GlobalFooter extends PureComponent {
                   title='Legal'
                   items={[
                     {
-                      to: '/about/terms',
+                      to: '/about/tos',
                       title: 'Terms of Service',
                     },
                     {
