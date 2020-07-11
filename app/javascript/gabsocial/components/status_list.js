@@ -1,17 +1,17 @@
-import { Fragment } from 'react';
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
-import ImmutablePropTypes from 'react-immutable-proptypes';
-import ImmutablePureComponent from 'react-immutable-pure-component';
-import { createSelector } from 'reselect';
+import { Fragment } from 'react'
+import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import { createSelector } from 'reselect'
 import debounce from 'lodash.debounce'
-import { me } from '../initial_state';
-import { dequeueTimeline } from '../actions/timelines';
-import { scrollTopTimeline } from '../actions/timelines';
-import { fetchContext } from '../actions/statuses';
-import StatusContainer from '../containers/status_container';
-import ScrollableList from './scrollable_list';
-import TimelineQueueButtonHeader from './timeline_queue_button_header';
-import ColumnIndicator from './column_indicator';
+import { me, promotions } from '../initial_state'
+import { dequeueTimeline } from '../actions/timelines'
+import { scrollTopTimeline } from '../actions/timelines'
+import { fetchStatus, fetchContext } from '../actions/statuses'
+import StatusContainer from '../containers/status_container'
+import ScrollableList from './scrollable_list'
+import TimelineQueueButtonHeader from './timeline_queue_button_header'
+import ColumnIndicator from './column_indicator'
 
 const makeGetStatusIds = () => createSelector([
   (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
@@ -19,56 +19,67 @@ const makeGetStatusIds = () => createSelector([
   (state) => state.get('statuses'),
 ], (columnSettings, statusIds, statuses) => {
   return statusIds.filter(id => {
-    if (id === null) return true;
+    if (id === null) return true
 
-    const statusForId = statuses.get(id);
-    let showStatus = true;
+    const statusForId = statuses.get(id)
+    let showStatus = true
 
     if (columnSettings.getIn(['shows', 'reblog']) === false) {
-      showStatus = showStatus && statusForId.get('reblog') === null;
+      showStatus = showStatus && statusForId.get('reblog') === null
     }
 
     if (columnSettings.getIn(['shows', 'reply']) === false) {
-      showStatus = showStatus && (statusForId.get('in_reply_to_id') === null || statusForId.get('in_reply_to_account_id') === me);
+      showStatus = showStatus && (statusForId.get('in_reply_to_id') === null || statusForId.get('in_reply_to_account_id') === me)
     }
 
-    return showStatus;
-  });
-});
+    return showStatus
+  })
+})
 
 const mapStateToProps = (state, { timelineId }) => {
   if (!timelineId) return {}
 
-  const getStatusIds = makeGetStatusIds();
+  const getStatusIds = makeGetStatusIds()
 
   const statusIds = getStatusIds(state, {
     type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
     id: timelineId
   })
 
+  const promotedStatuses = Array.isArray(promotions) ?
+    promotions.map((block) => {
+      const s = {}
+      s[block.status_id] = state.getIn(['statuses', block.status_id])
+      return s
+    }) : []
+
   return {
     statusIds,
+    promotedStatuses,
     isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
     hasMore: state.getIn(['timelines', timelineId, 'hasMore']),
     totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
-  };
-};
+  }
+}
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onDequeueTimeline(timelineId) {
-    dispatch(dequeueTimeline(timelineId, ownProps.onLoadMore));
+    dispatch(dequeueTimeline(timelineId, ownProps.onLoadMore))
   },
   onScrollToTop: debounce(() => {
-    dispatch(scrollTopTimeline(ownProps.timelineId, true));
+    dispatch(scrollTopTimeline(ownProps.timelineId, true))
   }, 100),
   onScroll: debounce(() => {
-    dispatch(scrollTopTimeline(ownProps.timelineId, false));
+    dispatch(scrollTopTimeline(ownProps.timelineId, false))
   }, 100),
   onFetchContext(statusId) {
     dispatch(fetchContext(statusId, true))
   },
-});
+  onFetchStatus(statusId) {
+    dispatch(fetchStatus(statusId))
+  },
+})
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
@@ -85,11 +96,13 @@ class StatusList extends ImmutablePureComponent {
     emptyMessage: PropTypes.string,
     timelineId: PropTypes.string,
     queuedItemSize: PropTypes.number,
-    onDequeueTimeline: PropTypes.func,
     group: ImmutablePropTypes.map,
-    onScrollToTop: PropTypes.func,
-    onScroll: PropTypes.func,
-    onFetchContext: PropTypes.func,
+    onDequeueTimeline: PropTypes.func.isRequired,
+    onScrollToTop: PropTypes.func.isRequired,
+    onScroll: PropTypes.func.isRequired,
+    onFetchContext: PropTypes.func.isRequired,
+    onFetchStatus: PropTypes.func.isRequired,
+    promotedStatuses: PropTypes.object,
   }
 
   state = {
@@ -98,44 +111,69 @@ class StatusList extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    this.handleDequeueTimeline();
+    this.handleDequeueTimeline()
+    this.fetchPromotedStatus()
   }
 
+  fetchPromotedStatus() {
+    const {
+      onFetchStatus,
+      promotedStatuses,
+      timelineId,
+      statusIds,
+    } = this.props
+   
+    if (Array.isArray(promotions)) {
+      promotions.forEach((promotionBlock) => {
+        
+        if (promotionBlock.timeline_id === timelineId &&
+            statusIds.count() >= promotionBlock.position &&
+            !promotedStatuses[promotionBlock.status_id]) {
+          onFetchStatus(promotionBlock.status_id)
+        }
+
+      })
+    }
+  }
+   
   componentDidUpdate(prevProps, prevState) {
     if (prevState.refreshing) {
       this.setState({ refreshing: false })
     }
+
+    if (prevProps.statusIds.count() < this.props.statusIds.count()) {
+      this.fetchPromotedStatus()
+    }
   }
 
   fetchContextsForInitialStatuses = (statusIds) => {
-    // console.log("fetchContextsForInitialStatuses:", statusIds)
     for (let i = 0; i < statusIds.length; i++) {
-      const statusId = statusIds[i];
+      const statusId = statusIds[i]
       this.props.onFetchContext(statusId)
     }
     this.setState({ fetchedContext: true })
   }
 
   getFeaturedStatusCount = () => {
-    return this.props.featuredStatusIds ? this.props.featuredStatusIds.size : 0;
+    return this.props.featuredStatusIds ? this.props.featuredStatusIds.size : 0
   }
 
   getCurrentStatusIndex = (id, featured) => {
     if (featured) {
-      return this.props.featuredStatusIds.indexOf(id);
+      return this.props.featuredStatusIds.indexOf(id)
     }
 
-    return this.props.statusIds.indexOf(id) + this.getFeaturedStatusCount();
+    return this.props.statusIds.indexOf(id) + this.getFeaturedStatusCount()
   }
 
   handleMoveUp = (id, featured) => {
-    const elementIndex = this.getCurrentStatusIndex(id, featured) - 1;
-    this._selectChild(elementIndex, true);
+    const elementIndex = this.getCurrentStatusIndex(id, featured) - 1
+    this._selectChild(elementIndex, true)
   }
 
   handleMoveDown = (id, featured) => {
-    const elementIndex = this.getCurrentStatusIndex(id, featured) + 1;
-    this._selectChild(elementIndex, false);
+    const elementIndex = this.getCurrentStatusIndex(id, featured) + 1
+    this._selectChild(elementIndex, false)
   }
 
   handleLoadOlder = debounce(() => {
@@ -151,28 +189,28 @@ class StatusList extends ImmutablePureComponent {
   }, 300, { trailing: true })
 
   _selectChild(index, align_top) {
-    const container = this.node.node;
-    const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`);
+    const container = this.node.node
+    const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`)
 
     if (element) {
       if (align_top && container.scrollTop > element.offsetTop) {
-        element.scrollIntoView(true);
+        element.scrollIntoView(true)
       } else if (!align_top && container.scrollTop + container.clientHeight < element.offsetTop + element.offsetHeight) {
-        element.scrollIntoView(false);
+        element.scrollIntoView(false)
       }
-      element.focus();
+      element.focus()
     }
   }
 
   handleDequeueTimeline = () => {
-    const { onDequeueTimeline, timelineId } = this.props;
-    if (!onDequeueTimeline || !timelineId) return;
+    const { onDequeueTimeline, timelineId } = this.props
+    if (!onDequeueTimeline || !timelineId) return
 
-    onDequeueTimeline(timelineId);
+    onDequeueTimeline(timelineId)
   }
 
   setRef = c => {
-    this.node = c;
+    this.node = c
   }
 
   render() {
@@ -185,6 +223,7 @@ class StatusList extends ImmutablePureComponent {
       isLoading,
       isPartial,
       group,
+      promotedStatuses,
       ...other
     } = this.props
     const { fetchedContext, refreshing } = this.state
@@ -205,28 +244,54 @@ class StatusList extends ImmutablePureComponent {
       if (arr.length > 0) this.fetchContextsForInitialStatuses(arr)
     }
 
-    let scrollableContent = (isLoading || statusIds.size > 0) ? (
-      statusIds.map((statusId, index) => statusId === null ? (
-        <div
-          key={'gap:' + statusIds.get(index + 1)}
-          disabled={isLoading}
-          maxId={index > 0 ? statusIds.get(index - 1) : null}
-          onClick={onLoadMore}
-        />
-      ) : (
-          <StatusContainer
-            key={statusId}
-            id={statusId}
-            onMoveUp={this.handleMoveUp}
-            onMoveDown={this.handleMoveDown}
-            contextType={timelineId}
-            commentsLimited
-          />
-        ))
-    ) : null;
+    let scrollableContent = []
+    
+    if (isLoading || statusIds.size > 0) {
+      for (let i = 0; i < statusIds.count(); i++) {
+        const statusId = statusIds.get(i)
+        if (!statusId) {
+          scrollableContent.push(
+            <div
+              key={'gap:' + statusIds.get(i + 1)}
+              disabled={isLoading}
+              maxId={i > 0 ? statusIds.get(i - 1) : null}
+              onClick={onLoadMore}
+            />
+          )
+        } else {
+          if (Array.isArray(promotions)) {
+            const promotionBlock = promotions.find(p => p.position === i)
+            if (promotionBlock) {
+              scrollableContent.push(
+                <StatusContainer
+                  key={promotionBlock.status_id}
+                  id={promotionBlock.status_id}
+                  onMoveUp={this.handleMoveUp}
+                  onMoveDown={this.handleMoveDown}
+                  contextType={timelineId}
+                  commentsLimited
+                  isPromoted
+                />
+              )
+            }
+          }
+          scrollableContent.push(
+            <StatusContainer
+              key={statusId}
+              id={statusId}
+              onMoveUp={this.handleMoveUp}
+              onMoveDown={this.handleMoveDown}
+              contextType={timelineId}
+              commentsLimited
+            />
+          )
+        }
+        
+      }
+    }
 
     if (scrollableContent && featuredStatusIds) {
-      scrollableContent = featuredStatusIds.map(statusId => (
+      scrollableContent = featuredStatusIds.map((statusId) => (
         <StatusContainer
           key={`f-${statusId}`}
           id={statusId}
@@ -257,7 +322,7 @@ class StatusList extends ImmutablePureComponent {
           {scrollableContent}
         </ScrollableList>
       </Fragment>
-    );
+    )
   }
 
 }
