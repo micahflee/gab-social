@@ -12,6 +12,7 @@ import {
   forceDequeueNotifications,
 } from '../actions/notifications'
 import NotificationContainer from '../containers/notification_container'
+import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 import TimelineQueueButtonHeader from '../components/timeline_queue_button_header'
 import Block from '../components/block'
@@ -106,6 +107,10 @@ class Notifications extends ImmutablePureComponent {
       totalQueuedNotificationsCount,
       selectedFilter,
     } = this.props
+
+    if (isLoading) {
+      return <ColumnIndicator type='loading' />
+    }
 
     let scrollableContent = null
 
