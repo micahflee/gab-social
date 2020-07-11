@@ -656,7 +656,6 @@ class Video extends ImmutablePureComponent {
           src={src}
           poster={preview}
           preload={preload}
-          loop
           role='button'
           tabIndex='0'
           aria-label={alt}
