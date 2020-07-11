@@ -413,6 +413,9 @@ class Status extends ImmutablePureComponent {
 
     if (isComment && !ancestorStatus && !isChild) {
       // Wait to load...
+      if (contextType === 'feature') {
+        return <ColumnIndicator type='loading' />
+      }
       return null
     }
 
