@@ -39,7 +39,7 @@ import SettingsPage from '../../pages/settings_page'
 import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
 import AboutPage from '../../pages/about_page'
-import AuthPage from '../../pages/auth_page'
+// import AuthPage from '../../pages/auth_page'
 
 import {
   About,
