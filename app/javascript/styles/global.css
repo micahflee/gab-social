@@ -483,6 +483,7 @@ pre {
 .heightMax200PX { max-height: 200px; }
 .heightMax56PX { max-height: 56px; }
 .heightCalc53PX { height: calc(100vh - 53px); }
+.heightCalc80VH106PX { height: calc(80vh - 106px); }
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }

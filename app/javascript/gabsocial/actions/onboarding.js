@@ -1,8 +1,9 @@
-import { changeSetting, saveSettings } from './settings';
+import moment from 'moment-mini'
+import { changeSetting, saveSettings } from './settings'
 
-export const INTRODUCTION_VERSION = 20181216044202;
+export const MIN_ACCOUNT_CREATED_AT_ONBOARDING = moment('2020-07-14').valueOf()
 
-export const closeOnboarding = () => dispatch => {
-  dispatch(changeSetting(['introductionVersion'], INTRODUCTION_VERSION));
-  dispatch(saveSettings());
-};
+export const saveShownOnboarding = () => (dispatch) => {
+  dispatch(changeSetting(['shownOnboarding'], true))
+  dispatch(saveSettings())
+}

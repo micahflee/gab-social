@@ -41,6 +41,7 @@ export function HashtagTimelineSettingsModal() { return import(/* webpackChunkNa
 export function HomeTimeline() { return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline') }
 export function HomeTimelineSettingsModal() { return import(/* webpackChunkName: "components/home_timeline_settings_modal" */'../../../components/modal/home_timeline_settings_modal') }
 export function HotkeysModal() { return import(/* webpackChunkName: "components/hotkeys_modal" */'../../../components/modal/hotkeys_modal') }
+export function Introduction() { return import(/* webpackChunkName: "features/introduction" */'../../introduction') }
 export function Investors() { return import(/* webpackChunkName: "features/about/investors" */'../../about/investors') }
 export function ListAddUserModal() { return import(/* webpackChunkName: "features/list_add_user_modal" */'../../../components/modal/list_add_user_modal') }
 export function ListCreate() { return import(/* webpackChunkName: "features/list_create" */'../../list_create') }

@@ -5,6 +5,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { Switch, Redirect, withRouter } from 'react-router-dom'
 import debounce from 'lodash.debounce'
 import queryString from 'query-string'
+import moment from 'moment-mini'
 import { uploadCompose, resetCompose } from '../../actions/compose'
 import { expandHomeTimeline } from '../../actions/timelines'
 import { fetchGroups } from '../../actions/groups'
@@ -15,6 +16,7 @@ import {
 } from '../../actions/notifications'
 import LoadingBar from '../../components/loading_bar'
 import { fetchFilters } from '../../actions/filters'
+import { MIN_ACCOUNT_CREATED_AT_ONBOARDING } from '../../actions/onboarding'
 import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
 import WrappedRoute from './util/wrapped_route'
@@ -38,6 +40,7 @@ import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
 import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
+import IntroductionPage from '../../pages/introduction_page'
 import AboutPage from '../../pages/about_page'
 // import AuthPage from '../../pages/auth_page'
 
@@ -56,7 +59,6 @@ import {
   Following,
   FollowRequests,
   GenericNotFound,
-  GettingStarted,
   GroupsCollection,
   GroupCreate,
   GroupMembers,
@@ -64,6 +66,7 @@ import {
   GroupTimeline,
   HashtagTimeline,
   HomeTimeline,
+  Introduction,
   Investors,
   LikedStatuses,
   ListCreate,
@@ -94,6 +97,8 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
+  shownOnboarding: state.getIn(['settings', 'shownOnboarding'], false),
+  accountCreatedAt: state.getIn(['accounts', me, 'created_at']),
   isComposing: state.getIn(['compose', 'is_composing']),
   hasComposingText: state.getIn(['compose', 'text']).trim().length !== 0,
   hasMediaAttachments: state.getIn(['compose', 'media_attachments']).size > 0,
@@ -129,6 +134,7 @@ class SwitchingArea extends PureComponent {
     children: PropTypes.node,
     location: PropTypes.object,
     onLayoutChange: PropTypes.func.isRequired,
+    shownOnboarding: PropTypes.bool.isRequired,
   }
 
   componentDidMount() {
@@ -145,8 +151,8 @@ class SwitchingArea extends PureComponent {
     // The cached heights are no longer accurate, invalidate
     this.props.onLayoutChange()
   }, 500, {
-      trailing: true,
-    })
+    trailing: true,
+  })
 
   setRef = c => {
     this.node = c.getWrappedInstance()
@@ -159,6 +165,8 @@ class SwitchingArea extends PureComponent {
       <Switch>
         <Redirect from='/' to='/home' exact />
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
+
+        <WrappedRoute path='/welcome' exact page={IntroductionPage} component={Introduction} content={children} />
 
         <WrappedRoute path='/about' publicRoute exact page={AboutPage} component={About} content={children} componentParams={{ title: 'About' }} />
         <WrappedRoute path='/about/dmca' publicRoute exact page={AboutPage} component={DMCA} content={children} componentParams={{ title: 'DMCA' }} />
@@ -261,6 +269,8 @@ class UI extends PureComponent {
     hasMediaAttachments: PropTypes.bool,
     location: PropTypes.object,
     intl: PropTypes.object.isRequired,
+    shownOnboarding: PropTypes.bool.isRequired,
+    accountCreatedAt: PropTypes.string.isRequired,
   }
 
   state = {
@@ -377,6 +387,15 @@ class UI extends PureComponent {
   componentWillMount() {
     if (!me) return
 
+    //If first time opening app, and is new user, show onboarding
+    const accountCreatedAtValue = moment(this.props.accountCreatedAt).valueOf()
+    const shouldShowOnboarding = !this.props.shownOnboarding && accountCreatedAtValue > MIN_ACCOUNT_CREATED_AT_ONBOARDING
+    
+    if (shouldShowOnboarding) {
+      this.context.router.history.push('/welcome')
+      return
+    }
+
     window.addEventListener('beforeunload', this.handleBeforeUnload, false)
 
     document.addEventListener('dragenter', this.handleDragEnter, false)
@@ -415,6 +434,8 @@ class UI extends PureComponent {
 
       this.setState({ fetchedNotifications: true })
       this.props.dispatch(expandNotifications())
+    } else if (pathname === '/welcome') {
+      this.context.router.history.push('/home')
     }
 
     this.props.dispatch(initializeNotifications())
@@ -531,8 +552,12 @@ class UI extends PureComponent {
   }
 
   render() {
+    const {
+      children,
+      location,
+      shownOnboarding,
+    } = this.props
     const { draggingOver } = this.state
-    const { children, location } = this.props
 
     // : todo :
     // const handlers = me ? {
@@ -555,7 +580,11 @@ class UI extends PureComponent {
       <div ref={this.setRef} className={_s.gabsocial}>
         <LoadingBar className={[_s.height1PX, _s.z3, _s.bgBrandLight].join(' ')} />
 
-        <SwitchingArea location={location} onLayoutChange={this.handleLayoutChange}>
+        <SwitchingArea
+          location={location}
+          onLayoutChange={this.handleLayoutChange}
+          shownOnboarding={shownOnboarding}
+        >
           {children}
         </SwitchingArea>
 
