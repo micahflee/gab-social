@@ -80,7 +80,7 @@ class ComposeForm extends ImmutablePureComponent {
     anyMedia: PropTypes.bool,
     shouldCondense: PropTypes.bool,
     autoFocus: PropTypes.bool,
-    group: ImmutablePropTypes.map,
+    groupId: PropTypes.string,
     isModalOpen: PropTypes.bool,
     scheduledAt: PropTypes.instanceOf(Date),
     setScheduledAt: PropTypes.func.isRequired,
@@ -142,14 +142,13 @@ class ComposeForm extends ImmutablePureComponent {
     // }
 
     // Submit disabled:
-    const { isSubmitting, isChangingUpload, isUploading, anyMedia, group } = this.props;
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia, groupId } = this.props;
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
 
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > MAX_POST_CHARACTER_COUNT || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
     }
 
-    const groupId = group ? group.get('id') : undefined
     this.props.onSubmit(groupId, this.props.replyToId, this.context.router);
   }
 

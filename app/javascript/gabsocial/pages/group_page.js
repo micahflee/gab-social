@@ -49,6 +49,7 @@ class GroupPage extends ImmutablePureComponent {
 		} = this.props
 
 		const groupTitle = !!group ? group.get('title') : ''
+		const groupId = !!group ? group.get('id') : undefined
 
 		return (
 			<GroupLayout
@@ -62,7 +63,7 @@ class GroupPage extends ImmutablePureComponent {
 				{
 					!!relationships && relationships.get('member') &&
 					<Fragment>
-						<TimelineComposeBlock size={46} group={group} autoFocus />
+						<TimelineComposeBlock size={46} groupId={groupId} autoFocus />
 						<Divider />
 					</Fragment>
 				}
