@@ -37,6 +37,7 @@ import {
   COMPOSE_POLL_SETTINGS_CHANGE,
   COMPOSE_SCHEDULED_AT_CHANGE,
   COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
+  COMPOSE_CLEAR,
 } from '../actions/compose';
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STORE_HYDRATE } from '../actions/store';
@@ -314,6 +315,7 @@ export default function compose(state = initialState, action) {
     return state.set('is_submitting', true);
   case COMPOSE_UPLOAD_CHANGE_REQUEST:
     return state.set('is_changing_upload', true);
+  case COMPOSE_CLEAR:
   case COMPOSE_SUBMIT_SUCCESS:
     return clearAll(state);
   case COMPOSE_SUBMIT_FAIL:
