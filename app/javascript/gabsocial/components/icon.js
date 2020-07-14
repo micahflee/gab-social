@@ -1,4 +1,5 @@
 import AddIcon from '../assets/add_icon'
+import AddImageIcon from '../assets/add_image_icon'
 import AngleRightIcon from '../assets/angle_right_icon'
 import AngleLeftIcon from '../assets/angle_left_icon'
 import AppsIcon from '../assets/apps_icon'
@@ -80,6 +81,7 @@ import WebsiteIcon from '../assets/website_icon'
 
 const ICONS = {
   'add': AddIcon,
+  'add-image': AddImageIcon,
   'angle-right': AngleRightIcon,
   'angle-left': AngleLeftIcon,
   'apps': AppsIcon,
