@@ -114,7 +114,11 @@ class GroupCreate extends ImmutablePureComponent {
 	}
 
 	handleCoverImageChange = (e) => {
-		this.props.onCoverImageChange(e.target.files[0])
+		try {
+      this.props.onCoverImageChange(e.target.files[0])
+    } catch (error) {
+     // 
+    }
 	}
 
 	handleSubmit = (e) => {
@@ -165,11 +169,13 @@ class GroupCreate extends ImmutablePureComponent {
 
 				<FileInput
 					disabled={isSubmitting}
+					id='group-cover-photo'
 					title={intl.formatMessage(coverImage === null ? messages.coverImage : messages.coverImageChange)}
 					onChange={this.handleCoverImageChange}
 					file={group ? group.get('cover_image_url') : undefined}
 					width='340px'
 					height='145px'
+					isBordered
 				/>
 
 				<Divider isInvisible />

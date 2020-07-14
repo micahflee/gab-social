@@ -1,3 +1,5 @@
+import { CX } from '../constants'
+import Icon from './icon'
 import Image from './image'
 import Text from './text'
 
@@ -9,12 +11,16 @@ export default class FileInput extends PureComponent {
     fileType: PropTypes.string,
     disabled: PropTypes.bool,
     title: PropTypes.string,
+    id: PropTypes.string.isRequired,
     height: PropTypes.string,
     width: PropTypes.string,
+    isBordered: PropTypes.bool,
+    className: PropTypes.string,
   }
 
   static defaultProps = {
-    fileType: 'image'
+    fileType: 'image',
+    isBordered: false,
   }
 
   state = {
@@ -30,13 +36,30 @@ export default class FileInput extends PureComponent {
 
   render() {
     const {
+      id,
       fileType,
       disabled,
       title,
       height,
       width,
+      className,
+      isBordered,
     } = this.props
     const { file } = this.state
+
+    const containerClasses = CX(className, {
+      default: 1,
+      alignItemsCenter: 1,
+      cursorPointer: 1,
+      justifyContentCenter: 1,
+      overflowHidden: true,
+      radiusSmall: isBordered,
+      px10: isBordered,
+      py10: isBordered,
+      border2PX: isBordered,
+      borderColorSecondary: isBordered,
+      borderDashed: isBordered,
+    })
 
     return (
       <div>
@@ -50,8 +73,8 @@ export default class FileInput extends PureComponent {
         }
 
         <label
-          className={[_s.default, _s.alignItemsCenter, _s.radiusSmall, _s.cursorPointer, _s.px10, _s.py10, _s.justifyContentCenter, _s.border2PX, _s.borderColorSecondary, _s.borderDashed].join(' ')}
-          htmlFor={`file-input-${title}`}
+          className={containerClasses}
+          htmlFor={`file-input-${id}`}
           style={{
             width,
             height,
@@ -64,15 +87,13 @@ export default class FileInput extends PureComponent {
           {
             !file &&
             <div className={[_s.posAbs, _s.cursorPointer].join(' ')}>
-              <Text size='medium' color='secondary'>
-                Click Here to Upload
-              </Text>
+              <Icon id='add-image' size='32px' className={_s.fillSecondary} />
             </div>
           }
         </label>
 
         <input
-          id={`file-input-${title}`}
+          id={`file-input-${id}`}
           className={_s.displayNone}
           disabled={disabled}
           onChange={this.handleOnChange}
