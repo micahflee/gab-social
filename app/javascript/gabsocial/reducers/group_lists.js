@@ -40,7 +40,10 @@ export default function groupLists(state = initialState, action) {
     });
   case GROUPS_FETCH_SUCCESS:
     return state.withMutations((mutable) => {
-      mutable.setIn([action.tab, 'items'], ImmutableList(action.groups.map(item => item.id)))
+      let list = ImmutableList(action.groups.map(item => item.id))
+      if (action.tab === 'featured') list = list.sortBy(Math.random)
+
+      mutable.setIn([action.tab, 'items'], list)
       mutable.setIn([action.tab, 'isLoading'], false)
       mutable.setIn([action.tab, 'isFetched'], true)
     })
