@@ -1,9 +1,8 @@
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Text from './text'
 
-const cx = classNames.bind(_s)
-
 export default class Switch extends PureComponent {
+
   static propTypes = {
     id: PropTypes.string.isRequired,
     description: PropTypes.string,
@@ -27,7 +26,7 @@ export default class Switch extends PureComponent {
       labelProps
     } = this.props
 
-    const checkboxContainerClasses = cx({
+    const checkboxContainerClasses = CX({
       cursorPointer: 1,
       default: 1,
       height24PX: 1,
@@ -40,7 +39,7 @@ export default class Switch extends PureComponent {
       bgBrand: checked,
     })
 
-    const checkboxLabelClasses = cx({
+    const checkboxLabelClasses = CX({
       default: 1,
       m1PX: 1,
       height20PX: 1,
@@ -66,4 +65,5 @@ export default class Switch extends PureComponent {
       </div>
     )
   }
+
 }
