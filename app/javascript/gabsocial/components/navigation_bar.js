@@ -47,6 +47,7 @@ class NavigationBar extends ImmutablePureComponent {
     showBackBtn: PropTypes.bool,
     onOpenSidebar: PropTypes.func.isRequired,
     onOpenNavSettingsPopover: PropTypes.func.isRequired,
+    noActions: PropTypes.bool,
     noSearch: PropTypes.bool,
   }
 
@@ -66,6 +67,7 @@ class NavigationBar extends ImmutablePureComponent {
       tabs,
       account,
       onOpenSidebar,
+      noActions,
       noSearch,
     } = this.props
 
@@ -104,30 +106,33 @@ class NavigationBar extends ImmutablePureComponent {
               </div>
 
               <div className={[_s.default, _s.mlAuto].join(' ')}>
-                <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
+                {
+                  !noActions &&
+                  <div className={[_s.default, _s.height53PX, _s.pl15, _s.flexRow, _s.alignItemsCenter, _s.justifyContentSpaceBetween].join(' ')}>
 
-                  <NavigationBarButton title='Home' icon='home' to='/home' />
-                  <NavigationBarButton title='Explore' icon='explore' to='/explore' />
+                    <NavigationBarButton title='Home' icon='home' to='/home' />
+                    <NavigationBarButton title='Explore' icon='explore' to='/explore' />
 
-                  <NavigationBarButtonDivider />
+                    <NavigationBarButtonDivider />
 
-                  <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
-                  <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
+                    <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
+                    <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
 
-                  <NavigationBarButtonDivider />
-                
-                  {
-                    !!account &&
-                    <button
-                      ref={this.setAvatarNode}
-                      title={account.get('display_name')}
-                      onClick={this.handleOnOpenNavSettingsPopover}
-                      className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
-                    >
-                      <Avatar account={account} size={32} noHover />
-                    </button>
-                  }
-                </div>
+                    <NavigationBarButtonDivider />
+                  
+                    {
+                      !!account &&
+                      <button
+                        ref={this.setAvatarNode}
+                        title={account.get('display_name')}
+                        onClick={this.handleOnOpenNavSettingsPopover}
+                        className={[_s.height53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.default, _s.justifyContentCenter, _s.ml15].join(' ')}
+                      >
+                        <Avatar account={account} size={32} noHover />
+                      </button>
+                    }
+                  </div>
+                }
               </div>
 
             </Responsive>
@@ -136,7 +141,7 @@ class NavigationBar extends ImmutablePureComponent {
             <Responsive max={BREAKPOINT_EXTRA_SMALL}>
               <div className={[_s.default, _s.width84PX, _s.alignItemsStart, _s.pl10].join(' ')}>
                 {
-                  !!account && !showBackBtn &&
+                  !!account && !showBackBtn && !noActions &&
                   <button
                     title={account.get('display_name')}
                     onClick={onOpenSidebar}
@@ -153,6 +158,22 @@ class NavigationBar extends ImmutablePureComponent {
                     iconSize='18px'
                     iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
                   />
+                }
+                {
+                  noActions &&
+                  <h1 className={[_s.default, _s.mr15].join(' ')}>
+                    <Button
+                      to='/'
+                      isText
+                      title='Gab'
+                      aria-label='Gab'
+                      color='none'
+                      backgroundColor='none'
+                      className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
+                    >
+                      <Icon id='logo' className={_s.fillNavigationBrand} />
+                    </Button>
+                  </h1>
                 }
               </div>
               
@@ -181,17 +202,20 @@ class NavigationBar extends ImmutablePureComponent {
                       />
                     ))
                   }
-                  <Button
-                    isNarrow
-                    backgroundColor='none'
-                    color='primary'
-                    to='/search'
-                    key={`action-btn-search`}
-                    className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
-                    icon='search'
-                    iconClassName={_s.fillNavigation}
-                    iconSize='18px'
-                  />
+                  {
+                    !noSearch &&
+                    <Button
+                      isNarrow
+                      backgroundColor='none'
+                      color='primary'
+                      to='/search'
+                      key={`action-btn-search`}
+                      className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
+                      icon='search'
+                      iconClassName={_s.fillNavigation}
+                      iconSize='18px'
+                    />
+                  }
                 </div>
               </div>
               
