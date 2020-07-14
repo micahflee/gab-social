@@ -260,11 +260,11 @@ class StatusList extends ImmutablePureComponent {
           )
         } else {
           if (Array.isArray(promotions)) {
-            const promotionBlock = promotions.find(p => p.position === i)
+            const promotionBlock = promotions.find(p => (p.position === i && p.timeline_id === timelineId))
             if (promotionBlock) {
               scrollableContent.push(
                 <StatusContainer
-                  key={promotionBlock.status_id}
+                  key={`promotion-${i}-${promotionBlock.status_id}`}
                   id={promotionBlock.status_id}
                   onMoveUp={this.handleMoveUp}
                   onMoveDown={this.handleMoveDown}
@@ -277,7 +277,7 @@ class StatusList extends ImmutablePureComponent {
           }
           scrollableContent.push(
             <StatusContainer
-              key={statusId}
+              key={`${statusId}-${i}`}
               id={statusId}
               onMoveUp={this.handleMoveUp}
               onMoveDown={this.handleMoveDown}
