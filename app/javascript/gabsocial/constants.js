@@ -107,3 +107,5 @@ export const NOTIFICATION_FILTERS = [
   'poll',
   'follow_requests',
 ]
+
+export const GAB_COM_INTRODUCE_YOURSELF_GROUP_ID = '12'
