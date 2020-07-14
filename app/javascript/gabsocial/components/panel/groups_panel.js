@@ -66,11 +66,11 @@ class GroupSidebarPanel extends ImmutablePureComponent {
   }
   
   render() {
-    const { intl, groupIds, slim } = this.props
+    const { intl, groupIds, isSlim } = this.props
     const { fetched } = this.state
 
     const count = !!groupIds ? groupIds.count() : 0
-    const maxCount = slim ? 12 : 6
+    const maxCount = isSlim ? 12 : 6
 
     if (count === 0 && fetched) return null
 
@@ -81,7 +81,7 @@ class GroupSidebarPanel extends ImmutablePureComponent {
         headerButtonTo='/groups/browse/member'
         footerButtonTitle={count > maxCount ? intl.formatMessage(messages.show_all) : undefined}
         footerButtonTo={count > maxCount ? '/groups/browse/member' : undefined}
-        noPadding={slim}
+        noPadding
       >
         <ScrollableList
           scrollKey='groups_panel'
@@ -92,7 +92,6 @@ class GroupSidebarPanel extends ImmutablePureComponent {
               <GroupListItem
                 key={`group-panel-item-${groupId}`}
                 id={groupId}
-                slim={slim}
                 isLast={groupIds.count() - 1 === i}
               />
             ))
