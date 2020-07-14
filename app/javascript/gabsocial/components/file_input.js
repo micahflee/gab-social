@@ -81,6 +81,7 @@ export default class FileInput extends PureComponent {
           }}
         >
           <Image
+            alt={title || id}
             className={[_s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
             src={fileType === 'image' ? file : null}
           />
