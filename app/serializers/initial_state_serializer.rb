@@ -38,6 +38,7 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:last_read_notification_id] = object.current_account.user.last_read_notification
       store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_amount") || 0
       store[:favourites_count]   = object.current_account.favourites.count.to_s
+      store[:is_first_session]   = is_first_session object.current_account
     end
 
     store
@@ -88,4 +89,9 @@ class InitialStateSerializer < ActiveModel::Serializer
   def instance_presenter
     @instance_presenter ||= InstancePresenter.new
   end
+
+  def is_first_session(account)
+    object.current_account.user.sign_in_count === 1
+  end
+
 end
