@@ -37,6 +37,7 @@ import status_revisions from './status_revisions'
 import suggestions from './suggestions'
 import tenor from './tenor'
 import timelines from './timelines'
+import user from './user'
 import user_lists from './user_lists'
 
 const reducers = {
@@ -78,6 +79,7 @@ const reducers = {
   suggestions,
   tenor,
   timelines,
+  user,
   user_lists,
 }
 
