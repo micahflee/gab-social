@@ -10,6 +10,7 @@ import { shortNumberFormat } from '../utils/numbers'
 import Button from './button'
 import Image from './image'
 import Text from './text'
+import Dummy from './dummy'
 
 const messages = defineMessages({
   members: { id: 'groups.card.members', defaultMessage: 'Members' },
@@ -40,6 +41,7 @@ class GroupListItem extends ImmutablePureComponent {
     isAddable: PropTypes.bool,
     isHidden: PropTypes.bool,
     isLast: PropTypes.bool,
+    isStatic: PropTypes.bool,
     onToggleMembership: PropTypes.func.isRequired,
     relationships: ImmutablePropTypes.map,
   }
@@ -72,6 +74,7 @@ class GroupListItem extends ImmutablePureComponent {
       isAddable,
       isLast,
       isHidden,
+      isStatic,
       relationships,
     } = this.props
     const { hovering } = this.state
@@ -112,9 +115,11 @@ class GroupListItem extends ImmutablePureComponent {
     const addButtonColor = isMember ? hovering ? 'danger' : 'tertiary' : 'brand'
     const addButtonTitle = isMember ? hovering ? 'Leave Group' : 'You are a member' : 'Join Group'
 
+    const Wrapper = !isStatic ? NavLink : Dummy
+
     return (
       <div className={containerClasses}>
-        <NavLink
+        <Wrapper
           to={`/groups/${group.get('id')}`}
           className={containerLinkClasses}
         >
@@ -140,7 +145,7 @@ class GroupListItem extends ImmutablePureComponent {
             </Text>
 
           </div>
-        </NavLink>
+        </Wrapper>
         <div className={[_s.default, _s.justifyContentCenter].join(' ')}>
           {
             relationships &&
