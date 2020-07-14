@@ -12,6 +12,7 @@ import BlockquoteIcon from '../assets/blockquote_icon'
 import BoldIcon from '../assets/bold_icon'
 import CalendarIcon from '../assets/calendar_icon'
 import ChatIcon from '../assets/chat_icon'
+import CheckIcon from '../assets/check_icon'
 import CircleIcon from '../assets/circle_icon'
 import CloseIcon from '../assets/close_icon'
 import CodeIcon from '../assets/code_icon'
@@ -92,6 +93,7 @@ const ICONS = {
   'bold': BoldIcon,
   'calendar': CalendarIcon,
   'chat': ChatIcon,
+  'check': CheckIcon,
   'close': CloseIcon,
   'code': CodeIcon,
   'cog': CogIcon,
