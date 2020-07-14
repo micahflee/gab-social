@@ -260,7 +260,7 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   }
 }
 
-export function submitCompose(group, replyToId = null, router, isStandalone) {
+export function submitCompose(groupId, replyToId = null, router, isStandalone) {
   return function (dispatch, getState) {
     if (!me) return;
 
@@ -311,7 +311,7 @@ export function submitCompose(group, replyToId = null, router, isStandalone) {
       spoiler_text: getState().getIn(['compose', 'spoiler_text'], ''),
       visibility: getState().getIn(['compose', 'privacy']),
       poll: getState().getIn(['compose', 'poll'], null),
-      group_id: group ? group.get('id') : null,
+      group_id: groupId || null,
     }, {
       headers: {
         'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
