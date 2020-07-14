@@ -89,7 +89,8 @@ class ComposeForm extends ImmutablePureComponent {
     hasPoll: PropTypes.bool,
     selectedGifSrc: PropTypes.string,
     isPro: PropTypes.bool,
-  };
+    hidePro: PropTypes.bool,
+  }
 
   static defaultProps = {
     showSearch: false,
@@ -247,6 +248,7 @@ class ComposeForm extends ImmutablePureComponent {
       isSubmitting,
       selectedGifSrc,
       isPro,
+      hidePro,
     } = this.props
 
     const disabled = isSubmitting
@@ -481,11 +483,17 @@ class ComposeForm extends ImmutablePureComponent {
 
                     <StatusVisibilityButton />
                     <SpoilerButton />
-                    <SchedulePostButton />
-                    
-                    <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                      <RichTextEditorButton />
-                    </Responsive>
+                    {
+                      !hidePro &&
+                      <SchedulePostButton />
+                    }
+
+                    {
+                      !hidePro &&
+                      <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                        <RichTextEditorButton />
+                      </Responsive>
+                    }
                   </div>
 
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>
