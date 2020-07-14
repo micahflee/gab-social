@@ -109,7 +109,8 @@ class GroupListItem extends ImmutablePureComponent {
     const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const isMember = !!relationships && relationships.get('member')
     const addButtonIcon = isMember ? hovering ? 'subtract' : 'check' : 'add'
-    const addButtonColor = isMember ? 'tertiary' : 'brand'
+    const addButtonColor = isMember ? hovering ? 'danger' : 'tertiary' : 'brand'
+    const addButtonTitle = isMember ? hovering ? 'Leave Group' : 'You are a member' : 'Join Group'
 
     return (
       <div className={containerClasses}>
@@ -147,11 +148,12 @@ class GroupListItem extends ImmutablePureComponent {
               isNarrow
               color='white'
               backgroundColor={addButtonColor}
-              className={[_s.px5, _s.bgDangerDark_onHover].join(' ')}
+              className={_s.px5}
               onClick={this.handleOnToggleMembership}
               onMouseEnter={this.handleOnMouseEnter}
               onMouseLeave={this.handleOnMouseLeave}
               icon={addButtonIcon}
+              title={addButtonTitle}
               iconSize='10px'
             />
           }
