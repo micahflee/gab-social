@@ -153,7 +153,7 @@ class GroupListItem extends ImmutablePureComponent {
               <Button
                 isNarrow
                 color='white'
-                className={[_s.px10, _s.width72PX].join(' ')}
+                className={[_s.px10, _s.width76PX].join(' ')}
                 backgroundColor={addButtonColor}
                 onClick={this.handleOnToggleMembership}
                 onMouseEnter={this.handleOnMouseEnter}
