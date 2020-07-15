@@ -105,15 +105,14 @@ class GroupListItem extends ImmutablePureComponent {
       flexRow: 1,
       noUnderline: 1,
       width100PC: 1,
-      maxWidth100PC42PX: isAddable,
+      maxWidth100PC86PX: isAddable,
     })
 
     const coverSrc = group.get('cover_image_url') || ''
     const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const isMember = !!relationships && relationships.get('member')
-    const addButtonIcon = isMember ? hovering ? 'subtract' : 'check' : 'add'
     const addButtonColor = isMember ? hovering ? 'danger' : 'tertiary' : 'brand'
-    const addButtonTitle = isMember ? hovering ? 'Leave Group' : 'You are a member' : 'Join Group'
+    const addButtonTitle = isMember ? hovering ? 'Leave' : 'Member' : 'Join'
 
     const Wrapper = !isStatic ? NavLink : Dummy
 
@@ -146,23 +145,25 @@ class GroupListItem extends ImmutablePureComponent {
 
           </div>
         </Wrapper>
-        <div className={[_s.default, _s.justifyContentCenter].join(' ')}>
-          {
-            relationships &&
-            <Button
-              isNarrow
-              color='white'
-              backgroundColor={addButtonColor}
-              className={_s.px5}
-              onClick={this.handleOnToggleMembership}
-              onMouseEnter={this.handleOnMouseEnter}
-              onMouseLeave={this.handleOnMouseLeave}
-              icon={addButtonIcon}
-              title={addButtonTitle}
-              iconSize='10px'
-            />
-          }
-        </div>
+        {
+          isAddable &&
+          <div className={[_s.default, _s.justifyContentCenter, _s.flexGrow1].join(' ')}>
+            {
+              relationships &&
+              <Button
+                isNarrow
+                color='white'
+                className={[_s.px10, _s.width72PX].join(' ')}
+                backgroundColor={addButtonColor}
+                onClick={this.handleOnToggleMembership}
+                onMouseEnter={this.handleOnMouseEnter}
+                onMouseLeave={this.handleOnMouseLeave}
+              >
+                <Text size='small' color='inherit' align='center'>{addButtonTitle}</Text>
+              </Button>
+            }
+          </div>
+        }
       </div>
     )
   }
