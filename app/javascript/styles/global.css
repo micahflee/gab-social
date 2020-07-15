@@ -520,6 +520,7 @@ pre {
 .maxWidth80PC { max-width: 80%; }
 .maxWidth640PX { max-width: 640px; }
 .maxWidth180PX { max-width: 180px; }
+.maxWidth100PC86PX { max-width: calc(100% - 86px); }
 .maxWidth100PC42PX { max-width: calc(100% - 42px); }
 
 .minWidth330PX { min-width: 330px; }
