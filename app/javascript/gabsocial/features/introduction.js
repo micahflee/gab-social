@@ -374,6 +374,8 @@ class Introduction extends ImmutablePureComponent {
       )
     })
 
+    const nextTitle = currentIndex === 3 ? 'Finish' : 'Next'
+
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMax80VH].join(' ')}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
@@ -399,7 +401,7 @@ class Introduction extends ImmutablePureComponent {
                 currentIndex === 3 &&
                 <Fragment>
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                    <Text color='white' className={_s.px5}>Finish</Text>
+                    <Text color='white' className={_s.px5}>{nextTitle}</Text>
                   </Responsive>
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
                     <Icon id='check' size='14px' className={_s.fillWhite} />
@@ -448,14 +450,15 @@ class Introduction extends ImmutablePureComponent {
             {pagination}
           </ul>
           <Button
+            isText
             href={currentIndex === 3 ? '/home' : undefined}
-            className={[_s.default, _s.width50PX, _s.mlAuto, _s.opacity05].join(' ')}
+            className={[_s.default, _s.width50PX, _s.height100PC, _s.justifyContentCenter, _s.pr0, _s.pl0, _s.mlAuto, _s.opacity05].join(' ')}
             onClick={this.handleNext}
-            icon={currentIndex === 3 ? 'check' : 'arrow-right'}
             backgroundColor='none'
             color='secondary'
-            iconSize='20px'
-          />
+          >
+            <Text color='inherit' align='right'>{nextTitle}</Text>
+          </Button>
         </div>
       </div>
     )
