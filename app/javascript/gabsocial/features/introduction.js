@@ -211,7 +211,7 @@ class SlideFirstPost extends PureComponent {
             <Fragment>
               <Text size='large' align='center'>Your gab was posted!</Text>
               <br />
-              <Text size='large' align='center'>Click the checkbox in the top right to go to your home page.</Text>
+              <Text size='large' align='center'>Welcome to our community, remember to speak freely.</Text>
               <br />
               <Button
                 href='/home'
@@ -399,7 +399,7 @@ class Introduction extends ImmutablePureComponent {
                 currentIndex === 3 &&
                 <Fragment>
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                    <Text color='white' className={_s.px5}>Complete</Text>
+                    <Text color='white' className={_s.px5}>Finish</Text>
                   </Responsive>
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
                     <Icon id='check' size='14px' className={_s.fillWhite} />
