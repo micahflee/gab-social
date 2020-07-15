@@ -56,6 +56,7 @@ class Api::V1::StatusesController < Api::BaseController
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
                                          markdown: markdown,
+                                         autoJoinGroup: status_params[:autoJoinGroup],
                                          thread: status_params[:in_reply_to_id].blank? ? nil : Status.find(status_params[:in_reply_to_id]),
                                          media_ids: status_params[:media_ids],
                                          sensitive: status_params[:sensitive],
@@ -109,6 +110,7 @@ class Api::V1::StatusesController < Api::BaseController
     params.permit(
       :status,
       :markdown,
+      :autoJoinGroup,
       :in_reply_to_id,
       :quote_of_id,
       :sensitive,

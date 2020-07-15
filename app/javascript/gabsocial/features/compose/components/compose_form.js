@@ -90,6 +90,7 @@ class ComposeForm extends ImmutablePureComponent {
     selectedGifSrc: PropTypes.string,
     isPro: PropTypes.bool,
     hidePro: PropTypes.bool,
+    autoJoinGroup: PropTypes.bool,
   }
 
   static defaultProps = {
@@ -142,14 +143,14 @@ class ComposeForm extends ImmutablePureComponent {
     // }
 
     // Submit disabled:
-    const { isSubmitting, isChangingUpload, isUploading, anyMedia, groupId } = this.props;
+    const { isSubmitting, isChangingUpload, isUploading, anyMedia, groupId, autoJoinGroup } = this.props
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
 
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > MAX_POST_CHARACTER_COUNT || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return;
     }
 
-    this.props.onSubmit(groupId, this.props.replyToId, this.context.router);
+    this.props.onSubmit(groupId, this.props.replyToId, this.context.router, autoJoinGroup)
   }
 
   onSuggestionsClearRequested = () => {

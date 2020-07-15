@@ -7,6 +7,7 @@ import { isMobile } from '../utils/is_mobile'
 import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
 import { urlRegex } from '../features/ui/util/url_regex'
 import { tagHistory } from '../settings';
+import { joinGroup } from './groups'
 import { useEmoji } from './emojis';
 import resizeImage from '../utils/resize_image';
 import { importFetchedAccounts } from './importer';
@@ -260,9 +261,11 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   }
 }
 
-export function submitCompose(groupId, replyToId = null, router, isStandalone) {
+export function submitCompose(groupId, replyToId = null, router, isStandalone, autoJoinGroup) {
   return function (dispatch, getState) {
     if (!me) return;
+
+    if (autoJoinGroup) dispatch(joinGroup(groupId))
 
     let status = getState().getIn(['compose', 'text'], '');
     let markdown = getState().getIn(['compose', 'markdown'], '');
@@ -304,6 +307,7 @@ export function submitCompose(groupId, replyToId = null, router, isStandalone) {
       status,
       markdown,
       scheduled_at,
+      autoJoinGroup,
       in_reply_to_id: inReplyToId,
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
       media_ids: media.map(item => item.get('id')),

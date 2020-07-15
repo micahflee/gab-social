@@ -28,6 +28,7 @@ class PostStatusService < BaseService
     @text        = @options[:text] || ''
     @markdown    = @options[:markdown] if @account.is_pro
     @in_reply_to = @options[:thread]
+    @autoJoinGroup = @options[:autoJoinGroup] || false
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
 
@@ -104,6 +105,7 @@ class PostStatusService < BaseService
     group_id = @options[:group_id]
 
     return if group_id.blank?
+    return if @autoJoinGroup
 
     raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group') if not GroupAccount.where(account: @account, group_id: group_id).exists?
   end

@@ -1,17 +1,22 @@
+import { Fragment } from 'react'
 import ReactSwipeableViews from 'react-swipeable-views'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { CX } from '../constants'
+import {
+  CX,
+  BREAKPOINT_EXTRA_SMALL,
+  GAB_COM_INTRODUCE_YOURSELF_GROUP_ID,
+} from '../constants'
 import { me } from '../initial_state'
 import { saveShownOnboarding } from '../actions/onboarding'
 import { fetchGroups } from '../actions/groups'
+import { saveUserProfileInformation } from '../actions/user'
 import {
   changeCompose,
   clearCompose,
 } from '../actions/compose'
 import { makeGetAccount } from '../selectors'
 import Button from '../components/button'
-import DisplayName from '../components/display_name'
 import Divider from '../components/divider'
 import FileInput from '../components/file_input'
 import GroupListItem from '../components/group_list_item'
@@ -21,12 +26,15 @@ import Image from '../components/image'
 import Input from '../components/input'
 import Text from '../components/text'
 import ComposeFormContainer from './compose/containers/compose_form_container'
+import Responsive from './ui/util/responsive_component'
 
 class SlideWelcome extends PureComponent {
 
   render() {
     return (
       <div className={[_s.default, _s.width100PC, _s.height100PC].join(' ')}>
+        <Image src='/headers/onboarding.png' alt='Welcome to Gab' />
+
         <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
 
           <Text size='large'>Gab is the home of free speech online and a place where users shape their own experience. </Text>
@@ -41,10 +49,6 @@ class SlideWelcome extends PureComponent {
 
         </div>
 
-        <Image
-          className={[_s.mtAuto].join(' ')}
-          src='https://gab.com/system/media_attachments/files/008/707/779/original/42de809171745057.png?1568251173'
-        />
       </div>
     )
   }
@@ -57,35 +61,72 @@ class SlidePhotos extends ImmutablePureComponent {
     account: ImmutablePropTypes.map.isRequired,
   }
 
+  state = {
+    displayNameValue: this.props.account.get('display_name'),
+  }
+
+  handleCoverPhotoChange = (e) => {
+    try {
+      this.props.onSave({ header: e.target.files[0] })
+    } catch (error) {
+      // 
+    }
+  }
+
+  handleProfilePhotoChange = (e) => {
+    try {
+      this.props.onSave({ avatar: e.target.files[0] })
+    } catch (error) {
+      // 
+    }
+  }
+
+  handleDisplayNameChange = (value) => {
+    this.setState({ displayNameValue: value })
+  }
+
+  handleDisplayNameBlur = () => {
+    this.props.onSave({
+      displayName: this.state.displayNameValue,
+    })
+  }
+
   render() {
-    const { account } = this.props
+    const { displayNameValue } = this.state
 
     return (
       <div className={[_s.default, _s.width100PC].join(' ')}>
         <div className={[_s.default, _s.px15, _s.py15, _s.alignItemsCenter].join(' ')}>
 
-          <div className={[_s.default, _s.py10, _s.width330PX].join(' ')}>
+          <div className={[_s.default, _s.py10, _s.maxWidth640PX].join(' ')}>
             <Text size='large' align='center'>Set your cover photo, profile photo and enter your display name so people can find you.</Text>
           </div>
 
           <div className={[_s.default, _s.mt15, _s.width100PC, _s.alignItemsCenter].join(' ')}>
-            <div className={[_s.default, _s.width330PX, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden, _s.radiusSmall].join(' ')}>
-              <Image
-                width={330}
-                height={194}
-                src='http://localhost:3000/system/accounts/headers/000/000/001/original/0a49fe388d16f372.jpg?1562898139'
+            <div className={[_s.default, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden, _s.radiusSmall, _s.bgPrimary].join(' ')}>
+              <FileInput
+                width='300px'
+                height='140px'
+                id='cover-photo'
+                onChange={this.handleCoverPhotoChange}
               />
-              <div className={[_s.default, _s.mtNeg75PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-                <Image
-                  width={142}
-                  height={142}
-                  className={[_s.circle, _s.border6PX, _s.borderColorWhite].join(' ')}
-                  src='http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139'
+              <div className={[_s.default, _s.mtNeg32PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+                <FileInput
+                  width='124px'
+                  height='124px'
+                  id='profile-photo'
+                  className={[_s.circle, _s.border6PX, _s.borderColorWhite, _s.bgPrimary].join(' ')}
+                  onChange={this.handleProfilePhotoChange}
                 />
               </div>
               <div className={[_s.default, _s.py5, _s.px15, _s.mt5, _s.mb15].join(' ')}>
                 <Input
-                  placeholder='John Doe'
+                  id='display-name'
+                  title='Display name'
+                  placeholder='Add your name...'
+                  value={displayNameValue}
+                  onChange={this.handleDisplayNameChange}
+                  onBlur={this.handleDisplayNameBlur}
                 />
               </div>
             </div>
@@ -119,6 +160,7 @@ class SlideGroups extends ImmutablePureComponent {
               groupIds.map((groupId, i) => (
                 <GroupListItem
                   isAddable
+                  isStatic
                   key={`group-collection-item-${i}`}
                   id={groupId}
                   isLast={groupIds.count() - 1 === i}
@@ -136,21 +178,49 @@ class SlideGroups extends ImmutablePureComponent {
 class SlideFirstPost extends PureComponent {
 
   static propTypes = {
+    submitted: PropTypes.bool.isRequired,
     onNext: PropTypes.func.isRequired,
   }
 
   render() {
+    const { submitted } = this.props
+
     return (
       <div className={[_s.default, _s.width100PC].join(' ')}>
         <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
-          <Text size='large' className={_s.pb10}>Now let's make your very first Gab post! Please introduce yourself to the Gab community. How did you hear about Gab? What are you interested in?</Text>
-          <br />
+          {
+            !submitted &&
+            <Fragment>
+              <Text size='large' className={_s.pb10}>Now let's make your very first Gab post! Please introduce yourself to the Gab community. How did you hear about Gab? What are you interested in?</Text>
+              <br />
 
-          <Divider />
+              <Divider />
 
-          <div className={[_s.default, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
-            <ComposeFormContainer hidePro autoFocus />
-          </div>
+              <div className={[_s.default, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
+                <ComposeFormContainer
+                  groupId={GAB_COM_INTRODUCE_YOURSELF_GROUP_ID}
+                  hidePro
+                  autoFocus
+                  autoJoinGroup
+                />
+              </div>
+            </Fragment>
+          }
+          {
+            submitted &&
+            <Fragment>
+              <Text size='large' align='center'>Your gab was posted!</Text>
+              <br />
+              <Text size='large' align='center'>Click the checkbox in the top right to go to your home page.</Text>
+              <br />
+              <Button
+                href='/home'
+                onClick={this.props.onNext}
+              >
+                Finish
+              </Button>
+            </Fragment>
+          }
 
         </div>
       </div>
@@ -163,13 +233,20 @@ const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
   groupIds: state.getIn(['group_lists', 'featured', 'items']),
   shownOnboarding: state.getIn(['settings', 'shownOnboarding'], false),
+  isSubmitting: state.getIn(['compose', 'is_submitting']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onClearCompose: () => dispatch(clearCompose()),
   onSaveShownOnboarding: () => dispatch(saveShownOnboarding()),
   onFetchFeaturedGroups: () => dispatch(fetchGroups('featured')),
-  setPlaceholderCompose: () => dispatch(changeCompose('Hello everyone, I just joined Gab! I’m looking forward to speaking freely and meeting new friends.'))
+  setPlaceholderCompose() {
+    const defaultMessage = 'Hello everyone, I just joined Gab! I’m looking forward to speaking freely and meeting new friends.'
+    dispatch(changeCompose(defaultMessage))
+  },
+  onSaveUserProfileInformation(data) {
+    dispatch(saveUserProfileInformation(data))
+  },
 })
 
 export default
@@ -178,25 +255,31 @@ class Introduction extends ImmutablePureComponent {
 
   static propTypes = {
     account: ImmutablePropTypes.map.isRequired,
-    dispatch: PropTypes.func.isRequired,
     groupIds: ImmutablePropTypes.list,
+    isSubmitting: PropTypes.bool.isRequired,
     shownOnboarding: PropTypes.bool.isRequired,
     setPlaceholderCompose: PropTypes.func.isRequired,
     onClearCompose: PropTypes.func.isRequired,
     onSaveShownOnboarding: PropTypes.func.isRequired,
     onFetchFeaturedGroups: PropTypes.func.isRequired,
+    onSaveUserProfileInformation: PropTypes.func.isRequired,
   }
 
   state = {
     currentIndex: 0,
+    submittedFirstPost: false,
   }
 
   componentDidMount() {
-    if (!this.props.shownOnboarding) {
-      window.addEventListener('keyup', this.handleKeyUp)
-      this.props.onFetchFeaturedGroups()
-      this.props.setPlaceholderCompose()
-      this.props.onSaveShownOnboarding()
+    window.addEventListener('keyup', this.handleKeyUp)
+    this.props.onFetchFeaturedGroups()
+    this.props.setPlaceholderCompose()
+    this.props.onSaveShownOnboarding()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!this.state.submittedFirstPost && !prevProps.isSubmitting && this.props.isSubmitting) {
+      this.setState({ submittedFirstPost: true })
     }
   }
 
@@ -223,7 +306,7 @@ class Introduction extends ImmutablePureComponent {
       currentIndex: newIndex,
     })
 
-    if (newIndex === 3) {
+    if (newIndex === 4) {
       this.props.onClearCompose()
     }
   }
@@ -243,15 +326,25 @@ class Introduction extends ImmutablePureComponent {
     }
   }
 
+  handleOnSaveUserProfileInformation = (data) => {
+    this.props.onSaveUserProfileInformation(data)
+  }
+
   render() {
     const { account, groupIds } = this.props
-    const { currentIndex } = this.state
+    const { currentIndex, submittedFirstPost } = this.state
 
     const pages = [
       <SlideWelcome />,
-      <SlidePhotos account={account} />,
+      <SlidePhotos
+        account={account}
+        onSave={this.handleOnSaveUserProfileInformation}
+      />,
       <SlideGroups groupIds={groupIds} />,
-      <SlideFirstPost />,
+      <SlideFirstPost
+        submitted={submittedFirstPost}
+        onNext={this.handleNext}
+      />,
     ]
 
     const titles = [
@@ -280,24 +373,38 @@ class Introduction extends ImmutablePureComponent {
         </li>
       )
     })
- 
+
     return (
       <div className={[_s.default, _s.width100PC, _s.heightMax80VH].join(' ')}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
-          <Heading>
-            {title}
-          </Heading>
+          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+            <Heading>
+              {title}
+            </Heading>
+          </Responsive>
+          <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+            <Heading size='h2'>
+              {title}
+            </Heading>
+          </Responsive>
           <div className={[_s.mlAuto].join(' ')}>
             <Button
-              to={currentIndex === 3 ? '/home' : undefined}
+              href={currentIndex === 3 ? '/home' : undefined}
               onClick={this.handleNext}
-              className={currentIndex !== 3 ? _s.px10 : undefined}
+              className={_s.px10}
               icon={currentIndex !== 3 ? 'arrow-right' : undefined}
               iconSize={currentIndex !== 3 ? '18px' : undefined}
-            > 
+            >
               {
                 currentIndex === 3 &&
-                <Text color='white' className={[_s.pr5]}>Complete</Text>
+                <Fragment>
+                  <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                    <Text color='white' className={_s.px5}>Complete</Text>
+                  </Responsive>
+                  <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                    <Icon id='check' size='14px' className={_s.fillWhite} />
+                  </Responsive>
+                </Fragment>
               }
             </Button>
           </div>
@@ -341,7 +448,7 @@ class Introduction extends ImmutablePureComponent {
             {pagination}
           </ul>
           <Button
-            to={currentIndex === 3 ? '/home' : undefined}
+            href={currentIndex === 3 ? '/home' : undefined}
             className={[_s.default, _s.width50PX, _s.mlAuto, _s.opacity05].join(' ')}
             onClick={this.handleNext}
             icon={currentIndex === 3 ? 'check' : 'arrow-right'}

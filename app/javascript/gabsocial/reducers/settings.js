@@ -8,7 +8,7 @@ import uuid from '../utils/uuid'
 
 const initialState = ImmutableMap({
   saved: true,
-  onboarded: false,
+  shownOnboarding: false,
   skinTone: 1,
   commentSorting: COMMENT_SORTING_TYPE_OLDEST,
 

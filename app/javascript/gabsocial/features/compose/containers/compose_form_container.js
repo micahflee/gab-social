@@ -102,8 +102,8 @@ const mapDispatchToProps = (dispatch, { isStandalone }) => ({
     dispatch(changeCompose(text, markdown, newReplyToId, isStandalone, position))
   },
 
-  onSubmit(groupId, replyToId, router) {
-    dispatch(submitCompose(groupId, replyToId, router, isStandalone))
+  onSubmit(groupId, replyToId, router, autoJoinGroup) {
+    dispatch(submitCompose(groupId, replyToId, router, isStandalone, autoJoinGroup))
   },
 
   onClearSuggestions() {
