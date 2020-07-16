@@ -11,10 +11,6 @@ import { me } from '../initial_state'
 import { saveShownOnboarding } from '../actions/onboarding'
 import { fetchGroups } from '../actions/groups'
 import { saveUserProfileInformation } from '../actions/user'
-import {
-  changeCompose,
-  clearCompose,
-} from '../actions/compose'
 import { makeGetAccount } from '../selectors'
 import Button from '../components/button'
 import Divider from '../components/divider'
@@ -237,13 +233,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onClearCompose: () => dispatch(clearCompose()),
   onSaveShownOnboarding: () => dispatch(saveShownOnboarding()),
   onFetchFeaturedGroups: () => dispatch(fetchGroups('featured')),
-  setPlaceholderCompose() {
-    const defaultMessage = 'Hello everyone, I just joined Gab! I’m looking forward to speaking freely and meeting new friends.'
-    dispatch(changeCompose(defaultMessage))
-  },
   onSaveUserProfileInformation(data) {
     dispatch(saveUserProfileInformation(data))
   },
@@ -258,8 +249,6 @@ class Introduction extends ImmutablePureComponent {
     groupIds: ImmutablePropTypes.list,
     isSubmitting: PropTypes.bool.isRequired,
     shownOnboarding: PropTypes.bool.isRequired,
-    setPlaceholderCompose: PropTypes.func.isRequired,
-    onClearCompose: PropTypes.func.isRequired,
     onSaveShownOnboarding: PropTypes.func.isRequired,
     onFetchFeaturedGroups: PropTypes.func.isRequired,
     onSaveUserProfileInformation: PropTypes.func.isRequired,
@@ -273,7 +262,6 @@ class Introduction extends ImmutablePureComponent {
   componentDidMount() {
     window.addEventListener('keyup', this.handleKeyUp)
     this.props.onFetchFeaturedGroups()
-    this.props.setPlaceholderCompose()
     this.props.onSaveShownOnboarding()
   }
 
@@ -285,7 +273,6 @@ class Introduction extends ImmutablePureComponent {
 
   componentWillUnmount() {
     window.addEventListener('keyup', this.handleKeyUp)
-    this.props.onClearCompose()
   }
 
   handleDot = (e) => {
@@ -305,10 +292,6 @@ class Introduction extends ImmutablePureComponent {
     this.setState({
       currentIndex: newIndex,
     })
-
-    if (newIndex === 4) {
-      this.props.onClearCompose()
-    }
   }
 
   handleSwipe = (index) => {
