@@ -24,10 +24,10 @@ export default class SettingsLayout extends PureComponent {
         title: 'About',
         to: '/about',
       },
-      {
-        title: 'Assets',
-        to: '/about/assets',
-      },
+      // {
+      //   title: 'Assets',
+      //   to: '/about/assets',
+      // },
       {
         title: 'DMCA',
         to: '/about/dmca',
@@ -36,10 +36,10 @@ export default class SettingsLayout extends PureComponent {
         title: 'Investors',
         to: '/about/investors',
       },
-      {
-        title: 'Press',
-        to: '/about/press',
-      },
+      // {
+      //   title: 'Press',
+      //   to: '/about/press',
+      // },
       {
         title: 'Privacy Policy',
         to: '/about/privacy',
