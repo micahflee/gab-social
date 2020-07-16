@@ -2,15 +2,20 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { withRouter } from 'react-router-dom'
 import { me } from '../initial_state'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import HashtagItem from '../components/hashtag_item'
 import GroupListItem from '../components/group_list_item'
 import Text from '../components/text'
 import Account from '../components/account'
 import PanelLayout from '../components/panel/panel_layout'
+import ColumnIndicator from '../components/column_indicator'
+import Block from '../components/block'
 
 const mapStateToProps = (state) => ({
+  isError: state.getIn(['search', 'isError']),
+  isLoading: state.getIn(['search', 'isLoading']),
   results: state.getIn(['search', 'results']),
-  suggestions: state.getIn(['suggestions', 'items']),
+  submitted: state.getIn(['search', 'submitted']),
 });
 
 export default
@@ -19,8 +24,11 @@ export default
 class Search extends ImmutablePureComponent {
 
   static propTypes = {
-    results: ImmutablePropTypes.map.isRequired,
+    isError: PropTypes.bool.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     location: PropTypes.object,
+    results: ImmutablePropTypes.map.isRequired,
+    submitted: PropTypes.bool.isRequired,
   }
 
   state = {
@@ -28,11 +36,39 @@ class Search extends ImmutablePureComponent {
   }
 
   render() {
-    const { results, location } = this.props
+    const {
+      isError,
+      isLoading,
+      location,
+      results,
+      submitted,
+    } = this.props
     const { isSmallScreen } = this.state
 
-    if (results.isEmpty() && isSmallScreen) {
-      return null
+    if (isLoading) {
+      return <ColumnIndicator type='loading' />
+    }
+
+    if (isError) {
+      return (
+        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+          <Block>
+            <ColumnIndicator type='error' message='Error fetching search results.' />
+          </Block>
+        </ResponsiveClassesComponent>
+      )
+    }
+
+    if ((results.isEmpty() && isSmallScreen) || (!submitted && results.isEmpty())) {
+      return (
+        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+          <Block>
+            <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
+              <Text>Type in the box above and submit to perform a search.</Text>
+            </div>
+          </Block>
+        </ResponsiveClassesComponent>
+      )
     }
 
     const pathname = location.pathname || ''
@@ -43,7 +79,7 @@ class Search extends ImmutablePureComponent {
     const theLimit = 4
 
     let accounts, statuses, hashtags, groups
-    
+
     // : todo : statuses
 
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
@@ -130,6 +166,16 @@ class Search extends ImmutablePureComponent {
           </div>
           {results.get('hashtags').slice(0, size).map(hashtag => <HashtagItem isCompact key={hashtag.get('name')} hashtag={hashtag} />)}
         </PanelLayout>
+      )
+    }
+
+    if (!accounts && !statuses && !hashtags && !groups) {
+      return (
+        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+          <Block>
+            <ColumnIndicator type='missing' message='No search results.' />
+          </Block>
+        </ResponsiveClassesComponent>
       )
     }
 

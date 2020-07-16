@@ -1,6 +1,8 @@
 import {
   SEARCH_CHANGE,
   SEARCH_CLEAR,
+  SEARCH_FETCH_REQUEST,
+  SEARCH_FETCH_FAIL,
   SEARCH_FETCH_SUCCESS,
   SEARCH_SHOW,
 } from '../actions/search';
@@ -14,11 +16,23 @@ const initialState = ImmutableMap({
   value: '',
   submitted: false,
   hidden: false,
+  isLoading: false,
+  isError: false,
   results: ImmutableMap(),
 });
 
 export default function search(state = initialState, action) {
   switch(action.type) {
+  case SEARCH_FETCH_REQUEST:
+    return state.withMutations(map => {
+      map.set('isError', false);
+      map.set('isLoading', true);
+    });
+  case SEARCH_FETCH_FAIL:
+    return state.withMutations(map => {
+      map.set('isError', true);
+      map.set('isLoading', false);
+    });
   case SEARCH_CHANGE:
     return state.withMutations(map => {
       map.set('value', action.value);
@@ -30,6 +44,8 @@ export default function search(state = initialState, action) {
       map.set('results', ImmutableMap());
       map.set('submitted', false);
       map.set('hidden', false);
+      map.set('isLoading', false);
+      map.set('isError', false);
     });
   case SEARCH_SHOW:
     return state.set('hidden', false);
@@ -42,7 +58,7 @@ export default function search(state = initialState, action) {
       statuses: ImmutableList(action.results.statuses.map(item => item.id)),
       hashtags: fromJS(action.results.hashtags),
       groups: fromJS(action.results.groups),
-    })).set('submitted', true);
+    })).set('submitted', true).set('isLoading', false).set('isError', false);
   default:
     return state;
   }
