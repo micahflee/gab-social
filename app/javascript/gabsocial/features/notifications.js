@@ -57,6 +57,10 @@ class Notifications extends ImmutablePureComponent {
     selectedFilter: PropTypes.string.isRequired,
   }
 
+  state = {
+    changedTabs: false,
+  }
+
   componentWillUnmount() {
     this.handleLoadOlder.cancel()
     this.handleScrollToTop.cancel()
@@ -69,12 +73,20 @@ class Notifications extends ImmutablePureComponent {
     this.props.onScrollTopNotifications(true)
   }
 
-  componentDidUpdate (prevProps) {
+  componentDidUpdate (prevProps, prevState) {
     //Check if clicked on "notifications" button, if so, reload
     if (prevProps.location.key !== this.props.location.key &&
         prevProps.location.pathname === '/notifications' &&
         this.props.location.pathname === '/notifications') {
       this.handleReload()
+    }
+
+    if (prevProps.selectedFilter !== this.props.selectedFilter) {
+      this.setState({ changedTabs: true })
+    }
+
+    if (prevProps.selectedFilter === this.props.selectedFilter && prevState.changedTabs) {
+      this.setState({ changedTabs: false })
     }
   }
 
@@ -107,8 +119,9 @@ class Notifications extends ImmutablePureComponent {
       totalQueuedNotificationsCount,
       selectedFilter,
     } = this.props
+    const { changedTabs } = this.state
 
-    if (isLoading) {
+    if (isLoading && changedTabs) {
       return <ColumnIndicator type='loading' />
     }
 
