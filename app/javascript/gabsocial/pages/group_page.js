@@ -56,6 +56,7 @@ class GroupPage extends ImmutablePureComponent {
 				showBackBtn
 				title={groupTitle}
 				group={group}
+				groupId={groupId}
 				relationships={relationships}
 			>
 				<PageTitle path={[groupTitle, intl.formatMessage(messages.group)]} />

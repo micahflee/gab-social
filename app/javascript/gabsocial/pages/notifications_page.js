@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+
 import { defineMessages, injectIntl } from 'react-intl'
 import { setFilter } from '../actions/notifications'
 import { me } from '../initial_state'
@@ -86,14 +86,13 @@ class NotificationsPage extends PureComponent {
     return (
       <DefaultLayout
         title={intl.formatMessage(messages.notifications)}
-        layout={(
-          <Fragment>
-            <NotificationFilterPanel />
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        page='notifications'
+        layout={[
+          <NotificationFilterPanel key='notification-page-filter-panel' />,
+          <TrendsPanel key='notification-page-trends-panel' />,
+          <WhoToFollowPanel key='notification-page-wtf-panel' />,
+          <LinkFooter key='notification-page-link-footer' />,
+        ]}
         tabs={tabs}
       >
         <PageTitle

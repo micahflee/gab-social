@@ -1,6 +1,6 @@
-import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
+import isObject from 'lodash.isobject'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
@@ -30,6 +30,7 @@ class HashtagPage extends PureComponent {
     intl: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
     onOpenHashtagPageSettingsModal: PropTypes.func.isRequired,
+    params: PropTypes.object.isRequired,
   }
 
   render() {
@@ -37,25 +38,27 @@ class HashtagPage extends PureComponent {
       intl,
       children,
       onOpenHashtagPageSettingsModal,
+      params,
     } = this.props
+
+    const hashtag = isObject(params) ? params.id : ''
 
     return (
       <DefaultLayout
         title={intl.formatMessage(messages.hashtagTimeline)}
+        page={`hashtag.${hashtag}`}
         actions={[
           {
             icon: 'ellipsis',
             onClick: onOpenHashtagPageSettingsModal,
           },
         ]}
-        layout={(
-          <Fragment>
-            <ProgressPanel />
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <ProgressPanel key='hashtag-page-progress-panel' />,
+          <TrendsPanel key='hashtag-page-trends-panel' />,
+          <WhoToFollowPanel key='hashtag-page-wtf-panel' />,
+          <LinkFooter key='hashtag-page-link-footer' />,
+        ]}
       >
         <PageTitle path={intl.formatMessage(messages.hashtag)} />
         {children}

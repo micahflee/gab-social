@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import ProgressPanel from '../components/panel/progress_panel'
@@ -18,17 +17,16 @@ export default class ExplorePage extends PureComponent {
 
     return (
       <DefaultLayout
+        page='explore'
         title={title}
         noComposeButton
         showBackBtn
-        layout={(
-          <Fragment>
-            <ProgressPanel />
-            <VerifiedAccountsPanel />
-            <ShopPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <ProgressPanel key='explore-page-progress-panel' />,
+          <VerifiedAccountsPanel key='explore-page-verified-panel' />,
+          <ShopPanel key='explore-page-shop-panel' />,
+          <LinkFooter key='explore-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         {children}

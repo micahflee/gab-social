@@ -16,6 +16,7 @@ export default class AboutPage extends PureComponent {
         noComposeButton
         showBackBtn
         title={title}
+        page='about'
       >
         <PageTitle path={title} />
         {children}

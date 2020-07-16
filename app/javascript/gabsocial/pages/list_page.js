@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -66,6 +65,7 @@ class ListPage extends ImmutablePureComponent {
       <DefaultLayout
         showBackBtn
         title={intl.formatMessage(messages.list)}
+        page='list'
         actions={[
           {
             icon: 'cog',
@@ -76,14 +76,12 @@ class ListPage extends ImmutablePureComponent {
           //   onClick: onOpenListTimelineSettingsModal,
           // },
         ]}
-        layout={(
-          <Fragment>
-            <ListDetailsPanel list={list} onEdit={this.handleOnOpenListEditModal} />
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <ListDetailsPanel list={list} onEdit={this.handleOnOpenListEditModal} key='list-page-list-panel' />,
+          <TrendsPanel key='list-page-trends-panel' />,
+          <WhoToFollowPanel key='list-page-wtf-panel' />,
+          <LinkFooter key='list-page-link-footer' />,
+        ]}
       >
         <PageTitle path={[title, intl.formatMessage(messages.list)]} />
         { children }

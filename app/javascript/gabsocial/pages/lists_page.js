@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
@@ -38,19 +37,18 @@ class ListsPage extends PureComponent {
     return (
       <DefaultLayout
         title={intl.formatMessage(messages.lists)}
+        page='lists'
         actions={[
           {
             icon: 'add',
             onClick: onOpenListCreateModal,
           },
         ]}
-        layout={(
-          <Fragment>
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <TrendsPanel key='lists-page-trends-panel' />,
+          <WhoToFollowPanel key='lists-page-wtf-panel' />,
+          <LinkFooter key='lists-page-link-footer' />,
+        ]}
         showBackBtn
       >
         <PageTitle path={intl.formatMessage(messages.lists)} />

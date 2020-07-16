@@ -6,6 +6,7 @@ import {
 import { me } from '../initial_state'
 import Sidebar from '../components/sidebar'
 import SidebarXS from '../components/sidebar_xs'
+import SidebarPanelGroup from '../components/sidebar_panel_group'
 import NavigationBar from '../components/navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
@@ -19,10 +20,11 @@ export default class Layout extends PureComponent {
   static propTypes = {
     actions: PropTypes.array,
     children: PropTypes.node,
-    layout: PropTypes.object,
+    layout: PropTypes.array,
     noComposeButton: PropTypes.bool,
     noRightSidebar: PropTypes.bool,
     noSidebar: PropTypes.bool,
+    page: PropTypes.string,
     showBackBtn: PropTypes.bool,
     tabs: PropTypes.array,
     title: PropTypes.string,
@@ -36,6 +38,7 @@ export default class Layout extends PureComponent {
       noComposeButton,
       noRightSidebar,
       noSidebar,
+      page,
       showBackBtn,
       tabs,
       title,
@@ -126,7 +129,7 @@ export default class Layout extends PureComponent {
                     <div className={[_s.default, _s.width340PX, _s.ml15].join(' ')}>
                       <Sticky top={73} enabled>
                         <div className={[_s.default, _s.width340PX].join(' ')}>
-                          {layout}
+                          <SidebarPanelGroup layout={layout} page={page} />
                         </div>
                       </Sticky>
                     </div>

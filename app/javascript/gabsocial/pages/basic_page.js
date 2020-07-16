@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import LinkFooter from '../components/link_footer'
@@ -8,25 +7,29 @@ import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 export default class BasicPage extends PureComponent {
 
   static propTypes = {
-    title: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired,
+    page: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
   }
 
   render() {
-    const { children, title } = this.props
+    const {
+      children,
+      page,
+      title,
+    } = this.props
 
     return (
       <DefaultLayout
         noComposeButton
         showBackBtn
         title={title}
-        layout={(
-          <Fragment>
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        page={page}
+        layout={[
+          <TrendsPanel key='basic-page-trends-panel' />,
+          <WhoToFollowPanel key='basic-page-wtf-panel' />,
+          <LinkFooter key='basic-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         {children}

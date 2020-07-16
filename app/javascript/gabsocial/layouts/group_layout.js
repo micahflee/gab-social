@@ -8,6 +8,7 @@ import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import GroupSidebarPanel from '../components/panel/groups_panel'
 import LinkFooter from '../components/link_footer'
 import GroupHeader from '../components/group_header'
+import SidebarPanelGroup from '../components/sidebar_panel_group'
 import Responsive from '../features/ui/util/responsive_component';
 
 export default class GroupLayout extends ImmutablePureComponent {
@@ -16,6 +17,7 @@ export default class GroupLayout extends ImmutablePureComponent {
     actions: PropTypes.array,
     children: PropTypes.node,
     group: ImmutablePropTypes.map,
+    groupId: PropTypes.string,
     layout: PropTypes.object,
     relationships: ImmutablePropTypes.map,
     showBackBtn: PropTypes.bool,
@@ -27,6 +29,7 @@ export default class GroupLayout extends ImmutablePureComponent {
       actions,
       children,
       group,
+      groupId,
       layout,
       relationships,
       showBackBtn,
@@ -40,6 +43,7 @@ export default class GroupLayout extends ImmutablePureComponent {
         actions={actions}
         showBackBtn={showBackBtn}
         title={title}
+        page='group'
       >
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <div className={[_s.default, _s.width100PC].join(' ')}>
@@ -70,10 +74,15 @@ export default class GroupLayout extends ImmutablePureComponent {
               <div className={[_s.default, _s.ml15, _s.width340PX].join(' ')}>
                 <Sticky top={73} enabled>
                   <div className={[_s.default, _s.width340PX].join(' ')}>
-                    <GroupInfoPanel group={group} />
-                    <WhoToFollowPanel />
-                    <GroupSidebarPanel isSlim />
-                    <LinkFooter />
+                    <SidebarPanelGroup
+                      page={`group.${groupId}`}
+                      layout={[
+                        <GroupInfoPanel group={group} key='group-page-info-panel' />,
+                        <WhoToFollowPanel key='group-page-wtf-panel' />,
+                        <GroupSidebarPanel isSlim key='group-page-group-panel' />,
+                        <LinkFooter key='group-page-link-footer' />,
+                      ]}
+                    />
                   </div>
                 </Sticky>
               </div>

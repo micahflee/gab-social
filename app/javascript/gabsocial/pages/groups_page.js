@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
@@ -93,13 +92,12 @@ class GroupsPage extends PureComponent {
         title={title}
         actions={actions}
         tabs={tabs}
-        layout={(
-          <Fragment>
-            <WhoToFollowPanel />
-            <GroupsPanel slim />
-            <LinkFooter />
-          </Fragment>
-        )}
+        page='groups'
+        layout={[
+          <WhoToFollowPanel key='groups-page-wtf-panel' />,
+          <GroupsPanel slim key='groups-page-groups-panel' />,
+          <LinkFooter key='groups-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         { children }

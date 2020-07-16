@@ -170,7 +170,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
 
-        <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose' }} />
+        <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
@@ -180,10 +180,10 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/groups/browse/member' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'member' }} />
         <WrappedRoute path='/groups/browse/admin' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'admin' }} />
 
-        <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group' }} />
+        <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group', page: 'create-group' }} />
         { /* <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} /> 
         <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />  */}
-        <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group' }} />
+        <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group', page: 'edit-group' }} />
         <WrappedRoute path='/groups/:id' page={GroupPage} component={GroupTimeline} content={children} />
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
@@ -191,8 +191,8 @@ class SwitchingArea extends PureComponent {
         { /* <WrappedRoute path='/shortcuts' publicRoute page={ShortcutsPage} component={Shortcuts} content={children} /> */ }
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
-        <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List' }} />
-        <WrappedRoute path='/lists/:id/edit' exact page={ModalPage} component={ListEdit} content={children} componentParams={{ title: 'Edit List' }} />
+        <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List', page: 'create-list' }} />
+        <WrappedRoute path='/lists/:id/edit' exact page={ModalPage} component={ListEdit} content={children} componentParams={{ title: 'Edit List', page: 'edit-list' }} />
         <WrappedRoute path='/lists/:id' page={ListPage} component={ListTimeline} content={children} />
 
         <WrappedRoute path='/notifications' exact page={NotificationsPage} component={Notifications} content={children} />
@@ -229,7 +229,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
 
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
-        <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status' }} />
+        <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 
         { /*
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />

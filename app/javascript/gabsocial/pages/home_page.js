@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import throttle from 'lodash.throttle'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -91,6 +90,7 @@ class HomePage extends PureComponent {
 
     return (
       <DefaultLayout
+        page='home'
         title={intl.formatMessage(messages.home)}
         actions={[
           {
@@ -98,19 +98,17 @@ class HomePage extends PureComponent {
             onClick: onOpenHomePageSettingsModal,
           },
         ]}
-        layout={(
-          <Fragment>
-            <UserPanel />
-            <ProgressPanel />
-            <ProPanel isPro={isPro} />
-            <TrendsPanel />
-            <ShopPanel isLazy shouldLoad={lazyLoaded} />
-            <ListsPanel isLazy shouldLoad={lazyLoaded} />
-            <WhoToFollowPanel isLazy shouldLoad={lazyLoaded} />
-            <GroupsPanel isLazy shouldLoad={lazyLoaded} />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <UserPanel key='home-page-user-panel' />,
+          <ProgressPanel key='home-page-progress-panel' />,
+          <ProPanel isPro={isPro} key='home-page-pro-panel' />,
+          <TrendsPanel key='home-page-trends-panel' />,
+          <ShopPanel isLazy shouldLoad={lazyLoaded} key='home-page-shop-panel' />,
+          <ListsPanel isLazy shouldLoad={lazyLoaded} key='home-page-lists-panel' />,
+          <WhoToFollowPanel isLazy shouldLoad={lazyLoaded} key='home-page-wtf-panel' />,
+          <GroupsPanel isLazy shouldLoad={lazyLoaded} key='home-page-groups-panel' />,
+          <LinkFooter key='home-page-link-footer' />,
+        ]}
       >
 
         <PageTitle

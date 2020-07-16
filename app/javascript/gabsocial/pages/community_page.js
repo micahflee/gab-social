@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import PageTitle from '../features/ui/util/page_title'
@@ -38,21 +37,20 @@ class CommunityPage extends PureComponent {
     return (
       <DefaultLayout
         title={title}
+        page='community'
         actions={[
           {
             icon: 'ellipsis',
             onClick: onOpenCommunityPageSettingsModal,
           },
         ]}
-        layout={(
-          <Fragment>
-            <ProgressPanel />
-            <TrendsPanel />
-            <WhoToFollowPanel />
-            <GroupSidebarPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        layout={[
+          <ProgressPanel key='community-page-progress-panel' />,
+          <TrendsPanel key='community-page-progress-panel' />,
+          <WhoToFollowPanel key='community-page-wtf-panel' />,
+          <GroupSidebarPanel key='community-page-groups-panel' />,
+          <LinkFooter key='community-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         {children}

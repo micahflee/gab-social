@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Responsive from '../features/ui/util/responsive_component'
@@ -17,17 +16,23 @@ const messages = defineMessages({
   hashtags: { id: 'hashtags', defaultMessage: 'Hashtags' },
 })
 
+const mapStateToProps = (state) => ({
+  value: state.getIn(['search', 'value']),
+})
+
 export default
 @injectIntl
+@connect(mapStateToProps)
 class SearchPage extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
+    value: PropTypes.string,
   }
 
   render() {
-    const { intl, children } = this.props
+    const { intl, children, value } = this.props
 
     const title = intl.formatMessage(messages.search)
     const tabs = [
@@ -49,19 +54,20 @@ class SearchPage extends PureComponent {
       },
     ]
 
+    const qos = !!value ? value : ''
+
     return (
       <Layout
         noComposeButton
         title={title}
         showBackBtn
         tabs={tabs}
-        layout={(
-          <Fragment>
-            <SearchFilterPanel />
-            <TrendsPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        page={`search.${qos}`}
+        layout={[
+          <SearchFilterPanel key='search-page-search-panel' />,
+          <TrendsPanel key='search-page-trends-panel' />,
+          <LinkFooter key='search-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         

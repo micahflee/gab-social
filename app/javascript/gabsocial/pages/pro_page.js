@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
@@ -27,13 +26,12 @@ class ProPage extends PureComponent {
     return (
       <DefaultLayout
         title={title}
-        layout={(
-          <Fragment>
-            <ProgressPanel />
-            <VerifiedAccountsPanel />
-            <LinkFooter />
-          </Fragment>
-        )}
+        page='pro'
+        layout={[
+          <ProgressPanel key='pro-page-progress-panel' />,
+          <VerifiedAccountsPanel key='pro-page-verified-panel' />,
+          <LinkFooter key='pro-page-link-footer' />,
+        ]}
       >
         <PageTitle path={title} />
         {children}
