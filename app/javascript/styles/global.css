@@ -9,6 +9,7 @@
   --color_black: #2d3436;
   --color_black-opaque: rgba(0, 0, 0, .8);
   --color_black-opaquer: rgba(0, 0, 0, .65);
+  --color_black-opaquest: rgba(0, 0, 0, .3);
   --color_gold: #ffd700;
   --color_red: #de2960;
   --color_red-dark: #c72c5b;
@@ -395,6 +396,7 @@ pre {
 .bgBlack { background-color: var(--color_black); }
 .bgBlackOpaque { background-color: var(--color_black-opaquer); }
 .bgBlackOpaque_onHover:hover { background-color: var(--color_black-opaque); }
+.bgBlackOpaquest_onHover:hover { background-color: var(--color_black-opaquest); }
 
 .bgBrand { background-color: var(--color_brand); }
 .bgBrand_onHover:hover { background-color: var(--color_brand); }
