@@ -1,7 +1,7 @@
 import isObject from 'lodash.isobject'
 import api from '../api'
 import { me } from '../initial_state'
-import { importAccount } from './importer'
+import { importFetchedAccount } from './importer'
 
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_REQUEST = 'SAVE_USER_PROFILE_INFORMATION_FETCH_REQUEST'
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS = 'SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS'
@@ -14,17 +14,18 @@ export const saveUserProfileInformation = (data) => {
     dispatch(saveUserProfileInformationRequest())
 
     const formData = new FormData()
-    if (data.displayName) formData.append('display_name', data.displayName)
-    if (data.note) formData.append('note', data.note)
-    if (data.avatar) formData.append('avatar', data.avatar)
-    if (data.header) formData.append('header', data.header)
+    if (!!data.displayName) formData.append('display_name', data.displayName)
+    if (data.note !== undefined) formData.append('note', data.note)
+    if (data.avatar !== undefined) formData.append('avatar', data.avatar)
+    if (data.header !== undefined) formData.append('header', data.header)
+    if (data.locked !== undefined) formData.append('locked', data.locked)
 
     api(getState).patch('/api/v1/accounts/update_credentials', formData, {
       headers: {
         'Content-Type': 'multipart/form-data'
       }
     }).then((response) => {
-      dispatch(importAccount(response.data))
+      dispatch(importFetchedAccount(response.data))
       dispatch(saveUserProfileInformationSuccess(response.data))
     }).catch(error => {
       dispatch(saveUserProfileInformationFail(error))
