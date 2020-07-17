@@ -19,6 +19,7 @@ export function normalizeAccount(account) {
   account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
   account.display_name_plain = emojify(escapeTextContentForBrowser(displayName), emojiMap, true);
   account.note_emojified = emojify(account.note, emojiMap);
+  account.note_plain = unescapeHTML(account.note)
 
   if (account.fields) {
     account.fields = account.fields.map(pair => ({
