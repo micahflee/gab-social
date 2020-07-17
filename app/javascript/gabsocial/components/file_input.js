@@ -25,6 +25,7 @@ export default class FileInput extends PureComponent {
 
   state = {
     file: this.props.file,
+    hovering: false,
   }
 
   handleOnChange = (e) => {
@@ -32,6 +33,14 @@ export default class FileInput extends PureComponent {
     this.setState({
       file: URL.createObjectURL(e.target.files[0])
     })
+  }
+
+  handleMouseLeave = () => {
+    this.setState({ hovering: false })
+  }
+
+  handleMouseEnter = () => {
+    this.setState({ hovering: true })
   }
 
   render() {
@@ -45,7 +54,7 @@ export default class FileInput extends PureComponent {
       className,
       isBordered,
     } = this.props
-    const { file } = this.state
+    const { file, hovering } = this.state
 
     const containerClasses = CX(className, {
       default: 1,
@@ -61,8 +70,16 @@ export default class FileInput extends PureComponent {
       borderDashed: isBordered,
     })
 
+    const iconClasses = CX({
+      fillSecondary: !hovering,
+      fillWhite: hovering,
+    })
+
     return (
-      <div>
+      <div
+        onMouseEnter={this.handleMouseEnter}
+        onMouseLeave={this.handleMouseLeave}
+      >
         {
           !!title &&
           <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
@@ -82,13 +99,13 @@ export default class FileInput extends PureComponent {
         >
           <Image
             alt={title || id}
-            className={[_s.height100PC, _s.width100PC, _s.radiusSmall].join(' ')}
+            className={[_s.height100PC, _s.width100PC].join(' ')}
             src={fileType === 'image' ? file : null}
           />
           {
-            !file &&
-            <div className={[_s.posAbs, _s.cursorPointer].join(' ')}>
-              <Icon id='add-image' size='32px' className={_s.fillSecondary} />
+            (!file || hovering) &&
+            <div className={[_s.default, _s.posAbs, _s.cursorPointer, _s.top0, _s.bottom0, _s.left0, _s.right0, _s.alignItemsCenter, _s.justifyContentCenter, _s.bgBlackOpaquest_onHover].join(' ')}>
+              <Icon id='add-image' size='32px' className={iconClasses} />
             </div>
           }
         </label>
