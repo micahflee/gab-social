@@ -208,7 +208,7 @@ class ProfileHeader extends ImmutablePureComponent {
                         backgroundColor='none'
                         color='brand'
                         className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                        href='/settings/profile'
+                        onClick={this.handleOnEditProfile}
                       >
                         <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
                           {intl.formatMessage(messages.editProfile)}
@@ -310,7 +310,7 @@ class ProfileHeader extends ImmutablePureComponent {
                           backgroundColor='none'
                           color='brand'
                           className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-                          href='/settings/profile'
+                          onClick={this.handleOnEditProfile}
                         >
                           <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
                             {intl.formatMessage(messages.editProfile)}

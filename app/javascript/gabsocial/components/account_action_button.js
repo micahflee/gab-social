@@ -8,6 +8,7 @@ import {
 } from '../actions/accounts'
 import { openModal } from '../actions/modal'
 import { me, unfollowModal } from '../initial_state'
+import { MODAL_EDIT_PROFILE } from '../constants'
 import Button from './button'
 import Text from './text'
 
@@ -51,6 +52,10 @@ const mapDispatchToProps = (dispatch) => ({
     }
   },
 
+  onOpenEditProfile() {
+    dispatch(openModal(MODAL_EDIT_PROFILE))
+  },
+
 });
 
 export default
@@ -64,6 +69,7 @@ class AccountActionButton extends ImmutablePureComponent {
     isSmall: PropTypes.bool,
     onBlock: PropTypes.func.isRequired,
     onFollow: PropTypes.func.isRequired,
+    onOpenEditProfile: PropTypes.func.isRequired,
   }
 
   updateOnProps = [
@@ -78,6 +84,10 @@ class AccountActionButton extends ImmutablePureComponent {
     this.props.onBlock(this.props.account)
   }
 
+  handleOnEditProfile = () => {
+    this.props.onOpenEditProfile()
+  }
+  
   render() {
     const {
       account,
@@ -98,7 +108,7 @@ class AccountActionButton extends ImmutablePureComponent {
     if (isMe) {
       buttonText = intl.formatMessage(messages.edit_profile)
       buttonOptions = {
-        href: '/settings/profile',
+        onClick: this.handleOnEditProfile,
         color: 'brand',
         backgroundColor: 'none',
         isOutline: true,

@@ -62,6 +62,10 @@ class UserPanel extends ImmutablePureComponent {
     this.setState({ hovering: false })
   }
 
+  handleOnEditProfile = () => {
+    this.props.onOpenEditProfile()
+  }
+
   render() {
     const {
       account,
@@ -98,7 +102,7 @@ class UserPanel extends ImmutablePureComponent {
             backgroundColor='secondary'
             radiusSmall
             className={buttonClasses}
-            href='/settings/profile'
+            onClick={this.handleOnEditProfile}
           >
             {intl.formatMessage(messages.edit_profile)}
           </Button>
