@@ -19,7 +19,9 @@ export default class SidebarPanelGroup extends PureComponent {
 
       if (!!promotion) {
         const correctedPosition = promotion.position - 1 > layout.length ? layout.length - 1 : promotion.position
-        layout.splice(correctedPosition, 0, <StatusPromotionPanel key='status-promotion-panel' statusId={promotion.status_id} />)
+        if (!layout.find(p => p.key === 'status-promotion-panel')) {
+          layout.splice(correctedPosition, 0, <StatusPromotionPanel key='status-promotion-panel' statusId={promotion.status_id} />)
+        }
       }
     }
 
