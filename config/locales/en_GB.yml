@@ -792,6 +792,9 @@ en_GB:
     over_daily_limit: You have exceeded the limit of %{limit} scheduled toots for that day
     over_total_limit: You have exceeded the limit of %{limit} scheduled toots
     too_soon: The scheduled date must be in the future
+  shortcuts:
+    errors:
+      limit: You have reached the maximum amount of shortcuts
   sessions:
     activity: Last activity
     browser: Browser
