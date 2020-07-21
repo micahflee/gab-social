@@ -2,6 +2,7 @@ import { Fragment } from 'react'
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
+import Image from './image'
 import Text from './text'
 
 const cx = classNames.bind(_s)
@@ -10,6 +11,7 @@ export default class ListItem extends PureComponent {
 
   static propTypes = {
     icon: PropTypes.string,
+    image: PropTypes.string,
     isLast: PropTypes.bool,
     isHidden: PropTypes.bool,
     to: PropTypes.string,
@@ -17,6 +19,7 @@ export default class ListItem extends PureComponent {
     title: PropTypes.string,
     subtitle: PropTypes.string,
     isActive: PropTypes.bool,
+    actionIcon: PropTypes.bool,
     onClick: PropTypes.func,
     size: PropTypes.oneOf([
       'small',
@@ -32,8 +35,10 @@ export default class ListItem extends PureComponent {
       to,
       href,
       onClick,
+      actionIcon,
       size,
       icon,
+      image,
       hideArrow,
       isHidden,
       subtitle,
@@ -59,6 +64,7 @@ export default class ListItem extends PureComponent {
 
     const textSize = small ? 'small' : large ? 'large' : 'normal'
     const iconSize = large ? '14px' : '10px'
+    const imageSize = large ? '22px' : '18px'
     const showActive = isActive !== undefined
 
     const containerClasses = cx({
@@ -82,7 +88,8 @@ export default class ListItem extends PureComponent {
     const iconClasses = cx({
       mr10: !large,
       mr15: large,
-      fillPrimary: 1,
+      fillPrimary: !!icon,
+      circle: !icon && !!image,
     })
 
     const textContainerClasses = cx({
@@ -99,6 +106,16 @@ export default class ListItem extends PureComponent {
         className={containerClasses}
         noClasses
       >
+
+        {
+          !!image &&
+          <Image
+            src={image}
+            height={imageSize}
+            width={imageSize}
+            className={iconClasses}
+          />
+        }
 
         {
           !!icon &&
@@ -125,7 +142,7 @@ export default class ListItem extends PureComponent {
         {
           !hideArrow &&
           <Icon
-            id='angle-right'
+            id={!!actionIcon ? actionIcon : 'angle-right'}
             size='10px'
             className={[_s.mlAuto, _s.fillSecondary, _s.flexShrink1].join(' ')}
           />
