@@ -85,7 +85,7 @@ class CommentSortingOptionsPopover extends PureComponent {
 
     return (
       <PopoverLayout
-        width={180}
+        width={280}
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
