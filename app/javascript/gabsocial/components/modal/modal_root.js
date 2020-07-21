@@ -1,9 +1,9 @@
-import { Fragment } from 'react'
 import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
 import ModalBase from './modal_base'
-import BundleModalError from '../bundle_modal_error'
+import BundleErrorModal from './bundle_error_modal'
+import LoadingModal from './loading_modal'
 import {
   MODAL_BLOCK_ACCOUNT,
   MODAL_BOOST,
@@ -152,11 +152,11 @@ class ModalRoot extends PureComponent {
   }
 
   renderLoading = () => {
-    return null
+    return <LoadingModal />
   }
 
   renderError = () => {
-    return <BundleModalError {...this.props} onClose={this.onClickClose} />
+    return <BundleErrorModal {...this.props} onClose={this.onClickClose} />
   }
 
   onClickClose = () => {
@@ -179,7 +179,7 @@ class ModalRoot extends PureComponent {
             fetchComponent={MODAL_COMPONENTS[type]}
             loading={this.renderLoading}
             error={this.renderError}
-            renderDelay={200}
+            renderDelay={150}
           >
             {
               (Component) => <Component {...props} onClose={this.onClickClose} />

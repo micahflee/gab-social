@@ -54,7 +54,6 @@ export function ListTimeline() { return import(/* webpackChunkName: "features/li
 export function ListTimelineSettingsModal() { return import(/* webpackChunkName: "components/list_timeline_settings_modal" */'../../../components/modal/list_timeline_settings_modal') }
 export function MediaGallery() { return import(/* webpackChunkName: "components/media_gallery" */'../../../components/media_gallery') }
 export function MediaModal() { return import(/* webpackChunkName: "components/media_modal" */'../../../components/modal/media_modal') }
-export function ModalLoading() { return import(/* webpackChunkName: "components/modal_loading" */'../../../components/modal/modal_loading') }
 export function Mutes() { return import(/* webpackChunkName: "features/mutes" */'../../mutes') }
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }

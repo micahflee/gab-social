@@ -35,6 +35,8 @@ import { getWindowDimension } from '../../utils/is_mobile'
 import Bundle from '../../features/ui/util/bundle'
 import ModalBase from '../modal/modal_base'
 import PopoverBase from './popover_base'
+import ErrorPopover from './error_popover'
+import LoadingPopover from './loading_popover'
 
 const initialState = getWindowDimension()
 
@@ -102,8 +104,12 @@ class PopoverRoot extends PureComponent {
     this.setState({ width })
   }
 
-  renderEmpty = () => {
-    return <div />
+  renderLoading = () => {
+    return <LoadingPopover />
+  }
+
+  renderError = () => {
+    return <ErrorPopover />
   }
 
   render() {
@@ -130,9 +136,9 @@ class PopoverRoot extends PureComponent {
           visible &&
           <Bundle
             fetchComponent={POPOVER_COMPONENTS[type]}
-            loading={this.renderEmpty}
-            error={this.renderEmpty}
-            renderDelay={200}
+            loading={this.renderLoading}
+            error={this.renderError}
+            renderDelay={150}
           >
             {
               (Component) => <Component isXS={isXS} {...props} />
