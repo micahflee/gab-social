@@ -16,7 +16,7 @@ class Auth::PasswordsController < Devise::PasswordsController
   end
 
   def set_body_classes
-    @body_classes = 'lighter'
+    @body_classes = ''
   end
 
   def reset_password_token_is_valid?

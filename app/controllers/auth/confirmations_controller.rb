@@ -25,7 +25,7 @@ class Auth::ConfirmationsController < Devise::ConfirmationsController
   end
 
   def set_body_classes
-    @body_classes = 'lighter'
+    @body_classes = ''
   end
 
   def user_params

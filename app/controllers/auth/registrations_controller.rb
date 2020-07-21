@@ -88,7 +88,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   end
 
   def set_body_classes
-    @body_classes = %w(edit update).include?(action_name) ? 'admin' : 'lighter'
+    @body_classes = %w(edit update).include?(action_name) ? 'admin' : ''
   end
 
   def set_invite
