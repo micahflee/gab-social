@@ -152,7 +152,7 @@ const makeMapStateToProps = () => {
         ancestorStatus = getStatus(state, {
           id: ancestorStatusId,
         })
-        descendantsIds = getDescendants(state, ancestorStatus, statusId)
+        if (!!ancestorStatus) descendantsIds = getDescendants(state, ancestorStatus, statusId)
       }
     }
 

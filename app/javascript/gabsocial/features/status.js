@@ -1,6 +1,10 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { fetchStatus } from '../actions/statuses'
+import {
+  fetchStatus,
+  fetchComments,
+  fetchContext,
+} from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
 import ColumnIndicator from '../components/column_indicator'
 
@@ -14,6 +18,8 @@ const mapStateToProps = (state, props) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchStatus: (id) => dispatch(fetchStatus(id)),
+  onFetchContext: (id) => dispatch(fetchContext(id)),
+  onFetchComments: (id) => dispatch(fetchComments(id)),
 })
 
 export default
@@ -21,7 +27,9 @@ export default
 class Status extends ImmutablePureComponent {
 
   static propTypes = {
+    onFetchContext: PropTypes.func.isRequired,
     onFetchStatus: PropTypes.func.isRequired,
+    onFetchComments: PropTypes.func.isRequired,
     params: PropTypes.object,
     status: ImmutablePropTypes.map,
   }
@@ -34,6 +42,21 @@ class Status extends ImmutablePureComponent {
   componentDidMount() {
     const statusId = this.props.id || this.props.params.statusId
     this.props.onFetchStatus(statusId)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+
+    if (prevProps.status !== status && !!status) {
+      const isComment = !!status.get('in_reply_to_account_id')
+      const hasComments = status.get('replies_count') > 0 
+
+      if (isComment) {
+        this.props.onFetchContext(status.get('id'))
+      } else if (!isComment && hasComments) {
+        this.props.onFetchComments(status.get('id'))
+      }
+    }
   }
 
   render() {

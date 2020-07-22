@@ -173,7 +173,7 @@ class Status extends ImmutablePureComponent {
   // Compensate height changes
   componentDidUpdate(prevProps, prevState, snapshot) {
     // timeline lazy loading comments
-    if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild) {
+    if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild && this.props.contextType !== 'feature') {
       const commentCount = this.props.status.get('replies_count')
       if (this.props.isComment && !this.props.ancestorStatus) {
         this.props.onFetchContext(this.props.status.get('id'))
