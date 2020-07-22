@@ -8,6 +8,7 @@ import {
   PLACEHOLDER_MISSING_HEADER_SRC,
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
+import { me } from '../initial_state'
 import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Block from './block'
@@ -33,10 +34,11 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
     }
   },
 
-  onOpenGroupOptions(targetRef, group) {
+  onOpenGroupOptions(targetRef, group, isAdmin) {
     dispatch(openPopover('GROUP_OPTIONS', {
       targetRef,
       group,
+      isAdmin,
       position: 'top',
     }))
   },
@@ -63,7 +65,9 @@ class GroupHeader extends ImmutablePureComponent {
   }
 
   handleOnOpenGroupOptions = () => {
-    this.props.onOpenGroupOptions(this.infoBtn, this.props.group)
+    const { relationships } = this.props
+    const isAdmin = relationships ? relationships.get('admin') : false
+    this.props.onOpenGroupOptions(this.infoBtn, this.props.group, isAdmin)
   }
 
   setInfoBtn = (c) => {
@@ -192,7 +196,7 @@ class GroupHeader extends ImmutablePureComponent {
                     }
 
                     {
-                      isAdmin &&
+                      !!me &&
                       <Button
                         radiusSmall
                         color='primary'
