@@ -75,7 +75,7 @@ import {
   PrivacyPolicy,
   ProTimeline,
   Search,
-  // Shortcuts,
+  Shortcuts,
   StatusFeature,
   StatusLikes,
   StatusReposts,
@@ -188,7 +188,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
 
-        { /* <WrappedRoute path='/shortcuts' publicRoute page={ShortcutsPage} component={Shortcuts} content={children} /> */ }
+        <WrappedRoute path='/shortcuts' page={ShortcutsPage} component={Shortcuts} content={children} />
 
         <WrappedRoute path='/lists' exact page={ListsPage} component={ListsDirectory} content={children} />
         <WrappedRoute path='/lists/create' exact page={ModalPage} component={ListCreate} content={children} componentParams={{ title: 'Create List', page: 'create-list' }} />

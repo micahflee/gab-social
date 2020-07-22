@@ -837,6 +837,7 @@ en:
   shortcuts:
     errors:
       limit: You have reached the maximum amount of shortcuts
+      exists: You already have a shortcut for that
   sessions:
     activity: Last activity
     browser: Browser

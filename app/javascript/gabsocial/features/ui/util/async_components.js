@@ -15,6 +15,7 @@ export function DatePickerPopover() { return import(/* webpackChunkName: "compon
 export function DisplayOptionsModal() { return import(/* webpackChunkName: "components/display_options_modal" */'../../../components/modal/display_options_modal') }
 export function DMCA() { return import(/* webpackChunkName: "features/about/dmca" */'../../about/dmca') }
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }
+export function EditShortcutsModal() { return import(/* webpackChunkName: "components/edit_shortcuts_modal" */'../../../components/modal/edit_shortcuts_modal') }
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
@@ -64,6 +65,7 @@ export function ProfileOptionsPopover() { return import(/* webpackChunkName: "co
 export function ProUpgradeModal() { return import(/* webpackChunkName: "components/pro_upgrade_modal" */'../../../components/modal/pro_upgrade_modal') }
 export function ReportModal() { return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal') }
 export function Search() { return import(/*webpackChunkName: "features/search" */'../../search') }
+export function Shortcuts() { return import(/*webpackChunkName: "features/shortcuts" */'../../shortcuts') }
 export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
 export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
 export function SearchPopover() { return import(/* webpackChunkName: "components/search_popover" */'../../../components/popover/search_popover') }

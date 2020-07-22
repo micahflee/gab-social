@@ -1,11 +1,15 @@
+import { Fragment } from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
-import * as Constants from '../constants'
+import {
+  BREAKPOINT_SMALL,
+} from '../constants'
 import Button from './button'
 import { closeSidebar } from '../actions/sidebar'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
+import { fetchShortcuts } from '../actions/shortcuts'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
 import Responsive from '../features/ui/util/responsive_component'
@@ -14,6 +18,7 @@ import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
 import BackButton from './back_button'
 import Pills from './pills'
+import Text from './text'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -35,10 +40,14 @@ const messages = defineMessages({
   search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
   shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
   donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
+  shortcuts: { id: 'navigation_bar.shortcuts', defaultMessage: 'Shortcuts' },
+  all: { id: 'all', defaultMessage: 'All' },
+  edit: { id: 'edit', defaultMessage: 'Edit' },
 })
 
 const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
+  shortcuts: state.getIn(['shortcuts', 'items']),
   moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
   notificationCount: state.getIn(['notifications', 'unread']),
   homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
@@ -54,6 +63,9 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenComposeModal() {
     dispatch(openModal('COMPOSE'))
   },
+  onFetchShortcuts() {
+    dispatch(fetchShortcuts())
+  },
 })
 
 export default
@@ -67,6 +79,7 @@ class Sidebar extends ImmutablePureComponent {
     moreOpen: PropTypes.bool,
     onClose: PropTypes.func.isRequired,
     onOpenComposeModal: PropTypes.func.isRequired,
+    onFetchShortcuts: PropTypes.func.isRequired,
     openSidebarMorePopover: PropTypes.func.isRequired,
     notificationCount: PropTypes.number.isRequired,
     homeItemsQueueCount: PropTypes.number.isRequired,
@@ -74,6 +87,15 @@ class Sidebar extends ImmutablePureComponent {
     tabs: PropTypes.array,
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
+    shortcuts: ImmutablePropTypes.list,
+  }
+
+  state = {
+    hoveringShortcuts: false,
+  }
+
+  componentDidMount() {
+    this.props.onFetchShortcuts()
   }
 
   handleOpenComposeModal = () => {
@@ -85,6 +107,14 @@ class Sidebar extends ImmutablePureComponent {
       targetRef: this.moreBtnRef,
       position: 'top',
     })
+  }
+
+  handleMouseEnterShortcuts = () => {
+    this.setState({ hoveringShortcuts: true })
+  }
+
+  handleMouseLeaveShortcuts = () => {
+    this.setState({ hoveringShortcuts: false })
   }
 
   setMoreButtonRef = n => {
@@ -102,13 +132,11 @@ class Sidebar extends ImmutablePureComponent {
       tabs,
       title,
       showBackBtn,
+      shortcuts,
     } = this.props
+    const { hoveringShortcuts } = this.state
 
-    // : todo :
     if (!me || !account) return null
-
-    const acct = account.get('acct')
-    const isPro = account.get('is_pro')
 
     const menuItems = [
       {
@@ -145,6 +173,11 @@ class Sidebar extends ImmutablePureComponent {
         to: '/explore',
       },
       {
+        title: 'Pro Feed',
+        icon: 'circle',
+        to: '/timeline/pro',
+      },
+      {
         title: 'More',
         icon: 'more',
         onClick: this.handleOpenSidebarMorePopover,
@@ -153,32 +186,18 @@ class Sidebar extends ImmutablePureComponent {
       },
     ]
 
-    const shortcutItems = [
-      // {
-      //   title: 'Meme Group',
-      //   icon: 'group',
-      //   to: '/',
-      //   count: 0,
-      // },
-      // {
-      //   title: '@andrew',
-      //   image: 'http://localhost:3000/system/accounts/avatars/000/000/001/original/260e8c96c97834da.jpeg?1562898139',
-      //   to: '/',
-      //   count: 3,
-      // },
-    ]
+    let shortcutItems = []
+    if (!!shortcuts) {
+      shortcuts.forEach((s) => {
+        shortcutItems.push({
+          to: s.get('to'),
+          title: s.get('title'),
+          image: s.get('image'),
+        })
+      })
+    }
 
     const exploreItems = [
-      {
-        title: 'Pro Feed',
-        icon: 'circle',
-        to: '/timeline/pro',
-      },
-      {
-        title: 'Chat',
-        icon: 'chat',
-        href: 'https://chat.gab.com',
-      },
       {
         title: 'Apps',
         icon: 'apps',
@@ -259,6 +278,41 @@ class Sidebar extends ImmutablePureComponent {
                     )
                   })
                 }
+                {
+                  !!shortcutItems.length > 0 &&
+                  <Fragment>
+                    <SidebarSectionTitle>
+                      <div
+                        className={[_s.displayFlex, _s.alignItemsCenter, _s.flexRow].join(' ')}
+                        onMouseEnter={this.handleMouseEnterShortcuts}
+                        onMouseLeave={this.handleMouseLeaveShortcuts}
+                      >
+                        <span>
+                          {intl.formatMessage(messages.shortcuts)}
+                        </span>
+                        <Button
+                          isText
+                          to='/shortcuts'
+                          color='brand'
+                          backgroundColor='none'
+                          className={_s.mlAuto}
+                        >
+                          {
+                            hoveringShortcuts &&
+                            <Text color='inherit' size='small' weight='medium' align='right'>
+                              {intl.formatMessage(messages.all)}
+                            </Text>
+                          }
+                        </Button>
+                      </div>
+                    </SidebarSectionTitle>
+                    {
+                      shortcutItems.map((shortcutItem, i) => (
+                        <SidebarSectionItem {...shortcutItem} key={`sidebar-item-shortcut-${i}`} />
+                      ))
+                    }
+                  </Fragment>
+                }
                 <SidebarSectionTitle>{intl.formatMessage(messages.explore)}</SidebarSectionTitle>
                 {
                   exploreItems.map((exploreItem, i) => (
@@ -267,7 +321,7 @@ class Sidebar extends ImmutablePureComponent {
                 }
               </nav>
 
-              <Responsive min={Constants.BREAKPOINT_SMALL}>
+              <Responsive min={BREAKPOINT_SMALL}>
                 <Button
                   isBlock
                   onClick={this.handleOpenComposeModal}
@@ -277,7 +331,7 @@ class Sidebar extends ImmutablePureComponent {
                 </Button>
               </Responsive>
 
-              <Responsive max={Constants.BREAKPOINT_SMALL}>
+              <Responsive max={BREAKPOINT_SMALL}>
                 <Button
                   onClick={this.handleOpenComposeModal}
                   className={_s.py15}

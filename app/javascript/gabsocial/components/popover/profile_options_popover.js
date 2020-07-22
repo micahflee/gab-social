@@ -2,23 +2,22 @@ import { defineMessages, injectIntl } from 'react-intl'
 import {
   followAccount,
   unfollowAccount,
-  blockAccount,
   unblockAccount,
   unmuteAccount,
-  pinAccount,
-  unpinAccount,
 } from '../../actions/accounts'
 import {
   mentionCompose,
 } from '../../actions/compose'
-import { muteAccount } from '../../actions/accounts'
+import {
+  addShortcut,
+  removeShortcut,
+} from '../../actions/shortcuts'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
-import { unfollowModal, autoPlayGif, me, isStaff } from '../../initial_state'
+import { unfollowModal, me, isStaff } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import PopoverLayout from './popover_layout'
-import Text from '../text'
 import List from '../list'
 
 const messages = defineMessages({
@@ -44,23 +43,27 @@ const messages = defineMessages({
   mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
   admin_account: { id: 'admin_account', defaultMessage: 'Open moderation interface' },
   add_to_list: { id: 'lists.account.add', defaultMessage: 'Add to list' },
-  add_or_remove_from_shortcuts: { id: 'account.add_or_remove_from_shortcuts', defaultMessage: 'Add or Remove from shortcuts' },
+  add_to_shortcuts: { id: 'account.add_to_shortcuts', defaultMessage: 'Add to shortcuts' },
+  remove_from_shortcuts: { id: 'account.remove_from_shortcuts', defaultMessage: 'Remove from shortcuts' },
   accountBlocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
   accountMuted: { id: 'account.muted', defaultMessage: 'Muted' },
 });
 
-const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount();
+const mapStateToProps = (state, { account }) => {
+  const getAccount = makeGetAccount()
+  const accountId = !!account ? account.get('id') : -1
+  const shortcuts = state.getIn(['shortcuts', 'items'])
+  const isShortcut = !!shortcuts.find((s) => {
+    return s.get('shortcut_id') == accountId && s.get('shortcut_type') === 'account'
+  })
 
-  const mapStateToProps = (state, { account }) => ({
-    account: getAccount(state, !!account ? account.get('id') : -1),
-  });
-
-  return mapStateToProps;
-};
+  return {
+    isShortcut,
+    account: getAccount(state, accountId),
+  }
+}
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
-
   onFollow(account) {
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
@@ -74,7 +77,6 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       dispatch(followAccount(account.get('id')))
     }
   },
-
   onBlock(account) {
     dispatch(closePopover())
   
@@ -86,12 +88,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       }));
     }
   },
-
   onMention(account) {
     dispatch(closePopover())
     dispatch(mentionCompose(account));
   },
-
   onRepostToggle(account) {
     dispatch(closePopover())
     if (account.getIn(['relationship', 'showing_reblogs'])) {
@@ -100,12 +100,10 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       dispatch(followAccount(account.get('id'), true));
     }
   },
-
   onReport(account) {
     dispatch(closePopover())
     dispatch(initReport(account));
   },
-
   onMute(account) {
     dispatch(closePopover())
     if (account.getIn(['relationship', 'muting'])) {
@@ -116,30 +114,39 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       }))
     }
   },
-
   onAddToList(account) {
     dispatch(closePopover())
     dispatch(openModal('LIST_ADD_USER', {
       accountId: account.get('id'),
     }));
   },
-
   onClosePopover: () => dispatch(closePopover()),
-
-});
-
+  onAddShortcut(accountId) {
+    dispatch(closePopover())
+    dispatch(addShortcut('account', accountId))
+  },
+  onRemoveShortcut(accountId) {
+    dispatch(closePopover())
+    dispatch(removeShortcut(null, 'account', accountId))
+  },
+})
 
 export default
 @injectIntl
-@connect(makeMapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class ProfileOptionsPopover extends PureComponent {
 
   static defaultProps = {
     isXS: PropTypes.bool,
+    isShortcut: PropTypes.bool,
   }
 
   makeMenu() {
-    const { account, intl } = this.props;
+    const {
+      account,
+      intl,
+      isShortcut,
+    } = this.props;
 
     let menu = [];
 
@@ -208,12 +215,12 @@ class ProfileOptionsPopover extends PureComponent {
     //   onClick: this.handleAddToList
     // })
 
-    // menu.push({
-    //   hideArrow: true,
-    //   icon: 'circle',
-    //   title: intl.formatMessage(messages.add_or_remove_from_shortcuts),
-    //   onClick: this.handleAddToShortcuts
-    // })
+    menu.push({
+      hideArrow: true,
+      icon: 'star',
+      title: intl.formatMessage(isShortcut ? messages.remove_from_shortcuts : messages.add_to_shortcuts),
+      onClick: this.handleToggleShortcuts,
+    })
 
     if (isStaff) {
       menu.push({
@@ -259,8 +266,12 @@ class ProfileOptionsPopover extends PureComponent {
     this.props.onAddToList(this.props.account);
   }
 
-  handleAddToShortcuts = () => {
-    // : todo :
+  handleToggleShortcuts = () => {
+    if (this.props.isShortcut) {
+      this.props.onRemoveShortcut(this.props.account.get('id'))
+    } else {
+      this.props.onAddShortcut(this.props.account.get('id'))
+    }
   }
 
   handleOnClosePopover = () => {

@@ -40,6 +40,7 @@ const messages = defineMessages({
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   display: { id: 'display_options', defaultMessage: 'Display Options' },
   proFeed: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
+  shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
 })
 
 const mapStateToProps = (state) => ({
@@ -100,6 +101,12 @@ class SidebarXS extends ImmutablePureComponent {
         to: '/lists',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.lists),
+      },
+      {
+        icon: 'star',
+        to: '/shortcuts',
+        onClick: this.handleSidebarClose,
+        title: intl.formatMessage(messages.shortcuts),
       },
       {
         icon: 'pro',

@@ -359,6 +359,7 @@ Rails.application.routes.draw do
       resources :reports,      only: [:create]
       resources :filters,      only: [:index, :create, :show, :update, :destroy]
       resources :endorsements, only: [:index]
+      resources :shortcuts,    only: [:index, :create, :show, :destroy]
 
       namespace :apps do
         get :verify_credentials, to: 'credentials#show'
