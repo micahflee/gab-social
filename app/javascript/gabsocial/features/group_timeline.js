@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
+import { me } from '../initial_state'
 import { connectGroupStream } from '../actions/streaming'
 import { expandGroupTimeline } from '../actions/timelines'
 import StatusList from '../components/status_list'
@@ -53,11 +54,13 @@ class GroupTimeline extends ImmutablePureComponent {
 
 		dispatch(expandGroupTimeline(id))
 
-		this.disconnect = dispatch(connectGroupStream(id))
+		if (!!me) {
+			this.disconnect = dispatch(connectGroupStream(id))
+		}
 	}
 
 	componentWillUnmount() {
-		if (this.disconnect) {
+		if (this.disconnect && !!me) {
 			this.disconnect()
 			this.disconnect = null
 		}
