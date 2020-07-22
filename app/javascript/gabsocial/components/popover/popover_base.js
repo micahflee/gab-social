@@ -1,9 +1,8 @@
 import detectPassiveEvents from 'detect-passive-events'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { Manager, Reference, Popper } from 'react-popper'
+import { Popper } from 'react-popper'
 import { CX } from '../../constants'
-import { isUserTouching } from '../../utils/is_mobile'
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
@@ -130,25 +129,24 @@ class PopoverBase extends ImmutablePureComponent {
     const containerClasses = CX({
       default: 1,
       z4: 1,
+      boxShadowPopover: visible,
       displayNone: !visible,
     })
 
     return (
-      <Manager>
-        <Popper
-          placement={position}
-          referenceElement={targetRef}
-        >
-          {({ ref, style, placement, arrowProps }) => (
-            <div ref={ref} style={style} data-placement={placement} className={[_s.z4, _s.mt5, _s.mb5, _s.boxShadowPopover].join(' ')}>
-              <div ref={arrowProps.ref} style={arrowProps.style} />
-              <div ref={this.setRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
-                {children}
-              </div>
+      <Popper
+        placement={position}
+        referenceElement={targetRef}
+      >
+        {({ ref, style, placement, arrowProps }) => (
+          <div ref={ref} style={style} data-placement={placement} className={[_s.z4, _s.mt5, _s.mb5, _s.px5, _s.py5].join(' ')}>
+            <div ref={arrowProps.ref} style={arrowProps.style} />
+            <div ref={this.setRef} data-popover='true' onKeyDown={this.handleKeyDown} className={containerClasses}>
+              {children}
             </div>
-          )}
-        </Popper>
-      </Manager>
+          </div>
+        )}
+      </Popper>
     )
   }
 
