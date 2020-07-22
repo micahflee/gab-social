@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_10_130615) do
+ActiveRecord::Schema.define(version: 2020_07_21_215336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -657,6 +657,16 @@ ActiveRecord::Schema.define(version: 2020_07_10_130615) do
     t.index ["thing_type", "thing_id", "var"], name: "index_settings_on_thing_type_and_thing_id_and_var", unique: true
   end
 
+  create_table "shortcuts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.bigint "shortcut_id", null: false
+    t.string "shortcut_type", default: "", null: false
+    t.index ["account_id", "shortcut_id", "shortcut_type"], name: "index_shortcuts_on_account_id_and_shortcut_id_and_shortcut_type", unique: true
+    t.index ["account_id"], name: "index_shortcuts_on_account_id"
+  end
+
   create_table "site_uploads", force: :cascade do |t|
     t.string "var", default: "", null: false
     t.string "file_file_name"
@@ -927,6 +937,7 @@ ActiveRecord::Schema.define(version: 2020_07_10_130615) do
   add_foreign_key "scheduled_statuses", "accounts", on_delete: :cascade
   add_foreign_key "session_activations", "oauth_access_tokens", column: "access_token_id", name: "fk_957e5bda89", on_delete: :cascade
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
+  add_foreign_key "shortcuts", "accounts", on_delete: :cascade
   add_foreign_key "status_pins", "accounts", name: "fk_d4cb435b62", on_delete: :cascade
   add_foreign_key "status_pins", "statuses", on_delete: :cascade
   add_foreign_key "status_stats", "statuses", on_delete: :cascade
