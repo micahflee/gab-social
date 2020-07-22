@@ -90,8 +90,8 @@ class FetchLinkCardService < BaseService
   end
 
   def bad_url?(uri)
-    # Avoid local instance URLs and invalid URLs
-    uri.host.blank? || TagManager.instance.local_url?(uri.to_s) || !%w(http https).include?(uri.scheme)
+    # Avoid invalid URLs
+    uri.host.blank? || !%w(http https).include?(uri.scheme)
   end
 
   def mention_link?(a)
