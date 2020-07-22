@@ -86,7 +86,7 @@ export function removeShortcut(shortcutObjectId, shortcutType, shortcutId) {
     
     let id
     if (shortcutObjectId) {
-      shortcutObjectId = id
+      id = shortcutObjectId
     } else if (shortcutType && shortcutId) {
       const shortcuts = getState().getIn(['shortcuts', 'items'])
       const shortcut = shortcuts.find((s) => {
