@@ -26,7 +26,7 @@
 
 class PreviewCard < ApplicationRecord
   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
-  LIMIT = 1.megabytes
+  LIMIT = 4.megabytes
 
   self.inheritance_column = false
 
@@ -45,6 +45,10 @@ class PreviewCard < ApplicationRecord
 
   before_save :extract_dimensions, if: :link?
 
+  def missing_image?
+    width.present? && height.present? && image_file_name.blank?
+  end
+  
   def save_with_optional_image!
     save!
   rescue ActiveRecord::RecordInvalid

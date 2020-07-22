@@ -30,7 +30,7 @@ class FetchLinkCardService < BaseService
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
         @card = PreviewCard.find_by(url: @url)
-        process_url if @card.nil? || @card.updated_at <= 2.weeks.ago
+        process_url if @card.nil? || @card.updated_at <= 1.weeks.ago || @card.missing_image?
       else
         raise GabSocial::RaceConditionError
       end
@@ -47,7 +47,7 @@ class FetchLinkCardService < BaseService
   def process_url
     @card ||= PreviewCard.new(url: @url)
 
-    Request.new(:get, @url).perform do |res|
+    Request.new(:get, @url).add_headers('Accept' => 'text/html').perform do |res|
       if res.code == 200 && res.mime_type == 'text/html'
         @html = res.body_with_limit
         @html_charset = res.charset
