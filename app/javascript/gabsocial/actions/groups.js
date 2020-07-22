@@ -141,7 +141,7 @@ export function fetchGroupRelationshipsFail(error) {
 };
 
 export const fetchGroups = (tab) => (dispatch, getState) => {
-  if (!me) return
+  if (!me && tab !== 'featured') return
 
   // Don't refetch or fetch when loading
   const isLoading = getState().getIn(['group_lists', tab, 'isLoading'])
