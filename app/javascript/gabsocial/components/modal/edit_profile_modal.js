@@ -112,11 +112,11 @@ class EditProfileModal extends ImmutablePureComponent {
       locked,
     } = this.state
 
-    const isPro = account.get('is_pro')
+    const isVerified = account.get('is_verified')
 
     const obj = {}
     obj.locked = locked
-    if (!isPro && account.get('display_name_plain') !== displayNameValue) obj.displayName = displayNameValue
+    if (!isVerified && account.get('display_name_plain') !== displayNameValue) obj.displayName = displayNameValue
     if (account.get('note_plain') !== bioValue) obj.note = bioValue
     if (account.get('avatar_static') !== avatarSrc) obj.avatar = avatarSrc
     if (account.get('header_static') !== headerSrc) obj.header = headerSrc
@@ -135,7 +135,7 @@ class EditProfileModal extends ImmutablePureComponent {
       locked,
     } = this.state
 
-    const isPro = account.get('is_pro')
+    const isVerified = account.get('is_verified')
 
     return (
       <div style={{ width: '440px' }} className={[_s.default, _s.modal].join(' ')}>
@@ -182,7 +182,7 @@ class EditProfileModal extends ImmutablePureComponent {
               </div>
               <div className={[_s.default, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.width100PC].join(' ')}>
                 {
-                  !isPro &&
+                  !isVerified &&
                   <Fragment>
                     <Input
                       id='display-name'
