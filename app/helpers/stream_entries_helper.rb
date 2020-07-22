@@ -68,6 +68,10 @@ module StreamEntriesHelper
     return "The latest Gabs from #{display_name(account)} (@#{account.username}). #{account.note}"
   end
 
+  def group_description(group)
+    return "#{group.title} on Gab. #{group.description}"
+  end
+
   def media_summary(status)
     attachments = { image: 0, video: 0 }
 

@@ -3,10 +3,10 @@
 class Api::V1::GroupsController < Api::BaseController
   include Authorization
 
-  before_action -> { doorkeeper_authorize! :read, :'read:groups' }, only: [:index, :show]
+  # before_action -> { doorkeeper_authorize! :read, :'read:groups' }, only: [:index, :show]
   before_action -> { doorkeeper_authorize! :write, :'write:groups' }, except: [:index, :show]
 
-  before_action :require_user!
+  before_action :require_user!, except: [:index, :show]
   before_action :set_group, except: [:index, :create]
 
   def index
@@ -14,10 +14,19 @@ class Api::V1::GroupsController < Api::BaseController
       when 'featured'
         @groups = Group.where(is_featured: true, is_archived: false).limit(100).all
       when 'new'
+        if !current_user
+          render json: { error: 'This method requires an authenticated user' }, status: 422
+        end
         @groups = Group.where(is_archived: false).limit(24).order('created_at DESC').all
       when 'member'
+        if !current_user
+          render json: { error: 'This method requires an authenticated user' }, status: 422
+        end
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.id DESC').all
       when 'admin'
+        if !current_user
+          render json: { error: 'This method requires an authenticated user' }, status: 422
+        end
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account, role: :admin }).all
     end
 
@@ -75,7 +84,7 @@ class Api::V1::GroupsController < Api::BaseController
   private
 
   def set_group
-    @group = Group.find(params[:id])
+    @group = Group.where(id: params[:id], is_archived: false).first
   end
 
   def group_params

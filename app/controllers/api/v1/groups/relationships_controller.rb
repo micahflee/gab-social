@@ -7,7 +7,7 @@ class Api::V1::Groups::RelationshipsController < Api::BaseController
   respond_to :json
 
   def index
-    groups = Group.where(id: group_ids).select('id')
+    groups = Group.where(id: group_ids, is_archived: false).select('id')
     # .where doesn't guarantee that our results are in the same order
     # we requested them, so return the "right" order to the requestor.
     @groups = groups.index_by(&:id).values_at(*group_ids).compact

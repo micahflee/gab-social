@@ -78,7 +78,7 @@ class GroupTimeline extends ImmutablePureComponent {
 		const { collapsed } = this.state
 		const { id } = this.props.params
 
-		if (typeof group === 'undefined' || !relationships) {
+		if (typeof group === 'undefined') {
 			return <ColumnIndicator type='loading' />
 		} else if (group === false) {
 			return <ColumnIndicator type='missing' />

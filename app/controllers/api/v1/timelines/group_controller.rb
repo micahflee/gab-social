@@ -1,23 +1,25 @@
 # frozen_string_literal: true
 
 class Api::V1::Timelines::GroupController < Api::BaseController
-  before_action -> { doorkeeper_authorize! :read, :'read:groups' }
-  before_action :require_user!
   before_action :set_group
   before_action :set_statuses
 
   after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   def show
-    render json: @statuses,
-           each_serializer: REST::StatusSerializer,
-           relationships: StatusRelationshipsPresenter.new(@statuses, current_user.account_id)
+    if current_user
+      render json: @statuses,
+            each_serializer: REST::StatusSerializer,
+            relationships: StatusRelationshipsPresenter.new(@statuses, current_user.account_id)
+    else
+      render json: @statuses, each_serializer: REST::StatusSerializer
+    end
   end
 
   private
 
   def set_group
-    @group = Group.find(params[:id])
+    @group = Group.where(id: params[:id], is_archived: false).first
   end
 
   def set_statuses
@@ -29,10 +31,18 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   end
 
   def group_statuses
-    statuses = group_timeline_statuses.without_replies.paginate_by_id(
-      limit_param(DEFAULT_STATUSES_LIMIT),
-      params_slice(:max_id, :since_id, :min_id)
-    ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+    statuses = nil
+    if current_account
+      statuses = group_timeline_statuses.without_replies.paginate_by_id(
+        limit_param(DEFAULT_STATUSES_LIMIT),
+        params_slice(:max_id, :since_id, :min_id)
+      ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+    else
+      statuses = group_timeline_statuses.without_replies.paginate_by_id(
+        limit_param(DEFAULT_STATUSES_LIMIT),
+        params_slice(:max_id, :since_id, :min_id)
+      )
+    end
 
     if truthy_param?(:only_media)
       # `SELECT DISTINCT id, updated_at` is too slow, so pluck ids at first, and then select id, updated_at with ids.

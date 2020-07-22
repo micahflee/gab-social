@@ -5,6 +5,7 @@ class ReactController < ApplicationController
   before_action :set_referrer_policy_header, only: :react
   before_action :set_initial_state_json, only: :react
   before_action :set_data_for_meta, only: :react
+  before_action :set_instance_presenter
 
   def react
     #
@@ -13,9 +14,12 @@ class ReactController < ApplicationController
   private
 
   def set_data_for_meta
-    return if find_route_matches
+    return if find_route_matches && current_account
 
-    if find_public_route_matches
+    if request.path.include?("/groups/")
+      groupIdFromPath = request.path.sub("/groups", "").gsub("/", "")
+      @group = Group.where(id: groupIdFromPath, is_archived: false).first
+    elsif find_public_route_matches
       return
     elsif request.path.count("/") == 1 && !request.path.include?("@")
       acctFromPath = request.path.sub("/", "")
@@ -40,7 +44,7 @@ class ReactController < ApplicationController
   end
 
   def find_public_route_matches
-    request.path.match(/\A\/(about|search|explore)/)
+    request.path.match(/\A\/(about|search|groups|explore)/)
   end
 
   def set_initial_state_json
@@ -66,5 +70,9 @@ class ReactController < ApplicationController
 
   def set_referrer_policy_header
     response.headers['Referrer-Policy'] = 'origin'
+  end
+
+  def set_instance_presenter
+    @instance_presenter = InstancePresenter.new
   end
 end
