@@ -111,7 +111,7 @@ export default class SidebarSectionItem extends PureComponent {
             image &&
             <Image
               alt={title}
-              className={_s.circle}
+              className={[_s.circle, _s.overflowHidden].join(' ')}
               width={iconSize}
               height={iconSize}
               src={image}
