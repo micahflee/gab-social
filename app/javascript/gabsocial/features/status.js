@@ -42,20 +42,30 @@ class Status extends ImmutablePureComponent {
   componentDidMount() {
     const statusId = this.props.id || this.props.params.statusId
     this.props.onFetchStatus(statusId)
+
+    if (!!this.props.status) {
+      this.shouldFetchStatusParts(this.props.status)
+    }
   }
 
   componentDidUpdate(prevProps) {
     const { status } = this.props
 
     if (prevProps.status !== status && !!status) {
-      const isComment = !!status.get('in_reply_to_account_id')
-      const hasComments = status.get('replies_count') > 0 
+      this.shouldFetchStatusParts(status)
+    }
+  }
 
-      if (isComment) {
-        this.props.onFetchContext(status.get('id'))
-      } else if (!isComment && hasComments) {
-        this.props.onFetchComments(status.get('id'))
-      }
+  shouldFetchStatusParts = (status) => {
+    if (!status) return
+
+    const isComment = !!status.get('in_reply_to_account_id')
+    const hasComments = status.get('replies_count') > 0 
+
+    if (isComment) {
+      this.props.onFetchContext(status.get('id'))
+    } else if (!isComment && hasComments) {
+      this.props.onFetchComments(status.get('id'))
     }
   }
 
