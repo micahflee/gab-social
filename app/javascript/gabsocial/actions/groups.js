@@ -1,3 +1,7 @@
+import {
+  Map as ImmutableMap,
+  List as ImmutableList,
+} from 'immutable'
 import api, { getLinks } from '../api';
 import { me } from '../initial_state';
 import { importFetchedAccounts } from './importer';
@@ -55,9 +59,13 @@ export const GROUP_UPDATE_ROLE_REQUEST = 'GROUP_UPDATE_ROLE_REQUEST';
 export const GROUP_UPDATE_ROLE_SUCCESS = 'GROUP_UPDATE_ROLE_SUCCESS';
 export const GROUP_UPDATE_ROLE_FAIL    = 'GROUP_UPDATE_ROLE_FAIL';
 
-export const fetchGroup = id => (dispatch, getState) => {
-  if (!me) return;
+export const GROUP_SORT = 'GROUP_SORT'
 
+export const importGroup = (group) => (dispatch) => {
+  dispatch(fetchGroupSuccess(group))
+}
+
+export const fetchGroup = id => (dispatch, getState) => {
   dispatch(fetchGroupRelationships([id]));
 
   if (getState().getIn(['groups', id])) {
