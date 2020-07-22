@@ -4,6 +4,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { openModal } from '../../actions/modal'
 import { MODAL_GROUP_MEMBERS } from '../../constants'
+import { me } from '../../initial_state'
 import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import Button from '../button'
@@ -59,29 +60,34 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
             <Divider isSmall />
 
-            <div className={[_s.default, _s.flexRow, _s.justifyContentCenter].join(' ')}>
-              <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-                <Icon id='group' size='14px' className={_s.fillPrimary} />
-                <Text size='small' className={_s.ml5}>
-                  {intl.formatMessage(messages.members)}
-                </Text>
-              </div>
-              <Button
-                isText
-                color='brand'
-                backgroundColor='none'
-                className={_s.mlAuto}
-                onClick={this.handleOnOpenGroupMembersModal}
-              >
-                <Text color='inherit' weight='medium' size='normal' className={_s.underline_onHover}>
-                  {shortNumberFormat(group.get('member_count'))}
-                  &nbsp;
-                  {intl.formatMessage(messages.members)}
-                </Text>
-              </Button>
-            </div>
+            {
+              !!me &&
+              <Fragment>
+                <div className={[_s.default, _s.flexRow, _s.justifyContentCenter].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+                    <Icon id='group' size='14px' className={_s.fillPrimary} />
+                    <Text size='small' className={_s.ml5}>
+                      {intl.formatMessage(messages.members)}
+                    </Text>
+                  </div>
+                  <Button
+                    isText
+                    color='brand'
+                    backgroundColor='none'
+                    className={_s.mlAuto}
+                    onClick={this.handleOnOpenGroupMembersModal}
+                  >
+                    <Text color='inherit' weight='medium' size='normal' className={_s.underline_onHover}>
+                      {shortNumberFormat(group.get('member_count'))}
+                      &nbsp;
+                      {intl.formatMessage(messages.members)}
+                    </Text>
+                  </Button>
+                </div>
 
-            <Divider isSmall />
+                <Divider isSmall />
+              </Fragment>
+            }
 
             <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
               <Icon id='calendar' size='12px' className={_s.fillSecondary} />
