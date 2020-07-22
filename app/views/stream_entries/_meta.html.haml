@@ -1,5 +1,5 @@
 - content_for :page_title do
-  = t('statuses.title', name: display_name(account), quote: truncate(stream_entry.activity.spoiler_text.presence || stream_entry.activity.text, length: 50, omission: '…', escape: false))
+  = "#{display_name(account)} on Gab"
 
 - content_for :header_tags do
   - if account.user&.setting_noindex
@@ -11,7 +11,7 @@
 
   = opengraph 'og:site_name', site_title
   = opengraph 'og:type', 'article'
-  = opengraph 'og:title', t('statuses.title', name: display_name(account), quote: truncate(stream_entry.activity.spoiler_text.presence || stream_entry.activity.text, length: 50, omission: '…', escape: false))
+  = opengraph 'og:title', t('statuses.title', name: display_name(account), quote: stream_entry.activity.spoiler_text.presence || stream_entry.activity.text)
   = opengraph 'og:url', short_account_status_url(account, stream_entry.activity)
 
   = render 'stream_entries/og_description', activity: stream_entry.activity, account: account
