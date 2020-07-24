@@ -8,6 +8,7 @@ import LinkFooter from '../components/link_footer'
 import ProfileStatsPanel from '../components/panel/profile_stats_panel'
 import ProfileInfoPanel from '../components/panel/profile_info_panel'
 import MediaGalleryPanel from '../components/panel/media_gallery_panel'
+import SignUpPanel from '../components/panel/sign_up_panel'
 import NavigationBar from '../components/navigation_bar'
 import FooterBar from '../components/footer_bar'
 import ProfileHeader from '../components/profile_header'
@@ -118,6 +119,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
                             <ProfileStatsPanel account={account} />
                             <ProfileInfoPanel account={account} />
                             { !unavailable && <MediaGalleryPanel account={account} /> }
+                            <SignUpPanel />
                             <LinkFooter />
                           </div>
                         </Sticky>

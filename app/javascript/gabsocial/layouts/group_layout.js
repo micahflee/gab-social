@@ -6,6 +6,7 @@ import Layout from './layout'
 import GroupInfoPanel from '../components/panel/group_info_panel'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import GroupSidebarPanel from '../components/panel/groups_panel'
+import SignupPanel from '../components/panel/sign_up_panel'
 import LinkFooter from '../components/link_footer'
 import GroupHeader from '../components/group_header'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
@@ -78,6 +79,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                       page={`group.${groupId}`}
                       layout={[
                         <GroupInfoPanel group={group} key='group-page-info-panel' />,
+                        <SignupPanel key='group-page-signup-panel' />,
                         <WhoToFollowPanel key='group-page-wtf-panel' />,
                         <GroupSidebarPanel isSlim key='group-page-group-panel' />,
                         <LinkFooter key='group-page-link-footer' />,

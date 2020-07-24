@@ -5,6 +5,7 @@ import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import SearchFilterPanel from '../components/panel/search_filter_panel'
 import TrendsPanel from '../components/panel/trends_panel'
+import SignupPanel from '../components/panel/sign_up_panel'
 import Search from '../components/search'
 import Layout from '../layouts/layout'
 
@@ -64,6 +65,7 @@ class SearchPage extends PureComponent {
         tabs={tabs}
         page={`search.${qos}`}
         layout={[
+          <SignupPanel key='search-page-signup-panel' />,
           <SearchFilterPanel key='search-page-search-panel' />,
           <TrendsPanel key='search-page-trends-panel' />,
           <LinkFooter key='search-page-link-footer' />,
