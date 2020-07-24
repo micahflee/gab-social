@@ -113,7 +113,7 @@ class Search extends ImmutablePureComponent {
       )
     }
 
-    if (results.get('groups') && results.get('groups').size > 0 && me && (isTop || showGroups)) {
+    if (results.get('groups') && results.get('groups').size > 0 && (isTop || showGroups)) {
       const size = isTop ? Math.min(results.get('groups').size, theLimit) : results.get('groups').size;
       const isMax = size === results.get('groups').size
 
