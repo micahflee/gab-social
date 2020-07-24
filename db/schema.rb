@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_21_215336) do
+ActiveRecord::Schema.define(version: 2020_07_22_190844) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -679,6 +679,16 @@ ActiveRecord::Schema.define(version: 2020_07_21_215336) do
     t.index ["var"], name: "index_site_uploads_on_var", unique: true
   end
 
+  create_table "status_bookmarks", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "account_id", null: false
+    t.bigint "status_id", null: false
+    t.index ["account_id", "status_id"], name: "index_status_bookmarks_on_account_id_and_status_id", unique: true
+    t.index ["account_id"], name: "index_status_bookmarks_on_account_id"
+    t.index ["status_id"], name: "index_status_bookmarks_on_status_id"
+  end
+
   create_table "status_pins", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "status_id", null: false
@@ -727,6 +737,7 @@ ActiveRecord::Schema.define(version: 2020_07_21_215336) do
     t.bigint "quote_of_id"
     t.datetime "revised_at"
     t.text "markdown"
+    t.datetime "expires_at"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
     t.index ["group_id"], name: "index_statuses_on_group_id"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
@@ -938,6 +949,8 @@ ActiveRecord::Schema.define(version: 2020_07_21_215336) do
   add_foreign_key "session_activations", "oauth_access_tokens", column: "access_token_id", name: "fk_957e5bda89", on_delete: :cascade
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
   add_foreign_key "shortcuts", "accounts", on_delete: :cascade
+  add_foreign_key "status_bookmarks", "accounts", on_delete: :cascade
+  add_foreign_key "status_bookmarks", "statuses", on_delete: :cascade
   add_foreign_key "status_pins", "accounts", name: "fk_d4cb435b62", on_delete: :cascade
   add_foreign_key "status_pins", "statuses", on_delete: :cascade
   add_foreign_key "status_stats", "statuses", on_delete: :cascade
