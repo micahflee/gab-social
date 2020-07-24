@@ -1,16 +1,22 @@
+import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Button from './button'
+import NavigationBarButton from './navigation_bar_button'
 import Search from './search'
 import Text from './text'
-import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component';
+import ResponsiveComponent from '../features/ui/util/responsive_component'
+import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
 export default class LoggedOutNavigationBar extends PureComponent {
 
   static propTypes = {
+    isProfile: PropTypes.bool,
     title: PropTypes.string,
     showBackBtn: PropTypes.bool,
   }
-   
+
   render() {
+    const { isProfile } = this.props
+
     return (
       <ResponsiveClassesComponent
         classNames={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}
@@ -24,7 +30,7 @@ export default class LoggedOutNavigationBar extends PureComponent {
           <div className={[_s.default, _s.width1255PX, _s.flexRow, _s.flexWrap, _s.height100PC].join(' ')}>
           
             <ResponsiveClassesComponent
-              classNames={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR,  _s.width330PX].join(' ')}
+              classNames={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.flexRow, _s.flexGrow1, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR].join(' ')}
               classNamesXS={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.width100PC].join(' ')}
             >
 
@@ -35,6 +41,17 @@ export default class LoggedOutNavigationBar extends PureComponent {
                 icon='logo'
                 iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
               />
+
+              {
+                isProfile &&
+                <ResponsiveComponent min={BREAKPOINT_EXTRA_SMALL}>
+                  <div className={[_s.default, _s.flexRow, _s.mr15].join(' ')}>
+                    <NavigationBarButton title='Home' icon='home' href='/home' />
+                    <NavigationBarButton title='Explore' icon='explore' to='/explore' />
+                    <NavigationBarButton title='Groups' icon='group' to='/groups' />
+                  </div>
+                </ResponsiveComponent>
+              }
 
               <div className={[_s.default, _s.flexGrow1, _s.mr10].join(' ')}>
                 <Search isInNav />

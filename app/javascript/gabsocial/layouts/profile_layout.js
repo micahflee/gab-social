@@ -53,7 +53,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
           }
           {
             !me &&
-            <LoggedOutNavigationBar />
+            <LoggedOutNavigationBar isProfile />
           }
 
           <main role='main' className={[_s.default, _s.width100PC].join(' ')}>
@@ -98,7 +98,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
           }
           {
             !me &&
-            <LoggedOutNavigationBar />
+            <LoggedOutNavigationBar isProfile />
           }
 
           <main role='main' className={[_s.default, _s.width100PC].join(' ')}>
