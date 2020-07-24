@@ -485,9 +485,9 @@ class StatusOptionsPopover extends ImmutablePureComponent {
         onClose={this.handleClosePopover}
       >
         <List
-          size='large'
           scrollKey='profile_options'
           items={menu}
+          size={isXS ? 'large' : 'small'}
         />
       </PopoverLayout>
     )

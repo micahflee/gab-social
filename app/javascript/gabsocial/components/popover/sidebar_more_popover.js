@@ -44,7 +44,7 @@ class SidebarMorePopover extends PureComponent {
     return (
       <PopoverLayout width={240}>
         <List
-          size='large'
+          size='small'
           scrollKey='profile_options'
           items={[
             {

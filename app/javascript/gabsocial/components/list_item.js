@@ -62,7 +62,7 @@ export default class ListItem extends PureComponent {
     const small = size === 'small'
     const large = size === 'large'
 
-    const textSize = small ? 'small' : large ? 'large' : 'normal'
+    const textSize = small ? 'normal' : large ? 'large' : 'normal'
     const iconSize = large ? '14px' : '10px'
     const imageSize = large ? '22px' : '18px'
     const showActive = isActive !== undefined

@@ -70,7 +70,7 @@ class GroupMemberOptionsPopover extends PureComponent {
         <List
           scrollKey='group_options'
           items={listItems}
-          size='large'
+          size={isXS ? 'large' : 'small'}
         />
       </PopoverLayout>
     )
