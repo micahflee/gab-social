@@ -39,7 +39,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       targetRef,
       group,
       isAdmin,
-      position: 'top',
+      position: 'left',
     }))
   },
 

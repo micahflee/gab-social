@@ -31,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenNavSettingsPopover(targetRef) {
     dispatch(openPopover(POPOVER_NAV_SETTINGS, {
       targetRef,
-      position: 'top',
+      position: 'left-end',
     }))
   }
 })

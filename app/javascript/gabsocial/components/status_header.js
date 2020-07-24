@@ -37,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openPopover('STATUS_OPTIONS', {
       targetRef,
       status,
-      position: 'top',
+      position: 'left-start',
     }))
   },
 })

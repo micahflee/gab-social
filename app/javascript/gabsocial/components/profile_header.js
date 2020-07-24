@@ -74,7 +74,7 @@ class ProfileHeader extends ImmutablePureComponent {
     openProfileOptionsPopover({
       account,
       targetRef: this.openMoreNode,
-      position: 'top',
+      position: 'left',
     })
   }
 
