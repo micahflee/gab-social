@@ -2,6 +2,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import { URL_GAB_PRO } from '../../constants'
 import PanelLayout from './panel_layout';
 import Button from '../button'
+import Icon from '../icon'
 import Text from '../text'
 
 const messages = defineMessages({
@@ -23,28 +24,44 @@ class ProPanel extends PureComponent {
 
     if (isPro) return null
 
+    const title = (
+      <span className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+        <span className={[_s.default, _s.mr2].join(' ')}>
+          Upgrade to Gab
+        </span>
+        <span className={[_s.bgPro, _s.colorBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
+      </span>
+    )
+
     return (
       <PanelLayout
-        title={intl.formatMessage(messages.title)}
+        title={title}
         subtitle={intl.formatMessage(messages.text)}
       >
-        <Button
-          isBlock
-          href={URL_GAB_PRO}
-          icon='pro'
-          iconSize='14px'
-          className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
-        >
-          <Text
-            color='inherit'
-            weight='medium'
-            size='medium'
-            align='center'
-            className={_s.ml10}
+
+        <div className={[_s.default, _s.flexRow, _s.pb5].join(' ')}>
+          <Button
+            isOutline
+            color='brand'
+            backgroundColor='none'
+            href={URL_GAB_PRO}
+            className={[_s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mr10].join(' ')}
           >
-            {intl.formatMessage(messages.title)}
-          </Text>
-        </Button>
+            <Text color='inherit' weight='medium' align='center'>
+              Learn more
+            </Text>
+          </Button>
+          <Button
+            href={URL_GAB_PRO}
+            className={[_s.flexRow, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}
+          >
+            <Text color='inherit' size='large' weight='bold' align='center'>
+              Upgrade
+            </Text>
+            <Icon id='arrow-right' size='20px' className={[_s.fillWhite, _s.ml5].join(' ')} />
+          </Button>
+        </div>
+
       </PanelLayout>
     )
   }
