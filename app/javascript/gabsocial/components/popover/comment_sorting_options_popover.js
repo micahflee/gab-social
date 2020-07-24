@@ -90,10 +90,9 @@ class CommentSortingOptionsPopover extends PureComponent {
         onClose={this.handleOnClosePopover}
       >
         <List
-          size='large'
+          size={isXS ? 'large' : 'small'}
           scrollKey='comment_sorting_options'
           items={items}
-          small
         />
       </PopoverLayout>
     )
