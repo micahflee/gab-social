@@ -48,6 +48,7 @@ import {
   AccountTimeline,
   BlockedAccounts,
   BlockedDomains,
+  BookmarkedStatuses,
   CommunityTimeline,
   Compose,
   DMCA,
@@ -227,6 +228,9 @@ class SwitchingArea extends PureComponent {
 
         <Redirect from='/@:username/likes' to='/:username/likes' />
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
+
+        <Redirect from='/@:username/bookmarks' to='/:username/bookmarks' />
+        <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
 
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />

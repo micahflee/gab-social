@@ -7,6 +7,8 @@ import {
   unrepost,
   pin,
   unpin,
+  bookmark,
+  unbookmark,
 } from '../../actions/interactions';
 import {
   muteStatus,
@@ -24,7 +26,10 @@ import { initMuteModal } from '../../actions/mutes'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
-import { MODAL_EMBED } from '../../constants'
+import {
+  MODAL_EMBED,
+  MODAL_PRO_UPGRADE,
+} from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
@@ -49,6 +54,8 @@ const messages = defineMessages({
   unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
   pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
   unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
+  bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark status' },
+  unbookmark: { id: 'status.unbookmark', defaultMessage: 'Remove bookmark' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
   admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
   group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
@@ -68,6 +75,7 @@ const mapStateToProps = (state, { status }) => {
   return {
     groupId,
     groupRelationships,
+    isPro: state.getIn(['accounts', me, 'is_pro']),
   }
 }
 
@@ -90,6 +98,16 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(unpin(status))
     } else {
       dispatch(pin(status))
+    }
+  },
+
+  onBookmark(status) {
+    dispatch(closePopover())
+
+    if (status.get('bookmarked')) {
+      dispatch(unbookmark(status))
+    } else {
+      dispatch(bookmark(status))
     }
   },
 
@@ -186,6 +204,11 @@ const mapDispatchToProps = (dispatch) => ({
     }))
   },
 
+  onOpenProUpgradeModal() {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
+
   onClosePopover: () => dispatch(closePopover()),
 })
 
@@ -213,8 +236,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     onFetchGroupRelationships: PropTypes.func.isRequired,
     onOpenEmbedModal: PropTypes.func.isRequired,
+    onOpenProUpgradeModal: PropTypes.func.isRequired,
     onClosePopover: PropTypes.func.isRequired,
     isXS: PropTypes.bool,
+    isPro: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -259,6 +284,14 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
   handlePinClick = () => {
     this.props.onPin(this.props.status)
+  }
+
+  handleBookmarkClick = () => {
+    if (this.props.isPro) {
+      this.props.onBookmark(this.props.status)
+    } else {
+      this.props.onOpenProUpgradeModal()
+    }
   }
 
   handleDeleteClick = () => {
@@ -346,6 +379,13 @@ class StatusOptionsPopover extends ImmutablePureComponent {
         })
       }
 
+      menu.push({
+        icon: 'bookmark',
+        hideArrow: true,
+        title: intl.formatMessage(status.get('bookmarked') ? messages.unbookmark : messages.bookmark),
+        onClick: this.handleBookmarkClick,
+      })
+      
       if (status.getIn(['account', 'id']) === me) {
         if (publicStatus) {
           menu.push({
@@ -355,7 +395,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
             onClick: this.handlePinClick,
           })
         }
-        
+
         menu.push({
           icon: 'trash',
           hideArrow: true,

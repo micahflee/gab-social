@@ -189,6 +189,10 @@ module AccountInteractions
     status.proper.favourites.where(account: self).exists?
   end
 
+  def bookmarked?(status)
+    status_bookmarks.where(account: self).exists?
+  end
+
   def reblogged?(status)
     status.proper.reblogs.where(account: self).exists?
   end

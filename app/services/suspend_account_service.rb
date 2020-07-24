@@ -21,6 +21,7 @@ class SuspendAccountService < BaseService
     passive_relationships
     report_notes
     scheduled_statuses
+    status_bookmarks
     status_pins
     stream_entries
     subscriptions

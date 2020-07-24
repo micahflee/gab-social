@@ -11,6 +11,7 @@ import BackIcon from '../assets/back_icon'
 import BlockIcon from '../assets/block_icon'
 import BlockquoteIcon from '../assets/blockquote_icon'
 import BoldIcon from '../assets/bold_icon'
+import BookmarkIcon from '../assets/bookmark_icon'
 import CalendarIcon from '../assets/calendar_icon'
 import ChatIcon from '../assets/chat_icon'
 import CheckIcon from '../assets/check_icon'
@@ -93,6 +94,7 @@ const ICONS = {
   'block': BlockIcon,
   'blockquote': BlockquoteIcon,
   'bold': BoldIcon,
+  'bookmark': BookmarkIcon,
   'calendar': CalendarIcon,
   'chat': ChatIcon,
   'check': CheckIcon,

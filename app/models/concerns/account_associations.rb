@@ -20,6 +20,10 @@ module AccountAssociations
     has_many :scheduled_statuses, inverse_of: :account, dependent: :destroy
 
     # Pinned statuses
+    has_many :status_bookmarks, inverse_of: :account, dependent: :destroy
+    has_many :bookmarked_statuses, -> { reorder('status_bookmarks.created_at DESC') }, through: :status_bookmarks, class_name: 'Status', source: :status
+
+    # Pinned statuses
     has_many :status_pins, inverse_of: :account, dependent: :destroy
     has_many :pinned_statuses, -> { reorder('status_pins.created_at DESC') }, through: :status_pins, class_name: 'Status', source: :status
 
