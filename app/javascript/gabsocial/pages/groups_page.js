@@ -63,7 +63,7 @@ class GroupsPage extends PureComponent {
         onClick: this.handleOnOpenGroupCreateModal,
       },
     ]
-    const tabs = [
+    const tabs = !!me ? [
       {
         title: intl.formatMessage(messages.featured),
         to: '/groups',
@@ -76,7 +76,7 @@ class GroupsPage extends PureComponent {
         title: intl.formatMessage(messages.myGroups),
         to: '/groups/browse/member',
       },
-    ]
+    ] : []
 
     if (isPro) {
       tabs.push({
