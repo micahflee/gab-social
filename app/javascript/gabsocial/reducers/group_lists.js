@@ -3,6 +3,7 @@ import {
   GROUPS_FETCH_REQUEST,
   GROUPS_FETCH_SUCCESS,
   GROUPS_FETCH_FAIL,
+  GROUP_SORT,
 } from '../actions/groups'
 
 const tabs = ['new', 'featured', 'member', 'admin']
@@ -42,7 +43,6 @@ export default function groupLists(state = initialState, action) {
     return state.withMutations((mutable) => {
       let list = ImmutableList(action.groups.map(item => item.id))
       if (action.tab === 'featured') list = list.sortBy(Math.random)
-
       mutable.setIn([action.tab, 'items'], list)
       mutable.setIn([action.tab, 'isLoading'], false)
       mutable.setIn([action.tab, 'isFetched'], true)
@@ -52,6 +52,10 @@ export default function groupLists(state = initialState, action) {
       mutable.setIn([action.tab, 'items'], ImmutableList())
       mutable.setIn([action.tab, 'isLoading'], false)
       mutable.setIn([action.tab, 'isFetched'], true)
+    })
+  case GROUP_SORT:
+    return state.withMutations((mutable) => {
+      mutable.setIn([action.tab, 'items'], ImmutableList(action.groupIds))
     })
   default:
     return state

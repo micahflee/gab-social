@@ -6,6 +6,10 @@ import api, { getLinks } from '../api';
 import { me } from '../initial_state';
 import { importFetchedAccounts } from './importer';
 import { fetchRelationships } from './accounts';
+import {
+  GROUP_LIST_SORTING_TYPE_ALPHABETICAL,
+  GROUP_LIST_SORTING_TYPE_MOST_POPULAR,
+} from '../constants'
 
 export const GROUP_FETCH_REQUEST = 'GROUP_FETCH_REQUEST';
 export const GROUP_FETCH_SUCCESS = 'GROUP_FETCH_SUCCESS';
@@ -579,3 +583,37 @@ export function updateRoleFail(groupId, id, error) {
     error,
   };
 };
+
+export const sortGroups = (tab, sortType) => (dispatch, getState) => {
+  if (!me) return
+
+  const groupIdsByTab = getState().getIn(['group_lists', tab, 'items'], ImmutableList()).toJS()
+  const allGroups = getState().get('groups', ImmutableMap()).toJS()
+
+  let groupsByTab = []
+  
+  for (const key in allGroups) {
+    const block = allGroups[key]
+    if (groupIdsByTab.indexOf(block.id > -1)) {
+      groupsByTab.push(block)
+    }
+  }
+
+  if (sortType === GROUP_LIST_SORTING_TYPE_ALPHABETICAL) {
+    groupsByTab.sort((a, b) => a.title.localeCompare(b.title))
+  } else if (sortType === GROUP_LIST_SORTING_TYPE_MOST_POPULAR) {
+    groupsByTab.sort((a, b) => (a.member_count < b.member_count) ? 1 : -1)
+  }
+
+  const sortedGroupsIdsByTab = groupsByTab.map((group) => group.id)
+
+  dispatch(groupsSort(tab, sortedGroupsIdsByTab))
+};
+
+export function groupsSort(tab, groupIds) {
+  return {
+    type: GROUP_SORT,
+    tab,
+    groupIds,
+  }
+}

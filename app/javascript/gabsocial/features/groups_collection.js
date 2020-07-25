@@ -2,12 +2,13 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
 import { fetchGroups } from '../actions/groups'
+import { openPopover } from '../actions/popover'
+import { POPOVER_GROUP_LIST_SORT_OPTIONS } from '../constants'
 import Block from '../components/block'
 import Button from '../components/button'
 import ColumnIndicator from '../components/column_indicator'
 import Heading from '../components/heading'
 import GroupListItem from '../components/group_list_item'
-import Input from '../components/input'
 
 const messages = defineMessages({
 	empty: { id: 'groups.empty', defaultMessage: 'There are no groups to display' },
@@ -23,45 +24,48 @@ const mapStateToProps = (state, { activeTab }) => ({
 	isLoading: state.getIn(['group_lists', activeTab, 'isLoading']),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+	onFetchGroups: (tab) => dispatch(fetchGroups(tab)),
+	onOpenSortPopover(tab, targetRef) {
+		dispatch(openPopover(POPOVER_GROUP_LIST_SORT_OPTIONS, {
+			targetRef,
+			tab,
+			position: 'bottom',
+		}))
+	}
+})
+
 export default
 @injectIntl
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 class GroupsCollection extends ImmutablePureComponent {
 
 	static propTypes = {
 		activeTab: PropTypes.string.isRequired,
-		dispatch: PropTypes.func.isRequired,
 		groupIds: ImmutablePropTypes.list,
 		intl: PropTypes.object.isRequired,
 		isFetched: PropTypes.bool.isRequired,
 		isLoading: PropTypes.bool.isRequired,
-	}
-
-	state = {
-		isSearchVisible: false,
-		searchText: '',
+		onFetchGroups: PropTypes.func.isRequired,
+		onOpenSortPopover: PropTypes.func.isRequired,
 	}
 
 	componentWillMount() {
-		this.props.dispatch(fetchGroups(this.props.activeTab))
+		this.props.onFetchGroups(this.props.activeTab)
 	}
 
 	componentDidUpdate(oldProps) {
 		if (this.props.activeTab && this.props.activeTab !== oldProps.activeTab) {
-			this.setState({
-				isSearchVisible: false,
-				searchText: '',
-			})
-			this.props.dispatch(fetchGroups(this.props.activeTab))
+			this.props.onFetchGroups(this.props.activeTab)
 		}
 	}
 
-	handleToggleSearch = () => {
-		this.setState({ isSearchVisible: !this.state.isSearchVisible })
+	handleOnOpenSortPopover = () => {
+		this.props.onOpenSortPopover(this.props.activeTab, this.sortBtn)
 	}
 
-	handleOnChangeSearch = (value) => {
-		this.setState({ searchText: value })
+	setSortBtn = (n) => {
+		this.sortBtn = n
 	}
 
 	render() {
@@ -72,10 +76,6 @@ class GroupsCollection extends ImmutablePureComponent {
 			isLoading,
 			isFetched,
 		} = this.props
-		const {
-			isSearchVisible,
-			searchText,
-		} = this.state
 
 		if (isLoading && groupIds.size === 0) {
 			return <ColumnIndicator type='loading' />
@@ -94,37 +94,17 @@ class GroupsCollection extends ImmutablePureComponent {
 						</Heading>
 					</div>
 					<div className={[_s.default, _s.flexRow, _s.mlAuto].join(' ')}>
-						{
-							/*
-							<Button
-								icon='search'
-								className={_s.px10}
-								color={isSearchVisible ? 'white' : 'primary'}
-								backgroundColor={isSearchVisible ? 'brand' : 'none'}
-								iconSize='14px'
-								onClick={this.handleToggleSearch}
-							/>
-							<Button
-								icon='sort'
-								className={_s.px10}
-								color='primary'
-								backgroundColor='none'
-								iconSize='14px'
-							/>
-							*/
-						}
-					</div>
-				</div>
-				{
-					isSearchVisible &&
-					<div className={[_s.default, _s.px10, _s.my10].join(' ')}>
-						<Input
-							onChange={this.handleOnChangeSearch}
-							value={searchText}
-							prependIcon='search'
+						<Button
+							icon='sort'
+							className={_s.px10}
+							color='primary'
+							backgroundColor='none'
+							iconSize='14px'
+							onClick={this.handleOnOpenSortPopover}
+							buttonRef={this.setSortBtn}
 						/>
 					</div>
-				}
+				</div>
 				<div className={[_s.default, _s.py10, _s.width100PC].join(' ')}>
 					{
 						groupIds.map((groupId, i) => (
