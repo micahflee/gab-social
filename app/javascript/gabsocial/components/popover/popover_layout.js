@@ -29,8 +29,6 @@ export default class PopoverLayout extends PureComponent {
       title,
     } = this.props
 
-    console.log("popoverlayout props:", this.props)
-
     if (isXS) {
       return (
         <div className={[_s.default, _s.modal, _s.px10, _s.pb10].join(' ')}>
