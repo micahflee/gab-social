@@ -1,4 +1,4 @@
-- description = activity.spoiler_text.presence || activity.text
+- description = t('statuses.title', name: display_name(account), quote: activity.spoiler_text.presence || activity.text)
 
 %meta{ name: 'description', content: description }/
 = opengraph 'og:description', description
