@@ -134,14 +134,6 @@ class PollForm extends ImmutablePureComponent {
               onChange={this.handleSelectDuration}
               options={[
                 {
-                  value: 300,
-                  title: intl.formatMessage(messages.minutes, { number: 5 }),
-                },
-                {
-                  value: 1800,
-                  title: intl.formatMessage(messages.minutes, { number: 30 }),
-                },
-                {
                   value: 3600,
                   title: intl.formatMessage(messages.hours, { number: 1 }),
                 },
