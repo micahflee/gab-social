@@ -27,15 +27,23 @@ class TabBarItem extends PureComponent {
     isCurrent: false,
   }
 
+  componentDidMount() {
+    this.checkIfCurrent()
+  }
+
   componentDidUpdate(prevProps) {
+    if (prevProps.location !== this.props.location) {
+      this.checkIfCurrent()
+    }
+  }
+
+  checkIfCurrent() {
     // If user navigates to different page, ensure tab bar item
     // with this.props.to that is on location is set to active.
-    if (this.props.location !== prevProps.location) {
-      const isCurrent = this.props.to === this.props.location.pathname && !this.props.location.search
+    const isCurrent = this.props.to === this.props.location.pathname && !this.props.location.search
 
-      if (this.state.isCurrent !== isCurrent) {
-        this.setState({ isCurrent })
-      }
+    if (this.state.isCurrent !== isCurrent) {
+      this.setState({ isCurrent })
     }
   }
 
