@@ -108,11 +108,17 @@ class PopoverRoot extends PureComponent {
   }
 
   renderLoading = () => {
-    return <LoadingPopover />
+    const { width } = this.state
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
+
+    return <LoadingPopover isXS={isXS} onClose={this.props.onClose} />
   }
 
   renderError = () => {
-    return <ErrorPopover />
+    const { width } = this.state
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
+
+    return <ErrorPopover isXS={isXS} onClose={this.props.onClose} />
   }
 
   render() {
