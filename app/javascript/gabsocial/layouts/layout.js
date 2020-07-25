@@ -4,6 +4,7 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
+import LoggedOutSidebar from '../components/logged_out_sidebar'
 import Sidebar from '../components/sidebar'
 import SidebarXS from '../components/sidebar_xs'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
@@ -50,8 +51,6 @@ export default class Layout extends PureComponent {
       flexRow: 1,
       justifyContentEnd: 1,
       py15: 1,
-      mlAuto: !me,
-      mrAuto: !me,
     })
 
     return (
@@ -79,12 +78,19 @@ export default class Layout extends PureComponent {
           {
             !noSidebar &&
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <Sidebar
-                actions={actions}
-                showBackBtn={showBackBtn}
-                tabs={tabs}
-                title={title}
-              />
+              {
+                !!me &&
+                <Sidebar
+                  actions={actions}
+                  showBackBtn={showBackBtn}
+                  tabs={tabs}
+                  title={title}
+                />
+              }
+              {
+                !me &&
+                <LoggedOutSidebar title={title} />
+              }
             </Responsive>
           }
 
