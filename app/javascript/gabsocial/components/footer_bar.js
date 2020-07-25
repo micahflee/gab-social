@@ -4,8 +4,8 @@ import { CX } from '../constants'
 import Button from './button'
 
 const mapStateToProps = (state) => ({
-  notificationCount: state.getIn(['notifications', 'unread']),
-  homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  notificationCount: !!me ? state.getIn(['notifications', 'unread']) : 0,
+  homeItemsQueueCount: !!me ? state.getIn(['timelines', 'home', 'totalQueuedItemsCount']) : 0,
 })
 
 export default
@@ -19,6 +19,7 @@ class FooterBar extends PureComponent {
 
   static propTypes = {
     notificationCount: PropTypes.number.isRequired,
+    homeItemsQueueCount: PropTypes.number.isRequired,
   }
 
   render() {
@@ -26,7 +27,6 @@ class FooterBar extends PureComponent {
       notificationCount,
       homeItemsQueueCount,
     } = this.props
-    if (!me) return false
 
     const noRouter = !this.context.router
     const currentPathname = noRouter ? '' : this.context.router.route.location.pathname
@@ -42,6 +42,7 @@ class FooterBar extends PureComponent {
         to: '/notifications',
         icon: 'notifications',
         title: 'Notifications',
+        isHidden: !me,
         active: currentPathname === '/notifications',
       },
       {
@@ -64,6 +65,8 @@ class FooterBar extends PureComponent {
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.heightMin58PX, _s.saveAreaInsetPB, _s.justifyContentSpaceAround].join(' ')}>
             {
               buttons.map((props) => {
+                if (props.isHidden) return null
+
                 const classes = CX({
                   borderTop2PX: 1,
                   borderColorTransparent: !props.active,
@@ -118,4 +121,5 @@ class FooterBar extends PureComponent {
       </div>
     )
   }
+
 }
