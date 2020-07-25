@@ -585,8 +585,6 @@ export function updateRoleFail(groupId, id, error) {
 };
 
 export const sortGroups = (tab, sortType) => (dispatch, getState) => {
-  if (!me) return
-
   const groupIdsByTab = getState().getIn(['group_lists', tab, 'items'], ImmutableList()).toJS()
   const allGroups = getState().get('groups', ImmutableMap()).toJS()
 
