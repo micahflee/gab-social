@@ -420,6 +420,8 @@ pre {
 
 .colorPrimary { color: var(--text_color_primary); }
 
+.colorBlack { color: var(--color_black); }
+
 .colorWhite { color: var(--color_white); }
 .colorWhite_onHover:hover { color: var(--color_white); }
 
@@ -489,6 +491,7 @@ pre {
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }
+.heightMin320PX { min-height: 320px; }
 .heightMin98PX { min-height: 98px; }
 .heightMin80PX { min-height: 80px; }
 .heightMin58PX { min-height: 58px; }
@@ -741,6 +744,7 @@ pre {
 
 .ml15 { margin-left: 15px; }
 .ml10 { margin-left: 10px; }
+.ml7 { margin-left: 7px; }
 .ml5 { margin-left: 5px; }
 .mlAuto { margin-left: auto; }
 .mlNeg5PX { margin-left: -5px; }
