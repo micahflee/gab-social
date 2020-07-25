@@ -31,6 +31,7 @@ const messages = defineMessages({
   comments: { id: 'comments', defaultMessage: 'Comments' },
   photos: { id: 'photos', defaultMessage: 'Photos' },
   videos: { id: 'videos', defaultMessage: 'Videos' },
+  bookmarks: { id: 'bookmarks', defaultMessage: 'Bookmarks' },
   accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
   editProfile: { id: "account.edit_profile", defaultMessage: "Edit profile" },
 })
@@ -116,6 +117,14 @@ class ProfileHeader extends ImmutablePureComponent {
         title: intl.formatMessage(messages.videos),
       },
     ]
+
+    const isMyProfile = !account ? false : account.get('id') === me
+    if (isMyProfile) {
+      tabs.push({
+        to: `/${account.get('acct')}/bookmarks`,
+        title: intl.formatMessage(messages.bookmarks),
+      })
+    }
 
     const headerSrc = !!account ? account.get('header') : ''
     const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
