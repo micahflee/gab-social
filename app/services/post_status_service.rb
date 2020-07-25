@@ -16,6 +16,7 @@ class PostStatusService < BaseService
   # @option [String] :spoiler_text
   # @option [String] :language
   # @option [String] :scheduled_at
+  # @option [String] :expires_at
   # @option [Hash] :poll Optional poll to attach
   # @option [Enumerable] :media_ids Optional array of media IDs to attach
   # @option [Doorkeeper::Application] :application
@@ -55,6 +56,7 @@ class PostStatusService < BaseService
     @text         = @options.delete(:spoiler_text) if @text.blank? && @options[:spoiler_text].present?
     @visibility   = @options[:visibility] || @account.user&.setting_default_privacy
     @visibility   = :unlisted if @visibility == :public && @account.silenced?
+    @expires_at   = @options[:expires_at]&.to_datetime if @account.is_pro
     @scheduled_at = @options[:scheduled_at]&.to_datetime
     @scheduled_at = nil if scheduled_in_the_past?
   rescue ArgumentError
@@ -98,6 +100,7 @@ class PostStatusService < BaseService
     DistributionWorker.perform_async(@status.id)
     # Pubsubhubbub::DistributionWorker.perform_async(@status.stream_entry.id)
     # ActivityPub::DistributionWorker.perform_async(@status.id)
+    ExpiringStatusWorker.perform_at(@status.expires_at, @status.id) if @status.expires_at && @account.is_pro
     PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
   end
 
@@ -177,6 +180,7 @@ class PostStatusService < BaseService
     {
       text: @text,
       markdown: @markdown,
+      expires_at: @expires_at,
       group_id: @options[:group_id],
       quote_of_id: @options[:quote_of_id],
       media_attachments: @media || [],

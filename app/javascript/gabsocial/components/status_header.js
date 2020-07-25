@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import classNames from 'classnames/bind'
+import moment from 'moment-mini'
 import { openPopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
 import { me } from '../initial_state'
@@ -17,6 +18,7 @@ import Avatar from './avatar'
 
 const messages = defineMessages({
   edited: { id: 'status.edited', defaultMessage: 'Edited' },
+  expirationMessage: { id: 'status.expiration_message', defaultMessage: 'This status expires {time}' },
   public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
   public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
@@ -101,6 +103,12 @@ class StatusHeader extends ImmutablePureComponent {
       visibilityText = `${intl.formatMessage(messages.public_short)} - ${intl.formatMessage(messages.public_long)}`
     }
 
+    const expirationDate = status.get('expires_at')
+    let timeUntilExpiration
+    if (!!expirationDate) {
+      timeUntilExpiration = moment(expirationDate).fromNow()
+    }
+
     return (
       <div className={containerClasses}>
         <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
@@ -161,6 +169,18 @@ class StatusHeader extends ImmutablePureComponent {
               <span title={visibilityText} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
                 <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.fillSecondary].join(' ')} />
               </span>
+
+              {
+                !!status.get('expires_at') &&
+                <Fragment>
+                  <DotTextSeperator />
+                  <span title={intl.formatMessage(messages.expirationMessage, {
+                    time: timeUntilExpiration,
+                  })} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
+                    <Icon id='stopwatch' size='13px' className={[_s.default, _s.fillSecondary].join(' ')} />
+                  </span>
+                </Fragment>
+              }
 
               {
                 !!status.get('group') &&

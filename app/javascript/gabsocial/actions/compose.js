@@ -15,6 +15,14 @@ import { updateTimeline, dequeueTimeline } from './timelines';
 // import { showAlert, showAlertForError } from './alerts';
 import { defineMessages } from 'react-intl';
 import { openModal, closeModal } from './modal';
+import {
+  STATUS_EXPIRATION_OPTION_5_MINUTES,
+  STATUS_EXPIRATION_OPTION_60_MINUTES,
+  STATUS_EXPIRATION_OPTION_6_HOURS,
+  STATUS_EXPIRATION_OPTION_24_HOURS,
+  STATUS_EXPIRATION_OPTION_3_DAYS,
+  STATUS_EXPIRATION_OPTION_7_DAYS,
+} from '../constants'
 import { me } from '../initial_state';
 import { makeGetStatus } from '../selectors'
 
@@ -66,6 +74,8 @@ export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE';
 export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE';
 
 export const COMPOSE_SCHEDULED_AT_CHANGE = 'COMPOSE_SCHEDULED_AT_CHANGE';
+
+export const COMPOSE_EXPIRES_AT_CHANGE = 'COMPOSE_EXPIRES_AT_CHANGE'
 
 export const COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY = 'COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY'
 
@@ -299,6 +309,24 @@ export function submitCompose(groupId, replyToId = null, router, isStandalone, a
     let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null);
     if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate();
 
+    let expires_at = getState().getIn(['compose', 'expires_at'], null);
+
+    if (expires_at) {
+      if (expires_at === STATUS_EXPIRATION_OPTION_5_MINUTES) {
+        expires_at = moment.utc().add('5', 'minute').toDate()
+      } else if (expires_at === STATUS_EXPIRATION_OPTION_60_MINUTES) {
+        expires_at = moment.utc().add('60', 'minute').toDate()
+      } else if (expires_at === STATUS_EXPIRATION_OPTION_6_HOURS) {
+        expires_at = moment.utc().add('6', 'hour').toDate()
+      } else if (expires_at === STATUS_EXPIRATION_OPTION_24_HOURS) {
+        expires_at = moment.utc().add('24', 'hour').toDate()
+      } else if (expires_at === STATUS_EXPIRATION_OPTION_3_DAYS) {
+        expires_at = moment.utc().add('3', 'day').toDate()
+      } else if (expires_at === STATUS_EXPIRATION_OPTION_7_DAYS) {
+        expires_at = moment.utc().add('7', 'day').toDate()
+      }
+    }
+
     if (isMobile(window.innerWidth) && router && isStandalone) {
       router.history.goBack()
     }
@@ -306,6 +334,7 @@ export function submitCompose(groupId, replyToId = null, router, isStandalone, a
     api(getState)[method](endpoint, {
       status,
       markdown,
+      expires_at,
       scheduled_at,
       autoJoinGroup,
       in_reply_to_id: inReplyToId,
@@ -714,6 +743,13 @@ export function changeScheduledAt(date) {
     date,
   };
 };
+
+export function changeExpiresAt(value) {
+  return {
+    type: COMPOSE_EXPIRES_AT_CHANGE,
+    value,
+  }
+}
 
 export function changeRichTextEditorControlsVisibility(open) {
   return {

@@ -71,6 +71,7 @@ export function Status() { return import(/* webpackChunkName: "components/status
 export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
 export function SearchPopover() { return import(/* webpackChunkName: "components/search_popover" */'../../../components/popover/search_popover') }
 export function SidebarMorePopover() { return import(/* webpackChunkName: "components/sidebar_more_popover" */'../../../components/popover/sidebar_more_popover') }
+export function StatusExpirationOptionsPopover() { return import(/* webpackChunkName: "components/status_expiration_options_popover" */'../../../components/popover/status_expiration_options_popover') }
 export function StatusLikes() { return import(/* webpackChunkName: "features/status_likes" */'../../status_likes') }
 export function StatusOptionsPopover() { return import(/* webpackChunkName: "components/status_options_popover" */'../../../components/popover/status_options_popover') }
 export function StatusReposts() { return import(/* webpackChunkName: "features/status_reposts" */'../../status_reposts') }

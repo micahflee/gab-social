@@ -36,6 +36,7 @@ import {
   COMPOSE_POLL_OPTION_REMOVE,
   COMPOSE_POLL_SETTINGS_CHANGE,
   COMPOSE_SCHEDULED_AT_CHANGE,
+  COMPOSE_EXPIRES_AT_CHANGE,
   COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
   COMPOSE_CLEAR,
 } from '../actions/compose';
@@ -77,6 +78,7 @@ const initialState = ImmutableMap({
   idempotencyKey: null,
   tagHistory: ImmutableList(),
   scheduled_at: null,
+  expires_at: null,
   rte_controls_visible: false,
   gif: null,
 });
@@ -114,6 +116,7 @@ function clearAll(state) {
     map.set('poll', null);
     map.set('idempotencyKey', uuid());
     map.set('scheduled_at', null);
+    map.set('expires_at', null);
     map.set('rte_controls_visible', false);
     map.set('gif', false);
   });
@@ -309,6 +312,7 @@ export default function compose(state = initialState, action) {
       map.set('poll', null);
       map.set('idempotencyKey', uuid());
       map.set('scheduled_at', null);
+      map.set('expires_at', null);
       map.set('rte_controls_visible', false);
     });
   case COMPOSE_SUBMIT_REQUEST:
@@ -404,6 +408,8 @@ export default function compose(state = initialState, action) {
     return state.update('poll', poll => poll.set('expires_in', action.expiresIn).set('multiple', action.isMultiple));
   case COMPOSE_SCHEDULED_AT_CHANGE:
     return state.set('scheduled_at', action.date);
+  case COMPOSE_EXPIRES_AT_CHANGE:
+    return state.set('expires_at', action.value);
   case COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY:
     return state.withMutations(map => {
       map.set('rte_controls_visible', action.open || !state.get('rte_controls_visible'));

@@ -63,6 +63,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          spoiler_text: status_params[:spoiler_text],
                                          visibility: status_params[:visibility],
                                          scheduled_at: status_params[:scheduled_at],
+                                         expires_at: status_params[:expires_at],
                                          application: doorkeeper_token.application,
                                          poll: status_params[:poll],
                                          idempotency: request.headers['Idempotency-Key'],
@@ -79,6 +80,7 @@ class Api::V1::StatusesController < Api::BaseController
                                          text: status_params[:status],
                                          markdown: markdown,
                                          media_ids: status_params[:media_ids],
+                                         expires_at: status_params[:expires_at],
                                          sensitive: status_params[:sensitive],
                                          spoiler_text: status_params[:spoiler_text],
                                          visibility: status_params[:visibility],
@@ -117,6 +119,7 @@ class Api::V1::StatusesController < Api::BaseController
       :spoiler_text,
       :visibility,
       :scheduled_at,
+      :expires_at,
       :group_id,
       media_ids: [],
       poll: [

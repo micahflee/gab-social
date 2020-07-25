@@ -21,6 +21,7 @@ import PollButton from './poll_button'
 import PollForm from './poll_form'
 import SchedulePostButton from './schedule_post_button'
 import SpoilerButton from './spoiler_button'
+import ExpiresPostButton from './expires_post_button'
 import RichTextEditorButton from './rich_text_editor_button'
 import StatusContainer from '../../../containers/status_container'
 import StatusVisibilityButton from './status_visibility_button'
@@ -484,8 +485,13 @@ class ComposeForm extends ImmutablePureComponent {
                     <StatusVisibilityButton />
                     <SpoilerButton />
                     {
-                      !hidePro &&
+                      !hidePro && !edit &&
                       <SchedulePostButton />
+                    }
+
+                    {
+                      !hidePro && !edit &&
+                      <ExpiresPostButton />
                     }
 
                     {
