@@ -13,6 +13,7 @@ import BlockquoteIcon from '../assets/blockquote_icon'
 import BoldIcon from '../assets/bold_icon'
 import BookmarkIcon from '../assets/bookmark_icon'
 import CalendarIcon from '../assets/calendar_icon'
+import CaretDownIcon from '../assets/caret_down_icon'
 import ChatIcon from '../assets/chat_icon'
 import CheckIcon from '../assets/check_icon'
 import CircleIcon from '../assets/circle_icon'
@@ -68,6 +69,7 @@ import ShareIcon from '../assets/share_icon'
 import ShopIcon from '../assets/shop_icon'
 import SortIcon from '../assets/sort_icon'
 import StarIcon from '../assets/star_icon'
+import StarOutlineIcon from '../assets/star_outline_icon'
 import StopWatchIcon from '../assets/stopwatch_icon'
 import StrikethroughIcon from '../assets/strikethrough_icon'
 import SubtractIcon from '../assets/subtract_icon'
@@ -97,6 +99,7 @@ const ICONS = {
   'bold': BoldIcon,
   'bookmark': BookmarkIcon,
   'calendar': CalendarIcon,
+  'caret-down': CaretDownIcon,
   'chat': ChatIcon,
   'check': CheckIcon,
   'close': CloseIcon,
@@ -151,6 +154,7 @@ const ICONS = {
   'shop': ShopIcon,
   'sort': SortIcon,
   'star': StarIcon,
+  'star-outline': StarOutlineIcon,
   'stopwatch': StopWatchIcon,
   'strikethrough': StrikethroughIcon,
   'subtract': SubtractIcon,
