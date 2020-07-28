@@ -70,6 +70,8 @@ class ListsPanel extends ImmutablePureComponent {
 
     const count = !!lists ? lists.count() : 0
 
+    if (count === 0 && fetched) return null
+    
     const maxCount = 6
 
     const listItems = !!lists && lists.slice(0, maxCount).map((list) => ({
