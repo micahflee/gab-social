@@ -6,7 +6,7 @@ import {
   fetchContext,
 } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
-import ColumnIndicator from '../components/column_indicator'
+import StatusPlaceholder from '../components/placeholder/status_placeholder'
 
 const mapStateToProps = (state, props) => {
   const statusId = props.id || props.params.statusId
@@ -73,7 +73,7 @@ class Status extends ImmutablePureComponent {
     const { status } = this.props
   
     if (!status) {
-      return <ColumnIndicator type='loading' />
+      return <StatusPlaceholder />
     }
 
     return (

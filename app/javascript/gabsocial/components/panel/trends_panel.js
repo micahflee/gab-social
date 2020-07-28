@@ -5,6 +5,7 @@ import { fetchGabTrends } from '../../actions/gab_trends'
 import PanelLayout from './panel_layout'
 import ScrollableList from '../scrollable_list'
 import TrendsItem from '../trends_item'
+import TrendsItemPlaceholder from '../placeholder/trends_item_placeholder'
 
 const messages = defineMessages({
   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
@@ -59,7 +60,9 @@ class TrendsPanel extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
       >
         <ScrollableList
-          isLoading={isLoading}
+          showLoading={isLoading}
+          placeholderComponent={TrendsItemPlaceholder}
+          placeholderCount={8}
           scrollKey='trending-items'
         >
           {

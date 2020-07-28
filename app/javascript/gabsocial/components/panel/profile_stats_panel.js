@@ -6,6 +6,7 @@ import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import UserStat from '../user_stat'
 import Dummy from '../dummy'
+import ProfileStatsPanelPlaceholder from '../placeholder/profile_stats_panel_placeholder'
 import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 const messages = defineMessages({
@@ -32,12 +33,14 @@ class ProfileStatsPanel extends ImmutablePureComponent {
       noPanel
     } = this.props
 
-    if (!account) return null
-
     const Wrapper = noPanel ? Dummy : PanelLayout
 
     return (
       <Wrapper>
+        {
+          !account &&
+          <ProfileStatsPanelPlaceholder />
+        }
         {
           !!account &&
           <ResponsiveClassesComponent

@@ -5,7 +5,8 @@ import {
 } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import Account from '../../components/account'
+import Account from '../account'
+import AccountPlaceholder from '../placeholder/account_placeholder'
 import PanelLayout from './panel_layout'
 
 const messages = defineMessages({
@@ -16,6 +17,7 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => ({
   suggestions: state.getIn(['suggestions', 'related', 'items']),
+  isLoading: state.getIn(['suggestions', 'related', 'isLoading']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -33,6 +35,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     fetchRelatedSuggestions: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     suggestions: ImmutablePropTypes.list.isRequired,
+    isLoading: PropTypes.bool.isRequired,
     isLazy: PropTypes.bool,
   }
 
@@ -69,11 +72,15 @@ class WhoToFollowPanel extends ImmutablePureComponent {
   render() {
     const {
       intl,
+      isLoading,
       suggestions,
       dismissRelatedSuggestion,
     } = this.props
 
     if (suggestions.isEmpty()) return null
+
+    const Child = isLoading ? AccountPlaceholder : Account
+    const arr = isLoading ? Array.apply(null, { length: 6 }) : suggestions
 
     return (
       <PanelLayout
@@ -84,8 +91,8 @@ class WhoToFollowPanel extends ImmutablePureComponent {
       >
         <div className={_s.default}>
           {
-            suggestions.map(accountId => (
-              <Account
+            arr.map((accountId) => (
+              <Child
                 compact
                 showDismiss
                 key={accountId}

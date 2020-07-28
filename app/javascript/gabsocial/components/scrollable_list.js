@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
@@ -28,6 +29,8 @@ export default class ScrollableList extends PureComponent {
     children: PropTypes.node,
     onScrollToTop: PropTypes.func,
     onScroll: PropTypes.func,
+    placeholderComponent: PropTypes.node,
+    placeholderCount: PropTypes.node,
   }
 
   state = {
@@ -220,13 +223,34 @@ export default class ScrollableList extends PureComponent {
       hasMore,
       emptyMessage,
       onLoadMore,
+      placeholderComponent: Placeholder,
+      placeholderCount,
     } = this.props
     const childrenCount = React.Children.count(children);
 
     const loadMore = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null
 
     if (showLoading) {
-      return <ColumnIndicator type='loading' />
+      if (Placeholder) {
+        return (
+          <Fragment>
+            {
+              Array.apply(null, {
+                length: placeholderCount
+              }).map((_, i) => (
+                <Placeholder
+                  key={`${scrollKey}-placeholder-${i}`}
+                  isLast={i === placeholderCount - 1}
+                />
+              ))
+            }
+          </Fragment>
+        )
+      }
+
+      return (
+        <ColumnIndicator type='loading' />
+      )
     } else if (isLoading || childrenCount > 0 || hasMore || !emptyMessage) {
       return (
         <div onMouseMove={this.handleMouseMove}>

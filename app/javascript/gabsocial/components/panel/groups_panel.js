@@ -5,6 +5,7 @@ import { fetchGroups } from '../../actions/groups'
 import PanelLayout from './panel_layout'
 import GroupListItem from '../group_list_item'
 import ScrollableList from '../scrollable_list'
+import GroupListItemPlaceholder from '../placeholder/group_list_item_placeholder'
 
 const messages = defineMessages({
   title: { id: 'groups.sidebar-panel.title', defaultMessage: 'Groups you\'re in' },
@@ -86,6 +87,8 @@ class GroupSidebarPanel extends ImmutablePureComponent {
         <ScrollableList
           scrollKey='groups_panel'
           showLoading={!fetched}
+          placeholderComponent={GroupListItemPlaceholder}
+          placeholderCount={6}
         >
           {
             groupIds && groupIds.slice(0, maxCount).map((groupId, i) => (

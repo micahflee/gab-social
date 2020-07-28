@@ -9,9 +9,9 @@ import { dequeueTimeline } from '../actions/timelines'
 import { scrollTopTimeline } from '../actions/timelines'
 import { fetchStatus, fetchContext } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
+import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
-import ColumnIndicator from './column_indicator'
 
 const makeGetStatusIds = () => createSelector([
   (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
@@ -228,8 +228,15 @@ class StatusList extends ImmutablePureComponent {
     } = this.props
     const { fetchedContext, refreshing } = this.state
 
-    if (isPartial) {
-      return <ColumnIndicator type='loading' />
+    if (isPartial || isLoading && statusIds.size === 0) {
+      return (
+        <Fragment>
+          <StatusPlaceholder />
+          <StatusPlaceholder />
+          <StatusPlaceholder />
+          <StatusPlaceholder />
+        </Fragment>
+      )
     }
 
     // : hack :

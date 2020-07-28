@@ -9,6 +9,7 @@ import Divider from '../divider'
 import Icon from '../icon'
 import Text from '../text'
 import Dummy from '../dummy'
+import ProfileInfoPanelPlaceholder from '../placeholder/profile_info_panel_placeholder'
 
 const messages = defineMessages({
   title: { id: 'about', defaultMessage: 'About' },
@@ -35,7 +36,15 @@ class ProfileInfoPanel extends ImmutablePureComponent {
       noPanel
     } = this.props
 
-    if (!account) return null
+    const Wrapper = noPanel ? Dummy : PanelLayout
+
+    if (!account) {
+      return (
+        <Wrapper title={intl.formatMessage(messages.title)}>
+          <ProfileInfoPanelPlaceholder />
+        </Wrapper>
+      )
+    }
 
     const fields = account.get('fields')
     const content = { __html: account.get('note_emojified') }
@@ -45,8 +54,6 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     const isDonor = account.get('is_donor')
     const isInvestor = account.get('is_investor')
     const hasBadges = isPro || isDonor || isInvestor
-
-    const Wrapper = noPanel ? Dummy : PanelLayout
 
     return (
       <Wrapper title={intl.formatMessage(messages.title)}>

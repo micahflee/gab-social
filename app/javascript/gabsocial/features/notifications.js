@@ -17,6 +17,7 @@ import ScrollableList from '../components/scrollable_list'
 import TimelineQueueButtonHeader from '../components/timeline_queue_button_header'
 import Block from '../components/block'
 import Account from '../components/account'
+import NotificationPlaceholder from '../components/placeholder/notification_placeholder'
 
 const mapStateToProps = (state) => ({
   notifications: state.getIn(['notifications', 'items']),
@@ -180,6 +181,8 @@ class Notifications extends ImmutablePureComponent {
             onLoadMore={this.handleLoadOlder}
             onScrollToTop={this.handleScrollToTop}
             onScroll={this.handleScroll}
+            placeholderComponent={NotificationPlaceholder}
+            placeholderCount={3}
           >
             {scrollableContent}
           </ScrollableList>

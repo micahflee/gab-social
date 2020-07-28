@@ -12,6 +12,7 @@ import { me, displayMedia } from '../initial_state'
 import scheduleIdleTask from '../utils/schedule_idle_task'
 import ComposeFormContainer from '../features/compose/containers/compose_form_container'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
+import CommentPlaceholder from './placeholder/comment_placeholder'
 import StatusContent from './status_content'
 import StatusPrepend from './status_prepend'
 import StatusActionBar from './status_action_bar'
@@ -413,6 +414,7 @@ class Status extends ImmutablePureComponent {
 
     if (isComment && !ancestorStatus && !isChild) {
       // Wait to load...
+      // return <StatusPlaceholder />
       if (contextType === 'feature') {
         return <ColumnIndicator type='loading' />
       }
@@ -585,46 +587,49 @@ class Status extends ImmutablePureComponent {
                       <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                     </ResponsiveClassesComponent>
                   }
-
+                  
                   {
-                    status.get('replies_count') > 0 && !commentsLimited && !isNotification && descendantsIds && descendantsIds.size === 0 &&
+                    status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
-                      <ColumnIndicator type='loading' />
-                    </Fragment>
-                  }
 
-                  {
-                    descendantsIds && !isChild && !isNotification && descendantsIds.size > 0 && !commentsLimited &&
-                    <Fragment>
-                      <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+                      <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
+                        <Text color='secondary' size='small'>
+                          {intl.formatMessage(messages.sortBy)}
+                        </Text>
+                        <Button
+                          isText
+                          backgroundColor='none'
+                          color='secondary'
+                          className={_s.ml5}
+                          buttonRef={this.setCommentSortButtonRef}
+                          onClick={this.handleOnCommentSortOpen}
+                          disabled={descendantsIds.size === 0}
+                        >
+                          <Text color='inherit' weight='medium' size='small'>
+                            {sortByTitle}
+                          </Text>
+                        </Button>
+                      </div>
 
                       {
-                        !commentsLimited && descendantsIds.size > 1 &&
-                        <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
-                          <Text color='secondary' size='small'>
-                            {intl.formatMessage(messages.sortBy)}
-                          </Text>
-                          <Button
-                            isText
-                            backgroundColor='none'
-                            color='secondary'
-                            className={_s.ml5}
-                            buttonRef={this.setCommentSortButtonRef}
-                            onClick={this.handleOnCommentSortOpen}
-                          >
-                            <Text color='inherit' weight='medium' size='small'>
-                              {sortByTitle}
-                            </Text>
-                          </Button>
-                        </div>
+                        descendantsIds.size === 0 &&
+                        <Fragment>
+                          <CommentPlaceholder />
+                          <CommentPlaceholder />
+                          <CommentPlaceholder />
+                        </Fragment>
                       }
-                      <CommentList
-                        ancestorAccountId={status.getIn(['account', 'id'])}
-                        commentsLimited={commentsLimited}
-                        descendants={descendantsIds}
-                        onViewComments={this.handleClick}
-                      />
+                      
+                      {
+                        descendantsIds.size > 0 &&
+                        <CommentList
+                          ancestorAccountId={status.getIn(['account', 'id'])}
+                          commentsLimited={commentsLimited}
+                          descendants={descendantsIds}
+                          onViewComments={this.handleClick}
+                        />
+                      }
                     </Fragment>
                   }
                 </div>

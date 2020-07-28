@@ -4,6 +4,7 @@ import Block from './block'
 import ScrollableList from './scrollable_list'
 import ListItem from './list_item'
 import Dummy from './dummy'
+import ListItemPlaceholder from './placeholder/list_item_placeholder'
 
 export default class List extends ImmutablePureComponent {
 
@@ -45,6 +46,8 @@ export default class List extends ImmutablePureComponent {
           scrollKey={scrollKey}
           emptyMessage={emptyMessage}
           showLoading={showLoading}
+          placeholderComponent={ListItemPlaceholder}
+          placeholderCount={6}
         >
           {
             items.map((item, i) => (

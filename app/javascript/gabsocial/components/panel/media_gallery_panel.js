@@ -5,6 +5,7 @@ import { expandAccountMediaTimeline } from '../../actions/timelines'
 import { getAccountGallery } from '../../selectors'
 import PanelLayout from './panel_layout'
 import MediaItem from '../media_item'
+import MediaGalleryPanelPlaceholder from '../placeholder/media_gallery_panel_placeholder'
 
 const messages = defineMessages({
   title: { id: 'media_gallery_panel.title', defaultMessage: 'Media' },
@@ -16,6 +17,7 @@ const mapStateToProps = (state, { account }) => {
 
   return {
     accountId,
+    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading'], true), 
     attachments: getAccountGallery(state, accountId),
   }
 }
@@ -29,6 +31,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
     dispatch: PropTypes.func.isRequired,
     accountId: PropTypes.string,
     account: ImmutablePropTypes.map,
+    isLoading: PropTypes.bool,
     attachments: ImmutablePropTypes.list.isRequired,
     intl: PropTypes.object.isRequired,
   }
@@ -49,35 +52,40 @@ class MediaGalleryPanel extends ImmutablePureComponent {
 
   render() {
     const {
-      intl,
       account,
-      attachments
+      attachments,
+      intl,
+      isLoading,
     } = this.props
 
-    if (!account || !attachments) return null
+    if (!attachments) return null
 
     return (
       <PanelLayout
         noPadding
         title={intl.formatMessage(messages.title)}
-        headerButtonTitle={intl.formatMessage(messages.show_all)}
-        headerButtonTo={`/${account.get('acct')}/media`}
+        headerButtonTitle={!!account ? intl.formatMessage(messages.show_all) : undefined}
+        headerButtonTo={!!account ? `/${account.get('acct')}/media` : undefined}
       > 
-        {
-          attachments.size > 0 &&
-          <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
-            {
-              attachments.slice(0, 16).map((attachment, i) => (
-                <MediaItem
-                  isSmall
-                  key={attachment.get('id')}
-                  attachment={attachment}
-                  account={account}
-                />
-              ))
-            }
-          </div>
-        }
+        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
+          {
+            !!account && attachments.size > 0 &&
+            attachments.slice(0, 16).map((attachment, i) => (
+              <MediaItem
+                isSmall
+                key={attachment.get('id')}
+                attachment={attachment}
+                account={account}
+              />
+            ))
+          }
+          {
+            !account || (attachments.size === 0 && isLoading) &&
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+              <MediaGalleryPanelPlaceholder />
+            </div>
+          }
+        </div>
       </PanelLayout>
     )
   }
