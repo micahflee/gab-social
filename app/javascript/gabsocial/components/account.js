@@ -147,7 +147,7 @@ class Account extends ImmutablePureComponent {
       <Button
         isNarrow
         backgroundColor='none'
-        className={_s.px5}
+        className={[_s.alignItemsEnd, _s.px5]}
         onClick={dismissAction}
         icon='close'
         iconSize='8px'
@@ -174,7 +174,7 @@ class Account extends ImmutablePureComponent {
               <NavLink
                 title={account.get('acct')}
                 to={`/${account.get('acct')}`}
-                className={[_s.default, _s.alignItemsStart, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
+                className={[_s.default, _s.alignItemsStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
               >
                 <DisplayName account={account} isMultiline={compact} />
                 {!compact && actionButton}
