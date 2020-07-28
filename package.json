@@ -132,6 +132,7 @@
     "query-string": "^6.12.1",
     "rails-ujs": "^5.2.3",
     "react": "^16.7.0",
+    "react-content-loader": "^5.1.0",
     "react-datepicker": "^2.9.6",
     "react-dom": "^16.7.0",
     "react-hotkeys": "^1.1.4",
