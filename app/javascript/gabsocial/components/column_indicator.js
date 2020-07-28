@@ -31,7 +31,7 @@ class ColumnIndicator extends PureComponent {
 
     return (
       <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.py15].join(' ')}>
-        <Icon id={type} size='36px' />
+        <Icon id={type} size='30px' />
         {
           type !== 'loading' &&
           <Text
