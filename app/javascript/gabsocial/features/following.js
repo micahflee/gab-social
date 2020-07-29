@@ -19,7 +19,7 @@ const mapStateToProps = (state, { account }) => {
     accountId,
     accountIds: state.getIn(['user_lists', 'following', accountId, 'items']),
     hasMore: !!state.getIn(['user_lists', 'following', accountId, 'next']),
-    isLoading: state.getIn(['user_lists', 'following', accountId, 'isLoading']),
+    isLoading: state.getIn(['user_lists', 'following', accountId, 'isLoading'], true),
   }
 }
 

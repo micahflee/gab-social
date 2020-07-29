@@ -20,7 +20,7 @@ const mapStateToProps = (state, { account, commentsOnly = false }) => {
     accountId,
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], emptyList),
     featuredStatusIds: commentsOnly ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned`, 'items'], emptyList),
-    isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading']),
+    isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading'], true),
     hasMore: state.getIn(['timelines', `account:${path}`, 'hasMore']),
   }
 }
@@ -87,6 +87,7 @@ class AccountTimeline extends ImmutablePureComponent {
         statusIds={statusIds}
         featuredStatusIds={featuredStatusIds}
         isLoading={isLoading}
+        showLoading={isLoading}
         hasMore={hasMore}
         onLoadMore={this.handleLoadMore}
         emptyMessage={intl.formatMessage(messages.empty)}

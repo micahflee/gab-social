@@ -142,7 +142,7 @@ class ProfileHeader extends ImmutablePureComponent {
     }
 
     const headerSrc = !!account ? account.get('header') : undefined
-    const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
+    const headerMissing = !headerSrc ? true : headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1
     const avatarSize = headerMissing ? 75 : 150
     const top = headerMissing ? -46 : -380
 
