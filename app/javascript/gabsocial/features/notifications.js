@@ -170,7 +170,7 @@ class Notifications extends ImmutablePureComponent {
           <ScrollableList
             scrollKey='notifications'
             isLoading={isLoading}
-            showLoading={true /*(isLoading && sortedNotifications.size === 0) || changedTabs*/}
+            showLoading={isLoading && sortedNotifications.size === 0) || changedTabs}
             hasMore={hasMore}
             emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
             onLoadMore={this.handleLoadOlder}
