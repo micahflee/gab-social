@@ -97,6 +97,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
                 showDismiss
                 key={accountId}
                 id={accountId}
+                isSmall={isLoading ? true : undefined}
                 dismissAction={dismissRelatedSuggestion}
               />
             ))

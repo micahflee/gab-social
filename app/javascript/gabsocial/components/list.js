@@ -47,7 +47,7 @@ export default class List extends ImmutablePureComponent {
           emptyMessage={emptyMessage}
           showLoading={showLoading}
           placeholderComponent={ListItemPlaceholder}
-          placeholderCount={6}
+          placeholderCount={12}
         >
           {
             items.map((item, i) => (

@@ -1,10 +1,6 @@
 import PlaceholderLayout from './placeholder_layout'
 
 export default class ProfileStatsPanelPlaceholder extends PureComponent {
-  
-  static propTypes = {
-    loaderProps: PropTypes.object,
-  }
 
   render() {
     return (

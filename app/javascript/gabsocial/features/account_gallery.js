@@ -7,6 +7,7 @@ import ColumnIndicator from '../components/column_indicator'
 import MediaItem from '../components/media_item'
 import LoadMore from '../components/load_more'
 import Block from '../components/block'
+import MediaGalleryPlaceholder from '../components/placeholder/media_gallery_placeholder'
 
 const messages = defineMessages({
   none: { id: 'account_gallery.none', defaultMessage: 'No media to show.' },
@@ -125,7 +126,9 @@ class AccountGallery extends ImmutablePureComponent {
 
           {
             isLoading && attachments.size === 0 &&
-            <ColumnIndicator type='loading' />
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+              <MediaGalleryPlaceholder />
+            </div>
           }
 
           {

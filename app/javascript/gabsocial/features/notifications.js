@@ -12,7 +12,6 @@ import {
   forceDequeueNotifications,
 } from '../actions/notifications'
 import NotificationContainer from '../containers/notification_container'
-import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 import TimelineQueueButtonHeader from '../components/timeline_queue_button_header'
 import Block from '../components/block'
@@ -122,22 +121,18 @@ class Notifications extends ImmutablePureComponent {
     } = this.props
     const { changedTabs } = this.state
 
-    if (isLoading && changedTabs) {
-      return <ColumnIndicator type='loading' />
-    }
-
     let scrollableContent = null
 
-    if (isLoading && this.scrollableContent) {
+    if (isLoading && this.scrollableContent && !changedTabs) {
       scrollableContent = this.scrollableContent
-    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter !== 'follow') {
+    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter !== 'follow' && !changedTabs) {
       scrollableContent = sortedNotifications.map((item, index) => (
         <NotificationContainer
           key={`notification-${index}`}
           notification={item}
         />
       ))
-    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter === 'follow') {      
+    } else if ((sortedNotifications.size > 0 || hasMore) && selectedFilter === 'follow' && !changedTabs) {      
       const followNotifications = []
       sortedNotifications.forEach((block) => {
         if (block) {
@@ -175,7 +170,7 @@ class Notifications extends ImmutablePureComponent {
           <ScrollableList
             scrollKey='notifications'
             isLoading={isLoading}
-            showLoading={isLoading && sortedNotifications.size === 0}
+            showLoading={true /*(isLoading && sortedNotifications.size === 0) || changedTabs*/}
             hasMore={hasMore}
             emptyMessage={<FormattedMessage id='empty_column.notifications' defaultMessage="You don't have any notifications yet. Interact with others to start the conversation." />}
             onLoadMore={this.handleLoadOlder}

@@ -72,10 +72,7 @@ class ProfilePage extends ImmutablePureComponent {
       >
         <PageTitle path={`${name} (@${username})`} />
         {
-          !account && <ColumnIndicator type='loading' />
-        }
-        {
-          !!account && !unavailable &&
+          !unavailable &&
           React.cloneElement(children, {
             account,
           })

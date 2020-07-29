@@ -1,6 +1,7 @@
 import { CX } from '../../constants'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 export default class ListItemPlaceholder extends PureComponent {
   
@@ -19,15 +20,26 @@ export default class ListItemPlaceholder extends PureComponent {
       borderBottom1PX: !isLast,
     })
 
+    const classesXS = CX({
+      default: 1,
+      px15: 1,
+      py7: 1,
+      borderColorSecondary: !isLast,
+      borderBottom1PX: !isLast,
+    })
+
     const width = getRandomInt(120, 375)
 
     return (
-      <div className={classes}>
+      <ResponsiveClassesComponent
+        classNames={classes}
+        classNamesXS={classesXS}
+      >
         <PlaceholderLayout viewBox='0 0 400 30'>
           <circle cx='10' cy='17' r='10' /> 
           <rect x='30' y='12' rx='5' ry='5' width={width} height='12' />
         </PlaceholderLayout>
-      </div>
+      </ResponsiveClassesComponent>
     )
   }
 

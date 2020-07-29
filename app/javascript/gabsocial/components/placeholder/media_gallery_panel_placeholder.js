@@ -2,10 +2,6 @@ import PlaceholderLayout from './placeholder_layout'
 
 export default class MediaGalleryPanelPlaceholder extends PureComponent {
   
-  static propTypes = {
-    loaderProps: PropTypes.object,
-  }
-
   render() {
     return (
       <div className={_s.default}>

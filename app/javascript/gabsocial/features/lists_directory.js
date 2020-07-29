@@ -48,10 +48,6 @@ class ListsDirectory extends ImmutablePureComponent {
     const { intl, lists } = this.props
     const { fetched } = this.state
 
-    if (lists.size === 0 && !fetched) {
-      return <ColumnIndicator type='loading' />
-    }
-
     const emptyMessage = intl.formatMessage(messages.empty)
 
     const listItems = lists.map(list => ({
@@ -62,6 +58,7 @@ class ListsDirectory extends ImmutablePureComponent {
     return (
       <List
         scrollKey='lists'
+        showLoading={lists.size === 0 && !fetched}
         emptyMessage={emptyMessage}
         items={listItems}
       />

@@ -6,10 +6,11 @@ export default class AccountPlaceholder extends PureComponent {
   
   static propTypes = {
     isLast: PropTypes.bool,
+    isSmall: PropTypes.bool,
   }
 
   render() {
-    const { isLast } = this.props
+    const { isLast, isSmall } = this.props
 
     const classes = CX({
       default: 1,
@@ -21,12 +22,24 @@ export default class AccountPlaceholder extends PureComponent {
 
     const width = getRandomInt(120, 300)
 
+    if (isSmall) {
+      return (
+        <div className={classes}>
+          <PlaceholderLayout viewBox='0 0 400 60'>
+            <circle cx='27' cy='28' r='27' />
+            <rect x='72' y='10' rx='5' ry='5' width={width} height='14' /> 
+            <rect x='72' y='36' rx='5' ry='5' width='108' height='14' /> 
+          </PlaceholderLayout>
+        </div>
+      )
+    }
+
     return (
       <div className={classes}>
-        <PlaceholderLayout viewBox='0 0 400 60'>
-          <circle cx='27' cy='28' r='27' />
-          <rect x='72' y='10' rx='5' ry='5' width={width} height='14' /> 
-          <rect x='72' y='36' rx='5' ry='5' width='108' height='14' /> 
+        <PlaceholderLayout viewBox='0 0 400 32'>
+          <rect x="38" y="4" rx="3" ry="3" width="268" height="6" /> 
+          <circle cx="14" cy="14" r="14" /> 
+          <rect x="36" y="18" rx="3" ry="3" width="208" height="6" />
         </PlaceholderLayout>
       </div>
     )

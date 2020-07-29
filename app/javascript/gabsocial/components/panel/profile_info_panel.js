@@ -38,7 +38,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
     const Wrapper = noPanel ? Dummy : PanelLayout
 
-    if (!account) {
+    if (!account && !noPanel) {
       return (
         <Wrapper title={intl.formatMessage(messages.title)}>
           <ProfileInfoPanelPlaceholder />

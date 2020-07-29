@@ -38,7 +38,7 @@ class ProfileStatsPanel extends ImmutablePureComponent {
     return (
       <Wrapper>
         {
-          !account &&
+          !account && !noPanel &&
           <ProfileStatsPanelPlaceholder />
         }
         {

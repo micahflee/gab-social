@@ -234,7 +234,6 @@ class StatusList extends ImmutablePureComponent {
           <StatusPlaceholder />
           <StatusPlaceholder />
           <StatusPlaceholder />
-          <StatusPlaceholder />
         </Fragment>
       )
     }

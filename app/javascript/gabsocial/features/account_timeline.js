@@ -74,15 +74,12 @@ class AccountTimeline extends ImmutablePureComponent {
 
   render() {
     const {
-      account,
       statusIds,
       featuredStatusIds,
       isLoading,
       hasMore,
       intl
     } = this.props
-
-    if (!account) return null
 
     return (
       <StatusList

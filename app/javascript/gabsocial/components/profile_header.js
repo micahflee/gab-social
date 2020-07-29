@@ -21,6 +21,7 @@ import MovedNote from './moved_note'
 import TabBar from './tab_bar'
 import Text from './text'
 import Responsive from '../features/ui/util/responsive_component';
+import ProfileHeaderXSPlaceholder from './placeholder/profile_header_xs_placeholder'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -59,6 +60,7 @@ class ProfileHeader extends ImmutablePureComponent {
     intl: PropTypes.object.isRequired,
     onEditProfile: PropTypes.func.isRequired,
     openProfileOptionsPopover: PropTypes.func.isRequired,
+    isXS: PropTypes.bool,
   }
 
   state = {
@@ -96,8 +98,21 @@ class ProfileHeader extends ImmutablePureComponent {
       account,
       children,
       intl,
+      isXS
     } = this.props
     const { stickied } = this.state
+
+    if (isXS && !account) {
+      return (
+        <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
+          <div className={[_s.default, _s.z1, _s.width100PC, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+            <div className={[_s.default, _s.width100PC].join(' ')}>
+              <ProfileHeaderXSPlaceholder />
+            </div>
+          </div>
+        </div>
+      )
+    }
 
     const tabs = !account ? null : [
       {
@@ -126,7 +141,7 @@ class ProfileHeader extends ImmutablePureComponent {
       })
     }
 
-    const headerSrc = !!account ? account.get('header') : ''
+    const headerSrc = !!account ? account.get('header') : undefined
     const headerMissing = headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !headerSrc
     const avatarSize = headerMissing ? 75 : 150
     const top = headerMissing ? -46 : -380
@@ -290,7 +305,20 @@ class ProfileHeader extends ImmutablePureComponent {
 
                   <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
                     <div className={avatarContainerClasses}>
-                      <Avatar size={avatarSize} account={account} noHover />
+                      {
+                        account &&
+                        <Avatar size={avatarSize} account={account} noHover />
+                      }
+                      {
+                        !account &&
+                        <div
+                          className={[_s.default, _s.circle, _s.overflowHidden, _s.bgSecondary].join(' ')}
+                          style={{
+                            width: `${avatarSize}px`,
+                            height: `${avatarSize}px`,
+                          }}
+                        />
+                      }
                     </div>
 
                     <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>

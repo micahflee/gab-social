@@ -63,7 +63,7 @@ export default class ProfileLayout extends ImmutablePureComponent {
               <div className={[_s.default, _s.width100PC, _s.flexRow, _s.justifyContentSpaceBetween].join(' ')}>
                 <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter].join(' ')}>
 
-                  <ProfileHeader account={account}>
+                  <ProfileHeader account={account} isXS>
                     <ProfileInfoPanel account={account} noPanel />
                     <Divider isSmall />
                     <ProfileStatsPanel account={account} noPanel />

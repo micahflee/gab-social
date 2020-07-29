@@ -10,6 +10,7 @@ import Account from '../components/account'
 import ScrollableList from '../components/scrollable_list'
 import Block from '../components/block'
 import Heading from '../components/heading'
+import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
 const mapStateToProps = (state, { account }) => {
   const accountId = !!account ? account.get('id') : -1
@@ -73,8 +74,6 @@ class Followers extends ImmutablePureComponent {
       isLoading,
     } = this.props
 
-    if (!account) return null
-
     return (
       <Block>
         <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter].join(' ')}>
@@ -87,11 +86,14 @@ class Followers extends ImmutablePureComponent {
             scrollKey='followers'
             hasMore={hasMore}
             isLoading={isLoading}
+            showLoading={isLoading}
             onLoadMore={this.handleLoadMore}
+            placeholderComponent={AccountPlaceholder}
+            placeholderCount={4}
             emptyMessage={intl.formatMessage(messages.empty)}
           >
             {
-              accountIds && accountIds.map((id) => (
+              account && accountIds && accountIds.map((id) => (
                 <Account key={`follower-${id}`} id={id} compact withBio />
               ))
             }

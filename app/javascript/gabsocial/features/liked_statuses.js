@@ -37,7 +37,12 @@ class LikedStatuses extends ImmutablePureComponent {
   }, 300, { leading: true })
 
   render() {
-    const { statusIds, hasMore, isLoading, isMyAccount } = this.props
+    const {
+      statusIds,
+      hasMore,
+      isLoading,
+      isMyAccount,
+    } = this.props
 
     if (!isMyAccount) {
       return <ColumnIndicator type='missing' />
