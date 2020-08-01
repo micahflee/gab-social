@@ -38,9 +38,7 @@ class Shortcuts extends ImmutablePureComponent {
       shortcuts,
     } = this.props
 
-    if (isLoading) {
-      return <ColumnIndicator type='loading' />
-    } else if (isError) {
+    if (isError) {
       return <ColumnIndicator type='error' message='Error fetching shortcuts' />
     }
 
@@ -55,6 +53,7 @@ class Shortcuts extends ImmutablePureComponent {
         scrollKey='shortcuts'
         emptyMessage='You have no shortcuts'
         items={listItems}
+        showLoading={isLoading}
       />
     )
   }

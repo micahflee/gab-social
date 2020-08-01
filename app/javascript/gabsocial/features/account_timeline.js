@@ -87,7 +87,6 @@ class AccountTimeline extends ImmutablePureComponent {
         statusIds={statusIds}
         featuredStatusIds={featuredStatusIds}
         isLoading={isLoading}
-        showLoading={isLoading}
         hasMore={hasMore}
         onLoadMore={this.handleLoadMore}
         emptyMessage={intl.formatMessage(messages.empty)}

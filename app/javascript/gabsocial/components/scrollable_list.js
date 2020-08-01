@@ -228,8 +228,6 @@ export default class ScrollableList extends PureComponent {
     } = this.props
     const childrenCount = React.Children.count(children);
 
-    const loadMore = (hasMore && onLoadMore) ? <LoadMore visible={!isLoading} onClick={this.handleLoadMore} /> : null
-
     if (showLoading) {
       if (Placeholder) {
         return (
@@ -248,9 +246,7 @@ export default class ScrollableList extends PureComponent {
         )
       }
 
-      return (
-        <ColumnIndicator type='loading' />
-      )
+      return <ColumnIndicator type='loading' />
     } else if (isLoading || childrenCount > 0 || hasMore || !emptyMessage) {
       return (
         <div onMouseMove={this.handleMouseMove}>
@@ -278,14 +274,18 @@ export default class ScrollableList extends PureComponent {
               ))
             }
 
-            {loadMore}
+            {
+              (hasMore && onLoadMore && !isLoading) &&
+              <LoadMore onClick={this.handleLoadMore} />
+            }
+
             {
               isLoading &&
               <ColumnIndicator type='loading' />
             }
           </div>
         </div>
-      );
+      )
     }
 
     return (

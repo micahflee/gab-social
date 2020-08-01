@@ -224,11 +224,15 @@ class StatusList extends ImmutablePureComponent {
       isPartial,
       group,
       promotedStatuses,
-      ...other
+      scrollKey,
+      hasMore,
+      emptyMessage,
+      onScrollToTop,
+      onScroll,
     } = this.props
     const { fetchedContext, refreshing } = this.state
 
-    if (isPartial || isLoading && statusIds.size === 0) {
+    if (isPartial || (isLoading && statusIds.size === 0)) {
       return (
         <Fragment>
           <StatusPlaceholder />
@@ -320,10 +324,16 @@ class StatusList extends ImmutablePureComponent {
         <ScrollableList
           ref={this.setRef}
           isLoading={isLoading}
-          showLoading={(isLoading && statusIds.size === 0) || refreshing}
+          showLoading={(isLoading && statusIds.size === 0)}
           onLoadMore={onLoadMore && this.handleLoadOlder}
           onReload={this.handleOnReload}
-          {...other}
+          placeholderComponent={StatusPlaceholder}
+          placeholderCount={1}
+          scrollKey={scrollKey}
+          hasMore={hasMore}
+          emptyMessage={emptyMessage}
+          onScrollToTop={onScrollToTop}
+          onScroll={onScroll}
         >
           {scrollableContent}
         </ScrollableList>

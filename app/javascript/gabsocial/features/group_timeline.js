@@ -34,7 +34,6 @@ class GroupTimeline extends ImmutablePureComponent {
 	static propTypes = {
 		params: PropTypes.object.isRequired,
 		dispatch: PropTypes.func.isRequired,
-		columnId: PropTypes.string,
 		hasUnread: PropTypes.bool,
 		group: PropTypes.oneOfType([
 			ImmutablePropTypes.map,
@@ -77,7 +76,7 @@ class GroupTimeline extends ImmutablePureComponent {
 	}
 
 	render() {
-		const { columnId, group, relationships, account, intl } = this.props
+		const { group, relationships, account, intl } = this.props
 		const { collapsed } = this.state
 		const { id } = this.props.params
 
@@ -90,7 +89,7 @@ class GroupTimeline extends ImmutablePureComponent {
 		return (
 			<StatusList
 				alwaysPrepend
-				scrollKey={`group_timeline-${columnId}`}
+				scrollKey={`group_timeline-${id}`}
 				timelineId={`group:${id}`}
 				onLoadMore={this.handleLoadMore}
 				group={group}
