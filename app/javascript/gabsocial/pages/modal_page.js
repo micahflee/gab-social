@@ -1,6 +1,7 @@
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
+import Block from '../components/block'
 import DefaultLayout from '../layouts/default_layout'
 
 export default class ModalPage extends PureComponent {
@@ -29,7 +30,12 @@ export default class ModalPage extends PureComponent {
         showBackBtn
       >
         <PageTitle path={title} />
-        {children}
+        
+        <Block>
+          <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
+            {children}
+          </div>
+        </Block>
       </DefaultLayout>
     )
   }
