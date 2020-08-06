@@ -41,7 +41,6 @@ import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
 import NewsPage from '../../pages/news_page'
 import AboutPage from '../../pages/about_page'
-// import AuthPage from '../../pages/auth_page'
 
 import {
   About,
