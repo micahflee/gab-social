@@ -113,6 +113,7 @@ class NavigationBar extends ImmutablePureComponent {
 
                     <NavigationBarButton title='Home' icon='home' to='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
+                    <NavigationBarButton title='News' icon='news' to='/news' />
 
                     <NavigationBarButtonDivider />
 
