@@ -39,6 +39,7 @@ import ModalPage from '../../pages/modal_page'
 import SettingsPage from '../../pages/settings_page'
 import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
+import NewsPage from '../../pages/news_page'
 import AboutPage from '../../pages/about_page'
 // import AuthPage from '../../pages/auth_page'
 
@@ -74,6 +75,7 @@ import {
   ListEdit,
   ListTimeline,
   Mutes,
+  News,
   Notifications,
   PrivacyPolicy,
   ProTimeline,
@@ -160,9 +162,16 @@ class SwitchingArea extends PureComponent {
 
     return (
       <Switch>
-        <Redirect from='/' to='/home' exact />
-        <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
+        {
+          !!me &&
+          <Redirect from='/' to='/home' exact />
+        }
+        {
+          !me &&
+          <WrappedRoute path='/' publicRoute page={ExplorePage} component={GroupCollectionTimeline} content={children} componentParams={{ title: 'Gab.com', collectionType: 'featured' }} />
+        }
 
+        <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
 
         <WrappedRoute path='/about' publicRoute exact page={AboutPage} component={About} content={children} componentParams={{ title: 'About' }} />
         <WrappedRoute path='/about/dmca' publicRoute exact page={AboutPage} component={DMCA} content={children} componentParams={{ title: 'DMCA' }} />
@@ -172,6 +181,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
+        <WrappedRoute path='/news' publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
 
