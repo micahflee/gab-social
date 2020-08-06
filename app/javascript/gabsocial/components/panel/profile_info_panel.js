@@ -117,7 +117,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                     <Divider isSmall />
                     <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-field-${i}`}>
                       <dt
-                        className={[_s.text, _s.dangerousContent].join(' ')}
+                        className={[_s.text, _s.dangerousContent, _s.pr5].join(' ')}
                         dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }}
                         title={pair.get('name')}
                       />
