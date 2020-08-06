@@ -9,7 +9,7 @@ import {
   source_url,
   me,
 } from '../initial_state'
-import { DEFAULT_REL } from '../constants'
+import { CX, DEFAULT_REL } from '../constants'
 import Text from './text'
 import Button from './button'
 
@@ -40,11 +40,16 @@ class LinkFooter extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    noPadding: PropTypes.bool,
     onOpenHotkeys: PropTypes.func.isRequired,
   }
 
   render() {
-    const { onOpenHotkeys, intl } = this.props
+    const {
+      intl,
+      noPadding,
+      onOpenHotkeys,
+    } = this.props
 
     const currentYear = new Date().getFullYear()
 
@@ -52,7 +57,6 @@ class LinkFooter extends PureComponent {
       {
         href: 'https://help.gab.com',
         text: intl.formatMessage(messages.help),
-        requiresUser: true,
       },
       // : todo :
       // {
@@ -68,10 +72,6 @@ class LinkFooter extends PureComponent {
       {
         to: '/about',
         text: intl.formatMessage(messages.about),
-      },
-      {
-        href: '/settings/applications',
-        text: intl.formatMessage(messages.developers),
       },
       {
         to: '/about/tos',
@@ -97,8 +97,14 @@ class LinkFooter extends PureComponent {
       },
     ]
 
+    const containerClasses = CX({
+      default: 1,
+      px10: !noPadding,
+      mb15: 1,
+    })
+
     return (
-      <div className={[_s.default, _s.px10, _s.mb15].join(' ')}>
+      <div className={containerClasses}>
         <nav aria-label='Footer' role='navigation' className={[_s.default, _s.flexWrap, _s.flexRow].join(' ')}>
           {
             linkFooterItems.map((linkFooterItem, i) => {
@@ -136,7 +142,7 @@ class LinkFooter extends PureComponent {
             defaultMessage='Gab Social is open source software. You can contribute or report issues on our self-hosted GitLab at {gitlab}.'
             values={{
               gitlab: (
-                <a href={source_url} className={_s.inherit} rel={DEFAULT_REL} target='_blank'>
+                <a href={source_url} className={[_s.displayBlock, _s.inherit].join(' ')} rel={DEFAULT_REL} target='_blank'>
                   {repository}
                 </a>
               )
