@@ -28,6 +28,8 @@ export function LikedStatuses() { return import(/* webpackChunkName: "features/l
 export function GenericNotFound() { return import(/* webpackChunkName: "features/generic_not_found" */'../../generic_not_found') }
 export function GifPickerModal() { return import(/* webpackChunkName: "components/gif_picker_modal" */'../../../components/modal/gif_picker_modal') }
 export function GroupsCollection() { return import(/* webpackChunkName: "features/groups_collection" */'../../groups_collection') }
+export function GroupAbout() { return import(/* webpackChunkName: "features/group_about" */'../../group_about.js') }
+export function GroupCollectionTimeline() { return import(/* webpackChunkName: "features/group_collection_timeline" */'../../group_collection_timeline') }
 export function GroupCreate() { return import(/* webpackChunkName: "features/group_create" */'../../group_create') }
 export function GroupCreateModal() { return import(/* webpackChunkName: "components/group_create_modal" */'../../../components/modal/group_create_modal') }
 export function GroupDeleteModal() { return import(/* webpackChunkName: "components/group_delete_modal" */'../../../components/modal/group_delete_modal') }
