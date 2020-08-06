@@ -23,6 +23,7 @@ export default class StatusMedia extends ImmutablePureComponent {
     defaultWidth: PropTypes.number,
     cacheWidth: PropTypes.number,
     isComposeModalOpen: PropTypes.bool,
+    isStatusCard: PropTypes.bool,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -55,6 +56,7 @@ export default class StatusMedia extends ImmutablePureComponent {
       defaultWidth,
       cacheWidth,
       isComposeModalOpen,
+      isStatusCard,
     } = this.props
 
     if (!status) return null
@@ -117,7 +119,7 @@ export default class StatusMedia extends ImmutablePureComponent {
           cacheWidth={cacheWidth}
           defaultWidth={defaultWidth}
           isComment={isComment}
-          isReduced={isComposeModalOpen}
+          isReduced={isStatusCard || isComposeModalOpen}
         />
       )
     }

@@ -119,6 +119,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
               onOpenMedia={() => { }}
               onToggleVisibility={() => { }}
               onOpenVideo={() => { }}
+              isStatusCard
               // width={this.props.cachedMediaWidth}
               // cacheWidth={this.props.cacheMediaWidth}
               // defaultWidth={this.props.cachedMediaWidth}
