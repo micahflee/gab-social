@@ -33,10 +33,10 @@ class FooterBar extends PureComponent {
 
     const buttons = [
       {
-        to: '/home',
+        to: !me ? '/' : '/home',
         icon: 'home',
         title: 'Home',
-        active: currentPathname === '/home',
+        active: !me ? currentPathname === '/' : currentPathname === '/home',
       },
       {
         to: '/notifications',
@@ -53,9 +53,16 @@ class FooterBar extends PureComponent {
       },
       {
         to: '/explore',
-        icon: 'trends',
-        title: 'Trends',
+        icon: 'explore',
+        title: 'Explore',
+        isHidden: !me,
         active: currentPathname === '/explore',
+      },
+      {
+        to: '/news',
+        icon: 'news',
+        title: 'News',
+        active: currentPathname === '/news',
       },
     ]
 
