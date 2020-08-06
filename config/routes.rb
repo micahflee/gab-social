@@ -329,6 +329,7 @@ Rails.application.routes.draw do
         resources :tag, only: :show
         resources :list, only: :show
         resources :group, only: :show
+        resources :group_collection, only: :show
       end
 
       resources :gab_trends, only: [:index]
