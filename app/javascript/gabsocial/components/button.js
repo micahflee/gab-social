@@ -89,6 +89,18 @@ export default class Button extends PureComponent {
     }
   }
 
+  handleOnMouseEnter = () => {
+    if (!this.props.isDisabled && this.props.onMouseEnter) {
+      this.props.onMouseEnter()
+    }
+  }
+  
+  handleOnMouseLeave = () => {
+    if (!this.props.isDisabled && this.props.onMouseLeave) {
+      this.props.onMouseLeave()
+    }
+  }
+
   setRef = (c) => {
     try {
       this.node = c
@@ -204,8 +216,8 @@ export default class Button extends PureComponent {
 
     const handlers = {
       onClick: !!onClick ? this.handleClick : undefined,
-      onMouseEnter: !!onMouseEnter ? onMouseEnter : undefined,
-      onMouseLeave: !!onMouseLeave ? onMouseLeave : undefined,
+      onMouseEnter: !!onMouseEnter ? this.handleOnMouseEnter : undefined,
+      onMouseLeave: !!onMouseLeave ? this.handleOnMouseLeave : undefined,
     }
 
     if (tagName === 'NavLink' && !!to) {
