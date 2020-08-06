@@ -88,6 +88,6 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def group_params
-    params.permit(:title, :cover_image, :description)
+    params.permit(:title, :cover_image, :description, :is_private, :tags, :is_visible, :group_categories_id, :slug)
   end
 end
