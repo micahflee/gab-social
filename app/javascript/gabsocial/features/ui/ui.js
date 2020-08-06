@@ -202,7 +202,7 @@ class SwitchingArea extends PureComponent {
 
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/people' exact publicRoute page={SearchPage} component={Search} content={children} />
-        <WrappedRoute path='/search/hashtags' exact page={SearchPage} component={Search} content={children} />
+        <WrappedRoute path='/search/hashtags' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/groups' exact publicRoute page={SearchPage} component={Search} content={children} />
 
         <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Users' }} />
