@@ -21,6 +21,7 @@ import StatusHeader from './status_header'
 import CommentList from './comment_list'
 import Button from './button'
 import Text from './text'
+import SortBlock from './sort_block'
 import ColumnIndicator from './column_indicator'
 
 // We use the component (and not the container) since we do not want
@@ -377,17 +378,13 @@ class Status extends ImmutablePureComponent {
     }
   }
 
-  handleOnCommentSortOpen = () => {
-    this.props.onCommentSortOpen(this.commentSortButtonRef)
+  handleOnCommentSortOpen = (btn) => {
+    this.props.onCommentSortOpen(btn)
   }
 
-  handleRef = c => {
+  handleRef = (c) => {
     this.node = c
     this._measureHeight()
-  }
-
-  setCommentSortButtonRef = (c) => {
-    this.commentSortButtonRef = c
   }
 
   render() {
@@ -602,24 +599,10 @@ class Status extends ImmutablePureComponent {
                     <Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
-                      <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
-                        <Text color='secondary' size='small'>
-                          {intl.formatMessage(messages.sortBy)}
-                        </Text>
-                        <Button
-                          isText
-                          backgroundColor='none'
-                          color='secondary'
-                          className={_s.ml5}
-                          buttonRef={this.setCommentSortButtonRef}
-                          onClick={this.handleOnCommentSortOpen}
-                          disabled={descendantsIds.size === 0}
-                        >
-                          <Text color='inherit' weight='medium' size='small'>
-                            {sortByTitle}
-                          </Text>
-                        </Button>
-                      </div>
+                      <SortBlock
+                        value={sortByTitle}
+                        onClickValue={this.handleOnCommentSortOpen}
+                      />
 
                       {
                         descendantsIds.size === 0 &&
