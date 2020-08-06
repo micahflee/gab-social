@@ -16,6 +16,11 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  member_count             :integer          default(0)
+#  slug                     :text
+#  is_private               :boolean          default(FALSE)
+#  is_visible               :boolean          default(FALSE)
+#  tags                     :string           default([]), is an Array
+#  group_categories_id      :bigint(8)
 #
 
 class Group < ApplicationRecord
