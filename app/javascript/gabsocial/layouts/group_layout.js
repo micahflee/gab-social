@@ -4,7 +4,6 @@ import Sticky from 'react-stickynode'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Layout from './layout'
 import GroupInfoPanel from '../components/panel/group_info_panel'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import GroupSidebarPanel from '../components/panel/groups_panel'
 import SignupPanel from '../components/panel/sign_up_panel'
 import LinkFooter from '../components/link_footer'
@@ -19,6 +18,7 @@ export default class GroupLayout extends ImmutablePureComponent {
     children: PropTypes.node,
     group: ImmutablePropTypes.map,
     groupId: PropTypes.string,
+    isTimeline: PropTypes.bool,
     layout: PropTypes.object,
     relationships: ImmutablePropTypes.map,
     showBackBtn: PropTypes.bool,
@@ -31,11 +31,10 @@ export default class GroupLayout extends ImmutablePureComponent {
       children,
       group,
       groupId,
-      layout,
+      isTimeline,
       relationships,
       showBackBtn,
       title,
-      noComposeButton,
     } = this.props
 
     return (
@@ -49,7 +48,7 @@ export default class GroupLayout extends ImmutablePureComponent {
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <div className={[_s.default, _s.width100PC].join(' ')}>
 
-            <GroupHeader group={group} relationships={relationships}>
+            <GroupHeader group={group} relationships={relationships} isXS>
               <GroupInfoPanel group={group} noPanel />
             </GroupHeader>
 
@@ -80,7 +79,6 @@ export default class GroupLayout extends ImmutablePureComponent {
                       layout={[
                         <GroupInfoPanel group={group} key='group-page-info-panel' />,
                         <SignupPanel key='group-page-signup-panel' />,
-                        <WhoToFollowPanel key='group-page-wtf-panel' />,
                         <GroupSidebarPanel isSlim key='group-page-group-panel' />,
                         <LinkFooter key='group-page-link-footer' />,
                       ]}
