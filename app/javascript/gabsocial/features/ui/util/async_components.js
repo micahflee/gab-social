@@ -62,6 +62,7 @@ export function MediaModal() { return import(/* webpackChunkName: "components/me
 export function Mutes() { return import(/* webpackChunkName: "features/mutes" */'../../mutes') }
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }
+export function News() { return import(/* webpackChunkName: "features/news" */'../../news') }
 export function Notifications() { return import(/* webpackChunkName: "features/notifications" */'../../notifications') }
 export function PrivacyPolicy() { return import(/* webpackChunkName: "features/about/privacy_policy" */'../../about/privacy_policy') }
 export function ProTimeline() { return import(/* webpackChunkName: "features/pro_timeline" */'../../pro_timeline') }
