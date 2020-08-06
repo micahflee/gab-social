@@ -8,13 +8,14 @@ import ScrollableList from '../scrollable_list'
 import GroupListItemPlaceholder from '../placeholder/group_list_item_placeholder'
 
 const messages = defineMessages({
-  title: { id: 'groups.sidebar-panel.title', defaultMessage: 'Groups you\'re in' },
+  memberTitle: { id: 'groups.sidebar-panel.member_title', defaultMessage: 'Groups you\'re in' },
+  featuredTitle: { id: 'groups.sidebar-panel.featured_title', defaultMessage: 'Featured Groups' },
   show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
   all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
 })
 
-const mapStateToProps = (state) => ({
-  groupIds: state.getIn(['group_lists', 'member', 'items']),
+const mapStateToProps = (state, { groupType }) => ({
+  groupIds: state.getIn(['group_lists', groupType, 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,21 +30,18 @@ class GroupSidebarPanel extends ImmutablePureComponent {
   static propTypes = {
     groupIds: ImmutablePropTypes.list,
     isLazy: PropTypes.bool, 
-    isSlim: PropTypes.bool,
     onFetchGroups: PropTypes.func.isRequired,
     shouldLoad: PropTypes.bool,
+    groupType: PropTypes.string,
+  }
+
+  static defaultProps = {
+    groupType: 'member'
   }
 
   state = {
     fetched: false,
   }
-
-  updateOnProps = [
-    'groupIds',
-    'isLazy',
-    'isSlim',
-    'shouldLoad',
-  ]
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.shouldLoad && !prevState.fetched) {
@@ -55,33 +53,37 @@ class GroupSidebarPanel extends ImmutablePureComponent {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!prevState.fetched && this.state.fetched) {
-      this.props.onFetchGroups('member')
+      this.props.onFetchGroups(this.props.groupType)
     }
   }
 
   componentDidMount() {
     if (!this.props.isLazy) {
-      this.props.onFetchGroups('member')
+      this.props.onFetchGroups(this.props.groupType)
       this.setState({ fetched: true })
     }
   }
   
   render() {
-    const { intl, groupIds, isSlim } = this.props
+    const {
+      intl,
+      groupIds,
+      groupType,
+    } = this.props
     const { fetched } = this.state
 
     const count = !!groupIds ? groupIds.count() : 0
-    const maxCount = isSlim ? 12 : 6
+    const maxCount = 12
 
     if (count === 0 && fetched) return null
 
     return (
       <PanelLayout
-        title={intl.formatMessage(messages.title)}
+        title={intl.formatMessage(groupType === 'member' ? messages.memberTitle : messages.featuredTitle)}
         headerButtonTitle={intl.formatMessage(messages.all)}
-        headerButtonTo='/groups/browse/member'
+        headerButtonTo={groupType === 'member' ? '/groups/browse/member' : '/groups/browse/featured'}
         footerButtonTitle={count > maxCount ? intl.formatMessage(messages.show_all) : undefined}
-        footerButtonTo={count > maxCount ? '/groups/browse/member' : undefined}
+        footerButtonTo={count > maxCount ? '/groups' : undefined}
         noPadding
       >
         <ScrollableList
