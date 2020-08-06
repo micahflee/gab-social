@@ -55,7 +55,7 @@ class GroupMemberOptionsPopover extends PureComponent {
       },
       {
         hideArrow: true,
-        icon: 'groups',
+        icon: 'group',
         title: 'Make group admin',
         onClick: this.handleOnMakeAdmin,
       },
