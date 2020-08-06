@@ -558,9 +558,18 @@ class Status extends ImmutablePureComponent {
                   />
 
                   {
-                    !!status.get('quote') && !isChild &&
+                    (!!status.get('quote') || status.get('has_quote')) && !isChild &&
                     <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
-                      <Status status={status.get('quoted_status')} isChild intl={intl} />
+                      {
+                        !!status.get('quoted_status') &&
+                        <Status status={status.get('quoted_status')} isChild intl={intl} />
+                      }
+                      {
+                        !status.get('quoted_status') &&
+                        <div className={[_s.default, _s.border1PX, _s.bgSubtle, _s.radiusSmall, _s.py15, _s.px15, _s.borderColorSecondary].join(' ')}>
+                          <Text color='tertiary' size='medium'>The quoted gab is unavailable.</Text>
+                        </div>
+                      }
                     </div>
                   }
 
