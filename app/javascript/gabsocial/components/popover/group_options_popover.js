@@ -2,15 +2,9 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
 import {
-  MODAL_GROUP_CREATE,
-  MODAL_GROUP_MEMBERS,
-  MODAL_GROUP_REMOVED_ACCOUNTS,
-} from '../../constants'
-import {
   addShortcut,
   removeShortcut,
 } from '../../actions/shortcuts'
-import { openModal } from '../../actions/modal'
 import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import List from '../list'
@@ -33,19 +27,6 @@ const mapStateToProps = (state, { group }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
-  onOpenEditGroup(groupId) {
-    dispatch(closePopover())
-    dispatch(openModal(MODAL_GROUP_CREATE, { groupId }))
-  },
-  onOpenRemovedMembers(groupId) {
-    dispatch(closePopover())
-    dispatch(openModal(MODAL_GROUP_REMOVED_ACCOUNTS, { groupId }))
-  },
-  onOpenGroupMembers(groupId) {
-    dispatch(closePopover())
-    dispatch(openModal(MODAL_GROUP_MEMBERS, { groupId }))
-  },
   onClosePopover: () => dispatch(closePopover()),
   onAddShortcut(groupId) {
     dispatch(addShortcut('group', groupId))
@@ -53,7 +34,6 @@ const mapDispatchToProps = (dispatch) => ({
   onRemoveShortcut(groupId) {
     dispatch(removeShortcut(null, 'group', groupId))
   },
-
 })
 
 export default
@@ -70,21 +50,6 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     onAddShortcut: PropTypes.func.isRequired,
     onRemoveShortcut: PropTypes.func.isRequired,
     onClosePopover: PropTypes.func.isRequired,
-    onOpenEditGroup: PropTypes.func.isRequired,
-    onOpenGroupMembers: PropTypes.func.isRequired,
-    onOpenRemovedMembers: PropTypes.func.isRequired,
-  }
-
-  handleEditGroup = () => {
-    this.props.onOpenEditGroup(this.props.group.get('id'))
-  }
-
-  handleOnOpenRemovedMembers = () => {
-    this.props.onOpenRemovedMembers(this.props.group.get('id'))
-  }
-
-  handleOnOpenGroupMembers = () => {
-    this.props.onOpenGroupMembers(this.props.group.get('id'))
   }
 
   handleOnClosePopover = () => {
@@ -102,32 +67,40 @@ class GroupOptionsPopover extends ImmutablePureComponent {
 
   render() {
     const {
+      group,
       intl,
       isAdmin,
       isShortcut,
       isXS,
     } = this.props
 
+    if (!group) return <div/>
+
+    const groupId = group.get('id')
+
     const listItems = [
       {
         hideArrow: true,
         icon: 'group',
         title: intl.formatMessage(messages.groupMembers),
-        onClick: this.handleOnOpenGroupMembers,
+        onClick: this.handleOnClosePopover,
+        to: `/groups/${groupId}/members`,
         isHidden: !isAdmin,
       },
       {
         hideArrow: true,
         icon: 'block',
         title: intl.formatMessage(messages.removedMembers),
-        onClick: this.handleOnOpenRemovedMembers,
+        onClick: this.handleOnClosePopover,
+        to: `/groups/${groupId}/removed-accounts`,
         isHidden: !isAdmin,
       },
       {
         hideArrow: true,
         icon: 'pencil',
         title: intl.formatMessage(messages.editGroup),
-        onClick: this.handleEditGroup,
+        onClick: this.handleOnClosePopover,
+        to: `/groups/${groupId}/edit`,
         isHidden: !isAdmin,
       },
       {
