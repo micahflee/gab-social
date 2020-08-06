@@ -27,6 +27,7 @@
 #  revised_at             :datetime
 #  markdown               :text
 #  expires_at             :datetime
+#  has_quote              :boolean
 #
 
 class Status < ApplicationRecord
@@ -278,6 +279,7 @@ class Status < ApplicationRecord
   before_validation :set_reblog
   before_validation :set_visibility
   before_validation :set_conversation
+  before_validation :set_has_quote
   before_validation :set_group_id
   before_validation :set_local
 
@@ -513,6 +515,10 @@ class Status < ApplicationRecord
     elsif conversation_id.nil?
       self.conversation = Conversation.new
     end
+  end
+
+  def set_has_quote
+    self.has_quote = !quote_of_id.nil?
   end
 
   def carried_over_reply_to_account_id
