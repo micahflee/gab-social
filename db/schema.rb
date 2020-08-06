@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_22_190844) do
+ActiveRecord::Schema.define(version: 2020_08_01_023518) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -338,6 +338,20 @@ ActiveRecord::Schema.define(version: 2020_07_22_190844) do
     t.index ["group_id"], name: "index_group_accounts_on_group_id"
   end
 
+  create_table "group_categories", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "text", default: "", null: false
+  end
+
+  create_table "group_pinned_statuses", force: :cascade do |t|
+    t.bigint "status_id", null: false
+    t.bigint "group_id", null: false
+    t.index ["group_id"], name: "index_group_pinned_statuses_on_group_id"
+    t.index ["status_id", "group_id"], name: "index_group_pinned_statuses_on_status_id_and_group_id", unique: true
+    t.index ["status_id"], name: "index_group_pinned_statuses_on_status_id"
+  end
+
   create_table "group_removed_accounts", force: :cascade do |t|
     t.bigint "group_id", null: false
     t.bigint "account_id", null: false
@@ -363,7 +377,14 @@ ActiveRecord::Schema.define(version: 2020_07_22_190844) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "member_count", default: 0
+    t.text "slug"
+    t.boolean "is_private", default: false
+    t.boolean "is_visible", default: false
+    t.string "tags", default: [], array: true
+    t.bigint "group_categories_id"
     t.index ["account_id"], name: "index_groups_on_account_id"
+    t.index ["group_categories_id"], name: "index_groups_on_group_categories_id"
+    t.index ["slug"], name: "index_groups_on_slug", unique: true
   end
 
   create_table "identities", force: :cascade do |t|
@@ -738,6 +759,7 @@ ActiveRecord::Schema.define(version: 2020_07_22_190844) do
     t.datetime "revised_at"
     t.text "markdown"
     t.datetime "expires_at"
+    t.boolean "has_quote"
     t.index ["account_id", "id", "visibility", "updated_at"], name: "index_statuses_20180106", order: { id: :desc }
     t.index ["group_id"], name: "index_statuses_on_group_id"
     t.index ["in_reply_to_account_id"], name: "index_statuses_on_in_reply_to_account_id"
@@ -912,6 +934,8 @@ ActiveRecord::Schema.define(version: 2020_07_22_190844) do
   add_foreign_key "follows", "accounts", name: "fk_32ed1b5560", on_delete: :cascade
   add_foreign_key "group_accounts", "accounts", on_delete: :cascade
   add_foreign_key "group_accounts", "groups", on_delete: :cascade
+  add_foreign_key "group_pinned_statuses", "groups", on_delete: :cascade
+  add_foreign_key "group_pinned_statuses", "statuses", on_delete: :cascade
   add_foreign_key "group_removed_accounts", "accounts", on_delete: :cascade
   add_foreign_key "group_removed_accounts", "groups", on_delete: :cascade
   add_foreign_key "identities", "users", name: "fk_bea040f377", on_delete: :cascade
