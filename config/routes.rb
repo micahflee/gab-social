@@ -339,6 +339,7 @@ Rails.application.routes.draw do
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]
       resources :trends, only: [:index]
+      resources :group_categories, only: [:index]
 
       namespace :gifs do
         get :categories
