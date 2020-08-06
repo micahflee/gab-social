@@ -3,7 +3,7 @@ import { me } from '../initial_state'
 import SidebarSectionTitle from './sidebar_section_title'
 import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
-import BackButton from './back_button'
+import LinkFooter from './link_footer'
 
 const messages = defineMessages({
   explore: { id: 'explore', defaultMessage: 'Explore' },
@@ -16,11 +16,16 @@ class Sidebar extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
+    showLinkFooter: PropTypes.bool,
     title: PropTypes.string,
   }
 
   render() {
-    const { intl, title } = this.props
+    const {
+      intl,
+      title,
+      showLinkFooter,
+    } = this.props
 
     if (!!me) return null
 
@@ -28,7 +33,7 @@ class Sidebar extends PureComponent {
       {
         title: 'Home',
         icon: 'home',
-        to: '/home',
+        to: '/',
       },
       {
         title: 'Search',
@@ -41,9 +46,9 @@ class Sidebar extends PureComponent {
         to: '/groups',
       },
       {
-        title: 'Explore',
-        icon: 'explore',
-        to: '/explore',
+        title: 'News',
+        icon: 'news',
+        to: '/news',
       },
     ]
 
@@ -104,6 +109,9 @@ class Sidebar extends PureComponent {
                 }
               </nav>
 
+              {
+                showLinkFooter && <LinkFooter noPadding />
+              }
             </div>
           </div>
         </div>
