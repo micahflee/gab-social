@@ -15,6 +15,7 @@ import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Pills from '../components/pills'
+import GlobalFooter from '../components/global_footer'
 
 export default class Layout extends PureComponent {
 
@@ -27,6 +28,8 @@ export default class Layout extends PureComponent {
     noSidebar: PropTypes.bool,
     page: PropTypes.string,
     showBackBtn: PropTypes.bool,
+    showLinkFooterInSidebar: PropTypes.bool,
+    showGlobalFooter: PropTypes.bool,
     tabs: PropTypes.array,
     title: PropTypes.string,
   }
@@ -41,6 +44,8 @@ export default class Layout extends PureComponent {
       noSidebar,
       page,
       showBackBtn,
+      showLinkFooterInSidebar,
+      showGlobalFooter,
       tabs,
       title,
     } = this.props
@@ -50,7 +55,8 @@ export default class Layout extends PureComponent {
       width1015PX: 1,
       flexRow: 1,
       justifyContentEnd: 1,
-      py15: 1,
+      py15: page !== 'group',
+      pb15: page === 'group',
     })
 
     return (
@@ -89,7 +95,7 @@ export default class Layout extends PureComponent {
               }
               {
                 !me &&
-                <LoggedOutSidebar title={title} />
+                <LoggedOutSidebar title={title} showLinkFooter={showLinkFooterInSidebar} />
               }
             </Responsive>
           }
@@ -158,6 +164,10 @@ export default class Layout extends PureComponent {
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <FooterBar title={title} />
         </Responsive>
+
+        {
+          !me && showGlobalFooter && <GlobalFooter />
+        }
       </div>
     )
   }
