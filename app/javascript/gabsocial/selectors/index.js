@@ -166,3 +166,21 @@ export const getOrderedLists = createSelector([state => state.get('lists')], lis
 
   return lists.toList().filter(item => !!item).sort((a, b) => a.get('title').localeCompare(b.get('title')))
 })
+
+export const getToasts = createSelector([
+  (state) => state.get('toasts'),
+], (base) => {
+  if (!base) return null
+
+  let arr = []
+
+  base.forEach(item => {
+    arr.push({
+      message: item.get('message'),
+      type: item.get('type'),
+      key: item.get('key'),
+    })
+  })
+
+  return arr
+})
