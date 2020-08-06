@@ -36,6 +36,7 @@ import GroupAddIcon from '../assets/group_add_icon'
 import HappyIcon from '../assets/happy_icon'
 import HiddenIcon from '../assets/hidden_icon'
 import HomeIcon from '../assets/home_icon'
+import InvisibleIcon from '../assets/invisible_icon'
 import ItalicIcon from '../assets/italic_icon'
 import LikeIcon from '../assets/like_icon'
 import LikedIcon from '../assets/liked_icon'
@@ -50,6 +51,7 @@ import MicIcon from '../assets/mic_icon'
 import MinimizeFullscreenIcon from '../assets/minimize_fullscreen_icon'
 import MissingIcon from '../assets/missing_icon'
 import MoreIcon from '../assets/more_icon'
+import NewsIcon from '../assets/news_icon'
 import NotificationsIcon from '../assets/notifications_icon'
 import OLListIcon from '../assets/ol_list_icon'
 import PauseIcon from '../assets/pause_icon'
@@ -80,6 +82,7 @@ import ULListIcon from '../assets/ul_list_icon'
 import UnderlineIcon from '../assets/underline_icon'
 import UnlockFilledIcon from '../assets/unlock_filled_icon'
 import VerifiedIcon from '../assets/verified_icon'
+import VisibleIcon from '../assets/visible_icon'
 import WarningIcon from '../assets/warning_icon'
 import WebsiteIcon from '../assets/website_icon'
 
@@ -121,6 +124,7 @@ const ICONS = {
   'hidden': HiddenIcon,
   'happy': HappyIcon,
   'home': HomeIcon,
+  'invisible': InvisibleIcon,
   'italic': ItalicIcon,
   'like': LikeIcon,
   'liked': LikedIcon,
@@ -135,6 +139,7 @@ const ICONS = {
   'minimize-fullscreen': MinimizeFullscreenIcon,
   'missing': MissingIcon,
   'more': MoreIcon,
+  'news': NewsIcon,
   'notifications': NotificationsIcon,
   'ol-list': OLListIcon,
   'pause': PauseIcon,
@@ -165,6 +170,7 @@ const ICONS = {
   'underline': UnderlineIcon,
   'unlock-filled': UnlockFilledIcon,
   'verified': VerifiedIcon,
+  'visible': VisibleIcon,
   'warning': WarningIcon,
   'website': WebsiteIcon,
   '': CircleIcon,
