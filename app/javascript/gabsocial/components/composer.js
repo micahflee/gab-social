@@ -42,6 +42,10 @@ const getBlockStyle = (block) => {
   }
 }
 
+function groupHandleStrategy(contentBlock, callback, contentState) {
+  findWithRegex(GROUP_HANDLE_REGEX, contentBlock, callback)
+}
+
 function handleStrategy(contentBlock, callback, contentState) {
   findWithRegex(HANDLE_REGEX, contentBlock, callback)
 }
@@ -86,7 +90,11 @@ const compositeDecorator = new CompositeDecorator([
   {
     strategy: urlStrategy,
     component: HighlightedSpan,
-  }
+  },
+  {
+    strategy: groupHandleStrategy,
+    component: HighlightedSpan,
+  },
 ])
 
 const styleMap = {
@@ -98,6 +106,7 @@ const styleMap = {
   },
 };
 
+const GROUP_HANDLE_REGEX = /\g\/[\w]+/g
 const HANDLE_REGEX = /\@[\w]+/g
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
