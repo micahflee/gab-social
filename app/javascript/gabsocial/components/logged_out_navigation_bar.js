@@ -48,12 +48,12 @@ export default class LoggedOutNavigationBar extends PureComponent {
                   <div className={[_s.default, _s.flexRow, _s.mr15].join(' ')}>
                     <NavigationBarButton title='Home' icon='home' href='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
-                    <NavigationBarButton title='Groups' icon='group' to='/groups' />
+                    <NavigationBarButton title='News' icon='news' to='/news' />
                   </div>
                 </ResponsiveComponent>
               }
 
-              <div className={[_s.default, _s.flexGrow1, _s.mr10].join(' ')}>
+              <div className={[_s.default, _s.flexGrow1, _s.pr10, _s.mrAuto, _s.maxWidth640PX].join(' ')}>
                 <Search isInNav />
               </div>
 
