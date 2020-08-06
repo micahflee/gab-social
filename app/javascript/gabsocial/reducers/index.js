@@ -9,6 +9,7 @@ import custom_emojis from './custom_emojis'
 import filters from './filters'
 import gab_trends from './gab_trends'
 import groups from './groups'
+import group_categories from './group_categories'
 import group_editor from './group_editor'
 import group_lists from './group_lists'
 import group_relationships from './group_relationships'
@@ -51,6 +52,7 @@ const reducers = {
   filters,
   gab_trends,
   groups,
+  group_categories,
   group_editor,
   group_lists,
   group_relationships,
