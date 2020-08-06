@@ -63,13 +63,16 @@ export const GROUP_UPDATE_ROLE_REQUEST = 'GROUP_UPDATE_ROLE_REQUEST';
 export const GROUP_UPDATE_ROLE_SUCCESS = 'GROUP_UPDATE_ROLE_SUCCESS';
 export const GROUP_UPDATE_ROLE_FAIL    = 'GROUP_UPDATE_ROLE_FAIL';
 
+export const GROUP_TIMELINE_SORT = 'GROUP_TIMELINE_SORT'
+export const GROUP_TIMELINE_TOP_SORT = 'GROUP_TIMELINE_TOP_SORT'
+
 export const GROUP_SORT = 'GROUP_SORT'
 
 export const importGroup = (group) => (dispatch) => {
   dispatch(fetchGroupSuccess(group))
 }
 
-export const fetchGroup = id => (dispatch, getState) => {
+export const fetchGroup = (id) => (dispatch, getState) => {
   dispatch(fetchGroupRelationships([id]));
 
   if (getState().getIn(['groups', id])) {
@@ -614,4 +617,18 @@ export function groupsSort(tab, groupIds) {
     tab,
     groupIds,
   }
+}
+
+export const setGroupTimelineSort = (sortValue) => (dispatch) => {
+  dispatch({
+    type: GROUP_TIMELINE_SORT,
+    sortValue,
+  })
+}
+
+export const setGroupTimelineTopSort = (sortValue) => (dispatch) => {
+  dispatch({
+    type: GROUP_TIMELINE_TOP_SORT,
+    sortValue,
+  })
 }

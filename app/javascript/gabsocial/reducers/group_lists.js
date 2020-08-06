@@ -4,11 +4,19 @@ import {
   GROUPS_FETCH_SUCCESS,
   GROUPS_FETCH_FAIL,
   GROUP_SORT,
+  GROUP_TIMELINE_SORT,
+  GROUP_TIMELINE_TOP_SORT,
 } from '../actions/groups'
+import {
+  GROUP_TIMELINE_SORTING_TYPE_TOP,
+  GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
+} from '../constants'
 
 const tabs = ['new', 'featured', 'member', 'admin']
 
 const initialState = ImmutableMap({
+  sortByValue: GROUP_TIMELINE_SORTING_TYPE_TOP,
+  sortByTopValue: GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
   new: ImmutableMap({
     isFetched: false,
     isLoading: false,
@@ -56,6 +64,20 @@ export default function groupLists(state = initialState, action) {
   case GROUP_SORT:
     return state.withMutations((mutable) => {
       mutable.setIn([action.tab, 'items'], ImmutableList(action.groupIds))
+    })
+  case GROUP_TIMELINE_SORT:
+    return state.withMutations((mutable) => {
+      mutable.set('sortByValue', action.sortValue)
+      if (action.sortValue === GROUP_TIMELINE_SORTING_TYPE_TOP) {
+        mutable.set('sortByTopValue', GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY)
+      } else {
+        mutable.set('sortByTopValue', '')
+      }
+    })
+  case GROUP_TIMELINE_TOP_SORT:
+    return state.withMutations((mutable) => {
+      mutable.set('sortByValue', GROUP_TIMELINE_SORTING_TYPE_TOP)
+      mutable.set('sortByTopValue', action.sortValue)
     })
   default:
     return state
