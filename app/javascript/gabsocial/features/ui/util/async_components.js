@@ -39,6 +39,8 @@ export function GroupMembers() { return import(/* webpackChunkName: "features/gr
 export function GroupOptionsPopover() { return import(/* webpackChunkName: "components/group_options_popover" */'../../../components/popover/group_options_popover') }
 export function GroupRemovedAccounts() { return import(/* webpackChunkName: "features/group_removed_accounts" */'../../group_removed_accounts') }
 export function GroupTimeline() { return import(/* webpackChunkName: "features/group_timeline" */'../../group_timeline') }
+export function GroupTimelineSortOptionsPopover() { return import(/* webpackChunkName: "components/group_timeline_sort_options_popover" */'../../../components/popover/group_timeline_sort_options_popover') }
+export function GroupTimelineSortTopOptionsPopover() { return import(/* webpackChunkName: "components/group_timeline_sort_top_options_popover" */'../../../components/popover/group_timeline_sort_top_options_popover') }
 export function HashtagTimeline() { return import(/* webpackChunkName: "features/hashtag_timeline" */'../../hashtag_timeline') }
 export function HashtagTimelineSettingsModal() { return import(/* webpackChunkName: "components/hashtag_timeline_settings_modal" */'../../../components/modal/hashtag_timeline_settings_modal') }
 export function HomeTimeline() { return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline') }
