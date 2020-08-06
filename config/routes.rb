@@ -465,9 +465,9 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/',           to: 'about#show', as: :homepage
+  get '/', to: 'react#home', as: :homepage
 
-  get '/tags/:tag', to: 'react#react'
+  get '/g/:groupSlug', to: 'react#groupBySlug'
   get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
   get '/:username/comments_only', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
   get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
