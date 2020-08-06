@@ -33,18 +33,15 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   def group_statuses
     statuses = nil
     if current_account
-      statuses = group_timeline_statuses.without_replies.paginate_by_id(
+      statuses = group_timeline_statuses.paginate_by_id(
         limit_param(DEFAULT_STATUSES_LIMIT),
         params_slice(:max_id, :since_id, :min_id)
       ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
     else
-      statuses = group_timeline_statuses.without_replies.paginate_by_id(
-        limit_param(DEFAULT_STATUSES_LIMIT),
-        params_slice(:max_id, :since_id, :min_id)
-      )
+      statuses = group_timeline_statuses.limit(DEFAULT_STATUSES_LIMIT)
     end
 
-    if truthy_param?(:only_media)
+    if truthy_param?(:only_media) && current_account
       # `SELECT DISTINCT id, updated_at` is too slow, so pluck ids at first, and then select id, updated_at with ids.
       status_ids = statuses.joins(:media_attachments).distinct(:id).pluck(:id)
       statuses.where(id: status_ids)
@@ -54,7 +51,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   end
 
   def group_timeline_statuses
-    GroupQueryService.new.call(@group)
+    Status.as_group_timeline(@group)
   end
 
   def insert_pagination_headers

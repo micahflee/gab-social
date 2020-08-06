@@ -304,6 +304,14 @@ class Status < ApplicationRecord
       where(group: group).without_replies
     end
 
+    def as_group_collection_timeline(groupIds)
+      where(
+        group: groupIds,
+        visibility: [:public, :unlisted, :private],
+        reply: false
+      )
+    end
+
     def as_direct_timeline(account, limit = 20, max_id = nil, since_id = nil, cache_ids = false)
       # direct timeline is mix of direct message from_me and to_me.
       # 2 queries are executed with pagination.
