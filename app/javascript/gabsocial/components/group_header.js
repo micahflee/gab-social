@@ -12,13 +12,16 @@ import { me } from '../initial_state'
 import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Block from './block'
+import Heading from './heading'
 import Image from './image'
+import Icon from './icon'
 import TabBar from './tab_bar'
+import Pills from './pills'
 import Text from './text'
 
 const messages = defineMessages({
   join: { id: 'groups.join', defaultMessage: 'Join group' },
-  leave: { id: 'groups.leave', defaultMessage: 'Leave group' },
+  member: { id: 'groups.member', defaultMessage: 'Member' },
   removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
   group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
   group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
@@ -54,6 +57,7 @@ class GroupHeader extends ImmutablePureComponent {
     group: ImmutablePropTypes.map,
     children: PropTypes.any,
     intl: PropTypes.object.isRequired,
+    isXS: PropTypes.bool,
     onToggleMembership: PropTypes.func.isRequired,
     onOpenGroupOptions: PropTypes.func.isRequired,
     relationships: ImmutablePropTypes.map,
@@ -79,33 +83,53 @@ class GroupHeader extends ImmutablePureComponent {
       children,
       group,
       intl,
+      isXS,
       relationships,
     } = this.props
-
-    const tabs = !group ? null : [
-      {
-        to: `/groups/${group.get('id')}`,
-        title: 'Latest',
-      },
-    ]
 
     const coverSrc = !!group ? group.get('cover_image_url') : ''
     const coverSrcMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const title = !!group ? group.get('title') : undefined
-    
+    const slug = !!group ? !!group.get('slug') ? `g/${group.get('slug')}` : undefined : undefined
+
     let isAdmin = false
     let actionButtonTitle
     let actionButtonOptions = {}
     if (relationships) {
       isAdmin = relationships.get('admin')
       const isMember = relationships.get('member')
-      actionButtonTitle = intl.formatMessage(!isMember ? messages.join : messages.leave)
-      if (isMember) {
-        actionButtonOptions = {
-          backgroundColor: 'danger',
-          color: 'white',
-        }
+
+      actionButtonTitle = intl.formatMessage(isMember ? messages.member : messages.join)
+      actionButtonOptions = {
+        isOutline: !isMember,
+        backgroundColor: isMember ? 'brand' : 'none',
+        color: isMember ? 'white' : 'brand',
       }
+    }
+
+    const tabs = !group ? [] : [
+      {
+        to: `/groups/${group.get('id')}`,
+        title: 'Timeline',
+      },
+      {
+        to: `/groups/${group.get('id')}/media`,
+        title: 'Media',
+      },
+    ]
+
+    if (isAdmin && group) {
+      tabs.push({
+        to: `/groups/${group.get('id')}/members`,
+        title: 'Members',
+      })
+    }
+
+    if (isXS && group) {
+      tabs.push({
+        to: `/groups/${group.get('id')}/about`,
+        title: 'About',
+      })
     }
 
     // : todo :
@@ -128,38 +152,36 @@ class GroupHeader extends ImmutablePureComponent {
                   {children}
                 </div>
 
-                <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.borderTop1PX, _s.borderColorSecondary, _s.mt5, _s.pt15, _s.height100PC, _s.px15].join(' ')}>
-                  {
-                    !!actionButtonTitle &&
+                {
+                  !!me &&
+                  <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter, _s.mt5, _s.pb15, _s.pt5, _s.height100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
+                    {
+                      !!actionButtonTitle &&
+                      <Button
+                        className={_s.mr5}
+                        onClick={this.handleOnToggleMembership}
+                        {...actionButtonOptions}
+                      >
+                        <Text color='inherit' size='medium' weight='bold' className={_s.px10}>
+                          {actionButtonTitle}
+                        </Text>
+                      </Button>
+                    }
+                    
                     <Button
-                      radiusSmall
-                      className={_s.mr5}
-                      onClick={this.handleOnToggleMembership}
-                      {...actionButtonOptions}
-                    >
-                      <Text color='inherit' size='small' className={_s.px10}>
-                        {actionButtonTitle}
-                      </Text>
-                    </Button>
-                  }
-                  
-                  {
-                    isAdmin &&
-                    <Button
-                      radiusSmall
                       color='primary'
                       backgroundColor='tertiary'
-                      className={_s.mr5}
+                      className={[_s.px10, _s.mr5].join(' ')}
                       icon='ellipsis'
                       onClick={this.handleOnOpenGroupOptions}
                       buttonRef={this.setInfoBtn}
                     />
-                  }
-                </div>
+                  </div>
+                }
 
-                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.mt15, _s.pt10, _s.px10].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.mt5, _s.pt10, _s.pb5, _s.mb5, _s.px10].join(' ')}>
 
-                  <TabBar tabs={tabs} />
+                  <Pills pills={tabs} />
 
                 </div>
               </div>
@@ -169,49 +191,79 @@ class GroupHeader extends ImmutablePureComponent {
 
         { /** desktop */}
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-          <Block>
+          <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.bottomLeftRadiusSmall, _s.bottomRightRadiusSmall].join(' ')}>
             <div className={[_s.default, _s.width100PC].join(' ')}>
 
               {
                 coverSrc && !coverSrcMissing &&
                 <Image className={_s.height350PX} src={coverSrc} alt={title} />
               }
+              
+              <div className={[_s.default].join(' ')}>
+                <div className={[_s.default, _s.flexRow, _s.py10, _s.px10].join(' ')}>
+                  <div className={[_s.default, _s.width100PC].join(' ')}>
+                    <div className={[_s.default, _s.flexRow].join(' ')}>
+                      <Icon id='group' size='28px' />
+                      <div className={[_s.default, _s.ml7, _s.flexNormal].join(' ')}>
+                        <Heading>
+                          {title}
+                        </Heading>
+                        {
+                          !!slug &&
+                          <Heading size='h4'>
+                            {slug}
+                          </Heading>
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
+                  <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
+                    
+                    <TabBar tabs={tabs} isLarge />
 
-              <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
-                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
-                  <TabBar tabs={tabs} />
-                  <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
-                    {
-                      !!actionButtonTitle &&
-                      <Button
-                        radiusSmall
-                        className={_s.mr5}
-                        onClick={this.handleOnToggleMembership}
-                        {...actionButtonOptions}
-                      >
-                        <Text color='inherit' size='small' className={_s.px10}>
-                          {actionButtonTitle}
-                        </Text>
-                      </Button>
-                    }
-
-                    {
-                      !!me &&
-                      <Button
-                        radiusSmall
-                        color='primary'
-                        backgroundColor='tertiary'
-                        className={_s.mr5}
-                        icon='ellipsis'
-                        onClick={this.handleOnOpenGroupOptions}
-                        buttonRef={this.setInfoBtn}
-                      />
-                    }
+                    <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
+                      {
+                        !!me &&
+                        <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+                          <Button
+                            iconSize='18px'
+                            color='brand'
+                            backgroundColor='none'
+                            className={[_s.mr10, _s.px10].join(' ')}
+                            icon='star-outline'
+                            onClick={this.handleOnOpenGroupOptions}
+                            buttonRef={this.setInfoBtn}
+                          />  
+                          <Button
+                            color='primary'
+                            backgroundColor='tertiary'
+                            className={[_s.mr10, _s.px10].join(' ')}
+                            icon='ellipsis'
+                            onClick={this.handleOnOpenGroupOptions}
+                            buttonRef={this.setInfoBtn}
+                          />
+                        </div>
+                      }  
+                      {
+                        !!actionButtonTitle &&
+                        <Button
+                          className={_s.mr5}
+                          onClick={this.handleOnToggleMembership}
+                          {...actionButtonOptions}
+                        >
+                          <Text color='inherit' size='medium' weight='bold' className={_s.px10}>
+                            {actionButtonTitle}
+                          </Text>
+                        </Button>
+                      }
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </Block>
+          </div>
         </Responsive>
       </div>
     )
