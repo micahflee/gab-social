@@ -1,10 +1,5 @@
 import PageTitle from '../features/ui/util/page_title'
-import DefaultLayout from '../layouts/default_layout'
-import ProgressPanel from '../components/panel/progress_panel'
-import VerifiedAccountsPanel from '../components/panel/verified_accounts_panel'
-import ShopPanel from '../components/panel/shop_panel'
-import SignupPanel from '../components/panel/sign_up_panel'
-import LinkFooter from '../components/link_footer'
+import ExploreLayout from '../layouts/explore_layout'
 
 export default class ExplorePage extends PureComponent {
 
@@ -17,22 +12,13 @@ export default class ExplorePage extends PureComponent {
     const { children, title } = this.props
 
     return (
-      <DefaultLayout
+      <ExploreLayout
         page='explore'
         title={title}
-        noComposeButton
-        showBackBtn
-        layout={[
-          <SignupPanel key='explore-page-signup-panel' />,
-          <ProgressPanel key='explore-page-progress-panel' />,
-          <VerifiedAccountsPanel key='explore-page-verified-panel' />,
-          <ShopPanel key='explore-page-shop-panel' />,
-          <LinkFooter key='explore-page-link-footer' />,
-        ]}
       >
         <PageTitle path={title} />
         {children}
-      </DefaultLayout>
+      </ExploreLayout>
     )
   }
 

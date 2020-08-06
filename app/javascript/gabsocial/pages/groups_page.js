@@ -1,20 +1,15 @@
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
-import { openModal } from '../actions/modal'
-import {
-  MODAL_GROUP_CREATE,
-  MODAL_PRO_UPGRADE,
-} from '../constants'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
 import GroupsPanel from '../components/panel/groups_panel'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import DefaultLayout from '../layouts/default_layout'
 
 const messages = defineMessages({
   groups: { id: 'groups', defaultMessage: 'Groups' },
-  featured: { id: 'featured', defaultMessage: 'Featured' },
-  new: { id: 'new', defaultMessage: 'Just Added' },
+  new: { id: 'new', defaultMessage: 'Recently Added Groups' },
+  featured: { id: 'featured', defaultMessage: 'Featured Groups' },
+  myGroupsTimeline: { id: 'my_groups_timeline', defaultMessage: 'Timeline' },
   myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
   admin: { id: 'admin', defaultMessage: 'Admin' },
 })
@@ -23,30 +18,15 @@ const mapStateToProps = (state) => ({
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenGroupCreateModal(isPro) {
-    if (!isPro) {
-      dispatch(openModal(MODAL_PRO_UPGRADE))
-    } else {
-      dispatch(openModal(MODAL_GROUP_CREATE))
-    }
-  },
-})
-
 export default
 @injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
+@connect(mapStateToProps)
 class GroupsPage extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
     isPro: PropTypes.bool,
-    onOpenGroupCreateModal: PropTypes.func.isRequired,
-  }
-
-  handleOnOpenGroupCreateModal = () => {
-    this.props.onOpenGroupCreateModal(this.props.isPro)
   }
 
   render() {
@@ -54,27 +34,31 @@ class GroupsPage extends PureComponent {
       intl,
       children,
       isPro,
-      onOpenGroupCreateModal,
     } = this.props
 
-    const actions = [
+    const actions = isPro ? [
       {
         icon: 'add',
-        onClick: this.handleOnOpenGroupCreateModal,
+        to: '/groups/create',
       },
-    ]
+    ] : []
+
     const tabs = !!me ? [
       {
-        title: intl.formatMessage(messages.featured),
+        title: intl.formatMessage(messages.myGroupsTimeline),
         to: '/groups',
-      },
-      {
-        title: intl.formatMessage(messages.new),
-        to: '/groups/new',
       },
       {
         title: intl.formatMessage(messages.myGroups),
         to: '/groups/browse/member',
+      },
+      {
+        title: intl.formatMessage(messages.featured),
+        to: '/groups/browse/featured',
+      },
+      {
+        title: intl.formatMessage(messages.new),
+        to: '/groups/browse/new',
       },
     ] : []
 
@@ -94,8 +78,7 @@ class GroupsPage extends PureComponent {
         tabs={tabs}
         page='groups'
         layout={[
-          <WhoToFollowPanel key='groups-page-wtf-panel' />,
-          <GroupsPanel slim key='groups-page-groups-panel' />,
+          <GroupsPanel key='groups-page-groups-panel' groupType='member' />,
           <LinkFooter key='groups-page-link-footer' />,
         ]}
       >
