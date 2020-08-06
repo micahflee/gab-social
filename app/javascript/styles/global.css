@@ -888,7 +888,6 @@ pre {
 .select {
   height: 42px;
   line-height: 42px;
-  font-size: var(--fs_xl);
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
