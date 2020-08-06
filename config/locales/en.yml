@@ -74,6 +74,11 @@ en:
       title: Promotions
   monthly_funding:
     title: Monthly Funding
+  group_categories:
+    create: Create
+    delete: Delete
+    text: Text
+    title: Group Categories
   admin:
     account_actions:
       action: Perform action

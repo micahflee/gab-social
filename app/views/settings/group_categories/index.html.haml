@@ -1,0 +1,20 @@
+- content_for :page_title do
+  = t('group_categories.title')
+
+= form_tag settings_group_categories_url, method: 'POST', class: 'simple_form' do
+  .fields-group
+    .input.string.optional
+      = text_field_tag :text, params[:text], class: 'string optional', placeholder: I18n.t("group_categories.text")
+
+    .actions
+      %button= t('group_categories.create')
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= t('categories.created_at')
+        %th= t('categories.text')
+        %th
+    %tbody
+      = render @categories

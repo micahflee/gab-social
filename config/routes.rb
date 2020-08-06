@@ -97,6 +97,7 @@ Rails.application.routes.draw do
 
     resources :promotions, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :group_categories, only: [:index, :new, :create, :edit, :update, :destroy]
 
     namespace :verifications do
       get :moderation, to: 'moderation#index', as: :moderation

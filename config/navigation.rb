@@ -51,6 +51,7 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :moderation, safe_join([fa_icon('id-card-o fw'), t('verifications.moderation.title')]), settings_verifications_moderation_url, if: -> { current_user.admin? }
       s.item :promotions, safe_join([fa_icon('star fw'), t('promotions.title')]), settings_promotions_url, if: -> { current_user.admin? }
       s.item :monthly_funding, safe_join([fa_icon('money fw'), t('monthly_funding.title')]), settings_expenses_url, if: -> { current_user.admin? }
+      s.item :group_categories, safe_join([fa_icon('users fw'), t('group_categories.title')]), settings_group_categories_url, if: -> { current_user.admin? }
     end
 
     n.item :logout, safe_join([fa_icon('sign-out fw'), t('auth.logout')]), destroy_user_session_url, link_html: { 'data-method' => 'delete' }
