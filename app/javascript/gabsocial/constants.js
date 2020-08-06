@@ -136,3 +136,6 @@ export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY = 'weekly'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_MONTHLY = 'monthly'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_YEARLY = 'yearly'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_ALL_TIME = 'all-time'
+
+export const TOAST_TYPE_ERROR = 'error'
+export const TOAST_TYPE_SUCCESS = 'success'
