@@ -22,6 +22,7 @@ const SIZES = {
   medium: 'medium',
   large: 'large',
   extraLarge: 'extraLarge',
+  extraExtraLarge: 'extraExtraLarge',
 }
 
 // Define weights for enumeration for Text component `weight` prop
@@ -102,7 +103,8 @@ export default class Text extends PureComponent {
       colorBrand: color === COLORS.brand,
       colorWhite: color === COLORS.white,
       inherit: color === COLORS.inherit,
-
+      
+      fs24PX: size === SIZES.extraExtraLarge,
       fs19PX: size === SIZES.extraLarge,
       fs16PX: size === SIZES.large,
       fs15PX: size === SIZES.medium,
