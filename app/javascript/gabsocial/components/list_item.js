@@ -28,6 +28,12 @@ export default class ListItem extends PureComponent {
     hideArrow: PropTypes.bool,
   }
 
+  handleOnClick = (e) => {
+    if (!!this.props.onClick) {
+      this.props.onClick(e)
+    }
+  }
+
   render() {
     const {
       title,
@@ -102,7 +108,7 @@ export default class ListItem extends PureComponent {
       <Button
         to={to}
         href={href}
-        onClick={onClick}
+        onClick={!!onClick ? this.handleOnClick : undefined}
         className={containerClasses}
         noClasses
       >
