@@ -28,7 +28,7 @@ const mapStateToProps = (state) => ({
   searchText: state.getIn(['tenor', 'searchText']),
 })
 
-export const mapDispatchToProps = (dispatch, { onClose }) => ({
+const mapDispatchToProps = (dispatch, { onClose }) => ({
 
   handleCloseModal() {
     dispatch(changeGifSearchText(''))
