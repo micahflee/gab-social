@@ -55,7 +55,6 @@ class GroupSortBlock extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
-		groupId: PropTypes.string,
 		collectionType: PropTypes.string,
 		sortByValue: PropTypes.string.isRequired,
     sortByTopValue: PropTypes.string,
@@ -65,14 +64,12 @@ class GroupSortBlock extends PureComponent {
 
   handleOnClickValue = (btn) => {
     this.props.onOpenSortingOptions(btn, {
-			groupId: this.props.groupId,
 			collectionType: this.props.collectionType,
 		})
   }
 
   handleOnClickSubValue = (btn) => {
     this.props.onOpenSortingTopOptions(btn, {
-			groupId: this.props.groupId,
 			collectionType: this.props.collectionType,
 		})
   }
