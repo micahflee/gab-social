@@ -9,6 +9,7 @@ import { fetchRelationships } from './accounts';
 import {
   GROUP_LIST_SORTING_TYPE_ALPHABETICAL,
   GROUP_LIST_SORTING_TYPE_MOST_POPULAR,
+  GROUP_TIMELINE_SORTING_TYPE_TOP,
 } from '../constants'
 
 export const GROUP_FETCH_REQUEST = 'GROUP_FETCH_REQUEST';
@@ -619,14 +620,14 @@ export function groupsSort(tab, groupIds) {
   }
 }
 
-export const setGroupTimelineSort = (sortValue) => (dispatch) => {
+export const setGroupTimelineSort = (sortValue, options) => (dispatch, getState) => {
   dispatch({
     type: GROUP_TIMELINE_SORT,
     sortValue,
   })
 }
 
-export const setGroupTimelineTopSort = (sortValue) => (dispatch) => {
+export const setGroupTimelineTopSort = (sortValue, options) => (dispatch, getState) => {
   dispatch({
     type: GROUP_TIMELINE_TOP_SORT,
     sortValue,

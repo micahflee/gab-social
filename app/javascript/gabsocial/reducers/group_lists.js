@@ -40,8 +40,8 @@ const initialState = ImmutableMap({
 })
 
 export default function groupLists(state = initialState, action) {
-  if (tabs.indexOf(action.tab) === -1) return state
-  
+  // if (tabs.indexOf(action.tab) === -1) return state
+
   switch(action.type) {
   case GROUPS_FETCH_REQUEST:
     return state.withMutations((mutable) => {

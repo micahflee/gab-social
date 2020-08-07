@@ -1,5 +1,6 @@
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
+import throttle from 'lodash.throttle'
 import Sticky from 'react-stickynode'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Layout from './layout'
@@ -9,9 +10,8 @@ import SignUpLogInPanel from '../components/panel/sign_up_log_in_panel'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
 import Responsive from '../features/ui/util/responsive_component'
 import Heading from '../components/heading'
-import GroupSortBlock from '../components/group_sort_block'
 
-export default class GroupLayout extends ImmutablePureComponent {
+export default class ExploreLayout extends ImmutablePureComponent {
 
   static propTypes = {
     actions: PropTypes.array,
@@ -23,11 +23,44 @@ export default class GroupLayout extends ImmutablePureComponent {
     title: PropTypes.string,
   }
 
+  state = {
+    lazyLoaded: false,
+  }
+
+  componentDidMount() {
+    this.window = window
+    this.documentElement = document.scrollingElement || document.documentElement
+
+    this.window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    this.detachScrollListener()
+  }
+
+  detachScrollListener = () => {
+    this.window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = throttle(() => {
+    if (this.window) {
+      const { scrollTop } = this.documentElement
+      
+      if (scrollTop > 25 && !this.state.lazyLoaded) {
+        this.setState({ lazyLoaded: true })
+        this.detachScrollListener()
+      }
+    }
+  }, 150, {
+    trailing: true,
+  })
+
   render() {
     const { children, title } = this.props
+    const { lazyLoaded } = this.state
 
     const pageTitleBlock = (
-      <div className={[_s.default, _s.pl15, _s.py10].join(' ')}>
+      <div className={[_s.default, _s.pl15, _s.pb10].join(' ')}>
         <Heading size='h2'>Popular posts across Gab</Heading>
       </div>
     )
@@ -47,11 +80,7 @@ export default class GroupLayout extends ImmutablePureComponent {
               <div className={[_s.default, _s.mt15, _s.px10].join(' ')}>
                 <SignUpLogInPanel key='explore-page-signup-login-panel' isXS />
               </div>
-
               {pageTitleBlock}
-
-              <GroupSortBlock />
-
               {children}
             </div>
 
@@ -66,9 +95,6 @@ export default class GroupLayout extends ImmutablePureComponent {
 
                 <div className={_s.default}>
                   {pageTitleBlock}
-
-                  <GroupSortBlock />
-
                   {children}
                 </div>
               </div>
@@ -81,7 +107,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                       layout={[
                         <SignUpLogInPanel key='explore-page-signup-login-panel' />,
                         <GroupSidebarPanel groupType='featured' key='explore-page-group-panel' />,
-                        <TrendsPanel key='explore-page-trends-panel' />,
+                        <TrendsPanel key='explore-page-trends-panel' isLazy shouldLoad={lazyLoaded} />,
                       ]}
                     />
                   </div>

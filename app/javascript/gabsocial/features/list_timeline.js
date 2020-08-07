@@ -71,7 +71,6 @@ class ListTimeline extends ImmutablePureComponent {
   }
 
   handleEditClick = () => {
-    // console.log("handleEditClick:", this.props.params.id)
     this.props.dispatch(openModal('LIST_EDITOR', { id: this.props.params.id }))
   }
 

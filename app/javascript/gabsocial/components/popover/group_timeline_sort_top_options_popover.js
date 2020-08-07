@@ -24,8 +24,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSort(sort) {
-    dispatch(setGroupTimelineTopSort(sort))
+  onSort(sort, options) {
+    dispatch(setGroupTimelineTopSort(sort, options))
     dispatch(closePopover())
   },
   onClosePopover: () => dispatch(closePopover()),
@@ -42,10 +42,11 @@ class GroupTimelineSortTopOptionsPopover extends PureComponent {
     isXS: PropTypes.bool,
     onClosePopover: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
+    options: PropTypes.object.isRequired,
   }
 
   handleOnClick = (type) => {
-    this.props.onSort(type)
+    this.props.onSort(type, this.props.options)
   }
 
   handleOnClosePopover = () => {

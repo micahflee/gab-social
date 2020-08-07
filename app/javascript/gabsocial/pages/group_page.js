@@ -7,7 +7,6 @@ import PageTitle from '../features/ui/util/page_title'
 import GroupLayout from '../layouts/group_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
-import GroupSortBlock from '../components/group_sort_block'
 
 const messages = defineMessages({
 	group: { id: 'group', defaultMessage: 'Group' },
@@ -73,10 +72,6 @@ class GroupPage extends ImmutablePureComponent {
 						<TimelineComposeBlock size={46} groupId={groupId} autoFocus />
 						<Divider />
 					</Fragment>
-				}
-
-				{
-					isTimeline && <GroupSortBlock />
 				}
 
 				{children}

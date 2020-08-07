@@ -32,15 +32,17 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	onOpenSortingOptions(targetRef) {
+	onOpenSortingOptions(targetRef, options) {
 		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_OPTIONS, {
 			targetRef,
+			options,
 			position: 'bottom',
 		}))
 	},
-	onOpenSortingTopOptions(targetRef) {
+	onOpenSortingTopOptions(targetRef, options) {
 		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS, {
 			targetRef,
+			options,
 			position: 'bottom',
 		}))
 	},
@@ -53,23 +55,31 @@ class GroupSortBlock extends PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
-    sortByValue: PropTypes.string.isRequired,
+		groupId: PropTypes.string,
+		collectionType: PropTypes.string,
+		sortByValue: PropTypes.string.isRequired,
     sortByTopValue: PropTypes.string,
     onOpenSortingOptions: PropTypes.func.isRequired,
     onOpenSortingTopOptions: PropTypes.func,
   }
 
   handleOnClickValue = (btn) => {
-    this.props.onOpenSortingOptions(btn)
+    this.props.onOpenSortingOptions(btn, {
+			groupId: this.props.groupId,
+			collectionType: this.props.collectionType,
+		})
   }
 
   handleOnClickSubValue = (btn) => {
-    this.props.onOpenSortingTopOptions(btn)
+    this.props.onOpenSortingTopOptions(btn, {
+			groupId: this.props.groupId,
+			collectionType: this.props.collectionType,
+		})
   }
 
   render() {
     const {
-      intl,
+			intl,
       sortByValue,
       sortByTopValue,
     } = this.props

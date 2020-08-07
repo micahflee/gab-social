@@ -1,4 +1,5 @@
 import { defineMessages, injectIntl } from 'react-intl'
+import isObject from 'lodash.isobject'
 import { closePopover } from '../../actions/popover'
 import { setGroupTimelineSort } from '../../actions/groups'
 import {
@@ -23,8 +24,8 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSort(sort) {
-    dispatch(setGroupTimelineSort(sort))
+  onSort(sort, options) {
+    dispatch(setGroupTimelineSort(sort, options))
     dispatch(closePopover())
   },
   onClosePopover: () => dispatch(closePopover()),
@@ -41,10 +42,11 @@ class GroupTimelineSortOptionsPopover extends PureComponent {
     isXS: PropTypes.bool,
     onClosePopover: PropTypes.func.isRequired,
     onSort: PropTypes.func.isRequired,
+    options: PropTypes.object.isRequired,
   }
 
   handleOnClick = (type) => {
-    this.props.onSort(type)
+    this.props.onSort(type, this.props.options)
   }
 
   handleOnClosePopover = () => {
@@ -56,8 +58,11 @@ class GroupTimelineSortOptionsPopover extends PureComponent {
       sorting,
       intl,
       isXS,
+      options,
     } = this.props
     
+    const isFeaturedTimeline = isObject(options) && options.collectionType === 'featured'
+
     const items = [
       {
         hideArrow: true,
@@ -65,22 +70,25 @@ class GroupTimelineSortOptionsPopover extends PureComponent {
         title: intl.formatMessage(messages.topTitle),
         subtitle: intl.formatMessage(messages.topSubtitle),
         onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_TOP),
-      },
-      {
+      }
+    ]
+
+    if (!isFeaturedTimeline) {
+      items.push({
         hideArrow: true,
         isActive: sorting === GROUP_TIMELINE_SORTING_TYPE_NEWEST,
         title: intl.formatMessage(messages.newTitle),
         subtitle: intl.formatMessage(messages.newSubtitle),
         onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_NEWEST),
-      },
-      {
+      })
+      items.push({
         hideArrow: true,
         isActive: sorting === GROUP_TIMELINE_SORTING_TYPE_RECENT_ACTIVITY,
         title: intl.formatMessage(messages.recentTitle),
         subtitle: intl.formatMessage(messages.recentSubtitle),
         onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_RECENT_ACTIVITY),
-      },
-    ]
+      })
+    }
 
     return (
       <PopoverLayout
