@@ -34,6 +34,7 @@ const messages = defineMessages({
   apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
   more: { id: 'sidebar.more', defaultMessage: 'More' },
   explore: { id: 'explore', defaultMessage: 'Explore' },
+  news: { id: 'news', defaultMessage: 'News' },
   menu: { id: 'menu', defaultMessage: 'Menu' },
   pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
   trends: { id: 'promo.trends', defaultMessage: 'Trends' },
@@ -178,6 +179,11 @@ class Sidebar extends ImmutablePureComponent {
         to: '/timeline/pro',
       },
       {
+        title: 'News',
+        icon: 'news',
+        to: '/news',
+      },
+      {
         title: 'More',
         icon: 'more',
         onClick: this.handleOpenSidebarMorePopover,
@@ -247,7 +253,8 @@ class Sidebar extends ImmutablePureComponent {
                               isNarrow
                               backgroundColor='none'
                               color='primary'
-                              onClick={() => action.onClick()}
+                              onClick={action.onClick ? () => action.onClick() : undefined}
+                              to={action.to}
                               key={`action-btn-${i}`}
                               className={[_s.ml5, _s.px5].join(' ')}
                               icon={action.icon}
