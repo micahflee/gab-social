@@ -79,9 +79,11 @@ class ProfilePage extends ImmutablePureComponent {
         }
         {
           unavailable &&
-          <ColumnIndicator type='error' message={
-            <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
-          } />
+          <Block>
+            <ColumnIndicator type='error' message={
+              <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
+            } />
+          </Block>
         }
       </ProfileLayout>
     )
