@@ -52,7 +52,6 @@ import {
   CommunityTimeline,
   Compose,
   DMCA,
-  Explore,
   // Filters,
   Followers,
   Following,
@@ -167,7 +166,7 @@ class SwitchingArea extends PureComponent {
         }
         {
           !me &&
-          <WrappedRoute path='/' publicRoute page={ExplorePage} component={GroupCollectionTimeline} content={children} componentParams={{ title: 'Gab.com', collectionType: 'featured' }} />
+          <WrappedRoute path='/' exact publicRoute page={ExplorePage} component={GroupCollectionTimeline} content={children} componentParams={{ title: 'Gab.com', collectionType: 'featured' }} />
         }
 
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
@@ -179,7 +178,7 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/about/sales' publicRoute exact page={AboutPage} component={TermsOfSale} content={children} componentParams={{ title: 'Terms of Sale' }} />
         <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
 
-        <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={Explore} content={children} componentParams={{ title: 'Explore' }} />
+        <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={GroupCollectionTimeline} content={children} componentParams={{ title: 'Explore', collectionType: 'featured' }} />
         <WrappedRoute path='/news' publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />

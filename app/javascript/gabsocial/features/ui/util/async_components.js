@@ -20,7 +20,6 @@ export function EditShortcutsModal() { return import(/* webpackChunkName: "compo
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
-export function Explore() { return import(/* webpackChunkName: "features/explore" */'../../explore') }
 export function Followers() { return import(/* webpackChunkName: "features/followers" */'../../followers') }
 export function Following() { return import(/* webpackChunkName: "features/following" */'../../following') }
 export function FollowRequests() { return import(/* webpackChunkName: "features/follow_requests" */'../../follow_requests') }
