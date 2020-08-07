@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_01_023518) do
+ActiveRecord::Schema.define(version: 2020_08_06_231714) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -342,6 +342,16 @@ ActiveRecord::Schema.define(version: 2020_08_01_023518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "text", default: "", null: false
+  end
+
+  create_table "group_join_requests", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "group_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "group_id"], name: "index_group_join_requests_on_account_id_and_group_id", unique: true
+    t.index ["account_id"], name: "index_group_join_requests_on_account_id"
+    t.index ["group_id"], name: "index_group_join_requests_on_group_id"
   end
 
   create_table "group_pinned_statuses", force: :cascade do |t|
@@ -732,7 +742,11 @@ ActiveRecord::Schema.define(version: 2020_08_01_023518) do
     t.bigint "favourites_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["favourites_count"], name: "index_status_stats_on_favourites_count"
+    t.index ["reblogs_count"], name: "index_status_stats_on_reblogs_count"
+    t.index ["replies_count"], name: "index_status_stats_on_replies_count"
     t.index ["status_id"], name: "index_status_stats_on_status_id", unique: true
+    t.index ["updated_at"], name: "index_status_stats_on_updated_at"
   end
 
   create_table "statuses", id: :bigint, default: -> { "timestamp_id('statuses'::text)" }, force: :cascade do |t|
@@ -766,6 +780,7 @@ ActiveRecord::Schema.define(version: 2020_08_01_023518) do
     t.index ["in_reply_to_id"], name: "index_statuses_on_in_reply_to_id"
     t.index ["quote_of_id"], name: "index_statuses_on_quote_of_id"
     t.index ["reblog_of_id", "account_id"], name: "index_statuses_on_reblog_of_id_and_account_id"
+    t.index ["reply"], name: "index_statuses_on_reply"
     t.index ["uri"], name: "index_statuses_on_uri", unique: true
   end
 
@@ -934,6 +949,8 @@ ActiveRecord::Schema.define(version: 2020_08_01_023518) do
   add_foreign_key "follows", "accounts", name: "fk_32ed1b5560", on_delete: :cascade
   add_foreign_key "group_accounts", "accounts", on_delete: :cascade
   add_foreign_key "group_accounts", "groups", on_delete: :cascade
+  add_foreign_key "group_join_requests", "accounts", on_delete: :cascade
+  add_foreign_key "group_join_requests", "groups", on_delete: :cascade
   add_foreign_key "group_pinned_statuses", "groups", on_delete: :cascade
   add_foreign_key "group_pinned_statuses", "statuses", on_delete: :cascade
   add_foreign_key "group_removed_accounts", "accounts", on_delete: :cascade
