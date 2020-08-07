@@ -116,14 +116,14 @@ class News extends PureComponent {
       const domains = items.trackedDomains
       domainTabs = domains.map((block) => ({
         title: block.title,
-        to: `/explore?domain=${block.domain}`,
+        to: `/news?domain=${block.domain}`,
         onClick: () => {},
         active: activeDomain === `${block.domain}`.toLowerCase(),
       }))
       domainTabs = [
         {
           title: "Today's Top",
-          to: `/explore`,
+          to: `/news`,
           onClick: () => {},
           active: !activeDomain,
         },
