@@ -3,6 +3,7 @@
 class Api::V1::GroupCategoriesController < Api::BaseController
   # respond_to :json
 
+  before_action :require_user!
   skip_before_action :set_cache_headers
 
   def index
