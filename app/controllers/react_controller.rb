@@ -11,10 +11,6 @@ class ReactController < ApplicationController
   def react
     # 
   end
-
-  def home
-    # 
-  end
   
   def groupBySlug
     @group = Group.where(slug: params[:groupSlug], is_archived: false).first

@@ -465,8 +465,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/', to: 'react#home', as: :homepage
-
   get '/g/:groupSlug', to: 'react#groupBySlug'
   get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
   get '/:username/comments_only', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
@@ -479,6 +477,8 @@ Rails.application.routes.draw do
   get '/(*any)', to: 'react#react', as: :web
   get '/:username', to: 'accounts#show', username: username_regex, as: :short_account
   root 'react#react'
+
+  get '/', to: 'react#react', as: :homepage
 
   # Routes that are now to be used within webapp, but still referenced within application
   # TODO : Consolidate
