@@ -174,7 +174,7 @@ class GroupCollectionTimeline extends PureComponent {
 		return (
 			<Fragment>
 				{
-					!dontShowGroupSort &&
+					!dontShowGroupSort && collectionType === 'member' &&
 					<GroupSortBlock collectionType={collectionType} />
 				}
 				<StatusList
