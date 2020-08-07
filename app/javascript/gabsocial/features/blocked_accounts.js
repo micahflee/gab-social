@@ -6,7 +6,7 @@ import { me } from '../initial_state'
 import { fetchBlocks, expandBlocks } from '../actions/blocks'
 import Account from '../components/account'
 import Block from '../components/block'
-import Heading from '../components/heading'
+import BlockHeading from '../components/block_heading'
 import ScrollableList from '../components/scrollable_list'
 
 const messages = defineMessages({
@@ -59,11 +59,7 @@ class Blocks extends ImmutablePureComponent {
 
     return (
       <Block>
-        <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter].join(' ')}>
-          <Heading size='h2'>
-            {intl.formatMessage(messages.blocks)}
-          </Heading>
-        </div>
+        <BlockHeading title={intl.formatMessage(messages.blocks)} />
         <ScrollableList
           scrollKey='blocked_accounts'
           onLoadMore={this.handleLoadMore}

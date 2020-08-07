@@ -4,7 +4,6 @@ import debounce from 'lodash.debounce'
 import isObject from 'lodash.isobject'
 import { FormattedMessage } from 'react-intl'
 import {
-	fetchGroup,
 	fetchMembers,
 	expandMembers,
 } from '../actions/groups'
@@ -12,13 +11,13 @@ import { openPopover } from '../actions/popover'
 import Account from '../components/account'
 import ColumnIndicator from '../components/column_indicator'
 import Block from '../components/block'
-import Heading from '../components/heading'
+import BlockHeading from '../components/block_heading'
 import Input from '../components/input'
 import ScrollableList from '../components/scrollable_list'
 
 const mapStateToProps = (state, { params }) => {
-	const groupId = isObject(params) ? params['id'] : null
-	const group = state.getIn(['groups', groupId])
+	const groupId = isObject(params) ? params['id'] : -1
+	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
 
 	return {
 		group,
@@ -30,9 +29,6 @@ const mapStateToProps = (state, { params }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	onFetchGroup(groupId) {
-		dispatch(fetchGroup(groupId))
-	},
 	onFetchMembers(groupId) {
 		dispatch(fetchMembers(groupId))
 	},
@@ -59,18 +55,8 @@ class GroupMembers extends ImmutablePureComponent {
 		accountIds: ImmutablePropTypes.list,
 		hasMore: PropTypes.bool,
 		onExpandMembers: PropTypes.func.isRequired,
-		onFetchGroup: PropTypes.func.isRequired,
 		onFetchMembers: PropTypes.func.isRequired,
 		onOpenGroupMemberOptions: PropTypes.func.isRequired,
-	}
-
-	componentDidMount() {
-		const { group, groupId } = this.props
-
-		if (!group && groupId) {
-			console.log("componentDidMount:", groupId)
-			this.props.onFetchGroup(groupId)
-		}
 	}
 
 	componentWillMount() {
@@ -109,11 +95,8 @@ class GroupMembers extends ImmutablePureComponent {
 			
 		return (
 			<Block>
-				<div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-					<div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-						<Heading size='h2'>Members</Heading>
-					</div>
-				</div>
+				<BlockHeading title='Group Members' />
+
 				{
 					/* : todo :
 					<div className={[_s.default, _s.justifyContentCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>

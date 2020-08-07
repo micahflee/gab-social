@@ -9,7 +9,7 @@ import {
 import Account from '../components/account'
 import ScrollableList from '../components/scrollable_list'
 import Block from '../components/block'
-import Heading from '../components/heading'
+import BlockHeading from '../components/block_heading'
 import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
 const mapStateToProps = (state, { account }) => {
@@ -76,29 +76,23 @@ class Followers extends ImmutablePureComponent {
 
     return (
       <Block>
-        <div className={[_s.default, _s.px15, _s.py10, _s.justifyContentCenter].join(' ')}>
-          <Heading size='h2'>
-            {intl.formatMessage(messages.followers)}
-          </Heading>
-        </div>
-        <div className={[_s.default, _s.py10].join(' ')}>
-          <ScrollableList
-            scrollKey='followers'
-            hasMore={hasMore}
-            isLoading={isLoading}
-            showLoading={isLoading}
-            onLoadMore={this.handleLoadMore}
-            placeholderComponent={AccountPlaceholder}
-            placeholderCount={4}
-            emptyMessage={intl.formatMessage(messages.empty)}
-          >
-            {
-              account && accountIds && accountIds.map((id) => (
-                <Account key={`follower-${id}`} id={id} compact withBio />
-              ))
-            }
-          </ScrollableList>
-        </div>
+        <BlockHeading title={intl.formatMessage(messages.followers)} />
+        <ScrollableList
+          scrollKey='followers'
+          hasMore={hasMore}
+          isLoading={isLoading}
+          showLoading={isLoading}
+          onLoadMore={this.handleLoadMore}
+          placeholderComponent={AccountPlaceholder}
+          placeholderCount={4}
+          emptyMessage={intl.formatMessage(messages.empty)}
+        >
+          {
+            account && accountIds && accountIds.map((id) => (
+              <Account key={`follower-${id}`} id={id} compact withBio />
+            ))
+          }
+        </ScrollableList>
       </Block>
     )
   }

@@ -55,7 +55,7 @@ class FollowRequests extends ImmutablePureComponent {
     } = this.props
 
     const unlockedPrependMessage = locked ? null : (
-      <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
+      <div className={[_s.default, _s.px15, _s.py15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
         <Text>
           <FormattedMessage
             id='follow_requests.unlocked_explanation'
