@@ -20,6 +20,7 @@ import AccountActionButton from './account_action_button'
 import Avatar from './avatar'
 import DisplayName from './display_name'
 import Button from './button'
+import Text from './text'
 
 const makeMapStateToProps = (state, props) => ({
   account: makeGetAccount()(state, props.id),
@@ -135,11 +136,13 @@ class Account extends ImmutablePureComponent {
         isOutline={true}
         color='brand'
         backgroundColor='none'
-        className={_s.px10}
+        className={[_s.px10, _s.flexRow, _s.alignItemsCenter].join(' ')}
         icon={actionIcon}
         iconSize='10px'
       >
-        {actionTitle}
+        <Text color='inherit' className={_s.ml5}>
+          {actionTitle}
+        </Text>
       </Button>
     ) :  <AccountActionButton account={account} isSmall />
 
