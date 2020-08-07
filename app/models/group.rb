@@ -52,7 +52,7 @@ class Group < ApplicationRecord
     def search_for(term, limit = 100, offset = 0)
       pattern = sanitize_sql_like(term.strip) + '%'
 
-      Group.where('lower(title) like lower(?) AND is_archived=false', pattern)
+      Group.where('lower(title) like lower(?) AND is_archived=false AND is_visible=true', pattern)
         .order(:title)
         .limit(limit)
         .offset(offset)
