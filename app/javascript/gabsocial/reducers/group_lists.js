@@ -9,14 +9,15 @@ import {
 } from '../actions/groups'
 import {
   GROUP_TIMELINE_SORTING_TYPE_TOP,
+  GROUP_TIMELINE_SORTING_TYPE_NEWEST,
   GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
 } from '../constants'
 
 const tabs = ['new', 'featured', 'member', 'admin']
 
 const initialState = ImmutableMap({
-  sortByValue: GROUP_TIMELINE_SORTING_TYPE_TOP,
-  sortByTopValue: GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
+  sortByValue: GROUP_TIMELINE_SORTING_TYPE_NEWEST,
+  sortByTopValue: '',
   new: ImmutableMap({
     isFetched: false,
     isLoading: false,
