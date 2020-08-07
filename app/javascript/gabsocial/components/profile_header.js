@@ -19,6 +19,7 @@ import DisplayName from './display_name'
 import Image from './image'
 import MovedNote from './moved_note'
 import TabBar from './tab_bar'
+import Pills from './pills'
 import Text from './text'
 import Responsive from '../features/ui/util/responsive_component';
 import ProfileHeaderXSPlaceholder from './placeholder/profile_header_xs_placeholder'
@@ -270,8 +271,8 @@ class ProfileHeader extends ImmutablePureComponent {
                     {children}
                   </div>
 
-                  <div className={[_s.default, _s.mt10].join(' ')}>
-                    <TabBar tabs={tabs} isLarge />
+                  <div className={[_s.default, _s.mt10, _s.mb10, _s.pt5, _s.width100PC].join(' ')}>
+                    <Pills pills={tabs} />
                   </div>
                 </div>
               </div>
