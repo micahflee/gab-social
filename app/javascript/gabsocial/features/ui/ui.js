@@ -197,8 +197,8 @@ class SwitchingArea extends PureComponent {
         <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group', page: 'edit-group' }} />
         <WrappedRoute path='/groups/:id/about' publicRoute page={GroupPage} component={GroupAbout} content={children} />
-        <WrappedRoute path='/groups/:id/media' publicRoute page={GroupPage} component={GroupTimeline} content={children} componentParams={{ isTimeline: true }} />
-        <WrappedRoute path='/groups/:id' publicRoute page={GroupPage} component={GroupTimeline} content={children} componentParams={{ isTimeline: true }} />
+        { /* <WrappedRoute path='/groups/:id/media' publicRoute page={GroupPage} component={GroupTimeline} content={children} componentParams={{ isTimeline: true, onlyMedia: true }} /> */ }
+        <WrappedRoute path='/groups/:id' exact publicRoute page={GroupPage} component={GroupTimeline} content={children} componentParams={{ isTimeline: true }} />
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
 
