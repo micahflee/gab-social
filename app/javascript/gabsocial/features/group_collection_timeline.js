@@ -26,11 +26,11 @@ const messages = defineMessages({
 	empty: { id: 'empty_column.group_collection_timeline', defaultMessage: 'There are no gabs to display.' },
 })
 
-const mapStateToProps = (state, { collectionType }) => {
+const mapStateToProps = (state) => {
 
 	let dontShowGroupSort = true
 	try {
-		dontShowGroupSort = !!me && collectionType === 'member' && state.getIn(['timelines', `group_collection:${collectionType}`, 'items'], ImmutableList()).count() === 0
+		dontShowGroupSort = state.getIn(['group_lists', 'member', 'items'], ImmutableList()).count() === 0
 	} catch (error) {
 		//
 	}
@@ -162,7 +162,7 @@ class GroupCollectionTimeline extends PureComponent {
 			dontShowGroupSort,
 		} = this.props
 
-		const emptyMessage = !!me && collectionType === 'member' ? (
+		const emptyMessage = !!me && collectionType === 'member' && dontShowGroupSort ? (
 			<div className={[_s.default, _s.width100PC]}>
 				<Text className={[_s.default, _s.mb10].join(' ')}>
 					Join some groups then come back here to view your group timeline
