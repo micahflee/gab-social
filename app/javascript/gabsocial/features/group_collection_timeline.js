@@ -28,15 +28,15 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => {
 
-	let dontShowGroupSort = true
+	let hasNoGroupMembers = true
 	try {
-		dontShowGroupSort = state.getIn(['group_lists', 'member', 'items'], ImmutableList()).count() === 0
+		hasNoGroupMembers = state.getIn(['group_lists', 'member', 'items'], ImmutableList()).count() === 0
 	} catch (error) {
 		//
 	}
 
 	return {
-		dontShowGroupSort,
+		hasNoGroupMembers,
 		sortByValue: state.getIn(['group_lists', 'sortByValue']),
 		sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
 	}
@@ -159,10 +159,10 @@ class GroupCollectionTimeline extends PureComponent {
 		const {
 			collectionType,
 			intl,
-			dontShowGroupSort,
+			hasNoGroupMembers,
 		} = this.props
 
-		const emptyMessage = !!me && collectionType === 'member' && dontShowGroupSort ? (
+		const emptyMessage = !!me && collectionType === 'member' && hasNoGroupMembers ? (
 			<div className={[_s.default, _s.width100PC]}>
 				<Text className={[_s.default, _s.mb10].join(' ')}>
 					Join some groups then come back here to view your group timeline
@@ -173,10 +173,7 @@ class GroupCollectionTimeline extends PureComponent {
 
 		return (
 			<Fragment>
-				{
-					!dontShowGroupSort && collectionType !== 'member' &&
-					<GroupSortBlock collectionType={collectionType} />
-				}
+				<GroupSortBlock collectionType={collectionType} />
 				<StatusList
 					scrollKey={`group-collection-timeline-${collectionType}`}
 					timelineId={`group_collection:${collectionType}`}
