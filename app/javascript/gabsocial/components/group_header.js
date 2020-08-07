@@ -112,10 +112,10 @@ class GroupHeader extends ImmutablePureComponent {
         to: `/groups/${group.get('id')}`,
         title: 'Timeline',
       },
-      {
-        to: `/groups/${group.get('id')}/media`,
-        title: 'Media',
-      },
+      // {
+      //   to: `/groups/${group.get('id')}/media`,
+      //   title: 'Media',
+      // },
     ]
 
     if (isAdmin && group) {
