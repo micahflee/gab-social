@@ -55,7 +55,7 @@ export const connectProStream = () => connectTimelineStream('pro', 'pro');
 export const connectHashtagStream   = (id, tag, accept) => connectTimelineStream(`hashtag:${id}`, `hashtag&tag=${tag}`, null, accept);
 export const connectListStream      = id => connectTimelineStream(`list:${id}`, `list&list=${id}`);
 export const connectGroupStream      = id => connectTimelineStream(`group:${id}`, `group&group=${id}`);
-export const connectGroupCollectionStream = (id) => connectTimelineStream(`group:collection:${id}`, `group&group:collection=${id}`);
+export const connectGroupCollectionStream = (collectionType, sortBy) => connectTimelineStream(`group_collection:${collectionType}:${sortBy}`, `group_collection&group_collection=${collectionType}`);
 
 export const connectStatusUpdateStream = () => {
   return connectStream('statuscard', null, (dispatch, getState) => {

@@ -1,9 +1,12 @@
+import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import LinkFooter from '../components/link_footer'
+import Text from '../components/text'
 import GroupsPanel from '../components/panel/groups_panel'
 import DefaultLayout from '../layouts/default_layout'
+import GroupsCollection from '../features/groups_collection'
 
 const messages = defineMessages({
   groups: { id: 'groups', defaultMessage: 'Groups' },
@@ -24,6 +27,7 @@ export default
 class GroupsPage extends PureComponent {
 
   static propTypes = {
+    activeTab: PropTypes.string.isRequired,
     intl: PropTypes.object.isRequired,
     children: PropTypes.node.isRequired,
     isPro: PropTypes.bool,
@@ -31,10 +35,13 @@ class GroupsPage extends PureComponent {
 
   render() {
     const {
+      activeTab,
       intl,
       children,
       isPro,
     } = this.props
+
+    const dontShowChildren = (activeTab === 'timeline' && !me)
 
     const actions = isPro ? [
       {
@@ -45,7 +52,7 @@ class GroupsPage extends PureComponent {
 
     const tabs = !!me ? [
       {
-        title: intl.formatMessage(messages.myGroupsTimeline),
+        title: intl.formatMessage(dontShowChildren ? messages.myGroupsTimeline : messages.groups),
         to: '/groups',
       },
       {
@@ -70,6 +77,12 @@ class GroupsPage extends PureComponent {
     }
 
     const title = intl.formatMessage(messages.groups)
+    
+    const layout = []
+    if (!!me) {
+      layout.push(<GroupsPanel key='groups-page-groups-panel' groupType='member' />)
+    }
+    layout.push(<LinkFooter key='groups-page-link-footer' />)
 
     return (
       <DefaultLayout
@@ -77,13 +90,16 @@ class GroupsPage extends PureComponent {
         actions={actions}
         tabs={tabs}
         page='groups'
-        layout={[
-          <GroupsPanel key='groups-page-groups-panel' groupType='member' />,
-          <LinkFooter key='groups-page-link-footer' />,
-        ]}
+        layout={layout}
       >
         <PageTitle path={title} />
-        { children }
+
+        { !dontShowChildren && children }
+
+        {
+          dontShowChildren &&
+          <GroupsCollection activeTab='featured' />
+        }
       </DefaultLayout>
     )
   }
