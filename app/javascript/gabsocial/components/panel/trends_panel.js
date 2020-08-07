@@ -9,6 +9,7 @@ import TrendsItemPlaceholder from '../placeholder/trends_item_placeholder'
 
 const messages = defineMessages({
   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
+  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
 })
 
 const mapStateToProps = (state) => ({
@@ -29,6 +30,7 @@ class TrendsPanel extends ImmutablePureComponent {
   static propTypes = {
     intl: PropTypes.object.isRequired,
     isError: PropTypes.bool,
+    isLazy: PropTypes.bool,
     isLoading: PropTypes.bool,
     items: ImmutablePropTypes.list.isRequired,
     onfetchGabTrends: PropTypes.func.isRequired,
@@ -36,12 +38,34 @@ class TrendsPanel extends ImmutablePureComponent {
 
   updateOnProps = [
     'items',
+    'isLazy',
     'isLoading',
     'isError',
   ]
 
+  state = {
+    fetched: false,
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.shouldLoad && !prevState.fetched) {
+      return { fetched: true }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.fetched && this.state.fetched) {
+      this.props.onfetchGabTrends()
+    }
+  }
+
   componentDidMount() {
-    this.props.onfetchGabTrends()
+    if (!this.props.isLazy) {
+      this.props.onfetchGabTrends()
+      this.setState({ fetched: true })
+    }
   }
 
   render() {
@@ -51,13 +75,19 @@ class TrendsPanel extends ImmutablePureComponent {
       isLoading,
       items,
     } = this.props
-
-    if (isError) return null
+    const { fetched } = this.state
+    
+    const count = !!items ? items.count() : 0
+    if (isError || (count === 0 && fetched)) return null
 
     return (
       <PanelLayout
         noPadding
         title={intl.formatMessage(messages.title)}
+        headerButtonTitle={intl.formatMessage(messages.readMore)}
+        headerButtonTo='/news'
+        footerButtonTitle={intl.formatMessage(messages.readMore)}
+        footerButtonTo='/news'
       >
         <ScrollableList
           showLoading={isLoading}
