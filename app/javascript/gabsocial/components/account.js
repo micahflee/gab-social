@@ -140,9 +140,12 @@ class Account extends ImmutablePureComponent {
         icon={actionIcon}
         iconSize='10px'
       >
-        <Text color='inherit' className={_s.ml5}>
-          {actionTitle}
-        </Text>
+        {
+          !!actionTitle &&
+          <Text color='inherit' className={_s.ml5}>
+            {actionTitle}
+          </Text>
+        }
       </Button>
     ) :  <AccountActionButton account={account} isSmall />
 
