@@ -1,8 +1,9 @@
 import { Fragment } from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
-import Text from '../components/text'
 import Button from '../components/button'
 import DotTextSeperator from '../components/dot_text_seperator'
+import Icon from '../components/icon'
+import Text from '../components/text'
 
 const messages = defineMessages({
   sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
@@ -52,31 +53,35 @@ class SortBlock extends PureComponent {
           isText
           backgroundColor='none'
           color='secondary'
-          className={_s.ml5}
+          className={[_s.ml5, _s.flexRow, _s.alignItemsCenter].join(' ')}
           buttonRef={this.setValueBtnRef}
           onClick={this.handleOnClickValue}
         >
           <Text color='inherit' weight='medium' size='small'>
             {value}
           </Text>
+          <Icon id='caret-down' size='6px' className={[_s.fillSecondary, _s.ml5].join(' ')} />
         </Button>
 
         {
           !!subValue &&
           <Fragment>
-            <DotTextSeperator />
+            <div className={[_s.default, _s.px5].join(' ')}>
+              <DotTextSeperator />
+            </div>
 
             <Button
               isText
               backgroundColor='none'
               color='secondary'
-              className={_s.ml5}
+              className={[_s.ml5, _s.flexRow, _s.alignItemsCenter].join(' ')}
               buttonRef={this.setSubValueBtnRef}
               onClick={this.handleOnClickSubValue}
             >
               <Text color='inherit' weight='medium' size='small'>
                 {subValue}
               </Text>
+              <Icon id='caret-down' size='6px' className={[_s.fillSecondary, _s.ml5].join(' ')} />
             </Button>
           </Fragment>
         }
