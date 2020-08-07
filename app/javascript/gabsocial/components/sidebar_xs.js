@@ -79,6 +79,7 @@ class SidebarXS extends ImmutablePureComponent {
   }
 
   handleSidebarClose = () => {
+    document.body.classList.remove(_s.overflowYHidden) 
     this.props.onCloseSidebar()
   }
 
