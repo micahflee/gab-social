@@ -271,7 +271,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     {children}
                   </div>
 
-                  <div className={[_s.default, _s.mt10, _s.mb10, _s.pt5, _s.width100PC].join(' ')}>
+                  <div className={[_s.default, _s.mt10, _s.mb10, _s.pt5, _s.width100PC, _s.pr10].join(' ')}>
                     <Pills pills={tabs} />
                   </div>
                 </div>
