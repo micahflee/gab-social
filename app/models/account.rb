@@ -405,8 +405,9 @@ class Account < ApplicationRecord
       DeliveryFailureTracker.filter(urls)
     end
 
-    def search_for(terms, limit = 10, offset = 0)
+    def search_for(terms, limit = 10, offset = 0, options = {})
       textsearch, query = generate_query_for_search(terms)
+      @onlyVerified = options[:onlyVerified] || false
 
       sql = <<-SQL.squish
         SELECT
@@ -426,8 +427,9 @@ class Account < ApplicationRecord
       records
     end
 
-    def advanced_search_for(terms, account, limit = 10, following = false, offset = 0)
+    def advanced_search_for(terms, account, limit = 10, following = false, offset = 0, options = {})
       textsearch, query = generate_query_for_search(terms)
+      @onlyVerified = options[:onlyVerified] || false
 
       sql = <<-SQL.squish
         SELECT
