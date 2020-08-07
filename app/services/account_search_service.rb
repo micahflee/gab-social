@@ -7,6 +7,7 @@ class AccountSearchService < BaseService
     @query   = query.strip
     @limit   = options[:limit].to_i
     @offset  = options[:offset].to_i
+    @onlyVerified = options[:onlyVerified] || false
     @options = options
     @account = account
 
@@ -84,11 +85,11 @@ class AccountSearchService < BaseService
   end
 
   def advanced_search_results
-    Account.advanced_search_for(terms_for_query, account, limit, options[:following], offset)
+    Account.advanced_search_for(terms_for_query, account, limit, options[:following], offset, onlyVerified: @onlyVerified)
   end
 
   def simple_search_results
-    Account.search_for(terms_for_query, limit, offset)
+    Account.search_for(terms_for_query, limit, offset, onlyVerified: @onlyVerified)
   end
 
   def terms_for_query

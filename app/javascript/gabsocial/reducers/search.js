@@ -5,6 +5,7 @@ import {
   SEARCH_FETCH_FAIL,
   SEARCH_FETCH_SUCCESS,
   SEARCH_SHOW,
+  SEARCH_FILTER_SET,
 } from '../actions/search';
 import {
   COMPOSE_MENTION,
@@ -19,6 +20,9 @@ const initialState = ImmutableMap({
   isLoading: false,
   isError: false,
   results: ImmutableMap(),
+  filter: ImmutableMap({
+    onlyVerified: false,
+  }),
 });
 
 export default function search(state = initialState, action) {
@@ -59,6 +63,11 @@ export default function search(state = initialState, action) {
       hashtags: fromJS(action.results.hashtags),
       groups: fromJS(action.results.groups),
     })).set('submitted', true).set('isLoading', false).set('isError', false);
+  case SEARCH_FILTER_SET:
+    return state.withMutations((mutable) => {
+      mutable.set('items', ImmutableList()).set('hasMore', true)
+      mutable.setIn(['filter', action.path], action.value)
+    })
   default:
     return state;
   }

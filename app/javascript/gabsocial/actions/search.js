@@ -2,6 +2,7 @@ import api from '../api';
 import { fetchRelationships } from './accounts';
 import { fetchGroupsSuccess, fetchGroupRelationships } from './groups'
 import { importFetchedAccounts, importFetchedStatuses } from './importer';
+import { SEARCH_FILTERS } from '../constants'
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE';
 export const SEARCH_CLEAR  = 'SEARCH_CLEAR';
@@ -10,6 +11,8 @@ export const SEARCH_SHOW   = 'SEARCH_SHOW';
 export const SEARCH_FETCH_REQUEST = 'SEARCH_FETCH_REQUEST';
 export const SEARCH_FETCH_SUCCESS = 'SEARCH_FETCH_SUCCESS';
 export const SEARCH_FETCH_FAIL    = 'SEARCH_FETCH_FAIL';
+
+export const SEARCH_FILTER_SET = 'SEARCH_FILTER_SET'
 
 export function changeSearch(value) {
   return {
@@ -27,15 +30,15 @@ export function clearSearch() {
 export function submitSearch() {
   return (dispatch, getState) => {
     const value = getState().getIn(['search', 'value']);
+    const onlyVerified = getState().getIn(['search', 'filter', 'onlyVerified'])
 
-    if (value.length === 0) {
-      return;
-    }
+    if (value.length === 0) return
 
     dispatch(fetchSearchRequest());
 
     api(getState).get('/api/v2/search', {
       params: {
+        onlyVerified,
         q: value,
         resolve: true,
       },
@@ -86,3 +89,14 @@ export function showSearch() {
     type: SEARCH_SHOW,
   };
 };
+
+export function setFilter(path, value, shouldSubmit) {
+  return (dispatch) => {
+    dispatch({
+      type: SEARCH_FILTER_SET,
+      path: path,
+      value: value,
+    })
+    if (shouldSubmit) dispatch(submitSearch())
+  }
+}

@@ -8,6 +8,7 @@ class SearchService < BaseService
     @limit   = limit.to_i
     @offset  = options[:type].blank? ? 0 : options[:offset].to_i
     @resolve = options[:resolve] || false
+    @onlyVerified = options[:onlyVerified] || false
 
     default_results.tap do |results|
       next if @query.blank? || @limit.zero?
@@ -31,7 +32,8 @@ class SearchService < BaseService
       @account,
       limit: @limit,
       resolve: @resolve,
-      offset: @offset
+      offset: @offset,
+      onlyVerified: @onlyVerified
     )
   end
 
