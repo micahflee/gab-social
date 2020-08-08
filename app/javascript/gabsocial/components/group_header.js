@@ -70,7 +70,7 @@ class GroupHeader extends ImmutablePureComponent {
 
   handleOnOpenGroupOptions = () => {
     const { relationships } = this.props
-    const isAdmin = relationships ? relationships.get('admin') : false
+    const isAdmin = !!relationships ? relationships.get('admin') : false
     this.props.onOpenGroupOptions(this.infoBtn, this.props.group, isAdmin)
   }
 

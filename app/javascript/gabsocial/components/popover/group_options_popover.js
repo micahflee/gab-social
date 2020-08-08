@@ -78,38 +78,40 @@ class GroupOptionsPopover extends ImmutablePureComponent {
 
     const groupId = group.get('id')
 
-    const listItems = [
-      {
+    const listItems = []
+    if (isAdmin) {
+      listItems.push({
         hideArrow: true,
         icon: 'group',
         title: intl.formatMessage(messages.groupMembers),
         onClick: this.handleOnClosePopover,
         to: `/groups/${groupId}/members`,
         isHidden: !isAdmin,
-      },
-      {
+      })
+      listItems.push({
         hideArrow: true,
         icon: 'block',
         title: intl.formatMessage(messages.removedMembers),
         onClick: this.handleOnClosePopover,
         to: `/groups/${groupId}/removed-accounts`,
         isHidden: !isAdmin,
-      },
-      {
+      })
+      listItems.push({
         hideArrow: true,
         icon: 'pencil',
         title: intl.formatMessage(messages.editGroup),
         onClick: this.handleOnClosePopover,
         to: `/groups/${groupId}/edit`,
         isHidden: !isAdmin,
-      },
-      {
-        hideArrow: true,
-        icon: 'star',
-        title: intl.formatMessage(isShortcut ? messages.remove_from_shortcuts : messages.add_to_shortcuts),
-        onClick: this.handleOnToggleShortcut,
-      },
-    ]
+      })
+    }
+      
+    listItems.push({
+      hideArrow: true,
+      icon: 'star',
+      title: intl.formatMessage(isShortcut ? messages.remove_from_shortcuts : messages.add_to_shortcuts),
+      onClick: this.handleOnToggleShortcut,
+    })
 
     return (
       <PopoverLayout

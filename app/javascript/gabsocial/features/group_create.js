@@ -65,6 +65,7 @@ const mapStateToProps = (state, { params }) => {
 	return {
 		group,
 		groupId,
+		isAdmin,
 		error: (groupId && !group) || (group && !isAdmin),
 		titleValue: state.getIn(['group_editor', 'title']),
 		descriptionValue: state.getIn(['group_editor', 'description']),
@@ -150,6 +151,7 @@ class GroupCreate extends ImmutablePureComponent {
 		onSetGroup: PropTypes.func.isRequired,
 		onSubmit: PropTypes.func.isRequired,
 		isSubmitting: PropTypes.bool,
+		isAdmin: PropTypes.bool,
 		onClose: PropTypes.func,
 		idValue: PropTypes.string.isRequired,
 		tags: PropTypes.string.isRequired,
@@ -220,11 +222,12 @@ class GroupCreate extends ImmutablePureComponent {
 			isVisible,
 			groupId,
 			categories,
+			isAdmin,
 		} = this.props
 
 		if (!group && groupId) {
 			return <ColumnIndicator type='loading' />
-		} else if (!group && error) {
+		} else if ((!group && error) || !isAdmin) {
 			return <ColumnIndicator type='missing' />
 		}
 
