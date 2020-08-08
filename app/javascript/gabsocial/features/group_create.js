@@ -232,7 +232,7 @@ class GroupCreate extends ImmutablePureComponent {
 		}
 
 		const memberCount = group ? group.get('member_count') : 0
-		const hasGroupId = group ? !!group.get('id') : false
+		const hasGroupSlug = group ? !!group.get('slug') : false
 		let categoriesOptions = []
 		if (categories) {
 			for (let i = 0; i < categories.count(); i++) {
@@ -258,7 +258,7 @@ class GroupCreate extends ImmutablePureComponent {
 				<Divider isInvisible />
 
 				{
-					memberCount >= 50 && !hasGroupId &&
+					memberCount >= 50 && !hasGroupSlug &&
 					<Fragment>
 						<Input
 							id='group-id'
