@@ -13,7 +13,7 @@ import {
 } from '../actions/groups'
 import {
 	GROUP_TIMELINE_SORTING_TYPE_TOP,
-	GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY,
+	GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
 	GROUP_TIMELINE_SORTING_TYPE_NEWEST,
 } from '../constants'
 import getSortBy from '../utils/group_sort_by'
@@ -54,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	setFeaturedTop() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_TOP))
-		dispatch(setGroupTimelineTopSort(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY))
+		dispatch(setGroupTimelineTopSort(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY))
 	},
 	setMemberNewest() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))

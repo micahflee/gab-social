@@ -12,7 +12,8 @@ class Api::V1::GroupsController < Api::BaseController
   def index
     case current_tab
       when 'featured'
-        @groups = Group.where(is_featured: true, is_archived: false).limit(100).all
+        @groupIds = FetchGroupsService.new.call("featured")
+        @groups = Group.where(id: @groupIds).limit(150).all
       when 'new'
         if !current_user
           render json: { error: 'This method requires an authenticated user' }, status: 422

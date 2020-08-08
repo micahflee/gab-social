@@ -62,7 +62,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
 
     @groupIds = []
     if @collection_type == 'featured'
-      @groupIds = Group.where(is_featured: true, is_archived: false).limit(100).all.pluck(:id)
+      @groupIds = FetchGroupsService.new.call("featured")
     elsif @collection_type == 'member' && !current_user.nil?
       @groupIds = current_user.account.groups.pluck(:id)
     else

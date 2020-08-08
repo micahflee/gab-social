@@ -52,7 +52,7 @@ class GroupsPage extends PureComponent {
 
     const tabs = !!me ? [
       {
-        title: intl.formatMessage(dontShowChildren ? messages.myGroupsTimeline : messages.groups),
+        title: intl.formatMessage(messages.myGroupsTimeline),
         to: '/groups',
       },
       {
