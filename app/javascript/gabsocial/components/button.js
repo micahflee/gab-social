@@ -155,7 +155,8 @@ export default class Button extends PureComponent {
       cursorNotAllowed: isDisabled,
       opacity05: isDisabled,
 
-      bgPrimary: backgroundColor === COLORS.white,
+      bgPrimary: backgroundColor === COLORS.primary,
+      bgWhite: backgroundColor === COLORS.white,
       bgBlack: backgroundColor === COLORS.black,
       bgBrand: backgroundColor === COLORS.brand,
       bgTransparent: backgroundColor === COLORS.none,
