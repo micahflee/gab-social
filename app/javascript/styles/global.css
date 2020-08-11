@@ -484,6 +484,7 @@ pre {
 .heightMax100VH { max-height: 100vh; }
 .heightMax100PC { max-height: 100%; }
 .heightMax80VH { max-height: 80vh; }
+.heightMax340PX { max-height: 340px; }
 .heightMax200PX { max-height: 200px; }
 .heightMax56PX { max-height: 56px; }
 .heightCalc53PX { height: calc(100vh - 53px); }
@@ -491,7 +492,7 @@ pre {
 
 .heightMin100VH { min-height: 100vh; }
 .heightMin50VH { min-height: 50vh; }
-.heightMin320PX { min-height: 320px; }
+.heightMin200PX { min-height: 200px; }
 .heightMin98PX { min-height: 98px; }
 .heightMin80PX { min-height: 80px; }
 .heightMin58PX { min-height: 58px; }

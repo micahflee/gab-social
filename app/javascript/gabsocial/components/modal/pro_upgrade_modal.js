@@ -70,7 +70,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
             width='100%'
             height='auto'
             fit='cover'
-            className={_s.heightMin320PX}
+            className={[_s.heightMax340PX, _s.heightMin200PX].join(' ')}
           />
         </div>
 
