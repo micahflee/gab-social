@@ -73,17 +73,23 @@ const sortReplies = (replyIds, state, type) => {
 
 const getDescendants = (state, status, highlightStatusId, commentSortingType) => {
   let descendantsIds = ImmutableList()
-  let indent = -1
   let index = 0
+  const MAX_INDENT = 2
 
-  descendantsIds = descendantsIds.withMutations(mutable => {
-    const ids = [status.get('id')]
+  descendantsIds = descendantsIds.withMutations((mutable) => {
+    const ids = [{
+      id: status.get('id'),
+      indent: -1,
+    }]
 
     while (ids.length > 0) {
-      let id = ids.shift()
-      
+      let block = ids.shift()
+      let id = block.id
+      let indent = block.indent
+
       let replies = state.getIn(['contexts', 'replies', id])
-      // Sort only Top-level replies
+
+      // Sort only Top-level replies (if original status not comment)
       if (index === 0) {
         replies = sortReplies(replies, state, commentSortingType)
       }
@@ -97,13 +103,15 @@ const getDescendants = (state, status, highlightStatusId, commentSortingType) =>
       }
 
       if (replies) {
-        replies.reverse().forEach(reply => {
-          ids.unshift(reply)
-        });
         indent++
-        indent = Math.min(2, indent)
-      } else {
-        indent = 0 // reset
+        indent = Math.min(MAX_INDENT, indent)
+
+        replies.reverse().forEach((reply) => {
+          ids.unshift({
+            id: reply,
+            indent: indent,
+          })
+        })
       }
 
       index++
