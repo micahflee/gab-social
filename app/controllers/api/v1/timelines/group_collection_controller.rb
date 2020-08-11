@@ -5,7 +5,9 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
   before_action :set_sort_type
   before_action :set_statuses
 
-  after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
+  after_action :insert_pagination_headers, unless: -> {
+    @statuses.empty? || @statuses.length < DEFAULT_STATUSES_LIMIT
+  }
 
   def show
     if current_user
