@@ -21,8 +21,8 @@ import Icon from './icon'
 import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
 
-// check every 50 ms for buffer
-const checkInterval  = 50
+// check every 100 ms for buffer
+const checkInterval = 100
 const FIXED_VAR = 6
 
 const messages = defineMessages({
@@ -40,6 +40,8 @@ const messages = defineMessages({
 })
 
 const formatTime = (secondsNum) => {
+  if (isNaN(secondsNum)) secondsNum = 0
+
   let hours = Math.floor(secondsNum / 3600)
   let minutes = Math.floor((secondsNum - (hours * 3600)) / 60)
   let seconds = Math.floor(secondsNum) - (hours * 3600) - (minutes * 60)
@@ -613,7 +615,7 @@ class Video extends ImmutablePureComponent {
       z2: 1,
       alignItemsCenter: 1,
       justifyContentCenter: 1,
-      displayNone: !paused,
+      displayNone: !paused && !isBuffering,
     })
 
     if (!revealed && sensitive) {
@@ -631,7 +633,7 @@ class Video extends ImmutablePureComponent {
         tabIndex={0}
       >
 
-        <div className={overlayClasses}>
+        <div className={overlayClasses} id='overlay'>
           {
             paused && !isBuffering &&
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
@@ -644,8 +646,8 @@ class Video extends ImmutablePureComponent {
             </Responsive>
           }
           {
-            !paused && isBuffering &&
-            <Icon id='loading' size='40px' className={[_s.default, _s.posAbs].join(' ')} />
+            !paused && true &&
+            <Icon id='loading' size='60px' className={[_s.default, _s.posAbs].join(' ')} />
           }
         </div>
 
