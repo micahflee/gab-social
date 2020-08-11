@@ -195,7 +195,8 @@ class NavigationBar extends ImmutablePureComponent {
                         isNarrow
                         backgroundColor='none'
                         color='primary'
-                        onClick={() => action.onClick()}
+                        to={action.to || undefined}
+                        onClick={action.onClick ? () => action.onClick() : undefined}
                         key={`action-btn-${i}`}
                         className={[_s.ml5, _s.height53PX, _s.justifyContentCenter, _s.px5].join(' ')}
                         icon={action.icon}
