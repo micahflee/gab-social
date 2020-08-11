@@ -9,11 +9,9 @@ import {
 } from '../actions/timelines'
 import {
 	setGroupTimelineSort,
-	setGroupTimelineTopSort,
 } from '../actions/groups'
 import {
-	GROUP_TIMELINE_SORTING_TYPE_TOP,
-	GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
+	GROUP_TIMELINE_SORTING_TYPE_HOT,
 	GROUP_TIMELINE_SORTING_TYPE_NEWEST,
 } from '../constants'
 import getSortBy from '../utils/group_sort_by'
@@ -53,8 +51,7 @@ const mapDispatchToProps = (dispatch) => ({
 		dispatch(expandGroupCollectionTimeline(collectionType, options))
 	},
 	setFeaturedTop() {
-		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_TOP))
-		dispatch(setGroupTimelineTopSort(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY))
+		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_HOT))
 	},
 	setMemberNewest() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
@@ -115,7 +112,7 @@ class GroupCollectionTimeline extends PureComponent {
 			sortByTopValue,
 		} = this.props
 
-		if (this.props.collectionType === 'featured' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_TOP) {
+		if (this.props.collectionType === 'featured' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_HOT) {
 			this.props.setFeaturedTop()
 		} else if (!!me && this.props.collectionType === 'member' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_NEWEST) {
 			this.props.setMemberNewest()

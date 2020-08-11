@@ -3,6 +3,7 @@ import isObject from 'lodash.isobject'
 import { closePopover } from '../../actions/popover'
 import { setGroupTimelineSort } from '../../actions/groups'
 import {
+  GROUP_TIMELINE_SORTING_TYPE_HOT,
   GROUP_TIMELINE_SORTING_TYPE_NEWEST,
   GROUP_TIMELINE_SORTING_TYPE_RECENT_ACTIVITY,
   GROUP_TIMELINE_SORTING_TYPE_TOP,
@@ -17,6 +18,8 @@ const messages = defineMessages({
   recentSubtitle: { id: 'group_timeline_sorting.recent_subtitle', defaultMessage: 'See gabs with most recent comments first' },
   newTitle: { id: 'group_timeline_sorting.new_title', defaultMessage: 'New Posts' },
   newSubtitle: { id: 'group_timeline_sorting.new_subtitle', defaultMessage: 'See most recent gabs first' },
+  hotTitle: { id: 'group_timeline_sorting.hot_title', defaultMessage: 'Hot Posts' },
+  hotSubtitle: { id: 'group_timeline_sorting.hot_subtitle', defaultMessage: 'See the most popular and recent gabs' },
 })
 
 const mapStateToProps = (state) => ({
@@ -64,6 +67,13 @@ class GroupTimelineSortOptionsPopover extends PureComponent {
     const isFeaturedTimeline = isObject(options) && options.collectionType === 'featured'
 
     const items = [
+      {
+        hideArrow: true,
+        isActive: sorting === GROUP_TIMELINE_SORTING_TYPE_HOT,
+        title: intl.formatMessage(messages.hotTitle),
+        subtitle: intl.formatMessage(messages.hotSubtitle),
+        onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_HOT),
+      },
       {
         hideArrow: true,
         isActive: sorting === GROUP_TIMELINE_SORTING_TYPE_TOP,

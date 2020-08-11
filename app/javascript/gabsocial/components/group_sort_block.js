@@ -3,6 +3,7 @@ import { openPopover } from '../actions/popover'
 import {
   POPOVER_GROUP_TIMELINE_SORT_OPTIONS,
 	POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS,
+	GROUP_TIMELINE_SORTING_TYPE_HOT,
 	GROUP_TIMELINE_SORTING_TYPE_NEWEST,
 	GROUP_TIMELINE_SORTING_TYPE_RECENT_ACTIVITY,
 	GROUP_TIMELINE_SORTING_TYPE_TOP,
@@ -15,7 +16,8 @@ import {
 import SortBlock from '../components/sort_block'
 
 const messages = defineMessages({
-  sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
+	sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
+	hotTitle: { id: 'group_timeline_sorting.hot_title', defaultMessage: 'Hot Posts' },
   topTitle: { id: 'group_timeline_sorting.top_title', defaultMessage: 'Top Posts' },
 	topTodayTitle: { id: 'group_timeline_sorting.top_today_title', defaultMessage: 'Today' },
 	topWeekTitle: { id: 'group_timeline_sorting.top_week_title', defaultMessage: 'This Week' },
@@ -85,6 +87,9 @@ class GroupSortBlock extends PureComponent {
     let sortValueTopTitle = ''
     
     switch (sortByValue) {
+			case GROUP_TIMELINE_SORTING_TYPE_HOT:
+				sortValueTitle = intl.formatMessage(messages.hotTitle)
+				break
 			case GROUP_TIMELINE_SORTING_TYPE_NEWEST:
 				sortValueTitle = intl.formatMessage(messages.newTitle)
 				break

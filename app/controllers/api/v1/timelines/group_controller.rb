@@ -22,6 +22,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   def set_sort_type
     @sort_type = 'newest'
     @sort_type = params[:sort_by] if [
+      'hot',
       'newest',
       'recent',
       'top_today',
@@ -52,7 +53,12 @@ class Api::V1::Timelines::GroupController < Api::BaseController
     date_limit = 30.days.ago
     top_order = 'status_stats.favourites_count DESC, status_stats.reblogs_count DESC, status_stats.replies_count DESC'
 
-    if @sort_type == 'top_today'
+    if @sort_type == 'hot'
+      # : todo :
+      # unique groups
+      # unique users
+      date_limit = 8.hours.ago
+    elsif @sort_type == 'top_today'
       date_limit = 24.hours.ago
     elsif @sort_type == 'top_weekly'
       date_limit = 7.days.ago
@@ -79,7 +85,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
             limit_param(DEFAULT_STATUSES_LIMIT),
             params_slice(:max_id, :since_id, :min_id)
           ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
-      elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time'].include? @sort_type
+      elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time', 'hot'].include? @sort_type
         if @sort_type == 'top_all_time'
           statuses = Status.unscoped.where(
               group: @group, reply: false
@@ -116,7 +122,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
             limit_param(DEFAULT_STATUSES_LIMIT),
             params_slice(:max_id, :since_id, :min_id)
           )
-      elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time'].include? @sort_type
+      elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time', 'hot'].include? @sort_type
         if @sort_type == 'top_all_time'
           statuses = Status.unscoped.where(
               group: @group, reply: false
