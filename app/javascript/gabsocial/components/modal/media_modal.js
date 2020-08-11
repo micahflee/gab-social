@@ -241,6 +241,10 @@ class MediaModal extends ImmutablePureComponent {
 
     const navigationClasses = CX({
       default: 1,
+      saveAreaInsetPT: 1,
+      saveAreaInsetPR: 1,
+      saveAreaInsetPB: 1,
+      saveAreaInsetPL: 1,
       displayNone: navigationHidden,
     })
 
