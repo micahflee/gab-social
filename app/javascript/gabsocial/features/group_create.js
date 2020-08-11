@@ -227,7 +227,7 @@ class GroupCreate extends ImmutablePureComponent {
 
 		if (!group && groupId) {
 			return <ColumnIndicator type='loading' />
-		} else if ((!group && error) || !isAdmin) {
+		} else if ((!group && error) || (groupId && !isAdmin)) {
 			return <ColumnIndicator type='missing' />
 		}
 
