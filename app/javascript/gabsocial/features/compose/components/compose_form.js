@@ -292,7 +292,7 @@ class ComposeForm extends ImmutablePureComponent {
     const commentPublishBtnClasses = CX({
       default: 1,
       justifyContentCenter: 1,
-      displayNone: length(this.props.text) === 0 || anyMedia,
+      displayNone: length(this.props.text) === 0,
     })
 
     return (
