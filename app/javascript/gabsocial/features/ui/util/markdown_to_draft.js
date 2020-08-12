@@ -1,4 +1,4 @@
-// https://raw.githubusercontent.com/Rosey/markdown-draft-js/main/src/markdown-to-draft.js
+// https://raw.githubusercontent.com/Rosey/markdown-draft-js/main/src/markdown_to_draft.js
 import { Remarkable } from 'remarkable';
 
 const TRAILING_NEW_LINE = /\n$/;

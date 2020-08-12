@@ -8,8 +8,8 @@ import {
   convertFromRaw,
   ContentState,
 } from 'draft-js'
-import draftToMarkdown from '../features/ui/util/draft-to-markdown'
-import markdownToDraft from '../features/ui/util/markdown-to-draft'
+import draftToMarkdown from '../features/ui/util/draft_to_markdown'
+import markdownToDraft from '../features/ui/util/markdown_to_draft'
 import { urlRegex } from '../features/ui/util/url_regex'
 import classNames from 'classnames/bind'
 import RichTextEditorBar from './rich_text_editor_bar'

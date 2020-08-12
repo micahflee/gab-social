@@ -1,4 +1,4 @@
-// https://raw.githubusercontent.com/Rosey/markdown-draft-js/main/src/draft-to-markdown.js
+// https://raw.githubusercontent.com/Rosey/markdown-draft-js/main/src/draft_to_markdown.js
 const TRAILING_WHITESPACE = /[ \u0020\t\n]*$/;
 
 // This escapes some markdown but there's a few cases that are TODO -
