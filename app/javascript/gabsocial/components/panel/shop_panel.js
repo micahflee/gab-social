@@ -2,8 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { fetchFeaturedProducts } from '../../actions/shop'
 import { URL_DISSENTER_SHOP } from '../../constants'
 import PanelLayout from './panel_layout'
-import Image from '../image'
-import Text from '../text'
+import ShopItem from '../shop_item'
 
 const messages = defineMessages({
   title: { id: 'shop_panel.title', defaultMessage: 'Dissenter Shop' },
@@ -74,26 +73,14 @@ class ShopPanel extends PureComponent {
       >
         <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
           {
-            items.map((block) => (
-              <a
-                className={[_s.default, _s.width50PC, _s.noUnderline, _s.overflowHidden, _s.cursorPointer, _s.pb5, _s.pr5].join(' ')}
-                target='_blank'
-                rel='noreferrer noopener'
-                href={block.link}
-                title={block.name}
-              >
-                <Image
-                  src={block.image}
-                  className={[_s.width100PC, _s.height122PX].join(' ')}
-                />
-
-                <Text
-                  align='center'
-                  className={[_s.py10, _s.px10].join(' ')}
-                >
-                  {block.name}
-                </Text>
-              </a>
+            items.map((block, i) => (
+              <ShopItem
+                key={`shop-item-${i}`}
+                image={block.image}
+                name={block.name}
+                link={block.link}
+                price={block.price}
+              />
             ))
           }
         </div>
