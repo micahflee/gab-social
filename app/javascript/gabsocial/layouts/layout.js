@@ -6,7 +6,6 @@ import {
 import { me } from '../initial_state'
 import LoggedOutSidebar from '../components/logged_out_sidebar'
 import Sidebar from '../components/sidebar'
-import SidebarXS from '../components/sidebar_xs'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
 import NavigationBar from '../components/navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
@@ -16,6 +15,10 @@ import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Pills from '../components/pills'
 import GlobalFooter from '../components/global_footer'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  SidebarXS,
+} from '../features/ui/util/async_components'
 
 export default class Layout extends PureComponent {
 
@@ -63,7 +66,7 @@ export default class Layout extends PureComponent {
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <SidebarXS />
+          <WrappedBundle component={SidebarXS} />
         </Responsive>
 
         {
