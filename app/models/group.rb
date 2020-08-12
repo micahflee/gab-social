@@ -53,7 +53,7 @@ class Group < ApplicationRecord
       pattern = sanitize_sql_like(term.strip) + '%'
 
       Group.where('lower(title) like lower(?) AND is_archived=false AND is_visible=true', pattern)
-        .order(:title)
+        .order('member_count DESC')
         .limit(limit)
         .offset(offset)
     end
