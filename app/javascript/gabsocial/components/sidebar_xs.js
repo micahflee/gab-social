@@ -17,7 +17,10 @@ import { openModal } from '../actions/modal'
 import { shortNumberFormat } from '../utils/numbers'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
-import ProgressPanel from './panel/progress_panel'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  ProgressPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
@@ -247,7 +250,7 @@ class SidebarXS extends ImmutablePureComponent {
             </div>
 
             <div className={[_s.default, _s.my10, _s.px15].join(' ')}>
-              <ProgressPanel />
+              <WrappedBundle component={ProgressPanel} />
             </div>
 
             <div className={[_s.default, _s.mb15, _s.boxShadowNone].join(' ')}>
