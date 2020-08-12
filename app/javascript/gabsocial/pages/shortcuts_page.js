@@ -2,10 +2,12 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import { MODAL_EDIT_SHORTCUTS } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
@@ -47,9 +49,9 @@ class ShortcutsPage extends PureComponent {
           },
         ]}
         layout={[
-          <TrendsPanel key='shortcuts-page-trends-panel' />,
-          <WhoToFollowPanel key='shortcuts-page-wtf-panel' />,
-          <LinkFooter key='shortcuts-page-link-footer' />,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={title} />

@@ -3,14 +3,17 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
-import SidebarXS from '../components/sidebar_xs'
 import NavigationBar from '../components/navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
-import GlobalFooter from '../components/global_footer'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
-import AboutSidebar from '../components/about_sidebar'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  AboutSidebar,
+  GlobalFooter,
+  SidebarXS,
+} from '../features/ui/util/async_components'
 
 export default class SettingsLayout extends PureComponent {
 
@@ -73,7 +76,7 @@ export default class SettingsLayout extends PureComponent {
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgPrimary].join(' ')}>
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <SidebarXS />
+          <WrappedBundle component={SidebarXS} />
         </Responsive>
 
         {
@@ -88,7 +91,7 @@ export default class SettingsLayout extends PureComponent {
         <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
 
           <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-            <AboutSidebar title={title} items={menuItems} />
+            <WrappedBundle component={AboutSidebar} componentParams={{ title, items: menuItems }} />
           </Responsive>
 
           <ResponsiveClassesComponent
@@ -106,7 +109,7 @@ export default class SettingsLayout extends PureComponent {
                 <div className={[_s.default, _s.width1015PX, _s.z1].join(' ')}>
 
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                    <AboutSidebar title={title} items={menuItems} />
+                    <WrappedBundle component={AboutSidebar} componentParams={{ title, items: menuItems }} />
                   </Responsive>
       
                   <div className={_s.default}>
@@ -120,7 +123,7 @@ export default class SettingsLayout extends PureComponent {
           </ResponsiveClassesComponent>
         </div>
 
-        <GlobalFooter />
+        <WrappedBundle component={GlobalFooter} />
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <FooterBar />

@@ -3,13 +3,16 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import Sticky from 'react-stickynode'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Layout from './layout'
-import GroupInfoPanel from '../components/panel/group_info_panel'
-import GroupSidebarPanel from '../components/panel/groups_panel'
-import SignupPanel from '../components/panel/sign_up_panel'
-import LinkFooter from '../components/link_footer'
 import GroupHeader from '../components/group_header'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
-import Responsive from '../features/ui/util/responsive_component';
+import Responsive from '../features/ui/util/responsive_component'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  LinkFooter,
+  SignUpPanel,
+  GroupSidebarPanel,
+  GroupInfoPanel,
+} from '../features/ui/util/async_components'
 
 export default class GroupLayout extends ImmutablePureComponent {
 
@@ -77,10 +80,10 @@ export default class GroupLayout extends ImmutablePureComponent {
                     <SidebarPanelGroup
                       page={`group.${groupId}`}
                       layout={[
-                        <GroupInfoPanel group={group} key='group-page-info-panel' />,
-                        <SignupPanel key='group-page-signup-panel' />,
-                        <GroupSidebarPanel isSlim key='group-page-group-panel' />,
-                        <LinkFooter key='group-page-link-footer' />,
+                        <WrappedBundle component={GroupInfoPanel} componentParams={{ group }} />,
+                        SignUpPanel,
+                        GroupSidebarPanel,
+                        LinkFooter,
                       ]}
                     />
                   </div>

@@ -4,19 +4,22 @@ import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Sticky from 'react-stickynode'
 import { me } from '../initial_state'
 import { CX } from '../constants'
-import LinkFooter from '../components/link_footer'
-import ProfileStatsPanel from '../components/panel/profile_stats_panel'
-import ProfileInfoPanel from '../components/panel/profile_info_panel'
-import MediaGalleryPanel from '../components/panel/media_gallery_panel'
-import SignUpPanel from '../components/panel/sign_up_panel'
 import NavigationBar from '../components/navigation_bar'
 import FooterBar from '../components/footer_bar'
 import ProfileHeader from '../components/profile_header'
 import FloatingActionButton from '../components/floating_action_button'
 import ProfileNavigationBar from '../components/profile_navigation_bar'
 import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
-import Responsive from '../features/ui/util/responsive_component';
-import Divider from '../components/divider';
+import Responsive from '../features/ui/util/responsive_component'
+import Divider from '../components/divider'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  LinkFooter,
+  ProfileStatsPanel,
+  ProfileInfoPanel,
+  MediaGalleryPanel,
+  SignUpPanel,
+} from '../features/ui/util/async_components'
 
 export default class ProfileLayout extends ImmutablePureComponent {
 
@@ -64,9 +67,9 @@ export default class ProfileLayout extends ImmutablePureComponent {
                 <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter].join(' ')}>
 
                   <ProfileHeader account={account} isXS>
-                    <ProfileInfoPanel account={account} noPanel />
+                    <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
                     <Divider isSmall />
-                    <ProfileStatsPanel account={account} noPanel />
+                    <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
                   </ProfileHeader>
 
                   <div className={[_s.default, _s.width100PC, , _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
@@ -116,11 +119,11 @@ export default class ProfileLayout extends ImmutablePureComponent {
                       <div className={[_s.default, _s.width340PX, _s.mr15].join(' ')}>
                         <Sticky top={63} enabled>
                           <div className={[_s.default, _s.width340PX].join(' ')}>
-                            <ProfileStatsPanel account={account} />
-                            <ProfileInfoPanel account={account} />
-                            { !unavailable && <MediaGalleryPanel account={account} /> }
-                            <SignUpPanel />
-                            <LinkFooter />
+                            <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
+                            <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
+                            { !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account }} /> }
+                            { !me && <WrappedBundle component={SignUpPanel} /> }
+                            <WrappedBundle component={LinkFooter} />
                           </div>
                         </Sticky>
                       </div>

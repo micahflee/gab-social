@@ -1,8 +1,10 @@
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
-import LinkFooter from '../components/link_footer'
-import TrendsPanel from '../components/panel/trends_panel'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
+import {
+  LinkFooter,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 export default class BasicPage extends PureComponent {
 
@@ -26,9 +28,9 @@ export default class BasicPage extends PureComponent {
         title={title}
         page={page}
         layout={[
-          <TrendsPanel key='basic-page-trends-panel' />,
-          <WhoToFollowPanel key='basic-page-wtf-panel' />,
-          <LinkFooter key='basic-page-link-footer' />,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={title} />

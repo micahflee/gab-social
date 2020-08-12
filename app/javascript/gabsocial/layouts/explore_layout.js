@@ -4,12 +4,15 @@ import throttle from 'lodash.throttle'
 import Sticky from 'react-stickynode'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Layout from './layout'
-import TrendsPanel from '../components/panel/trends_panel'
-import GroupSidebarPanel from '../components/panel/groups_panel'
-import SignUpLogInPanel from '../components/panel/sign_up_log_in_panel'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
 import Responsive from '../features/ui/util/responsive_component'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import Heading from '../components/heading'
+import {
+  GroupSidebarPanel,
+  SignUpLogInPanel,
+  TrendsPanel,
+} from '../features/ui/util/async_components'
 
 export default class ExploreLayout extends ImmutablePureComponent {
 
@@ -105,9 +108,9 @@ export default class ExploreLayout extends ImmutablePureComponent {
                     <SidebarPanelGroup
                       page='explore'
                       layout={[
-                        <SignUpLogInPanel key='explore-page-signup-login-panel' />,
-                        <GroupSidebarPanel groupType='featured' key='explore-page-group-panel' />,
-                        <TrendsPanel key='explore-page-trends-panel' isLazy shouldLoad={lazyLoaded} />,
+                        SignUpLogInPanel,
+                        <WrappedBundle component={GroupSidebarPanel} componentParams={{ groupType: 'featured' }} />,
+                        <WrappedBundle component={TrendsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />,
                       ]}
                     />
                   </div>

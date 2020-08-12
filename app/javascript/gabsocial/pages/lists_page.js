@@ -1,10 +1,12 @@
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   lists: { id: 'lists', defaultMessage: 'Lists' },
@@ -45,9 +47,9 @@ class ListsPage extends PureComponent {
           },
         ]}
         layout={[
-          <TrendsPanel key='lists-page-trends-panel' />,
-          <WhoToFollowPanel key='lists-page-wtf-panel' />,
-          <LinkFooter key='lists-page-link-footer' />,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
         showBackBtn
       >

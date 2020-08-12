@@ -2,11 +2,13 @@ import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import ProgressPanel from '../components/panel/progress_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  ProgressPanel,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   hashtag: { id: 'hashtag', defaultMessage: 'Hashtag' },
@@ -54,10 +56,10 @@ class HashtagPage extends PureComponent {
           },
         ]}
         layout={[
-          <ProgressPanel key='hashtag-page-progress-panel' />,
-          <TrendsPanel key='hashtag-page-trends-panel' />,
-          <WhoToFollowPanel key='hashtag-page-wtf-panel' />,
-          <LinkFooter key='hashtag-page-link-footer' />,
+          ProgressPanel,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={intl.formatMessage(messages.hashtag)} />

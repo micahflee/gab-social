@@ -1,6 +1,10 @@
 import { Fragment } from 'react'
 import { me, promotions } from '../initial_state'
-import StatusPromotionPanel from './panel/status_promotion_panel'
+import Bundle from '../features/ui/util/bundle'
+import WrappedBundle from '../features/ui/util/bundle'
+import {
+  StatusPromotionPanel
+} from '../features/ui/util/async_components'
 
 export default class SidebarPanelGroup extends PureComponent {
 
@@ -20,14 +24,33 @@ export default class SidebarPanelGroup extends PureComponent {
       if (!!promotion) {
         const correctedPosition = promotion.position - 1 > layout.length ? layout.length - 1 : promotion.position
         if (!layout.find(p => p.key === 'status-promotion-panel')) {
-          layout.splice(correctedPosition, 0, <StatusPromotionPanel key='status-promotion-panel' statusId={promotion.status_id} />)
+          layout.splice(correctedPosition, 0, <WrappedBundle component={StatusPromotionPanel} componentParams={{ statusId: promotion.status_id }} />)
         }
       }
     }
 
     return (
       <Fragment>
-        {layout}
+        {
+          layout.map((panel) => {
+            if (typeof panel !== 'function') {
+              return panel
+            }
+
+            return (
+              <Bundle
+                fetchComponent={panel}
+                loading={this.renderLoading}
+                error={this.renderError}
+                renderDelay={150}
+              >
+                {
+                  (Component) => <Component />
+                }
+              </Bundle>
+            )
+          })
+        }
       </Fragment>
     )
   }

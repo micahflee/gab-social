@@ -2,11 +2,14 @@ import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
 import Text from '../components/text'
-import GroupsPanel from '../components/panel/groups_panel'
 import DefaultLayout from '../layouts/default_layout'
 import GroupsCollection from '../features/groups_collection'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  GroupsPanel,
+  LinkFooter,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   groups: { id: 'groups', defaultMessage: 'Groups' },
@@ -80,9 +83,9 @@ class GroupsPage extends PureComponent {
     
     const layout = []
     if (!!me) {
-      layout.push(<GroupsPanel key='groups-page-groups-panel' groupType='member' />)
+      layout.push(<WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'member' }} />)
     }
-    layout.push(<LinkFooter key='groups-page-link-footer' />)
+    layout.push(LinkFooter)
 
     return (
       <DefaultLayout

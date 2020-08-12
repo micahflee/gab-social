@@ -7,11 +7,14 @@ import {
   // MODAL_LIST_TIMELINE_SETTINGS,
 } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
 import DefaultLayout from '../layouts/default_layout'
-import ListDetailsPanel from '../components/panel/list_details_panel'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import TrendsPanel from '../components/panel/trends_panel'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  ListDetailsPanel,
+  LinkFooter,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   list: { id: 'list', defaultMessage: 'List' },
@@ -77,10 +80,10 @@ class ListPage extends ImmutablePureComponent {
           // },
         ]}
         layout={[
-          <ListDetailsPanel list={list} onEdit={this.handleOnOpenListEditModal} key='list-page-list-panel' />,
-          <TrendsPanel key='list-page-trends-panel' />,
-          <WhoToFollowPanel key='list-page-wtf-panel' />,
-          <LinkFooter key='list-page-link-footer' />,
+          <WrappedBundle component={ListDetailsPanel} componentParams={{ list: list, onEdit: this.handleOnOpenListEditModal }} />,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={[title, intl.formatMessage(messages.list)]} />

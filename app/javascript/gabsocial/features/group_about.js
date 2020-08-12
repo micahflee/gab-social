@@ -4,7 +4,11 @@ import isObject from 'lodash.isobject'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import ColumnIndicator from '../components/column_indicator'
 import Responsive from './ui/util/responsive_component'
-import GroupInfoPanel from '../components/panel/group_info_panel'
+import Bundle from '../features/ui/util/bundle'
+import {
+	GroupInfoPanel
+} from '../features/ui/util/async_components'
+
 
 const mapStateToProps = (state, { params }) => {
 	const groupId = isObject(params) ? params['id'] : null
@@ -34,7 +38,16 @@ class GroupAbout extends ImmutablePureComponent {
 					<ColumnIndicator type='missing' />
 				</Responsive>
 				<Responsive max={BREAKPOINT_EXTRA_SMALL}>
-					<GroupInfoPanel group={group} />
+					<Bundle
+						fetchComponent={GroupInfoPanel}
+						loading={this.renderLoading}
+						error={this.renderError}
+						renderDelay={150}
+					>
+						{
+							(Component) => <Component group={group} />
+						}
+					</Bundle>
 				</Responsive>
 			</div>
 		)

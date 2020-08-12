@@ -4,19 +4,22 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
 import { me } from '../initial_state'
 import PageTitle from '../features/ui/util/page_title'
-import GroupsPanel from '../components/panel/groups_panel'
-import ListsPanel from '../components/panel/lists_panel'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import ShopPanel from '../components/panel/shop_panel'
-import ProgressPanel from '../components/panel/progress_panel'
-import ProPanel from '../components/panel/pro_panel'
-import UserPanel from '../components/panel/user_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 import PullToRefresher from '../components/pull_to_refresher'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  UserPanel,
+  GroupsPanel,
+  LinkFooter,
+  ListsPanel,
+  TrendsPanel,
+  WhoToFollowPanel,
+  ProPanel,
+  ShopPanel,
+  ProgressPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   home: { id: 'home', defaultMessage: 'Home' },
@@ -99,15 +102,15 @@ class HomePage extends PureComponent {
           },
         ]}
         layout={[
-          <UserPanel key='home-page-user-panel' />,
-          <ProgressPanel key='home-page-progress-panel' />,
-          <ProPanel isPro={isPro} key='home-page-pro-panel' />,
-          <TrendsPanel key='home-page-trends-panel' />,
-          <ShopPanel isLazy shouldLoad={lazyLoaded} key='home-page-shop-panel' />,
-          <ListsPanel isLazy shouldLoad={lazyLoaded} key='home-page-lists-panel' />,
-          <WhoToFollowPanel isLazy shouldLoad={lazyLoaded} key='home-page-wtf-panel' />,
-          <GroupsPanel isLazy shouldLoad={lazyLoaded} key='home-page-groups-panel' />,
-          <LinkFooter key='home-page-link-footer' />,
+          UserPanel,
+          ProgressPanel,
+          <WrappedBundle component={ProPanel} componentParams={{ isPro: isPro }} />,
+          TrendsPanel,
+          <WrappedBundle component={ShopPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
+          <WrappedBundle component={ListsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
+          <WrappedBundle component={WhoToFollowPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
+          <WrappedBundle component={GroupsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, groupType: 'member' }}  />,
+          LinkFooter,
         ]}
       >
 

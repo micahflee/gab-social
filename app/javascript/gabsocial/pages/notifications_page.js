@@ -4,11 +4,13 @@ import { setFilter } from '../actions/notifications'
 import { me } from '../initial_state'
 import { NOTIFICATION_FILTERS } from '../constants'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import NotificationFilterPanel from '../components/panel/notification_filter_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  NotificationFilterPanel,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
@@ -88,10 +90,10 @@ class NotificationsPage extends PureComponent {
         title={intl.formatMessage(messages.notifications)}
         page='notifications'
         layout={[
-          <NotificationFilterPanel key='notification-page-filter-panel' />,
-          <TrendsPanel key='notification-page-trends-panel' />,
-          <WhoToFollowPanel key='notification-page-wtf-panel' />,
-          <LinkFooter key='notification-page-link-footer' />,
+          NotificationFilterPanel,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
         ]}
         tabs={tabs}
       >

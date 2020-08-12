@@ -1,9 +1,11 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import VerifiedAccountsPanel from '../components/panel/verified_accounts_panel'
-import ProgressPanel from '../components/panel/progress_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  VerifiedAccountsPanel,
+  ProgressPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   title: { 'id': 'column.pro', 'defaultMessage': 'Pro feed' },
@@ -28,9 +30,9 @@ class ProPage extends PureComponent {
         title={title}
         page='pro'
         layout={[
-          <ProgressPanel key='pro-page-progress-panel' />,
-          <VerifiedAccountsPanel key='pro-page-verified-panel' />,
-          <LinkFooter key='pro-page-link-footer' />,
+          ProgressPanel,
+          VerifiedAccountsPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={title} />

@@ -3,12 +3,15 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
-import SidebarXS from '../components/sidebar_xs'
 import NavigationBar from '../components/navigation_bar'
 import FooterBar from '../components/footer_bar'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import SettingsSidebar from '../components/settings_sidebar'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import {
+  SidebarXS,
+} from '../features/ui/util/async_components'
 
 export default class SettingsLayout extends PureComponent {
 
@@ -33,7 +36,7 @@ export default class SettingsLayout extends PureComponent {
       <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <SidebarXS />
+          <WrappedBundle component={SidebarXS} />
         </Responsive>
 
         <NavigationBar

@@ -1,8 +1,10 @@
 import PageTitle from '../features/ui/util/page_title'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
 import Block from '../components/block'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 export default class ModalPage extends PureComponent {
 
@@ -23,11 +25,11 @@ export default class ModalPage extends PureComponent {
       <DefaultLayout
         title={title}
         page={page}
-        layout={[
-          <WhoToFollowPanel key='modal-page-wtf-panel' />,
-          <LinkFooter key='search-page-link-footer' />,
-        ]}
         showBackBtn
+        layout={[
+          WhoToFollowPanel,
+          LinkFooter,
+        ]}
       >
         <PageTitle path={title} />
         

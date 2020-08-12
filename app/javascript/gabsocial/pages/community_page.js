@@ -1,12 +1,14 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import PageTitle from '../features/ui/util/page_title'
-import GroupSidebarPanel from '../components/panel/groups_panel'
-import LinkFooter from '../components/link_footer'
-import WhoToFollowPanel from '../components/panel/who_to_follow_panel'
-import ProgressPanel from '../components/panel/progress_panel'
-import TrendsPanel from '../components/panel/trends_panel'
 import DefaultLayout from '../layouts/default_layout'
+import {
+  LinkFooter,
+  GroupSidebarPanel,
+  ProgressPanel,
+  TrendsPanel,
+  WhoToFollowPanel,
+} from '../features/ui/util/async_components'
 
 const messages = defineMessages({
   community: { 'id': 'column.community', 'defaultMessage': 'Community feed' },
@@ -45,11 +47,11 @@ class CommunityPage extends PureComponent {
           },
         ]}
         layout={[
-          <ProgressPanel key='community-page-progress-panel' />,
-          <TrendsPanel key='community-page-progress-panel' />,
-          <WhoToFollowPanel key='community-page-wtf-panel' />,
-          <GroupSidebarPanel key='community-page-groups-panel' />,
-          <LinkFooter key='community-page-link-footer' />,
+          ProgressPanel,
+          TrendsPanel,
+          WhoToFollowPanel,
+          GroupSidebarPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={title} />

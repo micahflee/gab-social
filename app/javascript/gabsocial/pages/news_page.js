@@ -1,10 +1,12 @@
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
-import ProgressPanel from '../components/panel/progress_panel'
-import VerifiedAccountsPanel from '../components/panel/verified_accounts_panel'
-import ShopPanel from '../components/panel/shop_panel'
-import SignupPanel from '../components/panel/sign_up_panel'
-import LinkFooter from '../components/link_footer'
+import {
+  LinkFooter,
+  ProgressPanel,
+  ShopPanel,
+  SignUpPanel,
+  VerifiedAccountsPanel,
+} from '../features/ui/util/async_components'
 
 export default class NewsPage extends PureComponent {
 
@@ -23,11 +25,11 @@ export default class NewsPage extends PureComponent {
         noComposeButton
         showBackBtn
         layout={[
-          <SignupPanel key='explore-page-signup-panel' />,
-          <ProgressPanel key='explore-page-progress-panel' />,
-          <VerifiedAccountsPanel key='explore-page-verified-panel' />,
-          <ShopPanel key='explore-page-shop-panel' />,
-          <LinkFooter key='explore-page-link-footer' />,
+          SignUpPanel,
+          ProgressPanel,
+          VerifiedAccountsPanel,
+          ShopPanel,
+          LinkFooter,
         ]}
       >
         <PageTitle path={title} />
