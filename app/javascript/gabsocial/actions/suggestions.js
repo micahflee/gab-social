@@ -1,5 +1,6 @@
 import api from '../api'
 import { importFetchedAccounts } from './importer'
+import { fetchRelationships } from './accounts'
 import { me } from '../initial_state'
 import {
   SUGGESTION_TYPE_VERIFIED,
@@ -21,6 +22,7 @@ export function fetchPopularSuggestions() {
     api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_VERIFIED}`).then(response => {
       dispatch(importFetchedAccounts(response.data))
       dispatch(fetchSuggestionsSuccess(response.data, SUGGESTION_TYPE_VERIFIED))
+      dispatch(fetchRelationships(response.data.map(item => item.id)))
     }).catch(error => dispatch(fetchSuggestionsFail(error, SUGGESTION_TYPE_VERIFIED)))
   }
 }
@@ -34,6 +36,7 @@ export function fetchRelatedSuggestions() {
     api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_RELATED}`).then(response => {
       dispatch(importFetchedAccounts(response.data))
       dispatch(fetchSuggestionsSuccess(response.data, SUGGESTION_TYPE_RELATED))
+      dispatch(fetchRelationships(response.data.map(item => item.id)))
     }).catch(error => dispatch(fetchSuggestionsFail(error, SUGGESTION_TYPE_RELATED)))
   }
 }
