@@ -25,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class GroupSidebarPanel extends ImmutablePureComponent {
+class GroupsPanel extends ImmutablePureComponent {
 
   static propTypes = {
     groupIds: ImmutablePropTypes.list,

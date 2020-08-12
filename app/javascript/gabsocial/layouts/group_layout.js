@@ -10,7 +10,7 @@ import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   LinkFooter,
   SignUpPanel,
-  GroupSidebarPanel,
+  GroupsPanel,
   GroupInfoPanel,
 } from '../features/ui/util/async_components'
 
@@ -52,7 +52,7 @@ export default class GroupLayout extends ImmutablePureComponent {
           <div className={[_s.default, _s.width100PC].join(' ')}>
 
             <GroupHeader group={group} relationships={relationships} isXS>
-              <GroupInfoPanel group={group} noPanel />
+              <WrappedBundle component={GroupInfoPanel} componentParams={{ group, noPanel: true }} />
             </GroupHeader>
 
             <div className={[_s.default, _s.width100PC, _s.z1].join(' ')}>
@@ -82,7 +82,7 @@ export default class GroupLayout extends ImmutablePureComponent {
                       layout={[
                         <WrappedBundle component={GroupInfoPanel} componentParams={{ group }} />,
                         SignUpPanel,
-                        GroupSidebarPanel,
+                        GroupsPanel,
                         LinkFooter,
                       ]}
                     />

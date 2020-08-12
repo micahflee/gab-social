@@ -4,7 +4,7 @@ import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import {
   LinkFooter,
-  GroupSidebarPanel,
+  GroupsPanel,
   ProgressPanel,
   TrendsPanel,
   WhoToFollowPanel,
@@ -50,7 +50,7 @@ class CommunityPage extends PureComponent {
           ProgressPanel,
           TrendsPanel,
           WhoToFollowPanel,
-          GroupSidebarPanel,
+          GroupsPanel,
           LinkFooter,
         ]}
       >

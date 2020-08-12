@@ -9,7 +9,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import Heading from '../components/heading'
 import {
-  GroupSidebarPanel,
+  GroupsPanel,
   SignUpLogInPanel,
   TrendsPanel,
 } from '../features/ui/util/async_components'
@@ -81,7 +81,7 @@ export default class ExploreLayout extends ImmutablePureComponent {
 
             <div className={[_s.default, _s.width100PC, _s.z1].join(' ')}>
               <div className={[_s.default, _s.mt15, _s.px10].join(' ')}>
-                <SignUpLogInPanel key='explore-page-signup-login-panel' isXS />
+                <WrappedBundle component={SignUpLogInPanel} componentParams={{ isXS: true }} />
               </div>
               {pageTitleBlock}
               {children}
@@ -109,7 +109,7 @@ export default class ExploreLayout extends ImmutablePureComponent {
                       page='explore'
                       layout={[
                         SignUpLogInPanel,
-                        <WrappedBundle component={GroupSidebarPanel} componentParams={{ groupType: 'featured' }} />,
+                        <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
                         <WrappedBundle component={TrendsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />,
                       ]}
                     />

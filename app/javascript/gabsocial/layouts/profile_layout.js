@@ -67,9 +67,9 @@ export default class ProfileLayout extends ImmutablePureComponent {
                 <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter].join(' ')}>
 
                   <ProfileHeader account={account} isXS>
-                    <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
+                    <WrappedBundle component={ProfileInfoPanel} componentParams={{ account, noPanel: true }} />
                     <Divider isSmall />
-                    <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
+                    <WrappedBundle component={ProfileStatsPanel} componentParams={{ account, noPanel: true }} />
                   </ProfileHeader>
 
                   <div className={[_s.default, _s.width100PC, , _s.flexRow, _s.justifyContentEnd, _s.py15].join(' ')}>
