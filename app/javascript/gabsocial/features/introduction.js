@@ -21,6 +21,7 @@ import Icon from '../components/icon'
 import Image from '../components/image'
 import Input from '../components/input'
 import Text from '../components/text'
+import Pagination from '../components/pagination'
 import ComposeFormContainer from './compose/containers/compose_form_container'
 import Responsive from './ui/util/responsive_component'
 
@@ -275,9 +276,7 @@ class Introduction extends ImmutablePureComponent {
     window.addEventListener('keyup', this.handleKeyUp)
   }
 
-  handleDot = (e) => {
-    const i = Number(e.currentTarget.getAttribute('data-index'))
-    e.preventDefault()
+  handleDot = (i) => {
     this.setState({ currentIndex: i })
   }
 
@@ -337,25 +336,6 @@ class Introduction extends ImmutablePureComponent {
       'Start a conversation',
     ]
     const title = titles[currentIndex]
-
-    const pagination = pages.map((page, i) => {
-      const btnClasses = CX({
-        default: 1,
-        width10PX: 1,
-        height10PX: 1,
-        outlineNone: 1,
-        circle: 1,
-        cursorPointer: 1,
-        bgBrandLightOpaque: i !== currentIndex,
-        bgBrand: i === currentIndex,
-      })
-
-      return (
-        <li className={[_s.default, _s.px5].join(' ')} key={`intro-slide-${i}`}>
-          <button tabIndex='0' className={btnClasses} onClick={this.handleDot} data-index={i} />
-        </li>
-      )
-    })
 
     const nextTitle = currentIndex === 3 ? 'Finish' : 'Next'
 
@@ -429,9 +409,16 @@ class Introduction extends ImmutablePureComponent {
               />
             }
           </div>
-          <ul className={[_s.default, _s.height100PC, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter, _s.flexRow, _s.listStyleNone].join(' ')}>
-            {pagination}
-          </ul>
+            
+          <div className={[_s.default, _s.height100PC, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+            <Pagination
+              count={pages.length}
+              activeIndex={currentIndex}
+              onClick={this.handleDot}
+              color='brand'
+            />
+          </div>
+          
           <Button
             isText
             href={currentIndex === 3 ? '/home' : undefined}

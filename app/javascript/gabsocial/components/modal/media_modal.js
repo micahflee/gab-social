@@ -7,6 +7,7 @@ import Video from '../video'
 import ExtendedVideoPlayer from '../extended_video_player'
 import Button from '../button'
 import ImageLoader from '../image_loader'
+import Pagination from '../pagination'
 
 const messages = defineMessages({
   close: { id: 'lightbox.close', defaultMessage: 'Close' },
@@ -56,9 +57,8 @@ class MediaModal extends ImmutablePureComponent {
     this.setState({ index: (this.props.media.size + this.getIndex() - 1) % this.props.media.size })
   }
 
-  handleChangeIndex = (e) => {
-    const index = Number(e.currentTarget.getAttribute('data-index'))
-    this.setState({ index: index % this.props.media.size })
+  handleChangeIndex = (i) => {
+    this.setState({ index: i % this.props.media.size })
   }
 
   handleKeyDown = (e) => {
@@ -129,7 +129,6 @@ class MediaModal extends ImmutablePureComponent {
     const { navigationHidden } = this.state
 
     const index = this.getIndex()
-    let pagination = []
 
     const leftNav = media.size > 1 && (
       <Button
@@ -153,28 +152,6 @@ class MediaModal extends ImmutablePureComponent {
         iconSize='18px'
       />
     )
-
-    if (media.size > 1) {
-      pagination = media.map((item, i) => {
-        const btnClasses = CX({
-          default: 1,
-          width10PX: 1,
-          height10PX: 1,
-          outlineNone: 1,
-          circle: 1,
-          cursorPointer: 1,
-          bgPrimaryOpaque: i !== index,
-          bgPrimary: i === index,
-          boxShadowDot: i === index,
-        })
-
-        return (
-          <li className={[_s.default, _s.px5].join(' ')} key={`media-pagination-${i}`}>
-            <button tabIndex='0' className={btnClasses} onClick={this.handleChangeIndex} data-index={i} />
-          </li>
-        )
-      })
-    }
 
     const content = media.map((image) => {
       const width = image.getIn(['meta', 'original', 'width']) || null
@@ -298,9 +275,16 @@ class MediaModal extends ImmutablePureComponent {
 
         </div>
 
-        <ul className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15, _s.flexRow, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15, _s.listStyleNone].join(' ')}>
-          {pagination}
-        </ul>
+        {
+          media.size > 1 &&
+          <div className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
+            <Pagination
+              count={media.size}
+              activeIndex={index}
+              onClick={this.handleChangeIndex}          
+            />
+          </div>
+        }
       </div>
     )
   }

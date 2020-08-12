@@ -1,0 +1,73 @@
+import { CX } from '../constants'
+
+const COLORS = {
+  primary: 'primary',
+  brand: 'brand',
+}
+
+class Pagination extends PureComponent {
+
+  handleClickIndex = (i) => {
+    this.props.onClick(i)
+  }
+
+  render() {
+    const {
+      activeIndex,
+      color,
+      count,
+    } = this.props
+
+    if (isNaN(count)) return
+
+    return (
+      <ul className={[_s.default, _s.flexRow, _s.listStyleNone].join(' ')}>
+        {
+          Array.apply(null, {
+            length: count
+          }).map((_, i) => {
+            const btnClasses = CX({
+              default: 1,
+              width10PX: 1,
+              height10PX: 1,
+              outlineNone: 1,
+              circle: 1,
+              cursorPointer: 1,
+              bgPrimaryOpaque: i !== activeIndex && color === COLORS.primary,
+              bgPrimary: i === activeIndex && color === COLORS.primary,
+              boxShadowDot: i === activeIndex && color === COLORS.primary,
+              bgBrandLightOpaque: i !== activeIndex && color === COLORS.brand,
+              bgBrand: i === activeIndex && color === COLORS.brand,
+            })
+
+            return (
+              <li className={[_s.default, _s.px5].join(' ')} key={`pagination-${i}`}>
+                <button
+                  tabIndex='0'
+                  className={btnClasses}
+                  onClick={() => this.handleClickIndex(i)}
+                  data-index={i}
+                />
+              </li>
+            )
+          })
+        }
+      </ul>
+    )
+
+  }
+
+}
+
+Pagination.propTypes = {
+  activeIndex: PropTypes.number.isRequired,
+  color: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
+  onClick: PropTypes.number.isRequired,
+}
+
+Pagination.defaultProps = {
+  color: COLORS.primary,
+}
+
+export default Pagination
