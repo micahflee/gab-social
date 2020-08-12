@@ -130,29 +130,6 @@ class MediaModal extends ImmutablePureComponent {
 
     const index = this.getIndex()
 
-    const leftNav = media.size > 1 && (
-      <Button
-        tabIndex='0'
-        backgroundColor='black'
-        className={[_s.py15, _s.posFixed, _s.top50PC, _s.left0, _s.mt10, _s.ml10].join(' ')}
-        onClick={this.handlePrevClick}
-        aria-label={intl.formatMessage(messages.previous)}
-        icon='arrow-left'
-        iconSize='18px'
-      />
-    )
-    const rightNav = media.size > 1 && (
-      <Button
-        tabIndex='0'
-        backgroundColor='black'
-        className={[_s.py15, _s.posFixed, _s.top50PC, _s.right0, _s.mt10, _s.mr10].join(' ')}
-        onClick={this.handleNextClick}
-        aria-label={intl.formatMessage(messages.next)}
-        icon='arrow-right'
-        iconSize='18px'
-      />
-    )
-
     const content = media.map((image) => {
       const width = image.getIn(['meta', 'original', 'width']) || null
       const height = image.getIn(['meta', 'original', 'height']) || null
@@ -218,10 +195,6 @@ class MediaModal extends ImmutablePureComponent {
 
     const navigationClasses = CX({
       default: 1,
-      saveAreaInsetPT: 1,
-      saveAreaInsetPR: 1,
-      saveAreaInsetPB: 1,
-      saveAreaInsetPL: 1,
       displayNone: navigationHidden,
     })
 
@@ -251,17 +224,42 @@ class MediaModal extends ImmutablePureComponent {
         </div>
 
         <div className={navigationClasses}>
-          <Button
-            title={intl.formatMessage(messages.close)}
-            icon='close'
-            backgroundColor='black'
-            onClick={onClose}
-            iconSize='14px'
-            className={[_s.py15, _s.posFixed, _s.top0, _s.right0, _s.mt10, _s.mr10].join(' ')}
-          />
+          <div className={[_s.posFixed, _s.top0, _s.right0, _s.mt10, _s.mr10, _s.saveAreaInsetPT, _s.saveAreaInsetPR].join(' ')}>
+            <Button
+              title={intl.formatMessage(messages.close)}
+              icon='close'
+              backgroundColor='black'
+              onClick={onClose}
+              iconSize='14px'
+              className={_s.py15}
+            />
+          </div>
 
-          {leftNav}
-          {rightNav}
+          {
+            media.size > 1 &&
+            <Button
+              tabIndex='0'
+              backgroundColor='black'
+              className={[_s.py15, _s.posFixed, _s.top50PC, _s.left0, _s.mt10, _s.ml10].join(' ')}
+              onClick={this.handlePrevClick}
+              aria-label={intl.formatMessage(messages.previous)}
+              icon='arrow-left'
+              iconSize='18px'
+            />
+          }
+
+          {
+            media.size > 1 &&
+            <Button
+              tabIndex='0'
+              backgroundColor='black'
+              className={[_s.py15, _s.posFixed, _s.top50PC, _s.right0, _s.mt10, _s.mr10].join(' ')}
+              onClick={this.handleNextClick}
+              aria-label={intl.formatMessage(messages.next)}
+              icon='arrow-right'
+              iconSize='18px'
+            />
+          }
 
           { /** : todo : 
             status &&
@@ -277,12 +275,14 @@ class MediaModal extends ImmutablePureComponent {
 
         {
           media.size > 1 &&
-          <div className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
-            <Pagination
-              count={media.size}
-              activeIndex={index}
-              onClick={this.handleChangeIndex}          
-            />
+          <div className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15].join(' ')}>
+            <div className={[_s.default, _s.saveAreaInsetMB, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
+              <Pagination
+                count={media.size}
+                activeIndex={index}
+                onClick={this.handleChangeIndex}          
+              />
+            </div>
           </div>
         }
       </div>
