@@ -1,16 +1,7 @@
 import isEqual from 'lodash.isequal'
+import { APP_NAME } from '../../../constants'
 
-export default class PageTitle extends PureComponent {
-  static propTypes = {
-    badge: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
-    path: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
-  }
+class PageTitle extends PureComponent {
 
   componentDidMount() {
     this.updatePageTitle(this.props) 
@@ -23,14 +14,12 @@ export default class PageTitle extends PureComponent {
   }
 
   updatePageTitle = ({ badge, path}) => {
-    const site = 'Gab'
-    
     let realPath = Array.isArray(path) ? path.join(' / ') : path
     realPath = realPath.trim()
 
     const realBadge = !!badge ? `(${badge})` : ''
 
-    const title = `${realBadge} ${realPath} / ${site}`.trim()
+    const title = `${realBadge} ${realPath} / ${APP_NAME}`.trim()
 
     document.title = title
   }
@@ -38,4 +27,18 @@ export default class PageTitle extends PureComponent {
   render() {
     return null
   }
+
 }
+
+PageTitle.propTypes = {
+  badge: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]),
+  path: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.array,
+  ]),
+}
+
+export default PageTitle
