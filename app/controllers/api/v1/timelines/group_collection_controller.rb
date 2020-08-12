@@ -6,7 +6,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
   before_action :set_statuses
 
   after_action :insert_pagination_headers, unless: -> {
-    @statuses.empty? || @statuses.length < DEFAULT_STATUSES_LIMIT
+    @statuses.empty?
   }
 
   def show
@@ -94,8 +94,6 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
       if @sort_type == 'newest'
         statuses = Status.where(
               group: @groupIds, reply: false
-            ).where(
-              'statuses.created_at > ?', 14.days.ago
             ).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
               params_slice(:max_id, :since_id, :min_id)
