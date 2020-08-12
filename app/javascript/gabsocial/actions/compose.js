@@ -252,22 +252,19 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
   dispatch(insertIntoTagHistory(response.data.tags, status));
   dispatch(submitComposeSuccess({ ...response.data }));
 
-  // To make the app more responsive, immediately push the status into the columns
+  // To make the app more responsive, immediately push the status into the timeline
+  // : todo : push into comment, reload parent status, etc.
   const insertIfOnline = timelineId => {
     const timeline = getState().getIn(['timelines', timelineId]);
 
     if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null && timeline.get('online')) {
-      const dequeueArgs = {};
-      if (timelineId === 'community') dequeueArgs.onlyMedia = getState().getIn(['settings', 'community', 'other', 'onlyMedia']);
-      dispatch(dequeueTimeline(timelineId, null, dequeueArgs));
+      dispatch(updateTimelineQueue(timelineId, response.data))
       dispatch(updateTimeline(timelineId, { ...response.data }));
     }
   };
 
   if (response.data.visibility === 'public') {
     insertIfOnline('home');
-    insertIfOnline('community');
-    insertIfOnline('public');
   }
 }
 
