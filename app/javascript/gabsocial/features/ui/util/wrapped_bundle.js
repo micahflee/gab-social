@@ -10,8 +10,6 @@ class WrappedBundle extends PureComponent {
       loadingComponent,
     } = this.props
 
-    console.log("WrappedBundle:", this.props)
-
     return (
       <Bundle
         fetchComponent={component}
