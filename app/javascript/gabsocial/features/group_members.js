@@ -3,6 +3,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import isObject from 'lodash.isobject'
 import { FormattedMessage } from 'react-intl'
+import { me } from '../initial_state'
 import {
 	fetchMembers,
 	expandMembers,
@@ -128,7 +129,7 @@ class GroupMembers extends ImmutablePureComponent {
 									compact
 									key={id}
 									id={id}
-									actionIcon={!isAdmin ? undefined : 'ellipsis'}
+									actionIcon={(!isAdmin || id === me) ? undefined : 'ellipsis'}
 									onActionClick={(data, event) => {
 										return !isAdmin ? false : this.handleOpenGroupMemberOptions(event, id)
 									}}
