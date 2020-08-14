@@ -4,10 +4,6 @@ import PlaceholderLayout from './placeholder_layout'
 
 export default class CommentPlaceholder extends PureComponent {
   
-  static propTypes = {
-    isLast: PropTypes.bool,
-  }
-
   render() {
     const classes = CX({
       default: 1,

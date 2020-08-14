@@ -2,12 +2,7 @@ import { CX } from '../../constants'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class AccountPlaceholder extends PureComponent {
-  
-  static propTypes = {
-    isLast: PropTypes.bool,
-    isSmall: PropTypes.bool,
-  }
+class AccountPlaceholder extends PureComponent {
 
   render() {
     const { isLast, isSmall } = this.props
@@ -38,7 +33,7 @@ export default class AccountPlaceholder extends PureComponent {
       <div className={classes}>
         <PlaceholderLayout viewBox='0 0 400 32'>
           <rect x="38" y="4" rx="3" ry="3" width="268" height="6" /> 
-          <circle cx="14" cy="14" r="14" /> 
+          <circle cx="14" cy="14" r="14" />
           <rect x="36" y="18" rx="3" ry="3" width="208" height="6" />
         </PlaceholderLayout>
       </div>
@@ -46,3 +41,10 @@ export default class AccountPlaceholder extends PureComponent {
   }
 
 }
+
+AccountPlaceholder.propTypes = {
+  isLast: PropTypes.bool,
+  isSmall: PropTypes.bool,
+}
+
+export default AccountPlaceholder

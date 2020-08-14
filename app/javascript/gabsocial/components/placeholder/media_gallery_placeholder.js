@@ -1,14 +1,8 @@
 import PlaceholderLayout from './placeholder_layout'
 
 export default class MediaGalleryPlaceholder extends PureComponent {
-  
-  static propTypes = {
-    type: PropTypes.string,
-  }
 
   render() {
-    const { type } = this.props
-
     return (
       <div className={[_s.default, _s.px5, _s.py5].join(' ')}>
         <PlaceholderLayout viewBox='0 0 400 196'>

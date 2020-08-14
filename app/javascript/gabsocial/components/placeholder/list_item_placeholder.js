@@ -3,11 +3,7 @@ import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
-export default class ListItemPlaceholder extends PureComponent {
-  
-  static propTypes = {
-    isLast: PropTypes.bool,
-  }
+class ListItemPlaceholder extends PureComponent {
 
   render() {
     const { isLast } = this.props
@@ -36,7 +32,7 @@ export default class ListItemPlaceholder extends PureComponent {
         classNamesXS={classesXS}
       >
         <PlaceholderLayout viewBox='0 0 400 30'>
-          <circle cx='10' cy='17' r='10' /> 
+          <circle cx='10' cy='17' r='10' />
           <rect x='30' y='12' rx='5' ry='5' width={width} height='12' />
         </PlaceholderLayout>
       </ResponsiveClassesComponent>
@@ -44,3 +40,9 @@ export default class ListItemPlaceholder extends PureComponent {
   }
 
 }
+
+ListItemPlaceholder.propTypes = {
+  isLast: PropTypes.bool,
+}
+
+export default ListItemPlaceholder

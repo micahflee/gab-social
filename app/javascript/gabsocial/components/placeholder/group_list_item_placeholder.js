@@ -2,12 +2,8 @@ import { CX } from '../../constants'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class GroupListItemPlaceholder extends PureComponent {
+class GroupListItemPlaceholder extends PureComponent {
   
-  static propTypes = {
-    isLast: PropTypes.bool,
-  }
-
   render() {
     const { isLast } = this.props
 
@@ -33,3 +29,9 @@ export default class GroupListItemPlaceholder extends PureComponent {
   }
 
 }
+
+GroupListItemPlaceholder.propTypes = {
+  isLast: PropTypes.bool,
+}
+
+export default GroupListItemPlaceholder
