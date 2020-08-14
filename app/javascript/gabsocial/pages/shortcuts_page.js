@@ -9,28 +9,10 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenEditShortcutsModal() {
-    dispatch(openModal(MODAL_EDIT_SHORTCUTS))
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class ShortcutsPage extends PureComponent {
 
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onOpenEditShortcutsModal: PropTypes.func.isRequired,
-  }
-
   handleOnOpenEditShortcutsModal = () => {
-    this.props.onOpenEditShortcutsModal()
+    this.props.dispatch(openModal(MODAL_EDIT_SHORTCUTS))
   }
 
   render() {
@@ -60,3 +42,15 @@ class ShortcutsPage extends PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
+})
+
+ShortcutsPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect()(ShortcutsPage))

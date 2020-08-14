@@ -9,46 +9,10 @@ import ColumnIndicator from '../components/column_indicator'
 import Block from '../components/block'
 import ProfileLayout from '../layouts/profile_layout'
 
-const mapStateToProps = (state, { params: { username } }) => {
-  const accounts = state.getIn(['accounts'])
-  const account = accounts.find(acct => username.toLowerCase() === acct.getIn(['acct'], '').toLowerCase())
-
-  const accountId = !!account ? account.get('id') : -1
-  const isBlocked = state.getIn(['relationships', accountId, 'blocked_by'], false)
-  const isLocked = state.getIn(['accounts', accountId, 'locked'], false)
-  const isFollowing = state.getIn(['relationships', accountId, 'following'], false)
-
-  const unavailable = (me === accountId) ? false : (isBlocked || (isLocked && !isFollowing))
-
-  const getAccount = makeGetAccount()
-
-  return {
-    unavailable,
-    account: accountId !== -1 ? getAccount(state, accountId) : null,
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchAccountByUsername(username) {
-    dispatch(fetchAccountByUsername(username))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class ProfilePage extends ImmutablePureComponent {
 
-  static propTypes = {
-    children: PropTypes.node,
-    params: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map,
-    onFetchAccountByUsername: PropTypes.func.isRequired,
-    unavailable: PropTypes.bool.isRequired,
-    noSidebar: PropTypes.bool,
-  }
-
   componentDidMount() {
-    this.props.onFetchAccountByUsername(this.props.params.username)
+    this.props.dispatch(fetchAccountByUsername(this.props.params.username))
   }
 
   render() {
@@ -90,3 +54,33 @@ class ProfilePage extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { params: { username } }) => {
+  const accounts = state.getIn(['accounts'])
+  const account = accounts.find(acct => username.toLowerCase() === acct.getIn(['acct'], '').toLowerCase())
+
+  const accountId = !!account ? account.get('id') : -1
+  const isBlocked = state.getIn(['relationships', accountId, 'blocked_by'], false)
+  const isLocked = state.getIn(['accounts', accountId, 'locked'], false)
+  const isFollowing = state.getIn(['relationships', accountId, 'following'], false)
+
+  const unavailable = (me === accountId) ? false : (isBlocked || (isLocked && !isFollowing))
+
+  const getAccount = makeGetAccount()
+
+  return {
+    unavailable,
+    account: accountId !== -1 ? getAccount(state, accountId) : null,
+  }
+}
+
+ProfilePage.propTypes = {
+  account: ImmutablePropTypes.map,
+  children: PropTypes.node,
+  dispatch: PropTypes.func.isRequired,
+  noSidebar: PropTypes.bool,
+  params: PropTypes.object.isRequired,
+  unavailable: PropTypes.bool.isRequired,
+}
+
+export default connect(mapStateToProps)(ProfilePage)

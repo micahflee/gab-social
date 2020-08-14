@@ -12,6 +12,61 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
+class NotificationsPage extends PureComponent {
+
+  onChangeActiveFilter(notificationType) {
+    this.props.dispatch(setFilter('active', notificationType))
+    
+    if (notificationType === 'all') {
+      this.context.router.history.push('/notifications')
+    } else if (notificationType === 'follow_requests') {
+      this.context.router.history.push(`/notifications/follow_requests`)
+    } else {
+      this.context.router.history.push(`/notifications?view=${notificationType}`)
+    }
+  }
+
+  render() {
+    const {
+      children,
+      intl,
+      locked,
+      notificationCount,
+      selectedFilter,
+    } = this.props
+
+    let filters = NOTIFICATION_FILTERS
+    if (!locked && filters.indexOf('follow_requests') > -1) {
+      filters.splice(filters.indexOf('follow_requests'))
+    }
+
+    const tabs = filters.map((filter) => ({ 
+      title: intl.formatMessage(messages[filter]),
+      onClick: () => this.onChangeActiveFilter(filter),
+      active: selectedFilter.toLowerCase() === filter.toLowerCase(),
+    }))
+
+    const title = intl.formatMessage(messages.notifications)
+
+    return (
+      <DefaultLayout
+        title={title}
+        page='notifications'
+        layout={[
+          NotificationFilterPanel,
+          TrendsPanel,
+          WhoToFollowPanel,
+          LinkFooter,
+        ]}
+        tabs={tabs}
+      >
+        <PageTitle badge={notificationCount} path={title} />
+        {children}
+      </DefaultLayout>
+    )
+  }
+}
+
 const messages = defineMessages({
   notifications: { id: 'tabs_bar.notifications', defaultMessage: 'Notifications' },
   mention: { id: 'notifications.filter.mentions', defaultMessage: 'Mentions' },
@@ -29,80 +84,17 @@ const mapStateToProps = (state) => ({
   locked: !!state.getIn(['accounts', me, 'locked']),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  setFilter(value) {
-    dispatch(setFilter('active', value))
-  },
-})
+NotificationsPage.contextTypes = {
+  router: PropTypes.object.isRequired,
+}
 
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
-class NotificationsPage extends PureComponent {
+NotificationsPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  locked: PropTypes.bool,
+  notificationCount: PropTypes.number.isRequired,
+  selectedFilter: PropTypes.string.isRequired,
+}
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    intl: PropTypes.object.isRequired,
-    notificationCount: PropTypes.number.isRequired,
-    setFilter: PropTypes.func.isRequired,
-    selectedFilter: PropTypes.string.isRequired,
-    locked: PropTypes.bool,
-  }
-
-  onChangeActiveFilter(notificationType) {
-    this.props.setFilter(notificationType)
-    
-    if (notificationType === 'all') {
-      this.context.router.history.push('/notifications')
-    } else if (notificationType === 'follow_requests') {
-      this.context.router.history.push(`/notifications/follow_requests`)
-    } else {
-      this.context.router.history.push(`/notifications?view=${notificationType}`)
-    }
-  }
-
-  render() {
-    const {
-      children,
-      intl,
-      notificationCount,
-      selectedFilter,
-      locked
-    } = this.props
-
-    let filters = NOTIFICATION_FILTERS
-    if (!locked && filters.indexOf('follow_requests') > -1) {
-      filters.splice(filters.indexOf('follow_requests'))
-    }
-
-    const tabs = filters.map((filter) => ({ 
-      title: intl.formatMessage(messages[filter]),
-      onClick: () => this.onChangeActiveFilter(filter),
-      active: selectedFilter.toLowerCase() === filter.toLowerCase(),
-    }))
-
-    return (
-      <DefaultLayout
-        title={intl.formatMessage(messages.notifications)}
-        page='notifications'
-        layout={[
-          NotificationFilterPanel,
-          TrendsPanel,
-          WhoToFollowPanel,
-          LinkFooter,
-        ]}
-        tabs={tabs}
-      >
-        <PageTitle
-          badge={notificationCount}
-          path={intl.formatMessage(messages.notifications)}
-        />
-        {children}
-      </DefaultLayout>
-    )
-  }
-}{}
+export default injectIntl(connect(mapStateToProps)(NotificationsPage))

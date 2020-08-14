@@ -20,22 +20,7 @@ import {
   SidebarXS,
 } from '../features/ui/util/async_components'
 
-export default class Layout extends PureComponent {
-
-  static propTypes = {
-    actions: PropTypes.array,
-    children: PropTypes.node,
-    layout: PropTypes.array,
-    noComposeButton: PropTypes.bool,
-    noRightSidebar: PropTypes.bool,
-    noSidebar: PropTypes.bool,
-    page: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-    showLinkFooterInSidebar: PropTypes.bool,
-    showGlobalFooter: PropTypes.bool,
-    tabs: PropTypes.array,
-    title: PropTypes.string,
-  }
+class Layout extends PureComponent {
 
   render() {
     const {
@@ -176,3 +161,20 @@ export default class Layout extends PureComponent {
   }
 
 }
+
+Layout.propTypes = {
+  actions: PropTypes.array,
+  children: PropTypes.node,
+  layout: PropTypes.array,
+  noComposeButton: PropTypes.bool,
+  noRightSidebar: PropTypes.bool,
+  noSidebar: PropTypes.bool,
+  page: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+  showLinkFooterInSidebar: PropTypes.bool,
+  showGlobalFooter: PropTypes.bool,
+  tabs: PropTypes.array,
+  title: PropTypes.string,
+}
+
+export default Layout

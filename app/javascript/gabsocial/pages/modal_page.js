@@ -6,13 +6,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-export default class ModalPage extends PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string,
-    page: PropTypes.string,
-    children: PropTypes.node,
-  }
+class ModalPage extends PureComponent {
 
   render() {
     const {
@@ -43,3 +37,11 @@ export default class ModalPage extends PureComponent {
   }
 
 }
+
+ModalPage.propTypes = {
+  title: PropTypes.string,
+  page: PropTypes.string,
+  children: PropTypes.node,
+}
+
+export default ModalPage

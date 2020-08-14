@@ -6,13 +6,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-export default class BasicPage extends PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    page: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-  }
+class BasicPage extends PureComponent {
 
   render() {
     const {
@@ -40,3 +34,11 @@ export default class BasicPage extends PureComponent {
   }
 
 }
+
+BasicPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  page: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+export default BasicPage

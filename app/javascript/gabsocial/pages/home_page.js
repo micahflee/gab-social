@@ -21,33 +21,7 @@ import {
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  home: { id: 'home', defaultMessage: 'Home' },
-})
-
-const mapStateToProps = (state) => ({
-  totalQueuedItemsCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
-  isPro: state.getIn(['accounts', me, 'is_pro']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenHomePageSettingsModal() {
-    dispatch(openModal(MODAL_HOME_TIMELINE_SETTINGS))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class HomePage extends PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node.isRequired,
-    intl: PropTypes.object.isRequired,
-    onOpenHomePageSettingsModal: PropTypes.func.isRequired,
-    totalQueuedItemsCount: PropTypes.number.isRequired,
-    isPro: PropTypes.bool,
-  }
 
   state = {
     lazyLoaded: false,
@@ -81,24 +55,29 @@ class HomePage extends PureComponent {
     trailing: true,
   })
 
+  onOpenHomePageSettingsModal = () => {
+    this.props.dispatch(openModal(MODAL_HOME_TIMELINE_SETTINGS))
+  }
+
   render() {
     const {
-      intl,
       children,
-      totalQueuedItemsCount,
-      onOpenHomePageSettingsModal,
+      intl,
       isPro,
+      totalQueuedItemsCount,
     } = this.props
     const { lazyLoaded } = this.state
+
+    const title = intl.formatMessage(messages.home)
 
     return (
       <DefaultLayout
         page='home'
-        title={intl.formatMessage(messages.home)}
+        title={title}
         actions={[
           {
             icon: 'ellipsis',
-            onClick: onOpenHomePageSettingsModal,
+            onClick: this.onOpenHomePageSettingsModal,
           },
         ]}
         layout={[
@@ -115,7 +94,7 @@ class HomePage extends PureComponent {
       >
 
         <PageTitle
-          path={intl.formatMessage(messages.home)}
+          path={title}
           badge={totalQueuedItemsCount}
         />
         
@@ -131,3 +110,22 @@ class HomePage extends PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  home: { id: 'home', defaultMessage: 'Home' },
+})
+
+const mapStateToProps = (state) => ({
+  totalQueuedItemsCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+HomePage.propTypes = {
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  isPro: PropTypes.bool,
+  totalQueuedItemsCount: PropTypes.number.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps)(HomePage))

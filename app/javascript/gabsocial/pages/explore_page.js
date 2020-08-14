@@ -1,21 +1,13 @@
 import PageTitle from '../features/ui/util/page_title'
 import ExploreLayout from '../layouts/explore_layout'
 
-export default class ExplorePage extends PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-  }
+class ExplorePage extends PureComponent {
 
   render() {
     const { children, title } = this.props
 
     return (
-      <ExploreLayout
-        page='explore'
-        title={title}
-      >
+      <ExploreLayout title={title}>
         <PageTitle path={title} />
         {children}
       </ExploreLayout>
@@ -23,3 +15,10 @@ export default class ExplorePage extends PureComponent {
   }
 
 }
+
+ExplorePage.propTypes = {
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
+}
+
+export default ExplorePage

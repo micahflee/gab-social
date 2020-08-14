@@ -3,6 +3,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
+import { MODAL_HASHTAG_TIMELINE_SETTINGS } from '../constants'
 import {
   LinkFooter,
   ProgressPanel,
@@ -10,36 +11,23 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  hashtag: { id: 'hashtag', defaultMessage: 'Hashtag' },
-  hashtagTimeline: { id: 'hashtag_timeline', defaultMessage: 'Hashtag timeline' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenHashtagPageSettingsModal(hashtag) {
-    dispatch(openModal('HASHTAG_TIMELINE_SETTINGS', {
-      hashtag,
-    }))
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class HashtagPage extends PureComponent {
 
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    onOpenHashtagPageSettingsModal: PropTypes.func.isRequired,
-    params: PropTypes.object.isRequired,
+  onOpenHashtagPageSettingsModal = () => {
+    const { params } = this.props
+
+    const hashtag = isObject(params) ? params.id : ''
+    if (!hashtag) return
+
+    this.props.dispatch(openModal(MODAL_HASHTAG_TIMELINE_SETTINGS, {
+      hashtag,
+    }))
   }
 
   render() {
     const {
-      intl,
       children,
-      onOpenHashtagPageSettingsModal,
+      intl,
       params,
     } = this.props
 
@@ -52,7 +40,7 @@ class HashtagPage extends PureComponent {
         actions={[
           {
             icon: 'ellipsis',
-            onClick: onOpenHashtagPageSettingsModal,
+            onClick: this.onOpenHashtagPageSettingsModal,
           },
         ]}
         layout={[
@@ -68,3 +56,17 @@ class HashtagPage extends PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  hashtag: { id: 'hashtag', defaultMessage: 'Hashtag' },
+  hashtagTimeline: { id: 'hashtag_timeline', defaultMessage: 'Hashtag timeline' },
+})
+
+HashtagPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect()(HashtagPage))

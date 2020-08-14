@@ -1,18 +1,6 @@
 import Layout from './layout'
 
-export default class DefaultLayout extends PureComponent {
-
-  static propTypes = {
-    actions: PropTypes.array,
-    children: PropTypes.node.isRequired,
-    layout: PropTypes.object,
-    noComposeButton: PropTypes.bool,
-    noRightSidebar: PropTypes.bool,
-    page: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-    tabs: PropTypes.array,
-    title: PropTypes.string.isRequired,
-  }
+class DefaultLayout extends PureComponent {
 
   render() {
     const {
@@ -44,3 +32,17 @@ export default class DefaultLayout extends PureComponent {
   }
 
 }
+
+DefaultLayout.propTypes = {
+  actions: PropTypes.array,
+  children: PropTypes.node.isRequired,
+  layout: PropTypes.object,
+  noComposeButton: PropTypes.bool,
+  noRightSidebar: PropTypes.bool,
+  page: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+  tabs: PropTypes.array,
+  title: PropTypes.string.isRequired,
+}
+
+export default DefaultLayout

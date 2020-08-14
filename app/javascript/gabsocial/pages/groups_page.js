@@ -1,4 +1,3 @@
-import { Fragment } from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
@@ -11,30 +10,7 @@ import {
   LinkFooter,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  groups: { id: 'groups', defaultMessage: 'Groups' },
-  new: { id: 'new', defaultMessage: 'Recently Added Groups' },
-  featured: { id: 'featured', defaultMessage: 'Featured Groups' },
-  myGroupsTimeline: { id: 'my_groups_timeline', defaultMessage: 'Timeline' },
-  myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
-  admin: { id: 'admin', defaultMessage: 'Admin' },
-})
-
-const mapStateToProps = (state) => ({
-  isPro: state.getIn(['accounts', me, 'is_pro']),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps)
 class GroupsPage extends PureComponent {
-
-  static propTypes = {
-    activeTab: PropTypes.string.isRequired,
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    isPro: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -45,13 +21,6 @@ class GroupsPage extends PureComponent {
     } = this.props
 
     const dontShowChildren = (activeTab === 'timeline' && !me)
-
-    const actions = isPro ? [
-      {
-        icon: 'add',
-        to: '/groups/create',
-      },
-    ] : []
 
     const tabs = !!me ? [
       {
@@ -80,7 +49,7 @@ class GroupsPage extends PureComponent {
     }
 
     const title = intl.formatMessage(messages.groups)
-    
+
     const layout = []
     if (!!me) {
       layout.push(<WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'member' }} />)
@@ -90,14 +59,22 @@ class GroupsPage extends PureComponent {
     return (
       <DefaultLayout
         title={title}
-        actions={actions}
+        actions={[
+          {
+            title: 'Create',
+            icon: 'add',
+            to: '/groups/create',
+          },
+        ]}
         tabs={tabs}
         page='groups'
         layout={layout}
       >
         <PageTitle path={title} />
 
-        { !dontShowChildren && children }
+        {
+          !dontShowChildren && children
+        }
 
         {
           dontShowChildren &&
@@ -108,3 +85,25 @@ class GroupsPage extends PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  groups: { id: 'groups', defaultMessage: 'Groups' },
+  new: { id: 'new', defaultMessage: 'Recently Added Groups' },
+  featured: { id: 'featured', defaultMessage: 'Featured Groups' },
+  myGroupsTimeline: { id: 'my_groups_timeline', defaultMessage: 'Timeline' },
+  myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
+  admin: { id: 'admin', defaultMessage: 'Admin' },
+})
+
+const mapStateToProps = (state) => ({
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+GroupsPage.propTypes = {
+  activeTab: PropTypes.string.isRequired,
+  intl: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  isPro: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(GroupsPage))

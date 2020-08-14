@@ -7,18 +7,7 @@ import {
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  title: { 'id': 'column.pro', 'defaultMessage': 'Pro feed' },
-})
-
-export default
-@injectIntl
 class ProPage extends PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-  }
 
   render() {
     const { intl, children } = this.props
@@ -40,4 +29,16 @@ class ProPage extends PureComponent {
       </DefaultLayout>
     )
   }
+
 }
+
+const messages = defineMessages({
+  title: { 'id': 'column.pro', 'defaultMessage': 'Pro feed' },
+})
+
+ProPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(ProPage)

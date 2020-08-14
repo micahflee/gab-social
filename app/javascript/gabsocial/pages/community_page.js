@@ -2,6 +2,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
+import { MODAL_COMMUNITY_TIMELINE_SETTINGS } from '../constants'
 import {
   LinkFooter,
   GroupsPanel,
@@ -10,29 +11,14 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  community: { 'id': 'column.community', 'defaultMessage': 'Community feed' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenCommunityPageSettingsModal() {
-    dispatch(openModal('COMMUNITY_TIMELINE_SETTINGS'))
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class CommunityPage extends PureComponent {
 
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    onOpenCommunityPageSettingsModal: PropTypes.func.isRequired,
+  onOpenCommunityPageSettingsModal = () => {
+    this.props.dispatch(openModal(MODAL_COMMUNITY_TIMELINE_SETTINGS))
   }
 
   render() {
-    const { intl, children, onOpenCommunityPageSettingsModal } = this.props
+    const { children, intl } = this.props
 
     const title = intl.formatMessage(messages.community)
 
@@ -43,7 +29,7 @@ class CommunityPage extends PureComponent {
         actions={[
           {
             icon: 'ellipsis',
-            onClick: onOpenCommunityPageSettingsModal,
+            onClick: this.onOpenCommunityPageSettingsModal,
           },
         ]}
         layout={[
@@ -60,3 +46,15 @@ class CommunityPage extends PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  community: { 'id': 'column.community', 'defaultMessage': 'Community feed' },
+})
+
+CommunityPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect()(CommunityPage))

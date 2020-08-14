@@ -14,37 +14,21 @@ import {
   GroupInfoPanel,
 } from '../features/ui/util/async_components'
 
-export default class GroupLayout extends ImmutablePureComponent {
-
-  static propTypes = {
-    actions: PropTypes.array,
-    children: PropTypes.node,
-    group: ImmutablePropTypes.map,
-    groupId: PropTypes.string,
-    isTimeline: PropTypes.bool,
-    layout: PropTypes.object,
-    relationships: ImmutablePropTypes.map,
-    showBackBtn: PropTypes.bool,
-    title: PropTypes.string,
-  }
+class GroupLayout extends ImmutablePureComponent {
 
   render() {
     const {
-      actions,
       children,
       group,
       groupId,
-      isTimeline,
       relationships,
-      showBackBtn,
       title,
     } = this.props
 
     return (
       <Layout
         noRightSidebar
-        actions={actions}
-        showBackBtn={showBackBtn}
+        showBackBtn
         title={title}
         page='group'
       >
@@ -97,3 +81,13 @@ export default class GroupLayout extends ImmutablePureComponent {
   }
 
 }
+
+GroupLayout.propTypes = {
+  children: PropTypes.node,
+  group: ImmutablePropTypes.map,
+  groupId: PropTypes.string,
+  relationships: ImmutablePropTypes.map,
+  title: PropTypes.string,
+}
+
+export default GroupLayout

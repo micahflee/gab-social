@@ -2,48 +2,33 @@ import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
+import { MODAL_LIST_CREATE } from '../constants'
 import {
   LinkFooter,
   TrendsPanel,
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  lists: { id: 'lists', defaultMessage: 'Lists' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenListCreateModal() {
-    dispatch(openModal('LIST_CREATE'))
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class ListsPage extends PureComponent {
 
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    onOpenListCreateModal: PropTypes.func.isRequired,
+  onOpenListCreateModal = () => {
+    this.props.dispatch(openModal(MODAL_LIST_CREATE))
   }
 
   render() {
-    const {
-      intl,
-      children,
-      onOpenListCreateModal,
-    } = this.props
+    const { children, intl } = this.props
+
+    const title = intl.formatMessage(messages.lists)
 
     return (
       <DefaultLayout
-        title={intl.formatMessage(messages.lists)}
+        showBackBtn
+        title={title}
         page='lists'
         actions={[
           {
             icon: 'add',
-            onClick: onOpenListCreateModal,
+            onClick: this.onOpenListCreateModal,
           },
         ]}
         layout={[
@@ -51,12 +36,23 @@ class ListsPage extends PureComponent {
           WhoToFollowPanel,
           LinkFooter,
         ]}
-        showBackBtn
       >
-        <PageTitle path={intl.formatMessage(messages.lists)} />
+        <PageTitle path={title} />
         {children}
       </DefaultLayout>
     )
   }
 
 }
+
+const messages = defineMessages({
+  lists: { id: 'lists', defaultMessage: 'Lists' },
+})
+
+ListsPage.propTypes = {
+  intl: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  dispatch: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect()(ListsPage))

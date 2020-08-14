@@ -8,19 +8,14 @@ import {
   VerifiedAccountsPanel,
 } from '../features/ui/util/async_components'
 
-export default class NewsPage extends PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    children: PropTypes.node.isRequired,
-  }
+class NewsPage extends PureComponent {
 
   render() {
     const { children, title } = this.props
 
     return (
       <DefaultLayout
-        page='explore'
+        page='news'
         title={title}
         noComposeButton
         showBackBtn
@@ -39,3 +34,10 @@ export default class NewsPage extends PureComponent {
   }
 
 }
+
+NewsPage.propTypes = {
+  children: PropTypes.node.isRequired,
+  title: PropTypes.string.isRequired,
+}
+
+export default NewsPage

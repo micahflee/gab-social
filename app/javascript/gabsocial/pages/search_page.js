@@ -11,34 +11,12 @@ import {
   SignUpPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  search: { id: 'search', defaultMessage: 'Search' },
-  top: { id: 'top', defaultMessage: 'Top' },
-  people: { id: 'people', defaultMessage: 'People' },
-  groups: { id: 'groups', defaultMessage: 'Groups' },
-  hashtags: { id: 'hashtags', defaultMessage: 'Hashtags' },
-})
-
-const mapStateToProps = (state) => ({
-  value: state.getIn(['search', 'value']),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps)
 class SearchPage extends PureComponent {
 
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    children: PropTypes.node.isRequired,
-    value: PropTypes.string,
-  }
+  componentWillMount() {
+    const { intl } = this.props
 
-  render() {
-    const { intl, children, value } = this.props
-
-    const title = intl.formatMessage(messages.search)
-    const tabs = [
+    this.tabs = [
       {
         title: intl.formatMessage(messages.top),
         to: '/search'
@@ -56,7 +34,16 @@ class SearchPage extends PureComponent {
         to: '/search/hashtags'
       },
     ]
+  }
 
+  render() {
+    const {
+      children,
+      intl,
+      value,
+    } = this.props
+
+    const title = intl.formatMessage(messages.search)
     const qos = !!value ? value : ''
 
     return (
@@ -64,7 +51,7 @@ class SearchPage extends PureComponent {
         noComposeButton
         title={title}
         showBackBtn
-        tabs={tabs}
+        tabs={this.tabs}
         page={`search.${qos}`}
         layout={[
           SignUpPanel,
@@ -74,7 +61,7 @@ class SearchPage extends PureComponent {
         ]}
       >
         <PageTitle path={title} />
-        
+
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <div className={[_s.default, _s.px10].join(' ')}>
             <Search />
@@ -87,3 +74,23 @@ class SearchPage extends PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  search: { id: 'search', defaultMessage: 'Search' },
+  top: { id: 'top', defaultMessage: 'Top' },
+  people: { id: 'people', defaultMessage: 'People' },
+  groups: { id: 'groups', defaultMessage: 'Groups' },
+  hashtags: { id: 'hashtags', defaultMessage: 'Hashtags' },
+})
+
+const mapStateToProps = (state) => ({
+  value: state.getIn(['search', 'value']),
+})
+
+SearchPage.propTypes = {
+  intl: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  value: PropTypes.string,
+}
+
+export default injectIntl(connect(mapStateToProps)(SearchPage))

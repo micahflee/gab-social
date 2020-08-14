@@ -8,39 +8,10 @@ import GroupLayout from '../layouts/group_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import Divider from '../components/divider'
 
-const messages = defineMessages({
-	group: { id: 'group', defaultMessage: 'Group' },
-})
-
-const mapStateToProps = (state, { params: { id } }) => ({
-	group: state.getIn(['groups', id]),
-	relationships: state.getIn(['group_relationships', id]),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	onFetchGroup(groupId) {
-		dispatch(fetchGroup(groupId))
-	},
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupPage extends ImmutablePureComponent {
 
-	static propTypes = {
-		intl: PropTypes.object.isRequired,
-		group: ImmutablePropTypes.map,
-		children: PropTypes.node.isRequired,
-		relationships: ImmutablePropTypes.map,
-		onFetchGroup: PropTypes.func.isRequired,
-		sortByValue: PropTypes.string.isRequired,
-		sortByTopValue: PropTypes.string.isRequired,
-	}
-	
 	componentDidMount() {
-		this.props.onFetchGroup(this.props.params.id)
-		// this.props.onFetchGroup(this.props.params.slug)
+		this.props.dispatch(fetchGroup(this.props.params.id))
 	}
 
 	render() {
@@ -54,15 +25,13 @@ class GroupPage extends ImmutablePureComponent {
 
 		const groupTitle = !!group ? group.get('title') : ''
 		const groupId = !!group ? group.get('id') : undefined
-		
+
 		return (
 			<GroupLayout
-				showBackBtn
 				title={'Group'}
 				group={group}
 				groupId={groupId}
 				relationships={relationships}
-				isTimeline={isTimeline}
 			>
 				<PageTitle path={[groupTitle, intl.formatMessage(messages.group)]} />
 
@@ -79,3 +48,24 @@ class GroupPage extends ImmutablePureComponent {
 		)
 	}
 }
+
+const messages = defineMessages({
+	group: { id: 'group', defaultMessage: 'Group' },
+})
+
+const mapStateToProps = (state, { params: { id } }) => ({
+	group: state.getIn(['groups', id]),
+	relationships: state.getIn(['group_relationships', id]),
+})
+
+GroupPage.propTypes = {
+	intl: PropTypes.object.isRequired,
+	group: ImmutablePropTypes.map,
+	children: PropTypes.node.isRequired,
+	relationships: ImmutablePropTypes.map,
+	dispatch: PropTypes.func.isRequired,
+	sortByValue: PropTypes.string.isRequired,
+	sortByTopValue: PropTypes.string.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps)(GroupPage))

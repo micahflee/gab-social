@@ -1,14 +1,13 @@
 import SettingsLayout from '../layouts/settings_layout'
 
-export default class SettingsPage extends PureComponent {
-
-	static propTypes = {
-    tabs: PropTypes.array,
-    title: PropTypes.string,
-	}
+class SettingsPage extends PureComponent {
 	
 	render() {
-		const { children, title, tabs } = this.props;
+		const {
+			children,
+			tabs,
+			title,
+		} = this.props
 
 		return (
 			<SettingsLayout
@@ -19,4 +18,13 @@ export default class SettingsPage extends PureComponent {
 			</SettingsLayout>
 		)
 	}
+
 }
+
+SettingsPage.propTypes = {
+	children: PropTypes.node.isRequired,
+	tabs: PropTypes.array,
+	title: PropTypes.string,
+}
+
+export default SettingsPage
