@@ -1,7 +1,6 @@
 import { defineMessages, injectIntl } from 'react-intl'
 import {
   fetchRelatedSuggestions,
-  dismissRelatedSuggestion,
 } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -22,7 +21,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchRelatedSuggestions: () => dispatch(fetchRelatedSuggestions()),
-  dismissRelatedSuggestion: (account) => dispatch(dismissRelatedSuggestion(account.get('id'))),
 })
 
 export default
@@ -31,7 +29,6 @@ export default
 class WhoToFollowPanel extends ImmutablePureComponent {
 
   static propTypes = {
-    dismissRelatedSuggestion: PropTypes.func.isRequired,
     fetchRelatedSuggestions: PropTypes.func.isRequired,
     intl: PropTypes.object.isRequired,
     suggestions: ImmutablePropTypes.list.isRequired,
@@ -74,7 +71,6 @@ class WhoToFollowPanel extends ImmutablePureComponent {
       intl,
       isLoading,
       suggestions,
-      dismissRelatedSuggestion,
     } = this.props
 
     if (suggestions.isEmpty()) return null
@@ -94,11 +90,9 @@ class WhoToFollowPanel extends ImmutablePureComponent {
             arr.map((accountId) => (
               <Child
                 compact
-                showDismiss
                 key={accountId}
                 id={accountId}
                 isSmall={isLoading ? true : undefined}
-                dismissAction={dismissRelatedSuggestion}
               />
             ))
           }

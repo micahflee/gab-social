@@ -177,7 +177,7 @@ class Account extends ImmutablePureComponent {
           </NavLink>
 
           <div className={[_s.default, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
-            <div className={[_s.default, _s.flexRow].join(' ')}>
+            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
               <NavLink
                 title={account.get('acct')}
                 to={`/${account.get('acct')}`}
