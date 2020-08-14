@@ -5,36 +5,13 @@ import {
   DEFAULT_FONT_SIZE,
 } from '../constants'
 
-const mapStateToProps = (state) => ({
-  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize']),
-  radiusSmallDisabled: state.getIn(['settings', 'displayOptions', 'radiusSmallDisabled']),
-  radiusCircleDisabled: state.getIn(['settings', 'displayOptions', 'radiusCircleDisabled']),
-  theme: state.getIn(['settings', 'displayOptions', 'theme']),
-})
-
-export default
-@connect(mapStateToProps)
 class Display extends PureComponent {
-
-  static propTypes = {
-    fontSize: PropTypes.string.isRequired,
-    radiusSmallDisabled: PropTypes.bool.isRequired,
-    radiusCircleDisabled: PropTypes.bool.isRequired,
-    theme: PropTypes.string.isRequired,
-  }
 
   state = {
     theme: this.props.theme,
     radiusSmallDisabled: this.props.radiusSmallDisabled,
     radiusCircleDisabled: this.props.radiusCircleDisabled,
     fontSize: this.props.fontSize,
-  }
-
-  static defaultProps = {
-    theme: 'light',
-    radiusSmallDisabled: true,
-    radiusCircleDisabled: true,
-    fontSize: 'normal',
   }
 
   componentDidMount() {
@@ -117,3 +94,26 @@ class Display extends PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize']),
+  radiusSmallDisabled: state.getIn(['settings', 'displayOptions', 'radiusSmallDisabled']),
+  radiusCircleDisabled: state.getIn(['settings', 'displayOptions', 'radiusCircleDisabled']),
+  theme: state.getIn(['settings', 'displayOptions', 'theme']),
+})
+
+Display.propTypes = {
+  fontSize: PropTypes.string.isRequired,
+  radiusSmallDisabled: PropTypes.bool.isRequired,
+  radiusCircleDisabled: PropTypes.bool.isRequired,
+  theme: PropTypes.string.isRequired,
+}
+
+Display.defaultProps = {
+  theme: 'light',
+  radiusSmallDisabled: true,
+  radiusCircleDisabled: true,
+  fontSize: 'normal',
+}
+
+export default connect(mapStateToProps)(Display)
