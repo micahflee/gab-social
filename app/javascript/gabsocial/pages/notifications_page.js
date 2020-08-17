@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { setFilter } from '../actions/notifications'
 import { me } from '../initial_state'

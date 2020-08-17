@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import ComposeExtraButton from './compose_extra_button'
 import { openModal } from '../../../actions/modal'

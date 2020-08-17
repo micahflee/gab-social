@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import ContentLoader from 'react-content-loader'
 import { DEFAULT_THEME } from '../../constants'

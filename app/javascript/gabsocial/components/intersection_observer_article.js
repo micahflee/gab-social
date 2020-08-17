@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { is } from 'immutable'
 import { setHeight } from '../actions/height_cache'
 import scheduleIdleTask from '../utils/schedule_idle_task'

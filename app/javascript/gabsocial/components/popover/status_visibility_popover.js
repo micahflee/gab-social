@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
 import { changeComposeVisibility } from '../../actions/compose'

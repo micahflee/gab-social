@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import { closePopover } from '../../actions/popover'

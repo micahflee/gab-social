@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Responsive from '../features/ui/util/responsive_component'

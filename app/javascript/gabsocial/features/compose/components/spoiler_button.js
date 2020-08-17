@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import { changeComposeSpoilerness } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'

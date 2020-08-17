@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandCommunityTimeline } from '../actions/timelines'
 import StatusList from '../components/status_list'

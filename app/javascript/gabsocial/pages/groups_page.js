@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'

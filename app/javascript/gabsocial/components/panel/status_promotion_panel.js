@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'

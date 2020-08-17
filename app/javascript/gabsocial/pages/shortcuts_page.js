@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import { MODAL_EDIT_SHORTCUTS } from '../constants'

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { getWindowDimension } from '../../utils/is_mobile'
 import { openModal } from '../../actions/modal'

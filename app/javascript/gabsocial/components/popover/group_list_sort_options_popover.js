@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { sortGroups } from '../../actions/groups'
 import {

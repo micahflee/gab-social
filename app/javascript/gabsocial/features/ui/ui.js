@@ -1,6 +1,7 @@
 'use strict'
 
 import React from 'react'
+import { connect } from 'react-redux'
 import { HotKeys } from 'react-hotkeys'
 import { defineMessages, injectIntl } from 'react-intl'
 import { Switch, Redirect, withRouter } from 'react-router-dom'

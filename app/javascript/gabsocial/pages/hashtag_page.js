@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'

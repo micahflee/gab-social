@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import throttle from 'lodash.throttle'

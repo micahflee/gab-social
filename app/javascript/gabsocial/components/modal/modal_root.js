@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'

@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { RichUtils } from 'draft-js'
 import classNames from 'classnames/bind'
 import { me } from '../initial_state'

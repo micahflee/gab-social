@@ -63,7 +63,6 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      connect: ['react-redux', 'connect'],
       PropTypes: 'prop-types',
       _s: `${resolve(settings.source_path)}/styles/global.css`,
     }),

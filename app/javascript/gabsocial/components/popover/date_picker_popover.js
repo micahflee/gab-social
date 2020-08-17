@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import DatePicker from 'react-datepicker'
 import { FormattedMessage } from 'react-intl'
 import moment from 'moment-mini'

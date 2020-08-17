@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import { List as ImmutableList } from 'immutable'
 import { me } from '../initial_state'

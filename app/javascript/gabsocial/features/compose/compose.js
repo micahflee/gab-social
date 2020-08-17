@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { clearCompose } from '../../actions/compose'
 import ComposeFormContainer from './containers/compose_form_container'
 

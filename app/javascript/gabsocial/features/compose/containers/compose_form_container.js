@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { List as ImmutableList } from 'immutable'
 import ComposeForm from '../components/compose_form'
 import {

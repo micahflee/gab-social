@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { OrderedSet } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'

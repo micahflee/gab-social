@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { fetchFeaturedProducts } from '../../actions/shop'
 import { URL_DISSENTER_SHOP } from '../../constants'
