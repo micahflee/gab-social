@@ -178,7 +178,7 @@ export default class StatusCard extends ImmutablePureComponent {
     // : todo : use <Image />
     let embed = ''
     const thumbnail = interactive ?
-      <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.posAbs, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
+      <img loading='lazy' alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.posAbs, _s.width100PC, _s.height100PC, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')} />
       :
       (
         <ResponsiveClassesComponent
@@ -186,7 +186,7 @@ export default class StatusCard extends ImmutablePureComponent {
           classNamesSmall={[_s.default, _s.height260PX, _s.width100PC].join(' ')}
           classNamesXS={[_s.default, _s.height200PX, _s.width100PC].join(' ')}
         >
-          <img alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width100PC, _s.height100PC].join(' ')} />
+          <img loading='lazy' alt={''} src={cardImg} className={[_s.default, _s.objectFitCover, _s.width100PC, _s.height100PC].join(' ')} />
         </ResponsiveClassesComponent>
       )
 

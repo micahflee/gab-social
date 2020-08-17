@@ -185,6 +185,7 @@ class Item extends ImmutablePureComponent {
           style={{ borderRadius }}
         >
           <img
+            loading='lazy'
             src={previewUrl}
             srcSet={srcSet}
             sizes={sizes}

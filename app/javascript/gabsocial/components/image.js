@@ -8,7 +8,7 @@ export default class Image extends React.PureComponent {
 
   static propTypes = {
     alt: PropTypes.string.isRequired,
-    src: PropTypes.string,
+    isLazy: PropTypes.string,
     className: PropTypes.string,
     width: PropTypes.oneOfType([
       PropTypes.string,
@@ -44,7 +44,7 @@ export default class Image extends React.PureComponent {
       fit,
       className,
       nullable,
-      lazy,
+      isLazy,
       imageRef,
       ...otherProps
     } = this.props
@@ -75,6 +75,7 @@ export default class Image extends React.PureComponent {
         ref={imageRef}
         src={src}
         onError={this.handleOnError}
+        loading={isLazy ? 'lazy' : undefined}
       />
     )
   }
