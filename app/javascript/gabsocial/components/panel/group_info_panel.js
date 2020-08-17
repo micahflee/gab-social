@@ -139,7 +139,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
             <GroupInfoPanelRow
               title={intl.formatMessage(isVisible ? messages.visibleGroup : messages.invisibleGroup)}
-              icon={isVisible ? 'visible' : 'invisible'}
+              icon={isVisible ? 'visible' : 'hidden'}
             >
               <Button
                 isNarrow
