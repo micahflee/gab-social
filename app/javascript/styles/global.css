@@ -50,6 +50,10 @@
   --navigation_search: var(--color_brand-light);
 }
 
+:visited {
+  color: inherit;
+}
+
 ::selection {
   background: var(--color_highlight);
 }
