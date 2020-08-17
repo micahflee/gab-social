@@ -93,7 +93,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
                       color='none'
                       icon='ellipsis'
                       iconSize='20px'
-                      iconClassName={_s.fillSecondary}
+                      iconClassName={_s.colorSecondary}
                       className={_s.mlAuto}
                       onClick={() => {}}
                       // buttonRef={this.setStatusOptionsButton}

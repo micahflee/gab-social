@@ -90,7 +90,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                   <Icon
                     id={isPrivate ? 'lock-filled' : 'globe'}
                     size='10px'
-                    className={_s.fillSecondary}
+                    className={_s.colorSecondary}
                   />
                   <span className={_s.ml5}>
                     {intl.formatMessage(isPrivate ? messages.privateGroup : messages.publicGroup)}

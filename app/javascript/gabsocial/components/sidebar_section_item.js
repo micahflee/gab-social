@@ -104,7 +104,7 @@ export default class SidebarSectionItem extends PureComponent {
         <div className={containerClasses}>
           {
             icon && 
-            <Icon id={icon} className={_s.fillPrimary} size={iconSize} />
+            <Icon id={icon} className={_s.colorPrimary} size={iconSize} />
           }
           
           {

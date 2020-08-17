@@ -58,7 +58,7 @@ class ProPanel extends PureComponent {
             <Text color='inherit' size='large' weight='bold' align='center'>
               Upgrade
             </Text>
-            <Icon id='arrow-right' size='20px' className={[_s.fillWhite, _s.ml5].join(' ')} />
+            <Icon id='arrow-right' size='20px' className={[_s.colorWhite, _s.ml5].join(' ')} />
           </Button>
         </div>
 

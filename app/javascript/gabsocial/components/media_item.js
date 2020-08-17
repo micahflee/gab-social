@@ -137,7 +137,7 @@ export default class MediaItem extends ImmutablePureComponent {
                 <Icon
                   id='hidden'
                   size='22px'
-                  className={[_s.fillWhite].join('')}
+                  className={[_s.colorWhite].join('')}
                 />
               }
 

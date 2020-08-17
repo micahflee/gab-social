@@ -102,8 +102,8 @@ class StatusVisibilityDropdown extends PureComponent {
               const iconClasses = cx({
                 ml10: 1,
                 mt2: 1,
-                fillPrimary: !isActive,
-                fillWhite: isActive,
+                colorPrimary: !isActive,
+                colorWhite: isActive,
               })
 
               return (

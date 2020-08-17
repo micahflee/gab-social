@@ -143,7 +143,7 @@ class StatusHeader extends ImmutablePureComponent {
                   color='none'
                   icon='ellipsis'
                   iconSize='20px'
-                  iconClassName={_s.fillSecondary}
+                  iconClassName={_s.colorSecondary}
                   className={_s.mlAuto}
                   onClick={this.handleOpenStatusOptionsPopover}
                   buttonRef={this.setStatusOptionsButton}
@@ -167,7 +167,7 @@ class StatusHeader extends ImmutablePureComponent {
               <DotTextSeperator />
               
               <span title={visibilityText} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
-                <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.fillSecondary].join(' ')} />
+                <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.colorSecondary].join(' ')} />
               </span>
 
               {
@@ -177,7 +177,7 @@ class StatusHeader extends ImmutablePureComponent {
                   <span title={intl.formatMessage(messages.expirationMessage, {
                     time: timeUntilExpiration,
                   })} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
-                    <Icon id='stopwatch' size='13px' className={[_s.default, _s.fillSecondary].join(' ')} />
+                    <Icon id='stopwatch' size='13px' className={[_s.default, _s.colorSecondary].join(' ')} />
                   </span>
                 </Fragment>
               }

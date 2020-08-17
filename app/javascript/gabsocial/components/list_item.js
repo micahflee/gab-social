@@ -94,7 +94,7 @@ export default class ListItem extends PureComponent {
     const iconClasses = cx({
       mr10: !large,
       mr15: large,
-      fillPrimary: !!icon,
+      colorPrimary: !!icon,
       circle: !icon && !!image,
     })
 
@@ -150,7 +150,7 @@ export default class ListItem extends PureComponent {
           <Icon
             id={!!actionIcon ? actionIcon : 'angle-right'}
             size='10px'
-            className={[_s.mlAuto, _s.fillSecondary, _s.flexShrink1].join(' ')}
+            className={[_s.mlAuto, _s.colorSecondary, _s.flexShrink1].join(' ')}
           />
         }
 

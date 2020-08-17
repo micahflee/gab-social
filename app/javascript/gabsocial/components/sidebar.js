@@ -258,7 +258,7 @@ class Sidebar extends ImmutablePureComponent {
                               key={`action-btn-${i}`}
                               className={[_s.ml5, _s.px5].join(' ')}
                               icon={action.icon}
-                              iconClassName={_s.fillPrimary}
+                              iconClassName={_s.colorPrimary}
                               iconSize='14px'
                             />
                           ))

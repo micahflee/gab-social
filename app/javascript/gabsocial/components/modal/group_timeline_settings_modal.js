@@ -45,7 +45,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           icon='pro'
           href='https://pro.gab.com'
           className={_s.justifyContentCenter}
-          iconClassName={[_s.mr5, _s.fillWhite].join(' ')}
+          iconClassName={[_s.mr5, _s.colorWhite].join(' ')}
         >
           <Text color='inherit' weight='bold' align='center'>
             {intl.formatMessage(messages.title)}

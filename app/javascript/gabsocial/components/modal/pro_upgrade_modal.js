@@ -93,7 +93,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
             <Text color='inherit' size='large' weight='bold' align='center'>
               {intl.formatMessage(messages.upgrade)}
             </Text>
-            <Icon id='arrow-right' size='20px' className={[_s.fillWhite, _s.ml5].join(' ')} />
+            <Icon id='arrow-right' size='20px' className={[_s.colorWhite, _s.ml5].join(' ')} />
           </Button>
         </div>
 

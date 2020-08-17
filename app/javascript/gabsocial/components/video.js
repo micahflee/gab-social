@@ -641,7 +641,7 @@ class Video extends ImmutablePureComponent {
                 onClick={this.togglePlay}
                 className={[_s.default, _s.outlineNone, _s.cursorPointer, _s.alignItemsCenter, _s.justifyContentCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.height60PX, _s.width60PX].join(' ')}
               >
-                <Icon id='play' size='24px' className={_s.fillWhite} />
+                <Icon id='play' size='24px' className={_s.colorWhite} />
               </button>
             </Responsive>
           }
@@ -743,7 +743,7 @@ class Video extends ImmutablePureComponent {
               icon={paused ? 'play' : 'pause'}
               title={paused ? 'Play' : 'Pause'}
               iconSize='16px'
-              iconClassName={_s.fillWhite}
+              iconClassName={_s.colorWhite}
               className={_s.pl0}
             />
 
@@ -755,7 +755,7 @@ class Video extends ImmutablePureComponent {
               onClick={this.toggleMute}
               icon={muted ? 'audio-mute' : 'audio'}
               iconSize='24px'
-              iconClassName={_s.fillWhite}
+              iconClassName={_s.colorWhite}
               className={[_s.px10, _s.mr10].join(' ')}
               title='Volume'
               onMouseEnter={this.handleMouseEnterAudio}
@@ -776,7 +776,7 @@ class Video extends ImmutablePureComponent {
                 onClick={this.handleOnClickSettings}
                 icon='cog'
                 iconSize='20px'
-                iconClassName={_s.fillWhite}
+                iconClassName={_s.colorWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
                 buttonRef={this.setSettingsBtnRef}
                 title='Video stats'
@@ -791,7 +791,7 @@ class Video extends ImmutablePureComponent {
                     onClick={this.togglePip}
                     icon='pip'
                     iconSize='20px'
-                    iconClassName={_s.fillWhite}
+                    iconClassName={_s.colorWhite}
                     className={[_s.px10, _s.pr0].join(' ')}
                     title='Picture in Picture'
                   />
@@ -805,7 +805,7 @@ class Video extends ImmutablePureComponent {
                 icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
                 title={fullscreen ? 'Minimize fullscreen' : 'Fullscreen'}
                 iconSize='20px'
-                iconClassName={_s.fillWhite}
+                iconClassName={_s.colorWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
               />
             </div>

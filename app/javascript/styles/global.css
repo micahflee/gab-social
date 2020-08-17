@@ -429,8 +429,8 @@ pre {
 .colorWhite { color: var(--color_white); }
 .colorWhite_onHover:hover { color: var(--color_white); }
 
-.colorTertiary { color: var(--text_color_tertiary); }
 .colorSecondary { color: var(--text_color_secondary); }
+.colorTertiary { color: var(--text_color_tertiary); }
 
 .colorBrand { color: var(--color_brand); }
 .colorGabPro { color: var(--color_gold); }

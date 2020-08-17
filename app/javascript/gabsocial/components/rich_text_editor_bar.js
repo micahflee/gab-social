@@ -166,7 +166,7 @@ class StyleButton extends PureComponent {
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType()
 
     const active = type === 'block' ? style === blockType : currentStyle.has(style)
-    const fillColor = active ? 'fillWhite' : 'fillSecondary'
+    const iconColor = active ? 'colorWhite' : 'colorSecondary'
 
     const btnClasses = cx({
       default: 1,
@@ -189,7 +189,7 @@ class StyleButton extends PureComponent {
         onMouseDown={this.handleOnClick}
         title={label}
       >
-        <Icon id={icon} size='12px' className={_s[fillColor]} />
+        <Icon id={icon} size='12px' className={_s[iconColor]} />
       </button>
     )
   }

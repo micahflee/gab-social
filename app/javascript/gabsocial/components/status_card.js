@@ -167,7 +167,7 @@ export default class StatusCard extends ImmutablePureComponent {
           {trim(card.get('description') || '', maxDescription)}
         </p>
         <span className={[_s.default, _s.mtAuto, _s.flexRow, _s.alignItemsCenter, _s.colorSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fs13PX].join(' ')}>
-          <Icon id='link' size='10px' className={[_s.fillSecondary, _s.mr5].join(' ')} fixedWidth />
+          <Icon id='link' size='10px' className={[_s.colorSecondary, _s.mr5].join(' ')} fixedWidth />
           {provider}
         </span>
       </div>
@@ -214,7 +214,7 @@ export default class StatusCard extends ImmutablePureComponent {
                         className={[_s.default, _s.cursorPointer, _s.bgBlackOpaque, _s.radiusSmall, _s.py15, _s.px15].join(' ')}
                         onClick={this.handleEmbedClick}
                       >
-                        <Icon id={iconVariant} size='22px' className={[_s.fillWhite].join(' ')} />
+                        <Icon id={iconVariant} size='22px' className={[_s.colorWhite].join(' ')} />
                       </button>
                     </div>
                   }
@@ -234,7 +234,7 @@ export default class StatusCard extends ImmutablePureComponent {
     } else {
       embed = (
         <div className={[_s.default, _s.py15, _s.px15, _s.width72PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Icon id='website' size='22px' className={_s.fillSecondary} />
+          <Icon id='website' size='22px' className={_s.colorSecondary} />
         </div>
       )
     }

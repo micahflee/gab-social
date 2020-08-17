@@ -81,7 +81,7 @@ class CommentHeader extends ImmutablePureComponent {
               <span className={_s.visiblyHidden}>
                 {intl.formatMessage(messages.original)}
               </span>
-              <Icon id='mic' size='10px' className={_s.fillBrand} />
+              <Icon id='mic' size='10px' className={_s.colorBrand} />
             </div>
           }
 

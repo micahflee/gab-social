@@ -158,7 +158,7 @@ class Account extends ImmutablePureComponent {
         onClick={dismissAction}
         icon='close'
         iconSize='8px'
-        iconClassName={_s.fillSecondary}
+        iconClassName={_s.colorSecondary}
       />
     )
 

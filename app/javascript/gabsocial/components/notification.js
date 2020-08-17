@@ -132,7 +132,7 @@ class Notification extends ImmutablePureComponent {
           <div className={[_s.default, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <Icon id={icon} size='20px' className={[_s.fillPrimary, _s.minWidth20PX, _s.mt5, _s.mr15].join(' ')} />
+              <Icon id={icon} size='20px' className={[_s.colorPrimary, _s.minWidth20PX, _s.mt5, _s.mr15].join(' ')} />
             </Responsive>
 
             <div className={[_s.default, _s.flexNormal].join(' ')}>

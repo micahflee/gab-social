@@ -92,7 +92,7 @@ export default class Input extends PureComponent {
         <div className={[_s.default, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
           {
             !!prependIcon &&
-            <Icon id={prependIcon} size='16px' className={[_s.fillPrimary, _s.ml15, _s.mr5].join(' ')} />
+            <Icon id={prependIcon} size='16px' className={[_s.colorPrimary, _s.ml15, _s.mr5].join(' ')} />
           }
 
           {

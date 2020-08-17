@@ -247,7 +247,7 @@ class StatusContent extends ImmutablePureComponent {
 
           <div className={spoilerContainerClasses}>
             <div className={[_s.default, _s.flexRow, _s.mr5].join(' ')}>
-              <Icon id='warning' size='14px' className={[_s.fillPrimary, _s.mt2, _s.mr5].join(' ')}/>
+              <Icon id='warning' size='14px' className={[_s.colorPrimary, _s.mt2, _s.mr5].join(' ')}/>
               <div
                 className={[_s.statusContent, _s.outlineNone].join(' ')}
                 dangerouslySetInnerHTML={spoilerContent}

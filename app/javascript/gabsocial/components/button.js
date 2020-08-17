@@ -164,11 +164,11 @@ export default class Button extends PureComponent {
       bgSubtle: backgroundColor === COLORS.secondary,
       bgDanger: backgroundColor === COLORS.danger,
       
-      colorPrimary: !!children && color === COLORS.primary,
-      colorSecondary: !!children && color === COLORS.secondary,
-      colorTertiary: !!children && color === COLORS.tertiary,
-      colorWhite: !!children && color === COLORS.white,
-      colorBrand: !!children && color === COLORS.brand,
+      colorPrimary: color === COLORS.primary,
+      colorSecondary: color === COLORS.secondary,
+      colorTertiary: color === COLORS.tertiary,
+      colorWhite: color === COLORS.white,
+      colorBrand: color === COLORS.brand,
 
       borderColorBrand: color === COLORS.brand && isOutline,
       border1PX: isOutline,
@@ -190,12 +190,7 @@ export default class Button extends PureComponent {
       bgDangerDark_onHover: backgroundColor === COLORS.danger && !isDisabled,
 
       bgBrand_onHover: color === COLORS.brand && isOutline && !isDisabled,
-      colorWhite_onHover: !!children && color === COLORS.brand && isOutline && !isDisabled,
-
-      fillSecondary: !!icon && color === COLORS.secondary,
-      fillWhite: !!icon && color === COLORS.white,
-      fillBrand: !!icon && color === COLORS.brand,
-      fillWhite_onHover: !!icon && color === COLORS.brand && isOutline,
+      colorWhite_onHover: color === COLORS.brand && isOutline && !isDisabled,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'

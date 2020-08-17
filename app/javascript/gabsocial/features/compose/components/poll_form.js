@@ -229,7 +229,7 @@ class PollFormOption extends ImmutablePureComponent {
             className={[_s.ml5, _s.justifyContentCenter].join(' ')}
             icon='close'
             iconSize='8px'
-            iconClassName={_s.fillSecondary}
+            iconClassName={_s.colorSecondary}
             disabled={index <= 1}
             title={intl.formatMessage(messages.remove_option)}
             onClick={this.handleOptionRemove}

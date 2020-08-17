@@ -49,7 +49,7 @@ export default class Select extends ImmutablePureComponent {
         <Icon
           id='select'
           size='14px'
-          className={[_s.fillSecondary, _s.posAbs, _s.right0, _s.mr10, _s.bottom0, _s.mb15].join(' ')}
+          className={[_s.colorSecondary, _s.posAbs, _s.right0, _s.mr10, _s.bottom0, _s.mb15].join(' ')}
         />
       </div>
     )

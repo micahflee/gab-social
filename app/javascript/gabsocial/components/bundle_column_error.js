@@ -43,7 +43,7 @@ class BundleColumnError extends PureComponent {
 
               <h1 className={[_s.default, _s.mr15].join(' ')}>
                 <Button href='/' isText aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                  <Icon id='logo' className={_s.fillWhite} />
+                  <Icon id='logo' className={_s.colorWhite} />
                 </Button>
               </h1>
 
@@ -53,7 +53,7 @@ class BundleColumnError extends PureComponent {
 
         <div className={[_s.default, _s.maxWidth640PX, _s.px15, _s.py10].join(' ')}>
 
-          <Icon id='warning' size='28px' className={[_s.default, _s.fillSecondary, _s.mb15].join(' ')} />
+          <Icon id='warning' size='28px' className={[_s.default, _s.colorSecondary, _s.mb15].join(' ')} />
 
           <Text size='medium' className={_s.pt15}>
             {formatMessage(messages.body)}

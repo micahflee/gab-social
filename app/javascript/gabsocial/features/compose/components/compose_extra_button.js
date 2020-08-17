@@ -45,8 +45,8 @@ export default class ComposeExtraButton extends PureComponent {
     })
 
     const iconClasses = cx({
-      fillSecondary: !active,
-      fillWhite: active,
+      colorSecondary: !active,
+      colorWhite: active,
     })
 
     const iconSize = !!small ? '14px' : '16px'

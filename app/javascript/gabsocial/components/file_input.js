@@ -71,8 +71,8 @@ export default class FileInput extends PureComponent {
     })
 
     const iconClasses = CX({
-      fillSecondary: !hovering,
-      fillWhite: hovering,
+      colorSecondary: !hovering,
+      colorWhite: hovering,
     })
 
     return (

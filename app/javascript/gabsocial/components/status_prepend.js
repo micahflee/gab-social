@@ -48,7 +48,7 @@ class StatusPrepend extends ImmutablePureComponent {
     return (
       <div className={[_s.default, _s.width100PC, _s.alignItemsStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
         <div className={[_s.default, _s.width100PC, _s.flexRow, _s.alignItemsCenter, _s.py5, _s.px15].join(' ')}>
-          <Icon id={iconId} size='12px' className={[_s.fillSecondary, _s.mr5].join(' ')} />
+          <Icon id={iconId} size='12px' className={[_s.colorSecondary, _s.mr5].join(' ')} />
           {
             isRepost && !isComment &&
             <div className={[_s.default, _s.flexRow].join(' ')}>

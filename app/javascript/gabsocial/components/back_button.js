@@ -53,7 +53,7 @@ export default class BackButton extends PureComponent {
         className={classes}
         icon={icon || 'angle-left'}
         iconSize={iconSize || '24px'}
-        iconClassName={iconClassName || [_s.mr5, _s.fillPrimary].join(' ')}
+        iconClassName={iconClassName || [_s.mr5, _s.colorPrimary].join(' ')}
         onClick={this.handleBackClick}
       />
     )

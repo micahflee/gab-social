@@ -41,7 +41,7 @@ export default class HashtagItem extends ImmutablePureComponent {
               title='Remove'
               icon='close'
               iconSize='8px'
-              iconClassName={_s.fillSecondary}
+              iconClassName={_s.colorSecondary}
               className={_s.mlAuto}
             />
           }

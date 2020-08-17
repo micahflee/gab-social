@@ -60,7 +60,7 @@ class SortBlock extends PureComponent {
           <Text color='inherit' weight='medium' size='small'>
             {value}
           </Text>
-          <Icon id='caret-down' size='6px' className={[_s.fillSecondary, _s.ml5].join(' ')} />
+          <Icon id='caret-down' size='6px' className={[_s.colorSecondary, _s.ml5].join(' ')} />
         </Button>
 
         {
@@ -81,7 +81,7 @@ class SortBlock extends PureComponent {
               <Text color='inherit' weight='medium' size='small'>
                 {subValue}
               </Text>
-              <Icon id='caret-down' size='6px' className={[_s.fillSecondary, _s.ml5].join(' ')} />
+              <Icon id='caret-down' size='6px' className={[_s.colorSecondary, _s.ml5].join(' ')} />
             </Button>
           </Fragment>
         }
