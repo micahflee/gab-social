@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
 import { blockAccount } from '../../actions/accounts'
