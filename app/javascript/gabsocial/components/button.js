@@ -238,6 +238,7 @@ export default class Button extends React.PureComponent {
       rel,
       target,
       title,
+      'aria-label': title,
       type,
       disabled: isDisabled,
       className: classes,
