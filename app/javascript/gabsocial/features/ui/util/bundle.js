@@ -7,44 +7,10 @@ import {
   fetchBundleFail,
 } from '../../../actions/bundles'
 
-const mapDispatchToProps = (dispatch) => ({
-  onFetch() {
-    dispatch(fetchBundleRequest())
-  },
-  onFetchSuccess() {
-    dispatch(fetchBundleSuccess())
-  },
-  onFetchFail(error) {
-    dispatch(fetchBundleFail(error))
-  },
-})
-
 const emptyComponent = () => null
 const noop = () => { }
 
-export default
-@connect(null, mapDispatchToProps)
 class Bundle extends React.PureComponent {
-
-  static propTypes = {
-    fetchComponent: PropTypes.func.isRequired,
-    loading: PropTypes.func,
-    error: PropTypes.func,
-    children: PropTypes.func.isRequired,
-    renderDelay: PropTypes.number,
-    onFetch: PropTypes.func,
-    onFetchSuccess: PropTypes.func,
-    onFetchFail: PropTypes.func,
-  }
-
-  static defaultProps = {
-    loading: emptyComponent,
-    error: emptyComponent,
-    renderDelay: 0,
-    onFetch: noop,
-    onFetchSuccess: noop,
-    onFetchFail: noop,
-  }
 
   static cache = new Map
 
@@ -145,3 +111,37 @@ class Bundle extends React.PureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetch() {
+    dispatch(fetchBundleRequest())
+  },
+  onFetchSuccess() {
+    dispatch(fetchBundleSuccess())
+  },
+  onFetchFail(error) {
+    dispatch(fetchBundleFail(error))
+  },
+})
+
+Bundle.propTypes = {
+  fetchComponent: PropTypes.func.isRequired,
+  loading: PropTypes.func,
+  error: PropTypes.func,
+  children: PropTypes.func.isRequired,
+  renderDelay: PropTypes.number,
+  onFetch: PropTypes.func,
+  onFetchSuccess: PropTypes.func,
+  onFetchFail: PropTypes.func,
+}
+
+Bundle.defaultProps = {
+  loading: emptyComponent,
+  error: emptyComponent,
+  renderDelay: 0,
+  onFetch: noop,
+  onFetchSuccess: noop,
+  onFetchFail: noop,
+}
+
+export default connect(null, mapDispatchToProps)(Bundle)

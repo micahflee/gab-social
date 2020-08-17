@@ -18,56 +18,7 @@ import Input from '../../../components/input'
 
 const cx = classNames.bind(_s)
 
-const messages = defineMessages({
-  option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
-  add_option: { id: 'compose_form.poll.add_option', defaultMessage: 'Add a choice' },
-  remove_option: { id: 'compose_form.poll.remove_option', defaultMessage: 'Remove this choice' },
-  poll_duration: { id: 'compose_form.poll.duration', defaultMessage: 'Poll duration' },
-  minutes: { id: 'intervals.full.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}}' },
-  hours: { id: 'intervals.full.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}}' },
-  days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
-})
-
-const mapStateToProps = (state) => ({
-  options: state.getIn(['compose', 'poll', 'options']),
-  expiresIn: state.getIn(['compose', 'poll', 'expires_in']),
-  isMultiple: state.getIn(['compose', 'poll', 'multiple']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onAddOption() {
-    dispatch(addPollOption(''))
-  },
-
-  onRemoveOption(index) {
-    dispatch(removePollOption(index))
-  },
-
-  onChangeOption(index, title) {
-    dispatch(changePollOption(index, title))
-  },
-
-  onChangeSettings(expiresIn, isMultiple) {
-    dispatch(changePollSettings(expiresIn, isMultiple))
-  },
-
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class PollForm extends ImmutablePureComponent {
-
-  static propTypes = {
-    options: ImmutablePropTypes.list,
-    expiresIn: PropTypes.number,
-    isMultiple: PropTypes.bool,
-    onChangeOption: PropTypes.func.isRequired,
-    onAddOption: PropTypes.func.isRequired,
-    onRemoveOption: PropTypes.func.isRequired,
-    onChangeSettings: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   handleSelectDuration = (e) => {
     this.props.onChangeSettings(e.target.value, this.props.isMultiple)
@@ -243,3 +194,51 @@ class PollFormOption extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  option_placeholder: { id: 'compose_form.poll.option_placeholder', defaultMessage: 'Choice {number}' },
+  add_option: { id: 'compose_form.poll.add_option', defaultMessage: 'Add a choice' },
+  remove_option: { id: 'compose_form.poll.remove_option', defaultMessage: 'Remove this choice' },
+  poll_duration: { id: 'compose_form.poll.duration', defaultMessage: 'Poll duration' },
+  minutes: { id: 'intervals.full.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}}' },
+  hours: { id: 'intervals.full.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}}' },
+  days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
+})
+
+const mapStateToProps = (state) => ({
+  options: state.getIn(['compose', 'poll', 'options']),
+  expiresIn: state.getIn(['compose', 'poll', 'expires_in']),
+  isMultiple: state.getIn(['compose', 'poll', 'multiple']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onAddOption() {
+    dispatch(addPollOption(''))
+  },
+
+  onRemoveOption(index) {
+    dispatch(removePollOption(index))
+  },
+
+  onChangeOption(index, title) {
+    dispatch(changePollOption(index, title))
+  },
+
+  onChangeSettings(expiresIn, isMultiple) {
+    dispatch(changePollSettings(expiresIn, isMultiple))
+  },
+
+})
+
+PollForm.propTypes = {
+  options: ImmutablePropTypes.list,
+  expiresIn: PropTypes.number,
+  isMultiple: PropTypes.bool,
+  onChangeOption: PropTypes.func.isRequired,
+  onAddOption: PropTypes.func.isRequired,
+  onRemoveOption: PropTypes.func.isRequired,
+  onChangeSettings: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(PollForm))

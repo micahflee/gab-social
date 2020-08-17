@@ -15,11 +15,7 @@ import {
   SidebarXS,
 } from '../features/ui/util/async_components'
 
-export default class SettingsLayout extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string,
-  }
+class SettingsLayout extends React.PureComponent {
 
   render() {
     const { children, title } = this.props
@@ -85,3 +81,9 @@ export default class SettingsLayout extends React.PureComponent {
   }
 
 }
+
+SettingsLayout.propTypes = {
+  title: PropTypes.string,
+}
+
+export default SettingsLayout

@@ -5,37 +5,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover } from '../../../actions/popover'
 import ComposeExtraButton from './compose_extra_button'
 
-const messages = defineMessages({
-  visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
-})
-
-const mapStateToProps = (state) => ({
-  value: state.getIn(['compose', 'privacy']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenPopover(targetRef) {
-    dispatch(openPopover('STATUS_VISIBILITY', {
-      targetRef,
-    }))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class StatusVisibilityButton extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    small: PropTypes.bool,
-    onOpenPopover: PropTypes.func.isRequired,
-    value: PropTypes.oneOf([
-      'private',
-      'unlisted',
-      'public',
-    ]),
-  }
 
   handleOnClick = () => {
     this.props.onOpenPopover(this.button)
@@ -77,3 +47,32 @@ class StatusVisibilityButton extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
+})
+
+const mapStateToProps = (state) => ({
+  value: state.getIn(['compose', 'privacy']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenPopover(targetRef) {
+    dispatch(openPopover('STATUS_VISIBILITY', {
+      targetRef,
+    }))
+  },
+})
+
+StatusVisibilityButton.propTypes = {
+  intl: PropTypes.object.isRequired,
+  small: PropTypes.bool,
+  onOpenPopover: PropTypes.func.isRequired,
+  value: PropTypes.oneOf([
+    'private',
+    'unlisted',
+    'public',
+  ]),
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StatusVisibilityButton))

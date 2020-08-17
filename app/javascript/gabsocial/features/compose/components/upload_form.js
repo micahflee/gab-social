@@ -7,22 +7,7 @@ import ProgressBar from '../../../components/progress_bar'
 import Upload from './media_upload_item'
 import SensitiveMediaButton from './sensitive_media_button'
 
-const mapStateToProps = (state) => ({
-  mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
-  isUploading: state.getIn(['compose', 'is_uploading']),
-  uploadProgress: state.getIn(['compose', 'progress'], 0),
-});
-
-export default
-@connect(mapStateToProps)
 class UploadForm extends ImmutablePureComponent {
-
-  static propTypes = {
-    isModalOpen: PropTypes.bool,
-    isUploading: PropTypes.bool,
-    mediaIds: ImmutablePropTypes.list.isRequired,
-    uploadProgress: PropTypes.number,
-  };
 
   render () {
     const {
@@ -55,3 +40,18 @@ class UploadForm extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  mediaIds: state.getIn(['compose', 'media_attachments']).map(item => item.get('id')),
+  isUploading: state.getIn(['compose', 'is_uploading']),
+  uploadProgress: state.getIn(['compose', 'progress'], 0),
+})
+
+UploadForm.propTypes = {
+  isModalOpen: PropTypes.bool,
+  isUploading: PropTypes.bool,
+  mediaIds: ImmutablePropTypes.list.isRequired,
+  uploadProgress: PropTypes.number,
+}
+
+export default connect(mapStateToProps)(UploadForm)

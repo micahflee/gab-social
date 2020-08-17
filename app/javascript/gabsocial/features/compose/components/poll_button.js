@@ -5,6 +5,31 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { addPoll, removePoll } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'
 
+class PollButton extends React.PureComponent {
+
+  handleClick = () => {
+    this.props.onClick()
+  }
+
+  render() {
+    const { intl, active, unavailable, disabled, small } = this.props
+
+    if (unavailable) return null
+
+    return (
+      <ComposeExtraButton
+        title={intl.formatMessage(active ? messages.remove_poll : messages.title)}
+        disabled={disabled}
+        onClick={this.handleClick}
+        icon='poll'
+        small={small}
+        active={active}
+      />
+    )
+  }
+
+}
+
 const messages = defineMessages({
   add_poll: { id: 'poll_button.add_poll', defaultMessage: 'Add poll' },
   title: { id: 'poll_button.title', defaultMessage: 'Poll' },
@@ -30,39 +55,13 @@ const mapDispatchToProps = (dispatch) => ({
 
 })
 
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
-class PollButton extends React.PureComponent {
-
-  static propTypes = {
-    disabled: PropTypes.bool,
-    unavailable: PropTypes.bool,
-    active: PropTypes.bool,
-    onClick: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    small: PropTypes.bool,
-  }
-
-  handleClick = () => {
-    this.props.onClick()
-  }
-
-  render() {
-    const { intl, active, unavailable, disabled, small } = this.props
-
-    if (unavailable) return null
-
-    return (
-      <ComposeExtraButton
-        title={intl.formatMessage(active ? messages.remove_poll : messages.title)}
-        disabled={disabled}
-        onClick={this.handleClick}
-        icon='poll'
-        small={small}
-        active={active}
-      />
-    )
-  }
-
+PollButton.propTypes = {
+  disabled: PropTypes.bool,
+  unavailable: PropTypes.bool,
+  active: PropTypes.bool,
+  onClick: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  small: PropTypes.bool,
 }
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(PollButton))

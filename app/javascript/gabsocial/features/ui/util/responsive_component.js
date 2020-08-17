@@ -4,17 +4,7 @@ import { getWindowDimension } from '../../../utils/is_mobile'
 
 const initialState = getWindowDimension()
 
-export default class Responsive extends React.PureComponent {
-
-  static propTypes = {
-    min: PropTypes.number,
-    max: PropTypes.number,
-  }
-
-  static defaultProps = {
-    min: 0,
-    max: Infinity,
-  }
+class Responsive extends React.PureComponent {
 
   state = {
     width: initialState.width,
@@ -49,3 +39,15 @@ export default class Responsive extends React.PureComponent {
   }
 
 }
+
+Responsive.propTypes = {
+  min: PropTypes.number,
+  max: PropTypes.number,
+}
+
+Responsive.defaultProps = {
+  min: 0,
+  max: Infinity,
+}
+
+export default Responsive

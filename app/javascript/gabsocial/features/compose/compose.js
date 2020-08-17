@@ -4,17 +4,7 @@ import { connect } from 'react-redux'
 import { clearCompose } from '../../actions/compose'
 import ComposeFormContainer from './containers/compose_form_container'
 
-const mapDispatchToProps = (dispatch) => ({
-  onClearCompose:() => dispatch(clearCompose())
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class Compose extends React.PureComponent {
-
-  static propTypes = {
-    onClearCompose: PropTypes.func.isRequired,
-  }
 
   componentWillUnmount() {
     this.props.onClearCompose()
@@ -29,3 +19,13 @@ class Compose extends React.PureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onClearCompose:() => dispatch(clearCompose())
+})
+
+Compose.propTypes = {
+  onClearCompose: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(Compose)

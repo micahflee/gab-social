@@ -6,18 +6,7 @@ import BundleColumnError from '../../../components/bundle_column_error'
 import Bundle from './bundle'
 import { me } from '../../../initial_state'
 
-export default class WrappedRoute extends React.PureComponent {
-  static propTypes = {
-    component: PropTypes.func.isRequired,
-    page: PropTypes.func.isRequired,
-    content: PropTypes.node,
-    componentParams: PropTypes.object,
-    publicRoute: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    componentParams: {},
-  }
+class WrappedRoute extends React.PureComponent {
 
   renderComponent = ({ match }) => {
     const {
@@ -74,3 +63,17 @@ export default class WrappedRoute extends React.PureComponent {
     return <Route {...rest} render={this.renderComponent} />
   }
 }
+
+WrappedRoute.propTypes = {
+  component: PropTypes.func.isRequired,
+  page: PropTypes.func.isRequired,
+  content: PropTypes.node,
+  componentParams: PropTypes.object,
+  publicRoute: PropTypes.bool,
+}
+
+WrappedRoute.defaultProps = {
+  componentParams: {},
+}
+
+export default WrappedRoute

@@ -23,15 +23,7 @@ import {
   SignUpPanel,
 } from '../features/ui/util/async_components'
 
-export default class ProfileLayout extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    children: PropTypes.node.isRequired,
-    titleHTML: PropTypes.string,
-    unavailable: PropTypes.bool,
-    noSidebar: PropTypes.bool,
-  }
+class ProfileLayout extends ImmutablePureComponent {
 
   render() {
     const {
@@ -153,3 +145,13 @@ export default class ProfileLayout extends ImmutablePureComponent {
   }
 
 }
+
+ProfileLayout.propTypes = {
+  account: ImmutablePropTypes.map,
+  children: PropTypes.node.isRequired,
+  titleHTML: PropTypes.string,
+  unavailable: PropTypes.bool,
+  noSidebar: PropTypes.bool,
+}
+
+export default ProfileLayout

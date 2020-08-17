@@ -9,47 +9,7 @@ import ComposeExtraButton from './compose_extra_button'
 
 // import 'react-datepicker/dist/react-datepicker.css'
 
-const messages = defineMessages({
-  schedule_status: { id: 'schedule_status.title', defaultMessage: 'Schedule' },
-})
-
-const mapStateToProps = (state) => ({
-  hasExpiresAt: !!state.getIn(['compose', 'expires_at']),
-  active: !!state.getIn(['compose', 'scheduled_at']) || state.getIn(['popover', 'popoverType']) === 'DATE_PICKER',
-  isPro: state.getIn(['accounts', me, 'is_pro']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenDatePickerPopover(targetRef) {
-    dispatch(openPopover('DATE_PICKER', {
-      targetRef,
-    }))
-  },
-
-  onCloseDatePickerPopover() {
-    dispatch(closePopover())
-  },
-
-  onOpenProUpgradeModal() {
-    dispatch(openModal('PRO_UPGRADE'))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class SchedulePostButton extends React.PureComponent {
-
-  static propTypes = {
-    active: PropTypes.bool.isRequired,
-    intl: PropTypes.object.isRequired,
-    isPro: PropTypes.bool,
-    hasExpiresAt: PropTypes.bool,
-    onOpenProUpgradeModal: PropTypes.func.isRequired,
-    onOpenDatePickerPopover: PropTypes.func.isRequired,
-    onCloseDatePickerPopover: PropTypes.func.isRequired,
-    small: PropTypes.bool,
-  }
 
   handleToggle = () => {
     if (!this.props.isPro) {
@@ -86,3 +46,42 @@ class SchedulePostButton extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  schedule_status: { id: 'schedule_status.title', defaultMessage: 'Schedule' },
+})
+
+const mapStateToProps = (state) => ({
+  hasExpiresAt: !!state.getIn(['compose', 'expires_at']),
+  active: !!state.getIn(['compose', 'scheduled_at']) || state.getIn(['popover', 'popoverType']) === 'DATE_PICKER',
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenDatePickerPopover(targetRef) {
+    dispatch(openPopover('DATE_PICKER', {
+      targetRef,
+    }))
+  },
+
+  onCloseDatePickerPopover() {
+    dispatch(closePopover())
+  },
+
+  onOpenProUpgradeModal() {
+    dispatch(openModal('PRO_UPGRADE'))
+  },
+})
+
+SchedulePostButton.propTypes = {
+  active: PropTypes.bool.isRequired,
+  intl: PropTypes.object.isRequired,
+  isPro: PropTypes.bool,
+  hasExpiresAt: PropTypes.bool,
+  onOpenProUpgradeModal: PropTypes.func.isRequired,
+  onOpenDatePickerPopover: PropTypes.func.isRequired,
+  onCloseDatePickerPopover: PropTypes.func.isRequired,
+  small: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SchedulePostButton))

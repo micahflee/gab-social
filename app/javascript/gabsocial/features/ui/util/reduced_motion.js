@@ -13,12 +13,6 @@ const extractValue = (value) => {
 
 class ReducedMotion extends React.PureComponent {
 
-  static propTypes = {
-    defaultStyle: PropTypes.object,
-    style: PropTypes.object,
-    children: PropTypes.func,
-  }
-
   render() {
 
     const { style, defaultStyle, children } = this.props;
@@ -41,4 +35,10 @@ class ReducedMotion extends React.PureComponent {
 
 }
 
-export default ReducedMotion;
+ReducedMotion.propTypes = {
+  defaultStyle: PropTypes.object,
+  style: PropTypes.object,
+  children: PropTypes.func,
+}
+
+export default ReducedMotion

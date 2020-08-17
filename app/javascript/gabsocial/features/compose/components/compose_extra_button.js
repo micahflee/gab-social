@@ -5,16 +5,7 @@ import Button from '../../../components/button'
 
 const cx = classNames.bind(_s)
 
-export default class ComposeExtraButton extends React.PureComponent {
-  static propTypes = {
-    title: PropTypes.string,
-    disabled: PropTypes.bool,
-    onClick: PropTypes.func,
-    icon: PropTypes.string,
-    small: PropTypes.bool,
-    active: PropTypes.bool,
-    buttonRef: PropTypes.func,
-  }
+class ComposeExtraButton extends React.PureComponent {
 
   render() {
     const {
@@ -79,4 +70,17 @@ export default class ComposeExtraButton extends React.PureComponent {
       </div>
     )
   }
+
 }
+
+ComposeExtraButton.propTypes = {
+  title: PropTypes.string,
+  disabled: PropTypes.bool,
+  onClick: PropTypes.func,
+  icon: PropTypes.string,
+  small: PropTypes.bool,
+  active: PropTypes.bool,
+  buttonRef: PropTypes.func,
+}
+
+export default ComposeExtraButton

@@ -14,42 +14,10 @@ import Text from '../../../components/text'
 
 const cx = classNames.bind(_s)
 
-const messages = defineMessages({
-  description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
-  delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
-})
-
-const mapStateToProps = (state, { id }) => ({
-  media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onUndo: (id) => {
-    dispatch(undoUploadCompose(id))
-  },
-  onDescriptionChange: (id, description) => {
-    dispatch(changeUploadCompose(id, { description }))
-  },
-  onSubmit () {
-    dispatch(submitCompose())
-  },
-});
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class Upload extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    media: ImmutablePropTypes.map.isRequired,
-    intl: PropTypes.object.isRequired,
-    onUndo: PropTypes.func.isRequired,
-    onDescriptionChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
   }
 
   state = {
@@ -177,3 +145,34 @@ class Upload extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  description: { id: 'upload_form.description', defaultMessage: 'Describe for the visually impaired' },
+  delete: { id: 'upload_form.undo', defaultMessage: 'Delete' },
+})
+
+const mapStateToProps = (state, { id }) => ({
+  media: state.getIn(['compose', 'media_attachments']).find(item => item.get('id') === id),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onUndo: (id) => {
+    dispatch(undoUploadCompose(id))
+  },
+  onDescriptionChange: (id, description) => {
+    dispatch(changeUploadCompose(id, { description }))
+  },
+  onSubmit () {
+    dispatch(submitCompose())
+  },
+});
+
+Upload.propTypes = {
+  media: ImmutablePropTypes.map.isRequired,
+  intl: PropTypes.object.isRequired,
+  onUndo: PropTypes.func.isRequired,
+  onDescriptionChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Upload))

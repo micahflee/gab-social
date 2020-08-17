@@ -41,8 +41,6 @@ const messages = defineMessages({
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
 })
 
-export default
-@injectIntl
 class ComposeForm extends ImmutablePureComponent {
 
   static contextTypes = {
@@ -52,53 +50,6 @@ class ComposeForm extends ImmutablePureComponent {
   state = {
     composeFocused: false,
   }
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    edit: PropTypes.bool,
-    isMatch: PropTypes.bool,
-    text: PropTypes.string.isRequired,
-    markdown: PropTypes.string,
-    suggestions: ImmutablePropTypes.list,
-    account: ImmutablePropTypes.map.isRequired,
-    status: ImmutablePropTypes.map,
-    spoiler: PropTypes.bool,
-    privacy: PropTypes.string,
-    spoilerText: PropTypes.string,
-    focusDate: PropTypes.instanceOf(Date),
-    caretPosition: PropTypes.number,
-    preselectDate: PropTypes.instanceOf(Date),
-    isSubmitting: PropTypes.bool,
-    isChangingUpload: PropTypes.bool,
-    isUploading: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    onClearSuggestions: PropTypes.func.isRequired,
-    onFetchSuggestions: PropTypes.func.isRequired,
-    onSuggestionSelected: PropTypes.func.isRequired,
-    onChangeSpoilerText: PropTypes.func.isRequired,
-    onPaste: PropTypes.func.isRequired,
-    onPickEmoji: PropTypes.func.isRequired,
-    showSearch: PropTypes.bool,
-    anyMedia: PropTypes.bool,
-    shouldCondense: PropTypes.bool,
-    autoFocus: PropTypes.bool,
-    groupId: PropTypes.string,
-    isModalOpen: PropTypes.bool,
-    scheduledAt: PropTypes.instanceOf(Date),
-    setScheduledAt: PropTypes.func.isRequired,
-    replyToId: PropTypes.string,
-    reduxReplyToId: PropTypes.string,
-    hasPoll: PropTypes.bool,
-    selectedGifSrc: PropTypes.string,
-    isPro: PropTypes.bool,
-    hidePro: PropTypes.bool,
-    autoJoinGroup: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    showSearch: false,
-  };
 
   handleChange = (e, selectionStart) => {
     this.props.onChange(e.target.value, e.target.markdown, this.props.replyToId, selectionStart)
@@ -529,3 +480,52 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
 }
+
+ComposeForm.propTypes = {
+  intl: PropTypes.object.isRequired,
+  edit: PropTypes.bool,
+  isMatch: PropTypes.bool,
+  text: PropTypes.string.isRequired,
+  markdown: PropTypes.string,
+  suggestions: ImmutablePropTypes.list,
+  account: ImmutablePropTypes.map.isRequired,
+  status: ImmutablePropTypes.map,
+  spoiler: PropTypes.bool,
+  privacy: PropTypes.string,
+  spoilerText: PropTypes.string,
+  focusDate: PropTypes.instanceOf(Date),
+  caretPosition: PropTypes.number,
+  preselectDate: PropTypes.instanceOf(Date),
+  isSubmitting: PropTypes.bool,
+  isChangingUpload: PropTypes.bool,
+  isUploading: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  onClearSuggestions: PropTypes.func.isRequired,
+  onFetchSuggestions: PropTypes.func.isRequired,
+  onSuggestionSelected: PropTypes.func.isRequired,
+  onChangeSpoilerText: PropTypes.func.isRequired,
+  onPaste: PropTypes.func.isRequired,
+  onPickEmoji: PropTypes.func.isRequired,
+  showSearch: PropTypes.bool,
+  anyMedia: PropTypes.bool,
+  shouldCondense: PropTypes.bool,
+  autoFocus: PropTypes.bool,
+  groupId: PropTypes.string,
+  isModalOpen: PropTypes.bool,
+  scheduledAt: PropTypes.instanceOf(Date),
+  setScheduledAt: PropTypes.func.isRequired,
+  replyToId: PropTypes.string,
+  reduxReplyToId: PropTypes.string,
+  hasPoll: PropTypes.bool,
+  selectedGifSrc: PropTypes.string,
+  isPro: PropTypes.bool,
+  hidePro: PropTypes.bool,
+  autoJoinGroup: PropTypes.bool,
+}
+
+ComposeForm.defaultProps = {
+  showSearch: false,
+}
+
+export default injectIntl(ComposeForm)

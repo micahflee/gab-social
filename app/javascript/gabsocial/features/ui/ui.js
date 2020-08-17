@@ -131,12 +131,6 @@ const keyMap = {
 
 class SwitchingArea extends React.PureComponent {
 
-  static propTypes = {
-    children: PropTypes.node,
-    location: PropTypes.object,
-    onLayoutChange: PropTypes.func.isRequired,
-  }
-
   componentDidMount() {
     window.addEventListener('resize', this.handleResize, {
       passive: true
@@ -264,24 +258,16 @@ class SwitchingArea extends React.PureComponent {
   }
 }
 
-export default
-@connect(mapStateToProps)
-@injectIntl
-@withRouter
+SwitchingArea.propTypes = {
+  children: PropTypes.node,
+  location: PropTypes.object,
+  onLayoutChange: PropTypes.func.isRequired,
+}
+
 class UI extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-  }
-
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    children: PropTypes.node,
-    isComposing: PropTypes.bool,
-    hasComposingText: PropTypes.bool,
-    hasMediaAttachments: PropTypes.bool,
-    location: PropTypes.object,
-    intl: PropTypes.object.isRequired,
   }
 
   state = {
@@ -589,3 +575,15 @@ class UI extends React.PureComponent {
   }
 
 }
+
+UI.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  children: PropTypes.node,
+  isComposing: PropTypes.bool,
+  hasComposingText: PropTypes.bool,
+  hasMediaAttachments: PropTypes.bool,
+  location: PropTypes.object,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(withRouter(connect(mapStateToProps)(UI)))

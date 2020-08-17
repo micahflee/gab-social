@@ -16,17 +16,7 @@ import {
   TrendsPanel,
 } from '../features/ui/util/async_components'
 
-export default class ExploreLayout extends ImmutablePureComponent {
-
-  static propTypes = {
-    actions: PropTypes.array,
-    children: PropTypes.node,
-    group: ImmutablePropTypes.map,
-    groupId: PropTypes.string,
-    layout: PropTypes.object,
-    relationships: ImmutablePropTypes.map,
-    title: PropTypes.string,
-  }
+class ExploreLayout extends ImmutablePureComponent {
 
   state = {
     lazyLoaded: false,
@@ -126,3 +116,15 @@ export default class ExploreLayout extends ImmutablePureComponent {
   }
 
 }
+
+ExploreLayout.propTypes = {
+  actions: PropTypes.array,
+  children: PropTypes.node,
+  group: ImmutablePropTypes.map,
+  groupId: PropTypes.string,
+  layout: PropTypes.object,
+  relationships: ImmutablePropTypes.map,
+  title: PropTypes.string,
+}
+
+export default ExploreLayout

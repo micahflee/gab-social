@@ -10,23 +10,7 @@ import Heading from './heading'
 import BackButton from './back_button'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-const messages = defineMessages({
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
-  menu: { id: 'menu', defaultMessage: 'Menu' },
-})
-
-export default
-@injectIntl
 class AboutSidebar extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map,
-    title: PropTypes.string,
-    items: PropTypes.array.isRequired,
-  }
 
   render() {
     const {
@@ -77,3 +61,19 @@ class AboutSidebar extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
+  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
+  menu: { id: 'menu', defaultMessage: 'Menu' },
+})
+
+AboutSidebar.propTypes = {
+  intl: PropTypes.object.isRequired,
+  account: ImmutablePropTypes.map,
+  title: PropTypes.string,
+  items: PropTypes.array.isRequired,
+}
+
+export default injectIntl(AboutSidebar)

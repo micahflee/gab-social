@@ -4,22 +4,7 @@ import { connect } from 'react-redux'
 import { clearSelectedGif } from '../../../actions/tenor'
 import Image from '../../../components/image'
 
-const mapDispatchToProps = (dispatch) => ({
-  onClearSelectedGif() {
-    dispatch(clearSelectedGif())
-  },
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class GifForm extends React.PureComponent {
-
-  static propTypes = {
-    onClearSelectedGif: PropTypes.func.isRequired,
-    replyToId: PropTypes.string,
-    small: PropTypes.bool,
-    selectedGifSrc: PropTypes.string.isRequired,
-  }
 
   render () {
     const {
@@ -43,3 +28,18 @@ class GifForm extends React.PureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onClearSelectedGif() {
+    dispatch(clearSelectedGif())
+  },
+})
+
+GifForm.propTypes = {
+  onClearSelectedGif: PropTypes.func.isRequired,
+  replyToId: PropTypes.string,
+  small: PropTypes.bool,
+  selectedGifSrc: PropTypes.string.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(GifForm)
