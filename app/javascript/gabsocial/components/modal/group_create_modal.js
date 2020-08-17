@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ModalLayout from './modal_layout'
 import GroupCreate from '../../features/group_create'

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import api from '../../../api'
 import { Route } from 'react-router-dom'
 import BundleColumnError from '../../../components/bundle_column_error'

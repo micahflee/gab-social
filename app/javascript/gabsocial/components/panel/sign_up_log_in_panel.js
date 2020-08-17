@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../../initial_state'
 import { CX } from '../../constants'

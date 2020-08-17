@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { me, promotions } from '../initial_state'
 import Bundle from '../features/ui/util/bundle'
 import WrappedBundle from '../features/ui/util/bundle'

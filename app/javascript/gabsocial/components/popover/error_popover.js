@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PopoverLayout from './popover_layout'
 import ColumnIndicator from '../column_indicator'
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import spring from 'react-motion/lib/spring'
 import Motion from '../features/ui/util/reduced_motion'

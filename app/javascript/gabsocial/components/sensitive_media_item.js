@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import Text from './text'

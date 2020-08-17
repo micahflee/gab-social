@@ -63,7 +63,6 @@ module.exports = {
 
   plugins: [
     new webpack.ProvidePlugin({
-      PropTypes: 'prop-types',
       _s: `${resolve(settings.source_path)}/styles/global.css`,
     }),
     new webpack.EnvironmentPlugin(JSON.parse(JSON.stringify(env))),

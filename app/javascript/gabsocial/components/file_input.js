@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { CX } from '../constants'
 import Icon from './icon'
 import Image from './image'

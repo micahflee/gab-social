@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { LoadingBar } from 'react-redux-loading-bar'
 import { CX  } from '../constants'
 import ZoomableImage from './zoomable_image'

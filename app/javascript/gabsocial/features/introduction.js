@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ReactSwipeableViews from 'react-swipeable-views'
 import ImmutablePropTypes from 'react-immutable-proptypes'

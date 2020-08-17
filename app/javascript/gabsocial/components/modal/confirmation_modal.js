@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import Block from '../block'
 import Button from '../button'

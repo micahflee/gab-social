@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import Button from '../components/button'
 import DotTextSeperator from '../components/dot_text_seperator'

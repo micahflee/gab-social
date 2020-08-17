@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Heading from './heading'
 
 export default class BlockHeading extends React.PureComponent {

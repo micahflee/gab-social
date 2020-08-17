@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PageTitle from '../features/ui/util/page_title'
 import ExploreLayout from '../layouts/explore_layout'
 

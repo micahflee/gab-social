@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import SettingsLayout from '../layouts/settings_layout'
 
 class SettingsPage extends React.PureComponent {

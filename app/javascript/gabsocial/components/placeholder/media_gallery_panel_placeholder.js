@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PlaceholderLayout from './placeholder_layout'
 
 export default class MediaGalleryPanelPlaceholder extends React.PureComponent {

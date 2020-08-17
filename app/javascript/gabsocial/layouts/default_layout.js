@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Layout from './layout'
 
 class DefaultLayout extends React.PureComponent {

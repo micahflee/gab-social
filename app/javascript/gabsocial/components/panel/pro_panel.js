@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 import { URL_GAB_PRO } from '../../constants'
 import PanelLayout from './panel_layout';

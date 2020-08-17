@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'

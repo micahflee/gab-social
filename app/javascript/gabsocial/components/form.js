@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import Text from './text'
 
 export default class Form extends React.PureComponent {

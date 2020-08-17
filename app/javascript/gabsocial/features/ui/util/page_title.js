@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import isEqual from 'lodash.isequal'
 import { APP_NAME } from '../../../constants'
 

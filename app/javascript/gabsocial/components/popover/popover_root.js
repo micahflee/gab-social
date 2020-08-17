@@ -39,6 +39,7 @@ import {
 } from '../../features/ui/util/async_components'
 
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { getWindowDimension } from '../../utils/is_mobile'

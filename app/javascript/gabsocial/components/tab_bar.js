@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component';
 import TabBarItem from './tab_bar_item'
 

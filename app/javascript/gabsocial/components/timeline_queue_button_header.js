@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import throttle from 'lodash.throttle'
 import classNames from 'classnames/bind'

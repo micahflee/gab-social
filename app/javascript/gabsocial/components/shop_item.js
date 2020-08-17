@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { DEFAULT_REL } from '../constants'
 import Image from './image'
 import Text from './text'

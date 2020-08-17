@@ -2,6 +2,7 @@
 // for the benefit of users with motion sickness.
 import Motion from 'react-motion/lib/Motion';
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const stylesToKeep = ['opacity', 'backgroundOpacity'];
 

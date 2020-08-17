@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
