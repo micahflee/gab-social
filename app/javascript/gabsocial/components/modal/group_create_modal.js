@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ModalLayout from './modal_layout'
 import GroupCreate from '../../features/group_create'
@@ -9,7 +10,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class GroupCreateModal extends PureComponent {
+class GroupCreateModal extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

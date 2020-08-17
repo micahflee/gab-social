@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { injectIntl, defineMessages } from 'react-intl'
@@ -136,7 +136,7 @@ class GroupTimeline extends ImmutablePureComponent {
 		}
 
 		return (
-			<Fragment>
+			<React.Fragment>
 				<GroupSortBlock />
 				<StatusList
 					scrollKey={`group-timeline-${groupId}`}
@@ -144,7 +144,7 @@ class GroupTimeline extends ImmutablePureComponent {
 					onLoadMore={this.handleLoadMore}
 					emptyMessage={intl.formatMessage(messages.empty)}
 				/>
-			</Fragment>
+			</React.Fragment>
 		)
 	}
 

@@ -1,6 +1,6 @@
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { Fragment } from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
@@ -52,11 +52,11 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
     if (isHidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {group.get('title')}
           {isMember && intl.formatMessage(messages.member)}
           {isAdmin && intl.formatMessage(messages.admin)}
-        </Fragment>
+        </React.Fragment>
       )
     }
 

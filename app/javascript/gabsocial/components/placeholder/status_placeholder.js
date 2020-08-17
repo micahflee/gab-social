@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -7,7 +7,7 @@ import { getRandomInt } from '../../utils/numbers'
 import ResponsiveComponent from '../../features/ui/util/responsive_component'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class StatusPlaceholder extends PureComponent {
+export default class StatusPlaceholder extends React.PureComponent {
 
   render() {
     const containerClasses = CX({
@@ -38,7 +38,7 @@ export default class StatusPlaceholder extends PureComponent {
     const width3 = getRandomInt(120, 260)
 
     return (
-      <Fragment>
+      <React.Fragment>
         <ResponsiveComponent min={BREAKPOINT_EXTRA_SMALL}>
           <div className={containerClasses}>
             <PlaceholderLayout viewBox='0 0 476 136'>
@@ -63,7 +63,7 @@ export default class StatusPlaceholder extends PureComponent {
             </PlaceholderLayout>
           </div>
         </ResponsiveComponent>
-      </Fragment>
+      </React.Fragment>
     )
 
   }

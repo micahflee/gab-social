@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { changeComposeSensitivity } from '../../../actions/compose'
 import Switch from '../../../components/switch'
@@ -22,7 +23,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class SensitiveMediaButton extends PureComponent {
+class SensitiveMediaButton extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import classNames from 'classnames/bind'
 import Icon from './icon'
@@ -45,7 +45,7 @@ const COLORS = {
  * @param {bool} [props.type] - `type` attribute for button
  * @param {bool} [props.underlineOnHover] - if the button has underline on hover
  */
-export default class Button extends PureComponent {
+export default class Button extends React.PureComponent {
 
   static propTypes = {
     backgroundColor: PropTypes.string,
@@ -204,10 +204,10 @@ export default class Button extends PureComponent {
     ) : undefined
 
     const theChildren = !!icon ? (
-      <Fragment>
+      <React.Fragment>
         {theIcon}
         {children}
-      </Fragment>
+      </React.Fragment>
     ) : children
 
     const handlers = {

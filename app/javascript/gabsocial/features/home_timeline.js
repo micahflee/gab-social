@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { withRouter } from 'react-router-dom'
 import throttle from 'lodash.throttle'
@@ -27,7 +28,7 @@ export default
 @injectIntl
 @withRouter
 @connect(mapStateToProps, mapDispatchToProps)
-class HomeTimeline extends PureComponent {
+class HomeTimeline extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

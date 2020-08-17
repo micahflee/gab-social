@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import {
   fetchRelatedSuggestions,

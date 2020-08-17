@@ -1,4 +1,6 @@
-export default class Dummy extends PureComponent {
+import React from 'react'
+
+export default class Dummy extends React.PureComponent {
 
   render() {
     return (

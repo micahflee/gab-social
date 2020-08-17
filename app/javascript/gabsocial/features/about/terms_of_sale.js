@@ -1,10 +1,11 @@
+import React from 'react'
 import Block from '../../components/block'
 import Button from '../../components/button'
 import Divider from '../../components/divider'
 import Heading from '../../components/heading'
 import Text from '../../components/text'
 
-export default class TermsOfSale extends PureComponent {
+export default class TermsOfSale extends React.PureComponent {
 
   render() {
 

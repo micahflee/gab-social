@@ -1,3 +1,4 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { CX } from '../constants'
 import Text from './text'
@@ -8,7 +9,7 @@ import Text from './text'
  * @param {string} props.to - location to go to on click
  * @param {string} props.value - top value
  */
-export default class UserStat extends PureComponent {
+export default class UserStat extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,

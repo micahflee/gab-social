@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -60,10 +60,10 @@ class ProfileInfoPanel extends ImmutablePureComponent {
         <div className={[_s.default].join(' ')}>
           {
             hasNote &&
-            <Fragment>
+            <React.Fragment>
               <div className={_s.dangerousContent} dangerouslySetInnerHTML={content} />
               <Divider isSmall />
-            </Fragment>
+            </React.Fragment>
           }
 
           <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
@@ -83,7 +83,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             
           {
             hasBadges &&
-            <Fragment>
+            <React.Fragment>
               <Divider isSmall />
               <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
                 { 
@@ -105,7 +105,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                   </div>
                 }
               </div>
-            </Fragment>
+            </React.Fragment>
           }
 
           {
@@ -113,7 +113,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             <div className={[_s.default]}>
               {
                 fields.map((pair, i) => (
-                  <Fragment>
+                  <React.Fragment>
                     <Divider isSmall />
                     <dl className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')} key={`profile-field-${i}`}>
                       <dt
@@ -127,7 +127,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
                         dangerouslySetInnerHTML={{ __html: pair.get('value_emojified') }}
                       />
                     </dl>
-                  </Fragment>
+                  </React.Fragment>
                 ))
               }
             </div>

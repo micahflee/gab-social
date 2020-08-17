@@ -1,3 +1,4 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import {
@@ -6,7 +7,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class BasicPage extends PureComponent {
+class BasicPage extends React.PureComponent {
 
   render() {
     const {

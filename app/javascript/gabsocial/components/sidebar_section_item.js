@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   CX,
 } from '../constants'
@@ -6,7 +7,7 @@ import Icon from './icon'
 import Image from './image'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-export default class SidebarSectionItem extends PureComponent {
+export default class SidebarSectionItem extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { closePopover } from '../../actions/popover'
 import {
 	updateRole,
@@ -20,7 +21,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(null, mapDispatchToProps)
-class GroupMemberOptionsPopover extends PureComponent {
+class GroupMemberOptionsPopover extends React.PureComponent {
 
   static defaultProps = {
     accountId: PropTypes.string.isRequired,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { me } from '../initial_state'
 import { CX } from '../constants'
@@ -15,7 +16,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(null, mapDispatchToProps)
-class FloatingActionButton extends PureComponent {
+class FloatingActionButton extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

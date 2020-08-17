@@ -1,6 +1,7 @@
 // Like react-motion's Motion, but reduces all animations to cross-fades
 // for the benefit of users with motion sickness.
 import Motion from 'react-motion/lib/Motion';
+import React from 'react'
 
 const stylesToKeep = ['opacity', 'backgroundOpacity'];
 
@@ -9,7 +10,7 @@ const extractValue = (value) => {
   return (typeof value === 'object' && value && 'val' in value) ? value.val : value;
 };
 
-class ReducedMotion extends PureComponent {
+class ReducedMotion extends React.PureComponent {
 
   static propTypes = {
     defaultStyle: PropTypes.object,

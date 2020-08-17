@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import api from '../../api'

@@ -1,3 +1,4 @@
+import React from 'react'
 import { List as ImmutableList } from 'immutable'
 import { makeGetNotification } from '../selectors'
 import Notification from '../components/notification'

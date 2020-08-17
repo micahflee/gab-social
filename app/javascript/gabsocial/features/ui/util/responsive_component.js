@@ -1,8 +1,9 @@
+import React from 'react'
 import { getWindowDimension } from '../../../utils/is_mobile'
 
 const initialState = getWindowDimension()
 
-export default class Responsive extends PureComponent {
+export default class Responsive extends React.PureComponent {
 
   static propTypes = {
     min: PropTypes.number,

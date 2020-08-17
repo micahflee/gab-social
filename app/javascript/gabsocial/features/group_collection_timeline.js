@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { List as ImmutableList } from 'immutable'
 import { me } from '../initial_state'
@@ -61,7 +61,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class GroupCollectionTimeline extends PureComponent {
+class GroupCollectionTimeline extends React.PureComponent {
 
 	static propTypes = {
 		params: PropTypes.object.isRequired,
@@ -169,7 +169,7 @@ class GroupCollectionTimeline extends PureComponent {
 		) : intl.formatMessage(messages.empty)
 
 		return (
-			<Fragment>
+			<React.Fragment>
 				<GroupSortBlock collectionType={collectionType} />
 				<StatusList
 					scrollKey={`group-collection-timeline-${collectionType}`}
@@ -177,7 +177,7 @@ class GroupCollectionTimeline extends PureComponent {
 					onLoadMore={this.handleLoadMore}
 					emptyMessage={emptyMessage}
 				/>
-			</Fragment>
+			</React.Fragment>
 		)
 	}
 

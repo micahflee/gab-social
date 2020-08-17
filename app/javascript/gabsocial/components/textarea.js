@@ -1,9 +1,10 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class Textarea extends PureComponent {
+export default class Textarea extends React.PureComponent {
   static propTypes = {
     placeholder: PropTypes.string,
     prependIcon: PropTypes.string,

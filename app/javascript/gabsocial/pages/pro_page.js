@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
@@ -7,7 +8,7 @@ import {
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
-class ProPage extends PureComponent {
+class ProPage extends React.PureComponent {
 
   render() {
     const { intl, children } = this.props

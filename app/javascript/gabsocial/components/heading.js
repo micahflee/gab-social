@@ -1,3 +1,4 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 
 // Bind CSS Modules global variable `_s` to classNames module
@@ -27,7 +28,7 @@ const ARIA_LEVELS = {
  * @param {bool} [props.isCentered] - if text is centered within the element
  * @param {string} [props.size='h1'] - the size of the heading
  */
-export default class Heading extends PureComponent {
+export default class Heading extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

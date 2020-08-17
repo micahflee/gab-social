@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
@@ -9,7 +9,7 @@ import LoadMore from './load_more'
 
 const MOUSE_IDLE_DELAY = 300
 
-export default class ScrollableList extends PureComponent {
+export default class ScrollableList extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -231,7 +231,7 @@ export default class ScrollableList extends PureComponent {
     if (showLoading) {
       if (Placeholder) {
         return (
-          <Fragment>
+          <React.Fragment>
             {
               Array.apply(null, {
                 length: placeholderCount
@@ -242,7 +242,7 @@ export default class ScrollableList extends PureComponent {
                 />
               ))
             }
-          </Fragment>
+          </React.Fragment>
         )
       }
 

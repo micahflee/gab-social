@@ -1,3 +1,4 @@
+import React from 'react'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component';
 import TabBarItem from './tab_bar_item'
 
@@ -6,7 +7,7 @@ import TabBarItem from './tab_bar_item'
  * @param {array} [props.tabs] - tab bar data for creating `TabBarItem`
  * @param {bool} [props.isLarge] - to style the tab bar larger
  */
-export default class TabBar extends PureComponent {
+export default class TabBar extends React.PureComponent {
 
   static propTypes = {
     tabs: PropTypes.array,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
 import { changeExpiresAt } from '../../actions/compose'
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class StatusExpirationOptionsPopover extends PureComponent {
+class StatusExpirationOptionsPopover extends React.PureComponent {
 
   static defaultProps = {
     expiresAtValue: PropTypes.string.isRequired,

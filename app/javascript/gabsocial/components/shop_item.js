@@ -1,8 +1,9 @@
+import React from 'react'
 import { DEFAULT_REL } from '../constants'
 import Image from './image'
 import Text from './text'
 
-class ShopItem extends PureComponent {
+class ShopItem extends React.PureComponent {
 
   render() {
     const {

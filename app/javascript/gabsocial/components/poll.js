@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
@@ -226,12 +226,12 @@ class Poll extends ImmutablePureComponent {
             />
             {
               poll.get('expires_at') &&
-              <Fragment>
+              <React.Fragment>
                 <DotTextSeperator />
                 <Text color='secondary' className={_s.ml5}>
                   {timeRemaining}
                 </Text>
-              </Fragment>
+              </React.Fragment>
             }
           </Text>
         </div>

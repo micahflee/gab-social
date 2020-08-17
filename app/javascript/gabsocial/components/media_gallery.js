@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { is } from 'immutable';
@@ -238,7 +239,7 @@ class Item extends ImmutablePureComponent {
 
 export default
 @injectIntl
-class MediaGallery extends PureComponent {
+class MediaGallery extends React.PureComponent {
 
   static propTypes = {
     sensitive: PropTypes.bool,

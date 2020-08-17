@@ -1,7 +1,8 @@
+import React from 'react'
 import { CX } from '../constants'
 import Text from './text'
 
-export default class Switch extends PureComponent {
+export default class Switch extends React.PureComponent {
 
   static propTypes = {
     id: PropTypes.string.isRequired,

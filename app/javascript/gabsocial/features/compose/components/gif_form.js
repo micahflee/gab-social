@@ -1,3 +1,4 @@
+import React from 'react'
 import { clearSelectedGif } from '../../../actions/tenor'
 import Image from '../../../components/image'
 
@@ -9,7 +10,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(null, mapDispatchToProps)
-class GifForm extends PureComponent {
+class GifForm extends React.PureComponent {
 
   static propTypes = {
     onClearSelectedGif: PropTypes.func.isRequired,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { URL_GAB_PRO } from '../../constants'
 import PanelLayout from './panel_layout';
@@ -12,7 +13,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class ProPanel extends PureComponent {
+class ProPanel extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { me } from '../initial_state'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
@@ -10,7 +11,7 @@ import {
   LinkFooter,
 } from '../features/ui/util/async_components'
 
-class GroupsPage extends PureComponent {
+class GroupsPage extends React.PureComponent {
 
   render() {
     const {

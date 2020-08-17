@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
@@ -287,7 +287,7 @@ class Sidebar extends ImmutablePureComponent {
                 }
                 {
                   !!shortcutItems.length > 0 &&
-                  <Fragment>
+                  <React.Fragment>
                     <SidebarSectionTitle>
                       <div
                         className={[_s.displayFlex, _s.alignItemsCenter, _s.flexRow].join(' ')}
@@ -318,7 +318,7 @@ class Sidebar extends ImmutablePureComponent {
                         <SidebarSectionItem {...shortcutItem} key={`sidebar-item-shortcut-${i}`} />
                       ))
                     }
-                  </Fragment>
+                  </React.Fragment>
                 }
                 <SidebarSectionTitle>{intl.formatMessage(messages.explore)}</SidebarSectionTitle>
                 {

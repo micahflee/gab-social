@@ -1,3 +1,4 @@
+import React from 'react'
 import throttle from 'lodash.throttle'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -21,7 +22,7 @@ import {
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
-class HomePage extends PureComponent {
+class HomePage extends React.PureComponent {
 
   state = {
     lazyLoaded: false,

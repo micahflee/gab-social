@@ -1,9 +1,10 @@
+import React from 'react'
 import Block from '../block'
 import Button from '../button'
 import Heading from '../heading'
 import Text from '../text'
 
-export default class PopoverLayout extends PureComponent {
+export default class PopoverLayout extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.node,

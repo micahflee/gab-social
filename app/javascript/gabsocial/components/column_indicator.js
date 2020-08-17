@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import Icon from './icon'
 import Text from './text'
@@ -9,7 +10,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class ColumnIndicator extends PureComponent {
+class ColumnIndicator extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

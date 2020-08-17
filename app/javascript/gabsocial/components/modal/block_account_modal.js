@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
 import { blockAccount } from '../../actions/accounts'
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class BlockAccountModal extends PureComponent {
+class BlockAccountModal extends React.PureComponent {
 
   static propTypes = {
     account: PropTypes.object.isRequired,

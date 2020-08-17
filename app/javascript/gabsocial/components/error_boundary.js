@@ -1,3 +1,4 @@
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import {
   source_url,
@@ -13,7 +14,7 @@ import Divider from './divider'
 import Icon from './icon'
 import Text from './text'
 
-export default class ErrorBoundary extends PureComponent {
+export default class ErrorBoundary extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.node,

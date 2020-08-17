@@ -1,3 +1,4 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import Block from '../components/block'
 import DefaultLayout from '../layouts/default_layout'
@@ -6,7 +7,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class ModalPage extends PureComponent {
+class ModalPage extends React.PureComponent {
 
   render() {
     const {

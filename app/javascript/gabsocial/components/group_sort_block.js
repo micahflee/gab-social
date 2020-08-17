@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover } from '../actions/popover'
 import {
@@ -53,7 +54,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class GroupSortBlock extends PureComponent {
+class GroupSortBlock extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

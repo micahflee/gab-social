@@ -1,7 +1,9 @@
+import React from 'react'
+
 /**
  * Renders a block component
  */
-export default class Block extends PureComponent {
+export default class Block extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

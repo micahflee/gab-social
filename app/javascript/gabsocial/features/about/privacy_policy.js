@@ -1,10 +1,11 @@
+import React from 'react'
 import Block from '../../components/block'
 import Button from '../../components/button'
 import Divider from '../../components/divider'
 import Heading from '../../components/heading'
 import Text from '../../components/text'
 
-export default class PrivacyPolicy extends PureComponent {
+export default class PrivacyPolicy extends React.PureComponent {
 
   render() {
 

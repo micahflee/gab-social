@@ -1,5 +1,6 @@
 'use strict'
 
+import React from 'react'
 import { HotKeys } from 'react-hotkeys'
 import { defineMessages, injectIntl } from 'react-intl'
 import { Switch, Redirect, withRouter } from 'react-router-dom'
@@ -126,7 +127,7 @@ const keyMap = {
   goToRequests: 'g r',
 }
 
-class SwitchingArea extends PureComponent {
+class SwitchingArea extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -265,7 +266,7 @@ export default
 @connect(mapStateToProps)
 @injectIntl
 @withRouter
-class UI extends PureComponent {
+class UI extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

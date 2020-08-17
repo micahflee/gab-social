@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import {
   followAccount,
@@ -134,7 +135,7 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class ProfileOptionsPopover extends PureComponent {
+class ProfileOptionsPopover extends React.PureComponent {
 
   static defaultProps = {
     isXS: PropTypes.bool,

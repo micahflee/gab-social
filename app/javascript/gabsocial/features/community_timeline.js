@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandCommunityTimeline } from '../actions/timelines'
 import StatusList from '../components/status_list'
@@ -13,7 +14,7 @@ const mapStateToProps = (state) => ({
 export default
 @connect(mapStateToProps)
 @injectIntl
-class CommunityTimeline extends PureComponent {
+class CommunityTimeline extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

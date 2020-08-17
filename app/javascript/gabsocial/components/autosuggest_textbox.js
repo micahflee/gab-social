@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import isObject from 'lodash.isobject'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -249,7 +249,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
     })
 
     return (
-      <Fragment>
+      <React.Fragment>
         <div className={textareaContainerClasses}>
           <label htmlFor={id} className={_s.visiblyHidden}>
             {placeholder}
@@ -302,7 +302,7 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
             {suggestions.map(this.renderSuggestion)}
           </div>
         }
-      </Fragment>
+      </React.Fragment>
     )
   }
 

@@ -1,6 +1,7 @@
+import React from 'react'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class ProfileInfoPanelPlaceholder extends PureComponent {
+export default class ProfileInfoPanelPlaceholder extends React.PureComponent {
   
   render() {
     return (

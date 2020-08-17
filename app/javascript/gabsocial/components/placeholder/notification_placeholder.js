@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -7,7 +7,7 @@ import { getRandomInt } from '../../utils/numbers'
 import ResponsiveComponent from '../../features/ui/util/responsive_component'
 import PlaceholderLayout from './placeholder_layout'
 
-class NotificationPlaceholder extends PureComponent {
+class NotificationPlaceholder extends React.PureComponent {
 
   render() {
     const { isLast } = this.props
@@ -33,7 +33,7 @@ class NotificationPlaceholder extends PureComponent {
     const left = width2 + 30
 
     return (
-      <Fragment>
+      <React.Fragment>
         <ResponsiveComponent min={BREAKPOINT_EXTRA_SMALL}>
           <div className={classes}>
             <div className={[_s.default, _s.py2, _s.px2].join(' ')}>
@@ -77,7 +77,7 @@ class NotificationPlaceholder extends PureComponent {
             </div>
           </div>
         </ResponsiveComponent>
-      </Fragment>
+      </React.Fragment>
     )
   }
 

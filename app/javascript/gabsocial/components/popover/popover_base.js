@@ -1,3 +1,4 @@
+import React from 'react'
 import detectPassiveEvents from 'detect-passive-events'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'

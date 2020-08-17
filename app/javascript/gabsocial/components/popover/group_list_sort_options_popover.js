@@ -1,3 +1,4 @@
+import React from 'react'
 import { closePopover } from '../../actions/popover'
 import { sortGroups } from '../../actions/groups'
 import {
@@ -14,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(null, mapDispatchToProps)
-class GroupListSortOptionsPopover extends PureComponent {
+class GroupListSortOptionsPopover extends React.PureComponent {
 
   static defaultProps = {
     tab: PropTypes.string.isRequired,

@@ -1,6 +1,7 @@
+import React from 'react'
 import { CX } from '../constants'
 
-export default class Icon extends PureComponent {
+export default class Icon extends React.PureComponent {
 
   static propTypes = {
     className: PropTypes.string,

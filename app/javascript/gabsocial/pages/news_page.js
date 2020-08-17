@@ -1,3 +1,4 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import {
@@ -8,7 +9,7 @@ import {
   VerifiedAccountsPanel,
 } from '../features/ui/util/async_components'
 
-class NewsPage extends PureComponent {
+class NewsPage extends React.PureComponent {
 
   render() {
     const { children, title } = this.props

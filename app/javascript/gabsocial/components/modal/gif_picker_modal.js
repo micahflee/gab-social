@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import {
   fetchGifCategories,
@@ -64,7 +65,7 @@ const mapDispatchToProps = (dispatch, { onClose }) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class GifPickerModal extends PureComponent {
+class GifPickerModal extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -165,7 +166,7 @@ class GifPickerModal extends PureComponent {
   }
 }
 
-class GifResultsCollectionColumn extends PureComponent {
+class GifResultsCollectionColumn extends React.PureComponent {
 
   static propTypes = {
     results: PropTypes.array.isRequired,
@@ -201,7 +202,7 @@ class GifResultsCollectionColumn extends PureComponent {
 
 }
 
-class GifResultsCollection extends PureComponent {
+class GifResultsCollection extends React.PureComponent {
 
   static propTypes = {
     results: PropTypes.array.isRequired,
@@ -234,7 +235,7 @@ class GifResultsCollection extends PureComponent {
   }
 }
 
-class GifCategoriesCollection extends PureComponent {
+class GifCategoriesCollection extends React.PureComponent {
   static propTypes = {
     categories: PropTypes.array.isRequired,
     handleSelectCategory: PropTypes.func.isRequired,

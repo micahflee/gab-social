@@ -1,3 +1,4 @@
+import React from 'react'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import PillItem from './pill_item'
 
@@ -5,7 +6,7 @@ import PillItem from './pill_item'
  * Renders pills components
  * @param {array} [props.pills] - tab bar data for creating `TabBarItem`
  */
-export default class Pills extends PureComponent {
+export default class Pills extends React.PureComponent {
 
   static propTypes = {
     pills: PropTypes.array,

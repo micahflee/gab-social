@@ -1,3 +1,4 @@
+import React from 'react'
 import Immutable from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'

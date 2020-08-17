@@ -1,3 +1,4 @@
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import isEqual from 'lodash.isequal'
 import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
@@ -10,7 +11,7 @@ const mapStateToProps = (state, props) => ({
 
 export default
 @connect(mapStateToProps)
-class HashtagTimeline extends PureComponent {
+class HashtagTimeline extends React.PureComponent {
 
   disconnects = [];
 

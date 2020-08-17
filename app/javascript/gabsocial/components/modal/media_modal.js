@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ReactSwipeableViews from 'react-swipeable-views'
 import ImmutablePropTypes from 'react-immutable-proptypes'

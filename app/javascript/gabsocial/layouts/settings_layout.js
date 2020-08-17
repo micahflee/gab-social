@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -13,7 +14,7 @@ import {
   SidebarXS,
 } from '../features/ui/util/async_components'
 
-export default class SettingsLayout extends PureComponent {
+export default class SettingsLayout extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

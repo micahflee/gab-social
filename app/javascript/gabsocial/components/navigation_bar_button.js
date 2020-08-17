@@ -1,9 +1,10 @@
+import React from 'react'
 import { CX } from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
-export default class NavigationBarButton extends PureComponent {
+export default class NavigationBarButton extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

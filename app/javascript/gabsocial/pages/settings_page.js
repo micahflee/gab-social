@@ -1,6 +1,7 @@
+import React from 'react'
 import SettingsLayout from '../layouts/settings_layout'
 
-class SettingsPage extends PureComponent {
+class SettingsPage extends React.PureComponent {
 	
 	render() {
 		const {

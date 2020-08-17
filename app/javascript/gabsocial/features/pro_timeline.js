@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandProTimeline } from '../actions/timelines'
 import { connectProStream } from '../actions/streaming'
@@ -10,7 +11,7 @@ const messages = defineMessages({
 export default
 @injectIntl
 @connect(null)
-class ProTimeline extends PureComponent {
+class ProTimeline extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

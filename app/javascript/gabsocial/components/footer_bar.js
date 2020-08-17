@@ -1,3 +1,4 @@
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { me } from '../initial_state'
 import { CX } from '../constants'
@@ -11,7 +12,7 @@ const mapStateToProps = (state) => ({
 export default
 @withRouter
 @connect(mapStateToProps)
-class FooterBar extends PureComponent {
+class FooterBar extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

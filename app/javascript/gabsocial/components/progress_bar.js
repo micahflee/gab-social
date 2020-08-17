@@ -1,8 +1,9 @@
+import React from 'react'
 import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
 
-export default class ProgressBar extends PureComponent {
+export default class ProgressBar extends React.PureComponent {
 
   static propTypes = {
     progress: PropTypes.oneOfType([

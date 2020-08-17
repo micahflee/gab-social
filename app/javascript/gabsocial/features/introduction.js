@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ReactSwipeableViews from 'react-swipeable-views'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -25,7 +25,7 @@ import Pagination from '../components/pagination'
 import ComposeFormContainer from './compose/containers/compose_form_container'
 import Responsive from './ui/util/responsive_component'
 
-class SlideWelcome extends PureComponent {
+class SlideWelcome extends React.PureComponent {
 
   render() {
     return (
@@ -172,7 +172,7 @@ class SlideGroups extends ImmutablePureComponent {
 
 }
 
-class SlideFirstPost extends PureComponent {
+class SlideFirstPost extends React.PureComponent {
 
   static propTypes = {
     submitted: PropTypes.bool.isRequired,
@@ -187,7 +187,7 @@ class SlideFirstPost extends PureComponent {
         <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
           {
             !submitted &&
-            <Fragment>
+            <React.Fragment>
               <Text size='large' className={_s.pb10}>Now let's make your very first Gab post! Please introduce yourself to the Gab community. How did you hear about Gab? What are you interested in?</Text>
               <br />
 
@@ -201,11 +201,11 @@ class SlideFirstPost extends PureComponent {
                   autoJoinGroup
                 />
               </div>
-            </Fragment>
+            </React.Fragment>
           }
           {
             submitted &&
-            <Fragment>
+            <React.Fragment>
               <Text size='large' align='center'>Your gab was posted!</Text>
               <br />
               <Text size='large' align='center'>Welcome to our community, remember to speak freely.</Text>
@@ -216,7 +216,7 @@ class SlideFirstPost extends PureComponent {
               >
                 Finish
               </Button>
-            </Fragment>
+            </React.Fragment>
           }
 
         </div>
@@ -362,14 +362,14 @@ class Introduction extends ImmutablePureComponent {
             >
               {
                 currentIndex === 3 &&
-                <Fragment>
+                <React.Fragment>
                   <Responsive min={BREAKPOINT_EXTRA_SMALL}>
                     <Text color='white' className={_s.px5}>{nextTitle}</Text>
                   </Responsive>
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
                     <Icon id='check' size='14px' className={_s.colorWhite} />
                   </Responsive>
-                </Fragment>
+                </React.Fragment>
               }
             </Button>
           </div>

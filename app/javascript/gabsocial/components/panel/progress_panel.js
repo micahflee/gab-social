@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { monthlyExpensesComplete } from '../../initial_state'
 import {
@@ -18,7 +19,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class ProgressPanel extends PureComponent {
+class ProgressPanel extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

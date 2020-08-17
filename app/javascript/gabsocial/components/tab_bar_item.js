@@ -1,3 +1,4 @@
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { CX } from '../constants'
 import Button from './button'
@@ -13,7 +14,7 @@ import Text from './text'
  */
 export default
 @withRouter
-class TabBarItem extends PureComponent {
+class TabBarItem extends React.PureComponent {
 
   static propTypes = {
     isLarge: PropTypes.bool,

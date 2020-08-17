@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   fetchBundleRequest,
   fetchBundleSuccess,
@@ -21,7 +22,7 @@ const noop = () => { }
 
 export default
 @connect(null, mapDispatchToProps)
-class Bundle extends PureComponent {
+class Bundle extends React.PureComponent {
 
   static propTypes = {
     fetchComponent: PropTypes.func.isRequired,

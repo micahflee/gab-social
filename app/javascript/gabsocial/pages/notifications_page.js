@@ -1,4 +1,4 @@
-
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { setFilter } from '../actions/notifications'
 import { me } from '../initial_state'
@@ -12,7 +12,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class NotificationsPage extends PureComponent {
+class NotificationsPage extends React.PureComponent {
 
   onChangeActiveFilter(notificationType) {
     this.props.dispatch(setFilter('active', notificationType))

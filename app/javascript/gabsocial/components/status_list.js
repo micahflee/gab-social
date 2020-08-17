@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -232,11 +232,11 @@ class StatusList extends ImmutablePureComponent {
 
     if (isPartial || (isLoading && statusIds.size === 0)) {
       return (
-        <Fragment>
+        <React.Fragment>
           <StatusPlaceholder />
           <StatusPlaceholder />
           <StatusPlaceholder />
-        </Fragment>
+        </React.Fragment>
       )
     }
 
@@ -313,7 +313,7 @@ class StatusList extends ImmutablePureComponent {
     }
 
     return (
-      <Fragment>
+      <React.Fragment>
         <TimelineQueueButtonHeader
           onClick={this.handleDequeueTimeline}
           count={totalQueuedItemsCount}
@@ -335,7 +335,7 @@ class StatusList extends ImmutablePureComponent {
         >
           {scrollableContent}
         </ScrollableList>
-      </Fragment>
+      </React.Fragment>
     )
   }
 

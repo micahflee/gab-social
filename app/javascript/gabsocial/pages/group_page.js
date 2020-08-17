@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -37,10 +37,10 @@ class GroupPage extends ImmutablePureComponent {
 
 				{
 					!!relationships && isTimeline && relationships.get('member') &&
-					<Fragment>
+					<React.Fragment>
 						<TimelineComposeBlock size={46} groupId={groupId} autoFocus />
 						<Divider />
-					</Fragment>
+					</React.Fragment>
 				}
 
 				{children}

@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import SidebarSectionTitle from './sidebar_section_title'
@@ -12,7 +13,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class Sidebar extends PureComponent {
+class Sidebar extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

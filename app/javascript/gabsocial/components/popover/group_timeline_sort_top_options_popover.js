@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
 import { setGroupTimelineTopSort } from '../../actions/groups'
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class GroupTimelineSortTopOptionsPopover extends PureComponent {
+class GroupTimelineSortTopOptionsPopover extends React.PureComponent {
 
   static propTypes = {
     sortByTopValue: PropTypes.string.isRequired,

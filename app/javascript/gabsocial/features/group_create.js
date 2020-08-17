@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -259,7 +259,7 @@ class GroupCreate extends ImmutablePureComponent {
 
 				{
 					memberCount >= 50 && !hasGroupSlug &&
-					<Fragment>
+					<React.Fragment>
 						<Input
 							id='group-id'
 							title={intl.formatMessage(messages.idTitle)}
@@ -276,7 +276,7 @@ class GroupCreate extends ImmutablePureComponent {
 						</Text>
 
 						<Divider isInvisible />
-					</Fragment>
+					</React.Fragment>
 				}
 
 				<Input

@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { addPoll, removePoll } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class PollButton extends PureComponent {
+class PollButton extends React.PureComponent {
 
   static propTypes = {
     disabled: PropTypes.bool,

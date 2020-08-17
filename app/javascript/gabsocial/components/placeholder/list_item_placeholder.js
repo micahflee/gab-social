@@ -1,9 +1,10 @@
+import React from 'react'
 import { CX } from '../../constants'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
-class ListItemPlaceholder extends PureComponent {
+class ListItemPlaceholder extends React.PureComponent {
 
   render() {
     const { isLast } = this.props

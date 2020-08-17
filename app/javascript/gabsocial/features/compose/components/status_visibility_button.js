@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover } from '../../../actions/popover'
 import ComposeExtraButton from './compose_extra_button'
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class StatusVisibilityButton extends PureComponent {
+class StatusVisibilityButton extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

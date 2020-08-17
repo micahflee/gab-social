@@ -1,3 +1,4 @@
+import React from 'react'
 import Sticky from 'react-stickynode'
 import {
   CX,
@@ -20,7 +21,7 @@ import {
   SidebarXS,
 } from '../features/ui/util/async_components'
 
-class Layout extends PureComponent {
+class Layout extends React.PureComponent {
 
   render() {
     const {

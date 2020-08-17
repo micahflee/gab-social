@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { changeComposeSpoilerness } from '../../../actions/compose'
 import ComposeExtraButton from './compose_extra_button'
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class SpoilerButton extends PureComponent {
+class SpoilerButton extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

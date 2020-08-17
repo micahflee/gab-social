@@ -1,3 +1,4 @@
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import isObject from 'lodash.isobject'
 import queryString from 'query-string'
@@ -31,7 +32,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @withRouter
 @connect(mapStateToProps, mapDispatchToProps)
-class News extends PureComponent {
+class News extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

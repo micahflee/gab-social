@@ -1,7 +1,8 @@
+import React from 'react'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class TrendsItemPlaceholder extends PureComponent {
+export default class TrendsItemPlaceholder extends React.PureComponent {
   
   render() {
     const title1Width = getRandomInt(280, 330)

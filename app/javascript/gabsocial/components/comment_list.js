@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Button from './button'
@@ -31,7 +31,7 @@ export default class CommentList extends ImmutablePureComponent {
     const Wrapper = !commentsLimited ? ScrollableList : Dummy
 
     return (
-      <Fragment>
+      <React.Fragment>
         <Wrapper scrollKey='comments'>
           {
             descendants.slice(0, max).map((descendant, i) => (
@@ -67,7 +67,7 @@ export default class CommentList extends ImmutablePureComponent {
             </div>
           </div>
         }
-      </Fragment>
+      </React.Fragment>
     )
   }
 

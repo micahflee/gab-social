@@ -1,7 +1,8 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import ExploreLayout from '../layouts/explore_layout'
 
-class ExplorePage extends PureComponent {
+class ExplorePage extends React.PureComponent {
 
   render() {
     const { children, title } = this.props

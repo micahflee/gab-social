@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -172,19 +172,19 @@ class StatusHeader extends ImmutablePureComponent {
 
               {
                 !!status.get('expires_at') &&
-                <Fragment>
+                <React.Fragment>
                   <DotTextSeperator />
                   <span title={intl.formatMessage(messages.expirationMessage, {
                     time: timeUntilExpiration,
                   })} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
                     <Icon id='stopwatch' size='13px' className={[_s.default, _s.colorSecondary].join(' ')} />
                   </span>
-                </Fragment>
+                </React.Fragment>
               }
 
               {
                 !!status.get('group') &&
-                <Fragment>
+                <React.Fragment>
                   <DotTextSeperator />
                   <Button
                     isText
@@ -198,12 +198,12 @@ class StatusHeader extends ImmutablePureComponent {
                       {status.getIn(['group', 'title'])}
                     </Text>
                   </Button>
-                </Fragment>
+                </React.Fragment>
               }
 
               {
                 status.get('revised_at') !== null &&
-                <Fragment>
+                <React.Fragment>
                   <DotTextSeperator />
                   <Button
                     isText
@@ -217,7 +217,7 @@ class StatusHeader extends ImmutablePureComponent {
                       {intl.formatMessage(messages.edited)}
                     </Text>
                   </Button>
-                </Fragment>
+                </React.Fragment>
               }
 
             </div>

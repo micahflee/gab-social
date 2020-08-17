@@ -1,6 +1,7 @@
+import React from 'react'
 import Text from './text'
 
-export default class SidebarSectionTitle extends PureComponent {
+export default class SidebarSectionTitle extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.string.isRequired,

@@ -1,7 +1,8 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import AboutLayout from '../layouts/about_layout'
 
-class AboutPage extends PureComponent {
+class AboutPage extends React.PureComponent {
 
   render() {
     const { children, title } = this.props

@@ -1,6 +1,7 @@
+import React from 'react'
 import Text from './text'
 
-export default class Form extends PureComponent {
+export default class Form extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.any,

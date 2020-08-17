@@ -1,6 +1,7 @@
+import React from 'react'
 import Text from './text'
 
-export default class DotTextSeperator extends PureComponent {
+export default class DotTextSeperator extends React.PureComponent {
 
   render() {
     return (

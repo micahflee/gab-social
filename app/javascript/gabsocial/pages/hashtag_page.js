@@ -1,3 +1,4 @@
+import React from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
@@ -11,7 +12,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class HashtagPage extends PureComponent {
+class HashtagPage extends React.PureComponent {
 
   onOpenHashtagPageSettingsModal = () => {
     const { params } = this.props

@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openModal } from '../../actions/modal'

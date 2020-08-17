@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -6,7 +7,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Text from './text'
 
-export default class StatusActionBarItem extends PureComponent {
+export default class StatusActionBarItem extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,

@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { FormattedNumber } from 'react-intl'
 
 export const shortNumberFormat = (number) => {
@@ -11,9 +11,9 @@ export const shortNumberFormat = (number) => {
   }
 
   return (
-    <Fragment>
+    <React.Fragment>
       <FormattedNumber value={number / 1000} maximumFractionDigits={1} />k
-    </Fragment>
+    </React.Fragment>
   )
 }
 

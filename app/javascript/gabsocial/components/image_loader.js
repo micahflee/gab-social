@@ -1,8 +1,9 @@
+import React from 'react'
 import { LoadingBar } from 'react-redux-loading-bar'
 import { CX  } from '../constants'
 import ZoomableImage from './zoomable_image'
 
-export default class ImageLoader extends PureComponent {
+export default class ImageLoader extends React.PureComponent {
 
   static propTypes = {
     alt: PropTypes.string,

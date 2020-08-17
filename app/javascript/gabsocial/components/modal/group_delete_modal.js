@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
 import { blockAccount } from '../../actions/accounts'
@@ -18,7 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(null, mapDispatchToProps)
 @injectIntl
-class GroupDeleteModal extends PureComponent {
+class GroupDeleteModal extends React.PureComponent {
 
   static propTypes = {
     group: PropTypes.object.isRequired,

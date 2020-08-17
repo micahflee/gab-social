@@ -1,7 +1,8 @@
+import React from 'react'
 import { CX } from '../constants'
 import Button from './button'
 
-export default class BackButton extends PureComponent {
+export default class BackButton extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,

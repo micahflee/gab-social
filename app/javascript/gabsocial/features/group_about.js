@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import isObject from 'lodash.isobject'
@@ -8,7 +9,6 @@ import Bundle from '../features/ui/util/bundle'
 import {
 	GroupInfoPanel
 } from '../features/ui/util/async_components'
-
 
 const mapStateToProps = (state, { params }) => {
 	const groupId = isObject(params) ? params['id'] : null

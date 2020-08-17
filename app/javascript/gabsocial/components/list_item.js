@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
@@ -7,7 +7,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class ListItem extends PureComponent {
+export default class ListItem extends React.PureComponent {
 
   static propTypes = {
     icon: PropTypes.string,
@@ -59,9 +59,9 @@ export default class ListItem extends PureComponent {
 
     if (isHidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {title}
-        </Fragment>
+        </React.Fragment>
       )
     }
 

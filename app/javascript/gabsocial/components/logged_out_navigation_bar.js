@@ -1,3 +1,4 @@
+import React from 'react'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Button from './button'
 import NavigationBarButton from './navigation_bar_button'
@@ -6,7 +7,7 @@ import Text from './text'
 import ResponsiveComponent from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-export default class LoggedOutNavigationBar extends PureComponent {
+export default class LoggedOutNavigationBar extends React.PureComponent {
 
   static propTypes = {
     isProfile: PropTypes.bool,

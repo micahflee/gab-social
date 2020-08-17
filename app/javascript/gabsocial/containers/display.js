@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   FONT_SIZES,
   THEMES,
@@ -5,7 +6,7 @@ import {
   DEFAULT_FONT_SIZE,
 } from '../constants'
 
-class Display extends PureComponent {
+class Display extends React.PureComponent {
 
   state = {
     theme: this.props.theme,

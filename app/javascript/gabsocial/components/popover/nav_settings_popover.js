@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
 import { meUsername } from '../../initial_state'
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(null, mapDispatchToProps)
-class NavSettingsPopover extends PureComponent {
+class NavSettingsPopover extends React.PureComponent {
   
   static propTypes = {
     intl: PropTypes.object.isRequired,

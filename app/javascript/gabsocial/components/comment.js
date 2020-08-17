@@ -1,3 +1,4 @@
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -247,7 +248,7 @@ class Comment extends ImmutablePureComponent {
 
 }
 
-class CommentButton extends PureComponent {
+class CommentButton extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func.isRequired,

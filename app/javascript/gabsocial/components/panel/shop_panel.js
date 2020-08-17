@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { fetchFeaturedProducts } from '../../actions/shop'
 import { URL_DISSENTER_SHOP } from '../../constants'
@@ -21,7 +22,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class ShopPanel extends PureComponent {
+class ShopPanel extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import classNames from 'classnames/bind'
 import { changeComposeVisibility } from '../../actions/compose'
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class StatusVisibilityDropdown extends PureComponent {
+class StatusVisibilityDropdown extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

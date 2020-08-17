@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -103,14 +103,14 @@ class Notification extends ImmutablePureComponent {
 
     if (isHidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {
             accounts && accounts.slice(0, 1).map((account, i) => (
               <DisplayName key={i} account={account} noUsername />
             ))
           }
           {message}
-        </Fragment>
+        </React.Fragment>
       )
     }
 
@@ -164,12 +164,12 @@ class Notification extends ImmutablePureComponent {
                   </Text>
                   {
                     !!createdAt &&
-                    <Fragment>
+                    <React.Fragment>
                       <DotTextSeperator />
                       <Text size='small' color='tertiary' className={_s.ml5}>
                         <RelativeTimestamp timestamp={createdAt} />
                       </Text>
-                    </Fragment>
+                    </React.Fragment>
                   }
                 </div>
               </div>

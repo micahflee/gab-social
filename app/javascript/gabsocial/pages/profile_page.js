@@ -1,3 +1,4 @@
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'

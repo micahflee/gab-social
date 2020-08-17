@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, FormattedMessage, injectIntl } from 'react-intl'
 import {
   source_url,
@@ -20,7 +21,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class BundleColumnError extends PureComponent {
+class BundleColumnError extends React.PureComponent {
 
   static propTypes = {
     onRetry: PropTypes.func.isRequired,

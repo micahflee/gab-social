@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import {  MODAL_DISPLAY_OPTIONS } from '../../constants'
 import { openModal } from '../../actions/modal'
@@ -24,7 +25,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(null, mapDispatchToProps)
-class SidebarMorePopover extends PureComponent {
+class SidebarMorePopover extends React.PureComponent {
   
   static propTypes = {
     intl: PropTypes.object.isRequired,

@@ -1,8 +1,9 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 
 const cx = classNames.bind(_s)
 
-export default class Image extends PureComponent {
+export default class Image extends React.PureComponent {
 
   static propTypes = {
     alt: PropTypes.string.isRequired,

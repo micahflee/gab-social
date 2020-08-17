@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import Text from './text'
@@ -8,7 +9,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class LoadMore extends PureComponent {
+class LoadMore extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func,

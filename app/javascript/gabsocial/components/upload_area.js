@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import spring from 'react-motion/lib/spring'
 import Motion from '../features/ui/util/reduced_motion'
@@ -9,7 +10,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class UploadArea extends PureComponent {
+class UploadArea extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

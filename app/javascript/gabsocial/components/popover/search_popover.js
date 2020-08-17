@@ -1,4 +1,6 @@
-export default class SearchPopover extends PureComponent {
+import React from 'react'
+
+export default class SearchPopover extends React.PureComponent {
   render() {
     // : todo :
     // <div className='search-popout-container' style={{ ...style, position: 'absolute', zIndex: 1000 }}>

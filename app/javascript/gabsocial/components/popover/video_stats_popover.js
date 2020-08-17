@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -120,7 +121,7 @@ class VideoStatsPopover extends ImmutablePureComponent {
 
 }
 
-class VideoStatLine extends PureComponent {
+class VideoStatLine extends React.PureComponent {
 
   static propTypes = {
     isXS: PropTypes.bool.isRequired,

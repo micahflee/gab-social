@@ -1,3 +1,5 @@
+import React from 'react'
+
 const MIN_SCALE = 1
 const MAX_SCALE = 4
 
@@ -14,7 +16,7 @@ const clamp = (min, max, value) => {
   return Math.min(max, Math.max(min, value))
 }
 
-export default class ZoomableImage extends PureComponent {
+export default class ZoomableImage extends React.PureComponent {
 
   static propTypes = {
     alt: PropTypes.string,

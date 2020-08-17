@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import { MODAL_EDIT_SHORTCUTS } from '../constants'
@@ -9,7 +10,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class ShortcutsPage extends PureComponent {
+class ShortcutsPage extends React.PureComponent {
 
   handleOnOpenEditShortcutsModal = () => {
     this.props.dispatch(openModal(MODAL_EDIT_SHORTCUTS))

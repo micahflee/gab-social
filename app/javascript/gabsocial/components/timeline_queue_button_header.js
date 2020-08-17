@@ -1,3 +1,4 @@
+import React from 'react'
 import { FormattedMessage } from 'react-intl'
 import throttle from 'lodash.throttle'
 import classNames from 'classnames/bind'
@@ -8,7 +9,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class TimelineQueueButtonHeader extends PureComponent {
+export default class TimelineQueueButtonHeader extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func.isRequired,

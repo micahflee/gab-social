@@ -1,4 +1,6 @@
-export default class ExtendedVideoPlayer extends PureComponent {
+import React from 'react'
+
+export default class ExtendedVideoPlayer extends React.PureComponent {
 
   static propTypes = {
     src: PropTypes.string.isRequired,

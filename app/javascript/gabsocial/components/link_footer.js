@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   FormattedMessage,
   defineMessages,
@@ -36,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(null, mapDispatchToProps)
 @injectIntl
-class LinkFooter extends PureComponent {
+class LinkFooter extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

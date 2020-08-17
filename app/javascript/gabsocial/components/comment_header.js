@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -87,7 +87,7 @@ class CommentHeader extends ImmutablePureComponent {
 
           {
             !!status.get('group') &&
-            <Fragment>
+            <React.Fragment>
               <DotTextSeperator />
               <Button
                 isText
@@ -101,12 +101,12 @@ class CommentHeader extends ImmutablePureComponent {
                   {status.getIn(['group', 'title'])}
                 </Text>
               </Button>
-            </Fragment>
+            </React.Fragment>
           }
 
           {
             status.get('revised_at') !== null &&
-            <Fragment>
+            <React.Fragment>
               <DotTextSeperator />
               <Button
                 isText
@@ -120,12 +120,12 @@ class CommentHeader extends ImmutablePureComponent {
                   {intl.formatMessage(messages.edited)}
                 </Text>
               </Button>
-            </Fragment>
+            </React.Fragment>
           }
 
           {
             favoriteCount > 0 &&
-            <Fragment>
+            <React.Fragment>
               <DotTextSeperator />
                 <Button
                   isText
@@ -141,12 +141,12 @@ class CommentHeader extends ImmutablePureComponent {
                   })}
                 </Text>
               </Button>
-            </Fragment>
+            </React.Fragment>
           }
 
           {
             repostCount > 0 &&
-            <Fragment>
+            <React.Fragment>
               <DotTextSeperator />
                 <Button
                   isText
@@ -162,7 +162,7 @@ class CommentHeader extends ImmutablePureComponent {
                   })}
                 </Text>
               </Button>
-            </Fragment>
+            </React.Fragment>
           }
 
           <DotTextSeperator />

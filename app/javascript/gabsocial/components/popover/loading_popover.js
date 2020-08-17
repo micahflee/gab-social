@@ -1,7 +1,8 @@
+import React from 'react'
 import PopoverLayout from './popover_layout'
 import ColumnIndicator from '../column_indicator'
 
-export default class LoadingPopover extends PureComponent {
+export default class LoadingPopover extends React.PureComponent {
 
   static defaultProps = {
     isXS: PropTypes.bool,

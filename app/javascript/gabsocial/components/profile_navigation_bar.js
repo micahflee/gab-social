@@ -1,7 +1,8 @@
+import React from 'react'
 import BackButton from './back_button'
 import Heading from './heading'
 
-export default class ProfileNavigationBar extends PureComponent {
+export default class ProfileNavigationBar extends React.PureComponent {
 
   static propTypes = {
     titleHTML: PropTypes.string,

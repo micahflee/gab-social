@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import Button from '../components/button'
 import DotTextSeperator from '../components/dot_text_seperator'
@@ -11,7 +11,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class SortBlock extends PureComponent {
+class SortBlock extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,
@@ -65,7 +65,7 @@ class SortBlock extends PureComponent {
 
         {
           !!subValue &&
-          <Fragment>
+          <React.Fragment>
             <div className={[_s.default, _s.px5].join(' ')}>
               <DotTextSeperator />
             </div>
@@ -83,7 +83,7 @@ class SortBlock extends PureComponent {
               </Text>
               <Icon id='caret-down' size='6px' className={[_s.colorSecondary, _s.ml5].join(' ')} />
             </Button>
-          </Fragment>
+          </React.Fragment>
         }
       </div>
     )

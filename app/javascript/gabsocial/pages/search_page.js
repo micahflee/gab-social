@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Responsive from '../features/ui/util/responsive_component'
@@ -11,7 +12,7 @@ import {
   SignUpPanel,
 } from '../features/ui/util/async_components'
 
-class SearchPage extends PureComponent {
+class SearchPage extends React.PureComponent {
 
   componentWillMount() {
     const { intl } = this.props

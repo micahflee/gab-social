@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import classNames from 'classnames/bind'
 import Button from './button'
 import Icon from './icon'
@@ -6,7 +6,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class Input extends PureComponent {
+export default class Input extends React.PureComponent {
 
   static propTypes = {
     placeholder: PropTypes.string,
@@ -80,7 +80,7 @@ export default class Input extends PureComponent {
     })
 
     return (
-      <Fragment>
+      <React.Fragment>
         {
           !!title && !hideLabel &&
           <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
@@ -128,7 +128,7 @@ export default class Input extends PureComponent {
             />
           }
         </div>
-      </Fragment>
+      </React.Fragment>
     )
   }
 }

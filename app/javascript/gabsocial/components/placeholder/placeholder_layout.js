@@ -1,8 +1,9 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ContentLoader from 'react-content-loader'
 import { DEFAULT_THEME } from '../../constants'
 
-class PlaceholderLayout extends PureComponent {
+class PlaceholderLayout extends React.PureComponent {
   
   render() {
     const {

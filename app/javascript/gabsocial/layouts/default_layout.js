@@ -1,6 +1,7 @@
+import React from 'react'
 import Layout from './layout'
 
-class DefaultLayout extends PureComponent {
+class DefaultLayout extends React.PureComponent {
 
   render() {
     const {

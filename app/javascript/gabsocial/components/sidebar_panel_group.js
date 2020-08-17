@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { me, promotions } from '../initial_state'
 import Bundle from '../features/ui/util/bundle'
 import WrappedBundle from '../features/ui/util/bundle'
@@ -6,7 +6,7 @@ import {
   StatusPromotionPanel
 } from '../features/ui/util/async_components'
 
-export default class SidebarPanelGroup extends PureComponent {
+export default class SidebarPanelGroup extends React.PureComponent {
 
   static propTypes = {
     layout: PropTypes.array.isRequired,
@@ -30,7 +30,7 @@ export default class SidebarPanelGroup extends PureComponent {
     }
 
     return (
-      <Fragment>
+      <React.Fragment>
         {
           layout.map((panel) => {
             if (typeof panel !== 'function') {
@@ -51,7 +51,7 @@ export default class SidebarPanelGroup extends PureComponent {
             )
           })
         }
-      </Fragment>
+      </React.Fragment>
     )
   }
 

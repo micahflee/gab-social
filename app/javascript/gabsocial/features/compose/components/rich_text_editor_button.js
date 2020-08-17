@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { changeRichTextEditorControlsVisibility } from '../../../actions/compose'
 import { openModal } from '../../../actions/modal'
@@ -29,7 +30,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class RichTextEditorButton extends PureComponent {
+class RichTextEditorButton extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.bool,

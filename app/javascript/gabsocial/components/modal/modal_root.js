@@ -1,3 +1,4 @@
+import React from 'react'
 import { closeModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import Bundle from '../../features/ui/util/bundle'
@@ -130,7 +131,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
-class ModalRoot extends PureComponent {
+class ModalRoot extends React.PureComponent {
 
   static propTypes = {
     type: PropTypes.string,

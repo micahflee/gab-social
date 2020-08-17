@@ -1,9 +1,10 @@
+import React from 'react'
 import Block from '../block'
 import Heading from '../heading'
 import Button from '../button'
 import Text from '../text'
 
-export default class PanelLayout extends PureComponent {
+export default class PanelLayout extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

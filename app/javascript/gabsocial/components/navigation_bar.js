@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openSidebar } from '../actions/sidebar'
@@ -233,7 +234,7 @@ class NavigationBar extends ImmutablePureComponent {
 
 }
 
-class NavigationBarButtonDivider extends PureComponent {
+class NavigationBarButtonDivider extends React.PureComponent {
 
   render() {
     return (

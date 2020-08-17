@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import ComposeExtraButton from './compose_extra_button'
 import { openModal } from '../../../actions/modal'
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class GifSelectorButton extends PureComponent {
+class GifSelectorButton extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

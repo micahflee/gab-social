@@ -1,7 +1,8 @@
+import React from 'react'
 import isEqual from 'lodash.isequal'
 import { APP_NAME } from '../../../constants'
 
-class PageTitle extends PureComponent {
+class PageTitle extends React.PureComponent {
 
   componentDidMount() {
     this.updatePageTitle(this.props) 

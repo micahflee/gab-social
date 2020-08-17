@@ -1,9 +1,10 @@
+import React from 'react'
 import { CX } from '../constants'
 import Icon from './icon'
 import Image from './image'
 import Text from './text'
 
-export default class FileInput extends PureComponent {
+export default class FileInput extends React.PureComponent {
 
   static propTypes = {
     onChange: PropTypes.func,

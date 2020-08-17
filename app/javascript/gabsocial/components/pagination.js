@@ -1,3 +1,4 @@
+import React from 'react'
 import { CX } from '../constants'
 
 const COLORS = {
@@ -5,7 +6,7 @@ const COLORS = {
   brand: 'brand',
 }
 
-class Pagination extends PureComponent {
+class Pagination extends React.PureComponent {
 
   handleClickIndex = (i) => {
     this.props.onClick(i)

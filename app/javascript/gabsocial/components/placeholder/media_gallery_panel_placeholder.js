@@ -1,6 +1,7 @@
+import React from 'react'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class MediaGalleryPanelPlaceholder extends PureComponent {
+export default class MediaGalleryPanelPlaceholder extends React.PureComponent {
   
   render() {
     return (

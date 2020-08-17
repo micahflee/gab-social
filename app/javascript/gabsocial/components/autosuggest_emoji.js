@@ -1,9 +1,10 @@
+import React from 'react'
 import unicodeMapping from './emoji/emoji_unicode_mapping_light'
 import Text from './text'
 
 const assetHost = process.env.CDN_HOST || ''
 
-export default class AutosuggestEmoji extends PureComponent {
+export default class AutosuggestEmoji extends React.PureComponent {
 
   static propTypes = {
     emoji: PropTypes.object.isRequired,

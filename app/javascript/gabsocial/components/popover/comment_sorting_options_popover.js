@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
 import { changeSetting, saveSettings } from '../../actions/settings'
@@ -34,7 +35,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class CommentSortingOptionsPopover extends PureComponent {
+class CommentSortingOptionsPopover extends React.PureComponent {
 
   static propTypes = {
     commentSorting: PropTypes.string.isRequired,

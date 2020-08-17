@@ -1,3 +1,4 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 
 // Bind CSS Modules global variable `_s` to classNames module
@@ -51,7 +52,7 @@ const ALIGNMENTS = {
  * @param {string} [props.tagName='span'] tagName of the text element
  * @param {string} [props.weight='normal'] weight of the text
  */
-export default class Text extends PureComponent {
+export default class Text extends React.PureComponent {
 
   static propTypes = {
     align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),

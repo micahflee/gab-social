@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -183,7 +183,7 @@ class EditProfileModal extends ImmutablePureComponent {
               <div className={[_s.default, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.width100PC].join(' ')}>
                 {
                   !isVerified &&
-                  <Fragment>
+                  <React.Fragment>
                     <Input
                       id='display-name'
                       title='Display name'
@@ -192,7 +192,7 @@ class EditProfileModal extends ImmutablePureComponent {
                       onBlur={this.handleDisplayNameBlur}
                     />
                     <Divider isInvisible />
-                  </Fragment>
+                  </React.Fragment>
                 }
 
                 <Textarea

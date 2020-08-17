@@ -1,3 +1,4 @@
+import React from 'react'
 import { clearCompose } from '../../actions/compose'
 import ComposeFormContainer from './containers/compose_form_container'
 
@@ -7,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(null, mapDispatchToProps)
-class Compose extends PureComponent {
+class Compose extends React.PureComponent {
 
   static propTypes = {
     onClearCompose: PropTypes.func.isRequired,

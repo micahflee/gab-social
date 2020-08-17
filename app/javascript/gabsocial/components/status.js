@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -596,7 +596,7 @@ class Status extends ImmutablePureComponent {
                   
                   {
                     status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
-                    <Fragment>
+                    <React.Fragment>
                       <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
                       <SortBlock
@@ -606,11 +606,11 @@ class Status extends ImmutablePureComponent {
 
                       {
                         descendantsIds.size === 0 &&
-                        <Fragment>
+                        <React.Fragment>
                           <CommentPlaceholder />
                           <CommentPlaceholder />
                           <CommentPlaceholder />
-                        </Fragment>
+                        </React.Fragment>
                       }
                       
                       {
@@ -622,7 +622,7 @@ class Status extends ImmutablePureComponent {
                           onViewComments={this.handleClick}
                         />
                       }
-                    </Fragment>
+                    </React.Fragment>
                   }
                 </div>
               </div>

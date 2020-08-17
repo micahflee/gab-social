@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -72,7 +72,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
         <div className={[_s.default].join(' ')}>
           {
             !!group &&
-            <Fragment>
+            <React.Fragment>
               <Heading isCentered>
                 {group.get('title')}
               </Heading>
@@ -103,7 +103,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                   {intl.formatMessage(messages.members)}
                 </Text>
               </div>
-            </Fragment>
+            </React.Fragment>
           }
         </div>
       )
@@ -113,7 +113,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
       <PanelLayout title={intl.formatMessage(messages.title)}>
         {
           !!group &&
-          <Fragment>
+          <React.Fragment>
 
             <Text className={_s.mb5}>
               {group.get('description')}
@@ -185,7 +185,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
             
             {
               !!tags &&
-              <Fragment>
+              <React.Fragment>
                 <Divider isSmall />
                 <GroupInfoPanelRow title={intl.formatMessage(messages.tags)} icon='shop'>
                   <div className={[_s.default, _s.flexRow, _s.justifyContentEnd, _s.flexWrap, _s.pl5].join(' ')}>
@@ -200,17 +200,17 @@ class GroupInfoPanel extends ImmutablePureComponent {
                     }
                   </div>
                 </GroupInfoPanelRow>
-              </Fragment>
+              </React.Fragment>
             }
 
-          </Fragment>
+          </React.Fragment>
         }
       </PanelLayout>
     )
   }
 }
 
-class GroupInfoPanelRow extends PureComponent {
+class GroupInfoPanelRow extends React.PureComponent {
 
   static propTypes = {
     icon: PropTypes.string,

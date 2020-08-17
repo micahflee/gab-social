@@ -38,6 +38,7 @@ import {
   VideoStatsPopover,
 } from '../../features/ui/util/async_components'
 
+import React from 'react'
 import { closePopover } from '../../actions/popover'
 import { getWindowDimension } from '../../utils/is_mobile'
 import Bundle from '../../features/ui/util/bundle'
@@ -78,7 +79,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
-class PopoverRoot extends PureComponent {
+class PopoverRoot extends React.PureComponent {
 
   static propTypes = {
     type: PropTypes.string,

@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
 import { muteAccount } from '../../actions/accounts'
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class MuteModal extends PureComponent {
+class MuteModal extends React.PureComponent {
 
   static propTypes = {
     account: PropTypes.object.isRequired,

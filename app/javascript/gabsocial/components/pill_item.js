@@ -1,3 +1,4 @@
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { CX } from '../constants'
 import Button from './button'
@@ -5,7 +6,7 @@ import Text from './text'
 
 export default
 @withRouter
-class PillItem extends PureComponent {
+class PillItem extends React.PureComponent {
 
   static propTypes = {
     icon: PropTypes.string,

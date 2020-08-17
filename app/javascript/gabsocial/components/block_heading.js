@@ -1,6 +1,7 @@
+import React from 'react'
 import Heading from './heading'
 
-export default class BlockHeading extends PureComponent {
+export default class BlockHeading extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string.isRequired,

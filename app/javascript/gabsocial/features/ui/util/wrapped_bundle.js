@@ -1,6 +1,7 @@
+import React from 'react'
 import Bundle from './bundle'
 
-class WrappedBundle extends PureComponent {
+class WrappedBundle extends React.PureComponent {
 
   render() {
     const {

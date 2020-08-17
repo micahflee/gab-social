@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   BREAKPOINT_EXTRA_LARGE,
   BREAKPOINT_LARGE,
@@ -9,7 +10,7 @@ import { getWindowDimension } from '../../../utils/is_mobile'
 
 const initialState = getWindowDimension()
 
-export default class ResponsiveClassesComponent extends PureComponent {
+export default class ResponsiveClassesComponent extends React.PureComponent {
 
   static propTypes = {
     classNames: PropTypes.string,

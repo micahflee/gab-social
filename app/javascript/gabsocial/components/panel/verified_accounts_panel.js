@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { fetchPopularSuggestions } from '../../actions/suggestions'
 import ImmutablePureComponent from 'react-immutable-pure-component'

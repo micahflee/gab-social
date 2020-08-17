@@ -1,3 +1,4 @@
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import queryString from 'query-string'
 import { me } from '../initial_state'
@@ -26,7 +27,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @withRouter
 @connect(mapStateToProps, mapDispatchToProps)
-class Search extends PureComponent {
+class Search extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,

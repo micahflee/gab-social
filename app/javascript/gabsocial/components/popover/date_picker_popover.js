@@ -1,3 +1,4 @@
+import React from 'react'
 import DatePicker from 'react-datepicker'
 import { FormattedMessage } from 'react-intl'
 import moment from 'moment-mini'
@@ -36,7 +37,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default
 @connect(mapStateToProps, mapDispatchToProps)
-class DatePickerPopover extends PureComponent {
+class DatePickerPopover extends React.PureComponent {
 
   static propTypes = {
     date: PropTypes.instanceOf(Date),

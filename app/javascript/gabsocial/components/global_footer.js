@@ -1,10 +1,11 @@
+import React from 'react'
 import Button from './button'
 import Heading from './heading'
 import Icon from './icon'
 import Text from './text'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-export default class GlobalFooter extends PureComponent {
+export default class GlobalFooter extends React.PureComponent {
 
   render() {
 
@@ -158,7 +159,7 @@ export default class GlobalFooter extends PureComponent {
 
 }
 
-class GlobalFooterColumn extends PureComponent {
+class GlobalFooterColumn extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

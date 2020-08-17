@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../../initial_state'
 import Button from '../button'
@@ -13,7 +14,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class SignUpPanel extends PureComponent {
+class SignUpPanel extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

@@ -1,9 +1,10 @@
+import React from 'react'
 import classNames from 'classnames/bind'
 import Button from '../../../components/button'
 
 const cx = classNames.bind(_s)
 
-export default class ComposeExtraButton extends PureComponent {
+export default class ComposeExtraButton extends React.PureComponent {
   static propTypes = {
     title: PropTypes.string,
     disabled: PropTypes.bool,

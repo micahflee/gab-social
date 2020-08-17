@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import { openModal } from '../../../actions/modal'
 import { closePopover, openPopover } from '../../../actions/popover'
@@ -35,7 +36,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class SchedulePostButton extends PureComponent {
+class SchedulePostButton extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.bool.isRequired,

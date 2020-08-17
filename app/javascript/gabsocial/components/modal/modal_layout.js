@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import classNames from 'classnames/bind'
 import Button from '../button'
@@ -12,7 +13,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class ModalLayout extends PureComponent {
+class ModalLayout extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.string,

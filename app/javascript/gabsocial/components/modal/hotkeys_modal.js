@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
@@ -126,7 +127,7 @@ class HotkeysModal extends ImmutablePureComponent {
 
 }
 
-class HotKeysModalRow extends PureComponent {
+class HotKeysModalRow extends React.PureComponent {
   static propTypes = {
     hotkey: PropTypes.string.isRequired,
     action: PropTypes.string.isRequired,

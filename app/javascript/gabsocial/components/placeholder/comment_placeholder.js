@@ -1,8 +1,9 @@
+import React from 'react'
 import { CX } from '../../constants'
 import { getRandomInt } from '../../utils/numbers'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class CommentPlaceholder extends PureComponent {
+export default class CommentPlaceholder extends React.PureComponent {
   
   render() {
     const classes = CX({

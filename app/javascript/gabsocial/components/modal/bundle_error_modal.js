@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import ConfirmationModal from './confirmation_modal'
 
@@ -9,7 +10,7 @@ const messages = defineMessages({
 
 export default
 @injectIntl
-class BundleErrorModal extends PureComponent {
+class BundleErrorModal extends React.PureComponent {
 
   static propTypes = {
     onRetry: PropTypes.func.isRequired,

@@ -1,7 +1,8 @@
+import React from 'react'
 import PageTitle from '../features/ui/util/page_title'
 import IntroductionLayout from '../layouts/introduction_layout'
 
-export default class IntroductionPage extends PureComponent {
+export default class IntroductionPage extends React.PureComponent {
 
   render() {
     return (

@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../actions/modal'
 import PageTitle from '../features/ui/util/page_title'
@@ -11,7 +12,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class CommunityPage extends PureComponent {
+class CommunityPage extends React.PureComponent {
 
   onOpenCommunityPageSettingsModal = () => {
     this.props.dispatch(openModal(MODAL_COMMUNITY_TIMELINE_SETTINGS))

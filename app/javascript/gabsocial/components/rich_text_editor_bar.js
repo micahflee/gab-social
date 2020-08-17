@@ -1,3 +1,4 @@
+import React from 'react'
 import { RichUtils } from 'draft-js'
 import classNames from 'classnames/bind'
 import { me } from '../initial_state'
@@ -82,7 +83,7 @@ const mapStateToProps = (state) => {
 
 export default
 @connect(mapStateToProps)
-class RichTextEditorBar extends PureComponent {
+class RichTextEditorBar extends React.PureComponent {
 
   static propTypes = {
     editorState: PropTypes.object.isRequired,
@@ -137,7 +138,7 @@ class RichTextEditorBar extends PureComponent {
 
 }
 
-class StyleButton extends PureComponent {
+class StyleButton extends React.PureComponent {
 
   static propTypes = {
     onClick: PropTypes.func,

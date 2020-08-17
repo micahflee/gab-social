@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -198,7 +199,7 @@ class DisplayOptionsModal extends ImmutablePureComponent {
 
 }
 
-class ThemeBlock extends PureComponent {
+class ThemeBlock extends React.PureComponent {
 
   static propTypes = {
     checked: PropTypes.bool,

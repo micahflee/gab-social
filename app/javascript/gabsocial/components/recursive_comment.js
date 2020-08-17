@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'

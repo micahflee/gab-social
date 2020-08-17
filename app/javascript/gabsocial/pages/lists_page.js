@@ -1,3 +1,4 @@
+import React from 'react'
 import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
@@ -9,7 +10,7 @@ import {
   WhoToFollowPanel,
 } from '../features/ui/util/async_components'
 
-class ListsPage extends PureComponent {
+class ListsPage extends React.PureComponent {
 
   onOpenListCreateModal = () => {
     this.props.dispatch(openModal(MODAL_LIST_CREATE))

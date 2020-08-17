@@ -1,3 +1,4 @@
+import React from 'react'
 import {
   getDefaultKeyBinding,
   Editor,
@@ -110,7 +111,7 @@ const GROUP_HANDLE_REGEX = /\g\/[\w]+/g
 const HANDLE_REGEX = /\@[\w]+/g
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
-export default class Composer extends PureComponent {
+export default class Composer extends React.PureComponent {
 
   static propTypes = {
     inputRef: PropTypes.func,

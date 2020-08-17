@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { changeListEditorTitle, submitListEditor } from '../actions/lists'
 import { closeModal } from '../actions/modal'
@@ -30,7 +31,7 @@ const mapDispatchToProps = (dispatch, { isModal }) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class ListCreate extends PureComponent {
+class ListCreate extends React.PureComponent {
 
   static propTypes = {
     value: PropTypes.string,

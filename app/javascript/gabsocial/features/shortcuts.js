@@ -1,3 +1,4 @@
+import React from 'react'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { fetchShortcuts } from '../actions/shortcuts'

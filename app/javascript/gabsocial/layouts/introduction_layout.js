@@ -1,10 +1,11 @@
+import React from 'react'
 import Block from '../components/block'
 import Icon from '../components/icon'
 import BundleColumnError from '../components/bundle_column_error'
 import Bundle from '../features/ui/util/bundle'
 import { Introduction } from '../features/ui/util/async_components'
 
-export default class IntroductionLayout extends PureComponent {
+export default class IntroductionLayout extends React.PureComponent {
 
   renderError = (props) => {
     return <BundleColumnError {...props} />

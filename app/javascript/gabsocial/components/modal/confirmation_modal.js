@@ -1,3 +1,4 @@
+import React from 'react'
 import { injectIntl, FormattedMessage } from 'react-intl'
 import Block from '../block'
 import Button from '../button'
@@ -6,7 +7,7 @@ import Text from '../text'
 
 export default
 @injectIntl
-class ConfirmationModal extends PureComponent {
+class ConfirmationModal extends React.PureComponent {
 
   static propTypes = {
     title: PropTypes.any.isRequired,

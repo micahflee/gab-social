@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openPopover } from '../../../actions/popover'
 import ComposeExtraButton from './compose_extra_button'
@@ -23,7 +24,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class EmojiPickerButton extends PureComponent {
+class EmojiPickerButton extends React.PureComponent {
 
   static propTypes = {
     intl: PropTypes.object.isRequired,

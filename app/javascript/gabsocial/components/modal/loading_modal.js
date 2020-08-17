@@ -1,7 +1,8 @@
+import React from 'react'
 import Block from '../block'
 import ColumnIndicator from '../column_indicator'
 
-export default class LoadingModal extends PureComponent {
+export default class LoadingModal extends React.PureComponent {
 
   render() {
     return (

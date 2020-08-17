@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
 import { getWindowDimension } from '../../utils/is_mobile'
 import { openModal } from '../../actions/modal'
@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @connect(mapStateToProps, mapDispatchToProps)
 @injectIntl
-class ModalBase extends PureComponent {
+class ModalBase extends React.PureComponent {
 
   static propTypes = {
     children: PropTypes.node,
@@ -167,7 +167,7 @@ class ModalBase extends PureComponent {
       <div ref={this.setRef} className={containerClasses}>
         {
           !!visible &&
-          <Fragment>
+          <React.Fragment>
             <div
               role='presentation'
               className={[_s.default, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
@@ -180,7 +180,7 @@ class ModalBase extends PureComponent {
             >
               {children}
             </div>
-          </Fragment>
+          </React.Fragment>
         }
       </div>
     )

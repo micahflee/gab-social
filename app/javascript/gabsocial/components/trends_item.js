@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { urlRegex } from '../features/ui/util/url_regex'
 import {
   CX,
@@ -9,7 +9,7 @@ import DotTextSeperator from './dot_text_seperator'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
-export default class TrendingItem extends PureComponent {
+export default class TrendingItem extends React.PureComponent {
 
   static propTypes = {
     index: PropTypes.number,
@@ -66,11 +66,11 @@ export default class TrendingItem extends PureComponent {
 
     if (isHidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {correctedTitle}
           {!descriptionHasLink && correctedDescription}
           {correctedAuthor}
-        </Fragment>
+        </React.Fragment>
       )
     }
 

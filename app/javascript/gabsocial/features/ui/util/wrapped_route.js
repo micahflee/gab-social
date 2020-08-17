@@ -1,10 +1,11 @@
+import React from 'react'
 import api from '../../../api'
 import { Route } from 'react-router-dom'
 import BundleColumnError from '../../../components/bundle_column_error'
 import Bundle from './bundle'
 import { me } from '../../../initial_state'
 
-export default class WrappedRoute extends PureComponent {
+export default class WrappedRoute extends React.PureComponent {
   static propTypes = {
     component: PropTypes.func.isRequired,
     page: PropTypes.func.isRequired,

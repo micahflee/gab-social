@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
@@ -160,7 +160,7 @@ class Notifications extends ImmutablePureComponent {
     this.scrollableContent = scrollableContent
 
     return (
-      <Fragment>
+      <React.Fragment>
         <TimelineQueueButtonHeader
           onClick={this.handleDequeueNotifications}
           count={totalQueuedNotificationsCount}
@@ -182,7 +182,7 @@ class Notifications extends ImmutablePureComponent {
             {scrollableContent}
           </ScrollableList>
         </Block>
-      </Fragment>
+      </React.Fragment>
     )
   }
 

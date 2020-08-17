@@ -1,6 +1,7 @@
+import React from 'react'
 import PlaceholderLayout from './placeholder_layout'
 
-export default class ProfileHeaderXSPlaceholder extends PureComponent {
+export default class ProfileHeaderXSPlaceholder extends React.PureComponent {
   
   render() {
     return (

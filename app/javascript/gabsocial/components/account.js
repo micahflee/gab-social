@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
@@ -123,10 +123,10 @@ class Account extends ImmutablePureComponent {
 
     if (isHidden) {
       return (
-        <Fragment>
+        <React.Fragment>
           {account.get('display_name')}
           {`@${account.get('username')}`}
-        </Fragment>
+        </React.Fragment>
       )
     }
 

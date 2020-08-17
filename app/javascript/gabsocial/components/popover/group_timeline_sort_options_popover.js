@@ -1,3 +1,4 @@
+import React from 'react'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import { closePopover } from '../../actions/popover'
@@ -37,7 +38,7 @@ const mapDispatchToProps = (dispatch) => ({
 export default
 @injectIntl
 @connect(mapStateToProps, mapDispatchToProps)
-class GroupTimelineSortOptionsPopover extends PureComponent {
+class GroupTimelineSortOptionsPopover extends React.PureComponent {
 
   static propTypes = {
     sorting: PropTypes.string.isRequired,
