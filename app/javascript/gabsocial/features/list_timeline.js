@@ -88,7 +88,7 @@ class ListTimeline extends ImmutablePureComponent {
     }
 
     const emptyMessage = (
-      <div className={[_s._, _s.py15, _s.px15, _s.aiCenter].join(' ')}>
+      <div className={[_s.d, _s.py15, _s.px15, _s.aiCenter].join(' ')}>
         <FormattedMessage
           id='empty_column.list'
           defaultMessage='There is nothing in this list yet. When members of this list post new statuses, they will appear here.'

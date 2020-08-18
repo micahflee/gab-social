@@ -12,7 +12,7 @@ class Compose extends React.PureComponent {
 
   render () {
     return (
-      <div className={[_s._, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+      <div className={[_s.d, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
         <ComposeFormContainer isStandalone />
       </div>
     )

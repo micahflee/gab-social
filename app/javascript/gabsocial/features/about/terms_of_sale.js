@@ -10,9 +10,9 @@ export default class TermsOfSale extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._].join(' ')}>
+      <div className={[_s.d].join(' ')}>
         <Block>
-          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
             <Heading>GAB AI INC</Heading>
             <br />
             <Heading>Terms of Sale</Heading>
@@ -83,7 +83,7 @@ export default class TermsOfSale extends React.PureComponent {
             <Heading size='h2'>5. Restrictions</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>When you use the Paid Service, you may not (or attempt to):</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li className={_s.mt10}>
                 <Text tagName='p' size='medium'>violate the Terms of Service;</Text>
               </li>

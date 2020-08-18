@@ -109,7 +109,7 @@ class Button extends React.PureComponent {
 
     // Style the component according to props
     const classes = noClasses ? className : cx(className, {
-      _: 1,
+      d: 1,
       noUnderline: 1,
       font: 1,
       cursorPointer: 1,

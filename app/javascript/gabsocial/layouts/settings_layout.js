@@ -21,7 +21,7 @@ class SettingsLayout extends React.PureComponent {
     const { children, title } = this.props
 
     const mainBlockClasses = CX({
-      _: 1,
+      d: 1,
       w1015PX: 1,
       flexRow: 1,
       jcEnd: 1,
@@ -31,7 +31,7 @@ class SettingsLayout extends React.PureComponent {
     })
 
     return (
-      <div className={[_s._, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <WrappedBundle component={SidebarXS} />
@@ -42,27 +42,27 @@ class SettingsLayout extends React.PureComponent {
           noSearch
         />
 
-        <div className={[_s._, _s.flexRow, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
 
           <Responsive min={BREAKPOINT_EXTRA_SMALL}>
             <SettingsSidebar title='Settings' />
           </Responsive>
 
           <ResponsiveClassesComponent
-            classNames={[_s._, _s.flexShrink1, _s.flexGrow1].join(' ')}
-            classNamesSmall={[_s._, _s.flexShrink1, _s.flexGrow1].join(' ')}
-            classNamesXS={[_s._, _s.w100PC].join(' ')}
+            classNames={[_s.d, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesSmall={[_s.d, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesXS={[_s.d, _s.w100PC].join(' ')}
           >
             <main role='main'>
 
               <ResponsiveClassesComponent
                 classNames={mainBlockClasses}
-                classNamesXS={[_s._, _s.w1015PX, _s.jcEnd, _s.pb15].join(' ')}
+                classNamesXS={[_s.d, _s.w1015PX, _s.jcEnd, _s.pb15].join(' ')}
               >
 
-                <div className={[_s._, _s.w1015PX, _s.z1].join(' ')}>
+                <div className={[_s.d, _s.w1015PX, _s.z1].join(' ')}>
 
-                  <div className={_s._}>
+                  <div className={_s.d}>
                     {children}
                   </div>
                 </div>

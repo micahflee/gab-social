@@ -94,29 +94,29 @@ class Account extends ImmutablePureComponent {
     const content = { __html: account.get('note_emojified') }
 
     return (
-      <div className={[_s._, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
-        <div className={[_s._, _s.flexRow, _s.aiStart].join(' ')}>
+      <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiStart].join(' ')}>
 
           <NavLink
-            className={[_s._, _s.noUnderline].join(' ')}
+            className={[_s.d, _s.noUnderline].join(' ')}
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
           >
             <Avatar account={account} size={avatarSize} />
           </NavLink>
 
-          <div className={[_s._, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
-            <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+          <div className={[_s.d, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
               <NavLink
                 title={account.get('acct')}
                 to={`/${account.get('acct')}`}
-                className={[_s._, _s.aiStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
+                className={[_s.d, _s.aiStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
               >
                 <DisplayName account={account} isMultiline={compact} />
                 {!compact && actionButton}
               </NavLink>
 
-              <div className={[_s._].join(' ')}>
+              <div className={[_s.d].join(' ')}>
                 {dismissBtn}
                 {compact && actionButton}
               </div>

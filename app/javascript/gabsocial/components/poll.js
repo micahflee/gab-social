@@ -71,7 +71,7 @@ class Poll extends ImmutablePureComponent {
     }
 
     const chartClasses = cx({
-      _: 1,
+      d: 1,
       posAbs: 1,
       top0: 1,
       left0: 1,
@@ -89,7 +89,7 @@ class Poll extends ImmutablePureComponent {
     })
 
     const listItemClasses = cx({
-      _: 1,
+      d: 1,
       flexRow: 1,
       py10: showResults,
       mb10: 1,
@@ -102,7 +102,7 @@ class Poll extends ImmutablePureComponent {
     })
 
     const textContainerClasses = cx({
-      _: 1,
+      d: 1,
       w100PC: 1,
       px15: 1,
       py10: !showResults,
@@ -138,7 +138,7 @@ class Poll extends ImmutablePureComponent {
                 checked={active}
                 onChange={this.handleOptionChange}
                 disabled={disabled}
-                className={[_s._, _s.mr10].join(' ')}
+                className={[_s.d, _s.mr10].join(' ')}
               />
             }
 
@@ -176,14 +176,14 @@ class Poll extends ImmutablePureComponent {
     const disabled = this.props.disabled || Object.entries(this.state.selected).every(item => !item)
 
     return (
-      <div className={[_s._, _s.px15, _s.py10].join(' ')}>
-        <ul className={[_s._, _s.listStyleNone].join(' ')}>
+      <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+        <ul className={[_s.d, _s.listStyleNone].join(' ')}>
           {
             poll.get('options').map((option, i) => this.renderOption(option, i))
           }
         </ul>
 
-        <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
           {
             !showResults && me &&
             <Button

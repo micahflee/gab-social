@@ -92,7 +92,7 @@ class RichTextEditorBar extends React.PureComponent {
     if (!rteControlsVisible || !isPro) return null
 
     return (
-      <div className={[_s._, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.aiCenter, _s.flexRow].join(' ')}>
+      <div className={[_s.d, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.aiCenter, _s.flexRow].join(' ')}>
         {
           RTE_ITEMS.map((item, i) => (
             <StyleButton
@@ -152,7 +152,7 @@ class StyleButton extends React.PureComponent {
     const iconColor = active ? 'cWhite' : 'cSecondary'
 
     const btnClasses = cx({
-      _: 1,
+      d: 1,
       noUnderline: 1,
       cursorPointer: 1,
       px10: 1,

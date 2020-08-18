@@ -183,7 +183,7 @@ class StatusContent extends ImmutablePureComponent {
 
       if (hidden) {
         mentionsPlaceholder = (
-          <div className={[_s.statusContent, _s._, _s.aiStart, _s.flexRow, _s.flexWrap].join(' ')}>
+          <div className={[_s.statusContent, _s.d, _s.aiStart, _s.flexRow, _s.flexWrap].join(' ')}>
             {mentionLinks}
           </div>
         )
@@ -192,7 +192,7 @@ class StatusContent extends ImmutablePureComponent {
       const toggleText = intl.formatMessage(hidden ? messages.show : messages.hide)
 
       const spoilerContainerClasses = cx({
-        _: 1,
+        d: 1,
         py10: 1,
         borderBottom1PX: !hidden,
         borderColorSecondary: !hidden,
@@ -224,7 +224,7 @@ class StatusContent extends ImmutablePureComponent {
         >
 
           <div className={spoilerContainerClasses}>
-            <div className={[_s._, _s.flexRow, _s.mr5].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.mr5].join(' ')}>
               <Icon id='warning' size='14px' className={[_s.cPrimary, _s.mt2, _s.mr5].join(' ')}/>
               <div
                 className={[_s.statusContent, _s.outlineNone].join(' ')}
@@ -233,7 +233,7 @@ class StatusContent extends ImmutablePureComponent {
               />
             </div>
 
-            <div className={[_s._, _s.mt10, _s.aiStart].join(' ')}>
+            <div className={[_s.d, _s.mt10, _s.aiStart].join(' ')}>
               <Button
                 isNarrow
                 radiusSmall

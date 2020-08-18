@@ -61,14 +61,14 @@ class StatusActionBar extends ImmutablePureComponent {
     const myStatus = status.getIn(['account', 'id']) === me
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       px10: 1,
       mt10: !shouldCondense,
       mt5: shouldCondense,
     })
 
     const innerContainerClasses = CX({
-      _: 1,
+      d: 1,
       py2: 1,
       flexRow: 1,
       w100PC: 1,
@@ -78,7 +78,7 @@ class StatusActionBar extends ImmutablePureComponent {
     })
 
     const likeBtnClasses = CX({
-      _: 1,
+      d: 1,
       text: 1,
       cursorPointer: myStatus,
       fw400: 1,
@@ -90,7 +90,7 @@ class StatusActionBar extends ImmutablePureComponent {
     })
 
     const interactionBtnClasses = CX({
-      _: 1,
+      d: 1,
       text: 1,
       cursorPointer: 1,
       fw400: 1,
@@ -105,7 +105,7 @@ class StatusActionBar extends ImmutablePureComponent {
       <div className={containerClasses}>
         {
           hasInteractions && 
-          <div className={[_s._, _s.flexRow, _s.aiEnd, _s.px5].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiEnd, _s.px5].join(' ')}>
             {
               favoriteCount > 0 &&
               <button
@@ -146,7 +146,7 @@ class StatusActionBar extends ImmutablePureComponent {
           </div>
         }
         <div className={innerContainerClasses}>
-          <div className={[_s._, _s.flexRow, _s.py2, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.py2, _s.w100PC].join(' ')}>
             <StatusActionBarItem
               title={intl.formatMessage(messages.like)}
               icon={!!status.get('favourited') ? 'liked' : 'like'}

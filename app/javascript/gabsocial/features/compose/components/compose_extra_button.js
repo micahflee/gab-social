@@ -20,7 +20,7 @@ class ComposeExtraButton extends React.PureComponent {
     } = this.props
 
     const btnClasses = cx({
-      _: 1,
+      d: 1,
       circle: 1,
       noUnderline: 1,
       font: 1,
@@ -64,7 +64,7 @@ class ComposeExtraButton extends React.PureComponent {
     }
 
     return (
-      <div className={[_s._, _s.mr2].join(' ')} ref={buttonRef}>
+      <div className={[_s.d, _s.mr2].join(' ')} ref={buttonRef}>
         {button}
         {children}
       </div>

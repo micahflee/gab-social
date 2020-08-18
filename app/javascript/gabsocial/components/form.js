@@ -12,14 +12,14 @@ class Form extends React.PureComponent {
     } = this.props
 
     return (
-      <form onSubmit={onSubmit} className={_s._}>
+      <form onSubmit={onSubmit} className={_s.d}>
         {
           !!errorMessage &&
           <Text color='danger' className={_s.my10}>
             {errorMessage}
           </Text>
         }
-        <div className={_s._}>
+        <div className={_s.d}>
           {children}
         </div>
       </form>

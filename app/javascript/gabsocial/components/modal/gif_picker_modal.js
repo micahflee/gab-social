@@ -55,8 +55,8 @@ class GifPickerModal extends React.PureComponent {
     return (
       <div style={{ width: '560px' }}>
         <Block>
-          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
-            <div className={[_s._, _s.flexGrow1, _s.mr5].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+            <div className={[_s.d, _s.flexGrow1, _s.mr5].join(' ')}>
               <Input
                 onChange={this.onChange}
                 value={searchText}
@@ -74,7 +74,7 @@ class GifPickerModal extends React.PureComponent {
               iconSize='10px'
             />
           </div>
-          <div className={[_s._, _s.minH50VH, _s.maxH80VH, _s.overflowYScroll].join(' ')}>
+          <div className={[_s.d, _s.minH50VH, _s.maxH80VH, _s.overflowYScroll].join(' ')}>
             {
               error &&
               <ColumnIndicator type='error' />
@@ -86,7 +86,7 @@ class GifPickerModal extends React.PureComponent {
 
             {
               (results.length > 0 || categories.length > 0) &&
-              <div className={[_s._, _s.w100PC, _s.h100PC].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.h100PC].join(' ')}>
                 {
                   results.length === 0 && categories.length > 0 &&
                   <GifCategoriesCollection categories={categories} handleSelectCategory={this.handleSelectCategory} />
@@ -119,13 +119,13 @@ class GifResultsCollectionColumn extends React.PureComponent {
     const { results } = this.props
 
     return (
-      <div className={[_s._, _s.flexNormal].join(' ')}>
+      <div className={[_s.d, _s.flexNormal].join(' ')}>
       {
         results.map((result, i) => (
           <button
             key={`gif-result-item-${i}`}
             onClick={() => this.onClick(result)}
-            className={[_s._, _s.outlineNone, _s.bgTransparent, _s.cursorPointer, _s.px2, _s.py2].join(' ')}
+            className={[_s.d, _s.outlineNone, _s.bgTransparent, _s.cursorPointer, _s.px2, _s.py2].join(' ')}
           >
             <Image
               height={result.media[0].tinygif.dims[1]}
@@ -155,7 +155,7 @@ class GifResultsCollection extends React.PureComponent {
     const columnIndex = 10
 
     return (
-      <div className={[_s._, _s.h100PC, _s.flexRow, _s.w100PC].join(' ')}>
+      <div className={[_s.d, _s.h100PC, _s.flexRow, _s.w100PC].join(' ')}>
         <GifResultsCollectionColumn
           results={results.slice(0, columnIndex)}
           handleSelectGifResult={handleSelectGifResult}
@@ -187,20 +187,20 @@ class GifCategoriesCollection extends React.PureComponent {
     const { categories } = this.props
 
     return (
-      <div className={[_s._, _s.h100PC, _s.w100PC, _s.flexRow, _s.flexWrap].join(' ')}>
+      <div className={[_s.d, _s.h100PC, _s.w100PC, _s.flexRow, _s.flexWrap].join(' ')}>
         {
           categories.map((category, i) => (
             <button
               key={`gif-category-${i}`}
               onClick={() => this.onClick(category.searchterm)}
-              className={[_s._, _s.outlineNone, _s.bgTransparent, _s.px2, _s.py2, _s.w50PC].join(' ')}
+              className={[_s.d, _s.outlineNone, _s.bgTransparent, _s.px2, _s.py2, _s.w50PC].join(' ')}
             >
-              <div className={[_s._, _s.cursorPointer].join(' ')}>
+              <div className={[_s.d, _s.cursorPointer].join(' ')}>
                 <Image
                   height={150}
                   src={category.image}
                 />
-                <div className={[_s._, _s.posAbs, _s.videoPlayerControlsBackground, _s.right0, _s.bottom0, _s.left0, _s.py10, _s.px10].join(' ')}>
+                <div className={[_s.d, _s.posAbs, _s.videoPlayerControlsBackground, _s.right0, _s.bottom0, _s.left0, _s.py10, _s.px10].join(' ')}>
                   <Text color='white' weight='bold' size='extraLarge'>
                     {category.searchterm}
                   </Text>

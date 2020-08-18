@@ -77,7 +77,7 @@ class MediaItem extends ImmutablePureComponent {
     }
 
     const containerClasses = cx({
-      _: 1,
+      d: 1,
       posAbs: 1,
       top0: 1,
       h100PC: 1,
@@ -87,7 +87,7 @@ class MediaItem extends ImmutablePureComponent {
     })
 
     const linkClasses = cx({
-      _: 1,
+      d: 1,
       w100PC: 1,
       h100PC: 1,
       overflowHidden: 1,
@@ -98,7 +98,7 @@ class MediaItem extends ImmutablePureComponent {
     const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`;
 
     return (
-      <div className={[_s._, _s.w25PC, _s.pt25PC].join(' ')}>
+      <div className={[_s.d, _s.w25PC, _s.pt25PC].join(' ')}>
         <div className={containerClasses}>
           <NavLink
             to={statusUrl}
@@ -111,7 +111,7 @@ class MediaItem extends ImmutablePureComponent {
                 height='100%'
                 width='100%'
                 ref={this.setCanvasRef}
-                className={[_s._, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
+                className={[_s.d, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
               />
             }
 
@@ -127,7 +127,7 @@ class MediaItem extends ImmutablePureComponent {
               />
             }
 
-            <div className={[_s._, _s.aiCenter, _s.jcCenter, _s.h100PC, _s.w100PC, _s.z3, _s.posAbs].join(' ')}>
+            <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.h100PC, _s.w100PC, _s.z3, _s.posAbs].join(' ')}>
               {
                 !visible &&
                 <Icon
@@ -139,7 +139,7 @@ class MediaItem extends ImmutablePureComponent {
 
               {
                 !!badge &&
-                <div className={[_s._, _s.posAbs, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
+                <div className={[_s.d, _s.posAbs, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
                   <Text size='extraSmall' color='white'>
                     {badge}
                   </Text>

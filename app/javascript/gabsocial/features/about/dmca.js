@@ -10,9 +10,9 @@ export default class DMCA extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._].join(' ')}>
+      <div className={[_s.d].join(' ')}>
         <Block>
-          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
             <Heading>GAB AI INC</Heading>
             <br />
             <Heading>COPYRIGHT POLICY</Heading>
@@ -22,7 +22,7 @@ export default class DMCA extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>We take claims of copyright infringement seriously. We will respond to notices of alleged copyright infringement that comply with applicable law. If you believe any materials accessible on or from this site (the “Website”) infringe your copyright, you may request removal of those materials (or access to them) from the Website by submitting written notification to our copyright agent designated below. In accordance with the Online Copyright Infringement Liability Limitation Act of the Digital Millennium Copyright Act (17 U.S.C. § 512) (”DMCA”), the written notice (the “DMCA Notice”) must include substantially the following:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Your physical or electronic signature.</Text>
               </li>
@@ -60,7 +60,7 @@ export default class DMCA extends React.PureComponent {
             <Heading size='h2'>Counter Notification Procedures</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>If you believe that material you posted on the Website was removed or access to it was disabled by mistake or misidentification, you may file a counter notification with us (a “Counter Notice”) by submitting written notification to our DMCA address (above) Pursuant to the DMCA, the Counter Notice must include substantially the following:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Your physical or electronic signature.</Text>
               </li>

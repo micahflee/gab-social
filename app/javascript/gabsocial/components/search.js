@@ -84,7 +84,7 @@ class Search extends React.PureComponent {
     const highlighted = focused || `${value}`.length > 0
 
     const inputClasses = CX({
-      _: 1,
+      d: 1,
       text: 1,
       outlineNone: 1,
       lineHeight125: 1,
@@ -100,7 +100,7 @@ class Search extends React.PureComponent {
     })
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       searchNavigation: (!highlighted && isInNav && theme === 'light') || (isInNav && theme !== 'light'),
       bgWhite: (highlighted && isInNav && theme === 'light'),
       bgPrimary: !isInNav,
@@ -114,7 +114,7 @@ class Search extends React.PureComponent {
     const id = 'nav-search'
       
     return (
-      <div className={[_s._, _s.jcCenter, _s.h53PX].join(' ')}>
+      <div className={[_s.d, _s.jcCenter, _s.h53PX].join(' ')}>
         <div className={containerClasses}>
           <label className={_s.visiblyHidden} htmlFor={id}>Search</label>
 

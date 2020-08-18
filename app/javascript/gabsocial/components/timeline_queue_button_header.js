@@ -79,7 +79,7 @@ class TimelineQueueButtonHeader extends React.PureComponent {
     const hasItems = count > 0
 
     const containerClasses = cx({
-      _: 1,
+      d: 1,
       pb5: 1,
       posSticky: !hidden,
       top120PX: !hidden,
@@ -88,7 +88,7 @@ class TimelineQueueButtonHeader extends React.PureComponent {
     })
 
     const innerContainerClasses = cx({
-      _: 1,
+      d: 1,
       displayNone: !hasItems,
       mtNeg26PX: 1,
     })

@@ -109,7 +109,7 @@ class ModalBase extends React.PureComponent {
     const visible = !!children
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       z4: 1,
       h100PC: visible,
       w100PC: visible,
@@ -117,7 +117,7 @@ class ModalBase extends React.PureComponent {
     })
 
     const dialogClasses = CX({
-      _: 1,
+      d: 1,
       posFixed: 1,
       aiCenter: 1,
       jcCenter: !isXS || isCenteredXS,
@@ -138,7 +138,7 @@ class ModalBase extends React.PureComponent {
           <React.Fragment>
             <div
               role='presentation'
-              className={[_s._, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
+              className={[_s.d, _s.bgBlackOpaque, _s.posFixed, _s.z3, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
             />
             <div
               ref={this.setDialog}

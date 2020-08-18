@@ -31,10 +31,10 @@ class SlideWelcome extends React.PureComponent {
 
   render() {
     return (
-      <div className={[_s._, _s.w100PC, _s.h100PC].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.h100PC].join(' ')}>
         <Image src='/headers/onboarding.png' alt='Welcome to Gab' />
 
-        <div className={[_s._, _s.px15, _s.py15].join(' ')}>
+        <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
 
           <Text size='large'>Gab is the home of free speech online and a place where users shape their own experience. </Text>
           <br />
@@ -94,22 +94,22 @@ class SlidePhotos extends ImmutablePureComponent {
     const { displayNameValue } = this.state
 
     return (
-      <div className={[_s._, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.px15, _s.py15, _s.aiCenter].join(' ')}>
+      <div className={[_s.d, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.px15, _s.py15, _s.aiCenter].join(' ')}>
 
-          <div className={[_s._, _s.py10, _s.maxW640PX].join(' ')}>
+          <div className={[_s.d, _s.py10, _s.maxW640PX].join(' ')}>
             <Text size='large' align='center'>Set your cover photo, profile photo and enter your display name so people can find you.</Text>
           </div>
 
-          <div className={[_s._, _s.mt15, _s.w100PC, _s.aiCenter].join(' ')}>
-            <div className={[_s._, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden, _s.radiusSmall, _s.bgPrimary].join(' ')}>
+          <div className={[_s.d, _s.mt15, _s.w100PC, _s.aiCenter].join(' ')}>
+            <div className={[_s.d, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden, _s.radiusSmall, _s.bgPrimary].join(' ')}>
               <FileInput
                 width='300px'
                 height='140px'
                 id='cover-photo'
                 onChange={this.handleCoverPhotoChange}
               />
-              <div className={[_s._, _s.mtNeg32PX, _s.aiCenter, _s.jcCenter].join(' ')}>
+              <div className={[_s.d, _s.mtNeg32PX, _s.aiCenter, _s.jcCenter].join(' ')}>
                 <FileInput
                   width='124px'
                   height='124px'
@@ -118,7 +118,7 @@ class SlidePhotos extends ImmutablePureComponent {
                   onChange={this.handleProfilePhotoChange}
                 />
               </div>
-              <div className={[_s._, _s.py5, _s.px15, _s.mt5, _s.mb15].join(' ')}>
+              <div className={[_s.d, _s.py5, _s.px15, _s.mt5, _s.mb15].join(' ')}>
                 <Input
                   id='display-name'
                   title='Display name'
@@ -148,13 +148,13 @@ class SlideGroups extends ImmutablePureComponent {
     const { groupIds } = this.props
 
     return (
-      <div className={[_s._, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.py15, _s.aiCenter].join(' ')}>
-          <div className={[_s._, _s.px15, _s.mb15].join(' ')}>
+      <div className={[_s.d, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.py15, _s.aiCenter].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.mb15].join(' ')}>
             <Text size='large'>Gab Groups are a great way to connect with people who share your interests. Please select a few groups to get started.</Text>
           </div>
 
-          <div className={[_s._, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.w100PC].join(' ')}>
             {
               groupIds.map((groupId, i) => (
                 <GroupListItem
@@ -185,8 +185,8 @@ class SlideFirstPost extends React.PureComponent {
     const { submitted } = this.props
 
     return (
-      <div className={[_s._, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.py15, _s.px15].join(' ')}>
+      <div className={[_s.d, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.py15, _s.px15].join(' ')}>
           {
             !submitted &&
             <React.Fragment>
@@ -195,7 +195,7 @@ class SlideFirstPost extends React.PureComponent {
 
               <Divider />
 
-              <div className={[_s._, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
+              <div className={[_s.d, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
                 <ComposeFormContainer
                   groupId={GAB_COM_INTRODUCE_YOURSELF_GROUP_ID}
                   hidePro
@@ -342,8 +342,8 @@ class Introduction extends ImmutablePureComponent {
     const nextTitle = currentIndex === 3 ? 'Finish' : 'Next'
 
     return (
-      <div className={[_s._, _s.w100PC, _s.maxH80VH].join(' ')}>
-        <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.maxH80VH].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
           <Responsive min={BREAKPOINT_EXTRA_SMALL}>
             <Heading>
               {title}
@@ -380,7 +380,7 @@ class Introduction extends ImmutablePureComponent {
         <ReactSwipeableViews
           index={currentIndex}
           onChangeIndex={this.handleSwipe}
-          className={[_s._, _s.flexNormal, _s.calcH80VH106PX].join(' ')}
+          className={[_s.d, _s.flexNormal, _s.calcH80VH106PX].join(' ')}
           containerStyle={{
             width: '100%',
           }}
@@ -390,15 +390,15 @@ class Introduction extends ImmutablePureComponent {
         >
           {
             pages.map((page, i) => (
-              <div key={i} className={[_s._, _s.calcH80VH106PX].join(' ')}>
+              <div key={i} className={[_s.d, _s.calcH80VH106PX].join(' ')}>
                 {page}
               </div>
             ))
           }
         </ReactSwipeableViews>
 
-        <div className={[_s._, _s.px15, _s.h53PX, _s.aiCenter, _s.jcCenter, _s.borderTop1PX, _s.borderColorSecondary, _s.w100PC, _s.flexRow].join(' ')}>
-          <div className={[_s._, _s.w50PX, _s.mrAuto].join(' ')}>
+        <div className={[_s.d, _s.px15, _s.h53PX, _s.aiCenter, _s.jcCenter, _s.borderTop1PX, _s.borderColorSecondary, _s.w100PC, _s.flexRow].join(' ')}>
+          <div className={[_s.d, _s.w50PX, _s.mrAuto].join(' ')}>
             {
               currentIndex !== 0 &&
               <Button
@@ -412,7 +412,7 @@ class Introduction extends ImmutablePureComponent {
             }
           </div>
             
-          <div className={[_s._, _s.h100PC, _s.flexGrow1, _s.aiCenter, _s.jcCenter].join(' ')}>
+          <div className={[_s.d, _s.h100PC, _s.flexGrow1, _s.aiCenter, _s.jcCenter].join(' ')}>
             <Pagination
               count={pages.length}
               activeIndex={currentIndex}
@@ -424,7 +424,7 @@ class Introduction extends ImmutablePureComponent {
           <Button
             isText
             href={currentIndex === 3 ? '/home' : undefined}
-            className={[_s._, _s.w50PX, _s.h100PC, _s.jcCenter, _s.pr0, _s.pl0, _s.mlAuto, _s.opacity05].join(' ')}
+            className={[_s.d, _s.w50PX, _s.h100PC, _s.jcCenter, _s.pr0, _s.pl0, _s.mlAuto, _s.opacity05].join(' ')}
             onClick={this.handleNext}
             backgroundColor='none'
             color='secondary'

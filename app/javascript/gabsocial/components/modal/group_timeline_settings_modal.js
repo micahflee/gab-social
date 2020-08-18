@@ -20,7 +20,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           {intl.formatMessage(messages.benefits)}
         </Text>
 
-        <div className={[_s._, _s.my10].join(' ')}>
+        <div className={[_s.d, _s.my10].join(' ')}>
           <Text>• Schedule Posts</Text>
           <Text>• Get Verified</Text>
           <Text>• Create Groups</Text>

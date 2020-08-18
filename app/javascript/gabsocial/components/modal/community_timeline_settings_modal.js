@@ -31,7 +31,7 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
       >
       
-        <div className={[_s._, _s.pb10].join(' ')}>
+        <div className={[_s.d, _s.pb10].join(' ')}>
           <SettingSwitch
             prefix='community_timeline'
             settings={settings}

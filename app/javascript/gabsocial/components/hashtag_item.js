@@ -19,9 +19,9 @@ class HashtagItem extends ImmutablePureComponent {
     return (
       <NavLink
         to={`/tags/${hashtag.get('name')}`}
-        className={[_s._, _s.noUnderline, _s.bgSubtle_onHover, _s.px15, _s.py5].join(' ')}
+        className={[_s.d, _s.noUnderline, _s.bgSubtle_onHover, _s.px15, _s.py5].join(' ')}
       >
-        <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
           <div>
             <Text color='brand' size='medium' weight='bold' className={[_s.py2, _s.lineHeight15].join(' ')}>
               #{hashtag.get('name')}

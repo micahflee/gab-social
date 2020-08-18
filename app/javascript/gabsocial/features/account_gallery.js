@@ -114,7 +114,7 @@ class AccountGallery extends ImmutablePureComponent {
         <div
           role='feed'
           onScroll={this.handleScroll}
-          className={[_s._, _s.flexRow, _s.flexWrap, _s.py5, _s.px5].join(' ')}
+          className={[_s.d, _s.flexRow, _s.flexWrap, _s.py5, _s.px5].join(' ')}
         >
 
           {
@@ -129,7 +129,7 @@ class AccountGallery extends ImmutablePureComponent {
 
           {
             isLoading && attachments.size === 0 &&
-            <div className={[_s._, _s.w100PC].join(' ')}>
+            <div className={[_s.d, _s.w100PC].join(' ')}>
               <MediaGalleryPlaceholder />
             </div>
           }

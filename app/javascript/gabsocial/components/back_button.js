@@ -35,7 +35,7 @@ class BackButton extends React.PureComponent {
        mr5: 1,
        cursorPointer: 1,
        outlineNone: 1,
-       _: 1,
+       d: 1,
        jcCenter: 1,
     })
 

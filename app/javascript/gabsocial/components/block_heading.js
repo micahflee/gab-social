@@ -8,8 +8,8 @@ class BlockHeading extends React.PureComponent {
     const { title } = this.props
 
     return (
-      <div className={[_s._, _s.px15, _s.py10].join(' ')}>
-        <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+      <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
           <Heading size='h2'>{title}</Heading>
         </div>
       </div>

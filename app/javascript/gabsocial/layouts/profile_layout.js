@@ -35,14 +35,14 @@ class ProfileLayout extends ImmutablePureComponent {
     } = this.props
 
     const mainContentClasses = CX({
-      _: 1,
+      d: 1,
       width645PX: !noSidebar,
       w1015PX: noSidebar,
       z1: 1,
     })
 
     return (
-      <div className={[_s._, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           {
             !!me &&
@@ -53,12 +53,12 @@ class ProfileLayout extends ImmutablePureComponent {
             <LoggedOutNavigationBar isProfile />
           }
 
-          <main role='main' className={[_s._, _s.w100PC].join(' ')}>
+          <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
 
-            <div className={[_s._, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
+            <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
 
-              <div className={[_s._, _s.w100PC, _s.flexRow, _s.jcSpaceBetween].join(' ')}>
-                <div className={[_s._, _s.z1, _s.w100PC, _s.aiCenter].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.jcSpaceBetween].join(' ')}>
+                <div className={[_s.d, _s.z1, _s.w100PC, _s.aiCenter].join(' ')}>
 
                   <ProfileHeader account={account} isXS>
                     <WrappedBundle component={ProfileInfoPanel} componentParams={{ account, noPanel: true }} />
@@ -66,9 +66,9 @@ class ProfileLayout extends ImmutablePureComponent {
                     <WrappedBundle component={ProfileStatsPanel} componentParams={{ account, noPanel: true }} />
                   </ProfileHeader>
 
-                  <div className={[_s._, _s.w100PC, , _s.flexRow, _s.jcEnd, _s.py15].join(' ')}>
-                    <div className={[_s._, _s.w100PC, _s.z1].join(' ')}>
-                      <div className={_s._}>
+                  <div className={[_s.d, _s.w100PC, , _s.flexRow, _s.jcEnd, _s.py15].join(' ')}>
+                    <div className={[_s.d, _s.w100PC, _s.z1].join(' ')}>
+                      <div className={_s.d}>
                         {children}
                       </div>
                     </div>
@@ -98,21 +98,21 @@ class ProfileLayout extends ImmutablePureComponent {
             <LoggedOutNavigationBar isProfile />
           }
 
-          <main role='main' className={[_s._, _s.w100PC].join(' ')}>
+          <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
 
-            <div className={[_s._, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
+            <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
 
-              <div className={[_s._, _s.w100PC, _s.flexRow, _s.jcSpaceBetween].join(' ')}>
-                <div className={[_s._, _s.z1, _s.w100PC, _s.aiCenter].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.jcSpaceBetween].join(' ')}>
+                <div className={[_s.d, _s.z1, _s.w100PC, _s.aiCenter].join(' ')}>
 
                   <ProfileHeader account={account} />
 
-                  <div className={[_s._, _s.w1015PX, , _s.flexRow, _s.jcEnd, _s.py15].join(' ')}>
+                  <div className={[_s.d, _s.w1015PX, , _s.flexRow, _s.jcEnd, _s.py15].join(' ')}>
                     {
                       !noSidebar &&
-                      <div className={[_s._, _s.w340PX, _s.mr15].join(' ')}>
+                      <div className={[_s.d, _s.w340PX, _s.mr15].join(' ')}>
                         <Sticky top={63} enabled>
-                          <div className={[_s._, _s.w340PX].join(' ')}>
+                          <div className={[_s.d, _s.w340PX].join(' ')}>
                             <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
                             <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
                             { !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account }} /> }
@@ -123,7 +123,7 @@ class ProfileLayout extends ImmutablePureComponent {
                       </div>
                     }
                     <div className={mainContentClasses}>
-                      <div className={_s._}>
+                      <div className={_s.d}>
                         {children}
                       </div>
                     </div>

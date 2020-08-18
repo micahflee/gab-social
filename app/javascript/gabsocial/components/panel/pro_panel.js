@@ -27,8 +27,8 @@ class ProPanel extends React.PureComponent {
     if (isPro) return null
 
     const title = (
-      <span className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
-        <span className={[_s._, _s.mr2].join(' ')}>
+      <span className={[_s.d, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
+        <span className={[_s.d, _s.mr2].join(' ')}>
           Upgrade to Gab
         </span>
         <span className={[_s.bgPro, _s.cBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
@@ -41,7 +41,7 @@ class ProPanel extends React.PureComponent {
         subtitle={intl.formatMessage(messages.text)}
       >
 
-        <div className={[_s._, _s.flexRow, _s.pb5].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.pb5].join(' ')}>
           <Button
             isOutline
             color='brand'

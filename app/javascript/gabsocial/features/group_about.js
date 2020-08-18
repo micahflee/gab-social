@@ -35,7 +35,7 @@ class GroupAbout extends ImmutablePureComponent {
 		const { group } = this.props
 
 		return (
-			<div className={[_s._, _s.w100PC].join(' ')}>
+			<div className={[_s.d, _s.w100PC].join(' ')}>
 				<Responsive min={BREAKPOINT_EXTRA_SMALL}>
 					<ColumnIndicator type='missing' />
 				</Responsive>

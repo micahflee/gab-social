@@ -115,9 +115,9 @@ class EditProfileModal extends ImmutablePureComponent {
     const isVerified = account.get('is_verified')
 
     return (
-      <div style={{ width: '440px' }} className={[_s._, _s.modal].join(' ')}>
+      <div style={{ width: '440px' }} className={[_s.d, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
             <Button
               backgroundColor='none'
               title={intl.formatMessage(messages.close)}
@@ -138,8 +138,8 @@ class EditProfileModal extends ImmutablePureComponent {
               {intl.formatMessage(messages.save)}
             </Button>
           </div>
-          <div className={[_s._, _s.maxH80VH, _s.overflowYScroll].join(' ')}>
-            <div className={[_s._, _s.w100PC, _s.aiCenter].join(' ')}>
+          <div className={[_s.d, _s.maxH80VH, _s.overflowYScroll].join(' ')}>
+            <div className={[_s.d, _s.w100PC, _s.aiCenter].join(' ')}>
               <FileInput
                 width='440px'
                 height='180px'
@@ -147,7 +147,7 @@ class EditProfileModal extends ImmutablePureComponent {
                 onChange={this.handleCoverPhotoChange}
                 file={headerSrc}
               />
-              <div className={[_s._, _s.mtNeg50PX, _s.aiCenter, _s.jcCenter].join(' ')}>
+              <div className={[_s.d, _s.mtNeg50PX, _s.aiCenter, _s.jcCenter].join(' ')}>
                 <FileInput
                   width='132px'
                   height='132px'
@@ -157,7 +157,7 @@ class EditProfileModal extends ImmutablePureComponent {
                   onChange={this.handleProfilePhotoChange}
                 />
               </div>
-              <div className={[_s._, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.w100PC].join(' ')}>
+              <div className={[_s.d, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.w100PC].join(' ')}>
                 {
                   !isVerified &&
                   <React.Fragment>
@@ -182,7 +182,7 @@ class EditProfileModal extends ImmutablePureComponent {
 
                 <Divider isInvisible />
 
-                <div className={[_s._, _s.px10].join(' ')}>
+                <div className={[_s.d, _s.px10].join(' ')}>
                   <Switch
                     label='Private account'
                     checked={locked}

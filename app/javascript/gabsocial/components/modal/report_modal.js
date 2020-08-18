@@ -63,12 +63,12 @@ class ReportModal extends ImmutablePureComponent {
       >
 
         <ResponsiveClassesComponent
-          classNames={[_s._, _s.flexRow].join(' ')}
-          classNamesSmall={[_s._, _s.flexColumnReverse].join(' ')}
+          classNames={[_s.d, _s.flexRow].join(' ')}
+          classNamesSmall={[_s.d, _s.flexColumnReverse].join(' ')}
         >
           <ResponsiveClassesComponent
-            classNames={[_s._, _s.w50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
-            classNamesSmall={[_s._, _s.w100PC, _s.py10, _s.px15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
+            classNames={[_s.d, _s.w50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
+            classNamesSmall={[_s.d, _s.w100PC, _s.py10, _s.px15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
           >
             <Text color='secondary' size='small'>
               {intl.formatMessage(messages.hint)}
@@ -95,10 +95,10 @@ class ReportModal extends ImmutablePureComponent {
           </ResponsiveClassesComponent>
 
           <ResponsiveClassesComponent
-            classNames={[_s._, _s.w50PC, _s.maxH80VH].join(' ')}
-            classNamesSmall={[_s._, _s.w100PC, _s.h260PX].join(' ')}
+            classNames={[_s.d, _s.w50PC, _s.maxH80VH].join(' ')}
+            classNamesSmall={[_s.d, _s.w100PC, _s.h260PX].join(' ')}
           >
-            <div className={[_s._, _s.h100PC, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
+            <div className={[_s.d, _s.h100PC, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
               {
                 statusIds.map(statusId => (
                   <StatusCheckBox id={statusId} key={statusId} disabled={isSubmitting} />

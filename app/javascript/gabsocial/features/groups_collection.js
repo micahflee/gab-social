@@ -90,13 +90,13 @@ class GroupsCollection extends ImmutablePureComponent {
 
 		return (
 			<Block>
-				<div className={[_s._, _s.flexRow, _s.px15, _s.pt10, _s.jcCenter].join(' ')}>
-					<div className={[_s._, _s.flexGrow1, _s.maxW80PC, _s.jcCenter, _s.overflowHidden].join(' ')}>
+				<div className={[_s.d, _s.flexRow, _s.px15, _s.pt10, _s.jcCenter].join(' ')}>
+					<div className={[_s.d, _s.flexGrow1, _s.maxW80PC, _s.jcCenter, _s.overflowHidden].join(' ')}>
 						<Heading size='h2'>
 							{intl.formatMessage(messages[activeTab])}
 						</Heading>
 					</div>
-					<div className={[_s._, _s.flexRow, _s.mlAuto].join(' ')}>
+					<div className={[_s.d, _s.flexRow, _s.mlAuto].join(' ')}>
 						<Button
 							icon='sort'
 							className={_s.px10}
@@ -108,7 +108,7 @@ class GroupsCollection extends ImmutablePureComponent {
 						/>
 					</div>
 				</div>
-				<div className={[_s._, _s.py10, _s.w100PC].join(' ')}>
+				<div className={[_s.d, _s.py10, _s.w100PC].join(' ')}>
 					{
 						groupIds.map((groupId, i) => (
 							<GroupListItem

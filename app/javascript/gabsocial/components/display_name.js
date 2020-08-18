@@ -80,7 +80,7 @@ class DisplayName extends ImmutablePureComponent {
     if (!account) return null
 
     const containerClassName = CX({
-      _: 1,
+      d: 1,
       maxW100PC: 1,
       aiCenter: !isMultiline,
       flexRow: !isMultiline,
@@ -147,7 +147,7 @@ class DisplayName extends ImmutablePureComponent {
         onMouseLeave={noHover ? undefined : this.handleMouseLeave}
         ref={this.setRef}
       >
-        <span className={[_s._, _s.flexRow, _s.aiCenter, _s.maxW100PC].join(' ')}>
+        <span className={[_s.d, _s.flexRow, _s.aiCenter, _s.maxW100PC].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}
@@ -160,7 +160,7 @@ class DisplayName extends ImmutablePureComponent {
           </bdi>
           {
             account.get('is_verified') &&
-            <Icon id='verified' size={`${iconSize}px`} className={[_s.ml5, _s._].join(' ')} />
+            <Icon id='verified' size={`${iconSize}px`} className={[_s.ml5, _s.d].join(' ')} />
           }
         </span>
         {
@@ -169,7 +169,7 @@ class DisplayName extends ImmutablePureComponent {
             @{account.get('acct')}
             {
               !noRelationship && !!relationshipLabel &&
-              <span className={[_s._, _s.ml5, _s.jcCenter].join(' ')}>
+              <span className={[_s.d, _s.ml5, _s.jcCenter].join(' ')}>
                 <Text
                   size='extraSmall'
                   isBadge

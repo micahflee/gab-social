@@ -42,7 +42,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
     }
 
     const navLinkClasses = cx({
-      _: 1,
+      d: 1,
       noUnderline: 1,
       overflowHidden: 1,
       borderColorSecondary: 1,
@@ -57,7 +57,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
     })
 
     return (
-      <div className={_s._}>
+      <div className={_s.d}>
         <NavLink
           to={`/groups/${group.get('id')}`}
           className={navLinkClasses}
@@ -73,12 +73,12 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           {
             (!coverSrc || coverMissing) && (isMember || isAdmin) &&
-            <div className={[_s._, _s.h40PX, _s.bgSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+            <div className={[_s.d, _s.h40PX, _s.bgSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
           }
 
           {
             (isMember || isAdmin) &&
-            <div className={[_s._, _s.flexRow, _s.posAbs, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.posAbs, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
               {
                 isMember &&
                 <Text
@@ -104,12 +104,12 @@ class GroupCollectionItem extends ImmutablePureComponent {
             </div>
           }
 
-          <div className={[_s._, _s.px10, _s.my10].join(' ')}>
+          <div className={[_s.d, _s.px10, _s.my10].join(' ')}>
             <Text color='primary' size='medium' weight='bold'>
               {group.get('title')}
             </Text>
 
-            <div className={[_s._, _s.flexRow, _s.aiCenter, _s.mt5, _s.mb5].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mt5, _s.mb5].join(' ')}>
               <Text color='secondary' size='small'>
                 {shortNumberFormat(group.get('member_count'))}
                 &nbsp;

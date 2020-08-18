@@ -56,7 +56,7 @@ class GroupListItem extends ImmutablePureComponent {
     }
     
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       overflowHidden: 1,
       bgSubtle_onHover: 1,
       borderColorSecondary: 1,
@@ -67,7 +67,7 @@ class GroupListItem extends ImmutablePureComponent {
     })
 
     const containerLinkClasses = CX({
-      _: 1,
+      d: 1,
       flexRow: 1,
       noUnderline: 1,
       w100PC: 1,
@@ -98,7 +98,7 @@ class GroupListItem extends ImmutablePureComponent {
             />
           }
 
-          <div className={[_s._, _s.px10, _s.mt5, _s.flexShrink1].join(' ')}>
+          <div className={[_s.d, _s.px10, _s.mt5, _s.flexShrink1].join(' ')}>
             <Text color='brand' weight='bold'>
               {group.get('title')}
             </Text>
@@ -113,7 +113,7 @@ class GroupListItem extends ImmutablePureComponent {
         </Wrapper>
         {
           isAddable &&
-          <div className={[_s._, _s.jcCenter, _s.flexGrow1].join(' ')}>
+          <div className={[_s.d, _s.jcCenter, _s.flexGrow1].join(' ')}>
             {
               relationships &&
               <Button

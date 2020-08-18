@@ -35,7 +35,7 @@ class UserStat extends React.PureComponent {
 
     const align = isCentered ? 'center' : 'left'
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       cursorPointer: 1,
       noUnderline: 1,
       flexNormal: isCentered,

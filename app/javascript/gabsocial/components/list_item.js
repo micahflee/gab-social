@@ -35,7 +35,7 @@ class ListItem extends React.PureComponent {
 
     if (!title) {
       return (
-        <div className={[_s._, _s.bgSecondary, _s.w100PC, _s.h4PX].join(' ')} />
+        <div className={[_s.d, _s.bgSecondary, _s.w100PC, _s.h4PX].join(' ')} />
       )
     }
 
@@ -56,7 +56,7 @@ class ListItem extends React.PureComponent {
     const showActive = isActive !== undefined
 
     const containerClasses = cx({
-      _: 1,
+      d: 1,
       cursorPointer: 1,
       noUnderline: 1,
       px15: !small,
@@ -81,7 +81,7 @@ class ListItem extends React.PureComponent {
     })
 
     const textContainerClasses = cx({
-      _: 1,
+      d: 1,
       pr5: 1,
       maxW100PC42PX: !hideArrow || showActive,
     })

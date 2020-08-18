@@ -35,13 +35,13 @@ class GroupLayout extends ImmutablePureComponent {
         page='group'
       >
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s._, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.w100PC].join(' ')}>
 
             <GroupHeader group={group} relationships={relationships} isXS>
               <WrappedBundle component={GroupInfoPanel} componentParams={{ group, noPanel: true }} />
             </GroupHeader>
 
-            <div className={[_s._, _s.w100PC, _s.z1].join(' ')}>
+            <div className={[_s.d, _s.w100PC, _s.z1].join(' ')}>
               {children}
             </div>
 
@@ -49,20 +49,20 @@ class GroupLayout extends ImmutablePureComponent {
         </Responsive>
 
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s._, _s.w100PC, _s.pl15].join(' ')}>
+          <div className={[_s.d, _s.w100PC, _s.pl15].join(' ')}>
 
             <GroupHeader group={group} relationships={relationships} />
 
-            <div className={[_s._, _s.flexRow, _s.w100PC, _s.jcEnd].join(' ')}>
-              <div className={[_s._, _s.w645PX, _s.z1].join(' ')}>
-                <div className={_s._}>
+            <div className={[_s.d, _s.flexRow, _s.w100PC, _s.jcEnd].join(' ')}>
+              <div className={[_s.d, _s.w645PX, _s.z1].join(' ')}>
+                <div className={_s.d}>
                   {children}
                 </div>
               </div>
 
-              <div className={[_s._, _s.ml15, _s.w340PX].join(' ')}>
+              <div className={[_s.d, _s.ml15, _s.w340PX].join(' ')}>
                 <Sticky top={73} enabled>
-                  <div className={[_s._, _s.w340PX].join(' ')}>
+                  <div className={[_s.d, _s.w340PX].join(' ')}>
                     <SidebarPanelGroup
                       page={`group.${groupId}`}
                       layout={[

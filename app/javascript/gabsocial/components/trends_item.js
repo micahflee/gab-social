@@ -57,7 +57,7 @@ class TrendingItem extends React.PureComponent {
     }
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       noUnderline: 1,
       px15: 1,
       pt10: 1,
@@ -83,8 +83,8 @@ class TrendingItem extends React.PureComponent {
         onMouseLeave={() => this.handleOnMouseLeave()}
       >
       
-        <div className={[_s._, _s.flexNormal, _s.pb5].join(' ')}>
-          <div className={_s._}>
+        <div className={[_s.d, _s.flexNormal, _s.pb5].join(' ')}>
+          <div className={_s.d}>
             <Text size='medium' color='primary' weight='bold'>
               {correctedTitle}
             </Text>
@@ -92,14 +92,14 @@ class TrendingItem extends React.PureComponent {
 
           {
             !!correctedDescription && !descriptionHasLink &&
-            <div className={[_s._, _s.maxH56PX, _s.overflowHidden, _s.pt5, _s.mb5].join(' ')}>
+            <div className={[_s.d, _s.maxH56PX, _s.overflowHidden, _s.pt5, _s.mb5].join(' ')}>
               <Text size='small' color='secondary'>
                 {correctedDescription}
               </Text>
             </div>
           }
           
-          <div className={[_s._, _s.flexRow].join(' ')}>
+          <div className={[_s.d, _s.flexRow].join(' ')}>
             <Text color='secondary' size='small'>
               {index}
             </Text>

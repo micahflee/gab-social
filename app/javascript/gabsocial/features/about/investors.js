@@ -10,9 +10,9 @@ export default class Investors extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._].join(' ')}>
+      <div className={[_s.d].join(' ')}>
         <Block>
-          <div className={[_s._, _s.minH50VH, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s.d, _s.minH50VH, _s.px15, _s.py15].join(' ')}>
             <Heading>Investors</Heading>
             <br />
 

@@ -28,7 +28,7 @@ class HashtagTimelineSettingsModal extends ImmutablePureComponent {
         onClose={onClose}
       >
 
-        <div className={[_s._, _s.pb10].join(' ')}>
+        <div className={[_s.d, _s.pb10].join(' ')}>
           <SettingSwitch
             prefix='community_timeline'
             settings={settings}

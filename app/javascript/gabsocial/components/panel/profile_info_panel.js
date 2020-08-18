@@ -58,7 +58,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
     return (
       <Wrapper title={intl.formatMessage(messages.title)}>
-        <div className={[_s._].join(' ')}>
+        <div className={[_s.d].join(' ')}>
           {
             hasNote &&
             <React.Fragment>
@@ -67,7 +67,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             </React.Fragment>
           }
 
-          <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
             <Icon id='calendar' size='12px' className={_s.cSecondary} />
             <Text
               size='small'
@@ -86,7 +86,7 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             hasBadges &&
             <React.Fragment>
               <Divider isSmall />
-              <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
                 { 
                   isPro &&
                   <div className={[_s.mr5, _s.radiusSmall, _s.bgPro, _s.py2, _s.px5].join(' ')}>
@@ -111,12 +111,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
 
           {
             fields.size > 0 && 
-            <div className={[_s._]}>
+            <div className={[_s.d]}>
               {
                 fields.map((pair, i) => (
                   <React.Fragment>
                     <Divider isSmall />
-                    <dl className={[_s._, _s.flexRow, _s.aiCenter].join(' ')} key={`profile-field-${i}`}>
+                    <dl className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')} key={`profile-field-${i}`}>
                       <dt
                         className={[_s.text, _s.dangerousContent, _s.pr5].join(' ')}
                         dangerouslySetInnerHTML={{ __html: pair.get('name_emojified') }}

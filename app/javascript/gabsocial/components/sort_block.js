@@ -32,7 +32,7 @@ class SortBlock extends React.PureComponent {
     } = this.props
 
     return (
-      <div className={[_s._, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
+      <div className={[_s.d, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
         <Text color='secondary' size='small'>
           {intl.formatMessage(messages.sortBy)}
         </Text>
@@ -53,7 +53,7 @@ class SortBlock extends React.PureComponent {
         {
           !!subValue &&
           <React.Fragment>
-            <div className={[_s._, _s.px5].join(' ')}>
+            <div className={[_s.d, _s.px5].join(' ')}>
               <DotTextSeperator />
             </div>
 

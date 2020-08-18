@@ -10,9 +10,9 @@ export default class PrivacyPolicy extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._].join(' ')}>
+      <div className={[_s.d].join(' ')}>
         <Block>
-          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
             <Heading>GAB AI INC</Heading>
             <br />
             <Heading>Privacy Policy</Heading>
@@ -49,7 +49,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>This policy applies to information we collect:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>On the Website.</Text>
               </li>
@@ -66,7 +66,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>It does not apply to information collected by:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Us offline or through any other means, including on any other website operated by Company or any third party (including our affiliates and subsidiaries); or</Text>
               </li>
@@ -87,7 +87,7 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Heading size='h2'>Information We Collect About You and How We Collect It</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>We collect several types of information from and about users of our Website, including information:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>By which you may be personally identified, such as an e-mail address (”personal information”);</Text>
               </li>
@@ -101,7 +101,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>We collect this information:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Directly from you when you provide it to us.</Text>
               </li>
@@ -117,7 +117,7 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Heading size='h2'>Information You Provide to Us</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>The information we collect on or through our Website may include:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Information that you provide by filling in forms on our Website. This includes information provided at the time of registering to use our Website, subscribing to our service, posting material, or requesting further services. We may also ask you for information when you report a problem with our Website.</Text>
               </li>
@@ -135,7 +135,7 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Heading size='h2'>Information We Collect Through Automatic Data Collection</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>As you navigate through and interact with our Website, we may use automatic data collection technologies to collect certain information about your equipment, browsing actions, and patterns, including:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Details of your visits to our Website, including traffic data, logs, and other communication data and the resources that you access and use on the Website.</Text>
               </li>
@@ -146,7 +146,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>The information we collect automatically may be only statistical data and may not include personal information. It helps us to improve our Website and to deliver a better and more personalized service, including by enabling us to:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Estimate our audience size and usage patterns.</Text>
               </li>
@@ -163,7 +163,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>The technologies we use for this automatic data collection may include:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Cookies (or browser cookies). A cookie is a small file placed on the hard drive of your computer. You may refuse to accept browser cookies by activating the appropriate setting on your browser. However, if you select this setting you may be unable to access certain parts of our Website. Unless you have adjusted your browser setting so that it will refuse cookies, our system will issue cookies when you direct your browser to our Website.</Text>
               </li>
@@ -176,7 +176,7 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Heading size='h2'>How We Use Your Information</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>We use information that we collect about you or that you provide to us, including any personal information:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>To present our Website and its contents to you.</Text>
               </li>
@@ -214,7 +214,7 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>It is the policy of the Company to not provide any user data to any person unless compelled by a court order issued by a U.S. court, except in cases of life-threatening emergency. The Company reserves the right to change or deviate from this policy at any time, in its sole and absolute discretion, with or without notice to you.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>We may disclose personal information that we collect or you provide as described in this privacy policy:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>To our subsidiaries and affiliates.</Text>
               </li>
@@ -237,7 +237,7 @@ export default class PrivacyPolicy extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>We may also disclose your personal information:</Text>
 
-            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s.d, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>To comply with any court order, law, or legal process, including to respond to any government or regulatory request.</Text>
               </li>

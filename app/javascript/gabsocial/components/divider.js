@@ -13,7 +13,7 @@ class Divider extends React.PureComponent {
     const { isSmall, isInvisible } = this.props
 
     const classes = CX({
-      _: 1,
+      d: 1,
       borderBottom1PX: !isInvisible,
       borderColorSecondary: !isInvisible,
       w100PC: 1,

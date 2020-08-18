@@ -57,9 +57,9 @@ class FooterBar extends React.PureComponent {
     ]
 
     return (
-      <div className={[_s._, _s.z4, _s.minH58PX, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.minH58PX, _s.w100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.h100PC, _s.minH58PX, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
+      <div className={[_s.d, _s.z4, _s.minH58PX, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.minH58PX, _s.w100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.h100PC, _s.minH58PX, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
             {
               buttons.map((props) => {
                 if (props.isHidden) return null

@@ -91,7 +91,7 @@ class UserPanel extends ImmutablePureComponent {
     return (
       <PanelLayout noPadding>
         <div
-          className={[_s._, _s.h122PX].join(' ')}
+          className={[_s.d, _s.h122PX].join(' ')}
           onMouseEnter={this.handleOnMouseEnter}
           onMouseLeave={this.handleOnMouseLeave}
         >
@@ -112,18 +112,18 @@ class UserPanel extends ImmutablePureComponent {
         </div>
 
         <NavLink
-          className={[_s._, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
+          className={[_s.d, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
           to={`/${acct}`}
         >
-          <div className={[_s._, _s.mtNeg32PX, _s.circle, _s.borderColorPrimary, _s.border6PX].join(' ')}>
+          <div className={[_s.d, _s.mtNeg32PX, _s.circle, _s.borderColorPrimary, _s.border6PX].join(' ')}>
             <Avatar account={account} size={62} noHover />
           </div>
-          <div className={[_s._, _s.ml15].join(' ')}>
+          <div className={[_s.d, _s.ml15].join(' ')}>
             <DisplayName account={account} isMultiline noRelationship noHover />
           </div>
         </NavLink>
 
-        <div className={[_s._, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
+        <div className={[_s.d, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
           <UserStat
             to={`/${acct}`}
             title={intl.formatMessage(messages.gabs)}

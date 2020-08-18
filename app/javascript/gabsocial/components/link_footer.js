@@ -72,14 +72,14 @@ class LinkFooter extends React.PureComponent {
     ]
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       px10: !noPadding,
       mb15: 1,
     })
 
     return (
       <div className={containerClasses}>
-        <nav aria-label='Footer' role='navigation' className={[_s._, _s.flexWrap, _s.flexRow].join(' ')}>
+        <nav aria-label='Footer' role='navigation' className={[_s.d, _s.flexWrap, _s.flexRow].join(' ')}>
           {
             linkFooterItems.map((linkFooterItem, i) => {
               if (linkFooterItem.requiresUser && !me) return null

@@ -85,14 +85,14 @@ class StatusVisibilityDropdown extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
-        <div className={[_s._].join(' ')}>
+        <div className={[_s.d].join(' ')}>
           {
             options.map((option, i) => {
               const isActive = option.value === value
               const isLast = i === options.length - 1
 
               const containerClasses = cx({
-                _: 1,
+                d: 1,
                 flexRow: 1,
                 py10: 1,
                 cursorPointer: 1,
@@ -116,7 +116,7 @@ class StatusVisibilityDropdown extends React.PureComponent {
                   className={containerClasses}
                 >
                   <Icon id={option.icon} size='16px' className={iconClasses} />
-                  <div className={[_s._, _s.px10, _s.pt2].join(' ')}>
+                  <div className={[_s.d, _s.px10, _s.pt2].join(' ')}>
                     <Text size='medium' color={isActive ? 'white' : 'primary'}>
                       {option.title}
                     </Text>

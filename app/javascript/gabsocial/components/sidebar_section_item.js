@@ -48,7 +48,7 @@ class SidebarSectionItem extends React.PureComponent {
     const isNotifications = to === '/notifications'
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       maxW100PC: 1,
       w100PC: 1,
       flexRow: 1,
@@ -65,7 +65,7 @@ class SidebarSectionItem extends React.PureComponent {
     })
 
     const countClasses = CX({
-      _: 1,
+      d: 1,
       text: 1,
       mlAuto: 1,
       fs12PX: 1,
@@ -88,7 +88,7 @@ class SidebarSectionItem extends React.PureComponent {
         buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s._, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.w100PC, _s.bgTransparent].join(' ')}
+        className={[_s.d, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.w100PC, _s.bgTransparent].join(' ')}
       >
         <div className={containerClasses}>
           {
@@ -107,10 +107,10 @@ class SidebarSectionItem extends React.PureComponent {
             />
           }
           
-          <div className={[_s._, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.w100PC].join(' ')}>
             <ResponsiveClassesComponent
-              classNames={[_s._, _s.fw400, _s.fs15PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
-              classNamesSmall={[_s._, _s.fw400, _s.fs13PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
+              classNames={[_s.d, _s.fw400, _s.fs15PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
+              classNamesSmall={[_s.d, _s.fw400, _s.fs13PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
             >
               {title}
             </ResponsiveClassesComponent>

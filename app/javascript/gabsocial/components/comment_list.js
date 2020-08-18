@@ -41,7 +41,7 @@ class CommentList extends ImmutablePureComponent {
         </Wrapper>
         {
           size > 0 && size > max && commentsLimited &&
-          <div className={[_s._, _s.flexRow, _s.px15, _s.pb5, _s.mb10, _s.aiCenter].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.px15, _s.pb5, _s.mb10, _s.aiCenter].join(' ')}>
             <Button
               isText
               backgroundColor='none'
@@ -52,7 +52,7 @@ class CommentList extends ImmutablePureComponent {
                 View more comments
               </Text>
             </Button>
-            <div className={[_s._, _s.mlAuto].join(' ')}>
+            <div className={[_s.d, _s.mlAuto].join(' ')}>
               <Text color='tertiary'>
                 {max}
                 &nbsp;of&nbsp;

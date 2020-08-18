@@ -55,12 +55,12 @@ class EmbedModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.embed)}
         onClose={onClose}
       >
-        <div className={_s._}>
+        <div className={_s.d}>
           <Text className={_s.my10}>
             {intl.formatMessage(messages.instructions)}
           </Text>
 
-          <div className={[_s._, _s.mb10].join(' ')}>
+          <div className={[_s.d, _s.mb10].join(' ')}>
             <Input
               readOnly
               type='text'
@@ -76,9 +76,9 @@ class EmbedModal extends ImmutablePureComponent {
             {intl.formatMessage(messages.preview)}
           </Text>
 
-          <div className={[_s._, _s.w100PC, _s.bgSubtle, _s.h220PX, _s.aiCenter, _s.jcCenter].join(' ')}>
+          <div className={[_s.d, _s.w100PC, _s.bgSubtle, _s.h220PX, _s.aiCenter, _s.jcCenter].join(' ')}>
             <iframe
-              className={[_s._, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
+              className={[_s.d, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
               frameBorder='0'
               ref={this.setIframeRef}
               sandbox='allow-same-origin'

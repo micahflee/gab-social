@@ -42,12 +42,12 @@ class ListAddUserModal extends ImmutablePureComponent {
         title={title}
         onClose={onClose}
       >
-        <div className={[_s._, _s.boxShadowNone].join(' ')}>
+        <div className={[_s.d, _s.boxShadowNone].join(' ')}>
           <div>
             {
               lists && lists.map((list) => {
                 return (
-                  <div className={[_s._, _s.flexRow, _s.aiCenter, _s.py10, _s.px15, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
+                  <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.py10, _s.px15, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')}>
                     <Text color='primary' size='large' className={[_s.overflowHidden, _s.flexNormal, _s.pr5, _s.textOverflowEllipsis].join(' ')}>
                       {list.get('title')}
                     </Text>

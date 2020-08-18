@@ -8,8 +8,8 @@ export default class PullToRefresher extends React.PureComponent {
   render() {
     return (
       <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-        <div className={[_s._, _s.h53PX, _s.w100PC, _s.aiCenter, _s.posAbs, _s.left0, _s.right0, _s.topNeg50PX].join(' ')}>
-          <div className={[_s._, _s.w100PC, _s.aiCenter].join(' ')}>
+        <div className={[_s.d, _s.h53PX, _s.w100PC, _s.aiCenter, _s.posAbs, _s.left0, _s.right0, _s.topNeg50PX].join(' ')}>
+          <div className={[_s.d, _s.w100PC, _s.aiCenter].join(' ')}>
             <Icon id='loading' size='24px' />
           </div>
         </div>

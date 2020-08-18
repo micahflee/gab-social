@@ -238,7 +238,7 @@ class Composer extends React.PureComponent {
     const { editorState } = this.state
 
     const editorContainerClasses = cx({
-      _: 1,
+      d: 1,
       cursorText: 1,
       text: 1,
       cPrimary: 1,
@@ -251,7 +251,7 @@ class Composer extends React.PureComponent {
     })
 
     return (
-      <div className={_s._}>
+      <div className={_s.d}>
 
         {
           !small && isPro &&

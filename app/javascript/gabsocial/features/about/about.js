@@ -10,9 +10,9 @@ export default class About extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._].join(' ')}>
+      <div className={[_s.d].join(' ')}>
         <Block>
-          <div className={[_s._, _s.px15, _s.py15, _s.mb10].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.py15, _s.mb10].join(' ')}>
             <Heading>About Gab.com</Heading>
             
             <Text tagName='p' className={_s.mt15} size='medium'>This is the Gab Social instance of Gab.com. Political speech protected by the First Amendment is welcome on this instance.</Text>
@@ -34,7 +34,7 @@ export default class About extends React.PureComponent {
 
           <Divider />
 
-          <div className={[_s._, _s.px15, _s.py15].join(' ')} id='opensource'>
+          <div className={[_s.d, _s.px15, _s.py15].join(' ')} id='opensource'>
             <Heading>Open Source</Heading>
 
             <Text tagName='p' className={_s.mt15} size='medium'>At Gab, we believe that the future of online publishing is decentralized and open. We believe that users of social networks should be able to control their social media experience on their own terms, rather than the terms set down by Big Tech.</Text>

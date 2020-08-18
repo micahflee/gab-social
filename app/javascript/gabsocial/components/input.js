@@ -34,7 +34,7 @@ class Input extends React.PureComponent {
     } = this.props
 
     const inputClasses = cx({
-      _: 1,
+      d: 1,
       text: 1,
       outlineNone: 1,
       lineHeight125: !small,
@@ -65,13 +65,13 @@ class Input extends React.PureComponent {
       <React.Fragment>
         {
           !!title && !hideLabel &&
-          <div className={[_s._, _s.mb10, _s.pl15].join(' ')}>
+          <div className={[_s.d, _s.mb10, _s.pl15].join(' ')}>
             <Text htmlFor={id} size='small' weight='medium' color='secondary' tagName='label'>
               {title}
             </Text>
           </div>
         }
-        <div className={[_s._, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.aiCenter].join(' ')}>
+        <div className={[_s.d, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.aiCenter].join(' ')}>
           {
             !!prependIcon &&
             <Icon id={prependIcon} size='16px' className={[_s.cPrimary, _s.ml15, _s.mr5].join(' ')} />

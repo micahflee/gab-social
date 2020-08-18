@@ -29,7 +29,7 @@ class StatusActionBarItem extends React.PureComponent {
     })
 
     const iconClasses = CX({
-      _: 1,
+      d: 1,
       inheritFill: 1,
       mr10: !!title,
     })
@@ -38,7 +38,7 @@ class StatusActionBarItem extends React.PureComponent {
     const weight = active ? 'bold' : 'medium'
 
     return (
-      <div className={[_s._, _s.px5, _s.flexNormal].join(' ')}>
+      <div className={[_s.d, _s.px5, _s.flexNormal].join(' ')}>
         <Button
           isBlock
           radiusSmall

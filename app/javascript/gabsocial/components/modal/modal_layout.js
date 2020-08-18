@@ -26,7 +26,7 @@ class ModalLayout extends React.PureComponent {
     } = this.props
 
     const childrenContainerClasses = cx({
-      _: 1,
+      d: 1,
       maxH80VH: 1,
       overflowYScroll: 1,
       px15: !noPadding,
@@ -34,9 +34,9 @@ class ModalLayout extends React.PureComponent {
     })
 
     return (
-      <div style={{width: `${width}px`}} className={[_s._, _s.modal].join(' ')}>
+      <div style={{width: `${width}px`}} className={[_s.d, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
             <Heading size='h2'>
               {title}
             </Heading>

@@ -36,7 +36,7 @@ class Heading extends React.PureComponent {
 
     // Each size has it's own custom style
     const classes = cx({
-      _: 1,
+      d: 1,
       text: 1,
       textAlignCenter: isCentered,
 

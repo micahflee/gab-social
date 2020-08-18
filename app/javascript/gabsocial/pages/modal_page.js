@@ -30,7 +30,7 @@ class ModalPage extends React.PureComponent {
         <PageTitle path={title} />
         
         <Block>
-          <div className={[_s._, _s.py15, _s.px15].join(' ')}>
+          <div className={[_s.d, _s.py15, _s.px15].join(' ')}>
             {children}
           </div>
         </Block>

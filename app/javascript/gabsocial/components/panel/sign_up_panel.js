@@ -31,7 +31,7 @@ class SignUpPanel extends React.PureComponent {
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
       >
-        <div className={[_s._, _s.flexRow, _s.pb5].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.pb5].join(' ')}>
           <Button
             isOutline
             color='brand'

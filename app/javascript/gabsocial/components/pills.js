@@ -14,8 +14,8 @@ class Pills extends React.PureComponent {
 
     return (
       <ResponsiveClassesComponent
-        classNames={[_s._, _s.flexWrap, _s.px5, _s.flexRow].join(' ')}
-        classNamesXS={[_s._, _s.overflowYHidden, _s.overflowXScroll, _s.noScrollbar, _s.pl10, _s.pr15, _s.flexRow].join(' ')}
+        classNames={[_s.d, _s.flexWrap, _s.px5, _s.flexRow].join(' ')}
+        classNamesXS={[_s.d, _s.overflowYHidden, _s.overflowXScroll, _s.noScrollbar, _s.pl10, _s.pr15, _s.flexRow].join(' ')}
       >
         {
           !!pills &&

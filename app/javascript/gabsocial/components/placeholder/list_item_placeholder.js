@@ -11,7 +11,7 @@ class ListItemPlaceholder extends React.PureComponent {
     const { isLast } = this.props
 
     const classes = CX({
-      _: 1,
+      d: 1,
       px15: 1,
       py15: 1,
       borderColorSecondary: !isLast,
@@ -19,7 +19,7 @@ class ListItemPlaceholder extends React.PureComponent {
     })
 
     const classesXS = CX({
-      _: 1,
+      d: 1,
       px15: 1,
       py7: 1,
       borderColorSecondary: !isLast,

@@ -211,14 +211,14 @@ class ComposeForm extends ImmutablePureComponent {
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
     const parentContainerClasses = CX({
-      _: 1,
+      d: 1,
       w100PC: 1,
       flexRow: !shouldCondense,
       pb10: !shouldCondense,
     })
 
     const childContainerClasses = CX({
-      _: 1,
+      d: 1,
       flexWrap: 1,
       overflowHidden: 1,
       flex1: 1,
@@ -232,7 +232,7 @@ class ComposeForm extends ImmutablePureComponent {
     })
 
     const actionsContainerClasses = CX({
-      _: 1,
+      d: 1,
       flexRow: 1,
       aiCenter: !shouldCondense,
       aiStart: shouldCondense,
@@ -243,20 +243,20 @@ class ComposeForm extends ImmutablePureComponent {
     })
 
     const commentPublishBtnClasses = CX({
-      _: 1,
+      d: 1,
       jcCenter: 1,
       displayNone: length(this.props.text) === 0,
     })
 
     return (
-      <div className={[_s._, _s.w100PC].join(' ')}>
+      <div className={[_s.d, _s.w100PC].join(' ')}>
         {
           shouldCondense &&
           <div className={parentContainerClasses}>
-            <div className={[_s._, _s.w100PC].join(' ')}>
+            <div className={[_s.d, _s.w100PC].join(' ')}>
 
-              <div className={[_s._, _s.flexRow, _s.w100PC].join(' ')}>
-                <div className={[_s._, _s.mr10].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
+                <div className={[_s.d, _s.mr10].join(' ')}>
                   <Avatar account={account} size={28} noHover />
                 </div>
 
@@ -287,7 +287,7 @@ class ComposeForm extends ImmutablePureComponent {
                   />
 
                   <div className={actionsContainerClasses}>
-                    <div className={[_s._, _s.flexRow, _s.mrAuto].join(' ')}>
+                    <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
 
                       { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */}
 
@@ -312,7 +312,7 @@ class ComposeForm extends ImmutablePureComponent {
 
               {
                 (isUploading || anyMedia) &&
-                <div className={[_s._, _s.w100PC, _s.pl35, _s.mt5].join(' ')}>
+                <div className={[_s.d, _s.w100PC, _s.pl35, _s.mt5].join(' ')}>
                   <UploadForm
                     replyToId={replyToId}
                     isModalOpen={isModalOpen}
@@ -326,7 +326,7 @@ class ComposeForm extends ImmutablePureComponent {
         {
           !shouldCondense &&
           <div className={parentContainerClasses}>
-            <div className={[_s._, _s.flexRow, _s.w100PC].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
               <div
                 className={childContainerClasses}
                 ref={this.setForm}
@@ -335,7 +335,7 @@ class ComposeForm extends ImmutablePureComponent {
 
                 {
                   !!reduxReplyToId && isModalOpen && isMatch &&
-                  <div className={[_s._, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                  <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
                     <StatusContainer
                       contextType='compose'
                       id={reduxReplyToId}
@@ -346,7 +346,7 @@ class ComposeForm extends ImmutablePureComponent {
 
                 {
                   !!spoiler &&
-                  <div className={[_s._, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                  <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
                     <Input
                       placeholder={intl.formatMessage(messages.spoiler_placeholder)}
                       value={this.props.spoilerText}
@@ -382,7 +382,7 @@ class ComposeForm extends ImmutablePureComponent {
 
                 {
                   (isUploading || anyMedia) &&
-                  <div className={[_s._, _s.px15, _s.mt5].join(' ')}>
+                  <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
                     <UploadForm
                       replyToId={replyToId}
                       isModalOpen={isModalOpen}
@@ -393,7 +393,7 @@ class ComposeForm extends ImmutablePureComponent {
                 {
                   /* : todo :
                   !!selectedGifSrc && !anyMedia &&
-                  <div className={[_s._, _s.px15].join(' ')}>
+                  <div className={[_s.d, _s.px15].join(' ')}>
                     <GifForm
                       replyToId={replyToId}
                       small={shouldCondense}
@@ -405,14 +405,14 @@ class ComposeForm extends ImmutablePureComponent {
 
                 {
                   !edit && hasPoll &&
-                  <div className={[_s._, _s.px15, _s.mt5].join(' ')}>
+                  <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
                     <PollForm replyToId={replyToId} />
                   </div>
                 }
 
                 {
                   !!quoteOfId && isModalOpen && isMatch &&
-                  <div className={[_s._, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                  <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
                     <StatusContainer
                       contextType='compose'
                       id={quoteOfId}
@@ -422,7 +422,7 @@ class ComposeForm extends ImmutablePureComponent {
                 }
 
                 <div className={actionsContainerClasses}>
-                  <div className={[_s._, _s.flexRow, _s.mrAuto].join(' ')}>
+                  <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
 
                     <UploadButton small={shouldCondense} />
 

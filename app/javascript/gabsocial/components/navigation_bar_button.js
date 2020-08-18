@@ -19,7 +19,7 @@ class NavigationBarButton extends React.PureComponent {
     const active = false
 
     const classes = CX({
-      _: 1,
+      d: 1,
       h53PX: 1,
       flexRow: 1,
       aiCenter: 1,

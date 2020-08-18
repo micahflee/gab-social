@@ -11,30 +11,30 @@ export default class GlobalFooter extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s._, _s.z4, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.left0, _s.right0, _s.bottom0, _s.w100PC, _s.bgSubtle, _s.borderTop1PX, _s.aiCenter, _s.borderColorSecondary].join(' ')}>
+      <div className={[_s.d, _s.z4, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.left0, _s.right0, _s.bottom0, _s.w100PC, _s.bgSubtle, _s.borderTop1PX, _s.aiCenter, _s.borderColorSecondary].join(' ')}>
 
-          <div className={[_s._, _s.mt15, _s.mb15].join(' ')}>
+          <div className={[_s.d, _s.mt15, _s.mb15].join(' ')}>
             <ResponsiveClassesComponent
-              classNames={[_s._, _s.w1255PX, _s.flexRow, _s.py15, _s.mt15, _s.mb15].join(' ')}
-              classNamesSmall={[_s._, _s.w1255PX, _s.aiCenter, _s.pt15, _s.px15, _s.mt15].join(' ')}
+              classNames={[_s.d, _s.w1255PX, _s.flexRow, _s.py15, _s.mt15, _s.mb15].join(' ')}
+              classNamesSmall={[_s.d, _s.w1255PX, _s.aiCenter, _s.pt15, _s.px15, _s.mt15].join(' ')}
             >
 
               <ResponsiveClassesComponent
-                classNames={[_s._, _s.w330PX].join(' ')}
-                classNamesSmall={[_s._, _s.aiCenter].join(' ')}
+                classNames={[_s.d, _s.w330PX].join(' ')}
+                classNamesSmall={[_s.d, _s.aiCenter].join(' ')}
               >
-                <div className={[_s._, _s.mb10].join(' ')}>
+                <div className={[_s.d, _s.mb10].join(' ')}>
                   <Icon id='logo' />
                 </div>
-                <div className={[_s._, _s.pr15, _s.maxW640PX].join(' ')}>
+                <div className={[_s.d, _s.pr15, _s.maxW640PX].join(' ')}>
                   <Text size='medium'>We build Freedom Of Speech Software. We champion free speech, individual liberty and the free flow of information online. All are welcome.</Text>
                 </div>
               </ResponsiveClassesComponent>
 
               <ResponsiveClassesComponent
-                classNames={[_s._, _s.flexRow, _s.flexGrow1, _s.pl15].join(' ')}
-                classNamesSmall={[_s._, _s.py15, _s.w100PC, _s.px15].join(' ')}
+                classNames={[_s.d, _s.flexRow, _s.flexGrow1, _s.pl15].join(' ')}
+                classNamesSmall={[_s.d, _s.py15, _s.w100PC, _s.px15].join(' ')}
               >
 
                 <GlobalFooterColumn
@@ -117,13 +117,13 @@ export default class GlobalFooter extends React.PureComponent {
             </ResponsiveClassesComponent>
           </div>
 
-          <div className={[_s._, _s.aiCenter, _s.bgSecondary, _s.h100PC, _s.minH58PX, _s.w100PC, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
+          <div className={[_s.d, _s.aiCenter, _s.bgSecondary, _s.h100PC, _s.minH58PX, _s.w100PC, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
             <ResponsiveClassesComponent
-              classNames={[_s._, _s.w1255PX, _s.flexRow, _s.aiCenter].join(' ')}
-              classNamesXS={[_s._, _s.w1255PX, _s.aiCenter, _s.px15, _s.pt15].join(' ')}
+              classNames={[_s.d, _s.w1255PX, _s.flexRow, _s.aiCenter].join(' ')}
+              classNamesXS={[_s.d, _s.w1255PX, _s.aiCenter, _s.px15, _s.pt15].join(' ')}
             >
 
-              <div classNames={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+              <div classNames={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
                 <Text weight='bold'>
                   © 2020
                 </Text>
@@ -142,8 +142,8 @@ export default class GlobalFooter extends React.PureComponent {
               </div>
                 
               <ResponsiveClassesComponent
-                classNames={[_s._, _s.aiCenter, _s.mlAuto].join(' ')}
-                classNamesXS={[_s._, _s.aiCenter, _s.py15].join(' ')}
+                classNames={[_s.d, _s.aiCenter, _s.mlAuto].join(' ')}
+                classNamesXS={[_s.d, _s.aiCenter, _s.py15].join(' ')}
               >
                 <Text>
                   Made in USA 🇺🇸
@@ -181,8 +181,8 @@ class GlobalFooterColumn extends React.PureComponent {
 
     return (
       <ResponsiveClassesComponent
-        classNames={[_s._, _s.flexNormal].join(' ')}
-        classNamesSmall={[_s._, _s.w100PC, _s.aiCenter, _s.mt15, _s.mb5, _s.pt15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
+        classNames={[_s.d, _s.flexNormal].join(' ')}
+        classNamesSmall={[_s.d, _s.w100PC, _s.aiCenter, _s.mt15, _s.mb5, _s.pt15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
       >
         <div className={_s.mb10}>
           <Heading size='h3'>{title}</Heading>

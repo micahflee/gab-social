@@ -26,7 +26,7 @@ class ListTimelineSettingsModal extends ImmutablePureComponent {
         onClose={onClose}
       >
       
-        <div className={[_s._, _s.pb10].join(' ')}>
+        <div className={[_s.d, _s.pb10].join(' ')}>
           <SettingSwitch
             prefix='list_timeline'
             settings={settings}

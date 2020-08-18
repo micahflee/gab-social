@@ -72,7 +72,7 @@ class VideoStatsPopover extends ImmutablePureComponent {
     ]
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       bgBlack: !isXS,
       bgPrimary: !isXS,
       px10: 1,
@@ -137,8 +137,8 @@ class VideoStatLine extends React.PureComponent {
     const color = isXS ? 'primary' : 'white'
 
     return (
-      <div className={[_s._, _s.flexRow, _s.pt2].join(' ')}>
-        <div className={[_s._, _s.w115PX, _s.aiEnd, _s.mr5].join(' ')}>
+      <div className={[_s.d, _s.flexRow, _s.pt2].join(' ')}>
+        <div className={[_s.d, _s.w115PX, _s.aiEnd, _s.mr5].join(' ')}>
           <Text size='extraSmall' weight='medium' color={color}>
             {title}
           </Text>

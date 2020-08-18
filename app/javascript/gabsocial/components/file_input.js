@@ -41,7 +41,7 @@ class FileInput extends React.PureComponent {
     const { file, hovering } = this.state
 
     const containerClasses = CX(className, {
-      _: 1,
+      d: 1,
       aiCenter: 1,
       cursorPointer: 1,
       jcCenter: 1,
@@ -66,7 +66,7 @@ class FileInput extends React.PureComponent {
       >
         {
           !!title &&
-          <div className={[_s._, _s.mb10, _s.pl15].join(' ')}>
+          <div className={[_s.d, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>
@@ -88,7 +88,7 @@ class FileInput extends React.PureComponent {
           />
           {
             (!file || hovering) &&
-            <div className={[_s._, _s.posAbs, _s.cursorPointer, _s.top0, _s.bottom0, _s.left0, _s.right0, _s.aiCenter, _s.jcCenter, _s.bgBlackOpaquest_onHover].join(' ')}>
+            <div className={[_s.d, _s.posAbs, _s.cursorPointer, _s.top0, _s.bottom0, _s.left0, _s.right0, _s.aiCenter, _s.jcCenter, _s.bgBlackOpaquest_onHover].join(' ')}>
               <Icon id='add-image' size='32px' className={iconClasses} />
             </div>
           }

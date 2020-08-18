@@ -31,12 +31,12 @@ class StatusPrepend extends ImmutablePureComponent {
     else if (isComment) iconId = 'comment'
 
     return (
-      <div className={[_s._, _s.w100PC, _s.aiStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-        <div className={[_s._, _s.w100PC, _s.flexRow, _s.aiCenter, _s.py5, _s.px15].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.aiStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+        <div className={[_s.d, _s.w100PC, _s.flexRow, _s.aiCenter, _s.py5, _s.px15].join(' ')}>
           <Icon id={iconId} size='12px' className={[_s.cSecondary, _s.mr5].join(' ')} />
           {
             isRepost && !isComment &&
-            <div className={[_s._, _s.flexRow].join(' ')}>
+            <div className={[_s.d, _s.flexRow].join(' ')}>
               <Text size='small' color='secondary'>
                 <FormattedMessage
                   id='status.reposted_by'

@@ -501,13 +501,13 @@ class Video extends ImmutablePureComponent {
     // : todo spoiler :
 
     const mainContainerClasses = CX({
-      _: 1,
+      d: 1,
       mt10: 1,
       outlineNone: 1,
     })
 
     const seekHandleClasses = CX({
-      _: 1,
+      d: 1,
       posAbs: 1,
       circle: 1,
       h20PX: 1,
@@ -524,7 +524,7 @@ class Video extends ImmutablePureComponent {
     })
 
     const seekInnerHandleClasses = CX({
-      _: 1,
+      d: 1,
       circle: 1,
       h14PX: 1,
       w14PX: 1,
@@ -533,7 +533,7 @@ class Video extends ImmutablePureComponent {
     })
 
     const progressClasses = CX({
-      _: 1,
+      d: 1,
       radiusSmall: 1,
       mt10: 1,
       posAbs: 1,
@@ -542,7 +542,7 @@ class Video extends ImmutablePureComponent {
     })
 
     const volumeControlClasses = CX({
-      _: 1,
+      d: 1,
       posAbs: 1,
       bgBlackOpaque: 1,
       videoPlayerVolume: 1,
@@ -552,7 +552,7 @@ class Video extends ImmutablePureComponent {
     })
 
     const videoControlsBackgroundClasses = CX({
-      _: 1,
+      d: 1,
       z2: 1,
       px15: 1,
       videoPlayerControlsBackground: 1,
@@ -564,7 +564,7 @@ class Video extends ImmutablePureComponent {
     })
 
     const overlayClasses = CX({
-      _: 1,
+      d: 1,
       top50PC: 1,
       left50PC: 1,
       posAbs: 1,
@@ -595,7 +595,7 @@ class Video extends ImmutablePureComponent {
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
               <button
                 onClick={this.togglePlay}
-                className={[_s._, _s.outlineNone, _s.cursorPointer, _s.aiCenter, _s.jcCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.h60PX, _s.w60PX].join(' ')}
+                className={[_s.d, _s.outlineNone, _s.cursorPointer, _s.aiCenter, _s.jcCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.h60PX, _s.w60PX].join(' ')}
               >
                 <Icon id='play' size='24px' className={_s.cWhite} />
               </button>
@@ -603,12 +603,12 @@ class Video extends ImmutablePureComponent {
           }
           {
             !paused && true &&
-            <Icon id='loading' size='60px' className={[_s._, _s.posAbs].join(' ')} />
+            <Icon id='loading' size='60px' className={[_s.d, _s.posAbs].join(' ')} />
           }
         </div>
 
         <video
-          className={[_s._, _s.h100PC, _s.w100PC, _s.outlineNone].join(' ')}
+          className={[_s.d, _s.h100PC, _s.w100PC, _s.outlineNone].join(' ')}
           playsInline
           ref={this.setVideoRef}
           src={src}
@@ -646,19 +646,19 @@ class Video extends ImmutablePureComponent {
           ref={this.setVolumeRef}
         >
           <div
-            className={[_s._, _s.radiusSmall, _s.my10, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
+            className={[_s.d, _s.radiusSmall, _s.my10, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
             style={{
               height: '102px',
             }}
           />
           <div
-            className={[_s._, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimary].join(' ')}
+            className={[_s.d, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimary].join(' ')}
             style={{
               height: `${volumeHeight}px`
             }}
           />
           <span
-            className={[_s._, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
+            className={[_s.d, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -670,7 +670,7 @@ class Video extends ImmutablePureComponent {
         <div className={videoControlsBackgroundClasses}>
 
           <div
-            className={[_s._, _s.cursorPointer, _s.h22PX, _s.videoPlayerSeek].join(' ')}
+            className={[_s.d, _s.cursorPointer, _s.h22PX, _s.videoPlayerSeek].join(' ')}
             onMouseDown={this.handleMouseDown}
             ref={this.setSeekRef}
           >
@@ -690,7 +690,7 @@ class Video extends ImmutablePureComponent {
             </span>
           </div>
 
-          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.pb5, _s.noSelect].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.pb5, _s.noSelect].join(' ')}>
             <Button
               isNarrow
               backgroundColor='none'
@@ -724,7 +724,7 @@ class Video extends ImmutablePureComponent {
               {formatTime(duration)}
             </Text>
 
-            <div className={[_s._, _s.mlAuto, _s.flexRow, _s.aiCenter].join(' ')}>
+            <div className={[_s.d, _s.mlAuto, _s.flexRow, _s.aiCenter].join(' ')}>
               <Button
                 isNarrow
                 backgroundColor='none'

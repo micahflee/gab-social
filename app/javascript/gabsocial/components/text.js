@@ -71,7 +71,7 @@ class Text extends React.PureComponent {
 
     // Style the component according to props
     const classes = cx(className, {
-      _: 1,
+      d: 1,
       text: 1,
 
       radiusSmall: isBadge,

@@ -56,7 +56,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
     const { status } = this.props
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       pb10: !!status ? status.get('media_attachments').size === 0 : false,
     })
 
@@ -67,23 +67,23 @@ class StatusPromotionPanel extends ImmutablePureComponent {
         }
         {
           !!status &&
-          <div className={_s._}>
-            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s._, _s.flexRow, _s.mt5].join(' ')}>
+          <div className={_s.d}>
+            <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.mt5].join(' ')}>
 
                 <NavLink
                   to={`/${status.getIn(['account', 'acct'])}`}
                   title={status.getIn(['account', 'acct'])}
-                  className={[_s._, _s.mr10].join(' ')}
+                  className={[_s.d, _s.mr10].join(' ')}
                 >
                   <Avatar account={status.get('account')} size={28} />
                 </NavLink>
 
-                <div className={[_s._, _s.aiStart, _s.flexGrow1, _s.mt5].join(' ')}>
+                <div className={[_s.d, _s.aiStart, _s.flexGrow1, _s.mt5].join(' ')}>
 
-                  <div className={[_s._, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
+                  <div className={[_s.d, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
                     <NavLink
-                      className={[_s._, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
+                      className={[_s.d, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
                       to={`/${status.getIn(['account', 'acct'])}`}
                       title={status.getIn(['account', 'acct'])}
                     >

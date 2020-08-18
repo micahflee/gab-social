@@ -142,7 +142,7 @@ class ImageLoader extends React.PureComponent {
     // }
 
     const className = CX({
-      _: 1,
+      d: 1,
       w100PC: 1,
       h100PC: 1,
       // 'image-loader--loading': loading,
@@ -154,7 +154,7 @@ class ImageLoader extends React.PureComponent {
         <LoadingBar loading={loading ? 1 : 0} className='loading-bar' style={{ width: this.state.width || width }} />
         {loading ? (
           <canvas
-            className={[_s._, _s.objectFitCover].join(' ')}
+            className={[_s.d, _s.objectFitCover].join(' ')}
             ref={this.setCanvasRef}
             width={width}
             height={height}

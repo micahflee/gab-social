@@ -6,7 +6,7 @@ export default class ProfileHeaderXSPlaceholder extends React.PureComponent {
   
   render() {
     return (
-      <div className={[_s._, _s.px10, _s.py10].join(' ')}>
+      <div className={[_s.d, _s.px10, _s.py10].join(' ')}>
         <PlaceholderLayout viewBox='0 0 400 660'>
           <rect x='0' y='0' rx='0' ry='0' width='400' height='202' /> 
           <circle cx='200' cy='200' r='54' /> 

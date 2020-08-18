@@ -89,7 +89,7 @@ class Avatar extends ImmutablePureComponent {
 
     const isPro = !!account ? account.get('is_pro') : false
     const alt = !account ? '' : `${account.get('display_name')} ${isPro ? '(PRO)' : ''}`.trim()
-    const classes = [_s._, _s.circle, _s.overflowHidden]
+    const classes = [_s.d, _s.circle, _s.overflowHidden]
     if (isPro) {
       classes.push(_s.boxShadowAvatarPro)
     }

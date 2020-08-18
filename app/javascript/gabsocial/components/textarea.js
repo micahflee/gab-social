@@ -23,7 +23,7 @@ class Textarea extends React.PureComponent {
     } = this.props
 
     const inputClasses = cx({
-      _: 1,
+      d: 1,
       text: 1,
       outlineNone: 1,
       lineHeight125: 1,
@@ -43,13 +43,13 @@ class Textarea extends React.PureComponent {
       <div>
         {
           !!title &&
-          <div className={[_s._, _s.mb10, _s.pl15].join(' ')}>
+          <div className={[_s.d, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>
           </div>
         }
-        <div className={[_s._, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.radiusSmall, _s.aiCenter].join(' ')}>
+        <div className={[_s.d, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.radiusSmall, _s.aiCenter].join(' ')}>
           <textarea
             className={inputClasses}
             type='text'

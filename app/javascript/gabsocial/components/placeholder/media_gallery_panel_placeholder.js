@@ -6,7 +6,7 @@ export default class MediaGalleryPanelPlaceholder extends React.PureComponent {
   
   render() {
     return (
-      <div className={_s._}>
+      <div className={_s.d}>
         <PlaceholderLayout viewBox='0 0 334 164'>
           <rect x='0' y='0' rx='4' ry='4' width='76' height='76' /> 
           <rect x='86' y='0' rx='4' ry='4' width='76' height='76' /> 

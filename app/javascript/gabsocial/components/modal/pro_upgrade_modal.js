@@ -25,8 +25,8 @@ class ProUpgradeModal extends ImmutablePureComponent {
     const imgSuffix = (theme === 'light' || !theme) ? 'light' : 'dark'
 
     const title = (
-      <span className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
-        <span className={[_s._, _s.mr2].join(' ')}>
+      <span className={[_s.d, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
+        <span className={[_s.d, _s.mr2].join(' ')}>
           Upgrade to Gab
         </span>
         <span className={[_s.bgPro, _s.cBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
@@ -46,7 +46,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
           {intl.formatMessage(messages.benefits)}
         </Text>
 
-        <div className={[_s._, _s.my10].join(' ')}>
+        <div className={[_s.d, _s.my10].join(' ')}>
           <Image
             src={`/headers/pro-features-${imgSuffix}.png`}
             width='100%'
@@ -56,7 +56,7 @@ class ProUpgradeModal extends ImmutablePureComponent {
           />
         </div>
 
-        <div className={[_s._, _s.flexRow, _s.py10].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.py10].join(' ')}>
           <Button
             isOutline
             color='brand'

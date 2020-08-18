@@ -119,12 +119,12 @@ class ZoomableImage extends React.PureComponent {
 
     return (
       <div
-        className={[_s._, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}
+        className={[_s.d, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}
         ref={this.setContainerRef}
         style={{ overflow }}
       >
         <img
-          className={[_s._, _s.objectFitContain, _s.hAuto, _s.wAuto, _s.maxW100PC, _s.maxH100PC].join(' ')}
+          className={[_s.d, _s.objectFitContain, _s.hAuto, _s.wAuto, _s.maxW100PC, _s.maxH100PC].join(' ')}
           role='presentation'
           ref={this.setImageRef}
           alt={alt}

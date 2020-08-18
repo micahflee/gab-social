@@ -46,8 +46,8 @@ class ProfileStatsPanel extends ImmutablePureComponent {
         {
           !!account &&
           <ResponsiveClassesComponent
-            classNames={[_s._, _s.flexRow].join(' ')}
-            classNamesXS={[_s._, _s.flexRow, _s.mt15, _s.pt10].join(' ')}
+            classNames={[_s.d, _s.flexRow].join(' ')}
+            classNamesXS={[_s.d, _s.flexRow, _s.mt15, _s.pt10].join(' ')}
           >
             <UserStat
               title={intl.formatMessage(messages.gabs)}

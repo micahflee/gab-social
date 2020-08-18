@@ -48,20 +48,20 @@ class UploadArea extends React.PureComponent {
       >
         {({ backgroundOpacity, backgroundScale }) => (
           <div
-            className={[_s._, _s.aiCenter, _s.jcCenter, _s.bgPrimaryOpaque, _s.w100PC, _s.h100PC, _s.posAbs, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
+            className={[_s.d, _s.aiCenter, _s.jcCenter, _s.bgPrimaryOpaque, _s.w100PC, _s.h100PC, _s.posAbs, _s.top0, _s.rightAuto, _s.bottomAuto, _s.left0].join(' ')}
             style={{
               visibility: active ? 'visible' : 'hidden',
               opacity: backgroundOpacity
             }}
           >
-            <div className={[_s._, _s.w340PX, _s.h260PX, _s.px10, _s.py10].join(' ')}>
+            <div className={[_s.d, _s.w340PX, _s.h260PX, _s.px10, _s.py10].join(' ')}>
               <div
-                className={[_s._, _s.posAbs, _s.bgPrimary, _s.h100PC, _s.w100PC, _s.radiusSmall].join(' ')}
+                className={[_s.d, _s.posAbs, _s.bgPrimary, _s.h100PC, _s.w100PC, _s.radiusSmall].join(' ')}
                 style={{
                   transform: `scale(${backgroundScale})`
                 }}
               />
-              <div className={[_s._, _s.h100PC, _s.w100PC, _s.border2PX, _s.borderColorSecondary, _s.borderDashed, _s.radiusSmall, _s.aiCenter, _s.jcCenter].join(' ')}>
+              <div className={[_s.d, _s.h100PC, _s.w100PC, _s.border2PX, _s.borderColorSecondary, _s.borderDashed, _s.radiusSmall, _s.aiCenter, _s.jcCenter].join(' ')}>
                 <Text size='medium' color='secondary'>
                   {intl.formatMessage(messages.title)}
                 </Text>

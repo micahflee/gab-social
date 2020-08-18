@@ -91,7 +91,7 @@ class Notification extends ImmutablePureComponent {
     }
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       px10: 1,
       cursorPointer: 1,
       bgSubtle_onHover: !isUnread,
@@ -104,15 +104,15 @@ class Notification extends ImmutablePureComponent {
         tabIndex='0'
         aria-label={`${message} ${createdAt}`}
       >
-        <div className={[_s._, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s._, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
+        <div className={[_s.d, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
               <Icon id={icon} size='20px' className={[_s.cPrimary, _s.minW20PX, _s.mt5, _s.mr15].join(' ')} />
             </Responsive>
 
-            <div className={[_s._, _s.flexNormal].join(' ')}>
-              <div className={[_s._, _s.flexRow, _s.flexWrap].join(' ')}>
+            <div className={[_s.d, _s.flexNormal].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.flexWrap].join(' ')}>
                 {
                   accounts && accounts.map((account, i) => (
                     <NavLink
@@ -125,8 +125,8 @@ class Notification extends ImmutablePureComponent {
                   ))
                 }
               </div>
-              <div className={[_s._, _s.pt5].join(' ')}>
-                <div className={[_s._, _s.flexRow, _s.aiEnd].join(' ')}>
+              <div className={[_s.d, _s.pt5].join(' ')}>
+                <div className={[_s.d, _s.flexRow, _s.aiEnd].join(' ')}>
                   <div className={_s.text}>
                     {
                       accounts && accounts.slice(0, 1).map((account, i) => (
@@ -151,7 +151,7 @@ class Notification extends ImmutablePureComponent {
               </div>
               {
                 !!statusId &&
-                <div className={[_s._, _s.pt10, _s.mt5].join(' ')}>
+                <div className={[_s.d, _s.pt10, _s.mt5].join(' ')}>
                   <StatusContainer
                     contextType='notification'
                     id={statusId}

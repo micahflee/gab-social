@@ -32,14 +32,14 @@ class StatusRevisionsModal extends ImmutablePureComponent {
         width={480}
         onClose={onClose}
       >
-        <div className={[_s._]}>
+        <div className={[_s.d]}>
           {
             revisions.map((revision, i) => {
               const isFirst = i === 0
               const isLast = i === revisions.size - 1
 
               const containerClasses = cx({
-                _: 1,
+                d: 1,
                 pt5: 1,
                 pb10: 1,
                 mt5: !isFirst,
@@ -49,12 +49,12 @@ class StatusRevisionsModal extends ImmutablePureComponent {
 
               return (
                 <div key={`status-revision-${i}`} className={containerClasses}>
-                  <div className={[_s._, _s.pb5].join(' ')}>
+                  <div className={[_s.d, _s.pb5].join(' ')}>
                     <Text size='medium'>
                       {revision.get('text')}
                     </Text>
                   </div>
-                  <div className={[_s._]}>
+                  <div className={[_s.d]}>
                     <Text size='small' color='secondary'>
                       Edited on <RelativeTimestamp timestamp={revision.get('created_at')} />
                     </Text>

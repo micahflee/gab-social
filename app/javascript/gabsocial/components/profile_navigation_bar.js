@@ -9,10 +9,10 @@ class ProfileNavigationBar extends React.PureComponent {
     const { titleHTML } = this.props
 
     return (
-      <div className={[_s._, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+      <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
-          <div className={[_s._, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
 
             <BackButton
               className={[_s.minH53PX, _s.pl10, _s.pr10].join(' ')}
@@ -20,7 +20,7 @@ class ProfileNavigationBar extends React.PureComponent {
               iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
             />
 
-            <div className={[_s._, _s.minH53PX, _s.jcCenter, _s.mrAuto].join(' ')}>
+            <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.mrAuto].join(' ')}>
               <Heading size='h1'>
                 <span className={[_s.textOverflowEllipsis, _s.colorNavigation].join(' ')}>
                   <div dangerouslySetInnerHTML={{ __html: titleHTML }} />

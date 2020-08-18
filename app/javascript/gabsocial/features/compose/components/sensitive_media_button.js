@@ -11,7 +11,7 @@ class SensitiveMediaButton extends React.PureComponent {
     const { active, disabled, onClick, intl } = this.props
 
     return (
-      <div className={[_s._, _s.aiStart, _s.px5].join(' ')}>
+      <div className={[_s.d, _s.aiStart, _s.px5].join(' ')}>
         <Switch
           id='mark-sensitive'
           type='checkbox'

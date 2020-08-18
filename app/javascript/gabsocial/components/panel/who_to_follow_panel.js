@@ -88,7 +88,7 @@ class WhoToFollowPanel extends ImmutablePureComponent {
         footerButtonTitle={intl.formatMessage(messages.show_more)}
         footerButtonTo='/explore'
       >
-        <div className={_s._}>
+        <div className={_s.d}>
           {
             arr.map((accountId) => (
               <Child

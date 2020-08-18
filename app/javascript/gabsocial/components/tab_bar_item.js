@@ -55,7 +55,7 @@ class TabBarItem extends React.PureComponent {
     const active = isActive || (to === location.pathname && !location.search) || isCurrent
 
     const containerClasses = CX({
-      _: 1,
+      d: 1,
       h100PC: 1,
       noUnderline: 1,
       text: 1,
@@ -74,7 +74,7 @@ class TabBarItem extends React.PureComponent {
     })
 
     const textParentClasses = CX({
-      _: 1,
+      d: 1,
       h100PC: 1,
       aiCenter: 1,
       jcCenter: 1,

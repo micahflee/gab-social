@@ -130,9 +130,9 @@ class Item extends ImmutablePureComponent {
 
     if (attachment.get('type') === 'unknown') {
       return (
-        <div className={[_s._, _s.posAbs].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius, width: `${width}%` }}>
-          <a className={[_s._, _s.heigh100PC, _s.w100PC, _s.cursorPointer].join(' ')} href={attachment.get('remote_url')} target='_blank' rel='noreferrer noopener'>
-            <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s._, _s.heigh100PC, _s.w100PC].join(' ')} />
+        <div className={[_s.d, _s.posAbs].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, borderRadius, width: `${width}%` }}>
+          <a className={[_s.d, _s.heigh100PC, _s.w100PC, _s.cursorPointer].join(' ')} href={attachment.get('remote_url')} target='_blank' rel='noreferrer noopener'>
+            <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.d, _s.heigh100PC, _s.w100PC].join(' ')} />
           </a>
         </div>
       )
@@ -155,7 +155,7 @@ class Item extends ImmutablePureComponent {
 
       thumbnail = (
         <a
-          className={[_s._, _s.overflowHidden, _s.h100PC, _s.w100PC, _s.cursorPointer].join(' ')}
+          className={[_s.d, _s.overflowHidden, _s.h100PC, _s.w100PC, _s.cursorPointer].join(' ')}
           href={attachment.get('remote_url') || originalUrl}
           onClick={this.handleClick}
           target='_blank'
@@ -178,9 +178,9 @@ class Item extends ImmutablePureComponent {
       const autoPlay = !isIOS() && autoPlayGif !== false;
 
       thumbnail = (
-        <div className={[_s._, _s.overflowHidden, _s.heigh100PC, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.overflowHidden, _s.heigh100PC, _s.w100PC].join(' ')}>
           <video
-            className={[_s._, _s.cursorPointer, _s.objectFitCover, _s.w100PC, _s.h100PC, _s.z1].join(' ')}
+            className={[_s.d, _s.cursorPointer, _s.objectFitCover, _s.w100PC, _s.h100PC, _s.z1].join(' ')}
             aria-label={attachment.get('description')}
             title={attachment.get('description')}
             role='application'
@@ -196,7 +196,7 @@ class Item extends ImmutablePureComponent {
             playsInline
           />
 
-          <div className={[_s._, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
+          <div className={[_s.d, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr10, _s.mb10, _s.bottom0, _s.right0].join(' ')}>
             <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
           </div>
         </div>
@@ -207,7 +207,7 @@ class Item extends ImmutablePureComponent {
       <div className={[_s.defeault, _s.posAbs].join(' ')} key={attachment.get('id')} style={{ position, float, left, top, right, bottom, height, width: `${width}%` }}>
         {
           !visible && !this.state.loaded &&
-          <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s._, _s.heigh100PC, _s.w100PC].join(' ')} />
+          <canvas width={32} height={32} ref={this.setCanvasRef} className={[_s.d, _s.heigh100PC, _s.w100PC].join(' ')} />
         }
         {visible && thumbnail}
       </div>
@@ -515,7 +515,7 @@ class MediaGallery extends React.PureComponent {
     ))
 
     const containerClasses = cx({
-      _: 1,
+      d: 1,
       displayBlock: 1,
       overflowHidden: 1,
       borderColorSecondary: size === 1 && visible,
@@ -538,7 +538,7 @@ class MediaGallery extends React.PureComponent {
 
         {
           visible &&
-          <div className={[_s._, _s.displayBlock, _s.w100PC, _s.h100PC, _s.overflowHidden].join(' ')}>
+          <div className={[_s.d, _s.displayBlock, _s.w100PC, _s.h100PC, _s.overflowHidden].join(' ')}>
             {children}
           </div>
         }

@@ -10,7 +10,7 @@ class AccountPlaceholder extends React.PureComponent {
     const { isLast, isSmall } = this.props
 
     const classes = CX({
-      _: 1,
+      d: 1,
       px15: 1,
       py7: 1,
       borderColorSecondary: !isLast,

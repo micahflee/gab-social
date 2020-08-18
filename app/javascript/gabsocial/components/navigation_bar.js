@@ -45,17 +45,17 @@ class NavigationBar extends ImmutablePureComponent {
     } = this.props
 
     return (
-      <div className={[_s._, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
-        <div className={[_s._, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+      <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
-          <div className={[_s._, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.w1255PX].join(' ')}>
+          <div className={[_s.d, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.w1255PX].join(' ')}>
 
             { /** Default */}
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
 
-              <div className={[_s._, _s.flexRow].join(' ')}>
+              <div className={[_s.d, _s.flexRow].join(' ')}>
 
-                <h1 className={[_s._, _s.mr15].join(' ')}>
+                <h1 className={[_s.d, _s.mr15].join(' ')}>
                   <Button
                     to='/'
                     isText
@@ -63,7 +63,7 @@ class NavigationBar extends ImmutablePureComponent {
                     aria-label='Gab'
                     color='none'
                     backgroundColor='none'
-                    className={[_s._, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
+                    className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
                   >
                     <Icon id='logo' className={_s.fillNavigationBrand} />
                   </Button>
@@ -71,28 +71,28 @@ class NavigationBar extends ImmutablePureComponent {
 
                 {
                   !noSearch &&
-                  <div className={[_s._, _s.w340PX, _s.mr10].join(' ')}>
+                  <div className={[_s.d, _s.w340PX, _s.mr10].join(' ')}>
                     <Search isInNav />
                   </div>
                 }
 
               </div>
 
-              <div className={[_s._, _s.mlAuto].join(' ')}>
+              <div className={[_s.d, _s.mlAuto].join(' ')}>
                 {
                   !noActions &&
-                  <div className={[_s._, _s.h53PX, _s.pl15, _s.flexRow, _s.aiCenter, _s.jcSpaceBetween].join(' ')}>
+                  <div className={[_s.d, _s.h53PX, _s.pl15, _s.flexRow, _s.aiCenter, _s.jcSpaceBetween].join(' ')}>
 
                     <NavigationBarButton title='Home' icon='home' to='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
 
-                    <div className={[_s._, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
+                    <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
                     <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
                     <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
 
-                    <div className={[_s._, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
+                    <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
                   
                     {
                       !!account &&
@@ -100,7 +100,7 @@ class NavigationBar extends ImmutablePureComponent {
                         ref={this.setAvatarNode}
                         title={account.get('display_name')}
                         onClick={this.handleOnOpenNavSettingsPopover}
-                        className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s._, _s.jcCenter, _s.ml15].join(' ')}
+                        className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.d, _s.jcCenter, _s.ml15].join(' ')}
                       >
                         <Avatar account={account} size={32} noHover />
                       </button>
@@ -113,13 +113,13 @@ class NavigationBar extends ImmutablePureComponent {
             
             { /** Mobile */}
             <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s._, _s.w84PX, _s.aiStart, _s.pl10].join(' ')}>
+              <div className={[_s.d, _s.w84PX, _s.aiStart, _s.pl10].join(' ')}>
                 {
                   !!account && !showBackBtn && !noActions &&
                   <button
                     title={account.get('display_name')}
                     onClick={onOpenSidebar}
-                    className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s._, _s.jcCenter].join(' ')}
+                    className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.d, _s.jcCenter].join(' ')}
                   >
                     <Avatar account={account} size={32} noHover />
                   </button>
@@ -135,7 +135,7 @@ class NavigationBar extends ImmutablePureComponent {
                 }
                 {
                   noActions &&
-                  <h1 className={[_s._, _s.mr15].join(' ')}>
+                  <h1 className={[_s.d, _s.mr15].join(' ')}>
                     <Button
                       to='/'
                       isText
@@ -143,7 +143,7 @@ class NavigationBar extends ImmutablePureComponent {
                       aria-label='Gab'
                       color='none'
                       backgroundColor='none'
-                      className={[_s._, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
+                      className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
                     >
                       <Icon id='logo' className={_s.fillNavigationBrand} />
                     </Button>
@@ -151,7 +151,7 @@ class NavigationBar extends ImmutablePureComponent {
                 }
               </div>
               
-              <div className={[_s._, _s.h53PX, _s.jcCenter, _s.mlAuto, _s.mrAuto].join(' ')}>
+              <div className={[_s.d, _s.h53PX, _s.jcCenter, _s.mlAuto, _s.mrAuto].join(' ')}>
                 <Heading size='h1'>
                   <span className={_s.colorNavigation}>
                     {title}
@@ -159,8 +159,8 @@ class NavigationBar extends ImmutablePureComponent {
                 </Heading>
               </div>
 
-              <div className={[_s._, _s.w84PX, _s.pr15].join(' ')}>
-                <div className={[_s._, _s.bgTransparent, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.mlAuto].join(' ')}>
+              <div className={[_s.d, _s.w84PX, _s.pr15].join(' ')}>
+                <div className={[_s.d, _s.bgTransparent, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.mlAuto].join(' ')}>
                   {
                     actions && actions.map((action, i) => (
                       <Button

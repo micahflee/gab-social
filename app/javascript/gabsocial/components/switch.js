@@ -19,7 +19,7 @@ class Switch extends React.PureComponent {
 
     const checkboxContainerClasses = CX({
       cursorPointer: 1,
-      _: 1,
+      d: 1,
       h24PX: 1,
       w50PX: 1,
       circle: 1,
@@ -31,7 +31,7 @@ class Switch extends React.PureComponent {
     })
 
     const checkboxLabelClasses = CX({
-      _: 1,
+      d: 1,
       m1PX: 1,
       h20PX: 1,
       w20PX: 1,
@@ -44,7 +44,7 @@ class Switch extends React.PureComponent {
     })
 
     return (
-      <div className={[_s._, _s.flexRow, _s.py5, _s.aiCenter].join(' ')}>
+      <div className={[_s.d, _s.flexRow, _s.py5, _s.aiCenter].join(' ')}>
         <Text {...labelProps} className={_s.mr10}>
           {label}
         </Text>

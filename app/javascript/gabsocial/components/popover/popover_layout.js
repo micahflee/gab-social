@@ -33,17 +33,17 @@ export default class PopoverLayout extends React.PureComponent {
 
     if (isXS) {
       return (
-        <div className={[_s._, _s.modal, _s.px10, _s.pb10].join(' ')}>
-          <div className={[_s._, _s.bgPrimary, _s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}>
+        <div className={[_s.d, _s.modal, _s.px10, _s.pb10].join(' ')}>
+          <div className={[_s.d, _s.bgPrimary, _s.radiusSmall, _s.overflowHidden, _s.mb10].join(' ')}>
             {
               !!title &&
-              <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
                 <Heading size='2'>
                   {title}
                 </Heading>
               </div>
             }
-            <div className={[_s._, _s.maxH80VH, _s.radiusSmall, _s.overflowYScroll].join(' ')}>
+            <div className={[_s.d, _s.maxH80VH, _s.radiusSmall, _s.overflowYScroll].join(' ')}>
               {children}
             </div>
           </div>
