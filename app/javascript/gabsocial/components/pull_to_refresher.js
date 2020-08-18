@@ -2,7 +2,6 @@ import React from 'react'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Responsive from '../features/ui//util/responsive_component'
 import Icon from './icon'
-import Text from './text'
 
 export default class PullToRefresher extends React.PureComponent {
 

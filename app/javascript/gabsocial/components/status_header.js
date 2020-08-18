@@ -18,46 +18,9 @@ import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
 
-const messages = defineMessages({
-  edited: { id: 'status.edited', defaultMessage: 'Edited' },
-  expirationMessage: { id: 'status.expiration_message', defaultMessage: 'This status expires {time}' },
-  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
-  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
-  unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
-  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
-})
-
 const cx = classNames.bind(_s)
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenStatusRevisionsPopover(status) {
-    dispatch(openModal('STATUS_REVISIONS', {
-      status,
-    }))
-  },
-
-  onOpenStatusOptionsPopover(targetRef, status) {
-    dispatch(openPopover('STATUS_OPTIONS', {
-      targetRef,
-      status,
-      position: 'left-start',
-    }))
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class StatusHeader extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    status: ImmutablePropTypes.map,
-    onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
-    onOpenStatusOptionsPopover: PropTypes.func.isRequired,
-    reduced: PropTypes.bool,
-  }
 
   handleOpenStatusOptionsPopover = () => {
     this.props.onOpenStatusOptionsPopover(this.statusOptionsButton, this.props.status)
@@ -230,3 +193,39 @@ class StatusHeader extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  edited: { id: 'status.edited', defaultMessage: 'Edited' },
+  expirationMessage: { id: 'status.expiration_message', defaultMessage: 'This status expires {time}' },
+  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
+  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
+  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
+  unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
+  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenStatusRevisionsPopover(status) {
+    dispatch(openModal('STATUS_REVISIONS', {
+      status,
+    }))
+  },
+
+  onOpenStatusOptionsPopover(targetRef, status) {
+    dispatch(openPopover('STATUS_OPTIONS', {
+      targetRef,
+      status,
+      position: 'left-start',
+    }))
+  },
+})
+
+StatusHeader.propTypes = {
+  intl: PropTypes.object.isRequired,
+  status: ImmutablePropTypes.map,
+  onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
+  onOpenStatusOptionsPopover: PropTypes.func.isRequired,
+  reduced: PropTypes.bool,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(StatusHeader))

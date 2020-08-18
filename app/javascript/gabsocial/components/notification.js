@@ -18,35 +18,10 @@ import DotTextSeperator from './dot_text_seperator'
 import RelativeTimestamp from './relative_timestamp'
 import DisplayName from './display_name'
 
-const messages = defineMessages({
-  poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
-  ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
-  mentionedInPost: { id: 'mentioned_in_post', defaultMessage: 'mentioned you in their post' },
-  mentionedInComment: { id: 'mentioned_in_comment', defaultMessage: 'mentioned you in their comment' },
-  followedYouOne: { id: 'followed_you_one', defaultMessage: 'followed you' },
-  followedYouMultiple: { id: 'followed_you_multiple', defaultMessage: 'and {count} others followed you' },
-  likedStatusOne: { id: 'liked_status_one', defaultMessage: 'liked your status' },
-  likedStatusMultiple: { id: 'liked_status_multiple', defaultMessage: 'and {count} others liked your status' },
-  repostedStatusOne: { id: 'reposted_status_one', defaultMessage: 'reposted your status' },
-  repostedStatusMultiple: { id: 'reposted_status_multiple', defaultMessage: 'and {count} others reposted your status' },
-})
-
-export default
-@injectIntl
 class Notification extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    accounts: ImmutablePropTypes.list.isRequired,
-    createdAt: PropTypes.string,
-    statusId: PropTypes.string,
-    type: PropTypes.string.isRequired,
-    isHidden: PropTypes.bool,
-    isUnread: PropTypes.bool,
   }
 
   render() {
@@ -194,3 +169,28 @@ class Notification extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  poll: { id: 'notification.poll', defaultMessage: 'A poll you have voted in has ended' },
+  ownPoll: { id: 'notification.own_poll', defaultMessage: 'Your poll has ended' },
+  mentionedInPost: { id: 'mentioned_in_post', defaultMessage: 'mentioned you in their post' },
+  mentionedInComment: { id: 'mentioned_in_comment', defaultMessage: 'mentioned you in their comment' },
+  followedYouOne: { id: 'followed_you_one', defaultMessage: 'followed you' },
+  followedYouMultiple: { id: 'followed_you_multiple', defaultMessage: 'and {count} others followed you' },
+  likedStatusOne: { id: 'liked_status_one', defaultMessage: 'liked your status' },
+  likedStatusMultiple: { id: 'liked_status_multiple', defaultMessage: 'and {count} others liked your status' },
+  repostedStatusOne: { id: 'reposted_status_one', defaultMessage: 'reposted your status' },
+  repostedStatusMultiple: { id: 'reposted_status_multiple', defaultMessage: 'and {count} others reposted your status' },
+})
+
+Notification.propTypes = {
+  intl: PropTypes.object.isRequired,
+  accounts: ImmutablePropTypes.list.isRequired,
+  createdAt: PropTypes.string,
+  statusId: PropTypes.string,
+  type: PropTypes.string.isRequired,
+  isHidden: PropTypes.bool,
+  isUnread: PropTypes.bool,
+}
+
+export default injectIntl(Notification)

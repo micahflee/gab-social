@@ -6,21 +6,7 @@ import DotTextSeperator from '../components/dot_text_seperator'
 import Icon from '../components/icon'
 import Text from '../components/text'
 
-const messages = defineMessages({
-  sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
-})
-
-export default
-@injectIntl
 class SortBlock extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    value: PropTypes.string.isRequired,
-    subValue: PropTypes.string,
-    onClickValue: PropTypes.func.isRequired,
-    onClickSubValue: PropTypes.func,
-  }
 
   handleOnClickValue = () => {
     this.props.onClickValue(this.valueBtn)
@@ -91,3 +77,17 @@ class SortBlock extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
+})
+
+SortBlock.propTypes = {
+  intl: PropTypes.object.isRequired,
+  value: PropTypes.string.isRequired,
+  subValue: PropTypes.string,
+  onClickValue: PropTypes.func.isRequired,
+  onClickSubValue: PropTypes.func,
+}
+
+export default injectIntl(SortBlock)

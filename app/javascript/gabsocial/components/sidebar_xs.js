@@ -22,54 +22,7 @@ import {
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
-const messages = defineMessages({
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  profile: { id: 'account.profile', defaultMessage: 'Profile' },
-  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
-  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
-  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
-  lists: { id: 'column.lists', defaultMessage: 'Lists', },
-  apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
-  more: { id: 'sidebar.more', defaultMessage: 'More' },
-  pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
-  trends: { id: 'promo.trends', defaultMessage: 'Trends' },
-  search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
-  shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
-  chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
-  help: { id: 'getting_started.help', defaultMessage: 'Help' },
-  display: { id: 'display_options', defaultMessage: 'Display Options' },
-  proFeed: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
-  shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
-})
-
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-  sidebarOpen: state.get('sidebar').open,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onCloseSidebar: () => dispatch(closeSidebar()),
-  onOpenDisplayModel() {
-    dispatch(closeSidebar())
-    dispatch(openModal('DISPLAY_OPTIONS'))
-  }
-})
-
-export default @connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class SidebarXS extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map,
-    sidebarOpen: PropTypes.bool,
-    onCloseSidebar: PropTypes.func.isRequired,
-    onOpenDisplayModel: PropTypes.func.isRequired,
-  }
 
   componentDidUpdate () {
     if (!me) return
@@ -267,3 +220,50 @@ class SidebarXS extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
+  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
+  filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
+  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
+  lists: { id: 'column.lists', defaultMessage: 'Lists', },
+  apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
+  more: { id: 'sidebar.more', defaultMessage: 'More' },
+  pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  trends: { id: 'promo.trends', defaultMessage: 'Trends' },
+  search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
+  shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
+  chat: { id: 'tabs_bar.chat', defaultMessage: 'Chat' },
+  help: { id: 'getting_started.help', defaultMessage: 'Help' },
+  display: { id: 'display_options', defaultMessage: 'Display Options' },
+  proFeed: { id: 'pro_feed', defaultMessage: 'Pro Feed' },
+  shortcuts: { id: 'shortcuts', defaultMessage: 'Shortcuts' },
+})
+
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+  sidebarOpen: state.get('sidebar').open,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onCloseSidebar: () => dispatch(closeSidebar()),
+  onOpenDisplayModel() {
+    dispatch(closeSidebar())
+    dispatch(openModal('DISPLAY_OPTIONS'))
+  }
+})
+
+SidebarXS.propTypes = {
+  intl: PropTypes.object.isRequired,
+  account: ImmutablePropTypes.map,
+  sidebarOpen: PropTypes.bool,
+  onCloseSidebar: PropTypes.func.isRequired,
+  onOpenDisplayModel: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SidebarXS))

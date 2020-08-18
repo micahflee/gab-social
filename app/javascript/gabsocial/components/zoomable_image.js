@@ -17,21 +17,7 @@ const clamp = (min, max, value) => {
   return Math.min(max, Math.max(min, value))
 }
 
-export default class ZoomableImage extends React.PureComponent {
-
-  static propTypes = {
-    alt: PropTypes.string,
-    src: PropTypes.string.isRequired,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    onClick: PropTypes.func,
-  }
-
-  static defaultProps = {
-    alt: '',
-    width: null,
-    height: null,
-  }
+class ZoomableImage extends React.PureComponent {
 
   state = {
     scale: MIN_SCALE,
@@ -155,3 +141,19 @@ export default class ZoomableImage extends React.PureComponent {
   }
 
 }
+
+ZoomableImage.propTypes = {
+  alt: PropTypes.string,
+  src: PropTypes.string.isRequired,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  onClick: PropTypes.func,
+}
+
+ZoomableImage.defaultProps = {
+  alt: '',
+  width: null,
+  height: null,
+}
+
+export default ZoomableImage

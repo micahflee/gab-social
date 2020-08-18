@@ -12,25 +12,7 @@ import Icon from './icon'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
-const messages = defineMessages({
-  edited: { id: 'status.edited', defaultMessage: 'Edited' },
-  likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
-  repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
-  original: { id: 'original_gabber', defaultMessage: 'Original Gabber' },
-})
-
-export default
-@injectIntl
 class CommentHeader extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    ancestorAccountId: PropTypes.string.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    onOpenLikes: PropTypes.func.isRequired,
-    onOpenReposts: PropTypes.func.isRequired,
-    onOpenRevisions: PropTypes.func.isRequired,
-  }
 
   openLikesList = () => {
     this.props.onOpenLikes(this.props.status)
@@ -187,3 +169,21 @@ class CommentHeader extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  edited: { id: 'status.edited', defaultMessage: 'Edited' },
+  likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
+  repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
+  original: { id: 'original_gabber', defaultMessage: 'Original Gabber' },
+})
+
+CommentHeader.propTypes = {
+  intl: PropTypes.object.isRequired,
+  ancestorAccountId: PropTypes.string.isRequired,
+  status: ImmutablePropTypes.map.isRequired,
+  onOpenLikes: PropTypes.func.isRequired,
+  onOpenReposts: PropTypes.func.isRequired,
+  onOpenRevisions: PropTypes.func.isRequired,
+}
+
+export default injectIntl(CommentHeader)

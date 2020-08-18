@@ -11,36 +11,12 @@ import Text from './text'
 
 const MAX_HEIGHT = 200
 
-const messages = defineMessages({
-  show: { id: 'status.show_more', defaultMessage: 'Show' },
-  hide: { id: 'status.show_less', defaultMessage: 'Hide' },
-  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
-})
-
 const cx = classNames.bind(_s)
 
-// .emojione {
-//   margin: -3px 0 0;
-
-//   @include size(20px);
-// }
-
-export default
-@injectIntl
 class StatusContent extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    expanded: PropTypes.bool,
-    onExpandedToggle: PropTypes.func,
-    onClick: PropTypes.func,
-    collapsable: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-    isComment: PropTypes.bool,
   }
 
   state = {
@@ -353,3 +329,21 @@ class StatusContent extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  show: { id: 'status.show_more', defaultMessage: 'Show' },
+  hide: { id: 'status.show_less', defaultMessage: 'Hide' },
+  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
+})
+
+StatusContent.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  expanded: PropTypes.bool,
+  onExpandedToggle: PropTypes.func,
+  onClick: PropTypes.func,
+  collapsable: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+  isComment: PropTypes.bool,
+}
+
+export default injectIntl(StatusContent)

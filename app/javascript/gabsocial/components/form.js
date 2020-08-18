@@ -2,17 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Text from './text'
 
-export default class Form extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.any,
-    errorMessage: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired,
-  }
-
-  componentDidUpdate (prevProps) {
-    
-  }
+class Form extends React.PureComponent {
 
   render() {
     const {
@@ -37,3 +27,11 @@ export default class Form extends React.PureComponent {
   }
 
 }
+
+Form.propTypes = {
+  children: PropTypes.any,
+  errorMessage: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+}
+
+export default Form

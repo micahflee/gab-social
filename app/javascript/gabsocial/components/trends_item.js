@@ -10,26 +10,7 @@ import DotTextSeperator from './dot_text_seperator'
 import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 
-export default class TrendingItem extends React.PureComponent {
-
-  static propTypes = {
-    index: PropTypes.number,
-    isLast: PropTypes.bool,
-    isHidden: PropTypes.bool,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    author: PropTypes.string,
-    url: PropTypes.string,
-    date: PropTypes.string,
-  }
-
-  static defaultProps = {
-    title: '',
-    description: '',
-    author: '',
-    url: '',
-    date: '',
-  }
+class TrendingItem extends React.PureComponent {
 
   state = {
     hovering: false,
@@ -142,3 +123,24 @@ export default class TrendingItem extends React.PureComponent {
   }
 
 }
+
+TrendingItem.propTypes = {
+  index: PropTypes.number,
+  isLast: PropTypes.bool,
+  isHidden: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  author: PropTypes.string,
+  url: PropTypes.string,
+  date: PropTypes.string,
+}
+
+TrendingItem.defaultProps = {
+  title: '',
+  description: '',
+  author: '',
+  url: '',
+  date: '',
+}
+
+export default TrendingItem

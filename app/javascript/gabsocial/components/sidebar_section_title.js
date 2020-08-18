@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Text from './text'
 
-export default class SidebarSectionTitle extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.string.isRequired,
-  }
+class SidebarSectionTitle extends React.PureComponent {
 
   render() {
     const { children } = this.props
@@ -21,3 +17,9 @@ export default class SidebarSectionTitle extends React.PureComponent {
   }
 
 }
+
+SidebarSectionTitle.propTypes = {
+  children: PropTypes.string.isRequired,
+}
+
+export default SidebarSectionTitle

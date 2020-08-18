@@ -7,26 +7,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class Input extends React.PureComponent {
-
-  static propTypes = {
-    placeholder: PropTypes.string,
-    prependIcon: PropTypes.string,
-    value: PropTypes.string,
-    hasClear: PropTypes.bool,
-    onChange: PropTypes.func,
-    onKeyUp: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onClear: PropTypes.func,
-    title: PropTypes.string,
-    small: PropTypes.bool,
-    readOnly: PropTypes.string,
-    inputRef: PropTypes.func,
-    id: PropTypes.string.isRequired,
-    hideLabel: PropTypes.bool,
-    maxLength: PropTypes.number,
-  }
+class Input extends React.PureComponent {
 
   handleOnChange = (e) => {
     this.props.onChange(e.target.value)
@@ -133,3 +114,24 @@ export default class Input extends React.PureComponent {
     )
   }
 }
+
+Input.propTypes = {
+  placeholder: PropTypes.string,
+  prependIcon: PropTypes.string,
+  value: PropTypes.string,
+  hasClear: PropTypes.bool,
+  onChange: PropTypes.func,
+  onKeyUp: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onClear: PropTypes.func,
+  title: PropTypes.string,
+  small: PropTypes.bool,
+  readOnly: PropTypes.string,
+  inputRef: PropTypes.func,
+  id: PropTypes.string.isRequired,
+  hideLabel: PropTypes.bool,
+  maxLength: PropTypes.number,
+}
+
+export default Input

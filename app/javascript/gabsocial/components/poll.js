@@ -18,32 +18,12 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-const mapStateToProps = (state, { pollId }) => ({
-  poll: state.getIn(['polls', pollId]),
-})
-
-const messages = defineMessages({
-  closed: { id: 'poll.closed', defaultMessage: 'Closed' },
-  vote: { id: 'poll.vote', defaultMessage: 'Vote' },
-  refresh: { id: 'poll.refresh', defaultMessage: 'Refresh' },
-})
-
 const makeEmojiMap = record => record.get('emojis').reduce((obj, emoji) => {
   obj[`:${emoji.get('shortcode')}:`] = emoji.toJS()
   return obj
 }, {})
 
-export default
-@connect(mapStateToProps)
-@injectIntl
 class Poll extends ImmutablePureComponent {
-
-  static propTypes = {
-    poll: ImmutablePropTypes.map,
-    intl: PropTypes.object.isRequired,
-    dispatch: PropTypes.func,
-    disabled: PropTypes.bool,
-  }
 
   state = {
     selected: {},
@@ -242,3 +222,22 @@ class Poll extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { pollId }) => ({
+  poll: state.getIn(['polls', pollId]),
+})
+
+const messages = defineMessages({
+  closed: { id: 'poll.closed', defaultMessage: 'Closed' },
+  vote: { id: 'poll.vote', defaultMessage: 'Vote' },
+  refresh: { id: 'poll.refresh', defaultMessage: 'Refresh' },
+})
+
+Poll.propTypes = {
+  poll: ImmutablePropTypes.map,
+  intl: PropTypes.object.isRequired,
+  dispatch: PropTypes.func,
+  disabled: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(Poll))

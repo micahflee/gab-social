@@ -8,20 +8,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Text from './text'
 
-export default class StatusActionBarItem extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    altTitle: PropTypes.string,
-    onClick: PropTypes.func.isRequired,
-    icon: PropTypes.string.isRequired,
-    active: PropTypes.bool,
-    disabled: PropTypes.bool,
-    buttonRef: PropTypes.oneOf([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
-  }
+class StatusActionBarItem extends React.PureComponent {
 
   render() {
     const {
@@ -80,3 +67,18 @@ export default class StatusActionBarItem extends React.PureComponent {
   }
 
 }
+
+StatusActionBarItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  altTitle: PropTypes.string,
+  onClick: PropTypes.func.isRequired,
+  icon: PropTypes.string.isRequired,
+  active: PropTypes.bool,
+  disabled: PropTypes.bool,
+  buttonRef: PropTypes.oneOf([
+    PropTypes.func,
+    PropTypes.node,
+  ]),
+}
+
+export default StatusActionBarItem

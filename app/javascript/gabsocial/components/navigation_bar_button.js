@@ -5,15 +5,7 @@ import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
-export default class NavigationBarButton extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string,
-    icon: PropTypes.string,
-    to: PropTypes.string,
-    href: PropTypes.string,
-    attrTitle: PropTypes.string,
-  }
+class NavigationBarButton extends React.PureComponent {
 
   render() {
     const {
@@ -72,3 +64,13 @@ export default class NavigationBarButton extends React.PureComponent {
   }
 
 }
+
+NavigationBarButton.propTypes = {
+  title: PropTypes.string,
+  icon: PropTypes.string,
+  to: PropTypes.string,
+  href: PropTypes.string,
+  attrTitle: PropTypes.string,
+}
+
+export default NavigationBarButton

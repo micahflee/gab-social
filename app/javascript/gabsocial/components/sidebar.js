@@ -22,76 +22,7 @@ import BackButton from './back_button'
 import Pills from './pills'
 import Text from './text'
 
-const messages = defineMessages({
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  profile: { id: 'account.profile', defaultMessage: 'Profile' },
-  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
-  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
-  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
-  lists: { id: 'column.lists', defaultMessage: 'Lists' },
-  apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
-  more: { id: 'sidebar.more', defaultMessage: 'More' },
-  explore: { id: 'explore', defaultMessage: 'Explore' },
-  news: { id: 'news', defaultMessage: 'News' },
-  menu: { id: 'menu', defaultMessage: 'Menu' },
-  pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
-  trends: { id: 'promo.trends', defaultMessage: 'Trends' },
-  search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
-  shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
-  donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
-  shortcuts: { id: 'navigation_bar.shortcuts', defaultMessage: 'Shortcuts' },
-  all: { id: 'all', defaultMessage: 'All' },
-  edit: { id: 'edit', defaultMessage: 'Edit' },
-})
-
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-  shortcuts: state.getIn(['shortcuts', 'items']),
-  moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
-  notificationCount: state.getIn(['notifications', 'unread']),
-  homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onClose() {
-    dispatch(closeSidebar())
-  },
-  openSidebarMorePopover(props) {
-    dispatch(openPopover('SIDEBAR_MORE', props))
-  },
-  onOpenComposeModal() {
-    dispatch(openModal('COMPOSE'))
-  },
-  onFetchShortcuts() {
-    dispatch(fetchShortcuts())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class Sidebar extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map,
-    moreOpen: PropTypes.bool,
-    onClose: PropTypes.func.isRequired,
-    onOpenComposeModal: PropTypes.func.isRequired,
-    onFetchShortcuts: PropTypes.func.isRequired,
-    openSidebarMorePopover: PropTypes.func.isRequired,
-    notificationCount: PropTypes.number.isRequired,
-    homeItemsQueueCount: PropTypes.number.isRequired,
-    actions: PropTypes.array,
-    tabs: PropTypes.array,
-    title: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-    shortcuts: ImmutablePropTypes.list,
-  }
 
   state = {
     hoveringShortcuts: false,
@@ -356,3 +287,71 @@ class Sidebar extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
+  follow_requests: { id: 'navigation_bar.follow_requests', defaultMessage: 'Follow requests' },
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
+  filters: { id: 'navigation_bar.filters', defaultMessage: 'Muted words' },
+  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
+  lists: { id: 'column.lists', defaultMessage: 'Lists' },
+  apps: { id: 'tabs_bar.apps', defaultMessage: 'Apps' },
+  more: { id: 'sidebar.more', defaultMessage: 'More' },
+  explore: { id: 'explore', defaultMessage: 'Explore' },
+  news: { id: 'news', defaultMessage: 'News' },
+  menu: { id: 'menu', defaultMessage: 'Menu' },
+  pro: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  trends: { id: 'promo.trends', defaultMessage: 'Trends' },
+  search: { id: 'tabs_bar.search', defaultMessage: 'Search' },
+  shop: { id: 'tabs_bar.shop', defaultMessage: 'Store - Buy Merch' },
+  donate: { id: 'tabs_bar.donate', defaultMessage: 'Make a Donation' },
+  shortcuts: { id: 'navigation_bar.shortcuts', defaultMessage: 'Shortcuts' },
+  all: { id: 'all', defaultMessage: 'All' },
+  edit: { id: 'edit', defaultMessage: 'Edit' },
+})
+
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+  shortcuts: state.getIn(['shortcuts', 'items']),
+  moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
+  notificationCount: state.getIn(['notifications', 'unread']),
+  homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClose() {
+    dispatch(closeSidebar())
+  },
+  openSidebarMorePopover(props) {
+    dispatch(openPopover('SIDEBAR_MORE', props))
+  },
+  onOpenComposeModal() {
+    dispatch(openModal('COMPOSE'))
+  },
+  onFetchShortcuts() {
+    dispatch(fetchShortcuts())
+  },
+})
+
+Sidebar.propTypes = {
+  intl: PropTypes.object.isRequired,
+  account: ImmutablePropTypes.map,
+  moreOpen: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onOpenComposeModal: PropTypes.func.isRequired,
+  onFetchShortcuts: PropTypes.func.isRequired,
+  openSidebarMorePopover: PropTypes.func.isRequired,
+  notificationCount: PropTypes.number.isRequired,
+  homeItemsQueueCount: PropTypes.number.isRequired,
+  actions: PropTypes.array,
+  tabs: PropTypes.array,
+  title: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+  shortcuts: ImmutablePropTypes.list,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Sidebar))

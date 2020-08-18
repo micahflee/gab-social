@@ -5,11 +5,7 @@ import Text from './text'
 
 const assetHost = process.env.CDN_HOST || ''
 
-export default class AutosuggestEmoji extends React.PureComponent {
-
-  static propTypes = {
-    emoji: PropTypes.object.isRequired,
-  }
+class AutosuggestEmoji extends React.PureComponent {
 
   render () {
     const { emoji } = this.props
@@ -36,3 +32,9 @@ export default class AutosuggestEmoji extends React.PureComponent {
   }
 
 }
+
+AutosuggestEmoji.propTypes = {
+  emoji: PropTypes.object.isRequired,
+}
+
+export default AutosuggestEmoji

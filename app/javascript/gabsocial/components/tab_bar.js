@@ -8,12 +8,7 @@ import TabBarItem from './tab_bar_item'
  * @param {array} [props.tabs] - tab bar data for creating `TabBarItem`
  * @param {bool} [props.isLarge] - to style the tab bar larger
  */
-export default class TabBar extends React.PureComponent {
-
-  static propTypes = {
-    tabs: PropTypes.array,
-    isLarge: PropTypes.bool,
-  }
+class TabBar extends React.PureComponent {
 
   render() {
     const { tabs, isLarge } = this.props
@@ -43,3 +38,10 @@ export default class TabBar extends React.PureComponent {
   }
 
 }
+
+TabBar.propTypes = {
+  tabs: PropTypes.array,
+  isLarge: PropTypes.bool,
+}
+
+export default TabBar

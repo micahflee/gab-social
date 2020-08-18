@@ -7,20 +7,7 @@ import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
 import LinkFooter from './link_footer'
 
-const messages = defineMessages({
-  explore: { id: 'explore', defaultMessage: 'Explore' },
-  menu: { id: 'menu', defaultMessage: 'Menu' },
-})
-
-export default
-@injectIntl
 class Sidebar extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    showLinkFooter: PropTypes.bool,
-    title: PropTypes.string,
-  }
 
   render() {
     const {
@@ -122,3 +109,16 @@ class Sidebar extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  explore: { id: 'explore', defaultMessage: 'Explore' },
+  menu: { id: 'menu', defaultMessage: 'Menu' },
+})
+
+Sidebar.propTypes = {
+  intl: PropTypes.object.isRequired,
+  showLinkFooter: PropTypes.bool,
+  title: PropTypes.string,
+}
+
+export default injectIntl(Sidebar)

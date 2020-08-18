@@ -28,20 +28,6 @@ import Text from './text'
 const checkInterval = 100
 const FIXED_VAR = 6
 
-const messages = defineMessages({
-  play: { id: 'video.play', defaultMessage: 'Play' },
-  pause: { id: 'video.pause', defaultMessage: 'Pause' },
-  mute: { id: 'video.mute', defaultMessage: 'Mute sound' },
-  unmute: { id: 'video.unmute', defaultMessage: 'Unmute sound' },
-  hide: { id: 'video.hide', defaultMessage: 'Hide video' },
-  fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
-  exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
-  sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
-  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
-  video_stats: { id: 'video.stats_label', defaultMessage: 'Video meta stats' },
-  toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
-})
-
 const formatTime = (secondsNum) => {
   if (isNaN(secondsNum)) secondsNum = 0
 
@@ -109,40 +95,7 @@ export const getPointerPosition = (el, event) => {
   return position
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenVideoStatsPopover(targetRef, meta) {
-    dispatch(openPopover(POPOVER_VIDEO_STATS, {
-      targetRef,
-      meta,
-      position: 'top',
-    }))
-  }
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class Video extends ImmutablePureComponent {
-
-  static propTypes = {
-    preview: PropTypes.string,
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    sensitive: PropTypes.bool,
-    startTime: PropTypes.number,
-    detailed: PropTypes.bool,
-    inline: PropTypes.bool,
-    cacheWidth: PropTypes.func,
-    visible: PropTypes.bool,
-    onToggleVisibility: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-    blurhash: PropTypes.string,
-    aspectRatio: PropTypes.number,
-    meta: ImmutablePropTypes.map,
-    onOpenVideoStatsPopover: PropTypes.func.isRequired,
-  }
 
   state = {
     currentTime: 0,
@@ -832,3 +785,50 @@ class Video extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  play: { id: 'video.play', defaultMessage: 'Play' },
+  pause: { id: 'video.pause', defaultMessage: 'Pause' },
+  mute: { id: 'video.mute', defaultMessage: 'Mute sound' },
+  unmute: { id: 'video.unmute', defaultMessage: 'Unmute sound' },
+  hide: { id: 'video.hide', defaultMessage: 'Hide video' },
+  fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
+  exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
+  sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
+  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
+  video_stats: { id: 'video.stats_label', defaultMessage: 'Video meta stats' },
+  toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
+})
+
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenVideoStatsPopover(targetRef, meta) {
+    dispatch(openPopover(POPOVER_VIDEO_STATS, {
+      targetRef,
+      meta,
+      position: 'top',
+    }))
+  }
+})
+
+Video.propTypes = {
+  preview: PropTypes.string,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  sensitive: PropTypes.bool,
+  startTime: PropTypes.number,
+  detailed: PropTypes.bool,
+  inline: PropTypes.bool,
+  cacheWidth: PropTypes.func,
+  visible: PropTypes.bool,
+  onToggleVisibility: PropTypes.func,
+  intl: PropTypes.object.isRequired,
+  blurhash: PropTypes.string,
+  aspectRatio: PropTypes.number,
+  meta: ImmutablePropTypes.map,
+  onOpenVideoStatsPopover: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(Video))

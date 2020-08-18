@@ -46,43 +46,7 @@ const COLORS = {
  * @param {bool} [props.type] - `type` attribute for button
  * @param {bool} [props.underlineOnHover] - if the button has underline on hover
  */
-export default class Button extends React.PureComponent {
-
-  static propTypes = {
-    backgroundColor: PropTypes.string,
-    buttonRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.node,
-    ]),
-    children: PropTypes.node,
-    className: PropTypes.string,
-    color: PropTypes.string,
-    href: PropTypes.string,
-    icon: PropTypes.string,
-    iconClassName: PropTypes.string,
-    iconSize: PropTypes.string,
-    isBlock: PropTypes.bool,
-    isDisabled: PropTypes.bool,
-    isNarrow: PropTypes.bool,
-    isText: PropTypes.bool,
-    noClasses: PropTypes.bool,
-    onClick: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    isOutline: PropTypes.bool,
-    radiusSmall: PropTypes.bool,
-    rel: PropTypes.string,
-    target: PropTypes.string,
-    title: PropTypes.string,
-    to: PropTypes.string,
-    type: PropTypes.string,
-    underlineOnHover: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    color: COLORS.white,
-    backgroundColor: COLORS.brand,
-  }
+class Button extends React.PureComponent {
 
   handleClick = (e) => {
     if (!this.props.isDisabled && this.props.onClick) {
@@ -252,3 +216,41 @@ export default class Button extends React.PureComponent {
   }
 
 }
+
+Button.propTypes = {
+  backgroundColor: PropTypes.string,
+  buttonRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.node,
+  ]),
+  children: PropTypes.node,
+  className: PropTypes.string,
+  color: PropTypes.string,
+  href: PropTypes.string,
+  icon: PropTypes.string,
+  iconClassName: PropTypes.string,
+  iconSize: PropTypes.string,
+  isBlock: PropTypes.bool,
+  isDisabled: PropTypes.bool,
+  isNarrow: PropTypes.bool,
+  isText: PropTypes.bool,
+  noClasses: PropTypes.bool,
+  onClick: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  isOutline: PropTypes.bool,
+  radiusSmall: PropTypes.bool,
+  rel: PropTypes.string,
+  target: PropTypes.string,
+  title: PropTypes.string,
+  to: PropTypes.string,
+  type: PropTypes.string,
+  underlineOnHover: PropTypes.bool,
+}
+
+Button.defaultProps = {
+  color: COLORS.white,
+  backgroundColor: COLORS.brand,
+}
+
+export default Button

@@ -8,23 +8,10 @@ import Icon from './icon'
 import Image from './image'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-export default class SidebarSectionItem extends React.PureComponent {
+class SidebarSectionItem extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    to: PropTypes.string,
-    href: PropTypes.string,
-    onClick: PropTypes.func,
-    active: PropTypes.bool,
-    icon: PropTypes.string,
-    image: PropTypes.string,
-    title: PropTypes.string,
-    me: PropTypes.bool,
-    suffix: PropTypes.node,
-    buttonRef: PropTypes.func,
   }
 
   state = {
@@ -141,3 +128,18 @@ export default class SidebarSectionItem extends React.PureComponent {
   }
 
 }
+
+SidebarSectionItem.propTypes = {
+  to: PropTypes.string,
+  href: PropTypes.string,
+  onClick: PropTypes.func,
+  active: PropTypes.bool,
+  icon: PropTypes.string,
+  image: PropTypes.string,
+  title: PropTypes.string,
+  me: PropTypes.bool,
+  suffix: PropTypes.node,
+  buttonRef: PropTypes.func,
+}
+
+export default SidebarSectionItem

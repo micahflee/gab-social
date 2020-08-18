@@ -4,22 +4,7 @@ import { LoadingBar } from 'react-redux-loading-bar'
 import { CX  } from '../constants'
 import ZoomableImage from './zoomable_image'
 
-export default class ImageLoader extends React.PureComponent {
-
-  static propTypes = {
-    alt: PropTypes.string,
-    src: PropTypes.string.isRequired,
-    previewSrc: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    onClick: PropTypes.func,
-  }
-
-  static defaultProps = {
-    alt: '',
-    width: null,
-    height: null,
-  };
+class ImageLoader extends React.PureComponent {
 
   state = {
     loading: true,
@@ -186,3 +171,20 @@ export default class ImageLoader extends React.PureComponent {
   }
 
 }
+
+ImageLoader.propTypes = {
+  alt: PropTypes.string,
+  src: PropTypes.string.isRequired,
+  previewSrc: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  onClick: PropTypes.func,
+}
+
+ImageLoader.defaultProps = {
+  alt: '',
+  width: null,
+  height: null,
+}
+
+export default ImageLoader

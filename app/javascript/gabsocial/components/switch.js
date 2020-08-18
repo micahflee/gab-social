@@ -3,18 +3,7 @@ import PropTypes from 'prop-types'
 import { CX } from '../constants'
 import Text from './text'
 
-export default class Switch extends React.PureComponent {
-
-  static propTypes = {
-    id: PropTypes.string.isRequired,
-    description: PropTypes.string,
-    label: PropTypes.string,
-    checked: PropTypes.bool,
-    onChange: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    disabled: PropTypes.bool,
-    labelProps: PropTypes.object,
-  }
+class Switch extends React.PureComponent {
 
   render() {
     const {
@@ -69,3 +58,16 @@ export default class Switch extends React.PureComponent {
   }
 
 }
+
+Switch.propTypes = {
+  id: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  label: PropTypes.string,
+  checked: PropTypes.bool,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  disabled: PropTypes.bool,
+  labelProps: PropTypes.object,
+}
+
+export default Switch

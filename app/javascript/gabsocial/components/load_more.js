@@ -4,24 +4,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import Text from './text'
 
-const messages = defineMessages({
-  load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
-})
-
-export default
-@injectIntl
 class LoadMore extends React.PureComponent {
-
-  static propTypes = {
-    onClick: PropTypes.func,
-    disabled: PropTypes.bool,
-    visible: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-  }
-
-  static defaultProps = {
-    visible: true,
-  }
 
   handleClick = (e) => {
     this.props.onClick(e)
@@ -59,3 +42,21 @@ class LoadMore extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  load_more: { id: 'status.load_more', defaultMessage: 'Load more' },
+})
+
+
+LoadMore.propTypes = {
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
+  visible: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+}
+
+LoadMore.defaultProps = {
+  visible: true,
+}
+
+export default injectIntl(LoadMore)

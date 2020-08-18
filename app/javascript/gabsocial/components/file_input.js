@@ -5,25 +5,7 @@ import Icon from './icon'
 import Image from './image'
 import Text from './text'
 
-export default class FileInput extends React.PureComponent {
-
-  static propTypes = {
-    onChange: PropTypes.func,
-    file: PropTypes.any,
-    fileType: PropTypes.string,
-    disabled: PropTypes.bool,
-    title: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    height: PropTypes.string,
-    width: PropTypes.string,
-    isBordered: PropTypes.bool,
-    className: PropTypes.string,
-  }
-
-  static defaultProps = {
-    fileType: 'image',
-    isBordered: false,
-  }
+class FileInput extends React.PureComponent {
 
   state = {
     file: this.props.file,
@@ -125,3 +107,23 @@ export default class FileInput extends React.PureComponent {
   }
 
 }
+
+FileInput.propTypes = {
+  onChange: PropTypes.func,
+  file: PropTypes.any,
+  fileType: PropTypes.string,
+  disabled: PropTypes.bool,
+  title: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  height: PropTypes.string,
+  width: PropTypes.string,
+  isBordered: PropTypes.bool,
+  className: PropTypes.string,
+}
+
+FileInput.defaultProps = {
+  fileType: 'image',
+  isBordered: false,
+}
+
+export default FileInput

@@ -15,6 +15,32 @@ import RelativeTimestamp from './relative_timestamp'
 import Text from './text'
 import StatusContent from './status_content'
 
+class Comment extends ImmutablePureComponent {
+
+  constructListItem = (item) => {
+    if (item.nestedItems) {
+      return (
+        <List key={item.key}>
+          {item.nestedItems.map(this.constructListItem)}
+        </List>
+      )
+    } else {
+      return <ListItem key={item.key} item={item} />
+    }
+  }
+
+  render() {
+    const { listItems } = this.props
+
+    return (
+      <List>
+        {listItems.map(this.constructListItem)}
+      </List>
+    )
+  }
+
+}
+
 const messages = defineMessages({
   follow: { id: 'follow', defaultMessage: 'Follow' },
 })
@@ -57,37 +83,9 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-export default
-@injectIntl
-@connect(makeMapStateToProps)
-class Comment extends ImmutablePureComponent {
-
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    descendantsIds: ImmutablePropTypes.list,
-
-  }
-
-  constructListItem = (item) => {
-    if (item.nestedItems) {
-      return (
-        <List key={item.key}>
-          {item.nestedItems.map(this.constructListItem)}
-        </List>
-      )
-    } else {
-      return <ListItem key={item.key} item={item} />
-    }
-  }
-
-  render() {
-    const { listItems } = this.props
-
-    return (
-      <List>
-        {listItems.map(this.constructListItem)}
-      </List>
-    )
-  }
-
+Comment.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  descendantsIds: ImmutablePropTypes.list,
 }
+
+export default injectIntl(connect(makeMapStateToProps)(Comment))

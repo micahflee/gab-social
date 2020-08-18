@@ -12,29 +12,7 @@ import Responsive from '../features/ui/util/responsive_component'
 import Avatar from './avatar'
 import Heading from './heading'
 
-const messages = defineMessages({
-  createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
-})
-
-const mapStateToProps = (state) => ({
-  account: state.getIn(['accounts', me]),
-})
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class TimelineComposeBlock extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map.isRequired,
-    size: PropTypes.number,
-    modal: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    size: 32,
-  }
 
   render() {
     const {
@@ -78,3 +56,24 @@ class TimelineComposeBlock extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  createPost: { id: 'column_header.create_post', defaultMessage: 'Create Post' },
+})
+
+const mapStateToProps = (state) => ({
+  account: state.getIn(['accounts', me]),
+})
+
+TimelineComposeBlock.propTypes = {
+  intl: PropTypes.object.isRequired,
+  account: ImmutablePropTypes.map.isRequired,
+  size: PropTypes.number,
+  modal: PropTypes.bool,
+}
+
+TimelineComposeBlock.defaultProps = {
+  size: 32,
+}
+
+export default injectIntl(connect(mapStateToProps)(TimelineComposeBlock))

@@ -20,52 +20,13 @@ import Avatar from './avatar'
 import Button from './button'
 import DisplayName from './display_name'
 import Image from './image'
-import MovedNote from './moved_note'
 import TabBar from './tab_bar'
 import Pills from './pills'
 import Text from './text'
 import Responsive from '../features/ui/util/responsive_component';
 import ProfileHeaderXSPlaceholder from './placeholder/profile_header_xs_placeholder'
 
-const messages = defineMessages({
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  profile: { id: 'account.profile', defaultMessage: 'Profile' },
-  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
-  timeline: { id: 'timeline', defaultMessage: 'Timeline' },
-  comments: { id: 'comments', defaultMessage: 'Comments' },
-  photos: { id: 'photos', defaultMessage: 'Photos' },
-  videos: { id: 'videos', defaultMessage: 'Videos' },
-  bookmarks: { id: 'bookmarks', defaultMessage: 'Bookmarks' },
-  accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
-  editProfile: { id: "account.edit_profile", defaultMessage: "Edit profile" },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-  openProfileOptionsPopover(props) {
-    dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
-  },
-
-  onEditProfile() {
-    dispatch(openModal(MODAL_EDIT_PROFILE))
-  },
-
-});
-
-export default
-@connect(null, mapDispatchToProps)
-@injectIntl
 class ProfileHeader extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    children: PropTypes.any,
-    intl: PropTypes.object.isRequired,
-    onEditProfile: PropTypes.func.isRequired,
-    openProfileOptionsPopover: PropTypes.func.isRequired,
-    isXS: PropTypes.bool,
-  }
 
   state = {
     stickied: false,
@@ -397,3 +358,40 @@ class ProfileHeader extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
+  timeline: { id: 'timeline', defaultMessage: 'Timeline' },
+  comments: { id: 'comments', defaultMessage: 'Comments' },
+  photos: { id: 'photos', defaultMessage: 'Photos' },
+  videos: { id: 'videos', defaultMessage: 'Videos' },
+  bookmarks: { id: 'bookmarks', defaultMessage: 'Bookmarks' },
+  accountFollowsYou: { id: 'account.follows_you', defaultMessage: 'Follows you' },
+  editProfile: { id: "account.edit_profile", defaultMessage: "Edit profile" },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+  openProfileOptionsPopover(props) {
+    dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
+  },
+
+  onEditProfile() {
+    dispatch(openModal(MODAL_EDIT_PROFILE))
+  },
+
+});
+
+ProfileHeader.propTypes = {
+  account: ImmutablePropTypes.map,
+  children: PropTypes.any,
+  intl: PropTypes.object.isRequired,
+  onEditProfile: PropTypes.func.isRequired,
+  openProfileOptionsPopover: PropTypes.func.isRequired,
+  isXS: PropTypes.bool,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(ProfileHeader))

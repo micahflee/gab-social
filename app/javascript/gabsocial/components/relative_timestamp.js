@@ -2,19 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { injectIntl, defineMessages } from 'react-intl'
 
-const messages = defineMessages({
-  just_now: { id: 'relative_time.just_now', defaultMessage: 'now' },
-  seconds: { id: 'relative_time.seconds', defaultMessage: '{number}s' },
-  minutes: { id: 'relative_time.minutes', defaultMessage: '{number}m' },
-  hours: { id: 'relative_time.hours', defaultMessage: '{number}h' },
-  days: { id: 'relative_time.days', defaultMessage: '{number}d' },
-  moments_remaining: { id: 'time_remaining.moments', defaultMessage: 'Moments remaining' },
-  seconds_remaining: { id: 'time_remaining.seconds', defaultMessage: '{number, plural, one {# second} other {# seconds}} left' },
-  minutes_remaining: { id: 'time_remaining.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}} left' },
-  hours_remaining: { id: 'time_remaining.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}} left' },
-  days_remaining: { id: 'time_remaining.days', defaultMessage: '{number, plural, one {# day} other {# days}} left' },
-})
-
 const dateFormatOptions = {
   hour12: false,
   year: 'numeric',
@@ -103,16 +90,7 @@ const timeRemainingString = (intl, date, now) => {
   return intl.formatMessage(messages.days_remaining, { number: Math.floor(delta / DAY) })
 }
 
-export default
-@injectIntl
 class RelativeTimestamp extends React.Component {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    timestamp: PropTypes.string.isRequired,
-    year: PropTypes.number.isRequired,
-    futureDate: PropTypes.bool,
-  }
 
   state = {
     now: this.props.intl.now(),
@@ -177,3 +155,25 @@ class RelativeTimestamp extends React.Component {
   }
 
 }
+
+const messages = defineMessages({
+  just_now: { id: 'relative_time.just_now', defaultMessage: 'now' },
+  seconds: { id: 'relative_time.seconds', defaultMessage: '{number}s' },
+  minutes: { id: 'relative_time.minutes', defaultMessage: '{number}m' },
+  hours: { id: 'relative_time.hours', defaultMessage: '{number}h' },
+  days: { id: 'relative_time.days', defaultMessage: '{number}d' },
+  moments_remaining: { id: 'time_remaining.moments', defaultMessage: 'Moments remaining' },
+  seconds_remaining: { id: 'time_remaining.seconds', defaultMessage: '{number, plural, one {# second} other {# seconds}} left' },
+  minutes_remaining: { id: 'time_remaining.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}} left' },
+  hours_remaining: { id: 'time_remaining.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}} left' },
+  days_remaining: { id: 'time_remaining.days', defaultMessage: '{number, plural, one {# day} other {# days}} left' },
+})
+
+RelativeTimestamp.propTypes = {
+  intl: PropTypes.object.isRequired,
+  timestamp: PropTypes.string.isRequired,
+  year: PropTypes.number.isRequired,
+  futureDate: PropTypes.bool,
+}
+
+export default injectIntl(RelativeTimestamp)

@@ -16,36 +16,7 @@ import { CX, DEFAULT_REL } from '../constants'
 import Text from './text'
 import Button from './button'
 
-const messages = defineMessages({
-  help: { id: 'getting_started.help', defaultMessage: 'Help' },
-  invite: { id: 'getting_started.invite', defaultMessage: 'Invite people' },
-  hotkeys: { id: 'navigation_bar.keyboard_shortcuts', defaultMessage: 'Hotkeys' },
-  security: { id: 'getting_started.security', defaultMessage: 'Security' },
-  about: { id: 'navigation_bar.info', defaultMessage: 'About' },
-  developers: { id: 'getting_started.developers', defaultMessage: 'Developers' },
-  terms: { id: 'getting_started.terms', defaultMessage: 'Terms of Service' },
-  dmca: { id: 'getting_started.dmca', defaultMessage: 'DMCA' },
-  salesTerms: { id: 'getting_started.terms_of_sale', defaultMessage: 'Terms of Sale' },
-  privacy: { id: 'getting_started.privacy', defaultMessage: 'Privacy Policy' },
-  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenHotkeys() {
-    dispatch(openModal('HOTKEYS'))
-  },
-})
-
-export default
-@connect(null, mapDispatchToProps)
-@injectIntl
 class LinkFooter extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    noPadding: PropTypes.bool,
-    onOpenHotkeys: PropTypes.func.isRequired,
-  }
 
   render() {
     const {
@@ -157,3 +128,31 @@ class LinkFooter extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  help: { id: 'getting_started.help', defaultMessage: 'Help' },
+  invite: { id: 'getting_started.invite', defaultMessage: 'Invite people' },
+  hotkeys: { id: 'navigation_bar.keyboard_shortcuts', defaultMessage: 'Hotkeys' },
+  security: { id: 'getting_started.security', defaultMessage: 'Security' },
+  about: { id: 'navigation_bar.info', defaultMessage: 'About' },
+  developers: { id: 'getting_started.developers', defaultMessage: 'Developers' },
+  terms: { id: 'getting_started.terms', defaultMessage: 'Terms of Service' },
+  dmca: { id: 'getting_started.dmca', defaultMessage: 'DMCA' },
+  salesTerms: { id: 'getting_started.terms_of_sale', defaultMessage: 'Terms of Sale' },
+  privacy: { id: 'getting_started.privacy', defaultMessage: 'Privacy Policy' },
+  logout: { id: 'navigation_bar.logout', defaultMessage: 'Logout' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenHotkeys() {
+    dispatch(openModal('HOTKEYS'))
+  },
+})
+
+LinkFooter.propTypes = {
+  intl: PropTypes.object.isRequired,
+  noPadding: PropTypes.bool,
+  onOpenHotkeys: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(LinkFooter))

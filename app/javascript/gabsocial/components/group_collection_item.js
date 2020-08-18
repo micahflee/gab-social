@@ -11,30 +11,9 @@ import { shortNumberFormat } from '../utils/numbers'
 import Image from './image'
 import Text from './text'
 
-const messages = defineMessages({
-  members: { id: 'groups.card.members', defaultMessage: 'Members' },
-  viewGroup: { id: 'view_group', defaultMessage: 'View Group' },
-  member: { id: 'member', defaultMessage: 'Member' },
-  admin: { id: 'admin', defaultMessage: 'Admin' },
-})
-
-const mapStateToProps = (state, { id }) => ({
-  group: state.getIn(['groups', id]),
-  relationships: state.getIn(['group_relationships', id]),
-})
-
 const cx = classNames.bind(_s)
 
-export default
-@connect(mapStateToProps)
-@injectIntl
 class GroupCollectionItem extends ImmutablePureComponent {
-
-  static propTypes = {
-    group: ImmutablePropTypes.map,
-    relationships: ImmutablePropTypes.map,
-    isHidden: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -145,3 +124,23 @@ class GroupCollectionItem extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  members: { id: 'groups.card.members', defaultMessage: 'Members' },
+  viewGroup: { id: 'view_group', defaultMessage: 'View Group' },
+  member: { id: 'member', defaultMessage: 'Member' },
+  admin: { id: 'admin', defaultMessage: 'Admin' },
+})
+
+const mapStateToProps = (state, { id }) => ({
+  group: state.getIn(['groups', id]),
+  relationships: state.getIn(['group_relationships', id]),
+})
+
+GroupCollectionItem.propTypes = {
+  group: ImmutablePropTypes.map,
+  relationships: ImmutablePropTypes.map,
+  isHidden: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(GroupCollectionItem))

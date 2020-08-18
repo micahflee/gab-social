@@ -40,12 +40,6 @@ class ListsPanel extends ImmutablePureComponent {
     fetched: false,
   }
 
-  updateOnProps = [
-    'lists',
-    'isLazy',
-    'shouldLoad',
-  ]
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.shouldLoad && !prevState.fetched) {
       return { fetched: true }

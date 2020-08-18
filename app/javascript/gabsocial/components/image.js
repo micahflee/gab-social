@@ -4,30 +4,7 @@ import classNames from 'classnames/bind'
 
 const cx = classNames.bind(_s)
 
-export default class Image extends React.PureComponent {
-
-  static propTypes = {
-    alt: PropTypes.string.isRequired,
-    isLazy: PropTypes.string,
-    className: PropTypes.string,
-    width: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    height: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    fit: PropTypes.oneOf(['contain', 'cover', 'tile', 'none']),
-    nullable: PropTypes.bool,
-    lazy: PropTypes.bool,
-    imageRef: PropTypes.func,
-  }
-
-  static defaultProps = {
-    width: '100%',
-    fit: 'cover',
-  }
+class Image extends React.PureComponent {
 
   state = {
     error: false,
@@ -81,3 +58,28 @@ export default class Image extends React.PureComponent {
   }
 
 }
+
+Image.propTypes = {
+  alt: PropTypes.string.isRequired,
+  isLazy: PropTypes.string,
+  className: PropTypes.string,
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  fit: PropTypes.oneOf(['contain', 'cover', 'tile', 'none']),
+  nullable: PropTypes.bool,
+  lazy: PropTypes.bool,
+  imageRef: PropTypes.func,
+}
+
+Image.defaultProps = {
+  width: '100%',
+  fit: 'cover',
+}
+
+export default Image

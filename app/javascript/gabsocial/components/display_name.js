@@ -13,44 +13,7 @@ import { openPopover, closePopover } from '../actions/popover'
 import Icon from './icon'
 import Text from './text'
 
-const mapDispatchToProps = (dispatch) => ({
-  openUserInfoPopover(props) {
-    dispatch(openPopover(POPOVER_USER_INFO, props))
-  },
-  closeUserInfoPopover() {
-    dispatch(closePopover(POPOVER_USER_INFO))
-  }
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class DisplayName extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    openUserInfoPopover: PropTypes.func.isRequired,
-    closeUserInfoPopover: PropTypes.func.isRequired,
-    isLarge: PropTypes.bool,
-    isMultiline: PropTypes.bool,
-    isSmall: PropTypes.bool,
-    noHover: PropTypes.bool,
-    noRelationship: PropTypes.bool,
-    noUsername: PropTypes.bool,
-    isComment: PropTypes.bool,
-    isCentered: PropTypes.bool,
-  }
-
-  updateOnProps = [
-    'account',
-    'isMultiline',
-    'isSmall',
-    'isLarge',
-    'noHover',
-    'noRelationship',
-    'noUsername',
-    'isComment',
-    'isCentered',
-  ]
 
   mouseOverTimeout = null
 
@@ -224,3 +187,28 @@ class DisplayName extends ImmutablePureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  openUserInfoPopover(props) {
+    dispatch(openPopover(POPOVER_USER_INFO, props))
+  },
+  closeUserInfoPopover() {
+    dispatch(closePopover(POPOVER_USER_INFO))
+  }
+})
+
+DisplayName.propTypes = {
+  account: ImmutablePropTypes.map,
+  openUserInfoPopover: PropTypes.func.isRequired,
+  closeUserInfoPopover: PropTypes.func.isRequired,
+  isLarge: PropTypes.bool,
+  isMultiline: PropTypes.bool,
+  isSmall: PropTypes.bool,
+  noHover: PropTypes.bool,
+  noRelationship: PropTypes.bool,
+  noUsername: PropTypes.bool,
+  isComment: PropTypes.bool,
+  isCentered: PropTypes.bool,
+}
+
+export default (connect(null, mapDispatchToProps)(DisplayName))

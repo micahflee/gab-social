@@ -11,41 +11,7 @@ const updateOnPropsForRendered = ['id', 'index', 'listLength']
 // Diff these props in the "unrendered" state
 const updateOnPropsForUnrendered = ['id', 'index', 'listLength', 'cachedHeight']
 
-const makeMapStateToProps = (state, props) => ({
-  cachedHeight: state.getIn(['height_cache', props.saveHeightKey, props.id]),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-  onHeightChange(key, id, height) {
-    dispatch(setHeight(key, id, height))
-  },
-
-})
-
-export default
-@connect(makeMapStateToProps, mapDispatchToProps)
 class IntersectionObserverArticle extends React.Component {
-
-  static propTypes = {
-    intersectionObserverWrapper: PropTypes.object.isRequired,
-    id: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    index: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    listLength: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-    ]),
-    saveHeightKey: PropTypes.string,
-    cachedHeight: PropTypes.number,
-    onHeightChange: PropTypes.func,
-    children: PropTypes.node,
-  }
 
   state = {
     isIntersecting: false,
@@ -165,3 +131,37 @@ class IntersectionObserverArticle extends React.Component {
   }
 
 }
+
+const makeMapStateToProps = (state, props) => ({
+  cachedHeight: state.getIn(['height_cache', props.saveHeightKey, props.id]),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onHeightChange(key, id, height) {
+    dispatch(setHeight(key, id, height))
+  },
+
+})
+
+IntersectionObserverArticle.propTypes = {
+  intersectionObserverWrapper: PropTypes.object.isRequired,
+  id: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  index: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  listLength: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+  ]),
+  saveHeightKey: PropTypes.string,
+  cachedHeight: PropTypes.number,
+  onHeightChange: PropTypes.func,
+  children: PropTypes.node,
+}
+
+export default connect(makeMapStateToProps, mapDispatchToProps)(IntersectionObserverArticle)

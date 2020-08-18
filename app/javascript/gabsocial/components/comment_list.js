@@ -8,14 +8,7 @@ import ScrollableList from './scrollable_list'
 import Text from './text'
 import Dummy from './dummy'
 
-export default class CommentList extends ImmutablePureComponent {
-
-  static propTypes = {
-    commentsLimited: PropTypes.bool,
-    descendants: ImmutablePropTypes.list,
-    onViewComments: PropTypes.func.isRequired,
-    ancestorAccountId: PropTypes.string.isRequired,
-  }
+class CommentList extends ImmutablePureComponent {
 
   render() {
     const {
@@ -73,3 +66,12 @@ export default class CommentList extends ImmutablePureComponent {
   }
 
 }
+
+CommentList.propTypes = {
+  commentsLimited: PropTypes.bool,
+  descendants: ImmutablePropTypes.list,
+  onViewComments: PropTypes.func.isRequired,
+  ancestorAccountId: PropTypes.string.isRequired,
+}
+
+export default CommentList

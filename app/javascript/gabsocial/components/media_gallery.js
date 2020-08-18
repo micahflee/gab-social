@@ -13,32 +13,9 @@ import Button from './button'
 import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
 
-const messages = defineMessages({
-  toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
-  warning: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
-  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
-});
-
 const cx = classNames.bind(_s)
 
 class Item extends ImmutablePureComponent {
-
-  static propTypes = {
-    attachment: ImmutablePropTypes.map.isRequired,
-    standalone: PropTypes.bool,
-    index: PropTypes.number.isRequired,
-    size: PropTypes.number.isRequired,
-    onClick: PropTypes.func.isRequired,
-    displayWidth: PropTypes.number,
-    visible: PropTypes.bool.isRequired,
-    dimensions: PropTypes.object,
-  }
-
-  static defaultProps = {
-    standalone: false,
-    index: 0,
-    size: 1,
-  }
 
   state = {
     loaded: false,
@@ -239,30 +216,24 @@ class Item extends ImmutablePureComponent {
 
 }
 
-export default
-@injectIntl
+Item.propTypes = {
+  attachment: ImmutablePropTypes.map.isRequired,
+  standalone: PropTypes.bool,
+  index: PropTypes.number.isRequired,
+  size: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  displayWidth: PropTypes.number,
+  visible: PropTypes.bool.isRequired,
+  dimensions: PropTypes.object,
+}
+
+Item.defaultProps = {
+  standalone: false,
+  index: 0,
+  size: 1,
+}
+
 class MediaGallery extends React.PureComponent {
-
-  static propTypes = {
-    sensitive: PropTypes.bool,
-    standalone: PropTypes.bool,
-    media: ImmutablePropTypes.list.isRequired,
-    size: PropTypes.object,
-    height: PropTypes.number.isRequired,
-    onOpenMedia: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    defaultWidth: PropTypes.number,
-    cacheWidth: PropTypes.func,
-    visible: PropTypes.bool,
-    onToggleVisibility: PropTypes.func,
-    reduced: PropTypes.bool,
-    isComment: PropTypes.bool,
-  };
-
-  static defaultProps = {
-    standalone: false,
-    height: 110,
-  };
 
   state = {
     visible: this.props.visible !== undefined ? this.props.visible : (displayMedia !== 'hide_all' && !this.props.sensitive || displayMedia === 'show_all'),
@@ -589,3 +560,32 @@ class MediaGallery extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
+  warning: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
+  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
+})
+
+MediaGallery.propTypes = {
+  sensitive: PropTypes.bool,
+  standalone: PropTypes.bool,
+  media: ImmutablePropTypes.list.isRequired,
+  size: PropTypes.object,
+  height: PropTypes.number.isRequired,
+  onOpenMedia: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  defaultWidth: PropTypes.number,
+  cacheWidth: PropTypes.func,
+  visible: PropTypes.bool,
+  onToggleVisibility: PropTypes.func,
+  reduced: PropTypes.bool,
+  isComment: PropTypes.bool,
+}
+
+MediaGallery.defaultProps = {
+  standalone: false,
+  height: 110,
+}
+
+export default injectIntl(MediaGallery)

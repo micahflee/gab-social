@@ -3,18 +3,10 @@ import PropTypes from 'prop-types'
 import { CX } from '../constants'
 import Button from './button'
 
-export default class BackButton extends React.PureComponent {
+class BackButton extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    className: PropTypes.string,
-    icon: PropTypes.string,
-    iconClassName: PropTypes.string,
-    iconSize: PropTypes.string,
-    toHome: PropTypes.bool,
   }
 
   historyBack = () => {
@@ -62,3 +54,13 @@ export default class BackButton extends React.PureComponent {
   }
 
 }
+
+BackButton.propTypes = {
+  className: PropTypes.string,
+  icon: PropTypes.string,
+  iconClassName: PropTypes.string,
+  iconSize: PropTypes.string,
+  toHome: PropTypes.bool,
+}
+
+export default BackButton

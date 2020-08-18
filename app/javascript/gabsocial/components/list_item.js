@@ -8,26 +8,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class ListItem extends React.PureComponent {
-
-  static propTypes = {
-    icon: PropTypes.string,
-    image: PropTypes.string,
-    isLast: PropTypes.bool,
-    isHidden: PropTypes.bool,
-    to: PropTypes.string,
-    href: PropTypes.string,
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    isActive: PropTypes.bool,
-    actionIcon: PropTypes.bool,
-    onClick: PropTypes.func,
-    size: PropTypes.oneOf([
-      'small',
-      'large',
-    ]),
-    hideArrow: PropTypes.bool,
-  }
+class ListItem extends React.PureComponent {
 
   handleOnClick = (e) => {
     if (!!this.props.onClick) {
@@ -168,3 +149,24 @@ export default class ListItem extends React.PureComponent {
   }
 
 }
+
+ListItem.propTypes = {
+  icon: PropTypes.string,
+  image: PropTypes.string,
+  isLast: PropTypes.bool,
+  isHidden: PropTypes.bool,
+  to: PropTypes.string,
+  href: PropTypes.string,
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  isActive: PropTypes.bool,
+  actionIcon: PropTypes.bool,
+  onClick: PropTypes.func,
+  size: PropTypes.oneOf([
+    'small',
+    'large',
+  ]),
+  hideArrow: PropTypes.bool,
+}
+
+export default ListItem

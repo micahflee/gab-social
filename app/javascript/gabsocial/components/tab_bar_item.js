@@ -13,17 +13,7 @@ import Text from './text'
  * @param {string} [props.title] - title to use
  * @param {string} [props.to] - location to direct to on click
  */
-export default
-@withRouter
 class TabBarItem extends React.PureComponent {
-
-  static propTypes = {
-    isLarge: PropTypes.bool,
-    isActive: PropTypes.bool,
-    onClick: PropTypes.func,
-    title: PropTypes.string,
-    to: PropTypes.string,
-  }
 
   state = {
     isCurrent: false,
@@ -117,3 +107,13 @@ class TabBarItem extends React.PureComponent {
   }
 
 }
+
+TabBarItem.propTypes = {
+  isLarge: PropTypes.bool,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
+  title: PropTypes.string,
+  to: PropTypes.string,
+}
+
+export default withRouter(TabBarItem)

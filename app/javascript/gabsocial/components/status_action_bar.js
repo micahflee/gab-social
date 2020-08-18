@@ -9,31 +9,7 @@ import Text from './text'
 import StatusActionBarItem from './status_action_bar_item'
 import { CX } from '../constants'
 
-const messages = defineMessages({
-  comment: { id: 'status.comment', defaultMessage: 'Comment' },
-  quote: { id: 'status.quote', defaultMessage: 'Quote' },
-  repost: { id: 'status.repost', defaultMessage: 'Repost' },
-  cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
-  like: { id: 'status.like', defaultMessage: 'Like' },
-  likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
-  repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
-  commentsLabel: { id: 'comments.label', defaultMessage: '{number, plural, one {# comment} other {# comments}}' },
-})
-
-export default
-@injectIntl
 class StatusActionBar extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onFavorite: PropTypes.func.isRequired,
-    onQuote: PropTypes.func.isRequired,
-    onReply: PropTypes.func.isRequired,
-    onRepost: PropTypes.func.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    onOpenLikes: PropTypes.func.isRequired,
-    onOpenReposts: PropTypes.func.isRequired,
-  }
 
   updateOnProps = ['status']
 
@@ -205,3 +181,27 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  comment: { id: 'status.comment', defaultMessage: 'Comment' },
+  quote: { id: 'status.quote', defaultMessage: 'Quote' },
+  repost: { id: 'status.repost', defaultMessage: 'Repost' },
+  cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
+  like: { id: 'status.like', defaultMessage: 'Like' },
+  likesLabel: { id: 'likes.label', defaultMessage: '{number, plural, one {# like} other {# likes}}' },
+  repostsLabel: { id: 'reposts.label', defaultMessage: '{number, plural, one {# repost} other {# reposts}}' },
+  commentsLabel: { id: 'comments.label', defaultMessage: '{number, plural, one {# comment} other {# comments}}' },
+})
+
+StatusActionBar.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onFavorite: PropTypes.func.isRequired,
+  onQuote: PropTypes.func.isRequired,
+  onReply: PropTypes.func.isRequired,
+  onRepost: PropTypes.func.isRequired,
+  status: ImmutablePropTypes.map.isRequired,
+  onOpenLikes: PropTypes.func.isRequired,
+  onOpenReposts: PropTypes.func.isRequired,
+}
+
+export default injectIntl(StatusActionBar)

@@ -7,24 +7,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import Icon from './icon'
 import Text from './text'
 
-const messages = defineMessages({
-  filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
-  promoted: { id: 'status.promoted', defaultMessage: 'Promoted gab' },
-  pinned: { id: 'status.pinned', defaultMessage: 'Pinned gab' },
-  reposted: { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
-})
-
-export default
-@injectIntl
 class StatusPrepend extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    status: ImmutablePropTypes.map,
-    isComment: PropTypes.bool,
-    isFeatured: PropTypes.bool,
-    isPromoted: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -111,3 +94,20 @@ class StatusPrepend extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
+  promoted: { id: 'status.promoted', defaultMessage: 'Promoted gab' },
+  pinned: { id: 'status.pinned', defaultMessage: 'Pinned gab' },
+  reposted: { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
+})
+
+StatusPrepend.propTypes = {
+  intl: PropTypes.object.isRequired,
+  status: ImmutablePropTypes.map,
+  isComment: PropTypes.bool,
+  isFeatured: PropTypes.bool,
+  isPromoted: PropTypes.bool,
+}
+
+export default injectIntl(StatusPrepend)

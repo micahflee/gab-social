@@ -2,13 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { CX } from '../constants'
 
-export default class Icon extends React.PureComponent {
-
-  static propTypes = {
-    className: PropTypes.string,
-    id: PropTypes.string.isRequired,
-    size: PropTypes.string,
-  }
+class Icon extends React.PureComponent {
 
   render() {
     const {
@@ -28,3 +22,11 @@ export default class Icon extends React.PureComponent {
   }
 
 }
+
+Icon.propTypes = {
+  className: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  size: PropTypes.string,
+}
+
+export default Icon

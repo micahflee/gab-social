@@ -4,11 +4,7 @@ import PropTypes from 'prop-types'
 /**
  * Renders a block component
  */
-export default class Block extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.any,
-  }
+class Block extends React.PureComponent {
 
   render() {
     const { children } = this.props
@@ -21,3 +17,9 @@ export default class Block extends React.PureComponent {
   }
 
 }
+
+Block.propTypes = {
+  children: PropTypes.any,
+}
+
+export default Block

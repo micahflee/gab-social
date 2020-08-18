@@ -14,43 +14,7 @@ import Image from './image'
 import Text from './text'
 import Dummy from './dummy'
 
-const messages = defineMessages({
-  members: { id: 'groups.card.members', defaultMessage: 'Members' },
-})
-
-const mapStateToProps = (state, { id }) => ({
-  group: state.getIn(['groups', id]),
-  relationships: state.getIn(['group_relationships', id]),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onToggleMembership(groupId, relationships) {
-    if (relationships.get('member')) {
-      dispatch(leaveGroup(groupId))
-    } else {
-      dispatch(joinGroup(groupId))
-    }
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class GroupListItem extends ImmutablePureComponent {
-
-  static propTypes = {
-    group: ImmutablePropTypes.map,
-    isAddable: PropTypes.bool,
-    isHidden: PropTypes.bool,
-    isLast: PropTypes.bool,
-    isStatic: PropTypes.bool,
-    onToggleMembership: PropTypes.func.isRequired,
-    relationships: ImmutablePropTypes.map,
-  }
-
-  static defaultProps = {
-    isLast: false,
-  }
 
   state = {
     hovering: false,
@@ -171,3 +135,38 @@ class GroupListItem extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  members: { id: 'groups.card.members', defaultMessage: 'Members' },
+})
+
+const mapStateToProps = (state, { id }) => ({
+  group: state.getIn(['groups', id]),
+  relationships: state.getIn(['group_relationships', id]),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onToggleMembership(groupId, relationships) {
+    if (relationships.get('member')) {
+      dispatch(leaveGroup(groupId))
+    } else {
+      dispatch(joinGroup(groupId))
+    }
+  },
+})
+
+GroupListItem.propTypes = {
+  group: ImmutablePropTypes.map,
+  isAddable: PropTypes.bool,
+  isHidden: PropTypes.bool,
+  isLast: PropTypes.bool,
+  isStatic: PropTypes.bool,
+  onToggleMembership: PropTypes.func.isRequired,
+  relationships: ImmutablePropTypes.map,
+}
+
+GroupListItem.defaultProps = {
+  isLast: false,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupListItem))

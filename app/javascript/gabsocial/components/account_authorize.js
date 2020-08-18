@@ -8,35 +8,7 @@ import { authorizeFollowRequest, rejectFollowRequest } from '../actions/accounts
 import { makeGetAccount } from '../selectors'
 import Account from './account'
 
-const messages = defineMessages({
-  authorize: { id: 'follow_request.authorize', defaultMessage: 'Authorize' },
-  reject: { id: 'follow_request.reject', defaultMessage: 'Reject' },
-})
-
-const makeMapStateToProps = (state, props) => ({
-  account: makeGetAccount()(state, props.id),
-})
-
-const mapDispatchToProps = (dispatch, { id }) => ({
-  onAuthorize() {
-    dispatch(authorizeFollowRequest(id))
-  },
-  onReject() {
-    dispatch(rejectFollowRequest(id))
-  },
-})
-
-export default
-@connect(makeMapStateToProps, mapDispatchToProps)
-@injectIntl
 class AccountAuthorize extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-    intl: PropTypes.object.isRequired,
-    onAuthorize: PropTypes.func.isRequired,
-    onReject: PropTypes.func.isRequired,
-  }
 
   render () {
     const {
@@ -62,3 +34,30 @@ class AccountAuthorize extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  authorize: { id: 'follow_request.authorize', defaultMessage: 'Authorize' },
+  reject: { id: 'follow_request.reject', defaultMessage: 'Reject' },
+})
+
+const makeMapStateToProps = (state, props) => ({
+  account: makeGetAccount()(state, props.id),
+})
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onAuthorize() {
+    dispatch(authorizeFollowRequest(id))
+  },
+  onReject() {
+    dispatch(rejectFollowRequest(id))
+  },
+})
+
+AccountAuthorize.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+  intl: PropTypes.object.isRequired,
+  onAuthorize: PropTypes.func.isRequired,
+  onReject: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(AccountAuthorize))

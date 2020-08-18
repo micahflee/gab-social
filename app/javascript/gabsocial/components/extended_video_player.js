@@ -1,18 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-export default class ExtendedVideoPlayer extends React.PureComponent {
-
-  static propTypes = {
-    src: PropTypes.string.isRequired,
-    alt: PropTypes.string,
-    width: PropTypes.number,
-    height: PropTypes.number,
-    time: PropTypes.number,
-    controls: PropTypes.bool.isRequired,
-    muted: PropTypes.bool.isRequired,
-    onClick: PropTypes.func,
-  }
+class ExtendedVideoPlayer extends React.PureComponent {
 
   handleLoadedData = () => {
     if (this.props.time) {
@@ -62,3 +51,16 @@ export default class ExtendedVideoPlayer extends React.PureComponent {
   }
 
 }
+
+ExtendedVideoPlayer.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  width: PropTypes.number,
+  height: PropTypes.number,
+  time: PropTypes.number,
+  controls: PropTypes.bool.isRequired,
+  muted: PropTypes.bool.isRequired,
+  onClick: PropTypes.func,
+}
+
+export default ExtendedVideoPlayer

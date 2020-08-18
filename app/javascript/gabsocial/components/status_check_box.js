@@ -11,27 +11,7 @@ import Bundle from '../features/ui/util/bundle';
 import StatusContent from './status_content';
 import Switch from './switch';
 
-const mapStateToProps = (state, { id }) => ({
-  status: state.getIn(['statuses', id]),
-  checked: state.getIn(['reports', 'new', 'status_ids'], ImmutableSet()).includes(id),
-});
-
-const mapDispatchToProps = (dispatch, { id }) => ({
-  onToggle(e) {
-    dispatch(toggleStatusReport(id, e.target.checked));
-  },
-});
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class StatusCheckBox extends ImmutablePureComponent {
-
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    checked: PropTypes.bool,
-    onToggle: PropTypes.func.isRequired,
-    disabled: PropTypes.bool,
-  };
 
   render () {
     const { status, checked, onToggle, disabled } = this.props;
@@ -87,3 +67,23 @@ class StatusCheckBox extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { id }) => ({
+  status: state.getIn(['statuses', id]),
+  checked: state.getIn(['reports', 'new', 'status_ids'], ImmutableSet()).includes(id),
+})
+
+const mapDispatchToProps = (dispatch, { id }) => ({
+  onToggle(e) {
+    dispatch(toggleStatusReport(id, e.target.checked))
+  },
+})
+
+StatusCheckBox.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  checked: PropTypes.bool,
+  onToggle: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusCheckBox)

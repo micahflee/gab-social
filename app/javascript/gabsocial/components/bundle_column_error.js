@@ -14,20 +14,7 @@ import Divider from './divider'
 import Icon from './icon'
 import Text from './text'
 
-const messages = defineMessages({
-  title: { id: 'bundle_column_error.title', defaultMessage: 'Network error' },
-  body: { id: 'bundle_column_error.body', defaultMessage: 'Something went wrong while loading this component.' },
-  retry: { id: 'bundle_column_error.retry', defaultMessage: 'Try again' },
-})
-
-export default
-@injectIntl
 class BundleColumnError extends React.PureComponent {
-
-  static propTypes = {
-    onRetry: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   handleRetry = () => {
     this.props.onRetry()
@@ -107,3 +94,16 @@ class BundleColumnError extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'bundle_column_error.title', defaultMessage: 'Network error' },
+  body: { id: 'bundle_column_error.body', defaultMessage: 'Something went wrong while loading this component.' },
+  retry: { id: 'bundle_column_error.retry', defaultMessage: 'Try again' },
+})
+
+BundleColumnError.propTypes = {
+  onRetry: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(BundleColumnError)

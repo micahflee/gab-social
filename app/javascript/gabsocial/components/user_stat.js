@@ -10,18 +10,7 @@ import Text from './text'
  * @param {string} props.to - location to go to on click
  * @param {string} props.value - top value
  */
-export default class UserStat extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    to: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number,
-      PropTypes.object,
-    ]).isRequired,
-    isCentered: PropTypes.bool.isRequired,
-  }
+class UserStat extends React.PureComponent {
 
   state = {
     hovering: false,
@@ -73,3 +62,16 @@ export default class UserStat extends React.PureComponent {
   }
 
 }
+
+UserStat.propTypes = {
+  title: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.object,
+  ]).isRequired,
+  isCentered: PropTypes.bool.isRequired,
+}
+
+export default UserStat

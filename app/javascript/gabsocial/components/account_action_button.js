@@ -15,69 +15,7 @@ import { MODAL_EDIT_PROFILE } from '../constants'
 import Button from './button'
 import Text from './text'
 
-// : todo :
-
-const messages = defineMessages({
-  follow: { id: 'follow', defaultMessage: 'Follow' },
-  following: { id: 'following', defaultMessage: 'Following' },
-  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
-  requested: { id: 'requested', defaultMessage: 'Requested' },
-  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
-  blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-  onFollow(account) {
-    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
-      if (unfollowModal) {
-        dispatch(openModal('UNFOLLOW', {
-          account,
-        }));
-      } else {
-        dispatch(unfollowAccount(account.get('id')));
-      }
-    } else {
-      dispatch(followAccount(account.get('id')));
-    }
-  },
-
-  onBlock(account) {
-    if (account.getIn(['relationship', 'blocking'])) {
-      dispatch(unblockAccount(account.get('id')));
-    } else {
-      dispatch(openModal('BLOCK_ACCOUNT', {
-        accountId: account.get('id'),
-      }));
-    }
-  },
-
-  onOpenEditProfile() {
-    dispatch(openModal(MODAL_EDIT_PROFILE))
-  },
-
-});
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class AccountActionButton extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    intl: PropTypes.object.isRequired,
-    isSmall: PropTypes.bool,
-    onBlock: PropTypes.func.isRequired,
-    onFollow: PropTypes.func.isRequired,
-    onOpenEditProfile: PropTypes.func.isRequired,
-  }
-
-  updateOnProps = [
-    'account',
-  ]
 
   handleFollow = () => {
     this.props.onFollow(this.props.account)
@@ -181,3 +119,58 @@ class AccountActionButton extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  follow: { id: 'follow', defaultMessage: 'Follow' },
+  following: { id: 'following', defaultMessage: 'Following' },
+  unfollow: { id: 'unfollow', defaultMessage: 'Unfollow' },
+  requested: { id: 'requested', defaultMessage: 'Requested' },
+  unblock: { id: 'unblock', defaultMessage: 'Unblock' },
+  blocked: { id: 'account.blocked', defaultMessage: 'Blocked' },
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onFollow(account) {
+    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
+      if (unfollowModal) {
+        dispatch(openModal('UNFOLLOW', {
+          account,
+        }))
+      } else {
+        dispatch(unfollowAccount(account.get('id')))
+      }
+    } else {
+      dispatch(followAccount(account.get('id')))
+    }
+  },
+
+  onBlock(account) {
+    if (account.getIn(['relationship', 'blocking'])) {
+      dispatch(unblockAccount(account.get('id')))
+    } else {
+      dispatch(openModal('BLOCK_ACCOUNT', {
+        accountId: account.get('id'),
+      }))
+    }
+  },
+
+  onOpenEditProfile() {
+    dispatch(openModal(MODAL_EDIT_PROFILE))
+  },
+
+})
+
+AccountActionButton.propTypes = {
+  account: ImmutablePropTypes.map,
+  intl: PropTypes.object.isRequired,
+  isSmall: PropTypes.bool,
+  onBlock: PropTypes.func.isRequired,
+  onFollow: PropTypes.func.isRequired,
+  onOpenEditProfile: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(AccountActionButton))

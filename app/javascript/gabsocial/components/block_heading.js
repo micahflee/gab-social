@@ -2,11 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Heading from './heading'
 
-export default class BlockHeading extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-  }
+class BlockHeading extends React.PureComponent {
 
   render() {
     const { title } = this.props
@@ -21,3 +17,9 @@ export default class BlockHeading extends React.PureComponent {
   }
 
 }
+
+BlockHeading.propTypes = {
+  title: PropTypes.string.isRequired,
+}
+
+export default BlockHeading

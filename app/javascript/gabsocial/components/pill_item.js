@@ -5,17 +5,7 @@ import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
 
-export default
-@withRouter
 class PillItem extends React.PureComponent {
-
-  static propTypes = {
-    icon: PropTypes.string,
-    isActive: PropTypes.bool,
-    onClick: PropTypes.func,
-    title: PropTypes.string,
-    to: PropTypes.string,
-  }
 
   state = {
     isCurrent: false,
@@ -103,3 +93,13 @@ class PillItem extends React.PureComponent {
     )
   }
 }
+
+PillItem.propTypes = {
+  icon: PropTypes.string,
+  isActive: PropTypes.bool,
+  onClick: PropTypes.func,
+  title: PropTypes.string,
+  to: PropTypes.string,
+}
+
+export default withRouter(PillItem)

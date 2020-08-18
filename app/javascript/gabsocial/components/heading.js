@@ -29,17 +29,7 @@ const ARIA_LEVELS = {
  * @param {bool} [props.isCentered] - if text is centered within the element
  * @param {string} [props.size='h1'] - the size of the heading
  */
-export default class Heading extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.any,
-    isCentered: PropTypes.bool,
-    size: PropTypes.oneOf(Object.keys(SIZES)),
-  }
-
-  static defaultProps = {
-    size: SIZES.h1,
-  }
+class Heading extends React.PureComponent {
 
   render() {
     const { children, size, isCentered } = this.props
@@ -80,3 +70,15 @@ export default class Heading extends React.PureComponent {
   }
 
 }
+
+Heading.propTypes = {
+  children: PropTypes.any,
+  isCentered: PropTypes.bool,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+}
+
+Heading.defaultProps = {
+  size: SIZES.h1,
+}
+
+export default Heading

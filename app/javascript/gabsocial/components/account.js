@@ -23,80 +23,7 @@ import Avatar from './avatar'
 import DisplayName from './display_name'
 import Button from './button'
 import Text from './text'
-
-const makeMapStateToProps = (state, props) => ({
-  account: makeGetAccount()(state, props.id),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-
-  onFollow (account) {
-    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
-      if (unfollowModal) {
-        dispatch(openModal('UNFOLLOW', {
-          account,
-        }))
-      } else {
-        dispatch(unfollowAccount(account.get('id')))
-      }
-    } else {
-      dispatch(followAccount(account.get('id')))
-    }
-  },
-
-  onBlock (account) {
-    if (account.getIn(['relationship', 'blocking'])) {
-      dispatch(unblockAccount(account.get('id')))
-    } else {
-      dispatch(blockAccount(account.get('id')))
-    }
-  },
-
-  onMute (account) {
-    if (account.getIn(['relationship', 'muting'])) {
-      dispatch(unmuteAccount(account.get('id')))
-    } else {
-      dispatch(initMuteModal(account))
-    }
-  },
-
-
-  onMuteNotifications (account, notifications) {
-    dispatch(muteAccount(account.get('id'), notifications))
-  },
-})
-
-export default
-@injectIntl
-@connect(makeMapStateToProps, mapDispatchToProps)
 class Account extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-    onFollow: PropTypes.func.isRequired,
-    onBlock: PropTypes.func.isRequired,
-    onMute: PropTypes.func.isRequired,
-    onMuteNotifications: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-    isHidden: PropTypes.bool,
-    actionIcon: PropTypes.string,
-    actionTitle: PropTypes.string,
-    onActionClick: PropTypes.func,
-    compact: PropTypes.bool,
-    expanded: PropTypes.bool,
-    showDismiss: PropTypes.bool,
-    dismissAction: PropTypes.func,
-    withBio: PropTypes.bool,
-  }
-
-  updateOnProps = [
-    'account',
-    'isHidden',
-    'compact',
-    'expanded',
-    'showDismiss',
-    'withBio',
-  ]
 
   handleAction = (e) => {
     this.props.onActionClick(this.props.account, e)
@@ -206,3 +133,66 @@ class Account extends ImmutablePureComponent {
   }
 
 }
+
+
+const makeMapStateToProps = (state, props) => ({
+  account: makeGetAccount()(state, props.id),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onFollow (account) {
+    if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
+      if (unfollowModal) {
+        dispatch(openModal('UNFOLLOW', {
+          account,
+        }))
+      } else {
+        dispatch(unfollowAccount(account.get('id')))
+      }
+    } else {
+      dispatch(followAccount(account.get('id')))
+    }
+  },
+
+  onBlock (account) {
+    if (account.getIn(['relationship', 'blocking'])) {
+      dispatch(unblockAccount(account.get('id')))
+    } else {
+      dispatch(blockAccount(account.get('id')))
+    }
+  },
+
+  onMute (account) {
+    if (account.getIn(['relationship', 'muting'])) {
+      dispatch(unmuteAccount(account.get('id')))
+    } else {
+      dispatch(initMuteModal(account))
+    }
+  },
+
+
+  onMuteNotifications (account, notifications) {
+    dispatch(muteAccount(account.get('id'), notifications))
+  },
+})
+
+Account.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+  onFollow: PropTypes.func.isRequired,
+  onBlock: PropTypes.func.isRequired,
+  onMute: PropTypes.func.isRequired,
+  onMuteNotifications: PropTypes.func,
+  intl: PropTypes.object.isRequired,
+  isHidden: PropTypes.bool,
+  actionIcon: PropTypes.string,
+  actionTitle: PropTypes.string,
+  onActionClick: PropTypes.func,
+  compact: PropTypes.bool,
+  expanded: PropTypes.bool,
+  showDismiss: PropTypes.bool,
+  dismissAction: PropTypes.func,
+  withBio: PropTypes.bool,
+}
+
+export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Account))

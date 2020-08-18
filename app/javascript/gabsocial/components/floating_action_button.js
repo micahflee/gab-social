@@ -7,24 +7,7 @@ import { CX } from '../constants'
 import { openModal } from '../actions/modal'
 import Button from './button'
 
-const messages = defineMessages({
-  gab: { id: 'gab', defaultMessage: 'Gab' }, 
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenCompose: () => dispatch(openModal('COMPOSE')),
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class FloatingActionButton extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onOpenCompose: PropTypes.func.isRequired,
-    isDesktop: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -67,3 +50,19 @@ class FloatingActionButton extends React.PureComponent {
   }
   
 }
+
+const messages = defineMessages({
+  gab: { id: 'gab', defaultMessage: 'Gab' }, 
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenCompose: () => dispatch(openModal('COMPOSE')),
+})
+
+FloatingActionButton.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onOpenCompose: PropTypes.func.isRequired,
+  isDesktop: PropTypes.bool,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(FloatingActionButton))

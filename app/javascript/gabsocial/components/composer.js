@@ -112,23 +112,7 @@ const GROUP_HANDLE_REGEX = /\g\/[\w]+/g
 const HANDLE_REGEX = /\@[\w]+/g
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
 
-export default class Composer extends React.PureComponent {
-
-  static propTypes = {
-    inputRef: PropTypes.func,
-    disabled: PropTypes.bool,
-    placeholder: PropTypes.string,
-    value: PropTypes.string,
-    valueMarkdown: PropTypes.string,
-    onChange: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    onPaste: PropTypes.func,
-    small: PropTypes.bool,
-    isPro: PropTypes.bool,
-    isEdit: PropTypes.bool,
-  }
+class Composer extends React.PureComponent {
 
   state = {
     active: false,
@@ -302,3 +286,21 @@ export default class Composer extends React.PureComponent {
   }
 
 }
+
+Composer.propTypes = {
+  inputRef: PropTypes.func,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  valueMarkdown: PropTypes.string,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  onPaste: PropTypes.func,
+  small: PropTypes.bool,
+  isPro: PropTypes.bool,
+  isEdit: PropTypes.bool,
+}
+
+export default Composer

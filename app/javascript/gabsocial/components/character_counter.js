@@ -7,12 +7,7 @@ import { length } from 'stringz'
  * @param {string} props.text - text to use to measure
  * @param {number} props.max - max text allowed
  */
-export default class CharacterCounter extends React.PureComponent {
-
-  static propTypes = {
-    text: PropTypes.string.isRequired,
-    max: PropTypes.number.isRequired,
-  }
+class CharacterCounter extends React.PureComponent {
 
   render() {
     const { text, max } = this.props
@@ -58,3 +53,10 @@ export default class CharacterCounter extends React.PureComponent {
   }
 
 }
+
+CharacterCounter.propTypes = {
+  text: PropTypes.string.isRequired,
+  max: PropTypes.number.isRequired,
+}
+
+export default CharacterCounter

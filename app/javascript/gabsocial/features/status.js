@@ -37,11 +37,6 @@ class Status extends ImmutablePureComponent {
     status: ImmutablePropTypes.map,
   }
 
-  updateOnProps = [
-    'params',
-    'status',
-  ]
-
   componentDidMount() {
     const statusId = this.props.id || this.props.params.statusId
     this.props.onFetchStatus(statusId)

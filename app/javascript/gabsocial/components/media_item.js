@@ -12,13 +12,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class MediaItem extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-    attachment: ImmutablePropTypes.map.isRequired,
-    isSmall: PropTypes.bool,
-  }
+class MediaItem extends ImmutablePureComponent {
 
   state = {
     loaded: false,
@@ -161,3 +155,11 @@ export default class MediaItem extends ImmutablePureComponent {
   }
 
 }
+
+MediaItem.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+  attachment: ImmutablePropTypes.map.isRequired,
+  isSmall: PropTypes.bool,
+}
+
+export default MediaItem

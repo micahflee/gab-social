@@ -22,38 +22,7 @@ import NavigationBarButton from './navigation_bar_button'
 import Search from './search'
 import Text from './text'
 
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenSidebar() {
-    dispatch(openSidebar())
-  },
-
-  onOpenNavSettingsPopover(targetRef) {
-    dispatch(openPopover(POPOVER_NAV_SETTINGS, {
-      targetRef,
-      position: 'left-end',
-    }))
-  }
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class NavigationBar extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    actions: PropTypes.array,
-    tabs: PropTypes.array,
-    title: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-    onOpenSidebar: PropTypes.func.isRequired,
-    onOpenNavSettingsPopover: PropTypes.func.isRequired,
-    noActions: PropTypes.bool,
-    noSearch: PropTypes.bool,
-  }
 
   handleOnOpenNavSettingsPopover = () => {
     this.props.onOpenNavSettingsPopover(this.avatarNode)
@@ -118,12 +87,12 @@ class NavigationBar extends ImmutablePureComponent {
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
 
-                    <NavigationBarButtonDivider />
+                    <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
                     <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
                     <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
 
-                    <NavigationBarButtonDivider />
+                    <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
                   
                     {
                       !!account &&
@@ -236,12 +205,33 @@ class NavigationBar extends ImmutablePureComponent {
 
 }
 
-class NavigationBarButtonDivider extends React.PureComponent {
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+})
 
-  render() {
-    return (
-      <div className={[_s.default, _s.height20PX, _s.width1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
-    )
+const mapDispatchToProps = (dispatch) => ({
+  onOpenSidebar() {
+    dispatch(openSidebar())
+  },
+
+  onOpenNavSettingsPopover(targetRef) {
+    dispatch(openPopover(POPOVER_NAV_SETTINGS, {
+      targetRef,
+      position: 'left-end',
+    }))
   }
+})
 
+NavigationBar.propTypes = {
+  account: ImmutablePropTypes.map,
+  actions: PropTypes.array,
+  tabs: PropTypes.array,
+  title: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+  onOpenSidebar: PropTypes.func.isRequired,
+  onOpenNavSettingsPopover: PropTypes.func.isRequired,
+  noActions: PropTypes.bool,
+  noSearch: PropTypes.bool,
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)

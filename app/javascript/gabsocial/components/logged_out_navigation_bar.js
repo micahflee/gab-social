@@ -8,13 +8,7 @@ import Text from './text'
 import ResponsiveComponent from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
-export default class LoggedOutNavigationBar extends React.PureComponent {
-
-  static propTypes = {
-    isProfile: PropTypes.bool,
-    title: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-  }
+class LoggedOutNavigationBar extends React.PureComponent {
 
   render() {
     const { isProfile } = this.props
@@ -100,3 +94,11 @@ export default class LoggedOutNavigationBar extends React.PureComponent {
   }
 
 }
+
+LoggedOutNavigationBar.propTypes = {
+  isProfile: PropTypes.bool,
+  title: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+}
+
+export default LoggedOutNavigationBar

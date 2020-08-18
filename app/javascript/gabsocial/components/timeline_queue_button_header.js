@@ -10,19 +10,7 @@ import Text from './text'
 
 const cx = classNames.bind(_s)
 
-export default class TimelineQueueButtonHeader extends React.PureComponent {
-
-  static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    count: PropTypes.number,
-    itemType: PropTypes.string,
-    floating: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    count: 0,
-    itemType: 'item',
-  }
+class TimelineQueueButtonHeader extends React.PureComponent {
 
   state = {
     onVisibleOffset: 0,
@@ -134,3 +122,17 @@ export default class TimelineQueueButtonHeader extends React.PureComponent {
   }
 
 }
+
+TimelineQueueButtonHeader.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  count: PropTypes.number,
+  itemType: PropTypes.string,
+  floating: PropTypes.bool,
+}
+
+TimelineQueueButtonHeader.defaultProps = {
+  count: 0,
+  itemType: 'item',
+}
+
+export default TimelineQueueButtonHeader

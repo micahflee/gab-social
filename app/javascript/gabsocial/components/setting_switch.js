@@ -4,19 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import Switch from './switch'
 
-export default class SettingSwitch extends ImmutablePureComponent {
-
-  static propTypes = {
-    prefix: PropTypes.string,
-    settings: ImmutablePropTypes.map.isRequired,
-    settingPath: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string,
-    ]).isRequired,
-    description: PropTypes.string,
-    label: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }
+class SettingSwitch extends ImmutablePureComponent {
 
   updateOnProps = [
     'prefix',
@@ -57,3 +45,17 @@ export default class SettingSwitch extends ImmutablePureComponent {
   }
 
 }
+
+SettingSwitch.propTypes = {
+  prefix: PropTypes.string,
+  settings: ImmutablePropTypes.map.isRequired,
+  settingPath: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.string,
+  ]).isRequired,
+  description: PropTypes.string,
+  label: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
+export default SettingSwitch

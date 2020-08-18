@@ -53,28 +53,7 @@ const ALIGNMENTS = {
  * @param {string} [props.tagName='span'] tagName of the text element
  * @param {string} [props.weight='normal'] weight of the text
  */
-export default class Text extends React.PureComponent {
-
-  static propTypes = {
-    align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
-    isBadge: PropTypes.bool,
-    children: PropTypes.any,
-    className: PropTypes.string,
-    color: PropTypes.oneOf(Object.keys(COLORS)),
-    hasUnderline: PropTypes.bool,
-    htmlFor: PropTypes.string,
-    size: PropTypes.oneOf(Object.keys(SIZES)),
-    tagName: PropTypes.string,
-    weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
-  }
-
-  static defaultProps = {
-    tagName: 'span',
-    align: ALIGNMENTS.left,
-    color: COLORS.primary,
-    size: SIZES.normal,
-    weight: WEIGHTS.normal,
-  }
+class Text extends React.PureComponent {
 
   render() {
     const {
@@ -136,3 +115,26 @@ export default class Text extends React.PureComponent {
   }
 
 }
+
+Text.propTypes = {
+  align: PropTypes.oneOf(Object.keys(ALIGNMENTS)),
+  isBadge: PropTypes.bool,
+  children: PropTypes.any,
+  className: PropTypes.string,
+  color: PropTypes.oneOf(Object.keys(COLORS)),
+  hasUnderline: PropTypes.bool,
+  htmlFor: PropTypes.string,
+  size: PropTypes.oneOf(Object.keys(SIZES)),
+  tagName: PropTypes.string,
+  weight: PropTypes.oneOf(Object.keys(WEIGHTS)),
+}
+
+Text.defaultProps = {
+  tagName: 'span',
+  align: ALIGNMENTS.left,
+  color: COLORS.primary,
+  size: SIZES.normal,
+  weight: WEIGHTS.normal,
+}
+
+export default Text

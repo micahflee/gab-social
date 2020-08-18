@@ -10,16 +10,7 @@ import Icon from './icon'
  * @param {object} props.options - options for selection
  * @param {string} [props.value] - value to set selected
  */
-export default class Select extends ImmutablePureComponent {
-
-  static propTypes = {
-    onChange: PropTypes.func.isRequired,
-    options: PropTypes.oneOf([
-      ImmutablePropTypes.map,
-      PropTypes.object,
-    ]).isRequired,
-    value: PropTypes.string,
-  }
+class Select extends ImmutablePureComponent {
 
   updateOnProps = [
     'options',
@@ -58,3 +49,14 @@ export default class Select extends ImmutablePureComponent {
   }
 
 }
+
+Select.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.oneOf([
+    ImmutablePropTypes.map,
+    PropTypes.object,
+  ]).isRequired,
+  value: PropTypes.string,
+}
+
+export default Select

@@ -7,11 +7,7 @@ import PillItem from './pill_item'
  * Renders pills components
  * @param {array} [props.pills] - tab bar data for creating `TabBarItem`
  */
-export default class Pills extends React.PureComponent {
-
-  static propTypes = {
-    pills: PropTypes.array,
-  }
+class Pills extends React.PureComponent {
 
   render() {
     const { pills } = this.props
@@ -38,3 +34,9 @@ export default class Pills extends React.PureComponent {
   }
 
 }
+
+Pills.propTypes = {
+  pills: PropTypes.array,
+}
+
+export default Pills

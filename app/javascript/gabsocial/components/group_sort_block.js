@@ -18,54 +18,7 @@ import {
 } from '../constants'
 import SortBlock from '../components/sort_block'
 
-const messages = defineMessages({
-	sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
-	hotTitle: { id: 'group_timeline_sorting.hot_title', defaultMessage: 'Hot Posts' },
-  topTitle: { id: 'group_timeline_sorting.top_title', defaultMessage: 'Top Posts' },
-	topTodayTitle: { id: 'group_timeline_sorting.top_today_title', defaultMessage: 'Today' },
-	topWeekTitle: { id: 'group_timeline_sorting.top_week_title', defaultMessage: 'This Week' },
-	topMonthTitle: { id: 'group_timeline_sorting.top_month_title', defaultMessage: 'This Month' },
-	topYearTitle: { id: 'group_timeline_sorting.top_year_title', defaultMessage: 'This Year' },
-	topAllTitle: { id: 'group_timeline_sorting.top_all_title', defaultMessage: 'All Time' },
-  recentTitle: { id: 'group_timeline_sorting.recent_title', defaultMessage: 'Recent Activity' },
-  newTitle: { id: 'group_timeline_sorting.new_title', defaultMessage: 'New Posts' },
-})
-
-const mapStateToProps = (state) => ({
-	sortByValue: state.getIn(['group_lists', 'sortByValue']),
-	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	onOpenSortingOptions(targetRef, options) {
-		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_OPTIONS, {
-			targetRef,
-			options,
-			position: 'bottom',
-		}))
-	},
-	onOpenSortingTopOptions(targetRef, options) {
-		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS, {
-			targetRef,
-			options,
-			position: 'bottom',
-		}))
-	},
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupSortBlock extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-		collectionType: PropTypes.string,
-		sortByValue: PropTypes.string.isRequired,
-    sortByTopValue: PropTypes.string,
-    onOpenSortingOptions: PropTypes.func.isRequired,
-    onOpenSortingTopOptions: PropTypes.func,
-  }
 
   handleOnClickValue = (btn) => {
     this.props.onOpenSortingOptions(btn, {
@@ -137,3 +90,50 @@ class GroupSortBlock extends React.PureComponent {
   }
 
 }
+
+
+const messages = defineMessages({
+	sortBy: { id: 'comment_sort.title', defaultMessage: 'Sort by' },
+	hotTitle: { id: 'group_timeline_sorting.hot_title', defaultMessage: 'Hot Posts' },
+  topTitle: { id: 'group_timeline_sorting.top_title', defaultMessage: 'Top Posts' },
+	topTodayTitle: { id: 'group_timeline_sorting.top_today_title', defaultMessage: 'Today' },
+	topWeekTitle: { id: 'group_timeline_sorting.top_week_title', defaultMessage: 'This Week' },
+	topMonthTitle: { id: 'group_timeline_sorting.top_month_title', defaultMessage: 'This Month' },
+	topYearTitle: { id: 'group_timeline_sorting.top_year_title', defaultMessage: 'This Year' },
+	topAllTitle: { id: 'group_timeline_sorting.top_all_title', defaultMessage: 'All Time' },
+  recentTitle: { id: 'group_timeline_sorting.recent_title', defaultMessage: 'Recent Activity' },
+  newTitle: { id: 'group_timeline_sorting.new_title', defaultMessage: 'New Posts' },
+})
+
+const mapStateToProps = (state) => ({
+	sortByValue: state.getIn(['group_lists', 'sortByValue']),
+	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	onOpenSortingOptions(targetRef, options) {
+		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_OPTIONS, {
+			targetRef,
+			options,
+			position: 'bottom',
+		}))
+	},
+	onOpenSortingTopOptions(targetRef, options) {
+		dispatch(openPopover(POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS, {
+			targetRef,
+			options,
+			position: 'bottom',
+		}))
+	},
+})
+
+GroupSortBlock.propTypes = {
+	intl: PropTypes.object.isRequired,
+	collectionType: PropTypes.string,
+	sortByValue: PropTypes.string.isRequired,
+	sortByTopValue: PropTypes.string,
+	onOpenSortingOptions: PropTypes.func.isRequired,
+	onOpenSortingTopOptions: PropTypes.func,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupSortBlock))

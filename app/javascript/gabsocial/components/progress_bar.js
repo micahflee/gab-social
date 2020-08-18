@@ -4,17 +4,7 @@ import { CX } from '../constants'
 import Button from './button'
 import Text from './text'
 
-export default class ProgressBar extends React.PureComponent {
-
-  static propTypes = {
-    progress: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]).isRequired,
-    small: PropTypes.bool,
-    title: PropTypes.string,
-    href: PropTypes.string,
-  }
+class ProgressBar extends React.PureComponent {
 
   render() {
     const {
@@ -60,3 +50,15 @@ export default class ProgressBar extends React.PureComponent {
     )
   }
 }
+
+ProgressBar.propTypes = {
+  progress: PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+  ]).isRequired,
+  small: PropTypes.bool,
+  title: PropTypes.string,
+  href: PropTypes.string,
+}
+
+export default ProgressBar

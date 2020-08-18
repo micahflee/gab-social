@@ -68,53 +68,10 @@ export const defaultMediaVisibility = (status) => {
   return (displayMedia !== 'hide_all' && !status.get('sensitive')) || displayMedia === 'show_all'
 }
 
-export default
-@injectIntl
 class Status extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    status: ImmutablePropTypes.map,
-    descendantsIds: ImmutablePropTypes.list,
-    ancestorStatus: ImmutablePropTypes.map,
-    isNotification: PropTypes.bool,
-    isChild: PropTypes.bool,
-    isPromoted: PropTypes.bool,
-    isFeatured: PropTypes.bool,
-    isMuted: PropTypes.bool,
-    isHidden: PropTypes.bool,
-    isIntersecting: PropTypes.bool,
-    isComment: PropTypes.bool,
-    onClick: PropTypes.func,
-    onReply: PropTypes.func,
-    onRepost: PropTypes.func,
-    onQuote: PropTypes.func,
-    onFavorite: PropTypes.func,
-    onMention: PropTypes.func,
-    onOpenMedia: PropTypes.func,
-    onOpenVideo: PropTypes.func,
-    onHeightChange: PropTypes.func,
-    onToggleHidden: PropTypes.func,
-    onShare: PropTypes.func,
-    onMoveUp: PropTypes.func,
-    onMoveDown: PropTypes.func,
-    onFetchComments: PropTypes.func,
-    onFetchContext: PropTypes.func,
-    getScrollPosition: PropTypes.func,
-    updateScrollBottom: PropTypes.func,
-    cacheMediaWidth: PropTypes.func,
-    cachedMediaWidth: PropTypes.number,
-    contextType: PropTypes.string,
-    commentsLimited: PropTypes.bool,
-    onOpenLikes: PropTypes.func.isRequired,
-    onOpenReposts: PropTypes.func.isRequired,
-    onCommentSortOpen: PropTypes.func.isRequired,
-    isComposeModalOpen: PropTypes.bool,
-    commentSortingType: PropTypes.string,
   }
 
   // Avoid checking props that are functions (and whose equality will always
@@ -635,3 +592,46 @@ class Status extends ImmutablePureComponent {
   }
 
 }
+
+Status.propTypes = {
+  intl: PropTypes.object.isRequired,
+  status: ImmutablePropTypes.map,
+  descendantsIds: ImmutablePropTypes.list,
+  ancestorStatus: ImmutablePropTypes.map,
+  isNotification: PropTypes.bool,
+  isChild: PropTypes.bool,
+  isPromoted: PropTypes.bool,
+  isFeatured: PropTypes.bool,
+  isMuted: PropTypes.bool,
+  isHidden: PropTypes.bool,
+  isIntersecting: PropTypes.bool,
+  isComment: PropTypes.bool,
+  onClick: PropTypes.func,
+  onReply: PropTypes.func,
+  onRepost: PropTypes.func,
+  onQuote: PropTypes.func,
+  onFavorite: PropTypes.func,
+  onMention: PropTypes.func,
+  onOpenMedia: PropTypes.func,
+  onOpenVideo: PropTypes.func,
+  onHeightChange: PropTypes.func,
+  onToggleHidden: PropTypes.func,
+  onShare: PropTypes.func,
+  onMoveUp: PropTypes.func,
+  onMoveDown: PropTypes.func,
+  onFetchComments: PropTypes.func,
+  onFetchContext: PropTypes.func,
+  getScrollPosition: PropTypes.func,
+  updateScrollBottom: PropTypes.func,
+  cacheMediaWidth: PropTypes.func,
+  cachedMediaWidth: PropTypes.number,
+  contextType: PropTypes.string,
+  commentsLimited: PropTypes.bool,
+  onOpenLikes: PropTypes.func.isRequired,
+  onOpenReposts: PropTypes.func.isRequired,
+  onCommentSortOpen: PropTypes.func.isRequired,
+  isComposeModalOpen: PropTypes.bool,
+  commentSortingType: PropTypes.string,
+}
+
+export default injectIntl(Status)

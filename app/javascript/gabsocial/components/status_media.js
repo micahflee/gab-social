@@ -11,22 +11,7 @@ import Poll from './poll'
 // to use the progress bar to show download progress
 import Bundle from '../features/ui/util/bundle'
 
-export default class StatusMedia extends ImmutablePureComponent {
-
-  static propTypes = {
-    status: ImmutablePropTypes.map,
-    isChild: PropTypes.bool,
-    isComment: PropTypes.bool,
-    onOpenMedia: PropTypes.func,
-    onOpenVideo: PropTypes.func,
-    width: PropTypes.number,
-    onToggleVisibility: PropTypes.func,
-    visible: PropTypes.bool,
-    defaultWidth: PropTypes.number,
-    cacheWidth: PropTypes.number,
-    isComposeModalOpen: PropTypes.bool,
-    isStatusCard: PropTypes.bool,
-  }
+class StatusMedia extends ImmutablePureComponent {
 
   // Avoid checking props that are functions (and whose equality will always
   // evaluate to false. See react-immutable-pure-component for usage.
@@ -130,3 +115,20 @@ export default class StatusMedia extends ImmutablePureComponent {
   }
 
 }
+
+StatusMedia.propTypes = {
+  status: ImmutablePropTypes.map,
+  isChild: PropTypes.bool,
+  isComment: PropTypes.bool,
+  onOpenMedia: PropTypes.func,
+  onOpenVideo: PropTypes.func,
+  width: PropTypes.number,
+  onToggleVisibility: PropTypes.func,
+  visible: PropTypes.bool,
+  defaultWidth: PropTypes.number,
+  cacheWidth: PropTypes.number,
+  isComposeModalOpen: PropTypes.bool,
+  isStatusCard: PropTypes.bool,
+}
+
+export default StatusMedia

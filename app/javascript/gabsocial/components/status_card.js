@@ -56,15 +56,7 @@ const addAutoPlay = html => {
   return html
 }
 
-export default class StatusCard extends ImmutablePureComponent {
-
-  static propTypes = {
-    card: ImmutablePropTypes.map,
-    onOpenMedia: PropTypes.func.isRequired,
-    defaultWidth: PropTypes.number,
-    cacheWidth: PropTypes.func,
-    isReduced: PropTypes.bool,
-  }
+class StatusCard extends ImmutablePureComponent {
 
   state = {
     width: this.props.defaultWidth || 280,
@@ -263,3 +255,13 @@ export default class StatusCard extends ImmutablePureComponent {
   }
 
 }
+
+StatusCard.propTypes = {
+  card: ImmutablePropTypes.map,
+  onOpenMedia: PropTypes.func.isRequired,
+  defaultWidth: PropTypes.number,
+  cacheWidth: PropTypes.func,
+  isReduced: PropTypes.bool,
+}
+
+export default StatusCard

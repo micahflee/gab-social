@@ -52,12 +52,6 @@ class News extends React.PureComponent {
     activeDomain: null,
   }
 
-  updateOnProps = [
-    'items',
-    'isLoading',
-    'isError',
-  ]
-
   componentDidUpdate(prevProps) {
     if (this.props.location !== prevProps.location) {
       this.setActiveDomain(this.props.location)

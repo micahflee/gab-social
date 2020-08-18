@@ -7,12 +7,7 @@ import { CX } from '../constants'
  * @param {bool} [props.isInvisible] - to style the tab bar larger
  * @param {bool} [props.isSmall] - if item is active
  */
-export default class Divider extends React.PureComponent {
-
-  static propTypes = {
-    isInvisible: PropTypes.bool,
-    isSmall: PropTypes.bool,
-  }
+class Divider extends React.PureComponent {
 
   render() {
     const { isSmall, isInvisible } = this.props
@@ -30,3 +25,10 @@ export default class Divider extends React.PureComponent {
   }
 
 }
+
+Divider.propTypes = {
+  isInvisible: PropTypes.bool,
+  isSmall: PropTypes.bool,
+}
+
+export default Divider

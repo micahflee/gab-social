@@ -13,38 +13,10 @@ import {
 } from '../actions/search'
 import Button from './button'
 
-const mapStateToProps = (state) => ({
-  value: state.getIn(['search', 'value']),
-  submitted: state.getIn(['search', 'submitted']),
-  theme: state.getIn(['settings', 'displayOptions', 'theme']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange: (value) => dispatch(changeSearch(value)),
-  onClear: () => dispatch(clearSearch()),
-  onSubmit: () => dispatch(submitSearch()),
-  onShow: () => dispatch(showSearch()),
-})
-
-export default
-@withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class Search extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-  }
-
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    submitted: PropTypes.bool,
-    onShow: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    withOverlay: PropTypes.bool,
-    onClear: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    isInNav: PropTypes.bool.isRequired,
-    theme: PropTypes.string,
   }
 
   state = {
@@ -177,3 +149,30 @@ class Search extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  value: state.getIn(['search', 'value']),
+  submitted: state.getIn(['search', 'submitted']),
+  theme: state.getIn(['settings', 'displayOptions', 'theme']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange: (value) => dispatch(changeSearch(value)),
+  onClear: () => dispatch(clearSearch()),
+  onSubmit: () => dispatch(submitSearch()),
+  onShow: () => dispatch(showSearch()),
+})
+
+Search.propTypes = {
+  value: PropTypes.string.isRequired,
+  submitted: PropTypes.bool,
+  onShow: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  withOverlay: PropTypes.bool,
+  onClear: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isInNav: PropTypes.bool.isRequired,
+  theme: PropTypes.string,
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Search))

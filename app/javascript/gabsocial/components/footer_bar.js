@@ -6,23 +6,10 @@ import { me } from '../initial_state'
 import { CX } from '../constants'
 import Button from './button'
 
-const mapStateToProps = (state) => ({
-  notificationCount: !!me ? state.getIn(['notifications', 'unread']) : 0,
-  homeItemsQueueCount: !!me ? state.getIn(['timelines', 'home', 'totalQueuedItemsCount']) : 0,
-})
-
-export default
-@withRouter
-@connect(mapStateToProps)
 class FooterBar extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    notificationCount: PropTypes.number.isRequired,
-    homeItemsQueueCount: PropTypes.number.isRequired,
   }
 
   render() {
@@ -133,3 +120,15 @@ class FooterBar extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  notificationCount: !!me ? state.getIn(['notifications', 'unread']) : 0,
+  homeItemsQueueCount: !!me ? state.getIn(['timelines', 'home', 'totalQueuedItemsCount']) : 0,
+})
+
+FooterBar.propTypes = {
+  notificationCount: PropTypes.number.isRequired,
+  homeItemsQueueCount: PropTypes.number.isRequired,
+}
+
+export default withRouter(connect(mapStateToProps)(FooterBar))

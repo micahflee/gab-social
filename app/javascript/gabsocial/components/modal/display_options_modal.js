@@ -48,12 +48,6 @@ class DisplayOptionsModal extends ImmutablePureComponent {
     onClose: PropTypes.func.isRequired,
   }
 
-  updateOnProps = [
-    'fontSize',
-    'displayOptionsSettings',
-    'theme',
-  ]
-
   handleOnFontSizeChange = (e) => {
     const fontSizeNames = Object.keys(FONT_SIZES)
     const index = fontSizeNames[e.target.value]

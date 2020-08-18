@@ -8,24 +8,7 @@ import ListItem from './list_item'
 import Dummy from './dummy'
 import ListItemPlaceholder from './placeholder/list_item_placeholder'
 
-export default class List extends ImmutablePureComponent {
-
-  static propTypes = {
-    items: PropTypes.oneOfType([
-      PropTypes.array,
-      ImmutablePropTypes.map,
-      ImmutablePropTypes.list,
-    ]),
-    scrollKey: PropTypes.string,
-    emptyMessage: PropTypes.any,
-    size: PropTypes.oneOf([
-      'small',
-      'large'
-    ]),
-    onLoadMore: PropTypes.func,
-    hasMore: PropTypes.bool,
-    showLoading: PropTypes.bool,
-  }
+class List extends ImmutablePureComponent {
 
   render() {
     const {
@@ -67,3 +50,22 @@ export default class List extends ImmutablePureComponent {
   }
 
 }
+
+List.propTypes = {
+  items: PropTypes.oneOfType([
+    PropTypes.array,
+    ImmutablePropTypes.map,
+    ImmutablePropTypes.list,
+  ]),
+  scrollKey: PropTypes.string,
+  emptyMessage: PropTypes.any,
+  size: PropTypes.oneOf([
+    'small',
+    'large'
+  ]),
+  onLoadMore: PropTypes.func,
+  hasMore: PropTypes.bool,
+  showLoading: PropTypes.bool,
+}
+
+export default List

@@ -10,28 +10,10 @@ import LoadMore from './load_more'
 
 const MOUSE_IDLE_DELAY = 300
 
-export default class ScrollableList extends React.PureComponent {
+class ScrollableList extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    scrollKey: PropTypes.string.isRequired,
-    onLoadMore: PropTypes.func,
-    onReload: PropTypes.func,
-    isLoading: PropTypes.bool,
-    showLoading: PropTypes.bool,
-    hasMore: PropTypes.bool,
-    emptyMessage: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-    ]),
-    children: PropTypes.node,
-    onScrollToTop: PropTypes.func,
-    onScroll: PropTypes.func,
-    placeholderComponent: PropTypes.node,
-    placeholderCount: PropTypes.node,
   }
 
   state = {
@@ -298,3 +280,22 @@ export default class ScrollableList extends React.PureComponent {
 
 }
 
+ScrollableList.propTypes = {
+  scrollKey: PropTypes.string.isRequired,
+  onLoadMore: PropTypes.func,
+  onReload: PropTypes.func,
+  isLoading: PropTypes.bool,
+  showLoading: PropTypes.bool,
+  hasMore: PropTypes.bool,
+  emptyMessage: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+  ]),
+  children: PropTypes.node,
+  onScrollToTop: PropTypes.func,
+  onScroll: PropTypes.func,
+  placeholderComponent: PropTypes.node,
+  placeholderCount: PropTypes.node,
+}
+
+export default ScrollableList

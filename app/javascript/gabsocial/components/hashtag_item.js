@@ -7,14 +7,7 @@ import { NavLink } from 'react-router-dom'
 import Button from './button'
 import Text from './text'
 
-export default class HashtagItem extends ImmutablePureComponent {
-
-  static propTypes = {
-    hashtag: ImmutablePropTypes.map.isRequired,
-    isCompact: PropTypes.bool,
-  }
-
-  updateOnProps = ['hashtag']
+class HashtagItem extends ImmutablePureComponent {
 
   render() {
     const { hashtag, isCompact } = this.props
@@ -61,3 +54,10 @@ export default class HashtagItem extends ImmutablePureComponent {
   }
 
 }
+
+HashtagItem.propTypes = {
+  hashtag: ImmutablePropTypes.map.isRequired,
+  isCompact: PropTypes.bool,
+}
+
+export default HashtagItem

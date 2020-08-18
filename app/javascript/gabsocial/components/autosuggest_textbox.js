@@ -16,34 +16,7 @@ import AutosuggestEmoji from './autosuggest_emoji'
 import Input from './input'
 import Composer from './composer'
 
-export default class AutosuggestTextbox extends ImmutablePureComponent {
-
-  static propTypes = {
-    value: PropTypes.string,
-    valueMarkdown: PropTypes.string,
-    suggestions: ImmutablePropTypes.list,
-    disabled: PropTypes.bool,
-    placeholder: PropTypes.string,
-    onSuggestionSelected: PropTypes.func.isRequired,
-    onSuggestionsClearRequested: PropTypes.func.isRequired,
-    onSuggestionsFetchRequested: PropTypes.func.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onKeyUp: PropTypes.func,
-    onKeyDown: PropTypes.func,
-    id: PropTypes.string,
-    searchTokens: PropTypes.arrayOf(PropTypes.string),
-    onPaste: PropTypes.func,
-    onFocus: PropTypes.func,
-    onBlur: PropTypes.func,
-    textarea: PropTypes.bool,
-    small: PropTypes.bool,
-    isPro: PropTypes.bool,
-    isEdit: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    searchTokens: ['@', ':'],
-  }
+class AutosuggestTextbox extends ImmutablePureComponent {
 
   state = {
     suggestionsHidden: true,
@@ -308,3 +281,32 @@ export default class AutosuggestTextbox extends ImmutablePureComponent {
   }
 
 }
+
+AutosuggestTextbox.propTypes = {
+  value: PropTypes.string,
+  valueMarkdown: PropTypes.string,
+  suggestions: ImmutablePropTypes.list,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onSuggestionSelected: PropTypes.func.isRequired,
+  onSuggestionsClearRequested: PropTypes.func.isRequired,
+  onSuggestionsFetchRequested: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onKeyUp: PropTypes.func,
+  onKeyDown: PropTypes.func,
+  id: PropTypes.string,
+  searchTokens: PropTypes.arrayOf(PropTypes.string),
+  onPaste: PropTypes.func,
+  onFocus: PropTypes.func,
+  onBlur: PropTypes.func,
+  textarea: PropTypes.bool,
+  small: PropTypes.bool,
+  isPro: PropTypes.bool,
+  isEdit: PropTypes.bool,
+}
+
+AutosuggestTextbox.defaultProps = {
+  searchTokens: ['@', ':'],
+}
+
+export default AutosuggestTextbox

@@ -9,15 +9,7 @@ const messages = defineMessages({
   title: { id: 'upload_area.title', defaultMessage: 'Drag & drop to upload' },
 })
 
-export default
-@injectIntl
 class UploadArea extends React.PureComponent {
-
-  static propTypes = {
-    active: PropTypes.bool,
-    onClose: PropTypes.func,
-    intl: PropTypes.object.isRequired,
-  }
 
   handleKeyUp = (e) => {
     if (!this.props.active) return
@@ -82,3 +74,11 @@ class UploadArea extends React.PureComponent {
   }
 
 }
+
+UploadArea.propTypes = {
+  active: PropTypes.bool,
+  onClose: PropTypes.func,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(UploadArea)

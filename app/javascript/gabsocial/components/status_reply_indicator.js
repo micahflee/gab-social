@@ -9,23 +9,11 @@ import Button from '../../../../components/button';
 import DisplayName from '../../../../components/display_name';
 import { isRtl } from '../../../../utils/rtl';
 
-const messages = defineMessages({
-  cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
-});
-
-export default
-@injectIntl
 class ReplyIndicator extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
-
-  static propTypes = {
-    status: ImmutablePropTypes.map,
-    onCancel: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  };
+  }
 
   handleClick = () => {
     this.props.onCancel();
@@ -64,3 +52,15 @@ class ReplyIndicator extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  cancel: { id: 'reply_indicator.cancel', defaultMessage: 'Cancel' },
+})
+
+ReplyIndicator.propTypes = {
+  status: ImmutablePropTypes.map,
+  onCancel: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(ReplyIndicator)

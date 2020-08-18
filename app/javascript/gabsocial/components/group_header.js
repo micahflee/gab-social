@@ -22,49 +22,7 @@ import TabBar from './tab_bar'
 import Pills from './pills'
 import Text from './text'
 
-const messages = defineMessages({
-  join: { id: 'groups.join', defaultMessage: 'Join group' },
-  member: { id: 'groups.member', defaultMessage: 'Member' },
-  removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
-  group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
-  group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
-})
-
-const mapDispatchToProps = (dispatch, { intl }) => ({
-
-  onToggleMembership(group, relationships) {
-    if (relationships.get('member')) {
-      dispatch(leaveGroup(group.get('id')));
-    } else {
-      dispatch(joinGroup(group.get('id')));
-    }
-  },
-
-  onOpenGroupOptions(targetRef, group, isAdmin) {
-    dispatch(openPopover('GROUP_OPTIONS', {
-      targetRef,
-      group,
-      isAdmin,
-      position: 'left',
-    }))
-  },
-
-});
-
-export default
-@connect(null, mapDispatchToProps)
-@injectIntl
 class GroupHeader extends ImmutablePureComponent {
-
-  static propTypes = {
-    group: ImmutablePropTypes.map,
-    children: PropTypes.any,
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    onToggleMembership: PropTypes.func.isRequired,
-    onOpenGroupOptions: PropTypes.func.isRequired,
-    relationships: ImmutablePropTypes.map,
-  }
 
   handleOnToggleMembership = () => {
     const { group, relationships } = this.props
@@ -273,3 +231,44 @@ class GroupHeader extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  join: { id: 'groups.join', defaultMessage: 'Join group' },
+  member: { id: 'groups.member', defaultMessage: 'Member' },
+  removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
+  group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
+  group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
+})
+
+const mapDispatchToProps = (dispatch, { intl }) => ({
+
+  onToggleMembership(group, relationships) {
+    if (relationships.get('member')) {
+      dispatch(leaveGroup(group.get('id')))
+    } else {
+      dispatch(joinGroup(group.get('id')))
+    }
+  },
+
+  onOpenGroupOptions(targetRef, group, isAdmin) {
+    dispatch(openPopover('GROUP_OPTIONS', {
+      targetRef,
+      group,
+      isAdmin,
+      position: 'left',
+    }))
+  },
+
+})
+
+GroupHeader.propTypes = {
+  group: ImmutablePropTypes.map,
+  children: PropTypes.any,
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  onToggleMembership: PropTypes.func.isRequired,
+  onOpenGroupOptions: PropTypes.func.isRequired,
+  relationships: ImmutablePropTypes.map,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(GroupHeader))

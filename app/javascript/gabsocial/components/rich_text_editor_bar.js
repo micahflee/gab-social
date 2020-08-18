@@ -72,27 +72,7 @@ const RTE_ITEMS = [
   // },
 ]
 
-const mapStateToProps = (state) => {
-  const getAccount = makeGetAccount()
-  const account = getAccount(state, me)
-  const isPro = account.get('is_pro')
-
-  return {
-    isPro,
-    rteControlsVisible: state.getIn(['compose', 'rte_controls_visible']),
-  }
-}
-
-export default
-@connect(mapStateToProps)
 class RichTextEditorBar extends React.PureComponent {
-
-  static propTypes = {
-    editorState: PropTypes.object.isRequired,
-    isPro: PropTypes.bool.isRequired,
-    rteControlsVisible: PropTypes.bool.isRequired,
-    onChange: PropTypes.func.isRequired,
-  }
 
   toggleEditorStyle = (style, type) => {
     if (type === 'style') {
@@ -199,3 +179,22 @@ class StyleButton extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => {
+  const getAccount = makeGetAccount()
+  const account = getAccount(state, me)
+  const isPro = account.get('is_pro')
+
+  return {
+    isPro,
+    rteControlsVisible: state.getIn(['compose', 'rte_controls_visible']),
+  }
+}
+
+RichTextEditorBar.propTypes = {
+  editorState: PropTypes.object.isRequired,
+  isPro: PropTypes.bool.isRequired,
+  rteControlsVisible: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps)(RichTextEditorBar)

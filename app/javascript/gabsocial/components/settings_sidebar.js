@@ -11,27 +11,7 @@ import SidebarSectionItem from './sidebar_section_item'
 import Heading from './heading'
 import BackButton from './back_button'
 
-const messages = defineMessages({
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
-  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
-  menu: { id: 'menu', defaultMessage: 'Menu' },
-})
-
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-})
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class Sidebar extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    account: ImmutablePropTypes.map,
-    title: PropTypes.string,
-  }
 
   render() {
     const {
@@ -95,3 +75,22 @@ class Sidebar extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  mutes: { id: 'navigation_bar.mutes', defaultMessage: 'Muted users' },
+  preferences: { id: 'navigation_bar.preferences', defaultMessage: 'Preferences' },
+  menu: { id: 'menu', defaultMessage: 'Menu' },
+})
+
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+})
+
+Sidebar.propTypes = {
+  intl: PropTypes.object.isRequired,
+  account: ImmutablePropTypes.map,
+  title: PropTypes.string,
+}
+
+export default injectIntl(connect(mapStateToProps)(Sidebar))

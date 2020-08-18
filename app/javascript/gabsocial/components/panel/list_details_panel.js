@@ -25,10 +25,6 @@ class ListDetailsPanel extends ImmutablePureComponent {
     onEdit: PropTypes.func.isRequired,
   }
 
-  updateOnProps = [
-    'list',
-  ]
-
   render() {
     const {
       intl,

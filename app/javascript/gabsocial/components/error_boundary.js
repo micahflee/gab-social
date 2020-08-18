@@ -15,11 +15,7 @@ import Divider from './divider'
 import Icon from './icon'
 import Text from './text'
 
-export default class ErrorBoundary extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node,
-  }
+class ErrorBoundary extends React.PureComponent {
 
   state = {
     hasError: false,
@@ -162,3 +158,9 @@ export default class ErrorBoundary extends React.PureComponent {
   }
 
 }
+
+ErrorBoundary.propTypes = {
+  children: PropTypes.node,
+}
+
+export default ErrorBoundary

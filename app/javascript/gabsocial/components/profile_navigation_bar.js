@@ -3,12 +3,7 @@ import PropTypes from 'prop-types'
 import BackButton from './back_button'
 import Heading from './heading'
 
-export default class ProfileNavigationBar extends React.PureComponent {
-
-  static propTypes = {
-    titleHTML: PropTypes.string,
-    showBackBtn: PropTypes.bool,
-  }
+class ProfileNavigationBar extends React.PureComponent {
 
   render() {
     const { titleHTML } = this.props
@@ -41,3 +36,10 @@ export default class ProfileNavigationBar extends React.PureComponent {
   }
 
 }
+
+ProfileNavigationBar.propTypes = {
+  titleHTML: PropTypes.string,
+  showBackBtn: PropTypes.bool,
+}
+
+export default ProfileNavigationBar

@@ -37,10 +37,6 @@ class ListsDirectory extends ImmutablePureComponent {
     fetched: false,
   }
 
-  updateOnProps = [
-    'lists',
-  ]
-
   componentDidMount() {
     this.props.onFetchLists()
       .then(() => this.setState({ fetched: true }))

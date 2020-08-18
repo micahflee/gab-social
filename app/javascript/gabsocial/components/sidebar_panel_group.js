@@ -7,13 +7,7 @@ import {
   StatusPromotionPanel
 } from '../features/ui/util/async_components'
 
-export default class SidebarPanelGroup extends React.PureComponent {
-
-  static propTypes = {
-    layout: PropTypes.array.isRequired,
-    page: PropTypes.string.isRequired,
-    promotion: PropTypes.object,
-  }
+class SidebarPanelGroup extends React.PureComponent {
 
   render() {
     const { layout, page } = this.props
@@ -57,3 +51,11 @@ export default class SidebarPanelGroup extends React.PureComponent {
   }
 
 }
+
+SidebarPanelGroup.propTypes = {
+  layout: PropTypes.array.isRequired,
+  page: PropTypes.string.isRequired,
+  promotion: PropTypes.object,
+}
+
+export default SidebarPanelGroup

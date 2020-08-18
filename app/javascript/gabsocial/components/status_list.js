@@ -15,96 +15,7 @@ import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
 
-const makeGetStatusIds = () => createSelector([
-  (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
-  (state, { type, id }) => state.getIn(['timelines', id, 'items'], ImmutableList()),
-  (state) => state.get('statuses'),
-], (columnSettings, statusIds, statuses) => {
-  return statusIds.filter(id => {
-    if (id === null) return true
-
-    const statusForId = statuses.get(id)
-    let showStatus = true
-
-    if (columnSettings.getIn(['shows', 'reblog']) === false) {
-      showStatus = showStatus && statusForId.get('reblog') === null
-    }
-
-    if (columnSettings.getIn(['shows', 'reply']) === false) {
-      showStatus = showStatus && (statusForId.get('in_reply_to_id') === null || statusForId.get('in_reply_to_account_id') === me)
-    }
-
-    return showStatus
-  })
-})
-
-const mapStateToProps = (state, { timelineId }) => {
-  if (!timelineId) return {}
-
-  const getStatusIds = makeGetStatusIds()
-
-  const statusIds = getStatusIds(state, {
-    type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
-    id: timelineId
-  })
-
-  const promotedStatuses = Array.isArray(promotions) ?
-    promotions.map((block) => {
-      const s = {}
-      s[block.status_id] = state.getIn(['statuses', block.status_id])
-      return s
-    }) : []
-
-  return {
-    statusIds,
-    promotedStatuses,
-    isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
-    isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
-    hasMore: state.getIn(['timelines', timelineId, 'hasMore']),
-    totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
-  }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-  onDequeueTimeline(timelineId) {
-    dispatch(dequeueTimeline(timelineId, ownProps.onLoadMore))
-  },
-  onScrollToTop: debounce(() => {
-    dispatch(scrollTopTimeline(ownProps.timelineId, true))
-  }, 100),
-  onScroll: debounce(() => {
-    dispatch(scrollTopTimeline(ownProps.timelineId, false))
-  }, 100),
-  onFetchContext(statusId) {
-    dispatch(fetchContext(statusId, true))
-  },
-  onFetchStatus(statusId) {
-    dispatch(fetchStatus(statusId))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class StatusList extends ImmutablePureComponent {
-
-  static propTypes = {
-    scrollKey: PropTypes.string.isRequired,
-    statusIds: ImmutablePropTypes.list.isRequired,
-    featuredStatusIds: ImmutablePropTypes.list,
-    onLoadMore: PropTypes.func,
-    isLoading: PropTypes.bool,
-    isPartial: PropTypes.bool,
-    hasMore: PropTypes.bool,
-    emptyMessage: PropTypes.string,
-    timelineId: PropTypes.string,
-    queuedItemSize: PropTypes.number,
-    onDequeueTimeline: PropTypes.func.isRequired,
-    onScrollToTop: PropTypes.func.isRequired,
-    onScroll: PropTypes.func.isRequired,
-    onFetchContext: PropTypes.func.isRequired,
-    onFetchStatus: PropTypes.func.isRequired,
-    promotedStatuses: PropTypes.object,
-  }
 
   state = {
     refreshing: false,
@@ -342,3 +253,92 @@ class StatusList extends ImmutablePureComponent {
   }
 
 }
+
+const makeGetStatusIds = () => createSelector([
+  (state, { type, id }) => state.getIn(['settings', type], ImmutableMap()),
+  (state, { type, id }) => state.getIn(['timelines', id, 'items'], ImmutableList()),
+  (state) => state.get('statuses'),
+], (columnSettings, statusIds, statuses) => {
+  return statusIds.filter(id => {
+    if (id === null) return true
+
+    const statusForId = statuses.get(id)
+    let showStatus = true
+
+    if (columnSettings.getIn(['shows', 'reblog']) === false) {
+      showStatus = showStatus && statusForId.get('reblog') === null
+    }
+
+    if (columnSettings.getIn(['shows', 'reply']) === false) {
+      showStatus = showStatus && (statusForId.get('in_reply_to_id') === null || statusForId.get('in_reply_to_account_id') === me)
+    }
+
+    return showStatus
+  })
+})
+
+const mapStateToProps = (state, { timelineId }) => {
+  if (!timelineId) return {}
+
+  const getStatusIds = makeGetStatusIds()
+
+  const statusIds = getStatusIds(state, {
+    type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
+    id: timelineId
+  })
+
+  const promotedStatuses = Array.isArray(promotions) ?
+    promotions.map((block) => {
+      const s = {}
+      s[block.status_id] = state.getIn(['statuses', block.status_id])
+      return s
+    }) : []
+
+  return {
+    statusIds,
+    promotedStatuses,
+    isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
+    isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),
+    hasMore: state.getIn(['timelines', timelineId, 'hasMore']),
+    totalQueuedItemsCount: state.getIn(['timelines', timelineId, 'totalQueuedItemsCount']),
+  }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  onDequeueTimeline(timelineId) {
+    dispatch(dequeueTimeline(timelineId, ownProps.onLoadMore))
+  },
+  onScrollToTop: debounce(() => {
+    dispatch(scrollTopTimeline(ownProps.timelineId, true))
+  }, 100),
+  onScroll: debounce(() => {
+    dispatch(scrollTopTimeline(ownProps.timelineId, false))
+  }, 100),
+  onFetchContext(statusId) {
+    dispatch(fetchContext(statusId, true))
+  },
+  onFetchStatus(statusId) {
+    dispatch(fetchStatus(statusId))
+  },
+})
+
+StatusList.propTypes = {
+  scrollKey: PropTypes.string.isRequired,
+  statusIds: ImmutablePropTypes.list.isRequired,
+  featuredStatusIds: ImmutablePropTypes.list,
+  onLoadMore: PropTypes.func,
+  isLoading: PropTypes.bool,
+  isPartial: PropTypes.bool,
+  hasMore: PropTypes.bool,
+  emptyMessage: PropTypes.string,
+  timelineId: PropTypes.string,
+  queuedItemSize: PropTypes.number,
+  onDequeueTimeline: PropTypes.func.isRequired,
+  onScrollToTop: PropTypes.func.isRequired,
+  onScroll: PropTypes.func.isRequired,
+  onFetchContext: PropTypes.func.isRequired,
+  onFetchStatus: PropTypes.func.isRequired,
+  promotedStatuses: PropTypes.object,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusList)

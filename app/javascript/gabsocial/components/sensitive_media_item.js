@@ -4,19 +4,7 @@ import { injectIntl, defineMessages } from 'react-intl'
 import Button from './button'
 import Text from './text'
 
-const messages = defineMessages({
-  warning: { id: 'status.sensitive_warning_2', defaultMessage: 'The following media includes potentially sensitive content.' },
-  view: { id: 'view', defaultMessage: 'View' },
-});
-
-export default
-@injectIntl
 class SensitiveMediaItem extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClick: PropTypes.func.isRequired,
-  }
 
   render() {
     const {
@@ -50,3 +38,15 @@ class SensitiveMediaItem extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  warning: { id: 'status.sensitive_warning_2', defaultMessage: 'The following media includes potentially sensitive content.' },
+  view: { id: 'view', defaultMessage: 'View' },
+});
+
+SensitiveMediaItem.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClick: PropTypes.func.isRequired,
+}
+
+export default injectIntl(SensitiveMediaItem)

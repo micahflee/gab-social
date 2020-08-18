@@ -41,12 +41,6 @@ class MediaModal extends ImmutablePureComponent {
     navigationHidden: false,
   }
 
-  updateOnProps = [
-    'media',
-    'status',
-    'index',
-  ]
-
   handleSwipe = (index) => {
     this.setState({ index: index % this.props.media.size })
   }
