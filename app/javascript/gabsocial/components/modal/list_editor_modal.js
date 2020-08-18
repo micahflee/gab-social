@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
-import ListEdit from '../../features/list_edit'
+import { ListEdit } from '../../features/ui/util/async_components'
+import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 
 const messages = defineMessages({
   title: { id: 'lists.edit', defaultMessage: 'Edit list' },
@@ -29,7 +30,7 @@ class ListEditorModal extends ImmutablePureComponent {
         onClose={onClose}
         noPadding
       >
-        <ListEdit id={id} />
+        <WrappedBundle component={ListEdit} componentParams={{ id }} />
       </ModalLayout>
     )
   }

@@ -2,7 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ModalLayout from './modal_layout'
-import GroupCreate from '../../features/group_create'
+import { GroupCreate } from '../../features/ui/util/async_components'
+import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 
 const messages = defineMessages({
   title: { id: 'create_group', defaultMessage: 'Create group' },
@@ -30,7 +31,7 @@ class GroupCreateModal extends React.PureComponent {
         width={440}
         onClose={onClose}
       >
-        <GroupCreate onCloseModal={onClose} params={{ id: groupId }} />
+        <WrappedBundle component={GroupCreate} componentParams={{ id: groupId, onCloseModal: onClose }} />
       </ModalLayout>
     )
   }

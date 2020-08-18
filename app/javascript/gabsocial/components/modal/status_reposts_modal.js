@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import StatusReposts from '../../features/status_reposts'
+import { StatusReposts } from '../../features/ui/util/async_components'
+import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 import ModalLayout from './modal_layout'
 
 const messages = defineMessages({
@@ -38,7 +39,7 @@ class StatusRepostsModal extends ImmutablePureComponent {
         onClose={onClose}
         noPadding
       >
-        <StatusReposts params={params} />
+        <WrappedBundle component={StatusReposts} componentParams={params} />
       </ModalLayout>
     )
   }
