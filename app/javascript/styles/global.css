@@ -230,7 +230,7 @@ pre {
   width: 100% !important;
 }
 
-.default {
+.d {
   display: flex;
   flex-basis: auto;
   flex-direction: column;
@@ -285,14 +285,14 @@ pre {
 .flexWrap { flex-wrap: wrap; }
 .flexColumnReverse { flex-direction: column-reverse; }
 
-.alignItemsEnd { align-items: flex-end; }
-.alignItemsStart { align-items: flex-start; }
-.alignItemsCenter { align-items: center; }
+.aiEnd { align-items: flex-end; }
+.aiStart { align-items: flex-start; }
+.aiCenter { align-items: center; }
 
-.justifyContentSpaceBetween { justify-content: space-between; }
-.justifyContentSpaceAround { justify-content: space-around; }
-.justifyContentCenter { justify-content: center; }
-.justifyContentEnd { justify-content: flex-end; }
+.jcSpaceBetween { justify-content: space-between; }
+.jcSpaceAround { justify-content: space-around; }
+.jcCenter { justify-content: center; }
+.jcEnd { justify-content: flex-end; }
 
 .overflowHidden {
   overflow-x: hidden;
@@ -422,18 +422,17 @@ pre {
 
 /*  */
 
-.colorPrimary { color: var(--text_color_primary); }
+.cPrimary { color: var(--text_color_primary); }
 
-.colorBlack { color: var(--color_black); }
+.cBlack { color: var(--color_black); }
 
-.colorWhite { color: var(--color_white); }
-.colorWhite_onHover:hover { color: var(--color_white); }
+.cWhite { color: var(--color_white); }
+.cWhite_onHover:hover { color: var(--color_white); }
 
-.colorSecondary { color: var(--text_color_secondary); }
-.colorTertiary { color: var(--text_color_tertiary); }
+.cSecondary { color: var(--text_color_secondary); }
+.cTertiary { color: var(--text_color_tertiary); }
 
-.colorBrand { color: var(--color_brand); }
-.colorGabPro { color: var(--color_gold); }
+.cBrand { color: var(--color_brand); }
 
 .colorBGPrimary { color: var(--solid_color_primary); }
 
@@ -485,187 +484,183 @@ pre {
 
 .resizeVertical { resize: vertical; }
 
-.heightMax100VH { max-height: 100vh; }
-.heightMax100PC { max-height: 100%; }
-.heightMax80VH { max-height: 80vh; }
-.heightMax340PX { max-height: 340px; }
-.heightMax200PX { max-height: 200px; }
-.heightMax56PX { max-height: 56px; }
-.heightCalc53PX { height: calc(100vh - 53px); }
-.heightCalc80VH106PX { height: calc(80vh - 106px); }
+.maxH100VH { max-height: 100vh; }
+.maxH100PC { max-height: 100%; }
+.maxH80VH { max-height: 80vh; }
+.maxH340PX { max-height: 340px; }
+.maxH200PX { max-height: 200px; }
+.maxH56PX { max-height: 56px; }
+.calcH53PX { height: calc(100vh - 53px); }
+.calcH80VH106PX { height: calc(80vh - 106px); }
 
-.heightMin100VH { min-height: 100vh; }
-.heightMin50VH { min-height: 50vh; }
-.heightMin200PX { min-height: 200px; }
-.heightMin98PX { min-height: 98px; }
-.heightMin80PX { min-height: 80px; }
-.heightMin58PX { min-height: 58px; }
-.heightMin53PX { min-height: 53px; }
-.heightMin50PX { min-height: 50px; }
-.heightMin28PX { min-height: 28px; }
+.minH100VH { min-height: 100vh; }
+.minH50VH { min-height: 50vh; }
+.minH200PX { min-height: 200px; }
+.minH98PX { min-height: 98px; }
+.minH80PX { min-height: 80px; }
+.minH58PX { min-height: 58px; }
+.minH53PX { min-height: 53px; }
+.minH50PX { min-height: 50px; }
+.minH28PX { min-height: 28px; }
 
-.height100PC { height: 100%; }
-.height350PX { height: 350px; }
-.height260PX { height: 260px; }
-.height220PX { height: 220px; }
-.height215PX { height: 215px; }
-.height200PX { height: 200px; }
-.height158PX { height: 158px; }
-.height122PX { height: 122px; }
-.height98PX { height: 98px; }
-.height72PX { height: 72px; }
-.height60PX { height: 60px; }
-.height53PX { height: 53px; }
-.height40PX { height: 40px; }
-.height24PX { height: 24px; }
-.height22PX { height: 22px; }
-.height20PX { height: 20px; }
-.height14PX { height: 14px; }
-.height10PX { height: 10px; }
-.height4PX { height: 4px; }
-.height1PX { height: 1px; }
-.heightAuto { height: auto; }
+.h100PC { height: 100%; }
+.h350PX { height: 350px; }
+.h260PX { height: 260px; }
+.h220PX { height: 220px; }
+.h215PX { height: 215px; }
+.h200PX { height: 200px; }
+.h158PX { height: 158px; }
+.h122PX { height: 122px; }
+.h60PX { height: 60px; }
+.h53PX { height: 53px; }
+.h40PX { height: 40px; }
+.h24PX { height: 24px; }
+.h22PX { height: 22px; }
+.h20PX { height: 20px; }
+.h14PX { height: 14px; }
+.h10PX { height: 10px; }
+.h4PX { height: 4px; }
+.h1PX { height: 1px; }
+.hAuto { height: auto; }
 
-.maxWidth100PC { max-width: 100%; }
-.maxWidth80PC { max-width: 80%; }
-.maxWidth640PX { max-width: 640px; }
-.maxWidth180PX { max-width: 180px; }
-.maxWidth100PC86PX { max-width: calc(100% - 86px); }
-.maxWidth100PC42PX { max-width: calc(100% - 42px); }
+.maxW100PC { max-width: 100%; }
+.maxW80PC { max-width: 80%; }
+.maxW640PX { max-width: 640px; }
+.maxW100PC86PX { max-width: calc(100% - 86px); }
+.maxW100PC42PX { max-width: calc(100% - 42px); }
 
-.minWidth330PX { min-width: 330px; }
-.minWidth20PX { min-width: 20px; }
-.minWidth14PX { min-width: 14px; }
+.minW330PX { min-width: 330px; }
+.minW20PX { min-width: 20px; }
+.minW14PX { min-width: 14px; }
 
-.width100PC { width: 100%; }
-.width50PC { width: 50%; }
-.width25PC { width: 25%; }
-.width1255PX { width: 1255px; }
-.width1015PX { width: 1015px; }
-.width645PX { width: 645px; }
-.width340PX { width: 340px; }
-.width330PX { width: 330px; }
-.width250PX { width: 240px; }
-.width240PX { width: 240px; }
-.width115PX { width: 115px; }
-.width84PX { width: 84px; }
-.width76PX { width: 76px; }
-.width72PX { width: 72px; }
-.width60PX { width: 60px; }
-.width50PX { width: 50px; }
-.width20PX { width: 20px; }
-.width14PX { width: 14px; }
-.width10PX { width: 10px; }
-.width4PX { width: 4px; }
-.width1PX { width: 1px; }
-.widthAuto { width: auto; }
+.w100PC { width: 100%; }
+.w50PC { width: 50%; }
+.w25PC { width: 25%; }
+.w1255PX { width: 1255px; }
+.w1015PX { width: 1015px; }
+.w645PX { width: 645px; }
+.w340PX { width: 340px; }
+.w330PX { width: 330px; }
+.w240PX { width: 240px; }
+.w115PX { width: 115px; }
+.w84PX { width: 84px; }
+.w76PX { width: 76px; }
+.w72PX { width: 72px; }
+.w60PX { width: 60px; }
+.w50PX { width: 50px; }
+.w20PX { width: 20px; }
+.w14PX { width: 14px; }
+.w10PX { width: 10px; }
+.w4PX { width: 4px; }
+.w1PX { width: 1px; }
+.wAuto { width: auto; }
 
 @media (min-width: 1480px) {
-  .width1015PX {
+  .w1015PX {
     width: 1080px;
   }
 
-  .width645PX {
+  .w645PX {
     width: 700px;
   }
 
-  .width340PX {
+  .w340PX {
     width: 350px;
   }
 
-  .width240PX {
+  .w240PX {
     width: 250px;
   }
 }
 
 @media (min-width: 1160px) and (max-width: 1280px) {
-  .width1015PX {
+  .w1015PX {
     width: 910px;
   }
 
-  .width645PX {
+  .w645PX {
     width: 580px;
   }
 
-  .width340PX {
+  .w340PX {
     width: 300px;
   }
 
-  .width240PX {
+  .w240PX {
     width: 230px;
   }
 
-  .width1255PX {
+  .w1255PX {
     width: 1140px;
   }
 }
 
 @media (min-width: 1080px) and (max-width: 1160px) {
-  .width1015PX {
+  .w1015PX {
     width: 850px;
   }
 
-  .width645PX {
+  .w645PX {
     width: 525px;
   }
 
-  .width340PX {
+  .w340PX {
     width: 300px;
   }
 
-  .width240PX {
+  .w240PX {
     width: 210px;
   }
 
-  .width1255PX {
+  .w1255PX {
     width: 1060px;
   }
 }
 
 @media (min-width: 992px) and (max-width: 1080px) {
-  .width1015PX {
+  .w1015PX {
     width: 780px;
   }
 
-  .width645PX {
+  .w645PX {
     width: 470px;
   }
 
-  .width340PX {
+  .w340PX {
     width: 285px;
   }
 
-  .width240PX {
+  .w240PX {
     width: 170px;
   }
 
-  .width1255PX {
+  .w1255PX {
     width: 950px;
   }
 }
 
 @media (min-width: 0px) and (max-width: 992px) {
-  .width1015PX {
+  .w1015PX {
     max-width: 600px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
   }
 
-  .width645PX {
+  .w645PX {
     max-width: 600px;
     width: 100%;
   }
 
-  .width340PX {
+  .w340PX {
     width: 0px;
   }
 
-  .width240PX {
+  .w240PX {
     width: 0px;
   }
 
-  .width1255PX {
+  .w1255PX {
     width: 100%;
   }
 
@@ -712,10 +707,10 @@ pre {
 .fs12PX { font-size: var(--fs_xs); }
 .fs0 { font-size: 0; }
 
-.fontWeightNormal { font-weight: 400; }
-.fontWeightMedium { font-weight: 500; }
-.fontWeightBold { font-weight: 600; }
-.fontWeightExtraBold { font-weight: 800; }
+.fw400 { font-weight: 400; }
+.fw500 { font-weight: 500; }
+.fw600 { font-weight: 600; }
+.fw800 { font-weight: 800; }
 
 .noUnderline { text-decoration: none; }
 .underline { text-decoration: underline; }
