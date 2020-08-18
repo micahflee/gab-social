@@ -193,8 +193,8 @@ class ListEdit extends ImmutablePureComponent {
 
     return (
       <div>
-        <div className={[_s.default, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.z4, _s.bgPrimary, _s.px15, _s.top0, _s.posSticky, _s.borderBottom1PX, _s.borderColorSecondary,].join(' ')}>
+        <div className={[_s._, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.z4, _s.bgPrimary, _s.px15, _s.top0, _s.posSticky, _s.borderBottom1PX, _s.borderColorSecondary,].join(' ')}>
             <TabBar
               tabs={[
                 {
@@ -218,10 +218,10 @@ class ListEdit extends ImmutablePureComponent {
 
           {
             activeTab === 'members' &&
-            <div className={[_s.default, _s.mb10, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.pb10, _s.pt5].join(' ')}>
-                <div className={[_s.default].join(' ')}>
-                  <Text weight='bold' size='small' color='secondary' className={[_s.default, _s.px15, _s.mt5, _s.mb15].join(' ')}>
+            <div className={[_s._, _s.mb10, _s.py10].join(' ')}>
+              <div className={[_s._, _s.pb10, _s.pt5].join(' ')}>
+                <div className={[_s._].join(' ')}>
+                  <Text weight='bold' size='small' color='secondary' className={[_s._, _s.px15, _s.mt5, _s.mb15].join(' ')}>
                     Total members ({accountIds.size})
                   </Text>
                   {
@@ -243,8 +243,8 @@ class ListEdit extends ImmutablePureComponent {
 
           {
             activeTab === 'settings' &&
-            <div className={[_s.default, _s.mb10, _s.pb10, _s.px15].join(' ')}>
-              <div className={[_s.default, _s.py15].join(' ')}>
+            <div className={[_s._, _s.mb10, _s.pb10, _s.px15].join(' ')}>
+              <div className={[_s._, _s.py15].join(' ')}>
                 <Input
                   title={intl.formatMessage(messages.editListTitle)}
                   placeholder='My new list title...'
@@ -271,8 +271,8 @@ class ListEdit extends ImmutablePureComponent {
 
           {
             activeTab === 'add-new' &&
-            <div className={[_s.default, _s.mb10, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.px15].join(' ')}>
+            <div className={[_s._, _s.mb10, _s.py10].join(' ')}>
+              <div className={[_s._, _s.px15].join(' ')}>
                 <Input
                   placeholder={intl.formatMessage(messages.search)}
                   value={searchSuggestionsValue}
@@ -285,9 +285,9 @@ class ListEdit extends ImmutablePureComponent {
                 />
               </div>
 
-              <div className={[_s.default, _s.pt10].join(' ')}>
-                <div className={[_s.default].join(' ')}>
-                  <Text weight='bold' size='small' color='secondary' className={[_s.default, _s.px15, _s.mt5, _s.mb15].join(' ')}>
+              <div className={[_s._, _s.pt10].join(' ')}>
+                <div className={[_s._].join(' ')}>
+                  <Text weight='bold' size='small' color='secondary' className={[_s._, _s.px15, _s.mt5, _s.mb15].join(' ')}>
                     Search results ({searchAccountIds.size})
                   </Text>
                   {

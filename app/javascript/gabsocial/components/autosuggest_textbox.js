@@ -194,32 +194,32 @@ class AutosuggestTextbox extends ImmutablePureComponent {
     const { suggestionsHidden } = this.state
 
     const textareaContainerClasses = CX({
-      default: 1,
-      maxWidth100PC: 1,
+      _: 1,
+      maxW100PC: 1,
       flexGrow1: small,
-      justifyContentCenter: small,
+      jcCenter: small,
       py5: small,
     })
 
     const textareaClasses = CX({
-      default: 1,
+      _: 1,
       font: 1,
       wrap: 1,
       resizeNone: 1,
       bgTransparent: 1,
       outlineNone: 1,
       lineHeight125: 1,
-      colorPrimary: 1,
-      width100PC: !small,
+      cPrimary: 1,
+      w100PC: !small,
       pt15: !small,
       px15: !small,
       px10: small,
       pb10: !small,
       fs16PX: !small,
       fs14PX: small,
-      heightMax200PX: small,
-      heightMax80VH: !small,
-      heightMin80PX: !small,
+      maxH200PX: small,
+      maxH80VH: !small,
+      minH80PX: !small,
     })
 
     return (
@@ -272,7 +272,7 @@ class AutosuggestTextbox extends ImmutablePureComponent {
 
         {
           !small && !suggestionsHidden && !suggestions.isEmpty() &&
-          <div className={[_s.default].join(' ')}>
+          <div className={[_s._].join(' ')}>
             {suggestions.map(this.renderSuggestion)}
           </div>
         }

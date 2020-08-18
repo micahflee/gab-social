@@ -56,7 +56,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
     const { status } = this.props
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       pb10: !!status ? status.get('media_attachments').size === 0 : false,
     })
 
@@ -67,23 +67,23 @@ class StatusPromotionPanel extends ImmutablePureComponent {
         }
         {
           !!status &&
-          <div className={_s.default}>
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
+          <div className={_s._}>
+            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s._, _s.flexRow, _s.mt5].join(' ')}>
 
                 <NavLink
                   to={`/${status.getIn(['account', 'acct'])}`}
                   title={status.getIn(['account', 'acct'])}
-                  className={[_s.default, _s.mr10].join(' ')}
+                  className={[_s._, _s.mr10].join(' ')}
                 >
                   <Avatar account={status.get('account')} size={28} />
                 </NavLink>
 
-                <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.mt5].join(' ')}>
+                <div className={[_s._, _s.aiStart, _s.flexGrow1, _s.mt5].join(' ')}>
 
-                  <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsStart].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
                     <NavLink
-                      className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
+                      className={[_s._, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
                       to={`/${status.getIn(['account', 'acct'])}`}
                       title={status.getIn(['account', 'acct'])}
                     >
@@ -96,7 +96,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
                       color='none'
                       icon='ellipsis'
                       iconSize='20px'
-                      iconClassName={_s.colorSecondary}
+                      iconClassName={_s.cSecondary}
                       className={_s.mlAuto}
                       onClick={() => {}}
                       // buttonRef={this.setStatusOptionsButton}

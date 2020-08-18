@@ -115,13 +115,13 @@ class EditProfileModal extends ImmutablePureComponent {
     const isVerified = account.get('is_verified')
 
     return (
-      <div style={{ width: '440px' }} className={[_s.default, _s.modal].join(' ')}>
+      <div style={{ width: '440px' }} className={[_s._, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.height53PX, _s.px15].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
             <Button
               backgroundColor='none'
               title={intl.formatMessage(messages.close)}
-              className={[_s.mrAuto, _s.width60PX, _s.pl0].join(' ')}
+              className={[_s.mrAuto, _s.w60PX, _s.pl0].join(' ')}
               onClick={this.handleOnClose}
               color='secondary'
               icon='close'
@@ -132,14 +132,14 @@ class EditProfileModal extends ImmutablePureComponent {
             </Heading>
             <Button
               title={intl.formatMessage(messages.save)}
-              className={[_s.mlAuto, _s.width60PX].join(' ')}
+              className={[_s.mlAuto, _s.w60PX].join(' ')}
               onClick={this.handleOnSave}
             >
               {intl.formatMessage(messages.save)}
             </Button>
           </div>
-          <div className={[_s.default, _s.heightMax80VH, _s.overflowYScroll].join(' ')}>
-            <div className={[_s.default, _s.width100PC, _s.alignItemsCenter].join(' ')}>
+          <div className={[_s._, _s.maxH80VH, _s.overflowYScroll].join(' ')}>
+            <div className={[_s._, _s.w100PC, _s.aiCenter].join(' ')}>
               <FileInput
                 width='440px'
                 height='180px'
@@ -147,7 +147,7 @@ class EditProfileModal extends ImmutablePureComponent {
                 onChange={this.handleCoverPhotoChange}
                 file={headerSrc}
               />
-              <div className={[_s.default, _s.mtNeg50PX, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+              <div className={[_s._, _s.mtNeg50PX, _s.aiCenter, _s.jcCenter].join(' ')}>
                 <FileInput
                   width='132px'
                   height='132px'
@@ -157,7 +157,7 @@ class EditProfileModal extends ImmutablePureComponent {
                   onChange={this.handleProfilePhotoChange}
                 />
               </div>
-              <div className={[_s.default, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.width100PC].join(' ')}>
+              <div className={[_s._, _s.py5, _s.px15, _s.mt5, _s.mb15, _s.w100PC].join(' ')}>
                 {
                   !isVerified &&
                   <React.Fragment>
@@ -182,7 +182,7 @@ class EditProfileModal extends ImmutablePureComponent {
 
                 <Divider isInvisible />
 
-                <div className={[_s.default, _s.px10].join(' ')}>
+                <div className={[_s._, _s.px10].join(' ')}>
                   <Switch
                     label='Private account'
                     checked={locked}

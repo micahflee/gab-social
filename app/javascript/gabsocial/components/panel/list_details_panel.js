@@ -47,9 +47,9 @@ class ListDetailsPanel extends ImmutablePureComponent {
         }
         {
           title && createdAt &&
-          <div className={_s.default}>
+          <div className={_s._}>
 
-            <div className={_s.default}>
+            <div className={_s._}>
               <Text weight='medium'>
                 {title}
               </Text>
@@ -57,8 +57,8 @@ class ListDetailsPanel extends ImmutablePureComponent {
 
             <Divider isSmall />
 
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-              <Icon id='calendar' size='12px' className={_s.colorSecondary} />
+            <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+              <Icon id='calendar' size='12px' className={_s.cSecondary} />
               <Text
                 size='small'
                 color='secondary'

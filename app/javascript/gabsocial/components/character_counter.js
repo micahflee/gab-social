@@ -19,7 +19,7 @@ class CharacterCounter extends React.PureComponent {
     const dashoffset = circumference * (1 - diff)
 
     return (
-      <div className={[_s.default, _s.mr10, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+      <div className={[_s._, _s.mr10, _s.jcCenter, _s.aiCenter].join(' ')}>
         <svg
           width={actualRadius * 2}
           height={actualRadius * 2}

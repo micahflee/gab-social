@@ -501,58 +501,58 @@ class Video extends ImmutablePureComponent {
     // : todo spoiler :
 
     const mainContainerClasses = CX({
-      default: 1,
+      _: 1,
       mt10: 1,
       outlineNone: 1,
     })
 
     const seekHandleClasses = CX({
-      default: 1,
+      _: 1,
       posAbs: 1,
       circle: 1,
-      height20PX: 1,
-      width20PX: 1,
+      h20PX: 1,
+      w20PX: 1,
       bgTransparent: 1,
       mlNeg5PX: 1,
       mr5: 1,
       z3: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       videoEase: 1,
       opacity0: !dragging,
       opacity1: dragging || hovered,
     })
 
     const seekInnerHandleClasses = CX({
-      default: 1,
+      _: 1,
       circle: 1,
-      height14PX: 1,
-      width14PX: 1,
+      h14PX: 1,
+      w14PX: 1,
       bgBrand: 1,
       boxShadow1: 1,
     })
 
     const progressClasses = CX({
-      default: 1,
+      _: 1,
       radiusSmall: 1,
       mt10: 1,
       posAbs: 1,
-      height4PX: 1,
+      h4PX: 1,
       videoEase: 1,
     })
 
     const volumeControlClasses = CX({
-      default: 1,
+      _: 1,
       posAbs: 1,
       bgBlackOpaque: 1,
       videoPlayerVolume: 1,
-      height122PX: 1,
+      h122PX: 1,
       circle: 1,
       displayNone: !hoveringVolumeButton && !hoveringVolumeControl || !hovered,
     })
 
     const videoControlsBackgroundClasses = CX({
-      default: 1,
+      _: 1,
       z2: 1,
       px15: 1,
       videoPlayerControlsBackground: 1,
@@ -564,13 +564,13 @@ class Video extends ImmutablePureComponent {
     })
 
     const overlayClasses = CX({
-      default: 1,
+      _: 1,
       top50PC: 1,
       left50PC: 1,
       posAbs: 1,
       z2: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       displayNone: !paused && !isBuffering,
     })
 
@@ -595,20 +595,20 @@ class Video extends ImmutablePureComponent {
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
               <button
                 onClick={this.togglePlay}
-                className={[_s.default, _s.outlineNone, _s.cursorPointer, _s.alignItemsCenter, _s.justifyContentCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.height60PX, _s.width60PX].join(' ')}
+                className={[_s._, _s.outlineNone, _s.cursorPointer, _s.aiCenter, _s.jcCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.h60PX, _s.w60PX].join(' ')}
               >
-                <Icon id='play' size='24px' className={_s.colorWhite} />
+                <Icon id='play' size='24px' className={_s.cWhite} />
               </button>
             </Responsive>
           }
           {
             !paused && true &&
-            <Icon id='loading' size='60px' className={[_s.default, _s.posAbs].join(' ')} />
+            <Icon id='loading' size='60px' className={[_s._, _s.posAbs].join(' ')} />
           }
         </div>
 
         <video
-          className={[_s.default, _s.height100PC, _s.width100PC, _s.outlineNone].join(' ')}
+          className={[_s._, _s.h100PC, _s.w100PC, _s.outlineNone].join(' ')}
           playsInline
           ref={this.setVideoRef}
           src={src}
@@ -646,19 +646,19 @@ class Video extends ImmutablePureComponent {
           ref={this.setVolumeRef}
         >
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.posAbs, _s.width4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
+            className={[_s._, _s.radiusSmall, _s.my10, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
             style={{
               height: '102px',
             }}
           />
           <div
-            className={[_s.default, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.width4PX, _s.ml10, _s.bgPrimary].join(' ')}
+            className={[_s._, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimary].join(' ')}
             style={{
               height: `${volumeHeight}px`
             }}
           />
           <span
-            className={[_s.default, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
+            className={[_s._, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
             tabIndex='0'
             style={{
               marginLeft: '7px',
@@ -670,12 +670,12 @@ class Video extends ImmutablePureComponent {
         <div className={videoControlsBackgroundClasses}>
 
           <div
-            className={[_s.default, _s.cursorPointer, _s.height22PX, _s.videoPlayerSeek].join(' ')}
+            className={[_s._, _s.cursorPointer, _s.h22PX, _s.videoPlayerSeek].join(' ')}
             onMouseDown={this.handleMouseDown}
             ref={this.setSeekRef}
           >
 
-            <div className={[progressClasses, _s.bgLoading, _s.width100PC].join(' ')} />
+            <div className={[progressClasses, _s.bgLoading, _s.w100PC].join(' ')} />
             <div className={[progressClasses, _s.bgSubtle].join(' ')} style={{ width: `${buffer}%` }} />
             <div className={[progressClasses, _s.bgBrand].join(' ')} style={{ width: `${progress}%` }} />
 
@@ -690,7 +690,7 @@ class Video extends ImmutablePureComponent {
             </span>
           </div>
 
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.pb5, _s.noSelect].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.pb5, _s.noSelect].join(' ')}>
             <Button
               isNarrow
               backgroundColor='none'
@@ -699,7 +699,7 @@ class Video extends ImmutablePureComponent {
               icon={paused ? 'play' : 'pause'}
               title={paused ? 'Play' : 'Pause'}
               iconSize='16px'
-              iconClassName={_s.colorWhite}
+              iconClassName={_s.cWhite}
               className={_s.pl0}
             />
 
@@ -711,7 +711,7 @@ class Video extends ImmutablePureComponent {
               onClick={this.toggleMute}
               icon={muted ? 'audio-mute' : 'audio'}
               iconSize='24px'
-              iconClassName={_s.colorWhite}
+              iconClassName={_s.cWhite}
               className={[_s.px10, _s.mr10].join(' ')}
               title='Volume'
               onMouseEnter={this.handleMouseEnterAudio}
@@ -724,7 +724,7 @@ class Video extends ImmutablePureComponent {
               {formatTime(duration)}
             </Text>
 
-            <div className={[_s.default, _s.mlAuto, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+            <div className={[_s._, _s.mlAuto, _s.flexRow, _s.aiCenter].join(' ')}>
               <Button
                 isNarrow
                 backgroundColor='none'
@@ -732,7 +732,7 @@ class Video extends ImmutablePureComponent {
                 onClick={this.handleOnClickSettings}
                 icon='cog'
                 iconSize='20px'
-                iconClassName={_s.colorWhite}
+                iconClassName={_s.cWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
                 buttonRef={this.setSettingsBtnRef}
                 title='Video stats'
@@ -747,7 +747,7 @@ class Video extends ImmutablePureComponent {
                     onClick={this.togglePip}
                     icon='pip'
                     iconSize='20px'
-                    iconClassName={_s.colorWhite}
+                    iconClassName={_s.cWhite}
                     className={[_s.px10, _s.pr0].join(' ')}
                     title='Picture in Picture'
                   />
@@ -761,7 +761,7 @@ class Video extends ImmutablePureComponent {
                 icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
                 title={fullscreen ? 'Minimize fullscreen' : 'Fullscreen'}
                 iconSize='20px'
-                iconClassName={_s.colorWhite}
+                iconClassName={_s.cWhite}
                 className={[_s.px10, _s.pr0].join(' ')}
               />
             </div>

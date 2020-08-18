@@ -31,13 +31,13 @@ class SignUpPanel extends React.PureComponent {
         title={intl.formatMessage(messages.title)}
         subtitle={intl.formatMessage(messages.subtitle)}
       >
-        <div className={[_s.default, _s.flexRow, _s.pb5].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.pb5].join(' ')}>
           <Button
             isOutline
             color='brand'
             backgroundColor='none'
             href='/auth/sign_in'
-            className={[_s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mr10].join(' ')}
+            className={[_s.flexRow, _s.aiCenter, _s.jcCenter, _s.mr10].join(' ')}
           >
             <Text color='inherit' weight='medium' align='center' className={_s.px10}>
               {intl.formatMessage(messages.login)}

@@ -14,7 +14,7 @@ class AutosuggestAccount extends ImmutablePureComponent {
 
     return (
       <div
-        className={[_s.default, _s.cursorPointer, _s.bgSubtle_onHover, _s.flexRow, _s.py10, _s.alignItemsCenter, _s.px10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}
+        className={[_s._, _s.cursorPointer, _s.bgSubtle_onHover, _s.flexRow, _s.py10, _s.aiCenter, _s.px10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}
         title={account.get('acct')}
       >
         <Avatar account={account} size={26} />

@@ -37,18 +37,18 @@ export default class PanelLayout extends React.PureComponent {
     } = this.props
 
     return (
-      <aside className={[_s.default, _s.mb15].join(' ')}>
+      <aside className={[_s._, _s.mb15].join(' ')}>
         <Block>
           {
             (title || subtitle) &&
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
                 <Heading size='h2'>
                   {title}
                 </Heading>
                 {
                   (!!headerButtonTitle && (!!headerButtonAction || !!headerButtonTo)) &&
-                  <div className={[_s.default, _s.mlAuto].join(' ')}>
+                  <div className={[_s._, _s.mlAuto].join(' ')}>
                     <Button
                       isText
                       backgroundColor='none'
@@ -74,7 +74,7 @@ export default class PanelLayout extends React.PureComponent {
 
           {
             !noPadding &&
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
+            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
               {children}
             </div>
           }
@@ -85,7 +85,7 @@ export default class PanelLayout extends React.PureComponent {
 
           {
             (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo || !!footerButtonHref)) &&
-            <div className={_s.default}>
+            <div className={_s._}>
               <Button
                 isText
                 color='none'

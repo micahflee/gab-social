@@ -128,7 +128,7 @@ class News extends React.PureComponent {
       ]
     } catch (error) {
       return (
-        <div className={[_s.default, _s.width100PC].join(' ')}>
+        <div className={[_s._, _s.w100PC].join(' ')}>
           <Block>
             <ColumnIndicator type='loading' />
           </Block>
@@ -141,25 +141,25 @@ class News extends React.PureComponent {
     }
 
     return (
-      <div className={[_s.default, _s.width100PC].join(' ')}>
+      <div className={[_s._, _s.w100PC].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.width100PC, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.w100PC, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
               <TabBar tabs={domainTabs} />
             </Responsive>
             <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s.default, _s.width100PC, _s.pt10, _s.pb5].join(' ')}>
+              <div className={[_s._, _s.w100PC, _s.pt10, _s.pb5].join(' ')}>
                 <Pills pills={domainTabs} />
               </div>
             </Responsive>
           </div>
 
-          <div className={[_s.default, _s.px15].join(' ')}>
+          <div className={[_s._, _s.px15].join(' ')}>
             {
               !activeDomain &&
-              <div className={[_s.default, _s.py15, _s.mt15, _s.mb15].join(' ')}>
+              <div className={[_s._, _s.py15, _s.mt15, _s.mb15].join(' ')}>
                 <Heading size='h1'>
-                  <a href={`https://trends.gab.com/trend?url=${headlineLink}`} className={[_s.noUnderline, _s.colorPrimary].join(' ')}>
+                  <a href={`https://trends.gab.com/trend?url=${headlineLink}`} className={[_s.noUnderline, _s.cPrimary].join(' ')}>
                     {headline}
                   </a>
                 </Heading>
@@ -168,8 +168,8 @@ class News extends React.PureComponent {
             
             {
               !activeDomain && leadHeadlines.length > 0 &&
-                <div className={[_s.default, _s.mb15].join(' ')}>
-                  <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.justifyContentCenter].join(' ')}>
+                <div className={[_s._, _s.mb15].join(' ')}>
+                  <div className={[_s._, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
                     <Heading size='h2'>
                       <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
                       Headlines
@@ -181,7 +181,7 @@ class News extends React.PureComponent {
                         isText
                         backgroundColor='none'
                         color='primary'
-                        className={[_s.default, _s.py7].join(' ')}
+                        className={[_s._, _s.py7].join(' ')}
                         href={`https://trends.gab.com/trend?url=${lead.href}`}
                       >
                         <Text>
@@ -194,13 +194,13 @@ class News extends React.PureComponent {
             }
 
             <div>
-              <div className={[_s.default, _s.px15, _s.mt15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.justifyContentCenter].join(' ')}>
+              <div className={[_s._, _s.px15, _s.mt15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
                 <Heading size='h2'>
                   <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
                   {todaysTopTitle}
                 </Heading>
               </div>
-              <div className={[_s.default, _s.py10].join(' ')}>
+              <div className={[_s._, _s.py10].join(' ')}>
                 {
                   todaysTop.map((block, i) => (
                     <TrendsItem

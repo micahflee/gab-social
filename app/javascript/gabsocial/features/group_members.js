@@ -103,7 +103,7 @@ class GroupMembers extends ImmutablePureComponent {
 
 				{
 					/* : todo :
-					<div className={[_s.default, _s.justifyContentCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
+					<div className={[_s._, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
 						<Input
 							id='group-member-search'
 							placeholder='Search group members'
@@ -118,7 +118,7 @@ class GroupMembers extends ImmutablePureComponent {
 					</div>
 					*/
 				}
-				<div className={[_s.default].join(' ')}>
+				<div className={[_s._].join(' ')}>
 					<ScrollableList
 						scrollKey='group-members'
 						hasMore={hasMore}

@@ -74,7 +74,7 @@ class ShopPanel extends React.PureComponent {
         footerButtonTitle={intl.formatMessage(messages.shop_now)}
         footerButtonHref={URL_DISSENTER_SHOP}
       >
-        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
           {
             items.map((block, i) => (
               <ShopItem

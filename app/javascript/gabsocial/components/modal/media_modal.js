@@ -173,14 +173,14 @@ class MediaModal extends ImmutablePureComponent {
     }
 
     const navigationClasses = CX({
-      default: 1,
+      _: 1,
       displayNone: navigationHidden,
     })
 
     return (
-      <div className={[_s.default, _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+      <div className={[_s._, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
         <div
-          className={[_s.default, _s.posAbs, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
+          className={[_s._, _s.posAbs, _s.top0, _s.right0, _s.bottom0, _s.left0].join(' ')}
           role='presentation'
           onClick={onClose}
         >
@@ -254,8 +254,8 @@ class MediaModal extends ImmutablePureComponent {
 
         {
           media.size > 1 &&
-          <div className={[_s.default, _s.posAbs, _s.bottom0, _s.mb15].join(' ')}>
-            <div className={[_s.default, _s.saveAreaInsetMB, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
+          <div className={[_s._, _s.posAbs, _s.bottom0, _s.mb15].join(' ')}>
+            <div className={[_s._, _s.saveAreaInsetMB, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
               <Pagination
                 count={media.size}
                 activeIndex={index}

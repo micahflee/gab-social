@@ -19,9 +19,9 @@ class HashtagItem extends ImmutablePureComponent {
     return (
       <NavLink
         to={`/tags/${hashtag.get('name')}`}
-        className={[_s.default, _s.noUnderline, _s.bgSubtle_onHover, _s.px15, _s.py5].join(' ')}
+        className={[_s._, _s.noUnderline, _s.bgSubtle_onHover, _s.px15, _s.py5].join(' ')}
       >
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
           <div>
             <Text color='brand' size='medium' weight='bold' className={[_s.py2, _s.lineHeight15].join(' ')}>
               #{hashtag.get('name')}
@@ -36,7 +36,7 @@ class HashtagItem extends ImmutablePureComponent {
               title='Remove'
               icon='close'
               iconSize='8px'
-              iconClassName={_s.colorSecondary}
+              iconClassName={_s.cSecondary}
               className={_s.mlAuto}
             />
           }

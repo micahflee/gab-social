@@ -135,7 +135,7 @@ class SidebarXS extends ImmutablePureComponent {
     ]
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       posFixed: 1,
       top0: 1,
       left0: 1,
@@ -147,10 +147,10 @@ class SidebarXS extends ImmutablePureComponent {
         
     return (
       <div className={containerClasses}>
-        <div className={[_s.default, _s.posFixed, _s.top0, _s.left0, _s.right0, _s.bgBlackOpaque, _s.bottom0].join(' ')} role='button' onClick={this.handleSidebarClose} />
-        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.saveAreaInsetPT, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.minWidth330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxWidth80PC].join(' ')}>
+        <div className={[_s._, _s.posFixed, _s.top0, _s.left0, _s.right0, _s.bgBlackOpaque, _s.bottom0].join(' ')} role='button' onClick={this.handleSidebarClose} />
+        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgPrimary, _s.saveAreaInsetPT, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.minW330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxW80PC].join(' ')}>
 
-          <div className={[_s.default, _s.flexRow, _s.px15, _s.height53PX, _s.width100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.px15, _s.h53PX, _s.w100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.aiCenter, _s.jcCenter].join(' ')}>
             <Heading size='h2'>Account Info</Heading>
             <Button
               title='close'
@@ -163,10 +163,10 @@ class SidebarXS extends ImmutablePureComponent {
             />
           </div>
 
-          <div className={[_s.default, _s.width100PC, _s.overflowYScroll, _s.heightCalc53PX].join(' ')}>
+          <div className={[_s._, _s.w100PC, _s.overflowYScroll, _s.calcH53PX].join(' ')}>
 
-            <div className={[_s.default, _s.width100PC, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.mt5].join(' ')}>
+            <div className={[_s._, _s.w100PC, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s._, _s.mt5].join(' ')}>
                 <Link
                   to={`/${acct}`}
                   title={acct}
@@ -175,11 +175,11 @@ class SidebarXS extends ImmutablePureComponent {
                   <Avatar account={account} size={60} />
                 </Link>
               </div>
-              <div className={[_s.default, _s.my10, _s.width100PC].join(' ')}>
+              <div className={[_s._, _s.my10, _s.w100PC].join(' ')}>
                 <DisplayName account={account} isMultiline />
               </div>
 
-              <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
+              <div className={[_s._, _s.flexRow, _s.flexWrap].join(' ')}>
                 <NavLink
                   to={`/${acct}/followers`}
                   onClick={this.handleSidebarClose}
@@ -202,11 +202,11 @@ class SidebarXS extends ImmutablePureComponent {
 
             </div>
 
-            <div className={[_s.default, _s.my10, _s.px15].join(' ')}>
+            <div className={[_s._, _s.my10, _s.px15].join(' ')}>
               <WrappedBundle component={ProgressPanel} />
             </div>
 
-            <div className={[_s.default, _s.mb15, _s.boxShadowNone].join(' ')}>
+            <div className={[_s._, _s.mb15, _s.boxShadowNone].join(' ')}>
               <List
                 items={mainItems}
                 size='large'

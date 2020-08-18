@@ -55,7 +55,7 @@ class ExploreLayout extends ImmutablePureComponent {
     const { lazyLoaded } = this.state
 
     const pageTitleBlock = (
-      <div className={[_s.default, _s.pl15, _s.pb10].join(' ')}>
+      <div className={[_s._, _s.pl15, _s.pb10].join(' ')}>
         <Heading size='h2'>Popular posts across Gab</Heading>
       </div>
     )
@@ -69,10 +69,10 @@ class ExploreLayout extends ImmutablePureComponent {
         title={title}
       >
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.width100PC].join(' ')}>
+          <div className={[_s._, _s.w100PC].join(' ')}>
 
-            <div className={[_s.default, _s.width100PC, _s.z1].join(' ')}>
-              <div className={[_s.default, _s.mt15, _s.px10].join(' ')}>
+            <div className={[_s._, _s.w100PC, _s.z1].join(' ')}>
+              <div className={[_s._, _s.mt15, _s.px10].join(' ')}>
                 <WrappedBundle component={SignUpLogInPanel} componentParams={{ isXS: true }} />
               </div>
               {pageTitleBlock}
@@ -83,20 +83,20 @@ class ExploreLayout extends ImmutablePureComponent {
         </Responsive>
 
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.width100PC, _s.pl15].join(' ')}>
+          <div className={[_s._, _s.w100PC, _s.pl15].join(' ')}>
 
-            <div className={[_s.default, _s.flexRow, _s.width100PC, _s.justifyContentEnd].join(' ')}>
-              <div className={[_s.default, _s.width645PX, _s.z1].join(' ')}>  
+            <div className={[_s._, _s.flexRow, _s.w100PC, _s.jcEnd].join(' ')}>
+              <div className={[_s._, _s.w645PX, _s.z1].join(' ')}>  
 
-                <div className={_s.default}>
+                <div className={_s._}>
                   {pageTitleBlock}
                   {children}
                 </div>
               </div>
 
-              <div className={[_s.default, _s.ml15, _s.width340PX].join(' ')}>
+              <div className={[_s._, _s.ml15, _s.w340PX].join(' ')}>
                 <Sticky top={73} enabled>
-                  <div className={[_s.default, _s.width340PX].join(' ')}>
+                  <div className={[_s._, _s.w340PX].join(' ')}>
                     <SidebarPanelGroup
                       page='explore'
                       layout={[

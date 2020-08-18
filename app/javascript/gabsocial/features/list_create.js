@@ -62,7 +62,7 @@ class ListCreate extends React.PureComponent {
           onChange={onChange}
         />
 
-        <div className={[_s.default, _s.my10, _s.py5, _s.ml10].join(' ')}>
+        <div className={[_s._, _s.my10, _s.py5, _s.ml10].join(' ')}>
           <Text color='secondary' size='small'>
             {intl.formatMessage(messages.list_description)}
           </Text>

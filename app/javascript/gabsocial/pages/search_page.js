@@ -66,7 +66,7 @@ class SearchPage extends React.PureComponent {
         <PageTitle path={title} />
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.px10].join(' ')}>
+          <div className={[_s._, _s.px10].join(' ')}>
             <Search />
           </div>
         </Responsive>

@@ -65,7 +65,7 @@ class Account extends ImmutablePureComponent {
         isOutline={true}
         color='brand'
         backgroundColor='none'
-        className={[_s.px10, _s.flexRow, _s.alignItemsCenter].join(' ')}
+        className={[_s.px10, _s.flexRow, _s.aiCenter].join(' ')}
         icon={actionIcon}
         iconSize='10px'
       >
@@ -83,40 +83,40 @@ class Account extends ImmutablePureComponent {
       <Button
         isNarrow
         backgroundColor='none'
-        className={[_s.alignItemsEnd, _s.px5]}
+        className={[_s.aiEnd, _s.px5]}
         onClick={dismissAction}
         icon='close'
         iconSize='8px'
-        iconClassName={_s.colorSecondary}
+        iconClassName={_s.cSecondary}
       />
     )
 
     const content = { __html: account.get('note_emojified') }
 
     return (
-      <div className={[_s.default, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
-        <div className={[_s.default, _s.flexRow, _s.alignItemsStart].join(' ')}>
+      <div className={[_s._, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.aiStart].join(' ')}>
 
           <NavLink
-            className={[_s.default, _s.noUnderline].join(' ')}
+            className={[_s._, _s.noUnderline].join(' ')}
             title={account.get('acct')}
             to={`/${account.get('acct')}`}
           >
             <Avatar account={account} size={avatarSize} />
           </NavLink>
 
-          <div className={[_s.default, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+          <div className={[_s._, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
+            <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
               <NavLink
                 title={account.get('acct')}
                 to={`/${account.get('acct')}`}
-                className={[_s.default, _s.alignItemsStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
+                className={[_s._, _s.aiStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
               >
                 <DisplayName account={account} isMultiline={compact} />
                 {!compact && actionButton}
               </NavLink>
 
-              <div className={[_s.default].join(' ')}>
+              <div className={[_s._].join(' ')}>
                 {dismissBtn}
                 {compact && actionButton}
               </div>

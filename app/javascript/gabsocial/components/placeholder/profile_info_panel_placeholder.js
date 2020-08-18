@@ -6,7 +6,7 @@ export default class ProfileInfoPanelPlaceholder extends React.PureComponent {
   
   render() {
     return (
-      <div className={_s.default}>
+      <div className={_s._}>
         <PlaceholderLayout viewBox='0 0 340 108'>
           <rect x='0' y='0' rx='4' ry='4' width='330' height='8' /> 
           <rect x='0' y='18' rx='4' ry='4' width='314' height='8' /> 

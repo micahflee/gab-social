@@ -48,13 +48,13 @@ class SidebarSectionItem extends React.PureComponent {
     const isNotifications = to === '/notifications'
 
     const containerClasses = CX({
-      default: 1,
-      maxWidth100PC: 1,
-      width100PC: 1,
+      _: 1,
+      maxW100PC: 1,
+      w100PC: 1,
       flexRow: 1,
       py5: 1,
       px10: 1,
-      alignItemsCenter: 1,
+      aiCenter: 1,
       radiusSmall: 1,
       border1PX: 1,
       outlineNone: 1,
@@ -65,7 +65,7 @@ class SidebarSectionItem extends React.PureComponent {
     })
 
     const countClasses = CX({
-      default: 1,
+      _: 1,
       text: 1,
       mlAuto: 1,
       fs12PX: 1,
@@ -73,8 +73,8 @@ class SidebarSectionItem extends React.PureComponent {
       mr2: 1,
       lineHeight15: 1,
       ml5: 1,
-      colorSecondary: !isNotifications,
-      colorWhite: isNotifications,
+      cSecondary: !isNotifications,
+      cWhite: isNotifications,
       bgBrand: isNotifications,
       radiusSmall: isNotifications,
     })
@@ -88,12 +88,12 @@ class SidebarSectionItem extends React.PureComponent {
         buttonRef={buttonRef}
         onMouseEnter={() => this.handleOnMouseEnter()}
         onMouseLeave={() => this.handleOnMouseLeave()}
-        className={[_s.default, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.width100PC, _s.bgTransparent].join(' ')}
+        className={[_s._, _s.noUnderline, _s.outlineNone, _s.cursorPointer, _s.w100PC, _s.bgTransparent].join(' ')}
       >
         <div className={containerClasses}>
           {
             icon && 
-            <Icon id={icon} className={_s.colorPrimary} size={iconSize} />
+            <Icon id={icon} className={_s.cPrimary} size={iconSize} />
           }
           
           {
@@ -107,10 +107,10 @@ class SidebarSectionItem extends React.PureComponent {
             />
           }
           
-          <div className={[_s.default, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.width100PC].join(' ')}>
+          <div className={[_s._, _s.flexNormal, _s.px10, _s.textOverflowEllipsis, _s.overflowWrapBreakWord, _s.flexRow, _s.w100PC].join(' ')}>
             <ResponsiveClassesComponent
-              classNames={[_s.default, _s.fontWeightNormal, _s.fs15PX, _s.text, _s.textOverflowEllipsis, _s.colorPrimary].join(' ')}
-              classNamesSmall={[_s.default, _s.fontWeightNormal, _s.fs13PX, _s.text, _s.textOverflowEllipsis, _s.colorPrimary].join(' ')}
+              classNames={[_s._, _s.fw400, _s.fs15PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
+              classNamesSmall={[_s._, _s.fw400, _s.fs13PX, _s.text, _s.textOverflowEllipsis, _s.cPrimary].join(' ')}
             >
               {title}
             </ResponsiveClassesComponent>

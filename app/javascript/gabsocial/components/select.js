@@ -25,9 +25,9 @@ class Select extends ImmutablePureComponent {
     } = this.props
 
     return (
-      <div className={_s.default}>
+      <div className={_s._}>
         <select
-          className={[_s.default, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.px15, _s.select, _s.fs14PX].join(' ')}
+          className={[_s._, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.px15, _s.select, _s.fs14PX].join(' ')}
           value={value}
           onChange={onChange}
         >
@@ -42,7 +42,7 @@ class Select extends ImmutablePureComponent {
         <Icon
           id='select'
           size='14px'
-          className={[_s.colorSecondary, _s.posAbs, _s.right0, _s.mr10, _s.bottom0, _s.mb15].join(' ')}
+          className={[_s.cSecondary, _s.posAbs, _s.right0, _s.mr10, _s.bottom0, _s.mb15].join(' ')}
         />
       </div>
     )

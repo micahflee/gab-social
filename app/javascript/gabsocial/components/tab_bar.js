@@ -15,8 +15,8 @@ class TabBar extends React.PureComponent {
 
     return (
       <ResponsiveClassesComponent
-        classNames={[_s.default, _s.height53PX, _s.px5, _s.flexRow, _s.overflowXScroll, _s.noScrollbar].join(' ')}
-        classNamesXS={[_s.default, _s.height40PX, _s.px5, _s.flexRow].join(' ')}
+        classNames={[_s._, _s.h53PX, _s.px5, _s.flexRow, _s.overflowXScroll, _s.noScrollbar].join(' ')}
+        classNamesXS={[_s._, _s.h40PX, _s.px5, _s.flexRow].join(' ')}
       >
         {
           // Check for if tabs exist or not.

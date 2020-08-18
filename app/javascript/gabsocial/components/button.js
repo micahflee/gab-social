@@ -109,7 +109,7 @@ class Button extends React.PureComponent {
 
     // Style the component according to props
     const classes = noClasses ? className : cx(className, {
-      default: 1,
+      _: 1,
       noUnderline: 1,
       font: 1,
       cursorPointer: 1,
@@ -129,11 +129,11 @@ class Button extends React.PureComponent {
       bgSubtle: backgroundColor === COLORS.secondary,
       bgDanger: backgroundColor === COLORS.danger,
       
-      colorPrimary: color === COLORS.primary,
-      colorSecondary: color === COLORS.secondary,
-      colorTertiary: color === COLORS.tertiary,
-      colorWhite: color === COLORS.white,
-      colorBrand: color === COLORS.brand,
+      cPrimary: color === COLORS.primary,
+      cSecondary: color === COLORS.secondary,
+      cTertiary: color === COLORS.tertiary,
+      cWhite: color === COLORS.white,
+      cBrand: color === COLORS.brand,
 
       borderColorBrand: color === COLORS.brand && isOutline,
       border1PX: isOutline,
@@ -145,7 +145,7 @@ class Button extends React.PureComponent {
       py10: !isText && !isNarrow,
       px15: !isText,
 
-      width100PC: isBlock,
+      w100PC: isBlock,
 
       underline_onHover: underlineOnHover,
 
@@ -155,7 +155,7 @@ class Button extends React.PureComponent {
       bgDangerDark_onHover: backgroundColor === COLORS.danger && !isDisabled,
 
       bgBrand_onHover: color === COLORS.brand && isOutline && !isDisabled,
-      colorWhite_onHover: color === COLORS.brand && isOutline && !isDisabled,
+      cWhite_onHover: color === COLORS.brand && isOutline && !isDisabled,
     })
 
     const tagName = !!href ? 'a' : !!to ? 'NavLink' : 'button'

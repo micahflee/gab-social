@@ -14,7 +14,7 @@ export default class TrendsItemPlaceholder extends React.PureComponent {
     const subtitle3Width = getRandomInt(120, 225)
 
     return (
-      <div className={[_s.default, _s.px15, _s.py10, _s.pb5, _s.mb5].join(' ')}>
+      <div className={[_s._, _s.px15, _s.py10, _s.pb5, _s.mb5].join(' ')}>
         <PlaceholderLayout viewBox='0 0 340 138'>
           <rect x='0' y='0' rx='3' ry='3' width={title1Width} height='12' />
           <rect x='0' y='23' rx='3' ry='3' width={title2Width} height='12' />

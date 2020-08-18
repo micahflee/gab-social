@@ -28,23 +28,23 @@ class SignUpLogInPanel extends React.PureComponent {
     if (me) return null
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       radiusSmall: 1,
       overflowHidden: 1,
       bgPrimary: 1,
       boxShadowBlock: 1,
       py15: 1,
-      justifyContentCenter: 1,
+      jcCenter: 1,
       heigh315PX: !isXS,
-      height158PX: isXS,
+      h158PX: isXS,
     })
 
     return (
-      <aside className={[_s.default, _s.mb15].join(' ')}>
+      <aside className={[_s._, _s.mb15].join(' ')}>
         <div className={containerClasses}>
-          <div className={[_s.default]}>
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s.default].join(' ')}>
+          <div className={[_s._]}>
+            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s._].join(' ')}>
                 <Text color='primary' size='extraExtraLarge' weight='bold' align='center' tag='h2'>
                   {intl.formatMessage(messages.title)}
                 </Text>
@@ -57,8 +57,8 @@ class SignUpLogInPanel extends React.PureComponent {
 
           {
             !isXS &&
-            <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-              <div className={[_s.default, _s.pb5].join(' ')}>
+            <div className={[_s._, _s.px15, _s.py10].join(' ')}>
+              <div className={[_s._, _s.pb5].join(' ')}>
                 <Button
                   isOutline
                   color='white'

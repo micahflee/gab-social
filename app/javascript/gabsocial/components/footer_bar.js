@@ -57,9 +57,9 @@ class FooterBar extends React.PureComponent {
     ]
 
     return (
-      <div className={[_s.default, _s.z4, _s.heightMin58PX, _s.width100PC].join(' ')}>
-        <div className={[_s.default, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.heightMin58PX, _s.width100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
-          <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.heightMin58PX, _s.saveAreaInsetPB, _s.justifyContentSpaceAround].join(' ')}>
+      <div className={[_s._, _s.z4, _s.minH58PX, _s.w100PC].join(' ')}>
+        <div className={[_s._, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.minH58PX, _s.w100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.aiCenter, _s.h100PC, _s.minH58PX, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
             {
               buttons.map((props) => {
                 if (props.isHidden) return null
@@ -68,12 +68,12 @@ class FooterBar extends React.PureComponent {
                   borderTop2PX: 1,
                   borderColorTransparent: !props.active,
                   borderColorBrand: props.active,
-                  height100PC: 1,
-                  heightMin58PX: 1,
+                  h100PC: 1,
+                  minH58PX: 1,
                   px15: 1,
                   flexGrow1: 1,
-                  alignItemsCenter: 1,
-                  justifyContentCenter: 1,
+                  aiCenter: 1,
+                  jcCenter: 1,
                 })
                 
                 const color = props.active ? 'brand' : 'secondary'
@@ -81,7 +81,7 @@ class FooterBar extends React.PureComponent {
                 if (props.to === '/notifications' && notificationCount > 0) {
                   childIcon = (
                     <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt5, _s.pl20].join(' ')}>
-                      <span className={[_s.bgRed, _s.colorWhite, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '12px'}}>
+                      <span className={[_s.bgRed, _s.cWhite, _s.circle, _s.py2, _s.px2, _s.minW14PX, _s.displayBlock].join(' ')} style={{fontSize: '12px'}}>
                         {notificationCount}
                       </span>
                     </div>
@@ -89,7 +89,7 @@ class FooterBar extends React.PureComponent {
                 } else if (props.to === '/home' && homeItemsQueueCount > 0) {
                   childIcon = (
                     <div className={[_s.posAbs, _s.ml5, _s.top0, _s.pt2, _s.pl20].join(' ')}>
-                      <span className={[_s.colorBrand, _s.circle, _s.py2, _s.px2, _s.minWidth14PX, _s.displayBlock].join(' ')} style={{fontSize: '18px'}}>
+                      <span className={[_s.cBrand, _s.circle, _s.py2, _s.px2, _s.minW14PX, _s.displayBlock].join(' ')} style={{fontSize: '18px'}}>
                         •
                       </span>
                     </div>

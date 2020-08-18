@@ -15,19 +15,19 @@ class LoggedOutNavigationBar extends React.PureComponent {
 
     return (
       <ResponsiveClassesComponent
-        classNames={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}
-        classNamesXS={[_s.default, _s.z4, _s.heightMin98PX, _s.width100PC].join(' ')}
+        classNames={[_s._, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}
+        classNamesXS={[_s._, _s.z4, _s.minH98PX, _s.w100PC].join(' ')}
       >
         <ResponsiveClassesComponent
-          classNames={[_s.default, _s.heightMin53PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
-          classNamesXS={[_s.default, _s.heightMin98PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
+          classNames={[_s._, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
+          classNamesXS={[_s._, _s.minH98PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')}
         >
 
-          <div className={[_s.default, _s.width1255PX, _s.flexRow, _s.flexWrap, _s.height100PC].join(' ')}>
+          <div className={[_s._, _s.w1255PX, _s.flexRow, _s.flexWrap, _s.h100PC].join(' ')}>
           
             <ResponsiveClassesComponent
-              classNames={[_s.default, _s.alignItemsCenter, _s.justifyContentCenter, _s.flexRow, _s.flexGrow1, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR].join(' ')}
-              classNamesXS={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.width100PC].join(' ')}
+              classNames={[_s._, _s.aiCenter, _s.jcCenter, _s.flexRow, _s.flexGrow1, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR].join(' ')}
+              classNamesXS={[_s._, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}
             >
 
               <Button
@@ -41,7 +41,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
               {
                 isProfile &&
                 <ResponsiveComponent min={BREAKPOINT_EXTRA_SMALL}>
-                  <div className={[_s.default, _s.flexRow, _s.mr15].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.mr15].join(' ')}>
                     <NavigationBarButton title='Home' icon='home' href='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
@@ -49,15 +49,15 @@ class LoggedOutNavigationBar extends React.PureComponent {
                 </ResponsiveComponent>
               }
 
-              <div className={[_s.default, _s.flexGrow1, _s.pr10, _s.mrAuto, _s.maxWidth640PX].join(' ')}>
+              <div className={[_s._, _s.flexGrow1, _s.pr10, _s.mrAuto, _s.maxW640PX].join(' ')}>
                 <Search isInNav />
               </div>
 
             </ResponsiveClassesComponent>
 
             <ResponsiveClassesComponent
-              classNames={[_s.default, _s.flexRow, _s.py5, _s.px10, _s.width330PX, _s.mlAuto].join(' ')}
-              classNamesXS={[_s.default, _s.flexRow, _s.pb5, _s.px10, _s.width100PC].join(' ')}
+              classNames={[_s._, _s.flexRow, _s.py5, _s.px10, _s.w330PX, _s.mlAuto].join(' ')}
+              classNamesXS={[_s._, _s.flexRow, _s.pb5, _s.px10, _s.w100PC].join(' ')}
             >
 
               <Button
@@ -66,7 +66,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
                 color='white'
                 backgroundColor='none'
                 href='/auth/sign_in'
-                className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter, _s.py7].join(' ')}
+                className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.aiCenter, _s.jcCenter, _s.py7].join(' ')}
               >
                 <Text color='inherit' weight='medium' align='center'>
                   Log in
@@ -78,7 +78,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
                 color='brand'
                 backgroundColor='white'
                 href='/auth/sign_up'
-                className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.ml5, _s.flexGrow1, _s.py7].join(' ')}
+                className={[_s.jcCenter, _s.aiCenter, _s.ml5, _s.flexGrow1, _s.py7].join(' ')}
               >
                 <Text color='inherit' weight='bold' align='center'>
                   Sign up

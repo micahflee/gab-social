@@ -51,19 +51,19 @@ class DisplayOptionsModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
       >
 
-        <div className={[_s.default, _s.mb15].join(' ')}>
+        <div className={[_s._, _s.mb15].join(' ')}>
           <Text align='center' color='secondary' size='medium'>
             {intl.formatMessage(messages.message)}
           </Text>
         </div>
 
-        <div className={[_s.default, _s.mb15].join(' ')}>
+        <div className={[_s._, _s.mb15].join(' ')}>
           <Text weight='bold' size='small' color='secondary'>
             Font Size
           </Text>
-          <div className={[_s.default, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
-              <span className={[_s.default, _s.text, _s.colorPrimary].join(' ')} style={{fontSize: '12px'}}>
+          <div className={[_s._, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
+            <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
+              <span className={[_s._, _s.text, _s.cPrimary].join(' ')} style={{fontSize: '12px'}}>
                 Aa
               </span>
               <input
@@ -75,18 +75,18 @@ class DisplayOptionsModal extends ImmutablePureComponent {
                 onChange={this.handleOnFontSizeChange}
                 className={[_s.flexGrow1, _s.outlineNone, _s.ml15, _s.mr15].join(' ')}
               />
-              <span className={[_s.default, _s.text, _s.colorPrimary].join(' ')} style={{fontSize: '18px'}}>
+              <span className={[_s._, _s.text, _s.cPrimary].join(' ')} style={{fontSize: '18px'}}>
                 Aa
               </span>
             </div>
           </div>
         </div>
 
-        <div className={[_s.default, _s.mb15].join(' ')}>
+        <div className={[_s._, _s.mb15].join(' ')}>
           <Text weight='bold' size='small' color='secondary'>
             Rounded
           </Text>
-          <div className={[_s.default, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
+          <div className={[_s._, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
             <SettingSwitch
               prefix='displayOptions'
               settings={displayOptionsSettings}
@@ -105,11 +105,11 @@ class DisplayOptionsModal extends ImmutablePureComponent {
           </div>
         </div>
 
-        <div className={[_s.default, _s.mb10].join(' ')}>
+        <div className={[_s._, _s.mb10].join(' ')}>
           <Text weight='bold' size='small' color='secondary'>
             Theme
           </Text>
-          <div className={[_s.default, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
+          <div className={[_s._, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
 
             <ThemeBlock
               title='Light'
@@ -186,9 +186,9 @@ class ThemeBlock extends React.PureComponent {
     const id = `theme-${value}`
 
     return (
-      <label className={[_s.default, _s.px10, _s.flexGrow1].join(' ')} htmlFor={id}>
+      <label className={[_s._, _s.px10, _s.flexGrow1].join(' ')} htmlFor={id}>
         <div
-          className={[_s.default, _s.borderBottom6PX, _s.alignItemsCenter, _s.flexRow, _s.py10, _s.px15, _s.radiusSmall].join(' ')}
+          className={[_s._, _s.borderBottom6PX, _s.aiCenter, _s.flexRow, _s.py10, _s.px15, _s.radiusSmall].join(' ')}
           style={style}
         >
           <input

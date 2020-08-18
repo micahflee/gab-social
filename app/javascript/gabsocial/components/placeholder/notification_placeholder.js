@@ -14,7 +14,7 @@ class NotificationPlaceholder extends React.PureComponent {
     const { isLast } = this.props
 
     const classes = CX({
-      default: 1,
+      _: 1,
       px15: 1,
       py15: 1,
       borderColorSecondary: !isLast,
@@ -22,7 +22,7 @@ class NotificationPlaceholder extends React.PureComponent {
     })
 
     const classesXS = CX({
-      default: 1,
+      _: 1,
       px15: 1,
       py15: 1,
       borderColorSecondary: !isLast,
@@ -37,7 +37,7 @@ class NotificationPlaceholder extends React.PureComponent {
       <React.Fragment>
         <ResponsiveComponent min={BREAKPOINT_EXTRA_SMALL}>
           <div className={classes}>
-            <div className={[_s.default, _s.py2, _s.px2].join(' ')}>
+            <div className={[_s._, _s.py2, _s.px2].join(' ')}>
               <PlaceholderLayout viewBox='0 0 400 170'>
                 <rect x='24' y='34' rx='4' ry='4' width={width2} height='8' />
                 <rect x={left} y='34' rx='4' ry='4' width='12' height='8' />
@@ -61,7 +61,7 @@ class NotificationPlaceholder extends React.PureComponent {
         </ResponsiveComponent>
         <ResponsiveComponent max={BREAKPOINT_EXTRA_SMALL}>
           <div className={classesXS}>
-            <div className={[_s.default, _s.py2, _s.px2].join(' ')}>
+            <div className={[_s._, _s.py2, _s.px2].join(' ')}>
               <PlaceholderLayout viewBox='0 0 380 200'>
                 <circle cx='20' cy='20' r='20' />
                 <rect x='0' y='54' rx='5' ry='5' width={width1} height='10' />

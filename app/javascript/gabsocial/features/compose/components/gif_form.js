@@ -15,12 +15,12 @@ class GifForm extends React.PureComponent {
     if (!selectedGifSrc) return null
 
     return (
-      <div className={_s.default}>
-        <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
+      <div className={_s._}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap].join(' ')}>
           <Image
             width='auto'
             src={selectedGifSrc}
-            className={[_s.maxWidth100PC, _s.radiusSmall, _s.height260PX].join(' ')}
+            className={[_s.maxW100PC, _s.radiusSmall, _s.h260PX].join(' ')}
           />
         </div>
       </div>

@@ -91,13 +91,13 @@ class UserPanel extends ImmutablePureComponent {
     return (
       <PanelLayout noPadding>
         <div
-          className={[_s.default, _s.height122PX].join(' ')}
+          className={[_s._, _s.h122PX].join(' ')}
           onMouseEnter={this.handleOnMouseEnter}
           onMouseLeave={this.handleOnMouseLeave}
         >
           <Image
             alt={intl.formatMessage(messages.headerPhoto)}
-            className={_s.height122PX}
+            className={_s.h122PX}
             src={account.get('header_static')}
           />
           <Button
@@ -112,18 +112,18 @@ class UserPanel extends ImmutablePureComponent {
         </div>
 
         <NavLink
-          className={[_s.default, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
+          className={[_s._, _s.flexRow, _s.py10, _s.px15, _s.noUnderline].join(' ')}
           to={`/${acct}`}
         >
-          <div className={[_s.default, _s.mtNeg32PX, _s.circle, _s.borderColorPrimary, _s.border6PX].join(' ')}>
+          <div className={[_s._, _s.mtNeg32PX, _s.circle, _s.borderColorPrimary, _s.border6PX].join(' ')}>
             <Avatar account={account} size={62} noHover />
           </div>
-          <div className={[_s.default, _s.ml15].join(' ')}>
+          <div className={[_s._, _s.ml15].join(' ')}>
             <DisplayName account={account} isMultiline noRelationship noHover />
           </div>
         </NavLink>
 
-        <div className={[_s.default, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
+        <div className={[_s._, _s.mb15, _s.mt5, _s.flexRow, _s.px15].join(' ')}>
           <UserStat
             to={`/${acct}`}
             title={intl.formatMessage(messages.gabs)}

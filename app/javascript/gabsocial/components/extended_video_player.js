@@ -31,9 +31,9 @@ class ExtendedVideoPlayer extends React.PureComponent {
     const { src, muted, controls, alt } = this.props
 
     return (
-      <div className={[_s.default, _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+      <div className={[_s._, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
         <video
-          className={[_s.default, _s.maxWidth100PC, _s.heightMax100PC].join(' ')}
+          className={[_s._, _s.maxW100PC, _s.maxH100PC].join(' ')}
           playsInline
           ref={this.setRef}
           src={src}

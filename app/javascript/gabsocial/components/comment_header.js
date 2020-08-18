@@ -43,11 +43,11 @@ class CommentHeader extends ImmutablePureComponent {
     const myComment = status.getIn(['account', 'id']) === me
 
     return (
-      <div className={[_s.default, _s.alignItemsStart, _s.py2, _s.maxWidth100PC, _s.flexGrow1].join(' ')}>
+      <div className={[_s._, _s.aiStart, _s.py2, _s.maxW100PC, _s.flexGrow1].join(' ')}>
 
-        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.overflowHidden, _s.width100PC, _s.maxWidth100PC, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap, _s.overflowHidden, _s.w100PC, _s.maxW100PC, _s.aiCenter].join(' ')}>
           <NavLink
-            className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
+            className={[_s._, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
             to={`/${status.getIn(['account', 'acct'])}`}
             title={status.getIn(['account', 'acct'])}
           >
@@ -60,11 +60,11 @@ class CommentHeader extends ImmutablePureComponent {
 
           {
             isOwner &&
-            <div className={[_s.default, _s.alignItemsCenter, _s.ml5].join(' ')}>
+            <div className={[_s._, _s.aiCenter, _s.ml5].join(' ')}>
               <span className={_s.visiblyHidden}>
                 {intl.formatMessage(messages.original)}
               </span>
-              <Icon id='mic' size='10px' className={_s.colorBrand} />
+              <Icon id='mic' size='10px' className={_s.cBrand} />
             </div>
           }
 

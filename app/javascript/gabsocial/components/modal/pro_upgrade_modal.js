@@ -25,11 +25,11 @@ class ProUpgradeModal extends ImmutablePureComponent {
     const imgSuffix = (theme === 'light' || !theme) ? 'light' : 'dark'
 
     const title = (
-      <span className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
-        <span className={[_s.default, _s.mr2].join(' ')}>
+      <span className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
+        <span className={[_s._, _s.mr2].join(' ')}>
           Upgrade to Gab
         </span>
-        <span className={[_s.bgPro, _s.colorBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
+        <span className={[_s.bgPro, _s.cBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
       </span>
     )
 
@@ -46,23 +46,23 @@ class ProUpgradeModal extends ImmutablePureComponent {
           {intl.formatMessage(messages.benefits)}
         </Text>
 
-        <div className={[_s.default, _s.my10].join(' ')}>
+        <div className={[_s._, _s.my10].join(' ')}>
           <Image
             src={`/headers/pro-features-${imgSuffix}.png`}
             width='100%'
             height='auto'
             fit='cover'
-            className={[_s.heightMax340PX, _s.heightMin200PX].join(' ')}
+            className={[_s.maxH340PX, _s.minH200PX].join(' ')}
           />
         </div>
 
-        <div className={[_s.default, _s.flexRow, _s.py10].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.py10].join(' ')}>
           <Button
             isOutline
             color='brand'
             backgroundColor='none'
             href={URL_GAB_PRO}
-            className={[_s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mr10].join(' ')}
+            className={[_s.flexRow, _s.aiCenter, _s.jcCenter, _s.mr10].join(' ')}
           >
             <Text color='inherit' weight='medium' align='center'>
               {intl.formatMessage(messages.learnMore)}
@@ -70,12 +70,12 @@ class ProUpgradeModal extends ImmutablePureComponent {
           </Button>
           <Button
             href={URL_GAB_PRO}
-            className={[_s.flexRow, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}
+            className={[_s.flexRow, _s.flexGrow1, _s.aiCenter, _s.jcCenter].join(' ')}
           >
             <Text color='inherit' size='large' weight='bold' align='center'>
               {intl.formatMessage(messages.upgrade)}
             </Text>
-            <Icon id='arrow-right' size='20px' className={[_s.colorWhite, _s.ml5].join(' ')} />
+            <Icon id='arrow-right' size='20px' className={[_s.cWhite, _s.ml5].join(' ')} />
           </Button>
         </div>
 

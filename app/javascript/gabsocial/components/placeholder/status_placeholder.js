@@ -12,7 +12,7 @@ export default class StatusPlaceholder extends React.PureComponent {
 
   render() {
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       px15: 1,
       mt5: 1,
       mb15: 1,
@@ -23,7 +23,7 @@ export default class StatusPlaceholder extends React.PureComponent {
     })
 
     const containerClassesXS = CX({
-      default: 1,
+      _: 1,
       bgPrimary: 1,
       boxShadowBlock: 1,
       borderTop1PX: 1,

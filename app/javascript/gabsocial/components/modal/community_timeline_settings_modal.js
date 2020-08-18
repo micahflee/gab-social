@@ -31,7 +31,7 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.title)}
       >
       
-        <div className={[_s.default, _s.pb10].join(' ')}>
+        <div className={[_s._, _s.pb10].join(' ')}>
           <SettingSwitch
             prefix='community_timeline'
             settings={settings}
@@ -44,7 +44,7 @@ class CommunityTimelineSettingsModal extends ImmutablePureComponent {
         <Button
           backgroundColor='brand'
           color='white'
-          className={_s.justifyContentCenter}
+          className={_s.jcCenter}
           onClick={this.handleSaveAndClose}
         >
           <Text color='inherit' weight='bold' align='center'>

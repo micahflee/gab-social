@@ -55,13 +55,13 @@ class TabBarItem extends React.PureComponent {
     const active = isActive || (to === location.pathname && !location.search) || isCurrent
 
     const containerClasses = CX({
-      default: 1,
-      height100PC: 1,
+      _: 1,
+      h100PC: 1,
       noUnderline: 1,
       text: 1,
       displayFlex: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       borderBottom2PX: 1,
       py5: 1,
       outlineNone: 1,
@@ -74,10 +74,10 @@ class TabBarItem extends React.PureComponent {
     })
 
     const textParentClasses = CX({
-      default: 1,
-      height100PC: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      _: 1,
+      h100PC: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       radiusSmall: 1,
       px10: !isLarge,
       px15: isLarge,

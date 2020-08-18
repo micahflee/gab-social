@@ -71,18 +71,18 @@ class Text extends React.PureComponent {
 
     // Style the component according to props
     const classes = cx(className, {
-      default: 1,
+      _: 1,
       text: 1,
 
       radiusSmall: isBadge,
       lineHeight15: isBadge,
       px5: isBadge,
 
-      colorPrimary: color === COLORS.primary,
-      colorSecondary: color === COLORS.secondary,
-      colorTertiary: color === COLORS.tertiary,
-      colorBrand: color === COLORS.brand,
-      colorWhite: color === COLORS.white,
+      cPrimary: color === COLORS.primary,
+      cSecondary: color === COLORS.secondary,
+      cTertiary: color === COLORS.tertiary,
+      cBrand: color === COLORS.brand,
+      cWhite: color === COLORS.white,
       inherit: color === COLORS.inherit,
       
       fs24PX: size === SIZES.extraExtraLarge,
@@ -93,10 +93,10 @@ class Text extends React.PureComponent {
       fs13PX: size === SIZES.small,
       fs12PX: size === SIZES.extraSmall,
 
-      fontWeightNormal: weight === WEIGHTS.normal,
-      fontWeightMedium: weight === WEIGHTS.medium,
-      fontWeightBold: weight === WEIGHTS.bold,
-      fontWeightExtraBold: weight === WEIGHTS.extraBold,
+      fw400: weight === WEIGHTS.normal,
+      fw500: weight === WEIGHTS.medium,
+      fw600: weight === WEIGHTS.bold,
+      fw800: weight === WEIGHTS.extraBold,
 
       textAlignLeft: align === ALIGNMENTS.left,
       textAlignCenter: align === ALIGNMENTS.center,

@@ -160,14 +160,14 @@ class Sidebar extends ImmutablePureComponent {
     ]
 
     return (
-      <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
-        <div className={[_s.default, _s.width240PX].join(' ')}>
-          <div className={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}>
-            <div className={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}>
-              <div className={[_s.default, _s.width100PC].join(' ')}>
+      <header role='banner' className={[_s._, _s.flexGrow1, _s.z3, _s.aiEnd].join(' ')}>
+        <div className={[_s._, _s.w240PX].join(' ')}>
+          <div className={[_s._, _s.posFixed, _s.calcH53PX, _s.bottom0].join(' ')}>
+            <div className={[_s._, _s.h100PC, _s.aiStart, _s.w240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}>
+              <div className={[_s._, _s.w100PC].join(' ')}>
                 {
                   !!title &&
-                  <div className={[_s.default, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
                     {
                       showBackBtn &&
                       <BackButton
@@ -179,7 +179,7 @@ class Sidebar extends ImmutablePureComponent {
                     </Heading>
                     {
                       !!actions &&
-                      <div className={[_s.default, _s.bgTransparent, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mlAuto].join(' ')}>
+                      <div className={[_s._, _s.bgTransparent, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.mlAuto].join(' ')}>
                         {
                           actions.map((action, i) => (
                             <Button
@@ -191,7 +191,7 @@ class Sidebar extends ImmutablePureComponent {
                               key={`action-btn-${i}`}
                               className={[_s.ml5, _s.px5].join(' ')}
                               icon={action.icon}
-                              iconClassName={_s.colorPrimary}
+                              iconClassName={_s.cPrimary}
                               iconSize='14px'
                             />
                           ))
@@ -202,12 +202,12 @@ class Sidebar extends ImmutablePureComponent {
                 }
                 {
                   !!tabs &&
-                  <div className={[_s.default, _s.mt10, _s.pb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                  <div className={[_s._, _s.mt10, _s.pb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
                     <Pills pills={tabs} />
                   </div>
                 }
               </div>
-              <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.mb15].join(' ')}>
+              <nav aria-label='Primary' role='navigation' className={[_s._, _s.w100PC, _s.mb15].join(' ')}>
                 <SidebarSectionTitle>{intl.formatMessage(messages.menu)}</SidebarSectionTitle>
                 {
                   menuItems.map((menuItem, i) => {
@@ -223,7 +223,7 @@ class Sidebar extends ImmutablePureComponent {
                   <React.Fragment>
                     <SidebarSectionTitle>
                       <div
-                        className={[_s.displayFlex, _s.alignItemsCenter, _s.flexRow].join(' ')}
+                        className={[_s.displayFlex, _s.aiCenter, _s.flexRow].join(' ')}
                         onMouseEnter={this.handleMouseEnterShortcuts}
                         onMouseLeave={this.handleMouseLeaveShortcuts}
                       >
@@ -265,7 +265,7 @@ class Sidebar extends ImmutablePureComponent {
                 <Button
                   isBlock
                   onClick={this.handleOpenComposeModal}
-                  className={[_s.py15, _s.fs15PX, _s.fontWeightBold].join(' ')}
+                  className={[_s.py15, _s.fs15PX, _s.fw600].join(' ')}
                 >
                   Gab
                 </Button>

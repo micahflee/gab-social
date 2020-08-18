@@ -71,12 +71,12 @@ class Poll extends ImmutablePureComponent {
     }
 
     const chartClasses = cx({
-      default: 1,
+      _: 1,
       posAbs: 1,
       top0: 1,
       left0: 1,
       radiusSmall: 1,
-      height100PC: 1,
+      h100PC: 1,
       bgSecondary: !leading && !optionHasNoVotes,
       bgTertiary: !leading && optionHasNoVotes,
       bgBrandLight: leading,
@@ -89,7 +89,7 @@ class Poll extends ImmutablePureComponent {
     })
 
     const listItemClasses = cx({
-      default: 1,
+      _: 1,
       flexRow: 1,
       py10: showResults,
       mb10: 1,
@@ -102,12 +102,12 @@ class Poll extends ImmutablePureComponent {
     })
 
     const textContainerClasses = cx({
-      default: 1,
-      width100PC: 1,
+      _: 1,
+      w100PC: 1,
       px15: 1,
       py10: !showResults,
       cursorPointer: !showResults,
-      alignItemsCenter: !showResults,
+      aiCenter: !showResults,
     })
 
     return (
@@ -127,7 +127,7 @@ class Poll extends ImmutablePureComponent {
             size='medium'
             color='primary'
             weight={(leading && showResults) ? 'bold' : 'normal'}
-            className={[_s.displayFlex, _s.flexRow, _s.width100PC, _s.alignItemsCenter].join(' ')}
+            className={[_s.displayFlex, _s.flexRow, _s.w100PC, _s.aiCenter].join(' ')}
           >
             {
               !showResults &&
@@ -138,7 +138,7 @@ class Poll extends ImmutablePureComponent {
                 checked={active}
                 onChange={this.handleOptionChange}
                 disabled={disabled}
-                className={[_s.default, _s.mr10].join(' ')}
+                className={[_s._, _s.mr10].join(' ')}
               />
             }
 
@@ -176,14 +176,14 @@ class Poll extends ImmutablePureComponent {
     const disabled = this.props.disabled || Object.entries(this.state.selected).every(item => !item)
 
     return (
-      <div className={[_s.default, _s.px15, _s.py10].join(' ')}>
-        <ul className={[_s.default, _s.listStyleNone].join(' ')}>
+      <div className={[_s._, _s.px15, _s.py10].join(' ')}>
+        <ul className={[_s._, _s.listStyleNone].join(' ')}>
           {
             poll.get('options').map((option, i) => this.renderOption(option, i))
           }
         </ul>
 
-        <div className={[_s.default, _s.flexRow, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.aiCenter].join(' ')}>
           {
             !showResults && me &&
             <Button

@@ -16,7 +16,7 @@ class HotkeysModal extends ImmutablePureComponent {
         title={intl.formatMessage(messages.heading)}
         onClose={onClose}
       >
-        <div className={[_s.default, _s.flexRow].join(' ')}>
+        <div className={[_s._, _s.flexRow].join(' ')}>
           <table>
             <thead>
               <tr>

@@ -104,7 +104,7 @@ class AccountActionButton extends ImmutablePureComponent {
       <Button
         {...buttonOptions}
         isNarrow
-        className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+        className={[_s.jcCenter, _s.aiCenter].join(' ')}
       >
         <Text
           color='inherit'

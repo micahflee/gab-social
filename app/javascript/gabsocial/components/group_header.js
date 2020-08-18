@@ -97,25 +97,25 @@ class GroupHeader extends ImmutablePureComponent {
     // {group.get('archived') && <Icon id='lock' title={intl.formatMessage(messages.group_archived)} />}
 
     return (
-      <div className={[_s.default, _s.z1, _s.width100PC, _s.mb15].join(' ')}>
+      <div className={[_s._, _s.z1, _s.w100PC, _s.mb15].join(' ')}>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
-            <div className={[_s.default, _s.width100PC].join(' ')}>
+          <div className={[_s._, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+            <div className={[_s._, _s.w100PC].join(' ')}>
 
               {
                 coverSrc && !coverSrcMissing &&
-                <Image className={_s.height200PX} src={coverSrc} alt={title} />
+                <Image className={_s.h200PX} src={coverSrc} alt={title} />
               }
 
-              <div className={[_s.default, _s.width100PC].join(' ')}>
+              <div className={[_s._, _s.w100PC].join(' ')}>
 
-                <div className={[_s.default, _s.width100PC, _s.px15, _s.mt10, _s.py10].join(' ')}>
+                <div className={[_s._, _s.w100PC, _s.px15, _s.mt10, _s.py10].join(' ')}>
                   {children}
                 </div>
 
                 {
                   !!me &&
-                  <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter, _s.mt5, _s.pb15, _s.pt5, _s.height100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter, _s.mt5, _s.pb15, _s.pt5, _s.h100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
                     {
                       !!actionButtonTitle &&
                       <Button
@@ -140,7 +140,7 @@ class GroupHeader extends ImmutablePureComponent {
                   </div>
                 }
 
-                <div className={[_s.default, _s.flexRow, _s.height100PC, _s.mt5, _s.pt10, _s.pb5, _s.mb5, _s.px10].join(' ')}>
+                <div className={[_s._, _s.flexRow, _s.h100PC, _s.mt5, _s.pt10, _s.pb5, _s.mb5, _s.px10].join(' ')}>
 
                   <Pills pills={tabs} />
 
@@ -152,20 +152,20 @@ class GroupHeader extends ImmutablePureComponent {
 
         { /** desktop */}
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.bottomLeftRadiusSmall, _s.bottomRightRadiusSmall].join(' ')}>
-            <div className={[_s.default, _s.width100PC].join(' ')}>
+          <div className={[_s._, _s.boxShadowBlock, _s.bgPrimary, _s.bottomLeftRadiusSmall, _s.bottomRightRadiusSmall].join(' ')}>
+            <div className={[_s._, _s.w100PC].join(' ')}>
 
               {
                 coverSrc && !coverSrcMissing &&
-                <Image className={_s.height350PX} src={coverSrc} alt={title} />
+                <Image className={_s.h350PX} src={coverSrc} alt={title} />
               }
               
-              <div className={[_s.default].join(' ')}>
-                <div className={[_s.default, _s.flexRow, _s.py10, _s.px10].join(' ')}>
-                  <div className={[_s.default, _s.width100PC].join(' ')}>
-                    <div className={[_s.default, _s.flexRow].join(' ')}>
+              <div className={[_s._].join(' ')}>
+                <div className={[_s._, _s.flexRow, _s.py10, _s.px10].join(' ')}>
+                  <div className={[_s._, _s.w100PC].join(' ')}>
+                    <div className={[_s._, _s.flexRow].join(' ')}>
                       <Icon id='group' size='28px' />
-                      <div className={[_s.default, _s.ml7, _s.flexNormal].join(' ')}>
+                      <div className={[_s._, _s.ml7, _s.flexNormal].join(' ')}>
                         <Heading>
                           {title}
                         </Heading>
@@ -179,15 +179,15 @@ class GroupHeader extends ImmutablePureComponent {
                     </div>
                   </div>
                 </div>
-                <div className={[_s.default, _s.height53PX, _s.width100PC].join(' ')}>
-                  <div className={[_s.default, _s.flexRow, _s.height100PC, _s.px10].join(' ')}>
+                <div className={[_s._, _s.h53PX, _s.w100PC].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.h100PC, _s.px10].join(' ')}>
                     
                     <TabBar tabs={tabs} isLarge />
 
-                    <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.height100PC, _s.mlAuto].join(' ')}>
+                    <div className={[_s._, _s.flexRow, _s.aiCenter, _s.h100PC, _s.mlAuto].join(' ')}>
                       {
                         !!me &&
-                        <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+                        <div className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
                           <Button
                             iconSize='18px'
                             color='brand'

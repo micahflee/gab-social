@@ -44,7 +44,7 @@ class StatusContent extends ImmutablePureComponent {
         continue
       }
       link.classList.add('linked')
-      link.classList.add(_s.text, _s.colorBrand, _s.cursorPointer, _s.inherit)
+      link.classList.add(_s.text, _s.cBrand, _s.cursorPointer, _s.inherit)
 
       const mention = this.props.status.get('mentions').find(item => link.href === `${item.get('url')}`)
 
@@ -183,7 +183,7 @@ class StatusContent extends ImmutablePureComponent {
 
       if (hidden) {
         mentionsPlaceholder = (
-          <div className={[_s.statusContent, _s.default, _s.alignItemsStart, _s.flexRow, _s.flexWrap].join(' ')}>
+          <div className={[_s.statusContent, _s._, _s.aiStart, _s.flexRow, _s.flexWrap].join(' ')}>
             {mentionLinks}
           </div>
         )
@@ -192,7 +192,7 @@ class StatusContent extends ImmutablePureComponent {
       const toggleText = intl.formatMessage(hidden ? messages.show : messages.hide)
 
       const spoilerContainerClasses = cx({
-        default: 1,
+        _: 1,
         py10: 1,
         borderBottom1PX: !hidden,
         borderColorSecondary: !hidden,
@@ -224,8 +224,8 @@ class StatusContent extends ImmutablePureComponent {
         >
 
           <div className={spoilerContainerClasses}>
-            <div className={[_s.default, _s.flexRow, _s.mr5].join(' ')}>
-              <Icon id='warning' size='14px' className={[_s.colorPrimary, _s.mt2, _s.mr5].join(' ')}/>
+            <div className={[_s._, _s.flexRow, _s.mr5].join(' ')}>
+              <Icon id='warning' size='14px' className={[_s.cPrimary, _s.mt2, _s.mr5].join(' ')}/>
               <div
                 className={[_s.statusContent, _s.outlineNone].join(' ')}
                 dangerouslySetInnerHTML={spoilerContent}
@@ -233,7 +233,7 @@ class StatusContent extends ImmutablePureComponent {
               />
             </div>
 
-            <div className={[_s.default, _s.mt10, _s.alignItemsStart].join(' ')}>
+            <div className={[_s._, _s.mt10, _s.aiStart].join(' ')}>
               <Button
                 isNarrow
                 radiusSmall
@@ -271,8 +271,8 @@ class StatusContent extends ImmutablePureComponent {
       const statusContentClasses = cx({
         statusContent: 1,
         outlineNone: 1,
-        height215PX: collapsed & !isComment,
-        height122PX: collapsed && isComment,
+        h215PX: collapsed & !isComment,
+        h122PX: collapsed && isComment,
         overflowHidden: collapsed,
         mt5: isComment,
       })

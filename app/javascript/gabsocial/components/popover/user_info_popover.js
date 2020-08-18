@@ -38,30 +38,30 @@ class UserInfoPopover extends ImmutablePureComponent {
 
     return (
       <PopoverLayout width={280}>
-        <div className={[_s.default, _s.width100PC, _s.px15, _s.py15].join(' ')} id='user-info-popover'>
+        <div className={[_s._, _s.w100PC, _s.px15, _s.py15].join(' ')} id='user-info-popover'>
           
-          <div className={[_s.default, _s.flexRow].join(' ')}>
+          <div className={[_s._, _s.flexRow].join(' ')}>
             <NavLink
               to={to}
-              className={[_s.default, _s.noUnderline, _s.flexGrow1].join(' ')}
+              className={[_s._, _s.noUnderline, _s.flexGrow1].join(' ')}
             >
               <Avatar account={account} size={42} noHover />
               <DisplayName account={account} isMultiline noHover />
             </NavLink>
 
-            <div className={[_s.default, _s.mlAuto, _s.right0, _s.posAbs, _s.mt5].join(' ')}>
+            <div className={[_s._, _s.mlAuto, _s.right0, _s.posAbs, _s.mt5].join(' ')}>
               <AccountActionButton account={account} />
             </div>
           </div>
 
-          <div className={[_s.default, _s.mt10].join(' ')}>
+          <div className={[_s._, _s.mt10].join(' ')}>
             <div className={_s.dangerousContent} dangerouslySetInnerHTML={content} />
           </div>
 
-          <div className={[_s.default, _s.flexRow, _s.mt10].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.mt10].join(' ')}>
             <NavLink
               to={`${to}/followers`}
-              className={[_s.default, _s.flexRow, _s.mr10, _s.noUnderline, _s.colorPrimary, _s.underline_onHover].join(' ')}
+              className={[_s._, _s.flexRow, _s.mr10, _s.noUnderline, _s.cPrimary, _s.underline_onHover].join(' ')}
             >
               <Text weight='extraBold' color='primary'>
                 {shortNumberFormat(account.get('followers_count'))}&nbsp;
@@ -72,7 +72,7 @@ class UserInfoPopover extends ImmutablePureComponent {
             </NavLink>
             <NavLink
               to={`${to}/following`}
-              className={[_s.default, _s.flexRow, _s.noUnderline, _s.colorPrimary, _s.underline_onHover].join(' ')}
+              className={[_s._, _s.flexRow, _s.noUnderline, _s.cPrimary, _s.underline_onHover].join(' ')}
             >
               <Text weight='extraBold' color='primary'>
                 {shortNumberFormat(account.get('following_count'))}&nbsp;

@@ -34,7 +34,7 @@ class Input extends React.PureComponent {
     } = this.props
 
     const inputClasses = cx({
-      default: 1,
+      _: 1,
       text: 1,
       outlineNone: 1,
       lineHeight125: !small,
@@ -44,8 +44,8 @@ class Input extends React.PureComponent {
       py5: small,
       bgTransparent: !readOnly,
       bgSecondary: readOnly,
-      colorPrimary: !readOnly,
-      colorSecondary: readOnly,
+      cPrimary: !readOnly,
+      cSecondary: readOnly,
       fs15PX: !small,
       fs13PX: small,
       flexGrow1: 1,
@@ -65,16 +65,16 @@ class Input extends React.PureComponent {
       <React.Fragment>
         {
           !!title && !hideLabel &&
-          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
+          <div className={[_s._, _s.mb10, _s.pl15].join(' ')}>
             <Text htmlFor={id} size='small' weight='medium' color='secondary' tagName='label'>
               {title}
             </Text>
           </div>
         }
-        <div className={[_s.default, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.alignItemsCenter].join(' ')}>
+        <div className={[_s._, _s.flexGrow1, _s.bgPrimary, _s.border1PX, _s.borderColorSecondary, _s.flexRow, _s.circle, _s.aiCenter].join(' ')}>
           {
             !!prependIcon &&
-            <Icon id={prependIcon} size='16px' className={[_s.colorPrimary, _s.ml15, _s.mr5].join(' ')} />
+            <Icon id={prependIcon} size='16px' className={[_s.cPrimary, _s.ml15, _s.mr5].join(' ')} />
           }
 
           {

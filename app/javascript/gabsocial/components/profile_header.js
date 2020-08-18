@@ -69,9 +69,9 @@ class ProfileHeader extends ImmutablePureComponent {
 
     if (isXS && !account) {
       return (
-        <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
-          <div className={[_s.default, _s.z1, _s.width100PC, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
-            <div className={[_s.default, _s.width100PC].join(' ')}>
+        <div className={[_s._, _s.z1, _s.w100PC].join(' ')}>
+          <div className={[_s._, _s.z1, _s.w100PC, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+            <div className={[_s._, _s.w100PC].join(' ')}>
               <ProfileHeaderXSPlaceholder />
             </div>
           </div>
@@ -112,35 +112,35 @@ class ProfileHeader extends ImmutablePureComponent {
     const top = headerMissing ? -46 : -380
 
     const avatarContainerClasses = CX({
-      default: 1,
+      _: 1,
       circle: 1,
       mtNeg75PX: !headerMissing,
       boxShadowProfileAvatar: !headerMissing,
     })
 
     const stickyBarContainerClasses = CX({
-      default: 1,
+      _: 1,
       flexRow: 1,
       px15: 1,
-      alignItemsCenter: 1,
+      aiCenter: 1,
       displayNone: !stickied,
     })
 
     const tabBarContainerClasses = CX({
-      default: 1,
+      _: 1,
       displayNone: stickied,
     })
 
     const mobileAvatarContainerClasses = CX({
-      default: 1,
+      _: 1,
       circle: 1,
       boxShadowProfileAvatar: 1,
       mtNeg50PX: !headerMissing,
     })
 
     const mobileDescriptionContainerClasses = CX({
-      default: 1,
-      width100PC: 1,
+      _: 1,
+      w100PC: 1,
       px15: 1,
       mt5: !!me,
       mb10: 1,
@@ -149,34 +149,34 @@ class ProfileHeader extends ImmutablePureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.z1, _s.width100PC].join(' ')}>
+      <div className={[_s._, _s.z1, _s.w100PC].join(' ')}>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-          <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+          <div className={[_s._, _s.z1, _s.w100PC, _s.aiCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
 
-            <div className={[_s.default, _s.width100PC].join(' ')}>
+            <div className={[_s._, _s.w100PC].join(' ')}>
               {
                 !headerMissing &&
-                <div className={[_s.default, _s.height200PX, _s.px10, _s.width100PC, _s.mt10, _s.overflowHidden].join(' ')}>
+                <div className={[_s._, _s.h200PX, _s.px10, _s.w100PC, _s.mt10, _s.overflowHidden].join(' ')}>
                   <Image
                     alt={intl.formatMessage(messages.headerPhoto)}
-                    className={[_s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.height100PC].join(' ')}
+                    className={[_s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.h100PC].join(' ')}
                     src={headerSrc}
                   />
                 </div>
               }
               {
                 headerMissing &&
-                <div className={[_s.default, _s.height20PX, _s.width100PC].join(' ')} />
+                <div className={[_s._, _s.h20PX, _s.w100PC].join(' ')} />
               }
 
-              <div className={[_s.default, _s.width100PC].join(' ')}>
+              <div className={[_s._, _s.w100PC].join(' ')}>
 
-                <div className={[_s.default, _s.alignItemsCenter, _s.px15, _s.mb5].join(' ')}>
+                <div className={[_s._, _s.aiCenter, _s.px15, _s.mb5].join(' ')}>
                   <div className={mobileAvatarContainerClasses}>
                     <Avatar size={100} account={account} noHover />
                   </div>
 
-                  <div className={[_s.default, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
                     <DisplayName
                       account={account}
                       isMultiline
@@ -188,15 +188,15 @@ class ProfileHeader extends ImmutablePureComponent {
                 </div>
 
 
-                <div className={[_s.default, _s.bgPrimary, _s.alignItemsCenter].join(' ')}>
+                <div className={[_s._, _s.bgPrimary, _s.aiCenter].join(' ')}>
                   {
                     account && account.get('id') === me &&
-                    <div className={[_s.default,_s.py5].join(' ')}>
+                    <div className={[_s._,_s.py5].join(' ')}>
                       <Button
                         isOutline
                         backgroundColor='none'
                         color='brand'
-                        className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                        className={[_s.jcCenter, _s.aiCenter].join(' ')}
                         onClick={this.handleOnEditProfile}
                       >
                         <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
@@ -208,9 +208,9 @@ class ProfileHeader extends ImmutablePureComponent {
 
                   {
                     account && account.get('id') !== me && !!me &&
-                    <div className={[_s.default, _s.flexRow, _s.py5].join(' ')}>
+                    <div className={[_s._, _s.flexRow, _s.py5].join(' ')}>
                       
-                      <div className={[_s.default, _s.flexRow, _s.mr10].join(' ')}>
+                      <div className={[_s._, _s.flexRow, _s.mr10].join(' ')}>
                         <AccountActionButton account={account} />
                       </div>
 
@@ -222,7 +222,7 @@ class ProfileHeader extends ImmutablePureComponent {
                           iconClassName={_s.inheritFill}
                           color='brand'
                           backgroundColor='none'
-                          className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.px10].join(' ')}
+                          className={[_s.jcCenter, _s.aiCenter, _s.px10].join(' ')}
                           onClick={this.handleOpenMore}
                           buttonRef={this.setOpenMoreNodeRef}
                         />
@@ -235,7 +235,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     {children}
                   </div>
 
-                  <div className={[_s.default, _s.mt10, _s.mb10, _s.pt5, _s.width100PC, _s.pr10].join(' ')}>
+                  <div className={[_s._, _s.mt10, _s.mb10, _s.pt5, _s.w100PC, _s.pr10].join(' ')}>
                     <Pills pills={tabs} />
                   </div>
                 </div>
@@ -248,27 +248,27 @@ class ProfileHeader extends ImmutablePureComponent {
         { /** desktop */ }
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
           <Sticky top={top} enabled onStateChange={this.onStickyStateChange}>
-            <div className={[_s.default, _s.z1, _s.width100PC, _s.alignItemsCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
+            <div className={[_s._, _s.z1, _s.w100PC, _s.aiCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
 
-              <div className={[_s.default, _s.width1015PX].join(' ')}>
+              <div className={[_s._, _s.w1015PX].join(' ')}>
                 {
                   !headerMissing &&
-                  <div className={[_s.default, _s.height350PX, _s.width100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
+                  <div className={[_s._, _s.h350PX, _s.w100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
                     <Image
                       alt={intl.formatMessage(messages.headerPhoto)}
-                      className={_s.height100PC}
+                      className={_s.h100PC}
                       src={headerSrc}
                     />
                   </div>
                 }
                 {
                   headerMissing &&
-                  <div className={[_s.default, _s.height20PX, _s.width100PC].join(' ')} />
+                  <div className={[_s._, _s.h20PX, _s.w100PC].join(' ')} />
                 }
 
-                <div className={[_s.default, _s.width100PC].join(' ')}>
+                <div className={[_s._, _s.w100PC].join(' ')}>
 
-                  <div className={[_s.default, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
                     <div className={avatarContainerClasses}>
                       {
                         account &&
@@ -277,7 +277,7 @@ class ProfileHeader extends ImmutablePureComponent {
                       {
                         !account &&
                         <div
-                          className={[_s.default, _s.circle, _s.overflowHidden, _s.bgSecondary].join(' ')}
+                          className={[_s._, _s.circle, _s.overflowHidden, _s.bgSecondary].join(' ')}
                           style={{
                             width: `${avatarSize}px`,
                             height: `${avatarSize}px`,
@@ -286,32 +286,32 @@ class ProfileHeader extends ImmutablePureComponent {
                       }
                     </div>
 
-                    <div className={[_s.default, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
+                    <div className={[_s._, _s.flexRow, _s.px15, _s.flexNormal, _s.py10].join(' ')}>
                       <DisplayName account={account} isMultiline isLarge noHover />
                     </div>
                   </div>
 
 
-                  <div className={[_s.default, _s.flexRow, _s.bgPrimary, _s.height53PX].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.bgPrimary, _s.h53PX].join(' ')}>
                     <div className={tabBarContainerClasses}>
                       <TabBar tabs={tabs} isLarge />
                     </div>
 
                     <div className={stickyBarContainerClasses}>
                       <Avatar size={36} account={account} noHover />
-                      <div className={[_s.default, _s.ml10].join(' ')}>
+                      <div className={[_s._, _s.ml10].join(' ')}>
                         <DisplayName account={account} noUsername noRelationship noHover isLarge />
                       </div>
                     </div>
 
                     {
                       account && account.get('id') === me &&
-                      <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                      <div className={[_s._, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
                         <Button
                           isOutline
                           backgroundColor='none'
                           color='brand'
-                          className={[_s.justifyContentCenter, _s.alignItemsCenter].join(' ')}
+                          className={[_s.jcCenter, _s.aiCenter].join(' ')}
                           onClick={this.handleOnEditProfile}
                         >
                           <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
@@ -323,7 +323,7 @@ class ProfileHeader extends ImmutablePureComponent {
 
                     {
                       account && account.get('id') !== me &&
-                      <div className={[_s.default, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                      <div className={[_s._, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
                         {
                           !!me &&
                           <div>
@@ -334,14 +334,14 @@ class ProfileHeader extends ImmutablePureComponent {
                               iconClassName={_s.inheritFill}
                               color='brand'
                               backgroundColor='none'
-                              className={[_s.justifyContentCenter, _s.alignItemsCenter, _s.mr10, _s.px10].join(' ')}
+                              className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
                               onClick={this.handleOpenMore}
                               buttonRef={this.setOpenMoreNodeRef}
                             />
                           </div>
                         }
 
-                        <div className={[_s.default, _s.flexRow, _s.pb3].join(' ')}>
+                        <div className={[_s._, _s.flexRow, _s.pb3].join(' ')}>
                           <AccountActionButton account={account} />
                         </div>
 

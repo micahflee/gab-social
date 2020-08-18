@@ -6,7 +6,7 @@ export default class MediaGalleryPlaceholder extends React.PureComponent {
 
   render() {
     return (
-      <div className={[_s.default, _s.px5, _s.py5].join(' ')}>
+      <div className={[_s._, _s.px5, _s.py5].join(' ')}>
         <PlaceholderLayout viewBox='0 0 400 196'>
           <rect x='0' y='0' rx='0' ry='0' width='96' height='96' /> 
           <rect x='100' y='0' rx='0' ry='0' width='96' height='96' /> 

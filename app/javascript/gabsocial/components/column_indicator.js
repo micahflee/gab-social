@@ -12,7 +12,7 @@ class ColumnIndicator extends React.PureComponent {
     const title = type !== 'error' && !message ? intl.formatMessage(messages[type]) : message
 
     return (
-      <div className={[_s.default, _s.width100PC, _s.justifyContentCenter, _s.alignItemsCenter, _s.py15].join(' ')}>
+      <div className={[_s._, _s.w100PC, _s.jcCenter, _s.aiCenter, _s.py15].join(' ')}>
         <Icon id={type} size='30px' />
         {
           type !== 'loading' &&

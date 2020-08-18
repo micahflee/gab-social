@@ -23,15 +23,15 @@ class Pagination extends React.PureComponent {
     if (isNaN(count)) return
 
     return (
-      <ul className={[_s.default, _s.flexRow, _s.listStyleNone].join(' ')}>
+      <ul className={[_s._, _s.flexRow, _s.listStyleNone].join(' ')}>
         {
           Array.apply(null, {
             length: count
           }).map((_, i) => {
             const btnClasses = CX({
-              default: 1,
-              width10PX: 1,
-              height10PX: 1,
+              _: 1,
+              w10PX: 1,
+              h10PX: 1,
               outlineNone: 1,
               circle: 1,
               cursorPointer: 1,
@@ -43,7 +43,7 @@ class Pagination extends React.PureComponent {
             })
 
             return (
-              <li className={[_s.default, _s.px5].join(' ')} key={`pagination-${i}`}>
+              <li className={[_s._, _s.px5].join(' ')} key={`pagination-${i}`}>
                 <button
                   tabIndex='0'
                   className={btnClasses}

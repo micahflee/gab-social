@@ -27,11 +27,11 @@ class ProPanel extends React.PureComponent {
     if (isPro) return null
 
     const title = (
-      <span className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
-        <span className={[_s.default, _s.mr2].join(' ')}>
+      <span className={[_s._, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
+        <span className={[_s._, _s.mr2].join(' ')}>
           Upgrade to Gab
         </span>
-        <span className={[_s.bgPro, _s.colorBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
+        <span className={[_s.bgPro, _s.cBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
       </span>
     )
 
@@ -41,13 +41,13 @@ class ProPanel extends React.PureComponent {
         subtitle={intl.formatMessage(messages.text)}
       >
 
-        <div className={[_s.default, _s.flexRow, _s.pb5].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.pb5].join(' ')}>
           <Button
             isOutline
             color='brand'
             backgroundColor='none'
             href={URL_GAB_PRO}
-            className={[_s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter, _s.mr10].join(' ')}
+            className={[_s.flexRow, _s.aiCenter, _s.jcCenter, _s.mr10].join(' ')}
           >
             <Text color='inherit' weight='medium' align='center'>
               Learn more
@@ -55,12 +55,12 @@ class ProPanel extends React.PureComponent {
           </Button>
           <Button
             href={URL_GAB_PRO}
-            className={[_s.flexRow, _s.flexGrow1, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}
+            className={[_s.flexRow, _s.flexGrow1, _s.aiCenter, _s.jcCenter].join(' ')}
           >
             <Text color='inherit' size='large' weight='bold' align='center'>
               Upgrade
             </Text>
-            <Icon id='arrow-right' size='20px' className={[_s.colorWhite, _s.ml5].join(' ')} />
+            <Icon id='arrow-right' size='20px' className={[_s.cWhite, _s.ml5].join(' ')} />
           </Button>
         </div>
 

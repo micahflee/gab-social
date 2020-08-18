@@ -28,7 +28,7 @@ class Image extends React.PureComponent {
     const { error } = this.state
 
     const classes = cx(className, {
-      default: 1,
+      _: 1,
       objectFitCover: !!src && fit === 'cover',
       bgSecondary: !src,
     })

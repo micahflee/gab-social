@@ -8,7 +8,7 @@ export default class CommentPlaceholder extends React.PureComponent {
   
   render() {
     const classes = CX({
-      default: 1,
+      _: 1,
       px15: 1,
       py10: 1,
     })

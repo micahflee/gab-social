@@ -40,7 +40,7 @@ class BoostModal extends ImmutablePureComponent {
         onClose={onClose}
       >
       
-      <div className={[_s.default, _s.px15, _s.py10, _s.mt5].join(' ')}>
+      <div className={[_s._, _s.px15, _s.py10, _s.mt5].join(' ')}>
         <StatusContainer
           contextType='boost-modal'
           id={status.get('id')}
@@ -48,11 +48,11 @@ class BoostModal extends ImmutablePureComponent {
         />
       </div>
 
-        <div className={[_s.default, _s.justifyContentCenter, _s.px15, _s.mt5, _s.mb15].join(' ')}>
+        <div className={[_s._, _s.jcCenter, _s.px15, _s.mt5, _s.mb15].join(' ')}>
           <Text align='center'>
             {intl.formatMessage(messages.combo)}
           </Text>
-          <div className={[_s.default, _s.flexRow, _s.justifyContentCenter, _s.my10, _s.pt15, _s.pb5].join(' ')}>
+          <div className={[_s._, _s.flexRow, _s.jcCenter, _s.my10, _s.pt15, _s.pb5].join(' ')}>
             <Button onClick={this.handleRepost} buttonRef={this.setRef}>
               <Text color='inherit' className={_s.px15}>
                 {intl.formatMessage(buttonText)}

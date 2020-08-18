@@ -21,17 +21,17 @@ class SettingsLayout extends React.PureComponent {
     const { children, title } = this.props
 
     const mainBlockClasses = CX({
-      default: 1,
-      width1015PX: 1,
+      _: 1,
+      w1015PX: 1,
       flexRow: 1,
-      justifyContentEnd: 1,
+      jcEnd: 1,
       py15: 1,
       mlAuto: !me,
       mrAuto: !me,
     })
 
     return (
-      <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
+      <div className={[_s._, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
 
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           <WrappedBundle component={SidebarXS} />
@@ -42,27 +42,27 @@ class SettingsLayout extends React.PureComponent {
           noSearch
         />
 
-        <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.w100PC].join(' ')}>
 
           <Responsive min={BREAKPOINT_EXTRA_SMALL}>
             <SettingsSidebar title='Settings' />
           </Responsive>
 
           <ResponsiveClassesComponent
-            classNames={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
-            classNamesSmall={[_s.default, _s.flexShrink1, _s.flexGrow1].join(' ')}
-            classNamesXS={[_s.default, _s.width100PC].join(' ')}
+            classNames={[_s._, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesSmall={[_s._, _s.flexShrink1, _s.flexGrow1].join(' ')}
+            classNamesXS={[_s._, _s.w100PC].join(' ')}
           >
             <main role='main'>
 
               <ResponsiveClassesComponent
                 classNames={mainBlockClasses}
-                classNamesXS={[_s.default, _s.width1015PX, _s.justifyContentEnd, _s.pb15].join(' ')}
+                classNamesXS={[_s._, _s.w1015PX, _s.jcEnd, _s.pb15].join(' ')}
               >
 
-                <div className={[_s.default, _s.width1015PX, _s.z1].join(' ')}>
+                <div className={[_s._, _s.w1015PX, _s.z1].join(' ')}>
 
-                  <div className={_s.default}>
+                  <div className={_s._}>
                     {children}
                   </div>
                 </div>

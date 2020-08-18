@@ -71,7 +71,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
     if (noPanel) {
       return (
-        <div className={[_s.default].join(' ')}>
+        <div className={[_s._].join(' ')}>
           {
             !!group &&
             <React.Fragment>
@@ -87,12 +87,12 @@ class GroupInfoPanel extends ImmutablePureComponent {
               <Text className={[_s.mt10, _s.py2].join(' ')} color='secondary' size='small' align='center'>
                 {group.get('description')}
               </Text>
-              <div className={[_s.default, _s.mt10, _s.flexRow, _s.justifyContentCenter, _s.alignItemsCenter].join(' ')}>
+              <div className={[_s._, _s.mt10, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
                 <Text color='secondary' size='small' align='center'>
                   <Icon
                     id={isPrivate ? 'lock-filled' : 'globe'}
                     size='10px'
-                    className={_s.colorSecondary}
+                    className={_s.cSecondary}
                   />
                   <span className={_s.ml5}>
                     {intl.formatMessage(isPrivate ? messages.privateGroup : messages.publicGroup)}
@@ -190,7 +190,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
               <React.Fragment>
                 <Divider isSmall />
                 <GroupInfoPanelRow title={intl.formatMessage(messages.tags)} icon='shop'>
-                  <div className={[_s.default, _s.flexRow, _s.justifyContentEnd, _s.flexWrap, _s.pl5].join(' ')}>
+                  <div className={[_s._, _s.flexRow, _s.jcEnd, _s.flexWrap, _s.pl5].join(' ')}>
                     {
                       tags.map((tag) => (
                         <div className={[_s.mr5, _s.mb5].join(' ')}>
@@ -223,8 +223,8 @@ class GroupInfoPanelRow extends React.PureComponent {
     const { icon, title } = this.props
 
     return (
-      <div className={[_s.default, _s.flexRow, _s.py2].join(' ')}>
-        <div className={[_s.default, _s.flexRow, _s.justifyContentCenter].join(' ')}>
+      <div className={[_s._, _s.flexRow, _s.py2].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.jcCenter].join(' ')}>
           <Icon id={icon} size='16px' />
           <Text weight='bold' size='medium' className={_s.ml10}>
             {title}

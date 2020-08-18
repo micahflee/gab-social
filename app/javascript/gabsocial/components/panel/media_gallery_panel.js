@@ -70,7 +70,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
         headerButtonTitle={!!account ? intl.formatMessage(messages.show_all) : undefined}
         headerButtonTo={!!account ? `/${account.get('acct')}/media` : undefined}
       > 
-        <div className={[_s.default, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap, _s.px10, _s.py10].join(' ')}>
           {
             !!account && attachments.size > 0 &&
             attachments.slice(0, 16).map((attachment, i) => (
@@ -84,7 +84,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
           }
           {
             !account || (attachments.size === 0 && isLoading) &&
-            <div className={[_s.default, _s.width100PC].join(' ')}>
+            <div className={[_s._, _s.w100PC].join(' ')}>
               <MediaGalleryPanelPlaceholder />
             </div>
           }

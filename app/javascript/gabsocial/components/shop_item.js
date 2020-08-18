@@ -16,7 +16,7 @@ class ShopItem extends React.PureComponent {
 
     return (
       <a
-        className={[_s.default, _s.width50PC, _s.noUnderline, _s.overflowHidden, _s.cursorPointer, _s.pb15, _s.pr5].join(' ')}
+        className={[_s._, _s.w50PC, _s.noUnderline, _s.overflowHidden, _s.cursorPointer, _s.pb15, _s.pr5].join(' ')}
         target='_blank'
         rel={DEFAULT_REL}
         href={link}
@@ -24,7 +24,7 @@ class ShopItem extends React.PureComponent {
       >
         <Image
           src={image}
-          className={[_s.width100PC, _s.height122PX].join(' ')}
+          className={[_s.w100PC, _s.h122PX].join(' ')}
         />
 
         <Text

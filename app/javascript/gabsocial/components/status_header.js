@@ -44,7 +44,7 @@ class StatusHeader extends ImmutablePureComponent {
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
     const containerClasses = cx({
-      default: 1,
+      _: 1,
       px15: 1,
       py10: !reduced,
       pb10: reduced,
@@ -76,24 +76,24 @@ class StatusHeader extends ImmutablePureComponent {
 
     return (
       <div className={containerClasses}>
-        <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.mt5].join(' ')}>
 
           {
             !reduced &&
             <NavLink
               to={`/${status.getIn(['account', 'acct'])}`}
               title={status.getIn(['account', 'acct'])}
-              className={[_s.default, _s.mr10].join(' ')}
+              className={[_s._, _s.mr10].join(' ')}
             >
               <Avatar account={status.get('account')} size={avatarSize} />
             </NavLink>
           }
 
-          <div className={[_s.default, _s.alignItemsStart, _s.flexGrow1, _s.mt5].join(' ')}>
+          <div className={[_s._, _s.aiStart, _s.flexGrow1, _s.mt5].join(' ')}>
 
-            <div className={[_s.default, _s.flexRow, _s.width100PC, _s.alignItemsStart].join(' ')}>
+            <div className={[_s._, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
               <NavLink
-                className={[_s.default, _s.flexRow, _s.alignItemsStart, _s.noUnderline].join(' ')}
+                className={[_s._, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
                 to={`/${status.getIn(['account', 'acct'])}`}
                 title={status.getIn(['account', 'acct'])}
               >
@@ -108,7 +108,7 @@ class StatusHeader extends ImmutablePureComponent {
                   color='none'
                   icon='ellipsis'
                   iconSize='20px'
-                  iconClassName={_s.colorSecondary}
+                  iconClassName={_s.cSecondary}
                   className={_s.mlAuto}
                   onClick={this.handleOpenStatusOptionsPopover}
                   buttonRef={this.setStatusOptionsButton}
@@ -116,7 +116,7 @@ class StatusHeader extends ImmutablePureComponent {
               }
             </div>
 
-            <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.lineHeight15].join(' ')}>
+            <div className={[_s._, _s.flexRow, _s.aiCenter, _s.lineHeight15].join(' ')}>
               <Button
                 isText
                 underlineOnHover
@@ -131,8 +131,8 @@ class StatusHeader extends ImmutablePureComponent {
 
               <DotTextSeperator />
               
-              <span title={visibilityText} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
-                <Icon id={visibilityIcon} size='12px' className={[_s.default, _s.colorSecondary].join(' ')} />
+              <span title={visibilityText} className={[_s._, _s.displayInline, _s.ml5].join(' ')}>
+                <Icon id={visibilityIcon} size='12px' className={[_s._, _s.cSecondary].join(' ')} />
               </span>
 
               {
@@ -141,8 +141,8 @@ class StatusHeader extends ImmutablePureComponent {
                   <DotTextSeperator />
                   <span title={intl.formatMessage(messages.expirationMessage, {
                     time: timeUntilExpiration,
-                  })} className={[_s.default, _s.displayInline, _s.ml5].join(' ')}>
-                    <Icon id='stopwatch' size='13px' className={[_s.default, _s.colorSecondary].join(' ')} />
+                  })} className={[_s._, _s.displayInline, _s.ml5].join(' ')}>
+                    <Icon id='stopwatch' size='13px' className={[_s._, _s.cSecondary].join(' ')} />
                   </span>
                 </React.Fragment>
               }

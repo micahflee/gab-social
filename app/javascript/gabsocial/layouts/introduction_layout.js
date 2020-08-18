@@ -13,15 +13,15 @@ export default class IntroductionLayout extends React.PureComponent {
 
   render() {
     return (
-      <div className={[_s.default, _s.width100PC, _s.heightMin100VH, _s.bgTertiary].join(' ')}>
+      <div className={[_s._, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
 
-        <div className={[_s.default, _s.z4, _s.heightMin53PX, _s.width100PC].join(' ')}>
-          <div className={[_s.default, _s.heightMin53PX, _s.bgNavigation, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
-            <div className={[_s.default, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.width1255PX].join(' ')}>
-              <div className={[_s.default, _s.flexRow].join(' ')}>
+        <div className={[_s._, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
+          <div className={[_s._, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+            <div className={[_s._, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.w1255PX].join(' ')}>
+              <div className={[_s._, _s.flexRow].join(' ')}>
 
-                <h1 className={[_s.default, _s.mr15].join(' ')}>
-                  <div className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.px10, _s.mr15].join(' ')}>
+                <h1 className={[_s._, _s.mr15].join(' ')}>
+                  <div className={[_s._, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.px10, _s.mr15].join(' ')}>
                     <Icon id='logo' className={_s.fillNavigationBrand} />
                   </div>
                 </h1>
@@ -31,12 +31,12 @@ export default class IntroductionLayout extends React.PureComponent {
           </div>
         </div>
 
-        <div className={[_s.default, _s.flexRow, _s.width100PC].join(' ')}>
-          <div className={[_s.default, _s.width100PC].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.w100PC].join(' ')}>
+          <div className={[_s._, _s.w100PC].join(' ')}>
             <main role='main'>
-              <div className={[_s.default, _s.alignItemsCenter, _s.py15, _s.px15, _s.mlAuto, _s.mrAuto].join(' ')}>
+              <div className={[_s._, _s.aiCenter, _s.py15, _s.px15, _s.mlAuto, _s.mrAuto].join(' ')}>
 
-                <div className={[_s.default, _s.width645PX, _s.maxWidth100PC42PX].join(' ')}>
+                <div className={[_s._, _s.w645PX, _s.maxW100PC42PX].join(' ')}>
                   <Block>
                     <Bundle fetchComponent={Introduction} error={this.renderError}>
                       {Component => (<Component />)}

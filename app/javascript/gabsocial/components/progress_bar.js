@@ -20,15 +20,15 @@ class ProgressBar extends React.PureComponent {
     }
 
     const containerClassName = CX({
-      default: 1,
+      _: 1,
       bgLoading: !small,
       bgSecondary: small,
       noUnderline: 1,
       circle: 1,
       overflowHidden: 1,
       cursorPointer: 1,
-      height22PX: !small,
-      height4PX: small,
+      h22PX: !small,
+      h4PX: small,
     })
 
     return (
@@ -37,8 +37,8 @@ class ProgressBar extends React.PureComponent {
         noClasses
         className={containerClassName}
       >
-        <div className={[_s.default, _s.bgBrand, _s.circle, _s.height100PC, _s.backgroundCandy].join(' ')} style={style} />
-        <div className={[_s.default, _s.posAbs,  _s.width100PC, _s.height100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+        <div className={[_s._, _s.bgBrand, _s.circle, _s.h100PC, _s.backgroundCandy].join(' ')} style={style} />
+        <div className={[_s._, _s.posAbs,  _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
           {
             !!title &&
             <Text size='small' weight='bold' color='white' className={_s.textShadow}>

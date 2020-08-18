@@ -10,7 +10,7 @@ class Block extends React.PureComponent {
     const { children } = this.props
 
     return (
-      <div className={[_s.default, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}>
+      <div className={[_s._, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}>
         {children}
       </div>
     )

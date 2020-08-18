@@ -56,22 +56,22 @@ class GroupListItem extends ImmutablePureComponent {
     }
     
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       overflowHidden: 1,
       bgSubtle_onHover: 1,
       borderColorSecondary: 1,
       borderBottom1PX: !isLast,
       flexRow: 1,
       py5: 1,
-      width100PC: 1,
+      w100PC: 1,
     })
 
     const containerLinkClasses = CX({
-      default: 1,
+      _: 1,
       flexRow: 1,
       noUnderline: 1,
-      width100PC: 1,
-      maxWidth100PC86PX: isAddable,
+      w100PC: 1,
+      maxW100PC86PX: isAddable,
     })
 
     const coverSrc = group.get('cover_image_url') || ''
@@ -94,11 +94,11 @@ class GroupListItem extends ImmutablePureComponent {
             <Image
               src={coverSrc}
               alt={group.get('title')}
-              className={[_s.radiusSmall, _s.height53PX, _s.width84PX, _s.ml15].join(' ')}
+              className={[_s.radiusSmall, _s.h53PX, _s.w84PX, _s.ml15].join(' ')}
             />
           }
 
-          <div className={[_s.default, _s.px10, _s.mt5, _s.flexShrink1].join(' ')}>
+          <div className={[_s._, _s.px10, _s.mt5, _s.flexShrink1].join(' ')}>
             <Text color='brand' weight='bold'>
               {group.get('title')}
             </Text>
@@ -113,13 +113,13 @@ class GroupListItem extends ImmutablePureComponent {
         </Wrapper>
         {
           isAddable &&
-          <div className={[_s.default, _s.justifyContentCenter, _s.flexGrow1].join(' ')}>
+          <div className={[_s._, _s.jcCenter, _s.flexGrow1].join(' ')}>
             {
               relationships &&
               <Button
                 isNarrow
                 color='white'
-                className={[_s.px10, _s.width76PX].join(' ')}
+                className={[_s.px10, _s.w76PX].join(' ')}
                 backgroundColor={addButtonColor}
                 onClick={this.handleOnToggleMembership}
                 onMouseEnter={this.handleOnMouseEnter}

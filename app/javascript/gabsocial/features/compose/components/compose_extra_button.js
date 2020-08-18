@@ -20,7 +20,7 @@ class ComposeExtraButton extends React.PureComponent {
     } = this.props
 
     const btnClasses = cx({
-      default: 1,
+      _: 1,
       circle: 1,
       noUnderline: 1,
       font: 1,
@@ -38,8 +38,8 @@ class ComposeExtraButton extends React.PureComponent {
     })
 
     const iconClasses = cx({
-      colorSecondary: !active,
-      colorWhite: active,
+      cSecondary: !active,
+      cWhite: active,
     })
 
     const iconSize = !!small ? '14px' : '16px'
@@ -64,7 +64,7 @@ class ComposeExtraButton extends React.PureComponent {
     }
 
     return (
-      <div className={[_s.default, _s.mr2].join(' ')} ref={buttonRef}>
+      <div className={[_s._, _s.mr2].join(' ')} ref={buttonRef}>
         {button}
         {children}
       </div>

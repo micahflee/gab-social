@@ -30,13 +30,13 @@ class BackButton extends React.PureComponent {
     } = this.props
 
     const classes = CX(className, {
-       alignItemsCenter: 1,
+       aiCenter: 1,
        bgTransparent: 1,
        mr5: 1,
        cursorPointer: 1,
        outlineNone: 1,
-       default: 1,
-       justifyContentCenter: 1,
+       _: 1,
+       jcCenter: 1,
     })
 
     return (
@@ -47,7 +47,7 @@ class BackButton extends React.PureComponent {
         className={classes}
         icon={icon || 'angle-left'}
         iconSize={iconSize || '24px'}
-        iconClassName={iconClassName || [_s.mr5, _s.colorPrimary].join(' ')}
+        iconClassName={iconClassName || [_s.mr5, _s.cPrimary].join(' ')}
         onClick={this.handleBackClick}
       />
     )

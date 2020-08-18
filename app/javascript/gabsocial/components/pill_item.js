@@ -46,11 +46,11 @@ class PillItem extends React.PureComponent {
     const active = isActive || (to === location.pathname && !location.search) || isCurrent
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       noUnderline: 1,
       text: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       py5: 1,
       outlineNone: 1,
       cursorPointer: 1,
@@ -63,10 +63,10 @@ class PillItem extends React.PureComponent {
     })
 
     const textParentClasses = CX({
-      default: 1,
-      height100PC: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      _: 1,
+      h100PC: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       py2: 1,
       px15: 1,
     })

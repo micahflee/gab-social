@@ -416,14 +416,14 @@ class Status extends ImmutablePureComponent {
     })
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       radiusSmall: !isChild,
       bgPrimary: !isChild,
       boxShadowBlock: !isChild,
     })
 
     const containerClassesXS = CX({
-      default: 1,
+      _: 1,
       bgPrimary: !isChild,
       boxShadowBlock: !isChild,
       borderTop1PX: !isChild,
@@ -431,7 +431,7 @@ class Status extends ImmutablePureComponent {
     })
 
     const innerContainerClasses = CX({
-      default: 1,
+      _: 1,
       overflowHidden: 1,
       radiusSmall: isChild,
       borderColorSecondary: isChild,
@@ -465,7 +465,7 @@ class Status extends ImmutablePureComponent {
             classNamesXS={containerClassesXS}
           >
             <div
-              className={[_s.default, _s.outlineNone].join(' ')}
+              className={[_s._, _s.outlineNone].join(' ')}
               tabIndex={this.props.isMuted ? null : 0}
               data-featured={isFeatured ? 'true' : null}
               aria-label={textForScreenReader(intl, status, rebloggedByText)}
@@ -488,7 +488,7 @@ class Status extends ImmutablePureComponent {
                     reduced={isChild}
                   />
 
-                  <div className={_s.default}>
+                  <div className={_s._}>
                     <StatusContent
                       status={status}
                       reblogContent={reblogContent}
@@ -514,14 +514,14 @@ class Status extends ImmutablePureComponent {
 
                   {
                     (!!status.get('quote') || status.get('has_quote')) && !isChild &&
-                    <div className={[_s.default, _s.mt10, _s.px10].join(' ')}>
+                    <div className={[_s._, _s.mt10, _s.px10].join(' ')}>
                       {
                         !!status.get('quoted_status') &&
                         <Status status={status.get('quoted_status')} isChild intl={intl} />
                       }
                       {
                         !status.get('quoted_status') &&
-                        <div className={[_s.default, _s.border1PX, _s.bgSubtle, _s.radiusSmall, _s.py15, _s.px15, _s.borderColorSecondary].join(' ')}>
+                        <div className={[_s._, _s.border1PX, _s.bgSubtle, _s.radiusSmall, _s.py15, _s.px15, _s.borderColorSecondary].join(' ')}>
                           <Text color='tertiary' size='medium'>The quoted gab is unavailable.</Text>
                         </div>
                       }
@@ -545,8 +545,8 @@ class Status extends ImmutablePureComponent {
                   {
                     !isChild && !!me &&
                     <ResponsiveClassesComponent
-                      classNames={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}
-                      classNamesXS={[_s.default, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px10, _s.mb10].join(' ')}
+                      classNames={[_s._, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}
+                      classNamesXS={[_s._, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px10, _s.mb10].join(' ')}
                     >
                       <ComposeFormContainer replyToId={status.get('id')} shouldCondense />
                     </ResponsiveClassesComponent>
@@ -555,7 +555,7 @@ class Status extends ImmutablePureComponent {
                   {
                     status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
                     <React.Fragment>
-                      <div className={[_s.default, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+                      <div className={[_s._, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 
                       <SortBlock
                         value={sortByTitle}

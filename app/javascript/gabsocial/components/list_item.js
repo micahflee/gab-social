@@ -35,7 +35,7 @@ class ListItem extends React.PureComponent {
 
     if (!title) {
       return (
-        <div className={[_s.default, _s.bgSecondary, _s.width100PC, _s.height4PX].join(' ')} />
+        <div className={[_s._, _s.bgSecondary, _s.w100PC, _s.h4PX].join(' ')} />
       )
     }
 
@@ -56,7 +56,7 @@ class ListItem extends React.PureComponent {
     const showActive = isActive !== undefined
 
     const containerClasses = cx({
-      default: 1,
+      _: 1,
       cursorPointer: 1,
       noUnderline: 1,
       px15: !small,
@@ -64,8 +64,8 @@ class ListItem extends React.PureComponent {
       px10: small,
       py10: small,
       flexRow: 1,
-      alignItemsCenter: 1,
-      width100PC: 1,
+      aiCenter: 1,
+      w100PC: 1,
       outlineNone: 1,
       bgTransparent: 1,
       bgSubtle_onHover: 1,
@@ -76,14 +76,14 @@ class ListItem extends React.PureComponent {
     const iconClasses = cx({
       mr10: !large,
       mr15: large,
-      colorPrimary: !!icon,
+      cPrimary: !!icon,
       circle: !icon && !!image,
     })
 
     const textContainerClasses = cx({
-      default: 1,
+      _: 1,
       pr5: 1,
-      maxWidth100PC42PX: !hideArrow || showActive,
+      maxW100PC42PX: !hideArrow || showActive,
     })
 
     return (
@@ -132,7 +132,7 @@ class ListItem extends React.PureComponent {
           <Icon
             id={!!actionIcon ? actionIcon : 'angle-right'}
             size='10px'
-            className={[_s.mlAuto, _s.colorSecondary, _s.flexShrink1].join(' ')}
+            className={[_s.mlAuto, _s.cSecondary, _s.flexShrink1].join(' ')}
           />
         }
 

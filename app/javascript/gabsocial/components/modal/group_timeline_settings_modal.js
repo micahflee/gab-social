@@ -20,7 +20,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           {intl.formatMessage(messages.benefits)}
         </Text>
 
-        <div className={[_s.default, _s.my10].join(' ')}>
+        <div className={[_s._, _s.my10].join(' ')}>
           <Text>• Schedule Posts</Text>
           <Text>• Get Verified</Text>
           <Text>• Create Groups</Text>
@@ -34,8 +34,8 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
           color='white'
           icon='pro'
           href='https://pro.gab.com'
-          className={_s.justifyContentCenter}
-          iconClassName={[_s.mr5, _s.colorWhite].join(' ')}
+          className={_s.jcCenter}
+          iconClassName={[_s.mr5, _s.cWhite].join(' ')}
         >
           <Text color='inherit' weight='bold' align='center'>
             {intl.formatMessage(messages.title)}

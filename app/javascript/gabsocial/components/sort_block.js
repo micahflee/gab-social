@@ -32,7 +32,7 @@ class SortBlock extends React.PureComponent {
     } = this.props
 
     return (
-      <div className={[_s.default, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
+      <div className={[_s._, _s.px15, _s.py5, _s.mb5, _s.flexRow].join(' ')}>
         <Text color='secondary' size='small'>
           {intl.formatMessage(messages.sortBy)}
         </Text>
@@ -40,20 +40,20 @@ class SortBlock extends React.PureComponent {
           isText
           backgroundColor='none'
           color='secondary'
-          className={[_s.ml5, _s.flexRow, _s.alignItemsCenter].join(' ')}
+          className={[_s.ml5, _s.flexRow, _s.aiCenter].join(' ')}
           buttonRef={this.setValueBtnRef}
           onClick={this.handleOnClickValue}
         >
           <Text color='inherit' weight='medium' size='small'>
             {value}
           </Text>
-          <Icon id='caret-down' size='6px' className={[_s.colorSecondary, _s.ml5].join(' ')} />
+          <Icon id='caret-down' size='6px' className={[_s.cSecondary, _s.ml5].join(' ')} />
         </Button>
 
         {
           !!subValue &&
           <React.Fragment>
-            <div className={[_s.default, _s.px5].join(' ')}>
+            <div className={[_s._, _s.px5].join(' ')}>
               <DotTextSeperator />
             </div>
 
@@ -61,14 +61,14 @@ class SortBlock extends React.PureComponent {
               isText
               backgroundColor='none'
               color='secondary'
-              className={[_s.ml5, _s.flexRow, _s.alignItemsCenter].join(' ')}
+              className={[_s.ml5, _s.flexRow, _s.aiCenter].join(' ')}
               buttonRef={this.setSubValueBtnRef}
               onClick={this.handleOnClickSubValue}
             >
               <Text color='inherit' weight='medium' size='small'>
                 {subValue}
               </Text>
-              <Icon id='caret-down' size='6px' className={[_s.colorSecondary, _s.ml5].join(' ')} />
+              <Icon id='caret-down' size='6px' className={[_s.cSecondary, _s.ml5].join(' ')} />
             </Button>
           </React.Fragment>
         }

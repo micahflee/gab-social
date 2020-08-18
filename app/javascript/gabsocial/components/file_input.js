@@ -41,10 +41,10 @@ class FileInput extends React.PureComponent {
     const { file, hovering } = this.state
 
     const containerClasses = CX(className, {
-      default: 1,
-      alignItemsCenter: 1,
+      _: 1,
+      aiCenter: 1,
       cursorPointer: 1,
-      justifyContentCenter: 1,
+      jcCenter: 1,
       overflowHidden: true,
       radiusSmall: isBordered,
       px10: isBordered,
@@ -55,8 +55,8 @@ class FileInput extends React.PureComponent {
     })
 
     const iconClasses = CX({
-      colorSecondary: !hovering,
-      colorWhite: hovering,
+      cSecondary: !hovering,
+      cWhite: hovering,
     })
 
     return (
@@ -66,7 +66,7 @@ class FileInput extends React.PureComponent {
       >
         {
           !!title &&
-          <div className={[_s.default, _s.mb10, _s.pl15].join(' ')}>
+          <div className={[_s._, _s.mb10, _s.pl15].join(' ')}>
             <Text size='small' weight='medium' color='secondary'>
               {title}
             </Text>
@@ -83,12 +83,12 @@ class FileInput extends React.PureComponent {
         >
           <Image
             alt={title || id}
-            className={[_s.height100PC, _s.width100PC].join(' ')}
+            className={[_s.h100PC, _s.w100PC].join(' ')}
             src={fileType === 'image' ? file : null}
           />
           {
             (!file || hovering) &&
-            <div className={[_s.default, _s.posAbs, _s.cursorPointer, _s.top0, _s.bottom0, _s.left0, _s.right0, _s.alignItemsCenter, _s.justifyContentCenter, _s.bgBlackOpaquest_onHover].join(' ')}>
+            <div className={[_s._, _s.posAbs, _s.cursorPointer, _s.top0, _s.bottom0, _s.left0, _s.right0, _s.aiCenter, _s.jcCenter, _s.bgBlackOpaquest_onHover].join(' ')}>
               <Icon id='add-image' size='32px' className={iconClasses} />
             </div>
           }

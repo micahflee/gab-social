@@ -66,7 +66,7 @@ class Search extends ImmutablePureComponent {
       return (
         <ResponsiveClassesComponent classNamesXS={_s.px10}>
           <Block>
-            <div className={[_s.default, _s.py15, _s.px15].join(' ')}>
+            <div className={[_s._, _s.py15, _s.px15].join(' ')}>
               <Text>Type in the box above and submit to perform a search.</Text>
             </div>
           </Block>
@@ -97,7 +97,7 @@ class Search extends ImmutablePureComponent {
           footerButtonTitle={isMax ? undefined : 'See more'}
           noPadding
         >
-          <div className={[_s.default, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
             <Text color='tertiary' size='small'>
               Showing {size} of {results.get('accounts').size} results
             </Text>
@@ -129,12 +129,12 @@ class Search extends ImmutablePureComponent {
           footerButtonTitle={isMax ? undefined : 'See more'}
           noPadding
         >
-          <div className={[_s.default, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
             <Text color='tertiary' size='small'>
               Showing {size} of {results.get('groups').size} results
             </Text>
           </div>
-          <div className={_s.default}>
+          <div className={_s._}>
             {
               results.get('groups').slice(0, size).map((group, i) => (
                 <GroupListItem
@@ -162,7 +162,7 @@ class Search extends ImmutablePureComponent {
           footerButtonTitle={isMax ? undefined : 'See more'}
           noPadding
         >
-          <div className={[_s.default, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s._, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
             <Text color='tertiary' size='small'>
               Showing {size} of {results.get('hashtags').size} results
             </Text>

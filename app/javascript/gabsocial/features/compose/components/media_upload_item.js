@@ -81,7 +81,7 @@ class Upload extends ImmutablePureComponent {
     const description = this.state.dirtyDescription || (this.state.dirtyDescription !== '' && media.get('description')) || ''
 
     const descriptionContainerClasses = cx({
-      default: 1,
+      _: 1,
       posAbs: 1,
       right0: 1,
       bottom0: 1,
@@ -96,20 +96,20 @@ class Upload extends ImmutablePureComponent {
     return (
       <div
         tabIndex='0'
-        className={[_s.default, _s.width50PC, _s.px5, _s.py5].join(' ')}
+        className={[_s._, _s.w50PC, _s.px5, _s.py5].join(' ')}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleClick}
         role='button'
       >
-        <div className={[_s.default, _s.radiusSmall, _s.overflowHidden, _s.height158PX].join(' ')}>
+        <div className={[_s._, _s.radiusSmall, _s.overflowHidden, _s.h158PX].join(' ')}>
           <Image
-            className={[_s.default, _s.height158PX].join(' ')}
+            className={[_s._, _s.h158PX].join(' ')}
             src={media.get('preview_url')}
           />
           {
             media.get('type') === 'gifv' &&
-            <div className={[_s.default, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.ml10, _s.mt10, _s.top0, _s.left0].join(' ')}>
+            <div className={[_s._, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.ml10, _s.mt10, _s.top0, _s.left0].join(' ')}>
               <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
             </div>
           }

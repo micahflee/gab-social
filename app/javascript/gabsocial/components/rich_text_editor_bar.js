@@ -92,7 +92,7 @@ class RichTextEditorBar extends React.PureComponent {
     if (!rteControlsVisible || !isPro) return null
 
     return (
-      <div className={[_s.default, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.alignItemsCenter, _s.flexRow].join(' ')}>
+      <div className={[_s._, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.py5, _s.px15, _s.aiCenter, _s.flexRow].join(' ')}>
         {
           RTE_ITEMS.map((item, i) => (
             <StyleButton
@@ -149,10 +149,10 @@ class StyleButton extends React.PureComponent {
     const blockType = editorState.getCurrentContent().getBlockForKey(selection.getStartKey()).getType()
 
     const active = type === 'block' ? style === blockType : currentStyle.has(style)
-    const iconColor = active ? 'colorWhite' : 'colorSecondary'
+    const iconColor = active ? 'cWhite' : 'cSecondary'
 
     const btnClasses = cx({
-      default: 1,
+      _: 1,
       noUnderline: 1,
       cursorPointer: 1,
       px10: 1,

@@ -72,7 +72,7 @@ const findWithRegex = (regex, contentBlock, callback) => {
 const HighlightedSpan = (props) => {
   return (
     <span
-      className={_s.colorBrand}
+      className={_s.cBrand}
       data-offset-key={props.offsetKey}
     >
       {props.children}
@@ -238,10 +238,10 @@ class Composer extends React.PureComponent {
     const { editorState } = this.state
 
     const editorContainerClasses = cx({
-      default: 1,
+      _: 1,
       cursorText: 1,
       text: 1,
-      colorPrimary: 1,
+      cPrimary: 1,
       fs16PX: !small,
       fs14PX: small,
       pt15: !small,
@@ -251,7 +251,7 @@ class Composer extends React.PureComponent {
     })
 
     return (
-      <div className={_s.default}>
+      <div className={_s._}>
 
         {
           !small && isPro &&

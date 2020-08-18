@@ -18,8 +18,8 @@ class UnauthorizedModal extends ImmutablePureComponent {
         onClose={onClose}
         width={480}
       >
-        <div className={[_s.default, _s.mt15, _s.mb15, _s.px15, _s.pb15].join(' ')}>
-          <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
+        <div className={[_s._, _s.mt15, _s.mb15, _s.px15, _s.pb15].join(' ')}>
+          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
             <Text className={[_s.px15, _s.py15, _s.mb15]} size='medium' weight='medium' align='center'>
               {intl.formatMessage(messages.text)}
             </Text>

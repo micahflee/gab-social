@@ -294,7 +294,7 @@ class GroupCreate extends ImmutablePureComponent {
 
 				<Divider isInvisible />			
 
-				<div className={_s.default}>
+				<div className={_s._}>
 					<Text className={[_s.pl15, _s.mb10].join(' ')} size='small' weight='medium' color='secondary'>
 						{intl.formatMessage(messages.categoryTitle)}
 					</Text>

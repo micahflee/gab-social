@@ -19,11 +19,11 @@ class NavigationBarButton extends React.PureComponent {
     const active = false
 
     const classes = CX({
-      default: 1,
-      height53PX: 1,
+      _: 1,
+      h53PX: 1,
       flexRow: 1,
-      alignItemsCenter: 1,
-      justifyContentCenter: 1,
+      aiCenter: 1,
+      jcCenter: 1,
       outlineNone: 1,
       cursorPointer: 1,
       bgTransparent: 1,
@@ -31,9 +31,9 @@ class NavigationBarButton extends React.PureComponent {
       colorNavigation: 1,
       px10: !!title,
       px5: !title,
-      colorWhite: !!title,
+      cWhite: !!title,
       fs13PX: !!title,
-      fontWeightNormal: !!title,
+      fw400: !!title,
     })
 
     const iconClasses = CX({

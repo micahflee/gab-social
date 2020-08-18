@@ -17,8 +17,8 @@ class UploadForm extends ImmutablePureComponent {
     } = this.props
 
     return (
-      <div className={_s.default}>
-        <div className={[_s.default, _s.flexRow, _s.flexWrap].join(' ')}>
+      <div className={_s._}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap].join(' ')}>
           {
             mediaIds.map(id => (
               <Upload id={id} key={id} />

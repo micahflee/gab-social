@@ -19,8 +19,8 @@ export default class LoadingPopover extends React.PureComponent {
         isXS={isXS}
         onClose={this.props.onClose}
       >
-          <div className={[_s.default, _s.px15, _s.py15, _s.mt15, _s.mb15].join(' ')}>
-            <div className={[_s.default, _s.px15, _s.py15, _s.mt15, _s.mb15, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
+          <div className={[_s._, _s.px15, _s.py15, _s.mt15, _s.mb15].join(' ')}>
+            <div className={[_s._, _s.px15, _s.py15, _s.mt15, _s.mb15, _s.aiCenter, _s.jcCenter].join(' ')}>
               <ColumnIndicator type='loading' />
             </div>
           </div>

@@ -10,9 +10,9 @@ export default class TermsOfService extends React.PureComponent {
   render() {
 
     return (
-      <div className={[_s.default].join(' ')}>
+      <div className={[_s._].join(' ')}>
         <Block>
-          <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
             <Heading>GAB AI INC</Heading>
             <br />
             <Heading>Website Terms of Service</Heading>
@@ -165,7 +165,7 @@ export default class TermsOfService extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>You are responsible for both:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Making all arrangements necessary for you to have access to the Website.</Text>
               </li>
@@ -208,7 +208,7 @@ export default class TermsOfService extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>The Website and its entire contents, features, and functionality (including but not limited to all information, software, text, displays, images, video, and audio, and the design, selection, and arrangement thereof) are owned by the Company, its licensors, or other providers of such material and are protected by United States and international copyright, trademark, patent, trade secret, and other intellectual property or proprietary rights laws. A copy of the Gab Social social networking software (“Gab Social”) and the AGPL license applicable thereto may be found at our public repository.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>These Terms of Service permit you to use the Website for your personal, non-commercial use only. You must not reproduce, distribute, modify, create derivative works of, publicly display, publicly perform, republish, download, store, or transmit any of the material on our Website, except as follows:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>You may use Gab Social software subject to the terms of the Affero GPL License, Version 3.</Text>
               </li>
@@ -231,7 +231,7 @@ export default class TermsOfService extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>You must not:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Modify copies of any materials from this site.</Text>
               </li>
@@ -251,7 +251,7 @@ export default class TermsOfService extends React.PureComponent {
             <Heading size='h2'>Prohibited Uses</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>You may use the Website only for lawful purposes and in accordance with these Terms of Service. You agree not to use the Website:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>In any way that would violate any applicable federal, state, or local law of the United States of America (including, without limitation, any laws regarding the export of data or software to and from the US or other countries) and is not protected by the First Amendment to the U.S. Constitution (the “First Amendment”).</Text>
               </li>
@@ -274,7 +274,7 @@ export default class TermsOfService extends React.PureComponent {
 
             <Text tagName='p' className={_s.mt15} size='medium'>Additionally, you agree not to:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Use the Website in any manner that could disable, overburden, damage, or impair the site or interfere with any other party’s use of the Website, including their ability to engage in real time activities through the Website.</Text>
               </li>
@@ -307,7 +307,7 @@ export default class TermsOfService extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>All User Contributions must comply with the Content Standards set out in these Terms of Service. Any User Contribution you post to the site will be considered non-confidential and non-proprietary. By providing any User Contribution on the Website, you grant us and our affiliates and service providers, and each of their and our licensees, successors, and assigns an irrevocable, perpetual, royalty-free right to use, republish, reproduce, modify, perform, display, distribute, and otherwise disclose to third parties any such material for any purpose.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>You represent and warrant that:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>You own or control all rights in and to the User Contributions and have the right to grant the license granted above to us and our affiliates and service providers, and each of their and our respective licensees, successors, and assigns.</Text>
               </li>
@@ -324,7 +324,7 @@ export default class TermsOfService extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>We strive to ensure that the First Amendment remains the Website’s standard for content moderation. We will make best efforts to ensure that all content moderation decisions and enforcement of these terms of service does not punish users for exercising their God-given right to speak freely.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>We collect comparatively little data on our users relative to other social networking sites. Our default position is that we should implement no prior restraints on any User Contribution. However, given the breadth of speech we permit, there may be circumstances where we are unable to determine whether content is protected by the First Amendment or not and prudence may require us to err on the side of caution. Accordingly, the Company reserves the right to take any action with respect to any User Contribution that we deem necessary or appropriate in our sole discretion, including the following:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Take any action with respect to any User Contribution that we deem necessary or appropriate in our sole discretion, including if we believe that such User Contribution violates the Terms of Service, including the Content Standards, infringes any intellectual property right or other right of any person or entity, or could threaten the physical safety of users of the Website or the public.</Text>
               </li>
@@ -346,7 +346,7 @@ export default class TermsOfService extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>As a general rule, written expression that is protected political, religious, symbolic, or commercial speech under the First Amendment of the U.S. Constitution will be allowed on the Website. User Contributions absolutely must in their entirety comply with all applicable federal, state, and local regulations in the United States.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>Without limiting the generality of the foregoing, User Contributions must NOT:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Be unlawful or be made in furtherance of any unlawful purpose. User Contributions must not aid, abet, assist, counsel, procure or solicit the commission of, nor constitute an attempt or part of a conspiracy to commit, any unlawful act. For avoidance of doubt, speech which is merely offensive or the expression of an offensive or controversial idea or opinion, as a general rule, will be in poor taste but will not be illegal in the United States.</Text>
               </li>
@@ -473,7 +473,7 @@ export default class TermsOfService extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>You may link to the Website, provided you do so in a way that is fair and legal and does not damage our reputation or take advantage of it, but you must not establish a link in such a way as to suggest any form of association, approval, or endorsement on our part without our express written consent.</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>This Website may provide certain social media features that enable you to:</Text>
 
-            <ul className={[_s.default, _s.px15, _s.mt15, _s.ml15].join(' ')}>
+            <ul className={[_s._, _s.px15, _s.mt15, _s.ml15].join(' ')}>
               <li>
                 <Text tagName='p' size='medium'>Link from your own or certain third-party websites to certain content on this Website.</Text>
               </li>

@@ -36,12 +36,12 @@ class Heading extends React.PureComponent {
 
     // Each size has it's own custom style
     const classes = cx({
-      default: 1,
+      _: 1,
       text: 1,
       textAlignCenter: isCentered,
 
-      colorPrimary: [SIZES.h1, SIZES.h2].indexOf(size) > -1,
-      colorSecondary: [SIZES.h3, SIZES.h4, SIZES.h5].indexOf(size) > -1,
+      cPrimary: [SIZES.h1, SIZES.h2].indexOf(size) > -1,
+      cSecondary: [SIZES.h3, SIZES.h4, SIZES.h5].indexOf(size) > -1,
 
       fs24PX: size === SIZES.h1,
       fs19PX: size === SIZES.h2,
@@ -54,8 +54,8 @@ class Heading extends React.PureComponent {
       lineHeight2: size === SIZES.h5,
       py2: size === SIZES.h5,
 
-      fontWeightMedium: [SIZES.h1, SIZES.h3, SIZES.h5].indexOf(size) > -1,
-      fontWeightBold: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
+      fw500: [SIZES.h1, SIZES.h3, SIZES.h5].indexOf(size) > -1,
+      fw600: [SIZES.h2, SIZES.h4].indexOf(size) > -1,
     })
 
     return React.createElement(

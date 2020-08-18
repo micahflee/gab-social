@@ -130,7 +130,7 @@ class PopoverBase extends ImmutablePureComponent {
     } = this.props
 
     const containerClasses = CX({
-      default: 1,
+      _: 1,
       z4: 1,
       boxShadowPopover: visible,
       displayNone: !visible,

@@ -24,15 +24,15 @@ class BundleColumnError extends React.PureComponent {
     const { intl: { formatMessage } } = this.props
 
     return (
-      <div className={[_s.default, _s.heightMin100VH, _s.width100PC, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-        <div className={[_s.default, _s.heightMin53PX, _s.bgBrand, _s.alignItemsCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
-          <div className={[_s.default, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.width1255PX].join(' ')}>
+      <div className={[_s._, _s.minH100VH, _s.w100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
+        <div className={[_s._, _s.minH53PX, _s.bgBrand, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+          <div className={[_s._, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w1255PX].join(' ')}>
 
-            <div className={[_s.default, _s.flexRow].join(' ')}>
+            <div className={[_s._, _s.flexRow].join(' ')}>
 
-              <h1 className={[_s.default, _s.mr15].join(' ')}>
-                <Button href='/' isText aria-label='Gab' className={[_s.default, _s.justifyContentCenter, _s.noSelect, _s.noUnderline, _s.height53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                  <Icon id='logo' className={_s.colorWhite} />
+              <h1 className={[_s._, _s.mr15].join(' ')}>
+                <Button href='/' isText aria-label='Gab' className={[_s._, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
+                  <Icon id='logo' className={_s.cWhite} />
                 </Button>
               </h1>
 
@@ -40,20 +40,20 @@ class BundleColumnError extends React.PureComponent {
           </div>
         </div>
 
-        <div className={[_s.default, _s.maxWidth640PX, _s.px15, _s.py10].join(' ')}>
+        <div className={[_s._, _s.maxW640PX, _s.px15, _s.py10].join(' ')}>
 
-          <Icon id='warning' size='28px' className={[_s.default, _s.colorSecondary, _s.mb15].join(' ')} />
+          <Icon id='warning' size='28px' className={[_s._, _s.cSecondary, _s.mb15].join(' ')} />
 
           <Text size='medium' className={_s.pt15}>
             {formatMessage(messages.body)}
           </Text>
 
-          <div className={[_s.default, _s.py10, _s.my10].join(' ')}>
+          <div className={[_s._, _s.py10, _s.my10].join(' ')}>
             <Text>
               {APP_NAME} ({version})
             </Text>
 
-            <div className={[_s.default, _s.flexRow, _s.mt10, _s.alignItemsCenter].join(' ')}>
+            <div className={[_s._, _s.flexRow, _s.mt10, _s.aiCenter].join(' ')}>
               <Button
                 isText
                 href={source_url}
@@ -77,7 +77,7 @@ class BundleColumnError extends React.PureComponent {
 
           <Divider />
 
-          <div className={[_s.default, _s.flexRow].join(' ')}>
+          <div className={[_s._, _s.flexRow].join(' ')}>
             <Button
               icon='repost'
               onClick={this.handleRetry} size={64}

@@ -26,7 +26,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
         onClose={onClose}
       >
       
-        <div className={[_s.default, _s.pb10].join(' ')}>
+        <div className={[_s._, _s.pb10].join(' ')}>
           {
             /*
             <SettingSwitch
@@ -75,7 +75,7 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
         <Button
           backgroundColor='brand'
           color='white'
-          className={_s.justifyContentCenter}
+          className={_s.jcCenter}
           onClick={this.handleSaveAndClose}
         >
           <Text color='inherit' weight='bold' align='center'>

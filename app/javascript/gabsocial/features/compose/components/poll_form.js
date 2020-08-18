@@ -43,8 +43,8 @@ class PollForm extends ImmutablePureComponent {
     if (!options) return null
 
     return (
-      <div className={[_s.default, _s.px10, _s.py10, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
-        <ul className={[_s.default, _s.listStyleNone].join(' ')}>
+      <div className={[_s._, _s.px10, _s.py10, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}>
+        <ul className={[_s._, _s.listStyleNone].join(' ')}>
           {
             options.map((title, i) => (
               <PollFormOption
@@ -62,14 +62,14 @@ class PollForm extends ImmutablePureComponent {
           }
         </ul>
 
-        <div className={[_s.default, _s.flexRow].join(' ')}>
+        <div className={[_s._, _s.flexRow].join(' ')}>
           {
             options.size < 4 && (
               <Button
                 isOutline
                 backgroundColor='none'
                 color='brand'
-                className={[_s.alignItemsCenter, _s.mr10].join(' ')}
+                className={[_s.aiCenter, _s.mr10].join(' ')}
                 onClick={onAddOption}
                 icon='add'
                 iconSize='14px'
@@ -82,7 +82,7 @@ class PollForm extends ImmutablePureComponent {
             )
           }
 
-          <div className={[_s.default, _s.flexGrow1].join(' ')}>
+          <div className={[_s._, _s.flexGrow1].join(' ')}>
             <Select
               value={expiresIn}
               onChange={this.handleSelectDuration}
@@ -147,7 +147,7 @@ class PollFormOption extends ImmutablePureComponent {
     const { isPollMultiple, title, index, intl } = this.props
 
     const toggleClasses = cx({
-      default: 1,
+      _: 1,
       px10: 1,
       py10: 1,
       borderColorSecondary: 1,
@@ -158,8 +158,8 @@ class PollFormOption extends ImmutablePureComponent {
     })
 
     return (
-      <li className={[_s.default, _s.flexRow, _s.mb10].join(' ')}>
-        <label className={[_s.default, _s.flexRow, _s.flexGrow1, _s.alignItemsCenter].join(' ')}>
+      <li className={[_s._, _s.flexRow, _s.mb10].join(' ')}>
+        <label className={[_s._, _s.flexRow, _s.flexGrow1, _s.aiCenter].join(' ')}>
           <span
             className={toggleClasses}
             onClick={this.handleToggleMultiple}
@@ -180,10 +180,10 @@ class PollFormOption extends ImmutablePureComponent {
           <Button
             isNarrow
             backgroundColor='none'
-            className={[_s.ml5, _s.justifyContentCenter].join(' ')}
+            className={[_s.ml5, _s.jcCenter].join(' ')}
             icon='close'
             iconSize='8px'
-            iconClassName={_s.colorSecondary}
+            iconClassName={_s.cSecondary}
             disabled={index <= 1}
             title={intl.formatMessage(messages.remove_option)}
             onClick={this.handleOptionRemove}

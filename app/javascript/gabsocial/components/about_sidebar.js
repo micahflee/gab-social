@@ -20,21 +20,21 @@ class AboutSidebar extends ImmutablePureComponent {
     } = this.props
 
     return (
-      <header role='banner' className={[_s.default, _s.flexGrow1, _s.z3, _s.alignItemsEnd].join(' ')}>
+      <header role='banner' className={[_s._, _s.flexGrow1, _s.z3, _s.aiEnd].join(' ')}>
         <ResponsiveClassesComponent
-          classNames={[_s.default, _s.width240PX].join(' ')}
-          classNamesXS={[_s.default, _s.width100PC].join(' ')}
+          classNames={[_s._, _s.w240PX].join(' ')}
+          classNamesXS={[_s._, _s.w100PC].join(' ')}
         >
           <ResponsiveClassesComponent
-            classNames={[_s.default, _s.posFixed, _s.heightCalc53PX, _s.bottom0].join(' ')}
-            classNamesXS={[_s.default, _s.px15].join(' ')}
+            classNames={[_s._, _s.posFixed, _s.calcH53PX, _s.bottom0].join(' ')}
+            classNamesXS={[_s._, _s.px15].join(' ')}
           >
             <ResponsiveClassesComponent
-              classNames={[_s.default, _s.height100PC, _s.alignItemsStart, _s.width240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}
-              classNamesXS={[_s.default,  _s.alignItemsStart, _s.width100PC, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}
+              classNames={[_s._, _s.h100PC, _s.aiStart, _s.w240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}
+              classNamesXS={[_s._,  _s.aiStart, _s.w100PC, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}
             >
-              <div className={[_s.default, _s.width100PC].join(' ')}>
-                <div className={[_s.default, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
+              <div className={[_s._, _s.w100PC].join(' ')}>
+                <div className={[_s._, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
                   {
                     me && <BackButton icon='arrow-left' toHome />
                   }
@@ -44,7 +44,7 @@ class AboutSidebar extends ImmutablePureComponent {
                 </div>
 
               </div>
-              <nav aria-label='Primary' role='navigation' className={[_s.default, _s.width100PC, _s.mb15].join(' ')}>
+              <nav aria-label='Primary' role='navigation' className={[_s._, _s.w100PC, _s.mb15].join(' ')}>
                 <SidebarSectionTitle>{intl.formatMessage(messages.menu)}</SidebarSectionTitle>
                 {
                   items.map((menuItem, i) => (

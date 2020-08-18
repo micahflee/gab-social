@@ -85,7 +85,7 @@ class Comment extends ImmutablePureComponent {
     }
 
     const contentClasses = CX({
-      default: 1,
+      _: 1,
       px10: 1,
       pt5: 1,
       pb10: 1,
@@ -95,19 +95,19 @@ class Comment extends ImmutablePureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
-        <div className={_s.default} style={style}>
+      <div className={[_s._, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
+        <div className={_s._} style={style}>
 
-          <div className={[_s.default, _s.flexRow].join(' ')}>
+          <div className={[_s._, _s.flexRow].join(' ')}>
             <NavLink
               to={`/${status.getIn(['account', 'acct'])}`}
               title={status.getIn(['account', 'acct'])}
-              className={[_s.default, _s.mr10, _s.pt5].join(' ')}
+              className={[_s._, _s.mr10, _s.pt5].join(' ')}
             >
               <Avatar account={status.get('account')} size={32} />
             </NavLink>
 
-            <div className={[_s.default, _s.flexShrink1, _s.maxWidth100PC42PX].join(' ')}>
+            <div className={[_s._, _s.flexShrink1, _s.maxW100PC42PX].join(' ')}>
               <div className={contentClasses}>
                 <CommentHeader
                   ancestorAccountId={ancestorAccountId}
@@ -122,7 +122,7 @@ class Comment extends ImmutablePureComponent {
                   isComment
                   collapsable
                 />
-                <div className={[_s.default, _s.mt5].join(' ')}>
+                <div className={[_s._, _s.mt5].join(' ')}>
                   <StatusMedia
                     isComment
                     status={status}
@@ -136,7 +136,7 @@ class Comment extends ImmutablePureComponent {
                 </div>
               </div>
 
-              <div className={[_s.default, _s.flexRow, _s.mt5].join(' ')}>
+              <div className={[_s._, _s.flexRow, _s.mt5].join(' ')}>
                 <CommentButton
                   title={intl.formatMessage(status.get('favourited') ? messages.unlike : messages.like)}
                   onClick={this.handleOnFavorite}

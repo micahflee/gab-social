@@ -162,8 +162,8 @@ class GroupCollectionTimeline extends React.PureComponent {
 		} = this.props
 
 		const emptyMessage = !!me && collectionType === 'member' && hasNoGroupMembers ? (
-			<div className={[_s.default, _s.width100PC]}>
-				<Text className={[_s.default, _s.mb10].join(' ')}>
+			<div className={[_s._, _s.w100PC]}>
+				<Text className={[_s._, _s.mb10].join(' ')}>
 					Join some groups then come back here to view your group timeline
 				</Text>
 				<GroupsCollection activeTab='featured' />

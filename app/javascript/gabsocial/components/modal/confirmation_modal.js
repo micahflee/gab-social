@@ -35,21 +35,21 @@ class ConfirmationModal extends React.PureComponent {
     } = this.props
 
     return (
-      <div className={_s.width330PX}>
+      <div className={_s.w330PX}>
         <Block>
-          <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
-            <div className={[_s.default, _s.px15, _s.py15].join(' ')}>
+          <div className={[_s._, _s.px15, _s.py15].join(' ')}>
+            <div className={[_s._, _s.px15, _s.py15].join(' ')}>
 
               <Heading size='h1' isCentered>
                 {title}
               </Heading>
 
-              <div className={[_s.default, _s.mt10].join(' ')}>
+              <div className={[_s._, _s.mt10].join(' ')}>
                 <Text align='center' color='secondary'>
                   {message}
                 </Text>
 
-                <div className={[_s.default, _s.flexRow, _s.mt10, _s.pt10].join(' ')}>
+                <div className={[_s._, _s.flexRow, _s.mt10, _s.pt10].join(' ')}>
                   <Button
                     backgroundColor='tertiary'
                     color='primary'
