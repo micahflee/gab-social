@@ -10,44 +10,7 @@ import Button from '../button'
 import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
-const messages = defineMessages({
-  title: { id: 'home_timeline_settings', defaultMessage: 'Home Timeline Settings' },
-  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
-  showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
-  showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
-  showPolls: { id: 'home.column_settings.show_polls', defaultMessage: 'Show polls' },
-  showReposts: { id: 'home.column_settings.show_reposts', defaultMessage: 'Show comments' },
-  showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
-})
-
-const mapStateToProps = (state) => ({
-  settings: state.getIn(['settings', 'home']),
-})
-
-const mapDispatchToProps = (dispatch, {onClose}) => {
-  return {
-    onChange(key, checked) {
-      dispatch(changeSetting(['home', ...key], checked))
-    },
-    onSave() {
-      dispatch(saveSettings())
-      onClose()
-    },
-  }
-}
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class HomeTimelineSettingsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    settings: ImmutablePropTypes.map.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-  }
 
   handleSaveAndClose = () => {
     this.props.onSave()
@@ -124,3 +87,39 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'home_timeline_settings', defaultMessage: 'Home Timeline Settings' },
+  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
+  showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
+  showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
+  showPolls: { id: 'home.column_settings.show_polls', defaultMessage: 'Show polls' },
+  showReposts: { id: 'home.column_settings.show_reposts', defaultMessage: 'Show comments' },
+  showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
+})
+
+const mapStateToProps = (state) => ({
+  settings: state.getIn(['settings', 'home']),
+})
+
+const mapDispatchToProps = (dispatch, {onClose}) => {
+  return {
+    onChange(key, checked) {
+      dispatch(changeSetting(['home', ...key], checked))
+    },
+    onSave() {
+      dispatch(saveSettings())
+      onClose()
+    },
+  }
+}
+
+HomeTimelineSettingsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  settings: ImmutablePropTypes.map.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(HomeTimelineSettingsModal))

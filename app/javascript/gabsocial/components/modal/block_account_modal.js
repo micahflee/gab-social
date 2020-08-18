@@ -6,37 +6,7 @@ import { makeGetAccount } from '../../selectors'
 import { blockAccount } from '../../actions/accounts'
 import ConfirmationModal from './confirmation_modal'
 
-const messages = defineMessages({
-  title: { id: 'block_title', defaultMessage: 'Block {name}' },
-  muteMessage: { id: 'confirmations.block.message', defaultMessage: 'Are you sure you want to block {name}?' },
-  block: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
-})
-
-const mapStateToProps = (state, { accountId }) => {
-  const getAccount = makeGetAccount()
-
-  return {
-    account: getAccount(state, accountId),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  onConfirm(account) {
-    dispatch(blockAccount(account.get('id')))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class BlockAccountModal extends React.PureComponent {
-
-  static propTypes = {
-    account: PropTypes.object.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   handleClick = () => {
     this.props.onConfirm(this.props.account)
@@ -64,3 +34,28 @@ class BlockAccountModal extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'block_title', defaultMessage: 'Block {name}' },
+  muteMessage: { id: 'confirmations.block.message', defaultMessage: 'Are you sure you want to block {name}?' },
+  block: { id: 'confirmations.block.confirm', defaultMessage: 'Block' },
+})
+
+const mapStateToProps = (state, { accountId }) => ({
+  account: makeGetAccount()(state, accountId),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(account) {
+    dispatch(blockAccount(account.get('id')))
+  },
+})
+
+BlockAccountModal.propTypes = {
+  account: PropTypes.object.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(BlockAccountModal))

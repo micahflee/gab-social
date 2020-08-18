@@ -13,28 +13,7 @@ import Icon from '../icon'
 import Image from '../image'
 import ModalLayout from './modal_layout'
 
-const messages = defineMessages({
-  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
-  upgrade: { id: 'promo.upgrade', defaultMessage: 'Upgrade' },
-  learnMore: { id: 'promo.learn_more', defaultMessage: 'Learn more' },
-  text: { id: 'pro_upgrade_modal.text', defaultMessage: 'Gab is fully funded by people like you. Please consider supporting us on our mission to defend free expression online for all people.' },
-  benefits: { id: 'pro_upgrade_modal.benefits', defaultMessage: 'Here are some benefits that GabPRO members receive:' },
-})
-
-const mapStateToProps = (state) => ({
-  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps)
 class ProUpgradeModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    theme: PropTypes.string.isRequired,
-  }
 
   render() {
     const {
@@ -105,3 +84,23 @@ class ProUpgradeModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  upgrade: { id: 'promo.upgrade', defaultMessage: 'Upgrade' },
+  learnMore: { id: 'promo.learn_more', defaultMessage: 'Learn more' },
+  text: { id: 'pro_upgrade_modal.text', defaultMessage: 'Gab is fully funded by people like you. Please consider supporting us on our mission to defend free expression online for all people.' },
+  benefits: { id: 'pro_upgrade_modal.benefits', defaultMessage: 'Here are some benefits that GabPRO members receive:' },
+})
+
+const mapStateToProps = (state) => ({
+  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
+})
+
+ProUpgradeModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  theme: PropTypes.string.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps)(ProUpgradeModal))

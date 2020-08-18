@@ -10,42 +10,7 @@ import Button from '../button'
 import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
-const messages = defineMessages({
-  title: { id: 'list_timeline_settings', defaultMessage: 'List Timeline Settings' },
-  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
-  showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
-  showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
-  showPolls: { id: 'home.column_settings.show_polls', defaultMessage: 'Show polls' },
-  showReposts: { id: 'home.column_settings.show_reposts', defaultMessage: 'Show comments' },
-  showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
-})
-
-const mapStateToProps = (state) => ({
-  settings: state.getIn(['settings', 'list']),
-})
-
-const mapDispatchToProps = (dispatch, { onClose }) => ({
-  onChange(key, checked) {
-    dispatch(changeSetting(['list', ...key], checked))
-  },
-  onSave() {
-    dispatch(saveSettings())
-    onClose()
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListTimelineSettingsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    settings: ImmutablePropTypes.map.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-  }
 
   handleSaveAndClose = () => {
     this.props.onSave()
@@ -118,3 +83,37 @@ class ListTimelineSettingsModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'list_timeline_settings', defaultMessage: 'List Timeline Settings' },
+  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
+  showVideos: { id: 'home.column_settings.show_videos', defaultMessage: 'Show videos' },
+  showPhotos: { id: 'home.column_settings.show_photos', defaultMessage: 'Show photos' },
+  showPolls: { id: 'home.column_settings.show_polls', defaultMessage: 'Show polls' },
+  showReposts: { id: 'home.column_settings.show_reposts', defaultMessage: 'Show comments' },
+  showReplies: { id: 'home.column_settings.show_replies', defaultMessage: 'Show replies' },
+})
+
+const mapStateToProps = (state) => ({
+  settings: state.getIn(['settings', 'list']),
+})
+
+const mapDispatchToProps = (dispatch, { onClose }) => ({
+  onChange(key, checked) {
+    dispatch(changeSetting(['list', ...key], checked))
+  },
+  onSave() {
+    dispatch(saveSettings())
+    onClose()
+  },
+})
+
+ListTimelineSettingsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  settings: ImmutablePropTypes.map.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+}
+
+export default injectInt(connect(mapStateToProps, mapDispatchToProps)(ListTimelineSettingsModal))

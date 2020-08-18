@@ -6,19 +6,7 @@ import Button from '../button'
 import Text from '../text'
 import ModalLayout from './modal_layout'
 
-const messages = defineMessages({
-  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
-  text: { id: 'pro_upgrade_modal.text', defaultMessage: 'Gab is fully funded by people like you. Please consider supporting us on our mission to defend free expression online for all people.' },
-  benefits: { id: 'pro_upgrade_modal.benefits', defaultMessage: 'Here are just some of the benefits that thousands of GabPRO members receive:' },
-})
-
-export default
-@injectIntl
 class HomeTimelineSettingsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-  }
 
   render() {
     const { intl } = this.props
@@ -58,3 +46,15 @@ class HomeTimelineSettingsModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  text: { id: 'pro_upgrade_modal.text', defaultMessage: 'Gab is fully funded by people like you. Please consider supporting us on our mission to defend free expression online for all people.' },
+  benefits: { id: 'pro_upgrade_modal.benefits', defaultMessage: 'Here are just some of the benefits that thousands of GabPRO members receive:' },
+})
+
+HomeTimelineSettingsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(HomeTimelineSettingsModal)

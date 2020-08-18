@@ -8,32 +8,7 @@ import { removeShortcut } from '../../actions/shortcuts'
 import ModalLayout from './modal_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  title: { id: 'shortcuts.edit', defaultMessage: 'Edit Shortcuts' },
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-})
-
-const mapStateToProps = (state) => ({
-  shortcuts: state.getIn(['shortcuts', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onRemoveShortcut(shortcutId) {
-    dispatch(removeShortcut(shortcutId))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class EditShortcutsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onRemoveShortcut: PropTypes.func.isRequired,
-    shortcuts: ImmutablePropTypes.list,
-  }
 
   handleOnRemoveShortcut = (shortcutId) => {
     this.props.onRemoveShortcut(shortcutId)
@@ -72,3 +47,28 @@ class EditShortcutsModal extends ImmutablePureComponent {
   }
 
 }
+
+
+const messages = defineMessages({
+  title: { id: 'shortcuts.edit', defaultMessage: 'Edit Shortcuts' },
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+})
+
+const mapStateToProps = (state) => ({
+  shortcuts: state.getIn(['shortcuts', 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onRemoveShortcut(shortcutId) {
+    dispatch(removeShortcut(shortcutId))
+  },
+})
+
+EditShortcutsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onRemoveShortcut: PropTypes.func.isRequired,
+  shortcuts: ImmutablePropTypes.list,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(EditShortcutsModal))

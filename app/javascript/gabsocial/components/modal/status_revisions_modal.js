@@ -12,36 +12,7 @@ import Text from '../text'
 
 const cx = classNames.bind(_s)
 
-const messages = defineMessages({
-  title: { id: 'status_revisions.heading', defaultMessage: 'Revision History' },
-})
-
-const mapStateToProps = (state) => ({
-  loading: state.getIn(['status_revisions', 'loading']),
-  error: state.getIn(['status_revisions', 'error']),
-  revisions: state.getIn(['status_revisions', 'revisions']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onLoadStatusRevisions(statusId) {
-    dispatch(loadStatusRevisions(statusId))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class StatusRevisionsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-    onLoadStatusRevisions: PropTypes.func.isRequired,
-    loading: PropTypes.bool.isRequired,
-    error: PropTypes.bool,
-    revisions: ImmutablePropTypes.list.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   componentDidMount() {
     this.props.onLoadStatusRevisions(this.props.status.get('id'))
@@ -97,3 +68,31 @@ class StatusRevisionsModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'status_revisions.heading', defaultMessage: 'Revision History' },
+})
+
+const mapStateToProps = (state) => ({
+  loading: state.getIn(['status_revisions', 'loading']),
+  error: state.getIn(['status_revisions', 'error']),
+  revisions: state.getIn(['status_revisions', 'revisions']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onLoadStatusRevisions(statusId) {
+    dispatch(loadStatusRevisions(statusId))
+  },
+})
+
+StatusRevisionsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  status: ImmutablePropTypes.map.isRequired,
+  onLoadStatusRevisions: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  error: PropTypes.bool,
+  revisions: ImmutablePropTypes.list.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StatusRevisionsModal))

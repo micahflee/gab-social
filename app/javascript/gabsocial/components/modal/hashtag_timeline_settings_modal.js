@@ -10,41 +10,7 @@ import Button from '../button'
 import SettingSwitch from '../setting_switch'
 import Text from '../text'
 
-const messages = defineMessages({
-  title: { id: 'hashtag_timeline_settings', defaultMessage: 'Hashtag Timeline Settings' },
-  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
-  onlyMedia: { id: 'community.column_settings.media_only', defaultMessage: 'Media Only' },
-  showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
-})
-
-const mapStateToProps = (state) => ({
-  settings: state.getIn(['settings', 'community']),
-})
-
-const mapDispatchToProps = (dispatch, { onClose }) => {
-  return {
-    onChange(key, checked) {
-      dispatch(changeSetting(['community', ...key], checked))
-    },
-    onSave() {
-      dispatch(saveSettings())
-      onClose()
-    },
-  }
-}
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class HashtagTimelineSettingsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    settings: ImmutablePropTypes.map.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   handleSaveAndClose = () => {
     this.props.onSave()
@@ -87,3 +53,36 @@ class HashtagTimelineSettingsModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'hashtag_timeline_settings', defaultMessage: 'Hashtag Timeline Settings' },
+  saveAndClose: { id: 'saveClose', defaultMessage: 'Save & Close' },
+  onlyMedia: { id: 'community.column_settings.media_only', defaultMessage: 'Media Only' },
+  showInSidebar: { id: 'show_in_sidebar', defaultMessage: 'Show in Sidebar' },
+})
+
+const mapStateToProps = (state) => ({
+  settings: state.getIn(['settings', 'community']),
+})
+
+const mapDispatchToProps = (dispatch, { onClose }) => {
+  return {
+    onChange(key, checked) {
+      dispatch(changeSetting(['community', ...key], checked))
+    },
+    onSave() {
+      dispatch(saveSettings())
+      onClose()
+    },
+  }
+}
+
+HasttagTimelineSettingsModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  settings: ImmutablePropTypes.map.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(HashtagTimelineSettingsModal))

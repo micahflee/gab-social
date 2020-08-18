@@ -13,41 +13,7 @@ import Responsive from '../../features/ui/util/responsive_component'
 
 const initialState = getWindowDimension()
 
-const messages = defineMessages({
-  confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
-  delete: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
-})
-
-const mapStateToProps = (state) => ({
-  composeId: state.getIn(['compose', 'id']),
-  composeText: state.getIn(['compose', 'text']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenModal(type, opts) {
-    dispatch(openModal(type, opts))
-  },
-  onCancelReplyCompose() {
-    dispatch(cancelReplyCompose())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ModalBase extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node,
-    onClose: PropTypes.func.isRequired,
-    onOpenModal: PropTypes.func.isRequired,
-    onCancelReplyCompose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    composeId: PropTypes.string,
-    composeText: PropTypes.string,
-    type: PropTypes.string,
-    isCenteredXS: PropTypes.bool,
-  }
 
   state = {
     revealed: !!this.props.children,
@@ -189,3 +155,36 @@ class ModalBase extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
+  delete: { id: 'confirmations.delete.message', defaultMessage: 'Are you sure you want to delete this status?' },
+})
+
+const mapStateToProps = (state) => ({
+  composeId: state.getIn(['compose', 'id']),
+  composeText: state.getIn(['compose', 'text']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenModal(type, opts) {
+    dispatch(openModal(type, opts))
+  },
+  onCancelReplyCompose() {
+    dispatch(cancelReplyCompose())
+  },
+})
+
+ModalBase.propTypes = {
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+  onOpenModal: PropTypes.func.isRequired,
+  onCancelReplyCompose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  composeId: PropTypes.string,
+  composeText: PropTypes.string,
+  type: PropTypes.string,
+  isCenteredXS: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ModalBase))

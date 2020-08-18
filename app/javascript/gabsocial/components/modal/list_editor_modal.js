@@ -6,19 +6,7 @@ import ModalLayout from './modal_layout'
 import { ListEdit } from '../../features/ui/util/async_components'
 import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 
-const messages = defineMessages({
-  title: { id: 'lists.edit', defaultMessage: 'Edit list' },
-})
-
-export default
-@injectIntl
 class ListEditorModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    id: PropTypes.string.isRequired,
-  }
 
   render() {
     const { intl, onClose, id } = this.props
@@ -34,4 +22,17 @@ class ListEditorModal extends ImmutablePureComponent {
       </ModalLayout>
     )
   }
+
 }
+
+const messages = defineMessages({
+  title: { id: 'lists.edit', defaultMessage: 'Edit list' },
+})
+
+ListEditorModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
+}
+
+export default injectIntl(ListEditorModal)

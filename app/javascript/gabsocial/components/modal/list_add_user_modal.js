@@ -13,35 +13,7 @@ import ModalLayout from './modal_layout'
 import Button from '../button'
 import Text from '../text'
 
-const messages = defineMessages({
-  add: { id: 'lists.account.add', defaultMessage: 'Add to list' },
-})
-
-const mapStateToProps = (state) => ({
-  lists: getOrderedLists(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchLists: () => dispatch(fetchLists()),
-
-  onAddToList(listId, accountId) {
-    dispatch(addToList(listId, accountId))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListAddUserModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    accountId: PropTypes.string.isRequired,
-    lists: ImmutablePropTypes.list,
-    intl: PropTypes.object.isRequired,
-    onAddToList: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onFetchLists: PropTypes.func.isRequired,
-  }
 
   updateOnProps = [
     'lists',
@@ -98,3 +70,30 @@ class ListAddUserModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  add: { id: 'lists.account.add', defaultMessage: 'Add to list' },
+})
+
+const mapStateToProps = (state) => ({
+  lists: getOrderedLists(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchLists: () => dispatch(fetchLists()),
+
+  onAddToList(listId, accountId) {
+    dispatch(addToList(listId, accountId))
+  },
+})
+
+ListAddUserModal.propTypes = {
+  accountId: PropTypes.string.isRequired,
+  lists: ImmutablePropTypes.list,
+  intl: PropTypes.object.isRequired,
+  onAddToList: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onFetchLists: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListAddUserModal))

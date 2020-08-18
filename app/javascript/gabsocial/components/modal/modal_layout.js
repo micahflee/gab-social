@@ -8,27 +8,7 @@ import Heading from '../heading'
 
 const cx = classNames.bind(_s)
 
-const messages = defineMessages({
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-})
-
-export default
-@injectIntl
 class ModalLayout extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string,
-    children: PropTypes.node,
-    onClose: PropTypes.func.isRequired,
-    width: PropTypes.number,
-    hideClose: PropTypes.bool,
-    noPadding: PropTypes.bool,
-    isXS: PropTypes.bool,
-  }
-
-  static defaultProps = {
-    width: 600,
-  }
 
   onHandleCloseModal = () => {
     this.props.onClose()
@@ -82,3 +62,23 @@ class ModalLayout extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+})
+
+ModalLayout.propTypes = {
+  title: PropTypes.string,
+  children: PropTypes.node,
+  onClose: PropTypes.func.isRequired,
+  width: PropTypes.number,
+  hideClose: PropTypes.bool,
+  noPadding: PropTypes.bool,
+  isXS: PropTypes.bool,
+}
+
+ModalLayout.defaultProps = {
+  width: 600,
+}
+
+export default injectIntl(ModalLayout)

@@ -6,19 +6,7 @@ import Button from '../button'
 import Heading from '../heading'
 import Text from '../text'
 
-export default
-@injectIntl
 class ConfirmationModal extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.any.isRequired,
-    message: PropTypes.any.isRequired,
-    confirm: PropTypes.any.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    onCancel: PropTypes.func,
-  }
 
   componentDidMount() {
     this.button.focus()
@@ -96,3 +84,15 @@ class ConfirmationModal extends React.PureComponent {
   }
 
 }
+
+ConfirmationModal.propTypes = {
+  title: PropTypes.any.isRequired,
+  message: PropTypes.any.isRequired,
+  confirm: PropTypes.any.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  onCancel: PropTypes.func,
+}
+
+export default injectIntl(ConfirmationModal)

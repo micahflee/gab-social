@@ -15,32 +15,7 @@ import Switch from '../switch'
 import Heading from '../heading'
 import Textarea from '../textarea'
 
-const messages = defineMessages({
-  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
-  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-  save: { id: 'lightbox.save', defaultMessage: 'Save' },
-})
-
-const mapStateToProps = (state) => ({
-  account: state.getIn(['accounts', me]),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onSave: (data) => dispatch(saveUserProfileInformation(data)),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class EditProfileModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onSave: PropTypes.func.isRequired,
-  }
 
   state = {
     avatarSrc: this.props.account ? this.props.account.get('avatar_static') : undefined,
@@ -222,3 +197,27 @@ class EditProfileModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
+  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+  save: { id: 'lightbox.save', defaultMessage: 'Save' },
+})
+
+const mapStateToProps = (state) => ({
+  account: state.getIn(['accounts', me]),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSave: (data) => dispatch(saveUserProfileInformation(data)),
+})
+
+EditProfileModal.propTypes = {
+  account: ImmutablePropTypes.map,
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSave: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(EditProfileModal))

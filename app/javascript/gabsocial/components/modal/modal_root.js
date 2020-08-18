@@ -116,30 +116,7 @@ const CENTERED_XS_MODALS = [
   MODAL_UNFOLLOW,
 ]
 
-const mapStateToProps = (state) => ({
-  type: state.getIn(['modal', 'modalType']),
-  props: state.getIn(['modal', 'modalProps'], {}),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onClose(optionalType) {
-    if (optionalType === 'COMPOSE') {
-      dispatch(cancelReplyCompose())
-    }
-
-    dispatch(closeModal())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class ModalRoot extends React.PureComponent {
-
-  static propTypes = {
-    type: PropTypes.string,
-    props: PropTypes.object,
-    onClose: PropTypes.func.isRequired,
-  }
 
   getSnapshotBeforeUpdate() {
     return { visible: !!this.props.type }
@@ -193,3 +170,26 @@ class ModalRoot extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  type: state.getIn(['modal', 'modalType']),
+  props: state.getIn(['modal', 'modalProps'], {}),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClose(optionalType) {
+    if (optionalType === 'COMPOSE') {
+      dispatch(cancelReplyCompose())
+    }
+
+    dispatch(closeModal())
+  },
+})
+
+ModalRoot.propTypes = {
+  type: PropTypes.string,
+  props: PropTypes.object,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ModalRoot)

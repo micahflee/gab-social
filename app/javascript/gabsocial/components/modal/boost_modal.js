@@ -8,25 +8,10 @@ import StatusContainer from '../../containers/status_container'
 import Text from '../text'
 import ModalLayout from './modal_layout'
 
-const messages = defineMessages({
-  removeRepost: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
-  repost: { id: 'status.repost', defaultMessage: 'Repost' },
-  combo: { id: 'boost_modal.combo', defaultMessage: 'You can press Shift + Repost to skip this next time' },
-})
-
-export default
-@injectIntl
 class BoostModal extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    onRepost: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -80,3 +65,18 @@ class BoostModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  removeRepost: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
+  repost: { id: 'status.repost', defaultMessage: 'Repost' },
+  combo: { id: 'boost_modal.combo', defaultMessage: 'You can press Shift + Repost to skip this next time' },
+})
+
+BoostModal.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  onRepost: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(BoostModal)

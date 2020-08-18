@@ -8,36 +8,7 @@ import { cancelReplyCompose } from '../../actions/compose'
 import ModalLayout from './modal_layout'
 import TimelineComposeBlock from '../timeline_compose_block'
 
-const messages = defineMessages({
-  confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
-  title: { id: 'navigation_bar.compose', defaultMessage: 'Compose new gab' },
-  comment: { id: 'navigation_bar.compose_comment', defaultMessage: 'Compose new comment' },
-  edit: { id: 'navigation_bar.edit_gab', defaultMessage: 'Edit' },
-})
-
-const mapStateToProps = (state) => {
-  const status = state.getIn(['statuses', state.getIn(['compose', 'id'])])
-
-  return {
-    composeText: state.getIn(['compose', 'text']),
-    isEditing: !!status,
-    isComment: !!state.getIn(['compose', 'in_reply_to']),
-  }
-}
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class ComposeModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    composeText: PropTypes.string,
-    dispatch: PropTypes.func.isRequired,
-    isEditing: PropTypes.bool,
-    isComment: PropTypes.bool,
-  }
 
   onClickClose = () => {
     const {
@@ -81,3 +52,31 @@ class ComposeModal extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  confirm: { id: 'confirmations.delete.confirm', defaultMessage: 'Delete' },
+  title: { id: 'navigation_bar.compose', defaultMessage: 'Compose new gab' },
+  comment: { id: 'navigation_bar.compose_comment', defaultMessage: 'Compose new comment' },
+  edit: { id: 'navigation_bar.edit_gab', defaultMessage: 'Edit' },
+})
+
+const mapStateToProps = (state) => {
+  const status = state.getIn(['statuses', state.getIn(['compose', 'id'])])
+
+  return {
+    composeText: state.getIn(['compose', 'text']),
+    isEditing: !!status,
+    isComment: !!state.getIn(['compose', 'in_reply_to']),
+  }
+}
+
+ComposeModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  composeText: PropTypes.string,
+  dispatch: PropTypes.func.isRequired,
+  isEditing: PropTypes.bool,
+  isComment: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(ComposeModal))

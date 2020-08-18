@@ -15,38 +15,7 @@ import Button from '../button'
 import Text from '../text'
 import SettingSwitch from '../setting_switch'
 
-const messages = defineMessages({
-  message: { id: 'display_options.message', defaultMessage: 'Display settings affect your Gab account on this browser. These settings are only visible to you.' },
-  title: { id: 'display_options', defaultMessage: 'Customize your view' },
-})
-
-const mapStateToProps = (state) => ({
-  displayOptionsSettings: state.getIn(['settings', 'displayOptions']),
-  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize'], DEFAULT_FONT_SIZE),
-  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange(key, value) {
-    dispatch(changeSetting(['displayOptions', key], value))
-    dispatch(saveSettings())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class DisplayOptionsModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    fontSize: PropTypes.string,
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    displayOptionsSettings: ImmutablePropTypes.map,
-    theme: PropTypes.string,
-    onChange: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   handleOnFontSizeChange = (e) => {
     const fontSizeNames = Object.keys(FONT_SIZES)
@@ -245,3 +214,33 @@ class ThemeBlock extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  message: { id: 'display_options.message', defaultMessage: 'Display settings affect your Gab account on this browser. These settings are only visible to you.' },
+  title: { id: 'display_options', defaultMessage: 'Customize your view' },
+})
+
+const mapStateToProps = (state) => ({
+  displayOptionsSettings: state.getIn(['settings', 'displayOptions']),
+  fontSize: state.getIn(['settings', 'displayOptions', 'fontSize'], DEFAULT_FONT_SIZE),
+  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange(key, value) {
+    dispatch(changeSetting(['displayOptions', key], value))
+    dispatch(saveSettings())
+  },
+})
+
+DisplayOptionsModal.propTypes = {
+  fontSize: PropTypes.string,
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  displayOptionsSettings: ImmutablePropTypes.map,
+  theme: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(DisplayOptionsModal))

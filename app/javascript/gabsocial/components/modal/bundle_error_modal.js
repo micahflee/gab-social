@@ -3,21 +3,7 @@ import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ConfirmationModal from './confirmation_modal'
 
-const messages = defineMessages({
-  error: { id: 'bundle_modal_error.message', defaultMessage: 'Something went wrong while loading this component.' },
-  retry: { id: 'bundle_modal_error.retry', defaultMessage: 'Try again' },
-  title: { id: 'bundle_modal_error.error', defaultMessage: 'Error' },
-})
-
-export default
-@injectIntl
 class BundleErrorModal extends React.PureComponent {
-
-  static propTypes = {
-    onRetry: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   handleRetry = () => {
     this.props.onRetry()
@@ -39,3 +25,16 @@ class BundleErrorModal extends React.PureComponent {
 
 }
 
+const messages = defineMessages({
+  error: { id: 'bundle_modal_error.message', defaultMessage: 'Something went wrong while loading this component.' },
+  retry: { id: 'bundle_modal_error.retry', defaultMessage: 'Try again' },
+  title: { id: 'bundle_modal_error.error', defaultMessage: 'Error' },
+})
+
+BundleErrorModal.propTypes = {
+  onRetry: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(BundleErrorModal)

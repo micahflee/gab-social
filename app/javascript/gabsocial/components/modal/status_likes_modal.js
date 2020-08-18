@@ -7,19 +7,7 @@ import { StatusLikes } from '../../features/ui/util/async_components'
 import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 import ModalLayout from './modal_layout'
 
-const messages = defineMessages({
-  title: { id: 'likes', defaultMessage: 'Likes' },
-})
-
-export default
-@injectIntl
 class StatusLikesModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-    status: ImmutablePropTypes.map.isRequired,
-  }
 
   render() {
     const {
@@ -45,3 +33,15 @@ class StatusLikesModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'likes', defaultMessage: 'Likes' },
+})
+
+StatusLikesModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+  status: ImmutablePropTypes.map.isRequired,
+}
+
+export default injectIntl(StatusLikesModal)

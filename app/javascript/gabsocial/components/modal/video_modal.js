@@ -7,14 +7,7 @@ import Video from '../video'
 
 export const previewState = 'previewVideoModal'
 
-export default class VideoModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    media: ImmutablePropTypes.map.isRequired,
-    status: ImmutablePropTypes.map,
-    time: PropTypes.number,
-    onClose: PropTypes.func.isRequired,
-  }
+class VideoModal extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -73,3 +66,12 @@ export default class VideoModal extends ImmutablePureComponent {
   }
 
 }
+
+VideoModal.propTypes = {
+  media: ImmutablePropTypes.map.isRequired,
+  status: ImmutablePropTypes.map,
+  time: PropTypes.number,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default VideoModal

@@ -11,26 +11,9 @@ import Button from '../button'
 import ImageLoader from '../image_loader'
 import Pagination from '../pagination'
 
-const messages = defineMessages({
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-  previous: { id: 'lightbox.previous', defaultMessage: 'Previous' },
-  next: { id: 'lightbox.next', defaultMessage: 'Next' },
-  viewContext: { id: 'lightbox.view_context', defaultMessage: 'View context' },
-})
-
 export const previewState = 'previewMediaModal'
 
-export default
-@injectIntl
 class MediaModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    media: ImmutablePropTypes.list.isRequired,
-    status: ImmutablePropTypes.map,
-    index: PropTypes.number.isRequired,
-    onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   static contextTypes = {
     router: PropTypes.object,
@@ -286,3 +269,20 @@ class MediaModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+  previous: { id: 'lightbox.previous', defaultMessage: 'Previous' },
+  next: { id: 'lightbox.next', defaultMessage: 'Next' },
+  viewContext: { id: 'lightbox.view_context', defaultMessage: 'View context' },
+})
+
+MediaModal.propTypes = {
+  media: ImmutablePropTypes.list.isRequired,
+  status: ImmutablePropTypes.map,
+  index: PropTypes.number.isRequired,
+  onClose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(MediaModal)

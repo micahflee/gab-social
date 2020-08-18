@@ -5,18 +5,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
 import ListCreate from '../../features/list_create'
 
-const messages = defineMessages({
-  title: { id: 'create_list', defaultMessage: 'Create List' },
-})
-
-export default
-@injectIntl
 class ListCreateModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   render() {
     const { intl, onClose } = this.props
@@ -31,4 +20,16 @@ class ListCreateModal extends ImmutablePureComponent {
       </ModalLayout>
     )
   }
+
 }
+
+const messages = defineMessages({
+  title: { id: 'create_list', defaultMessage: 'Create List' },
+})
+
+ListCreateModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(ListCreateModal)

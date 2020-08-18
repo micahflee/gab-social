@@ -9,22 +9,7 @@ import Icon from '../icon'
 import Input from '../input'
 import Text from '../text'
 
-const messages = defineMessages({
-  embed: { id: 'status.embed', defaultMessage: 'Embed' },
-  instructions: { id: 'embed.instructions', defaultMessage: 'Embed this status on your website by copying the code below.' },
-  preview: { id: 'embed.preview', defaultMessage: 'Here is what it will look like:' },
-})
-
-export default
-@injectIntl
 class EmbedModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    url: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    onError: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   state = {
     loading: false,
@@ -111,3 +96,18 @@ class EmbedModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  embed: { id: 'status.embed', defaultMessage: 'Embed' },
+  instructions: { id: 'embed.instructions', defaultMessage: 'Embed this status on your website by copying the code below.' },
+  preview: { id: 'embed.preview', defaultMessage: 'Here is what it will look like:' },
+})
+
+EmbedModal.propTypes = {
+  url: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onError: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(EmbedModal)

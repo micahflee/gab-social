@@ -16,71 +16,7 @@ import Image from '../image'
 import Input from '../input'
 import Text from '../text'
 
-const messages = defineMessages({
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-  title: { id: 'pick_gif', defaultMessage: 'Select a GIF' },
-  searchGifs: { id: 'search_gifs', defaultMessage: 'Search for GIFs' },
-})
-
-const mapStateToProps = (state) => ({
-  categories: state.getIn(['tenor', 'categories']),
-  suggestions: state.getIn(['tenor', 'suggestions']),
-  results: state.getIn(['tenor', 'results']),
-  loading: state.getIn(['tenor', 'loading']),
-  error: state.getIn(['tenor', 'error']),
-  searchText: state.getIn(['tenor', 'searchText']),
-})
-
-const mapDispatchToProps = (dispatch, { onClose }) => ({
-
-  handleCloseModal() {
-    dispatch(changeGifSearchText(''))
-    dispatch(clearGifResults())
-    onClose()
-  },
-
-  handleFetchCategories: () => {
-    dispatch(fetchGifCategories())
-  },
-
-  handleOnChange: (value) => {
-    dispatch(changeGifSearchText(value))
-    if (value.length >= 3) {
-      dispatch(fetchGifResults())
-    } else if (value.length === 0) {
-      dispatch(clearGifResults())
-    }
-  },
-
-  handleSelectResult: (result) => {
-    dispatch(setSelectedGif(result))
-    onClose()
-  },
-
-  // dispatchSubmit: (e) => {
-  //   e.preventDefault();
-  //   dispatch(getGifs());
-  // },
-
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class GifPickerModal extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    handleCloseModal: PropTypes.func.isRequired,
-    handleFetchCategories: PropTypes.func.isRequired,
-    handleOnChange: PropTypes.func.isRequired,
-    handleSelectResult: PropTypes.func.isRequired,
-    categories: PropTypes.array.isRequired,
-    results: PropTypes.array.isRequired,
-    loading: PropTypes.bool,
-    error: PropTypes.bool,
-    searchText: PropTypes.string,
-  }
 
   state = {
     row: 0,
@@ -278,3 +214,66 @@ class GifCategoriesCollection extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+  title: { id: 'pick_gif', defaultMessage: 'Select a GIF' },
+  searchGifs: { id: 'search_gifs', defaultMessage: 'Search for GIFs' },
+})
+
+const mapStateToProps = (state) => ({
+  categories: state.getIn(['tenor', 'categories']),
+  suggestions: state.getIn(['tenor', 'suggestions']),
+  results: state.getIn(['tenor', 'results']),
+  loading: state.getIn(['tenor', 'loading']),
+  error: state.getIn(['tenor', 'error']),
+  searchText: state.getIn(['tenor', 'searchText']),
+})
+
+const mapDispatchToProps = (dispatch, { onClose }) => ({
+
+  handleCloseModal() {
+    dispatch(changeGifSearchText(''))
+    dispatch(clearGifResults())
+    onClose()
+  },
+
+  handleFetchCategories: () => {
+    dispatch(fetchGifCategories())
+  },
+
+  handleOnChange: (value) => {
+    dispatch(changeGifSearchText(value))
+    if (value.length >= 3) {
+      dispatch(fetchGifResults())
+    } else if (value.length === 0) {
+      dispatch(clearGifResults())
+    }
+  },
+
+  handleSelectResult: (result) => {
+    dispatch(setSelectedGif(result))
+    onClose()
+  },
+
+  // dispatchSubmit: (e) => {
+  //   e.preventDefault();
+  //   dispatch(getGifs());
+  // },
+
+})
+
+GifPickerModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  handleCloseModal: PropTypes.func.isRequired,
+  handleFetchCategories: PropTypes.func.isRequired,
+  handleOnChange: PropTypes.func.isRequired,
+  handleSelectResult: PropTypes.func.isRequired,
+  categories: PropTypes.array.isRequired,
+  results: PropTypes.array.isRequired,
+  loading: PropTypes.bool,
+  error: PropTypes.bool,
+  searchText: PropTypes.string,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GifPickerModal))

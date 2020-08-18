@@ -6,21 +6,7 @@ import ModalLayout from './modal_layout'
 import Text from '../text'
 import Button from '../button'
 
-const messages = defineMessages({
-  signup: { id: 'unauthorized_modal.title', defaultMessage: 'Sign up for Gab' },
-  text: { id: 'unauthorized_modal.text', defaultMessage: 'You need to be logged in to do that.' },
-  register: { id: 'account.register', defaultMessage: 'Sign up' },
-  login: { id: 'account.login', defaultMessage: 'Log in' },
-})
-
-export default
-@injectIntl
 class UnauthorizedModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   render() {
     const { intl, onClose } = this.props
@@ -63,3 +49,17 @@ class UnauthorizedModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  signup: { id: 'unauthorized_modal.title', defaultMessage: 'Sign up for Gab' },
+  text: { id: 'unauthorized_modal.text', defaultMessage: 'You need to be logged in to do that.' },
+  register: { id: 'account.register', defaultMessage: 'Sign up' },
+  login: { id: 'account.login', defaultMessage: 'Log in' },
+})
+
+UnauthorizedModal.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(UnauthorizedModal)

@@ -7,22 +7,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { unfollowAccount } from '../../actions/accounts'
 import ConfirmationModal from './confirmation_modal'
 
-const mapDispatchToProps = (dispatch) => ({
-  onConfirm(accountId) {
-    dispatch(unfollowAccount(accountId))
-  },
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class UnfollowModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    isSubmitting: PropTypes.bool.isRequired,
-    account: ImmutablePropTypes.map.isRequired,
-    onConfirm: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   handleClick = () => {
     this.props.onClose()
@@ -48,3 +33,18 @@ class UnfollowModal extends ImmutablePureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onConfirm(accountId) {
+    dispatch(unfollowAccount(accountId))
+  },
+})
+
+UnfollowModal.propTypes = {
+  isSubmitting: PropTypes.bool.isRequired,
+  account: ImmutablePropTypes.map.isRequired,
+  onConfirm: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(UnfollowModal)

@@ -15,45 +15,7 @@ import StatusCheckBox from '../status_check_box'
 import Text from '../text'
 import Textarea from '../textarea'
 
-const messages = defineMessages({
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-  placeholder: { id: 'report.placeholder', defaultMessage: 'Additional comments' },
-  submit: { id: 'report.submit', defaultMessage: 'Submit' },
-  hint: { id: 'report.hint', defaultMessage: 'The report will be sent to your server moderators. You can provide an explanation of why you are reporting this account below:' },
-  target: { id: 'report.target', defaultMessage: 'Report {target}' },
-})
-
-const makeMapStateToProps = () => {
-  const getAccount = makeGetAccount()
-
-  const mapStateToProps = (state) => {
-    const accountId = state.getIn(['reports', 'new', 'account_id'])
-
-    return {
-      isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
-      account: getAccount(state, accountId),
-      comment: state.getIn(['reports', 'new', 'comment']),
-      statusIds: OrderedSet(state.getIn(['timelines', `account:${accountId}:with_replies`, 'items'])).union(state.getIn(['reports', 'new', 'status_ids'])),
-    }
-  }
-
-  return mapStateToProps
-}
-
-export default
-@connect(makeMapStateToProps)
-@injectIntl
 class ReportModal extends ImmutablePureComponent {
-
-  static propTypes = {
-    isSubmitting: PropTypes.bool,
-    account: ImmutablePropTypes.map,
-    statusIds: ImmutablePropTypes.orderedSet.isRequired,
-    comment: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    onClose: PropTypes.func.isRequired,
-  }
 
   handleCommentChange = (value) => {
     this.props.dispatch(changeReportComment(value))
@@ -151,3 +113,40 @@ class ReportModal extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+  placeholder: { id: 'report.placeholder', defaultMessage: 'Additional comments' },
+  submit: { id: 'report.submit', defaultMessage: 'Submit' },
+  hint: { id: 'report.hint', defaultMessage: 'The report will be sent to your server moderators. You can provide an explanation of why you are reporting this account below:' },
+  target: { id: 'report.target', defaultMessage: 'Report {target}' },
+})
+
+const makeMapStateToProps = () => {
+  const getAccount = makeGetAccount()
+
+  const mapStateToProps = (state) => {
+    const accountId = state.getIn(['reports', 'new', 'account_id'])
+
+    return {
+      isSubmitting: state.getIn(['reports', 'new', 'isSubmitting']),
+      account: getAccount(state, accountId),
+      comment: state.getIn(['reports', 'new', 'comment']),
+      statusIds: OrderedSet(state.getIn(['timelines', `account:${accountId}:with_replies`, 'items'])).union(state.getIn(['reports', 'new', 'status_ids'])),
+    }
+  }
+
+  return mapStateToProps
+}
+
+ReportModal.propTypes = {
+  isSubmitting: PropTypes.bool,
+  account: ImmutablePropTypes.map,
+  statusIds: ImmutablePropTypes.orderedSet.isRequired,
+  comment: PropTypes.string.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(makeMapStateToProps)(ReportModal))
