@@ -35,6 +35,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
                 color='none'
                 backgroundColor='none'
                 icon='logo'
+                title='Gab'
                 iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
               />
 
