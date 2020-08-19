@@ -144,7 +144,7 @@
     "react-redux": "^6.0.1",
     "react-redux-loading-bar": "^4.0.8",
     "react-router-dom": "^4.1.1",
-    "react-router-scroll-4": "^1.0.0-beta.1",
+    "react-router-scroll-4": "^1.0.0-beta.2",
     "react-stickynode": "^2.1.1",
     "react-swipeable-views": "^0.13.0",
     "react-textarea-autosize": "^7.1.0",

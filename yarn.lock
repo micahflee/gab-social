@@ -7859,7 +7859,7 @@ react-router-dom@^4.1.1:
     react-router "^4.3.1"
     warning "^4.0.1"
 
-react-router-scroll-4@^1.0.0-beta.1:
+react-router-scroll-4@^1.0.0-beta.2:
   version "1.0.0-beta.2"
   resolved "https://registry.yarnpkg.com/react-router-scroll-4/-/react-router-scroll-4-1.0.0-beta.2.tgz#d887063ec0f66124aaf450158dd158ff7d3dc279"
   integrity sha512-K67Dnm75naSBs/WYc2CDNxqU+eE8iA3I0wSCArgGSHb0xR/7AUcgUEXtCxrQYVTogXvjVK60gmwYvOyRQ6fuBA==
