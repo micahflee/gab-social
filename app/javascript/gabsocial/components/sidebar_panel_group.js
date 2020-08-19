@@ -28,6 +28,8 @@ class SidebarPanelGroup extends React.PureComponent {
       <React.Fragment>
         {
           layout.map((panel) => {
+            if (!panel) return null
+
             if (typeof panel !== 'function') {
               return panel
             }
