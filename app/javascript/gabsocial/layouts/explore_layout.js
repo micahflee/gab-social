@@ -4,6 +4,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import throttle from 'lodash.throttle'
 import Sticky from 'react-stickynode'
+import { me } from '../initial_state'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Layout from './layout'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
@@ -13,6 +14,7 @@ import Heading from '../components/heading'
 import {
   GroupsPanel,
   SignUpLogInPanel,
+  VerifiedAccountsPanel,
   TrendsPanel,
 } from '../features/ui/util/async_components'
 
@@ -60,6 +62,15 @@ class ExploreLayout extends ImmutablePureComponent {
       </div>
     )
 
+    const layout = [
+      SignUpLogInPanel,
+      <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
+    ]
+    if (!!me) {
+      layout.push(VerifiedAccountsPanel)  
+    }
+    layout.push(<WrappedBundle component={TrendsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />)
+
     return (
       <Layout
         showGlobalFooter
@@ -99,11 +110,7 @@ class ExploreLayout extends ImmutablePureComponent {
                   <div className={[_s.d, _s.w340PX].join(' ')}>
                     <SidebarPanelGroup
                       page='explore'
-                      layout={[
-                        SignUpLogInPanel,
-                        <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
-                        <WrappedBundle component={TrendsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />,
-                      ]}
+                      layout={layout}
                     />
                   </div>
                 </Sticky>
