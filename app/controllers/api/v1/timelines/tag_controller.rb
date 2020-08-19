@@ -8,7 +8,7 @@ class Api::V1::Timelines::TagController < Api::BaseController
   respond_to :json
 
   def show
-    @statuses = load_statuses
+    @statuses = tagged_statuses
     render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 
@@ -16,14 +16,6 @@ class Api::V1::Timelines::TagController < Api::BaseController
 
   def load_tag
     @tag = Tag.find_normalized(params[:id])
-  end
-
-  def load_statuses
-    cached_tagged_statuses
-  end
-
-  def cached_tagged_statuses
-    cache_collection tagged_statuses, Status
   end
 
   def tagged_statuses
@@ -35,13 +27,7 @@ class Api::V1::Timelines::TagController < Api::BaseController
         params_slice(:max_id, :since_id, :min_id)
       )
 
-      if truthy_param?(:only_media)
-        # `SELECT DISTINCT id, updated_at` is too slow, so pluck ids at first, and then select id, updated_at with ids.
-        status_ids = statuses.joins(:media_attachments).distinct(:id).pluck(:id)
-        statuses.where(id: status_ids)
-      else
-        statuses
-      end
+      statuses
     end
   end
 
