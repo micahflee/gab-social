@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
-
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classNames.bind(_s)
+import { CX } from '../constants'
 
 // Define colors for enumeration for Text component `color` prop
 const COLORS = {
@@ -70,7 +67,7 @@ class Text extends React.PureComponent {
     } = this.props
 
     // Style the component according to props
-    const classes = cx(className, {
+    const classes = CX(className, {
       d: 1,
       text: 1,
 

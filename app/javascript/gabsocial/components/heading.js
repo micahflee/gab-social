@@ -1,9 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
-
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classNames.bind(_s)
+import { CX } from '../constants'
 
 // Define sizes for enumeration for Heading component `size` prop
 const SIZES = {
@@ -35,7 +32,7 @@ class Heading extends React.PureComponent {
     const { children, size, isCentered } = this.props
 
     // Each size has it's own custom style
-    const classes = cx({
+    const classes = CX({
       d: 1,
       text: 1,
       textAlignCenter: isCentered,

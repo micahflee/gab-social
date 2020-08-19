@@ -2,14 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
-import classNames from 'classnames/bind'
 import { changeComposeVisibility } from '../../actions/compose'
 import { closePopover } from '../../actions/popover'
+import { CX } from '../../constants'
 import PopoverLayout from './popover_layout'
 import Icon from '../icon'
 import Text from '../text'
-
-const cx = classNames.bind(_s)
 
 class StatusVisibilityDropdown extends React.PureComponent {
 
@@ -57,7 +55,7 @@ class StatusVisibilityDropdown extends React.PureComponent {
               const isActive = option.value === value
               const isLast = i === options.length - 1
 
-              const containerClasses = cx({
+              const containerClasses = CX({
                 d: 1,
                 flexRow: 1,
                 py10: 1,
@@ -68,7 +66,7 @@ class StatusVisibilityDropdown extends React.PureComponent {
                 bgBrand: isActive,
               })
 
-              const iconClasses = cx({
+              const iconClasses = CX({
                 ml10: 1,
                 mt2: 1,
                 cPrimary: !isActive,

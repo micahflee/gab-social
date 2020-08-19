@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class Textarea extends React.PureComponent {
 
@@ -22,7 +20,7 @@ class Textarea extends React.PureComponent {
       title,
     } = this.props
 
-    const inputClasses = cx({
+    const inputClasses = CX({
       d: 1,
       text: 1,
       outlineNone: 1,

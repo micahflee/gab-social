@@ -5,12 +5,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { decode } from 'blurhash'
 import { autoPlayGif, displayMedia } from '../initial_state'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Icon from './icon'
 import Image from './image'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class MediaItem extends ImmutablePureComponent {
 
@@ -76,7 +74,7 @@ class MediaItem extends ImmutablePureComponent {
       badge = 'GIF'
     }
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       d: 1,
       posAbs: 1,
       top0: 1,
@@ -86,7 +84,7 @@ class MediaItem extends ImmutablePureComponent {
       px2: !isSmall,
     })
 
-    const linkClasses = cx({
+    const linkClasses = CX({
       d: 1,
       w100PC: 1,
       h100PC: 1,

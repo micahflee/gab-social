@@ -30,9 +30,9 @@ class Search extends ImmutablePureComponent {
     } = this.props
     const { isSmallScreen } = this.state
 
-    if (isLoading) {
+    // if (isLoading) {
       return <ColumnIndicator type='loading' />
-    }
+    // }
 
     if (isError) {
       return (

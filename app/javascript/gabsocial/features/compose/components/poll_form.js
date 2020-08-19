@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import classNames from 'classnames/bind'
 import { defineMessages, injectIntl } from 'react-intl'
 import {
   addPollOption,
@@ -11,12 +10,11 @@ import {
   changePollOption,
   changePollSettings,
 } from '../../../actions/compose'
+import { CX } from '../../../constants'
 import Button from '../../../components/button'
 import Text from '../../../components/text'
 import Select from '../../../components/select'
 import Input from '../../../components/input'
-
-const cx = classNames.bind(_s)
 
 class PollForm extends ImmutablePureComponent {
 
@@ -136,7 +134,7 @@ class PollFormOption extends ImmutablePureComponent {
   render() {
     const { isPollMultiple, title, index, intl } = this.props
 
-    const toggleClasses = cx({
+    const toggleClasses = CX({
       d: 1,
       px10: 1,
       py10: 1,

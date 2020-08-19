@@ -4,15 +4,13 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import classNames from 'classnames/bind'
 import { undoUploadCompose, changeUploadCompose } from '../../../actions/compose'
-import { submitCompose } from '../../../actions/compose';
+import { submitCompose } from '../../../actions/compose'
+import { CX } from '../../../constants'
 import Button from '../../../components/button'
 import Image from '../../../components/image'
 import Input from '../../../components/input'
 import Text from '../../../components/text'
-
-const cx = classNames.bind(_s)
 
 class Upload extends ImmutablePureComponent {
 
@@ -80,7 +78,7 @@ class Upload extends ImmutablePureComponent {
     const active = this.state.hovered || this.state.focused
     const description = this.state.dirtyDescription || (this.state.dirtyDescription !== '' && media.get('description')) || ''
 
-    const descriptionContainerClasses = cx({
+    const descriptionContainerClasses = CX({
       d: 1,
       posAbs: 1,
       right0: 1,

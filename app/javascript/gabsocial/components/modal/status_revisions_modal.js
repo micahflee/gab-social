@@ -4,13 +4,11 @@ import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import classNames from 'classnames/bind'
+import { CX } from '../../constants'
 import { loadStatusRevisions } from '../../actions/status_revisions'
 import ModalLayout from './modal_layout'
 import RelativeTimestamp from '../relative_timestamp'
 import Text from '../text'
-
-const cx = classNames.bind(_s)
 
 class StatusRevisionsModal extends ImmutablePureComponent {
 
@@ -38,7 +36,7 @@ class StatusRevisionsModal extends ImmutablePureComponent {
               const isFirst = i === 0
               const isLast = i === revisions.size - 1
 
-              const containerClasses = cx({
+              const containerClasses = CX({
                 d: 1,
                 pt5: 1,
                 pb10: 1,

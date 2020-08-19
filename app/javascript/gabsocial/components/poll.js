@@ -4,19 +4,17 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
-import classNames from 'classnames/bind'
 import escapeTextContentForBrowser from 'escape-html'
 import spring from 'react-motion/lib/spring'
 import { me } from '../initial_state'
 import Motion from '../features/ui/util/reduced_motion'
 import { vote } from '../actions/polls'
-import emojify from 'gabsocial/components/emoji/emoji'
+import { CX } from '../constants'
+import emojify from './emoji/emoji'
 import RelativeTimestamp from './relative_timestamp'
 import Button from './button'
 import DotTextSeperator from './dot_text_seperator'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 const makeEmojiMap = record => record.get('emojis').reduce((obj, emoji) => {
   obj[`:${emoji.get('shortcode')}:`] = emoji.toJS()
@@ -70,7 +68,7 @@ class Poll extends ImmutablePureComponent {
       titleEmojified = emojify(escapeTextContentForBrowser(option.get('title')), emojiMap)
     }
 
-    const chartClasses = cx({
+    const chartClasses = CX({
       d: 1,
       posAbs: 1,
       top0: 1,
@@ -83,12 +81,12 @@ class Poll extends ImmutablePureComponent {
     })
 
     // : todo :
-    const inputClasses = cx('poll__input', {
+    const inputClasses = CX('poll__input', {
       'poll__input--checkbox': multiple,
       'poll__input--active': active,
     })
 
-    const listItemClasses = cx({
+    const listItemClasses = CX({
       d: 1,
       flexRow: 1,
       py10: showResults,
@@ -101,7 +99,7 @@ class Poll extends ImmutablePureComponent {
       bgSubtle: !showResults && active,
     })
 
-    const textContainerClasses = cx({
+    const textContainerClasses = CX({
       d: 1,
       w100PC: 1,
       px15: 1,

@@ -1,11 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class Input extends React.PureComponent {
 
@@ -33,7 +31,7 @@ class Input extends React.PureComponent {
       maxLength,
     } = this.props
 
-    const inputClasses = cx({
+    const inputClasses = CX({
       d: 1,
       text: 1,
       outlineNone: 1,
@@ -55,7 +53,7 @@ class Input extends React.PureComponent {
       pr15: !hasClear,
     })
 
-    const btnClasses = cx({
+    const btnClasses = CX({
       displayNone: !value || value.length === 0,
       px10: 1,
       mr5: 1,

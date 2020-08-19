@@ -4,16 +4,14 @@ import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { is } from 'immutable';
 import { defineMessages, injectIntl } from 'react-intl';
-import classNames from 'classnames/bind'
 import { decode } from 'blurhash';
-import { autoPlayGif, displayMedia } from '../initial_state';
+import { autoPlayGif, displayMedia } from '../initial_state'
+import { CX } from '../constants'
 import { isIOS } from '../utils/is_mobile';
 import { isPanoramic, isPortrait, isNonConformingRatio, minimumAspectRatio, maximumAspectRatio } from '../utils/media_aspect_ratio';
 import Button from './button'
 import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class Item extends ImmutablePureComponent {
 
@@ -514,7 +512,7 @@ class MediaGallery extends React.PureComponent {
       />
     ))
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       d: 1,
       displayBlock: 1,
       overflowHidden: 1,

@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Icon from './icon'
-
-// Bind CSS Modules global variable `_s` to classNames module
-const cx = classNames.bind(_s)
 
 // Define colors for enumeration for Button component `color`, `backgroundColor` props
 const COLORS = {
@@ -108,7 +105,7 @@ class Button extends React.PureComponent {
     } = this.props
 
     // Style the component according to props
-    const classes = noClasses ? className : cx(className, {
+    const classes = noClasses ? className : CX(className, {
       d: 1,
       noUnderline: 1,
       font: 1,

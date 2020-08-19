@@ -3,15 +3,13 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
-import classNames from 'classnames/bind'
 import { isRtl } from '../utils/rtl'
+import { CX } from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Text from './text'
 
 const MAX_HEIGHT = 200
-
-const cx = classNames.bind(_s)
 
 class StatusContent extends ImmutablePureComponent {
 
@@ -191,7 +189,7 @@ class StatusContent extends ImmutablePureComponent {
 
       const toggleText = intl.formatMessage(hidden ? messages.show : messages.hide)
 
-      const spoilerContainerClasses = cx({
+      const spoilerContainerClasses = CX({
         d: 1,
         py10: 1,
         borderBottom1PX: !hidden,
@@ -199,13 +197,13 @@ class StatusContent extends ImmutablePureComponent {
         mb10: !hidden,
       })
 
-      const statusContentClasses = cx({
+      const statusContentClasses = CX({
         statusContent: 1,
         outlineNone: 1,
         displayNone: hidden,
       })
 
-      const containerClasses = cx({
+      const containerClasses = CX({
         statusContent: 1,
         px15: !isComment,
         outlineNone: 1,
@@ -263,12 +261,12 @@ class StatusContent extends ImmutablePureComponent {
     } else if (this.props.onClick) {
       const hasMarginBottom = !!status.get('card') || !!status.get('poll') || status.get('media_attachments').size > 0
 
-      const containerClasses = cx({
+      const containerClasses = CX({
         px15: !isComment,
         mb15: hasMarginBottom,
       })
 
-      const statusContentClasses = cx({
+      const statusContentClasses = CX({
         statusContent: 1,
         outlineNone: 1,
         h215PX: collapsed & !isComment,
@@ -308,7 +306,7 @@ class StatusContent extends ImmutablePureComponent {
       )
     }
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       statusContent: 1,
       outlineNone: 1,
       px15: !isComment,

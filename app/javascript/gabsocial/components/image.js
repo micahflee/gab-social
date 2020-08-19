@@ -1,8 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
-
-const cx = classNames.bind(_s)
+import { CX } from '../constants'
 
 class Image extends React.PureComponent {
 
@@ -27,7 +25,7 @@ class Image extends React.PureComponent {
     } = this.props
     const { error } = this.state
 
-    const classes = cx(className, {
+    const classes = CX(className, {
       d: 1,
       objectFitCover: !!src && fit === 'cover',
       bgSecondary: !src,

@@ -1,9 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
+import { CX } from '../../../constants'
 import Button from '../../../components/button'
-
-const cx = classNames.bind(_s)
 
 class ComposeExtraButton extends React.PureComponent {
 
@@ -19,7 +17,7 @@ class ComposeExtraButton extends React.PureComponent {
       buttonRef
     } = this.props
 
-    const btnClasses = cx({
+    const btnClasses = CX({
       d: 1,
       circle: 1,
       noUnderline: 1,
@@ -37,7 +35,7 @@ class ComposeExtraButton extends React.PureComponent {
       mr2: !children,
     })
 
-    const iconClasses = cx({
+    const iconClasses = CX({
       cSecondary: !active,
       cWhite: active,
     })

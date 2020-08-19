@@ -2,13 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { FormattedMessage } from 'react-intl'
 import throttle from 'lodash.throttle'
-import classNames from 'classnames/bind'
 import { shortNumberFormat } from '../utils/numbers'
+import { CX } from '../constants'
 import { scrollTo } from '../utils/scroll_to'
 import Button from './button'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class TimelineQueueButtonHeader extends React.PureComponent {
 
@@ -78,7 +76,7 @@ class TimelineQueueButtonHeader extends React.PureComponent {
 
     const hasItems = count > 0
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       d: 1,
       pb5: 1,
       posSticky: !hidden,
@@ -87,7 +85,7 @@ class TimelineQueueButtonHeader extends React.PureComponent {
       z3: 1,
     })
 
-    const innerContainerClasses = cx({
+    const innerContainerClasses = CX({
       d: 1,
       displayNone: !hasItems,
       mtNeg26PX: 1,

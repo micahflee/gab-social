@@ -5,13 +5,10 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
-import classNames from 'classnames/bind'
-import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
+import { PLACEHOLDER_MISSING_HEADER_SRC, CX } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
 import Image from './image'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class GroupCollectionItem extends ImmutablePureComponent {
 
@@ -41,7 +38,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
       )
     }
 
-    const navLinkClasses = cx({
+    const navLinkClasses = CX({
       d: 1,
       noUnderline: 1,
       overflowHidden: 1,

@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
-import classNames from 'classnames/bind'
+import { CX } from '../../constants'
 import Button from '../button'
 import Block from '../block'
 import Heading from '../heading'
-
-const cx = classNames.bind(_s)
 
 class ModalLayout extends React.PureComponent {
 
@@ -25,7 +23,7 @@ class ModalLayout extends React.PureComponent {
       isXS,
     } = this.props
 
-    const childrenContainerClasses = cx({
+    const childrenContainerClasses = CX({
       d: 1,
       maxH80VH: 1,
       overflowYScroll: 1,

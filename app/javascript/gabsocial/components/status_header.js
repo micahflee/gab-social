@@ -5,11 +5,11 @@ import { injectIntl, defineMessages } from 'react-intl'
 import { NavLink } from 'react-router-dom'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import classNames from 'classnames/bind'
 import moment from 'moment-mini'
 import { openPopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
 import { me } from '../initial_state'
+import { CX } from '../constants'
 import RelativeTimestamp from './relative_timestamp'
 import DisplayName from './display_name'
 import Text from './text'
@@ -17,8 +17,6 @@ import DotTextSeperator from './dot_text_seperator'
 import Icon from './icon'
 import Button from './button'
 import Avatar from './avatar'
-
-const cx = classNames.bind(_s)
 
 class StatusHeader extends ImmutablePureComponent {
 
@@ -43,7 +41,7 @@ class StatusHeader extends ImmutablePureComponent {
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       d: 1,
       px15: 1,
       py10: !reduced,

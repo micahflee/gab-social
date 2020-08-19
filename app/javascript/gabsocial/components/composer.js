@@ -13,12 +13,10 @@ import {
 import draftToMarkdown from '../features/ui/util/draft_to_markdown'
 import markdownToDraft from '../features/ui/util/markdown_to_draft'
 import { urlRegex } from '../features/ui/util/url_regex'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import RichTextEditorBar from './rich_text_editor_bar'
 
 import '!style-loader!css-loader!draft-js/dist/Draft.css'
-
-const cx = classNames.bind(_s)
 
 const markdownOptions = {
   escapeMarkdownCharacters: false,
@@ -237,7 +235,7 @@ class Composer extends React.PureComponent {
     } = this.props
     const { editorState } = this.state
 
-    const editorContainerClasses = cx({
+    const editorContainerClasses = CX({
       d: 1,
       cursorText: 1,
       text: 1,

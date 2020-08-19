@@ -1,12 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import classNames from 'classnames/bind'
+import { CX } from '../constants'
 import Button from './button'
 import Icon from './icon'
 import Image from './image'
 import Text from './text'
-
-const cx = classNames.bind(_s)
 
 class ListItem extends React.PureComponent {
 
@@ -55,7 +53,7 @@ class ListItem extends React.PureComponent {
     const imageSize = large ? '22px' : '18px'
     const showActive = isActive !== undefined
 
-    const containerClasses = cx({
+    const containerClasses = CX({
       d: 1,
       cursorPointer: 1,
       noUnderline: 1,
@@ -73,14 +71,14 @@ class ListItem extends React.PureComponent {
       borderBottom1PX: !isLast,
     })
 
-    const iconClasses = cx({
+    const iconClasses = CX({
       mr10: !large,
       mr15: large,
       cPrimary: !!icon,
       circle: !icon && !!image,
     })
 
-    const textContainerClasses = cx({
+    const textContainerClasses = CX({
       d: 1,
       pr5: 1,
       maxW100PC42PX: !hideArrow || showActive,

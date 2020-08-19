@@ -2,12 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { RichUtils } from 'draft-js'
-import classNames from 'classnames/bind'
 import { me } from '../initial_state'
 import { makeGetAccount } from '../selectors'
+import { CX } from '../constants'
 import Icon from './icon'
-
-const cx = classNames.bind(_s)
 
 const RTE_ITEMS = [
   {
@@ -143,7 +141,7 @@ class StyleButton extends React.PureComponent {
     const active = type === 'block' ? style === blockType : currentStyle.has(style)
     const iconColor = active ? 'cWhite' : 'cSecondary'
 
-    const btnClasses = cx({
+    const btnClasses = CX({
       d: 1,
       noUnderline: 1,
       cursorPointer: 1,
