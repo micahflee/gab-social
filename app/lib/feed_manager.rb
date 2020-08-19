@@ -178,6 +178,8 @@ class FeedManager
       should_filter ||= AccountDomainBlock.where(account_id: receiver_id, domain: status.reblog.account.domain).exists?          # or the author's domain is blocked
       return should_filter
     end
+    
+    return false if status.group_id
 
     false
   end
