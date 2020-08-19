@@ -84,7 +84,7 @@ class SidebarXS extends ImmutablePureComponent {
         title: intl.formatMessage(messages.search),
       },
       {
-        icon: 'circle',
+        icon: 'explore',
         to: '/timeline/pro',
         onClick: this.handleSidebarClose,
         title: intl.formatMessage(messages.proFeed),

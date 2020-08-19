@@ -108,7 +108,7 @@ class Sidebar extends ImmutablePureComponent {
       },
       {
         title: 'Pro Feed',
-        icon: 'circle',
+        icon: 'explore',
         to: '/timeline/pro',
       },
       {
