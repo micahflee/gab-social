@@ -7,28 +7,7 @@ import { fetchShortcuts } from '../actions/shortcuts'
 import ColumnIndicator from '../components/column_indicator'
 import List from '../components/list'
 
-const mapStateToProps = (state) => ({
-  isError: state.getIn(['shortcuts', 'isError']),
-  isLoading: state.getIn(['shortcuts', 'isLoading']),
-  shortcuts: state.getIn(['shortcuts', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchShortcuts() {
-    dispatch(fetchShortcuts())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class Shortcuts extends ImmutablePureComponent {
-
-  static propTypes = {
-    isLoading: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-    onFetchShortcuts: PropTypes.func.isRequired,
-    shortcuts: ImmutablePropTypes.list,
-  }
 
   componentDidMount() {
     this.props.onFetchShortcuts()
@@ -62,3 +41,24 @@ class Shortcuts extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  isError: state.getIn(['shortcuts', 'isError']),
+  isLoading: state.getIn(['shortcuts', 'isLoading']),
+  shortcuts: state.getIn(['shortcuts', 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchShortcuts() {
+    dispatch(fetchShortcuts())
+  },
+})
+
+Shortcuts.propTypes = {
+  isLoading: PropTypes.bool.isRequired,
+  isError: PropTypes.bool.isRequired,
+  onFetchShortcuts: PropTypes.func.isRequired,
+  shortcuts: ImmutablePropTypes.list,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Shortcuts)

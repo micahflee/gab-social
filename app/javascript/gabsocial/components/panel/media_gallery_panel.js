@@ -10,34 +10,7 @@ import PanelLayout from './panel_layout'
 import MediaItem from '../media_item'
 import MediaGalleryPanelPlaceholder from '../placeholder/media_gallery_panel_placeholder'
 
-const messages = defineMessages({
-  title: { id: 'media_gallery_panel.title', defaultMessage: 'Media' },
-  show_all: { id: 'media_gallery_panel.all', defaultMessage: 'Show all' },
-})
-
-const mapStateToProps = (state, { account }) => {
-  const accountId = !!account ? account.get('id') : -1
-
-  return {
-    accountId,
-    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading'], true), 
-    attachments: getAccountGallery(state, accountId),
-  }
-}
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class MediaGalleryPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    accountId: PropTypes.string,
-    account: ImmutablePropTypes.map,
-    isLoading: PropTypes.bool,
-    attachments: ImmutablePropTypes.list.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
 
   componentDidMount() {
     const { accountId } = this.props
@@ -93,3 +66,29 @@ class MediaGalleryPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'media_gallery_panel.title', defaultMessage: 'Media' },
+  show_all: { id: 'media_gallery_panel.all', defaultMessage: 'Show all' },
+})
+
+const mapStateToProps = (state, { account }) => {
+  const accountId = !!account ? account.get('id') : -1
+
+  return {
+    accountId,
+    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading'], true), 
+    attachments: getAccountGallery(state, accountId),
+  }
+}
+
+MediaGalleryPanel.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  accountId: PropTypes.string,
+  account: ImmutablePropTypes.map,
+  isLoading: PropTypes.bool,
+  attachments: ImmutablePropTypes.list.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps)(MediaGalleryPanel))

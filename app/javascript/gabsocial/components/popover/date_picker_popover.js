@@ -15,41 +15,7 @@ import Text from '../text'
 
 import '!style-loader!css-loader!react-datepicker/dist/react-datepicker.css'
 
-const mapStateToProps = (state) => ({
-  date: state.getIn(['compose', 'scheduled_at']),
-  isPro: state.getIn(['accounts', me, 'is_pro']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  setScheduledAt (date, isPro) {
-    if (!isPro) {
-      dispatch(closePopover())
-      return dispatch(openModal(MODAL_PRO_UPGRADE))
-    }
-
-    dispatch(changeScheduledAt(date))
-
-    if (!date) {
-      dispatch(closePopover())
-    }
-  },
-
-  onClosePopover: () => dispatch(closePopover())
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class DatePickerPopover extends React.PureComponent {
-
-  static propTypes = {
-    date: PropTypes.instanceOf(Date),
-    setScheduledAt: PropTypes.func.isRequired,
-    isPro: PropTypes.bool,
-    position: PropTypes.string,
-    small: PropTypes.bool,
-    isXS: PropTypes.bool,
-    onClosePopover: PropTypes.func.isRequired,
-  }
 
   handleSetDate = (date) => {
     this.props.setScheduledAt(date, this.props.isPro)
@@ -128,3 +94,37 @@ class DatePickerPopover extends React.PureComponent {
   }
   
 }
+
+const mapStateToProps = (state) => ({
+  date: state.getIn(['compose', 'scheduled_at']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  setScheduledAt (date, isPro) {
+    if (!isPro) {
+      dispatch(closePopover())
+      return dispatch(openModal(MODAL_PRO_UPGRADE))
+    }
+
+    dispatch(changeScheduledAt(date))
+
+    if (!date) {
+      dispatch(closePopover())
+    }
+  },
+
+  onClosePopover: () => dispatch(closePopover())
+})
+
+DatePickerPopover.propTypes = {
+  date: PropTypes.instanceOf(Date),
+  setScheduledAt: PropTypes.func.isRequired,
+  isPro: PropTypes.bool,
+  position: PropTypes.string,
+  small: PropTypes.bool,
+  isXS: PropTypes.bool,
+  onClosePopover: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DatePickerPopover)

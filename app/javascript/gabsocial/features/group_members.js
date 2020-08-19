@@ -19,49 +19,7 @@ import BlockHeading from '../components/block_heading'
 import Input from '../components/input'
 import ScrollableList from '../components/scrollable_list'
 
-const mapStateToProps = (state, { params }) => {
-	const groupId = isObject(params) ? params['id'] : -1
-	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
-
-	return {
-		group,
-		groupId,
-		relationships: state.getIn(['group_relationships', groupId]),
-		accountIds: state.getIn(['user_lists', 'groups', groupId, 'items']),
-		hasMore: !!state.getIn(['user_lists', 'groups', groupId, 'next']),
-	}
-}
-
-const mapDispatchToProps = (dispatch) => ({
-	onFetchMembers(groupId) {
-		dispatch(fetchMembers(groupId))
-	},
-	onExpandMembers(groupId) {
-		dispatch(expandMembers(groupId))
-	},
-	onOpenGroupMemberOptions(targetRef, accountId, groupId) {
-		dispatch(openPopover('GROUP_MEMBER_OPTIONS', {
-			targetRef,
-			accountId,
-			groupId,
-			position: 'top',
-		}))
-	},
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupMembers extends ImmutablePureComponent {
-
-	static propTypes = {
-		group: ImmutablePropTypes.map,
-		groupId: PropTypes.string.isRequired,
-		accountIds: ImmutablePropTypes.list,
-		hasMore: PropTypes.bool,
-		onExpandMembers: PropTypes.func.isRequired,
-		onFetchMembers: PropTypes.func.isRequired,
-		onOpenGroupMemberOptions: PropTypes.func.isRequired,
-	}
 
 	componentWillMount() {
 		const { groupId } = this.props
@@ -146,3 +104,45 @@ class GroupMembers extends ImmutablePureComponent {
 	}
 
 }
+
+const mapStateToProps = (state, { params }) => {
+	const groupId = isObject(params) ? params['id'] : -1
+	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
+
+	return {
+		group,
+		groupId,
+		relationships: state.getIn(['group_relationships', groupId]),
+		accountIds: state.getIn(['user_lists', 'groups', groupId, 'items']),
+		hasMore: !!state.getIn(['user_lists', 'groups', groupId, 'next']),
+	}
+}
+
+const mapDispatchToProps = (dispatch) => ({
+	onFetchMembers(groupId) {
+		dispatch(fetchMembers(groupId))
+	},
+	onExpandMembers(groupId) {
+		dispatch(expandMembers(groupId))
+	},
+	onOpenGroupMemberOptions(targetRef, accountId, groupId) {
+		dispatch(openPopover('GROUP_MEMBER_OPTIONS', {
+			targetRef,
+			accountId,
+			groupId,
+			position: 'top',
+		}))
+	},
+})
+
+GroupMembers.propTypes = {
+	group: ImmutablePropTypes.map,
+	groupId: PropTypes.string.isRequired,
+	accountIds: ImmutablePropTypes.list,
+	hasMore: PropTypes.bool,
+	onExpandMembers: PropTypes.func.isRequired,
+	onFetchMembers: PropTypes.func.isRequired,
+	onOpenGroupMemberOptions: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(GroupMembers)

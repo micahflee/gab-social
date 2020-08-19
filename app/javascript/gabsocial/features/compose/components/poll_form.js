@@ -119,16 +119,6 @@ class PollForm extends ImmutablePureComponent {
 
 class PollFormOption extends ImmutablePureComponent {
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    index: PropTypes.number.isRequired,
-    isPollMultiple: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onRemove: PropTypes.func.isRequired,
-    onToggleMultiple: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-  }
-
   handleOptionTitleChange = (value) => {
     this.props.onChange(this.props.index, value)
   }
@@ -193,6 +183,16 @@ class PollFormOption extends ImmutablePureComponent {
     )
   }
 
+}
+
+PollFormOption.propTypes = {
+  title: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
+  isPollMultiple: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
+  onToggleMultiple: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
 }
 
 const messages = defineMessages({

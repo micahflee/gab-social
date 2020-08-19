@@ -15,37 +15,7 @@ import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
-const mapStateToProps = (state, { account }) => {
-  const accountId = !!account ? account.get('id') : -1
-
-  return {
-    accountId,
-    accountIds: state.getIn(['user_lists', 'followers', accountId, 'items']),
-    hasMore: !!state.getIn(['user_lists', 'followers', accountId, 'next']),
-    isLoading: state.getIn(['user_lists', 'followers', accountId, 'isLoading'], true),
-  }
-}
-
-const messages = defineMessages({
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  empty: { id: 'account.followers.empty', defaultMessage: 'No one follows this user yet.' },
-})
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class Followers extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    accountId: PropTypes.string,
-    intl: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    accountIds: ImmutablePropTypes.list,
-    hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
-  }
 
   componentWillMount() {
     const { accountId } = this.props
@@ -101,3 +71,32 @@ class Followers extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { account }) => {
+  const accountId = !!account ? account.get('id') : -1
+
+  return {
+    accountId,
+    accountIds: state.getIn(['user_lists', 'followers', accountId, 'items']),
+    hasMore: !!state.getIn(['user_lists', 'followers', accountId, 'next']),
+    isLoading: state.getIn(['user_lists', 'followers', accountId, 'isLoading'], true),
+  }
+}
+
+const messages = defineMessages({
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  empty: { id: 'account.followers.empty', defaultMessage: 'No one follows this user yet.' },
+})
+
+Followers.propTypes = {
+  account: ImmutablePropTypes.map,
+  accountId: PropTypes.string,
+  intl: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  accountIds: ImmutablePropTypes.list,
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(Followers))

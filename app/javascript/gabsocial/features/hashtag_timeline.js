@@ -7,21 +7,9 @@ import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
 import { connectHashtagStream } from '../actions/streaming'
 import StatusList from '../components/status_list'
 
-const mapStateToProps = (state, props) => ({
-  hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
-})
-
-export default
-@connect(mapStateToProps)
 class HashtagTimeline extends React.PureComponent {
 
   disconnects = [];
-
-  static propTypes = {
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    hasUnread: PropTypes.bool,
-  }
 
   title = () => {
     const title = [this.props.params.id]
@@ -141,3 +129,15 @@ class HashtagTimeline extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state, props) => ({
+  hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
+})
+
+HashtagTimeline.propTypes = {
+  params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  hasUnread: PropTypes.bool,
+}
+
+export default connect(mapStateToProps)(HashtagTimeline)

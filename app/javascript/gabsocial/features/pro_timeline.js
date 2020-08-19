@@ -6,22 +6,10 @@ import { expandProTimeline } from '../actions/timelines'
 import { connectProStream } from '../actions/streaming'
 import StatusList from '../components/status_list'
 
-const messages = defineMessages({
-  empty: { id: 'empty_column.pro', defaultMessage: 'The pro timeline is empty.' },
-})
-
-export default
-@injectIntl
-@connect(null)
 class ProTimeline extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
   }
 
   componentDidMount () {
@@ -61,3 +49,14 @@ class ProTimeline extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  empty: { id: 'empty_column.pro', defaultMessage: 'The pro timeline is empty.' },
+})
+
+ProTimeline.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect(null)(ProTimeline))

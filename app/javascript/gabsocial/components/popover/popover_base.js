@@ -9,38 +9,10 @@ import { CX } from '../../constants'
 
 const listenerOptions = detectPassiveEvents.hasSupport ? { passive: true } : false
 
-const mapStateToProps = (state) => ({
-  isModalOpen: !!state.getIn(['modal', 'modalType']),
-  popoverPlacement: state.getIn(['popover', 'placement']),
-})
-
-export default
-@connect(mapStateToProps)
 class PopoverBase extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-
-  static propTypes = {
-    title: PropTypes.string,
-    disabled: PropTypes.bool,
-    status: ImmutablePropTypes.map,
-    isUserTouching: PropTypes.func,
-    isModalOpen: PropTypes.bool.isRequired,
-    onClose: PropTypes.func.isRequired,
-    position: PropTypes.string,
-    visible: PropTypes.bool,
-    targetRef: PropTypes.node,
-    innerRef: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func,
-    ]),
-  }
-
-  static defaultProps = {
-    title: 'Menu',
-    position: 'bottom',
   }
 
   componentDidMount() {
@@ -154,3 +126,31 @@ class PopoverBase extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  isModalOpen: !!state.getIn(['modal', 'modalType']),
+  popoverPlacement: state.getIn(['popover', 'placement']),
+})
+
+PopoverBase.propTypes = {
+  title: PropTypes.string,
+  disabled: PropTypes.bool,
+  status: ImmutablePropTypes.map,
+  isUserTouching: PropTypes.func,
+  isModalOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  position: PropTypes.string,
+  visible: PropTypes.bool,
+  targetRef: PropTypes.node,
+  innerRef: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.func,
+  ]),
+}
+
+PopoverBase.defaultProps = {
+  title: 'Menu',
+  position: 'bottom',
+}
+
+export default connect(mapStateToProps)(PopoverBase)

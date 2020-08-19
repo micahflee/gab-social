@@ -11,20 +11,7 @@ import ProgressBar from '../progress_bar'
 import Button from '../button'
 import Text from '../text'
 
-const messages = defineMessages({
-  progressTitle: { id: 'progress_title', defaultMessage: '{value}% covered this month' },
-  operationsTitle: { id: 'operations_title', defaultMessage: "Gab's Operational Expenses" },
-  operationsSubtitle: { id: 'operations_subtitle', defaultMessage: 'We are 100% funded by you' },
-  donationTitle: { id: 'make_donation', defaultMessage: 'Make a Donation' },
-})
-
-export default
-@injectIntl
 class ProgressPanel extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-  }
 
   render() {
     const { intl } = this.props
@@ -64,3 +51,16 @@ class ProgressPanel extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  progressTitle: { id: 'progress_title', defaultMessage: '{value}% covered this month' },
+  operationsTitle: { id: 'operations_title', defaultMessage: "Gab's Operational Expenses" },
+  operationsSubtitle: { id: 'operations_subtitle', defaultMessage: 'We are 100% funded by you' },
+  donationTitle: { id: 'make_donation', defaultMessage: 'Make a Donation' },
+})
+
+ProgressPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(ProgressPanel)

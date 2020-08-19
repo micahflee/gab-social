@@ -15,36 +15,7 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  minutes: { id: 'intervals.full.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}}' },
-  hours: { id: 'intervals.full.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}}' },
-  days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
-})
-
-const mapStateToProps = (state) => ({
-  expiresAtValue: state.getIn(['compose', 'expires_at']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onChangeExpiresAt(expiresAt)  {
-    dispatch(changeExpiresAt(expiresAt))
-  },
-  onClosePopover() {
-    dispatch(closePopover())
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class StatusExpirationOptionsPopover extends React.PureComponent {
-
-  static defaultProps = {
-    expiresAtValue: PropTypes.string.isRequired,
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    onChangeExpiresAt: PropTypes.func.isRequired,
-  }
 
   handleOnSetStatusExpiration = (expiresAt) => {
     this.props.onChangeExpiresAt(expiresAt)
@@ -127,3 +98,31 @@ class StatusExpirationOptionsPopover extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  minutes: { id: 'intervals.full.minutes', defaultMessage: '{number, plural, one {# minute} other {# minutes}}' },
+  hours: { id: 'intervals.full.hours', defaultMessage: '{number, plural, one {# hour} other {# hours}}' },
+  days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
+})
+
+const mapStateToProps = (state) => ({
+  expiresAtValue: state.getIn(['compose', 'expires_at']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onChangeExpiresAt(expiresAt)  {
+    dispatch(changeExpiresAt(expiresAt))
+  },
+  onClosePopover() {
+    dispatch(closePopover())
+  },
+})
+
+StatusExpirationOptionsPopover.defaultProps = {
+  expiresAtValue: PropTypes.string.isRequired,
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  onChangeExpiresAt: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StatusExpirationOptionsPopover))

@@ -11,29 +11,7 @@ import Account from '../components/account'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
-const mapStateToProps = (state, props) => {
-  const getStatus = makeGetStatus()
-  const status = getStatus(state, {
-    id: props.params.statusId,
-    username: props.params.username,
-  })
-
-  return {
-    status,
-    accountIds: state.getIn(['user_lists', 'reblogged_by', props.params.statusId]),
-  }
-}
-
-export default
-@connect(mapStateToProps)
 class StatusReposts extends ImmutablePureComponent {
-
-  static propTypes = {
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    accountIds: ImmutablePropTypes.list,
-    status: ImmutablePropTypes.map,
-  }
 
   componentWillMount () {
     this.props.dispatch(fetchReposts(this.props.params.statusId))
@@ -71,3 +49,25 @@ class StatusReposts extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, props) => {
+  const getStatus = makeGetStatus()
+  const status = getStatus(state, {
+    id: props.params.statusId,
+    username: props.params.username,
+  })
+
+  return {
+    status,
+    accountIds: state.getIn(['user_lists', 'reblogged_by', props.params.statusId]),
+  }
+}
+
+StatusReposts.propTypes = {
+  params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  accountIds: ImmutablePropTypes.list,
+  status: ImmutablePropTypes.map,
+}
+
+export default connect(mapStateToProps)(StatusReposts)

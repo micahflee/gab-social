@@ -7,30 +7,7 @@ import { meUsername } from '../../initial_state'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  profile: { id: 'account.profile', defaultMessage: 'Profile' },
-  display: { id: 'display_options', defaultMessage: 'Display Options' },
-  help: { id: 'getting_started.help', defaultMessage: 'Help' },
-  settings: { id: 'settings', defaultMessage: 'Settings' },
-  logout: { 'id': 'confirmations.logout.confirm', 'defaultMessage': 'Log out' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onClosePopover() {
-    dispatch(closePopover())
-  },
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class NavSettingsPopover extends React.PureComponent {
-  
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    isXS: PropTypes.bool,
-  }
 
   handleOnClosePopover = () => {
     this.props.onClosePopover()
@@ -70,3 +47,25 @@ class NavSettingsPopover extends React.PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  profile: { id: 'account.profile', defaultMessage: 'Profile' },
+  display: { id: 'display_options', defaultMessage: 'Display Options' },
+  help: { id: 'getting_started.help', defaultMessage: 'Help' },
+  settings: { id: 'settings', defaultMessage: 'Settings' },
+  logout: { 'id': 'confirmations.logout.confirm', 'defaultMessage': 'Log out' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClosePopover() {
+    dispatch(closePopover())
+  },
+})
+
+NavSettingsPopover.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  isXS: PropTypes.bool,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(NavSettingsPopover))

@@ -15,37 +15,7 @@ import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
-const mapStateToProps = (state, { account }) => {
-  const accountId = !!account ? account.get('id') : -1
-
-  return {
-    accountId,
-    accountIds: state.getIn(['user_lists', 'following', accountId, 'items']),
-    hasMore: !!state.getIn(['user_lists', 'following', accountId, 'next']),
-    isLoading: state.getIn(['user_lists', 'following', accountId, 'isLoading'], true),
-  }
-}
-
-const messages = defineMessages({
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  empty: { id: 'account.follows.empty', defaultMessage: 'This user doesn\'t follow anyone yet.' },
-})
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class Following extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    accountIds: ImmutablePropTypes.list,
-    account: ImmutablePropTypes.map,
-    accountId: PropTypes.string,
-    hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
-  }
 
   componentDidMount() {
     const { accountId } = this.props
@@ -101,3 +71,32 @@ class Following extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { account }) => {
+  const accountId = !!account ? account.get('id') : -1
+
+  return {
+    accountId,
+    accountIds: state.getIn(['user_lists', 'following', accountId, 'items']),
+    hasMore: !!state.getIn(['user_lists', 'following', accountId, 'next']),
+    isLoading: state.getIn(['user_lists', 'following', accountId, 'isLoading'], true),
+  }
+}
+
+const messages = defineMessages({
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  empty: { id: 'account.follows.empty', defaultMessage: 'This user doesn\'t follow anyone yet.' },
+})
+
+Following.propTypes = {
+  intl: PropTypes.object.isRequired,
+  params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  accountIds: ImmutablePropTypes.list,
+  account: ImmutablePropTypes.map,
+  accountId: PropTypes.string,
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps)(Following))

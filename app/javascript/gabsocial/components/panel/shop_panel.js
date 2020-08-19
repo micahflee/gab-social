@@ -7,32 +7,7 @@ import { URL_DISSENTER_SHOP } from '../../constants'
 import PanelLayout from './panel_layout'
 import ShopItem from '../shop_item'
 
-const messages = defineMessages({
-  title: { id: 'shop_panel.title', defaultMessage: 'Dissenter Shop' },
-  shop_now: { id: 'shop_panel.shop_now', defaultMessage: 'Visit the Dissenter Shop' },
-})
-
-const mapStateToProps = (state) => ({
-  items: state.getIn(['shop', 'featured', 'items']),
-  isError: state.getIn(['shop', 'featured', 'isError']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchFeaturedProducts: () => dispatch(fetchFeaturedProducts()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ShopPanel extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    products: PropTypes.array,
-    isLazy: PropTypes.bool,
-    onFetchFeaturedProducts: PropTypes.func.isRequired,
-    isError: PropTypes.bool.isRequired,
-  }
 
   state = {
     fetched: !this.props.isLazy,
@@ -74,7 +49,7 @@ class ShopPanel extends React.PureComponent {
         footerButtonTitle={intl.formatMessage(messages.shop_now)}
         footerButtonHref={URL_DISSENTER_SHOP}
       >
-        <div className={[_s.d, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
+        <div className={[_s._, _s.flexRow, _s.flexWrap, _s.pl5, _s.pt5].join(' ')}>
           {
             items.map((block, i) => (
               <ShopItem
@@ -91,3 +66,27 @@ class ShopPanel extends React.PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'shop_panel.title', defaultMessage: 'Dissenter Shop' },
+  shop_now: { id: 'shop_panel.shop_now', defaultMessage: 'Visit the Dissenter Shop' },
+})
+
+const mapStateToProps = (state) => ({
+  items: state.getIn(['shop', 'featured', 'items']),
+  isError: state.getIn(['shop', 'featured', 'isError']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchFeaturedProducts: () => dispatch(fetchFeaturedProducts()),
+})
+
+ShopPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+  products: PropTypes.array,
+  isLazy: PropTypes.bool,
+  onFetchFeaturedProducts: PropTypes.func.isRequired,
+  isError: PropTypes.bool.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ShopPanel))

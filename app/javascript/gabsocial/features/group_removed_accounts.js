@@ -18,47 +18,7 @@ import BlockHeading from '../components/block_heading'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
-const messages = defineMessages({
-	remove: { id: 'groups.removed_accounts', defaultMessage: 'Allow joining' },
-})
-
-const mapStateToProps = (state, { params }) => {
-	const groupId = isObject(params) ? params['id'] : -1
-	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
-
-	return {
-		group,
-		groupId,
-		accountIds: state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'items']),
-		hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'next']),
-	}
-}
-
-const mapDispatchToProps = (dispatch) => ({
-	onFetchRemovedAccounts(groupId) {
-		dispatch(fetchRemovedAccounts(groupId))
-	},
-	onExpandRemovedAccounts(groupId) {
-		dispatch(expandRemovedAccounts(groupId))
-	},
-	onRemoveRemovedAccount(groupId, accountId) {
-		dispatch(removeRemovedAccount(groupId, accountId))
-	},
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupRemovedAccounts extends ImmutablePureComponent {
-
-	static propTypes = {
-		groupId: PropTypes.string.isRequired,
-		accountIds: ImmutablePropTypes.list,
-		hasMore: PropTypes.bool,
-		onFetchRemovedAccounts: PropTypes.func.isRequired,
-		onExpandRemovedAccounts: PropTypes.func.isRequired,
-		onRemoveRemovedAccount: PropTypes.func.isRequired,
-	}
 
 	componentWillMount() {
 		const { groupId } = this.props
@@ -113,3 +73,42 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 	}
 
 }
+
+const messages = defineMessages({
+	remove: { id: 'groups.removed_accounts', defaultMessage: 'Allow joining' },
+})
+
+const mapStateToProps = (state, { params }) => {
+	const groupId = isObject(params) ? params['id'] : -1
+	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
+
+	return {
+		group,
+		groupId,
+		accountIds: state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'items']),
+		hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'next']),
+	}
+}
+
+const mapDispatchToProps = (dispatch) => ({
+	onFetchRemovedAccounts(groupId) {
+		dispatch(fetchRemovedAccounts(groupId))
+	},
+	onExpandRemovedAccounts(groupId) {
+		dispatch(expandRemovedAccounts(groupId))
+	},
+	onRemoveRemovedAccount(groupId, accountId) {
+		dispatch(removeRemovedAccount(groupId, accountId))
+	},
+})
+
+GroupRemovedAccounts.propTypes = {
+	groupId: PropTypes.string.isRequired,
+	accountIds: ImmutablePropTypes.list,
+	hasMore: PropTypes.bool,
+	onFetchRemovedAccounts: PropTypes.func.isRequired,
+	onExpandRemovedAccounts: PropTypes.func.isRequired,
+	onRemoveRemovedAccount: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupRemovedAccounts))

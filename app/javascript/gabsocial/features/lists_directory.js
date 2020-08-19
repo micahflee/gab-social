@@ -6,32 +6,9 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
 import { getOrderedLists } from '../selectors'
 import { fetchLists } from '../actions/lists'
-import ColumnIndicator from '../components/column_indicator'
 import List from '../components/list'
 
-const messages = defineMessages({
-  add: { id: 'lists.new.create', defaultMessage: 'Add List' },
-  empty: { id: 'empty_column.lists', defaultMessage: 'You don\'t have any lists yet. When you create one, it will show up here.' },
-})
-
-const mapStateToProps = (state) => ({
-  lists: getOrderedLists(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchLists: () => dispatch(fetchLists()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListsDirectory extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    lists: ImmutablePropTypes.list,
-    onFetchLists: PropTypes.func.isRequired,
-  }
 
   state = {
     fetched: false,
@@ -65,3 +42,24 @@ class ListsDirectory extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  add: { id: 'lists.new.create', defaultMessage: 'Add List' },
+  empty: { id: 'empty_column.lists', defaultMessage: 'You don\'t have any lists yet. When you create one, it will show up here.' },
+})
+
+const mapStateToProps = (state) => ({
+  lists: getOrderedLists(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchLists: () => dispatch(fetchLists()),
+})
+
+ListsDirectory.propTypes = {
+  intl: PropTypes.object.isRequired,
+  lists: ImmutablePropTypes.list,
+  onFetchLists: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListsDirectory))

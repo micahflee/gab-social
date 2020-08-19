@@ -10,20 +10,7 @@ import Divider from '../divider'
 import Icon from '../icon'
 import Text from '../text'
 
-const messages = defineMessages({
-  title: { id: 'lists_information', defaultMessage: 'List Information' },
-  edit: { id: 'edit', defaultMessage: 'Edit' },
-})
-
-export default
-@injectIntl
 class ListDetailsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    list: ImmutablePropTypes.map,
-    onEdit: PropTypes.func.isRequired,
-  }
 
   render() {
     const {
@@ -78,3 +65,16 @@ class ListDetailsPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'lists_information', defaultMessage: 'List Information' },
+  edit: { id: 'edit', defaultMessage: 'Edit' },
+})
+
+ListDetailsPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+  list: ImmutablePropTypes.map,
+  onEdit: PropTypes.func.isRequired,
+}
+
+export default injectIntl(ListDetailsPanel)

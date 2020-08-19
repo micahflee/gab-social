@@ -12,35 +12,7 @@ import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import ScrollableList from '../components/scrollable_list'
 
-const messages = defineMessages({
-  empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
-})
-
-const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'blocks', me, 'items']),
-  hasMore: !!state.getIn(['user_lists', 'blocks', me, 'next']),
-  isLoading: state.getIn(['user_lists', 'blocks', me, 'isLoading']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchBlocks: () => dispatch(fetchBlocks()),
-  onExpandBlocks: () => dispatch(expandBlocks()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class Blocks extends ImmutablePureComponent {
-
-  static propTypes = {
-    accountIds: ImmutablePropTypes.list,
-    hasMore: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-    isLoading: PropTypes.bool,
-    onExpandBlocks: PropTypes.func.isRequired,
-    onFetchBlocks: PropTypes.func.isRequired,
-  }
 
   componentDidMount() {
     this.props.onFetchBlocks()
@@ -85,3 +57,30 @@ class Blocks extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
+  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+})
+
+const mapStateToProps = (state) => ({
+  accountIds: state.getIn(['user_lists', 'blocks', me, 'items']),
+  hasMore: !!state.getIn(['user_lists', 'blocks', me, 'next']),
+  isLoading: state.getIn(['user_lists', 'blocks', me, 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchBlocks: () => dispatch(fetchBlocks()),
+  onExpandBlocks: () => dispatch(expandBlocks()),
+})
+
+Blocks.propTypes = {
+  accountIds: ImmutablePropTypes.list,
+  hasMore: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool,
+  onExpandBlocks: PropTypes.func.isRequired,
+  onFetchBlocks: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Blocks))

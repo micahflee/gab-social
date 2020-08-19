@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
 import Text from '../text'
 import Button from '../button'
 
-class UnauthorizedModal extends ImmutablePureComponent {
+class UnauthorizedModal extends React.PureComponent {
 
   render() {
     const { intl, onClose } = this.props

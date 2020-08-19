@@ -32,135 +32,10 @@ import Select from '../components/select'
 import Textarea from '../components/textarea'
 import FileInput from '../components/file_input'
 
-const messages = defineMessages({
-	title: { id: 'groups.form.title', defaultMessage: 'Title' },
-	idTitle: { id: 'groups.form.id_title', defaultMessage: 'Unique id' },
-	idDescription: { id: 'groups.form.id_description', defaultMessage: 'A unique id that links to this group. (Cannot be changed)' },
-	tagsTitle: { id: 'groups.form.tags_title', defaultMessage: 'Tags' },
-	tagsDescription: { id: 'groups.form.tags_description', defaultMessage: 'Add tags seperated by commas to increase group visibility' },
-	categoryTitle: { id: 'groups.form.category_title', defaultMessage: 'Category' },
-	categoryDescription: { id: 'groups.form.category_description', defaultMessage: 'Add a general category for your group' },
-	description: { id: 'groups.form.description', defaultMessage: 'Enter the group description' },
-	coverImage: { id: 'groups.form.coverImage', defaultMessage: 'Upload a banner image' },
-	coverImageDescription: { id: 'groups.form.coverImage_description', defaultMessage: 'Accepted image types: .jpg, .png' },
-	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Banner image selected' },
-	create: { id: 'groups.form.create', defaultMessage: 'Create group' },
-	update: { id: 'groups.form.update', defaultMessage: 'Update group' },
-	titlePlaceholder: { id: 'groups.form.title_placeholder', defaultMessage: 'New group title...' },
-	descriptionPlaceholder: { id: 'groups.form.description_placeholder', defaultMessage: 'This group is about...' },
-	isPrivateDescription: { id: 'groups.form.is_private_description', defaultMessage: 'Only members can see group posts.' },
-	isVisibleDescription: { id: 'groups.form.is_visible_description', defaultMessage: 'Anyone can find a visible group in search and other places on Gab.' },
-})
-
-const mapStateToProps = (state, { params }) => {
-	const groupId = isObject(params) ? params['id'] : null
-	const group = state.getIn(['groups', groupId])
-	let isAdmin = false
-
-	if (groupId) {
-		const relationships = state.getIn(['group_relationships', groupId])
-		if (relationships) {
-			isAdmin = relationships.get('admin')
-		}
-	}
-
-	return {
-		group,
-		groupId,
-		isAdmin,
-		error: (groupId && !group) || (group && !isAdmin),
-		titleValue: state.getIn(['group_editor', 'title']),
-		descriptionValue: state.getIn(['group_editor', 'description']),
-		coverImage: state.getIn(['group_editor', 'coverImage']),
-		isSubmitting: state.getIn(['group_editor', 'isSubmitting']),
-		idValue: state.getIn(['group_editor', 'id']),
-		tags: state.getIn(['group_editor', 'tags']),
-		category: state.getIn(['group_editor', 'category']),
-		isPrivate: state.getIn(['group_editor', 'isPrivate']),
-		isVisible: state.getIn(['group_editor', 'isVisible']),
-		categories: state.getIn(['group_categories', 'items']),
-	}
-}
-
-const mapDispatchToProps = (dispatch) => ({
-	onTitleChange(value) {
-		dispatch(changeGroupTitle(value))
-	},
-	onDescriptionChange(value) {
-		dispatch(changeGroupDescription(value))
-	},
-	onCoverImageChange(imageData) {
-		dispatch(changeGroupCoverImage(imageData))
-	},
-	onChangeGroupId(value) {
-		dispatch(changeGroupId(value))
-	},
-	onChangeGroupTags(value) {
-		dispatch(changeGroupTags(value))
-	},
-	onChangeGroupCategory(e) {
-		dispatch(changeGroupCategory(e.target.value))
-	},
-	onChangeGroupIsPrivate(value) {
-		dispatch(changeGroupIsPrivate(value))
-	},
-	onChangeGroupIsVisible(value) {
-		dispatch(changeGroupIsVisible(value))
-	},
-	onResetEditor() {
-		dispatch(resetEditor())
-	},
-	onSetGroup(group) {
-		dispatch(setGroup(group))
-	},
-	onSubmit(routerHistory) {
-		dispatch(submit(routerHistory))
-		dispatch(closeModal())
-	},
-	onFetchGroup(groupId) {
-		dispatch(fetchGroup(groupId))
-	},
-	onFetchGroupCategories() {
-		dispatch(fetchGroupCategories())
-	}
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupCreate extends ImmutablePureComponent {
 
 	static contextTypes = {
 		router: PropTypes.object
-	}
-
-	static propTypes = {
-		group: ImmutablePropTypes.map,
-		titleValue: PropTypes.string.isRequired,
-		descriptionValue: PropTypes.string.isRequired,
-		coverImage: PropTypes.object,
-		intl: PropTypes.object.isRequired,
-		onTitleChange: PropTypes.func.isRequired,
-		onDescriptionChange: PropTypes.func.isRequired,
-		onChangeGroupId: PropTypes.func.isRequired,
-		onChangeGroupTags: PropTypes.func.isRequired,
-		onChangeGroupCategory: PropTypes.func.isRequired,
-		onChangeGroupIsPrivate: PropTypes.func.isRequired,
-		onChangeGroupIsVisible: PropTypes.func.isRequired,
-		onFetchGroup: PropTypes.func.isRequired,
-		onFetchGroupCategories: PropTypes.func.isRequired,
-		onResetEditor: PropTypes.func.isRequired,
-		onSetGroup: PropTypes.func.isRequired,
-		onSubmit: PropTypes.func.isRequired,
-		isSubmitting: PropTypes.bool,
-		isAdmin: PropTypes.bool,
-		onClose: PropTypes.func,
-		idValue: PropTypes.string.isRequired,
-		tags: PropTypes.string.isRequired,
-		category: PropTypes.string.isRequired,
-		isPrivate: PropTypes.bool.isRequired,
-		isVisible: PropTypes.bool.isRequired,
-		categories: ImmutablePropTypes.list.isRequired,
 	}
 
 	componentDidMount() {
@@ -374,3 +249,128 @@ class GroupCreate extends ImmutablePureComponent {
 	}
 
 }
+
+
+const messages = defineMessages({
+	title: { id: 'groups.form.title', defaultMessage: 'Title' },
+	idTitle: { id: 'groups.form.id_title', defaultMessage: 'Unique id' },
+	idDescription: { id: 'groups.form.id_description', defaultMessage: 'A unique id that links to this group. (Cannot be changed)' },
+	tagsTitle: { id: 'groups.form.tags_title', defaultMessage: 'Tags' },
+	tagsDescription: { id: 'groups.form.tags_description', defaultMessage: 'Add tags seperated by commas to increase group visibility' },
+	categoryTitle: { id: 'groups.form.category_title', defaultMessage: 'Category' },
+	categoryDescription: { id: 'groups.form.category_description', defaultMessage: 'Add a general category for your group' },
+	description: { id: 'groups.form.description', defaultMessage: 'Enter the group description' },
+	coverImage: { id: 'groups.form.coverImage', defaultMessage: 'Upload a banner image' },
+	coverImageDescription: { id: 'groups.form.coverImage_description', defaultMessage: 'Accepted image types: .jpg, .png' },
+	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Banner image selected' },
+	create: { id: 'groups.form.create', defaultMessage: 'Create group' },
+	update: { id: 'groups.form.update', defaultMessage: 'Update group' },
+	titlePlaceholder: { id: 'groups.form.title_placeholder', defaultMessage: 'New group title...' },
+	descriptionPlaceholder: { id: 'groups.form.description_placeholder', defaultMessage: 'This group is about...' },
+	isPrivateDescription: { id: 'groups.form.is_private_description', defaultMessage: 'Only members can see group posts.' },
+	isVisibleDescription: { id: 'groups.form.is_visible_description', defaultMessage: 'Anyone can find a visible group in search and other places on Gab.' },
+})
+
+const mapStateToProps = (state, { params }) => {
+	const groupId = isObject(params) ? params['id'] : null
+	const group = state.getIn(['groups', groupId])
+	let isAdmin = false
+
+	if (groupId) {
+		const relationships = state.getIn(['group_relationships', groupId])
+		if (relationships) {
+			isAdmin = relationships.get('admin')
+		}
+	}
+
+	return {
+		group,
+		groupId,
+		isAdmin,
+		error: (groupId && !group) || (group && !isAdmin),
+		titleValue: state.getIn(['group_editor', 'title']),
+		descriptionValue: state.getIn(['group_editor', 'description']),
+		coverImage: state.getIn(['group_editor', 'coverImage']),
+		isSubmitting: state.getIn(['group_editor', 'isSubmitting']),
+		idValue: state.getIn(['group_editor', 'id']),
+		tags: state.getIn(['group_editor', 'tags']),
+		category: state.getIn(['group_editor', 'category']),
+		isPrivate: state.getIn(['group_editor', 'isPrivate']),
+		isVisible: state.getIn(['group_editor', 'isVisible']),
+		categories: state.getIn(['group_categories', 'items']),
+	}
+}
+
+const mapDispatchToProps = (dispatch) => ({
+	onTitleChange(value) {
+		dispatch(changeGroupTitle(value))
+	},
+	onDescriptionChange(value) {
+		dispatch(changeGroupDescription(value))
+	},
+	onCoverImageChange(imageData) {
+		dispatch(changeGroupCoverImage(imageData))
+	},
+	onChangeGroupId(value) {
+		dispatch(changeGroupId(value))
+	},
+	onChangeGroupTags(value) {
+		dispatch(changeGroupTags(value))
+	},
+	onChangeGroupCategory(e) {
+		dispatch(changeGroupCategory(e.target.value))
+	},
+	onChangeGroupIsPrivate(value) {
+		dispatch(changeGroupIsPrivate(value))
+	},
+	onChangeGroupIsVisible(value) {
+		dispatch(changeGroupIsVisible(value))
+	},
+	onResetEditor() {
+		dispatch(resetEditor())
+	},
+	onSetGroup(group) {
+		dispatch(setGroup(group))
+	},
+	onSubmit(routerHistory) {
+		dispatch(submit(routerHistory))
+		dispatch(closeModal())
+	},
+	onFetchGroup(groupId) {
+		dispatch(fetchGroup(groupId))
+	},
+	onFetchGroupCategories() {
+		dispatch(fetchGroupCategories())
+	}
+})
+
+GroupCreate.propTypes = {
+	group: ImmutablePropTypes.map,
+	titleValue: PropTypes.string.isRequired,
+	descriptionValue: PropTypes.string.isRequired,
+	coverImage: PropTypes.object,
+	intl: PropTypes.object.isRequired,
+	onTitleChange: PropTypes.func.isRequired,
+	onDescriptionChange: PropTypes.func.isRequired,
+	onChangeGroupId: PropTypes.func.isRequired,
+	onChangeGroupTags: PropTypes.func.isRequired,
+	onChangeGroupCategory: PropTypes.func.isRequired,
+	onChangeGroupIsPrivate: PropTypes.func.isRequired,
+	onChangeGroupIsVisible: PropTypes.func.isRequired,
+	onFetchGroup: PropTypes.func.isRequired,
+	onFetchGroupCategories: PropTypes.func.isRequired,
+	onResetEditor: PropTypes.func.isRequired,
+	onSetGroup: PropTypes.func.isRequired,
+	onSubmit: PropTypes.func.isRequired,
+	isSubmitting: PropTypes.bool,
+	isAdmin: PropTypes.bool,
+	onClose: PropTypes.func,
+	idValue: PropTypes.string.isRequired,
+	tags: PropTypes.string.isRequired,
+	category: PropTypes.string.isRequired,
+	isPrivate: PropTypes.bool.isRequired,
+	isVisible: PropTypes.bool.isRequired,
+	categories: ImmutablePropTypes.list.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupCreate))

@@ -9,32 +9,7 @@ import { fetchLists } from '../../actions/lists'
 import PanelLayout from './panel_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  title: { id: 'lists.subheading', defaultMessage: 'Your Lists' },
-  show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
-  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
-})
-
-const mapStateToProps = (state) => ({
-  lists: getOrderedLists(state),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchLists: () => dispatch(fetchLists()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    onFetchLists: PropTypes.func.isRequired,
-    lists: ImmutablePropTypes.list,
-    intl: PropTypes.object.isRequired,
-    isLazy: PropTypes.bool,
-    shouldLoad: PropTypes.bool,
-  }
 
   state = {
     fetched: false,
@@ -97,3 +72,27 @@ class ListsPanel extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'lists.subheading', defaultMessage: 'Your Lists' },
+  show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
+  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
+})
+
+const mapStateToProps = (state) => ({
+  lists: getOrderedLists(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchLists: () => dispatch(fetchLists()),
+})
+
+ListsPanel.propTypes = {
+  onFetchLists: PropTypes.func.isRequired,
+  lists: ImmutablePropTypes.list,
+  intl: PropTypes.object.isRequired,
+  isLazy: PropTypes.bool,
+  shouldLoad: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListsPanel))

@@ -37,7 +37,6 @@ import statuses from './statuses'
 import status_lists from './status_lists'
 import status_revisions from './status_revisions'
 import suggestions from './suggestions'
-import tenor from './tenor'
 import timelines from './timelines'
 import toasts from './toasts'
 import user from './user'
@@ -82,7 +81,6 @@ const reducers = {
   status_lists,
   status_revisions,
   suggestions,
-  tenor,
   timelines,
   toasts,
   user,

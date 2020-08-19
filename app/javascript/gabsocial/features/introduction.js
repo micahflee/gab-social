@@ -27,38 +27,28 @@ import Pagination from '../components/pagination'
 import ComposeFormContainer from './compose/containers/compose_form_container'
 import Responsive from './ui/util/responsive_component'
 
-class SlideWelcome extends React.PureComponent {
+const SlideWelcome = () => (
+  <div className={[_s.d, _s.w100PC, _s.h100PC].join(' ')}>
+    <Image src='/headers/onboarding.png' alt='Welcome to Gab' />
 
-  render() {
-    return (
-      <div className={[_s.d, _s.w100PC, _s.h100PC].join(' ')}>
-        <Image src='/headers/onboarding.png' alt='Welcome to Gab' />
+    <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
 
-        <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
+      <Text size='large'>Gab is the home of free speech online and a place where users shape their own experience. </Text>
+      <br />
+      <Text size='large'>You will discover many different ideas, people, and topics on Gab.</Text>
+      <br />
+      <Text size='large'>Follow the people you find interesting and block or mute people you don't want to associate with.</Text>
+      <br />
+      <Text size='large'>Speak freely, associate freely!</Text>
+      <br />
+      <Text size='large'>Let's get started!</Text>
 
-          <Text size='large'>Gab is the home of free speech online and a place where users shape their own experience. </Text>
-          <br />
-          <Text size='large'>You will discover many different ideas, people, and topics on Gab.</Text>
-          <br />
-          <Text size='large'>Follow the people you find interesting and block or mute people you don't want to associate with.</Text>
-          <br />
-          <Text size='large'>Speak freely, associate freely!</Text>
-          <br />
-          <Text size='large'>Let's get started!</Text>
+    </div>
 
-        </div>
-
-      </div>
-    )
-  }
-
-}
+  </div>
+)
 
 class SlidePhotos extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-  }
 
   state = {
     displayNameValue: this.props.account.get('display_name'),
@@ -138,11 +128,11 @@ class SlidePhotos extends ImmutablePureComponent {
 
 }
 
-class SlideGroups extends ImmutablePureComponent {
+SlidePhotos.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+}
 
-  static propTypes = {
-    groupIds: ImmutablePropTypes.list,
-  }
+class SlideGroups extends ImmutablePureComponent {
 
   render() {
     const { groupIds } = this.props
@@ -174,12 +164,11 @@ class SlideGroups extends ImmutablePureComponent {
 
 }
 
-class SlideFirstPost extends React.PureComponent {
+SlideGroups.propTypes = {
+  groupIds: ImmutablePropTypes.list,
+}
 
-  static propTypes = {
-    submitted: PropTypes.bool.isRequired,
-    onNext: PropTypes.func.isRequired,
-  }
+class SlideFirstPost extends React.PureComponent {
 
   render() {
     const { submitted } = this.props
@@ -228,34 +217,12 @@ class SlideFirstPost extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-  groupIds: state.getIn(['group_lists', 'featured', 'items']),
-  shownOnboarding: state.getIn(['settings', 'shownOnboarding'], false),
-  isSubmitting: state.getIn(['compose', 'is_submitting']),
-})
+SlideFirstPost.propTypes = {
+  submitted: PropTypes.bool.isRequired,
+  onNext: PropTypes.func.isRequired,
+}
 
-const mapDispatchToProps = (dispatch) => ({
-  onSaveShownOnboarding: () => dispatch(saveShownOnboarding()),
-  onFetchFeaturedGroups: () => dispatch(fetchGroups('featured')),
-  onSaveUserProfileInformation(data) {
-    dispatch(saveUserProfileInformation(data))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class Introduction extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-    groupIds: ImmutablePropTypes.list,
-    isSubmitting: PropTypes.bool.isRequired,
-    shownOnboarding: PropTypes.bool.isRequired,
-    onSaveShownOnboarding: PropTypes.func.isRequired,
-    onFetchFeaturedGroups: PropTypes.func.isRequired,
-    onSaveUserProfileInformation: PropTypes.func.isRequired,
-  }
 
   state = {
     currentIndex: 0,
@@ -437,3 +404,30 @@ class Introduction extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+  groupIds: state.getIn(['group_lists', 'featured', 'items']),
+  shownOnboarding: state.getIn(['settings', 'shownOnboarding'], false),
+  isSubmitting: state.getIn(['compose', 'is_submitting']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSaveShownOnboarding: () => dispatch(saveShownOnboarding()),
+  onFetchFeaturedGroups: () => dispatch(fetchGroups('featured')),
+  onSaveUserProfileInformation(data) {
+    dispatch(saveUserProfileInformation(data))
+  },
+})
+
+Introduction.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+  groupIds: ImmutablePropTypes.list,
+  isSubmitting: PropTypes.bool.isRequired,
+  shownOnboarding: PropTypes.bool.isRequired,
+  onSaveShownOnboarding: PropTypes.func.isRequired,
+  onFetchFeaturedGroups: PropTypes.func.isRequired,
+  onSaveUserProfileInformation: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Introduction)

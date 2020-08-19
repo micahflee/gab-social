@@ -36,7 +36,7 @@ class ProfileLayout extends ImmutablePureComponent {
 
     const mainContentClasses = CX({
       d: 1,
-      width645PX: !noSidebar,
+      w645PX: !noSidebar,
       w1015PX: noSidebar,
       z1: 1,
     })

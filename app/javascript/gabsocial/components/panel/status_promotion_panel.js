@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
-import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { fetchStatus } from '../../actions/statuses'
@@ -19,32 +18,7 @@ import ColumnIndicator from '../column_indicator'
 import StatusContent from '../status_content'
 import StatusMedia from '../status_media'
 
-const messages = defineMessages({
-  gabs: { id: 'account.posts', defaultMessage: 'Gabs' },
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
-  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
-})
-
-const mapStateToProps = (state, { statusId }) => ({
-  status: makeGetStatus()(state, { id: statusId }),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchStatus: (id) => dispatch(fetchStatus(id)),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class StatusPromotionPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    statusId: PropTypes.string.isRequired,
-    onFetchStatus: PropTypes.func.isRequired,
-  }
 
   componentDidMount() {
     if (!this.props.status) {
@@ -136,3 +110,19 @@ class StatusPromotionPanel extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, { statusId }) => ({
+  status: makeGetStatus()(state, { id: statusId }),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchStatus: (id) => dispatch(fetchStatus(id)),
+})
+
+StatusPromotionPanel.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  statusId: PropTypes.string.isRequired,
+  onFetchStatus: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(StatusPromotionPanel)

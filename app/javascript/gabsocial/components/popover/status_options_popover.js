@@ -36,213 +36,10 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  delete: { id: 'status.delete', defaultMessage: 'Delete' },
-  edit: { id: 'status.edit', defaultMessage: 'Edit' },
-  mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
-  block: { id: 'account.block', defaultMessage: 'Block @{name}' },
-  reply: { id: 'status.reply', defaultMessage: 'Reply' },
-  more: { id: 'status.more', defaultMessage: 'More' },
-  share: { id: 'status.share', defaultMessage: 'Share' },
-  replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
-  repost: { id: 'repost', defaultMessage: 'Repost' },
-  quote: { id: 'status.quote', defaultMessage: 'Quote' },
-  repost_private: { id: 'status.repost', defaultMessage: 'Repost' },
-  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
-  cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
-  cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
-  like: { id: 'status.like', defaultMessage: 'Like' },
-  report: { id: 'status.report', defaultMessage: 'Report @{name}' },
-  muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
-  unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
-  pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
-  unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
-  bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark status' },
-  unbookmark: { id: 'status.unbookmark', defaultMessage: 'Remove bookmark' },
-  admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
-  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
-  group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
-  group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
-  repostWithComment: { id: 'repost_with_comment', defaultMessage: 'Repost with comment' },
-  embed: { id: 'status.embed', defaultMessage: 'Embed' },
-  email: { id: 'status.email', defaultMessage: 'Email this gab' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
-})
-
-const mapStateToProps = (state, { status }) => {
-  if (!me) return null
-
-  const groupId = status ? status.getIn(['group', 'id']) : undefined
-  const groupRelationships = state.getIn(['group_relationships', groupId])
-
-  return {
-    groupId,
-    groupRelationships,
-    isPro: state.getIn(['accounts', me, 'is_pro']),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-
-  onMuteConversation(status) {
-    dispatch(closePopover())
-
-    if (status.get('muted')) {
-      dispatch(unmuteStatus(status.get('id')))
-    } else {
-      dispatch(muteStatus(status.get('id')))
-    }
-  },
-
-  onPin(status) {
-    dispatch(closePopover())
-
-    if (status.get('pinned')) {
-      dispatch(unpin(status))
-    } else {
-      dispatch(pin(status))
-    }
-  },
-
-  onBookmark(status) {
-    dispatch(closePopover())
-
-    if (status.get('bookmarked')) {
-      dispatch(unbookmark(status))
-    } else {
-      dispatch(bookmark(status))
-    }
-  },
-
-  onQuote(status, router) {
-    dispatch(closePopover())
-
-    dispatch((_, getState) => {
-      const state = getState()
-      if (state.getIn(['compose', 'text']).trim().length !== 0) {
-        dispatch(openModal(MODAL_CONFIRM, {
-          message: intl.formatMessage(messages.quoteMessage),
-          confirm: intl.formatMessage(messages.quoteConfirm),
-          onConfirm: () => dispatch(quoteCompose(status, router)),
-        }))
-      } else {
-        dispatch(quoteCompose(status, router))
-      }
-    })
-  },
-
-  onRepost(status) {
-    dispatch(closePopover())
-    const alreadyReposted = status.get('reblogged')
-
-    if (boostModal && !alreadyReposted) {
-      dispatch(openModal(MODAL_BOOST, {
-        status,
-        onRepost: () => dispatch(repost(status)),
-      }))
-    } else {
-      if (alreadyReposted) {
-        dispatch(unrepost(status))
-      } else {
-        dispatch(repost(status))
-      }
-    }
-  },
-
-  onDelete(status, history) {
-    dispatch(closePopover())
-
-    if (!deleteModal) {
-      dispatch(deleteStatus(status.get('id'), history))
-    } else {
-      dispatch(openModal('CONFIRM', {
-        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
-        confirm: <FormattedMessage id='confirmations.delete.confirm' defaultMessage='Delete' />,
-        onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
-      }))
-    }
-  },
-
-  onEdit(status) {
-    dispatch(closePopover())
-    dispatch(editStatus(status))
-  },
-
-  onMute(account) {
-    dispatch(closePopover())
-    dispatch(initMuteModal(account))
-  },
-
-  onBlock(status) {
-    dispatch(closePopover())
-    const account = status.get('account')
-    dispatch(openModal('BLOCK_ACCOUNT', {
-      accountId: account.get('id'),
-    }))
-  },
-
-  onReport(status) {
-    dispatch(closePopover())
-    dispatch(initReport(status.get('account'), status))
-  },
-
-  onGroupRemoveAccount(groupId, accountId) {
-    dispatch(closePopover())
-    dispatch(createRemovedAccount(groupId, accountId))
-  },
-
-  onGroupRemoveStatus(groupId, statusId) {
-    dispatch(closePopover())
-    dispatch(groupRemoveStatus(groupId, statusId))
-  },
-
-  onFetchGroupRelationships(groupId) {
-    dispatch(fetchGroupRelationships([groupId]))
-  },
-
-  onOpenEmbedModal(url) {
-    dispatch(closePopover())
-    dispatch(openModal(MODAL_EMBED, {
-      url,
-    }))
-  },
-
-  onOpenProUpgradeModal() {
-    dispatch(closePopover())
-    dispatch(openModal(MODAL_PRO_UPGRADE))
-  },
-
-  onClosePopover: () => dispatch(closePopover()),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class StatusOptionsPopover extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  }
-  
-  static propTypes = {
-    status: ImmutablePropTypes.map.isRequired,
-    groupRelationships: ImmutablePropTypes.map,
-    groupId: PropTypes.string,
-    onQuote: PropTypes.func.isRequired,
-    onRepost: PropTypes.func.isRequired,
-    onDelete: PropTypes.func.isRequired,
-    onMute: PropTypes.func.isRequired,
-    onBlock: PropTypes.func.isRequired,
-    onReport: PropTypes.func.isRequired,
-    onMuteConversation: PropTypes.func.isRequired,
-    onPin: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    onFetchGroupRelationships: PropTypes.func.isRequired,
-    onOpenEmbedModal: PropTypes.func.isRequired,
-    onOpenProUpgradeModal: PropTypes.func.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    isXS: PropTypes.bool,
-    isPro: PropTypes.bool,
   }
 
   updateOnProps = [
@@ -497,3 +294,205 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  delete: { id: 'status.delete', defaultMessage: 'Delete' },
+  edit: { id: 'status.edit', defaultMessage: 'Edit' },
+  mute: { id: 'account.mute', defaultMessage: 'Mute @{name}' },
+  block: { id: 'account.block', defaultMessage: 'Block @{name}' },
+  reply: { id: 'status.reply', defaultMessage: 'Reply' },
+  more: { id: 'status.more', defaultMessage: 'More' },
+  share: { id: 'status.share', defaultMessage: 'Share' },
+  replyAll: { id: 'status.replyAll', defaultMessage: 'Reply to thread' },
+  repost: { id: 'repost', defaultMessage: 'Repost' },
+  quote: { id: 'status.quote', defaultMessage: 'Quote' },
+  repost_private: { id: 'status.repost', defaultMessage: 'Repost' },
+  cancel_repost_private: { id: 'status.cancel_repost_private', defaultMessage: 'Remove Repost' },
+  cannot_repost: { id: 'status.cannot_repost', defaultMessage: 'This post cannot be reposted' },
+  cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
+  like: { id: 'status.like', defaultMessage: 'Like' },
+  report: { id: 'status.report', defaultMessage: 'Report @{name}' },
+  muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
+  unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
+  pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
+  unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
+  bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark status' },
+  unbookmark: { id: 'status.unbookmark', defaultMessage: 'Remove bookmark' },
+  admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
+  admin_status: { id: 'status.admin_status', defaultMessage: 'Open this status in the moderation interface' },
+  group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
+  group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
+  repostWithComment: { id: 'repost_with_comment', defaultMessage: 'Repost with comment' },
+  embed: { id: 'status.embed', defaultMessage: 'Embed' },
+  email: { id: 'status.email', defaultMessage: 'Email this gab' },
+  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
+})
+
+const mapStateToProps = (state, { status }) => {
+  if (!me) return null
+
+  const groupId = status ? status.getIn(['group', 'id']) : undefined
+  const groupRelationships = state.getIn(['group_relationships', groupId])
+
+  return {
+    groupId,
+    groupRelationships,
+    isPro: state.getIn(['accounts', me, 'is_pro']),
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onMuteConversation(status) {
+    dispatch(closePopover())
+
+    if (status.get('muted')) {
+      dispatch(unmuteStatus(status.get('id')))
+    } else {
+      dispatch(muteStatus(status.get('id')))
+    }
+  },
+
+  onPin(status) {
+    dispatch(closePopover())
+
+    if (status.get('pinned')) {
+      dispatch(unpin(status))
+    } else {
+      dispatch(pin(status))
+    }
+  },
+
+  onBookmark(status) {
+    dispatch(closePopover())
+
+    if (status.get('bookmarked')) {
+      dispatch(unbookmark(status))
+    } else {
+      dispatch(bookmark(status))
+    }
+  },
+
+  onQuote(status, router) {
+    dispatch(closePopover())
+
+    dispatch((_, getState) => {
+      const state = getState()
+      if (state.getIn(['compose', 'text']).trim().length !== 0) {
+        dispatch(openModal(MODAL_CONFIRM, {
+          message: intl.formatMessage(messages.quoteMessage),
+          confirm: intl.formatMessage(messages.quoteConfirm),
+          onConfirm: () => dispatch(quoteCompose(status, router)),
+        }))
+      } else {
+        dispatch(quoteCompose(status, router))
+      }
+    })
+  },
+
+  onRepost(status) {
+    dispatch(closePopover())
+    const alreadyReposted = status.get('reblogged')
+
+    if (boostModal && !alreadyReposted) {
+      dispatch(openModal(MODAL_BOOST, {
+        status,
+        onRepost: () => dispatch(repost(status)),
+      }))
+    } else {
+      if (alreadyReposted) {
+        dispatch(unrepost(status))
+      } else {
+        dispatch(repost(status))
+      }
+    }
+  },
+
+  onDelete(status, history) {
+    dispatch(closePopover())
+
+    if (!deleteModal) {
+      dispatch(deleteStatus(status.get('id'), history))
+    } else {
+      dispatch(openModal('CONFIRM', {
+        message: <FormattedMessage id='confirmations.delete.message' defaultMessage='Are you sure you want to delete this status?' />,
+        confirm: <FormattedMessage id='confirmations.delete.confirm' defaultMessage='Delete' />,
+        onConfirm: () => dispatch(deleteStatus(status.get('id'), history)),
+      }))
+    }
+  },
+
+  onEdit(status) {
+    dispatch(closePopover())
+    dispatch(editStatus(status))
+  },
+
+  onMute(account) {
+    dispatch(closePopover())
+    dispatch(initMuteModal(account))
+  },
+
+  onBlock(status) {
+    dispatch(closePopover())
+    const account = status.get('account')
+    dispatch(openModal('BLOCK_ACCOUNT', {
+      accountId: account.get('id'),
+    }))
+  },
+
+  onReport(status) {
+    dispatch(closePopover())
+    dispatch(initReport(status.get('account'), status))
+  },
+
+  onGroupRemoveAccount(groupId, accountId) {
+    dispatch(closePopover())
+    dispatch(createRemovedAccount(groupId, accountId))
+  },
+
+  onGroupRemoveStatus(groupId, statusId) {
+    dispatch(closePopover())
+    dispatch(groupRemoveStatus(groupId, statusId))
+  },
+
+  onFetchGroupRelationships(groupId) {
+    dispatch(fetchGroupRelationships([groupId]))
+  },
+
+  onOpenEmbedModal(url) {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_EMBED, {
+      url,
+    }))
+  },
+
+  onOpenProUpgradeModal() {
+    dispatch(closePopover())
+    dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
+
+  onClosePopover: () => dispatch(closePopover()),
+})
+
+StatusOptionsPopover.propTypes = {
+  status: ImmutablePropTypes.map.isRequired,
+  groupRelationships: ImmutablePropTypes.map,
+  groupId: PropTypes.string,
+  onQuote: PropTypes.func.isRequired,
+  onRepost: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
+  onMute: PropTypes.func.isRequired,
+  onBlock: PropTypes.func.isRequired,
+  onReport: PropTypes.func.isRequired,
+  onMuteConversation: PropTypes.func.isRequired,
+  onPin: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  onFetchGroupRelationships: PropTypes.func.isRequired,
+  onOpenEmbedModal: PropTypes.func.isRequired,
+  onOpenProUpgradeModal: PropTypes.func.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  isXS: PropTypes.bool,
+  isPro: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StatusOptionsPopover))

@@ -20,44 +20,7 @@ import Block from '../components/block'
 import Account from '../components/account'
 import NotificationPlaceholder from '../components/placeholder/notification_placeholder'
 
-const mapStateToProps = (state) => ({
-  notifications: state.getIn(['notifications', 'items']),
-  sortedNotifications: state.getIn(['notifications', 'sortedItems']),
-  isLoading: state.getIn(['notifications', 'isLoading'], true),
-  hasMore: state.getIn(['notifications', 'hasMore']),
-  totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
-  selectedFilter: state.getIn(['notifications', 'filter', 'active']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onDequeueNotifications() {
-    dispatch(dequeueNotifications())
-  },
-  onExpandNotifications(options) {
-    if (!options) dispatch(forceDequeueNotifications())
-    dispatch(expandNotifications(options))
-  },
-  onScrollTopNotifications(top) {
-    dispatch(scrollTopNotifications(top))
-  },
-})
-
-export default
-@withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class Notifications extends ImmutablePureComponent {
-
-  static propTypes = {
-    hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    notifications: ImmutablePropTypes.list.isRequired,
-    onDequeueNotifications: PropTypes.func.isRequired,
-    onExpandNotifications: PropTypes.func.isRequired,
-    onScrollTopNotifications: PropTypes.func.isRequired,
-    sortedNotifications: ImmutablePropTypes.list.isRequired,
-    totalQueuedNotificationsCount: PropTypes.number,
-    selectedFilter: PropTypes.string.isRequired,
-  }
 
   state = {
     changedTabs: false,
@@ -189,3 +152,39 @@ class Notifications extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  notifications: state.getIn(['notifications', 'items']),
+  sortedNotifications: state.getIn(['notifications', 'sortedItems']),
+  isLoading: state.getIn(['notifications', 'isLoading'], true),
+  hasMore: state.getIn(['notifications', 'hasMore']),
+  totalQueuedNotificationsCount: state.getIn(['notifications', 'totalQueuedNotificationsCount'], 0),
+  selectedFilter: state.getIn(['notifications', 'filter', 'active']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onDequeueNotifications() {
+    dispatch(dequeueNotifications())
+  },
+  onExpandNotifications(options) {
+    if (!options) dispatch(forceDequeueNotifications())
+    dispatch(expandNotifications(options))
+  },
+  onScrollTopNotifications(top) {
+    dispatch(scrollTopNotifications(top))
+  },
+})
+
+Notifications.propTypes = {
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  notifications: ImmutablePropTypes.list.isRequired,
+  onDequeueNotifications: PropTypes.func.isRequired,
+  onExpandNotifications: PropTypes.func.isRequired,
+  onScrollTopNotifications: PropTypes.func.isRequired,
+  sortedNotifications: ImmutablePropTypes.list.isRequired,
+  totalQueuedNotificationsCount: PropTypes.number,
+  selectedFilter: PropTypes.string.isRequired,
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Notifications))

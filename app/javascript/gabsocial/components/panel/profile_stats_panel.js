@@ -11,22 +11,7 @@ import Dummy from '../dummy'
 import ProfileStatsPanelPlaceholder from '../placeholder/profile_stats_panel_placeholder'
 import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
-const messages = defineMessages({
-  gabs: { id: 'account.gabs', defaultMessage: 'Gabs' },
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  likes: { id: 'likes', defaultMessage: 'Likes' },
-})
-
-export default
-@injectIntl
 class ProfileStatsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    intl: PropTypes.object.isRequired,
-    noPanel: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -82,3 +67,18 @@ class ProfileStatsPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  gabs: { id: 'account.gabs', defaultMessage: 'Gabs' },
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  likes: { id: 'likes', defaultMessage: 'Likes' },
+})
+
+ProfileStatsPanel.propTypes = {
+  account: ImmutablePropTypes.map,
+  intl: PropTypes.object.isRequired,
+  noPanel: PropTypes.bool,
+}
+
+export default injectIntl(ProfileStatsPanel)

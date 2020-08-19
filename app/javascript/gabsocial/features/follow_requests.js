@@ -12,34 +12,7 @@ import Block from '../components/block'
 import ScrollableList from '../components/scrollable_list'
 import Text from '../components/text'
 
-const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'follow_requests', me, 'items']),
-  isLoading: state.getIn(['user_lists', 'follow_requests', me, 'isLoading']),
-  hasMore: !!state.getIn(['user_lists', 'follow_requests', me, 'next']),
-  locked: !!state.getIn(['accounts', me, 'locked']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchFollowRequests() {
-    dispatch(fetchFollowRequests())
-  },
-  onExpandFollowRequests() {
-    dispatch(expandFollowRequests())
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class FollowRequests extends ImmutablePureComponent {
-
-  static propTypes = {
-    accountIds: ImmutablePropTypes.list,
-    hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    locked: PropTypes.bool,
-    onFetchFollowRequests: PropTypes.func.isRequired,
-    onExpandFollowRequests: PropTypes.func.isRequired,
-  }
 
   componentWillMount () {
     this.props.onFetchFollowRequests()
@@ -91,3 +64,30 @@ class FollowRequests extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  accountIds: state.getIn(['user_lists', 'follow_requests', me, 'items']),
+  isLoading: state.getIn(['user_lists', 'follow_requests', me, 'isLoading']),
+  hasMore: !!state.getIn(['user_lists', 'follow_requests', me, 'next']),
+  locked: !!state.getIn(['accounts', me, 'locked']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchFollowRequests() {
+    dispatch(fetchFollowRequests())
+  },
+  onExpandFollowRequests() {
+    dispatch(expandFollowRequests())
+  },
+})
+
+FollowRequests.propTypes = {
+  accountIds: ImmutablePropTypes.list,
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  locked: PropTypes.bool,
+  onFetchFollowRequests: PropTypes.func.isRequired,
+  onExpandFollowRequests: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FollowRequests)

@@ -5,21 +5,7 @@ import Heading from '../heading'
 import Button from '../button'
 import Text from '../text'
 
-export default class PanelLayout extends React.PureComponent {
-
-  static propTypes = {
-    title: PropTypes.string,
-    subtitle: PropTypes.string,
-    children: PropTypes.node,
-    headerButtonTitle: PropTypes.string,
-    headerButtonAction: PropTypes.func,
-    headerButtonTo: PropTypes.string,
-    footerButtonTitle: PropTypes.string,
-    footerButtonAction: PropTypes.func,
-    footerButtonTo: PropTypes.string,
-    footerButtonHref: PropTypes.string,
-    noPadding: PropTypes.bool,
-  }
+class PanelLayout extends React.PureComponent {
 
   render() {
     const {
@@ -107,3 +93,19 @@ export default class PanelLayout extends React.PureComponent {
   }
 
 }
+
+PanelLayout.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  children: PropTypes.node,
+  headerButtonTitle: PropTypes.string,
+  headerButtonAction: PropTypes.func,
+  headerButtonTo: PropTypes.string,
+  footerButtonTitle: PropTypes.string,
+  footerButtonAction: PropTypes.func,
+  footerButtonTo: PropTypes.string,
+  footerButtonHref: PropTypes.string,
+  noPadding: PropTypes.bool,
+}
+
+export default PanelLayout

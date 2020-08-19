@@ -12,29 +12,7 @@ import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import ScrollableList from '../components/scrollable_list'
 
-const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'mutes', me, 'items']),
-  hasMore: !!state.getIn(['user_lists', 'mutes', me, 'next']),
-  isLoading: state.getIn(['user_lists', 'mutes', me, 'isLoading']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchMutes: () => dispatch(fetchMutes()),
-  onExpandMutes: () => dispatch(expandMutes()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class Mutes extends ImmutablePureComponent {
-
-  static propTypes = {
-    accountIds: ImmutablePropTypes.list,
-    hasMore: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    onExpandMutes: PropTypes.func.isRequired,
-    onFetchMutes: PropTypes.func.isRequired,
-  }
 
   componentWillMount() {
     this.props.onFetchMutes()
@@ -76,3 +54,24 @@ class Mutes extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  accountIds: state.getIn(['user_lists', 'mutes', me, 'items']),
+  hasMore: !!state.getIn(['user_lists', 'mutes', me, 'next']),
+  isLoading: state.getIn(['user_lists', 'mutes', me, 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchMutes: () => dispatch(fetchMutes()),
+  onExpandMutes: () => dispatch(expandMutes()),
+})
+
+Mutes.propTypes = {
+  accountIds: ImmutablePropTypes.list,
+  hasMore: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  onExpandMutes: PropTypes.func.isRequired,
+  onFetchMutes: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Mutes))

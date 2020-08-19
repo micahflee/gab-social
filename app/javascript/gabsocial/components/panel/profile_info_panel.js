@@ -12,23 +12,7 @@ import Text from '../text'
 import Dummy from '../dummy'
 import ProfileInfoPanelPlaceholder from '../placeholder/profile_info_panel_placeholder'
 
-const messages = defineMessages({
-  title: { id: 'about', defaultMessage: 'About' },
-  linkVerifiedOn: { id: 'account.link_verified_on', defaultMessage: 'Ownership of this link was checked on {date}' },
-  account_locked: { id: 'account.locked_info', defaultMessage: 'This account privacy status is set to locked. The owner manually reviews who can follow them.' },
-  bot: { id: 'account.badges.bot', defaultMessage: 'Bot' },
-  memberSince: { id: 'account.member_since', defaultMessage: 'Member since {date}' },
-})
-
-export default
-@injectIntl
 class ProfileInfoPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    noPanel: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-  }
 
   render() {
     const {
@@ -139,3 +123,19 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'about', defaultMessage: 'About' },
+  linkVerifiedOn: { id: 'account.link_verified_on', defaultMessage: 'Ownership of this link was checked on {date}' },
+  account_locked: { id: 'account.locked_info', defaultMessage: 'This account privacy status is set to locked. The owner manually reviews who can follow them.' },
+  bot: { id: 'account.badges.bot', defaultMessage: 'Bot' },
+  memberSince: { id: 'account.member_since', defaultMessage: 'Member since {date}' },
+})
+
+ProfileInfoPanel.propTypes = {
+  account: ImmutablePropTypes.map,
+  noPanel: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(ProfileInfoPanel)

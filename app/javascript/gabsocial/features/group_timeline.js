@@ -21,53 +21,7 @@ import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
 import GroupSortBlock from '../components/group_sort_block'
 
-const messages = defineMessages({
-	empty: { id: 'empty_column.group', defaultMessage: 'There is nothing in this group yet.\nWhen members of this group post new statuses, they will appear here.' },
-})
-
-const mapStateToProps = (state, props) => ({
-	groupId: props.params.id,
-	group: state.getIn(['groups', props.params.id]),
-	sortByValue: state.getIn(['group_lists', 'sortByValue']),
-	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	onConnectGroupStream(groupId) {
-		dispatch(connectGroupStream(groupId))
-	},
-	onClearTimeline(timelineId) {
-		dispatch(clearTimeline(timelineId))
-	},
-	onExpandGroupTimeline(groupId, options) {
-		dispatch(expandGroupTimeline(groupId, options))
-	},
-	setMemberNewest() {
-		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
-	},
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class GroupTimeline extends ImmutablePureComponent {
-
-	static propTypes = {
-		params: PropTypes.object.isRequired,
-		group: PropTypes.oneOfType([
-			ImmutablePropTypes.map,
-			PropTypes.bool,
-		]),
-		groupId: PropTypes.string,
-		intl: PropTypes.object.isRequired,
-		onConnectGroupStream: PropTypes.func.isRequired,
-		onClearTimeline: PropTypes.func.isRequired,
-		onExpandGroupTimeline: PropTypes.func.isRequired,
-		setMemberNewest: PropTypes.func.isRequired,
-		sortByValue: PropTypes.string.isRequired,
-		sortByTopValue: PropTypes.string,
-		onlyMedia: PropTypes.bool,
-	}
 
 	state = {
 		//keep track of loads for if no user, 
@@ -151,3 +105,48 @@ class GroupTimeline extends ImmutablePureComponent {
 	}
 
 }
+
+const messages = defineMessages({
+	empty: { id: 'empty_column.group', defaultMessage: 'There is nothing in this group yet.\nWhen members of this group post new statuses, they will appear here.' },
+})
+
+const mapStateToProps = (state, props) => ({
+	groupId: props.params.id,
+	group: state.getIn(['groups', props.params.id]),
+	sortByValue: state.getIn(['group_lists', 'sortByValue']),
+	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	onConnectGroupStream(groupId) {
+		dispatch(connectGroupStream(groupId))
+	},
+	onClearTimeline(timelineId) {
+		dispatch(clearTimeline(timelineId))
+	},
+	onExpandGroupTimeline(groupId, options) {
+		dispatch(expandGroupTimeline(groupId, options))
+	},
+	setMemberNewest() {
+		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
+	},
+})
+
+GroupTimeline.propTypes = {
+	params: PropTypes.object.isRequired,
+	group: PropTypes.oneOfType([
+		ImmutablePropTypes.map,
+		PropTypes.bool,
+	]),
+	groupId: PropTypes.string,
+	intl: PropTypes.object.isRequired,
+	onConnectGroupStream: PropTypes.func.isRequired,
+	onClearTimeline: PropTypes.func.isRequired,
+	onExpandGroupTimeline: PropTypes.func.isRequired,
+	setMemberNewest: PropTypes.func.isRequired,
+	sortByValue: PropTypes.string.isRequired,
+	sortByTopValue: PropTypes.string,
+	onlyMedia: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupTimeline))

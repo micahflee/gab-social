@@ -26,7 +26,6 @@ export function Following() { return import(/* webpackChunkName: "features/follo
 export function FollowRequests() { return import(/* webpackChunkName: "features/follow_requests" */'../../follow_requests') }
 export function LikedStatuses() { return import(/* webpackChunkName: "features/liked_statuses" */'../../liked_statuses') }
 export function GenericNotFound() { return import(/* webpackChunkName: "features/generic_not_found" */'../../generic_not_found') }
-export function GifPickerModal() { return import(/* webpackChunkName: "components/gif_picker_modal" */'../../../components/modal/gif_picker_modal') }
 export function GlobalFooter() { return import(/* webpackChunkName: "components/global_footer" */'../../../components/global_footer') }
 export function GroupsCollection() { return import(/* webpackChunkName: "features/groups_collection" */'../../groups_collection') }
 export function GroupAbout() { return import(/* webpackChunkName: "features/group_about" */'../../group_about.js') }
@@ -86,7 +85,6 @@ export function Shortcuts() { return import(/*webpackChunkName: "features/shortc
 export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
 export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
 export function SearchFilterPanel() { return import(/* webpackChunkName: "components/search_filter_panel" */'../../../components/panel/search_filter_panel') }
-export function SearchPopover() { return import(/* webpackChunkName: "components/search_popover" */'../../../components/popover/search_popover') }
 export function ShopPanel() { return import(/* webpackChunkName: "components/shop_panel" */'../../../components/panel/shop_panel') }
 export function SidebarMorePopover() { return import(/* webpackChunkName: "components/sidebar_more_popover" */'../../../components/popover/sidebar_more_popover') }
 export function SignUpLogInPanel() { return import(/* webpackChunkName: "components/sign_up_log_in_panel" */'../../../components/panel/sign_up_log_in_panel') }

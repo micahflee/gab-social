@@ -10,38 +10,7 @@ import Input from '../components/input'
 import Form from '../components/form'
 import Text from '../components/text'
 
-const messages = defineMessages({
-  label: { id: 'lists.new.title_placeholder', defaultMessage: 'New list title' },
-  create: { id: 'lists.new.create_title', defaultMessage: 'Create list' },
-  list_description: { id: 'list.description', defaultMessage: 'Lists are private and only you can see who is on a list.\nNo one else can view your lists. No one knows that they are on your list.' },
-  new_list_placeholder: { id: 'list.title_placeholder', defaultMessage: 'My new list...', },
-})
-
-const mapStateToProps = (state) => ({
-  value: state.getIn(['listEditor', 'title']),
-  disabled: state.getIn(['listEditor', 'isSubmitting']),
-})
-
-const mapDispatchToProps = (dispatch, { isModal }) => ({
-  onChange: (value) => dispatch(changeListEditorTitle(value)),
-  onSubmit: () => {
-    if (isModal) dispatch(closeModal(MODAL_LIST_CREATE))
-    dispatch(submitListEditor(true))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListCreate extends React.PureComponent {
-
-  static propTypes = {
-    value: PropTypes.string,
-    intl: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    isModal: PropTypes.bool,
-  }
 
   render() {
     const {
@@ -81,3 +50,33 @@ class ListCreate extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  label: { id: 'lists.new.title_placeholder', defaultMessage: 'New list title' },
+  create: { id: 'lists.new.create_title', defaultMessage: 'Create list' },
+  list_description: { id: 'list.description', defaultMessage: 'Lists are private and only you can see who is on a list.\nNo one else can view your lists. No one knows that they are on your list.' },
+  new_list_placeholder: { id: 'list.title_placeholder', defaultMessage: 'My new list...', },
+})
+
+const mapStateToProps = (state) => ({
+  value: state.getIn(['listEditor', 'title']),
+  disabled: state.getIn(['listEditor', 'isSubmitting']),
+})
+
+const mapDispatchToProps = (dispatch, { isModal }) => ({
+  onChange: (value) => dispatch(changeListEditorTitle(value)),
+  onSubmit: () => {
+    if (isModal) dispatch(closeModal(MODAL_LIST_CREATE))
+    dispatch(submitListEditor(true))
+  },
+})
+
+ListCreate.propTypes = {
+  value: PropTypes.string,
+  intl: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  isModal: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListCreate))

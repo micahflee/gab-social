@@ -26,103 +26,7 @@ import Input from '../components/input'
 import TabBar from '../components/tab_bar'
 import Text from '../components/text'
 
-const messages = defineMessages({
-  close: { id: 'lightbox.close', defaultMessage: 'Close' },
-  save: { id: 'lists.new.save_title', defaultMessage: 'Save Title' },
-  changeTitle: { id: 'lists.edit.submit', defaultMessage: 'Change title' },
-  addToList: { id: 'lists.account.add', defaultMessage: 'Add to list' },
-  removeFromList: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
-  editList: { id: 'lists.edit', defaultMessage: 'Edit list' },
-  editListTitle: { id: 'lists.new.edit_title_placeholder', defaultMessage: 'Edit list title' },
-  remove: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
-  add: { id: 'lists.account.add', defaultMessage: 'Add to list' },
-  search: { id: 'lists.search', defaultMessage: 'Search people...' },
-  searchMembers: { id: 'lists.search_members', defaultMessage: 'Search members...' },
-  searchTitle: { id: 'tabs_bar.search', defaultMessage: 'Search' },
-})
-
-const mapStateToProps = (state, { params, id }) => {
-  const listId = isObject(params) ? params['id'] : id
-
-	return {
-    listId,
-    list: state.getIn(['lists', listId]),
-    title: state.getIn(['listEditor', 'title']),
-    disabled: !state.getIn(['listEditor', 'isChanged']),
-    accountIds: state.getIn(['listEditor', 'accounts', 'items']),
-    searchAccountIds: state.getIn(['listEditor', 'suggestions', 'items']),
-    searchSuggestionsValue: state.getIn(['listEditor', 'suggestions', 'value']),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-
-  onDeleteList(list) {
-    dispatch(openModal(MODAL_LIST_DELETE, { list }))
-  },
-
-  onChangeTitle(value) {
-    dispatch(changeListEditorTitle(value))
-  },
-
-  onUpdateList() {
-    dispatch(submitListEditor(false))
-  },
-
-  onInitialize(listId) {
-    dispatch(setupListEditor(listId))
-  },
-
-  onReset() {
-    dispatch(resetListEditor())
-  },
-  
-  onRemoveAccountFromList(accountId) {
-    dispatch(removeFromListEditor(accountId))
-  },
-  
-  onAddAccountToList(accountId) {
-    dispatch(addToListEditor(accountId))
-  },
-
-  onSubmitSearchSuggestions(value) {
-    dispatch(fetchListSuggestions(value))
-  },
-
-  onClearSearchSuggestions() {
-    dispatch(clearListSuggestions())
-  },
-
-  onChangeSuggestions(value) {
-    dispatch(changeListSuggestions(value))
-  },
-
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class ListEdit extends ImmutablePureComponent {
-
-  static propTypes = {
-    list: ImmutablePropTypes.map,
-    title: PropTypes.string,
-    listId: PropTypes.string.isRequired,
-    onClose: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    onInitialize: PropTypes.func.isRequired,
-    onReset: PropTypes.func.isRequired,
-    searchSuggestionsValue: PropTypes.string.isRequired,
-    accountIds: ImmutablePropTypes.list.isRequired,
-    searchAccountIds: ImmutablePropTypes.list.isRequired,
-    onRemoveAccountFromList: PropTypes.func.isRequired,
-    onAddAccountToList: PropTypes.func.isRequired,
-    onChangeSuggestions: PropTypes.func.isRequired,
-    onClearSearchSuggestions: PropTypes.func.isRequired,
-    onSubmitSearchSuggestions: PropTypes.func.isRequired,
-    onDeleteList: PropTypes.func.isRequired,
-    tab: PropTypes.string,
-  }
 
   state = {
     activeTab: this.props.tab || 'members'
@@ -317,3 +221,98 @@ class ListEdit extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
+  save: { id: 'lists.new.save_title', defaultMessage: 'Save Title' },
+  changeTitle: { id: 'lists.edit.submit', defaultMessage: 'Change title' },
+  addToList: { id: 'lists.account.add', defaultMessage: 'Add to list' },
+  removeFromList: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
+  editList: { id: 'lists.edit', defaultMessage: 'Edit list' },
+  editListTitle: { id: 'lists.new.edit_title_placeholder', defaultMessage: 'Edit list title' },
+  remove: { id: 'lists.account.remove', defaultMessage: 'Remove from list' },
+  add: { id: 'lists.account.add', defaultMessage: 'Add to list' },
+  search: { id: 'lists.search', defaultMessage: 'Search people...' },
+  searchMembers: { id: 'lists.search_members', defaultMessage: 'Search members...' },
+  searchTitle: { id: 'tabs_bar.search', defaultMessage: 'Search' },
+})
+
+const mapStateToProps = (state, { params, id }) => {
+  const listId = isObject(params) ? params['id'] : id
+
+	return {
+    listId,
+    list: state.getIn(['lists', listId]),
+    title: state.getIn(['listEditor', 'title']),
+    disabled: !state.getIn(['listEditor', 'isChanged']),
+    accountIds: state.getIn(['listEditor', 'accounts', 'items']),
+    searchAccountIds: state.getIn(['listEditor', 'suggestions', 'items']),
+    searchSuggestionsValue: state.getIn(['listEditor', 'suggestions', 'value']),
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+
+  onDeleteList(list) {
+    dispatch(openModal(MODAL_LIST_DELETE, { list }))
+  },
+
+  onChangeTitle(value) {
+    dispatch(changeListEditorTitle(value))
+  },
+
+  onUpdateList() {
+    dispatch(submitListEditor(false))
+  },
+
+  onInitialize(listId) {
+    dispatch(setupListEditor(listId))
+  },
+
+  onReset() {
+    dispatch(resetListEditor())
+  },
+  
+  onRemoveAccountFromList(accountId) {
+    dispatch(removeFromListEditor(accountId))
+  },
+  
+  onAddAccountToList(accountId) {
+    dispatch(addToListEditor(accountId))
+  },
+
+  onSubmitSearchSuggestions(value) {
+    dispatch(fetchListSuggestions(value))
+  },
+
+  onClearSearchSuggestions() {
+    dispatch(clearListSuggestions())
+  },
+
+  onChangeSuggestions(value) {
+    dispatch(changeListSuggestions(value))
+  },
+
+})
+
+ListEdit.propTypes = {
+  list: ImmutablePropTypes.map,
+  title: PropTypes.string,
+  listId: PropTypes.string.isRequired,
+  onClose: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  onInitialize: PropTypes.func.isRequired,
+  onReset: PropTypes.func.isRequired,
+  searchSuggestionsValue: PropTypes.string.isRequired,
+  accountIds: ImmutablePropTypes.list.isRequired,
+  searchAccountIds: ImmutablePropTypes.list.isRequired,
+  onRemoveAccountFromList: PropTypes.func.isRequired,
+  onAddAccountToList: PropTypes.func.isRequired,
+  onChangeSuggestions: PropTypes.func.isRequired,
+  onClearSearchSuggestions: PropTypes.func.isRequired,
+  onSubmitSearchSuggestions: PropTypes.func.isRequired,
+  onDeleteList: PropTypes.func.isRequired,
+  tab: PropTypes.string,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ListEdit))

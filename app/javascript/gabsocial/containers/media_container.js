@@ -14,12 +14,7 @@ addLocaleData(localeData);
 
 const MEDIA_COMPONENTS = { MediaGallery, Video, Card, Poll };
 
-export default class MediaContainer extends React.PureComponent {
-
-  static propTypes = {
-    locale: PropTypes.string.isRequired,
-    components: PropTypes.object.isRequired,
-  };
+class MediaContainer extends React.PureComponent {
 
   state = {
     media: null,
@@ -78,3 +73,10 @@ export default class MediaContainer extends React.PureComponent {
   }
 
 }
+
+MediaContainer.propTypes = {
+  locale: PropTypes.string.isRequired,
+  components: PropTypes.object.isRequired,
+}
+
+export default MediaContainer

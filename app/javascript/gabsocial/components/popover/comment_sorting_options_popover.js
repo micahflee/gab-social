@@ -12,40 +12,7 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  oldest: { id: 'comment_sort.oldest', defaultMessage: 'Oldest' },
-  oldestSubtitle: { id: 'comment_sort.oldest.subtitle', defaultMessage: 'Show all comments, with the oldest comments first.' },
-  newest: { id: 'comment_sort.newest', defaultMessage: 'Recent' },
-  newestSubtitle: { id: 'comment_sort.newest.subtitle', defaultMessage: 'Show all comments, with the newest comments first.' },
-  top: { id: 'comment_sort.top', defaultMessage: 'Most Liked' },
-  topSubtitle: { id: 'comment_sort.top.subtitle', defaultMessage: 'Show all comments, with the most liked top-level comments first.' },
-})
-
-const mapStateToProps = (state) => ({
-  commentSorting: state.getIn(['settings', 'commentSorting']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onSetCommentSortingSetting(type) {
-    dispatch(changeSetting(['commentSorting'], type))
-    dispatch(saveSettings())
-    dispatch(closePopover())
-  },
-  onClosePopover: () => dispatch(closePopover()),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class CommentSortingOptionsPopover extends React.PureComponent {
-
-  static propTypes = {
-    commentSorting: PropTypes.string.isRequired,
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    onClosePopover: PropTypes.func.isRequired,
-    onSetCommentSortingSetting: PropTypes.func.isRequired,
-  }
 
   handleOnClick = (type) => {
     this.props.onSetCommentSortingSetting(type)
@@ -101,3 +68,35 @@ class CommentSortingOptionsPopover extends React.PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  oldest: { id: 'comment_sort.oldest', defaultMessage: 'Oldest' },
+  oldestSubtitle: { id: 'comment_sort.oldest.subtitle', defaultMessage: 'Show all comments, with the oldest comments first.' },
+  newest: { id: 'comment_sort.newest', defaultMessage: 'Recent' },
+  newestSubtitle: { id: 'comment_sort.newest.subtitle', defaultMessage: 'Show all comments, with the newest comments first.' },
+  top: { id: 'comment_sort.top', defaultMessage: 'Most Liked' },
+  topSubtitle: { id: 'comment_sort.top.subtitle', defaultMessage: 'Show all comments, with the most liked top-level comments first.' },
+})
+
+const mapStateToProps = (state) => ({
+  commentSorting: state.getIn(['settings', 'commentSorting']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSetCommentSortingSetting(type) {
+    dispatch(changeSetting(['commentSorting'], type))
+    dispatch(saveSettings())
+    dispatch(closePopover())
+  },
+  onClosePopover: () => dispatch(closePopover()),
+})
+
+CommentSortingOptionsPopover.propTypes = {
+  commentSorting: PropTypes.string.isRequired,
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  onClosePopover: PropTypes.func.isRequired,
+  onSetCommentSortingSetting: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(CommentSortingOptionsPopover))

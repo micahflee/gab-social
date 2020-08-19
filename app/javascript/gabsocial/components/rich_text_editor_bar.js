@@ -122,14 +122,6 @@ class RichTextEditorBar extends React.PureComponent {
 
 class StyleButton extends React.PureComponent {
 
-  static propTypes = {
-    onClick: PropTypes.func,
-    label: PropTypes.string,
-    style: PropTypes.string,
-    icon: PropTypes.string,
-    type: PropTypes.string,
-  }
-
   handleOnClick = (e) => {
     e.preventDefault()
     this.props.onClick(this.props.style, this.props.type)
@@ -177,6 +169,14 @@ class StyleButton extends React.PureComponent {
     )
   }
 
+}
+
+StyleButton.propTypes = {
+  onClick: PropTypes.func,
+  label: PropTypes.string,
+  style: PropTypes.string,
+  icon: PropTypes.string,
+  type: PropTypes.string,
 }
 
 const mapStateToProps = (state) => {

@@ -20,34 +20,7 @@ import DisplayName from '../display_name'
 import Image from '../image'
 import UserStat from '../user_stat'
 
-const messages = defineMessages({
-  gabs: { id: 'account.posts', defaultMessage: 'Gabs' },
-  followers: { id: 'account.followers', defaultMessage: 'Followers' },
-  follows: { id: 'account.follows', defaultMessage: 'Following' },
-  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
-  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
-})
-
-const mapStateToProps = (state) => ({
-  account: makeGetAccount()(state, me),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenEditProfile() {
-    dispatch(openModal(MODAL_EDIT_PROFILE))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class UserPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map.isRequired,
-    intl: PropTypes.object.isRequired,
-    onOpenEditProfile: PropTypes.func.isRequired,
-  }
 
   state = {
     hovering: false,
@@ -145,3 +118,30 @@ class UserPanel extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  gabs: { id: 'account.posts', defaultMessage: 'Gabs' },
+  followers: { id: 'account.followers', defaultMessage: 'Followers' },
+  follows: { id: 'account.follows', defaultMessage: 'Following' },
+  edit_profile: { id: 'account.edit_profile', defaultMessage: 'Edit profile' },
+  headerPhoto: { id: 'header_photo', defaultMessage: 'Header photo' },
+})
+
+const mapStateToProps = (state) => ({
+  account: makeGetAccount()(state, me),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onOpenEditProfile() {
+    dispatch(openModal(MODAL_EDIT_PROFILE))
+  },
+})
+
+UserPanel.propTypes = {
+  account: ImmutablePropTypes.map.isRequired,
+  intl: PropTypes.object.isRequired,
+  onOpenEditProfile: PropTypes.func.isRequired,
+}
+
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(UserPanel))

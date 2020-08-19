@@ -15,36 +15,7 @@ import Text from '../text'
 import DotTextSeperator from '../dot_text_seperator'
 import ProfileInfoPanelPlaceholder from '../placeholder/profile_info_panel_placeholder'
 
-const messages = defineMessages({
-  title: { id: 'about', defaultMessage: 'About' },
-  members: { id: 'members', defaultMessage: 'Members' },
-  created: { id: 'created', defaultMessage: 'Created' },
-  category: { id: 'category', defaultMessage: 'Category' },
-  tags: { id: 'tags', defaultMessage: 'Tags' },
-  privateGroup: { id: 'group.private', defaultMessage: 'Private' },
-  publicGroup: { id: 'group.public', defaultMessage: 'Public' },
-  visibleGroup: { id: 'group.visible', defaultMessage: 'Visible' },
-  invisibleGroup: { id: 'group.invisible', defaultMessage: 'Invisible' },
-})
-
-const mapStateToProps = (state, { group }) => {
-  const groupId = group ? group.get('id') : -1
-  const relationships = group === -1 ? null : state.getIn(['group_relationships', groupId])
-
-  return { relationships }
-}
-
-export default
-@injectIntl
-@connect(mapStateToProps)
 class GroupInfoPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    group: ImmutablePropTypes.map.isRequired,
-    intl: PropTypes.object.isRequired,
-    noPanel: PropTypes.bool,
-    relationships: ImmutablePropTypes.map,
-  }
 
   render() {
     const {
@@ -214,11 +185,6 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
 class GroupInfoPanelRow extends React.PureComponent {
 
-  static propTypes = {
-    icon: PropTypes.string,
-    title: PropTypes.string.isRequired,
-  }
-
   render() {
     const { icon, title } = this.props
 
@@ -239,3 +205,36 @@ class GroupInfoPanelRow extends React.PureComponent {
   }
 
 }
+
+GroupInfoPanelRow.propTypes = {
+  icon: PropTypes.string,
+  title: PropTypes.string.isRequired,
+}
+
+const messages = defineMessages({
+  title: { id: 'about', defaultMessage: 'About' },
+  members: { id: 'members', defaultMessage: 'Members' },
+  created: { id: 'created', defaultMessage: 'Created' },
+  category: { id: 'category', defaultMessage: 'Category' },
+  tags: { id: 'tags', defaultMessage: 'Tags' },
+  privateGroup: { id: 'group.private', defaultMessage: 'Private' },
+  publicGroup: { id: 'group.public', defaultMessage: 'Public' },
+  visibleGroup: { id: 'group.visible', defaultMessage: 'Visible' },
+  invisibleGroup: { id: 'group.invisible', defaultMessage: 'Invisible' },
+})
+
+const mapStateToProps = (state, { group }) => {
+  const groupId = group ? group.get('id') : -1
+  const relationships = group === -1 ? null : state.getIn(['group_relationships', groupId])
+
+  return { relationships }
+}
+
+GroupInfoPanel.propTypes = {
+  group: ImmutablePropTypes.map.isRequired,
+  intl: PropTypes.object.isRequired,
+  noPanel: PropTypes.bool,
+  relationships: ImmutablePropTypes.map,
+}
+
+export default injectIntl(connect(mapStateToProps)(GroupInfoPanel))

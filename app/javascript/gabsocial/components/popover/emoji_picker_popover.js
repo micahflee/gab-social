@@ -109,26 +109,7 @@ const getCustomEmojis = createSelector([
   return 0;
 }));
 
-@injectIntl
 class EmojiPickerMenu extends ImmutablePureComponent {
-
-  static propTypes = {
-    customEmojis: ImmutablePropTypes.list,
-    frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
-    loading: PropTypes.bool,
-    onClose: PropTypes.func.isRequired,
-    onPick: PropTypes.func.isRequired,
-    arrowOffsetLeft: PropTypes.string,
-    arrowOffsetTop: PropTypes.string,
-    intl: PropTypes.object.isRequired,
-    skinTone: PropTypes.number.isRequired,
-    onSkinTone: PropTypes.func.isRequired,
-  }
-
-  static defaultProps = {
-    loading: true,
-    frequentlyUsedEmojis: [],
-  }
 
   getI18n = () => {
     const { intl } = this.props
@@ -209,41 +190,27 @@ class EmojiPickerMenu extends ImmutablePureComponent {
 
 }
 
-const mapStateToProps = (state) => ({
-  customEmojis: getCustomEmojis(state),
-  skinTone: state.getIn(['settings', 'skinTone']),
-  frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),
-})
+EmojiPickerMenu.propTypes = {
+  customEmojis: ImmutablePropTypes.list,
+  frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
+  loading: PropTypes.bool,
+  onClose: PropTypes.func.isRequired,
+  onPick: PropTypes.func.isRequired,
+  arrowOffsetLeft: PropTypes.string,
+  arrowOffsetTop: PropTypes.string,
+  intl: PropTypes.object.isRequired,
+  skinTone: PropTypes.number.isRequired,
+  onSkinTone: PropTypes.func.isRequired,
+}
 
-const mapDispatchToProps = (dispatch) => ({
-  onClosePopover() {
-    dispatch(closePopover())
-  },
+EmojiPickerMenu.defaultProps = {
+  loading: true,
+  frequentlyUsedEmojis: [],
+}
 
-  onSkinTone: (skinTone) => {
-    dispatch(changeSetting(['skinTone'], skinTone))
-  },
+injectIntl(EmojiPickerMenu)
 
-  onPickEmoji: (emoji) => {
-    dispatch(useEmoji(emoji))
-    dispatch(insertEmojiCompose(emoji, false))
-  },
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class EmojiPickerPopover extends ImmutablePureComponent {
-
-  static propTypes = {
-    customEmojis: ImmutablePropTypes.list,
-    frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
-    intl: PropTypes.object.isRequired,
-    onPickEmoji: PropTypes.func.isRequired,
-    onSkinTone: PropTypes.func.isRequired,
-    skinTone: PropTypes.number.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    isXS: PropTypes.bool,
-  }
 
   state = {
     loading: false,
@@ -300,3 +267,37 @@ class EmojiPickerPopover extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  customEmojis: getCustomEmojis(state),
+  skinTone: state.getIn(['settings', 'skinTone']),
+  frequentlyUsedEmojis: getFrequentlyUsedEmojis(state),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClosePopover() {
+    dispatch(closePopover())
+  },
+
+  onSkinTone: (skinTone) => {
+    dispatch(changeSetting(['skinTone'], skinTone))
+  },
+
+  onPickEmoji: (emoji) => {
+    dispatch(useEmoji(emoji))
+    dispatch(insertEmojiCompose(emoji, false))
+  },
+})
+
+EmojiPickerPopover.propTypes = {
+  customEmojis: ImmutablePropTypes.list,
+  frequentlyUsedEmojis: PropTypes.arrayOf(PropTypes.string),
+  intl: PropTypes.object.isRequired,
+  onPickEmoji: PropTypes.func.isRequired,
+  onSkinTone: PropTypes.func.isRequired,
+  skinTone: PropTypes.number.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  isXS: PropTypes.bool,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EmojiPickerPopover)

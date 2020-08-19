@@ -13,45 +13,7 @@ import ColumnIndicator from '../components/column_indicator'
 import Heading from '../components/heading'
 import GroupListItem from '../components/group_list_item'
 
-const messages = defineMessages({
-	empty: { id: 'groups.empty', defaultMessage: 'There are no groups to display' },
-	featured: { id: 'featured', defaultMessage: 'Featured' },
-	new: { id: 'new', defaultMessage: 'Just Added' },
-	member: { id: 'my_groups', defaultMessage: 'My Groups' },
-	admin: { id: 'admin', defaultMessage: 'Admin' },
-})
-
-const mapStateToProps = (state, { activeTab }) => ({
-	groupIds: state.getIn(['group_lists', activeTab, 'items']),
-	isFetched: state.getIn(['group_lists', activeTab, 'isFetched']),
-	isLoading: state.getIn(['group_lists', activeTab, 'isLoading']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-	onFetchGroups: (tab) => dispatch(fetchGroups(tab)),
-	onOpenSortPopover(tab, targetRef) {
-		dispatch(openPopover(POPOVER_GROUP_LIST_SORT_OPTIONS, {
-			targetRef,
-			tab,
-			position: 'bottom',
-		}))
-	}
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupsCollection extends ImmutablePureComponent {
-
-	static propTypes = {
-		activeTab: PropTypes.string.isRequired,
-		groupIds: ImmutablePropTypes.list,
-		intl: PropTypes.object.isRequired,
-		isFetched: PropTypes.bool.isRequired,
-		isLoading: PropTypes.bool.isRequired,
-		onFetchGroups: PropTypes.func.isRequired,
-		onOpenSortPopover: PropTypes.func.isRequired,
-	}
 
 	componentWillMount() {
 		this.props.onFetchGroups(this.props.activeTab)
@@ -125,3 +87,40 @@ class GroupsCollection extends ImmutablePureComponent {
 	}
 
 }
+
+const messages = defineMessages({
+	empty: { id: 'groups.empty', defaultMessage: 'There are no groups to display' },
+	featured: { id: 'featured', defaultMessage: 'Featured' },
+	new: { id: 'new', defaultMessage: 'Just Added' },
+	member: { id: 'my_groups', defaultMessage: 'My Groups' },
+	admin: { id: 'admin', defaultMessage: 'Admin' },
+})
+
+const mapStateToProps = (state, { activeTab }) => ({
+	groupIds: state.getIn(['group_lists', activeTab, 'items']),
+	isFetched: state.getIn(['group_lists', activeTab, 'isFetched']),
+	isLoading: state.getIn(['group_lists', activeTab, 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+	onFetchGroups: (tab) => dispatch(fetchGroups(tab)),
+	onOpenSortPopover(tab, targetRef) {
+		dispatch(openPopover(POPOVER_GROUP_LIST_SORT_OPTIONS, {
+			targetRef,
+			tab,
+			position: 'bottom',
+		}))
+	}
+})
+
+GroupsCollection.propTypes = {
+	activeTab: PropTypes.string.isRequired,
+	groupIds: ImmutablePropTypes.list,
+	intl: PropTypes.object.isRequired,
+	isFetched: PropTypes.bool.isRequired,
+	isLoading: PropTypes.bool.isRequired,
+	onFetchGroups: PropTypes.func.isRequired,
+	onOpenSortPopover: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupsCollection))

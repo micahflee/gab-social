@@ -12,48 +12,7 @@ import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  groupMembers: { id: 'group_members', defaultMessage: 'Group members' },
-  removedMembers: { id: 'group_removed_members', defaultMessage: 'Removed accounts' },
-  editGroup: { id: 'edit_group', defaultMessage: 'Edit group' },
-  add_to_shortcuts: { id: 'account.add_to_shortcuts', defaultMessage: 'Add to shortcuts' },
-  remove_from_shortcuts: { id: 'account.remove_from_shortcuts', defaultMessage: 'Remove from shortcuts' },
-})
-
-const mapStateToProps = (state, { group }) => {
-  const groupId = group ? group.get('id') : null
-  const shortcuts = state.getIn(['shortcuts', 'items'])
-  const isShortcut = !!shortcuts.find((s) => {
-    return s.get('shortcut_id') == groupId && s.get('shortcut_type') === 'group'
-  })
-  return { isShortcut }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  onClosePopover: () => dispatch(closePopover()),
-  onAddShortcut(groupId) {
-    dispatch(addShortcut('group', groupId))
-  },
-  onRemoveShortcut(groupId) {
-    dispatch(removeShortcut(null, 'group', groupId))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupOptionsPopover extends ImmutablePureComponent {
-
-  static defaultProps = {
-    group: ImmutablePropTypes.map.isRequired,
-    isAdmin: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    isShortcut: PropTypes.bool,
-    onAddShortcut: PropTypes.func.isRequired,
-    onRemoveShortcut: PropTypes.func.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-  }
 
   handleOnClosePopover = () => {
     this.props.onClosePopover()
@@ -132,3 +91,43 @@ class GroupOptionsPopover extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  groupMembers: { id: 'group_members', defaultMessage: 'Group members' },
+  removedMembers: { id: 'group_removed_members', defaultMessage: 'Removed accounts' },
+  editGroup: { id: 'edit_group', defaultMessage: 'Edit group' },
+  add_to_shortcuts: { id: 'account.add_to_shortcuts', defaultMessage: 'Add to shortcuts' },
+  remove_from_shortcuts: { id: 'account.remove_from_shortcuts', defaultMessage: 'Remove from shortcuts' },
+})
+
+const mapStateToProps = (state, { group }) => {
+  const groupId = group ? group.get('id') : null
+  const shortcuts = state.getIn(['shortcuts', 'items'])
+  const isShortcut = !!shortcuts.find((s) => {
+    return s.get('shortcut_id') == groupId && s.get('shortcut_type') === 'group'
+  })
+  return { isShortcut }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  onClosePopover: () => dispatch(closePopover()),
+  onAddShortcut(groupId) {
+    dispatch(addShortcut('group', groupId))
+  },
+  onRemoveShortcut(groupId) {
+    dispatch(removeShortcut(null, 'group', groupId))
+  },
+})
+
+GroupOptionsPopover.defaultProps = {
+  group: ImmutablePropTypes.map.isRequired,
+  isAdmin: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  isShortcut: PropTypes.bool,
+  onAddShortcut: PropTypes.func.isRequired,
+  onRemoveShortcut: PropTypes.func.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupOptionsPopover))

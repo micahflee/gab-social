@@ -12,24 +12,7 @@ import {
 	GroupInfoPanel
 } from '../features/ui/util/async_components'
 
-const mapStateToProps = (state, { params }) => {
-	const groupId = isObject(params) ? params['id'] : null
-	const group = state.getIn(['groups', groupId])
-
-	return { group }
-}
-
-export default
-@connect(mapStateToProps)
 class GroupAbout extends ImmutablePureComponent {
-
-	static contextTypes = {
-		router: PropTypes.object
-	}
-
-	static propTypes = {
-		group: ImmutablePropTypes.map,
-	}
 
 	render() {
 		const { group } = this.props
@@ -56,3 +39,16 @@ class GroupAbout extends ImmutablePureComponent {
 	}
 
 }
+
+const mapStateToProps = (state, { params }) => {
+	const groupId = isObject(params) ? params['id'] : null
+	const group = state.getIn(['groups', groupId])
+
+	return { group }
+}
+
+GroupAbout.propTypes = {
+	group: ImmutablePropTypes.map,
+}
+
+export default connect(mapStateToProps)(GroupAbout)

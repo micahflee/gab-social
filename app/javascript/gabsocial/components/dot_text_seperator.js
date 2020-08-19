@@ -1,13 +1,8 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import Text from './text'
 
-export default class DotTextSeperator extends React.PureComponent {
+const DotTextSeperator = () => (
+  <Text size='small' color='secondary' className={_s.ml5}>·</Text>
+)
 
-  render() {
-    return (
-      <Text size='small' color='secondary' className={_s.ml5}>·</Text>
-    )
-  }
-
-}
+export default DotTextSeperator

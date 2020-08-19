@@ -6,20 +6,7 @@ import Button from '../button'
 import Text from '../text'
 import PanelLayout from './panel_layout'
 
-const messages = defineMessages({
-  title: { id: 'signup_panel.title', defaultMessage: 'New to Gab?' },
-  subtitle: { id: 'signup_panel.subtitle', defaultMessage: 'Sign up now to speak freely.' },
-  register: { id: 'account.register', defaultMessage: 'Sign up' },
-  login: { id: 'account.login', defaultMessage: 'Log in' },
-})
-
-export default
-@injectIntl
 class SignUpPanel extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-  }
 
   render() {
     if (me) return null
@@ -57,3 +44,16 @@ class SignUpPanel extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'signup_panel.title', defaultMessage: 'New to Gab?' },
+  subtitle: { id: 'signup_panel.subtitle', defaultMessage: 'Sign up now to speak freely.' },
+  register: { id: 'account.register', defaultMessage: 'Sign up' },
+  login: { id: 'account.login', defaultMessage: 'Log in' },
+})
+
+SignUpPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(SignUpPanel)

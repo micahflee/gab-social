@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, FormattedMessage, defineMessages } from 'react-intl'
+import { injectIntl, defineMessages } from 'react-intl'
 import { getWindowDimension } from '../../utils/is_mobile'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
@@ -9,7 +9,6 @@ import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
 } from '../../constants'
-import Responsive from '../../features/ui/util/responsive_component'
 
 const initialState = getWindowDimension()
 

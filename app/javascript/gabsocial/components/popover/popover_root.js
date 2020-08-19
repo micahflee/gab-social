@@ -10,7 +10,6 @@ import {
   POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS,
   POPOVER_NAV_SETTINGS,
   POPOVER_PROFILE_OPTIONS,
-  POPOVER_SEARCH,
   POPOVER_SIDEBAR_MORE,
   POPOVER_STATUS_OPTIONS,
   POPOVER_STATUS_EXPIRATION_OPTIONS,
@@ -29,7 +28,6 @@ import {
   GroupTimelineSortTopOptionsPopover,
   NavSettingsPopover,
   ProfileOptionsPopover,
-  SearchPopover,
   SidebarMorePopover,
   StatusExpirationOptionsPopover,
   StatusOptionsPopover,
@@ -62,7 +60,6 @@ POPOVER_COMPONENTS[POPOVER_GROUP_TIMELINE_SORT_OPTIONS] = GroupTimelineSortOptio
 POPOVER_COMPONENTS[POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS] = GroupTimelineSortTopOptionsPopover
 POPOVER_COMPONENTS[POPOVER_NAV_SETTINGS] = NavSettingsPopover
 POPOVER_COMPONENTS[POPOVER_PROFILE_OPTIONS] = ProfileOptionsPopover
-POPOVER_COMPONENTS[POPOVER_SEARCH] = SearchPopover
 POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
 POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
 POPOVER_COMPONENTS[POPOVER_STATUS_EXPIRATION_OPTIONS] = StatusExpirationOptionsPopover
@@ -70,24 +67,7 @@ POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
 POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
 POPOVER_COMPONENTS[POPOVER_VIDEO_STATS] = VideoStatsPopover
 
-const mapStateToProps = (state) => ({
-  type: state.getIn(['popover', 'popoverType']),
-  props: state.getIn(['popover', 'popoverProps'], {}),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onClose: (type) => dispatch(closePopover(type)),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class PopoverRoot extends React.PureComponent {
-
-  static propTypes = {
-    type: PropTypes.string,
-    props: PropTypes.object,
-    onClose: PropTypes.func.isRequired,
-  }
 
   state = {
     width: initialState.width,
@@ -171,3 +151,20 @@ class PopoverRoot extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  type: state.getIn(['popover', 'popoverType']),
+  props: state.getIn(['popover', 'popoverProps'], {}),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClose: (type) => dispatch(closePopover(type)),
+})
+
+PopoverRoot.propTypes = {
+  type: PropTypes.string,
+  props: PropTypes.object,
+  onClose: PropTypes.func.isRequired,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PopoverRoot)

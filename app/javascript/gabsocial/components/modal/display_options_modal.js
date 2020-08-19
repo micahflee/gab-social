@@ -166,14 +166,6 @@ class DisplayOptionsModal extends ImmutablePureComponent {
 
 class ThemeBlock extends React.PureComponent {
 
-  static propTypes = {
-    checked: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    title: PropTypes.string,
-    value: PropTypes.string,
-    style: PropTypes.object,
-  }
-
   render() {
     const {
       checked,
@@ -213,6 +205,14 @@ class ThemeBlock extends React.PureComponent {
     )
   }
 
+}
+
+ThemeBlock.propTypes = {
+  checked: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  value: PropTypes.string,
+  style: PropTypes.object,
 }
 
 const messages = defineMessages({

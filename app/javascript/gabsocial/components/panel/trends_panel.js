@@ -10,34 +10,7 @@ import ScrollableList from '../scrollable_list'
 import TrendsItem from '../trends_item'
 import TrendsItemPlaceholder from '../placeholder/trends_item_placeholder'
 
-const messages = defineMessages({
-  title: { id: 'trends.title', defaultMessage: 'Trending right now' },
-  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
-})
-
-const mapStateToProps = (state) => ({
-  isError: state.getIn(['gab_trends', 'feed', 'isError']),
-  isLoading: state.getIn(['gab_trends', 'feed', 'isLoading']),
-  items: state.getIn(['gab_trends', 'feed', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onfetchGabTrends: () => dispatch(fetchGabTrends('feed')),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class TrendsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    isError: PropTypes.bool,
-    isLazy: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    items: ImmutablePropTypes.list.isRequired,
-    onfetchGabTrends: PropTypes.func.isRequired,
-  }
 
   updateOnProps = [
     'items',
@@ -117,3 +90,29 @@ class TrendsPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'trends.title', defaultMessage: 'Trending right now' },
+  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
+})
+
+const mapStateToProps = (state) => ({
+  isError: state.getIn(['gab_trends', 'feed', 'isError']),
+  isLoading: state.getIn(['gab_trends', 'feed', 'isLoading']),
+  items: state.getIn(['gab_trends', 'feed', 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onfetchGabTrends: () => dispatch(fetchGabTrends('feed')),
+})
+
+TrendsPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isError: PropTypes.bool,
+  isLazy: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  items: ImmutablePropTypes.list.isRequired,
+  onfetchGabTrends: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(TrendsPanel))

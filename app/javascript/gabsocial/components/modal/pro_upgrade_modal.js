@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
 import {
   URL_GAB_PRO,
   DEFAULT_THEME,
@@ -13,7 +12,7 @@ import Icon from '../icon'
 import Image from '../image'
 import ModalLayout from './modal_layout'
 
-class ProUpgradeModal extends ImmutablePureComponent {
+class ProUpgradeModal extends React.PureComponent {
 
   render() {
     const {

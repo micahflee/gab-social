@@ -7,19 +7,7 @@ import Button from '../button'
 import Icon from '../icon'
 import Text from '../text'
 
-const messages = defineMessages({
-  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
-  text: { id: 'pro_upgrade_modal.text_sm', defaultMessage: 'Please consider supporting us on our mission to defend free expression online for all people.' },
-})
-
-export default
-@injectIntl
 class ProPanel extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    isPro: PropTypes.bool.isRequired,
-  }
 
   render() {
     const { intl, isPro } = this.props
@@ -69,3 +57,15 @@ class ProPanel extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'promo.gab_pro', defaultMessage: 'Upgrade to GabPRO' },
+  text: { id: 'pro_upgrade_modal.text_sm', defaultMessage: 'Please consider supporting us on our mission to defend free expression online for all people.' },
+})
+
+ProPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isPro: PropTypes.bool.isRequired,
+}
+
+export default injectIntl(ProPanel)

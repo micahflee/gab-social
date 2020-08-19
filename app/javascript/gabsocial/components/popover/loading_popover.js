@@ -3,12 +3,7 @@ import PropTypes from 'prop-types'
 import PopoverLayout from './popover_layout'
 import ColumnIndicator from '../column_indicator'
 
-export default class LoadingPopover extends React.PureComponent {
-
-  static defaultProps = {
-    isXS: PropTypes.bool,
-    onClose: PropTypes.func,
-  }
+class LoadingPopover extends React.PureComponent {
 
   render() {
     const { isXS } = this.props
@@ -29,3 +24,10 @@ export default class LoadingPopover extends React.PureComponent {
   }
 
 }
+
+LoadingPopover.defaultProps = {
+  isXS: PropTypes.bool,
+  onClose: PropTypes.func,
+}
+
+export default LoadingPopover

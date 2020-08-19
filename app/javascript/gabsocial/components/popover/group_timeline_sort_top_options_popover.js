@@ -14,38 +14,7 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const messages = defineMessages({
-  topTodayTitle: { id: 'group_timeline_sorting.top_today_title', defaultMessage: 'Today' },
-	topWeekTitle: { id: 'group_timeline_sorting.top_week_title', defaultMessage: 'This Week' },
-	topMonthTitle: { id: 'group_timeline_sorting.top_month_title', defaultMessage: 'This Month' },
-	topYearTitle: { id: 'group_timeline_sorting.top_year_title', defaultMessage: 'This Year' },
-	topAllTitle: { id: 'group_timeline_sorting.top_all_title', defaultMessage: 'All Time' },
-})
-
-const mapStateToProps = (state) => ({
-  sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onSort(sort) {
-    dispatch(setGroupTimelineTopSort(sort))
-    dispatch(closePopover())
-  },
-  onClosePopover: () => dispatch(closePopover()),
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class GroupTimelineSortTopOptionsPopover extends React.PureComponent {
-
-  static propTypes = {
-    sortByTopValue: PropTypes.string.isRequired,
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    onClosePopover: PropTypes.func.isRequired,
-    onSort: PropTypes.func.isRequired,
-  }
 
   handleOnClick = (type) => {
     this.props.onSort(type)
@@ -110,3 +79,33 @@ class GroupTimelineSortTopOptionsPopover extends React.PureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  topTodayTitle: { id: 'group_timeline_sorting.top_today_title', defaultMessage: 'Today' },
+	topWeekTitle: { id: 'group_timeline_sorting.top_week_title', defaultMessage: 'This Week' },
+	topMonthTitle: { id: 'group_timeline_sorting.top_month_title', defaultMessage: 'This Month' },
+	topYearTitle: { id: 'group_timeline_sorting.top_year_title', defaultMessage: 'This Year' },
+	topAllTitle: { id: 'group_timeline_sorting.top_all_title', defaultMessage: 'All Time' },
+})
+
+const mapStateToProps = (state) => ({
+  sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSort(sort) {
+    dispatch(setGroupTimelineTopSort(sort))
+    dispatch(closePopover())
+  },
+  onClosePopover: () => dispatch(closePopover()),
+})
+
+GroupTimelineSortTopOptionsPopover.propTypes = {
+  sortByTopValue: PropTypes.string.isRequired,
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  onClosePopover: PropTypes.func.isRequired,
+  onSort: PropTypes.func.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupTimelineSortTopOptionsPopover))

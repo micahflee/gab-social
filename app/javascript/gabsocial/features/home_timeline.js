@@ -10,33 +10,7 @@ import {
 } from '../actions/timelines'
 import StatusList from '../components/status_list'
 
-const messages = defineMessages({
-  title: { id: 'column.home', defaultMessage: 'Home' },
-  empty: { id: 'empty_timeline.home', defaultMessage: 'Your home timeline is empty. Start following other users to receive their content here.' },
-})
-
-const mapStateToProps = (state) => ({
-  isPartial: state.getIn(['timelines', 'home', 'isPartial']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onExpandHomeTimeline(options) {
-    if (!options) dispatch(forceDequeueTimeline('home'))
-    dispatch(expandHomeTimeline(options))
-  },
-})
-
-export default
-@injectIntl
-@withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class HomeTimeline extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    isPartial: PropTypes.bool,
-    onExpandHomeTimeline: PropTypes.func.isRequired,
-  }
 
   componentDidMount () {
     this._checkIfReloadNeeded(false, this.props.isPartial)
@@ -100,3 +74,27 @@ class HomeTimeline extends React.PureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  title: { id: 'column.home', defaultMessage: 'Home' },
+  empty: { id: 'empty_timeline.home', defaultMessage: 'Your home timeline is empty. Start following other users to receive their content here.' },
+})
+
+const mapStateToProps = (state) => ({
+  isPartial: state.getIn(['timelines', 'home', 'isPartial']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onExpandHomeTimeline(options) {
+    if (!options) dispatch(forceDequeueTimeline('home'))
+    dispatch(expandHomeTimeline(options))
+  },
+})
+
+HomeTimeline.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isPartial: PropTypes.bool,
+  onExpandHomeTimeline: PropTypes.func.isRequired,
+}
+
+export default injectIntl(withRouter(connect(mapStateToProps, mapDispatchToProps)(HomeTimeline)))

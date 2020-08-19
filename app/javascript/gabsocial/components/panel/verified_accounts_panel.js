@@ -8,31 +8,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import Account from '../account'
 import PanelLayout from './panel_layout'
 
-const messages = defineMessages({
-  dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
-  title: { id: 'who_to_follow.title', defaultMessage: 'Verified Accounts to Follow' },
-  show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
-})
-
-const mapStateToProps = (state) => ({
-  suggestions: state.getIn(['suggestions', 'verified', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchPopularSuggestions: () => dispatch(fetchPopularSuggestions()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class VerifiedAccountsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    fetchPopularSuggestions: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    suggestions: ImmutablePropTypes.list.isRequired,
-    isLazy: PropTypes.bool,
-  }
 
   state = {
     fetched: !this.props.isLazy,
@@ -91,3 +67,26 @@ class VerifiedAccountsPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
+  title: { id: 'who_to_follow.title', defaultMessage: 'Verified Accounts to Follow' },
+  show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
+})
+
+const mapStateToProps = (state) => ({
+  suggestions: state.getIn(['suggestions', 'verified', 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchPopularSuggestions: () => dispatch(fetchPopularSuggestions()),
+})
+
+VerifiedAccountsPanel.propTypes = {
+  fetchPopularSuggestions: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  suggestions: ImmutablePropTypes.list.isRequired,
+  isLazy: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(VerifiedAccountsPanel))

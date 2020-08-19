@@ -438,20 +438,6 @@ pre {
 
 /*  */
 
-.fillPrimary { fill: var(--text_color_primary); }
-.fillSecondary { fill: var(--text_color_secondary); }
-
-.fillWhite { fill: var(--color_white); }
-.fillWhite_onHover:hover { fill: var(--color_white); }
-
-.fillBrand { fill: var(--color_brand); }
-.fillBrandDark { fill: var(--color_brand-dark); }
-.fillBrand_onHover:hover { fill: var(--color_brand);}
-
-.fillColorGabPro { fill: var(--color_gold); }
-
-/*  */
-
 .topNeg50PX { top: -50px; }
 .top0 { top: 0; }
 .top120PX { top: 120px; }

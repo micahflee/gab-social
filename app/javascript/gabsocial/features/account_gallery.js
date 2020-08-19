@@ -12,43 +12,7 @@ import LoadMore from '../components/load_more'
 import Block from '../components/block'
 import MediaGalleryPlaceholder from '../components/placeholder/media_gallery_placeholder'
 
-const messages = defineMessages({
-  none: { id: 'account_gallery.none', defaultMessage: 'No media to show.' },
-})
-
-const mapStateToProps = (state, { account, mediaType }) => {
-  const accountId =  !!account ? account.get('id') : -1
-
-  return {
-    accountId,
-    attachments: getAccountGallery(state, accountId, mediaType),
-    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading']),
-    hasMore: state.getIn(['timelines', `account:${accountId}:media`, 'hasMore']),
-  }
-}
-
-export default
-@connect(mapStateToProps)
-@injectIntl
 class AccountGallery extends ImmutablePureComponent {
-
-  static propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    account: ImmutablePropTypes.map,
-    accountId: PropTypes.string,
-    attachments: ImmutablePropTypes.list.isRequired,
-    isLoading: PropTypes.bool,
-    hasMore: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-    mediaType: PropTypes.oneOf([
-      'photo',
-      'video',
-    ]),
-  }
-
-  static defaultProps = {
-    mediaType: 'both'
-  } 
 
   componentDidMount() {
     const { accountId, mediaType } = this.props
@@ -149,3 +113,38 @@ class AccountGallery extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  none: { id: 'account_gallery.none', defaultMessage: 'No media to show.' },
+})
+
+const mapStateToProps = (state, { account, mediaType }) => {
+  const accountId =  !!account ? account.get('id') : -1
+
+  return {
+    accountId,
+    attachments: getAccountGallery(state, accountId, mediaType),
+    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading']),
+    hasMore: state.getIn(['timelines', `account:${accountId}:media`, 'hasMore']),
+  }
+}
+
+AccountGallery.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  account: ImmutablePropTypes.map,
+  accountId: PropTypes.string,
+  attachments: ImmutablePropTypes.list.isRequired,
+  isLoading: PropTypes.bool,
+  hasMore: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+  mediaType: PropTypes.oneOf([
+    'photo',
+    'video',
+  ]),
+}
+
+AccountGallery.defaultProps = {
+  mediaType: 'both'
+}
+
+export default injectIntl(connect(mapStateToProps)(AccountGallery))

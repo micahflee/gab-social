@@ -165,11 +165,6 @@ class Comment extends ImmutablePureComponent {
 
 class CommentButton extends React.PureComponent {
 
-  static propTypes = {
-    onClick: PropTypes.func.isRequired,
-    title: PropTypes.string.isRequired,
-  }
-
   render() {
     const { onClick, title } = this.props
 
@@ -189,6 +184,11 @@ class CommentButton extends React.PureComponent {
     )
   }
 
+}
+
+CommentButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
 }
 
 const messages = defineMessages({

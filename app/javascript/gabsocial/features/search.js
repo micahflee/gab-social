@@ -14,25 +14,7 @@ import PanelLayout from '../components/panel/panel_layout'
 import ColumnIndicator from '../components/column_indicator'
 import Block from '../components/block'
 
-const mapStateToProps = (state) => ({
-  isError: state.getIn(['search', 'isError']),
-  isLoading: state.getIn(['search', 'isLoading']),
-  results: state.getIn(['search', 'results']),
-  submitted: state.getIn(['search', 'submitted']),
-});
-
-export default
-@withRouter
-@connect(mapStateToProps)
 class Search extends ImmutablePureComponent {
-
-  static propTypes = {
-    isError: PropTypes.bool.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    location: PropTypes.object,
-    results: ImmutablePropTypes.map.isRequired,
-    submitted: PropTypes.bool.isRequired,
-  }
 
   state = {
     isSmallScreen: (window.innerWidth <= 895),
@@ -193,3 +175,20 @@ class Search extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  isError: state.getIn(['search', 'isError']),
+  isLoading: state.getIn(['search', 'isLoading']),
+  results: state.getIn(['search', 'results']),
+  submitted: state.getIn(['search', 'submitted']),
+})
+
+Search.propTypes = {
+  isError: PropTypes.bool.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  location: PropTypes.object,
+  results: ImmutablePropTypes.map.isRequired,
+  submitted: PropTypes.bool.isRequired,
+}
+
+export default withRouter(connect(mapStateToProps)(Search))

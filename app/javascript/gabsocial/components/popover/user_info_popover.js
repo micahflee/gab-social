@@ -14,19 +14,7 @@ import Avatar from '../avatar'
 import DisplayName from '../display_name'
 import Text from '../text'
 
-const mapStateToProps = (state, props) => ({
-  account: makeGetAccount()(state, props.accountId),
-})
-
-export default
-@connect(mapStateToProps)
 class UserInfoPopover extends ImmutablePureComponent {
-
-  static propTypes = {
-    account: ImmutablePropTypes.map,
-    accountId: PropTypes.string.isRequired,
-    isXS: PropTypes.bool,
-  }
 
   render() {
     const { account, isXS } = this.props
@@ -88,3 +76,15 @@ class UserInfoPopover extends ImmutablePureComponent {
     )
   }
 }
+
+const mapStateToProps = (state, props) => ({
+  account: makeGetAccount()(state, props.accountId),
+})
+
+UserInfoPopover.propTypes = {
+  account: ImmutablePropTypes.map,
+  accountId: PropTypes.string.isRequired,
+  isXS: PropTypes.bool,
+}
+
+export default connect(mapStateToProps)(UserInfoPopover)

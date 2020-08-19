@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
 import { ListEdit } from '../../features/ui/util/async_components'
 import WrappedBundle from '../../features/ui/util/wrapped_bundle'
 
-class ListEditorModal extends ImmutablePureComponent {
+class ListEditorModal extends React.PureComponent {
 
   render() {
     const { intl, onClose, id } = this.props

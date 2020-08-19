@@ -10,34 +10,7 @@ import PopoverLayout from './popover_layout'
 import Button from '../button'
 import Text from '../text'
 
-const messages = defineMessages({
-  size: { id: 'size', defaultMessage: 'Size' },
-  audio_bitrate: { id: 'video.audio_bitrate', defaultMessage: 'Audio Bitrate' },
-  fps: { id: 'fps', defaultMessage: 'FPS' },
-  aspect: { id: 'video.aspect_ratio', defaultMessage: 'Aspect Ratio' },
-  audio_channels: { id: 'video.audio_channels', defaultMessage: 'Audio Channels' },
-  audio_encode: { id: 'video.audio_encode', defaultMessage: 'Audio Encode' },
-  original_height: { id: 'video.original_height', defaultMessage: 'Original Height' },
-  original_width: { id: 'video.original_width', defaultMessage: 'Original Width' },
-  original_frame_rate: { id: 'video.original_frame_rate', defaultMessage: 'Original Frame Rate' },
-  original_bitrate: { id: 'video.original_bitrate', defaultMessage: 'Original Bitrate' },
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onClosePopover: () => dispatch(closePopover()),
-})
-
-export default
-@injectIntl
-@connect(null, mapDispatchToProps)
 class VideoStatsPopover extends ImmutablePureComponent {
-
-  static propTypes = {
-    meta: ImmutablePropTypes.map.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    isXS: PropTypes.bool,
-    intl: PropTypes.object.isRequired,
-  }
 
   updateOnProps = [
     'meta',
@@ -125,12 +98,6 @@ class VideoStatsPopover extends ImmutablePureComponent {
 
 class VideoStatLine extends React.PureComponent {
 
-  static propTypes = {
-    isXS: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired,
-    value: PropTypes.string.isRequired,
-  }
-
   render() {
     const { isXS, title, value } = this.props
 
@@ -151,3 +118,35 @@ class VideoStatLine extends React.PureComponent {
   }
 
 }
+
+VideoStatLine.propTypes = {
+  isXS: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+}
+
+const messages = defineMessages({
+  size: { id: 'size', defaultMessage: 'Size' },
+  audio_bitrate: { id: 'video.audio_bitrate', defaultMessage: 'Audio Bitrate' },
+  fps: { id: 'fps', defaultMessage: 'FPS' },
+  aspect: { id: 'video.aspect_ratio', defaultMessage: 'Aspect Ratio' },
+  audio_channels: { id: 'video.audio_channels', defaultMessage: 'Audio Channels' },
+  audio_encode: { id: 'video.audio_encode', defaultMessage: 'Audio Encode' },
+  original_height: { id: 'video.original_height', defaultMessage: 'Original Height' },
+  original_width: { id: 'video.original_width', defaultMessage: 'Original Width' },
+  original_frame_rate: { id: 'video.original_frame_rate', defaultMessage: 'Original Frame Rate' },
+  original_bitrate: { id: 'video.original_bitrate', defaultMessage: 'Original Bitrate' },
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onClosePopover: () => dispatch(closePopover()),
+})
+
+VideoStatsPopover.propTypes = {
+  meta: ImmutablePropTypes.map.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  isXS: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
+}
+
+export default injectIntl(connect(null, mapDispatchToProps)(VideoStatsPopover))

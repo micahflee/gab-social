@@ -11,31 +11,7 @@ import {
 import StatusContainer from '../containers/status_container'
 import StatusPlaceholder from '../components/placeholder/status_placeholder'
 
-const mapStateToProps = (state, props) => {
-  const statusId = props.id || props.params.statusId
-
-  return {
-    status: state.getIn(['statuses', statusId]),
-  }
-}
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchStatus: (id) => dispatch(fetchStatus(id)),
-  onFetchContext: (id) => dispatch(fetchContext(id)),
-  onFetchComments: (id) => dispatch(fetchComments(id)),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
 class Status extends ImmutablePureComponent {
-
-  static propTypes = {
-    onFetchContext: PropTypes.func.isRequired,
-    onFetchStatus: PropTypes.func.isRequired,
-    onFetchComments: PropTypes.func.isRequired,
-    params: PropTypes.object,
-    status: ImmutablePropTypes.map,
-  }
 
   componentDidMount() {
     const statusId = this.props.id || this.props.params.statusId
@@ -80,3 +56,27 @@ class Status extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, props) => {
+  const statusId = props.id || props.params.statusId
+
+  return {
+    status: state.getIn(['statuses', statusId]),
+  }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchStatus: (id) => dispatch(fetchStatus(id)),
+  onFetchContext: (id) => dispatch(fetchContext(id)),
+  onFetchComments: (id) => dispatch(fetchComments(id)),
+})
+
+Status.propTypes = {
+  onFetchContext: PropTypes.func.isRequired,
+  onFetchStatus: PropTypes.func.isRequired,
+  onFetchComments: PropTypes.func.isRequired,
+  params: PropTypes.object,
+  status: ImmutablePropTypes.map,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Status)

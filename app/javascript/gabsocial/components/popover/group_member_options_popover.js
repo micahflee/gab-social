@@ -9,30 +9,7 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const mapDispatchToProps = (dispatch) => ({
-  onUpdateRole(groupId, accountId, type) {
-    dispatch(closePopover())
-    dispatch(updateRole(groupId, accountId, type))
-  },
-  onCreateRemovedAccount(groupId, accountId) {
-    dispatch(closePopover())
-    dispatch(createRemovedAccount(groupId, accountId))
-  },
-  onClosePopover:() => dispatch(closePopover()),
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class GroupMemberOptionsPopover extends React.PureComponent {
-
-  static defaultProps = {
-    accountId: PropTypes.string.isRequired,
-    groupId: PropTypes.string.isRequired,
-    isXS: PropTypes.bool,
-    onClosePopover: PropTypes.func.isRequired,
-    onCreateRemovedAccount: PropTypes.func.isRequired,
-    onUpdateRole: PropTypes.func.isRequired,
-  }
 
   handleOnRemoveFromGroup = () => {
 	  this.props.onCreateRemovedAccount(this.props.groupId, this.props.accountId)
@@ -80,3 +57,26 @@ class GroupMemberOptionsPopover extends React.PureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onUpdateRole(groupId, accountId, type) {
+    dispatch(closePopover())
+    dispatch(updateRole(groupId, accountId, type))
+  },
+  onCreateRemovedAccount(groupId, accountId) {
+    dispatch(closePopover())
+    dispatch(createRemovedAccount(groupId, accountId))
+  },
+  onClosePopover:() => dispatch(closePopover()),
+})
+
+GroupMemberOptionsPopover.defaultProps = {
+  accountId: PropTypes.string.isRequired,
+  groupId: PropTypes.string.isRequired,
+  isXS: PropTypes.bool,
+  onClosePopover: PropTypes.func.isRequired,
+  onCreateRemovedAccount: PropTypes.func.isRequired,
+  onUpdateRole: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(GroupMemberOptionsPopover)

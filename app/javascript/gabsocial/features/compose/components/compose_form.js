@@ -200,7 +200,6 @@ class ComposeForm extends ImmutablePureComponent {
       isMatch,
       isChangingUpload,
       isSubmitting,
-      selectedGifSrc,
       isPro,
       hidePro,
     } = this.props
@@ -391,19 +390,6 @@ class ComposeForm extends ImmutablePureComponent {
                 }
 
                 {
-                  /* : todo :
-                  !!selectedGifSrc && !anyMedia &&
-                  <div className={[_s.d, _s.px15].join(' ')}>
-                    <GifForm
-                      replyToId={replyToId}
-                      small={shouldCondense}
-                      selectedGifSrc={selectedGifSrc}
-                    />
-                  </div>
-                  */
-                }
-
-                {
                   !edit && hasPoll &&
                   <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
                     <PollForm replyToId={replyToId} />
@@ -518,7 +504,6 @@ ComposeForm.propTypes = {
   replyToId: PropTypes.string,
   reduxReplyToId: PropTypes.string,
   hasPoll: PropTypes.bool,
-  selectedGifSrc: PropTypes.string,
   isPro: PropTypes.bool,
   hidePro: PropTypes.bool,
   autoJoinGroup: PropTypes.bool,

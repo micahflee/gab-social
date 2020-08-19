@@ -17,35 +17,10 @@ import TabBar from '../components/tab_bar'
 import Text from '../components/text'
 import TrendsItem from '../components/trends_item'
 
-// const messages = defineMessages({
-//   title: { id: 'trends.title', defaultMessage: 'Trending right now' },
-// })
-
-const mapStateToProps = (state) => ({
-  isError: state.getIn(['gab_trends', 'partner', 'isError']),
-  isLoading: state.getIn(['gab_trends', 'partner', 'isLoading']),
-  items: state.getIn(['gab_trends', 'partner', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onfetchGabTrends: () => dispatch(fetchGabTrends('partner')),
-})
-
-export default
-@withRouter
-@connect(mapStateToProps, mapDispatchToProps)
 class News extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object.isRequired,
-  }
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    isError: PropTypes.bool,
-    isLoading: PropTypes.bool,
-    items: PropTypes.object,
-    onfetchGabTrends: PropTypes.func.isRequired,
   }
 
   state = {
@@ -75,7 +50,7 @@ class News extends React.PureComponent {
     }
   }
 
-  render () {
+  render() {
     const {
       intl,
       isError,
@@ -102,7 +77,7 @@ class News extends React.PureComponent {
       if (activeDomain) {
         const domainBlock = items.trackedDomains.find((d) => `${d.domain}`.toLowerCase() === activeDomain)
         if (domainBlock) domainExists = true
-        
+
         todaysTop = domainBlock.topUrls
         todaysTopTitle = domainBlock.title
       } else {
@@ -114,14 +89,14 @@ class News extends React.PureComponent {
       domainTabs = domains.map((block) => ({
         title: block.title,
         to: `/news?domain=${block.domain}`,
-        onClick: () => {},
+        onClick: () => { },
         active: activeDomain === `${block.domain}`.toLowerCase(),
       }))
       domainTabs = [
         {
           title: "Today's Top",
           to: `/news`,
-          onClick: () => {},
+          onClick: () => { },
           active: !activeDomain,
         },
         ...domainTabs,
@@ -165,32 +140,32 @@ class News extends React.PureComponent {
                 </Heading>
               </div>
             }
-            
+
             {
               !activeDomain && leadHeadlines.length > 0 &&
-                <div className={[_s.d, _s.mb15].join(' ')}>
-                  <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
-                    <Heading size='h2'>
-                      <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
-                      Headlines
+              <div className={[_s.d, _s.mb15].join(' ')}>
+                <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
+                  <Heading size='h2'>
+                    <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
+                    Headlines
                     </Heading>
-                  </div>
-                  {
-                    leadHeadlines.map((lead) => (
-                      <Button
-                        isText
-                        backgroundColor='none'
-                        color='primary'
-                        className={[_s.d, _s.py7].join(' ')}
-                        href={`https://trends.gab.com/trend?url=${lead.href}`}
-                      >
-                        <Text>
-                          {lead.title}
-                        </Text>
-                      </Button>
-                    ))
-                  }
                 </div>
+                {
+                  leadHeadlines.map((lead) => (
+                    <Button
+                      isText
+                      backgroundColor='none'
+                      color='primary'
+                      className={[_s.d, _s.py7].join(' ')}
+                      href={`https://trends.gab.com/trend?url=${lead.href}`}
+                    >
+                      <Text>
+                        {lead.title}
+                      </Text>
+                    </Button>
+                  ))
+                }
+              </div>
             }
 
             <div>
@@ -225,3 +200,23 @@ class News extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  isError: state.getIn(['gab_trends', 'partner', 'isError']),
+  isLoading: state.getIn(['gab_trends', 'partner', 'isLoading']),
+  items: state.getIn(['gab_trends', 'partner', 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onfetchGabTrends: () => dispatch(fetchGabTrends('partner')),
+})
+
+News.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isError: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  items: PropTypes.object,
+  onfetchGabTrends: PropTypes.func.isRequired,
+}
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(News))

@@ -9,34 +9,7 @@ import { setFilter } from '../../actions/notifications'
 import PanelLayout from './panel_layout'
 import SettingSwitch from '../setting_switch'
 
-const messages = defineMessages({
-  title: { id: 'notification_filters', defaultMessage: 'Notification Filters' },
-  onlyVerified: { id: 'notification_only_verified', defaultMessage: 'Only Verified Users' },
-  // onlyFollowing: { id: 'notification_only_following', defaultMessage: 'Only People I Follow' },
-})
-
-const mapStateToProps = (state) => ({
-  settings: state.getIn(['notifications', 'filter']),
-  isPro: state.getIn(['accounts', me, 'is_pro']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange(path, value) {
-    dispatch(setFilter(path, value))
-  },
-})
-
-export default
-@injectIntl
-@connect(mapStateToProps, mapDispatchToProps)
 class NotificationFilterPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    onChange: PropTypes.func.isRequired,
-    settings: ImmutablePropTypes.map.isRequired,
-    isPro: PropTypes.bool.isRequired,
-  }
 
   render() {
     const {
@@ -70,3 +43,29 @@ class NotificationFilterPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  title: { id: 'notification_filters', defaultMessage: 'Notification Filters' },
+  onlyVerified: { id: 'notification_only_verified', defaultMessage: 'Only Verified Users' },
+  // onlyFollowing: { id: 'notification_only_following', defaultMessage: 'Only People I Follow' },
+})
+
+const mapStateToProps = (state) => ({
+  settings: state.getIn(['notifications', 'filter']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange(path, value) {
+    dispatch(setFilter(path, value))
+  },
+})
+
+NotificationFilterPanel.propTypes = {
+  intl: PropTypes.object.isRequired,
+  onChange: PropTypes.func.isRequired,
+  settings: ImmutablePropTypes.map.isRequired,
+  isPro: PropTypes.bool.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(NotificationFilterPanel))

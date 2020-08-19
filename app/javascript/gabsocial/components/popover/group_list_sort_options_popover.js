@@ -10,20 +10,7 @@ import {
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
-const mapDispatchToProps = (dispatch) => ({
-  onSortGroups: (tab, sortType) => dispatch(sortGroups(tab, sortType)),
-  onClosePopover:() => dispatch(closePopover()),
-})
-
-export default
-@connect(null, mapDispatchToProps)
 class GroupListSortOptionsPopover extends React.PureComponent {
-
-  static defaultProps = {
-    tab: PropTypes.string.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    onSortGroups: PropTypes.func.isRequired,
-  }
 
   handleOnSortGroup = (sortType) => {
     this.props.onSortGroups(this.props.tab, sortType)
@@ -68,3 +55,16 @@ class GroupListSortOptionsPopover extends React.PureComponent {
   }
 
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  onSortGroups: (tab, sortType) => dispatch(sortGroups(tab, sortType)),
+  onClosePopover:() => dispatch(closePopover()),
+})
+
+GroupListSortOptionsPopover.defaultProps = {
+  tab: PropTypes.string.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  onSortGroups: PropTypes.func.isRequired,
+}
+
+export default connect(null, mapDispatchToProps)(GroupListSortOptionsPopover)

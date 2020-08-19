@@ -67,7 +67,6 @@ const mapStateToProps = (state, props) => {
       scheduledAt: null,
       account: state.getIn(['accounts', me]),
       hasPoll: false,
-      selectedGifSrc: null,
     }
   }
   
@@ -95,7 +94,6 @@ const mapStateToProps = (state, props) => {
     account: state.getIn(['accounts', me]),
     isPro: state.getIn(['accounts', me, 'is_pro']),
     hasPoll: state.getIn(['compose', 'poll']),
-    selectedGifSrc: state.getIn(['tenor', 'selectedGif', 'src']),
   }
 }
 

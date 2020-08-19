@@ -10,37 +10,7 @@ import GroupListItem from '../group_list_item'
 import ScrollableList from '../scrollable_list'
 import GroupListItemPlaceholder from '../placeholder/group_list_item_placeholder'
 
-const messages = defineMessages({
-  memberTitle: { id: 'groups.sidebar-panel.member_title', defaultMessage: 'Groups you\'re in' },
-  featuredTitle: { id: 'groups.sidebar-panel.featured_title', defaultMessage: 'Featured Groups' },
-  show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
-  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
-})
-
-const mapStateToProps = (state, { groupType }) => ({
-  groupIds: state.getIn(['group_lists', groupType, 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onFetchGroups: (type) => dispatch(fetchGroups(type))
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class GroupsPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    groupIds: ImmutablePropTypes.list,
-    isLazy: PropTypes.bool, 
-    onFetchGroups: PropTypes.func.isRequired,
-    shouldLoad: PropTypes.bool,
-    groupType: PropTypes.string,
-  }
-
-  static defaultProps = {
-    groupType: 'member'
-  }
 
   state = {
     fetched: false,
@@ -110,3 +80,32 @@ class GroupsPanel extends ImmutablePureComponent {
   }
 
 }
+
+const messages = defineMessages({
+  memberTitle: { id: 'groups.sidebar-panel.member_title', defaultMessage: 'Groups you\'re in' },
+  featuredTitle: { id: 'groups.sidebar-panel.featured_title', defaultMessage: 'Featured Groups' },
+  show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
+  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
+})
+
+const mapStateToProps = (state, { groupType }) => ({
+  groupIds: state.getIn(['group_lists', groupType, 'items']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchGroups: (type) => dispatch(fetchGroups(type))
+})
+
+GroupsPanel.propTypes = {
+  groupIds: ImmutablePropTypes.list,
+  isLazy: PropTypes.bool, 
+  onFetchGroups: PropTypes.func.isRequired,
+  shouldLoad: PropTypes.bool,
+  groupType: PropTypes.string,
+}
+
+GroupsPanel.defaultProps = {
+  groupType: 'member'
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupsPanel))

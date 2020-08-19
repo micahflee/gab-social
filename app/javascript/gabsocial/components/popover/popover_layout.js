@@ -5,19 +5,7 @@ import Button from '../button'
 import Heading from '../heading'
 import Text from '../text'
 
-export default class PopoverLayout extends React.PureComponent {
-
-  static propTypes = {
-    children: PropTypes.node,
-    width: PropTypes.number,
-    isXS: PropTypes.bool,
-    title: PropTypes.string,
-    onClose: PropTypes.func,
-  }
-
-  static defaultProps = {
-    width: 250,
-  }
+class PopoverLayout extends React.PureComponent {
 
   handleOnClose = () => {
     this.props.onClose()
@@ -72,3 +60,17 @@ export default class PopoverLayout extends React.PureComponent {
   }
 
 }
+
+PopoverLayout.propTypes = {
+  children: PropTypes.node,
+  width: PropTypes.number,
+  isXS: PropTypes.bool,
+  title: PropTypes.string,
+  onClose: PropTypes.func,
+}
+
+PopoverLayout.defaultProps = {
+  width: 250,
+}
+
+export default PopoverLayout

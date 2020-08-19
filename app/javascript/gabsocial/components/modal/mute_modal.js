@@ -41,13 +41,9 @@ const messages = defineMessages({
   mute: { id: 'confirmations.mute.confirm', defaultMessage: 'Mute' },
 })
 
-const mapStateToProps = (state, { accountId }) => {
-  const getAccount = makeGetAccount()
-
-  return {
-    account: getAccount(state, accountId),
-  }
-}
+const mapStateToProps = (state, { accountId }) => ({
+  account: makeGetAccount()(state, accountId),
+})
 
 const mapDispatchToProps = (dispatch) => ({
   onConfirm(account, notifications) {

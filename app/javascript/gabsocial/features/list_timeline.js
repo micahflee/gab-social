@@ -12,28 +12,11 @@ import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Text from '../components/text'
-import Block from '../components/block'
 
-const mapStateToProps = (state, props) => ({
-  list: state.getIn(['lists', props.params.id]),
-})
-
-export default
-@connect(mapStateToProps)
 class ListTimeline extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
-  };
-
-  static propTypes = {
-    params: PropTypes.object.isRequired,
-    dispatch: PropTypes.func.isRequired,
-    list: PropTypes.oneOfType([
-      ImmutablePropTypes.map,
-      PropTypes.bool,
-    ]),
-    intl: PropTypes.object.isRequired,
   }
 
   componentDidMount() {
@@ -118,3 +101,19 @@ class ListTimeline extends ImmutablePureComponent {
   }
 
 }
+
+const mapStateToProps = (state, props) => ({
+  list: state.getIn(['lists', props.params.id]),
+})
+
+ListTimeline.propTypes = {
+  params: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  list: PropTypes.oneOfType([
+    ImmutablePropTypes.map,
+    PropTypes.bool,
+  ]),
+  intl: PropTypes.object.isRequired,
+}
+
+export default connect(mapStateToProps)(ListTimeline)

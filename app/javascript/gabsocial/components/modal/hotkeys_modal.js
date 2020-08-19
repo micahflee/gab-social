@@ -1,12 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
 import ModalLayout from './modal_layout'
 import Text from '../text'
 import Heading from '../heading'
 
-class HotkeysModal extends ImmutablePureComponent {
+class HotkeysModal extends React.PureComponent {
 
   render() {
     const { intl, onClose } = this.props
@@ -89,29 +88,22 @@ class HotkeysModal extends ImmutablePureComponent {
 
 }
 
-class HotKeysModalRow extends React.PureComponent {
-
-  render() {
-    const { hotkey, action } = this.props
-
-    return (
-      <tr>
-        <td>
-          <kbd>
-            <Text size='small'>
-              {hotkey}
-            </Text>
-          </kbd>
-        </td>
-        <td>
-          <Text size='small'>
-            {action}
-          </Text>
-        </td>
-      </tr>
-    )
-  }
-}
+const HotKeysModalRow = ({ hotkey, action }) => (
+  <tr>
+    <td>
+      <kbd>
+        <Text size='small'>
+          {hotkey}
+        </Text>
+      </kbd>
+    </td>
+    <td>
+      <Text size='small'>
+        {action}
+      </Text>
+    </td>
+  </tr>
+)
 
 HotKeysModalRow.propTypes = {
   hotkey: PropTypes.string.isRequired,

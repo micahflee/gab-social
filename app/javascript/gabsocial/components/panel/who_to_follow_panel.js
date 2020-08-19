@@ -11,33 +11,7 @@ import Account from '../account'
 import AccountPlaceholder from '../placeholder/account_placeholder'
 import PanelLayout from './panel_layout'
 
-const messages = defineMessages({
-  dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
-  title: { id: 'who_to_follow.title', defaultMessage: 'Who to Follow' },
-  show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
-})
-
-const mapStateToProps = (state) => ({
-  suggestions: state.getIn(['suggestions', 'related', 'items']),
-  isLoading: state.getIn(['suggestions', 'related', 'isLoading']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  fetchRelatedSuggestions: () => dispatch(fetchRelatedSuggestions()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class WhoToFollowPanel extends ImmutablePureComponent {
-
-  static propTypes = {
-    fetchRelatedSuggestions: PropTypes.func.isRequired,
-    intl: PropTypes.object.isRequired,
-    suggestions: ImmutablePropTypes.list.isRequired,
-    isLoading: PropTypes.bool.isRequired,
-    isLazy: PropTypes.bool,
-  }
 
   state = {
     fetched: !this.props.isLazy,
@@ -104,3 +78,28 @@ class WhoToFollowPanel extends ImmutablePureComponent {
     )
   }
 }
+
+const messages = defineMessages({
+  dismissSuggestion: { id: 'suggestions.dismiss', defaultMessage: 'Dismiss suggestion' },
+  title: { id: 'who_to_follow.title', defaultMessage: 'Who to Follow' },
+  show_more: { id: 'who_to_follow.more', defaultMessage: 'Show more' },
+})
+
+const mapStateToProps = (state) => ({
+  suggestions: state.getIn(['suggestions', 'related', 'items']),
+  isLoading: state.getIn(['suggestions', 'related', 'isLoading']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchRelatedSuggestions: () => dispatch(fetchRelatedSuggestions()),
+})
+
+WhoToFollowPanel.propTypes = {
+  fetchRelatedSuggestions: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
+  suggestions: ImmutablePropTypes.list.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  isLazy: PropTypes.bool,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(WhoToFollowPanel))

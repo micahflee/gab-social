@@ -11,41 +11,7 @@ import Text from '../text'
 
 const cx = classNames.bind(_s)
 
-const messages = defineMessages({
-  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
-  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
-  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
-  unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
-  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
-  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
-  change_privacy: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
-  visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
-})
-
-const mapStateToProps = (state) => ({
-  value: state.getIn(['compose', 'privacy']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onChange (value) {
-    dispatch(changeComposeVisibility(value))
-    dispatch(closePopover())
-  },
-  onClosePopover: () => dispatch(closePopover()),
-})
-
-export default
-@connect(mapStateToProps, mapDispatchToProps)
-@injectIntl
 class StatusVisibilityDropdown extends React.PureComponent {
-
-  static propTypes = {
-    intl: PropTypes.object.isRequired,
-    isXS: PropTypes.bool,
-    onChange: PropTypes.func.isRequired,
-    onClosePopover: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
-  }
 
   handleChange = (value) => {
     this.props.onChange(value)
@@ -135,4 +101,35 @@ class StatusVisibilityDropdown extends React.PureComponent {
 
 }
 
+const messages = defineMessages({
+  public_short: { id: 'privacy.public.short', defaultMessage: 'Public' },
+  public_long: { id: 'privacy.public.long', defaultMessage: 'Visible for anyone on or off Gab' },
+  unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
+  unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
+  private_short: { id: 'privacy.private.short', defaultMessage: 'Followers-only' },
+  private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
+  change_privacy: { id: 'privacy.change', defaultMessage: 'Adjust status privacy' },
+  visibility: { id: 'privacy.visibility', defaultMessage: 'Visibility' },
+})
 
+const mapStateToProps = (state) => ({
+  value: state.getIn(['compose', 'privacy']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onChange (value) {
+    dispatch(changeComposeVisibility(value))
+    dispatch(closePopover())
+  },
+  onClosePopover: () => dispatch(closePopover()),
+})
+
+StatusVisibilityDropdown.propTypes = {
+  intl: PropTypes.object.isRequired,
+  isXS: PropTypes.bool,
+  onChange: PropTypes.func.isRequired,
+  onClosePopover: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(StatusVisibilityDropdown))
