@@ -75,20 +75,6 @@ class ScrollableList extends React.PureComponent {
     this.handleScroll();
   }
 
-  getScrollPosition = () => {
-    if (this.documentElement && (this.documentElement.scrollTop > 0 || this.mouseMovedRecently)) {
-      return { height: this.documentElement.scrollHeight, top: this.documentElement.scrollTop };
-    }
-
-    return null;
-  }
-
-  updateScrollBottom = (snapshot) => {
-    const newScrollTop = this.documentElement.scrollHeight - snapshot;
-
-    this.setScrollTop(newScrollTop);
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
     // Reset the scroll position when a new child comes in in order not to
     // jerk the scrollbar around if you're already scrolled down the page.
@@ -247,8 +233,6 @@ class ScrollableList extends React.PureComponent {
                 >
                   {
                     React.cloneElement(child, {
-                      getScrollPosition: this.getScrollPosition,
-                      updateScrollBottom: this.updateScrollBottom,
                       cachedMediaWidth: this.state.cachedMediaWidth,
                       cacheMediaWidth: this.cacheMediaWidth,
                     })

@@ -96,20 +96,6 @@ class Status extends ImmutablePureComponent {
     height: undefined,
   }
 
-  // Track height changes we know about to compensate scrolling
-  componentDidMount() {
-    const { isMuted, isHidden, status } = this.props
-    this.didShowCard = !isMuted && !isHidden && status && status.get('card')
-  }
-
-  getSnapshotBeforeUpdate() {
-    if (this.props.getScrollPosition) {
-      return this.props.getScrollPosition()
-    }
-
-    return null
-  }
-
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.isChild) return null
     
@@ -131,7 +117,7 @@ class Status extends ImmutablePureComponent {
   }
 
   // Compensate height changes
-  componentDidUpdate(prevProps, prevState, snapshot) {
+  componentDidUpdate(prevProps, prevState) {
     // timeline lazy loading comments
     if (!prevState.loadedComments && this.state.loadedComments && this.props.status && !this.props.isChild && this.props.contextType !== 'feature') {
       const commentCount = this.props.status.get('replies_count')
@@ -142,19 +128,6 @@ class Status extends ImmutablePureComponent {
         if (commentCount > 0 && !this.props.commentsLimited) {
           this._measureHeight(prevState.height !== this.state.height)
           this.props.onFetchComments(this.props.status.get('id'))
-        }
-      }
-    }
-
-    const doShowCard = !this.props.isMuted && !this.props.isHidden && this.props.status && this.props.status.get('card')
-
-    if (doShowCard && !this.didShowCard) {
-      this.didShowCard = true
-
-      if (snapshot !== null && this.props.updateScrollBottom) {
-        if (this.node && this.node.offsetTop < snapshot.top) {
-          // console.log("updateScrollBottom")
-          this.props.updateScrollBottom(snapshot.height - snapshot.top)
         }
       }
     }
@@ -205,17 +178,6 @@ class Status extends ImmutablePureComponent {
         element.scrollIntoView(false)
       }
       element.focus()
-    }
-  }
-
-  componentWillUnmount() {
-    if (this.node && this.props.getScrollPosition) {
-      const position = this.props.getScrollPosition()
-      if (position !== null && this.node.offsetTop < position.top) {
-        requestAnimationFrame(() => {
-          this.props.updateScrollBottom(position.height - position.top)
-        })
-      }
     }
   }
 
@@ -621,8 +583,6 @@ Status.propTypes = {
   onMoveDown: PropTypes.func,
   onFetchComments: PropTypes.func,
   onFetchContext: PropTypes.func,
-  getScrollPosition: PropTypes.func,
-  updateScrollBottom: PropTypes.func,
   cacheMediaWidth: PropTypes.func,
   cachedMediaWidth: PropTypes.number,
   contextType: PropTypes.string,
