@@ -17,7 +17,7 @@ class Icon extends React.PureComponent {
 
     if (id === 'logo') return <Logo className={className} />
     else if (id === 'loading') return <Loading size={size} className={className} />
-    else if (id === 'verified') return <VerifiedIcon size={size} />
+    else if (id === 'verified') return <VerifiedIcon size={size} className={className} />
 
     const additionalClasses = {}
     additionalClasses.gfi = 1
