@@ -990,6 +990,10 @@ pre {
   background-color: var(--navigation_blend);
 }
 
+.fillWhite {
+  fill: var(--color_white);
+}
+
 .fillNavigation {
   fill: var(--navigation_primary);
 }
