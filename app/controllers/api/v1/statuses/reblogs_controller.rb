@@ -9,6 +9,10 @@ class Api::V1::Statuses::ReblogsController < Api::BaseController
   respond_to :json
 
   def create
+    if !current_user.account.local? || !status_for_reblog.local
+      return render json: { error: 'Invalid action' }, status: 422
+    end
+
     @status = ReblogService.new.call(current_user.account, status_for_reblog, reblog_params)
     render json: @status, serializer: REST::StatusSerializer
   end
