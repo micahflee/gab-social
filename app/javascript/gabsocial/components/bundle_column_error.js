@@ -32,7 +32,7 @@ class BundleColumnError extends React.PureComponent {
 
               <h1 className={[_s.d, _s.mr15].join(' ')}>
                 <Button href='/' isText aria-label='Gab' className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}>
-                  <Icon id='logo' className={_s.cWhite} />
+                  <Icon id='logo' className={_s.fillWhite} />
                 </Button>
               </h1>
 
