@@ -996,10 +996,12 @@ pre {
 
 .fillNavigation {
   fill: var(--navigation_primary);
+  color: var(--navigation_primary);
 }
 
 .fillNavigationBlend {
   fill: var(--navigation_blend);
+  color: var(--navigation_blend);
 }
 
 .colorNavigation {
@@ -1008,6 +1010,7 @@ pre {
 
 .fillNavigationBrand {
   fill: var(--navigation_brand);
+  color: var(--navigation_brand);
 }
 
 .searchNavigation {
