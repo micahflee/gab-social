@@ -1,14 +1,13 @@
 - content_for :header_tags do
   = javascript_pack_tag 'public', integrity: true, crossorigin: 'anonymous'
-  %link(rel='stylesheet' href='/legacy/common.css')
-  %link(rel='stylesheet' href='/legacy/default.css')
+  %link(rel='stylesheet' href='/legacy/auth.css')
 
 - content_for :content do
   .container
     .logo-container
-      %h1
+      %h1{:title => 'Gab.com', :aria-level => '1', :role => 'heading'}
         = link_to root_path do
-          = image_pack_tag 'logo_full.png', alt: 'Gab Social'
+          = image_pack_tag 'logo_full.png', alt: 'Gab Social', height: '48px'
 
     .form-container
       = render 'flashes'

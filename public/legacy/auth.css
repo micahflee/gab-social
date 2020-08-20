@@ -1,0 +1,255 @@
+* {
+  font-family: var(--font_family)
+}
+
+.container {
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  overflow:hidden;
+  overflow-y:scroll;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.logo-container {
+  display: flex;
+  width: 100%;
+  margin-top: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-container h1 {
+  margin: 0;
+  display: flex;
+  height: 80px;
+  align-items: center;
+}
+
+.form-container {
+  display: flex;
+  padding: 20px;
+  min-width: 360px;
+  max-width: 400px;
+  border-radius: 8px;
+  flex-direction: column;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  background-color: white;
+}
+
+@media (min-width:0px) and (max-width:767px) {
+  .form-container {
+    max-width: none !important;
+    min-width: 280px !important;
+    width: 90%;
+    border-radius: 0 !important;
+  }
+}
+
+.simple_form {
+  display: flex;
+  margin: 0;
+  flex-direction: column;
+}
+
+.form-title {
+  display: flex;
+  color: var(--text_color_primary);
+  margin: 0;
+  font-family: var(--font_family);
+  color: var(--color_black);
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.fields-group {
+  display: flex;
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 0;
+}
+
+.form-footer,
+.actions,
+.fields-group .label_input__wrapper {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0; 
+}
+
+.fields-group-agreement .with_label,
+.fields-group .with_label {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+}
+
+.fields-group .with_label .label_input {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: column;
+}
+
+.fields-group .with_label .label_input > label {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  font-family: var(--font_family);
+  color: var(--text_color_secondary);
+  font-size: 12px;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+.fields-group .with_label .hint {
+  font-family: var(--font_family);
+  margin-top: 5px;
+  font-size: 12px;
+  color: var(--text_color_secondary);
+}
+
+.fields-group .with_label .error {
+  margin-top: 5px;
+  font-size: 12px;
+  color: red;
+}
+
+.fields-group .with_label .label_input input {
+  display: flex;
+  width: 100%;
+  line-height: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border-width: 1px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding-left: 10px;
+  font-size: 18px;
+  color: var(--text_color_primary);
+  background-color: var(--color_white);
+  border-color: var(--border_color_secondary);
+}
+
+button.btn {
+  display: flex;
+  width: 100%;
+  margin-top: 5px;
+  background-color: var(--color_brand);
+  color: white;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  line-height: 46px;
+  height: 46px;
+  border-radius: 8px;
+  border: none;
+  font-family: var(--font_family);
+  color: var(--color_white);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+button.btn:hover {
+  background-color: var(--color_brand-dark);
+}
+
+.no-list {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 20px 20px 0 20px;
+  margin-top: 20px;
+  border-top: 1px solid var(--border_color_secondary);
+  list-style: none;
+}
+
+.no-list li {
+  display: flex;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.no-list li a {
+  font-family: var(--font_family);
+  color: var(--text_color_tertiary);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.fields-group-agreement {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  margin-bottom: 15px;
+}
+
+.fields-group-agreement .with_label .label_input {
+  display: flex;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
+  align-items: center;
+}
+
+.fields-group-agreement .with_label .label_input label {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font_family);
+  color: var(--text_color_secondary);
+  font-size: 14px;
+}
+
+.fields-group-agreement .with_label .label_input label a {
+  font-family: var(--font_family);
+  color: var(--color_brand);
+  margin: 0;
+  padding: 0;
+  margin-left: 5px;
+  font-size: 14px;
+}
+
+.flash-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  text-align: center;
+}
+
+.alert.flash-message {
+  color: red;
+}
+
+.notice.flash-message {
+  color: grey;
+}
+
+.subtle-hint a {
+  color: var(--color_brand);
+}

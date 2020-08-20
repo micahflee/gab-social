@@ -5,13 +5,15 @@
   = render partial: 'shared/og'
 
 = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+  %h2.form-title Log into Gab
+
   .fields-group
     - if use_seamless_external_login?
       = f.input :email, autofocus: true, wrapper: :with_label, label: t('simple_form.labels.defaults.username_or_email'), input_html: { 'aria-label' => t('simple_form.labels.defaults.username_or_email') }, hint: false
     - else
       = f.input :email, autofocus: true, wrapper: :with_label, label: t('simple_form.labels.defaults.email'), input_html: { 'aria-label' => t('simple_form.labels.defaults.email') }, hint: false
   .fields-group
-    = f.input :password, wrapper: :with_label, label: t('simple_form.labels.defaults.password'), input_html: { 'aria-label' => t('simple_form.labels.defaults.password'), :autocomplete => 'off' }, hint: false
+    = f.input :password, wrapper: :with_label, label: t('simple_form.labels.defaults.password'), input_html: { 'aria-label' => t('simple_form.labels.defaults.password'), :autocomplete => 'off' }, hint: false 
 
   .actions
     = f.button :button, t('auth.login'), type: :submit

@@ -2,6 +2,8 @@
   = t('auth.resend_confirmation')
 
 = simple_form_for(resource, as: resource_name, url: confirmation_path(resource_name), html: { method: :post }) do |f|
+  %h2.form-title Resend confirmation instructions 
+
   = render 'shared/error_messages', object: resource
 
   .fields-group

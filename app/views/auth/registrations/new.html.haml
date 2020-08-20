@@ -5,6 +5,8 @@
   = render partial: 'shared/og'
 
 = simple_form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
+  %h2.form-title Sign up for Gab
+
   = render 'shared/error_messages', object: resource
 
   - if @invite.present? && @invite.autofollow?
@@ -32,7 +34,7 @@
 
   = f.input :invite_code, as: :hidden
 
-  .fields-group
+  .fields-group-agreement
     = f.input :agreement, as: :boolean, wrapper: :with_label, label: t('auth.checkbox_agreement_html', about_tos_path: about_tos_path)
 
   .actions

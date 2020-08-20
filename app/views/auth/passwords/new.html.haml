@@ -2,6 +2,8 @@
   = t('auth.reset_password')
 
 = simple_form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
+  %h2.form-title Reset Gab Password
+
   = render 'shared/error_messages', object: resource
 
   .fields-group
