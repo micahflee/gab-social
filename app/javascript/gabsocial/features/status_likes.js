@@ -11,17 +11,17 @@ import Account from '../components/account'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
-class StatusReposts extends ImmutablePureComponent {
+class StatusLikes extends ImmutablePureComponent {
 
   componentWillMount () {
-    this.props.dispatch(fetchLikes(this.props.params.statusId))
-    this.props.dispatch(fetchStatus(this.props.params.statusId))
+    this.props.dispatch(fetchLikes(this.props.statusId))
+    this.props.dispatch(fetchStatus(this.props.statusId))
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.params.statusId !== this.props.params.statusId && nextProps.params.statusId) {
-      this.props.dispatch(fetchLikes(nextProps.params.statusId))
-      this.props.dispatch(fetchStatus(nextProps.params.statusId))
+    if (nextProps.statusId !== this.props.statusId && nextProps.statusId) {
+      this.props.dispatch(fetchLikes(nextProps.statusId))
+      this.props.dispatch(fetchStatus(nextProps.statusId))
     }
   }
 
@@ -51,23 +51,25 @@ class StatusReposts extends ImmutablePureComponent {
 }
 
 const mapStateToProps = (state, props) => {
+  const statusId = props.params ? props.params.statusId : props.statusId
+
   const getStatus = makeGetStatus()
   const status = getStatus(state, {
-    id: props.params.statusId,
-    username: props.params.username,
+    id: statusId
   })
 
   return {
     status,
-    accountIds: state.getIn(['user_lists', 'liked_by', props.params.statusId]),
+    statusId,
+    accountIds: state.getIn(['user_lists', 'liked_by', statusId]),
   }
 }
 
-StatusReposts.propTypes = {
-  params: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired,
+StatusLikes.propTypes = {
   accountIds: ImmutablePropTypes.list,
+  dispatch: PropTypes.func.isRequired,
   status: ImmutablePropTypes.map,
+  statusId: PropTypes.string.isRequired,
 }
 
-export default connect(mapStateToProps)(StatusReposts)
+export default connect(mapStateToProps)(StatusLikes)

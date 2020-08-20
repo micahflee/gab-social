@@ -245,12 +245,11 @@ class SwitchingArea extends React.PureComponent {
         <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 
-        { /*
         <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
-        <WrappedRoute path='/:username/posts/:statusId/reposts' page={BasicPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
+        <WrappedRoute path='/:username/posts/:statusId/reposts' publicRoute page={ModalPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
 
         <Redirect from='/@:username/posts/:statusId/likes' to='/:username/posts/:statusId/likes' />
-        <WrappedRoute path='/:username/posts/:statusId/likes' page={BasicPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} /> */ }
+        <WrappedRoute path='/:username/posts/:statusId/likes' page={ModalPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} />
 
         <WrappedRoute page={ErrorPage} component={GenericNotFound} content={children} />
       </Switch>
