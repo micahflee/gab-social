@@ -27,7 +27,7 @@ class AutosuggestAccount extends ImmutablePureComponent {
 
 }
 
-const mapStateToProps = () => ({
+const mapStateToProps = (state, { id }) => ({
   account: makeGetAccount()(state, id),
 })
 
