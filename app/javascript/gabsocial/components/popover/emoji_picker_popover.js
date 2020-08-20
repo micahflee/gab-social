@@ -198,17 +198,15 @@ EmojiPickerMenu.propTypes = {
   onPick: PropTypes.func.isRequired,
   arrowOffsetLeft: PropTypes.string,
   arrowOffsetTop: PropTypes.string,
-  intl: PropTypes.object.isRequired,
   skinTone: PropTypes.number.isRequired,
   onSkinTone: PropTypes.func.isRequired,
+  intl: PropTypes.object.isRequired,
 }
 
 EmojiPickerMenu.defaultProps = {
   loading: true,
   frequentlyUsedEmojis: [],
 }
-
-injectIntl(EmojiPickerMenu)
 
 class EmojiPickerPopover extends ImmutablePureComponent {
 
@@ -237,6 +235,7 @@ class EmojiPickerPopover extends ImmutablePureComponent {
 
   render () {
     const {
+      intl,
       onPickEmoji,
       onSkinTone,
       skinTone,
@@ -254,6 +253,7 @@ class EmojiPickerPopover extends ImmutablePureComponent {
         onClose={this.onHideDropdown}
       >
         <EmojiPickerMenu
+          intl={intl}
           customEmojis={customEmojis}
           loading={loading}
           onClose={this.onHideDropdown}
@@ -298,6 +298,7 @@ EmojiPickerPopover.propTypes = {
   skinTone: PropTypes.number.isRequired,
   onClosePopover: PropTypes.func.isRequired,
   isXS: PropTypes.bool,
+  intl: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(EmojiPickerPopover)
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(EmojiPickerPopover))
