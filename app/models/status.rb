@@ -305,11 +305,7 @@ class Status < ApplicationRecord
     end
 
     def as_group_collection_timeline(groupIds)
-      where(
-        group: groupIds,
-        visibility: [:public, :unlisted, :private],
-        reply: false
-      )
+      where(group: groupIds, reply: false)
     end
 
     def as_direct_timeline(account, limit = 20, max_id = nil, since_id = nil, cache_ids = false)
