@@ -71,8 +71,8 @@ class EditProfileModal extends ImmutablePureComponent {
     this.setState({ bioValue: value })
   }
 
-  handleLockedChange = ({ target }) => {
-    this.setState({ locked: target.checked })
+  handleLockedChange = (locked) => {
+    this.setState({ locked })
   }
 
   handleOnClose = () => {

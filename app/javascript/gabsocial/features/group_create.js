@@ -320,11 +320,11 @@ const mapDispatchToProps = (dispatch) => ({
 	onChangeGroupCategory(e) {
 		dispatch(changeGroupCategory(e.target.value))
 	},
-	onChangeGroupIsPrivate(value) {
-		dispatch(changeGroupIsPrivate(value))
+	onChangeGroupIsPrivate(checked) {
+		dispatch(changeGroupIsPrivate(checked))
 	},
-	onChangeGroupIsVisible(value) {
-		dispatch(changeGroupIsVisible(value))
+	onChangeGroupIsVisible(checked) {
+		dispatch(changeGroupIsVisible(checked))
 	},
 	onResetEditor() {
 		dispatch(resetEditor())

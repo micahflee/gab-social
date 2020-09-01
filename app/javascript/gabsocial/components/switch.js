@@ -5,6 +5,10 @@ import Text from './text'
 
 class Switch extends React.PureComponent {
 
+  handleOnChange = (e) => {
+    this.props.onChange(e.currentTarget.checked)
+  }
+
   render() {
     const {
       id,
@@ -51,7 +55,7 @@ class Switch extends React.PureComponent {
 
         <label className={checkboxContainerClasses} htmlFor={id}>
           <span className={checkboxLabelClasses} />
-          <input type='checkbox' id={id} onChange={onChange} disabled={disabled} className={[_s.visibilityHidden].join(' ')} />
+          <input type='checkbox' id={id} onChange={this.handleOnChange} disabled={disabled} className={[_s.visibilityHidden].join(' ')} />
         </label>
       </div>
     )

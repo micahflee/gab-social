@@ -74,8 +74,8 @@ const mapStateToProps = (state, { id }) => ({
 })
 
 const mapDispatchToProps = (dispatch, { id }) => ({
-  onToggle(e) {
-    dispatch(toggleStatusReport(id, e.target.checked))
+  onToggle(checked) {
+    dispatch(toggleStatusReport(id, checked))
   },
 })
 

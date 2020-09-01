@@ -14,8 +14,8 @@ class SettingSwitch extends ImmutablePureComponent {
     'label',
   ]
 
-  onChange = ({ target }) => {
-    this.props.onChange(this.props.settingPath, target.checked)
+  onChange = (checked) => {
+    this.props.onChange(this.props.settingPath, checked)
   }
 
   render () {
@@ -39,7 +39,6 @@ class SettingSwitch extends ImmutablePureComponent {
         id={id}
         checked={checked}
         onChange={this.onChange}
-        onKeyDown={this.onKeyDown}
       />
     )
   }
