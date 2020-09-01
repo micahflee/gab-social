@@ -24,12 +24,14 @@ class ProfilePage extends ImmutablePureComponent {
       children,
       unavailable,
       noSidebar,
+      isBlocked,
       params: { username },
     } = this.props
 
     const nameHTML = !!account ? account.get('display_name_html') : ''
     const name = !!account ? account.get('display_name_plain') : ''
-    
+    const unavailableMessage = (unavailable && isBlocked) ? <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' /> : <FormattedMessage id='empty_column.account_private' defaultMessage='This account is private. You must request to follow in order to view their page.' />
+
     return (
       <ProfileLayout
         account={account}
@@ -47,9 +49,7 @@ class ProfilePage extends ImmutablePureComponent {
         {
           unavailable &&
           <Block>
-            <ColumnIndicator type='error' message={
-              <FormattedMessage id='empty_column.account_unavailable' defaultMessage='Profile unavailable' />
-            } />
+            <ColumnIndicator type='error' message={unavailableMessage} />
           </Block>
         }
       </ProfileLayout>
@@ -72,6 +72,7 @@ const mapStateToProps = (state, { params: { username } }) => {
   const getAccount = makeGetAccount()
 
   return {
+    isBlocked,
     unavailable,
     account: accountId !== -1 ? getAccount(state, accountId) : null,
   }
@@ -84,6 +85,7 @@ ProfilePage.propTypes = {
   noSidebar: PropTypes.bool,
   params: PropTypes.object.isRequired,
   unavailable: PropTypes.bool.isRequired,
+  isBlocked: PropTypes.bool.isRequired,
 }
 
 export default connect(mapStateToProps)(ProfilePage)
