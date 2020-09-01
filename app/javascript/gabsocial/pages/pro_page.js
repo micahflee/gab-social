@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   LinkFooter,
-  VerifiedAccountsPanel,
+  UserSuggestionsPanel,
   ProgressPanel,
 } from '../features/ui/util/async_components'
 
@@ -22,7 +23,7 @@ class ProPage extends React.PureComponent {
         page='pro'
         layout={[
           ProgressPanel,
-          VerifiedAccountsPanel,
+          <WrappedBundle component={UserSuggestionsPanel} componentParams={{ suggestionType: 'verified' }} />,
           LinkFooter,
         ]}
       >

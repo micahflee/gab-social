@@ -2,12 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   LinkFooter,
   ProgressPanel,
   ShopPanel,
   SignUpPanel,
-  VerifiedAccountsPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class NewsPage extends React.PureComponent {
@@ -21,10 +22,11 @@ class NewsPage extends React.PureComponent {
         title={title}
         noComposeButton
         showBackBtn
+        noRightSidebar
         layout={[
           SignUpPanel,
           ProgressPanel,
-          VerifiedAccountsPanel,
+          <WrappedBundle component={UserSuggestionsPanel} componentParams={{ suggestionType: 'verified' }} />,
           ShopPanel,
           LinkFooter,
         ]}

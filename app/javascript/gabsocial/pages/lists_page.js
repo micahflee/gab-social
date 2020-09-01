@@ -9,7 +9,7 @@ import { MODAL_LIST_CREATE } from '../constants'
 import {
   LinkFooter,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class ListsPage extends React.PureComponent {
@@ -36,7 +36,7 @@ class ListsPage extends React.PureComponent {
         ]}
         layout={[
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

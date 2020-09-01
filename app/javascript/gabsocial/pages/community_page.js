@@ -11,7 +11,7 @@ import {
   GroupsPanel,
   ProgressPanel,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class CommunityPage extends React.PureComponent {
@@ -38,7 +38,7 @@ class CommunityPage extends React.PureComponent {
         layout={[
           ProgressPanel,
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           GroupsPanel,
           LinkFooter,
         ]}

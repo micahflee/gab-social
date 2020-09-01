@@ -15,7 +15,7 @@ import {
   ListDetailsPanel,
   LinkFooter,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class ListPage extends ImmutablePureComponent {
@@ -54,7 +54,7 @@ class ListPage extends ImmutablePureComponent {
         layout={[
           <WrappedBundle component={ListDetailsPanel} componentParams={{ list: list, onEdit: this.handleOnOpenListEditModal }} />,
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

@@ -5,7 +5,7 @@ import DefaultLayout from '../layouts/default_layout'
 import {
   LinkFooter,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class BasicPage extends React.PureComponent {
@@ -25,7 +25,7 @@ class BasicPage extends React.PureComponent {
         page={page}
         layout={[
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

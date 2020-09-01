@@ -9,7 +9,7 @@ import DefaultLayout from '../layouts/default_layout'
 import {
   LinkFooter,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class ShortcutsPage extends React.PureComponent {
@@ -35,7 +35,7 @@ class ShortcutsPage extends React.PureComponent {
         ]}
         layout={[
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

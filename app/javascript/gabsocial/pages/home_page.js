@@ -18,7 +18,7 @@ import {
   LinkFooter,
   ListsPanel,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
   ProPanel,
   ShopPanel,
   ProgressPanel,
@@ -90,7 +90,7 @@ class HomePage extends React.PureComponent {
           TrendsPanel,
           <WrappedBundle component={ShopPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
           <WrappedBundle component={ListsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
-          <WrappedBundle component={WhoToFollowPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
+          <WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
           <WrappedBundle component={GroupsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, groupType: 'member' }}  />,
           LinkFooter,
         ]}

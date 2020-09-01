@@ -5,7 +5,7 @@ import Block from '../components/block'
 import DefaultLayout from '../layouts/default_layout'
 import {
   LinkFooter,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class ModalPage extends React.PureComponent {
@@ -23,7 +23,7 @@ class ModalPage extends React.PureComponent {
         page={page}
         showBackBtn
         layout={[
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

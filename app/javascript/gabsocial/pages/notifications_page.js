@@ -11,7 +11,7 @@ import {
   LinkFooter,
   NotificationFilterPanel,
   TrendsPanel,
-  WhoToFollowPanel,
+  UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
 class NotificationsPage extends React.PureComponent {
@@ -57,7 +57,7 @@ class NotificationsPage extends React.PureComponent {
         layout={[
           NotificationFilterPanel,
           TrendsPanel,
-          WhoToFollowPanel,
+          UserSuggestionsPanel,
           LinkFooter,
         ]}
         tabs={tabs}

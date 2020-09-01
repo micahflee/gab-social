@@ -106,8 +106,7 @@ export function UnauthorizedModal() { return import(/* webpackChunkName: "compon
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
 export function UserInfoPopover() { return import(/* webpackChunkName: "components/user_info_popover" */'../../../components/popover/user_info_popover') }
 export function UserPanel() { return import(/* webpackChunkName: "components/user_panel" */'../../../components/panel/user_panel') }
-export function VerifiedAccountsPanel() { return import(/* webpackChunkName: "components/verified_accounts_panel" */'../../../components/panel/verified_accounts_panel') }
 export function Video() { return import(/* webpackChunkName: "components/video" */'../../../components/video') }
 export function VideoModal() { return import(/* webpackChunkName: "components/video_modal" */'../../../components/modal/video_modal') }
 export function VideoStatsPopover() { return import(/* webpackChunkName: "components/video_stats_popover" */'../../../components/popover/video_stats_popover') }
-export function WhoToFollowPanel() { return import(/* webpackChunkName: "components/who_to_follow_panel" */'../../../components/panel/who_to_follow_panel') }
+export function UserSuggestionsPanel() { return import(/* webpackChunkName: "components/user_suggestions_panel" */'../../../components/panel/user_suggestions_panel') }

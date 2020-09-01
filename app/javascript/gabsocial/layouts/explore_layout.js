@@ -14,7 +14,7 @@ import Heading from '../components/heading'
 import {
   GroupsPanel,
   SignUpLogInPanel,
-  VerifiedAccountsPanel,
+  UserSuggestionsPanel,
   TrendsPanel,
 } from '../features/ui/util/async_components'
 
@@ -67,7 +67,7 @@ class ExploreLayout extends ImmutablePureComponent {
       <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
     ]
     if (!!me) {
-      layout.push(VerifiedAccountsPanel)  
+      layout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ suggestionType: 'verified' }} />)
     }
     layout.push(<WrappedBundle component={TrendsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />)
 
