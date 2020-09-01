@@ -8,6 +8,15 @@ class UserMailer < Devise::Mailer
 
   add_template_helper RoutingHelper
 
+  def pro_expired(user)
+    @resource = user
+    return if @resource.disabled?
+
+    I18n.with_locale(@resource.locale || I18n.default_locale) do
+      mail to: @resource.email, subject: I18n.t('user_mailer.pro_expired.subject')
+    end
+  end
+
   def confirmation_instructions(user, token, **)
     @resource = user
     @token    = token

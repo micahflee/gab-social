@@ -1,0 +1,30 @@
+%tr
+  %td{:align => "center", :style => ""}
+    %h1{:style => "margin:0;font-weight:bold;font-size:20px;color:#444;text-align:center;"}= t 'user_mailer.pro_expired.title', name: @resource.account.username, date: @resource.account.pro_expires_at.strftime('%F')
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0;text-align:left;"} Your GabPRO Membership Has Expired
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Thank you for supporting our mission of defending free speech online. We appreciate your support and hope you’ll consider extending or renewing your GabPRO membership to help us keep building.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Go to
+            = link_to "https://pro.gab.com", "https://pro.gab.com", :style => "color:#30CE7D;font-size:16px;font-weight:600;text-decoration:underline;"
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } to renew your membership.
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            = link_to "Renew GabPRO", "https://pro.gab.com", :style => "height:56px;padding:20px 30px;text-decoration:none;color:#fff;font-size:16px;margin:0;"
