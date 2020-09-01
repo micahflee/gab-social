@@ -95,14 +95,23 @@ export default class GabSocial extends React.PureComponent {
       store.dispatch(connectStatusUpdateStream())
     }
 
-    console.log('%c Gab Social ', [
+    console.log('%cGab Social ', [
       , 'color: #30CE7D'
       , 'display: block'
       , 'line-height: 80px'
       , 'font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif'
       , 'font-size: 36px'
-      , 'text-align: center'
-      , 'font-weight: bold'
+      , 'text-align: left'
+      , 'font-weight: 800'
+    ].join(';'))
+    console.log('%cThis is a browser feature intended for developers.\nIf someone told you to copy and paste something here it is a scam and will give them access to your Gab account. ', [
+      , 'color: #000'
+      , 'display: block'
+      , 'line-height: 30px'
+      , 'font-family: system-ui, -apple-system, BlinkMacSystemFont, Roboto, Ubuntu, "Helvetica Neue", sans-serif'
+      , 'font-size: 20px'
+      , 'text-align: left'
+      , 'font-weight: 600'
     ].join(';'))
   }
 
