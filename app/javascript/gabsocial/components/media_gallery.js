@@ -283,7 +283,7 @@ class MediaGallery extends React.PureComponent {
     const { visible } = this.state
 
     let width = this.state.width || defaultWidth
-    if (reduced) width = width / 2
+    if (reduced) width = Math.max(width / 2, 250)
 
     const style = {}
     const size = media.take(4).size
