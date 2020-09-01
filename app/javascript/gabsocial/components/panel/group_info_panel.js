@@ -39,6 +39,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
     const isPrivate = !!group ? group.get('is_private') : false
     const isVisible = !!group ? group.get('is_visible') : false
     const tags = !!group ? group.get('tags') : []
+    const descriptionHTML = !!group ? { __html: group.get('description_html') } : {}
 
     if (noPanel) {
       return (
@@ -56,7 +57,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                 </Text>
               }
               <Text className={[_s.mt10, _s.py2].join(' ')} color='secondary' size='small' align='center'>
-                {group.get('description')}
+                <div className={_s.dangerousContent} dangerouslySetInnerHTML={descriptionHTML} />
               </Text>
               <div className={[_s.d, _s.mt10, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
                 <Text color='secondary' size='small' align='center'>
@@ -89,7 +90,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
           <React.Fragment>
 
             <Text className={_s.mb5}>
-              {group.get('description')}
+              <div className={_s.dangerousContent} dangerouslySetInnerHTML={descriptionHTML} />
             </Text>
 
             <Divider isSmall />

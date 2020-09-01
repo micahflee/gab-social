@@ -125,6 +125,19 @@ class Formatter
     html
   end
 
+  def formatGroupDescription(raw_content)
+    return '' if raw_content.blank?
+
+    html = raw_content
+    html = format_markdown(html)
+    html = encode_and_link_urls(html, nil, keep_html: true)
+    html = html.gsub(/(?:\n\r?|\r\n?)/, '<br />')
+    html = html.delete("\n")
+    html.html_safe # rubocop:disable Rails/OutputSafety
+
+    html
+  end
+
   def format_markdown(html)
     html = markdown_formatter.render(html)
     html = html.gsub(/\n/, '<br />')

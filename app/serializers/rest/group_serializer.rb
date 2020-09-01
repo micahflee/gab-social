@@ -3,7 +3,7 @@
 class REST::GroupSerializer < ActiveModel::Serializer
   include RoutingHelper
   
-  attributes :id, :title, :description, :cover_image_url, :is_archived,
+  attributes :id, :title, :description, :description_html, :cover_image_url, :is_archived,
     :member_count, :created_at, :is_private, :is_visible, :slug, :tags, :category
 
   def id
@@ -12,6 +12,14 @@ class REST::GroupSerializer < ActiveModel::Serializer
 
   def category
     object.group_categories_id
+  end
+
+  def description
+    object.description
+  end
+
+  def description_html
+    Formatter.instance.formatGroupDescription(object.description).strip
   end
 
   def clean_migrated_url
