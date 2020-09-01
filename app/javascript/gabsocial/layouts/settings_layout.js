@@ -5,11 +5,11 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
-import NavigationBar from '../components/navigation_bar'
+import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
-import SettingsSidebar from '../components/settings_sidebar'
+import SettingsSidebar from '../components/sidebar/settings_sidebar'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   SidebarXS,
@@ -37,7 +37,7 @@ class SettingsLayout extends React.PureComponent {
           <WrappedBundle component={SidebarXS} />
         </Responsive>
 
-        <NavigationBar
+        <DefaultNavigationBar
           title={title}
           noSearch
         />

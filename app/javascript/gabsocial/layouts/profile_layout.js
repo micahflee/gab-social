@@ -6,12 +6,12 @@ import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Sticky from 'react-stickynode'
 import { me } from '../initial_state'
 import { CX } from '../constants'
-import NavigationBar from '../components/navigation_bar'
+import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import ProfileHeader from '../components/profile_header'
 import FloatingActionButton from '../components/floating_action_button'
-import ProfileNavigationBar from '../components/profile_navigation_bar'
-import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
+import ProfileNavigationBar from '../components/navigation_bar/profile_navigation_bar'
+import LoggedOutNavigationBar from '../components/navigation_bar/logged_out_navigation_bar'
 import Responsive from '../features/ui/util/responsive_component'
 import Divider from '../components/divider'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
@@ -91,7 +91,7 @@ class ProfileLayout extends ImmutablePureComponent {
         <Responsive min={BREAKPOINT_EXTRA_SMALL}>
           {
             me &&
-            <NavigationBar />
+            <DefaultNavigationBar />
           }
           {
             !me &&

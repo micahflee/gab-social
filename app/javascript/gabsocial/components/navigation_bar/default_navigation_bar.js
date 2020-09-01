@@ -3,26 +3,26 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { openSidebar } from '../actions/sidebar'
-import { openPopover } from '../actions/popover'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
-import { me } from '../initial_state'
-import { makeGetAccount } from '../selectors'
-import Responsive from '../features/ui/util/responsive_component'
+import { openSidebar } from '../../actions/sidebar'
+import { openPopover } from '../../actions/popover'
+import { BREAKPOINT_EXTRA_SMALL } from '../../constants'
+import { me } from '../../initial_state'
+import { makeGetAccount } from '../../selectors'
+import Responsive from '../../features/ui/util/responsive_component'
 import {
   CX,
   POPOVER_NAV_SETTINGS,
-} from '../constants'
-import Avatar from './avatar'
-import BackButton from './back_button'
-import Button from './button'
-import Heading from './heading'
-import Icon from './icon'
-import NavigationBarButton from './navigation_bar_button'
-import Search from './search'
-import Text from './text'
+} from '../../constants'
+import Avatar from '../avatar'
+import BackButton from '../back_button'
+import Button from '../button'
+import Heading from '../heading'
+import Icon from '../icon'
+import NavigationBarButton from '../navigation_bar_button'
+import Search from '../search'
+import Text from '../text'
 
-class NavigationBar extends ImmutablePureComponent {
+class DefaultNavigationBar extends ImmutablePureComponent {
 
   handleOnOpenNavSettingsPopover = () => {
     this.props.onOpenNavSettingsPopover(this.avatarNode)
@@ -86,6 +86,7 @@ class NavigationBar extends ImmutablePureComponent {
                     <NavigationBarButton title='Home' icon='home' to='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
+                    <NavigationBarButton title='TV' icon='gab-tv' href='https://tv.gab.com' />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
@@ -222,7 +223,7 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-NavigationBar.propTypes = {
+DefaultNavigationBar.propTypes = {
   account: ImmutablePropTypes.map,
   actions: PropTypes.array,
   tabs: PropTypes.array,
@@ -234,4 +235,4 @@ NavigationBar.propTypes = {
   noSearch: PropTypes.bool,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NavigationBar)
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultNavigationBar)

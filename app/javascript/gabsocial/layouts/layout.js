@@ -6,11 +6,11 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
-import LoggedOutSidebar from '../components/logged_out_sidebar'
-import Sidebar from '../components/sidebar'
+import LoggedOutSidebar from '../components/sidebar/logged_out_sidebar'
+import DefaultSidebar from '../components/sidebar/default_sidebar'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
-import NavigationBar from '../components/navigation_bar'
-import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
+import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
+import LoggedOutNavigationBar from '../components/navigation_bar/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import FloatingActionButton from '../components/floating_action_button'
 import Responsive from '../features/ui/util/responsive_component'
@@ -58,7 +58,7 @@ class Layout extends React.PureComponent {
 
         {
           me &&
-          <NavigationBar
+          <DefaultNavigationBar
             actions={actions}
             tabs={tabs}
             title={title}
@@ -76,7 +76,7 @@ class Layout extends React.PureComponent {
             <Responsive min={BREAKPOINT_EXTRA_SMALL}>
               {
                 !!me &&
-                <Sidebar
+                <DefaultSidebar
                   actions={actions}
                   showBackBtn={showBackBtn}
                   tabs={tabs}

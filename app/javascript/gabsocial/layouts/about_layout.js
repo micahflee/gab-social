@@ -5,8 +5,8 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
-import NavigationBar from '../components/navigation_bar'
-import LoggedOutNavigationBar from '../components/logged_out_navigation_bar'
+import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
+import LoggedOutNavigationBar from '../components/navigation_bar/logged_out_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
@@ -79,7 +79,7 @@ class SettingsLayout extends React.PureComponent {
 
         {
           me &&
-          <NavigationBar title={title} noSearch />
+          <DefaultNavigationBar title={title} noSearch />
         }
         {
           !me &&

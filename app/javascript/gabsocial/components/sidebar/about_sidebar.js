@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
-import { me } from '../initial_state'
-import SidebarSectionTitle from './sidebar_section_title'
-import SidebarSectionItem from './sidebar_section_item'
-import Heading from './heading'
-import BackButton from './back_button'
-import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
+import { me } from '../../initial_state'
+import SidebarSectionTitle from '../sidebar_section_title'
+import SidebarSectionItem from '../sidebar_section_item'
+import Heading from '../heading'
+import BackButton from '../back_button'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 class AboutSidebar extends ImmutablePureComponent {
 

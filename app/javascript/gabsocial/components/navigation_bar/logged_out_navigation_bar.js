@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
-import Button from './button'
-import NavigationBarButton from './navigation_bar_button'
-import Search from './search'
-import Text from './text'
-import ResponsiveComponent from '../features/ui/util/responsive_component'
-import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
+import { BREAKPOINT_EXTRA_SMALL } from '../../constants'
+import Button from '../button'
+import NavigationBarButton from '../navigation_bar_button'
+import Search from '../search'
+import Text from '../text'
+import ResponsiveComponent from '../../features/ui/util/responsive_component'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 class LoggedOutNavigationBar extends React.PureComponent {
 
@@ -46,6 +46,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
                     <NavigationBarButton title='Home' icon='home' href='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
+                    <NavigationBarButton title='TV' icon='gab-tv' href='https://tv.gab.com' />
                   </div>
                 </ResponsiveComponent>
               }
