@@ -43,7 +43,6 @@ class DatePickerPopover extends React.PureComponent {
           <DatePicker
             inline
             target={this}
-            className='schedule-post-dropdown__datepicker'
             minDate={new Date()}
             selected={date}
             onChange={date => this.handleSetDate(date)}

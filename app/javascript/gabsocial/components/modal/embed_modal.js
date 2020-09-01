@@ -64,7 +64,6 @@ class EmbedModal extends ImmutablePureComponent {
             <Input
               readOnly
               type='text'
-              className='embed-modal__html'
               value={oembed && oembed.html || ''}
               onClick={this.handleTextareaClick}
             />
