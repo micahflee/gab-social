@@ -49,8 +49,10 @@ class StatusContent extends ImmutablePureComponent {
       if (mention) {
         link.addEventListener('click', this.onMentionClick.bind(this, mention), false)
         link.setAttribute('title', mention.get('acct'))
+        link.removeAttribute('target')
       } else if (link.textContent[0] === '#' || (link.previousSibling && link.previousSibling.textContent && link.previousSibling.textContent[link.previousSibling.textContent.length - 1] === '#')) {
         link.addEventListener('click', this.onHashtagClick.bind(this, link.text), false)
+        link.removeAttribute('target')
       } else {
         link.setAttribute('title', link.href)
       }
@@ -77,8 +79,8 @@ class StatusContent extends ImmutablePureComponent {
 
   onMentionClick = (mention, e) => {
     if (this.context.router && e.button === 0 && !(e.ctrlKey || e.metaKey)) {
-      // e.preventDefault()
-      // this.context.router.history.push(`/${mention.get('acct')}`)
+      e.preventDefault()
+      this.context.router.history.push(`/${mention.get('acct')}`)
     }
   }
 
@@ -140,7 +142,7 @@ class StatusContent extends ImmutablePureComponent {
     const properContent = status.get('contentHtml')
 
     return reblogContent
-      ? `${reblogContent} <div className='status__quote'>${properContent}</div>`
+      ? `${reblogContent} <div>${properContent}</div>`
       : properContent
   }
 
