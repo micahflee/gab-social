@@ -491,15 +491,6 @@ class Video extends ImmutablePureComponent {
       preload = 'none'
     }
 
-    // className={classNames('video-player', {
-    //   inactive: !revealed,
-    //   detailed,
-    //   inline: inline && !fullscreen,
-    //   fullscreen
-    // })}
-
-    // : todo spoiler :
-
     const mainContainerClasses = CX({
       d: 1,
       mt10: 1,
@@ -629,14 +620,6 @@ class Video extends ImmutablePureComponent {
           onProgress={this.handleProgress}
           onVolumeChange={this.handleVolumeChange}
         />
-
-        { /* <div className={classNames('spoiler-button', { 'spoiler-button--hidden': revealed })}>
-          <button type='button' className='spoiler-button__overlay' onClick={this.toggleReveal}>
-            <span className='spoiler-button__overlay__label'>
-              {intl.formatMessage(sensitive ? messages.sensitive : messages.hidden)}
-            </span>
-          </button>
-        </div> */ }
 
         <div
           className={volumeControlClasses}
