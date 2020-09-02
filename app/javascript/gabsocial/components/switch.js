@@ -49,7 +49,7 @@ class Switch extends React.PureComponent {
 
     return (
       <div className={[_s.d, _s.flexRow, _s.py5, _s.aiCenter].join(' ')}>
-        <Text {...labelProps} className={_s.mr10}>
+        <Text {...labelProps} htmlFor={id} className={_s.mr10}>
           {label}
         </Text>
 
