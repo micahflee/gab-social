@@ -12,6 +12,10 @@ import {
   MODAL_EDIT_PROFILE,
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
+import {
+  addShortcut,
+  removeShortcut,
+} from '../actions/shortcuts'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
@@ -46,6 +50,19 @@ class ProfileHeader extends ImmutablePureComponent {
     })
   }
 
+  handleToggleShortcut = () => {
+    const { account, isShortcut } = this.props
+    const accountId = !!account ? account.get('id') : null
+    
+    if (!accountId) return
+
+    if (isShortcut) {
+      this.props.onRemoveShortcut(accountId)
+    } else {
+      this.props.onAddShortcut(accountId)
+    }
+  }
+
   onStickyStateChange = (status) => {
     if (status.status === Sticky.STATUS_FIXED) {
       this.setState({ stickied: true })
@@ -63,6 +80,7 @@ class ProfileHeader extends ImmutablePureComponent {
       account,
       children,
       intl,
+      isShortcut,
       isXS
     } = this.props
     const { stickied } = this.state
@@ -210,7 +228,16 @@ class ProfileHeader extends ImmutablePureComponent {
                     account && account.get('id') !== me && !!me &&
                     <div className={[_s.d, _s.flexRow, _s.py5].join(' ')}>
                       
-                      <div className={[_s.d, _s.flexRow, _s.mr10].join(' ')}>
+                      <Button
+                        icon={isShortcut ? 'star' : 'star-outline'}
+                        iconSize='18px'
+                        color='brand'
+                        backgroundColor='none'
+                        className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr15].join(' ')}
+                        onClick={this.handleToggleShortcut}
+                      />
+
+                      <div className={[_s.d, _s.flexRow, _s.mr15].join(' ')}>
                         <AccountActionButton account={account} />
                       </div>
 
@@ -222,7 +249,7 @@ class ProfileHeader extends ImmutablePureComponent {
                           iconClassName={_s.inheritFill}
                           color='brand'
                           backgroundColor='none'
-                          className={[_s.jcCenter, _s.aiCenter, _s.px10].join(' ')}
+                          className={[_s.jcCenter, _s.aiCenter, _s.ml10, _s.px10].join(' ')}
                           onClick={this.handleOpenMore}
                           buttonRef={this.setOpenMoreNodeRef}
                         />
@@ -323,10 +350,18 @@ class ProfileHeader extends ImmutablePureComponent {
 
                     {
                       account && account.get('id') !== me &&
-                      <div className={[_s.d, _s.flexRow, _s.mlAuto, _s.py5].join(' ')}>
+                      <div className={[_s.d, _s.flexRow, _s.mlAuto, _s.pb2, _s.pt7].join(' ')}>
                         {
                           !!me &&
-                          <div>
+                          <div className={[_s.d, _s.flexRow, _s.mr5, _s.aiCenter, _s.jcCenter].join(' ')}>
+                            <Button
+                              icon={isShortcut ? 'star' : 'star-outline'}
+                              iconSize='18px'
+                              color='brand'
+                              backgroundColor='none'
+                              className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr10].join(' ')}
+                              onClick={this.handleToggleShortcut}
+                            />
                             <Button
                               isOutline
                               icon='ellipsis'
@@ -334,14 +369,14 @@ class ProfileHeader extends ImmutablePureComponent {
                               iconClassName={_s.inheritFill}
                               color='brand'
                               backgroundColor='none'
-                              className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
+                              className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10].join(' ')}
                               onClick={this.handleOpenMore}
                               buttonRef={this.setOpenMoreNodeRef}
                             />
                           </div>
                         }
 
-                        <div className={[_s.d, _s.flexRow, _s.pb3].join(' ')}>
+                        <div className={[_s.d, _s.flexRow, _s.pb2].join(' ')}>
                           <AccountActionButton account={account} />
                         </div>
 
@@ -359,6 +394,15 @@ class ProfileHeader extends ImmutablePureComponent {
 
 }
 
+const mapStateToProps = (state, { account }) => {
+  const accountId = account ? account.get('id') : null
+  const shortcuts = state.getIn(['shortcuts', 'items'])
+  const isShortcut = !!shortcuts.find((s) => {
+    return s.get('shortcut_id') == accountId && s.get('shortcut_type') === 'account'
+  })
+  return { isShortcut }
+}
+
 const messages = defineMessages({
   followers: { id: 'account.followers', defaultMessage: 'Followers' },
   follows: { id: 'account.follows', defaultMessage: 'Following' },
@@ -374,24 +418,30 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   openProfileOptionsPopover(props) {
     dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
   },
-
   onEditProfile() {
     dispatch(openModal(MODAL_EDIT_PROFILE))
   },
-
+  onAddShortcut(accountId) {
+    dispatch(addShortcut('account', accountId))
+  },
+  onRemoveShortcut(accountId) {
+    dispatch(removeShortcut(null, 'account', accountId))
+  },
 });
 
 ProfileHeader.propTypes = {
   account: ImmutablePropTypes.map,
   children: PropTypes.any,
   intl: PropTypes.object.isRequired,
+  onAddShortcut: PropTypes.func.isRequired,
   onEditProfile: PropTypes.func.isRequired,
+  onRemoveShortcut: PropTypes.func.isRequired,
   openProfileOptionsPopover: PropTypes.func.isRequired,
+  isShortcut: PropTypes.bool.isRequired,
   isXS: PropTypes.bool,
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(ProfileHeader))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ProfileHeader))

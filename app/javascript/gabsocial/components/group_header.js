@@ -8,6 +8,10 @@ import { openPopover, closePopover } from '../actions/popover'
 import { openModal } from '../actions/modal'
 import { joinGroup, leaveGroup } from '../actions/groups'
 import {
+  addShortcut,
+  removeShortcut,
+} from '../actions/shortcuts'
+import {
   PLACEHOLDER_MISSING_HEADER_SRC,
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
@@ -32,7 +36,24 @@ class GroupHeader extends ImmutablePureComponent {
   handleOnOpenGroupOptions = () => {
     const { relationships } = this.props
     const isAdmin = !!relationships ? relationships.get('admin') : false
-    this.props.onOpenGroupOptions(this.infoBtn, this.props.group, isAdmin)
+    const isModerator = !!relationships ? relationships.get('moderator') : false
+    this.props.onOpenGroupOptions(this.infoBtn, this.props.group, {
+      isAdmin,
+      isModerator,
+    })
+  }
+
+  handleToggleShortcut = () => {
+    const { group, isShortcut } = this.props
+    const groupId = !!group ? group.get('id') : null
+    
+    if (!groupId) return
+
+    if (isShortcut) {
+      this.props.onRemoveShortcut(groupId)
+    } else {
+      this.props.onAddShortcut(groupId)
+    }
   }
 
   setInfoBtn = (c) => {
@@ -45,6 +66,7 @@ class GroupHeader extends ImmutablePureComponent {
       group,
       intl,
       isXS,
+      isShortcut,
       relationships,
     } = this.props
 
@@ -52,12 +74,13 @@ class GroupHeader extends ImmutablePureComponent {
     const coverSrcMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
     const title = !!group ? group.get('title') : undefined
     const slug = !!group ? !!group.get('slug') ? `g/${group.get('slug')}` : undefined : undefined
+    const isPrivate = !!group ? group.get('is_private') : false
 
-    let isAdmin = false
+    let isAdminOrMod = false
     let actionButtonTitle
     let actionButtonOptions = {}
     if (relationships) {
-      isAdmin = relationships.get('admin')
+      isAdminOrMod = relationships.get('admin') || relationships.get('moderator')
       const isMember = relationships.get('member')
 
       actionButtonTitle = intl.formatMessage(isMember ? messages.member : messages.join)
@@ -79,11 +102,18 @@ class GroupHeader extends ImmutablePureComponent {
       // },
     ]
 
-    if (isAdmin && group) {
+    if (isAdminOrMod && group) {
       tabs.push({
         to: `/groups/${group.get('id')}/members`,
         title: 'Members',
       })
+    }
+
+    if (isAdminOrMod && group && isPrivate) {
+      tabs.push({
+        to: `/groups/${group.get('id')}/requests`,
+        title: 'Requests',
+      }) 
     }
 
     if (isXS && group) {
@@ -193,14 +223,13 @@ class GroupHeader extends ImmutablePureComponent {
                             color='brand'
                             backgroundColor='none'
                             className={[_s.mr10, _s.px10].join(' ')}
-                            icon='star-outline'
-                            onClick={this.handleOnOpenGroupOptions}
-                            buttonRef={this.setInfoBtn}
+                            icon={isShortcut ? 'star' : 'star-outline'}
+                            onClick={this.handleToggleShortcut}
                           />  
                           <Button
                             color='primary'
                             backgroundColor='tertiary'
-                            className={[_s.mr10, _s.px10].join(' ')}
+                            className={[_s.mr15, _s.px10].join(' ')}
                             icon='ellipsis'
                             onClick={this.handleOnOpenGroupOptions}
                             buttonRef={this.setInfoBtn}
@@ -240,6 +269,15 @@ const messages = defineMessages({
   group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
 })
 
+const mapStateToProps = (state, { group }) => {
+  const groupId = group ? group.get('id') : null
+  const shortcuts = state.getIn(['shortcuts', 'items'])
+  const isShortcut = !!shortcuts.find((s) => {
+    return s.get('shortcut_id') == groupId && s.get('shortcut_type') === 'group'
+  })
+  return { isShortcut }
+}
+
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
   onToggleMembership(group, relationships) {
@@ -249,14 +287,19 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
       dispatch(joinGroup(group.get('id')))
     }
   },
-
-  onOpenGroupOptions(targetRef, group, isAdmin) {
+  onOpenGroupOptions(targetRef, group, options) {
     dispatch(openPopover('GROUP_OPTIONS', {
       targetRef,
       group,
-      isAdmin,
+      ...options,
       position: 'left',
     }))
+  },
+  onAddShortcut(groupId) {
+    dispatch(addShortcut('group', groupId))
+  },
+  onRemoveShortcut(groupId) {
+    dispatch(removeShortcut(null, 'group', groupId))
   },
 
 })
@@ -265,10 +308,13 @@ GroupHeader.propTypes = {
   group: ImmutablePropTypes.map,
   children: PropTypes.any,
   intl: PropTypes.object.isRequired,
+  isShortcut: PropTypes.bool.isRequired,
   isXS: PropTypes.bool,
+  onAddShortcut: PropTypes.func.isRequired,
   onToggleMembership: PropTypes.func.isRequired,
+  onRemoveShortcut: PropTypes.func.isRequired,
   onOpenGroupOptions: PropTypes.func.isRequired,
   relationships: ImmutablePropTypes.map,
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(GroupHeader))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupHeader))
