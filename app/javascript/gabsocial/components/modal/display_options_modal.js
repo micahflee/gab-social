@@ -13,13 +13,14 @@ import {
 import ModalLayout from './modal_layout'
 import Button from '../button'
 import Text from '../text'
+import Slider from '../slider'
 import SettingSwitch from '../setting_switch'
 
 class DisplayOptionsModal extends ImmutablePureComponent {
 
-  handleOnFontSizeChange = (e) => {
+  handleOnFontSizeChange = (value) => {
     const fontSizeNames = Object.keys(FONT_SIZES)
-    const index = fontSizeNames[e.target.value]
+    const index = fontSizeNames[value]
 
     this.props.onChange('fontSize', index)
   }
@@ -66,8 +67,7 @@ class DisplayOptionsModal extends ImmutablePureComponent {
               <span className={[_s.d, _s.text, _s.cPrimary].join(' ')} style={{fontSize: '12px'}}>
                 Aa
               </span>
-              <input
-                type='range'
+              <Slider
                 min='0'
                 value={currentFontSizeIndex}
                 max={fontSizeNames.length - 1}
