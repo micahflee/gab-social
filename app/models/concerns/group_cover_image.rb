@@ -3,7 +3,7 @@
 module GroupCoverImage
   extend ActiveSupport::Concern
   
-  LIMIT            = 4.megabytes
+  LIMIT            = 5.megabytes
   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
 
   class_methods do
