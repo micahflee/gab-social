@@ -40,7 +40,7 @@ class SensitiveMediaItem extends React.PureComponent {
 }
 
 const messages = defineMessages({
-  warning: { id: 'status.sensitive_warning_2', defaultMessage: 'The following media includes potentially sensitive content.' },
+  warning: { id: 'status.sensitive_warning_2', defaultMessage: 'The author of this gab has added a warning to this media.' },
   view: { id: 'view', defaultMessage: 'View' },
 });
 
