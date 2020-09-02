@@ -18,9 +18,14 @@ import {
 	setGroup,
 	resetEditor,
 } from '../actions/group_editor'
-import { closeModal } from '../actions/modal'
+import {
+	openModal,
+	closeModal,
+} from '../actions/modal'
 import { fetchGroup } from '../actions/groups'
 import { fetchGroupCategories } from '../actions/group_categories'
+import { me } from '../initial_state'
+import { MODAL_PRO_UPGRADE } from '../constants'
 import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Divider from '../components/divider'
@@ -70,11 +75,17 @@ class GroupCreate extends ImmutablePureComponent {
 
 	handleSubmit = (e) => {
 		e.preventDefault()
+
+		// if not pro and not admin of group show pro upgrade modal
+		if (!this.props.isPro && !this.props.isAdmin) {
+			this.props.onOpenProUpgradeModal()
+			return
+		}
+
 		if (this.props.onClose) this.props.onClose()
 		this.props.onSubmit(this.context.router.history)
 	}
 
-	
 	render() {
 		const {
 			group,
@@ -100,12 +111,25 @@ class GroupCreate extends ImmutablePureComponent {
 			groupId,
 			categories,
 			isAdmin,
+			isPro,
 		} = this.props
 
 		if (!group && groupId) {
 			return <ColumnIndicator type='loading' />
 		} else if ((!group && error) || (groupId && !isAdmin)) {
 			return <ColumnIndicator type='missing' />
+		} else if (!isPro && !groupId) {
+			return <ColumnIndicator type='error' message={(
+				<React.Fragment>
+					<Text>You must be a GabPRO member to create a group.</Text>
+					<Button
+						onClick={this.props.onOpenProUpgradeModal}
+						className={[_s.mt15, _s.mlAuto, _s.mrAuto].join(' ')}
+					>
+						Learn more
+					</Button>
+				</React.Fragment>
+			)} />
 		}
 
 		const memberCount = group ? group.get('member_count') : 0
@@ -298,6 +322,7 @@ const mapStateToProps = (state, { params }) => {
 		isPrivate: state.getIn(['group_editor', 'isPrivate']),
 		isVisible: state.getIn(['group_editor', 'isVisible']),
 		categories: state.getIn(['group_categories', 'items']),
+		isPro: state.getIn(['accounts', me, 'is_pro']),
 	}
 }
 
@@ -341,7 +366,10 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	onFetchGroupCategories() {
 		dispatch(fetchGroupCategories())
-	}
+	},
+	onOpenProUpgradeModal() {
+		dispatch(openModal(MODAL_PRO_UPGRADE))
+	},
 })
 
 GroupCreate.propTypes = {
@@ -362,6 +390,7 @@ GroupCreate.propTypes = {
 	onResetEditor: PropTypes.func.isRequired,
 	onSetGroup: PropTypes.func.isRequired,
 	onSubmit: PropTypes.func.isRequired,
+	onOpenProUpgradeModal: PropTypes.func.isRequired,
 	isSubmitting: PropTypes.bool,
 	isAdmin: PropTypes.bool,
 	onClose: PropTypes.func,

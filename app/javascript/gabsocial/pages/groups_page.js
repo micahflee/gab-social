@@ -8,12 +8,18 @@ import Text from '../components/text'
 import DefaultLayout from '../layouts/default_layout'
 import GroupsCollection from '../features/groups_collection'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
+import { openModal } from '../actions/modal'
+import { MODAL_PRO_UPGRADE } from '../constants'
 import {
   GroupsPanel,
   LinkFooter,
 } from '../features/ui/util/async_components'
 
 class GroupsPage extends React.PureComponent {
+
+  handleOpenProUpgradeModal = () => {
+    this.props.dispatch(openModal(MODAL_PRO_UPGRADE))
+  }
 
   render() {
     const {
@@ -66,7 +72,8 @@ class GroupsPage extends React.PureComponent {
           {
             title: 'Create',
             icon: 'add',
-            to: '/groups/create',
+            to: isPro ? '/groups/create' : undefined,
+            onClick: isPro ? undefined : this.handleOpenProUpgradeModal,
           },
         ]}
         tabs={tabs}
