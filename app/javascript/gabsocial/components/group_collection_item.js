@@ -24,6 +24,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
     const isMember = relationships.get('member')
     const isAdmin = relationships.get('admin')
+    const isModerator = relationships.get('moderator')
     const coverSrc = group.get('cover_image_url') || ''
     const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
 
@@ -34,6 +35,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
           {group.get('title')}
           {isMember && intl.formatMessage(messages.member)}
           {isAdmin && intl.formatMessage(messages.admin)}
+          {isModerator && intl.formatMessage(messages.moderator)}
         </React.Fragment>
       )
     }
@@ -69,12 +71,12 @@ class GroupCollectionItem extends ImmutablePureComponent {
           }
 
           {
-            (!coverSrc || coverMissing) && (isMember || isAdmin) &&
+            (!coverSrc || coverMissing) && (isMember || isAdmin || isModerator) &&
             <div className={[_s.d, _s.h40PX, _s.bgSubtle, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
           }
 
           {
-            (isMember || isAdmin) &&
+            (isMember || isAdmin || isModerator) &&
             <div className={[_s.d, _s.flexRow, _s.posAbs, _s.top0, _s.right0, _s.pt10, _s.mr10].join(' ')}>
               {
                 isMember &&
@@ -96,6 +98,17 @@ class GroupCollectionItem extends ImmutablePureComponent {
                   color='white'
                 >
                   {intl.formatMessage(messages.admin)}
+                </Text>
+              }
+              {
+                isModerator &&
+                <Text
+                  isBadge
+                  className={[_s.bgBlack, _s.ml5].join(' ')}
+                  size='extraSmall'
+                  color='white'
+                >
+                  {intl.formatMessage(messages.moderator)}
                 </Text>
               }
             </div>
@@ -127,6 +140,7 @@ const messages = defineMessages({
   viewGroup: { id: 'view_group', defaultMessage: 'View Group' },
   member: { id: 'member', defaultMessage: 'Member' },
   admin: { id: 'admin', defaultMessage: 'Admin' },
+  moderator: { id: 'moderator', defaultMessage: 'Moderator' },
 })
 
 const mapStateToProps = (state, { id }) => ({

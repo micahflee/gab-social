@@ -149,7 +149,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     const mutingConversation = status.get('muted')
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
     const isReply = !!status.get('in_reply_to_id')
-    const withGroupAdmin = !!groupRelationships ? groupRelationships.get('admin') : false
+    const withGroupAdmin = !!groupRelationships ? (groupRelationships.get('admin') || groupRelationships.get('moderator')) : false
     const mailToHref = !status ? undefined : `mailto:?subject=Gab&body=${status.get('url')}`
 
     let menu = []

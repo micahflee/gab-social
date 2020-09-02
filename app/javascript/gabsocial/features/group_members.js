@@ -34,7 +34,10 @@ class GroupMembers extends ImmutablePureComponent {
 	}
 
 	handleOpenGroupMemberOptions = (e, accountId) => {
-		this.props.onOpenGroupMemberOptions(e.currentTarget, accountId, this.props.groupId)
+		const { relationships, groupId } = this.props
+
+		const isMod = relationships ? relationships.get('moderator') : true
+		this.props.onOpenGroupMemberOptions(e.currentTarget, accountId, groupId, isMod)
 	}
 
 	handleLoadMore = debounce(() => {
@@ -51,9 +54,9 @@ class GroupMembers extends ImmutablePureComponent {
 
 		if (!group || !relationships) return <ColumnIndicator type='loading' />
 
-		const isAdmin = relationships ? relationships.get('admin') : false
+		const isAdminOrMod = relationships ? (relationships.get('admin') || relationships.get('moderator')) : false
 
-		if (!isAdmin) return <ColumnIndicator type='missing' />
+		if (!isAdminOrMod) return <ColumnIndicator type='missing' />
 			
 		return (
 			<Block>
@@ -86,13 +89,14 @@ class GroupMembers extends ImmutablePureComponent {
 					>
 						{
 							accountIds && accountIds.map((id) => (
+								// : todo : add badges for isAdmin, isModerator
 								<Account
 									compact
 									key={id}
 									id={id}
-									actionIcon={(!isAdmin || id === me) ? undefined : 'ellipsis'}
+									actionIcon={(!isAdminOrMod || id === me) ? undefined : 'ellipsis'}
 									onActionClick={(data, event) => {
-										return !isAdmin ? false : this.handleOpenGroupMemberOptions(event, id)
+										return !isAdminOrMod ? false : this.handleOpenGroupMemberOptions(event, id)
 									}}
 								/>
 							))
@@ -125,11 +129,12 @@ const mapDispatchToProps = (dispatch) => ({
 	onExpandMembers(groupId) {
 		dispatch(expandMembers(groupId))
 	},
-	onOpenGroupMemberOptions(targetRef, accountId, groupId) {
+	onOpenGroupMemberOptions(targetRef, accountId, groupId, isModerator) {
 		dispatch(openPopover('GROUP_MEMBER_OPTIONS', {
 			targetRef,
 			accountId,
 			groupId,
+			isModerator,
 			position: 'top',
 		}))
 	},

@@ -15,8 +15,8 @@ class GroupMemberOptionsPopover extends React.PureComponent {
 	  this.props.onCreateRemovedAccount(this.props.groupId, this.props.accountId)
   }
 
-  handleOnMakeAdmin = () => {
-	  this.props.onUpdateRole(this.props.groupId, this.props.accountId, 'admin')
+  handleOnUpdateRole = (role) => {
+	  this.props.onUpdateRole(this.props.groupId, this.props.accountId, role)
   }
 
   handleOnClosePopover = () => {
@@ -24,7 +24,7 @@ class GroupMemberOptionsPopover extends React.PureComponent {
   }
 
   render() {
-    const { isXS } = this.props
+    const { isModerator, isXS } = this.props
 
     const listItems = [
       {
@@ -33,13 +33,23 @@ class GroupMemberOptionsPopover extends React.PureComponent {
         title: 'Remove from group',
         onClick: this.handleOnRemoveFromGroup,
       },
-      {
+    ]
+
+    if (!isModerator) {
+      listItems.push({
+        hideArrow: true,
+        icon: 'group',
+        title: 'Make group moderator',
+        onClick: () => this.handleOnUpdateRole('moderator'),
+      })
+
+      listItems.push({
         hideArrow: true,
         icon: 'group',
         title: 'Make group admin',
-        onClick: this.handleOnMakeAdmin,
-      },
-    ]
+        onClick: () => this.handleOnUpdateRole('admin'),
+      })
+    }
 
     return (
       <PopoverLayout
@@ -77,6 +87,7 @@ GroupMemberOptionsPopover.defaultProps = {
   onClosePopover: PropTypes.func.isRequired,
   onCreateRemovedAccount: PropTypes.func.isRequired,
   onUpdateRole: PropTypes.func.isRequired,
+  isModerator: PropTypes.bool,
 }
 
 export default connect(null, mapDispatchToProps)(GroupMemberOptionsPopover)

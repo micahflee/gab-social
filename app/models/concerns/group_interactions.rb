@@ -13,6 +13,10 @@ module GroupInteractions
       follow_mapping(GroupAccount.where(group_id: target_group_ids, account_id: account_id, role: :admin), :group_id)
     end
 
+    def moderator_map(target_group_ids, account_id)
+      follow_mapping(GroupAccount.where(group_id: target_group_ids, account_id: account_id, role: :moderator), :group_id)
+    end
+
     private
 
     def follow_mapping(query, field)
