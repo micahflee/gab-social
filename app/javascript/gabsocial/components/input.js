@@ -29,6 +29,7 @@ class Input extends React.PureComponent {
       id,
       hideLabel,
       maxLength,
+      isRequired,
     } = this.props
 
     const inputClasses = CX({
@@ -93,6 +94,7 @@ class Input extends React.PureComponent {
             onBlur={onBlur}
             readOnly={readOnly}
             maxLength={maxLength}
+            required={isRequired ? true : undefined}
           />
 
           {
@@ -128,6 +130,7 @@ Input.propTypes = {
   readOnly: PropTypes.string,
   inputRef: PropTypes.func,
   id: PropTypes.string.isRequired,
+  isRequired: PropTypes.bool,
   hideLabel: PropTypes.bool,
   maxLength: PropTypes.number,
 }
