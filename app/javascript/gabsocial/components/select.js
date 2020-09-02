@@ -27,7 +27,7 @@ class Select extends ImmutablePureComponent {
     return (
       <div className={_s.d}>
         <select
-          className={[_s.d, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.px15, _s.select, _s.fs14PX].join(' ')}
+          className={[_s.d, _s.outlineNone, _s.text, _s.border1PX, _s.borderColorSecondary, _s.px15, _s.select, _s.fs14PX, _s.circle].join(' ')}
           value={value}
           onChange={onChange}
         >
