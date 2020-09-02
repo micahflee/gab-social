@@ -21,6 +21,7 @@
 #  is_visible               :boolean          default(FALSE)
 #  tags                     :string           default([]), is an Array
 #  group_categories_id      :bigint(8)
+#  password                 :string
 #
 
 class Group < ApplicationRecord
