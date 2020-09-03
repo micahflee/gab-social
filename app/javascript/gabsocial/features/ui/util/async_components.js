@@ -110,7 +110,7 @@ export function StatusVisibilityPopover() { return import(/* webpackChunkName: "
 // export function Suggestions() { return import(/* webpackChunkName: "features/suggestions" */'../../suggestions') }
 export function TermsOfSale() { return import(/* webpackChunkName: "features/about/terms_of_sale" */'../../about/terms_of_sale') }
 export function TermsOfService() { return import(/* webpackChunkName: "features/about/terms_of_service" */'../../about/terms_of_service') }
-export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }
+// export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }
 export function TrendsPanel() { return import(/* webpackChunkName: "components/trends_panel" */'../../../components/panel/trends_panel') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
