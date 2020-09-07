@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { CX } from '../constants'
 import Icon from './icon'
+import Tooltip from './tooltip'
 
 // Define colors for enumeration for Button component `color`, `backgroundColor` props
 const COLORS = {
@@ -40,10 +41,15 @@ const COLORS = {
  * @param {bool} [props.text] - if the button is just text (i.e. link)
  * @param {bool} [props.title] - `title` attribute for button
  * @param {bool} [props.to] - `to` to send to on click
+ * @param {bool} [props.tooltip] - add a tooltip to the button on hover/click
  * @param {bool} [props.type] - `type` attribute for button
  * @param {bool} [props.underlineOnHover] - if the button has underline on hover
  */
 class Button extends React.PureComponent {
+
+  state = {
+    isHovering: false,
+  }
 
   handleClick = (e) => {
     if (!this.props.isDisabled && this.props.onClick) {
@@ -55,11 +61,17 @@ class Button extends React.PureComponent {
     if (!this.props.isDisabled && this.props.onMouseEnter) {
       this.props.onMouseEnter()
     }
+    if (this.props.tooltip) {
+      this.setState({ isHovering: true }) 
+    }
   }
   
   handleOnMouseLeave = () => {
     if (!this.props.isDisabled && this.props.onMouseLeave) {
       this.props.onMouseLeave()
+    }
+    if (this.props.tooltip) {
+      this.setState({ isHovering: false })
     }
   }
 
@@ -100,9 +112,11 @@ class Button extends React.PureComponent {
       target,
       title,
       to,
+      tooltip,
       type,
       underlineOnHover,
     } = this.props
+    const { isHovering } = this.state
 
     // Style the component according to props
     const classes = noClasses ? className : CX(className, {
@@ -165,17 +179,25 @@ class Button extends React.PureComponent {
       />
     ) : undefined
 
-    const theChildren = !!icon ? (
+    const theTooltip = !!tooltip && isHovering ? (
+      <Tooltip
+        message={tooltip}
+        targetRef={this.node}
+      />
+    ) : undefined
+
+    const theChildren = !!icon || !!tooltip ? (
       <React.Fragment>
         {theIcon}
         {children}
+        {theTooltip}
       </React.Fragment>
     ) : children
 
     const handlers = {
       onClick: !!onClick ? this.handleClick : undefined,
-      onMouseEnter: !!onMouseEnter ? this.handleOnMouseEnter : undefined,
-      onMouseLeave: !!onMouseLeave ? this.handleOnMouseLeave : undefined,
+      onMouseEnter: !!onMouseEnter || !!tooltip ? this.handleOnMouseEnter : undefined,
+      onMouseLeave: !!onMouseLeave || !!tooltip ? this.handleOnMouseLeave : undefined,
     }
 
     if (tagName === 'NavLink' && !!to) {
