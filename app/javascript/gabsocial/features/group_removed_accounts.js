@@ -54,7 +54,7 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 					hasMore={hasMore}
 					showLoading={(!group || !accountIds)}
 					onLoadMore={this.handleLoadMore}
-					emptyMessage={<FormattedMessage id='group.removed_accounts.empty' defaultMessage='This group does not has any removed accounts.' />}
+					emptyMessage={<FormattedMessage id='group.removed_accounts.empty' defaultMessage='This group does not have any removed accounts.' />}
 				>
 					{
 						accountIds && accountIds.map((id) => (

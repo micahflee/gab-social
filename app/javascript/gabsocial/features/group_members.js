@@ -85,7 +85,7 @@ class GroupMembers extends ImmutablePureComponent {
 						hasMore={hasMore}
 						showLoading={(!group || !accountIds || !relationships)}
 						onLoadMore={this.handleLoadMore}
-						emptyMessage={<FormattedMessage id='group.members.empty' defaultMessage='This group does not has any members.' />}
+						emptyMessage={<FormattedMessage id='group.members.empty' defaultMessage='This group does not have any members.' />}
 					>
 						{
 							accountIds && accountIds.map((id) => (
