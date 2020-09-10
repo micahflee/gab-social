@@ -933,6 +933,11 @@ en:
       ownership: Someone else's gab cannot be pinned
       private: Non-public gabs can't be pinned
       reblog: A repost cannot be pinned
+    group_pin_errors:
+      limit: You have already pinned the maximum number of gabs for groups
+      ungrouped: Gabs not made in the group cannot be pinned
+      reblog: A repost cannot be pinned
+      notGroupStatus: The status you are attempting to pin is not associated with the given group
     poll:
       total_votes:
         one: "%{count} vote"

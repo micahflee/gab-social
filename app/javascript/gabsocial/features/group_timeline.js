@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
+import { List as ImmutableList } from 'immutable'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import getSortBy from '../utils/group_sort_by'
@@ -10,6 +11,7 @@ import { connectGroupStream } from '../actions/streaming'
 import {
 	clearTimeline,
 	expandGroupTimeline,
+	expandGroupFeaturedTimeline,
 } from '../actions/timelines'
 import {
 	setGroupTimelineSort,
@@ -41,6 +43,8 @@ class GroupTimeline extends ImmutablePureComponent {
 			this.props.setMemberNewest()
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue, onlyMedia)
+
+			this.props.onExpandGroupFeaturedTimeline(groupId)
 			this.props.onExpandGroupTimeline(groupId, { sortBy, onlyMedia })
 
 			if (!!me) {
@@ -56,6 +60,10 @@ class GroupTimeline extends ImmutablePureComponent {
 				prevProps.groupId === this.props.groupId) {
 			this.handleLoadMore()
 			this.props.onClearTimeline(`group:${this.props.groupId}`)
+		}
+
+		if (prevProps.groupId !== this.props.groupId) {
+			this.props.onExpandGroupFeaturedTimeline(this.props.groupId)
 		}
 	}
 
@@ -83,6 +91,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			group,
 			groupId,
 			intl,
+			groupPinnedStatusIds,
 		} = this.props
 
 		if (typeof group === 'undefined') {
@@ -98,6 +107,7 @@ class GroupTimeline extends ImmutablePureComponent {
 					scrollKey={`group-timeline-${groupId}`}
 					timelineId={`group:${groupId}`}
 					onLoadMore={this.handleLoadMore}
+					groupPinnedStatusIds={groupPinnedStatusIds}
 					emptyMessage={intl.formatMessage(messages.empty)}
 				/>
 			</React.Fragment>
@@ -110,9 +120,12 @@ const messages = defineMessages({
 	empty: { id: 'empty_column.group', defaultMessage: 'There is nothing in this group yet.\nWhen members of this group post new statuses, they will appear here.' },
 })
 
+const emptyList = ImmutableList()
+
 const mapStateToProps = (state, props) => ({
 	groupId: props.params.id,
 	group: state.getIn(['groups', props.params.id]),
+	groupPinnedStatusIds: state.getIn(['timelines', `group:${props.params.id}:pinned`, 'items'], emptyList),
 	sortByValue: state.getIn(['group_lists', 'sortByValue']),
 	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
 })
@@ -130,6 +143,9 @@ const mapDispatchToProps = (dispatch) => ({
 	setMemberNewest() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
 	},
+	onExpandGroupFeaturedTimeline(groupId) {
+		dispatch(expandGroupFeaturedTimeline(groupId))
+	},
 })
 
 GroupTimeline.propTypes = {
@@ -143,6 +159,7 @@ GroupTimeline.propTypes = {
 	onConnectGroupStream: PropTypes.func.isRequired,
 	onClearTimeline: PropTypes.func.isRequired,
 	onExpandGroupTimeline: PropTypes.func.isRequired,
+	onExpandGroupFeaturedTimeline: PropTypes.func.isRequired,
 	setMemberNewest: PropTypes.func.isRequired,
 	sortByValue: PropTypes.string.isRequired,
 	sortByTopValue: PropTypes.string,

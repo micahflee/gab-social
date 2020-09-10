@@ -24,6 +24,8 @@ import {
   fetchGroupRelationships,
   createRemovedAccount,
   groupRemoveStatus,
+  pinGroupStatus,
+  unpinGroupStatus,
 } from '../../actions/groups'
 import { initMuteModal } from '../../actions/mutes'
 import { initReport } from '../../actions/reports'
@@ -84,6 +86,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
   handlePinClick = () => {
     this.props.onPin(this.props.status)
+  }
+
+  handleGroupPinStatus = () => {
+    this.props.onPinGroupStatus(this.props.status)
   }
 
   handleBookmarkClick = () => {
@@ -230,6 +236,29 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       }
     }
 
+    if (withGroupAdmin) {
+      menu.push(null)
+      menu.push({
+        icon: 'trash',
+        hideArrow: true,
+        title: intl.formatMessage(messages.group_remove_account),
+        onClick: this.handleGroupRemoveAccount,
+      })
+      menu.push({
+        icon: 'trash',
+        hideArrow: true,
+        title: intl.formatMessage(messages.group_remove_post),
+        onClick: this.handleGroupRemovePost,
+      })
+      menu.push(null)
+      menu.push({
+        icon: 'pin',
+        hideArrow: true,
+        title: intl.formatMessage(status.get('pinned_by_group') ? messages.groupUnpin : messages.groupPin),
+        onClick: this.handleGroupPinStatus,
+      })
+    }
+
     menu.push(null)
     menu.push({
       icon: 'copy',
@@ -249,22 +278,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       title: intl.formatMessage(messages.embed),
       onClick: this.handleOnOpenEmbedModal,
     })
-
-    if (withGroupAdmin) {
-      menu.push(null)
-      menu.push({
-        icon: 'trash',
-        hideArrow: true,
-        title: intl.formatMessage(messages.group_remove_account),
-        onClick: this.handleGroupRemoveAccount,
-      })
-      menu.push({
-        icon: 'trash',
-        hideArrow: true,
-        title: intl.formatMessage(messages.group_remove_post),
-        onClick: this.handleGroupRemovePost,
-      })
-    }
     
     if (isStaff) {
       menu.push(null)
@@ -316,6 +329,8 @@ const messages = defineMessages({
   unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
   pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
   unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
+  groupPin: { id: 'status.group_pin', defaultMessage: 'Pin in group' },
+  groupUnpin: { id: 'status.group_unpin', defaultMessage: 'Unpin from group' },
   bookmark: { id: 'status.bookmark', defaultMessage: 'Bookmark status' },
   unbookmark: { id: 'status.unbookmark', defaultMessage: 'Remove bookmark' },
   admin_account: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
@@ -469,6 +484,16 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenProUpgradeModal() {
     dispatch(closePopover())
     dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
+
+  onPinGroupStatus(status) {
+    dispatch(closePopover())
+
+    if (status.get('pinned_by_group')) {
+      dispatch(unpinGroupStatus(status.getIn(['group', 'id']), status.get('id')))
+    } else {
+      dispatch(pinGroupStatus(status.getIn(['group', 'id']), status.get('id')))
+    }
   },
 
   onClosePopover: () => dispatch(closePopover()),

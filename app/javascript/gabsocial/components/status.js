@@ -82,6 +82,7 @@ class Status extends ImmutablePureComponent {
     'isChild',
     'isPromoted',
     'isFeatured',
+    'isPinnedInGroup',
     'isMuted',
     'isHidden',
     'isIntersecting',
@@ -311,6 +312,7 @@ class Status extends ImmutablePureComponent {
     const {
       intl,
       isFeatured,
+      isPinnedInGroup,
       isPromoted,
       isChild,
       isHidden,
@@ -429,7 +431,7 @@ class Status extends ImmutablePureComponent {
             <div
               className={[_s.d, _s.outlineNone].join(' ')}
               tabIndex={this.props.isMuted ? null : 0}
-              data-featured={isFeatured ? 'true' : null}
+              data-featured={(isFeatured || isPinnedInGroup) ? 'true' : null}
               aria-label={textForScreenReader(intl, status, rebloggedByText)}
               ref={this.handleRef}
               onClick={isChild && !isNotification ? this.handleClick : undefined}
@@ -442,6 +444,7 @@ class Status extends ImmutablePureComponent {
                     status={this.props.status}
                     isPromoted={isPromoted}
                     isFeatured={isFeatured}
+                    isPinnedInGroup={isPinnedInGroup}
                     isComment={isComment && !isChild}
                   />
 
@@ -564,6 +567,7 @@ Status.propTypes = {
   isChild: PropTypes.bool,
   isPromoted: PropTypes.bool,
   isFeatured: PropTypes.bool,
+  isPinnedInGroup: PropTypes.bool,
   isMuted: PropTypes.bool,
   isHidden: PropTypes.bool,
   isIntersecting: PropTypes.bool,

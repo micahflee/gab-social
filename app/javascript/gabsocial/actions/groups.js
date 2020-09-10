@@ -63,6 +63,14 @@ export const GROUP_UPDATE_ROLE_REQUEST = 'GROUP_UPDATE_ROLE_REQUEST';
 export const GROUP_UPDATE_ROLE_SUCCESS = 'GROUP_UPDATE_ROLE_SUCCESS';
 export const GROUP_UPDATE_ROLE_FAIL    = 'GROUP_UPDATE_ROLE_FAIL';
 
+export const GROUP_PIN_STATUS_REQUEST = 'GROUP_PIN_STATUS_REQUEST'
+export const GROUP_PIN_STATUS_SUCCESS = 'GROUP_PIN_STATUS_SUCCESS'
+export const GROUP_PIN_STATUS_FAIL = 'GROUP_PIN_STATUS_FAIL'
+
+export const GROUP_UNPIN_STATUS_REQUEST = 'GROUP_UNPIN_STATUS_REQUEST'
+export const GROUP_UNPIN_STATUS_SUCCESS = 'GROUP_UNPIN_STATUS_SUCCESS'
+export const GROUP_UNPIN_STATUS_FAIL = 'GROUP_UNPIN_STATUS_FAIL ='
+
 export const GROUP_TIMELINE_SORT = 'GROUP_TIMELINE_SORT'
 export const GROUP_TIMELINE_TOP_SORT = 'GROUP_TIMELINE_TOP_SORT'
 
@@ -586,6 +594,83 @@ export function updateRoleFail(groupId, id, error) {
     error,
   };
 };
+
+
+export function pinGroupStatus(groupId, statusId) {
+  return (dispatch, getState) => {
+    if (!me) return
+
+    dispatch(pinGroupStatusRequest(groupId))
+
+    api(getState).post(`/api/v1/groups/${groupId}/pin`, { statusId }).then((response) => {
+      dispatch(pinGroupStatusSuccess(groupId, statusId))
+    }).catch((error) => {
+      dispatch(pinGroupStatusFail(groupId, statusId, error))
+    })
+  }
+}
+
+export function pinGroupStatusRequest(groupId) {
+  return {
+    type: GROUP_PIN_STATUS_REQUEST,
+    groupId,
+  }
+}
+
+export function pinGroupStatusSuccess(groupId, statusId) {
+  return {
+    type: GROUP_PIN_STATUS_SUCCESS,
+    groupId,
+    statusId,
+  }
+}
+
+export function pinGroupStatusFail(groupId, statusId, error) {
+  return {
+    type: GROUP_PIN_STATUS_FAIL,
+    groupId,
+    statusId,
+    error,
+  }
+}
+
+export function unpinGroupStatus(groupId, statusId) {
+  return (dispatch, getState) => {
+    if (!me) return
+
+    dispatch(unpinGroupStatusRequest(groupId))
+
+    api(getState).post(`/api/v1/groups/${groupId}/unpin`, { statusId }).then((response) => {
+      dispatch(unpinGroupStatusSuccess(groupId, statusId))
+    }).catch((error) => {
+      dispatch(unpinGroupStatusFail(groupId, statusId, error))
+    })
+  }
+}
+
+export function unpinGroupStatusRequest(groupId) {
+  return {
+    type: GROUP_UNPIN_STATUS_REQUEST,
+    groupId,
+  }
+}
+
+export function unpinGroupStatusSuccess(groupId, statusId) {
+  return {
+    type: GROUP_UNPIN_STATUS_SUCCESS,
+    groupId,
+    statusId,
+  }
+}
+
+export function unpinGroupStatusFail(groupId, statusId, error) {
+  return {
+    type: GROUP_UNPIN_STATUS_FAIL,
+    groupId,
+    statusId,
+    error,
+  }
+}
 
 export const sortGroups = (tab, sortType) => (dispatch, getState) => {
   const groupIdsByTab = getState().getIn(['group_lists', tab, 'items'], ImmutableList()).toJS()

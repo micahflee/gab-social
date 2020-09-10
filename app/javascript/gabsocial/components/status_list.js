@@ -67,11 +67,18 @@ class StatusList extends ImmutablePureComponent {
   }
 
   getFeaturedStatusCount = () => {
+    if (!!this.props.groupPinnedStatusIds) {
+      return this.props.groupPinnedStatusIds.size
+    }
+
     return this.props.featuredStatusIds ? this.props.featuredStatusIds.size : 0
   }
 
   getCurrentStatusIndex = (id, featured) => {
     if (featured) {
+      if (!!this.props.groupPinnedStatusIds) {
+        return this.props.groupPinnedStatusIds.indexOf(id)  
+      }
       return this.props.featuredStatusIds.indexOf(id)
     }
 
@@ -129,6 +136,7 @@ class StatusList extends ImmutablePureComponent {
     const {
       statusIds,
       featuredStatusIds,
+      groupPinnedStatusIds,
       onLoadMore,
       timelineId,
       totalQueuedItemsCount,
@@ -217,6 +225,20 @@ class StatusList extends ImmutablePureComponent {
           key={`f-${statusId}`}
           id={statusId}
           isFeatured
+          onMoveUp={this.handleMoveUp}
+          onMoveDown={this.handleMoveDown}
+          contextType={timelineId}
+          commentsLimited
+        />
+      )).concat(scrollableContent)
+    }
+
+    if (scrollableContent && groupPinnedStatusIds) {
+      scrollableContent = groupPinnedStatusIds.map((statusId) => (
+        <StatusContainer
+          key={`f-${statusId}`}
+          id={statusId}
+          isPinnedInGroup
           onMoveUp={this.handleMoveUp}
           onMoveDown={this.handleMoveDown}
           contextType={timelineId}
@@ -326,6 +348,7 @@ StatusList.propTypes = {
   scrollKey: PropTypes.string.isRequired,
   statusIds: ImmutablePropTypes.list.isRequired,
   featuredStatusIds: ImmutablePropTypes.list,
+  groupPinnedStatusIds: ImmutablePropTypes.list,
   onLoadMore: PropTypes.func,
   isLoading: PropTypes.bool,
   isPartial: PropTypes.bool,

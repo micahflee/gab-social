@@ -389,6 +389,12 @@ class Status < ApplicationRecord
       StatusPin.select('status_id').where(status_id: status_ids).where(account_id: account_id).each_with_object({}) { |p, h| h[p.status_id] = true }
     end
 
+    def group_pins_map(status_ids, group_id = nil)
+      unless group_id.nil?
+        GroupPinnedStatus.select('status_id').where(status_id: status_ids).where(group_id: group_id).each_with_object({}) { |p, h| h[p.status_id] = true }
+      end
+    end
+
     def reload_stale_associations!(cached_items)
       account_ids = []
 

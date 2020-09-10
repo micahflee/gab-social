@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class StatusRelationshipsPresenter
-  attr_reader :reblogs_map, :favourites_map, :mutes_map, :pins_map, :bookmarks_map
-
+  attr_reader :reblogs_map, :favourites_map, :mutes_map, :pins_map, :group_pins_map, :bookmarks_map
 
   def initialize(statuses, current_account_id = nil, **options)
     if current_account_id.nil?
@@ -11,6 +10,7 @@ class StatusRelationshipsPresenter
       @mutes_map      = {}
       @bookmarks_map  = {}
       @pins_map       = {}
+      @group_pins_map = {}
     else
       statuses            = statuses.compact
       status_ids          = statuses.flat_map { |s| [s.id, s.reblog_of_id, s.quote_of_id] }.uniq.compact
@@ -22,6 +22,11 @@ class StatusRelationshipsPresenter
       @mutes_map       = Status.mutes_map(conversation_ids, current_account_id).merge(options[:mutes_map] || {})
       @bookmarks_map   = Status.bookmarks_map(status_ids, current_account_id).merge(options[:bookmarks_map] || {})
       @pins_map        = Status.pins_map(pinnable_status_ids, current_account_id).merge(options[:pins_map] || {})
+      if options[:group_id]
+        @group_pins_map = Status.group_pins_map(status_ids, options[:group_id]).merge(options[:group_pins_map] || {})
+      else
+        @group_pins_map = {}
+      end
     end
   end
 end

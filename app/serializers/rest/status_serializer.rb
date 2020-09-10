@@ -11,6 +11,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attribute :muted, if: :current_user?
   attribute :bookmarked, if: :current_user?
   attribute :pinned, if: :pinnable?
+  attribute :pinned_by_group, if: :pinnable_by_group?
 
   attribute :content, unless: :source_requested?
   attribute :rich_content, unless: :source_requested?
@@ -139,6 +140,22 @@ class REST::StatusSerializer < ActiveModel::Serializer
       current_user.account_id == object.account_id &&
       !object.reblog? &&
       %w(public unlisted).include?(object.visibility)
+  end
+
+  def pinned_by_group
+    if instance_options && instance_options[:relationships]
+      instance_options[:relationships].group_pins_map[object.id] || false
+    else
+      false
+    end
+  end
+
+  def pinnable_by_group?
+    if object.group_id?
+      true
+    else
+      false
+    end
   end
 
   def source_requested?

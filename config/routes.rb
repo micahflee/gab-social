@@ -330,6 +330,7 @@ Rails.application.routes.draw do
         resources :list, only: :show
         resources :group, only: :show
         resources :group_collection, only: :show
+        resources :group_pins, only: :show
       end
 
       resources :gab_trends, only: [:index]
@@ -439,6 +440,8 @@ Rails.application.routes.draw do
         resources :relationships, only: :index, controller: 'groups/relationships'
         resource :accounts, only: [:show, :create, :update, :destroy], controller: 'groups/accounts'
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
+        resource :pin, only: :create, controller: 'groups/pins'
+        post :unpin, to: 'groups/pins#destroy'
       end
 
       resources :polls, only: [:create, :show] do

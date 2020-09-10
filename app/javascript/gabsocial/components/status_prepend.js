@@ -16,16 +16,17 @@ class StatusPrepend extends ImmutablePureComponent {
       isFeatured,
       isPromoted,
       isComment,
+      isPinnedInGroup,
     } = this.props
 
     if (!status) return null
 
     const isRepost = (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object')
 
-    if (!isFeatured && !isPromoted && !isRepost && !isComment) return null
+    if (!isFeatured && !isPinnedInGroup && !isPromoted && !isRepost && !isComment) return null
 
     let iconId
-    if (isFeatured) iconId = 'pin'
+    if (isFeatured || isPinnedInGroup) iconId = 'pin'
     else if (isPromoted) iconId = 'star'
     else if (isRepost) iconId = 'repost'
     else if (isComment) iconId = 'comment'
@@ -62,7 +63,7 @@ class StatusPrepend extends ImmutablePureComponent {
           {
             !isRepost && !isComment &&
             <Text color='secondary' size='small'>
-              {intl.formatMessage(isFeatured ? messages.pinned : messages.promoted)}
+              {intl.formatMessage(isFeatured ? messages.pinned : isPinnedInGroup ? messages.pinnedByGroup : messages.promoted)}
             </Text>
           }
           {
@@ -99,6 +100,7 @@ const messages = defineMessages({
   filtered: { id: 'status.filtered', defaultMessage: 'Filtered' },
   promoted: { id: 'status.promoted', defaultMessage: 'Promoted gab' },
   pinned: { id: 'status.pinned', defaultMessage: 'Pinned gab' },
+  pinnedByGroup: { id: 'status.pinned_by_group', defaultMessage: 'Pinned to group' },
   reposted: { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
 })
 
@@ -107,6 +109,7 @@ StatusPrepend.propTypes = {
   status: ImmutablePropTypes.map,
   isComment: PropTypes.bool,
   isFeatured: PropTypes.bool,
+  isPinnedInGroup: PropTypes.bool,
   isPromoted: PropTypes.bool,
 }
 
