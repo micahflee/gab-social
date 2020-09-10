@@ -107,7 +107,7 @@ export function StatusLikesModal() { return import(/* webpackChunkName: "modals/
 export function StatusRepostsModal() { return import(/* webpackChunkName: "modals/status_reposts_modal" */'../../../components/modal/status_reposts_modal') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
 export function StatusVisibilityPopover() { return import(/* webpackChunkName: "components/status_visibility_popover" */'../../../components/popover/status_visibility_popover') }
-// export function Suggestions() { return import(/* webpackChunkName: "features/suggestions" */'../../suggestions') }
+export function Suggestions() { return import(/* webpackChunkName: "features/suggestions" */'../../suggestions') }
 export function TermsOfSale() { return import(/* webpackChunkName: "features/about/terms_of_sale" */'../../about/terms_of_sale') }
 export function TermsOfService() { return import(/* webpackChunkName: "features/about/terms_of_service" */'../../about/terms_of_service') }
 // export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }

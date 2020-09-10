@@ -85,6 +85,7 @@ import {
   StatusFeature,
   StatusLikes,
   StatusReposts,
+  Suggestions,
   TermsOfSale,
   TermsOfService,
 } from './util/async_components'
@@ -177,6 +178,7 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={GroupCollectionTimeline} content={children} componentParams={{ title: 'Explore', collectionType: 'featured' }} />
         <WrappedRoute path='/news' publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
+        <WrappedRoute path='/suggestions' exact page={BasicPage} component={Suggestions} content={children} componentParams={{ title: 'Suggestions' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
 

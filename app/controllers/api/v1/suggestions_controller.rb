@@ -12,7 +12,8 @@ class Api::V1::SuggestionsController < Api::BaseController
     type = params[:type]
 
     if type == 'related'
-      @accounts = PotentialFriendshipTracker.get(current_account.id)
+      count = truthy_param?(:unlimited) ? 80 : 10
+      @accounts = PotentialFriendshipTracker.get(current_account.id, limit: count)
       render json: @accounts, each_serializer: REST::AccountSerializer
     elsif type == 'verified'
       @accounts = VerifiedSuggestions.get(current_account.id)

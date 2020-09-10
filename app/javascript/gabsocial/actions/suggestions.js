@@ -27,13 +27,13 @@ export function fetchPopularSuggestions() {
   }
 }
 
-export function fetchRelatedSuggestions() {
+export function fetchRelatedSuggestions(unlimited = false) {
   return (dispatch, getState) => {
     if (!me) return false
 
     dispatch(fetchSuggestionsRequest(SUGGESTION_TYPE_RELATED))
 
-    api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_RELATED}`).then(response => {
+    api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_RELATED}&unlimited=${!!unlimited}`).then(response => {
       dispatch(importFetchedAccounts(response.data))
       dispatch(fetchSuggestionsSuccess(response.data, SUGGESTION_TYPE_RELATED))
       dispatch(fetchRelationships(response.data.map(item => item.id)))
