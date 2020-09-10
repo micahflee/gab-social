@@ -1,8 +1,13 @@
+import api from '../api'
 import axios from 'axios'
 
 export const GAB_TRENDS_RESULTS_FETCH_REQUEST = 'GAB_TRENDS_RESULTS_FETCH_REQUEST'
 export const GAB_TRENDS_RESULTS_FETCH_SUCCESS = 'GAB_TRENDS_RESULTS_FETCH_SUCCESS'
 export const GAB_TRENDS_RESULTS_FETCH_FAIL = 'GAB_TRENDS_RESULTS_FETCH_FAIL'
+
+export const GAB_NEWS_RESULTS_FETCH_REQUEST = 'GAB_NEWS_RESULTS_FETCH_REQUEST'
+export const GAB_NEWS_RESULTS_FETCH_SUCCESS = 'GAB_NEWS_RESULTS_FETCH_SUCCESS'
+export const GAB_NEWS_RESULTS_FETCH_FAIL = 'GAB_NEWS_RESULTS_FETCH_FAIL'
 
 export const fetchGabTrends = (feedType) => {
   return function (dispatch, getState) {
@@ -38,5 +43,37 @@ function fetchGabTrendsFail(error, feedType) {
     type: GAB_TRENDS_RESULTS_FETCH_FAIL,
     error,
     feedType,
+  }
+}
+
+export const fetchGabNews = () => {
+  return function (dispatch) {
+    dispatch(fetchGabNewsRequest())
+
+    axios.get('https://news.gab.com/feed/json').then((response) => {
+      dispatch(fetchGabNewsSuccess(response.data))
+    }).catch(function (error) {
+      dispatch(fetchGabNewsFail(error))
+    })
+  }
+}
+
+function fetchGabNewsRequest() {
+  return {
+    type: GAB_NEWS_RESULTS_FETCH_REQUEST,
+  }
+}
+
+function fetchGabNewsSuccess(items) {
+  return {
+    type: GAB_NEWS_RESULTS_FETCH_SUCCESS,
+    items,
+  }
+}
+
+function fetchGabNewsFail(error) {
+  return {
+    type: GAB_NEWS_RESULTS_FETCH_FAIL,
+    error,
   }
 }

@@ -7,7 +7,7 @@ import contexts from './contexts'
 import conversations from './conversations'
 import custom_emojis from './custom_emojis'
 import filters from './filters'
-import gab_trends from './gab_trends'
+import gab from './gab'
 import groups from './groups'
 import group_categories from './group_categories'
 import group_editor from './group_editor'
@@ -50,7 +50,7 @@ const reducers = {
   conversations,
   custom_emojis,
   filters,
-  gab_trends,
+  gab,
   groups,
   group_categories,
   group_editor,

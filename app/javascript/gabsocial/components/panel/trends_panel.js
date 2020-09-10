@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { fetchGabTrends } from '../../actions/gab_trends'
+import { fetchGabTrends } from '../../actions/gab'
 import PanelLayout from './panel_layout'
 import ScrollableList from '../scrollable_list'
 import TrendsItem from '../trends_item'
@@ -97,9 +97,9 @@ const messages = defineMessages({
 })
 
 const mapStateToProps = (state) => ({
-  isError: state.getIn(['gab_trends', 'feed', 'isError']),
-  isLoading: state.getIn(['gab_trends', 'feed', 'isLoading']),
-  items: state.getIn(['gab_trends', 'feed', 'items']),
+  isError: state.getIn(['gab', 'feed', 'isError']),
+  isLoading: state.getIn(['gab', 'feed', 'isLoading']),
+  items: state.getIn(['gab', 'feed', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

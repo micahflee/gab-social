@@ -1,8 +1,11 @@
 import {
   GAB_TRENDS_RESULTS_FETCH_REQUEST,
   GAB_TRENDS_RESULTS_FETCH_SUCCESS,
-  GAB_TRENDS_RESULTS_FETCH_FAIL
-} from '../actions/gab_trends'
+  GAB_TRENDS_RESULTS_FETCH_FAIL,
+  GAB_NEWS_RESULTS_FETCH_REQUEST,
+  GAB_NEWS_RESULTS_FETCH_SUCCESS,
+  GAB_NEWS_RESULTS_FETCH_FAIL,
+} from '../actions/gab'
 import {
   Map as ImmutableMap,
   List as ImmutableList,
@@ -16,6 +19,11 @@ const initialState = ImmutableMap({
     isError: false,
   }),
   partner: ImmutableMap({
+    items: {},
+    isLoading: false,
+    isError: false,
+  }),
+  news: ImmutableMap({
     items: {},
     isLoading: false,
     isError: false,
@@ -56,6 +64,12 @@ export default function (state = initialState, action) {
       return state
     case GAB_TRENDS_RESULTS_FETCH_FAIL:
       return setListFailed(state, action.feedType)
+    case GAB_NEWS_RESULTS_FETCH_REQUEST:
+      return state.setIn(['news', 'isLoading'], true);
+    case GAB_NEWS_RESULTS_FETCH_SUCCESS:
+      return normalizeList(state, 'news', action.items)
+    case GAB_NEWS_RESULTS_FETCH_FAIL:
+      return setListFailed(state, 'news')
     default:
       return state
   }
