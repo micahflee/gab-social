@@ -162,7 +162,9 @@ export default function userLists(state = initialState, action) {
     return appendToList(state, 'groups', action.id, action.accounts, action.next);
   
   case GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS:
+    return normalizeList(state, 'group_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS:
+    return appendToList(state, 'group_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS:
     return state.updateIn(['group_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
   
