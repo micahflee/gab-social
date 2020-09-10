@@ -48,6 +48,10 @@ class GroupsPage extends React.PureComponent {
         title: intl.formatMessage(messages.new),
         to: '/groups/browse/new',
       },
+      {
+        title: intl.formatMessage(messages.categories),
+        to: '/groups/browse/categories',
+      },
     ] : []
 
     if (isPro) {
@@ -102,6 +106,7 @@ const messages = defineMessages({
   featured: { id: 'featured', defaultMessage: 'Featured Groups' },
   myGroupsTimeline: { id: 'my_groups_timeline', defaultMessage: 'Timeline' },
   myGroups: { id: 'my_groups', defaultMessage: 'My Groups' },
+  categories: { id: 'categories', defaultMessage: 'Categories' },
   admin: { id: 'admin', defaultMessage: 'Admin' },
 })
 

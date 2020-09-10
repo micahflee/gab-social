@@ -68,6 +68,7 @@ import {
   GroupMembers,
   GroupRemovedAccounts,
   GroupTimeline,
+  GroupsCategories,
   HashtagTimeline,
   HomeTimeline,
   Investors,
@@ -191,6 +192,7 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/groups/browse/featured' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'featured' }} />
         <WrappedRoute path='/groups/browse/member' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'member' }} />
         <WrappedRoute path='/groups/browse/admin' exact page={GroupsPage} component={GroupsCollection} content={children} componentParams={{ activeTab: 'admin' }} />
+        <WrappedRoute path='/groups/browse/categories' exact page={GroupsPage} component={GroupsCategories} content={children} componentParams={{ activeTab: 'categories' }} />
 
         <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group', page: 'create-group' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
