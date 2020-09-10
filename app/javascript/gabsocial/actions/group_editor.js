@@ -62,7 +62,7 @@ const create = (options, routerHistory) => (dispatch, getState) => {
 	formData.append('title', options.title)
 	formData.append('description', options.description)
 	formData.append('tags', options.tags)
-	formData.append('group_categories_id', options.category)
+	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
 
@@ -105,7 +105,7 @@ const update = (groupId, options, routerHistory) => (dispatch, getState) => {
 	formData.append('title', options.title)
 	formData.append('description', options.description)
 	formData.append('tags', options.tags)
-	formData.append('group_categories_id', options.category)
+	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
 	formData.append('slug', options.slug)

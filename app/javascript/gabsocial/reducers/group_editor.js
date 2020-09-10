@@ -53,7 +53,7 @@ export default function groupEditorReducer(state = initialState, action) {
       map.set('isPrivate', action.group.get('is_private'))
       map.set('isVisible', action.group.get('is_visible'))
       map.set('id', action.group.get('slug'))
-      map.set('category', action.group.get('category'))
+      map.set('category', action.group.getIn(['group_category', 'id'], null))
       map.set('isSubmitting', false)
     })
   case GROUP_EDITOR_TITLE_CHANGE:

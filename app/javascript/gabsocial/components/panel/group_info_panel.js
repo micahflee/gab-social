@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import moment from 'moment-mini'
 import { shortNumberFormat } from '../../utils/numbers'
+import slugify from '../../utils/slugify'
 import PanelLayout from './panel_layout'
 import Button from '../button'
 import Divider from '../divider'
@@ -39,6 +41,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
     const isPrivate = !!group ? group.get('is_private') : false
     const isVisible = !!group ? group.get('is_visible') : false
     const tags = !!group ? group.get('tags') : []
+    const groupCategory = !!group ? group.getIn(['group_category', 'text'], null) : null
     const descriptionHTML = !!group ? { __html: group.get('description_html') } : {}
 
     if (noPanel) {
@@ -143,11 +146,26 @@ class GroupInfoPanel extends ImmutablePureComponent {
               </Button>
             </GroupInfoPanelRow>
 
-            <Divider isSmall />
+            {
+              !!groupCategory &&
+              <React.Fragment>
+                <Divider isSmall />
 
-            <GroupInfoPanelRow title={intl.formatMessage(messages.category)} icon='apps'>
-              <Text>General</Text>
-            </GroupInfoPanelRow>
+                <GroupInfoPanelRow title={intl.formatMessage(messages.category)} icon='apps'>
+                  <Button
+                    isText
+                    color='brand'
+                    backgroundColor='none'
+                    className={_s.mlAuto}
+                    to={`/groups/browse/categories/${slugify(groupCategory)}`}
+                  >
+                    <Text color='inherit' weight='medium' size='normal' className={_s.underline_onHover}>
+                      {groupCategory}
+                    </Text>
+                  </Button>
+                </GroupInfoPanelRow>
+              </React.Fragment>
+            }
 
             <Divider isSmall />
 

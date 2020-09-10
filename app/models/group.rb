@@ -20,11 +20,13 @@
 #  is_private               :boolean          default(FALSE)
 #  is_visible               :boolean          default(FALSE)
 #  tags                     :string           default([]), is an Array
-#  group_categories_id      :bigint(8)
 #  password                 :string
+#  group_category_id        :integer
 #
 
 class Group < ApplicationRecord
+  self.ignored_columns = ["group_categories_id"]
+
   include Paginable
   include GroupInteractions
   include GroupCoverImage
@@ -44,6 +46,8 @@ class Group < ApplicationRecord
 
   has_many :group_removed_accounts, inverse_of: :group, dependent: :destroy
   has_many :removed_accounts, source: :account, through: :group_removed_accounts
+
+  belongs_to :group_categories, optional: true, foreign_key: 'group_category_id'
 
   validates :title, presence: true
   validates :description, presence: true

@@ -134,7 +134,7 @@ class GroupCreate extends ImmutablePureComponent {
 
 		const memberCount = group ? group.get('member_count') : 0
 		const hasGroupSlug = group ? !!group.get('slug') : false
-		let categoriesOptions = []
+		let categoriesOptions = [{'title':'',value:''}]
 		if (categories) {
 			for (let i = 0; i < categories.count(); i++) {
 				const c = categories.get(i)

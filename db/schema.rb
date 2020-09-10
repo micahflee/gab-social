@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_01_165533) do
+ActiveRecord::Schema.define(version: 2020_09_08_210104) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -391,10 +391,9 @@ ActiveRecord::Schema.define(version: 2020_09_01_165533) do
     t.boolean "is_private", default: false
     t.boolean "is_visible", default: false
     t.string "tags", default: [], array: true
-    t.bigint "group_categories_id"
     t.string "password"
+    t.integer "group_category_id"
     t.index ["account_id"], name: "index_groups_on_account_id"
-    t.index ["group_categories_id"], name: "index_groups_on_group_categories_id"
     t.index ["slug"], name: "index_groups_on_slug", unique: true
   end
 
@@ -959,6 +958,7 @@ ActiveRecord::Schema.define(version: 2020_09_01_165533) do
   add_foreign_key "group_pinned_statuses", "statuses", on_delete: :cascade
   add_foreign_key "group_removed_accounts", "accounts", on_delete: :cascade
   add_foreign_key "group_removed_accounts", "groups", on_delete: :cascade
+  add_foreign_key "groups", "group_categories", on_delete: :nullify
   add_foreign_key "identities", "users", name: "fk_bea040f377", on_delete: :cascade
   add_foreign_key "imports", "accounts", name: "fk_6db1b6e408", on_delete: :cascade
   add_foreign_key "invites", "users", on_delete: :cascade
