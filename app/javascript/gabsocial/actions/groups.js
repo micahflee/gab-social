@@ -396,8 +396,8 @@ export function expandRemovedAccounts(id) {
   return (dispatch, getState) => {
     if (!me) return;
 
-    const url = getState().getIn(['user_lists', 'groups_removed_accounts', id, 'next']);
-    const isLoading = getState().getIn(['user_lists', 'groups_removed_accounts', id, 'isLoading'])
+    const url = getState().getIn(['user_lists', 'group_removed_accounts', id, 'next']);
+    const isLoading = getState().getIn(['user_lists', 'group_removed_accounts', id, 'isLoading'])
 
     if (url === null || isLoading) return
 

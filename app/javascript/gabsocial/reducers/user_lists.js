@@ -59,7 +59,7 @@ const initialState = ImmutableMap({
   blocks: ImmutableMap(),
   mutes: ImmutableMap(),
   groups: ImmutableMap(),
-  groups_removed_accounts: ImmutableMap(),
+  group_removed_accounts: ImmutableMap(),
 });
 
 const setListFailed = (state, type, id) => {
@@ -162,11 +162,9 @@ export default function userLists(state = initialState, action) {
     return appendToList(state, 'groups', action.id, action.accounts, action.next);
   
   case GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS:
-    return normalizeList(state, 'groups_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS:
-    return appendToList(state, 'groups_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS:
-    return state.updateIn(['groups_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
+    return state.updateIn(['group_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
   
   default:
     return state;

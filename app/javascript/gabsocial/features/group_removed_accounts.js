@@ -85,8 +85,8 @@ const mapStateToProps = (state, { params }) => {
 	return {
 		group,
 		groupId,
-		accountIds: state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'items']),
-		hasMore: !!state.getIn(['user_lists', 'groups_removed_accounts', groupId, 'next']),
+		accountIds: state.getIn(['user_lists', 'group_removed_accounts', groupId, 'items']),
+		hasMore: !!state.getIn(['user_lists', 'group_removed_accounts', groupId, 'next']),
 	}
 }
 
