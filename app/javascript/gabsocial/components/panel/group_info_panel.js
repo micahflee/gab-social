@@ -107,6 +107,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                 backgroundColor='secondary'
                 color='secondary'
                 className={[_s.px5, _s.py2].join(' ')}
+                tooltip={isPrivate ? 'Only members can see group posts' : 'Anyone on or off Gab can view group posts'}
               >
                 <Text size='small' color='inherit' className={_s.px5}>?</Text>
               </Button>
@@ -123,6 +124,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
                 backgroundColor='secondary'
                 color='secondary'
                 className={[_s.px5, _s.py2].join(' ')}
+                tooltip={isVisible ? 'Anyone can find this group in search and other places on gab' : 'The group admin made this group invisible in search and other places on Gab'}
               >
                 <Text size='small' color='inherit' className={_s.px5}>?</Text>
               </Button>
