@@ -37,7 +37,7 @@ export function GroupCreate() { return import(/* webpackChunkName: "features/gro
 export function GroupCreateModal() { return import(/* webpackChunkName: "components/group_create_modal" */'../../../components/modal/group_create_modal') }
 export function GroupDeleteModal() { return import(/* webpackChunkName: "components/group_delete_modal" */'../../../components/modal/group_delete_modal') }
 export function GroupInfoPanel() { return import(/* webpackChunkName: "components/group_info_panel" */'../../../components/panel/group_info_panel') }
-// export function GroupJoinRequests() { return import(/* webpackChunkName: "features/group_join_requests" */'../../group_join_requests') }
+export function GroupJoinRequests() { return import(/* webpackChunkName: "features/group_join_requests" */'../../group_join_requests') }
 export function GroupListSortOptionsPopover() { return import(/* webpackChunkName: "components/group_list_sort_options_popover" */'../../../components/popover/group_list_sort_options_popover') }
 export function GroupMemberOptionsPopover() { return import(/* webpackChunkName: "components/group_member_options_popover" */'../../../components/popover/group_member_options_popover') }
 export function GroupMembers() { return import(/* webpackChunkName: "features/group_members" */'../../group_members') }

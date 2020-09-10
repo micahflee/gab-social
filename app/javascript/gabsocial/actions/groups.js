@@ -55,6 +55,20 @@ export const GROUP_REMOVED_ACCOUNTS_CREATE_REQUEST = 'GROUP_REMOVED_ACCOUNTS_CRE
 export const GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS';
 export const GROUP_REMOVED_ACCOUNTS_CREATE_FAIL    = 'GROUP_REMOVED_ACCOUNTS_CREATE_FAIL';
 
+export const GROUP_JOIN_REQUESTS_FETCH_REQUEST = 'GROUP_JOIN_REQUESTS_FETCH_REQUEST'
+export const GROUP_JOIN_REQUESTS_FETCH_SUCCESS = 'GROUP_JOIN_REQUESTS_FETCH_SUCCESS'
+export const GROUP_JOIN_REQUESTS_FETCH_FAIL = 'GROUP_JOIN_REQUESTS_FETCH_FAIL'
+
+export const GROUP_JOIN_REQUESTS_EXPAND_REQUEST = 'GROUP_JOIN_REQUESTS_EXPAND_REQUEST'
+export const GROUP_JOIN_REQUESTS_EXPAND_SUCCESS = 'GROUP_JOIN_REQUESTS_EXPAND_SUCCESS'
+export const GROUP_JOIN_REQUESTS_EXPAND_FAIL = 'GROUP_JOIN_REQUESTS_EXPAND_FAIL'
+
+export const GROUP_JOIN_REQUESTS_APPROVE_SUCCESS = 'GROUP_JOIN_REQUESTS_APPROVE_SUCCESS'
+export const GROUP_JOIN_REQUESTS_APPROVE_FAIL = 'GROUP_JOIN_REQUESTS_APPROVE_FAIL'
+
+export const GROUP_JOIN_REQUESTS_REJECT_SUCCESS = 'GROUP_JOIN_REQUESTS_REJECT_SUCCESS'
+export const GROUP_JOIN_REQUESTS_REJECT_FAIL = 'GROUP_JOIN_REQUESTS_REJECT_FAIL'
+
 export const GROUP_REMOVE_STATUS_REQUEST = 'GROUP_REMOVE_STATUS_REQUEST';
 export const GROUP_REMOVE_STATUS_SUCCESS = 'GROUP_REMOVE_STATUS_SUCCESS';
 export const GROUP_REMOVE_STATUS_FAIL    = 'GROUP_REMOVE_STATUS_FAIL';
@@ -595,6 +609,149 @@ export function updateRoleFail(groupId, id, error) {
   };
 };
 
+
+export function fetchJoinRequests(id) {
+  return (dispatch, getState) => {
+    if (!me) return
+
+    dispatch(fetchJoinRequestsRequest(id))
+
+    api(getState).get(`/api/v1/groups/${id}/join_requests`).then((response) => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next')
+
+      dispatch(importFetchedAccounts(response.data))
+      dispatch(fetchJoinRequestsSuccess(id, response.data, next ? next.uri : null))
+      dispatch(fetchRelationships(response.data.map(item => item.id)))
+    }).catch((error) => {
+      dispatch(fetchJoinRequestsFail(id, error))
+    })
+  }
+}
+
+export function fetchJoinRequestsRequest(id) {
+  return {
+    type: GROUP_JOIN_REQUESTS_FETCH_REQUEST,
+    id,
+  }
+}
+
+export function fetchJoinRequestsSuccess(id, accounts, next) {
+  return {
+    type: GROUP_JOIN_REQUESTS_FETCH_SUCCESS,
+    id,
+    accounts,
+    next,
+  }
+}
+
+export function fetchJoinRequestsFail(id, error) {
+  return {
+    type: GROUP_JOIN_REQUESTS_FETCH_FAIL,
+    id,
+    error,
+  }
+}
+
+export function expandJoinRequests(id) {
+  return (dispatch, getState) => {
+    if (!me) return
+
+    const url = getState().getIn(['user_lists', 'group_join_requests', id, 'next'])
+    const isLoading = getState().getIn(['user_lists', 'group_join_requests', id, 'isLoading'])
+
+    if (url === null || isLoading) return
+
+    dispatch(expandJoinRequestsRequest(id))
+
+    api(getState).get(url).then(response => {
+      const next = getLinks(response).refs.find(link => link.rel === 'next')
+
+      dispatch(importFetchedAccounts(response.data))
+      dispatch(expandJoinRequestsSuccess(id, response.data, next ? next.uri : null))
+      dispatch(fetchRelationships(response.data.map(item => item.id)))
+    }).catch(error => {
+      dispatch(expandJoinRequestsFail(id, error))
+    })
+  }
+}
+
+export function expandJoinRequestsRequest(id) {
+  return {
+    type: GROUP_JOIN_REQUESTS_EXPAND_REQUEST,
+    id,
+  }
+}
+
+export function expandJoinRequestsSuccess(id, accounts, next) {
+  return {
+    type: GROUP_JOIN_REQUESTS_EXPAND_SUCCESS,
+    id,
+    accounts,
+    next,
+  }
+}
+
+export function expandJoinRequestsFail(id, error) {
+  return {
+    type: GROUP_JOIN_REQUESTS_EXPAND_FAIL,
+    id,
+    error,
+  }
+}
+
+export const approveJoinRequest = (accountId, groupId) => (dispatch, getState) => {
+  if (!me) return
+
+  api(getState).post(`/api/v1/groups/${groupId}/join_requests/approve`, { accountId }).then((response) => {
+    dispatch(approveJoinRequestSuccess(accountId, groupId))
+  }).catch((error) => {
+    dispatch(approveJoinRequestFail(accountId, groupId, error))
+  })
+}
+
+export function approveJoinRequestSuccess(accountId, groupId) {
+  return {
+    type: GROUP_JOIN_REQUESTS_APPROVE_SUCCESS,
+    accountId,
+    groupId,
+  }
+}
+
+export function approveJoinRequestFail(accountId, groupId, error) {
+  return {
+    type: GROUP_JOIN_REQUESTS_APPROVE_FAIL,
+    accountId,
+    groupId,
+    error,
+  }
+}
+
+export const rejectJoinRequest = (accountId, groupId) => (dispatch, getState) => {
+  if (!me) return
+
+  api(getState).delete(`/api/v1/groups/${groupId}/join_requests/reject`, { accountId }).then((response) => {
+    dispatch(rejectJoinRequestSuccess(accountId, groupId))
+  }).catch((error) => {
+    dispatch(rejectJoinRequestFail(accountId, groupId, error))
+  })
+}
+
+export function rejectJoinRequestSuccess(accountId, groupId) {
+  return {
+    type: GROUP_JOIN_REQUESTS_REJECT_SUCCESS,
+    accountId,
+    groupId,
+  }
+}
+
+export function rejectJoinRequestFail(accountId, groupId, error) {
+  return {
+    type: GROUP_JOIN_REQUESTS_REJECT_FAIL,
+    accountId,
+    groupId,
+    error,
+  }
+}
 
 export function pinGroupStatus(groupId, statusId) {
   return (dispatch, getState) => {

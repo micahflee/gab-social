@@ -8,6 +8,8 @@ import { fetchGroup } from '../actions/groups'
 import PageTitle from '../features/ui/util/page_title'
 import GroupLayout from '../layouts/group_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
+import Block from '../components/block'
+import ColumnIndicator from '../components/column_indicator'
 import Divider from '../components/divider'
 
 class GroupPage extends ImmutablePureComponent {
@@ -27,6 +29,11 @@ class GroupPage extends ImmutablePureComponent {
 
 		const groupTitle = !!group ? group.get('title') : ''
 		const groupId = !!group ? group.get('id') : undefined
+		
+		const isPrivate = !!group ? group.get('is_private') : false
+		const isMember = !!relationships ? relationships.get('member') : false
+		const unavailable = isPrivate && !isMember
+
 
 		return (
 			<GroupLayout
@@ -36,16 +43,25 @@ class GroupPage extends ImmutablePureComponent {
 				relationships={relationships}
 			>
 				<PageTitle path={[groupTitle, intl.formatMessage(messages.group)]} />
-
+				
 				{
-					!!relationships && isTimeline && relationships.get('member') &&
+					!!relationships && isTimeline && isMember &&
 					<React.Fragment>
 						<TimelineComposeBlock size={46} groupId={groupId} autoFocus />
 						<Divider />
 					</React.Fragment>
 				}
 
-				{children}
+				{
+					unavailable &&
+					<Block>
+						<ColumnIndicator type='error' message={intl.formatMessage(messages.groupPrivate)} />
+					</Block>
+				}
+
+				{
+					!unavailable && children
+				}
 			</GroupLayout>
 		)
 	}
@@ -53,6 +69,7 @@ class GroupPage extends ImmutablePureComponent {
 
 const messages = defineMessages({
 	group: { id: 'group', defaultMessage: 'Group' },
+	groupPrivate: { id: 'group_private', defaultMessage: 'This group is private. You must request to join in order to view this group.' },
 })
 
 const mapStateToProps = (state, { params: { id } }) => ({

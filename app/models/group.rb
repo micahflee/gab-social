@@ -35,6 +35,9 @@ class Group < ApplicationRecord
 
   has_many :group_accounts, inverse_of: :group, dependent: :destroy
   has_many :accounts, through: :group_accounts
+  
+  has_many :group_join_requests, inverse_of: :group, dependent: :destroy
+  has_many :join_requests, source: :account, through: :group_join_requests
 
   has_many :group_pinned_statuses, inverse_of: :group, dependent: :destroy
   has_many :pinned_statuses, source: :status, through: :group_pinned_statuses

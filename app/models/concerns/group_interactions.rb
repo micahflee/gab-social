@@ -17,6 +17,10 @@ module GroupInteractions
       follow_mapping(GroupAccount.where(group_id: target_group_ids, account_id: account_id, role: :moderator), :group_id)
     end
 
+    def requested_map(target_group_ids, account_id)
+      follow_mapping(GroupJoinRequest.where(group_id: target_group_ids, account_id: account_id), :group_id)
+    end
+
     def pinned?(status)
       group_pinned_statuses.where(group_id: status.group_id, status: status).exists?
     end

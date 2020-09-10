@@ -64,6 +64,7 @@ import {
   GroupCollectionTimeline,
   GroupCreate,
   GroupAbout,
+  GroupJoinRequests,
   GroupMembers,
   GroupRemovedAccounts,
   GroupTimeline,
@@ -193,6 +194,7 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/groups/create' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Create Group', page: 'create-group' }} />
         <WrappedRoute path='/groups/:id/members' page={GroupPage} component={GroupMembers} content={children} />
+        <WrappedRoute path='/groups/:id/requests' page={GroupPage} component={GroupJoinRequests} content={children} />
         <WrappedRoute path='/groups/:id/removed-accounts' page={GroupPage} component={GroupRemovedAccounts} content={children} />
         <WrappedRoute path='/groups/:id/edit' page={ModalPage} component={GroupCreate} content={children} componentParams={{ title: 'Edit Group', page: 'edit-group' }} />
         <WrappedRoute path='/groups/:id/about' publicRoute page={GroupPage} component={GroupAbout} content={children} />

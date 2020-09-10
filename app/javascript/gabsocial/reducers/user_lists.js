@@ -48,6 +48,10 @@ import {
   GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS,
   GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS,
   GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS,
+  GROUP_JOIN_REQUESTS_FETCH_SUCCESS,
+  GROUP_JOIN_REQUESTS_EXPAND_SUCCESS,
+  GROUP_JOIN_REQUESTS_APPROVE_SUCCESS,
+  GROUP_JOIN_REQUESTS_REJECT_SUCCESS,
 } from '../actions/groups'
 
 const initialState = ImmutableMap({
@@ -60,6 +64,7 @@ const initialState = ImmutableMap({
   mutes: ImmutableMap(),
   groups: ImmutableMap(),
   group_removed_accounts: ImmutableMap(),
+  group_join_requests: ImmutableMap(),
 });
 
 const setListFailed = (state, type, id) => {
@@ -167,6 +172,14 @@ export default function userLists(state = initialState, action) {
     return appendToList(state, 'group_removed_accounts', action.id, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS:
     return state.updateIn(['group_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
+  
+  case GROUP_JOIN_REQUESTS_FETCH_SUCCESS:
+    return normalizeList(state, 'group_join_requests', action.id, action.accounts, action.next);
+  case GROUP_JOIN_REQUESTS_EXPAND_SUCCESS:
+    return appendToList(state, 'group_join_requests', action.id, action.accounts, action.next);
+  case GROUP_JOIN_REQUESTS_APPROVE_SUCCESS:
+  case GROUP_JOIN_REQUESTS_REJECT_SUCCESS:
+    return state.updateIn(['group_join_requests', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
   
   default:
     return state;
