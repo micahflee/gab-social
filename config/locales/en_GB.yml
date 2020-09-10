@@ -1,7 +1,7 @@
 ---
 en_GB:
   about:
-    about_hashtag_html: These are public toots tagged with <strong>#%{hashtag}</strong>. You can interact with them if you have an account anywhere in the fediverse.
+    about_hashtag_html: These are public gabs tagged with <strong>#%{hashtag}</strong>. You can interact with them if you have an account anywhere in the fediverse.
     about_gabsocial_html: Gab Social is a social network based on open web protocols and free, open-source software. It is decentralized like e-mail.
     about_this: About
     active_count_after: active
@@ -59,10 +59,10 @@ en_GB:
     pin_errors:
       following: You must be already following the person you want to endorse
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots and replies
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs and replies
     reserved_username: The username is reserved
     roles:
       admin: Admin
@@ -332,11 +332,11 @@ en_GB:
     relays:
       add_new: Add new relay
       delete: Delete
-      description_html: A <strong>federation relay</strong> is an intermediary server that exchanges large volumes of public toots between servers that subscribe and publish to it. <strong>It can help small and medium servers discover content from the fediverse</strong>, which would otherwise require local users manually following other people on remote servers.
+      description_html: A <strong>federation relay</strong> is an intermediary server that exchanges large volumes of public gabs between servers that subscribe and publish to it. <strong>It can help small and medium servers discover content from the fediverse</strong>, which would otherwise require local users manually following other people on remote servers.
       disable: Disable
       disabled: Disabled
       enable: Enable
-      enable_hint: Once enabled, your server will subscribe to all public toots from this relay, and will begin sending this server's public toots to it.
+      enable_hint: Once enabled, your server will subscribe to all public gabs from this relay, and will begin sending this server's public gabs to it.
       enabled: Enabled
       inbox_url: Relay URL
       pending: Waiting for relay's approval
@@ -419,7 +419,7 @@ en_GB:
           open: Anyone can sign up
         title: Registrations mode
       show_known_fediverse_at_about_page:
-        desc_html: When toggled, it will show toots from all the known fediverse on preview. Otherwise it will only show local toots.
+        desc_html: When toggled, it will show gabs from all the known fediverse on preview. Otherwise it will only show local gabs.
         title: Show known fediverse on timeline preview
       show_staff_badge:
         desc_html: Show a staff badge on a user page
@@ -586,7 +586,7 @@ en_GB:
     archive_takeout:
       date: Date
       download: Download your archive
-      hint_html: You can request an archive of your <strong>toots and uploaded media</strong>. The exported data will be in the ActivityPub format, readable by any compliant software. You can request an archive every 7 days.
+      hint_html: You can request an archive of your <strong>gabs and uploaded media</strong>. The exported data will be in the ActivityPub format, readable by any compliant software. You can request an archive every 7 days.
       in_progress: Compiling your archive...
       request: Request your archive
       size: Size
@@ -777,20 +777,20 @@ en_GB:
   remote_interaction:
     favourite:
       proceed: Proceed to favourite
-      prompt: 'You want to favourite this toot:'
+      prompt: 'You want to favourite this gab:'
     reblog:
       proceed: Proceed to repost
-      prompt: 'You want to repost this toot:'
+      prompt: 'You want to repost this gab:'
     reply:
       proceed: Proceed to reply
-      prompt: 'You want to reply to this toot:'
+      prompt: 'You want to reply to this gab:'
   remote_unfollow:
     error: Error
     title: Title
     unfollowed: Unfollowed
   scheduled_statuses:
-    over_daily_limit: You have exceeded the limit of %{limit} scheduled toots for that day
-    over_total_limit: You have exceeded the limit of %{limit} scheduled toots
+    over_daily_limit: You have exceeded the limit of %{limit} scheduled gabs for that day
+    over_total_limit: You have exceeded the limit of %{limit} scheduled gabs
     too_soon: The scheduled date must be in the future
   shortcuts:
     errors:
@@ -869,9 +869,9 @@ en_GB:
     open_in_web: Open in web
     over_character_limit: character limit of %{max} exceeded
     pin_errors:
-      limit: You have already pinned the maximum number of toots
-      ownership: Someone else's toot cannot be pinned
-      private: Non-public toot cannot be pinned
+      limit: You have already pinned the maximum number of gabs
+      ownership: Someone else's gab cannot be pinned
+      private: Non-public gab cannot be pinned
       reblog: A repost cannot be pinned
     group_pin_errors:
       limit: You have already pinned the maximum number of gabs for groups
@@ -894,7 +894,7 @@ en_GB:
       unlisted: Unlisted
       unlisted_long: Everyone can see, but not listed on public timelines
   stream_entries:
-    pinned: Pinned toot
+    pinned: Pinned gab
     reblogged: reposted
     sensitive_content: Sensitive content
   terms:
@@ -1015,8 +1015,8 @@ en_GB:
     warning:
       explanation:
         disable: While your account is frozen, your account data remains intact, but you cannot perform any actions until it is unlocked.
-        silence: While your account is limited, only people who are already following you will see your toots on this server, and you may be excluded from various public listings. However, others may still manually follow you.
-        suspend: Your account has been suspended, and all of your toots and your uploaded media files have been irreversibly removed from this server, and servers where you had followers.
+        silence: While your account is limited, only people who are already following you will see your gabs on this server, and you may be excluded from various public listings. However, others may still manually follow you.
+        suspend: Your account has been suspended, and all of your gabs and your uploaded media files have been irreversibly removed from this server, and servers where you had followers.
       review_server_policies: Review server policies
       subject:
         disable: Your account %{acct} has been frozen
