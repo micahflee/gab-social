@@ -2,7 +2,7 @@ export function About() { return import(/* webpackChunkName: "features/about/abo
 export function AboutSidebar() { return import(/* webpackChunkName: "components/about_sidebar" */'../../../components/sidebar/about_sidebar') }
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
 export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
-// export function Assets() { return import(/* webpackChunkName: "features/about/assets" */'../../about/assets') }
+export function Assets() { return import(/* webpackChunkName: "features/about/assets" */'../../about/assets') }
 export function BlockAccountModal() { return import(/* webpackChunkName: "components/block_account_modal" */'../../../components/modal/block_account_modal') }
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
@@ -77,7 +77,7 @@ export function NavSettingsPopover() { return import(/* webpackChunkName: "modal
 export function News() { return import(/* webpackChunkName: "features/news" */'../../news') }
 export function Notifications() { return import(/* webpackChunkName: "features/notifications" */'../../notifications') }
 export function NotificationFilterPanel() { return import(/* webpackChunkName: "components/notification_filter_panel" */'../../../components/panel/notification_filter_panel') }
-// export function Press() { return import(/* webpackChunkName: "features/about/press" */'../../about/press') }
+export function Press() { return import(/* webpackChunkName: "features/about/press" */'../../about/press') }
 export function PrivacyPolicy() { return import(/* webpackChunkName: "features/about/privacy_policy" */'../../about/privacy_policy') }
 export function ProTimeline() { return import(/* webpackChunkName: "features/pro_timeline" */'../../pro_timeline') }
 export function ProfileOptionsPopover() { return import(/* webpackChunkName: "components/profile_options_popover" */'../../../components/popover/profile_options_popover') }

@@ -49,6 +49,7 @@ import {
   About,
   AccountGallery,
   AccountTimeline,
+  Assets,
   BlockedAccounts,
   BlockedDomains,
   BookmarkedStatuses,
@@ -80,6 +81,7 @@ import {
   Mutes,
   News,
   Notifications,
+  Press,
   PrivacyPolicy,
   ProTimeline,
   Search,
@@ -172,8 +174,10 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
 
         <WrappedRoute path='/about' publicRoute exact page={AboutPage} component={About} content={children} componentParams={{ title: 'About' }} />
+        <WrappedRoute path='/about/assets' publicRoute exact page={AboutPage} component={Assets} content={children} componentParams={{ title: 'Assets' }} />
         <WrappedRoute path='/about/dmca' publicRoute exact page={AboutPage} component={DMCA} content={children} componentParams={{ title: 'DMCA' }} />
         <WrappedRoute path='/about/investors' publicRoute exact page={AboutPage} component={Investors} content={children} componentParams={{ title: 'Investors' }} />
+        <WrappedRoute path='/about/press' publicRoute exact page={AboutPage} component={Press} content={children} componentParams={{ title: 'Press' }} />
         <WrappedRoute path='/about/privacy' publicRoute exact page={AboutPage} component={PrivacyPolicy} content={children} componentParams={{ title: 'Privacy Policy' }} />
         <WrappedRoute path='/about/sales' publicRoute exact page={AboutPage} component={TermsOfSale} content={children} componentParams={{ title: 'Terms of Sale' }} />
         <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
