@@ -9,6 +9,7 @@ import {
   GROUP_EDITOR_RESET,
   GROUP_EDITOR_SETUP,
   GROUP_EDITOR_TITLE_CHANGE,
+  GROUP_EDITOR_PASSWORD_CHANGE,
   GROUP_EDITOR_DESCRIPTION_CHANGE,
   GROUP_EDITOR_COVER_IMAGE_CHANGE,
   GROUP_EDITOR_ID_CHANGE,
@@ -24,6 +25,7 @@ const initialState = ImmutableMap({
   isSubmitting: false,
   isChanged: false,
   title: '',
+  password: '',
   description: '',
   id: '',
   tags: '',
@@ -48,6 +50,7 @@ export default function groupEditorReducer(state = initialState, action) {
     return state.withMutations((map) => {
       map.set('groupId', action.group.get('id'))
       map.set('title', action.group.get('title'))
+      map.set('password', action.group.get('password'))
       map.set('description', action.group.get('description'))
       map.set('tags', tags)
       map.set('isPrivate', action.group.get('is_private'))
@@ -64,6 +67,11 @@ export default function groupEditorReducer(state = initialState, action) {
   case GROUP_EDITOR_DESCRIPTION_CHANGE:
     return state.withMutations((map) => {
       map.set('description', action.description)
+      map.set('isChanged', true)
+    })
+  case GROUP_EDITOR_PASSWORD_CHANGE:
+    return state.withMutations((map) => {
+      map.set('password', action.password)
       map.set('isChanged', true)
     })
   case GROUP_EDITOR_COVER_IMAGE_CHANGE:

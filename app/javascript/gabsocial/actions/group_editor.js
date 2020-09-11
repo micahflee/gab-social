@@ -10,6 +10,7 @@ export const GROUP_UPDATE_SUCCESS = 'GROUP_UPDATE_SUCCESS'
 export const GROUP_UPDATE_FAIL = 'GROUP_UPDATE_FAIL'
 
 export const GROUP_EDITOR_TITLE_CHANGE = 'GROUP_EDITOR_TITLE_CHANGE'
+export const GROUP_EDITOR_PASSWORD_CHANGE = 'GROUP_EDITOR_PASSWORD_CHANGE'
 export const GROUP_EDITOR_DESCRIPTION_CHANGE = 'GROUP_EDITOR_DESCRIPTION_CHANGE'
 export const GROUP_EDITOR_COVER_IMAGE_CHANGE = 'GROUP_EDITOR_COVER_IMAGE_CHANGE'
 export const GROUP_EDITOR_ID_CHANGE = 'GROUP_EDITOR_ID_CHANGE'
@@ -33,10 +34,12 @@ export const submit = (routerHistory) => (dispatch, getState) => {
 	const category = getState().getIn(['group_editor', 'category'])
 	const isPrivate = getState().getIn(['group_editor', 'isPrivate'])
 	const isVisible = getState().getIn(['group_editor', 'isVisible'])
-	const slug = getState().getIn(['group_editor', 'id'])
+	const slug = getState().getIn(['group_editor', 'id'], null)
+	const password = getState().getIn(['group_editor', 'password'], null)
 
 	const options = {
 		title,
+		password,
 		description,
 		coverImage,
 		tags,
@@ -65,6 +68,7 @@ const create = (options, routerHistory) => (dispatch, getState) => {
 	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
+	formData.append('password', options.password)
 
 	if (options.coverImage !== null) {
 		formData.append('cover_image', options.coverImage)
@@ -108,8 +112,11 @@ const update = (groupId, options, routerHistory) => (dispatch, getState) => {
 	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
-	formData.append('slug', options.slug)
+	formData.append('password', options.password)
 
+	if (!!options.slug) {
+		formData.append('slug', options.slug)
+	}
 	if (options.coverImage !== null) {
 		formData.append('cover_image', options.coverImage)
 	}
@@ -151,6 +158,11 @@ export const setGroup = (group) => ({
 export const changeGroupTitle = (title) => ({
 	type: GROUP_EDITOR_TITLE_CHANGE,
 	title,
+})
+
+export const changeGroupPassword = (password) => ({
+	type: GROUP_EDITOR_PASSWORD_CHANGE,
+	password,
 })
 
 export const changeGroupDescription = (description) => ({

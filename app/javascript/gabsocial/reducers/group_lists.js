@@ -6,6 +6,10 @@ import {
   GROUP_SORT,
   GROUP_TIMELINE_SORT,
   GROUP_TIMELINE_TOP_SORT,
+  GROUP_CHECK_PASSWORD_RESET,
+  GROUP_CHECK_PASSWORD_REQUEST,
+  GROUP_CHECK_PASSWORD_SUCCESS,
+  GROUP_CHECK_PASSWORD_FAIL,
 } from '../actions/groups'
 import {
   GROUP_TIMELINE_SORTING_TYPE_TOP,
@@ -18,6 +22,7 @@ const tabs = ['new', 'featured', 'member', 'admin']
 const initialState = ImmutableMap({
   sortByValue: GROUP_TIMELINE_SORTING_TYPE_NEWEST,
   sortByTopValue: '',
+  passwordCheck: ImmutableMap(),
   new: ImmutableMap({
     isFetched: false,
     isLoading: false,
@@ -80,6 +85,32 @@ export default function groupLists(state = initialState, action) {
       mutable.set('sortByValue', GROUP_TIMELINE_SORTING_TYPE_TOP)
       mutable.set('sortByTopValue', action.sortValue)
     })
+
+  case GROUP_CHECK_PASSWORD_RESET:
+    return state.withMutations((mutable) => {
+      mutable.setIn(['passwordCheck', 'isError'], false)
+      mutable.setIn(['passwordCheck', 'isSuccess'], false)
+      mutable.setIn(['passwordCheck', 'isLoading'], false)
+    })
+  case GROUP_CHECK_PASSWORD_REQUEST:
+    return state.withMutations((mutable) => {
+      mutable.setIn(['passwordCheck', 'isError'], false)
+      mutable.setIn(['passwordCheck', 'isSuccess'], false)
+      mutable.setIn(['passwordCheck', 'isLoading'], true)
+    })
+  case GROUP_CHECK_PASSWORD_SUCCESS:
+    return state.withMutations((mutable) => {
+      mutable.setIn(['passwordCheck', 'isError'], false)
+      mutable.setIn(['passwordCheck', 'isSuccess'], true)
+      mutable.setIn(['passwordCheck', 'isLoading'], false)
+    })
+  case GROUP_CHECK_PASSWORD_FAIL:
+    return state.withMutations((mutable) => {
+      mutable.setIn(['passwordCheck', 'isError'], true)
+      mutable.setIn(['passwordCheck', 'isSuccess'], false)
+      mutable.setIn(['passwordCheck', 'isLoading'], false)
+    })
+
   default:
     return state
   }

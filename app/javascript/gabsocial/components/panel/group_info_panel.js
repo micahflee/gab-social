@@ -35,7 +35,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
       )
     }
 
-    const isAdmin = relationships ? relationships.get('admin') : false
+    const isAdminOrMod = relationships ? (relationships.get('admin') || relationships.get('moderator')) : false
     const groupId = !!group ? group.get('id') : ''
     const slug = !!group ? !!group.get('slug') ? `g/${group.get('slug')}` : undefined : undefined
     const isPrivate = !!group ? group.get('is_private') : false
@@ -129,18 +129,18 @@ class GroupInfoPanel extends ImmutablePureComponent {
                 <Text size='small' color='inherit' className={_s.px5}>?</Text>
               </Button>
             </GroupInfoPanelRow>
-            
+          
             <Divider isSmall />
 
             <GroupInfoPanelRow title={intl.formatMessage(messages.members)} icon='group'>
               <Button
                 isText
-                color={isAdmin ? 'brand' : 'primary'}
+                color={isAdminOrMod ? 'brand' : 'primary'}
                 backgroundColor='none'
                 className={_s.mlAuto}
-                to={isAdmin ? `/groups/${groupId}/members` : undefined}
+                to={isAdminOrMod ? `/groups/${groupId}/members` : undefined}
               >
-                <Text color='inherit' weight={isAdmin ? 'medium' : 'normal'} size='normal' className={isAdmin ? _s.underline_onHover : undefined}>
+                <Text color='inherit' weight={isAdminOrMod ? 'medium' : 'normal'} size='normal' className={isAdminOrMod ? _s.underline_onHover : undefined}>
                   {shortNumberFormat(group.get('member_count'))}
                   &nbsp;
                   {intl.formatMessage(messages.members)}
@@ -186,9 +186,14 @@ class GroupInfoPanel extends ImmutablePureComponent {
                     {
                       tags.map((tag) => (
                         <div className={[_s.mr5, _s.mb5].join(' ')}>
-                          <Text size='small' className={[_s.bgSecondary, _s.radiusSmall, _s.px10, _s.py2, _s.lineHeight15].join(' ')}>
-                            {tag}
-                          </Text>
+                          <NavLink
+                            to={`/groups/browse/tags/${slugify(tag)}`}
+                            className={_s.noUnderline}
+                          >
+                            <Text size='small' className={[_s.bgSecondary, _s.radiusSmall, _s.px10, _s.py2, _s.lineHeight15].join(' ')}>
+                              {tag}
+                            </Text>
+                          </NavLink>
                         </div>
                       ))
                     }

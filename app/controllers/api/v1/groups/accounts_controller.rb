@@ -19,10 +19,18 @@ class Api::V1::Groups::AccountsController < Api::BaseController
   def create
     authorize @group, :join?
 
-    @group.accounts << current_account
+    if !@group.password.nil?
+      render json: { error: true, message: 'Unable to join group. Incorrect password.' }, status: 422
+    end
 
-    if current_user.allows_group_in_home_feed?
-      current_user.force_regeneration!
+    if @group.is_private
+      @group.join_requests << current_account
+    else
+      @group.accounts << current_account
+
+      if current_user.allows_group_in_home_feed?
+        current_user.force_regeneration!
+      end
     end
 
     render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships

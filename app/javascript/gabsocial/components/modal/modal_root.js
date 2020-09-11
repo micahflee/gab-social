@@ -19,6 +19,7 @@ import {
   MODAL_EMBED,
   MODAL_GROUP_CREATE,
   MODAL_GROUP_DELETE,
+  MODAL_GROUP_PASSWORD,
   MODAL_HASHTAG_TIMELINE_SETTINGS,
   MODAL_HOME_TIMELINE_SETTINGS,
   MODAL_HOTKEYS,
@@ -51,6 +52,7 @@ import {
   GroupCreateModal,
   GroupDeleteModal,
   GroupMembersModal,
+  GroupPasswordModal,
   GroupRemovedAccountsModal,
   HashtagTimelineSettingsModal,
   HomeTimelineSettingsModal,
@@ -84,6 +86,7 @@ MODAL_COMPONENTS[MODAL_EDIT_PROFILE] = EditProfileModal
 MODAL_COMPONENTS[MODAL_EMBED] = EmbedModal
 MODAL_COMPONENTS[MODAL_GROUP_CREATE] = GroupCreateModal
 MODAL_COMPONENTS[MODAL_GROUP_DELETE] = GroupDeleteModal
+MODAL_COMPONENTS[MODAL_GROUP_PASSWORD] = GroupPasswordModal
 MODAL_COMPONENTS[MODAL_HASHTAG_TIMELINE_SETTINGS] = HashtagTimelineSettingsModal
 MODAL_COMPONENTS[MODAL_HOME_TIMELINE_SETTINGS] = HomeTimelineSettingsModal
 MODAL_COMPONENTS[MODAL_HOTKEYS] = HotkeysModal

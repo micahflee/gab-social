@@ -7,6 +7,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import {
 	changeGroupTitle,
+	changeGroupPassword,
 	changeGroupDescription,
 	changeGroupCoverImage,
 	changeGroupId,
@@ -92,9 +93,11 @@ class GroupCreate extends ImmutablePureComponent {
 			error,
 			titleValue,
 			descriptionValue,
+			passwordValue,
 			coverImage,
 			intl,
 			onTitleChange,
+			onChangeGroupPassword,
 			onDescriptionChange,
 			onChangeGroupId,
 			onChangeGroupTags,
@@ -145,15 +148,18 @@ class GroupCreate extends ImmutablePureComponent {
 			}
 		}
 
+		const submitDisabled = ((!titleValue || !category || !descriptionValue) && !groupId) || isSubmitting
+
 		return (
 			<Form onSubmit={onSubmit}>
 				<Input
 					id='group-title'
-					title={intl.formatMessage(messages.title)}
+					title={`${intl.formatMessage(messages.title)} *`}
 					value={titleValue}
 					onChange={onTitleChange}
 					disabled={isSubmitting}
 					placeholder={intl.formatMessage(messages.titlePlaceholder)}
+					isRequired
 				/>
 
 				<Divider isInvisible />
@@ -180,6 +186,33 @@ class GroupCreate extends ImmutablePureComponent {
 					</React.Fragment>
 				}
 
+				<Textarea
+					title={`${intl.formatMessage(messages.description)} *`}
+					value={descriptionValue}
+					onChange={onDescriptionChange}
+					placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
+					disabled={isSubmitting}
+					isRequired
+				/>
+
+				<Divider isInvisible />			
+
+				<div className={_s.d}>
+					<Text className={[_s.pl15, _s.mb10].join(' ')} size='small' weight='medium' color='secondary'>
+						{intl.formatMessage(messages.categoryTitle)} *
+					</Text>
+					<Select
+						value={category}
+						onChange={onChangeGroupCategory}
+						options={categoriesOptions}
+					/>
+					<Text className={[_s.mt5, _s.pl15].join(' ')} size='small' color='tertiary'>
+						{intl.formatMessage(messages.categoryDescription)}
+					</Text>
+
+					<Divider isInvisible />
+				</div>
+
 				<Input
 					id='group-tags'
 					title={intl.formatMessage(messages.tagsTitle)}
@@ -187,37 +220,11 @@ class GroupCreate extends ImmutablePureComponent {
 					onChange={onChangeGroupTags}
 					disabled={isSubmitting}
 				/>
-				<Text className={[_s.mt5, _s.pl15]} size='small' color='secondary'>
+				<Text className={[_s.mt5, _s.pl15, _s.mb15, _s.pb5].join(' ')} size='small' color='tertiary'>
 					{intl.formatMessage(messages.tagsDescription)}
 				</Text>
 
-				<Divider isInvisible />			
-
-				<div className={_s.d}>
-					<Text className={[_s.pl15, _s.mb10].join(' ')} size='small' weight='medium' color='secondary'>
-						{intl.formatMessage(messages.categoryTitle)}
-					</Text>
-					<Select
-						value={category}
-						onChange={onChangeGroupCategory}
-						options={categoriesOptions}
-					/>
-					<Text className={[_s.mt5, _s.pl15].join(' ')} size='small' color='secondary'>
-						{intl.formatMessage(messages.categoryDescription)}
-					</Text>
-
-					<Divider isInvisible />
-				</div>
-
-				<Textarea
-					title={intl.formatMessage(messages.description)}
-					value={descriptionValue}
-					onChange={onDescriptionChange}
-					placeholder={intl.formatMessage(messages.descriptionPlaceholder)}
-					disabled={isSubmitting}
-				/>
-
-				<Divider isInvisible />
+				<Divider />
 
 				<FileInput
 					disabled={isSubmitting}
@@ -229,41 +236,66 @@ class GroupCreate extends ImmutablePureComponent {
 					height='145px'
 					isBordered
 				/>
-				<Text className={[_s.mt5, _s.pl15].join(' ')} size='small' color='secondary'>
+				<Text className={[_s.mt5, _s.pl15, _s.mb15, _s.pb5].join(' ')} size='small' color='tertiary'>
 					{intl.formatMessage(messages.coverImageDescription)}
 				</Text>
-
-				<Divider isInvisible />
 				
-				<Switch
-					label={'Private'}
-					id='group-isprivate'
-					checked={isPrivate}
-					onChange={onChangeGroupIsPrivate}
+				<Divider />
+
+				<Input
+					id='group-password'
+					title={intl.formatMessage(messages.passwordTitle)}
+					value={passwordValue}
+					onChange={onChangeGroupPassword}
+					disabled={isSubmitting}
 				/>
-				<Text className={_s.mt5} size='small' color='secondary'>
-					{intl.formatMessage(messages.isPrivateDescription)}
+				<Text className={[_s.mt5, _s.pl15, _s.mb15, _s.pb5].join(' ')} size='small' color='tertiary'>
+					{intl.formatMessage(messages.passwordDescription)}
 				</Text>
 
-				<Divider isInvisible />
-		
-				<Switch
-					label={'Visible'}
-					id='group-isvisible'
-					checked={isVisible}
-					onChange={onChangeGroupIsVisible}
-				/>
-				<Text className={_s.mt5} size='small' color='secondary'>
-					{intl.formatMessage(messages.isVisibleDescription)}
-				</Text>
+				<Divider />
+				
+				<div className={[_s.d, _s.pl15].join(' ')}>
+					<Switch
+						label={'Private'}
+						id='group-isprivate'
+						checked={isPrivate}
+						onChange={onChangeGroupIsPrivate}
+						labelProps={{
+							size: 'small',
+							weight: 'medium',
+							color: 'secondary',
+						}}
+					/>
+					<Text className={_s.mt5} size='small' color='tertiary'>
+						{intl.formatMessage(messages.isPrivateDescription)}
+					</Text>
+
+					<Divider isInvisible />
+						
+					<Switch
+						label={'Visible'}
+						id='group-isvisible'
+						checked={isVisible}
+						onChange={onChangeGroupIsVisible}
+						labelProps={{
+							size: 'small',
+							weight: 'medium',
+							color: 'secondary',
+						}}
+					/>
+					<Text className={_s.mt5} size='small' color='tertiary'>
+						{intl.formatMessage(messages.isVisibleDescription)}
+					</Text>
+				</div>
 				
 				<Divider isInvisible />
 				
 				<Button
-					isDisabled={!titleValue || !descriptionValue && !isSubmitting}
+					isDisabled={submitDisabled}
 					onClick={this.handleSubmit}
 				>
-					<Text color='inherit' align='center'>
+					<Text color='inherit' align='center' weight='medium'>
 						{intl.formatMessage(!!group ? messages.update : messages.create)}
 					</Text>
 				</Button>
@@ -280,13 +312,15 @@ const messages = defineMessages({
 	idTitle: { id: 'groups.form.id_title', defaultMessage: 'Unique id' },
 	idDescription: { id: 'groups.form.id_description', defaultMessage: 'A unique id that links to this group. (Cannot be changed)' },
 	tagsTitle: { id: 'groups.form.tags_title', defaultMessage: 'Tags' },
-	tagsDescription: { id: 'groups.form.tags_description', defaultMessage: 'Add tags seperated by commas to increase group visibility' },
+	tagsDescription: { id: 'groups.form.tags_description', defaultMessage: '(Optional) Add tags seperated by commas to increase group visibility' },
+	passwordTitle: { id: 'groups.form.password_title', defaultMessage: 'Password' },
+	passwordDescription: { id: 'groups.form.password_description', defaultMessage: '(Optional) Add a password to restrict access to this group. This password is NOT encrypted and is only visible to group admins.' },
 	categoryTitle: { id: 'groups.form.category_title', defaultMessage: 'Category' },
 	categoryDescription: { id: 'groups.form.category_description', defaultMessage: 'Add a general category for your group' },
-	description: { id: 'groups.form.description', defaultMessage: 'Enter the group description' },
-	coverImage: { id: 'groups.form.coverImage', defaultMessage: 'Upload a banner image' },
-	coverImageDescription: { id: 'groups.form.coverImage_description', defaultMessage: 'Accepted image types: .jpg, .png' },
-	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Banner image selected' },
+	description: { id: 'groups.form.description', defaultMessage: 'Description' },
+	coverImage: { id: 'groups.form.coverImage', defaultMessage: 'Cover image' },
+	coverImageDescription: { id: 'groups.form.coverImage_description', defaultMessage: '(Optional) Max: 5MB. Accepted image types: .jpg, .png' },
+	coverImageChange: { id: 'groups.form.coverImageChange', defaultMessage: 'Cover image selected' },
 	create: { id: 'groups.form.create', defaultMessage: 'Create group' },
 	update: { id: 'groups.form.update', defaultMessage: 'Update group' },
 	titlePlaceholder: { id: 'groups.form.title_placeholder', defaultMessage: 'New group title...' },
@@ -313,6 +347,7 @@ const mapStateToProps = (state, { params }) => {
 		isAdmin,
 		error: (groupId && !group) || (group && !isAdmin),
 		titleValue: state.getIn(['group_editor', 'title']),
+		passwordValue: state.getIn(['group_editor', 'password']),
 		descriptionValue: state.getIn(['group_editor', 'description']),
 		coverImage: state.getIn(['group_editor', 'coverImage']),
 		isSubmitting: state.getIn(['group_editor', 'isSubmitting']),
@@ -332,6 +367,9 @@ const mapDispatchToProps = (dispatch) => ({
 	},
 	onDescriptionChange(value) {
 		dispatch(changeGroupDescription(value))
+	},
+	onChangeGroupPassword(value) {
+		dispatch(changeGroupPassword(value))
 	},
 	onCoverImageChange(imageData) {
 		dispatch(changeGroupCoverImage(imageData))
@@ -382,6 +420,7 @@ GroupCreate.propTypes = {
 	onDescriptionChange: PropTypes.func.isRequired,
 	onChangeGroupId: PropTypes.func.isRequired,
 	onChangeGroupTags: PropTypes.func.isRequired,
+	onChangeGroupPassword: PropTypes.func.isRequired,
 	onChangeGroupCategory: PropTypes.func.isRequired,
 	onChangeGroupIsPrivate: PropTypes.func.isRequired,
 	onChangeGroupIsVisible: PropTypes.func.isRequired,

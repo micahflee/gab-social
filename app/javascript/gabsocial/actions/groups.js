@@ -77,6 +77,11 @@ export const GROUP_UPDATE_ROLE_REQUEST = 'GROUP_UPDATE_ROLE_REQUEST';
 export const GROUP_UPDATE_ROLE_SUCCESS = 'GROUP_UPDATE_ROLE_SUCCESS';
 export const GROUP_UPDATE_ROLE_FAIL    = 'GROUP_UPDATE_ROLE_FAIL';
 
+export const GROUP_CHECK_PASSWORD_RESET = 'GROUP_CHECK_PASSWORD_RESET';
+export const GROUP_CHECK_PASSWORD_REQUEST = 'GROUP_CHECK_PASSWORD_REQUEST';
+export const GROUP_CHECK_PASSWORD_SUCCESS = 'GROUP_CHECK_PASSWORD_SUCCESS';
+export const GROUP_CHECK_PASSWORD_FAIL = 'GROUP_CHECK_PASSWORD_FAIL';
+
 export const GROUP_PIN_STATUS_REQUEST = 'GROUP_PIN_STATUS_REQUEST'
 export const GROUP_PIN_STATUS_SUCCESS = 'GROUP_PIN_STATUS_SUCCESS'
 export const GROUP_PIN_STATUS_FAIL = 'GROUP_PIN_STATUS_FAIL'
@@ -609,6 +614,45 @@ export function updateRoleFail(groupId, id, error) {
   };
 };
 
+export function checkGroupPassword(groupId, password) {
+  return (dispatch, getState) => {
+    if (!me) return
+
+    dispatch(checkGroupPasswordRequest())
+
+    api(getState).post(`/api/v1/groups/${groupId}/password`, { password }).then((response) => {
+      dispatch(joinGroupSuccess(response.data))
+      dispatch(checkGroupPasswordSuccess())
+    }).catch(error => {
+      dispatch(checkGroupPasswordFail(error))
+    })
+  }
+}
+
+export function checkGroupPasswordReset() {
+  return {
+    type: GROUP_CHECK_PASSWORD_RESET,
+  }
+}
+
+export function checkGroupPasswordRequest() {
+  return {
+    type: GROUP_CHECK_PASSWORD_REQUEST,
+  }
+}
+
+export function checkGroupPasswordSuccess() {
+  return {
+    type: GROUP_CHECK_PASSWORD_SUCCESS,
+  }
+}
+
+export function checkGroupPasswordFail(error) {
+  return {
+    type: GROUP_CHECK_PASSWORD_FAIL,
+    error,
+  }
+}
 
 export function fetchJoinRequests(id) {
   return (dispatch, getState) => {

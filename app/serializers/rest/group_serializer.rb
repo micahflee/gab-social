@@ -4,10 +4,23 @@ class REST::GroupSerializer < ActiveModel::Serializer
   include RoutingHelper
   
   attributes :id, :title, :description, :description_html, :cover_image_url, :is_archived,
-    :member_count, :created_at, :is_private, :is_visible, :slug, :tags, :group_category
+    :member_count, :created_at, :is_private, :is_visible, :slug, :tags, :group_category, :password,
+    :has_password
 
   def id
     object.id.to_s
+  end
+
+  def has_password
+    return !!password
+  end
+
+  def password
+    if object.group_accounts.where(account_id: current_user.account.id, role: :admin).exists?
+      object.password
+    else
+      nil
+    end
   end
 
   def group_category
