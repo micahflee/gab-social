@@ -13,6 +13,7 @@ class Input extends React.PureComponent {
 
   render() {
     const {
+      isDisabled,
       placeholder,
       prependIcon,
       value,
@@ -52,6 +53,7 @@ class Input extends React.PureComponent {
       px5: !!prependIcon,
       pl15: !prependIcon,
       pr15: !hasClear,
+      cursorNotAllowed: isDisabled,
     })
 
     const btnClasses = CX({
@@ -94,6 +96,7 @@ class Input extends React.PureComponent {
             onBlur={onBlur}
             readOnly={readOnly}
             maxLength={maxLength}
+            disabled={isDisabled}
             required={isRequired ? true : undefined}
           />
 
@@ -133,6 +136,7 @@ Input.propTypes = {
   isRequired: PropTypes.bool,
   hideLabel: PropTypes.bool,
   maxLength: PropTypes.number,
+  isDisabled: PropTypes.bool,
 }
 
 export default Input
