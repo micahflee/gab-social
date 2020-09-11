@@ -80,6 +80,7 @@ class Text extends React.PureComponent {
       cTertiary: color === COLORS.tertiary,
       cBrand: color === COLORS.brand,
       cWhite: color === COLORS.white,
+      cError: color === COLORS.error,
       inherit: color === COLORS.inherit,
       
       fs24PX: size === SIZES.extraExtraLarge,

@@ -425,6 +425,7 @@ pre {
 .cPrimary { color: var(--text_color_primary); }
 
 .cBlack { color: var(--color_black); }
+.cError { color: var(--color_red); }
 
 .cWhite { color: var(--color_white); }
 .cWhite_onHover:hover { color: var(--color_white); }
