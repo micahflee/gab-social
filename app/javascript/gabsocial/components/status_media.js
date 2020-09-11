@@ -105,7 +105,7 @@ class StatusMedia extends ImmutablePureComponent {
           onOpenMedia={onOpenMedia}
           cacheWidth={cacheWidth}
           defaultWidth={defaultWidth}
-          isComment={isComment}
+          isVertical={isComment || isChild}
           isReduced={isStatusCard || isComposeModalOpen}
         />
       )

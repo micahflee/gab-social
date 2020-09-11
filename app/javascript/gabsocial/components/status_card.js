@@ -4,7 +4,10 @@ import Immutable from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import punycode from 'punycode'
-import { DEFAULT_REL } from '../constants'
+import {
+  CX,
+  DEFAULT_REL,
+} from '../constants'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Icon from './icon'
 
@@ -124,7 +127,11 @@ class StatusCard extends ImmutablePureComponent {
   }
 
   render() {
-    const { card, isReduced } = this.props
+    const {
+      card,
+      isReduced,
+      isVertical,
+    } = this.props
     const { width, embedded } = this.state
 
     if (card === null) return null
@@ -132,7 +139,6 @@ class StatusCard extends ImmutablePureComponent {
     const maxDescription = 160
     const cardImg = card.get('image')
     const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name')
-    const horizontal = (card.get('width') > card.get('height') && (card.get('width') + 100 >= width)) || card.get('type') !== 'link' || embedded
     const interactive = card.get('type') !== 'link'
 
     const cardTitle = `${card.get('title')}`.trim()
@@ -233,6 +239,12 @@ class StatusCard extends ImmutablePureComponent {
       )
     }
 
+    const containerClasses = CX({
+      d: 1,
+      width100PC: 1,
+      flexRow: !isVertical,
+    })
+
     return (
       <div className={[_s.d, _s.w100PC, _s.px10].join(' ')}>
         <a
@@ -243,7 +255,7 @@ class StatusCard extends ImmutablePureComponent {
           className={[_s.d, _s.cursorPointer, _s.overflowHidden, _s.noUnderline, _s.w100PC, _s.bgSubtle_onHover, _s.borderColorSecondary, _s.border1PX, _s.radiusSmall].join(' ')}
         >
           <ResponsiveClassesComponent
-            classNames={[_s.d, _s.flexRow, _s.w100PC].join(' ')}
+            classNames={containerClasses}
             classNamesSmall={!cardImg ? undefined : [_s.d, _s.w100PC].join(' ')}
           >
             {!isReduced && embed}
@@ -262,6 +274,7 @@ StatusCard.propTypes = {
   defaultWidth: PropTypes.number,
   cacheWidth: PropTypes.func,
   isReduced: PropTypes.bool,
+  isVertical: PropTypes.bool,
 }
 
 export default StatusCard
