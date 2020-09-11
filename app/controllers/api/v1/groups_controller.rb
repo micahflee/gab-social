@@ -85,7 +85,7 @@ class Api::V1::GroupsController < Api::BaseController
   private
 
   def set_group
-    @group = Group.where(id: params[:id], is_archived: false).first
+    @group = Group.where(id: params[:id], is_archived: false).includes(:group_categories).first
   end
 
   def group_params
