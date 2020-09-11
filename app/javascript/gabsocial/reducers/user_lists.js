@@ -179,8 +179,7 @@ export default function userLists(state = initialState, action) {
     return appendToList(state, 'group_join_requests', action.id, action.accounts, action.next);
   case GROUP_JOIN_REQUESTS_APPROVE_SUCCESS:
   case GROUP_JOIN_REQUESTS_REJECT_SUCCESS:
-    return state.updateIn(['group_join_requests', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
-  
+    return state.updateIn(['group_join_requests', action.groupId, 'items'], list => list.filterNot(item => item === action.accountId));
   default:
     return state;
   }

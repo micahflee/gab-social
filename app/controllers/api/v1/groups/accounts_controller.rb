@@ -37,12 +37,15 @@ class Api::V1::Groups::AccountsController < Api::BaseController
   end
 
   def destroy
-    authorize @group, :leave?
-
-    GroupAccount.where(group: @group, account_id: current_account.id).destroy_all
-
-    if current_user.allows_group_in_home_feed?
-      current_user.force_regeneration!
+    @join_request = GroupJoinRequest.where(group: @group, account_id: current_account.id)
+    if @join_request.count > 0
+      @join_request.destroy_all
+    else
+      authorize @group, :leave?
+      GroupAccount.where(group: @group, account_id: current_account.id).destroy_all
+      if current_user.allows_group_in_home_feed?
+        current_user.force_regeneration!
+      end
     end
 
     render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships

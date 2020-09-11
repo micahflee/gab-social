@@ -702,8 +702,8 @@ export function expandJoinRequestsFail(id, error) {
 export const approveJoinRequest = (accountId, groupId) => (dispatch, getState) => {
   if (!me) return
 
-  api(getState).post(`/api/v1/groups/${groupId}/join_requests/approve`, { accountId }).then((response) => {
-    dispatch(approveJoinRequestSuccess(accountId, groupId))
+  api(getState).post(`/api/v1/groups/${groupId}/join_requests/respond`, { accountId, type: 'approve' }).then((response) => {
+    dispatch(approveJoinRequestSuccess(response.data.accountId, groupId))
   }).catch((error) => {
     dispatch(approveJoinRequestFail(accountId, groupId, error))
   })
@@ -729,8 +729,9 @@ export function approveJoinRequestFail(accountId, groupId, error) {
 export const rejectJoinRequest = (accountId, groupId) => (dispatch, getState) => {
   if (!me) return
 
-  api(getState).delete(`/api/v1/groups/${groupId}/join_requests/reject`, { accountId }).then((response) => {
-    dispatch(rejectJoinRequestSuccess(accountId, groupId))
+  api(getState).post(`/api/v1/groups/${groupId}/join_requests/respond`, { accountId, type: 'reject' }).then((response) => {
+    console.log("response:", response)
+    dispatch(rejectJoinRequestSuccess(response.data.accountId, groupId))
   }).catch((error) => {
     dispatch(rejectJoinRequestFail(accountId, groupId, error))
   })

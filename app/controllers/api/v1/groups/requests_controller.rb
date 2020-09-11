@@ -16,28 +16,20 @@ class Api::V1::Groups::RequestsController < Api::BaseController
     render json: @accounts, each_serializer: REST::AccountSerializer
   end
 
-  def create
-    authorize @group, :leave?
-    GroupJoinRequest.where(group: @group, account_id: current_account.id).destroy_all
-    render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships
-  end
-
-  def approve_request
-    GroupJoinRequest.where(group: @group, account_id: params[:accountId]).destroy_all
-    GroupAccount.create(group: @group, account_id: params[:accountId])
-    render json: {"message": "ok"}
-  end
-
-  def reject_request
-    GroupJoinRequest.where(group: @group, account_id: params[:accountId]).destroy_all
-    render json: {"message": "ok"}
+  def respond_to_request
+    if params[:type] === 'reject'
+      GroupJoinRequest.where(group: @group, account_id: params[:accountId]).destroy_all
+      render json: { message: "ok", type: 'reject', accountId: params[:accountId] }
+    elsif params[:type] === 'approve'
+      GroupJoinRequest.where(group: @group, account_id: params[:accountId]).destroy_all
+      GroupAccount.create(group: @group, account_id: params[:accountId])
+      render json: { message: "ok", type: 'approve', accountId: params[:accountId] }
+    else
+      render json: { message: "error", error: true }, status: 422
+    end
   end
 
   private
-
-  def relationships
-    GroupRelationshipsPresenter.new([@group.id], current_user.account_id)
-  end
 
   def set_group
     @group = Group.find(params[:group_id])

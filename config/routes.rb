@@ -440,10 +440,9 @@ Rails.application.routes.draw do
         resources :relationships, only: :index, controller: 'groups/relationships'
         resource :accounts, only: [:show, :create, :update, :destroy], controller: 'groups/accounts'
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
-        resource :join_requests, only: [:show, :create], controller: 'groups/requests'
+        resource :join_requests, only: [:show], controller: 'groups/requests'
         
-        post '/join_requests/approve', to: 'groups/requests#approve_request'
-        delete '/join_requests/reject', to: 'groups/requests#reject_request'
+        post '/join_requests/respond', to: 'groups/requests#respond_to_request'
 
         resource :pin, only: :create, controller: 'groups/pins'
         post :unpin, to: 'groups/pins#destroy'
