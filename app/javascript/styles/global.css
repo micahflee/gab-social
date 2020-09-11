@@ -516,6 +516,7 @@ pre {
 .maxW100PC42PX { max-width: calc(100% - 42px); }
 
 .minW330PX { min-width: 330px; }
+.minW76PX { min-width: 76px; }
 .minW20PX { min-width: 20px; }
 .minW14PX { min-width: 14px; }
 

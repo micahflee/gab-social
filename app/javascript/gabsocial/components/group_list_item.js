@@ -5,7 +5,6 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
-import { joinGroup, leaveGroup } from '../actions/groups'
 import { CX } from '../constants'
 import { PLACEHOLDER_MISSING_HEADER_SRC } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
@@ -13,25 +12,9 @@ import Button from './button'
 import Image from './image'
 import Text from './text'
 import Dummy from './dummy'
+import GroupActionButton from './group_action_button'
 
 class GroupListItem extends ImmutablePureComponent {
-
-  state = {
-    hovering: false,
-  }
-
-  handleOnToggleMembership = () => {
-    const { group, relationships } = this.props
-    this.props.onToggleMembership(group.get('id'), relationships)
-  }
-
-  handleOnMouseEnter = () => {
-    this.setState({ hovering: true })
-  }
-
-  handleOnMouseLeave = () => {
-    this.setState({ hovering: false })
-  }
 
   render() {
     const {
@@ -43,7 +26,6 @@ class GroupListItem extends ImmutablePureComponent {
       isStatic,
       relationships,
     } = this.props
-    const { hovering } = this.state
 
     if (!group) return null
     
@@ -63,6 +45,7 @@ class GroupListItem extends ImmutablePureComponent {
       borderBottom1PX: !isLast,
       flexRow: 1,
       py5: 1,
+      px5: isAddable,
       w100PC: 1,
     })
 
@@ -71,14 +54,12 @@ class GroupListItem extends ImmutablePureComponent {
       flexRow: 1,
       noUnderline: 1,
       w100PC: 1,
-      maxW100PC86PX: isAddable,
+      flexGrow1: isAddable,
+      flexShrink1: isAddable,
     })
 
     const coverSrc = group.get('cover_image_url') || ''
     const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
-    const isMember = !!relationships && relationships.get('member')
-    const addButtonColor = isMember ? hovering ? 'danger' : 'tertiary' : 'brand'
-    const addButtonTitle = isMember ? hovering ? 'Leave' : 'Member' : 'Join'
 
     const Wrapper = !isStatic ? NavLink : Dummy
 
@@ -114,20 +95,11 @@ class GroupListItem extends ImmutablePureComponent {
         {
           isAddable &&
           <div className={[_s.d, _s.jcCenter, _s.flexGrow1].join(' ')}>
-            {
-              relationships &&
-              <Button
-                isNarrow
-                color='white'
-                className={[_s.px10, _s.w76PX].join(' ')}
-                backgroundColor={addButtonColor}
-                onClick={this.handleOnToggleMembership}
-                onMouseEnter={this.handleOnMouseEnter}
-                onMouseLeave={this.handleOnMouseLeave}
-              >
-                <Text size='small' color='inherit' align='center'>{addButtonTitle}</Text>
-              </Button>
-            }
+            <GroupActionButton
+              group={group}
+              relationships={relationships}
+              size='small'
+            />
           </div>
         }
       </div>
@@ -145,23 +117,12 @@ const mapStateToProps = (state, { id }) => ({
   relationships: state.getIn(['group_relationships', id]),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onToggleMembership(groupId, relationships) {
-    if (relationships.get('member')) {
-      dispatch(leaveGroup(groupId))
-    } else {
-      dispatch(joinGroup(groupId))
-    }
-  },
-})
-
 GroupListItem.propTypes = {
   group: ImmutablePropTypes.map,
   isAddable: PropTypes.bool,
   isHidden: PropTypes.bool,
   isLast: PropTypes.bool,
   isStatic: PropTypes.bool,
-  onToggleMembership: PropTypes.func.isRequired,
   relationships: ImmutablePropTypes.map,
 }
 
@@ -169,4 +130,4 @@ GroupListItem.defaultProps = {
   isLast: false,
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupListItem))
+export default injectIntl(connect(mapStateToProps)(GroupListItem))

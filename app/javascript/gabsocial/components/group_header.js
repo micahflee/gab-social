@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import { openPopover, closePopover } from '../actions/popover'
-import { openModal } from '../actions/modal'
-import { joinGroup, leaveGroup } from '../actions/groups'
+import { openPopover } from '../actions/popover'
 import {
   addShortcut,
   removeShortcut,
@@ -17,6 +15,7 @@ import {
 } from '../constants'
 import { me } from '../initial_state'
 import Responsive from '../features/ui/util/responsive_component'
+import GroupActionButton from './group_action_button'
 import Button from './button'
 import Block from './block'
 import Heading from './heading'
@@ -27,11 +26,6 @@ import Pills from './pills'
 import Text from './text'
 
 class GroupHeader extends ImmutablePureComponent {
-
-  handleOnToggleMembership = () => {
-    const { group, relationships } = this.props
-    this.props.onToggleMembership(group, relationships);
-  }
 
   handleOnOpenGroupOptions = () => {
     const { relationships } = this.props
@@ -75,31 +69,13 @@ class GroupHeader extends ImmutablePureComponent {
     const title = !!group ? group.get('title') : undefined
     const slug = !!group ? !!group.get('slug') ? `g/${group.get('slug')}` : undefined : undefined
     const isPrivate = !!group ? group.get('is_private') : false
-
-    let isAdminOrMod = false
-    let actionButtonTitle
-    let actionButtonOptions = {}
-    if (relationships) {
-      isAdminOrMod = relationships.get('admin') || relationships.get('moderator')
-      const isMember = relationships.get('member')
-
-      actionButtonTitle = intl.formatMessage(isMember ? messages.member : messages.join)
-      actionButtonOptions = {
-        isOutline: !isMember,
-        backgroundColor: isMember ? 'brand' : 'none',
-        color: isMember ? 'white' : 'brand',
-      }
-    }
+    const isAdminOrMod = !!relationships ? (relationships.get('admin') || relationships.get('moderator')) : false
 
     const tabs = !group ? [] : [
       {
         to: `/groups/${group.get('id')}`,
         title: 'Timeline',
       },
-      // {
-      //   to: `/groups/${group.get('id')}/media`,
-      //   title: 'Media',
-      // },
     ]
 
     if (isAdminOrMod && group) {
@@ -146,23 +122,15 @@ class GroupHeader extends ImmutablePureComponent {
                 {
                   !!me &&
                   <div className={[_s.d, _s.flexRow, _s.jcCenter, _s.aiCenter, _s.mt5, _s.pb15, _s.pt5, _s.h100PC, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
-                    {
-                      !!actionButtonTitle &&
-                      <Button
-                        className={_s.mr5}
-                        onClick={this.handleOnToggleMembership}
-                        {...actionButtonOptions}
-                      >
-                        <Text color='inherit' size='medium' weight='bold' className={_s.px10}>
-                          {actionButtonTitle}
-                        </Text>
-                      </Button>
-                    }
+                    <GroupActionButton
+                      group={group}
+                      relationships={relationships}
+                    />
                     
                     <Button
                       color='primary'
                       backgroundColor='tertiary'
-                      className={[_s.px10, _s.mr5].join(' ')}
+                      className={[_s.px10, _s.mr5, _s.ml5].join(' ')}
                       icon='ellipsis'
                       onClick={this.handleOnOpenGroupOptions}
                       buttonRef={this.setInfoBtn}
@@ -236,18 +204,12 @@ class GroupHeader extends ImmutablePureComponent {
                           />
                         </div>
                       }  
-                      {
-                        !!actionButtonTitle &&
-                        <Button
-                          className={_s.mr5}
-                          onClick={this.handleOnToggleMembership}
-                          {...actionButtonOptions}
-                        >
-                          <Text color='inherit' size='medium' weight='bold' className={_s.px10}>
-                            {actionButtonTitle}
-                          </Text>
-                        </Button>
-                      }
+
+                      <GroupActionButton
+                        group={group}
+                        relationships={relationships}
+                      />
+
                     </div>
                   </div>
                 </div>
@@ -262,8 +224,6 @@ class GroupHeader extends ImmutablePureComponent {
 }
 
 const messages = defineMessages({
-  join: { id: 'groups.join', defaultMessage: 'Join group' },
-  member: { id: 'groups.member', defaultMessage: 'Member' },
   removed_accounts: { id: 'groups.removed_accounts', defaultMessage: 'Removed Accounts' },
   group_archived: { id: 'group.detail.archived_group', defaultMessage: 'Archived group' },
   group_admin: { id: 'groups.detail.role_admin', defaultMessage: 'You\'re an admin' }
@@ -280,13 +240,6 @@ const mapStateToProps = (state, { group }) => {
 
 const mapDispatchToProps = (dispatch, { intl }) => ({
 
-  onToggleMembership(group, relationships) {
-    if (relationships.get('member')) {
-      dispatch(leaveGroup(group.get('id')))
-    } else {
-      dispatch(joinGroup(group.get('id')))
-    }
-  },
   onOpenGroupOptions(targetRef, group, options) {
     dispatch(openPopover('GROUP_OPTIONS', {
       targetRef,
@@ -311,7 +264,6 @@ GroupHeader.propTypes = {
   isShortcut: PropTypes.bool.isRequired,
   isXS: PropTypes.bool,
   onAddShortcut: PropTypes.func.isRequired,
-  onToggleMembership: PropTypes.func.isRequired,
   onRemoveShortcut: PropTypes.func.isRequired,
   onOpenGroupOptions: PropTypes.func.isRequired,
   relationships: ImmutablePropTypes.map,
