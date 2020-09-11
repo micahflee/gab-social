@@ -270,6 +270,7 @@ pre {
 }
 
 .inheritFill { fill: inherit; }
+.fillBrand { fill: var(--color_brand); }
 
 .flexNormal {
   flex-basis: 0%;
