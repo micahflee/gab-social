@@ -440,6 +440,7 @@ Rails.application.routes.draw do
         resources :relationships, only: :index, controller: 'groups/relationships'
         resource :accounts, only: [:show, :create, :update, :destroy], controller: 'groups/accounts'
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
+        resource :password, only: [:create], controller: 'groups/password'
         resource :join_requests, only: [:show], controller: 'groups/requests'
         
         post '/join_requests/respond', to: 'groups/requests#respond_to_request'
