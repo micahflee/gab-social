@@ -74,22 +74,6 @@ class Status extends ImmutablePureComponent {
     router: PropTypes.object,
   }
 
-  // Avoid checking props that are functions (and whose equality will always
-  // evaluate to false. See react-immutable-pure-component for usage.
-  updateOnProps = [
-    'status',
-    'descendantsIds',
-    'isChild',
-    'isPromoted',
-    'isFeatured',
-    'isPinnedInGroup',
-    'isMuted',
-    'isHidden',
-    'isIntersecting',
-    'isComment',
-    'commentSortingType',
-  ]
-
   state = {
     loadedComments: false,
     showMedia: defaultMediaVisibility(this.props.status),
