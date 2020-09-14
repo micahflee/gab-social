@@ -11,7 +11,7 @@ import {
 
 const initialState = ImmutableMap({
   featured: ImmutableMap({
-    items: ImmutableList(),
+    items: [],
     isError: false,
     isLoading: false,
   }),
