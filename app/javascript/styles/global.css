@@ -519,6 +519,7 @@ pre {
 .maxW212PX { max-width: 212px; }
 
 .minW330PX { min-width: 330px; }
+.minW120PX { min-width: 120px; }
 .minW76PX { min-width: 76px; }
 .minW20PX { min-width: 20px; }
 .minW14PX { min-width: 14px; }
@@ -531,13 +532,16 @@ pre {
 .w645PX { width: 645px; }
 .w340PX { width: 340px; }
 .w330PX { width: 330px; }
+.w300PX { width: 300px; }
 .w240PX { width: 240px; }
+.w208PX { width: 208px; }
 .w115PX { width: 115px; }
 .w84PX { width: 84px; }
 .w76PX { width: 76px; }
 .w72PX { width: 72px; }
 .w60PX { width: 60px; }
 .w50PX { width: 50px; }
+.w40PX { width: 40px; }
 .w20PX { width: 20px; }
 .w14PX { width: 14px; }
 .w10PX { width: 10px; }
@@ -759,13 +763,14 @@ pre {
 .pt53PX { padding-top: 53px; }
 .pt15 { padding-top: 15px; }
 .pt10 { padding-top: 10px; }
+.pt7 { padding-top: 7px; }
 .pt5 { padding-top: 5px; }
 .pt2 { padding-top: 2px; }
 
 .pb15 { padding-bottom: 15px; }
 .pb10 { padding-bottom: 10px; }
 .pb5 { padding-bottom: 5px; }
-.pb3 { padding-bottom: 3px; }
+.pb2 { padding-bottom: 2px; }
 
 .pl35 { padding-left: 35px; }
 .pl25 { padding-left: 25px; }
