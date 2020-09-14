@@ -7,13 +7,14 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { createSelector } from 'reselect'
 import debounce from 'lodash.debounce'
 import { me, promotions } from '../initial_state'
-import { dequeueTimeline } from '../actions/timelines'
-import { scrollTopTimeline } from '../actions/timelines'
+import { dequeueTimeline, scrollTopTimeline } from '../actions/timelines'
+import { showTimelineInjection } from '../actions/timeline_injections'
 import { fetchStatus, fetchContext } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
 import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
+import TimelineInjectionBase from './timeline_injections/timeline_injection_base'
 
 class StatusList extends ImmutablePureComponent {
 
@@ -204,6 +205,13 @@ class StatusList extends ImmutablePureComponent {
               )
             }
           }
+          
+          if (i % 18 === 0 && i !== 0 && scrollKey === 'home_timeline') {
+            scrollableContent.push(
+              <TimelineInjectionBase index={i} key={`timeline-injection-${i}`} />
+            )
+          }
+
           scrollableContent.push(
             <StatusContainer
               key={`${statusId}-${i}`}
