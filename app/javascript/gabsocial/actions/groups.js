@@ -90,6 +90,14 @@ export const GROUP_UNPIN_STATUS_REQUEST = 'GROUP_UNPIN_STATUS_REQUEST'
 export const GROUP_UNPIN_STATUS_SUCCESS = 'GROUP_UNPIN_STATUS_SUCCESS'
 export const GROUP_UNPIN_STATUS_FAIL = 'GROUP_UNPIN_STATUS_FAIL'
 
+export const GROUPS_BY_CATEGORY_FETCH_REQUEST = 'GROUPS_BY_CATEGORY_FETCH_REQUEST'
+export const GROUPS_BY_CATEGORY_FETCH_SUCCESS = 'GROUPS_BY_CATEGORY_FETCH_SUCCESS'
+export const GROUPS_BY_CATEGORY_FETCH_FAIL = 'GROUPS_BY_CATEGORY_FETCH_FAIL'
+
+export const GROUPS_BY_TAG_FETCH_REQUEST = 'GROUPS_BY_TAG_FETCH_REQUEST'
+export const GROUPS_BY_TAG_FETCH_SUCCESS = 'GROUPS_BY_TAG_FETCH_SUCCESS'
+export const GROUPS_BY_TAG_FETCH_FAIL = 'GROUPS_BY_TAG_FETCH_FAIL'
+
 export const GROUP_TIMELINE_SORT = 'GROUP_TIMELINE_SORT'
 export const GROUP_TIMELINE_TOP_SORT = 'GROUP_TIMELINE_TOP_SORT'
 
@@ -209,6 +217,72 @@ export const fetchGroupsFail = (error, tab) => ({
   error,
   tab,
 });
+
+export const fetchGroupsByCategory = (category) => (dispatch, getState) => {
+  // Don't refetch or fetch when loading
+  const isLoading = getState().getIn(['group_lists', 'by_category', category, 'isLoading'], false)
+
+  if (isLoading) return
+
+  dispatch(fetchGroupsByCategoryRequest(category))
+
+  api(getState).get(`/api/v1/groups/_/category/${category}`)
+    .then(({ data }) => {
+      dispatch(fetchGroupsByCategorySuccess(data, category))
+      dispatch(fetchGroupRelationships(data.map(item => item.id)))
+    })
+    .catch((err) => dispatch(fetchGroupsByCategoryFail(err, category)))
+}
+
+export const fetchGroupsByCategoryRequest = (category) => ({
+  type: GROUPS_BY_CATEGORY_FETCH_REQUEST,
+  category,
+})
+
+export const fetchGroupsByCategorySuccess = (groups, category) => ({
+  type: GROUPS_BY_CATEGORY_FETCH_SUCCESS,
+  groups,
+  category,
+})
+
+export const fetchGroupsByCategoryFail = (error, category) => ({
+  type: GROUPS_BY_CATEGORY_FETCH_FAIL,
+  error,
+  category,
+})
+
+export const fetchGroupsByTag = (tag) => (dispatch, getState) => {
+  // Don't refetch or fetch when loading
+  const isLoading = getState().getIn(['group_lists', 'by_tag', tag, 'isLoading'], false)
+
+  if (isLoading) return
+
+  dispatch(fetchGroupsByTagRequest(tag))
+
+  api(getState).get(`/api/v1/groups/_/tag/${tag}`)
+    .then(({ data }) => {
+      dispatch(fetchGroupsByTagSuccess(data, tag))
+      dispatch(fetchGroupRelationships(data.map(item => item.id)))
+    })
+    .catch((err) => dispatch(fetchGroupsByTagFail(err, tag)))
+}
+
+export const fetchGroupsByTagRequest = (tag) => ({
+  type: GROUPS_BY_TAG_FETCH_REQUEST,
+  tag,
+})
+
+export const fetchGroupsByTagSuccess = (groups, tag) => ({
+  type: GROUPS_BY_TAG_FETCH_SUCCESS,
+  groups,
+  tag,
+})
+
+export const fetchGroupsByTagFail = (error, tag) => ({
+  type: GROUPS_BY_TAG_FETCH_FAIL,
+  error,
+  tag,
+})
 
 export function joinGroup(id) {
   return (dispatch, getState) => {

@@ -7,7 +7,7 @@ class Api::V1::GroupsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:groups' }, except: [:index, :show]
 
   before_action :require_user!, except: [:index, :show]
-  before_action :set_group, except: [:index, :create]
+  before_action :set_group, except: [:index, :create, :by_category, :by_tag]
 
   def index
     case current_tab
@@ -30,6 +30,26 @@ class Api::V1::GroupsController < Api::BaseController
         end
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account, role: :admin }).all
     end
+
+    render json: @groups, each_serializer: REST::GroupSerializer
+  end
+
+  def by_category
+    if !current_user
+      render json: { error: 'This method requires an authenticated user' }, status: 422
+    end
+
+    @groups = []
+
+    render json: @groups, each_serializer: REST::GroupSerializer
+  end
+
+  def by_tag
+    if !current_user
+      render json: { error: 'This method requires an authenticated user' }, status: 422
+    end
+
+    @groups = []
 
     render json: @groups, each_serializer: REST::GroupSerializer
   end

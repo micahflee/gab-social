@@ -10,12 +10,19 @@ import {
   GROUP_CHECK_PASSWORD_REQUEST,
   GROUP_CHECK_PASSWORD_SUCCESS,
   GROUP_CHECK_PASSWORD_FAIL,
+  GROUPS_BY_CATEGORY_FETCH_REQUEST,
+  GROUPS_BY_CATEGORY_FETCH_SUCCESS,
+  GROUPS_BY_CATEGORY_FETCH_FAIL,
+  GROUPS_BY_TAG_FETCH_REQUEST,
+  GROUPS_BY_TAG_FETCH_SUCCESS,
+  GROUPS_BY_TAG_FETCH_FAIL,
 } from '../actions/groups'
 import {
   GROUP_TIMELINE_SORTING_TYPE_TOP,
   GROUP_TIMELINE_SORTING_TYPE_NEWEST,
   GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
 } from '../constants'
+import slugify from '../utils/slugify'
 
 const tabs = ['new', 'featured', 'member', 'admin']
 
@@ -43,6 +50,8 @@ const initialState = ImmutableMap({
     isLoading: false,
     items: ImmutableList(),
   }),
+  by_category: ImmutableMap(),
+  by_tag: ImmutableMap(),
 })
 
 export default function groupLists(state = initialState, action) {
@@ -111,7 +120,33 @@ export default function groupLists(state = initialState, action) {
       mutable.setIn(['passwordCheck', 'isLoading'], false)
     })
 
+  case GROUPS_BY_CATEGORY_FETCH_REQUEST:
+    return state.setIn(['by_category', slugify(action.category), 'isLoading'], true)
+  case GROUPS_BY_CATEGORY_FETCH_SUCCESS:
+    return state.setIn(['by_category', slugify(action.category)], ImmutableMap({
+      items: ImmutableList(action.groups.map(item => item.id)),
+      isLoading: false,
+    }))
+  case GROUPS_BY_CATEGORY_FETCH_FAIL:
+    return state.setIn(['by_category', slugify(action.category)], ImmutableMap({
+      items: ImmutableList(),
+      isLoading: false,
+    }))
+
+  case GROUPS_BY_TAG_FETCH_REQUEST:
+    return state.setIn(['by_tag', slugify(action.tag), 'isLoading'], true)
+  case GROUPS_BY_TAG_FETCH_SUCCESS:
+    return state.setIn(['by_tag', slugify(action.tag)], ImmutableMap({
+      items: ImmutableList(action.groups.map(item => item.id)),
+      isLoading: false,
+    }))
+  case GROUPS_BY_TAG_FETCH_FAIL:
+    return state.setIn(['by_tag', slugify(action.tag)], ImmutableMap({
+      items: ImmutableList(),
+      isLoading: false,
+    }))
   default:
     return state
   }
 }
+

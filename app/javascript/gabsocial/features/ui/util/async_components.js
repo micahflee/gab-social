@@ -47,8 +47,9 @@ export function GroupRemovedAccounts() { return import(/* webpackChunkName: "fea
 export function GroupTimeline() { return import(/* webpackChunkName: "features/group_timeline" */'../../group_timeline') }
 export function GroupTimelineSortOptionsPopover() { return import(/* webpackChunkName: "components/group_timeline_sort_options_popover" */'../../../components/popover/group_timeline_sort_options_popover') }
 export function GroupTimelineSortTopOptionsPopover() { return import(/* webpackChunkName: "components/group_timeline_sort_top_options_popover" */'../../../components/popover/group_timeline_sort_top_options_popover') }
-// export function GroupCategory() { return import(/* webpackChunkName: "features/group_category" */'../../group_category') }
 export function GroupsCategories() { return import(/* webpackChunkName: "features/groups_categories" */'../../groups_categories') }
+export function GroupCategory() { return import(/* webpackChunkName: "features/group_category" */'../../group_category') }
+export function GroupTag() { return import(/* webpackChunkName: "features/group_tag" */'../../group_tag') }
 export function HashtagTimeline() { return import(/* webpackChunkName: "features/hashtag_timeline" */'../../hashtag_timeline') }
 export function HashtagTimelineSettingsModal() { return import(/* webpackChunkName: "components/hashtag_timeline_settings_modal" */'../../../components/modal/hashtag_timeline_settings_modal') }
 export function HomeTimeline() { return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline') }

@@ -42,10 +42,10 @@ class GroupsCollection extends ImmutablePureComponent {
 			isFetched,
 		} = this.props
 
-		if (isLoading && groupIds.size === 0) {
-			return <ColumnIndicator type='loading' />
-		} else if (isFetched && groupIds.size === 0) {
+		if (!groupIds || (isFetched && groupIds.size === 0)) {
 			return <ColumnIndicator type='error' message={intl.formatMessage(messages.empty)} />
+		} else if (isLoading && groupIds.size === 0) {
+			return <ColumnIndicator type='loading' />
 		}
 
 		const isAddable = ['featured', 'new'].indexOf(activeTab) > -1

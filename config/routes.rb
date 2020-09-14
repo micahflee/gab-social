@@ -437,6 +437,9 @@ Rails.application.routes.draw do
           post '/statuses/:status_id/approve', to: 'groups#approve_status'
         end
 
+        get '/category/:category', to: 'groups#by_category'
+        get '/tag/:tag', to: 'groups#by_tag'
+
         resources :relationships, only: :index, controller: 'groups/relationships'
         resource :accounts, only: [:show, :create, :update, :destroy], controller: 'groups/accounts'
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
