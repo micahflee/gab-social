@@ -6,6 +6,7 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { me } from '../initial_state'
+import { CX } from '../constants'
 import {
   followAccount,
   unfollowAccount,
@@ -46,6 +47,7 @@ class Account extends ImmutablePureComponent {
       dismissAction,
       showDismiss,
       withBio,
+      isCard,
     } = this.props
 
     if (!account) return null
@@ -93,9 +95,40 @@ class Account extends ImmutablePureComponent {
 
     const content = { __html: account.get('note_emojified') }
 
+    const buttonClasses = CX({
+      d: 1,
+      pt2: 1,
+      pr5: 1,
+      noUnderline: 1,
+      overflowHidden: 1,
+      flexNormal: 1,
+      aiStart: !isCard,
+      aiCenter: isCard,
+    })
+
+    const containerClasses = CX({
+      d: 1,
+      px15: 1,
+      py10: 1,
+      bgSubtle_onHover: 1,
+      borderBottom1PX: !isCard,
+      borderColorSecondary: !isCard,
+    })
+
+    const innerContainerClasses = CX({
+      d: 1,
+      flexRow: !isCard,
+      aiStart: !isCard,
+      aiCenter: isCard,
+    })
+
+    const displayNameWrapperClasses = CX({
+      py10: isCard,
+    })
+
     return (
-      <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgSubtle_onHover].join(' ')}>
-        <div className={[_s.d, _s.flexRow, _s.aiStart].join(' ')}>
+      <div className={containerClasses}>
+        <div className={innerContainerClasses}>
 
           <NavLink
             className={[_s.d, _s.noUnderline].join(' ')}
@@ -110,9 +143,11 @@ class Account extends ImmutablePureComponent {
               <NavLink
                 title={account.get('acct')}
                 to={`/${account.get('acct')}`}
-                className={[_s.d, _s.aiStart, _s.pt2, _s.pr5, _s.noUnderline, _s.overflowHidden, _s.flexNormal].join(' ')}
+                className={buttonClasses}
               >
-                <DisplayName account={account} isMultiline={compact} />
+                <div className={displayNameWrapperClasses}>
+                  <DisplayName account={account} isMultiline={compact || isCard} />
+                </div>
                 {!compact && actionButton}
               </NavLink>
 
@@ -193,6 +228,7 @@ Account.propTypes = {
   showDismiss: PropTypes.bool,
   dismissAction: PropTypes.func,
   withBio: PropTypes.bool,
+  isCard: PropTypes.bool,
 }
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Account))
