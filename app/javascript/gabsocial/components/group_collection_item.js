@@ -9,6 +9,7 @@ import { PLACEHOLDER_MISSING_HEADER_SRC, CX } from '../constants'
 import { shortNumberFormat } from '../utils/numbers'
 import Image from './image'
 import Text from './text'
+import GroupActionButton from './group_action_button'
 
 class GroupCollectionItem extends ImmutablePureComponent {
 
@@ -18,6 +19,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
       group,
       relationships,
       isHidden,
+      isAddable,
     } = this.props
 
     if (!relationships) return null
@@ -27,7 +29,6 @@ class GroupCollectionItem extends ImmutablePureComponent {
     const isModerator = relationships.get('moderator')
     const coverSrc = group.get('cover_image_url') || ''
     const coverMissing = coverSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1 || !coverSrc
-
 
     if (isHidden) {
       return (
@@ -54,6 +55,9 @@ class GroupCollectionItem extends ImmutablePureComponent {
       bgPrimary: 1,
       bgSubtle_onHover: isMember,
     })
+
+    let groupTitle = group.get('title') || ''
+    if (isAddable && groupTitle.length > 52) groupTitle = `${groupTitle.substring(0, 52).trim()}...`
 
     return (
       <div className={_s.d}>
@@ -116,7 +120,7 @@ class GroupCollectionItem extends ImmutablePureComponent {
 
           <div className={[_s.d, _s.px10, _s.my10].join(' ')}>
             <Text color='primary' size='medium' weight='bold'>
-              {group.get('title')}
+              {groupTitle}
             </Text>
 
             <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mt5, _s.mb5].join(' ')}>
@@ -126,6 +130,13 @@ class GroupCollectionItem extends ImmutablePureComponent {
                 {intl.formatMessage(messages.members)}
               </Text>
             </div>
+
+            {
+              isAddable &&
+              <div className={[_s.d, _s.pt10].join(' ')}>
+                <GroupActionButton group={group} relationships={relationships} />
+              </div>
+            }
           </div>
 
         </NavLink>
@@ -152,6 +163,7 @@ GroupCollectionItem.propTypes = {
   group: ImmutablePropTypes.map,
   relationships: ImmutablePropTypes.map,
   isHidden: PropTypes.bool,
+  isAddable: PropTypes.bool,
 }
 
 export default injectIntl(connect(mapStateToProps)(GroupCollectionItem))
