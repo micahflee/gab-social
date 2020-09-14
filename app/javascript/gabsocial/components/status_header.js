@@ -61,6 +61,9 @@ class StatusHeader extends ImmutablePureComponent {
     } else if (visibility === 'unlisted') {
       visibilityIcon = 'unlock-filled'
       visibilityText = `${intl.formatMessage(messages.unlisted_short)} - ${intl.formatMessage(messages.unlisted_long)}`
+    } else if (visibility === 'private_group') {
+      visibilityIcon = 'group'
+      visibilityText = intl.formatMessage(messages.private_group)
     } else {
       visibilityIcon = 'globe'
       visibilityText = `${intl.formatMessage(messages.public_short)} - ${intl.formatMessage(messages.public_long)}`
@@ -200,6 +203,7 @@ const messages = defineMessages({
   unlisted_short: { id: 'privacy.unlisted.short', defaultMessage: 'Unlisted' },
   unlisted_long: { id: 'privacy.unlisted.long', defaultMessage: 'Do not show in public timelines' },
   private_long: { id: 'privacy.private.long', defaultMessage: 'Visible for your followers only' },
+  private_group: { id: 'privacy.private.group', defaultMessage: 'Private group post that is visible for only members of this group' },
 })
 
 const mapDispatchToProps = (dispatch) => ({
