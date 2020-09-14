@@ -42,6 +42,7 @@ export function GroupListSortOptionsPopover() { return import(/* webpackChunkNam
 export function GroupMemberOptionsPopover() { return import(/* webpackChunkName: "components/group_member_options_popover" */'../../../components/popover/group_member_options_popover') }
 export function GroupMembers() { return import(/* webpackChunkName: "features/group_members" */'../../group_members') }
 export function GroupOptionsPopover() { return import(/* webpackChunkName: "components/group_options_popover" */'../../../components/popover/group_options_popover') }
+export function GroupPasswordModal() { return import(/* webpackChunkName: "components/group_password_modal" */'../../../components/modal/group_password_modal') }
 export function GroupsPanel() { return import(/* webpackChunkName: "components/groups_panel" */'../../../components/panel/groups_panel') }
 export function GroupRemovedAccounts() { return import(/* webpackChunkName: "features/group_removed_accounts" */'../../group_removed_accounts') }
 export function GroupTimeline() { return import(/* webpackChunkName: "features/group_timeline" */'../../group_timeline') }
