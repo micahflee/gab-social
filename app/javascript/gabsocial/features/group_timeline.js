@@ -81,7 +81,15 @@ class GroupTimeline extends ImmutablePureComponent {
 			sortByTopValue,
 			onlyMedia,
 		} = this.props
+		const { loadCount } = this.state
 
+		if (!!maxId && !me) {
+			this.setState({ loadCount: this.state.loadCount + 1 })
+			if (loadCount >= 2) return false
+		} else if (!maxId && loadCount !== 0) {
+			this.setState({ loadCount: 0 })
+		}
+		
 		const sortBy = getSortBy(sortByValue, sortByTopValue)
 		this.props.onExpandGroupTimeline(groupId, { sortBy, maxId, onlyMedia })
 	}
@@ -93,6 +101,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			intl,
 			groupPinnedStatusIds,
 		} = this.props
+		const { loadCount } = this.state
 
 		if (typeof group === 'undefined') {
 			return <ColumnIndicator type='loading' />
@@ -100,14 +109,16 @@ class GroupTimeline extends ImmutablePureComponent {
 			return <ColumnIndicator type='missing' />
 		}
 
+		const canLoadMore = loadCount < 2 && !me || !!me
+
 		return (
 			<React.Fragment>
 				<GroupSortBlock />
 				<StatusList
 					scrollKey={`group-timeline-${groupId}`}
 					timelineId={`group:${groupId}`}
-					onLoadMore={this.handleLoadMore}
 					groupPinnedStatusIds={groupPinnedStatusIds}
+					onLoadMore={canLoadMore ? this.handleLoadMore : undefined}
 					emptyMessage={intl.formatMessage(messages.empty)}
 				/>
 			</React.Fragment>

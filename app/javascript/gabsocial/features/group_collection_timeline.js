@@ -92,19 +92,28 @@ class GroupCollectionTimeline extends React.PureComponent {
 			sortByValue,
 			sortByTopValue,
 		} = this.props
+		const { loadCount } = this.state
+
+		if (!!maxId && !me) {
+			this.setState({ loadCount: this.state.loadCount + 1 })
+			if (loadCount >= 2) return false
+		} else if (!maxId && loadCount !== 0) {
+			this.setState({ loadCount: 0 })
+		}
 
 		const sortBy = getSortBy(sortByValue, sortByTopValue)
 		const options = { sortBy, maxId }
 
 		this.props.onExpandGroupCollectionTimeline(collectionType, options)
 	}
-
+ 
 	render() {
 		const {
 			collectionType,
 			intl,
 			hasNoGroupMembers,
 		} = this.props
+		const { loadCount } = this.state
 
 		const emptyMessage = !!me && collectionType === 'member' && hasNoGroupMembers ? (
 			<div className={[_s.d, _s.w100PC]}>
@@ -115,13 +124,15 @@ class GroupCollectionTimeline extends React.PureComponent {
 			</div>
 		) : intl.formatMessage(messages.empty)
 
+		const canLoadMore = loadCount < 2 && !me || !!me
+
 		return (
 			<React.Fragment>
 				<GroupSortBlock collectionType={collectionType} />
 				<StatusList
 					scrollKey={`group-collection-timeline-${collectionType}`}
 					timelineId={`group_collection:${collectionType}`}
-					onLoadMore={this.handleLoadMore}
+					onLoadMore={canLoadMore ? this.handleLoadMore : undefined}
 					emptyMessage={emptyMessage}
 				/>
 			</React.Fragment>
