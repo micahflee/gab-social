@@ -277,6 +277,7 @@ export function submitCompose(groupId, replyToId = null, router, isStandalone, a
     let status = getState().getIn(['compose', 'text'], '');
     let markdown = getState().getIn(['compose', 'markdown'], '');
     const media = getState().getIn(['compose', 'media_attachments']);
+    const isPrivateGroup = !!groupId ? getState().getIn(['groups', groupId, 'is_private'], false) : false
 
     const replacer = (match) => {
       const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
@@ -334,6 +335,7 @@ export function submitCompose(groupId, replyToId = null, router, isStandalone, a
       expires_at,
       scheduled_at,
       autoJoinGroup,
+      isPrivateGroup,
       in_reply_to_id: inReplyToId,
       quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
       media_ids: media.map(item => item.get('id')),

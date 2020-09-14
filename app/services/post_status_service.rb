@@ -30,6 +30,7 @@ class PostStatusService < BaseService
     @markdown    = @options[:markdown] if @account.is_pro
     @in_reply_to = @options[:thread]
     @autoJoinGroup = @options[:autoJoinGroup] || false
+    @isPrivateGroup = @options[:isPrivateGroup] || false
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
 
@@ -56,6 +57,7 @@ class PostStatusService < BaseService
     @text         = @options.delete(:spoiler_text) if @text.blank? && @options[:spoiler_text].present?
     @visibility   = @options[:visibility] || @account.user&.setting_default_privacy
     @visibility   = :unlisted if @visibility == :public && @account.silenced?
+    @visibility   = :private_group if @isPrivateGroup
     @expires_at   = @options[:expires_at]&.to_datetime if @account.is_pro
     @scheduled_at = @options[:scheduled_at]&.to_datetime
     @scheduled_at = nil if scheduled_in_the_past?
