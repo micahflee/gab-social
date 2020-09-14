@@ -38,6 +38,7 @@ import status_lists from './status_lists'
 import status_revisions from './status_revisions'
 import suggestions from './suggestions'
 import timelines from './timelines'
+import timeline_injections from './timeline_injections'
 import toasts from './toasts'
 import user from './user'
 import user_lists from './user_lists'
@@ -82,6 +83,7 @@ const reducers = {
   status_revisions,
   suggestions,
   timelines,
+  timeline_injections,
   toasts,
   user,
   user_lists,
