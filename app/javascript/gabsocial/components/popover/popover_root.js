@@ -14,6 +14,7 @@ import {
   POPOVER_STATUS_OPTIONS,
   POPOVER_STATUS_EXPIRATION_OPTIONS,
   POPOVER_STATUS_VISIBILITY,
+  POPOVER_TIMELINE_INJECTION_OPTIONS,
   POPOVER_USER_INFO,
   POPOVER_VIDEO_STATS,
 } from '../../constants'
@@ -32,6 +33,7 @@ import {
   StatusExpirationOptionsPopover,
   StatusOptionsPopover,
   StatusVisibilityPopover,
+  TimelineInjectionOptionsPopover,
   UserInfoPopover,
   VideoStatsPopover,
 } from '../../features/ui/util/async_components'
@@ -64,6 +66,7 @@ POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
 POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
 POPOVER_COMPONENTS[POPOVER_STATUS_EXPIRATION_OPTIONS] = StatusExpirationOptionsPopover
 POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
+POPOVER_COMPONENTS[POPOVER_TIMELINE_INJECTION_OPTIONS] = TimelineInjectionOptionsPopover
 POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
 POPOVER_COMPONENTS[POPOVER_VIDEO_STATS] = VideoStatsPopover
 

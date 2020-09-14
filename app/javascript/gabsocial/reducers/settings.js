@@ -2,7 +2,17 @@ import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings'
 import { STORE_HYDRATE } from '../actions/store'
 import { EMOJI_USE } from '../actions/emojis'
 import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists'
-import { COMMENT_SORTING_TYPE_OLDEST } from '../constants'
+import { TIMELINE_INJECTION_HIDE } from '../actions/timeline_injections'
+import {
+  COMMENT_SORTING_TYPE_OLDEST,
+  TIMELINE_INJECTION_WEIGHT_DEFAULT,
+  TIMELINE_INJECTION_FEATURED_GROUPS,
+  TIMELINE_INJECTION_GROUP_CATEGORIES,
+  TIMELINE_INJECTION_PRO_UPGRADE,
+  TIMELINE_INJECTION_PWA,
+  TIMELINE_INJECTION_SHOP,
+  TIMELINE_INJECTION_USER_SUGGESTIONS,
+} from '../constants'
 import { Map as ImmutableMap, fromJS } from 'immutable'
 import uuid from '../utils/uuid'
 
@@ -11,6 +21,16 @@ const initialState = ImmutableMap({
   shownOnboarding: false,
   skinTone: 1,
   commentSorting: COMMENT_SORTING_TYPE_OLDEST,
+
+  // every dismiss reduces by half or set to zero for pwa, shop, pro
+  injections: ImmutableMap({
+    [TIMELINE_INJECTION_FEATURED_GROUPS]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+    [TIMELINE_INJECTION_GROUP_CATEGORIES]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+    [TIMELINE_INJECTION_PRO_UPGRADE]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+    [TIMELINE_INJECTION_PWA]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+    [TIMELINE_INJECTION_SHOP]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+    [TIMELINE_INJECTION_USER_SUGGESTIONS]: TIMELINE_INJECTION_WEIGHT_DEFAULT,
+  }),
 
   displayOptions: ImmutableMap({
     fontSize: 'normal',

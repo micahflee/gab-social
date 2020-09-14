@@ -22,14 +22,14 @@ export function EditShortcutsModal() { return import(/* webpackChunkName: "compo
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
-// export function FeaturedGroupsInjection() { return import(/* webpackChunkName: "components/featured_groups_injection" */'../../../components/timeline_injections/featured_groups_injection') }
+export function FeaturedGroupsInjection() { return import(/* webpackChunkName: "components/featured_groups_injection" */'../../../components/timeline_injections/featured_groups_injection') }
 export function Followers() { return import(/* webpackChunkName: "features/followers" */'../../followers') }
 export function Following() { return import(/* webpackChunkName: "features/following" */'../../following') }
 export function FollowRequests() { return import(/* webpackChunkName: "features/follow_requests" */'../../follow_requests') }
 export function LikedStatuses() { return import(/* webpackChunkName: "features/liked_statuses" */'../../liked_statuses') }
 export function GenericNotFound() { return import(/* webpackChunkName: "features/generic_not_found" */'../../generic_not_found') }
 export function GlobalFooter() { return import(/* webpackChunkName: "components/global_footer" */'../../../components/global_footer') }
-// export function GroupCategoriesInjection() { return import(/* webpackChunkName: "components/group_categories_injection" */'../../../components/timeline_injections/group_categories_injection') }
+export function GroupCategoriesInjection() { return import(/* webpackChunkName: "components/group_categories_injection" */'../../../components/timeline_injections/group_categories_injection') }
 export function GroupsCollection() { return import(/* webpackChunkName: "features/groups_collection" */'../../groups_collection') }
 export function GroupAbout() { return import(/* webpackChunkName: "features/group_about" */'../../group_about.js') }
 export function GroupCollectionTimeline() { return import(/* webpackChunkName: "features/group_collection_timeline" */'../../group_collection_timeline') }
@@ -85,14 +85,16 @@ export function ProfileInfoPanel() { return import(/* webpackChunkName: "compone
 export function ProfileStatsPanel() { return import(/* webpackChunkName: "components/profile_info_panel" */'../../../components/panel/profile_stats_panel') }
 export function ProgressPanel() { return import(/* webpackChunkName: "components/progress_panel" */'../../../components/panel/progress_panel') }
 export function ProPanel() { return import(/* webpackChunkName: "components/pro_panel" */'../../../components/panel/pro_panel') }
+export function ProUpgradeInjection() { return import(/* webpackChunkName: "components/pro_upgrade_injection" */'../../../components/timeline_injections/pro_upgrade_injection') }
 export function ProUpgradeModal() { return import(/* webpackChunkName: "components/pro_upgrade_modal" */'../../../components/modal/pro_upgrade_modal') }
-// export function PWAInjection() { return import(/* webpackChunkName: "components/pwa_injection" */'../../../components/timeline_injections/pwa_injection') }
+export function PWAInjection() { return import(/* webpackChunkName: "components/pwa_injection" */'../../../components/timeline_injections/pwa_injection') }
 export function ReportModal() { return import(/* webpackChunkName: "modals/report_modal" */'../../../components/modal/report_modal') }
 export function Search() { return import(/*webpackChunkName: "features/search" */'../../search') }
 export function Shortcuts() { return import(/*webpackChunkName: "features/shortcuts" */'../../shortcuts') }
 export function Status() { return import(/* webpackChunkName: "components/status" */'../../../components/status') }
 export function StatusFeature() { return import(/* webpackChunkName: "features/status" */'../../status') }
 export function SearchFilterPanel() { return import(/* webpackChunkName: "components/search_filter_panel" */'../../../components/panel/search_filter_panel') }
+export function ShopInjection() { return import(/* webpackChunkName: "components/shop_injection" */'../../../components/timeline_injections/shop_injection') }
 export function ShopPanel() { return import(/* webpackChunkName: "components/shop_panel" */'../../../components/panel/shop_panel') }
 export function SidebarMorePopover() { return import(/* webpackChunkName: "components/sidebar_more_popover" */'../../../components/popover/sidebar_more_popover') }
 export function SignUpLogInPanel() { return import(/* webpackChunkName: "components/sign_up_log_in_panel" */'../../../components/panel/sign_up_log_in_panel') }
@@ -110,7 +112,7 @@ export function StatusVisibilityPopover() { return import(/* webpackChunkName: "
 export function Suggestions() { return import(/* webpackChunkName: "features/suggestions" */'../../suggestions') }
 export function TermsOfSale() { return import(/* webpackChunkName: "features/about/terms_of_sale" */'../../about/terms_of_sale') }
 export function TermsOfService() { return import(/* webpackChunkName: "features/about/terms_of_service" */'../../about/terms_of_service') }
-// export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }
+export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }
 export function TrendsPanel() { return import(/* webpackChunkName: "components/trends_panel" */'../../../components/panel/trends_panel') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
@@ -119,5 +121,5 @@ export function UserPanel() { return import(/* webpackChunkName: "components/use
 export function Video() { return import(/* webpackChunkName: "components/video" */'../../../components/video') }
 export function VideoModal() { return import(/* webpackChunkName: "components/video_modal" */'../../../components/modal/video_modal') }
 export function VideoStatsPopover() { return import(/* webpackChunkName: "components/video_stats_popover" */'../../../components/popover/video_stats_popover') }
-// export function UserSuggestionsInjection() { return import(/* webpackChunkName: "components/user_suggestions_injection" */'../../../components/timeline_injections/user_suggestions_injection') }
+export function UserSuggestionsInjection() { return import(/* webpackChunkName: "components/user_suggestions_injection" */'../../../components/timeline_injections/user_suggestions_injection') }
 export function UserSuggestionsPanel() { return import(/* webpackChunkName: "components/user_suggestions_panel" */'../../../components/panel/user_suggestions_panel') }
