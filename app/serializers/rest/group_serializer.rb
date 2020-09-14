@@ -16,7 +16,7 @@ class REST::GroupSerializer < ActiveModel::Serializer
   end
 
   def password
-    if current_user && object.group_accounts.where(account_id: current_user.account.id, role: :admin).exists?
+    if defined?(current_user) && object.group_accounts.where(account_id: current_user.account.id, role: :admin).exists?
       object.password
     else
       nil
