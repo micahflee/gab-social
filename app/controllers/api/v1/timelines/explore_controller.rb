@@ -71,7 +71,7 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
               reply: false
             ).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
-              params_slice(:max_id, :since_id, :min_id)
+              params_slice(:max_id, :since_id)
             ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
       elsif @sort_type == 'recent'
         statuses = Status.with_public_visibility.where(
@@ -80,16 +80,15 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
             'status_stats.replies_count > 0 OR status_stats.reblogs_count > 0 OR status_stats.favourites_count > 0'
           ).order('status_stats.updated_at DESC').paginate_by_id(
             limit_param(DEFAULT_STATUSES_LIMIT),
-            params_slice(:max_id, :since_id, :min_id)
+            params_slice(:max_id, :since_id)
           ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
       elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time', 'hot'].include? @sort_type
         if @sort_type == 'top_all_time'
           statuses = Status.unscoped.with_public_visibility.where(
               reply: false
-            ).joins(:status_stat).order(top_order)
-            .paginate_by_id(
+            ).joins(:status_stat).order(top_order).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
-              params_slice(:max_id, :since_id, :min_id)
+              params_slice(:max_id, :since_id)
             ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
         elsif @sort_type == 'hot'
           statuses = Status.unscoped.with_public_visibility.where(
@@ -98,7 +97,7 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
             'statuses.created_at > ?', date_limit
           ).joins(:status_stat).order(top_order).paginate_by_id(
             limit_param(DEFAULT_STATUSES_LIMIT),
-            params_slice(:max_id, :since_id, :min_id)
+            params_slice(:max_id, :since_id)
           ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
         else
           statuses = Status.unscoped.with_public_visibility.where(
@@ -107,7 +106,7 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
             'statuses.created_at > ?', date_limit
           ).joins(:status_stat).order(top_order).paginate_by_id(
             limit_param(DEFAULT_STATUSES_LIMIT),
-            params_slice(:max_id, :since_id, :min_id)
+            params_slice(:max_id, :since_id)
           ).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
         end
       end
@@ -117,7 +116,7 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
               reply: false
             ).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
-              params_slice(:max_id, :since_id, :min_id)
+              params_slice(:max_id, :since_id)
             )
       elsif @sort_type == 'recent'
         statuses = Status.with_public_visibility.where(
@@ -126,16 +125,15 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
             'status_stats.replies_count > 0 OR status_stats.reblogs_count > 0 OR status_stats.favourites_count > 0'
           ).order('status_stats.updated_at DESC').paginate_by_id(
             limit_param(DEFAULT_STATUSES_LIMIT),
-            params_slice(:max_id, :since_id, :min_id)
+            params_slice(:max_id, :since_id)
           )
       elsif ['top_today', 'top_weekly', 'top_monthly', 'top_yearly', 'top_all_time', 'hot'].include? @sort_type
         if @sort_type == 'top_all_time'
           statuses = Status.unscoped.with_public_visibility.where(
               reply: false
-            ).joins(:status_stat).order(top_order)
-            .paginate_by_id(
+            ).joins(:status_stat).order(top_order).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
-              params_slice(:max_id, :since_id, :min_id)
+              params_slice(:max_id, :since_id)
             )
         else
           statuses = Status.unscoped.with_public_visibility.where(
@@ -144,7 +142,7 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
             'statuses.created_at > ?', date_limit
           ).joins(:status_stat).order(top_order).paginate_by_id(
             limit_param(DEFAULT_STATUSES_LIMIT),
-            params_slice(:max_id, :since_id, :min_id)
+            params_slice(:max_id, :since_id)
           )
         end
       end

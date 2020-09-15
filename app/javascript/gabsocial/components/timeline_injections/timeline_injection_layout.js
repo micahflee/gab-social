@@ -37,6 +37,7 @@ class TimelineInjectionLayout extends React.PureComponent {
       subtitle,
       children,
       buttonLink,
+      buttonHref,
       buttonTitle,
       isXS,
     } = this.props
@@ -90,6 +91,7 @@ class TimelineInjectionLayout extends React.PureComponent {
             color='none'
             backgroundColor='none'
             to={buttonLink}
+            href={buttonHref}
             className={[_s.px15, _s.py15, _s.bgSubtle_onHover].join(' ')}
           >
             <Text color='brand' align='center' size='medium'>
@@ -106,6 +108,7 @@ class TimelineInjectionLayout extends React.PureComponent {
 TimelineInjectionLayout.propTypes = {
   title: PropTypes.string,
   buttonLink: PropTypes.string,
+  buttonHref: PropTypes.string,
   buttonTitle: PropTypes.string,
   id: PropTypes.string.isRequired,
   subtitle: PropTypes.string,

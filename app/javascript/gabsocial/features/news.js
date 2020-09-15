@@ -202,9 +202,9 @@ class News extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  isError: state.getIn(['gab_trends', 'partner', 'isError']),
-  isLoading: state.getIn(['gab_trends', 'partner', 'isLoading']),
-  items: state.getIn(['gab_trends', 'partner', 'items']),
+  isError: state.getIn(['gab', 'partner', 'isError']),
+  isLoading: state.getIn(['gab', 'partner', 'isLoading']),
+  items: state.getIn(['gab', 'partner', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
