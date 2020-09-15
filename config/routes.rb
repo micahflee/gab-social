@@ -331,6 +331,7 @@ Rails.application.routes.draw do
         resources :group, only: :show
         resources :group_collection, only: :show
         resources :group_pins, only: :show
+        resource :explore, only: :show, controller: :explore
       end
 
       resources :gab_trends, only: [:index]

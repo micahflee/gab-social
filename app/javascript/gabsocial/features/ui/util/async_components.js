@@ -22,6 +22,7 @@ export function EditShortcutsModal() { return import(/* webpackChunkName: "compo
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
+export function ExploreTimeline() { return import(/* webpackChunkName: "features/explore_timeline" */'../../explore_timeline') }
 export function FeaturedGroupsInjection() { return import(/* webpackChunkName: "components/featured_groups_injection" */'../../../components/timeline_injections/featured_groups_injection') }
 export function Followers() { return import(/* webpackChunkName: "features/followers" */'../../followers') }
 export function Following() { return import(/* webpackChunkName: "features/following" */'../../following') }

@@ -166,6 +166,7 @@ export function expandTimeline(timelineId, path, params = {}, done = noOp) {
 };
 
 export const expandHomeTimeline = ({ maxId } = {}, done = noOp) => expandTimeline('home', '/api/v1/timelines/home', { max_id: maxId }, done);
+export const expandExploreTimeline = ({ maxId, sortBy } = {}, done = noOp) => expandTimeline('explore', '/api/v1/timelines/explore', { max_id: maxId, sort_by: sortBy }, done);
 export const expandProTimeline = ({ maxId } = {}, done = noOp) => expandTimeline('pro', '/api/v1/timelines/pro', { max_id: maxId }, done);
 export const expandCommunityTimeline = ({ maxId, onlyMedia } = {}, done = noOp) => expandTimeline(`community${onlyMedia ? ':media' : ''}`, '/api/v1/timelines/public', { max_id: maxId, only_media: !!onlyMedia }, done);
 export const expandAccountTimeline = (accountId, { maxId, withReplies, commentsOnly } = {}) => expandTimeline(`account:${accountId}${withReplies ? ':with_replies' : ''}${commentsOnly ? ':comments_only' : ''}`, `/api/v1/accounts/${accountId}/statuses`, { only_comments: commentsOnly, exclude_replies: (!withReplies && !commentsOnly), max_id: maxId });
