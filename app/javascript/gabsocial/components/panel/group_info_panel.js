@@ -52,7 +52,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
     const tags = !!group ? group.get('tags') : []
     const groupCategory = !!group ? group.getIn(['group_category', 'text'], null) : null
     
-    const collapsable = !!group ? `${group.get('description')}`.length > 500 : false
+    const collapsable = !!group ? `${group.get('description')}`.length > 500 && noPanel : false
     let des = ''
     if (!!group) des = collapsable && !descriptionOpen ? `${group.get('description_html')}`.substring(0, 500) : group.get('description_html')
     const descriptionHTML = !!group ? { __html: des } : {}
