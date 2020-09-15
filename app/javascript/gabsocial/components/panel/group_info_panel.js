@@ -19,6 +19,14 @@ import ProfileInfoPanelPlaceholder from '../placeholder/profile_info_panel_place
 
 class GroupInfoPanel extends ImmutablePureComponent {
 
+  state = {
+    descriptionOpen: false
+  }
+
+  handleToggleDescriptionOpen = () => {
+    this.setState({ descriptionOpen: !this.state.descriptionOpen })
+  }
+
   render() {
     const {
       intl,
@@ -26,6 +34,7 @@ class GroupInfoPanel extends ImmutablePureComponent {
       noPanel,
       relationships,
     } = this.props
+    const { descriptionOpen } = this.state
 
     if (!group && !noPanel) {
       return (
@@ -42,7 +51,11 @@ class GroupInfoPanel extends ImmutablePureComponent {
     const isVisible = !!group ? group.get('is_visible') : false
     const tags = !!group ? group.get('tags') : []
     const groupCategory = !!group ? group.getIn(['group_category', 'text'], null) : null
-    const descriptionHTML = !!group ? { __html: group.get('description_html') } : {}
+    
+    const collapsable = !!group ? `${group.get('description')}`.length > 500 : false
+    let des = ''
+    if (!!group) des = collapsable && !descriptionOpen ? `${group.get('description_html')}`.substring(0, 500) : group.get('description_html')
+    const descriptionHTML = !!group ? { __html: des } : {}
 
     if (noPanel) {
       return (
@@ -61,6 +74,22 @@ class GroupInfoPanel extends ImmutablePureComponent {
               }
               <Text className={[_s.mt10, _s.py2].join(' ')} color='secondary' size='small' align='center'>
                 <div className={_s.dangerousContent} dangerouslySetInnerHTML={descriptionHTML} />
+
+                {
+                  collapsable &&
+                  <Button
+                    isText
+                    underlineOnHover
+                    color='primary'
+                    backgroundColor='none'
+                    className={[_s.py2, _s.mlAuto, _s.mrAuto].join(' ')}
+                    onClick={this.handleToggleDescriptionOpen}
+                  >
+                    <Text size='medium' color='inherit' weight='bold'>
+                      {intl.formatMessage(descriptionOpen ? messages.readLess : messages.readMore)}
+                    </Text>
+                  </Button>
+                }
               </Text>
               <div className={[_s.d, _s.mt10, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
                 <Text color='secondary' size='small' align='center'>
@@ -94,6 +123,22 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
             <Text className={_s.mb5}>
               <div className={_s.dangerousContent} dangerouslySetInnerHTML={descriptionHTML} />
+
+              {
+                collapsable &&
+                <Button
+                  isText
+                  underlineOnHover
+                  color='primary'
+                  backgroundColor='none'
+                  className={_s.py2}
+                  onClick={this.handleToggleDescriptionOpen}
+                >
+                  <Text size='medium' color='inherit' weight='bold'>
+                    {intl.formatMessage(descriptionOpen ? messages.readLess : messages.readMore)}
+                  </Text>
+                </Button>
+              }
             </Text>
 
             <Divider isSmall />
@@ -247,6 +292,8 @@ const messages = defineMessages({
   publicGroup: { id: 'group.public', defaultMessage: 'Public' },
   visibleGroup: { id: 'group.visible', defaultMessage: 'Visible' },
   invisibleGroup: { id: 'group.invisible', defaultMessage: 'Invisible' },
+  readMore: { id: 'status.read_more', defaultMessage: 'Read more' },
+  readLess: { id: 'status.read_less', defaultMessage: 'Read less' },
 })
 
 const mapStateToProps = (state, { group }) => {

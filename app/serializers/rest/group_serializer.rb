@@ -12,7 +12,7 @@ class REST::GroupSerializer < ActiveModel::Serializer
   end
 
   def has_password
-    return !!password
+    return !!object.password
   end
 
   def password
