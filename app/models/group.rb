@@ -56,6 +56,7 @@ class Group < ApplicationRecord
     record.errors.add(:base, I18n.t('groups.errors.limit')) if Group.where(account_id: value).count >= PER_ACCOUNT_LIMIT
   end
 
+  before_save :set_password
   before_destroy :clean_feed_manager
   after_create :add_owner_to_accounts
 
@@ -72,6 +73,13 @@ class Group < ApplicationRecord
 
   private
 
+  def set_password
+    if password.nil? || !password || password.gsub(/\s+/, "").length <= 1 || password == "null"
+      nil
+    else
+      password
+    end
+  end
   def add_owner_to_accounts
     group_accounts << GroupAccount.new(account: account, role: :admin, write_permissions: true)
   end

@@ -12,7 +12,7 @@ class REST::GroupSerializer < ActiveModel::Serializer
   end
 
   def has_password
-    return !!object.password
+    return !!object.password && object.password.gsub(/\s+/, "").length > 1 && object.password.to_s != "null"
   end
 
   def password
