@@ -38,9 +38,9 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
     if (!group && !noPanel) {
       return (
-        <div title={intl.formatMessage(messages.title)}>
+        <PanelLayout title={intl.formatMessage(messages.title)}>
           <ProfileInfoPanelPlaceholder />
-        </div>
+        </PanelLayout>
       )
     }
 
@@ -123,22 +123,6 @@ class GroupInfoPanel extends ImmutablePureComponent {
 
             <Text className={_s.mb5}>
               <div className={_s.dangerousContent} dangerouslySetInnerHTML={descriptionHTML} />
-
-              {
-                collapsable &&
-                <Button
-                  isText
-                  underlineOnHover
-                  color='primary'
-                  backgroundColor='none'
-                  className={_s.py2}
-                  onClick={this.handleToggleDescriptionOpen}
-                >
-                  <Text size='medium' color='inherit' weight='bold'>
-                    {intl.formatMessage(descriptionOpen ? messages.readLess : messages.readMore)}
-                  </Text>
-                </Button>
-              }
             </Text>
 
             <Divider isSmall />
