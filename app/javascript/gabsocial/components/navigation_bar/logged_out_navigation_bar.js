@@ -46,7 +46,6 @@ class LoggedOutNavigationBar extends React.PureComponent {
                     <NavigationBarButton title='Home' icon='home' href='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
-                    <NavigationBarButton title='TV' icon='gab-tv' href='https://tv.gab.com' />
                   </div>
                 </ResponsiveComponent>
               }

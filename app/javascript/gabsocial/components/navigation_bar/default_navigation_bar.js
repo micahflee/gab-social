@@ -86,7 +86,6 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     <NavigationBarButton title='Home' icon='home' to='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
-                    <NavigationBarButton title='TV' icon='gab-tv' href='https://tv.gab.com' />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
