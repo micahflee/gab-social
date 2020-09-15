@@ -65,13 +65,15 @@ const create = (options, routerHistory) => (dispatch, getState) => {
 	formData.append('title', options.title)
 	formData.append('description', options.description)
 	formData.append('tags', options.tags)
-	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
 	formData.append('password', options.password)
 
 	if (options.coverImage !== null) {
 		formData.append('cover_image', options.coverImage)
+	}
+	if (options.category !== null) {
+		formData.append('group_category_id', options.category)
 	}
 
 	api(getState).post('/api/v1/groups', formData, {
@@ -109,7 +111,6 @@ const update = (groupId, options, routerHistory) => (dispatch, getState) => {
 	formData.append('title', options.title)
 	formData.append('description', options.description)
 	formData.append('tags', options.tags)
-	formData.append('group_category_id', options.category)
 	formData.append('is_private', options.isPrivate)
 	formData.append('is_visible', options.isVisible)
 	formData.append('password', options.password)
@@ -119,6 +120,9 @@ const update = (groupId, options, routerHistory) => (dispatch, getState) => {
 	}
 	if (options.coverImage !== null) {
 		formData.append('cover_image', options.coverImage)
+	}
+	if (options.category !== null) {
+		formData.append('group_category_id', options.category)
 	}
 
 	api(getState).put(`/api/v1/groups/${groupId}`, formData, {
