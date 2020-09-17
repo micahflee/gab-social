@@ -61,7 +61,7 @@ class Api::V1::GroupsController < Api::BaseController
   end
 
   def show
-    render json: @group, serializer: REST::GroupSerializer
+    render json: @group, serializer: REST::GroupSerializer, individual_group: true
   end
 
   def create

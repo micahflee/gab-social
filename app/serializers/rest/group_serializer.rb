@@ -20,8 +20,12 @@ class REST::GroupSerializer < ActiveModel::Serializer
       return nil
     end
 
-    if object.group_accounts.where(account_id: current_user.account.id, role: :admin).exists?
-      object.password
+    if instance_options[:individual_group]
+      if object.group_accounts.where(account_id: current_user.account.id, role: :admin).exists?
+        object.password
+      else
+        nil
+      end
     else
       nil
     end
