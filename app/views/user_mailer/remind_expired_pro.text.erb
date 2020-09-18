@@ -3,9 +3,19 @@
 <% if @date_range == '7' %>
 Your GabPRO membership expired last week.
 <% elsif @date_range == '16' %>
+Your GabPRO membership expired a few weeks ago.
+<% elsif @date_range == '30' %>
 Your GabPRO membership expired last month.
+<% elsif @date_range == '45' %>
+Your GabPRO membership expired about a month ago.
+<% elsif @date_range == '60' %>
+Your GabPRO membership expired two months ago.
+<% elsif @date_range == '75' %>
+Your GabPRO membership expired a couple months ago.
+<% elsif @date_range == '90' %>
+Your GabPRO membership expired a few months ago.
 <% else %>
-Your GabPRO membership expired last week.
+Your GabPRO membership expired recently.
 <% end %>
 
 <% if ['7', '30', '60'].include?(@date_range) %>
