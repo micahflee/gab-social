@@ -1,0 +1,25 @@
+<%= "Hello " + @resource.account.username %>
+
+<% if @date_range == '7' %>
+Your GabPRO membership expired last week.
+<% elsif @date_range == '16' %>
+Your GabPRO membership expired last month.
+<% else %>
+Your GabPRO membership expired last week.
+<% end %>
+
+<% if ['7', '30', '60'].include?(@date_range) %>
+Thank you so much for supporting our mission of defending free speech online. We hope you please consider renewing your membership. Gab is 100% funded by people like you.
+<% elsif ['16', '45', '75'].include?(@date_range) %>
+Gab is 100% funded by people like you, not special interests or big corporate advertisers. Your GabPRO membership has been expired, but we hope you'll please consider upgrading to GabPRO again today. We depend on people like you to help us keep building and to cover operational costs.  Thank you for being a valued member of the Gab community!
+<% else %>
+Your GabPRO subscription has been expired for a while now, but we hope you'll please consider upgrading to GabPRO again today. We depend on people like you to help us keep building and to cover operational costs.
+<% end %>
+
+If you have any questions or need help with anything please feel free to reach out anytime: support@gab.com
+
+===
+
+Go to PRO.GAB.COM to renew your membership
+
+https://pro.gab.com

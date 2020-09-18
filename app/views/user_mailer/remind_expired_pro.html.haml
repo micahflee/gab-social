@@ -1,0 +1,54 @@
+%tr
+  %td{:align => "center", :style => ""}
+    %h1{:style => "margin:0;font-weight:bold;font-size:20px;color:#444;text-align:center;"}= "Hello " + @resource.account.username
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{:style => "font-size:16px;color:#444;margin:15px 0;text-align:left;"}
+            %span Your GabPRO membership expired 
+            - if @date_range == '7'
+              %span last week.
+            - elsif @date_range == '16'
+              %span a few weeks ago.
+            - elsif @date_range == '30'
+              %span last month.
+            - elsif @date_range == '45'
+              %span about a month ago.
+            - elsif @date_range == '60'
+              %span two months ago.
+            - elsif @date_range == '75'
+              %span a couple months ago.
+            - elsif @date_range == '90'
+              %span a few months ago.
+            - else
+              %span recently.
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle"}
+    %table
+      %tbody
+        %tr
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            - if ['7', '30', '60'].include?(@date_range)
+              %span{ :style => "font-size:16px;color:#444;text-align:left;" } Thank you so much for supporting our mission of defending free speech online. We hope you please consider renewing your membership. Gab is 100% funded by people like you.
+            - elsif ['16', '45', '75'].include?(@date_range)
+              %span{ :style => "font-size:16px;color:#444;text-align:left;" } Gab is 100% funded by people like you, not special interests or big corporate advertisers. Your GabPRO membership has been expired, but we hope you'll please consider upgrading to GabPRO again today. We depend on people like you to help us keep building and to cover operational costs. Thank you for being a valued member of the Gab community!
+            - else
+              %span{ :style => "font-size:16px;color:#444;text-align:left;" } Your GabPRO subscription has been expired for a while now, but we hope you'll please consider upgrading to GabPRO again today. We depend on people like you to help us keep building and to cover operational costs.
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } If you have any questions or need help with anything please feel free to reach out anytime: support@gab.com
+          %p{ :style => "margin:0 0 15px 0;text-align:left;" }
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } Go to
+            = link_to "https://pro.gab.com", "https://pro.gab.com", :style => "color:#30CE7D;font-size:16px;font-weight:600;text-decoration:underline;"
+            %span{ :style => "font-size:16px;color:#444;text-align:left;" } to renew your membership.
+
+%tr
+  %td{:align => "center", :cellspacing => "0", :style => "vertical-align:middle;padding-top:10px;padding-bottom:30px;"}
+    %table{ align: 'center', cellspacing: 0, cellpadding: 0 }
+      %tbody
+        %tr
+          %td{ :style => "background-color:#30CE7D;height:56px;border-radius:9999px;color:#fff;" }
+            = link_to "Renew GabPRO", "https://pro.gab.com", :style => "height:56px;padding:20px 30px;text-decoration:none;color:#fff;font-size:16px;margin:0;"

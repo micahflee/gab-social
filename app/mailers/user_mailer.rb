@@ -17,6 +17,35 @@ class UserMailer < Devise::Mailer
     end
   end
 
+  def remind_expired_pro(user, date_range)
+    @date_range = date_range
+    valid_date_ranges = ['7', '16', '30', '45', '60', '75', '90']
+
+    return unless valid_date_ranges.include?(@date_range)
+
+    @resource = user
+    return if @resource.disabled?
+
+    subject = "Renew GabPRO Today"
+    case @date_range
+    when '16'
+      subject = "Gab’s Mission"
+    when '30'
+      subject = "GabPRO Membership"
+    when '45'
+      subject = "Renew GabPRO"
+    when '60'
+      subject = "Gab Depends On People Like You"
+    when '75'
+      subject = "Free Speech Online Powered By You"
+    when '90'
+      subject = "Defend Freedom Online With Us"
+    end
+
+    I18n.with_locale(@resource.locale || I18n.default_locale) do
+      mail to: @resource.email, subject: subject
+    end
+  end
   def confirmation_instructions(user, token, **)
     @resource = user
     @token    = token
