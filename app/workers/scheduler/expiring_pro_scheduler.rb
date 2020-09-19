@@ -4,7 +4,7 @@ class Scheduler::ExpiringProScheduler
   include Sidekiq::Worker
 
   sidekiq_options retry: 1
-
+  
   def perform
     expired_accounts.find_each do |acct|
       ExpireAccountProWorker.perform_async(acct.id)
@@ -14,6 +14,6 @@ class Scheduler::ExpiringProScheduler
   private
 
   def expired_accounts
-    Account.where('is_pro=TRUE AND pro_expires_at < ?', Time.now.utc)
+    Account.where('is_pro=TRUE AND pro_expires_at BETWEEN ? AND ?', 1.day.ago, Time.now.utc)
   end
 end
