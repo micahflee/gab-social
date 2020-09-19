@@ -46,6 +46,29 @@ class UserMailer < Devise::Mailer
       mail to: @resource.email, subject: subject
     end
   end
+
+  def introduce_pro(user, date_range)
+    valid_date_ranges = ['7', '15', '30']
+    @date_range = date_range
+
+    return unless valid_date_ranges.include?(@date_range)
+
+    @resource = user
+    return if @resource.disabled?
+
+    subject = 'Gab Is Powered By You'
+    case @date_range
+    when '15'
+      subject = 'The Silicon Valley Alternative'
+    when '30'
+      subject = 'Free Speech Software'
+    end
+
+    I18n.with_locale(@resource.locale || I18n.default_locale) do
+      mail to: @resource.email, subject: subject
+    end
+  end
+
   def confirmation_instructions(user, token, **)
     @resource = user
     @token    = token

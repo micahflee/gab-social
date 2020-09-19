@@ -6,6 +6,9 @@
   - [mailers, 2]
   - [pull]
 :schedule:
+  introduce_pro_scheduler:
+    cron: '0 8 * * *'
+    class: Scheduler::IntroduceProScheduler
   remind_expired_pro_scheduler:
     cron: '0 8 * * *'
     class: Scheduler::RemindExpiredProScheduler
