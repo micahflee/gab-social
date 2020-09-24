@@ -11,7 +11,10 @@ import { joinGroup } from './groups'
 import { useEmoji } from './emojis';
 import resizeImage from '../utils/resize_image';
 import { importFetchedAccounts } from './importer';
-import { updateTimeline, dequeueTimeline } from './timelines';
+import {
+  updateTimelineQueue,
+  updateTimeline,
+} from './timelines'
 // import { showAlert, showAlertForError } from './alerts';
 import { defineMessages } from 'react-intl';
 import { openModal, closeModal } from './modal';
@@ -258,7 +261,6 @@ export function handleComposeSubmit(dispatch, getState, response, status) {
     const timeline = getState().getIn(['timelines', timelineId]);
 
     if (timeline && timeline.get('items').size > 0 && timeline.getIn(['items', 0]) !== null && timeline.get('online')) {
-      dispatch(updateTimelineQueue(timelineId, response.data))
       dispatch(updateTimeline(timelineId, { ...response.data }));
     }
   };
