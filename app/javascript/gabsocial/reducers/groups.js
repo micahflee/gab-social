@@ -2,6 +2,8 @@ import {
   GROUP_FETCH_SUCCESS,
   GROUP_FETCH_FAIL,
   GROUPS_FETCH_SUCCESS,
+  GROUPS_BY_CATEGORY_FETCH_SUCCESS,
+  GROUPS_BY_TAG_FETCH_SUCCESS,
 } from '../actions/groups'
 import { GROUP_UPDATE_SUCCESS } from '../actions/group_editor'
 import { Map as ImmutableMap, fromJS } from 'immutable'
@@ -23,6 +25,8 @@ export default function groups(state = initialState, action) {
   case GROUP_FETCH_SUCCESS:
   case GROUP_UPDATE_SUCCESS:
     return normalizeGroup(state, action.group)
+  case GROUPS_BY_CATEGORY_FETCH_SUCCESS:
+  case GROUPS_BY_TAG_FETCH_SUCCESS:
   case GROUPS_FETCH_SUCCESS:
     return normalizeGroups(state, action.groups)
   case GROUP_FETCH_FAIL:

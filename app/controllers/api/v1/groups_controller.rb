@@ -39,7 +39,15 @@ class Api::V1::GroupsController < Api::BaseController
       render json: { error: 'This method requires an authenticated user' }, status: 422
     end
 
+    @groupCategory = nil
+    if !params[:category].empty?
+      @groupCategory = GroupCategories.where("text ILIKE ?", "%#{params[:category]}%")
+    end
+
     @groups = []
+    if !@groupCategory.nil?
+      @groups = Group.where(is_archived: false, group_categories: @groupCategory).all
+    end
 
     render json: @groups, each_serializer: REST::GroupSerializer
   end
@@ -50,6 +58,9 @@ class Api::V1::GroupsController < Api::BaseController
     end
 
     @groups = []
+    if !params[:tag].empty?
+      @groups = Group.where(is_archived: false).where("array_to_string(tags, '||') ILIKE :tag", tag: "%#{params[:tag]}%").all
+    end
 
     render json: @groups, each_serializer: REST::GroupSerializer
   end
