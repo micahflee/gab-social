@@ -48,6 +48,10 @@ class LinkFooter extends React.PureComponent {
         text: intl.formatMessage(messages.about),
       },
       {
+        to: '/about/investors',
+        text: intl.formatMessage(messages.investors),
+      },
+      {
         to: '/about/tos',
         text: intl.formatMessage(messages.terms),
       },
@@ -130,6 +134,7 @@ class LinkFooter extends React.PureComponent {
 }
 
 const messages = defineMessages({
+  investors: { id: 'getting_started.investors', defaultMessage: 'Investors' },
   help: { id: 'getting_started.help', defaultMessage: 'Help' },
   invite: { id: 'getting_started.invite', defaultMessage: 'Invite people' },
   hotkeys: { id: 'navigation_bar.keyboard_shortcuts', defaultMessage: 'Hotkeys' },
