@@ -11,11 +11,15 @@ class Api::V1::Groups::PinsController < Api::BaseController
   respond_to :json
 
   def create
+    authorize @group, :update?
+    
     GroupPinnedStatus.create!(group: @group, status: @status)
     render json: @status, serializer: REST::StatusSerializer
   end
 
   def destroy
+    authorize @group, :update?
+
     pin = GroupPinnedStatus.find_by(group: @group, status: @status)
 
     if pin
