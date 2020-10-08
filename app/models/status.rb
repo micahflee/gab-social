@@ -294,7 +294,7 @@ class Status < ApplicationRecord
 
   class << self
     def selectable_visibilities
-      visibilities.keys - %w(direct limited)
+      visibilities.keys - %w(direct limited private_group)
     end
 
     def in_chosen_languages(account)
