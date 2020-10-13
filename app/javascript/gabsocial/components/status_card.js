@@ -141,6 +141,12 @@ class StatusCard extends ImmutablePureComponent {
     const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name')
     const interactive = card.get('type') !== 'link'
 
+    const imgContainerClasses = CX({
+      d: 1,
+      h220PX: 1,
+      w330PX: !isVertical,
+    })
+
     const cardTitle = `${card.get('title')}`.trim()
     const title = interactive ?
       (
@@ -180,7 +186,7 @@ class StatusCard extends ImmutablePureComponent {
       :
       (
         <ResponsiveClassesComponent
-          classNames={[_s.d, _s.h220PX, _s.w330PX].join(' ')}
+          classNames={imgContainerClasses}
           classNamesSmall={[_s.d, _s.h260PX, _s.w100PC].join(' ')}
           classNamesXS={[_s.d, _s.h200PX, _s.w100PC].join(' ')}
         >
