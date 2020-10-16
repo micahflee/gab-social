@@ -3,7 +3,7 @@
 class Scheduler::ExpiringProScheduler
   include Sidekiq::Worker
 
-  sidekiq_options retry: 1
+  sidekiq_options queue: 'mailers', retry: 12
   
   def perform
     expired_accounts.find_each do |acct|

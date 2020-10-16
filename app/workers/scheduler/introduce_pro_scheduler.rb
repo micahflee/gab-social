@@ -3,7 +3,7 @@
 class Scheduler::IntroduceProScheduler
   include Sidekiq::Worker
 
-  sidekiq_options retry: 1
+  sidekiq_options queue: 'mailers', retry: 12
   
   def perform
     new_accounts(8.days.ago, 7.days.ago).find_each do |acct|
