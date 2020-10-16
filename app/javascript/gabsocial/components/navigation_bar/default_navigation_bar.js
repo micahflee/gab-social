@@ -21,6 +21,8 @@ import { makeGetAccount } from '../../selectors'
 import Responsive from '../../features/ui/util/responsive_component'
 import {
   CX,
+  THEMES,
+  DEFAULT_THEME,
   POPOVER_NAV_SETTINGS,
 } from '../../constants'
 import Avatar from '../avatar'
@@ -33,6 +35,13 @@ import Search from '../search'
 import Text from '../text'
 
 class DefaultNavigationBar extends ImmutablePureComponent {
+
+  handleOnClickLightBulb = () => {
+    let index = THEMES.findIndex((t) => t === this.props.theme)
+    const nextIndex = (index === THEMES.length -1) ? 0 : index += 1
+    const newTheme = THEMES[nextIndex]
+    this.props.onChange('theme', newTheme)
+  }
 
   handleOnOpenNavSettingsPopover = () => {
     this.props.onOpenNavSettingsPopover(this.avatarNode)
@@ -166,6 +175,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
 
                     <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
                     <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
+                    <NavigationBarButton attrTitle='Dark/Muted/Light Mode' icon='light-bulb' onClick={this.handleOnClickLightBulb} />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
                   
@@ -282,6 +292,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
 const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
   emailConfirmationResends: state.getIn(['user', 'emailConfirmationResends'], 0),
+  theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -300,6 +311,10 @@ const mapDispatchToProps = (dispatch) => ({
   onResendUserConfirmationEmail() {
     dispatch(resendUserConfirmationEmail())
   },
+  onChange(key, value) {
+    dispatch(changeSetting(['displayOptions', key], value))
+    dispatch(saveSettings())
+  },
 })
 
 DefaultNavigationBar.propTypes = {
@@ -315,6 +330,7 @@ DefaultNavigationBar.propTypes = {
   emailConfirmationResends: PropTypes.number.isRequired,
   noActions: PropTypes.bool,
   noSearch: PropTypes.bool,
+  theme: PropTypes.string,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DefaultNavigationBar)
