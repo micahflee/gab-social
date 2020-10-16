@@ -150,5 +150,3 @@ group :production do
 end
 
 gem 'concurrent-ruby', require: false
-
-gem "elastic-apm", "~> 3.10"
