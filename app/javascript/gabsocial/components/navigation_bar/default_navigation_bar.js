@@ -5,8 +5,18 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openSidebar } from '../../actions/sidebar'
 import { openPopover } from '../../actions/popover'
-import { BREAKPOINT_EXTRA_SMALL } from '../../constants'
-import { me } from '../../initial_state'
+import { changeSetting, saveSettings } from '../../actions/settings'
+import { resendUserConfirmationEmail } from '../../actions/user'
+import { openModal } from '../../actions/modal'
+import {
+  BREAKPOINT_EXTRA_SMALL,
+  MODAL_EMAIL_CONFIRMATION_REMINDER,
+} from '../../constants'
+import {
+  me,
+  meEmail,
+  emailConfirmed,
+} from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import Responsive from '../../features/ui/util/responsive_component'
 import {
@@ -28,6 +38,14 @@ class DefaultNavigationBar extends ImmutablePureComponent {
     this.props.onOpenNavSettingsPopover(this.avatarNode)
   }
 
+  handleOnClickResendConfirmationEmail = () => {
+    const { emailConfirmationResends } = this.props
+    if (emailConfirmationResends % 2 === 0 && emailConfirmationResends > 0) {
+      this.props.onOpenEmailModal()
+    }
+    this.props.onResendUserConfirmationEmail()
+  }
+
   setAvatarNode = (c) => {
     this.avatarNode = c
   }
@@ -44,9 +62,66 @@ class DefaultNavigationBar extends ImmutablePureComponent {
       noSearch,
     } = this.props
 
+    const navigationContainerClasses = CX({
+      d: 1,
+      z4: 1,
+      minH53PX: emailConfirmed,
+      minH106PX: !emailConfirmed,
+      w100PC: 1,
+    })
+
+    const innerNavigationContainerClasses = CX({
+      d: 1,
+      minH53PX: 1,
+      bgNavigation: 1,
+      aiCenter: 1,
+      z3: 1,
+      top0: emailConfirmed,
+      top53PX: !emailConfirmed,
+      right0: 1,
+      left0: 1,
+      posFixed: 1,
+    })
+
     return (
-      <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
-        <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+      <div className={navigationContainerClasses}>
+
+        {
+          !emailConfirmed &&
+          <div className={[_s.d, _s.posFixed, _s.top0, _s.right0, _s.left0, _s.z3, _s.h53PX, _s.w100PC, _s.bgNavigationBlend].join(' ')}>
+            <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.w1255PX, _s.h53PX, _s.mlAuto, _s.mrAuto].join(' ')}>
+              <div className={[_s.mr15, _s.colorNavigation, _s.pl10].join(' ')}>
+                <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                  <Text color='inherit' size='small'>
+                    Confirm your email address to access all of Gab's features.&nbsp;
+                  </Text>
+                </Responsive>
+                <Text color='inherit' size='small'>
+                  A confirmation message was sent to&nbsp;
+                  <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+                    <Text weight='bold' color='inherit' size='small'>{meEmail}</Text>
+                  </Responsive>
+                  <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                    you
+                  </Responsive>
+                </Text>
+              </div>
+              <Button
+                isNarrow
+                backgroundColor='secondary'
+                color='secondary'
+                className={_s.mr10}
+                onClick={this.handleOnClickResendConfirmationEmail}
+              >
+                <Text color='inherit' weight='medium'>
+                  Resend Confirmation
+                </Text>
+              </Button>
+            </div>
+          </div>
+        }
+
+        <div className={innerNavigationContainerClasses}>
 
           <div className={[_s.d, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.flexRow, _s.w1255PX].join(' ')}>
 
@@ -193,7 +268,6 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                   }
                 </div>
               </div>
-              
             </Responsive>
 
           </div>
@@ -207,19 +281,25 @@ class DefaultNavigationBar extends ImmutablePureComponent {
 
 const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
+  emailConfirmationResends: state.getIn(['user', 'emailConfirmationResends'], 0),
 })
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenSidebar() {
     dispatch(openSidebar())
   },
-
   onOpenNavSettingsPopover(targetRef) {
     dispatch(openPopover(POPOVER_NAV_SETTINGS, {
       targetRef,
       position: 'left-end',
     }))
-  }
+  },
+  onOpenEmailModal() {
+    dispatch(openModal(MODAL_EMAIL_CONFIRMATION_REMINDER))
+  },
+  onResendUserConfirmationEmail() {
+    dispatch(resendUserConfirmationEmail())
+  },
 })
 
 DefaultNavigationBar.propTypes = {
@@ -230,6 +310,9 @@ DefaultNavigationBar.propTypes = {
   showBackBtn: PropTypes.bool,
   onOpenSidebar: PropTypes.func.isRequired,
   onOpenNavSettingsPopover: PropTypes.func.isRequired,
+  onOpenEmailModal: PropTypes.func.isRequired,
+  onResendUserConfirmationEmail: PropTypes.func.isRequired,
+  emailConfirmationResends: PropTypes.number.isRequired,
   noActions: PropTypes.bool,
   noSearch: PropTypes.bool,
 }
