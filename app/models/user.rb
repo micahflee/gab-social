@@ -98,6 +98,7 @@ class User < ApplicationRecord
   before_validation :sanitize_languages
   before_validation :set_unique_email
   before_create :set_approved
+  after_create :prepare_new_user!
 
   # This avoids a deprecation warning from Rails 5.1
   # It seems possible that a future release of devise-two-factor will
@@ -143,7 +144,7 @@ class User < ApplicationRecord
     super
 
     if new_user && approved?
-      prepare_new_user!
+      # prepare_new_user!
     end
   end
 
@@ -154,7 +155,7 @@ class User < ApplicationRecord
     skip_confirmation!
     save!
 
-    prepare_new_user! if new_user && approved?
+    # prepare_new_user! if new_user && approved?
   end
 
   def pending?
@@ -173,7 +174,7 @@ class User < ApplicationRecord
     return if approved?
 
     update!(approved: true)
-    prepare_new_user!
+    # prepare_new_user!
   end
 
   def update_tracked_fields!(request)
