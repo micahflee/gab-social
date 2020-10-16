@@ -405,6 +405,7 @@ Rails.application.routes.draw do
       namespace :accounts do
         get :verify_credentials, to: 'credentials#show'
         patch :update_credentials, to: 'credentials#update'
+        post :resend_email_confirmation, to: 'credentials#resend_email_confirmation'
         resource :search, only: :show, controller: :search
         resources :relationships, only: :index
       end

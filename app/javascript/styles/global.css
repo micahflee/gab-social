@@ -443,6 +443,7 @@ pre {
 .topNeg50PX { top: -50px; }
 .top0 { top: 0; }
 .top120PX { top: 120px; }
+.top53PX { top: 53px; }
 .top60PC { top: 60%; }
 .top50PC { top: 50%; }
 
@@ -478,12 +479,15 @@ pre {
 .maxH340PX { max-height: 340px; }
 .maxH200PX { max-height: 200px; }
 .maxH56PX { max-height: 56px; }
+.maxH56PX { max-height: 42px; }
+.calcH106PX { height: calc(100vh - 106px); }
 .calcH53PX { height: calc(100vh - 53px); }
 .calcH80VH106PX { height: calc(80vh - 106px); }
 
 .minH100VH { min-height: 100vh; }
 .minH50VH { min-height: 50vh; }
 .minH200PX { min-height: 200px; }
+.minH106PX { min-height: 106px; }
 .minH98PX { min-height: 98px; }
 .minH80PX { min-height: 80px; }
 .minH58PX { min-height: 58px; }

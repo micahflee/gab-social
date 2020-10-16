@@ -2,8 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import {
+  CX,
   BREAKPOINT_SMALL,
 } from '../../constants'
+import { emailConfirmed } from '../../initial_state'
 import Button from '../button'
 import { openModal } from '../../actions/modal'
 import Responsive from '../../features/ui/util/responsive_component'
@@ -26,10 +28,18 @@ class SidebarLayout extends React.PureComponent {
       children,
     } = this.props
 
+    const innerContainerClasses = CX({
+      d: 1,
+      posFixed: 1,
+      calcH53PX: emailConfirmed,
+      calcH106PX: !emailConfirmed,
+      bottom0: 1,
+    })
+
     return (
       <header role='banner' className={[_s.d, _s.flexGrow1, _s.z3, _s.aiEnd].join(' ')}>
         <div className={[_s.d, _s.w240PX].join(' ')}>
-          <div className={[_s.d, _s.posFixed, _s.calcH53PX, _s.bottom0].join(' ')}>
+          <div className={innerContainerClasses}>
             <div className={[_s.d, _s.h100PC, _s.aiStart, _s.w240PX, _s.pr15, _s.py10, _s.noScrollbar, _s.overflowYScroll].join(' ')}>
               <div className={[_s.d, _s.w100PC].join(' ')}>
                 {

@@ -1,11 +1,15 @@
 import isObject from 'lodash.isobject'
 import api from '../api'
-import { me } from '../initial_state'
+import {
+  me,
+  emailConfirmed,
+} from '../initial_state'
 import { importFetchedAccount } from './importer'
 
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_REQUEST = 'SAVE_USER_PROFILE_INFORMATION_FETCH_REQUEST'
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS = 'SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS'
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL = 'SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL'
+export const RESEND_USER_CONFIRMATION_EMAIL_SUCCESS = 'RESEND_USER_CONFIRMATION_EMAIL_SUCCESS'
 
 export const saveUserProfileInformation = (data) => {
   return function (dispatch, getState) {
@@ -51,4 +55,13 @@ function saveUserProfileInformationFail(error) {
     type: SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL,
     error,
   }
+}
+
+export const resendUserConfirmationEmail = () => (dispatch, getState) => {
+  if (!me || emailConfirmed) return
+
+  api(getState).post('/api/v1/accounts/resend_email_confirmation').then((response) => {
+    dispatch({ type: RESEND_USER_CONFIRMATION_EMAIL_SUCCESS })
+  })
+
 }

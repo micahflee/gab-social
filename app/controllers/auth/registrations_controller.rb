@@ -4,6 +4,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   layout :determine_layout
 
   before_action :set_invite, only: [:new, :create]
+  before_action :set_challenge, only: [:new]
   before_action :check_enabled_registrations, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
   before_action :set_sessions, only: [:edit, :update]
@@ -13,6 +14,16 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def new
     super(&:build_invite_request)
+  end
+
+  def create
+    if session[:challenge_answer].to_s == params[:user][:challenge].to_s.strip
+      # Reset after, may be errors to return and this ensures its still visible
+      set_challenge
+      super
+    else
+      return false
+    end
   end
 
   def destroy
@@ -94,6 +105,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   def set_invite
     invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
     @invite = invite&.valid_for_use? ? invite : nil
+  end
+
+  def set_challenge
+    @challenge_add_1 = rand(0...9)
+    @challenge_add_2 = rand(0...9)
+    session[:challenge_answer] = @challenge_add_1 + @challenge_add_2
   end
 
   def determine_layout

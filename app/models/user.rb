@@ -253,6 +253,10 @@ class User < ApplicationRecord
     @invite_code = code
   end
 
+  def challenge
+    # 
+  end
+
   def password_required?
     return false if Devise.pam_authentication || Devise.ldap_authentication
     super

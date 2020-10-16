@@ -39,6 +39,8 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_amount") || 0
       store[:favourites_count]   = object.current_account.favourites.count.to_s
       store[:is_first_session]   = is_first_session object.current_account
+      store[:email_confirmed]    = object.current_account.user.confirmed?
+      store[:email]              = object.current_account.user.confirmed? ? '[hidden]' : object.current_account.user.email
     end
 
     store
