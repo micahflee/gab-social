@@ -1242,7 +1242,7 @@ pre {
 .gfi-globe:before {
   content: "\e901";
 }
-.gfi-add_image:before {
+.gfi-add-image:before {
   content: "\e902";
 }
 .gfi-like:before {
@@ -1284,13 +1284,13 @@ pre {
 .gfi-cog:before {
   content: "\e90f";
 }
-.gfi-minimize_fullscreen:before {
+.gfi-minimize-fullscreen:before {
   content: "\e910";
 }
 .gfi-trash:before {
   content: "\e911";
 }
-.gfi-group_add:before {
+.gfi-group-add:before {
   content: "\e912";
 }
 .gfi-quote:before {
@@ -1305,16 +1305,16 @@ pre {
 .gfi-error:before {
   content: "\e916";
 }
-.gfi-lock_filled:before {
+.gfi-lock-filled:before {
   content: "\e917";
 }
 .gfi-happy:before {
   content: "\e918";
 }
-.gfi-star_outline:before {
+.gfi-star-outline:before {
   content: "\e919";
 }
-.gfi-unlock_filled:before {
+.gfi-unlock-filled:before {
   content: "\e91a";
 }
 .gfi-audio:before {
@@ -1338,10 +1338,10 @@ pre {
 .gfi-missing:before {
   content: "\e921";
 }
-.gfi-audio_mute:before {
+.gfi-audio-mute:before {
   content: "\e922";
 }
-.gfi-ul_list:before {
+.gfi-ul-list:before {
   content: "\e923";
 }
 .gfi-sort:before {
@@ -1353,7 +1353,7 @@ pre {
 .gfi-chat:before {
   content: "\e926";
 }
-.gfi-ol_list:before {
+.gfi-ol-list:before {
   content: "\e927";
 }
 .gfi-comment:before {
@@ -1365,7 +1365,7 @@ pre {
 .gfi-back:before {
   content: "\e92a";
 }
-.gfi-rich_text:before {
+.gfi-rich-text:before {
   content: "\e92b";
 }
 .gfi-select:before {
@@ -1398,7 +1398,7 @@ pre {
 .gfi-pin:before {
   content: "\e935";
 }
-.gfi-list_add:before {
+.gfi-list-add:before {
   content: "\e936";
 }
 .gfi-visible:before {
@@ -1407,7 +1407,7 @@ pre {
 .gfi-notifications:before {
   content: "\e938";
 }
-.gfi-search_alt:before {
+.gfi-search-alt:before {
   content: "\e939";
 }
 .gfi-home:before {
@@ -1422,7 +1422,7 @@ pre {
 .gfi-email:before {
   content: "\e93d";
 }
-.gfi-angle_right:before {
+.gfi-angle-right:before {
   content: "\e93e";
 }
 .gfi-share:before {
@@ -1431,7 +1431,7 @@ pre {
 .gfi-search:before {
   content: "\e940";
 }
-.gfi-angle_left:before {
+.gfi-angle-left:before {
   content: "\e941";
 }
 .gfi-block:before {
@@ -1449,7 +1449,7 @@ pre {
 .gfi-underline:before {
   content: "\e946";
 }
-.gfi-caret_down:before {
+.gfi-caret-down:before {
   content: "\e947";
 }
 .gfi-bookmark:before {
@@ -1461,10 +1461,10 @@ pre {
 .gfi-play:before {
   content: "\e94a";
 }
-.gfi-text_size:before {
+.gfi-text-size:before {
   content: "\e94b";
 }
-.gfi-arrow_right:before {
+.gfi-arrow-right:before {
   content: "\e94c";
 }
 .gfi-pencil:before {
@@ -1473,7 +1473,7 @@ pre {
 .gfi-blockquote:before {
   content: "\e94e";
 }
-.gfi-arrow_left:before {
+.gfi-arrow-left:before {
   content: "\e94f";
 }
 .gfi-pip:before {
