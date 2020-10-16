@@ -19,6 +19,7 @@ export function DisplayOptionsModal() { return import(/* webpackChunkName: "comp
 export function DMCA() { return import(/* webpackChunkName: "features/about/dmca" */'../../about/dmca') }
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }
 export function EditShortcutsModal() { return import(/* webpackChunkName: "components/edit_shortcuts_modal" */'../../../components/modal/edit_shortcuts_modal') }
+export function EmailConfirmationReminderModal() { return import(/* webpackChunkName: "components/email_confirmation_reminder_modal" */'../../../components/modal/email_confirmation_reminder_modal') }
 export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
@@ -86,6 +87,7 @@ export function ProTimeline() { return import(/* webpackChunkName: "features/pro
 export function ProfileOptionsPopover() { return import(/* webpackChunkName: "components/profile_options_popover" */'../../../components/popover/profile_options_popover') }
 export function ProfileInfoPanel() { return import(/* webpackChunkName: "components/profile_info_panel" */'../../../components/panel/profile_info_panel') }
 export function ProfileStatsPanel() { return import(/* webpackChunkName: "components/profile_info_panel" */'../../../components/panel/profile_stats_panel') }
+export function ProgressInjection() { return import(/* webpackChunkName: "components/progress_injection" */'../../../components/timeline_injections/progress_injection') }
 export function ProgressPanel() { return import(/* webpackChunkName: "components/progress_panel" */'../../../components/panel/progress_panel') }
 export function ProPanel() { return import(/* webpackChunkName: "components/pro_panel" */'../../../components/panel/pro_panel') }
 export function ProUpgradeInjection() { return import(/* webpackChunkName: "components/pro_upgrade_injection" */'../../../components/timeline_injections/pro_upgrade_injection') }
