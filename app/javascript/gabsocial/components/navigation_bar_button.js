@@ -14,6 +14,7 @@ class NavigationBarButton extends React.PureComponent {
       to,
       href,
       attrTitle,
+      onClick,
     } = this.props
 
     const active = false
@@ -49,6 +50,7 @@ class NavigationBarButton extends React.PureComponent {
         to={to}
         href={href}
         title={attrTitle}
+        onClick={onClick}
         className={classes}
         noClasses
       >
@@ -71,6 +73,7 @@ NavigationBarButton.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   attrTitle: PropTypes.string,
+  onClick: PropTypes.func,
 }
 
 export default NavigationBarButton
