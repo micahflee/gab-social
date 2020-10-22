@@ -117,36 +117,10 @@ class ImageLoader extends React.PureComponent {
     const { alt, src, width, height, onClick } = this.props
     const { loading } = this.state
 
-    // .image-loader {
-    //   position: relative;
-
-    //   @include flex(center, center, column);
-    //   @include size(100%);
-
-    //   &__preview-canvas {
-    //     object-fit: contain;
-
-    //     @include max-size($media-modal-media-max-width, $media-modal-media-max-height);
-    //     @include background-image("", contain, center, repeat);
-    //   }
-
-    //   &--amorphous & {
-    //     &__preview-canvas {
-    //       display: none;
-    //     }
-    //   }
-
-    //   .loading-bar {
-    //     position: relative;
-    //   }
-    // }
-
     const className = CX({
       d: 1,
       w100PC: 1,
       h100PC: 1,
-      // 'image-loader--loading': loading,
-      // 'image-loader--amorphous': !this.hasSize(),
     });
 
     return (
