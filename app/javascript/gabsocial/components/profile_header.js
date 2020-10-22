@@ -179,6 +179,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     alt={intl.formatMessage(messages.headerPhoto)}
                     className={[_s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.h100PC].join(' ')}
                     src={headerSrc}
+                    expandOnClick
                   />
                 </div>
               }
@@ -191,7 +192,7 @@ class ProfileHeader extends ImmutablePureComponent {
 
                 <div className={[_s.d, _s.aiCenter, _s.px15, _s.mb5].join(' ')}>
                   <div className={mobileAvatarContainerClasses}>
-                    <Avatar size={100} account={account} noHover />
+                    <Avatar size={100} account={account} noHover expandOnClick />
                   </div>
 
                   <div className={[_s.d, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
@@ -285,6 +286,7 @@ class ProfileHeader extends ImmutablePureComponent {
                       alt={intl.formatMessage(messages.headerPhoto)}
                       className={_s.h100PC}
                       src={headerSrc}
+                      expandOnClick
                     />
                   </div>
                 }
@@ -299,7 +301,7 @@ class ProfileHeader extends ImmutablePureComponent {
                     <div className={avatarContainerClasses}>
                       {
                         account &&
-                        <Avatar size={avatarSize} account={account} noHover />
+                        <Avatar size={avatarSize} account={account} noHover expandOnClick />
                       }
                       {
                         !account &&

@@ -25,22 +25,32 @@ class MediaModal extends ImmutablePureComponent {
   }
 
   handleSwipe = (index) => {
+    if (!this.props.media) return
+
     this.setState({ index: index % this.props.media.size })
   }
 
   handleNextClick = () => {
+    if (!this.props.media) return
+
     this.setState({ index: (this.getIndex() + 1) % this.props.media.size })
   }
 
   handlePrevClick = () => {
+    if (!this.props.media) return
+
     this.setState({ index: (this.props.media.size + this.getIndex() - 1) % this.props.media.size })
   }
 
   handleChangeIndex = (i) => {
+    if (!this.props.media) return
+
     this.setState({ index: i % this.props.media.size })
   }
 
   handleKeyDown = (e) => {
+    if (!this.props.media) return
+
     switch (e.key) {
       case 'ArrowLeft':
         this.handlePrevClick()
@@ -101,6 +111,8 @@ class MediaModal extends ImmutablePureComponent {
   render() {
     const {
       media,
+      src,
+      alt,
       status,
       intl,
       onClose,
@@ -109,56 +121,63 @@ class MediaModal extends ImmutablePureComponent {
 
     const index = this.getIndex()
 
-    const content = media.map((image) => {
-      const width = image.getIn(['meta', 'original', 'width']) || null
-      const height = image.getIn(['meta', 'original', 'height']) || null
+    const content = !media ?
+      <ImageLoader
+        previewSrc={src}
+        src={src}
+        alt={alt}
+        key={src}
+      /> :
+      media.map((image) => {
+        const width = image.getIn(['meta', 'original', 'width']) || null
+        const height = image.getIn(['meta', 'original', 'height']) || null
 
-      if (image.get('type') === 'image') {
-        return (
-          <ImageLoader
-            previewSrc={image.get('preview_url')}
-            src={image.get('url')}
-            width={width}
-            height={height}
-            alt={image.get('description')}
-            key={image.get('url')}
-            onClick={this.toggleNavigation}
-          />
-        )
-      } else if (image.get('type') === 'video') {
-        const { time } = this.props
+        if (image.get('type') === 'image') {
+          return (
+            <ImageLoader
+              previewSrc={image.get('preview_url')}
+              src={image.get('url')}
+              width={width}
+              height={height}
+              alt={image.get('description')}
+              key={image.get('url')}
+              onClick={this.toggleNavigation}
+            />
+          )
+        } else if (image.get('type') === 'video') {
+          const { time } = this.props
 
-        return (
-          <Video
-            preview={image.get('preview_url')}
-            blurhash={image.get('blurhash')}
-            src={image.get('url')}
-            width={image.get('width')}
-            height={image.get('height')}
-            startTime={time || 0}
-            onCloseVideo={onClose}
-            detailed
-            alt={image.get('description')}
-            key={image.get('url')}
-          />
-        )
-      } else if (image.get('type') === 'gifv') {
-        return (
-          <ExtendedVideoPlayer
-            src={image.get('url')}
-            muted
-            controls={false}
-            width={width}
-            height={height}
-            key={image.get('preview_url')}
-            alt={image.get('description')}
-            onClick={this.toggleNavigation}
-          />
-        )
-      }
+          return (
+            <Video
+              preview={image.get('preview_url')}
+              blurhash={image.get('blurhash')}
+              src={image.get('url')}
+              width={image.get('width')}
+              height={image.get('height')}
+              startTime={time || 0}
+              onCloseVideo={onClose}
+              detailed
+              alt={image.get('description')}
+              key={image.get('url')}
+            />
+          )
+        } else if (image.get('type') === 'gifv') {
+          return (
+            <ExtendedVideoPlayer
+              src={image.get('url')}
+              muted
+              controls={false}
+              width={width}
+              height={height}
+              key={image.get('preview_url')}
+              alt={image.get('description')}
+              onClick={this.toggleNavigation}
+            />
+          )
+        }
 
-      return null
-    }).toArray()
+        return null
+      }).toArray()
 
     // you can't use 100vh, because the viewport height is taller
     // than the visible part of the document in some mobile
@@ -215,7 +234,7 @@ class MediaModal extends ImmutablePureComponent {
           </div>
 
           {
-            media.size > 1 &&
+            !!media && media.size > 1 &&
             <Button
               tabIndex='0'
               backgroundColor='black'
@@ -228,7 +247,7 @@ class MediaModal extends ImmutablePureComponent {
           }
 
           {
-            media.size > 1 &&
+            !!media && media.size > 1 &&
             <Button
               tabIndex='0'
               backgroundColor='black'
@@ -253,7 +272,7 @@ class MediaModal extends ImmutablePureComponent {
         </div>
 
         {
-          media.size > 1 &&
+          !!media && media.size > 1 &&
           <div className={[_s.d, _s.posAbs, _s.bottom0, _s.mb15].join(' ')}>
             <div className={[_s.d, _s.saveAreaInsetMB, _s.bgBlackOpaque, _s.circle, _s.py10, _s.px15].join(' ')}>
               <Pagination

@@ -84,7 +84,11 @@ class Avatar extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, size } = this.props
+    const {
+      account,
+      expandOnClick,
+      size,
+    } = this.props
     const { hovering, sameImg } = this.state
 
     const isPro = !!account ? account.get('is_pro') : false
@@ -110,6 +114,7 @@ class Avatar extends ImmutablePureComponent {
         alt={alt}
         imageRef={this.setRef}
         className={classes.join(' ')}
+        expandOnClick={expandOnClick}
         {...options}
       />
     )
@@ -130,6 +135,7 @@ Avatar.propTypes = {
   account: ImmutablePropTypes.map,
   noHover: PropTypes.bool,
   openUserInfoPopover: PropTypes.func.isRequired,
+  expandOnClick: PropTypes.bool,
   size: PropTypes.number,
 }
 

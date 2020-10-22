@@ -1,6 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CX } from '../constants'
+import { connect } from 'react-redux'
+import {
+  CX,
+  MODAL_MEDIA,
+} from '../constants'
+import { openModal } from '../actions/modal'
 
 class Image extends React.PureComponent {
 
@@ -12,6 +17,10 @@ class Image extends React.PureComponent {
     this.setState({ error: true })
   }
 
+  handleOnClick = () => {
+    this.props.onOpenMediaModal()
+  }
+
   render() {
     const {
       alt,
@@ -21,6 +30,7 @@ class Image extends React.PureComponent {
       nullable,
       isLazy,
       imageRef,
+      expandOnClick,
       ...otherProps
     } = this.props
     const { error } = this.state
@@ -37,9 +47,7 @@ class Image extends React.PureComponent {
     }
 
     if (!src) {
-      return (
-        <div className={classes} />
-      )
+      return <div className={classes} />
     }
 
     return (
@@ -50,12 +58,22 @@ class Image extends React.PureComponent {
         ref={imageRef}
         src={src}
         onError={this.handleOnError}
+        onClick={expandOnClick ? this.handleOnClick : undefined}
         loading={isLazy ? 'lazy' : undefined}
       />
     )
   }
 
 }
+
+const mapDispatchToProps = (dispatch, { alt, src }) => ({
+  onOpenMediaModal() {
+    dispatch(openModal(MODAL_MEDIA, {
+      alt,
+      src,
+    }))
+  },
+});
 
 Image.propTypes = {
   alt: PropTypes.string.isRequired,
@@ -73,6 +91,8 @@ Image.propTypes = {
   nullable: PropTypes.bool,
   lazy: PropTypes.bool,
   imageRef: PropTypes.func,
+  expandOnClick: PropTypes.bool,
+  onOpenMedia: PropTypes.func.isRequired,
 }
 
 Image.defaultProps = {
@@ -80,4 +100,4 @@ Image.defaultProps = {
   fit: 'cover',
 }
 
-export default Image
+export default connect(null, mapDispatchToProps)(Image)
