@@ -16,7 +16,7 @@ class FanOutOnWriteService < BaseService
       deliver_to_self(status) if status.account.local?
       deliver_to_followers(status)
       deliver_to_lists(status)
-      deliver_to_group(status)
+      # deliver_to_group(status)
     end
 
     return if status.account.silenced? || !status.public_visibility? || status.reblog?
@@ -49,13 +49,13 @@ class FanOutOnWriteService < BaseService
   end
 
   def deliver_to_group_members(status)
-    Rails.logger.debug "Delivering status #{status.id} to group members #{status.group.id}"
+    # Rails.logger.debug "Delivering status #{status.id} to group members #{status.group.id}"
     
-    status.group.accounts_for_local_distribution.select(:id).reorder(nil).find_in_batches do |members|
-      FeedInsertWorker.push_bulk(members) do |member|
-        [status.id, member.id, :home]
-      end
-    end
+    # status.group.accounts_for_local_distribution.select(:id).reorder(nil).find_in_batches do |members|
+    #   FeedInsertWorker.push_bulk(members) do |member|
+    #     [status.id, member.id, :home]
+    #   end
+    # end
   end
 
   def deliver_to_lists(status)
@@ -69,13 +69,13 @@ class FanOutOnWriteService < BaseService
   end
 
   def deliver_to_group(status)
-    return if status.group_id.nil?
+    # return if status.group_id.nil?
 
-    Rails.logger.debug "Delivering status #{status.id} to group"
+    # Rails.logger.debug "Delivering status #{status.id} to group"
 
-    Redis.current.publish("timeline:group:#{status.group_id}", @payload)
+    # Redis.current.publish("timeline:group:#{status.group_id}", @payload)
 
-    deliver_to_group_members(status)
+    # deliver_to_group_members(status)
   end
 
   def deliver_to_mentioned_followers(status)
