@@ -26,7 +26,7 @@ class PopoverLayout extends React.PureComponent {
             {
               !!title &&
               <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
-                <Heading size='2'>
+                <Heading size='h2'>
                   {title}
                 </Heading>
               </div>
