@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {
   CX,
-  BREAKPOINT_EXTRA_SMALL,
+  BREAKPOINT_SMALL,
 } from '../constants'
 import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
@@ -55,7 +55,7 @@ class StatusActionBarItem extends React.PureComponent {
         > 
           {
             !!title &&
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+            <Responsive min={BREAKPOINT_SMALL}>
               <Text color='inherit' size='small' weight={weight}>
                 {title}
               </Text>
