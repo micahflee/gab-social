@@ -384,7 +384,7 @@ class Status extends ImmutablePureComponent {
       radiusSmall: isChild,
       borderColorSecondary: isChild,
       border1PX: isChild,
-      pb10: isChild && status.get('media_attachments').size === 0 && !isNotification,
+      pb10: isChild && (status.get('media_attachments').size === 0 && !isNotification) || status.get('sensitive'),
       pb5: isChild && status.get('media_attachments').size > 1 && !isNotification,
       cursorPointer: isChild,
       bgSubtle_onHover: isChild,
