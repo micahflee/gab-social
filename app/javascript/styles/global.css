@@ -421,6 +421,12 @@ pre {
 .bgDonor { background-color: #4DA6FF; }
 .bgInvestor { background-color: #6DD900; }
 
+.bgFacebook { background-color: #4267B2; }
+.bgTwitter { background-color: #1DA1F2; }
+.bgReddit { background-color: #FF4500; }
+.bgTelegram { background-color: #158ACA; }
+.bgSMS { background-color: #74DE6F; }
+
 /*  */
 
 .cPrimary { color: var(--text_color_primary); }
