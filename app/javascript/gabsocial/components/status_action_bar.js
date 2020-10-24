@@ -13,6 +13,10 @@ class StatusActionBar extends ImmutablePureComponent {
 
   updateOnProps = ['status']
 
+  handleShareClick = () => {
+    this.props.onShare(this.shareButton, this.props.status)
+  }
+
   handleReplyClick = () => {
     this.props.onReply(this.props.status, null, true)
   }
@@ -37,8 +41,8 @@ class StatusActionBar extends ImmutablePureComponent {
     this.props.onOpenReposts(this.props.status)
   }
 
-  setRepostButton = (n) => {
-    this.repostButton = n
+  setShareButton = (n) => {
+    this.shareButton = n
   }
 
   render() {
@@ -164,7 +168,6 @@ class StatusActionBar extends ImmutablePureComponent {
               icon={!publicStatus ? 'lock' : 'repost'}
               disabled={!publicStatus}
               active={!!status.get('reblogged')}
-              buttonRef={this.setRepostButton}
               onClick={this.handleRepostClick}
             />
             <StatusActionBarItem
@@ -173,6 +176,13 @@ class StatusActionBar extends ImmutablePureComponent {
               icon={!publicStatus ? 'lock' : 'quote'}
               disabled={!publicStatus}
               onClick={this.handleQuoteClick}
+            />
+            <StatusActionBarItem
+              title={intl.formatMessage(messages.share)}
+              altTitle={intl.formatMessage(messages.share)}
+              buttonRef={this.setShareButton}
+              icon='share'
+              onClick={this.handleShareClick}
             />
           </div>
         </div>
@@ -183,6 +193,7 @@ class StatusActionBar extends ImmutablePureComponent {
 }
 
 const messages = defineMessages({
+  share: { id: 'status.share', defaultMessage: 'Share' },
   comment: { id: 'status.comment', defaultMessage: 'Comment' },
   quote: { id: 'status.quote', defaultMessage: 'Quote' },
   repost: { id: 'status.repost', defaultMessage: 'Repost' },
@@ -199,6 +210,7 @@ StatusActionBar.propTypes = {
   onQuote: PropTypes.func.isRequired,
   onReply: PropTypes.func.isRequired,
   onRepost: PropTypes.func.isRequired,
+  onShare: PropTypes.func.isRequired,
   status: ImmutablePropTypes.map.isRequired,
   onOpenLikes: PropTypes.func.isRequired,
   onOpenReposts: PropTypes.func.isRequired,
