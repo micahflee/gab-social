@@ -305,7 +305,7 @@ const mapDispatchToProps = (dispatch) => ({
   onShare (targetRef, status) {
     if (!!navigator && navigator.share) {
       console.log("CAN SHARE")
-      const url = this.props.status.get('url')
+      const url = status.get('url')
       navigator.share({
         url,
         title: 'Test title',
