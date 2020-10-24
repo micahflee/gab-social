@@ -33,6 +33,7 @@ import {
   MODAL_BOOST,
   MODAL_CONFIRM,
   POPOVER_COMMENT_SORTING_OPTIONS,
+  POPOVER_STATUS_SHARE,
   COMMENT_SORTING_TYPE_OLDEST,
   COMMENT_SORTING_TYPE_NEWEST,
   COMMENT_SORTING_TYPE_TOP,
@@ -298,6 +299,28 @@ const mapDispatchToProps = (dispatch) => ({
       } else {
         dispatch(repost(status))
       }
+    }
+  },
+
+  onShare (targetRef, status) {
+    if (!!navigator && navigator.share) {
+      console.log("CAN SHARE")
+      const url = this.props.status.get('url')
+      navigator.share({
+        url,
+        title: 'Test title',
+        text: 'Check out gab',
+      }).then(() => {
+        console.log('Successful share')
+      }).catch((error) => {
+        console.log('Error sharing', error)
+      })
+    } else {
+      dispatch(openPopover(POPOVER_STATUS_SHARE, {
+        targetRef,
+        status,
+        position: 'top',
+      }))
     }
   },
 
