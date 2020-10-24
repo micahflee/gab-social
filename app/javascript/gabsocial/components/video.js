@@ -728,7 +728,7 @@ class Video extends ImmutablePureComponent {
                     backgroundColor='none'
                     aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
                     onClick={this.togglePip}
-                    icon='pip'
+                    icon='copy'
                     iconSize='20px'
                     iconClassName={_s.cWhite}
                     className={[_s.px10, _s.pr0].join(' ')}
