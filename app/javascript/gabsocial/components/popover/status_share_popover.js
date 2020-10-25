@@ -41,8 +41,12 @@ class StatusSharePopover extends ImmutablePureComponent {
   render() {
     const { intl, status } = this.props
 
-    const mailToHref = !status ? undefined : `mailto:?subject=Gab&body=${status.get('url')}`
+    if (!status) return <div />
 
+    const encodedStatusUrl = encodeURIComponent(status.get('url'))
+    const mailToHref = `mailto:?subject=Gab&body=${encodedStatusUrl}`
+    const content = status.get('contentHtml')
+    
     return (
       <PopoverLayout
         width={360}
@@ -60,6 +64,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             color='black'
             backgroundColor='secondary'
             onClick={this.handleCopy}
+            title={intl.formatMessage(messages.copy)}
             className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10].join(' ')}
           />
           <Button
@@ -68,7 +73,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href='sms://?body=Hello'
+            href={`sms:+&body=${encodedStatusUrl}`}
+            title='Share via text message'
             className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgSMS].join(' ')}
           />
           <Button
@@ -77,7 +83,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href='https://www.facebook.com/sharer/sharer.php?u=#url'
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodedStatusUrl}`}
+            title='Share on Facebook'
             className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgFacebook].join(' ')}
           />
           <Button
@@ -86,7 +93,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href='https://twitter.com/intent/tweet?url=gab.com'
+            href={`https://twitter.com/intent/tweet?url=${encodedStatusUrl}`}
+            title='Share on Twitter'
             className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgTwitter].join(' ')}
           />
           <Button
@@ -95,7 +103,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href='https://telegram.me/share/?url=gab.com'
+            href={`https://telegram.me/share/?url=${encodedStatusUrl}`}
+            title='Share on Telegram'
             className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgTelegram].join(' ')}
           />
           <Button
@@ -104,7 +113,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href='http://www.reddit.com/submit?url=gab.com&title=Post%20to%20Reddit%20via%20URL'
+            href={`http://www.reddit.com/submit?url=${encodedStatusUrl}&title=Gab`}
+            title='Share on Reddit'
             className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr15, _s.bgReddit].join(' ')}
           />
           <Button
@@ -113,7 +123,8 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='black'
-            href='mailto:?body=gab.com'
+            href={mailToHref}
+            title='Share via email'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
           />
         </div>
