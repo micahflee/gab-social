@@ -303,24 +303,28 @@ const mapDispatchToProps = (dispatch) => ({
   },
 
   onShare (targetRef, status) {
-    if (!!navigator && navigator.share && navigator.canShare()) {
-      const url = status.get('url')
-      navigator.share({
-        url,
-        title: 'Check out this post on Gab',
-        text: 'Check out this post on Gab',
-      }).then(() => {
+    if (!!navigator && navigator.share) {
+      if (!!navigator.canShare && !navigator.canShare()) {
         //
-      }).catch((error) => {
-        console.log('Error sharing', error)
-      })
-    } else {
-      dispatch(openPopover(POPOVER_STATUS_SHARE, {
-        targetRef,
-        status,
-        position: 'top',
-      }))
-    }
+      } else {
+        const url = status.get('url')
+        return navigator.share({
+          url,
+          title: 'Check out this post on Gab',
+          text: 'Check out this post on Gab',
+        }).then(() => {
+          //
+        }).catch((error) => {
+          console.log('Error sharing', error)
+        })
+      }
+    } 
+
+    dispatch(openPopover(POPOVER_STATUS_SHARE, {
+      targetRef,
+      status,
+      position: 'top',
+    }))
   },
 
   onCommentSortOpen(targetRef, callback) {
