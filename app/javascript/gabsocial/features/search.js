@@ -154,8 +154,8 @@ class Search extends ImmutablePureComponent {
           {
             results.get('statuses').slice(0, size).map((status) => (
               <StatusContainer 
-                key={`status-${status.id}`}
-                id={status.id}
+                key={`status-${status.get('id')}`}
+                id={status.get('id')}
                 contextType='search'
                 commentsLimited
               />
