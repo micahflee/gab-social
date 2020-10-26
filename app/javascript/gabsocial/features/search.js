@@ -132,7 +132,7 @@ class Search extends ImmutablePureComponent {
         </PanelLayout>
       )
     }
-
+    
     if (results.get('statuses') && results.get('statuses').size > 0 && me && (isTop || showStatuses)) {
       const size = isTop ? Math.min(results.get('statuses').size, theLimit) : results.get('statuses').size;
       const isMax = size === results.get('statuses').size
@@ -152,10 +152,10 @@ class Search extends ImmutablePureComponent {
             </Text>
           </div>
           {
-            results.get('statuses').slice(0, size).map((status) => (
-              <StatusContainer 
-                key={`status-${status.get('id')}`}
-                id={status.get('id')}
+            results.get('statuses').slice(0, size).map((statusId) => (
+              <StatusContainer
+                key={`status-${statusId}`}
+                id={statusId}
                 contextType='search'
                 commentsLimited
               />
