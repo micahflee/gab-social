@@ -12,6 +12,7 @@ import Text from '../components/text'
 import Account from '../components/account'
 import PanelLayout from '../components/panel/panel_layout'
 import ColumnIndicator from '../components/column_indicator'
+import StatusContainer from '../containers/status_container'
 import Block from '../components/block'
 
 class Search extends ImmutablePureComponent {
@@ -60,7 +61,8 @@ class Search extends ImmutablePureComponent {
     const showPeople = pathname === '/search/people'
     const showHashtags = pathname === '/search/hashtags'
     const showGroups = pathname === '/search/groups'
-    const isTop = !showPeople && !showHashtags && !showGroups
+    const showStatuses = pathname === '/search/statuses'
+    const isTop = !showPeople && !showHashtags && !showGroups && !showStatuses
     const theLimit = 4
 
     let accounts, statuses, hashtags, groups
@@ -127,6 +129,38 @@ class Search extends ImmutablePureComponent {
               ))
             }
           </div>
+        </PanelLayout>
+      )
+    }
+
+    if (results.get('statuses') && results.get('statuses').size > 0 && me && (isTop || showStatuses)) {
+      const size = isTop ? Math.min(results.get('statuses').size, theLimit) : results.get('statuses').size;
+      const isMax = size === results.get('statuses').size
+
+      statuses = (
+        <PanelLayout
+          title='Statuses'
+          headerButtonTo={isMax ? undefined : '/search/statuses'}
+          headerButtonTitle={isMax ? undefined : 'See more'}
+          footerButtonTo={isMax ? undefined : '/search/hashtags'}
+          footerButtonTitle={isMax ? undefined : 'See more'}
+          noPadding
+        >
+          <div className={[_s.d, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+            <Text color='tertiary' size='small'>
+              Showing {size} of {results.get('statuses').size} results
+            </Text>
+          </div>
+          {
+            results.get('statuses').slice(0, size).map((status) => (
+              <StatusContainer 
+                key={`status-${status.id}`}
+                id={status.id}
+                contextType='search'
+                commentsLimited
+              />
+            ))
+          }
         </PanelLayout>
       )
     }

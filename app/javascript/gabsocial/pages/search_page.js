@@ -33,6 +33,10 @@ class SearchPage extends React.PureComponent {
         to: '/search/groups'
       },
       {
+        title: intl.formatMessage(messages.statuses),
+        to: '/search/statuses'
+      },
+      {
         title: intl.formatMessage(messages.hashtags),
         to: '/search/hashtags'
       },
@@ -83,6 +87,7 @@ const messages = defineMessages({
   top: { id: 'top', defaultMessage: 'Top' },
   people: { id: 'people', defaultMessage: 'People' },
   groups: { id: 'groups', defaultMessage: 'Groups' },
+  statuses: { id: 'statuses', defaultMessage: 'Statuses' },
   hashtags: { id: 'hashtags', defaultMessage: 'Hashtags' },
 })
 
