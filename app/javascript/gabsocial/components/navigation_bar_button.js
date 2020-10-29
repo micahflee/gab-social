@@ -14,15 +14,15 @@ class NavigationBarButton extends React.PureComponent {
       to,
       href,
       attrTitle,
+      count,
       onClick,
     } = this.props
 
-    const active = false
+    const active = to == window.location.pathname
 
     const classes = CX({
       d: 1,
       h53PX: 1,
-      flexRow: 1,
       aiCenter: 1,
       jcCenter: 1,
       outlineNone: 1,
@@ -30,20 +30,37 @@ class NavigationBarButton extends React.PureComponent {
       bgTransparent: 1,
       noUnderline: 1,
       colorNavigation: 1,
-      px10: !!title,
+      px15: !!title,
       px5: !title,
+      py2: !title,
       cWhite: !!title,
       fs13PX: !!title,
       fw400: !!title,
+      navigationUnderlineActive: !!title && active,
     })
 
     const iconClasses = CX({
       fillNavigation: !!title || active,
       fillNavigationBlend: !title,
-      mr10: !!title,
+      px2: !title,
     })
 
-    const iconSize = !!title ? '16px' : '18px'
+    const countClasses = CX({
+      d: 1,
+      fs12PX: 1,
+      posAbs: 1,
+      top0: 1,
+      mt15: 1,
+      right0: 1,
+      mr5: 1,
+      h4PX: 1,
+      w4PX: 1,
+      cBrand: 1,
+      bgNavigationBlend: 1,
+      radiusSmall: 1,
+    })
+
+    const iconSize = !!title ? '18px' : '20px'
 
     return (
       <Button
@@ -53,13 +70,17 @@ class NavigationBarButton extends React.PureComponent {
         onClick={onClick}
         className={classes}
         noClasses
-      >
+      > 
         <Icon className={iconClasses} id={icon} size={iconSize} />
         {
           !!title &&
-          <Text color='white'>
+          <Text color='white' size='extraSmall' className={_s.mt5}>
             {title}
           </Text>
+        }
+        {
+          !title && count > 0 &&
+          <span className={countClasses} />
         }
       </Button>
     )
@@ -73,6 +94,7 @@ NavigationBarButton.propTypes = {
   to: PropTypes.string,
   href: PropTypes.string,
   attrTitle: PropTypes.string,
+  count: PropTypes.number,
   onClick: PropTypes.func,
 }
 
