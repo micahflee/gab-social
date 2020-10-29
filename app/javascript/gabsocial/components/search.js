@@ -121,7 +121,7 @@ class Search extends React.PureComponent {
           <input
             id={id}
             className={inputClasses}
-            type='text'
+            type='search'
             placeholder={placeholder}
             ref={this.setTextbox}
             value={value}
