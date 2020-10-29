@@ -5,7 +5,10 @@ import {
   CX,
   BREAKPOINT_SMALL,
 } from '../../constants'
-import { emailConfirmed } from '../../initial_state'
+import {
+  me,
+  emailConfirmed,
+} from '../../initial_state'
 import Button from '../button'
 import { openModal } from '../../actions/modal'
 import Responsive from '../../features/ui/util/responsive_component'
@@ -31,8 +34,8 @@ class SidebarLayout extends React.PureComponent {
     const innerContainerClasses = CX({
       d: 1,
       posFixed: 1,
-      calcH53PX: emailConfirmed,
-      calcH106PX: !emailConfirmed,
+      calcH53PX: emailConfirmed || !me,
+      calcH106PX: !emailConfirmed && !!me,
       bottom0: 1,
     })
 
