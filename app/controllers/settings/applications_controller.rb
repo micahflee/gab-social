@@ -4,6 +4,7 @@ class Settings::ApplicationsController < Settings::BaseController
   layout 'admin'
 
   before_action :authenticate_user!
+  before_action :require_staff!
   before_action :set_application, only: [:show, :update, :destroy, :regenerate]
   before_action :prepare_scopes, only: [:create, :update]
 
