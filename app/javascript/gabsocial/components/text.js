@@ -36,6 +36,7 @@ const WEIGHTS = {
 const ALIGNMENTS = {
   center: 'center',
   left: 'left',
+  right: 'right',
 }
 
 /**
@@ -97,6 +98,7 @@ class Text extends React.PureComponent {
       fw800: weight === WEIGHTS.extraBold,
 
       textAlignLeft: align === ALIGNMENTS.left,
+      textAlignRight: align === ALIGNMENTS.right,
       textAlignCenter: align === ALIGNMENTS.center,
 
       underline: hasUnderline,
