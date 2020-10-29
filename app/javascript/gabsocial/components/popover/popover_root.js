@@ -148,7 +148,7 @@ class PopoverRoot extends React.PureComponent {
             renderDelay={150}
           >
             {
-              (Component) => <Component isXS={isXS} {...props} />
+              (Component) => <Component innerRef={this.setRef} isXS={isXS} {...props} />
             }
           </Bundle>
         }
