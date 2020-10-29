@@ -246,7 +246,7 @@ class GroupInfoPanelRow extends React.PureComponent {
     return (
       <div className={[_s.d, _s.flexRow, _s.py2].join(' ')}>
         <div className={[_s.d, _s.flexRow, _s.jcCenter].join(' ')}>
-          <Icon id={icon} size='16px' />
+          <Icon id={icon} size='16px' className={_s.cPrimary} />
           <Text weight='bold' size='medium' className={_s.ml10}>
             {title}
           </Text>
