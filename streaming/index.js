@@ -623,6 +623,14 @@ const startWorker = (workerId) => {
 
         streamFrom(`timeline:hashtag:${location.query.tag.toLowerCase()}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
         break;
+      case 'link':
+        if (!location.query.linkId || location.query.linkId.length === 0) {
+          ws.close();
+          return;
+        }
+
+        streamFrom(`timeline:link:${location.query.linkId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
+        break;
       case 'hashtag:local':
         if (!location.query.tag || location.query.tag.length === 0) {
           ws.close();

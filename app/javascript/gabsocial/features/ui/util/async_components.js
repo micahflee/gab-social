@@ -61,6 +61,7 @@ export function HotkeysModal() { return import(/* webpackChunkName: "components/
 export function Introduction() { return import(/* webpackChunkName: "features/introduction" */'../../introduction') }
 export function Investors() { return import(/* webpackChunkName: "features/about/investors" */'../../about/investors') }
 export function LinkFooter() { return import(/* webpackChunkName: "components/link_footer" */'../../../components/link_footer') }
+export function LinkTimeline() { return import(/* webpackChunkName: "features/link_timeline" */'../../link_timeline') }
 export function ListAddUserModal() { return import(/* webpackChunkName: "features/list_add_user_modal" */'../../../components/modal/list_add_user_modal') }
 export function ListCreate() { return import(/* webpackChunkName: "features/list_create" */'../../list_create') }
 export function ListCreateModal() { return import(/* webpackChunkName: "components/list_create_modal" */'../../../components/modal/list_create_modal') }

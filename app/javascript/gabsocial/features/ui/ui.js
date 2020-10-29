@@ -44,6 +44,7 @@ import ProPage from '../../pages/pro_page'
 import ExplorePage from '../../pages/explore_page'
 import NewsPage from '../../pages/news_page'
 import AboutPage from '../../pages/about_page'
+import LinkPage from '../../pages/link_page'
 
 import {
   About,
@@ -77,6 +78,7 @@ import {
   HomeTimeline,
   Investors,
   LikedStatuses,
+  LinkTimeline,
   ListCreate,
   ListsDirectory,
   ListEdit,
@@ -213,6 +215,8 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/groups/:id' exact publicRoute page={GroupPage} component={GroupTimeline} content={children} componentParams={{ isTimeline: true }} />
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
+        
+        <WrappedRoute path='/links/:id' page={LinkPage} component={LinkTimeline} content={children} componentParams={{ title: 'Links' }} />
 
         <WrappedRoute path='/shortcuts' page={ShortcutsPage} component={Shortcuts} content={children} />
 

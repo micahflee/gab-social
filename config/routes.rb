@@ -331,10 +331,12 @@ Rails.application.routes.draw do
         resources :group, only: :show
         resources :group_collection, only: :show
         resources :group_pins, only: :show
+        resources :preview_card, only: :show
         resource :explore, only: :show, controller: :explore
       end
 
       resources :gab_trends, only: [:index]
+      resources :links, only: :show
       resources :shop, only: [:index]
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]

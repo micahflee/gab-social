@@ -176,6 +176,7 @@ export const expandListTimeline = (id, { maxId } = {}, done = noOp) => expandTim
 export const expandGroupTimeline = (id, { sortBy, maxId, onlyMedia } = {}, done = noOp) => expandTimeline(`group:${id}`, `/api/v1/timelines/group/${id}`, { sort_by: sortBy, max_id: maxId, only_media: onlyMedia }, done);
 export const expandGroupFeaturedTimeline = (groupId, done = noOp) => expandTimeline(`group:${groupId}:pinned`, `/api/v1/timelines/group_pins/${groupId}`, {}, done);
 export const expandGroupCollectionTimeline = (collectionType, { sortBy, maxId } = {}, done = noOp) => expandTimeline(`group_collection:${collectionType}`, `/api/v1/timelines/group_collection/${collectionType}`, { sort_by: sortBy, max_id: maxId }, done);
+export const expandLinkTimeline = (linkId, { maxId } = {}, done = noOp) => expandTimeline(`link:${linkId}`, `/api/v1/timelines/preview_card/${linkId}`, { max_id: maxId }, done);
 export const expandHashtagTimeline = (hashtag, { maxId, tags } = {}, done = noOp) => {
   return expandTimeline(`hashtag:${hashtag}`, `/api/v1/timelines/tag/${hashtag}`, {
     max_id: maxId,
