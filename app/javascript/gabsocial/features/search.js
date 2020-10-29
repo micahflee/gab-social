@@ -142,7 +142,7 @@ class Search extends ImmutablePureComponent {
           title='Statuses'
           headerButtonTo={isMax ? undefined : '/search/statuses'}
           headerButtonTitle={isMax ? undefined : 'See more'}
-          footerButtonTo={isMax ? undefined : '/search/hashtags'}
+          footerButtonTo={isMax ? undefined : '/search/statuses'}
           footerButtonTitle={isMax ? undefined : 'See more'}
           noPadding
         >
