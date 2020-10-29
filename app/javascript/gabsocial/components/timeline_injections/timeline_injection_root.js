@@ -64,7 +64,7 @@ class TimelineInjectionRoot extends React.PureComponent {
   }
 
   render() {
-    const { type } = this.props
+    const { props, type } = this.props
     const { width } = this.state
 
     const visible = !!type
@@ -90,6 +90,7 @@ class TimelineInjectionRoot extends React.PureComponent {
               <Component
                 isXS={isXS}
                 injectionId={type}
+                {...props}
               />
             )
           }
@@ -102,6 +103,11 @@ class TimelineInjectionRoot extends React.PureComponent {
 
 TimelineInjectionRoot.propTypes = {
   type: PropTypes.string,
+  props: PropTypes.object,
+}
+
+TimelineInjectionRoot.defaultProps = {
+  props: {},
 }
 
 export default TimelineInjectionRoot
