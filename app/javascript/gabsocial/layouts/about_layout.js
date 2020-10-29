@@ -17,7 +17,7 @@ import {
   SidebarXS,
 } from '../features/ui/util/async_components'
 
-class SettingsLayout extends React.PureComponent {
+class AboutLayout extends React.PureComponent {
 
   componentWillMount() {
     this.menuItems = [
@@ -132,8 +132,8 @@ class SettingsLayout extends React.PureComponent {
 
 }
 
-SettingsLayout.propTypes = {
+AboutLayout.propTypes = {
   title: PropTypes.string,
 }
 
-export default SettingsLayout
+export default AboutLayout
