@@ -76,7 +76,7 @@ const mapDispatchToProps = (dispatch, { alt, src }) => ({
 });
 
 Image.propTypes = {
-  alt: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   isLazy: PropTypes.string,
   className: PropTypes.string,
   width: PropTypes.oneOfType([
@@ -92,7 +92,7 @@ Image.propTypes = {
   lazy: PropTypes.bool,
   imageRef: PropTypes.func,
   expandOnClick: PropTypes.bool,
-  onOpenMedia: PropTypes.func.isRequired,
+  onOpenMediaModal: PropTypes.func.isRequired,
 }
 
 Image.defaultProps = {
