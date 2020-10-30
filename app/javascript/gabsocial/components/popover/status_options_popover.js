@@ -30,10 +30,14 @@ import {
 import { initMuteModal } from '../../actions/mutes'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
-import { closePopover } from '../../actions/popover'
+import {
+  closePopover,
+  openPopover,
+} from '../../actions/popover'
 import {
   MODAL_EMBED,
   MODAL_PRO_UPGRADE,
+  POPOVER_STATUS_SHARE,
 } from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
@@ -116,28 +120,9 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     this.props.onQuote(this.props.status, this.context.router)
   }
 
-  handleOnOpenEmbedModal = () => {
-    this.props.onOpenEmbedModal(this.props.status.get('url'))
-  }
-
-  handleCopy = () => {
-    const url = this.props.status.get('url');
-    const textarea = document.createElement('textarea');
-
-    textarea.textContent = url;
-    textarea.style.position = 'fixed';
-
-    document.body.appendChild(textarea);
-
-    try {
-      textarea.select();
-      document.execCommand('copy');
-    } catch (e) {
-      //
-    }
-
-    document.body.removeChild(textarea);
-    this.handleClosePopover()
+  handleOnOpenSharePopover = () => {
+    console.log("this.props:", this.props)
+    this.props.onOpenSharePopover(this.props.innerRef, this.props.status)
   }
 
   handleClosePopover = () => {
@@ -156,7 +141,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
     const isReply = !!status.get('in_reply_to_id')
     const withGroupAdmin = !!groupRelationships ? (groupRelationships.get('admin') || groupRelationships.get('moderator')) : false
-    const mailToHref = !status ? undefined : `mailto:?subject=Gab&body=${status.get('url')}`
 
     let menu = []
 
@@ -261,22 +245,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
     menu.push(null)
     menu.push({
-      icon: 'copy',
+      icon: 'share',
       hideArrow: true,
-      title: intl.formatMessage(messages.copy),
-      onClick: this.handleCopy,
-    })
-    menu.push({
-      icon: 'email',
-      hideArrow: true,
-      title: intl.formatMessage(messages.email),
-      href: mailToHref,
-    })
-    menu.push({
-      icon: 'code',
-      hideArrow: true,
-      title: intl.formatMessage(messages.embed),
-      onClick: this.handleOnOpenEmbedModal,
+      title: intl.formatMessage(messages.share),
+      onClick: this.handleOnOpenSharePopover,
     })
     
     if (isStaff) {
@@ -338,9 +310,7 @@ const messages = defineMessages({
   group_remove_account: { id: 'status.remove_account_from_group', defaultMessage: 'Remove account from group' },
   group_remove_post: { id: 'status.remove_post_from_group', defaultMessage: 'Remove status from group' },
   repostWithComment: { id: 'repost_with_comment', defaultMessage: 'Repost with comment' },
-  embed: { id: 'status.embed', defaultMessage: 'Embed' },
-  email: { id: 'status.email', defaultMessage: 'Email this gab' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
+  share: { id: 'status.share_gab', defaultMessage: 'Share gab' },
 })
 
 const mapStateToProps = (state, { status }) => {
@@ -474,10 +444,12 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchGroupRelationships([groupId]))
   },
 
-  onOpenEmbedModal(url) {
+  onOpenSharePopover(targetRef, status) {
     dispatch(closePopover())
-    dispatch(openModal(MODAL_EMBED, {
-      url,
+    dispatch(openPopover(POPOVER_STATUS_SHARE, {
+      targetRef,
+      status,
+      position: 'top',
     }))
   },
 
