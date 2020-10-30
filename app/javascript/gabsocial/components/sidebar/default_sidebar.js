@@ -129,6 +129,7 @@ class DefaultSidebar extends ImmutablePureComponent {
         <SidebarSectionItem title='Apps' icon='apps' href='https://apps.gab.com' />
         <SidebarSectionItem title='Shop' icon='shop' href='https://shop.dissenter.com' />
         <SidebarSectionItem title='Trends' icon='trends' href='https://trends.gab.com' />
+        <SidebarSectionItem title='GabPRO' icon='pro' href='https://pro.gab.com' />
         <SidebarSectionItem title='Dissenter' icon='dissenter' href='https://dissenter.com' />
          
       </SidebarLayout>
@@ -139,6 +140,7 @@ class DefaultSidebar extends ImmutablePureComponent {
 
 const messages = defineMessages({
   explore: { id: 'explore', defaultMessage: 'Explore' },
+  gabPro: { id: 'gab_pro', defaultMessage: 'GabPRO' },
   menu: { id: 'menu', defaultMessage: 'Menu' },
   shortcuts: { id: 'navigation_bar.shortcuts', defaultMessage: 'Shortcuts' },
   all: { id: 'all', defaultMessage: 'All' },
