@@ -5,17 +5,10 @@ import SettingsLayout from '../layouts/settings_layout'
 class SettingsPage extends React.PureComponent {
 	
 	render() {
-		const {
-			children,
-			tabs,
-			title,
-		} = this.props
+		const { children, title } = this.props
 
 		return (
-			<SettingsLayout
-				title={title}
-				tabs={tabs}
-			>
+			<SettingsLayout title={title}>
 				{children}
 			</SettingsLayout>
 		)
@@ -25,7 +18,6 @@ class SettingsPage extends React.PureComponent {
 
 SettingsPage.propTypes = {
 	children: PropTypes.node.isRequired,
-	tabs: PropTypes.array,
 	title: PropTypes.string,
 }
 

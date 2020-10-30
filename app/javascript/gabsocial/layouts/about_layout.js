@@ -79,7 +79,7 @@ class AboutLayout extends React.PureComponent {
 
         {
           me &&
-          <DefaultNavigationBar title={title} noSearch />
+          <DefaultNavigationBar title={title} />
         }
         {
           !me &&

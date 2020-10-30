@@ -37,10 +37,7 @@ class SettingsLayout extends React.PureComponent {
           <WrappedBundle component={SidebarXS} />
         </Responsive>
 
-        <DefaultNavigationBar
-          title={title}
-          noSearch
-        />
+        <DefaultNavigationBar title={title} showBackBtn />
 
         <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
 

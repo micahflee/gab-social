@@ -25,6 +25,7 @@ class ShortcutsPage extends React.PureComponent {
 
     return (
       <DefaultLayout
+        showBackBtn
         title={title}
         page='shortcuts'
         actions={[

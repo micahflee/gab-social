@@ -38,7 +38,6 @@ class Layout extends React.PureComponent {
       showGlobalFooter,
       tabs,
       title,
-      noSearch,
     } = this.props
 
     const mainBlockClasses = CX({
@@ -64,7 +63,6 @@ class Layout extends React.PureComponent {
             tabs={tabs}
             title={title}
             showBackBtn={showBackBtn}
-            noSearch={noSearch}
           />
         }
         {
@@ -177,7 +175,6 @@ Layout.propTypes = {
   showBackBtn: PropTypes.bool,
   showLinkFooterInSidebar: PropTypes.bool,
   showGlobalFooter: PropTypes.bool,
-  noSearch: PropTypes.bool,
   tabs: PropTypes.array,
   title: PropTypes.string,
 }

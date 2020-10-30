@@ -52,7 +52,6 @@ class NotificationsPage extends React.PureComponent {
 
     return (
       <DefaultLayout
-        noSearch
         title={title}
         page='notifications'
         layout={[
