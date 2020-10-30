@@ -90,6 +90,8 @@ defaults: &defaults
     - suggestions
     - link
     - links
+    - messages
+    - message
   disallowed_hashtags: # space separated string or list of hashtags without the hash
   bootstrap_timeline_accounts: ''
   activity_api_enabled: true
