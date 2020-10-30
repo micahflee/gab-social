@@ -54,6 +54,10 @@ function hashtagStrategy(contentBlock, callback, contentState) {
   findWithRegex(HASHTAG_REGEX, contentBlock, callback)
 }
 
+function cashtagStrategy(contentBlock, callback, contentState) {
+  findWithRegex(CASHTAG_REGEX, contentBlock, callback)
+}
+
 function urlStrategy(contentBlock, callback, contentState) {
   findWithRegex(urlRegex, contentBlock, callback)
 }
@@ -88,6 +92,10 @@ const compositeDecorator = new CompositeDecorator([
     component: HighlightedSpan,
   },
   {
+    strategy: cashtagStrategy,
+    component: HighlightedSpan,
+  },
+  {
     strategy: urlStrategy,
     component: HighlightedSpan,
   },
@@ -109,6 +117,7 @@ const styleMap = {
 const GROUP_HANDLE_REGEX = /\g\/[\w]+/g
 const HANDLE_REGEX = /\@[\w]+/g
 const HASHTAG_REGEX = /\#[\w\u0590-\u05ff]+/g
+const CASHTAG_REGEX = /\$[\w\u0590-\u05ff]+/g
 
 class Composer extends React.PureComponent {
 

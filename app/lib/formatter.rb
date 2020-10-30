@@ -258,6 +258,8 @@ class Formatter
         link_to_url(entity, options)
       elsif entity[:hashtag]
         link_to_hashtag(entity)
+      elsif entity[:cashtag]
+        link_to_cashtag(entity)
       elsif entity[:screen_name]
         link_to_mention(entity, accounts)
       end
@@ -396,6 +398,7 @@ class Formatter
     end
 
     entities = Extractor.extract_hashtags_with_indices(escaped, :check_url_overlap => false) +
+               Extractor.extract_cashtags_with_indices(escaped, :check_url_overlap => false) +
                Extractor.extract_mentions_or_lists_with_indices(escaped)
     Extractor.remove_overlapping_entities(entities).map do |extract|
       pos = extract[:indices].first
@@ -440,6 +443,10 @@ class Formatter
     hashtag_html(entity[:hashtag])
   end
 
+  def link_to_cashtag(entity)
+    cashtag_html(entity[:cashtag])
+  end
+
   def link_html(url)
     url    = Addressable::URI.parse(url).to_s
     prefix = url.match(/\Ahttps?:\/\/(www\.)?/).to_s
@@ -452,6 +459,10 @@ class Formatter
 
   def hashtag_html(tag)
     "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag\" rel=\"tag\">##{encode(tag)}</a>"
+  end
+
+  def cashtag_html(tag)
+    "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag cashtag\" rel=\"tag\">$#{encode(tag)}</a>"
   end
 
   def mention_html(account)
