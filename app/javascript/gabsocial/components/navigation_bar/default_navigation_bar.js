@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { openSidebar } from '../../actions/sidebar'
 import { openPopover } from '../../actions/popover'
 import { changeSetting, saveSettings } from '../../actions/settings'
 import { resendUserConfirmationEmail } from '../../actions/user'
@@ -66,9 +65,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
       actions,
       tabs,
       account,
-      onOpenSidebar,
       noActions,
-      noSearch,
     } = this.props
 
     const navigationContainerClasses = CX({
@@ -91,6 +88,8 @@ class DefaultNavigationBar extends ImmutablePureComponent {
       left0: 1,
       posFixed: 1,
     })
+
+    const isHome = title === 'Home'
 
     return (
       <div className={navigationContainerClasses}>
@@ -147,18 +146,15 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     aria-label='Gab'
                     color='none'
                     backgroundColor='none'
-                    className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
+                    className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr5].join(' ')}
                   >
                     <Icon id='logo' className={_s.fillNavigationBrand} />
                   </Button>
                 </h1>
 
-                {
-                  !noSearch &&
-                  <div className={[_s.d, _s.w340PX, _s.mr10].join(' ')}>
-                    <Search isInNav />
-                  </div>
-                }
+                <div className={[_s.d, _s.w340PX, _s.mr10].join(' ')}>
+                  <Search isInNav />
+                </div>
 
               </div>
 
@@ -169,7 +165,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
 
                     <NavigationBarButton title='Home' icon='home' to='/home' />
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
-                    <NavigationBarButton title='News' icon='news' to='/news' />
+                    <NavigationBarButton title='Groups' icon='group' to='/groups' />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
@@ -198,19 +194,19 @@ class DefaultNavigationBar extends ImmutablePureComponent {
             
             { /** Mobile */}
             <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s.d, _s.w84PX, _s.aiStart, _s.pl10].join(' ')}>
+              <div className={[_s.d, _s.aiStart, _s.pl10].join(' ')}>
                 {
-                  !!account && !showBackBtn && !noActions &&
+                  !!account && isHome &&
                   <button
-                    title={account.get('display_name')}
-                    onClick={onOpenSidebar}
+                    title='Gab.com'
+                    href='/'
                     className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.d, _s.jcCenter].join(' ')}
                   >
-                    <Avatar account={account} size={32} noHover />
+                    <Icon id='logo' className={_s.fillNavigationBrand} />
                   </button>
                 }
                 {
-                  showBackBtn &&
+                  showBackBtn && !isHome &&
                   <BackButton
                     className={_s.h53PX}
                     icon='angle-left'
@@ -218,63 +214,32 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
                   />
                 }
-                {
-                  noActions &&
-                  <h1 className={[_s.d, _s.mr15].join(' ')}>
-                    <Button
-                      to='/'
-                      isText
-                      title='Gab'
-                      aria-label='Gab'
-                      color='none'
-                      backgroundColor='none'
-                      className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr15].join(' ')}
-                    >
-                      <Icon id='logo' className={_s.fillNavigationBrand} />
-                    </Button>
-                  </h1>
-                }
               </div>
               
-              <div className={[_s.d, _s.h53PX, _s.jcCenter, _s.mlAuto, _s.mrAuto].join(' ')}>
-                <Heading size='h1'>
-                  <span className={_s.colorNavigation}>
-                    {title}
-                  </span>
-                </Heading>
-              </div>
+              {
+                !!title && !isHome &&
+                <div className={[_s.d, _s.h53PX, _s.jcCenter].join(' ')}>
+                  <Heading size='h1'>
+                    <Text className={_s.colorNavigation} size='extraExtraLarge' weight='bold'>
+                      {title}
+                    </Text>
+                  </Heading>
+                </div>
+              }
 
-              <div className={[_s.d, _s.w84PX, _s.pr15].join(' ')}>
-                <div className={[_s.d, _s.bgTransparent, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.mlAuto].join(' ')}>
+              <div className={[_s.d, _s.minW84PX, _s.pr15, _s.mlAuto].join(' ')}>
+                <div className={[_s.d, _s.h100PC, _s.bgTransparent, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.mlAuto].join(' ')}>
                   {
                     actions && actions.map((action, i) => (
-                      <Button
-                        isNarrow
-                        backgroundColor='none'
-                        color='primary'
+                      <NavigationBarButton
+                        attrTitle={action.title}
+                        icon={action.icon}
                         to={action.to || undefined}
                         onClick={action.onClick ? () => action.onClick() : undefined}
                         key={`action-btn-${i}`}
-                        className={[_s.ml5, _s.h53PX, _s.jcCenter, _s.px5].join(' ')}
-                        icon={action.icon}
-                        iconClassName={_s.fillNavigation}
-                        iconSize='18px'
+                        isXS
                       />
                     ))
-                  }
-                  {
-                    !noSearch &&
-                    <Button
-                      isNarrow
-                      backgroundColor='none'
-                      color='primary'
-                      to='/search'
-                      key={`action-btn-search`}
-                      className={[_s.ml5, _s.h53PX, _s.jcCenter, _s.px5].join(' ')}
-                      icon='search'
-                      iconClassName={_s.fillNavigation}
-                      iconSize='18px'
-                    />
                   }
                 </div>
               </div>
@@ -296,9 +261,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenSidebar() {
-    dispatch(openSidebar())
-  },
   onOpenNavSettingsPopover(targetRef) {
     dispatch(openPopover(POPOVER_NAV_SETTINGS, {
       targetRef,
@@ -323,13 +285,11 @@ DefaultNavigationBar.propTypes = {
   tabs: PropTypes.array,
   title: PropTypes.string,
   showBackBtn: PropTypes.bool,
-  onOpenSidebar: PropTypes.func.isRequired,
   onOpenNavSettingsPopover: PropTypes.func.isRequired,
   onOpenEmailModal: PropTypes.func.isRequired,
   onResendUserConfirmationEmail: PropTypes.func.isRequired,
   emailConfirmationResends: PropTypes.number.isRequired,
   noActions: PropTypes.bool,
-  noSearch: PropTypes.bool,
   theme: PropTypes.string,
 }
 
