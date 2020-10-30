@@ -45,6 +45,7 @@
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: var(--color_brand);
   --navigation_blend: var(--color_brand-dark);
+  --navigation_blend--light: #29c173;
   --navigation_primary: var(--color_white);
   --navigation_brand: var(--color_white);
   --navigation_search: var(--color_brand-light);
@@ -87,6 +88,7 @@
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
   --navigation_blend: var(--text_color_secondary) !important;
+  --navigation_blend--light: var(--solid_color_block);
   --navigation_primary: var(--text_color_primary) !important;
   --navigation_brand: var(--color_brand) !important;
   --navigation_search: var(--solid_color_tertiary) !important;
@@ -109,6 +111,7 @@
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
   --navigation_blend: var(--text_color_secondary) !important;
+  --navigation_blend--light: var(--solid_color_block);
   --navigation_primary: var(--text_color_primary) !important;
   --navigation_brand: var(--color_brand) !important;
   --navigation_search: var(--solid_color_block) !important;
@@ -721,7 +724,10 @@ pre {
 .underline { text-decoration: underline; }
 .underline_onHover:hover { text-decoration: underline; }
 
-.objectFitCover { object-fit: cover; }
+.objectFitCover {
+  -webkit-touch-callout: none;
+  object-fit: cover;
+}
 .objectFitContain { object-fit: contain; }
 
 .textShadow {
@@ -751,6 +757,7 @@ pre {
 .ml10 { margin-left: 10px; }
 .ml7 { margin-left: 7px; }
 .ml5 { margin-left: 5px; }
+.ml2 { margin-left: 2px; }
 .mlAuto { margin-left: auto; }
 .mlNeg5PX { margin-left: -5px; }
 
@@ -1011,6 +1018,14 @@ pre {
   background-color: var(--navigation_blend);
 }
 
+.bgNavigationBlendLight {
+  background-color: var(--navigation_blend--light);
+}
+
+.fillPrimary {
+  fill: var(--color_primary);
+}
+
 .fillWhite {
   fill: var(--color_white);
 }
@@ -1033,6 +1048,17 @@ pre {
   fill: var(--navigation_brand);
   color: var(--navigation_brand);
 }
+
+.navigationUnderlineActive:after {
+  content: '';
+  display: block;
+  left: 0;
+  right: 0;
+  height: 2px;
+  bottom: 1px;
+  position: absolute;
+  background-color: var(--navigation_primary);
+} 
 
 .searchNavigation {
   background-color: var(--navigation_search);
