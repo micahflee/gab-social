@@ -71,6 +71,7 @@ class GroupsPage extends React.PureComponent {
 
     return (
       <DefaultLayout
+        noSearch
         title={title}
         actions={[
           {
