@@ -62,7 +62,7 @@ class SidebarXS extends ImmutablePureComponent {
     return (
       <div className={containerClasses}>
         <div className={[_s.d, _s.posFixed, _s.top0, _s.left0, _s.right0, _s.bgBlackOpaque, _s.bottom0].join(' ')} role='button' onClick={this.handleSidebarClose} />
-        <div className={[_s.defaut, _s.posFixed, _s.left0, _s.top0, _s.bottom0, _s.bgSecondary, _s.saveAreaInsetPT, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.minW330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxW80PC, _s.overflowYScroll].join(' ')}>
+        <div className={[_s.defaut, _s.posFixed, _s.right0, _s.top0, _s.bottom0, _s.bgSecondary, _s.saveAreaInsetPT, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.minW330PX, _s.borderRight1PX, _s.borderColorSecondary, _s.maxW80PC, _s.overflowYScroll].join(' ')}>
 
           <div
             className={[_s.d, _s.h122PX].join(' ')}

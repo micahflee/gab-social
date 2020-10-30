@@ -1,12 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { me } from '../initial_state'
+import { openSidebar } from '../actions/sidebar'
 import { CX } from '../constants'
 import Button from './button'
+import Avatar from './avatar'
 
-class FooterBar extends React.PureComponent {
+class FooterBar extends ImmutablePureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -14,8 +18,10 @@ class FooterBar extends React.PureComponent {
 
   render() {
     const {
+      account,
       notificationCount,
       homeItemsQueueCount,
+      onOpenSidebar,
     } = this.props
 
     const noRouter = !this.context.router
@@ -33,26 +39,26 @@ class FooterBar extends React.PureComponent {
         icon: 'notifications',
         title: 'Notifications',
         isHidden: !me,
-        active: currentPathname === '/notifications',
+        active: currentPathname.indexOf('/notifications') > -1,
       },
       {
         to: '/groups',
         icon: 'group',
         title: 'Groups',
-        active: currentPathname === '/groups',
-      },
-      {
-        to: '/explore',
-        icon: 'explore',
-        title: 'Explore',
-        isHidden: !me,
-        active: currentPathname === '/explore',
+        active: currentPathname.indexOf('/groups') > -1,
       },
       {
         to: '/news',
         icon: 'news',
         title: 'News',
-        active: currentPathname === '/news',
+        isHidden: !!me,
+        active: currentPathname.indexOf('/news') > -1,
+      },
+      {
+        title: 'Menu',
+        isHidden: !me,
+        active: currentPathname === `/${account.get('username')}`,
+        onClick: onOpenSidebar,
       },
     ]
 
@@ -94,6 +100,17 @@ class FooterBar extends React.PureComponent {
                       </span>
                     </div>
                   )
+                } else if (props.title === 'Menu') {
+                  const avatarContainerClasses = CX({
+                    d: 1,
+                    circle: 1,
+                    boxShadowProfileAvatarFooter: !!props.active,
+                  })
+                  childIcon = (
+                    <div className={avatarContainerClasses}>
+                      <Avatar account={account} size={24} />
+                    </div>
+                  )
                 }
 
                 return (
@@ -103,6 +120,7 @@ class FooterBar extends React.PureComponent {
                     iconSize='20px'
                     color={color}
                     to={props.to}
+                    onClick={props.onClick}
                     icon={props.icon}
                     href={props.href}
                     title={props.title}
@@ -121,14 +139,23 @@ class FooterBar extends React.PureComponent {
 
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenSidebar() {
+    dispatch(openSidebar())
+  },
+})
+
 const mapStateToProps = (state) => ({
+  account: !!me ? state.getIn(['accounts', me]) : undefined,
   notificationCount: !!me ? state.getIn(['notifications', 'unread']) : 0,
   homeItemsQueueCount: !!me ? state.getIn(['timelines', 'home', 'totalQueuedItemsCount']) : 0,
 })
 
 FooterBar.propTypes = {
+  account: ImmutablePropTypes.map,
+  onOpenSidebar: PropTypes.func.isRequired,
   notificationCount: PropTypes.number.isRequired,
   homeItemsQueueCount: PropTypes.number.isRequired,
 }
 
-export default withRouter(connect(mapStateToProps)(FooterBar))
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(FooterBar))

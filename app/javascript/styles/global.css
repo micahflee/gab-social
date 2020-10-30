@@ -871,6 +871,10 @@ pre {
   box-shadow: 0 0 0 6px var(--solid_color_primary);
 }
 
+.boxShadowProfileAvatarFooter {
+  box-shadow: 0 0 0 4px var(--solid_color_primary), 0 0 0 5px var(--border_color_secondary);
+}
+
 .listStyleNone {
   list-style: none;
 }
