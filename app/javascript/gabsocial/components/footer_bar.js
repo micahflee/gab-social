@@ -57,7 +57,7 @@ class FooterBar extends ImmutablePureComponent {
       {
         title: 'Menu',
         isHidden: !me,
-        active: currentPathname === `/${account.get('username')}`,
+        active: !!account ? currentPathname === `/${account.get('username')}` : false,
         onClick: onOpenSidebar,
       },
     ]
@@ -100,7 +100,7 @@ class FooterBar extends ImmutablePureComponent {
                       </span>
                     </div>
                   )
-                } else if (props.title === 'Menu') {
+                } else if (props.title === 'Menu' && !!account) {
                   const avatarContainerClasses = CX({
                     d: 1,
                     circle: 1,
