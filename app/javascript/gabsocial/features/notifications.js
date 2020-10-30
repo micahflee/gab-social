@@ -13,12 +13,18 @@ import {
   dequeueNotifications,
   forceDequeueNotifications,
 } from '../actions/notifications'
+import {
+  TIMELINE_INJECTION_FEATURED_GROUPS,
+  TIMELINE_INJECTION_GROUP_CATEGORIES,
+  TIMELINE_INJECTION_USER_SUGGESTIONS,
+} from '../constants'
 import NotificationContainer from '../containers/notification_container'
 import ScrollableList from '../components/scrollable_list'
 import TimelineQueueButtonHeader from '../components/timeline_queue_button_header'
 import Block from '../components/block'
 import Account from '../components/account'
 import NotificationPlaceholder from '../components/placeholder/notification_placeholder'
+import TimelineInjectionRoot from '../components/timeline_injections/timeline_injection_root'
 
 class Notifications extends ImmutablePureComponent {
 
@@ -78,6 +84,7 @@ class Notifications extends ImmutablePureComponent {
 
   render() {
     const {
+      notifications,
       sortedNotifications,
       isLoading,
       hasMore,
@@ -87,6 +94,8 @@ class Notifications extends ImmutablePureComponent {
     const { changedTabs } = this.state
 
     let scrollableContent = null
+    let emptyContent = []
+    const canShowEmptyContent = !scrollableContent && !isLoading && notifications.size === 0 && selectedFilter === 'all'
 
     if (isLoading && this.scrollableContent && !changedTabs) {
       scrollableContent = this.scrollableContent
@@ -122,6 +131,16 @@ class Notifications extends ImmutablePureComponent {
       })
     }
 
+    if (canShowEmptyContent) {
+      emptyContent = [
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_USER_SUGGESTIONS} key='empty-injection-0' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_FEATURED_GROUPS} key='empty-injection-1' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_USER_SUGGESTIONS} props={{suggestionType:'verified'}} key='empty-injection-2' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_GROUP_CATEGORIES} key='empty-injection-3' />,
+      ]
+    }
+
+
     this.scrollableContent = scrollableContent
 
     return (
@@ -147,6 +166,13 @@ class Notifications extends ImmutablePureComponent {
             {scrollableContent}
           </ScrollableList>
         </Block>
+
+        {
+          canShowEmptyContent &&
+          <div className={[_s.d, _s.mt15, _s.w100PC].join(' ')}>
+            {emptyContent}
+          </div>
+        }
       </React.Fragment>
     )
   }

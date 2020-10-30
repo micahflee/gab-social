@@ -7,6 +7,11 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { createSelector } from 'reselect'
 import debounce from 'lodash.debounce'
 import { me, promotions } from '../initial_state'
+import {
+  TIMELINE_INJECTION_FEATURED_GROUPS,
+  TIMELINE_INJECTION_GROUP_CATEGORIES,
+  TIMELINE_INJECTION_USER_SUGGESTIONS,
+} from '../constants'
 import { dequeueTimeline, scrollTopTimeline } from '../actions/timelines'
 import { showTimelineInjection } from '../actions/timeline_injections'
 import { fetchStatus, fetchContext } from '../actions/statuses'
@@ -15,6 +20,7 @@ import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
 import TimelineInjectionBase from './timeline_injections/timeline_injection_base'
+import TimelineInjectionRoot from './timeline_injections/timeline_injection_root'
 
 class StatusList extends ImmutablePureComponent {
 
@@ -175,6 +181,8 @@ class StatusList extends ImmutablePureComponent {
     }
 
     let scrollableContent = []
+    let emptyContent = []
+    const canShowEmptyContent = scrollableContent.length === 0 && statusIds.size === 0 && scrollKey === 'home_timeline'
     
     if (isLoading || statusIds.size > 0) {
       for (let i = 0; i < statusIds.count(); i++) {
@@ -255,6 +263,15 @@ class StatusList extends ImmutablePureComponent {
       )).concat(scrollableContent)
     }
 
+    if (canShowEmptyContent) {
+      emptyContent = [
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_USER_SUGGESTIONS} key='empty-injection-0' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_FEATURED_GROUPS} key='empty-injection-1' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_USER_SUGGESTIONS} props={{suggestionType:'verified'}} key='empty-injection-2' />,
+        <TimelineInjectionRoot type={TIMELINE_INJECTION_GROUP_CATEGORIES} key='empty-injection-3' />,
+      ]
+    }
+
     return (
       <React.Fragment>
         <TimelineQueueButtonHeader
@@ -278,6 +295,12 @@ class StatusList extends ImmutablePureComponent {
         >
           {scrollableContent}
         </ScrollableList>
+        {
+          canShowEmptyContent &&
+          <div className={[_s.d, _s.mt15, _s.w100PC].join(' ')}>
+            {emptyContent}
+          </div>
+        }
       </React.Fragment>
     )
   }
