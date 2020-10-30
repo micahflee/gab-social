@@ -187,7 +187,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                         onClick={this.handleOnOpenNavSettingsPopover}
                         className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.d, _s.jcCenter, _s.ml15].join(' ')}
                       >
-                        <Avatar account={account} size={32} noHover />
+                        <Avatar account={account} size={34} noHover />
                       </button>
                     }
                   </div>
