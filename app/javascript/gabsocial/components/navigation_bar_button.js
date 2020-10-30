@@ -16,6 +16,7 @@ class NavigationBarButton extends React.PureComponent {
       attrTitle,
       count,
       onClick,
+      isXS,
     } = this.props
 
     const active = to == window.location.pathname
@@ -31,8 +32,9 @@ class NavigationBarButton extends React.PureComponent {
       noUnderline: 1,
       colorNavigation: 1,
       px15: !!title,
-      px5: !title,
-      py2: !title,
+      px5: !title && !isXS,
+      px2: !title && isXS,
+      py5: !title && !isXS,
       cWhite: !!title,
       fs13PX: !!title,
       fw400: !!title,
@@ -40,9 +42,13 @@ class NavigationBarButton extends React.PureComponent {
     })
 
     const iconClasses = CX({
-      fillNavigation: !!title || active,
-      fillNavigationBlend: !title,
-      px2: !title,
+      fillNavigation: (!!title || active) || isXS,
+      fillNavigationBlend: !title && !isXS,
+      px2: !title && !isXS,
+      py5: !title && !isXS,
+      px5: !title,
+      mr2: !title && isXS,
+      ml2: !title && isXS,
     })
 
     const countClasses = CX({
@@ -60,6 +66,17 @@ class NavigationBarButton extends React.PureComponent {
       radiusSmall: 1,
     })
 
+    const iconContainerClasses = CX({
+      d: 1,
+      aiCenter: 1,
+      jcCenter: 1,
+      bgNavigationBlendLight: !title,
+      circle: !title,
+      px5: !title,
+      py5: !title,
+      py10: !title && isXS,
+    })
+
     const iconSize = !!title ? '18px' : '20px'
 
     return (
@@ -71,7 +88,9 @@ class NavigationBarButton extends React.PureComponent {
         className={classes}
         noClasses
       > 
-        <Icon className={iconClasses} id={icon} size={iconSize} />
+        <div className={iconContainerClasses}>
+          <Icon className={iconClasses} id={icon} size={iconSize} />
+        </div>
         {
           !!title &&
           <Text color='white' size='extraSmall' className={_s.mt5}>
@@ -96,6 +115,7 @@ NavigationBarButton.propTypes = {
   attrTitle: PropTypes.string,
   count: PropTypes.number,
   onClick: PropTypes.func,
+  isXS: PropTypes.bool,
 }
 
 export default NavigationBarButton
