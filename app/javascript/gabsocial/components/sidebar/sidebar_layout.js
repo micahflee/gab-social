@@ -47,7 +47,7 @@ class SidebarLayout extends React.PureComponent {
               <div className={[_s.d, _s.w100PC].join(' ')}>
                 {
                   !!title &&
-                  <div className={[_s.d, _s.flexRow, _s.px5, _s.pt10].join(' ')}>
+                  <div className={[_s.d, _s.flexRow, _s.px5, _s.pt10, _s.minH40PX, _s.aiStart].join(' ')}>
                     {
                       showBackBtn &&
                       <BackButton
@@ -64,15 +64,15 @@ class SidebarLayout extends React.PureComponent {
                           actions.map((action, i) => (
                             <Button
                               isNarrow
-                              backgroundColor='none'
+                              backgroundColor='tertiary'
                               color='primary'
                               onClick={action.onClick ? () => action.onClick() : undefined}
                               to={action.to}
                               key={`action-btn-${i}`}
                               className={[_s.ml5, _s.px5].join(' ')}
                               icon={action.icon}
-                              iconClassName={_s.cPrimary}
-                              iconSize='14px'
+                              iconClassName={[_s.cSecondary, _s.px5, _s.py5].join(' ')}
+                              iconSize='15px'
                             />
                           ))
                         }
@@ -82,7 +82,7 @@ class SidebarLayout extends React.PureComponent {
                 }
                 {
                   !!tabs &&
-                  <div className={[_s.d, _s.mt10, _s.pb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                  <div className={[_s.d, _s.mt10, _s.pb10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
                     <Pills pills={tabs} />
                   </div>
                 }
