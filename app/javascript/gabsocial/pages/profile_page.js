@@ -25,6 +25,7 @@ class ProfilePage extends ImmutablePureComponent {
       unavailable,
       noSidebar,
       isBlocked,
+      isMe,
       params: { username },
     } = this.props
 
@@ -44,6 +45,7 @@ class ProfilePage extends ImmutablePureComponent {
           !unavailable &&
           React.cloneElement(children, {
             account,
+            isMe,
           })
         }
         {
@@ -68,10 +70,12 @@ const mapStateToProps = (state, { params: { username } }) => {
   const isFollowing = state.getIn(['relationships', accountId, 'following'], false)
 
   const unavailable = (me === accountId) ? false : (isBlocked || (isLocked && !isFollowing))
-
+  const isMe = me === accountId
+  
   const getAccount = makeGetAccount()
 
   return {
+    isMe,
     isBlocked,
     unavailable,
     account: accountId !== -1 ? getAccount(state, accountId) : null,

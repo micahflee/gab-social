@@ -5,8 +5,12 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { List as ImmutableList } from 'immutable'
 import { injectIntl, defineMessages } from 'react-intl'
+import { MODAL_COMPOSE } from '../constants'
 import { expandAccountFeaturedTimeline, expandAccountTimeline } from '../actions/timelines'
+import { openModal } from '../actions/modal'
 import StatusList from '../components/status_list'
+import Text from '../components/text'
+import Button from '../components/button'
 
 class AccountTimeline extends ImmutablePureComponent {
 
@@ -32,7 +36,7 @@ class AccountTimeline extends ImmutablePureComponent {
     }
   }
 
-  handleLoadMore = maxId => {
+  handleLoadMore = (maxId) => {
     if (this.props.accountId && this.props.accountId !== -1) {
       this.props.dispatch(expandAccountTimeline(this.props.accountId, {
         maxId,
@@ -41,14 +45,34 @@ class AccountTimeline extends ImmutablePureComponent {
     }
   }
 
+  handleOnOpenComposeModal = () => {
+    this.props.dispatch(openModal(MODAL_COMPOSE))
+  }
+
   render() {
     const {
       statusIds,
       featuredStatusIds,
       isLoading,
       hasMore,
-      intl
+      intl,
+      isMe,
     } = this.props
+
+    const emptyMessage = (
+      <div className={[_s.d, _s.w100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
+        <Text>{intl.formatMessage(messages.empty)}</Text>
+        {
+          isMe &&
+          <Button
+            className={[_s.d, _s.mt15].join(' ')}
+            onClick={this.handleOnOpenComposeModal}
+          >
+            Create a gab
+          </Button>
+        }
+      </div>
+    )
 
     return (
       <StatusList
@@ -58,7 +82,7 @@ class AccountTimeline extends ImmutablePureComponent {
         isLoading={isLoading}
         hasMore={hasMore}
         onLoadMore={this.handleLoadMore}
-        emptyMessage={intl.formatMessage(messages.empty)}
+        emptyMessage={emptyMessage}
       />
     )
   }
@@ -94,6 +118,7 @@ AccountTimeline.propTypes = {
   hasMore: PropTypes.bool,
   commentsOnly: PropTypes.bool,
   intl: PropTypes.object.isRequired,
+  isMe: PropTypes.bool.isRequired,
 }
 
 export default injectIntl(connect(mapStateToProps)(AccountTimeline))
