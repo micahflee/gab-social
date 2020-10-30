@@ -46,7 +46,8 @@ class StatusSharePopover extends ImmutablePureComponent {
     const encodedStatusUrl = encodeURIComponent(status.get('url'))
     const mailToHref = `mailto:?subject=Gab&body=${encodedStatusUrl}`
     const content = status.get('contentHtml')
-    
+    const iconSize = '18px'
+
     return (
       <PopoverLayout
         width={360}
@@ -59,71 +60,77 @@ class StatusSharePopover extends ImmutablePureComponent {
         <div className={[_s.d, _s.w100PC, _s.px15, _s.py15, _s.flexRow, _s.noScrollbar, _s.aiCenter, _s.overflowXScroll, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
           <Button
             icon='copy'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
-            color='black'
+            color='primary'
             backgroundColor='secondary'
             onClick={this.handleCopy}
             title={intl.formatMessage(messages.copy)}
-            className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10].join(' ')}
+            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
           />
           <Button
             icon='sms'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
             href={`sms:+&body=${encodedStatusUrl}`}
+            target='_blank'
             title='Share via text message'
-            className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgSMS].join(' ')}
+            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgSMS].join(' ')}
           />
           <Button
             icon='facebook'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
             href={`https://www.facebook.com/sharer/sharer.php?u=${encodedStatusUrl}`}
+            target='_blank'
             title='Share on Facebook'
-            className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgFacebook].join(' ')}
+            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgFacebook].join(' ')}
           />
           <Button
             icon='twitter'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
             href={`https://twitter.com/intent/tweet?url=${encodedStatusUrl}`}
+            target='_blank'
             title='Share on Twitter'
-            className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgTwitter].join(' ')}
+            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgTwitter].join(' ')}
           />
           <Button
             icon='telegram'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
             href={`https://telegram.me/share/?url=${encodedStatusUrl}`}
+            target='_blank'
             title='Share on Telegram'
-            className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10, _s.bgTelegram].join(' ')}
+            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgTelegram].join(' ')}
           />
           <Button
             icon='reddit'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
             href={`http://www.reddit.com/submit?url=${encodedStatusUrl}&title=Gab`}
             title='Share on Reddit'
-            className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr15, _s.bgReddit].join(' ')}
+            target='_blank'
+            className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr10, _s.bgReddit].join(' ')}
           />
           <Button
             icon='email'
-            iconSize='20px'
+            iconSize={iconSize}
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='black'
             href={mailToHref}
+            target='_blank'
             title='Share via email'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
           />
