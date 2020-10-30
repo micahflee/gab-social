@@ -219,7 +219,6 @@ class AutosuggestTextbox extends ImmutablePureComponent {
       fs14PX: small,
       maxH200PX: small,
       maxH80VH: !small,
-      minH80PX: !small,
     })
 
     return (
