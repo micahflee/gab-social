@@ -15,6 +15,7 @@ class DefaultLayout extends React.PureComponent {
       showBackBtn,
       tabs,
       title,
+      noSearch,
     } = this.props
 
     return (
@@ -27,6 +28,7 @@ class DefaultLayout extends React.PureComponent {
         showBackBtn={showBackBtn}
         tabs={tabs}
         title={title}
+        noSearch={noSearch}
       >
         {children}
       </Layout>
@@ -43,6 +45,7 @@ DefaultLayout.propTypes = {
   noRightSidebar: PropTypes.bool,
   page: PropTypes.string,
   showBackBtn: PropTypes.bool,
+  noSearch: PropTypes.bool,
   tabs: PropTypes.array,
   title: PropTypes.string.isRequired,
 }
