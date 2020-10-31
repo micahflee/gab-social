@@ -308,6 +308,7 @@ class Status extends ImmutablePureComponent {
       contextType,
       isComposeModalOpen,
       commentSortingType,
+      onOpenProModal,
     } = this.props
     // const { height } = this.state
 
@@ -430,6 +431,7 @@ class Status extends ImmutablePureComponent {
                     isFeatured={isFeatured}
                     isPinnedInGroup={isPinnedInGroup}
                     isComment={isComment && !isChild}
+                    onOpenProModal={onOpenProModal}
                   />
 
                   <StatusHeader
@@ -563,6 +565,7 @@ Status.propTypes = {
   onFavorite: PropTypes.func,
   onMention: PropTypes.func,
   onOpenMedia: PropTypes.func,
+  onOpenProModal: PropTypes.func,
   onOpenVideo: PropTypes.func,
   onHeightChange: PropTypes.func,
   onToggleHidden: PropTypes.func,

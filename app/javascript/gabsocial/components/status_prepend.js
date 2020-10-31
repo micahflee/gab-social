@@ -17,6 +17,7 @@ class StatusPrepend extends ImmutablePureComponent {
       isPromoted,
       isComment,
       isPinnedInGroup,
+      onOpenProModal,
     } = this.props
 
     if (!status) return null
@@ -32,8 +33,8 @@ class StatusPrepend extends ImmutablePureComponent {
     else if (isComment) iconId = 'comment'
 
     return (
-      <div className={[_s.d, _s.w100PC, _s.aiStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-        <div className={[_s.d, _s.w100PC, _s.flexRow, _s.aiCenter, _s.py5, _s.px15].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.flexRow, _s.aiStart, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+        <div className={[_s.d, _s.flexNormal, _s.flexRow, _s.aiCenter, _s.py5, _s.px15, _s.overflowHidden].join(' ')}>
           <Icon id={iconId} size='12px' className={[_s.cSecondary, _s.mr5].join(' ')} />
           {
             isRepost && !isComment &&
@@ -90,6 +91,19 @@ class StatusPrepend extends ImmutablePureComponent {
             </Text>
           }
         </div>
+        {
+          isPromoted &&
+          <div className={[_s.d, _s.h100PC, _s.pr10, _s.py2, _s.aiCenter, _s.jcCenter].join(' ')}>
+            <button
+              className={[_s.d, _s.cursorPointer, _s.outlineNone, _s.bgTertiary, _s.circle, _s.py2, _s.px5].join(' ')}
+              onClick={onOpenProModal}
+            >
+              <Text color='tertiary' size='extraSmall' isBadge>
+                ?
+              </Text>
+            </button>
+          </div>
+        }
       </div>
     )
   }
@@ -111,6 +125,7 @@ StatusPrepend.propTypes = {
   isFeatured: PropTypes.bool,
   isPinnedInGroup: PropTypes.bool,
   isPromoted: PropTypes.bool,
+  onOpenProModal: PropTypes.func.isRequired,
 }
 
 export default injectIntl(StatusPrepend)

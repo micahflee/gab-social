@@ -32,6 +32,7 @@ import {
 import {
   MODAL_BOOST,
   MODAL_CONFIRM,
+  MODAL_PRO_UPGRADE,
   POPOVER_COMMENT_SORTING_OPTIONS,
   POPOVER_STATUS_SHARE,
   COMMENT_SORTING_TYPE_OLDEST,
@@ -333,7 +334,11 @@ const mapDispatchToProps = (dispatch) => ({
       callback,
       position: 'top',
     }))
-  }
+  },
+
+  onOpenProModal() {
+    dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
 
 });
 
