@@ -314,6 +314,7 @@ pre {
   white-space: nowrap;
 }
 
+.textOverflowEllipsis2 { text-overflow: ellipsis; }
 .whiteSpaceNoWrap { white-space: nowrap; }
 
 .outlineNone { outline: none; }
@@ -488,7 +489,7 @@ pre {
 .maxH340PX { max-height: 340px; }
 .maxH200PX { max-height: 200px; }
 .maxH56PX { max-height: 56px; }
-.maxH56PX { max-height: 42px; }
+.maxH40PX { max-height: 40px; }
 .calcH106PX { height: calc(100vh - 106px); }
 .calcH53PX { height: calc(100vh - 53px); }
 .calcH80VH106PX { height: calc(80vh - 106px); }
@@ -528,6 +529,7 @@ pre {
 .maxW100PC { max-width: 100%; }
 .maxW80PC { max-width: 80%; }
 .maxW640PX { max-width: 640px; }
+.maxW100PC120PX { max-width: calc(100% - 120px); }
 .maxW100PC86PX { max-width: calc(100% - 86px); }
 .maxW100PC42PX { max-width: calc(100% - 42px); }
 .maxW212PX { max-width: 212px; }
