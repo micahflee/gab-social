@@ -79,8 +79,8 @@ class HomePage extends React.PureComponent {
         title={title}
         actions={[
           {
-            icon: 'ellipsis',
-            onClick: this.onOpenHomePageSettingsModal,
+            icon: 'search',
+            to: '/search',
           },
         ]}
         layout={[
