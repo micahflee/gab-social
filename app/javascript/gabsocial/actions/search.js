@@ -1,7 +1,11 @@
 import api from '../api';
 import { fetchRelationships } from './accounts';
 import { fetchGroupsSuccess, fetchGroupRelationships } from './groups'
-import { importFetchedAccounts, importFetchedStatuses } from './importer';
+import {
+  importFetchedAccounts,
+  importFetchedStatuses,
+} from './importer';
+import { importLinkCards } from './links'
 import { SEARCH_FILTERS } from '../constants'
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE';
@@ -50,6 +54,10 @@ export function submitSearch() {
 
       if (response.data.statuses) {
         dispatch(importFetchedStatuses(response.data.statuses));
+      }
+
+      if (response.data.links) {
+        dispatch(importLinkCards(response.data.links));
       }
 
       if (response.data.groups) {

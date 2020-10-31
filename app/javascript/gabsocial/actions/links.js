@@ -4,6 +4,8 @@ export const LINK_FETCH_REQUEST = 'LINK_FETCH_REQUEST'
 export const LINK_FETCH_SUCCESS = 'LINK_FETCH_SUCCESS'
 export const LINK_FETCH_FAIL = 'LINK_FETCH_FAIL'
 
+export const IMPORT_LINK_CARDS = 'IMPORT_LINK_CARDS'
+
 export const fetchLinkCard = (cardId) => (dispatch, getState) => {
   dispatch(fetchLinkCardRequest(cardId))
 
@@ -27,4 +29,9 @@ export const fetchLinkCardFail = (error, cardId) => ({
   type: LINK_FETCH_FAIL,
   error,
   cardId,
+})
+
+export const importLinkCards = (cards) => ({
+  type: IMPORT_LINK_CARDS,
+  cards,
 })
