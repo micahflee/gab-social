@@ -10,6 +10,8 @@ import {
 } from '../constants'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Icon from './icon'
+import Button from './button'
+import Text from './text'
 
 const IDNA_PREFIX = 'xn--'
 
@@ -167,14 +169,25 @@ class StatusCard extends ImmutablePureComponent {
       )
 
     const description = (
-      <div className={[_s.d, _s.flexNormal, _s.px10, _s.py10, _s.borderColorSecondary, _s.borderLeft1PX].join(' ')}>
+      <div className={[_s.d, _s.flexNormal, _s.px10, _s.py10, _s.overflowHidden, _s.borderColorSecondary, _s.borderLeft1PX].join(' ')}>
         {title}
         <p className={[_s.d, _s.displayFlex, _s.text, _s.mt5, _s.mb5, _s.overflowWrapBreakWord, _s.cSecondary, _s.fs13PX, _s.fw400].join(' ')}>
           {trim(card.get('description') || '', maxDescription)}
         </p>
-        <span className={[_s.d, _s.mtAuto, _s.flexRow, _s.aiCenter, _s.cSecondary, _s.text, _s.displayFlex, _s.textOverflowEllipsis, _s.fs13PX].join(' ')}>
+        <span className={[_s.d, _s.mtAuto, _s.flexRow, _s.flexWrap, _s.aiCenter, _s.displayFlex, _s.textOverflowEllipsis].join(' ')}>
           <Icon id='link' size='10px' className={[_s.cSecondary, _s.mr5].join(' ')} fixedWidth />
-          {provider}
+          <Text color='secondary' size='small' className={[_s.mrAuto, _s.whiteSpaceNoWrap, _s.overflowHidden, _s.maxW100PC120PX, _s.textOverflowEllipsis2].join(' ')}>
+            {provider}
+          </Text>
+          <Button
+            isNarrow
+            color='secondary'
+            backgroundColor='secondary'
+            to={`/links/${card.get('id')}`}
+            className={_s.px10}
+          >
+            <Text color='inherit' size='extraSmall'>View on Gab</Text>
+          </Button>
         </span>
       </div>
     )
