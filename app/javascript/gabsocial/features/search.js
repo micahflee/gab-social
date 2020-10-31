@@ -14,6 +14,7 @@ import PanelLayout from '../components/panel/panel_layout'
 import ColumnIndicator from '../components/column_indicator'
 import StatusContainer from '../containers/status_container'
 import Block from '../components/block'
+import PreviewCardItem from '../components/preview_card_item'
 
 class Search extends ImmutablePureComponent {
 
@@ -37,7 +38,7 @@ class Search extends ImmutablePureComponent {
 
     if (isError) {
       return (
-        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+        <ResponsiveClassesComponent classNamesXS={[_s.px10, _s.pt15].join(' ')}>
           <Block>
             <ColumnIndicator type='error' message='Error fetching search results.' />
           </Block>
@@ -47,7 +48,7 @@ class Search extends ImmutablePureComponent {
 
     if ((results.isEmpty() && isSmallScreen) || (!submitted && results.isEmpty())) {
       return (
-        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+        <ResponsiveClassesComponent classNamesXS={[_s.px10, _s.pt15].join(' ')}>
           <Block>
             <div className={[_s.d, _s.py15, _s.px15].join(' ')}>
               <Text>Type in the box above and submit to perform a search.</Text>
@@ -62,12 +63,13 @@ class Search extends ImmutablePureComponent {
     const showHashtags = pathname === '/search/hashtags'
     const showGroups = pathname === '/search/groups'
     const showStatuses = pathname === '/search/statuses'
-    const isTop = !showPeople && !showHashtags && !showGroups && !showStatuses
+    const showLinks = pathname === '/search/links'
+    const isTop = !showPeople && !showHashtags && !showGroups && !showStatuses && !showLinks
     const theLimit = 4
 
-    let accounts, statuses, hashtags, groups
+    let accounts, statuses, hashtags, groups, links
 
-    // : todo : statuses
+    console.log('hello:', results)
 
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, theLimit) : results.get('accounts').size;
@@ -165,6 +167,31 @@ class Search extends ImmutablePureComponent {
       )
     }
 
+    if (results.get('links') && results.get('links').size > 0 && me && (isTop || showLinks)) {
+      const size = isTop ? Math.min(results.get('links').size, theLimit) : results.get('links').size;
+      const isMax = size === results.get('links').size
+
+      links = (
+        <PanelLayout
+          title='Links'
+          headerButtonTo={isMax ? undefined : '/search/links'}
+          headerButtonTitle={isMax ? undefined : 'See more'}
+          footerButtonTo={isMax ? undefined : '/search/links'}
+          footerButtonTitle={isMax ? undefined : 'See more'}
+          noPadding
+        >
+          <div className={[_s.d, _s.pb10, _s.px15, _s.mb15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+            <Text color='tertiary' size='small'>
+              Showing {size} of {results.get('links').size} results
+            </Text>
+          </div>
+          {
+            results.get('links').slice(0, size).map((linkId) => <PreviewCardItem id={linkId} />)
+          }
+        </PanelLayout>
+      )
+    }
+
     if (results.get('hashtags') && results.get('hashtags').size > 0 && me && (isTop || showHashtags)) {
       const size = isTop ? Math.min(results.get('hashtags').size, theLimit) : results.get('hashtags').size;
       const isMax = size === results.get('hashtags').size
@@ -188,9 +215,9 @@ class Search extends ImmutablePureComponent {
       )
     }
 
-    if (!accounts && !statuses && !hashtags && !groups) {
+    if (!accounts && !statuses && !hashtags && !groups && !links) {
       return (
-        <ResponsiveClassesComponent classNamesXS={_s.px10}>
+        <ResponsiveClassesComponent classNamesXS={[_s.px10, _s.pt15].join(' ')}>
           <Block>
             <ColumnIndicator type='missing' message='No search results.' />
           </Block>
@@ -203,6 +230,7 @@ class Search extends ImmutablePureComponent {
         {accounts}
         {groups}
         {statuses}
+        {links}
         {hashtags}
       </div>
     )
