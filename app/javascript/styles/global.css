@@ -502,6 +502,7 @@ pre {
 .minH58PX { min-height: 58px; }
 .minH53PX { min-height: 53px; }
 .minH50PX { min-height: 50px; }
+.minH40PX { min-height: 40px; }
 .minH28PX { min-height: 28px; }
 
 .h100PC { height: 100%; }
@@ -533,6 +534,7 @@ pre {
 
 .minW330PX { min-width: 330px; }
 .minW120PX { min-width: 120px; }
+.minW84PX { min-width: 84px; }
 .minW76PX { min-width: 76px; }
 .minW20PX { min-width: 20px; }
 .minW14PX { min-width: 14px; }
@@ -724,10 +726,7 @@ pre {
 .underline { text-decoration: underline; }
 .underline_onHover:hover { text-decoration: underline; }
 
-.objectFitCover {
-  -webkit-touch-callout: none;
-  object-fit: cover;
-}
+.objectFitCover { object-fit: cover; }
 .objectFitContain { object-fit: contain; }
 
 .textShadow {
