@@ -8,35 +8,15 @@ import {
   CX,
   DEFAULT_REL,
 } from '../constants'
+import {
+  decodeIDNA,
+  getHostname,
+  trim,
+} from '../utils/urls'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Icon from './icon'
 import Button from './button'
 import Text from './text'
-
-const IDNA_PREFIX = 'xn--'
-
-const decodeIDNA = domain => {
-  return domain
-    .split('.')
-    .map(part => part.indexOf(IDNA_PREFIX) === 0 ? punycode.decode(part.slice(IDNA_PREFIX.length)) : part)
-    .join('.')
-}
-
-const getHostname = url => {
-  const parser = document.createElement('a')
-  parser.href = url
-  return parser.hostname
-}
-
-const trim = (text, len) => {
-  const cut = text.indexOf(' ', len)
-
-  if (cut === -1) {
-    return text
-  }
-
-  return text.substring(0, cut) + (text.length > len ? '…' : '')
-}
 
 const domParser = new DOMParser()
 
