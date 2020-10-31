@@ -16,12 +16,15 @@ class FooterBar extends ImmutablePureComponent {
     router: PropTypes.object,
   }
 
+  handleOnOpenSidebar = () => {
+    this.props.onOpenSidebar()
+  }
+
   render() {
     const {
       account,
       notificationCount,
       homeItemsQueueCount,
-      onOpenSidebar,
     } = this.props
 
     const noRouter = !this.context.router
@@ -65,7 +68,7 @@ class FooterBar extends ImmutablePureComponent {
         title: 'Menu',
         isHidden: !me,
         active: !!account ? currentPathname === `/${account.get('username')}` : false,
-        onClick: onOpenSidebar,
+        onClick: this.handleOnOpenSidebar,
       },
     ]
 
