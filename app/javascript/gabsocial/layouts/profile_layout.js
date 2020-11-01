@@ -21,6 +21,7 @@ import {
   ProfileInfoPanel,
   MediaGalleryPanel,
   SignUpPanel,
+  SidebarXS,
 } from '../features/ui/util/async_components'
 
 class ProfileLayout extends ImmutablePureComponent {
@@ -43,6 +44,11 @@ class ProfileLayout extends ImmutablePureComponent {
 
     return (
       <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          <WrappedBundle component={SidebarXS} />
+        </Responsive>
+
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           {
             !!me &&
