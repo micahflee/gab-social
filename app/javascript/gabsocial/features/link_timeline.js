@@ -12,6 +12,7 @@ import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Text from '../components/text'
+import PreviewCardItem from '../components/preview_card_item'
 
 class LinkTimeline extends ImmutablePureComponent {
 
@@ -77,12 +78,15 @@ class LinkTimeline extends ImmutablePureComponent {
     )
 
     return (
-      <StatusList
-        scrollKey='link_timeline'
-        timelineId={`link:${id}`}
-        onLoadMore={this.handleLoadMore}
-        emptyMessage={emptyMessage}
-      />
+      <React.Fragment>
+        <PreviewCardItem id={id} />
+        <StatusList
+          scrollKey='link_timeline'
+          timelineId={`link:${id}`}
+          onLoadMore={this.handleLoadMore}
+          emptyMessage={emptyMessage}
+        />
+      </React.Fragment>
     )
   }
 
