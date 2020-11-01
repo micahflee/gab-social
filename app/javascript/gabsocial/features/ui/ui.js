@@ -216,7 +216,7 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/tags/:id' publicRoute page={HashtagPage} component={HashtagTimeline} content={children} componentParams={{ title: 'Hashtag' }} />
         
-        <WrappedRoute path='/links/:id' page={LinkPage} component={LinkTimeline} content={children} componentParams={{ title: 'Links' }} />
+        <WrappedRoute path='/links/:id' page={LinkPage} component={LinkTimeline} content={children} componentParams={{ title: 'Link Feed' }} />
 
         <WrappedRoute path='/shortcuts' page={ShortcutsPage} component={Shortcuts} content={children} />
 
