@@ -122,6 +122,7 @@ class StatusCard extends ImmutablePureComponent {
     const cardImg = card.get('image')
     const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name')
     const interactive = card.get('type') !== 'link'
+    const isOnLinkFeed = `${window.location.pathname}`.indexOf('/links/') > -1
 
     const imgContainerClasses = CX({
       d: 1,
@@ -156,18 +157,21 @@ class StatusCard extends ImmutablePureComponent {
         </p>
         <span className={[_s.d, _s.mtAuto, _s.flexRow, _s.flexWrap, _s.aiCenter, _s.displayFlex, _s.textOverflowEllipsis].join(' ')}>
           <Icon id='link' size='10px' className={[_s.cSecondary, _s.mr5].join(' ')} fixedWidth />
-          <Text color='secondary' size='small' className={[_s.mrAuto, _s.whiteSpaceNoWrap, _s.overflowHidden, _s.maxW100PC120PX, _s.textOverflowEllipsis2].join(' ')}>
+          <Text color='secondary' size='small' className={[_s.mrAuto, _s.whiteSpaceNoWrap, _s.overflowHidden, _s.maxW100PC130PX, _s.textOverflowEllipsis2].join(' ')}>
             {provider}
           </Text>
-          <Button
-            isNarrow
-            color='secondary'
-            backgroundColor='secondary'
-            to={`/links/${card.get('id')}`}
-            className={_s.px10}
-          >
-            <Text color='inherit' size='extraSmall'>View on Gab</Text>
-          </Button>
+          {
+            !isOnLinkFeed &&
+            <Button
+              isNarrow
+              color='secondary'
+              backgroundColor='secondary'
+              to={`/links/${card.get('id')}`}
+              className={_s.px10}
+            >
+              <Text color='inherit' size='extraSmall'>View Link Feed</Text>
+            </Button>
+          }
         </span>
       </div>
     )

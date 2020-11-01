@@ -13,6 +13,7 @@ import ColumnIndicator from '../components/column_indicator'
 import Button from '../components/button'
 import Text from '../components/text'
 import PreviewCardItem from '../components/preview_card_item'
+import ResponsiveClassesComponent from './ui/util/responsive_classes_component'
 
 class LinkTimeline extends ImmutablePureComponent {
 
@@ -79,7 +80,12 @@ class LinkTimeline extends ImmutablePureComponent {
 
     return (
       <React.Fragment>
-        <PreviewCardItem id={id} />
+        <ResponsiveClassesComponent
+          classNamesSmall={[_s.d, _s.w100PC, _s.pt10].join(' ')}
+          classNamesXS={[_s.d, _s.w100PC, _s.pt10].join(' ')}
+        >
+          <PreviewCardItem id={id} />
+        </ResponsiveClassesComponent>
         <StatusList
           scrollKey='link_timeline'
           timelineId={`link:${id}`}

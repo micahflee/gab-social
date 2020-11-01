@@ -530,7 +530,7 @@ pre {
 .maxW100PC { max-width: 100%; }
 .maxW80PC { max-width: 80%; }
 .maxW640PX { max-width: 640px; }
-.maxW100PC120PX { max-width: calc(100% - 120px); }
+.maxW100PC130PX { max-width: calc(100% - 130px); }
 .maxW100PC86PX { max-width: calc(100% - 86px); }
 .maxW100PC42PX { max-width: calc(100% - 42px); }
 .maxW212PX { max-width: 212px; }
