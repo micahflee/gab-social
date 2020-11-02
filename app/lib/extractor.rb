@@ -71,8 +71,6 @@ module Extractor
       end_position   = match_data.char_end(1)
       after          = $'
 
-      next if cash_text.size > 5
-
       if after =~ %r{\A://}
         cash_text.match(/(.+)(https?\Z)/) do |matched|
           cash_text     = matched[1]

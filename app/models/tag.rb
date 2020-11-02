@@ -19,7 +19,7 @@ class Tag < ApplicationRecord
 
   HASHTAG_NAME_RE = '[[:word:]_]*[[:alpha:]_·][[:word:]_]*'
   HASHTAG_RE = /(?:^|[^\/\)\w])#(#{HASHTAG_NAME_RE})/i.freeze
-  CASHTAG_RE = /(?:^|[^\/\)\w])\$([a-zA-Z]{2,5})/.freeze
+  CASHTAG_RE = /(?:^|[^\/\)\w])\$([a-zA-Z]{1,})/.freeze
 
   validates :name, presence: true, uniqueness: true, format: { with: /\A#{HASHTAG_NAME_RE}\z/i }
 
