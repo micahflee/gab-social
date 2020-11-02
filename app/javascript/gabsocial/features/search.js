@@ -69,8 +69,6 @@ class Search extends ImmutablePureComponent {
 
     let accounts, statuses, hashtags, groups, links
 
-    console.log('hello:', results)
-
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, theLimit) : results.get('accounts').size;
       const isMax = size === results.get('accounts').size
