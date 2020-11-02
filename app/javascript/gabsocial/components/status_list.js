@@ -214,7 +214,7 @@ class StatusList extends ImmutablePureComponent {
             }
           }
           
-          if (i % 18 === 0 && i !== 0 && scrollKey === 'home_timeline') {
+          if (i % 7 === 0 && i !== 0 && scrollKey === 'home_timeline') {
             scrollableContent.push(
               <TimelineInjectionBase index={i} key={`timeline-injection-${i}`} />
             )
