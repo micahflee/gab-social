@@ -121,12 +121,24 @@ class DisplayOptionsModal extends ImmutablePureComponent {
           <div className={[_s.d, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
 
             <ThemeBlock
+              title='White'
+              value='white'
+              checked={theme === 'white'}
+              onChange={this.handleOnThemeSelected}
+              style={{
+                borderColor: '#ececed',
+                backgroundColor: '#fff',
+                color: '#2d3436',
+              }}
+            />
+
+            <ThemeBlock
               title='Light'
               value='light'
               checked={theme === 'light'}
               onChange={this.handleOnThemeSelected}
               style={{
-                borderColor: '#ececed',
+                borderColor: '#68D99F',
                 backgroundColor: '#fff',
                 color: '#2d3436',
               }}

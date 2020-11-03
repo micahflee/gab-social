@@ -14,9 +14,10 @@ class PlaceholderLayout extends React.PureComponent {
       viewBox,
     } = this.props
 
+    const isLight = ['light', 'white'].indexOf(theme) > -1
     const title = intl.formatMessage(messages.loading)
-    const backgroundColor = theme !== 'light' ? '#555' : '#f3f3f3'
-    const foregroundColor = theme !== 'light' ? '#888' : '#ecebeb'
+    const backgroundColor = !isLight ? '#555' : '#f3f3f3'
+    const foregroundColor = !isLight ? '#888' : '#ecebeb'
 
     return (
       <ContentLoader

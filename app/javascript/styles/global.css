@@ -73,6 +73,17 @@
   --radius-small: 0 !important;
 }
 
+
+:root[theme='white'] {
+  --navigation_background: var(--color_white);
+  --navigation_blend: #aaa;
+  --navigation_blend--light: #f2f2f2;
+  --navigation_primary: var(--color_black);
+  --navigation_brand: var(--color_brand);
+  --navigation_search: #F0F2F5;
+  --color_input_placeholder: var(--color_black-opaquest);
+}
+
 :root[theme='muted'] {
   --solid_color_primary: #222 !important;
   --solid_color_primary-opaque:rgba(34, 34, 34, .6) !important;
@@ -1026,6 +1037,10 @@ pre {
   background-color: var(--navigation_background);
 }
 
+:root[theme='white'] .bgNavigation {
+  box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
 .bgNavigationBlend {
   background-color: var(--navigation_blend);
 }
@@ -1071,6 +1086,15 @@ pre {
   position: absolute;
   background-color: var(--navigation_primary);
 } 
+
+:root[theme='white'] .navigationUnderlineActive {
+  color: var(--color_brand) !important;
+}
+
+:root[theme='white'] .navigationUnderlineActive:after {
+  bottom: 0;
+  background-color: var(--color_brand);
+}
 
 .searchNavigation {
   background-color: var(--navigation_search);

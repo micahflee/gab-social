@@ -98,6 +98,7 @@ export const FONT_SIZES = {
 }
 
 export const THEMES = [
+  'white',
   'light',
   'muted',
   'black',

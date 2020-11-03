@@ -36,7 +36,7 @@ class LoggedOutNavigationBar extends React.PureComponent {
                 backgroundColor='none'
                 icon='logo'
                 title='Gab'
-                iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
+                iconClassName={[_s.mr5, _s.fillBrand].join(' ')}
               />
 
               {
@@ -64,8 +64,8 @@ class LoggedOutNavigationBar extends React.PureComponent {
               <Button
                 isNarrow
                 isOutline
-                color='white'
-                backgroundColor='none'
+                color='brand'
+                backgroundColor='white'
                 href='/auth/sign_in'
                 className={[_s.borderColorWhite, _s.mr5, _s.flexGrow1, _s.aiCenter, _s.jcCenter, _s.py7].join(' ')}
               >
@@ -76,8 +76,8 @@ class LoggedOutNavigationBar extends React.PureComponent {
 
               <Button
                 isNarrow
-                color='brand'
-                backgroundColor='white'
+                color='white'
+                backgroundColor='brand'
                 href='/auth/sign_up'
                 className={[_s.jcCenter, _s.aiCenter, _s.ml5, _s.flexGrow1, _s.py7].join(' ')}
               >

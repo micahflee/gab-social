@@ -99,9 +99,11 @@ class Search extends React.PureComponent {
       searchInput: 1,
     })
 
+    const isLight = ['light', 'white'].indexOf(theme) > -1
+
     const containerClasses = CX({
       d: 1,
-      searchNavigation: (!highlighted && isInNav && theme === 'light') || (isInNav && theme !== 'light'),
+      searchNavigation: (!highlighted && isInNav && isLight) || (isInNav && theme !== 'light'),
       bgWhite: (highlighted && isInNav && theme === 'light'),
       bgPrimary: !isInNav,
       flexRow: 1,
@@ -109,7 +111,7 @@ class Search extends React.PureComponent {
       aiCenter: 1,
     })
 
-    const prependIconColor = (highlighted || !isInNav) ? 'brand' : 'white'
+    const prependIconColor = (highlighted || !isInNav || theme === 'white') ? 'brand' : 'white'
     const placeholder = !me ? 'Search Gab' : 'Search for people, groups or gabs'
     const id = 'nav-search'
       

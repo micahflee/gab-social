@@ -113,7 +113,7 @@ Display.propTypes = {
 }
 
 Display.defaultProps = {
-  theme: 'light',
+  theme: 'white',
   radiusSmallDisabled: true,
   radiusCircleDisabled: true,
   fontSize: 'normal',
