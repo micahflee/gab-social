@@ -122,6 +122,6 @@ module ApplicationHelper
 
   def theme
     # : todo :
-    return 'light'
+    return 'white'
   end
 end
