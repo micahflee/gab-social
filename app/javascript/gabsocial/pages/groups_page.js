@@ -74,7 +74,7 @@ class GroupsPage extends React.PureComponent {
         title={title}
         actions={[
           {
-            title: 'Create',
+            attrTitle: 'Create',
             icon: 'add',
             to: isPro ? '/groups/create' : undefined,
             onClick: isPro ? undefined : this.handleOpenProUpgradeModal,
