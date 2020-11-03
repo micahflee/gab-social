@@ -91,23 +91,29 @@ class SidebarLayout extends React.PureComponent {
                 {children}
               </nav>
 
-              <Responsive min={BREAKPOINT_SMALL}>
-                <Button
-                  isBlock
-                  onClick={this.handleOpenComposeModal}
-                  className={[_s.py15, _s.fs15PX, _s.fw600].join(' ')}
-                >
-                  Gab
-                </Button>
-              </Responsive>
+              {
+                !!me &&
+                <Responsive min={BREAKPOINT_SMALL}>
+                  <Button
+                    onClick={this.handleOpenComposeModal}
+                    className={_s.py15}
+                    icon='pencil'
+                    iconSize='18px'
+                    iconClassName={[_s.py5, _s.px5].join(' ')}
+                  />
+                </Responsive>
+              }
 
-              <Responsive max={BREAKPOINT_SMALL}>
-                <Button
-                  onClick={this.handleOpenComposeModal}
-                  className={_s.py15}
-                  icon='pencil'
-                />
-              </Responsive>
+              {
+                !!me &&
+                <Responsive max={BREAKPOINT_SMALL}>
+                  <Button
+                    onClick={this.handleOpenComposeModal}
+                    className={_s.py15}
+                    icon='pencil'
+                  />
+                </Responsive>
+              }
 
             </div>
           </div>
