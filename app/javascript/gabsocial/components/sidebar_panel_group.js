@@ -24,6 +24,8 @@ class SidebarPanelGroup extends React.PureComponent {
       }
     }
 
+    if (!Array.isArray(layout)) return null
+
     return (
       <React.Fragment>
         {
