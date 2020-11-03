@@ -11,8 +11,6 @@ import Layout from '../layouts/layout'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
 import FooterBar from '../components/footer_bar'
-import ProfileHeader from '../components/profile_header'
-import FloatingActionButton from '../components/floating_action_button'
 import SearchNavigationBar from '../components/navigation_bar/search_navigation_bar_xs'
 import LoggedOutNavigationBar from '../components/navigation_bar/logged_out_navigation_bar'
 import Responsive from '../features/ui/util/responsive_component'
@@ -24,13 +22,35 @@ import {
   TrendsPanel,
   SearchFilterPanel,
   SignUpPanel,
+  ExploreTimeline,
+  HashtagTimeline,
+  SidebarXS,
 } from '../features/ui/util/async_components'
 
 class SearchLayout extends React.PureComponent {
 
+  state = {
+    isSearchFocused: false,
+    currentExploreTabIndex: 0,
+  }
+
   componentWillMount() {
     const { intl } = this.props
 
+    this.exploreTabs = [
+      {
+        title: 'Explore',
+        onClick: () => this.setState({ currentExploreTabIndex: 0 }),
+        component: ExploreTimeline,
+      },
+      {
+        title: '#Election2020',
+        onClick: () => this.setState({ currentExploreTabIndex: 1 }),
+        component: HashtagTimeline,
+        componentParams: { params: { id: 'election2020' } },
+      },
+    ]
+    
     this.searchTabs = [
       {
         title: intl.formatMessage(messages.top),
@@ -60,17 +80,30 @@ class SearchLayout extends React.PureComponent {
     ]
   }
 
+  handleOnToggleSearchExplore = (isSearchFocused) => {
+    this.setState({ isSearchFocused })
+  }
+
   render() {
     const {
       intl,
       children,
       value,
     } = this.props
+    const {
+      isSearchFocused,
+      currentExploreTabIndex,
+     } = this.state
 
-    const mainContentClasses = CX({
-      d: 1,
-      w100PC: 1,
-      z1: 1,
+
+    const activeExploreTab = this.exploreTabs[currentExploreTabIndex];
+    const activeTabComponent = activeExploreTab.component
+    const activeTabComponentParams = activeExploreTab.componentParams || {}
+    const activeExploreTabs = this.exploreTabs.map((tab, i) => {
+      return {
+        ...tab,
+        active: i === currentExploreTabIndex,
+      }
     })
 
     const title = intl.formatMessage(messages.search)
@@ -79,16 +112,23 @@ class SearchLayout extends React.PureComponent {
     return (
       <React.Fragment>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+
+          <WrappedBundle component={SidebarXS} />
+
           {
             !!me &&
-            <SearchNavigationBar tabs={this.searchTabs} value={value} />
+            <SearchNavigationBar
+              isSearchFocused={isSearchFocused}
+              tabs={isSearchFocused ? this.searchTabs : activeExploreTabs}
+              onToggleSearchExplore={this.handleOnToggleSearchExplore}
+            />
           }
           {
             !me &&
             <LoggedOutNavigationBar />
           }
 
-          <main role='main' className={mainContentClasses}>
+          <main role='main' className={[_s.d, _s.w100PC, _s.z1].join(' ')}>
 
             {
               !me &&
@@ -97,7 +137,20 @@ class SearchLayout extends React.PureComponent {
               </div>
             }
 
-            {children} 
+            {
+              !!isSearchFocused &&
+              children
+            }
+
+            {
+              !isSearchFocused &&
+              <div className={[_s.d, _s.pt10, _s.w100PC].join(' ')}>
+                <WrappedBundle
+                  component={activeTabComponent}
+                  componentParams={activeTabComponentParams}
+                />
+              </div>
+            }
           </main>
 
           <FooterBar />
