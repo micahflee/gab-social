@@ -170,7 +170,6 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
                     <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
-                    <NavigationBarButton attrTitle='Settings' icon='cog' href='/settings/preferences' />
                     <NavigationBarButton attrTitle='Dark/Muted/Light Mode' icon='light-bulb' onClick={this.handleOnClickLightBulb} />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
