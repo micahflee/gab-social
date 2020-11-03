@@ -162,7 +162,7 @@ class GroupHeader extends ImmutablePureComponent {
                 <div className={[_s.d, _s.flexRow, _s.py10, _s.px10].join(' ')}>
                   <div className={[_s.d, _s.w100PC].join(' ')}>
                     <div className={[_s.d, _s.flexRow].join(' ')}>
-                      <Icon id='group' size='28px' />
+                      <Icon id='group' size='28px' className={_s.cPrimary} />
                       <div className={[_s.d, _s.ml7, _s.flexNormal].join(' ')}>
                         <Heading>
                           {title}
