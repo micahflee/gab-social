@@ -15,6 +15,7 @@ import Button from '../button'
 import Text from '../text'
 import Slider from '../slider'
 import SettingSwitch from '../setting_switch'
+import ResponsiveClassesComponent from '../../features/ui/util/responsive_classes_component'
 
 class DisplayOptionsModal extends ImmutablePureComponent {
 
@@ -118,7 +119,7 @@ class DisplayOptionsModal extends ImmutablePureComponent {
           <Text weight='bold' size='small' color='secondary'>
             Theme
           </Text>
-          <div className={[_s.d, _s.radiusSmall, _s.flexRow, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
+          <div className={[_s.d, _s.radiusSmall, _s.flexRow, _s.flexWrap, _s.mt10, _s.py10, _s.bgTertiary].join(' ')}>
 
             <ThemeBlock
               title='White'
@@ -199,7 +200,11 @@ class ThemeBlock extends React.PureComponent {
     const id = `theme-${value}`
 
     return (
-      <label className={[_s.d, _s.px10, _s.flexGrow1].join(' ')} htmlFor={id}>
+      <ResponsiveClassesComponent
+        classNames={[_s.d, _s.px10, _s.flexGrow1].join(' ')}
+        classNamesXS={[_s.d, _s.px10, _s.flexGrow1, _s.w48PC, _s.mb10].join(' ')}
+      >
+      <label className={[_s.d, _s.w100PC].join(' ')} htmlFor={id}>
         <div
           className={[_s.d, _s.borderBottom6PX, _s.aiCenter, _s.flexRow, _s.py10, _s.px15, _s.radiusSmall].join(' ')}
           style={style}
@@ -223,6 +228,7 @@ class ThemeBlock extends React.PureComponent {
           </Text>
         </div>
       </label>
+      </ResponsiveClassesComponent>
     )
   }
 
