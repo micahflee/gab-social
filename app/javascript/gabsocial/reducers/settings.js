@@ -38,6 +38,7 @@ const initialState = ImmutableMap({
     fontSize: 'normal',
     radiusSmallDisabled: false,
     radiusCircleDisabled: false,
+    logoDisabled: false,
     theme: 'light',
   }),
 

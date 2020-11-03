@@ -84,7 +84,7 @@ class DisplayOptionsModal extends ImmutablePureComponent {
 
         <div className={[_s.d, _s.mb15].join(' ')}>
           <Text weight='bold' size='small' color='secondary'>
-            Rounded
+            Options
           </Text>
           <div className={[_s.d, _s.radiusSmall, _s.mt10, _s.py15, _s.px15, _s.bgTertiary].join(' ')}>
             <SettingSwitch
@@ -102,6 +102,15 @@ class DisplayOptionsModal extends ImmutablePureComponent {
               onChange={this.handleOnRadiusKeyDisabled}
               label={'Circles Disabled'}
             />
+
+            <SettingSwitch
+              prefix='displayOptions'
+              settings={displayOptionsSettings}
+              settingPath={'logoDisabled'}
+              onChange={this.handleOnRadiusKeyDisabled}
+              label={'Stealth Gab'}
+            />
+
           </div>
         </div>
 

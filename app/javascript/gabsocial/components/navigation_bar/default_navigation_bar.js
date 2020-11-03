@@ -66,6 +66,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
       tabs,
       account,
       noActions,
+      logoDisabled,
     } = this.props
 
     const navigationContainerClasses = CX({
@@ -148,7 +149,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     backgroundColor='none'
                     className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.h53PX, _s.cursorPointer, _s.px10, _s.mr5].join(' ')}
                   >
-                    <Icon id='logo' className={_s.fillNavigationBrand} />
+                    <Icon id='logo' className={_s.fillNavigationBrand} minimizeLogo={logoDisabled} />
                   </Button>
                 </h1>
 
@@ -201,7 +202,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     href='/'
                     className={[_s.h53PX, _s.bgTransparent, _s.outlineNone, _s.cursorPointer, _s.d, _s.jcCenter].join(' ')}
                   >
-                    <Icon id='logo' className={_s.fillNavigationBrand} />
+                    <Icon id='logo' className={_s.fillNavigationBrand} minimizeLogo={logoDisabled} />
                   </button>
                 }
                 {
@@ -257,6 +258,7 @@ const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
   emailConfirmationResends: state.getIn(['user', 'emailConfirmationResends'], 0),
   theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
+  logoDisabled: state.getIn(['settings', 'displayOptions', 'logoDisabled'], false),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -290,6 +292,7 @@ DefaultNavigationBar.propTypes = {
   emailConfirmationResends: PropTypes.number.isRequired,
   noActions: PropTypes.bool,
   theme: PropTypes.string,
+  logoDisabled: PropTypes.bool,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DefaultNavigationBar)
