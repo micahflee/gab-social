@@ -34,7 +34,7 @@ class SearchNavigationBar extends React.PureComponent {
       <div className={[_s.d, _s.z4, _s.minH103PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.minH103PX, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
-          <div className={[_s.d, _s.h53PX, _s.bgNavigation, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.bgNavigation, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
 
             <div className={[_s.d, _s.h53PX, _s.flexRow, _s.w100PC, _s.px10, _s.aiCenter, _s.jcCenter].join(' ')}>
               {
