@@ -31,7 +31,7 @@ class StatusPromotionPanel extends ImmutablePureComponent {
 
     const containerClasses = CX({
       d: 1,
-      pb10: !!status ? status.get('media_attachments').size === 0 : false,
+      pb10: !!status ? (status.get('media_attachments').size === 0 || !!status.get('card')) : false,
     })
 
     return (
