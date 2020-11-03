@@ -7,7 +7,7 @@ import Text from './text'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 
 const GlobalFooter = () => (
-  <div className={[_s.d, _s.z4, _s.w100PC].join(' ')}>
+  <div className={[_s.d, _s.z3, _s.w100PC].join(' ')}>
     <div className={[_s.d, _s.left0, _s.right0, _s.bottom0, _s.w100PC, _s.bgSubtle, _s.borderTop1PX, _s.aiCenter, _s.borderColorSecondary].join(' ')}>
 
       <div className={[_s.d, _s.mt15, _s.mb15].join(' ')}>
@@ -116,7 +116,7 @@ const GlobalFooter = () => (
       <div className={[_s.d, _s.aiCenter, _s.bgSecondary, _s.h100PC, _s.minH58PX, _s.w100PC, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
         <ResponsiveClassesComponent
           classNames={[_s.d, _s.w1255PX, _s.flexRow, _s.aiCenter].join(' ')}
-          classNamesXS={[_s.d, _s.w1255PX, _s.aiCenter, _s.px15, _s.pt15].join(' ')}
+          classNamesXS={[_s.d, _s.w1255PX, _s.aiCenter, _s.px15, _s.pt15, _s.pb50].join(' ')}
         >
 
           <div classNames={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
