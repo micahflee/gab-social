@@ -121,7 +121,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   }
 
   handleOnOpenSharePopover = () => {
-    console.log("this.props:", this.props)
     this.props.onOpenSharePopover(this.props.innerRef, this.props.status)
   }
 

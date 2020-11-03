@@ -848,7 +848,6 @@ export const rejectJoinRequest = (accountId, groupId) => (dispatch, getState) =>
   if (!me) return
 
   api(getState).post(`/api/v1/groups/${groupId}/join_requests/respond`, { accountId, type: 'reject' }).then((response) => {
-    console.log("response:", response)
     dispatch(rejectJoinRequestSuccess(response.data.accountId, groupId))
   }).catch((error) => {
     dispatch(rejectJoinRequestFail(accountId, groupId, error))
