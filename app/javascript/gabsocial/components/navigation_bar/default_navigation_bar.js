@@ -232,7 +232,8 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                   {
                     actions && actions.map((action, i) => (
                       <NavigationBarButton
-                        attrTitle={action.title}
+                        attrTitle={action.attrTitle}
+                        title={action.title}
                         icon={action.icon}
                         to={action.to || undefined}
                         onClick={action.onClick ? () => action.onClick() : undefined}
