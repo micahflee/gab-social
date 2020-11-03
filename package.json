@@ -146,7 +146,7 @@
     "react-router-dom": "^4.1.1",
     "react-router-scroll-4": "^1.0.0-beta.2",
     "react-stickynode": "^3.0.4",
-    "react-swipeable-views": "^0.13.0",
+    "react-swipeable-views": "^0.13.9",
     "react-textarea-autosize": "^7.1.0",
     "redis": "^2.7.1",
     "redux": "^4.0.1",
