@@ -19,7 +19,7 @@ class NavigationBarButton extends React.PureComponent {
       isXS,
     } = this.props
 
-    const active = to == window.location.pathname
+    const active = `${window.location.pathname}`.indexOf(`${to}`) > -1
 
     const classes = CX({
       d: 1,
@@ -31,7 +31,7 @@ class NavigationBarButton extends React.PureComponent {
       bgTransparent: 1,
       noUnderline: 1,
       colorNavigation: 1,
-      px15: !!title,
+      px15: !!title && !!icon,
       px5: !title && !isXS,
       px2: !title && isXS,
       py5: !title && !isXS,
@@ -42,7 +42,7 @@ class NavigationBarButton extends React.PureComponent {
     })
 
     const iconClasses = CX({
-      fillNavigation: (!!title || active) || isXS,
+      inherit: (!!title || active) || isXS,
       fillNavigationBlend: !title && !isXS,
       px2: !title && !isXS,
       py5: !title && !isXS,
@@ -77,7 +77,17 @@ class NavigationBarButton extends React.PureComponent {
       py10: !title && isXS,
     })
 
+    const titleClasses = CX({
+      mt5: !!icon,
+      bgNavigationBlendLight: !!title && !icon,
+      px15: !!title && !icon,
+      py10: !!title && !icon,
+      radiusSmall: !!title && !icon,
+    })
+
     const iconSize = !!title ? '18px' : '20px'
+    const titleSize = !!icon ? 'extraSmall' : 'large'
+    const titleWeight = !!icon ? 'normal' : 'bold'
 
     return (
       <Button
@@ -88,12 +98,15 @@ class NavigationBarButton extends React.PureComponent {
         className={classes}
         noClasses
       > 
-        <div className={iconContainerClasses}>
-          <Icon className={iconClasses} id={icon} size={iconSize} />
-        </div>
+        {
+          !!icon &&
+          <div className={iconContainerClasses}>
+            <Icon className={iconClasses} id={icon} size={iconSize} />
+          </div>
+        }
         {
           !!title &&
-          <Text color='white' size='extraSmall' className={_s.mt5}>
+          <Text color='inherit' size={titleSize} weight={titleWeight} className={titleClasses}>
             {title}
           </Text>
         }
