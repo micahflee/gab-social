@@ -104,7 +104,7 @@ export const THEMES = [
   'black',
 ]
 
-export const DEFAULT_THEME = 'light'
+export const DEFAULT_THEME = 'white'
 export const DEFAULT_FONT_SIZE = 'normal' 
 
 export const NOTIFICATION_FILTERS = [
