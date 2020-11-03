@@ -57,7 +57,7 @@ class PreviewCard < ApplicationRecord
   end
 
   class << self
-    def search_for(term, limit = 100, offset = 0)
+    def search_for(term, limit = 25, offset = 0)
       pattern = '%' + sanitize_sql_like(term.strip) + '%'
 
       PreviewCard.where(
