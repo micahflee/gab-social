@@ -73,7 +73,7 @@ class LinkTimeline extends ImmutablePureComponent {
     }
 
     const emptyMessage = (
-      <div className={[_s.d, _s.py15, _s.px15, _s.aiCenter].join(' ')}>
+      <div className={[_s.d, _s.pt10, _s.px15, _s.aiCenter].join(' ')}>
         <Text>No statuses with this url yet.</Text>
       </div>
     )
@@ -84,7 +84,7 @@ class LinkTimeline extends ImmutablePureComponent {
           classNamesSmall={[_s.d, _s.w100PC, _s.pt10].join(' ')}
           classNamesXS={[_s.d, _s.w100PC, _s.pt10].join(' ')}
         >
-          <PreviewCardItem id={id} />
+          <PreviewCardItem id={id} isUnlinked />
         </ResponsiveClassesComponent>
         <StatusList
           scrollKey='link_timeline'

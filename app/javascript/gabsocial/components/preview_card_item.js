@@ -15,6 +15,7 @@ import Text from './text'
 import Button from './button'
 import Image from './image'
 import RelativeTimestamp from './relative_timestamp'
+import Dummy from './dummy'
 
 class PreviewCardItem extends ImmutablePureComponent {
 
@@ -32,7 +33,13 @@ class PreviewCardItem extends ImmutablePureComponent {
   }
 
   render() {
-    const { id, card } = this.props
+    const {
+      id,
+      isUnlinked,
+      card,
+      isVertical,
+      isBordered,
+    } = this.props
 
     if (!card) return null
 
@@ -41,15 +48,32 @@ class PreviewCardItem extends ImmutablePureComponent {
     const description = trim(card.get('description') || '', maxDescription)
     const image = card.get('image')
     const website = card.get('url')
+    const updated = card.get('updated_at')
     const provider = card.get('provider_name').length === 0 ? decodeIDNA(getHostname(card.get('url'))) : card.get('provider_name')
+    const Wrapper = isUnlinked ? Dummy : Button
+
+    const innerContainerClasses = CX({
+      d: 1,
+      w100PC: 1,
+      flexRow: !isVertical,
+      px15: 1,
+      py15: 1,
+      boxShadowBlock: 1,
+      bgPrimary: 1,
+      overflowHidden: 1,
+      radiusSmall: 1,
+      borderColorSecondary: isBordered,
+      borderTop1PX: isBordered,
+      bgSubtle_onHover: !isUnlinked,
+    })
 
     return (
-      <Button
+      <Wrapper
         noClasses
         to={`/links/${id}`}
-        className={[_s.d, _s.px10, _s.mb10, _s.noUnderline].join(' ')}
+        className={[_s.d, _s.mb10, _s.noUnderline].join(' ')}
       >
-        <div className={[_s.d, _s.w100PC, _s.flexRow, _s.px15, _s.py15, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall, _s.bgSubtle_onHover].join(' ')}>
+        <div className={innerContainerClasses}>
           {
             !!image &&
             <Image
@@ -68,24 +92,27 @@ class PreviewCardItem extends ImmutablePureComponent {
               </Text>
             </div>
 
-            <div className={[_s.d, _s.maxH40PX, _s.overflowHidden, _s.pt5, _s.mb5].join(' ')}>
-              <Text size='small' color='secondary'>
-                {description}
-              </Text>
-            </div>
+            {
+              !!description &&
+              <div className={[_s.d, _s.maxH40PX, _s.overflowHidden, _s.pt5].join(' ')}>
+                <Text size='small' color='secondary'>
+                  {description}
+                </Text>
+              </div>
+            }
 
-            <Text size='small' color='secondary'>
+            <Text size='small' color='secondary' className={_s.mt5}>
               {provider}
             </Text>
             
             <div className={[_s.d, _s.flexRow, _s.pt5].join(' ')}>
               <Text color='secondary' size='small'>
-                <RelativeTimestamp timestamp={new Date('10-20-2020')} />
+                <RelativeTimestamp timestamp={updated} />
               </Text>
             </div>
           </div>
         </div>
-      </Button>
+      </Wrapper>
     )
   }
 
@@ -102,6 +129,9 @@ PreviewCardItem.propTypes = {
   id: PropTypes.string.isRequired,
   isLoading: PropTypes.bool.isRequired,
   isError: PropTypes.bool.isRequired,
+  isUnlinked: PropTypes.bool,
+  isVertical: PropTypes.bool,
+  isBordered: PropTypes.bool,
 }
 
 export default connect(mapStateToProps)(PreviewCardItem)

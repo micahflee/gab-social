@@ -183,9 +183,11 @@ class Search extends ImmutablePureComponent {
               Showing {size} of {results.get('links').size} results
             </Text>
           </div>
-          {
-            results.get('links').slice(0, size).map((linkId) => <PreviewCardItem id={linkId} />)
-          }
+          <div className={[_s.d, _s.w100PC, _s.px10].join(' ')}>
+            {
+              results.get('links').slice(0, size).map((linkId) => <PreviewCardItem id={linkId} />)
+            }
+          </div>
         </PanelLayout>
       )
     }
