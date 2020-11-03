@@ -42,6 +42,8 @@
 
   --border_color_secondary: #ececed;
 
+  --color_input_placeholder: var(--solid_color_primary-opaque);
+
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: var(--color_brand);
   --navigation_blend: var(--color_brand-dark);
@@ -85,6 +87,8 @@
 
   --border_color_secondary: #424141 !important;
 
+  --color_input_placeholder: var(--text_color_secondary);
+
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
   --navigation_blend: var(--text_color_secondary) !important;
@@ -107,6 +111,8 @@
   --text_color_tertiary: #656565 !important;
 
   --border_color_secondary: #343434 !important;
+
+  --color_input_placeholder: var(--text_color_secondary);
 
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
@@ -972,16 +978,16 @@ pre {
 }
 
 .searchInput::placeholder {
-  color: rgba(255,255,255,0.65);
+  color: var(--color_input_placeholder);
   opacity: 1;
 }
 
 .searchInput:-ms-input-placeholder {
-  color: rgba(255,255,255,0.65);
+  color: var(--color_input_placeholder);
 }
 
 .searchInput::-ms-input-placeholder {
-  color: rgba(255,255,255,0.65);
+  color: var(--color_input_placeholder);
 }
 
 .noScrollbar::-webkit-scrollbar {
