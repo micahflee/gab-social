@@ -57,12 +57,12 @@ class PreviewCard < ApplicationRecord
   end
 
   class << self
-    def search_for(term, limit = 25, offset = 0)
+    def search_for(term, offset = 0)
       pattern = '%' + sanitize_sql_like(term.strip) + '%'
 
       PreviewCard.where(
         "lower(title) LIKE lower('#{pattern}') OR lower(description) LIKE lower('#{pattern}') OR lower(url) LIKE lower('#{pattern}')"
-      ).order('updated_at DESC').limit(limit).offset(offset)
+      ).order('updated_at DESC').limit(25).offset(offset)
     end
     
     private

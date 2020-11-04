@@ -41,7 +41,6 @@ class SearchService < BaseService
   def perform_groups_search!
     Group.search_for(
       @query.gsub(/\A#/, ''),
-      @limit,
       @offset
     )
   end
@@ -49,7 +48,6 @@ class SearchService < BaseService
   def perform_links_search!
     PreviewCard.search_for(
       @query.gsub(/\A#/, ''),
-      @limit,
       @offset
     )
   end
@@ -82,7 +80,6 @@ class SearchService < BaseService
   def perform_hashtags_search!
     Tag.search_for(
       @query.gsub(/\A#/, ''),
-      @limit,
       @offset
     )
   end

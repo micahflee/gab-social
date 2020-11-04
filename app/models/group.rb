@@ -61,12 +61,12 @@ class Group < ApplicationRecord
   after_create :add_owner_to_accounts
 
   class << self
-    def search_for(term, limit = 25, offset = 0)
+    def search_for(term, offset = 0)
       pattern = sanitize_sql_like(term.strip) + '%'
 
       Group.where('lower(title) like lower(?) AND is_archived=false AND is_visible=true', pattern)
         .order('member_count DESC')
-        .limit(limit)
+        .limit(25)
         .offset(offset)
     end
   end
