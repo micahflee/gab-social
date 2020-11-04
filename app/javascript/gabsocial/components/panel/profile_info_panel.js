@@ -35,10 +35,11 @@ class ProfileInfoPanel extends ImmutablePureComponent {
     const content = { __html: account.get('note_emojified') }
     const memberSinceDate = intl.formatDate(account.get('created_at'), { month: 'long', year: 'numeric' })
     const hasNote = !!content ? (account.get('note').length > 0 && account.get('note') !== '<p></p>') : false
+    const isBot = !!account.get('bot')
     const isPro = account.get('is_pro')
     const isDonor = account.get('is_donor')
     const isInvestor = account.get('is_investor')
-    const hasBadges = isPro || isDonor || isInvestor
+    const hasBadges = isPro || isDonor || isInvestor || isBot
 
     return (
       <Wrapper title={intl.formatMessage(messages.title)}>
@@ -71,6 +72,12 @@ class ProfileInfoPanel extends ImmutablePureComponent {
             <React.Fragment>
               <Divider isSmall />
               <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
+                { 
+                  isBot &&
+                  <div className={[_s.mr5, _s.radiusSmall, _s.bgTertiary, _s.py2, _s.px5].join(' ')}>
+                    <Text weight='bold' size='small' className={_s.cSecondary} isBadge>FEED</Text>
+                  </div>
+                }
                 { 
                   isPro &&
                   <div className={[_s.mr5, _s.radiusSmall, _s.bgPro, _s.py2, _s.px5].join(' ')}>
