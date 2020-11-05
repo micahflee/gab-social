@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
 import { List as ImmutableList } from 'immutable'
 import { me } from '../initial_state'
-import { connectGroupCollectionStream } from '../actions/streaming'
 import {
 	clearTimeline,
 	expandGroupCollectionTimeline,
@@ -30,28 +29,6 @@ class GroupCollectionTimeline extends React.PureComponent {
 		loadCount: 0,
 	}
 
-	_unsubscribe() {
-		if (this.disconnect && !!me) {
-			this.disconnect()
-			this.disconnect = null
-		}
-	}
-
-	_subscribe = () => {
-		if (!!me) {
-			const {
-				collectionType,
-				sortByValue,
-				sortByTopValue,
-			} = this.props
-
-			if (collectionType === 'member' && sortByValue === 'new') {
-				const sortBy = getSortBy(sortByValue, sortByTopValue)
-				this.disconnect = this.props.onConnectGroupCollectionStream(collectionType, sortBy)
-			}
-		}
-	}
-
 	componentDidMount() {
 		const {
 			collectionType,
@@ -66,8 +43,6 @@ class GroupCollectionTimeline extends React.PureComponent {
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue)
 			this.props.onExpandGroupCollectionTimeline(collectionType, { sortBy })
-
-			this._subscribe()
 		}
 	}
 
@@ -75,16 +50,10 @@ class GroupCollectionTimeline extends React.PureComponent {
 		if (prevProps.sortByValue !== this.props.sortByValue || 
 				prevProps.sortByTopValue !== this.props.sortByTopValue ||
 				prevProps.collectionType !== this.props.collectionType) {
-				this._unsubscribe()
-				this._subscribe()
 				this.props.onClearTimeline(`group_collection:${prevProps.collectionType}`)
 				this.handleLoadMore()
     }
   }
-
-	componentWillUnmount() {
-		this._unsubscribe()
-	}
 
 	handleLoadMore = (maxId) => {
 		const {
@@ -162,9 +131,6 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-	onConnectGroupCollectionStream(collectionType, sortBy) {
-		dispatch(connectGroupCollectionStream(collectionType, sortBy))
-	},
 	onClearTimeline(timeline) {
 		dispatch(clearTimeline(timeline))
 	},
@@ -181,7 +147,6 @@ const mapDispatchToProps = (dispatch) => ({
 
 GroupCollectionTimeline.propTypes = {
 	params: PropTypes.object.isRequired,
-	onConnectGroupCollectionStream: PropTypes.func.isRequired,
 	onClearTimeline: PropTypes.func.isRequired,
 	onExpandGroupCollectionTimeline: PropTypes.func.isRequired,
 	setFeaturedTop: PropTypes.func.isRequired,

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
-import { connectLinkStream } from '../actions/streaming'
 import { expandLinkTimeline } from '../actions/timelines'
 import { fetchLinkCard } from '../actions/links'
 import { openModal } from '../actions/modal'
@@ -25,13 +24,8 @@ class LinkTimeline extends ImmutablePureComponent {
     this.handleConnect(this.props.params.id)
   }
 
-  componentWillUnmount() {
-    this.handleDisconnect()
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.id !== this.props.params.id) {
-      this.handleDisconnect()
       this.handleConnect(nextProps.params.id)
     }
   }
@@ -41,15 +35,6 @@ class LinkTimeline extends ImmutablePureComponent {
 
     dispatch(fetchLinkCard(id))
     dispatch(expandLinkTimeline(id))
-
-    this.disconnect = dispatch(connectLinkStream(id))
-  }
-
-  handleDisconnect() {
-    if (this.disconnect) {
-      this.disconnect()
-      this.disconnect = null
-    }
   }
 
   handleLoadMore = (maxId) => {

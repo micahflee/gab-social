@@ -7,7 +7,6 @@ import { List as ImmutableList } from 'immutable'
 import { injectIntl, defineMessages } from 'react-intl'
 import { me } from '../initial_state'
 import getSortBy from '../utils/group_sort_by'
-import { connectGroupStream } from '../actions/streaming'
 import {
 	clearTimeline,
 	expandGroupTimeline,
@@ -46,10 +45,6 @@ class GroupTimeline extends ImmutablePureComponent {
 
 			this.props.onExpandGroupFeaturedTimeline(groupId)
 			this.props.onExpandGroupTimeline(groupId, { sortBy, onlyMedia })
-
-			if (!!me) {
-				this.disconnect = this.props.onConnectGroupStream(groupId)
-			}
 		}
 	}
 
@@ -64,13 +59,6 @@ class GroupTimeline extends ImmutablePureComponent {
 
 		if (prevProps.groupId !== this.props.groupId) {
 			this.props.onExpandGroupFeaturedTimeline(this.props.groupId)
-		}
-	}
-
-	componentWillUnmount() {
-		if (this.disconnect && !!me) {
-			this.disconnect()
-			this.disconnect = null
 		}
 	}
 
@@ -142,9 +130,6 @@ const mapStateToProps = (state, props) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	onConnectGroupStream(groupId) {
-		dispatch(connectGroupStream(groupId))
-	},
 	onClearTimeline(timelineId) {
 		dispatch(clearTimeline(timelineId))
 	},
@@ -167,7 +152,6 @@ GroupTimeline.propTypes = {
 	]),
 	groupId: PropTypes.string,
 	intl: PropTypes.object.isRequired,
-	onConnectGroupStream: PropTypes.func.isRequired,
 	onClearTimeline: PropTypes.func.isRequired,
 	onExpandGroupTimeline: PropTypes.func.isRequired,
 	onExpandGroupFeaturedTimeline: PropTypes.func.isRequired,

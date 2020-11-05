@@ -16,12 +16,9 @@ class FanOutOnWriteService < BaseService
       deliver_to_self(status) if status.account.local?
       deliver_to_followers(status)
       deliver_to_lists(status)
-      # deliver_to_group(status)
     end
 
     return if status.account.silenced? || !status.public_visibility? || status.reblog?
-
-    deliver_to_hashtags(status)
 
     return if status.reply? && status.in_reply_to_account_id != status.account_id
 
@@ -48,16 +45,6 @@ class FanOutOnWriteService < BaseService
     end
   end
 
-  def deliver_to_group_members(status)
-    # Rails.logger.debug "Delivering status #{status.id} to group members #{status.group.id}"
-    
-    # status.group.accounts_for_local_distribution.select(:id).reorder(nil).find_in_batches do |members|
-    #   FeedInsertWorker.push_bulk(members) do |member|
-    #     [status.id, member.id, :home]
-    #   end
-    # end
-  end
-
   def deliver_to_lists(status)
     Rails.logger.debug "Delivering status #{status.id} to lists"
 
@@ -66,16 +53,6 @@ class FanOutOnWriteService < BaseService
         [status.id, list.id, :list]
       end
     end
-  end
-
-  def deliver_to_group(status)
-    # return if status.group_id.nil?
-
-    # Rails.logger.debug "Delivering status #{status.id} to group"
-
-    # Redis.current.publish("timeline:group:#{status.group_id}", @payload)
-
-    # deliver_to_group_members(status)
   end
 
   def deliver_to_mentioned_followers(status)
@@ -89,15 +66,6 @@ class FanOutOnWriteService < BaseService
   def render_anonymous_payload(status)
     @payload = InlineRenderer.render(status, nil, :status)
     @payload = Oj.dump(event: :update, payload: @payload)
-  end
-
-  def deliver_to_hashtags(status)
-    Rails.logger.debug "Delivering status #{status.id} to hashtags"
-
-    status.tags.pluck(:name).each do |hashtag|
-      Redis.current.publish("timeline:hashtag:#{hashtag}", @payload)
-      Redis.current.publish("timeline:hashtag:#{hashtag}:local", @payload) if status.local?
-    end
   end
 
   def deliver_to_pro(status)

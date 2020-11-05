@@ -266,10 +266,7 @@ const startWorker = (workerId) => {
     accountFromToken(token, allowedScopes, req, next);
   };
 
-  const PUBLIC_STREAMS = [
-    'hashtag',
-    'hashtag:local',
-  ];
+  const PUBLIC_STREAMS = [];
 
   const wsVerifyClient = (info, cb) => {
     const location = url.parse(info.req.url, true);
@@ -295,10 +292,7 @@ const startWorker = (workerId) => {
     }, authRequired, allowedScopes);
   };
 
-  const PUBLIC_ENDPOINTS = [
-    '/api/v1/streaming/hashtag',
-    '/api/v1/streaming/hashtag/local',
-  ];
+  const PUBLIC_ENDPOINTS = [];
 
   const authenticationMiddleware = (req, res, next) => {
     if (req.method === 'OPTIONS') {
@@ -542,33 +536,6 @@ const startWorker = (workerId) => {
     streamFrom(`timeline:${req.accountId}`, req, streamToHttp(req, res), streamHttpEnd(req), false, true);
   });
 
-  app.get('/api/v1/streaming/direct', (req, res) => {
-    const channel = `timeline:direct:${req.accountId}`;
-    streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)), true);
-  });
-
-  app.get('/api/v1/streaming/hashtag', (req, res) => {
-    const { tag } = req.query;
-
-    if (!tag || tag.length === 0) {
-      httpNotFound(res);
-      return;
-    }
-
-    streamFrom(`timeline:hashtag:${tag.toLowerCase()}`, req, streamToHttp(req, res), streamHttpEnd(req), true);
-  });
-
-  app.get('/api/v1/streaming/hashtag/local', (req, res) => {
-    const { tag } = req.query;
-
-    if (!tag || tag.length === 0) {
-      httpNotFound(res);
-      return;
-    }
-
-    streamFrom(`timeline:hashtag:${tag.toLowerCase()}:local`, req, streamToHttp(req, res), streamHttpEnd(req), true);
-  });
-
   app.get('/api/v1/streaming/list', (req, res) => {
     const listId = req.query.list;
 
@@ -611,34 +578,6 @@ const startWorker = (workerId) => {
       case 'user:notification':
         streamFrom(`timeline:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
         break;
-      case 'direct':
-        channel = `timeline:direct:${req.accountId}`;
-        streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)), true);
-        break;
-      case 'hashtag':
-        if (!location.query.tag || location.query.tag.length === 0) {
-          ws.close();
-          return;
-        }
-
-        streamFrom(`timeline:hashtag:${location.query.tag.toLowerCase()}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
-        break;
-      case 'link':
-        if (!location.query.linkId || location.query.linkId.length === 0) {
-          ws.close();
-          return;
-        }
-
-        streamFrom(`timeline:link:${location.query.linkId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
-        break;
-      case 'hashtag:local':
-        if (!location.query.tag || location.query.tag.length === 0) {
-          ws.close();
-          return;
-        }
-
-        streamFrom(`timeline:hashtag:${location.query.tag.toLowerCase()}:local`, req, streamToWs(req, ws), streamWsEnd(req, ws), true);
-        break;
       case 'list':
         const listId = location.query.list;
 
@@ -649,20 +588,6 @@ const startWorker = (workerId) => {
           }
 
           channel = `timeline:list:${listId}`;
-          streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
-        });
-        break;
-
-      case 'group':
-        const groupId = location.query.group;
-
-        authorizeGroupAccess(groupId, req, authorized => {
-          if (!authorized) {
-            ws.close();
-            return;
-          }
-
-          channel = `timeline:group:${groupId}`;
           streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
         });
         break;

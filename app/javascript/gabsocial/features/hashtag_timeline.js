@@ -4,12 +4,9 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import isEqual from 'lodash.isequal'
 import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
-import { connectHashtagStream } from '../actions/streaming'
 import StatusList from '../components/status_list'
 
 class HashtagTimeline extends React.PureComponent {
-
-  disconnects = [];
 
   title = () => {
     const title = [this.props.params.id]
@@ -66,31 +63,10 @@ class HashtagTimeline extends React.PureComponent {
     }
   }
 
-  _subscribe (dispatch, id, tags = {}) {
-    const any = (tags.any || []).map(tag => tag.value)
-    const all = (tags.all || []).map(tag => tag.value)
-    const none = (tags.none || []).map(tag => tag.value);
-
-    [id, ...any].map(tag => {
-      this.disconnects.push(dispatch(connectHashtagStream(id, tag, status => {
-        const tags = status.tags.map(tag => tag.name)
-
-        return all.filter(tag => tags.includes(tag)).length === all.length &&
-               none.filter(tag => tags.includes(tag)).length === 0
-      })))
-    })
-  }
-
-  _unsubscribe () {
-    this.disconnects.map(disconnect => disconnect())
-    this.disconnects = []
-  }
-
   componentDidMount () {
     const { dispatch } = this.props
     const { id, tags } = this.props.params
 
-    this._subscribe(dispatch, id, tags)
     dispatch(expandHashtagTimeline(id, { tags }))
   }
 
@@ -99,18 +75,12 @@ class HashtagTimeline extends React.PureComponent {
     const { id, tags } = nextProps.params
 
     if (id !== params.id || !isEqual(tags, params.tags)) {
-      this._unsubscribe()
-      this._subscribe(dispatch, id, tags)
       this.props.dispatch(clearTimeline(`hashtag:${id}`))
       this.props.dispatch(expandHashtagTimeline(id, { tags }))
     }
   }
 
-  componentWillUnmount () {
-    this._unsubscribe()
-  }
-
-  handleLoadMore = maxId => {
+  handleLoadMore = (maxId) => {
     const { id, tags } = this.props.params
     this.props.dispatch(expandHashtagTimeline(id, { maxId, tags }))
   }
