@@ -27,7 +27,8 @@ export default function suggestionsReducer(state = initialState, action) {
     return state.setIn([action.suggestionType, 'isLoading'], true)
   case SUGGESTIONS_FETCH_SUCCESS:
     return state.withMutations((map) => {
-      map.setIn([action.suggestionType, 'items'], fromJS(action.accounts.map(x => x.id)))
+      const items = fromJS(action.accounts.map(x => x.id)).sortBy(Math.random)
+      map.setIn([action.suggestionType, 'items'], items)
       map.setIn([action.suggestionType, 'isLoading'], false)
     })
   case SUGGESTIONS_FETCH_FAIL:
