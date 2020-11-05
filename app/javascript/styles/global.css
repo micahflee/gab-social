@@ -938,7 +938,7 @@ pre {
 }
 
 :global(.ptr--ptr.ptr--refresh) {
-  min-height: 110px !important;
+  min-height: 130px !important;
 }
 
 :global(.ptr--content) {
@@ -948,7 +948,7 @@ pre {
 :global(.ptr--ptr.ptr--pull.ptr--release) {
   padding-top: env(safe-area-inset-top, 0);
   padding-bottom: 5px !important;
-  min-height: 110px;
+  min-height: 130px;
   box-shadow: none !important;
 }
 
