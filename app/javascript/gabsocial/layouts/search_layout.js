@@ -50,8 +50,14 @@ class SearchLayout extends React.PureComponent {
         componentParams: { params: { id: 'election2020' } },
       },
       {
-        title: '#StopTheSteal',
+        title: '#RiggedElection',
         onClick: () => this.setState({ currentExploreTabIndex: 2 }),
+        component: HashtagTimeline,
+        componentParams: { params: { id: 'riggedelection' } },
+      },
+      {
+        title: '#StopTheSteal',
+        onClick: () => this.setState({ currentExploreTabIndex: 3 }),
         component: HashtagTimeline,
         componentParams: { params: { id: 'stopthesteal' } },
       },
