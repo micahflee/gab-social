@@ -46,7 +46,7 @@ PlaceholderLayout.propTypes = {
   children: PropTypes.node,
   intl: PropTypes.object.isRequired,
   theme: PropTypes.string.isRequired,
-  viewBox: PropTypes.object.isRequired,
+  viewBox: PropTypes.string.isRequired,
 }
 
 export default injectIntl(connect(mapStateToProps)(PlaceholderLayout))
