@@ -38,6 +38,7 @@ class HashtagPage extends React.PureComponent {
 
     return (
       <DefaultLayout
+        showBackBtn
         title={intl.formatMessage(messages.hashtagTimeline)}
         page={`hashtag.${hashtag}`}
         actions={[
