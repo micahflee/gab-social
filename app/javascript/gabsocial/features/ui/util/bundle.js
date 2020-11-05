@@ -125,7 +125,7 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 Bundle.propTypes = {
-  fetchComponent: PropTypes.func.isRequired,
+  fetchComponent: PropTypes.func,
   loading: PropTypes.func,
   error: PropTypes.func,
   children: PropTypes.func.isRequired,
