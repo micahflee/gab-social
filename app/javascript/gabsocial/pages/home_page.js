@@ -9,7 +9,6 @@ import { me } from '../initial_state'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
-import PullToRefresher from '../components/pull_to_refresher'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   UserPanel,
@@ -100,8 +99,6 @@ class HomePage extends React.PureComponent {
           badge={totalQueuedItemsCount}
         />
         
-        <PullToRefresher />
-
         <TimelineComposeBlock autoFocus={false} />
 
         {children}

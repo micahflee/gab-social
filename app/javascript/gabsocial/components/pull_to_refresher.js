@@ -1,20 +1,91 @@
 import React from 'react'
+import ReactDOMServer from 'react-dom/server'
+import PropTypes from 'prop-types'
+import PullToRefresh from 'pulltorefreshjs'
+import moment from 'moment-mini'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import { getWindowDimension } from '../utils/is_mobile'
 import Responsive from '../features/ui//util/responsive_component'
-import Icon from './icon'
+import Text from './text'
 
-export default class PullToRefresher extends React.PureComponent {
+const initialState = getWindowDimension()
+
+class PullToRefresher extends React.PureComponent {
+
+  state = {
+    lastRefreshDate: null,
+    width: initialState.width,
+  }
+
+  componentDidMount() {
+    if (this.props.isDisabled) return
+    if (this.state.width > BREAKPOINT_EXTRA_SMALL) return
+
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, false)
+
+    const textProps = {
+      color: 'secondary',
+      weight: 'medium',
+      size: 'medium',
+      className: [_s.py10].join(' ')
+    }
+
+    const ptr = PullToRefresh.init({
+      mainElement: 'body',
+      distMax: 110,
+      onRefresh: this.handleOnRefresh,
+      instructionsPullToRefresh: ReactDOMServer.renderToString(
+        <Text {...textProps}>Pull to Refresh</Text>
+      ),
+      instructionsReleaseToRefresh: ReactDOMServer.renderToString(
+        <Text {...textProps}>Release to Refresh</Text>
+      ),
+      instructionsRefreshing: ReactDOMServer.renderToString(
+        <Text {...textProps}>Refreshing</Text>
+      ),
+    })
+  }
+
+  componentWillUnmount() {
+    PullToRefresh.destroyAll()
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
+  handleResize = () => {
+    const { width } = getWindowDimension()
+
+    this.setState({ width })
+  }
+
+  handleOnRefresh = () => {
+    const { lastRefreshDate } = this.state
+
+    if (!lastRefreshDate) {
+      this.props.onRefresh()
+      this.setState({ lastRefreshDate: new Date() })
+    } else {
+      const diff = moment().diff(lastRefreshDate, 'seconds')
+      if (diff > 10) {
+        this.props.onRefresh()
+        this.setState({ lastRefreshDate: new Date() })
+      }
+    }
+  }
 
   render() {
-    return (
-      <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-        <div className={[_s.d, _s.h53PX, _s.w100PC, _s.aiCenter, _s.posAbs, _s.left0, _s.right0, _s.topNeg50PX].join(' ')}>
-          <div className={[_s.d, _s.w100PC, _s.aiCenter].join(' ')}>
-            <Icon id='loading' size='24px' />
-          </div>
-        </div>
-      </Responsive>
-    )
+    const { isDisabled } = this.props
+
+    if (isDisabled) return null
+
+    return <div/>
   }
 
 }
+
+PullToRefresher.propTypes = {
+  onRefresh: PropTypes.func,
+  isDisabled: PropTypes.bool,
+}
+
+export default PullToRefresher
