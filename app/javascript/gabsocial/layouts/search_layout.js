@@ -49,6 +49,12 @@ class SearchLayout extends React.PureComponent {
         component: HashtagTimeline,
         componentParams: { params: { id: 'election2020' } },
       },
+      {
+        title: '#StopTheSteal',
+        onClick: () => this.setState({ currentExploreTabIndex: 2 }),
+        component: HashtagTimeline,
+        componentParams: { params: { id: 'stopthesteal' } },
+      },
     ]
     
     this.searchTabs = [
