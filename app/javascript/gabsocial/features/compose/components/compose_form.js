@@ -170,15 +170,6 @@ class ComposeForm extends ImmutablePureComponent {
     this.form = c
   }
 
-  handleEmojiPick = (data) => {
-    // : todo : with rich text
-    const { text } = this.props
-    const position = this.autosuggestTextarea.textbox.selectionStart
-    const needsSpace = data.custom && position > 0 && !ALLOWED_AROUND_SHORT_CODE.includes(text[position - 1])
-
-    this.props.onPickEmoji(position, data, needsSpace)
-  }
-
   render() {
     const {
       intl,
@@ -492,7 +483,6 @@ ComposeForm.propTypes = {
   onSuggestionSelected: PropTypes.func.isRequired,
   onChangeSpoilerText: PropTypes.func.isRequired,
   onPaste: PropTypes.func.isRequired,
-  onPickEmoji: PropTypes.func.isRequired,
   showSearch: PropTypes.bool,
   anyMedia: PropTypes.bool,
   shouldCondense: PropTypes.bool,
