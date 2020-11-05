@@ -19,7 +19,7 @@ class SearchService < BaseService
         results[:accounts] = perform_accounts_search! if account_searchable?
         results[:statuses] = perform_statuses_search! if full_text_searchable? && !account.nil?
         results[:hashtags] = perform_hashtags_search! if hashtag_searchable? && !account.nil?
-        results[:links] = perform_links_search! if !account.nil?
+        results[:links] = [] # perform_links_search! if !account.nil?
         results[:groups] = perform_groups_search!
       end
     end
