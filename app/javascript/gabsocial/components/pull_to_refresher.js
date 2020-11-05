@@ -18,6 +18,8 @@ class PullToRefresher extends React.PureComponent {
   }
 
   componentDidMount() {
+    this.handleDestroy()
+
     if (this.props.isDisabled) return
     if (this.state.width > BREAKPOINT_EXTRA_SMALL) return
 
@@ -48,6 +50,10 @@ class PullToRefresher extends React.PureComponent {
   }
 
   componentWillUnmount() {
+    this.handleDestroy()
+  }
+
+  handleDestroy() {
     PullToRefresh.destroyAll()
     window.removeEventListener('resize', this.handleResize, false)
   }
