@@ -76,7 +76,7 @@ class FooterBar extends ImmutablePureComponent {
         <div className={[_s.d, _s.posFixed, _s.left0, _s.right0, _s.bottom0, _s.minH58PX, _s.w100PC, _s.bgPrimary, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
           <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.h100PC, _s.minH58PX, _s.saveAreaInsetPB, _s.jcSpaceAround].join(' ')}>
             {
-              buttons.map((props) => {
+              buttons.map((props, i) => {
                 if (props.isHidden) return null
 
                 const classes = CX({
@@ -134,6 +134,7 @@ class FooterBar extends ImmutablePureComponent {
                     href={props.href}
                     title={props.title}
                     className={classes}
+                    key={`footer-bar-item-${i}`}
                   >
                     {childIcon}
                   </Button>
