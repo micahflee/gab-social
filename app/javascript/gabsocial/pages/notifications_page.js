@@ -61,6 +61,12 @@ class NotificationsPage extends React.PureComponent {
           LinkFooter,
         ]}
         tabs={tabs}
+        actions={[
+          {
+            icon: 'search',
+            to: '/search',
+          },
+        ]}
       >
         <PageTitle badge={notificationCount} path={title} />
         {children}
