@@ -932,6 +932,27 @@ pre {
   appearance: none;
 }
 
+:global(.ptr--ptr) {
+  background-color: var(--solid_color_block) !important;
+  border-bottom: 1px solid var(--border_color_secondary) !important;
+}
+
+:global(.ptr--ptr.ptr--refresh) {
+  min-height: 110px !important;
+}
+
+:global(.ptr--ptr.ptr--pull.ptr--release) {
+  padding-top: 15px !important;
+  padding-bottom: 5px !important;
+  min-height: 110px;
+  box-shadow: none !important;
+}
+
+:global(.ptr--icon) {
+  font-size: var(--fs_m) !important;
+  color: var(--text_color_secondary) !important;
+}
+
 :global(.emojione) {
   margin: -3px 0 0;
   height: 20px;

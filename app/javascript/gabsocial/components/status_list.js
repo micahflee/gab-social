@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
+import { Map as ImmutableMap, List as ImmutableList, is } from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { createSelector } from 'reselect'
@@ -12,7 +12,11 @@ import {
   TIMELINE_INJECTION_GROUP_CATEGORIES,
   TIMELINE_INJECTION_USER_SUGGESTIONS,
 } from '../constants'
-import { dequeueTimeline, scrollTopTimeline } from '../actions/timelines'
+import {
+  dequeueTimeline,
+  scrollTopTimeline,
+  forceDequeueTimeline,
+} from '../actions/timelines'
 import { showTimelineInjection } from '../actions/timeline_injections'
 import { fetchStatus, fetchContext } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
@@ -21,11 +25,12 @@ import ScrollableList from './scrollable_list'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
 import TimelineInjectionBase from './timeline_injections/timeline_injection_base'
 import TimelineInjectionRoot from './timeline_injections/timeline_injection_root'
+import PullToRefresher from './pull_to_refresher'
 
 class StatusList extends ImmutablePureComponent {
 
   state = {
-    refreshing: false,
+    isRefreshing: false,
     fetchedContext: false,
   }
 
@@ -56,8 +61,9 @@ class StatusList extends ImmutablePureComponent {
   }
    
   componentDidUpdate(prevProps, prevState) {
-    if (prevState.refreshing) {
-      this.setState({ refreshing: false })
+    if (this.state.isRefreshing) {
+      this.setState({ isRefreshing: false })
+      this.props.onForceDequeueTimeline(this.props.timelineId)
     }
 
     if (prevProps.statusIds.count() < this.props.statusIds.count()) {
@@ -107,11 +113,8 @@ class StatusList extends ImmutablePureComponent {
   }, 300, { leading: true })
 
   handleOnReload = debounce(() => {
-    // Only pull to refresh on home timeline for now
-    if (this.props.scrollKey === 'home_timeline' && !this.state.refreshing) {
-      this.props.onLoadMore()
-      this.setState({ refreshing: true })
-    }
+    this.props.onLoadMore()
+    this.setState({ isRefreshing: true })
   }, 300, { trailing: true })
 
   _selectChild(index, align_top) {
@@ -156,7 +159,7 @@ class StatusList extends ImmutablePureComponent {
       onScrollToTop,
       onScroll,
     } = this.props
-    const { fetchedContext, refreshing } = this.state
+    const { fetchedContext, isRefreshing } = this.state
 
     if (isPartial || (isLoading && statusIds.size === 0)) {
       return (
@@ -279,10 +282,14 @@ class StatusList extends ImmutablePureComponent {
           count={totalQueuedItemsCount}
           itemType='gab'
         />
+        <PullToRefresher
+          onRefresh={this.handleOnReload}
+          hasMore={hasMore}
+        />
         <ScrollableList
           ref={this.setRef}
-          isLoading={isLoading}
-          showLoading={(isLoading && statusIds.size === 0)}
+          isLoading={isLoading || isRefreshing}
+          showLoading={isRefreshing || (isLoading && statusIds.size === 0)}
           onLoadMore={onLoadMore && this.handleLoadOlder}
           placeholderComponent={StatusPlaceholder}
           placeholderCount={1}
@@ -357,6 +364,9 @@ const mapStateToProps = (state, { timelineId }) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  onForceDequeueTimeline(timelineId) {
+    dispatch(forceDequeueTimeline(timelineId))
+  },
   onDequeueTimeline(timelineId) {
     dispatch(dequeueTimeline(timelineId, ownProps.onLoadMore))
   },
@@ -387,6 +397,7 @@ StatusList.propTypes = {
   timelineId: PropTypes.string,
   queuedItemSize: PropTypes.number,
   onDequeueTimeline: PropTypes.func.isRequired,
+  onClearTimeline: PropTypes.func.isRequired,
   onScrollToTop: PropTypes.func.isRequired,
   onScroll: PropTypes.func.isRequired,
   onFetchContext: PropTypes.func.isRequired,
