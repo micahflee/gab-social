@@ -7562,6 +7562,11 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
+pulltorefreshjs@^0.1.21:
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/pulltorefreshjs/-/pulltorefreshjs-0.1.21.tgz#4b29a9163819d214f304eaa8fab1a14fc486925b"
+  integrity sha512-xpqmLHgdyQer5wwCKO0nrWXfg+qJjxiVGqKQZQDuw0Hp9hdGehtKamv0WqV6EFU5nTrjre/hLbM2YWB171do8g==
+
 pump@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/pump/-/pump-2.0.1.tgz#12399add6e4cf7526d973cbc8b5ce2e2908b3909"
