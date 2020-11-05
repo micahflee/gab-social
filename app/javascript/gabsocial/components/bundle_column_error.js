@@ -80,6 +80,7 @@ class BundleColumnError extends React.PureComponent {
           <div className={[_s.d, _s.flexRow].join(' ')}>
             <Button
               icon='repost'
+              href='#'
               onClick={this.handleRetry} size={64}
             >
               <Text align='center' color='inherit' className={_s.ml5}>
