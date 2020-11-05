@@ -33,7 +33,7 @@ class PullToRefresher extends React.PureComponent {
 
     const ptr = PullToRefresh.init({
       mainElement: 'body',
-      distMax: 110,
+      distMax: 130,
       onRefresh: this.handleOnRefresh,
       instructionsPullToRefresh: ReactDOMServer.renderToString(
         <Text {...textProps}>Pull to Refresh</Text>

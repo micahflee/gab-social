@@ -941,8 +941,12 @@ pre {
   min-height: 110px !important;
 }
 
-:global(.ptr--ptr.ptr--pull.ptr--release) {
+:global(.ptr--content) {
   padding-top: 15px !important;
+}
+
+:global(.ptr--ptr.ptr--pull.ptr--release) {
+  padding-top: env(safe-area-inset-top, 0);
   padding-bottom: 5px !important;
   min-height: 110px;
   box-shadow: none !important;
