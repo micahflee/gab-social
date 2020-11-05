@@ -284,7 +284,6 @@ class StatusList extends ImmutablePureComponent {
           isLoading={isLoading}
           showLoading={(isLoading && statusIds.size === 0)}
           onLoadMore={onLoadMore && this.handleLoadOlder}
-          onReload={this.handleOnReload}
           placeholderComponent={StatusPlaceholder}
           placeholderCount={1}
           scrollKey={scrollKey}

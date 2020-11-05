@@ -17,7 +17,6 @@ class ScrollableList extends React.PureComponent {
   }
 
   state = {
-    pullToRefreshTriggered: false,
     cachedMediaWidth: 250, // Default media/card width using default Gab Social theme
   }
 
@@ -98,13 +97,6 @@ class ScrollableList extends React.PureComponent {
       const { scrollTop, scrollHeight } = this.documentElement;
       const { innerHeight } = this.window;
       const offset = scrollHeight - scrollTop - innerHeight;
-
-      if (scrollTop < -80 && this.props.onReload && !this.state.pullToRefreshTriggered) {
-        this.setState({ pullToRefreshTriggered: true })
-      } else if (scrollTop > -10 && this.props.onReload && this.state.pullToRefreshTriggered) {
-        this.props.onReload()
-        this.setState({ pullToRefreshTriggered: false })
-      }
 
       if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
         this.props.onLoadMore();
@@ -267,7 +259,6 @@ class ScrollableList extends React.PureComponent {
 ScrollableList.propTypes = {
   scrollKey: PropTypes.string.isRequired,
   onLoadMore: PropTypes.func,
-  onReload: PropTypes.func,
   isLoading: PropTypes.bool,
   showLoading: PropTypes.bool,
   hasMore: PropTypes.bool,
