@@ -85,6 +85,7 @@ import {
   ListTimeline,
   Mutes,
   News,
+  NewsView,
   Notifications,
   Press,
   PrivacyPolicy,
@@ -188,10 +189,12 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={ExploreTimeline} content={children} componentParams={{ title: 'Explore' }} />
-        <WrappedRoute path='/news' publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
         <WrappedRoute path='/suggestions' exact page={BasicPage} component={Suggestions} content={children} componentParams={{ title: 'Suggestions' }} />
 
         <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
+
+        <WrappedRoute path='/news' exact publicRoute page={NewsPage} component={News} content={children} />
+        <WrappedRoute path='/news/view/:trendsRSSId' page={NewsPage} component={NewsView} content={children} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
