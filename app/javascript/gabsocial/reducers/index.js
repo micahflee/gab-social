@@ -7,7 +7,6 @@ import contexts from './contexts'
 import conversations from './conversations'
 import custom_emojis from './custom_emojis'
 import filters from './filters'
-import gab from './gab'
 import groups from './groups'
 import group_categories from './group_categories'
 import group_editor from './group_editor'
@@ -23,6 +22,7 @@ import media_attachments from './media_attachments'
 import meta from './meta'
 import modal from './modal'
 import mutes from './mutes'
+import news from './news'
 import notifications from './notifications'
 import polls from './polls'
 import popover from './popover'
@@ -52,7 +52,6 @@ const reducers = {
   conversations,
   custom_emojis,
   filters,
-  gab,
   groups,
   group_categories,
   group_editor,
@@ -69,6 +68,7 @@ const reducers = {
   meta,
   modal,
   mutes,
+  news,
   notifications,
   polls,
   popover,
