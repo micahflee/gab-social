@@ -154,3 +154,30 @@ export const TIMELINE_INJECTION_WEIGHT_DEFAULT = 1
 export const TIMELINE_INJECTION_WEIGHT_MULTIPLIER = 100
 export const TIMELINE_INJECTION_WEIGHT_SUBTRACTOR = 0.005
 export const TIMELINE_INJECTION_WEIGHT_MIN = 0.01
+
+export const TRENDS_RSS_SOURCES = [
+  {"id":"5daf64b18e955e2433b0f5ce","title":"Breitbart"},
+  {"id":"5daf66772fea4d3ba000883b","title":"Gateway Pundit"},
+  {"id":"5dafa767300c0e2601330386","title":"RT"},
+  {"id":"5dafa7d8786f593d02078cff","title":"Dailymail"},
+  {"id":"5dafa88b786f593d02078d35","title":"ABC News"},
+  {"id":"5e1e0a479d78d445de6a32bd","title":"Aljazeera"},
+  {"id":"5e1e0a7dc46f1d5487be1806","title":"Yahoo News"},
+  {"id":"5e1e0ae5c46f1d5487be1902","title":"NBC"},
+  {"id":"5e1e0b619d78d445de6a3564","title":"Reuters"},
+  {"id":"5e1e0b849d78d445de6a35c7","title":"LA Times"},
+  {"id":"5e5037159e35822b6afb0f77","title":"CBN"},
+  {"id":"5e52dfc91f94b1111db105ed","title":"National File"},
+  {"id":"5e56dcff1f94b1111db95a75","title":"WND"},
+  {"id":"5e6423d39f964d7a761997f8","title":"Mediaite"},
+  {"id":"5e715fa4a994095d6ca9b7a4","title":"AP"},
+  {"id":"5e715fbaa994095d6ca9b7ef","title":"Washington Post"},
+  {"id":"5e716016a994095d6ca9b907","title":"CNBC"},
+  {"id":"5e7160cb40c78e3a4af7a5bb","title":"FiveThirtyEight"},
+  {"id":"5e7160f7a994095d6ca9bbee","title":"Redstate"},
+  {"id":"5e71613ca994095d6ca9bcbb","title":"Vice"},
+  {"id":"5e716155a994095d6ca9bd03","title":"Politico"},
+  {"id":"5e7161f3a994095d6ca9bea6","title":"TMZ"},
+  {"id":"5e8275900d86876052a853ae","title":"CD Media"},
+  {"id":"5f97577c9b4a496b7e810354","title":"Infowars"}
+]
