@@ -19,7 +19,7 @@ import Search from '../components/search'
 import Pills from '../components/pills'
 import {
   LinkFooter,
-  TrendsPanel,
+  TrendsBreakingPanel,
   SearchFilterPanel,
   SignUpPanel,
   ExploreTimeline,
@@ -179,7 +179,7 @@ class SearchLayout extends React.PureComponent {
             layout={[
               SignUpPanel,
               SearchFilterPanel,
-              TrendsPanel,
+              TrendsBreakingPanel,
               LinkFooter,
             ]}
           >

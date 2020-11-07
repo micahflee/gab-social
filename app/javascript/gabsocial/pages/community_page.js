@@ -10,7 +10,7 @@ import {
   LinkFooter,
   GroupsPanel,
   ProgressPanel,
-  TrendsPanel,
+  TrendsBreakingPanel,
   UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
@@ -37,7 +37,7 @@ class CommunityPage extends React.PureComponent {
         ]}
         layout={[
           ProgressPanel,
-          TrendsPanel,
+          TrendsBreakingPanel,
           UserSuggestionsPanel,
           GroupsPanel,
           LinkFooter,

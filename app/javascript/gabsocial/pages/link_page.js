@@ -4,7 +4,7 @@ import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import {
   LinkFooter,
-  TrendsPanel,
+  TrendsBreakingPanel,
   UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
@@ -24,7 +24,7 @@ class LinkPage extends React.PureComponent {
         title={title}
         page={page}
         layout={[
-          TrendsPanel,
+          TrendsBreakingPanel,
           UserSuggestionsPanel,
           LinkFooter,
         ]}

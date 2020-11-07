@@ -10,7 +10,7 @@ import { MODAL_HASHTAG_TIMELINE_SETTINGS } from '../constants'
 import {
   LinkFooter,
   ProgressPanel,
-  TrendsPanel,
+  TrendsBreakingPanel,
   UserSuggestionsPanel,
 } from '../features/ui/util/async_components'
 
@@ -49,7 +49,7 @@ class HashtagPage extends React.PureComponent {
         ]}
         layout={[
           ProgressPanel,
-          TrendsPanel,
+          TrendsBreakingPanel,
           UserSuggestionsPanel,
           LinkFooter,
         ]}
