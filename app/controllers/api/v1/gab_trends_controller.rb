@@ -43,6 +43,42 @@ class Api::V1::GabTrendsController < Api::BaseController
       else
         render json: body
       end
+    elsif type == 'news'
+      body = Redis.current.get("gabtrends:news")
+      
+      if body.nil? || body.empty?
+        Request.new(:get, "https://news.gab.com/feed/json").perform do |res|
+          Rails.logger.debug "GabTrendsController: #{type} endpoint res code: #{res.code.to_s}"
+          if res.code == 200
+            body = res.body_with_limit
+            Redis.current.set("gabtrends:news", body) 
+            Redis.current.expire("gabtrends:news", 1.minute.seconds)
+            render json: body
+          else
+            render json: nil
+          end
+        end
+      else
+        render json: body
+      end
+    elsif type == 'rss'
+      body = Redis.current.get("gabtrends:feeds")
+      
+      if body.nil? || body.empty?
+        Request.new(:get, "https://trends.gab.com/feed/5f97577c9b4a496b7e810354?fmt=json").perform do |res|
+          Rails.logger.debug "GabTrendsController: #{type} endpoint res code: #{res.code.to_s}"
+          if res.code == 200
+            body = res.body_with_limit
+            Redis.current.set("gabtrends:news", body) 
+            Redis.current.expire("gabtrends:news", 1.minute.seconds)
+            render json: body
+          else
+            render json: nil
+          end
+        end
+      else
+        render json: body
+      end
     else
       raise GabSocial::NotPermittedError
     end
