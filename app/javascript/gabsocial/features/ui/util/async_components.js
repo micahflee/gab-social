@@ -29,6 +29,7 @@ export function Followers() { return import(/* webpackChunkName: "features/follo
 export function Following() { return import(/* webpackChunkName: "features/following" */'../../following') }
 export function FollowRequests() { return import(/* webpackChunkName: "features/follow_requests" */'../../follow_requests') }
 export function LikedStatuses() { return import(/* webpackChunkName: "features/liked_statuses" */'../../liked_statuses') }
+export function GabNewsPanel() { return import(/* webpackChunkName: "components/gab_news_panel" */'../../../components/panel/gab_news_panel') }
 export function GenericNotFound() { return import(/* webpackChunkName: "features/generic_not_found" */'../../generic_not_found') }
 export function GlobalFooter() { return import(/* webpackChunkName: "components/global_footer" */'../../../components/global_footer') }
 export function GroupCategoriesInjection() { return import(/* webpackChunkName: "components/group_categories_injection" */'../../../components/timeline_injections/group_categories_injection') }
@@ -60,6 +61,7 @@ export function HomeTimelineSettingsModal() { return import(/* webpackChunkName:
 export function HotkeysModal() { return import(/* webpackChunkName: "components/hotkeys_modal" */'../../../components/modal/hotkeys_modal') }
 export function Introduction() { return import(/* webpackChunkName: "features/introduction" */'../../introduction') }
 export function Investors() { return import(/* webpackChunkName: "features/about/investors" */'../../about/investors') }
+export function LatestFromGabPanel() { return import(/* webpackChunkName: "components/latest_from_gab_panel" */'../../../components/panel/latest_from_gab_panel') }
 export function LinkFooter() { return import(/* webpackChunkName: "components/link_footer" */'../../../components/link_footer') }
 export function LinkTimeline() { return import(/* webpackChunkName: "features/link_timeline" */'../../link_timeline') }
 export function ListAddUserModal() { return import(/* webpackChunkName: "features/list_add_user_modal" */'../../../components/modal/list_add_user_modal') }
@@ -76,12 +78,15 @@ export function ListTimelineSettingsModal() { return import(/* webpackChunkName:
 export function MediaGallery() { return import(/* webpackChunkName: "components/media_gallery" */'../../../components/media_gallery') }
 export function MediaGalleryPanel() { return import(/* webpackChunkName: "components/media_gallery_panel" */'../../../components/panel/media_gallery_panel') }
 export function MediaModal() { return import(/* webpackChunkName: "components/media_modal" */'../../../components/modal/media_modal') }
+export function Messages() { return import(/* webpackChunkName: "features/messages" */'../../messages') }
 export function Mutes() { return import(/* webpackChunkName: "features/mutes" */'../../mutes') }
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }
 export function News() { return import(/* webpackChunkName: "features/news" */'../../news') }
+export function NewsView() { return import(/* webpackChunkName: "features/news_view" */'../../news_view') }
 export function Notifications() { return import(/* webpackChunkName: "features/notifications" */'../../notifications') }
 export function NotificationFilterPanel() { return import(/* webpackChunkName: "components/notification_filter_panel" */'../../../components/panel/notification_filter_panel') }
+export function PopularLinksPanel() { return import(/* webpackChunkName: "components/popular_links_panel" */'../../../components/panel/popular_links_panel') }
 export function Press() { return import(/* webpackChunkName: "features/about/press" */'../../about/press') }
 export function PrivacyPolicy() { return import(/* webpackChunkName: "features/about/privacy_policy" */'../../about/privacy_policy') }
 export function ProTimeline() { return import(/* webpackChunkName: "features/pro_timeline" */'../../pro_timeline') }
@@ -120,7 +125,10 @@ export function Suggestions() { return import(/* webpackChunkName: "features/sug
 export function TermsOfSale() { return import(/* webpackChunkName: "features/about/terms_of_sale" */'../../about/terms_of_sale') }
 export function TermsOfService() { return import(/* webpackChunkName: "features/about/terms_of_service" */'../../about/terms_of_service') }
 export function TimelineInjectionOptionsPopover() { return import(/* webpackChunkName: "components/timeline_injection_options_popover" */'../../../components/popover/timeline_injection_options_popover') }
-export function TrendsPanel() { return import(/* webpackChunkName: "components/trends_panel" */'../../../components/panel/trends_panel') }
+export function TrendsBreakingPanel() { return import(/* webpackChunkName: "components/trends_breaking_panel" */'../../../components/panel/trends_breaking_panel') }
+export function TrendsFeedsPanel() { return import(/* webpackChunkName: "components/trends_feeds_panel" */'../../../components/panel/trends_feeds_panel') }
+export function TrendsHeadlinesPanel() { return import(/* webpackChunkName: "components/trends_headlines_panel" */'../../../components/panel/trends_headlines_panel') }
+export function TrendsRSSPanel() { return import(/* webpackChunkName: "components/trends_headlines_panel" */'../../../components/panel/trends_rss_panel') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
 export function UserInfoPopover() { return import(/* webpackChunkName: "components/user_info_popover" */'../../../components/popover/user_info_popover') }
