@@ -337,6 +337,7 @@ Rails.application.routes.draw do
 
       resources :gab_trends, only: [:index]
       resources :links, only: :show
+      resource :popular_links, only: :show
       resources :shop, only: [:index]
       resources :streaming, only: [:index]
       resources :custom_emojis, only: [:index]
