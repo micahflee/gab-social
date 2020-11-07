@@ -1,39 +1,18 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import PageTitle from '../features/ui/util/page_title'
-import DefaultLayout from '../layouts/default_layout'
-import WrappedBundle from '../features/ui/util/wrapped_bundle'
-import {
-  LinkFooter,
-  ProgressPanel,
-  ShopPanel,
-  SignUpPanel,
-  UserSuggestionsPanel,
-} from '../features/ui/util/async_components'
+import NewsLayout from '../layouts/news_layout'
 
 class NewsPage extends React.PureComponent {
 
   render() {
-    const { children, title } = this.props
+    const { children } = this.props
 
     return (
-      <DefaultLayout
-        page='news'
-        title={title}
-        noComposeButton
-        showBackBtn
-        noRightSidebar
-        layout={[
-          SignUpPanel,
-          ProgressPanel,
-          <WrappedBundle component={UserSuggestionsPanel} componentParams={{ suggestionType: 'verified' }} />,
-          ShopPanel,
-          LinkFooter,
-        ]}
-      >
-        <PageTitle path={title} />
+      <NewsLayout>
+        <PageTitle path='News' />
         {children}
-      </DefaultLayout>
+      </NewsLayout>
     )
   }
 

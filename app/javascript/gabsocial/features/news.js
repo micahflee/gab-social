@@ -1,222 +1,97 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import isObject from 'lodash.isobject'
-import queryString from 'query-string'
-import { fetchGabTrends } from '../actions/gab'
+import throttle from 'lodash.throttle'
+import { fetchPopularLinks } from '../actions/links'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
-import Block from '../components/block'
 import Button from '../components/button'
-import ColumnIndicator from '../components/column_indicator'
-import Heading from '../components/heading'
-import Icon from '../components/icon'
-import Pills from '../components/pills'
-import Responsive from './ui/util/responsive_component';
-import TabBar from '../components/tab_bar'
 import Text from '../components/text'
 import TrendsItem from '../components/trends_item'
+import PreviewCardItem from '../components/preview_card_item'
+import ResponsiveClassesComponent from './ui/util/responsive_classes_component'
+import WrappedBundle from './ui/util/wrapped_bundle'
+import {
+  GabNewsPanel,
+  LatestFromGabPanel,
+  PopularLinksPanel,
+  TrendsBreakingPanel,
+  TrendsFeedsPanel,
+  TrendsHeadlinesPanel,
+  TrendsRSSPanel,
+} from './ui/util/async_components'
 
 class News extends React.PureComponent {
 
-  static contextTypes = {
-    router: PropTypes.object.isRequired,
-  }
-
   state = {
-    activeDomain: null,
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.location !== prevProps.location) {
-      this.setActiveDomain(this.props.location)
-    }
+    lazyLoaded: false,
   }
 
   componentDidMount() {
-    this.props.onfetchGabTrends()
-    this.setActiveDomain(this.props.location)
+    this.window = window
+    this.documentElement = document.scrollingElement || document.documentElement
+
+    this.window.addEventListener('scroll', this.handleScroll)
   }
 
-  setActiveDomain(location) {
-    const { search } = location
-    const qp = queryString.parse(search)
-    const domain = qp.domain ? `${qp.domain}`.toLowerCase() : undefined
+  componentWillUnmount() {
+    this.detachScrollListener()
+  }
 
-    if (!!domain) {
-      this.setState({ activeDomain: domain })
-    } else {
-      this.setState({ activeDomain: null })
+  detachScrollListener = () => {
+    this.window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = throttle(() => {
+    if (this.window) {
+      const { scrollTop } = this.documentElement
+      
+      if (scrollTop > 25 && !this.state.lazyLoaded) {
+        this.setState({ lazyLoaded: true })
+        this.detachScrollListener()
+      }
     }
-  }
+  }, 150, {
+    trailing: true,
+  })
 
   render() {
-    const {
-      intl,
-      isError,
-      isLoading,
-      items,
-    } = this.props
-    const { activeDomain } = this.state
+    const { children } = this.props
+    const { lazyLoaded } = this.state
 
-    if (isError || !isObject(items)) {
-      return <div>error</div>
-    }
-
-    let domainExists = !activeDomain
-    let headline, headlineLink
-    let todaysTopTitle
-    let leadHeadlines = []
-    let todaysTop = []
-    let domainTabs = []
-    try {
-      headline = items.headline.title
-      headlineLink = items.headline.href
-      leadHeadlines = items.leadHeadlines
-
-      if (activeDomain) {
-        const domainBlock = items.trackedDomains.find((d) => `${d.domain}`.toLowerCase() === activeDomain)
-        if (domainBlock) domainExists = true
-
-        todaysTop = domainBlock.topUrls
-        todaysTopTitle = domainBlock.title
-      } else {
-        todaysTop = items.trending.topUrls
-        todaysTopTitle = "Today's Top"
-      }
-
-      const domains = items.trackedDomains
-      domainTabs = domains.map((block) => ({
-        title: block.title,
-        to: `/news?domain=${block.domain}`,
-        onClick: () => { },
-        active: activeDomain === `${block.domain}`.toLowerCase(),
-      }))
-      domainTabs = [
-        {
-          title: "Today's Top",
-          to: `/news`,
-          onClick: () => { },
-          active: !activeDomain,
-        },
-        ...domainTabs,
-      ]
-    } catch (error) {
-      return (
-        <div className={[_s.d, _s.w100PC].join(' ')}>
-          <Block>
-            <ColumnIndicator type='loading' />
-          </Block>
-        </div>
-      )
-    }
-
-    if (!domainExists) {
-      return <div>error</div>
-    }
+    // const orderXS = ['headlines', 'trending_links', 'breaking', 'latest_from_gab', 'gab_news', '...']
 
     return (
       <div className={[_s.d, _s.w100PC].join(' ')}>
-        <Block>
-          <div className={[_s.d, _s.w100PC, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <TabBar tabs={domainTabs} />
-            </Responsive>
-            <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-              <div className={[_s.d, _s.w100PC, _s.pt10, _s.pb5].join(' ')}>
-                <Pills pills={domainTabs} />
-              </div>
-            </Responsive>
-          </div>
 
-          <div className={[_s.d, _s.px15].join(' ')}>
-            {
-              !activeDomain &&
-              <div className={[_s.d, _s.py15, _s.mt15, _s.mb15].join(' ')}>
-                <Heading size='h1'>
-                  <a href={`https://trends.gab.com/trend?url=${headlineLink}`} className={[_s.noUnderline, _s.cPrimary].join(' ')}>
-                    {headline}
-                  </a>
-                </Heading>
-              </div>
-            }
+        <ResponsiveClassesComponent
+          classNames={[_s.d, _s.flexRow, _s.w100PC, _s.overflowHidden].join(' ')}
+          classNamesXS={[_s.d, _s.pt15].join(' ')}
+        >
+        
+          <ResponsiveClassesComponent
+            classNames={[_s.d, _s.pr15, _s.w50PC].join(' ')}
+            classNamesXS={[_s.d, _s.w100PC].join(' ')}
+          >
+            <WrappedBundle component={TrendsHeadlinesPanel} />
+            <WrappedBundle component={TrendsBreakingPanel} componentParams={{ hideReadMore: 1 }} />
+            <WrappedBundle component={LatestFromGabPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+          </ResponsiveClassesComponent>
+          
+          <ResponsiveClassesComponent
+            classNames={[_s.d, _s.w50PC].join(' ')}
+            classNamesXS={[_s.d, _s.w100PC].join(' ')}
+          >
+            <WrappedBundle component={PopularLinksPanel} />
+            <WrappedBundle component={TrendsFeedsPanel} />
+            <WrappedBundle component={GabNewsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+          </ResponsiveClassesComponent>
 
-            {
-              !activeDomain && leadHeadlines.length > 0 &&
-              <div className={[_s.d, _s.mb15].join(' ')}>
-                <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
-                  <Heading size='h2'>
-                    <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
-                    Headlines
-                    </Heading>
-                </div>
-                {
-                  leadHeadlines.map((lead) => (
-                    <Button
-                      isText
-                      backgroundColor='none'
-                      color='primary'
-                      className={[_s.d, _s.py7].join(' ')}
-                      href={`https://trends.gab.com/trend?url=${lead.href}`}
-                    >
-                      <Text>
-                        {lead.title}
-                      </Text>
-                    </Button>
-                  ))
-                }
-              </div>
-            }
+        </ResponsiveClassesComponent>
 
-            <div>
-              <div className={[_s.d, _s.px15, _s.mt15, _s.py10, _s.borderBottom1PX, _s.bgSubtle, _s.borderColorSecondary, _s.jcCenter].join(' ')}>
-                <Heading size='h2'>
-                  <Icon id='trends' className={[_s.mr10].join(' ')} size='18px' />
-                  {todaysTopTitle}
-                </Heading>
-              </div>
-              <div className={[_s.d, _s.py10].join(' ')}>
-                {
-                  todaysTop.map((block, i) => (
-                    <TrendsItem
-                      key={`explore-trending-item-${i}`}
-                      index={i + 1}
-                      title={block.pagePreview.title}
-                      author={block.domain.domain}
-                      description={block.pagePreview.description}
-                      url={`https://trends.gab.com/trend?url=${block.pagePreview.url}`}
-                      date={block.created}
-                      isLast={todaysTop.length - 1 === i}
-                    />
-                  ))
-                }
-              </div>
-            </div>
-
-          </div>
-        </Block>
       </div>
     )
   }
 
 }
 
-const mapStateToProps = (state) => ({
-  isError: state.getIn(['gab', 'partner', 'isError']),
-  isLoading: state.getIn(['gab', 'partner', 'isLoading']),
-  items: state.getIn(['gab', 'partner', 'items']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onfetchGabTrends: () => dispatch(fetchGabTrends('partner')),
-})
-
-News.propTypes = {
-  intl: PropTypes.object.isRequired,
-  isError: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  items: PropTypes.object,
-  onfetchGabTrends: PropTypes.func.isRequired,
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(News))
+export default News
