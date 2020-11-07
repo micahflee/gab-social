@@ -23,7 +23,9 @@ class StatusPrepend extends ImmutablePureComponent {
     if (!status) return null
 
     const isRepost = (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object')
-
+    const showRepostedComment = !!status.getIn(['reblog', 'in_reply_to_account_id'], null) && isRepost
+    const reblogUrl = status.getIn(['reblog', 'url'], null)
+    
     if (!isFeatured && !isPinnedInGroup && !isPromoted && !isRepost && !isComment) return null
 
     let iconId
@@ -37,7 +39,7 @@ class StatusPrepend extends ImmutablePureComponent {
         <div className={[_s.d, _s.flexNormal, _s.flexRow, _s.aiCenter, _s.py5, _s.px15, _s.overflowHidden].join(' ')}>
           <Icon id={iconId} size='12px' className={[_s.cSecondary, _s.mr5].join(' ')} />
           {
-            isRepost && !isComment &&
+            isRepost && !isComment && !showRepostedComment &&
             <div className={[_s.d, _s.flexRow].join(' ')}>
               <Text size='small' color='secondary'>
                 <FormattedMessage
@@ -62,6 +64,51 @@ class StatusPrepend extends ImmutablePureComponent {
             </div>
           }
           {
+            isRepost && !isComment && showRepostedComment &&
+            <div className={[_s.d, _s.flexRow].join(' ')}>
+              <Text size='small' color='secondary'>
+                <FormattedMessage
+                  id='status.reposted_comment_by'
+                  defaultMessage='{name} reposted a {comment} on {this_post}'
+                  values={{
+                    name: (
+                      <NavLink
+                        className={[_s.noUnderline, _s.underline_onHover].join(' ')}
+                        to={`/${status.getIn(['account', 'acct'])}`}
+                      >
+                        <Text size='small' color='secondary' weight='medium'>
+                          <bdi>
+                            <span dangerouslySetInnerHTML={{ __html: status.getIn(['account', 'display_name_html']) }} />
+                          </bdi>
+                        </Text>
+                      </NavLink>
+                    ),
+                    comment: (
+                      <a
+                        className={[_s.noUnderline, _s.underline_onHover].join(' ')}
+                        href={reblogUrl}
+                      >
+                        <Text size='small' color='secondary' weight='medium'>
+                          comment
+                        </Text>
+                      </a>
+                    ),
+                    this_post: (
+                      <a
+                        className={[_s.noUnderline, _s.underline_onHover].join(' ')}
+                        href={reblogUrl}
+                      >
+                        <Text size='small' color='secondary' weight='medium'>
+                          a post
+                        </Text>
+                      </a>
+                    )
+                  }}
+                />
+              </Text>
+            </div>
+          }
+          {
             !isRepost && !isComment &&
             <Text color='secondary' size='small'>
               {intl.formatMessage(isFeatured ? messages.pinned : isPinnedInGroup ? messages.pinnedByGroup : messages.promoted)}
@@ -79,7 +126,7 @@ class StatusPrepend extends ImmutablePureComponent {
                       className={[_s.noUnderline, _s.underline_onHover].join(' ')}
                       to={`/${status.getIn(['account', 'acct'])}`}
                     >
-                      <Text size='small' color='secondary'>
+                      <Text size='small' color='secondary' weight='medium'>
                         <bdi>
                           <span dangerouslySetInnerHTML={{ __html: status.getIn(['account', 'display_name_html']) }} />
                         </bdi>
