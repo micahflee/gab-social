@@ -49,13 +49,14 @@ class FeaturedGroupsInjection extends React.PureComponent {
         <div className={[_s.d, _s.pb10].join(' ')}>
           <div className={[_s.d, _s.flexRow, _s.mb5].join(' ')}>
             {
-              split1Arr.map((block) => (
+              split1Arr.map((block, i) => (
                 <Button
                   isNarrow
                   to={block.to}
                   color='primary'
                   backgroundColor='tertiary'
                   className={[_s.mr10].join(' ')}
+                  key={`group-category-injections-1-${i}`}
                 >
                   <Text color='inherit'>
                     {block.title}
@@ -67,13 +68,14 @@ class FeaturedGroupsInjection extends React.PureComponent {
 
           <div className={[_s.d, _s.flexRow].join(' ')}>
             {
-              categoriesOptions.map((block) => (
+              categoriesOptions.map((block, i) => (
                 <Button
                   isNarrow
                   to={block.to}
                   color='primary'
                   backgroundColor='tertiary'
                   className={[_s.mr10].join(' ')}
+                  key={`group-category-injections-2-${i}`}
                 >
                   <Text color='inherit'>
                     {block.title}
