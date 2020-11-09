@@ -10,15 +10,15 @@ class ManifestSerializer < ActiveModel::Serializer
              :share_target
 
   def name
-    object.site_title
+    'Gab Social'
   end
 
   def short_name
-    object.site_title
+    'Gab Social'
   end
 
   def description
-    strip_tags(object.site_short_description.presence || I18n.t('about.about_gabsocial_html'))
+    'Gab is a social network that champions free speech, individual liberty and the free flow of information online. All are welcome.'
   end
 
   def icons

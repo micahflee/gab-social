@@ -13,14 +13,9 @@ class InitialStateSerializer < ActiveModel::Serializer
       access_token: object.token,
       locale: I18n.locale,
       domain: Rails.configuration.x.local_domain,
-      admin: object.admin&.id&.to_s,
-      search_enabled: Chewy.enabled?,
       repository: GabSocial::Version.repository,
       source_url: GabSocial::Version.source_url,
       version: GabSocial::Version.to_s,
-      invites_enabled: Setting.min_invite_role == 'user',
-      mascot: instance_presenter.mascot&.file&.url,
-      profile_directory: Setting.profile_directory,
     }
 
     if object.current_account
@@ -63,7 +58,6 @@ class InitialStateSerializer < ActiveModel::Serializer
   def accounts
     store = {}
     store[object.current_account.id.to_s] = ActiveModelSerializers::SerializableResource.new(object.current_account, serializer: REST::AccountSerializer) if object.current_account
-    store[object.admin.id.to_s]           = ActiveModelSerializers::SerializableResource.new(object.admin, serializer: REST::AccountSerializer) if object.admin
     store
   end
 

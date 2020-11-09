@@ -18,7 +18,7 @@ class ProofProvider::Keybase::ConfigSerializer < ActiveModel::Serializer
   end
 
   def display_name
-    Setting.site_title
+    Setting::SITE_TITLE
   end
 
   def logo

@@ -15,6 +15,8 @@
 class Setting < RailsSettings::Base
   source Rails.root.join('config', 'settings.yml')
 
+  SITE_TITLE = 'Gab Social'
+
   def to_param
     var
   end

@@ -2,7 +2,7 @@
 
 module InstanceHelper
   def site_title
-    Setting.site_title
+    Setting::SITE_TITLE
   end
 
   def site_hostname
