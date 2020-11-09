@@ -85,7 +85,7 @@ class HomePage extends React.PureComponent {
           UserPanel,
           ProgressPanel,
           <WrappedBundle component={ProPanel} componentParams={{ isPro: isPro }} />,
-          TrendsBreakingPanel,
+          <WrappedBundle component={TrendsBreakingPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
           <WrappedBundle component={ShopPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
           <WrappedBundle component={ListsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
           <WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
