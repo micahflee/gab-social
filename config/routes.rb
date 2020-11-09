@@ -347,11 +347,6 @@ Rails.application.routes.draw do
       resources :trends, only: [:index]
       resources :group_categories, only: [:index]
 
-      namespace :gifs do
-        get :categories
-        get :search
-      end
-
       resources :conversations, only: [:index, :destroy] do
         member do
           post :read
