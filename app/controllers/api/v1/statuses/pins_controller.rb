@@ -11,7 +11,6 @@ class Api::V1::Statuses::PinsController < Api::BaseController
 
   def create
     StatusPin.create!(account: current_account, status: @status)
-    distribute_add_activity!
     render json: @status, serializer: REST::StatusSerializer
   end
 
@@ -20,7 +19,6 @@ class Api::V1::Statuses::PinsController < Api::BaseController
 
     if pin
       pin.destroy!
-      distribute_remove_activity!
     end
 
     render json: @status, serializer: REST::StatusSerializer
@@ -32,23 +30,4 @@ class Api::V1::Statuses::PinsController < Api::BaseController
     @status = Status.find(params[:status_id])
   end
 
-  def distribute_add_activity!
-    json = ActiveModelSerializers::SerializableResource.new(
-      @status,
-      serializer: ActivityPub::AddSerializer,
-      adapter: ActivityPub::Adapter
-    ).as_json
-
-    ActivityPub::RawDistributionWorker.perform_async(Oj.dump(json), current_account.id)
-  end
-
-  def distribute_remove_activity!
-    json = ActiveModelSerializers::SerializableResource.new(
-      @status,
-      serializer: ActivityPub::RemoveSerializer,
-      adapter: ActivityPub::Adapter
-    ).as_json
-
-    ActivityPub::RawDistributionWorker.perform_async(Oj.dump(json), current_account.id)
-  end
 end
