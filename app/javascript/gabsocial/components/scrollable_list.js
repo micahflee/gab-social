@@ -98,7 +98,7 @@ class ScrollableList extends React.PureComponent {
       const { innerHeight } = this.window;
       const offset = scrollHeight - scrollTop - innerHeight;
 
-      if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading) {
+      if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading && !this.props.disableInfiniteScroll) {
         this.props.onLoadMore();
       }
 
@@ -271,6 +271,7 @@ ScrollableList.propTypes = {
   onScroll: PropTypes.func,
   placeholderComponent: PropTypes.node,
   placeholderCount: PropTypes.node,
+  disableInfiniteScroll: PropTypes.bool,
 }
 
 export default ScrollableList
