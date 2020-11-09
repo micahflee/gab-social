@@ -164,8 +164,6 @@ class StatusList extends ImmutablePureComponent {
     } = this.props
     const { fetchedContext, isRefreshing } = this.state
 
-    console.log("promotions:", promotions)
-
     if (isPartial || (isLoading && statusIds.size === 0)) {
       return (
         <React.Fragment>
