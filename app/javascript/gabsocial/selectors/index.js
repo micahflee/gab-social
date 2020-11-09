@@ -38,6 +38,16 @@ const toServerSideType = columnType => {
 
 export const getFilters = (state, { contextType }) => state.get('filters', ImmutableList()).filter(filter => contextType && filter.get('context').includes(toServerSideType(contextType)) && (filter.get('expires_at') === null || Date.parse(filter.get('expires_at')) > (new Date())));
 
+export const getPromotions = () => {
+  return createSelector([
+    (state) => state,
+    (state) => state.getIn(['accounts', me, 'is_pro']),
+    (state) => state.get('promotions'),
+  ], (state, isPro, promotions) => {
+    return !isPro ? promotions : ImmutableList()
+  })
+}
+
 const escapeRegExp = string =>
   string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // $& means the whole matched string
 

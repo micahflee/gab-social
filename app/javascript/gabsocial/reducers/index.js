@@ -25,6 +25,7 @@ import news from './news'
 import notifications from './notifications'
 import polls from './polls'
 import popover from './popover'
+import promotions from './promotions'
 import push_notifications from './push_notifications'
 import relationships from './relationships'
 import reports from './reports'
@@ -70,6 +71,7 @@ const reducers = {
   notifications,
   polls,
   popover,
+  promotions,
   push_notifications,
   relationships,
   reports,

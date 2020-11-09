@@ -6,7 +6,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { createSelector } from 'reselect'
 import debounce from 'lodash.debounce'
-import { me, promotions } from '../initial_state'
+import { me } from '../initial_state'
+import { getPromotions } from '../selectors'
 import {
   TIMELINE_INJECTION_FEATURED_GROUPS,
   TIMELINE_INJECTION_GROUP_CATEGORIES,
@@ -45,15 +46,16 @@ class StatusList extends ImmutablePureComponent {
       promotedStatuses,
       timelineId,
       statusIds,
+      promotions,
     } = this.props
-   
-    if (Array.isArray(promotions)) {
-      promotions.forEach((promotionBlock) => {
+  
+    if (!!promotions && promotions.count() > 0) {
+      promotions.forEach((promotion) => {
         
-        if (promotionBlock.timeline_id === timelineId &&
-            statusIds.count() >= promotionBlock.position &&
-            !promotedStatuses[promotionBlock.status_id]) {
-          onFetchStatus(promotionBlock.status_id)
+        if (promotion.get('timeline_id') === timelineId &&
+            statusIds.count() >= promotion.get('position') &&
+            !promotedStatuses[promotion.get('status_id')]) {
+          onFetchStatus(promotion.get('status_id'))
         }
 
       })
@@ -158,8 +160,11 @@ class StatusList extends ImmutablePureComponent {
       emptyMessage,
       onScrollToTop,
       onScroll,
+      promotions,
     } = this.props
     const { fetchedContext, isRefreshing } = this.state
+
+    console.log("promotions:", promotions)
 
     if (isPartial || (isLoading && statusIds.size === 0)) {
       return (
@@ -200,13 +205,13 @@ class StatusList extends ImmutablePureComponent {
             />
           )
         } else {
-          if (Array.isArray(promotions)) {
-            const promotionBlock = promotions.find(p => (p.position === i && p.timeline_id === timelineId))
-            if (promotionBlock) {
+          if (!!promotions && promotions.count() > 0) {
+            const promotion = promotions.find((p) => (p.get('position') === i && p.get('timeline_id') === timelineId))
+            if (promotion) {
               scrollableContent.push(
                 <StatusContainer
-                  key={`promotion-${i}-${promotionBlock.status_id}`}
-                  id={promotionBlock.status_id}
+                  key={`promotion-${i}-${promotion.get('status_id')}`}
+                  id={promotion.get('status_id')}
                   onMoveUp={this.handleMoveUp}
                   onMoveDown={this.handleMoveDown}
                   contextType={timelineId}
@@ -340,21 +345,24 @@ const mapStateToProps = (state, { timelineId }) => {
   if (!timelineId) return {}
 
   const getStatusIds = makeGetStatusIds()
+  const promotions = getPromotions()(state)
 
   const statusIds = getStatusIds(state, {
     type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
     id: timelineId
   })
 
-  const promotedStatuses = Array.isArray(promotions) ?
-    promotions.map((block) => {
+  const promotedStatuses = (!!promotions && promotions.count() > 0) ?
+    promotions.map((promotion) => {
       const s = {}
-      s[block.status_id] = state.getIn(['statuses', block.status_id])
+      s[promotion.get('status_id')] = state.getIn(['statuses', promotion.get('status_id')])
       return s
     }) : []
 
+
   return {
     statusIds,
+    promotions,
     promotedStatuses,
     isLoading: state.getIn(['timelines', timelineId, 'isLoading'], true),
     isPartial: state.getIn(['timelines', timelineId, 'isPartial'], false),

@@ -10,6 +10,7 @@ import moment from 'moment-mini'
 import { ScrollContext } from 'react-router-scroll-4'
 import { IntlProvider, addLocaleData } from 'react-intl'
 import { fetchCustomEmojis } from '../actions/custom_emojis'
+import { fetchPromotions } from '../actions/promotions'
 import { hydrateStore } from '../actions/store'
 import { MIN_ACCOUNT_CREATED_AT_ONBOARDING } from '../constants'
 import {
@@ -32,6 +33,7 @@ const hydrateAction = hydrateStore(initialState)
 
 store.dispatch(hydrateAction)
 store.dispatch(fetchCustomEmojis())
+store.dispatch(fetchPromotions())
 
 const mapStateToProps = (state) => ({
   accountCreatedAt: !!me ? state.getIn(['accounts', me, 'created_at']) : undefined,

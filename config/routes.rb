@@ -345,6 +345,7 @@ Rails.application.routes.draw do
       end
 
       get '/search', to: 'search#index', as: :search
+      resources :promotions, only: [:index]
 
       get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
 
