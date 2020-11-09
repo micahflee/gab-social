@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::GabTrendsController < Api::BaseController
-  respond_to :json
-
-  skip_before_action :set_cache_headers
-
+class Api::V1::GabTrendsController < EmptyController
   def index
     if Rails.env != 'development'
       render json: nil

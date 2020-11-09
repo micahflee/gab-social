@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-class Api::V1::ShopController < Api::BaseController
-  before_action :require_user!
-
-  respond_to :json
-
-  skip_before_action :set_cache_headers
-
+class Api::V1::ShopController < EmptyController
   def index
+    if Rails.env != 'development'
+      render json: nil
+    end
+    
     type = params[:type]
     if type == 'featured_products'
       body = Redis.current.get("gabstore:featuredproducts")
