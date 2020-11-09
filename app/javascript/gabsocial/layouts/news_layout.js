@@ -35,7 +35,7 @@ class NewsLayout extends ImmutablePureComponent {
         noRightSidebar
         showLinkFooterInSidebar
         page='news'
-        title='News'
+        title={title}
       >
         <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
           {children}
@@ -48,6 +48,7 @@ class NewsLayout extends ImmutablePureComponent {
 
 NewsLayout.propTypes = {
   children: PropTypes.node,
+  title: PropTypes.string.isRequired,
 }
 
 export default NewsLayout

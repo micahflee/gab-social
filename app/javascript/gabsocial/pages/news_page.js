@@ -6,11 +6,11 @@ import NewsLayout from '../layouts/news_layout'
 class NewsPage extends React.PureComponent {
 
   render() {
-    const { children } = this.props
+    const { children, title } = this.props
 
     return (
-      <NewsLayout>
-        <PageTitle path='News' />
+      <NewsLayout title={title}>
+        <PageTitle path={title} />
         {children}
       </NewsLayout>
     )
