@@ -2,8 +2,7 @@
 
 class InitialStateSerializer < ActiveModel::Serializer
   attributes :meta, :compose, :accounts,
-             :media_attachments, :settings,
-             :promotions
+             :media_attachments, :settings
 
   has_one :push_subscription, serializer: REST::WebPushSubscriptionSerializer
 
@@ -63,16 +62,6 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   def media_attachments
     { accept_content_types: MediaAttachment::IMAGE_FILE_EXTENSIONS + MediaAttachment::VIDEO_FILE_EXTENSIONS + MediaAttachment::IMAGE_MIME_TYPES + MediaAttachment::VIDEO_MIME_TYPES }
-  end
-
-  def promotions
-    if object.current_account
-      if object.current_account.is_pro
-        return []
-      end
-    end
-
-    ActiveModelSerializers::SerializableResource.new(Promotion.active, each_serializer: REST::PromotionSerializer)
   end
 
   private

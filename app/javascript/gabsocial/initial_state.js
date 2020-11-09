@@ -17,7 +17,6 @@ export const repository = getMeta('repository');
 export const source_url = getMeta('source_url');
 export const version = getMeta('version');
 export const isStaff = getMeta('is_staff');
-export const promotions = initialState && initialState.promotions;
 export const unreadCount = getMeta('unread_count');
 export const lastReadNotificationId = getMeta('last_read_notification_id');
 export const monthlyExpensesComplete = getMeta('monthly_expenses_complete');
