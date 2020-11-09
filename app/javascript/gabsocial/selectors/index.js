@@ -44,7 +44,7 @@ export const getPromotions = () => {
     (state) => state.getIn(['accounts', me, 'is_pro']),
     (state) => state.get('promotions'),
   ], (state, isPro, promotions) => {
-    return !isPro ? promotions : ImmutableList()
+    return !isPro ? promotions : []
   })
 }
 
