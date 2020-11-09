@@ -33,7 +33,7 @@ class LoadMore extends React.PureComponent {
           onClick={this.handleClick}
           aria-label={intl.formatMessage(messages.load_more)}
         >
-          <Text color='inherit' align='center'>
+          <Text color='inherit' align='center' weight='medium' className={_s.py5}>
             {intl.formatMessage(messages.load_more)}
           </Text>
         </Button>
