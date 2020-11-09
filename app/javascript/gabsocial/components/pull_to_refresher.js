@@ -19,7 +19,10 @@ class PullToRefresher extends React.PureComponent {
 
   componentDidMount() {
     this.handleDestroy()
-
+    
+    // : TODO : optimize
+    return
+    
     if (this.props.isDisabled) return
     if (this.state.width > BREAKPOINT_EXTRA_SMALL) return
 
