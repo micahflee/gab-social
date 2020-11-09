@@ -25,6 +25,7 @@ import {
   ExploreTimeline,
   HashtagTimeline,
   SidebarXS,
+  News,
 } from '../features/ui/util/async_components'
 
 class SearchLayout extends React.PureComponent {
@@ -44,20 +45,25 @@ class SearchLayout extends React.PureComponent {
         component: ExploreTimeline,
       },
       {
-        title: '#Election2020',
+        title: 'News',
         onClick: () => this.setState({ currentExploreTabIndex: 1 }),
+        component: News,
+      },
+      {
+        title: '#Election2020',
+        onClick: () => this.setState({ currentExploreTabIndex: 2 }),
         component: HashtagTimeline,
         componentParams: { params: { id: 'election2020' } },
       },
       {
         title: '#RiggedElection',
-        onClick: () => this.setState({ currentExploreTabIndex: 2 }),
+        onClick: () => this.setState({ currentExploreTabIndex: 3 }),
         component: HashtagTimeline,
         componentParams: { params: { id: 'riggedelection' } },
       },
       {
         title: '#StopTheSteal',
-        onClick: () => this.setState({ currentExploreTabIndex: 3 }),
+        onClick: () => this.setState({ currentExploreTabIndex: 4 }),
         component: HashtagTimeline,
         componentParams: { params: { id: 'stopthesteal' } },
       },
