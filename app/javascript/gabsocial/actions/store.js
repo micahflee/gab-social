@@ -10,7 +10,7 @@ const convertState = rawState =>
     Iterable.isIndexed(v) ? v.toList() : v.toMap());
 
 export function hydrateStore(rawState) {
-  return dispatch => {
+  return (dispatch) => {
     const state = convertState(rawState);
 
     dispatch({
@@ -19,6 +19,6 @@ export function hydrateStore(rawState) {
     });
 
     dispatch(hydrateCompose());
-    dispatch(importFetchedAccounts(Object.values(rawState.accounts)));
+    if (rawState.accounts) dispatch(importFetchedAccounts(Object.values(rawState.accounts)));
   };
 };
