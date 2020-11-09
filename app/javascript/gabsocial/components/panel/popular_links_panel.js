@@ -43,8 +43,7 @@ class PopularLinksPanel extends ImmutablePureComponent {
     const { fetched } = this.state
   
     const count = !!popularLinksItems ? popularLinksItems.count() : 0
-    // : TESTING :
-    // if (count === 0 && fetched) return null
+    if (count === 0 && fetched) return null
 
     return (
       <PanelLayout
@@ -52,14 +51,11 @@ class PopularLinksPanel extends ImmutablePureComponent {
         subtitle='Most popular links on Gab in last 15 minutes'
       >
         <div className={[_s.d, _s.w100PC].join(' ')}>
-          { /*
+          {
             popularLinksItems.map((id, i) => (
               <PreviewCardItem id={id} key={`preview-card-${id}-${i}`} />
             ))
-            */ }
-            <PreviewCardItem id={'144'} />
-            <PreviewCardItem id={'144'} />
-            <PreviewCardItem id={'144'} />
+          }
         </div>
       </PanelLayout>
     )
