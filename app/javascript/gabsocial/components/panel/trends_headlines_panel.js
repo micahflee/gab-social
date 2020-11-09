@@ -45,7 +45,7 @@ class TrendsHeadlinesPanel extends ImmutablePureComponent {
     return (
       <PanelLayout
         title='Headlines'
-        subtitle='Headlines about yadda'
+        subtitle='Breaking headlines from Gab Trends'
       >
         {
           count > 0 &&
