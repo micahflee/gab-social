@@ -40,10 +40,6 @@ class ReblogService < BaseService
 
     if reblogged_status.account.local?
       LocalNotificationWorker.perform_async(reblogged_status.account_id, reblog.id, reblog.class.name)
-    elsif reblogged_status.account.ostatus?
-      NotificationWorker.perform_async(stream_entry_to_xml(reblog.stream_entry), reblog.account_id, reblogged_status.account_id)
-    elsif reblogged_status.account.activitypub? && !reblogged_status.account.following?(reblog.account)
-      ActivityPub::DeliveryWorker.perform_async(build_json(reblog), reblog.account_id, reblogged_status.account.inbox_url)
     end
   end
 
@@ -53,11 +49,4 @@ class ReblogService < BaseService
     PotentialFriendshipTracker.record(account.id, reblog.reblog.account_id, :reblog)
   end
 
-  def build_json(reblog)
-    Oj.dump(ActivityPub::LinkedDataSignature.new(ActiveModelSerializers::SerializableResource.new(
-      reblog,
-      serializer: ActivityPub::ActivitySerializer,
-      adapter: ActivityPub::Adapter
-    ).as_json).sign!(reblog.account))
-  end
 end

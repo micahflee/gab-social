@@ -51,16 +51,6 @@ class Form::AccountBatch
 
   def reject_follow!(follow)
     follow.destroy
-
-    return unless follow.account.activitypub?
-
-    json = ActiveModelSerializers::SerializableResource.new(
-      follow,
-      serializer: ActivityPub::RejectFollowSerializer,
-      adapter: ActivityPub::Adapter
-    ).to_json
-
-    ActivityPub::DeliveryWorker.perform_async(json, current_account.id, follow.account.inbox_url)
   end
 
   def approve!

@@ -69,8 +69,6 @@ class SuspendAccountService < BaseService
   end
 
   def purge_content!
-    distribute_delete_actor! if @account.local? && !@options[:skip_distribution]
-
     @account.statuses.reorder(nil).find_in_batches do |statuses|
       BatchedRemoveStatusService.new.call(statuses, skip_side_effects: @options[:destroy])
     end
@@ -106,16 +104,6 @@ class SuspendAccountService < BaseService
 
   def destroy_all(association)
     association.in_batches.destroy_all
-  end
-
-  def distribute_delete_actor!
-    # ActivityPub::DeliveryWorker.push_bulk(delivery_inboxes) do |inbox_url|
-    #   [delete_actor_json, @account.id, inbox_url]
-    # end
-
-    # ActivityPub::LowPriorityDeliveryWorker.push_bulk(low_priority_delivery_inboxes) do |inbox_url|
-    #   [delete_actor_json, @account.id, inbox_url]
-    # end
   end
 
   def delete_actor_json

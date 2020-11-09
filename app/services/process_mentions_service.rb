@@ -48,25 +48,7 @@ class ProcessMentionsService < BaseService
 
     if mentioned_account.local?
       LocalNotificationWorker.perform_async(mentioned_account.id, mention.id, mention.class.name)
-    elsif mentioned_account.ostatus? && !@status.stream_entry.hidden?
-      NotificationWorker.perform_async(ostatus_xml, @status.account_id, mentioned_account.id)
-    elsif mentioned_account.activitypub?
-      ActivityPub::DeliveryWorker.perform_async(activitypub_json, mention.status.account_id, mentioned_account.inbox_url)
     end
-  end
-
-  def ostatus_xml
-    @ostatus_xml ||= stream_entry_to_xml(@status.stream_entry)
-  end
-
-  def activitypub_json
-    return @activitypub_json if defined?(@activitypub_json)
-    payload = ActiveModelSerializers::SerializableResource.new(
-      @status,
-      serializer: ActivityPub::ActivitySerializer,
-      adapter: ActivityPub::Adapter
-    ).as_json
-    @activitypub_json = Oj.dump(@status.distributable? ? ActivityPub::LinkedDataSignature.new(payload).sign!(@status.account) : payload)
   end
 
   def resolve_account_service
