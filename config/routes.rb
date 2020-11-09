@@ -468,6 +468,7 @@ Rails.application.routes.draw do
 
     namespace :v2 do
       get '/search', to: 'search#index', as: :search
+      get '/image_proxy', to: 'image_proxy#get'
     end
 
     namespace :web do

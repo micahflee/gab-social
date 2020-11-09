@@ -46,7 +46,7 @@ const normalizeTrendsItem = (item) => {
     title: `${item.pagePreview.title}`.trim(),
     description: `${item.pagePreview.description}`.trim(),
     publish_date: item.pubDate,
-    image: Array.isArray(item.pagePreview.images) ? item.pagePreview.images[0] : null, // : todo : proxy
+    image: Array.isArray(item.pagePreview.images) ? `/api/v2/image_proxy?trends_url=${item.pagePreview.images[0]}` : null,
     feed_title: item.feed.title,
     feed_slug: item.feed.slug,
     feed_base_url: `${item.feed.url}`.replace('www.', '').replace('https://', '').replace('http://', '').replace('/', ''),
