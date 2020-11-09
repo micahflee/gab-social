@@ -60,7 +60,6 @@ class FooterBar extends ImmutablePureComponent {
         to: '/news',
         icon: 'news',
         title: 'News',
-        isHidden: !!me,
         active: currentPathname.indexOf('/news') > -1,
       },
       {
