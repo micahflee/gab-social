@@ -9,6 +9,7 @@ import Text from '../components/text'
 import TrendsItem from '../components/trends_item'
 import PreviewCardItem from '../components/preview_card_item'
 import ResponsiveClassesComponent from './ui/util/responsive_classes_component'
+import Responsive from './ui/util/responsive_component'
 import WrappedBundle from './ui/util/wrapped_bundle'
 import {
   GabNewsPanel,
@@ -58,7 +59,7 @@ class News extends React.PureComponent {
     const { children } = this.props
     const { lazyLoaded } = this.state
 
-    // const orderXS = ['headlines', 'trending_links', 'breaking', 'latest_from_gab', 'gab_news', '...']
+    // const orderXS = ['headlines', 'breaking', 'trending_links', 'latest_from_gab', 'gab_news', 'trends_feeds']
 
     return (
       <div className={[_s.d, _s.w100PC].join(' ')}>
@@ -72,19 +73,32 @@ class News extends React.PureComponent {
             classNames={[_s.d, _s.pr15, _s.w50PC].join(' ')}
             classNamesXS={[_s.d, _s.w100PC].join(' ')}
           >
-            <WrappedBundle component={TrendsHeadlinesPanel} />
-            <WrappedBundle component={TrendsBreakingPanel} componentParams={{ hideReadMore: 1 }} />
-            <WrappedBundle component={LatestFromGabPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+            { /* DESKTOP */ }
+            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+              <WrappedBundle component={TrendsHeadlinesPanel} />
+              <WrappedBundle component={TrendsBreakingPanel} componentParams={{ hideReadMore: 1 }} />
+              <WrappedBundle component={LatestFromGabPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+            </Responsive>
+            { /* MOBILE */ }
+            <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+              <WrappedBundle component={TrendsHeadlinesPanel} />
+              <WrappedBundle component={TrendsBreakingPanel} componentParams={{ hideReadMore: 1 }} />
+              <WrappedBundle component={PopularLinksPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+              <WrappedBundle component={LatestFromGabPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+              <WrappedBundle component={GabNewsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+              <WrappedBundle component={TrendsFeedsPanel} />
+            </Responsive>
           </ResponsiveClassesComponent>
           
-          <ResponsiveClassesComponent
-            classNames={[_s.d, _s.w50PC].join(' ')}
-            classNamesXS={[_s.d, _s.w100PC].join(' ')}
-          >
-            <WrappedBundle component={PopularLinksPanel} />
-            <WrappedBundle component={TrendsFeedsPanel} />
-            <WrappedBundle component={GabNewsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
-          </ResponsiveClassesComponent>
+          
+          { /* DESKTOP */ }
+          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+            <div classNames={[_s.d, _s.w50PC].join(' ')}>
+              <WrappedBundle component={PopularLinksPanel} />
+              <WrappedBundle component={TrendsFeedsPanel} />
+              <WrappedBundle component={GabNewsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
+            </div>
+          </Responsive>
 
         </ResponsiveClassesComponent>
 
