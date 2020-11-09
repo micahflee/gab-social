@@ -127,7 +127,7 @@ export function TimelineInjectionOptionsPopover() { return import(/* webpackChun
 export function TrendsBreakingPanel() { return import(/* webpackChunkName: "components/trends_breaking_panel" */'../../../components/panel/trends_breaking_panel') }
 export function TrendsFeedsPanel() { return import(/* webpackChunkName: "components/trends_feeds_panel" */'../../../components/panel/trends_feeds_panel') }
 export function TrendsHeadlinesPanel() { return import(/* webpackChunkName: "components/trends_headlines_panel" */'../../../components/panel/trends_headlines_panel') }
-export function TrendsRSSPanel() { return import(/* webpackChunkName: "components/trends_headlines_panel" */'../../../components/panel/trends_rss_panel') }
+export function TrendsRSSPanel() { return import(/* webpackChunkName: "components/trends_rss_panel" */'../../../components/panel/trends_rss_panel') }
 export function UnauthorizedModal() { return import(/* webpackChunkName: "components/unauthorized_modal" */'../../../components/modal/unauthorized_modal') }
 export function UnfollowModal() { return import(/* webpackChunkName: "components/unfollow_modal" */'../../../components/modal/unfollow_modal') }
 export function UserInfoPopover() { return import(/* webpackChunkName: "components/user_info_popover" */'../../../components/popover/user_info_popover') }
