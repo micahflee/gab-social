@@ -64,7 +64,7 @@ export const expandGabTrendsFeed = (feedId) => (dispatch, getState) => {
 
   dispatch(expandGabTrendsFeedRequest(feedId))
 
-  const url = `http://trends.gab.com/feed/${feedId}?fmt=json&p=${page}`
+  const url = `https://trends.gab.com/feed/${feedId}?fmt=json&p=${page}`
   // api(getState).get(`/api/v1/gab_trends?type=rss&page=${page}&feedId=${feedId}`).then((response) => {
   axios.get(url).then((response) => {
     dispatch(expandGabTrendsFeedSuccess(response.data.rssFeedItems, feedId, response.data.pagination.p))

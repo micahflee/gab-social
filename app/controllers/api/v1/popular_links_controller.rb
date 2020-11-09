@@ -43,7 +43,7 @@ class Api::V1::PopularLinksController < Api::BaseController
       cards = PreviewCard.joins("LEFT JOIN preview_cards_statuses ON preview_cards.id = preview_cards_statuses.preview_card_id")
                     .where('preview_cards_statuses.preview_card_id IS NOT NULL')
                     .where('preview_cards_statuses.status_id IN (?)', statusIds)
-                    .having('COUNT(preview_cards_statuses.preview_card_id) > 2')
+                    .having('COUNT(preview_cards_statuses.preview_card_id) > 1')
                     .where('preview_cards.updated_at > ?', 24.hours.ago)
                     .order('COUNT(preview_cards_statuses.preview_card_id) DESC')
                     .group('preview_cards.id')
