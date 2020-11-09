@@ -18,14 +18,14 @@ class SidebarPanelGroup extends React.PureComponent {
       promotions,
     } = this.props
 
-    if (!!promotions && promotions.count() > 0 && Array.isArray(layout) && !!me) {
+    if (Array.isArray(promotions) && Array.isArray(layout) && !!me) {
       const sidebarPromotionPageId = `${page}.sidebar`
-      const promotion = promotions.find((p) => p.get('timeline_id') === sidebarPromotionPageId)
+      const promotion = promotions.find((promotion) => promotion.timeline_id === sidebarPromotionPageId)
 
       if (!!promotion) {
-        const correctedPosition = promotion.get('position') - 1 > layout.length ? layout.length - 1 : promotion.get('position')
+        const correctedPosition = promotion.position - 1 > layout.length ? layout.length - 1 : promotion.position
         if (!layout.find(p => p.key === 'status-promotion-panel')) {
-          layout.splice(correctedPosition, 0, <WrappedBundle key='status-promotion-panel' component={StatusPromotionPanel} componentParams={{ statusId: promotion.get('status_id') }} />)
+          layout.splice(correctedPosition, 0, <WrappedBundle key='status-promotion-panel' component={StatusPromotionPanel} componentParams={{ statusId: promotion.status_id }} />)
         }
       }
     }

@@ -49,13 +49,13 @@ class StatusList extends ImmutablePureComponent {
       promotions,
     } = this.props
   
-    if (!!promotions && promotions.count() > 0) {
+    if (Array.isArray(promotions)) {
       promotions.forEach((promotion) => {
         
-        if (promotion.get('timeline_id') === timelineId &&
-            statusIds.count() >= promotion.get('position') &&
-            !promotedStatuses[promotion.get('status_id')]) {
-          onFetchStatus(promotion.get('status_id'))
+        if (promotion.timeline_id === timelineId &&
+            statusIds.count() >= promotion.position &&
+            !promotedStatuses[promotion.status_id]) {
+          onFetchStatus(promotion.status_id)
         }
 
       })
@@ -203,13 +203,13 @@ class StatusList extends ImmutablePureComponent {
             />
           )
         } else {
-          if (!!promotions && promotions.count() > 0) {
-            const promotion = promotions.find((p) => (p.get('position') === i && p.get('timeline_id') === timelineId))
+          if (Array.isArray(promotions)) {
+            const promotion = promotions.find((promotion) => (promotion.position === i && promotion.timeline_id === timelineId))
             if (promotion) {
               scrollableContent.push(
                 <StatusContainer
-                  key={`promotion-${i}-${promotion.get('status_id')}`}
-                  id={promotion.get('status_id')}
+                  key={`promotion-${i}-${promotion.status_id}`}
+                  id={promotion.status_id}
                   onMoveUp={this.handleMoveUp}
                   onMoveDown={this.handleMoveDown}
                   contextType={timelineId}
@@ -350,10 +350,10 @@ const mapStateToProps = (state, { timelineId }) => {
     id: timelineId
   })
 
-  const promotedStatuses = (!!promotions && promotions.count() > 0) ?
+  const promotedStatuses = Array.isArray(promotions) ?
     promotions.map((promotion) => {
       const s = {}
-      s[promotion.get('status_id')] = state.getIn(['statuses', promotion.get('status_id')])
+      s[promotion.status_id] = state.getIn(['statuses', promotion.status_id])
       return s
     }) : []
 
