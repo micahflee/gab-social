@@ -6,6 +6,10 @@ class Api::V1::GabTrendsController < Api::BaseController
   skip_before_action :set_cache_headers
 
   def index
+    if Rails.env != 'development'
+      render json: nil
+    end
+
     type = params[:type]
     if type == 'feed'
       body = Redis.current.get("gabtrends:feed")
@@ -65,7 +69,7 @@ class Api::V1::GabTrendsController < Api::BaseController
       body = Redis.current.get("gabtrends:feeds")
       
       if body.nil? || body.empty?
-        Request.new(:get, "https://trends.gab.com/feed/5f97577c9b4a496b7e810354?fmt=json").perform do |res|
+        Request.new(:get, "https://trends.gab.com/feed/#{params[:feedId]}?fmt=json&p=#{params[:page]}").perform do |res|
           Rails.logger.debug "GabTrendsController: #{type} endpoint res code: #{res.code.to_s}"
           if res.code == 200
             body = res.body_with_limit
