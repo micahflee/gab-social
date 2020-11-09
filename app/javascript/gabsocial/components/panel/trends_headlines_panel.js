@@ -21,11 +21,11 @@ class TrendsHeadlinesPanel extends ImmutablePureComponent {
     } = this.props
   
     const count = !!items ? items.count() : 0
-    const trendsLeadlineTitle = trendsLeadline.get('title')
-    const trendsLeadlineImage = trendsLeadline.get('image')
-    const trendsLeadlineUrl = trendsLeadline.get('trends_url')
+    const trendsLeadlineTitle = trendsLeadline ? trendsLeadline.get('title') : null
+    const trendsLeadlineImage = trendsLeadline ? trendsLeadline.get('image') : null
+    const trendsLeadlineUrl = trendsLeadline ? trendsLeadline.get('trends_url') : null
 
-    if ((count === 0 && isFetched) && (!trendsLeadlineTitle || !trendsLeadlineTitle || !trendsLeadlineTitle)) return null
+    if ((count === 0 && isFetched) && (!trendsLeadlineImage || !trendsLeadlineTitle || !trendsLeadlineTitle)) return null
 
     const leadlineButtonClasses = CX({
       d: 1,
@@ -64,18 +64,21 @@ class TrendsHeadlinesPanel extends ImmutablePureComponent {
             </Button>
           ))
         }
-        <Button
-          noClasses
-          href={''}
-          className={leadlineButtonClasses}
-        >
-          <Image
-            src='https://trends.gab.com/image/5fa5d8badf30e602384b08ed'
-          />
-          <Text className={[_s.px15, _s.py15, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
-            Lawsuit: At Least 21K Dead People on Pennsylvania Voter Rolls
-          </Text>
-        </Button>
+        {
+          !!trendsLeadlineImage && !!trendsLeadlineTitle && trendsLeadlineUrl &&
+          <Button
+            noClasses
+            href={trendsLeadlineUrl}
+            className={leadlineButtonClasses}
+          >
+            <Image
+              src={trendsLeadlineImage}
+            />
+            <Text className={[_s.px15, _s.py15, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
+              {trendsLeadlineTitle}
+            </Text>
+          </Button>
+        }
       </PanelLayout>
     )
   }
@@ -85,7 +88,7 @@ const mapStateToProps = (state) => ({
   isLoading: state.getIn(['news', 'trends_headlines', 'isLoading']),
   isFetched: state.getIn(['news', 'trends_headlines', 'isFetched']),
   items: state.getIn(['news', 'trends_headlines', 'items']),
-  trendsLeadline: state.getIn(['news', 'trends_leadline']),
+  trendsLeadline: state.getIn(['news', 'trends_leadline', 'items']),
 })
 
 TrendsHeadlinesPanel.propTypes = {

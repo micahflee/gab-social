@@ -1,6 +1,7 @@
 import api from '../api'
 import axios from 'axios'
 import { importFetchedStatuses } from './importer'
+import { TRENDS_RSS_SOURCES } from '../constants'
 
 export const GAB_TRENDS_FETCH_REQUEST = 'GAB_TRENDS_FETCH_REQUEST'
 export const GAB_TRENDS_FETCH_SUCCESS = 'GAB_TRENDS_FETCH_SUCCESS'
@@ -54,36 +55,40 @@ const fetchGabTrendsFail = (error) => ({
 /**
  * 
  */
-export const expandGabTrendsFeed = (feedId, page = 0) => (dispatch, getState) => {
-  dispatch(expandGabTrendsFeedRequest(feedId, page))
+export const expandGabTrendsFeed = (feedId) => (dispatch, getState) => {
+  if (!feedId) return
+  const exists = !!TRENDS_RSS_SOURCES.find((block) => block.id === feedId)
+  if (!exists) return
 
-  // const url = `http://trends.gab.com/feed/${feedId}?fmt=json`
-  api(getState).get(`/api/v1/gab_trends?type=rss`).then((response) => {
+  const page = getState().getIn(['news', 'trends_feeds', `${feedId}`, 'curPage'], 0) + 1
+
+  dispatch(expandGabTrendsFeedRequest(feedId))
+
+  // const url = `http://trends.gab.com/feed/${feedId}?fmt=json&p=${page}`
+  api(getState).get(`/api/v1/gab_trends?type=rss&page=${page}&feedId=${feedId}`).then((response) => {
   // axios.get(url).then((response) => {
-    dispatch(expandGabTrendsFeedSuccess(response.data, feedId, page))
+    dispatch(expandGabTrendsFeedSuccess(response.data.rssFeedItems, feedId, response.data.pagination.p))
   }).catch((error) => {
-    dispatch(expandGabTrendsFeedFail(error, feedId, page))
+    dispatch(expandGabTrendsFeedFail(error, feedId))
   })
 }
 
-const expandGabTrendsFeedRequest = (feedId, page) => ({
+const expandGabTrendsFeedRequest = (feedId) => ({
   type: GAB_TREND_FEED_EXPAND_REQUEST,
   feedId,
-  page,
 })
 
-const expandGabTrendsFeedSuccess = (items, feedId, page) => ({
+const expandGabTrendsFeedSuccess = (items, feedId, curPage) => ({
   type: GAB_TREND_FEED_EXPAND_SUCCESS,
   items,
   feedId,
-  page,
+  curPage,
 })
 
-const expandGabTrendsFeedFail = (error, feedId, page) => ({
+const expandGabTrendsFeedFail = (error, feedId) => ({
   type: GAB_TREND_FEED_EXPAND_FAIL,
   error,
   feedId,
-  page,
 })
 
 /**

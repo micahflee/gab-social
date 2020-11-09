@@ -25,11 +25,7 @@ const defaultMap = ImmutableMap({
 })
 
 const initialState = ImmutableMap({
-  trends_leadline: ImmutableMap({
-    title: null,
-    image: null,
-    trends_url: null,
-  }),
+  trends_leadline: ImmutableMap(),
   trends_headlines: defaultMap,
   trends_breaking: defaultMap,
   gab_news: defaultMap,
@@ -72,7 +68,9 @@ const normalizeNewsItem = (item) => {
 
 const setStateKeysOnRequest = (state, keys) => {
   return state.withMutations((map) => {
-    keys.map((key) => map.setIn([key, 'isLoading'], true))
+    keys.map((key) => {
+      map.setIn([key, 'isLoading'], true)
+    })
   })
 }
 
@@ -107,19 +105,18 @@ export default function (state = initialState, action) {
       try {
         trendsFetchData.trends_headlines = ImmutableList(action.items.trends.leadHeadlines.map((item) => normalizeHeadlineItem(item)))
         trendsFetchData.trends_breaking = ImmutableList(action.items.trends.rssFeedItems.map((item) => normalizeTrendsItem(item)))
+        trendsFetchData.trends_leadline = ImmutableMap({
+          title: action.items.trends.headline.title,
+          image: `https://trends.gab.com/image/${action.items.trends.headline.image._id}`,
+          trends_url: `https://trends.gab.com/trend?url=${action.items.trends.headline.href}`,
+        })
       } catch (error) {
         trendsFetchData = {
           breakingItems: ImmutableList(),
           headlineItems: ImmutableList(),
+          trends_leadline: ImmutableMap(),
         }
       }
-      // : todo :
-      // trends_leadline: ImmutableMap({
-      //   title: null,
-      //   image: null,
-      //   trends_url: null,
-      // }),
-
       return setStateKeysOnSuccess(state, trendsFetchData)
 
     // 
@@ -148,13 +145,48 @@ export default function (state = initialState, action) {
       try {
         latestGabNewsData.gab_news = ImmutableList(action.items.map((item) => normalizeNewsItem(item)))
       } catch (error) {
-        console.log("news reducer error: ", error)
         latestGabNewsData = {
           gab_news: ImmutableList(),
         }
       }
       return setStateKeysOnSuccess(state, latestGabNewsData)
       
+    //
+    case GAB_TREND_FEED_EXPAND_REQUEST:
+      return state.withMutations((map) => {
+        const exists = !!map.getIn(['trends_feeds', `${action.feedId}`], null)
+        if (!exists) {
+          map.setIn(['trends_feeds', `${action.feedId}`], ImmutableMap({
+            isLoading: false,
+            isFetched: false,
+            items: ImmutableList(),
+          }))
+        } else {
+          map.setIn(['trends_feeds', `${action.feedId}`, 'isLoading'], true)
+        }
+      })
+    case GAB_TREND_FEED_EXPAND_FAIL:
+      return state.withMutations((map) => {
+        map.setIn(['trends_feeds', `${action.feedId}`], ImmutableMap({
+          isLoading: false,
+          isFetched: true,
+          items: ImmutableList(),
+        }))
+      })
+    case GAB_TREND_FEED_EXPAND_SUCCESS:
+      let latestGabTrendFeedData = []
+      try {
+        latestGabTrendFeedData = state.getIn(['trends_feeds', `${action.feedId}`, 'items']).concat(action.items.map((item) => normalizeTrendsItem(item)))
+      } catch (error) {
+        latestGabTrendFeedData = ImmutableList()
+      }
+      
+      return state.withMutations((map) => {
+        map.setIn(['trends_feeds', `${action.feedId}`, 'isLoading'], false)
+        map.setIn(['trends_feeds', `${action.feedId}`, 'isFetched'], true)
+        map.setIn(['trends_feeds', `${action.feedId}`, 'curPage'], action.curPage)
+        map.setIn(['trends_feeds', `${action.feedId}`, 'items'], latestGabTrendFeedData)
+      })
     default:
       return state
   }
