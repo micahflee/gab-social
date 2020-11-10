@@ -101,7 +101,7 @@ export const fetchGabNews = () => (dispatch, getState) => {
 
   dispatch(fetchGabNewsRequest())
   
-  const url = 'https://news.gab.com/feed/json'
+  const url = 'https://news.gab.com/feed/?feed=json'
   // api(getState).get(`/api/v1/gab_trends?type=news`).then((response) => {
     axios.get(url).then((response) => {
     dispatch(fetchGabNewsSuccess(response.data.items))
