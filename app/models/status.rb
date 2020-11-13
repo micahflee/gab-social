@@ -308,7 +308,8 @@ class Status < ApplicationRecord
     end
 
     def as_group_timeline(group)
-      where(group: group).without_replies
+      query = where('updated_at > ?', 5.days.ago)
+      query.where(group: group).without_replies
     end
 
     def as_group_collection_timeline(groupIds)
