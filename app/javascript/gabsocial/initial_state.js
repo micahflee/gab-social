@@ -20,7 +20,6 @@ export const isStaff = getMeta('is_staff');
 export const unreadCount = getMeta('unread_count');
 export const lastReadNotificationId = getMeta('last_read_notification_id');
 export const monthlyExpensesComplete = getMeta('monthly_expenses_complete');
-export const favouritesCount = getMeta('favourites_count');
 export const isFirstSession = getMeta('is_first_session');
 export const emailConfirmed = getMeta('email_confirmed');
 export const meEmail = getMeta('email');

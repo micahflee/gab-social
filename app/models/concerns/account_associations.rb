@@ -7,16 +7,11 @@ module AccountAssociations
     # Local users
     has_one :user, inverse_of: :account, dependent: :destroy
 
-    # Identity proofs
-    has_many :identity_proofs, class_name: 'AccountIdentityProof', dependent: :destroy, inverse_of: :account
-
     # Timelines
-    has_many :stream_entries, inverse_of: :account, dependent: :destroy
     has_many :statuses, inverse_of: :account, dependent: :destroy
     has_many :favourites, inverse_of: :account, dependent: :destroy
     has_many :mentions, inverse_of: :account, dependent: :destroy
     has_many :notifications, inverse_of: :account, dependent: :destroy
-    has_many :conversations, class_name: 'AccountConversation', dependent: :destroy, inverse_of: :account
     has_many :scheduled_statuses, inverse_of: :account, dependent: :destroy
 
     # Pinned statuses
@@ -26,10 +21,6 @@ module AccountAssociations
     # Pinned statuses
     has_many :status_pins, inverse_of: :account, dependent: :destroy
     has_many :pinned_statuses, -> { reorder('status_pins.created_at DESC') }, through: :status_pins, class_name: 'Status', source: :status
-
-    # Endorsements
-    has_many :account_pins, inverse_of: :account, dependent: :destroy
-    has_many :endorsed_accounts, through: :account_pins, class_name: 'Account', source: :target_account
 
     # Media
     has_many :media_attachments, dependent: :destroy
@@ -63,7 +54,6 @@ module AccountAssociations
 
     # Hashtags
     has_and_belongs_to_many :tags
-    has_many :featured_tags, -> { includes(:tag) }, dependent: :destroy, inverse_of: :account
 
     # Billing
     has_many :transactions, class_name: 'Transaction', dependent: :destroy, inverse_of: :account

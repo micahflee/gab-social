@@ -12,19 +12,38 @@ import MediaGalleryPanelPlaceholder from '../placeholder/media_gallery_panel_pla
 
 class MediaGalleryPanel extends ImmutablePureComponent {
 
+  state = {
+    fetched: false,
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.shouldLoad && !prevState.fetched) {
+      return { fetched: true }
+    }
+
+    return null
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevState.fetched && this.state.fetched && this.props.isLazy) {
+      this.props.dispatch(expandAccountMediaTimeline(this.props.accountId, { limit: 8 }))
+    }
+  }
+
   componentDidMount() {
-    const { accountId } = this.props
+    const { accountId, isLazy } = this.props
 
-    if (accountId && accountId !== -1) {
+    if (!isLazy && !!accountId && accountId !== -1) {
       this.props.dispatch(expandAccountMediaTimeline(accountId, { limit: 8 }))
+      this.setState({ fetched: true })
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.accountId && nextProps.accountId !== this.props.accountId) {
-      this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId, { limit: 8 }))
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (nextProps.accountId && nextProps.accountId !== this.props.accountId) {
+  //     this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId, { limit: 8 }))
+  //   }
+  // }
 
   render() {
     const {
@@ -33,8 +52,9 @@ class MediaGalleryPanel extends ImmutablePureComponent {
       intl,
       isLoading,
     } = this.props
+    const { fetched } = this.state
 
-    if (!attachments) return null
+    if (!attachments && fetched) return null
 
     return (
       <PanelLayout

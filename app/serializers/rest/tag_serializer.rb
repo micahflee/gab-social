@@ -6,6 +6,6 @@ class REST::TagSerializer < ActiveModel::Serializer
   attributes :name, :url, :history
 
   def url
-    tag_url(object)
+    "/tags/#{object.name}"
   end
 end

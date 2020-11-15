@@ -25,16 +25,11 @@ class Block < ApplicationRecord
   end
 
   after_commit :remove_blocking_cache
-  before_validation :set_uri, only: :create
 
   private
 
   def remove_blocking_cache
     Rails.cache.delete("exclude_account_ids_for:#{account_id}")
     Rails.cache.delete("exclude_account_ids_for:#{target_account_id}")
-  end
-
-  def set_uri
-    self.uri = ActivityPub::TagManager.instance.generate_uri_for(self) if uri.nil?
   end
 end

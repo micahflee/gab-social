@@ -1,0 +1,16 @@
+- the_title = t('statuses.title', name: display_name(account), quote: truncate(status.spoiler_text.presence || stream_entry.activity.text, length: 50, omission: '…', escape: false))
+
+- content_for :page_title do
+  = the_title
+
+- content_for :header_tags do
+  - if account.user&.setting_noindex
+    %meta{ name: 'robots', content: 'noindex' }/
+
+  = opengraph 'og:site_name', site_title
+  = opengraph 'og:type', 'article'
+  = opengraph 'og:title', the_title
+  = opengraph 'og:url', short_account_status_url(account, status)
+
+  = render 'statuses/og_description', status: status, account: account
+  = render 'statuses/og_image', status: status, account: account

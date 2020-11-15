@@ -7,8 +7,6 @@ class Api::V1::MediaController < Api::BaseController
   include ObfuscateFilename
   obfuscate_filename :file
 
-  respond_to :json
-
   def create
     @media = current_account.media_attachments.create!(account: current_account, file: media_params[:file], description: media_params[:description], focus: media_params[:focus])
     render json: @media, serializer: REST::MediaAttachmentSerializer

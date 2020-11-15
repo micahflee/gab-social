@@ -5,7 +5,6 @@ module.exports = {
     browser: true,
     node: true,
     es6: true,
-    jest: true,
   },
 
   globals: {
@@ -199,8 +198,6 @@ module.exports = {
       {
         devDependencies: [
           'config/webpack/**',
-          'app/javascript/gabsocial/test_setup.js',
-          'app/javascript/**/__tests__/**',
         ],
       },
     ],

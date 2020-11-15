@@ -7,11 +7,13 @@ class Api::V1::Statuses::PinsController < Api::BaseController
   before_action :require_user!
   before_action :set_status
 
-  respond_to :json
-
   def create
     StatusPin.create!(account: current_account, status: @status)
     render json: @status, serializer: REST::StatusSerializer
+  end
+
+  def show
+    # is status pinned by user?
   end
 
   def destroy

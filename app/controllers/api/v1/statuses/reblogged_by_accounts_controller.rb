@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
-class Api::V1::Statuses::RebloggedByAccountsController < Api::BaseController
+class Api::V1::Statuses::RepostedByAccountsController < Api::BaseController
   include Authorization
 
   before_action -> { authorize_if_got_token! :read, :'read:accounts' }
   before_action :set_status
   after_action :insert_pagination_headers
-
-  respond_to :json
 
   def index
     @accounts = load_accounts
@@ -38,13 +36,13 @@ class Api::V1::Statuses::RebloggedByAccountsController < Api::BaseController
 
   def next_path
     if records_continue?
-      api_v1_status_reblogged_by_index_url pagination_params(max_id: pagination_max_id)
+      api_v1_status_reposted_by_index_url pagination_params(max_id: pagination_max_id)
     end
   end
 
   def prev_path
     unless @accounts.empty?
-      api_v1_status_reblogged_by_index_url pagination_params(since_id: pagination_since_id)
+      api_v1_status_reposted_by_index_url pagination_params(since_id: pagination_since_id)
     end
   end
 

@@ -10,6 +10,17 @@ export const POPULAR_LINKS_FETCH_FAIL = 'POPULAR_LINKS_FETCH_FAIL'
 
 export const IMPORT_LINK_CARDS = 'IMPORT_LINK_CARDS'
 
+/**
+ * 
+ */
+export const importLinkCards = (cards) => ({
+  type: IMPORT_LINK_CARDS,
+  cards,
+})
+
+/**
+ * 
+ */
 export const fetchLinkCard = (cardId) => (dispatch, getState) => {
   //If card exists, don't refetch
   const card = getState().getIn(['links', 'items', `${cardId}`])
@@ -39,11 +50,9 @@ export const fetchLinkCardFail = (error, cardId) => ({
   cardId,
 })
 
-export const importLinkCards = (cards) => ({
-  type: IMPORT_LINK_CARDS,
-  cards,
-})
-
+/**
+ * 
+ */
 export const fetchPopularLinks = () => (dispatch, getState) => {
   const isFetched = getState().getIn(['links', 'popular', 'isFetched'], false)
   if (isFetched) return
@@ -56,16 +65,16 @@ export const fetchPopularLinks = () => (dispatch, getState) => {
   .catch((err) => dispatch(fetchPopularLinksFail(err)))
 }
 
-export const fetchPopularLinksRequest = () => ({
+const fetchPopularLinksRequest = () => ({
   type: POPULAR_LINKS_FETCH_REQUEST,
 })
 
-export const fetchPopularLinksSuccess = (cards) => ({
+const fetchPopularLinksSuccess = (cards) => ({
   type: POPULAR_LINKS_FETCH_SUCCESS,
   cards,
 })
 
-export const fetchPopularLinksFail = (error) => ({
+const fetchPopularLinksFail = (error) => ({
   type: POPULAR_LINKS_FETCH_FAIL,
   error,
 })

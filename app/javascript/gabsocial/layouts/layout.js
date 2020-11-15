@@ -40,13 +40,15 @@ class Layout extends React.PureComponent {
       title,
     } = this.props
 
+    const noPaddingPages = ['group', 'messages']
+    const hasPadding = noPaddingPages.indexOf(page) === -1
     const mainBlockClasses = CX({
       d: 1,
       w1015PX: 1,
       flexRow: 1,
       jcEnd: 1,
-      py15: page !== 'group',
-      pb15: page === 'group',
+      py15: hasPadding,
+      pb15: hasPadding,
     })
 
     return (

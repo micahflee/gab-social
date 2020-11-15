@@ -5,8 +5,6 @@ class Api::V1::Accounts::FollowingAccountsController < Api::BaseController
   before_action :set_account
   after_action :insert_pagination_headers
 
-  respond_to :json
-
   def index
     @accounts = load_accounts
     render json: @accounts, each_serializer: REST::AccountSerializer
@@ -25,6 +23,7 @@ class Api::V1::Accounts::FollowingAccountsController < Api::BaseController
   end
 
   def hide_results?
+    # : todo : where tf is this?
     (@account.user_hides_network? && current_account.id != @account.id) || (current_account && @account.blocking?(current_account))
   end
 

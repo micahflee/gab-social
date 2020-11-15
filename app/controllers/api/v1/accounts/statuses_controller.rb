@@ -5,11 +5,12 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   before_action :set_account
   after_action :insert_pagination_headers
 
-  respond_to :json
-
   def index
     @statuses = load_statuses
-    render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
+    render json: @statuses,
+           each_serializer: REST::StatusSerializer,
+           account_id: params[:account_id],
+           relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 
   private

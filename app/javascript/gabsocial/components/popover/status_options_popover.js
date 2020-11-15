@@ -14,8 +14,6 @@ import {
   unbookmark,
 } from '../../actions/interactions';
 import {
-  muteStatus,
-  unmuteStatus,
   deleteStatus,
   editStatus,
 } from '../../actions/statuses';
@@ -27,7 +25,6 @@ import {
   pinGroupStatus,
   unpinGroupStatus,
 } from '../../actions/groups'
-import { initMuteModal } from '../../actions/mutes'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
 import {
@@ -35,7 +32,6 @@ import {
   openPopover,
 } from '../../actions/popover'
 import {
-  MODAL_EMBED,
   MODAL_PRO_UPGRADE,
   POPOVER_STATUS_SHARE,
 } from '../../constants'
@@ -57,11 +53,10 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   componentDidMount() {
     if (!this.props.groupRelationships && this.props.groupId) {
       this.props.onFetchGroupRelationships(this.props.groupId)
+      // : todo :
+      // check if pin
+      // check if bookmark
     }
-  }
-
-  handleConversationMuteClick = () => {
-    this.props.onMuteConversation(this.props.status)
   }
 
   handleGroupRemoveAccount = () => {
@@ -144,15 +139,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     let menu = []
 
     if (me) {
-      if (status.getIn(['account', 'id']) === me) {
-        menu.push({
-          icon: 'audio-mute',
-          hideArrow: true,
-          title: intl.formatMessage(mutingConversation ? messages.unmuteConversation : messages.muteConversation),
-          onClick: this.handleConversationMuteClick,
-        })
-      }
-
       if (isReply) {
         menu.push({
           icon: 'repost',
@@ -296,8 +282,6 @@ const messages = defineMessages({
   cannot_quote: { id: 'status.cannot_quote', defaultMessage: 'This post cannot be quoted' },
   like: { id: 'status.like', defaultMessage: 'Like' },
   report: { id: 'status.report', defaultMessage: 'Report @{name}' },
-  muteConversation: { id: 'status.mute_conversation', defaultMessage: 'Mute conversation' },
-  unmuteConversation: { id: 'status.unmute_conversation', defaultMessage: 'Unmute conversation' },
   pin: { id: 'status.pin', defaultMessage: 'Pin on profile' },
   unpin: { id: 'status.unpin', defaultMessage: 'Unpin from profile' },
   groupPin: { id: 'status.group_pin', defaultMessage: 'Pin in group' },
@@ -326,16 +310,6 @@ const mapStateToProps = (state, { status }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-
-  onMuteConversation(status) {
-    dispatch(closePopover())
-
-    if (status.get('muted')) {
-      dispatch(unmuteStatus(status.get('id')))
-    } else {
-      dispatch(muteStatus(status.get('id')))
-    }
-  },
 
   onPin(status) {
     dispatch(closePopover())
@@ -411,11 +385,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(editStatus(status))
   },
 
-  onMute(account) {
-    dispatch(closePopover())
-    dispatch(initMuteModal(account))
-  },
-
   onBlock(status) {
     dispatch(closePopover())
     const account = status.get('account')
@@ -480,11 +449,9 @@ StatusOptionsPopover.propTypes = {
   onMute: PropTypes.func.isRequired,
   onBlock: PropTypes.func.isRequired,
   onReport: PropTypes.func.isRequired,
-  onMuteConversation: PropTypes.func.isRequired,
   onPin: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   onFetchGroupRelationships: PropTypes.func.isRequired,
-  onOpenEmbedModal: PropTypes.func.isRequired,
   onOpenProUpgradeModal: PropTypes.func.isRequired,
   onClosePopover: PropTypes.func.isRequired,
   isXS: PropTypes.bool,

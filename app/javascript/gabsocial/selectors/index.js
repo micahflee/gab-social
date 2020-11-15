@@ -78,6 +78,7 @@ export const makeGetStatus = () => {
     [
       (state) => state,
       (state, { id }) => state.getIn(['statuses', id]),
+      (state, { id }) => state.getIn(['groups', state.getIn(['statuses', id, 'group'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
@@ -87,7 +88,7 @@ export const makeGetStatus = () => {
       getFilters,
     ],
 
-    (state, statusBase, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
+    (state, statusBase, group, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
       if (!statusBase) {
         return null
       }
@@ -122,16 +123,20 @@ export const makeGetStatus = () => {
         quotedStatus = quotedStatus.set('account', accountQuoted);
       }
 
+
+      console.log("group:", group)
+
       //Find ancestor status
 
       const regex = (accountRepost || accountBase).get('id') !== me && regexFromFilters(filters);
       const filtered = regex && regex.test(statusBase.get('reblog') ? statusRepost.get('search_index') : statusBase.get('search_index'));
 
-      return statusBase.withMutations(map => {
+      return statusBase.withMutations((map) => {
         map.set('quoted_status', quotedStatus);
         map.set('reblog', statusRepost);
         map.set('account', accountBase);
         map.set('filtered', filtered);
+        map.set('group', group);
       });
     }
   );

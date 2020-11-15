@@ -7,8 +7,6 @@ class Api::V1::Groups::PasswordController < Api::BaseController
   before_action :require_user!
   before_action :set_group
 
-  respond_to :json
-
   def create
     authorize @group, :join?
 

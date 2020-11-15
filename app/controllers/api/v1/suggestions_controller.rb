@@ -6,13 +6,11 @@ class Api::V1::SuggestionsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :read }
   before_action :require_user!
 
-  respond_to :json
-
   def index
     type = params[:type]
 
     if type == 'related'
-      count = truthy_param?(:unlimited) ? 80 : 10
+      count = truthy_param?(:unlimited) ? PotentialFriendshipTracker::MAX_ITEMS : 10
       @accounts = PotentialFriendshipTracker.get(current_account.id, limit: count)
       render json: @accounts, each_serializer: REST::AccountSerializer
     elsif type == 'verified'

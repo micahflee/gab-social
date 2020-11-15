@@ -14,7 +14,6 @@ class Api::V1::Accounts::CredentialsController < Api::BaseController
     @account = current_account
     UpdateAccountService.new.call(@account, account_params, raise_error: true)
     UserSettingsDecorator.new(current_user).update(user_settings_params) if user_settings_params
-    ActivityPub::UpdateDistributionWorker.perform_async(@account.id)
     render json: @account, serializer: REST::CredentialAccountSerializer
   end
 

@@ -9,7 +9,6 @@ class FollowService < BaseService
   # @param [true, false, nil] reblogs Whether or not to show reblogs, defaults to true
   def call(source_account, target_account, reblogs: nil)
     reblogs = true if reblogs.nil?
-    target_account = ResolveAccountService.new.call(target_account, skip_webfinger: true)
 
     raise ActiveRecord::RecordNotFound if target_account.nil? || target_account.id == source_account.id || target_account.suspended?
     raise GabSocial::NotPermittedError  if target_account.blocking?(source_account) || source_account.blocking?(target_account) || target_account.moved?
@@ -29,9 +28,9 @@ class FollowService < BaseService
 
     ActivityTracker.increment('activity:interactions')
 
-    if target_account.locked? || target_account.activitypub?
+    if target_account.locked?
       request_follow(source_account, target_account, reblogs: reblogs)
-    else
+    elsif target_account.local?
       direct_follow(source_account, target_account, reblogs: reblogs)
     end
   end

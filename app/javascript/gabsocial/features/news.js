@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import throttle from 'lodash.throttle'
 import { fetchPopularLinks } from '../actions/links'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import {
+  BREAKPOINT_EXTRA_SMALL,
+  LAZY_LOAD_SCROLL_OFFSET,
+} from '../constants'
 import Button from '../components/button'
 import Text from '../components/text'
 import TrendsItem from '../components/trends_item'
@@ -46,14 +49,12 @@ class News extends React.PureComponent {
     if (this.window) {
       const { scrollTop } = this.documentElement
       
-      if (scrollTop > 25 && !this.state.lazyLoaded) {
+      if (scrollTop > LAZY_LOAD_SCROLL_OFFSET && !this.state.lazyLoaded) {
         this.setState({ lazyLoaded: true })
         this.detachScrollListener()
       }
     }
-  }, 150, {
-    trailing: true,
-  })
+  }, 150, { trailing: true })
 
   render() {
     const { children } = this.props

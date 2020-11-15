@@ -107,6 +107,11 @@ export const importGroup = (group) => (dispatch) => {
   dispatch(fetchGroupSuccess(group))
 }
 
+export const importGroups = (groups) => (dispatch) => {
+  if (!Array.isArray(groups)) return
+  groups.map((group) => dispatch(fetchGroupSuccess(group)))
+}
+
 export const fetchGroup = (id) => (dispatch, getState) => {
   dispatch(fetchGroupRelationships([id]));
 

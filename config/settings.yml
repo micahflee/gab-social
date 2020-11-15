@@ -5,17 +5,10 @@ defaults: &defaults
   site_title: Gab Social
   site_short_description: ''
   site_description: ''
-  site_extended_description: ''
-  site_terms: ''
   site_contact_username: ''
   site_contact_email: ''
   registrations_mode: 'open'
-  profile_directory: true
-  closed_registrations_message: ''
-  open_deletion: true
   min_invite_role: 'admin'
-  timeline_preview: true
-  show_staff_badge: true
   default_sensitive: false
   hide_network: false
   unfollow_modal: false
@@ -25,8 +18,6 @@ defaults: &defaults
   display_media: 'default'
   expand_spoilers: false
   preview_sensitive_media: false
-  reduce_motion: false
-  show_application: true
   group_in_home_feed: true
   noindex: false
   theme: 'default'
@@ -39,7 +30,6 @@ defaults: &defaults
     follow_request: true
     digest: true
     report: true
-    pending_account: true
     emails_from_gabcom: true
   interactions:
     must_be_follower: false
@@ -92,11 +82,7 @@ defaults: &defaults
     - links
     - messages
     - message
-  disallowed_hashtags: # space separated string or list of hashtags without the hash
   bootstrap_timeline_accounts: ''
-  activity_api_enabled: true
-  peers_api_enabled: true
-  show_known_fediverse_at_about_page: true
 
 development:
   <<: *defaults

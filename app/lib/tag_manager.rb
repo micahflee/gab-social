@@ -39,9 +39,9 @@ class TagManager
 
     case target.object_type
     when :person
-      short_account_url(target)
+      "/#{target.username}"
     when :note, :comment, :activity
-      short_account_status_url(target.account, target)
+      "/#{target.account.username}/posts/#{target.id}"
     end
   end
 end

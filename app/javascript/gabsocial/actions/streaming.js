@@ -1,70 +1,73 @@
-import { connectStream } from '../stream';
+import { connectStream } from '../stream'
 import {
   deleteFromTimelines,
   connectTimeline,
   disconnectTimeline,
   updateTimelineQueue,
-} from './timelines';
-import { updateNotificationsQueue } from './notifications';
-import { updateConversations } from './conversations';
-import { fetchFilters } from './filters';
-import { getLocale } from '../locales';
-import { handleComposeSubmit } from './compose';
+} from './timelines'
+import { updateNotificationsQueue } from './notifications'
+import { fetchFilters } from './filters'
+import { getLocale } from '../locales'
+import { handleComposeSubmit } from './compose'
 
-const { messages } = getLocale();
+const { messages } = getLocale()
 
-export function connectTimelineStream (timelineId, path, pollingRefresh = null, accept = null) {
+/**
+ * 
+ */
+export const connectTimelineStream = (timelineId, path, pollingRefresh = null, accept = null) => {
 
   return connectStream (path, pollingRefresh, (dispatch, getState) => {
-    const locale = getState().getIn(['meta', 'locale']);
+    const locale = getState().getIn(['meta', 'locale'])
 
     return {
       onConnect() {
-        dispatch(connectTimeline(timelineId));
+        dispatch(connectTimeline(timelineId))
       },
-
       onDisconnect() {
-        dispatch(disconnectTimeline(timelineId));
+        dispatch(disconnectTimeline(timelineId))
       },
-
       onReceive (data) {
         switch(data.event) {
         case 'update':
-          dispatch(updateTimelineQueue(timelineId, JSON.parse(data.payload), accept));
-          break;
+          dispatch(updateTimelineQueue(timelineId, JSON.parse(data.payload), accept))
+          break
         case 'delete':
-          dispatch(deleteFromTimelines(data.payload));
-          break;
+          dispatch(deleteFromTimelines(data.payload))
+          break
         case 'notification':
-          dispatch(updateNotificationsQueue(JSON.parse(data.payload), messages, locale, window.location.pathname));
-          break;
-        case 'conversation':
-          dispatch(updateConversations(JSON.parse(data.payload)));
-          break;
+          dispatch(updateNotificationsQueue(JSON.parse(data.payload), messages, locale, window.location.pathname))
+          break
         case 'filters_changed':
-          dispatch(fetchFilters());
-          break;
+          dispatch(fetchFilters())
+          break
         }
       },
-    };
-  });
+    }
+  })
 }
 
-export const connectUserStream      = () => connectTimelineStream('home', 'user');
-export const connectProStream = () => connectTimelineStream('pro', 'pro');
-export const connectListStream      = id => connectTimelineStream(`list:${id}`, `list&list=${id}`);
-
+/**
+ * 
+ */
 export const connectStatusUpdateStream = () => {
+
   return connectStream('statuscard', null, (dispatch, getState) => {
+
     return {
       onConnect() {},
       onDisconnect() {},
       onReceive (data) {
-        if (!data['event'] || !data['payload']) return;
+        if (!data['event'] || !data['payload']) return
         if (data.event === 'update') {
           handleComposeSubmit(dispatch, getState, {data: JSON.parse(data.payload)}, null)
         }
       },
-    };
-  });
+    }
+  })
 }
+
+/**
+ * 
+ */
+export const connectUserStream = () => connectTimelineStream('home', 'user')

@@ -5,7 +5,10 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import throttle from 'lodash.throttle'
 import Sticky from 'react-stickynode'
 import { me } from '../initial_state'
-import { BREAKPOINT_EXTRA_SMALL } from '../constants'
+import {
+  BREAKPOINT_EXTRA_SMALL,
+  LAZY_LOAD_SCROLL_OFFSET,
+} from '../constants'
 import Layout from './layout'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
 import Responsive from '../features/ui/util/responsive_component'
@@ -43,14 +46,12 @@ class ExploreLayout extends ImmutablePureComponent {
     if (this.window) {
       const { scrollTop } = this.documentElement
       
-      if (scrollTop > 25 && !this.state.lazyLoaded) {
+      if (scrollTop > LAZY_LOAD_SCROLL_OFFSET && !this.state.lazyLoaded) {
         this.setState({ lazyLoaded: true })
         this.detachScrollListener()
       }
     }
-  }, 150, {
-    trailing: true,
-  })
+  }, 150, { trailing: true })
 
   render() {
     const { children, title } = this.props
@@ -67,7 +68,7 @@ class ExploreLayout extends ImmutablePureComponent {
       <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
     ]
     if (!!me) {
-      layout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ suggestionType: 'verified' }} />)
+      layout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, suggestionType: 'verified' }} />)
     }
     layout.push(<WrappedBundle component={TrendsBreakingPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />)
 

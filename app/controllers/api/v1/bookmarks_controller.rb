@@ -5,8 +5,6 @@ class Api::V1::BookmarksController < Api::BaseController
   before_action :require_user!
   after_action :insert_pagination_headers
 
-  respond_to :json
-
   def index
     @statuses = []
     if current_account.is_pro

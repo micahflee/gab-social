@@ -23,6 +23,7 @@ import { clearHeight } from '../../actions/height_cache'
 import { openModal } from '../../actions/modal'
 import WrappedRoute from './util/wrapped_route'
 import ModalRoot from '../../components/modal/modal_root'
+import ToastsContainer from '../../containers/toasts_container'
 import PopoverRoot from '../../components/popover/popover_root'
 import UploadArea from '../../components/upload_area'
 import ProfilePage from '../../pages/profile_page'
@@ -45,6 +46,8 @@ import ExplorePage from '../../pages/explore_page'
 import NewsPage from '../../pages/news_page'
 import AboutPage from '../../pages/about_page'
 import LinkPage from '../../pages/link_page'
+import MessagesPage from '../../pages/messages_page'
+import ComposePage from '../../pages/compose_page'
 
 import {
   About,
@@ -83,6 +86,7 @@ import {
   ListsDirectory,
   ListEdit,
   ListTimeline,
+  Messages,
   Mutes,
   News,
   NewsView,
@@ -190,11 +194,13 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={ExploreTimeline} content={children} componentParams={{ title: 'Explore' }} />
         <WrappedRoute path='/suggestions' exact page={BasicPage} component={Suggestions} content={children} componentParams={{ title: 'Suggestions' }} />
-
-        <WrappedRoute path='/compose' exact page={BasicPage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
+        <WrappedRoute path='/compose' exact page={ComposePage} component={Compose} content={children} componentParams={{ title: 'Compose', page: 'compose' }} />
 
         <WrappedRoute path='/news' exact publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
         <WrappedRoute path='/news/view/:trendsRSSId' page={NewsPage} component={NewsView} content={children} componentParams={{ title: 'News RSS Feed' }} />
+
+        <WrappedRoute path='/messages' exact page={MessagesPage} component={Messages} content={children} />
+        <WrappedRoute path='/messages/:conversationId' exact page={MessagesPage} component={Messages} content={children} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
@@ -234,7 +240,6 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/search' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/people' exact publicRoute page={SearchPage} component={Search} content={children} />
-        <WrappedRoute path='/search/hashtags' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/groups' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/statuses' exact publicRoute page={SearchPage} component={Search} content={children} />
         <WrappedRoute path='/search/links' exact page={SearchPage} component={Search} content={children} />
@@ -593,6 +598,8 @@ class UI extends React.PureComponent {
         <PopoverRoot />
 
         <UploadArea active={draggingOver} onClose={this.closeUploadModal} />
+
+        <ToastsContainer />
       </div>
     )
   }

@@ -2,8 +2,8 @@
 
 module Admin
   class AccountsController < BaseController
-    before_action :set_account, only: [:show, :subscribe, :unsubscribe, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject, :verify, :unverify, :add_donor_badge, :remove_donor_badge, :add_investor_badge, :remove_investor_badge, :edit_pro, :save_pro, :edit, :update]
-    before_action :require_remote_account!, only: [:subscribe, :unsubscribe, :redownload]
+    before_action :set_account, only: [:show, :redownload, :remove_avatar, :remove_header, :enable, :unsilence, :unsuspend, :memorialize, :approve, :reject, :verify, :unverify, :add_donor_badge, :remove_donor_badge, :add_investor_badge, :remove_investor_badge, :edit_pro, :save_pro, :edit, :update]
+    before_action :require_remote_account!, only: [:redownload]
     before_action :require_local_account!, only: [:enable, :memorialize, :approve, :reject]
 
     def index
@@ -17,18 +17,6 @@ module Admin
       @account_moderation_note = current_account.account_moderation_notes.new(target_account: @account)
       @moderation_notes        = @account.targeted_moderation_notes.latest
       @warnings                = @account.targeted_account_warnings.latest.custom
-    end
-
-    def subscribe
-      authorize @account, :subscribe?
-      Pubsubhubbub::SubscribeWorker.perform_async(@account.id)
-      redirect_to admin_account_path(@account.id)
-    end
-
-    def unsubscribe
-      authorize @account, :unsubscribe?
-      Pubsubhubbub::UnsubscribeWorker.perform_async(@account.id)
-      redirect_to admin_account_path(@account.id)
     end
 
     def memorialize
@@ -133,9 +121,6 @@ module Admin
 
     def redownload
       authorize @account, :redownload?
-
-      @account.update!(last_webfingered_at: nil)
-      ResolveAccountService.new.call(@account)
 
       redirect_to admin_account_path(@account.id)
     end

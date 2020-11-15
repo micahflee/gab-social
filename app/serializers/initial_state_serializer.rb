@@ -31,7 +31,6 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:unread_count]       = unread_count object.current_account
       store[:last_read_notification_id] = object.current_account.user.last_read_notification
       store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_amount") || 0
-      store[:favourites_count]   = object.current_account.favourites.count.to_s
       store[:is_first_session]   = is_first_session object.current_account
       store[:email_confirmed]    = object.current_account.user.confirmed?
       store[:email]              = object.current_account.user.confirmed? ? '[hidden]' : object.current_account.user.email
@@ -65,7 +64,7 @@ class InitialStateSerializer < ActiveModel::Serializer
   end
 
   private
-
+  
   def unread_count(account)
     last_read = account.user.last_read_notification || 0
     account.notifications.where("id > #{last_read}").count

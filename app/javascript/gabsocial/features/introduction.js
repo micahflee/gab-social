@@ -10,7 +10,7 @@ import {
   GAB_COM_INTRODUCE_YOURSELF_GROUP_ID,
 } from '../constants'
 import { me } from '../initial_state'
-import { saveShownOnboarding } from '../actions/onboarding'
+import { saveShownOnboarding } from '../actions/settings'
 import { fetchGroups } from '../actions/groups'
 import { saveUserProfileInformation } from '../actions/user'
 import { makeGetAccount } from '../selectors'

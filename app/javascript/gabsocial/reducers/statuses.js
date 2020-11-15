@@ -6,10 +6,9 @@ import {
   UNFAVORITE_REQUEST,
 } from '../actions/interactions';
 import {
-  STATUS_MUTE_SUCCESS,
-  STATUS_UNMUTE_SUCCESS,
   STATUS_REVEAL,
   STATUS_HIDE,
+  UPDATE_STATUS_STATS,
 } from '../actions/statuses';
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STATUS_IMPORT, STATUSES_IMPORT } from '../actions/importer';
@@ -46,10 +45,6 @@ export default function statuses(state = initialState, action) {
     return state.setIn([action.status.get('id'), 'reblogged'], true);
   case REPOST_FAIL:
     return state.get(action.status.get('id')) === undefined ? state : state.setIn([action.status.get('id'), 'reblogged'], false);
-  case STATUS_MUTE_SUCCESS:
-    return state.setIn([action.id, 'muted'], true);
-  case STATUS_UNMUTE_SUCCESS:
-    return state.setIn([action.id, 'muted'], false);
   case STATUS_REVEAL:
     return state.withMutations(map => {
       action.ids.forEach(id => {
@@ -68,6 +63,9 @@ export default function statuses(state = initialState, action) {
     });
   case TIMELINE_DELETE:
     return deleteStatus(state, action.id, action.references);
+  case UPDATE_STATUS_STATS:
+    // : todo :
+    return state;
   default:
     return state;
   }

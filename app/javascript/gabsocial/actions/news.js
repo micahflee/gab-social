@@ -30,7 +30,6 @@ export const fetchGabTrends = () => (dispatch, getState) => {
   dispatch(fetchGabTrendsRequest())
 
   const url = 'https://trends.gab.com/partner'
-  // api(getState).get(`/api/v1/gab_trends?type=partner`).then((response) => {
   axios.get(url).then((response) => {
     dispatch(fetchGabTrendsSuccess(response.data))
   }).catch((error) => {
@@ -65,7 +64,6 @@ export const expandGabTrendsFeed = (feedId) => (dispatch, getState) => {
   dispatch(expandGabTrendsFeedRequest(feedId))
 
   const url = `https://trends.gab.com/feed/${feedId}?fmt=json&p=${page}`
-  // api(getState).get(`/api/v1/gab_trends?type=rss&page=${page}&feedId=${feedId}`).then((response) => {
   axios.get(url).then((response) => {
     dispatch(expandGabTrendsFeedSuccess(response.data.rssFeedItems, feedId, response.data.pagination.p))
   }).catch((error) => {
@@ -102,8 +100,7 @@ export const fetchGabNews = () => (dispatch, getState) => {
   dispatch(fetchGabNewsRequest())
   
   const url = 'https://news.gab.com/feed/?feed=json'
-  // api(getState).get(`/api/v1/gab_trends?type=news`).then((response) => {
-    axios.get(url).then((response) => {
+  axios.get(url).then((response) => {
     dispatch(fetchGabNewsSuccess(response.data.items))
   }).catch((error) => {
     dispatch(fetchGabNewsFail(error))

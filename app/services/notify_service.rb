@@ -10,7 +10,6 @@ class NotifyService < BaseService
 
     create_notification!
     push_notification! if @notification.browserable?
-    push_to_conversation! if direct_message?
     send_email! if email_enabled?
   rescue ActiveRecord::RecordInvalid
     return
@@ -59,23 +58,8 @@ class NotifyService < BaseService
     @notification.type == :mention
   end
 
-  def direct_message?
-    message? && @notification.target_status.direct_visibility?
-  end
-
-  def response_to_recipient?
-    @notification.target_status.in_reply_to_account_id == @recipient.id && @notification.target_status.thread&.direct_visibility?
-  end
-
   def from_staff?
     @notification.from_account.local? && @notification.from_account.user.present? && @notification.from_account.user.staff?
-  end
-
-  def optional_non_following_and_direct?
-    direct_message? &&
-      @recipient.user.settings.interactions['must_be_following_dm'] &&
-      !following_sender? &&
-      !response_to_recipient?
   end
 
   def hellbanned?
@@ -86,34 +70,19 @@ class NotifyService < BaseService
     @recipient.id == @notification.from_account.id
   end
 
-  def domain_blocking?
-    @recipient.domain_blocking?(@notification.from_account.domain) && !following_sender?
-  end
-
   def blocked?
     blocked   = @recipient.suspended?                            # Skip if the recipient account is suspended anyway
     blocked ||= from_self? && @notification.type != :poll        # Skip for interactions with self
 
     return blocked if message? && from_staff?
 
-    blocked ||= domain_blocking?                                 # Skip for domain blocked accounts
     blocked ||= @recipient.blocking?(@notification.from_account) # Skip for blocked accounts
     blocked ||= @recipient.muting_notifications?(@notification.from_account)
     blocked ||= hellbanned?                                      # Hellban
     blocked ||= optional_non_follower?                           # Options
     blocked ||= optional_non_following?                          # Options
-    blocked ||= optional_non_following_and_direct?               # Options
-    blocked ||= conversation_muted?
     blocked ||= send("blocked_#{@notification.type}?")           # Type-dependent filters
     blocked
-  end
-
-  def conversation_muted?
-    if @notification.target_status
-      @recipient.muting_conversation?(@notification.target_status.conversation)
-    else
-      false
-    end
   end
 
   def create_notification!
@@ -125,11 +94,6 @@ class NotifyService < BaseService
 
     Redis.current.publish("timeline:#{@recipient.id}", Oj.dump(event: :notification, payload: InlineRenderer.render(@notification, @recipient, :notification)))
     send_push_notifications!
-  end
-
-  def push_to_conversation!
-    return if @notification.activity.nil?
-    AccountConversation.add_status(@recipient, @notification.target_status)
   end
 
   def send_push_notifications!

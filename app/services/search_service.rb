@@ -13,12 +13,9 @@ class SearchService < BaseService
     default_results.tap do |results|
       next if @query.blank? || @limit.zero?
 
-      if url_query?
-        results.merge!(url_resource_results) unless url_resource.nil? || @offset.positive? || (@options[:type].present? && url_resource_symbol != @options[:type].to_sym)
-      elsif @query.present?
+      if @query.present?
         results[:accounts] = perform_accounts_search! if account_searchable?
         results[:statuses] = perform_statuses_search! if full_text_searchable? && !account.nil?
-        results[:hashtags] = perform_hashtags_search! if hashtag_searchable? && !account.nil?
         results[:links] = [] # perform_links_search! if !account.nil?
         results[:groups] = perform_groups_search!
       end
@@ -77,31 +74,8 @@ class SearchService < BaseService
     []
   end
 
-  def perform_hashtags_search!
-    Tag.search_for(
-      @query.gsub(/\A#/, ''),
-      @offset
-    )
-  end
-
   def default_results
-    { accounts: [], hashtags: [], statuses: [], links: [], groups: [] }
-  end
-
-  def url_query?
-    @resolve && @query =~ /\Ahttps?:\/\//
-  end
-
-  def url_resource_results
-    { url_resource_symbol => [url_resource] }
-  end
-
-  def url_resource
-    @_url_resource ||= ResolveURLService.new.call(@query, on_behalf_of: @account)
-  end
-
-  def url_resource_symbol
-    url_resource.class.name.downcase.pluralize.to_sym
+    { accounts: [], statuses: [], links: [], groups: [] }
   end
 
   def full_text_searchable?
@@ -114,16 +88,8 @@ class SearchService < BaseService
     account_search? && !(@query.include?('@') && @query.include?(' '))
   end
 
-  def hashtag_searchable?
-    hashtag_search? && !@query.include?('@')
-  end
-
   def account_search?
     @options[:type].blank? || @options[:type] == 'accounts'
-  end
-
-  def hashtag_search?
-    @options[:type].blank? || @options[:type] == 'hashtags'
   end
 
   def statuses_search?
@@ -136,7 +102,6 @@ class SearchService < BaseService
       blocked_by: Account.blocked_by_map(account_ids, account.id),
       muting: Account.muting_map(account_ids, account.id),
       following: Account.following_map(account_ids, account.id),
-      domain_blocking_by_domain: Account.domain_blocking_map_by_domain(domains, account.id),
     }
   end
 end

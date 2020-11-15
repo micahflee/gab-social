@@ -10,7 +10,6 @@ class PollExpirationNotifyWorker
 
     # Notify poll owner and remote voters
     if poll.local?
-      ActivityPub::DistributePollUpdateWorker.perform_async(poll.status.id)
       NotifyService.new.call(poll.account, poll)
     end
 

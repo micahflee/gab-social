@@ -12,6 +12,7 @@
 #
 
 class Shortcut < ApplicationRecord
+  # : todo : enum 1,2, etc.
   # enum shortcut_type: {
   #   account: 'account', 
   #   group: 'group'

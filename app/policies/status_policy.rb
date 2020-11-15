@@ -42,7 +42,7 @@ class StatusPolicy < ApplicationPolicy
   private
 
   def requires_mention?
-    record.direct_visibility? || record.limited_visibility?
+    record.limited_visibility?
   end
 
   def owned?

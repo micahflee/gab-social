@@ -6,7 +6,6 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { withRouter } from 'react-router-dom'
 import { me } from '../initial_state'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
-import HashtagItem from '../components/hashtag_item'
 import GroupListItem from '../components/group_list_item'
 import Text from '../components/text'
 import Account from '../components/account'
@@ -60,14 +59,13 @@ class Search extends ImmutablePureComponent {
 
     const pathname = location.pathname || ''
     const showPeople = pathname === '/search/people'
-    const showHashtags = pathname === '/search/hashtags'
     const showGroups = pathname === '/search/groups'
     const showStatuses = pathname === '/search/statuses'
     const showLinks = pathname === '/search/links'
-    const isTop = !showPeople && !showHashtags && !showGroups && !showStatuses && !showLinks
+    const isTop = !showPeople && !showGroups && !showStatuses && !showLinks
     const theLimit = 4
 
-    let accounts, statuses, hashtags, groups, links
+    let accounts, statuses, groups, links
 
     if (results.get('accounts') && results.get('accounts').size > 0 && (isTop || showPeople)) {
       const size = isTop ? Math.min(results.get('accounts').size, theLimit) : results.get('accounts').size;
@@ -192,30 +190,7 @@ class Search extends ImmutablePureComponent {
       )
     }
 
-    if (results.get('hashtags') && results.get('hashtags').size > 0 && me && (isTop || showHashtags)) {
-      const size = isTop ? Math.min(results.get('hashtags').size, theLimit) : results.get('hashtags').size;
-      const isMax = size === results.get('hashtags').size
-
-      hashtags = (
-        <PanelLayout
-          title='Hashtags'
-          headerButtonTo={isMax ? undefined : '/search/hashtags'}
-          headerButtonTitle={isMax ? undefined : 'See more'}
-          footerButtonTo={isMax ? undefined : '/search/hashtags'}
-          footerButtonTitle={isMax ? undefined : 'See more'}
-          noPadding
-        >
-          <div className={[_s.d, _s.pb10, _s.px15, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-            <Text color='tertiary' size='small'>
-              Showing {size} of {results.get('hashtags').size} results
-            </Text>
-          </div>
-          {results.get('hashtags').slice(0, size).map(hashtag => <HashtagItem isCompact key={hashtag.get('name')} hashtag={hashtag} />)}
-        </PanelLayout>
-      )
-    }
-
-    if (!accounts && !statuses && !hashtags && !groups && !links) {
+    if (!accounts && !statuses && !groups && !links) {
       return (
         <ResponsiveClassesComponent classNamesXS={[_s.px10, _s.pt15].join(' ')}>
           <Block>
@@ -231,7 +206,6 @@ class Search extends ImmutablePureComponent {
         {groups}
         {statuses}
         {links}
-        {hashtags}
       </div>
     )
   }

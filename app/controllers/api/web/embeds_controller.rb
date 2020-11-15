@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Api::Web::EmbedsController < Api::Web::BaseController
-  respond_to :json
-
   def create
     status = StatusFinder.new(params[:url]).status
     render json: status, serializer: OEmbedSerializer, width: 400

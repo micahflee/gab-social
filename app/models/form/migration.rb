@@ -20,6 +20,6 @@ class Form::Migration
   private
 
   def set_account
-    self.account = (ResolveAccountService.new.call(acct) if account.nil? && acct.present?)
+    self.account = nil
   end
 end

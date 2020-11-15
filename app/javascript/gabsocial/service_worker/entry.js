@@ -50,13 +50,11 @@ self.addEventListener('fetch', function(event) {
     url.pathname.startsWith('/about') ||
     url.pathname.startsWith('/auth') ||
     url.pathname.startsWith('/oauth') ||
-    url.pathname.startsWith('/invites') ||
     url.pathname.startsWith('/pghero') ||
     url.pathname.startsWith('/sidekiq') ||
     url.pathname.startsWith('/filters') ||
     url.pathname.startsWith('/tags') ||
     url.pathname.startsWith('/emojis') ||
-    url.pathname.startsWith('/inbox') ||
     url.pathname.startsWith('/accounts') ||
     url.pathname.startsWith('/user') ||
     url.pathname.startsWith('/users') ||
@@ -64,8 +62,7 @@ self.addEventListener('fetch', function(event) {
     url.pathname.startsWith('/public') ||
     url.pathname.startsWith('/avatars') ||
     url.pathname.startsWith('/authorize_follow') ||
-    url.pathname.startsWith('/media_proxy') ||
-    url.pathname.startsWith('/relationships')) {
+    url.pathname.startsWith('/media_proxy')) {
     //non-webapp routes
   } else if (url.pathname.startsWith('/')) {
     // : TODO : if is /web

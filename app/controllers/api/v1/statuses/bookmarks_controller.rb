@@ -6,8 +6,6 @@ class Api::V1::Statuses::BookmarksController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:bookmarks' }
   before_action :require_user!
 
-  respond_to :json
-
   def create
     if current_user.account.is_pro
       @status = bookmarked_status
@@ -15,6 +13,10 @@ class Api::V1::Statuses::BookmarksController < Api::BaseController
     else
       render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
     end
+  end
+
+  def show
+    # is status bookmarked by user?
   end
 
   def destroy

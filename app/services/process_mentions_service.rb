@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProcessMentionsService < BaseService
-  include StreamEntryRenderer
-
   # Scan status for mentions and fetch remote mentioned users, create
   # local mention pointers, send Salmon notifications to mentioned
   # remote users
@@ -15,17 +13,9 @@ class ProcessMentionsService < BaseService
 
     status.text = status.text.gsub(Account::MENTION_RE) do |match|
       username, domain  = Regexp.last_match(1).split('@')
-      mentioned_account = Account.find_remote(username, domain)
+      mentioned_account = Account.find_local(username)
 
-      if mention_undeliverable?(mentioned_account)
-        begin
-          mentioned_account = resolve_account_service.call(Regexp.last_match(1))
-        rescue Goldfinger::Error, HTTP::Error, OpenSSL::SSL::SSLError, GabSocial::UnexpectedResponseError
-          mentioned_account = nil
-        end
-      end
-
-      next match if mention_undeliverable?(mentioned_account) || mentioned_account&.suspended?
+      next match if mentioned_account.nil? || mentioned_account&.suspended?
 
       mentions << mentioned_account.mentions.where(status: status).first_or_create(status: status)
 
@@ -39,10 +29,6 @@ class ProcessMentionsService < BaseService
 
   private
 
-  def mention_undeliverable?(mentioned_account)
-    mentioned_account.nil? || (!mentioned_account.local? && mentioned_account.ostatus? && @status.stream_entry.hidden?)
-  end
-
   def create_notification(mention)
     mentioned_account = mention.account
 
@@ -51,7 +37,4 @@ class ProcessMentionsService < BaseService
     end
   end
 
-  def resolve_account_service
-    ResolveAccountService.new
-  end
 end

@@ -19,28 +19,8 @@ module ApplicationHelper
     !user_signed_in? && !single_user_mode?
   end
 
-  def open_registrations?
-    Setting.registrations_mode == 'open'
-  end
-
-  def approved_registrations?
-    Setting.registrations_mode == 'approved'
-  end
-
-  def closed_registrations?
-    Setting.registrations_mode == 'none'
-  end
-
   def available_sign_up_path
-    if closed_registrations?
-      'https://gab.com/hosting#getting-started'
-    else
-      new_user_registration_path
-    end
-  end
-
-  def open_deletion?
-    Setting.open_deletion
+    new_user_registration_path
   end
 
   def locale_direction

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-class Api::V1::SearchController < Api::BaseController
-  RESULTS_LIMIT = 100
-
-  respond_to :json
+class Api::V1::SearchController < EmptyController
+  RESULTS_LIMIT = 25
 
   def index
     @search = Search.new(search_results)

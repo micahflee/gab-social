@@ -43,7 +43,7 @@ module SignatureVerification
       return
     end
 
-    account = account_from_key_id(signature_params['keyId'])
+    account = nil
 
     if account.nil?
       @signature_verification_failure_reason = "Public key not found for key #{signature_params['keyId']}"
@@ -56,7 +56,7 @@ module SignatureVerification
 
     return account unless verify_signature(account, signature, compare_signed_string).nil?
 
-    account = stoplight_wrap_request { account.possibly_stale? ? account.refresh! : account_refresh_key(account) }
+    account = nil
 
     if account.nil?
       @signature_verification_failure_reason = "Public key not found for key #{signature_params['keyId']}"
@@ -122,27 +122,4 @@ module SignatureVerification
       signature_params['signature'].blank?
   end
 
-  def account_from_key_id(key_id)
-    if key_id.start_with?('acct:')
-      stoplight_wrap_request { ResolveAccountService.new.call(key_id.gsub(/\Aacct:/, '')) }
-    elsif !ActivityPub::TagManager.instance.local_uri?(key_id)
-      account   = ActivityPub::TagManager.instance.uri_to_resource(key_id, Account)
-      account ||= stoplight_wrap_request { ActivityPub::FetchRemoteKeyService.new.call(key_id, id: false) }
-      account
-    end
-  end
-
-  def stoplight_wrap_request(&block)
-    Stoplight("source:#{request.remote_ip}", &block)
-      .with_fallback { nil }
-      .with_threshold(1)
-      .with_cool_off_time(5.minutes.seconds)
-      .with_error_handler { |error, handle| error.is_a?(HTTP::Error) ? handle.call(error) : raise(error) }
-      .run
-  end
-
-  def account_refresh_key(account)
-    return if account.local? || !account.activitypub?
-    ActivityPub::FetchRemoteAccountService.new.call(account.uri, only_key: true)
-  end
 end

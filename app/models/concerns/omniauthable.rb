@@ -44,9 +44,9 @@ module Omniauthable
       # verified email.  If no verified email was provided or the user already
       # exists, we assign a temporary email and ask the user to verify it on
       # the next step via Auth::ConfirmationsController.finish_signup
-
+      
+      # : TODO : remove, no sign up from app. only website
       user = User.new(user_params_from_auth(auth))
-      user.account.avatar_remote_url = auth.info.image if auth.info.image =~ /\A#{URI.regexp(%w(http https))}\z/
       user.skip_confirmation!
       user.save!
       user

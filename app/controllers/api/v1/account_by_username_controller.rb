@@ -5,8 +5,6 @@ class Api::V1::AccountByUsernameController < EmptyController
   before_action :check_account_suspension
   before_action :check_account_local
 
-  respond_to :json
-
   def show
     render json: @account, serializer: REST::AccountSerializer
   end

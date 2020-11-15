@@ -457,12 +457,12 @@ class Formatter
     "<span aria-hidden=\"true\" class=\"invisible\">#{encode(prefix)}</span>#{encode(text)}<span aria-hidden=\"true\" class=\"invisible\">#{encode(suffix)}</span>" + (cutoff ? "<span aria-hidden=\"true\" class=\"ellipsis\"></span>" : "")
   end
 
-  def hashtag_html(tag)
-    "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag\" rel=\"tag\">##{encode(tag)}</a>"
+  def hashtag_html(tagName)
+    "<a data-focusable=\"true\" role=\"link\" href=\"/tags/#{encode(tagName)}\" class=\"mention hashtag\" rel=\"tag\">##{encode(tagName)}</a>"
   end
 
-  def cashtag_html(tag)
-    "<a data-focusable=\"true\" role=\"link\" href=\"#{encode(tag_url(tag.downcase))}\" class=\"mention hashtag cashtag\" rel=\"tag\">$#{encode(tag)}</a>"
+  def cashtag_html(tagName)
+    "<a data-focusable=\"true\" role=\"link\" href=\"/tags/#{encode(tagName)}\" class=\"mention hashtag cashtag\" rel=\"tag\">$#{encode(tagName)}</a>"
   end
 
   def mention_html(account)

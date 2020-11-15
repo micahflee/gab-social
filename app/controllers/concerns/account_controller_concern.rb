@@ -7,10 +7,8 @@ module AccountControllerConcern
 
   included do
     before_action :set_account
-    before_action :check_account_approval
     before_action :check_account_suspension
     before_action :set_instance_presenter
-    before_action :set_link_headers
   end
 
   private
@@ -23,49 +21,8 @@ module AccountControllerConcern
     @instance_presenter = InstancePresenter.new
   end
 
-  def set_link_headers
-    return if !@account.local? # TODO: Handle remote users
-
-    response.headers['Link'] = LinkHeader.new(
-      [
-        webfinger_account_link,
-        atom_account_url_link,
-        actor_url_link,
-      ]
-    )
-  end
-
   def username_param
     params[:account_username]
-  end
-
-  def webfinger_account_link
-    [
-      webfinger_account_url,
-      [%w(rel lrdd), %w(type application/xrd+xml)],
-    ]
-  end
-
-  def atom_account_url_link
-    [
-      account_url(@account, format: 'atom'),
-      [%w(rel alternate), %w(type application/atom+xml)],
-    ]
-  end
-
-  def actor_url_link
-    [
-      ActivityPub::TagManager.instance.uri_for(@account),
-      [%w(rel alternate), %w(type application/activity+json)],
-    ]
-  end
-
-  def webfinger_account_url
-    webfinger_url(resource: @account.to_webfinger_s)
-  end
-
-  def check_account_approval
-    not_found if @account.user_pending?
   end
 
   def check_account_suspension

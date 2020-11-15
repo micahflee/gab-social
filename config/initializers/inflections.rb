@@ -10,6 +10,7 @@
 #   inflect.uncountable %w( fish sheep )
 # end
 
+# : TODO : WTF IS THIS?
 ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.acronym 'StatsD'
   inflect.acronym 'OEmbed'

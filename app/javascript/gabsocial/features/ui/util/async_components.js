@@ -20,7 +20,6 @@ export function DMCA() { return import(/* webpackChunkName: "features/about/dmca
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }
 export function EditShortcutsModal() { return import(/* webpackChunkName: "components/edit_shortcuts_modal" */'../../../components/modal/edit_shortcuts_modal') }
 export function EmailConfirmationReminderModal() { return import(/* webpackChunkName: "components/email_confirmation_reminder_modal" */'../../../components/modal/email_confirmation_reminder_modal') }
-export function EmbedModal() { return import(/* webpackChunkName: "modals/embed_modal" */'../../../components/modal/embed_modal') }
 export function EmojiPicker() { return import(/* webpackChunkName: "emoji_picker" */'../../../components/emoji/emoji_picker') }
 export function EmojiPickerPopover() { return import(/* webpackChunkName: "components/emoji_picker_popover" */'../../../components/popover/emoji_picker_popover') }
 export function ExploreTimeline() { return import(/* webpackChunkName: "features/explore_timeline" */'../../explore_timeline') }

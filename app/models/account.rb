@@ -35,7 +35,7 @@
 #  outbox_url              :string           default(""), not null
 #  shared_inbox_url        :string           default(""), not null
 #  followers_url           :string           default(""), not null
-#  protocol                :integer          default("ostatus"), not null
+#  protocol                :integer          default(0), not null
 #  memorial                :boolean          default(FALSE), not null
 #  moved_to_account_id     :bigint(8)
 #  featured_collection_url :string
@@ -67,8 +67,6 @@ class Account < ApplicationRecord
   include AccountCounters
   include DomainNormalizable
 
-  enum protocol: [:ostatus, :activitypub]
-
   validates :username, presence: true
 
   # Remote user validations
@@ -85,7 +83,6 @@ class Account < ApplicationRecord
 
   scope :remote, -> { where.not(domain: nil) }
   scope :local, -> { where(domain: nil) }
-  scope :expiring, ->(time) { remote.where.not(subscription_expires_at: nil).where('subscription_expires_at < ?', time) }
   scope :partitioned, -> { order(Arel.sql('row_number() over (partition by domain)')) }
   scope :silenced, -> { where.not(silenced_at: nil) }
   scope :suspended, -> { where.not(suspended_at: nil) }
@@ -110,13 +107,11 @@ class Account < ApplicationRecord
            :current_sign_in_at,
            :confirmed?,
            :approved?,
-           :pending?,
            :admin?,
            :moderator?,
            :staff?,
            :locale,
            :hides_network?,
-           :shows_application?,
            to: :user,
            prefix: true,
            allow_nil: true
@@ -151,23 +146,6 @@ class Account < ApplicationRecord
 
   def local_followers_count
     Follow.where(target_account_id: id).count
-  end
-
-  def to_webfinger_s
-    "acct:#{local_username_and_domain}"
-  end
-
-  def subscribed?
-    subscription_expires_at.present?
-  end
-
-  def possibly_stale?
-    last_webfingered_at.nil? || last_webfingered_at <= 1.day.ago
-  end
-
-  def refresh!
-    return if local?
-    ResolveAccountService.new.call(acct)
   end
 
   def silenced?
@@ -247,10 +225,6 @@ class Account < ApplicationRecord
     end
   end
 
-  def also_known_as
-    self[:also_known_as] || []
-  end
-
   def fields
     (self[:fields] || []).map { |f| Field.new(self, f) }
   end
@@ -307,17 +281,11 @@ class Account < ApplicationRecord
     (['RSA'] + [modulus, exponent].map { |n| Base64.urlsafe_encode64(n) }).join('.')
   end
 
-  def subscription(webhook_url)
-    @subscription ||= OStatus2::Subscription.new(remote_url, secret: secret, webhook: webhook_url, hub: hub_url)
-  end
-
   def save_with_optional_media!
     save!
   rescue ActiveRecord::RecordInvalid
     self.avatar              = nil
     self.header              = nil
-    self[:avatar_remote_url] = ''
-    self[:header_remote_url] = ''
     save!
   end
 
@@ -398,11 +366,6 @@ class Account < ApplicationRecord
 
     def domains
       reorder(nil).pluck(Arel.sql('distinct accounts.domain'))
-    end
-
-    def inboxes
-      urls = reorder(nil).where(protocol: :activitypub).pluck(Arel.sql("distinct coalesce(nullif(accounts.shared_inbox_url, ''), accounts.inbox_url)"))
-      DeliveryFailureTracker.filter(urls)
     end
 
     def search_for(terms, limit = 10, offset = 0, options = {})

@@ -68,8 +68,6 @@ class AccountSearchService < BaseService
     @_exact_match ||= begin
       if domain_is_local?
         search_from.without_suspended.find_local(query_username)
-      else
-        search_from.without_suspended.find_remote(query_username, query_domain)
       end
     end
   end

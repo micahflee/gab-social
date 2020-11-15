@@ -1,14 +1,12 @@
-import { saveSettings } from './settings';
+import { saveSettings } from './settings'
 
-export const EMOJI_USE = 'EMOJI_USE';
+export const EMOJI_USE = 'EMOJI_USE'
 
-export function useEmoji(emoji) {
-  return dispatch => {
-    dispatch({
-      type: EMOJI_USE,
-      emoji,
-    });
+export const useEmoji = (emoji) => (dispatch) => {
+  dispatch({
+    type: EMOJI_USE,
+    emoji,
+  });
 
-    dispatch(saveSettings());
-  };
-};
+  dispatch(saveSettings())
+}

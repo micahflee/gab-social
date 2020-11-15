@@ -6,7 +6,7 @@ class FeedManager
   include Singleton
   include Redisable
 
-  MAX_ITEMS = 400
+  MAX_ITEMS = 150
 
   # Must be <= MAX_ITEMS or the tracking sets will grow forever
   REBLOG_FALLOFF = 40
@@ -37,18 +37,6 @@ class FeedManager
   def unpush_from_home(account, status)
     return false unless remove_from_feed(:home, account.id, status)
     redis.publish("timeline:#{account.id}", Oj.dump(event: :delete, payload: status.id.to_s))
-    true
-  end
-
-  def push_to_list(list, status)
-    if status.reply? && status.in_reply_to_account_id != status.account_id
-      should_filter = status.in_reply_to_account_id != list.account_id
-      should_filter &&= !ListAccount.where(list_id: list.id, account_id: status.in_reply_to_account_id).exists?
-      return false if should_filter
-    end
-    return false unless add_to_feed(:list, list.id, status, list.account.user&.aggregates_reblogs?)
-    trim(:list, list.id)
-    PushUpdateWorker.perform_async(list.account_id, status.id, "timeline:list:#{list.id}") if push_update_required?("timeline:list:#{list.id}")
     true
   end
 
@@ -93,7 +81,7 @@ class FeedManager
     end
 
     query.each do |status|
-      next if status.direct_visibility? || status.limited_visibility? || filter?(:home, status, into_account)
+      next if status.limited_visibility? || filter?(:home, status, into_account)
       add_to_feed(:home, into_account.id, status, into_account.user&.aggregates_reblogs?)
     end
 
@@ -173,9 +161,7 @@ class FeedManager
       should_filter &&= status.account_id != status.in_reply_to_account_id                                                       # and it's not a self-reply
       return should_filter
     elsif status.reblog?                                                                                                         # Filter out a reblog
-      should_filter   = Follow.where(account_id: receiver_id, target_account_id: status.account_id, show_reblogs: false).exists? # if the reblogger's reblogs are suppressed
       should_filter ||= Block.where(account_id: status.reblog.account_id, target_account_id: receiver_id).exists?                # or if the author of the reblogged status is blocking me
-      should_filter ||= AccountDomainBlock.where(account_id: receiver_id, domain: status.reblog.account.domain).exists?          # or the author's domain is blocked
       return should_filter
     end
     

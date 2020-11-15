@@ -2,7 +2,6 @@
 
 class ReblogService < BaseService
   include Authorization
-  include StreamEntryRenderer
 
   # Reblog a status and notify its remote author
   # @param [Account] account Account to reblog from
@@ -24,8 +23,6 @@ class ReblogService < BaseService
     reblog = account.statuses.create!(reblog: reblogged_status, text: text, visibility: visibility)
 
     DistributionWorker.perform_async(reblog.id)
-    # Pubsubhubbub::DistributionWorker.perform_async(reblog.stream_entry.id)
-    # ActivityPub::DistributionWorker.perform_async(reblog.id)
 
     create_notification(reblog)
     bump_potential_friendship(account, reblog)

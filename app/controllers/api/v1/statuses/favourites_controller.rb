@@ -6,11 +6,10 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:favourites' }
   before_action :require_user!
 
-  respond_to :json
-
   def create
     @status = favourited_status
-    render json: @status, serializer: REST::StatusSerializer
+    puts "tilly -- status: " + @status.inspect
+    render json: @status, serializer: REST::StatusStatSerializer
   end
 
   def destroy
@@ -19,7 +18,7 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
 
     UnfavouriteWorker.perform_async(current_user.account_id, @status.id)
 
-    render json: @status, serializer: REST::StatusSerializer, unfavourite: true, relationships: StatusRelationshipsPresenter.new([@status], current_user&.account_id, favourites_map: @favourites_map)
+    render json: @status, serializer: REST::StatusStatSerializer, unfavourite: true, relationships: StatusRelationshipsPresenter.new([@status], current_user&.account_id, favourites_map: @favourites_map)
   end
 
   private

@@ -4,8 +4,6 @@ class Api::V1::Groups::RelationshipsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :read, :'read:groups' }
   before_action :require_user!
 
-  respond_to :json
-
   def index
     groups = Group.where(id: group_ids, is_archived: false).select('id')
     # .where doesn't guarantee that our results are in the same order

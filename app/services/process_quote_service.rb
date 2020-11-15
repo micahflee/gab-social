@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class ProcessQuoteService < BaseService
-    include StreamEntryRenderer
-  
     # Create notification for a quote
     # @param [Status] status Quoting status
     # @return [Status]

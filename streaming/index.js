@@ -422,7 +422,7 @@ const startWorker = (workerId) => {
         ];
 
         if (accountDomain) {
-          queries.push(client.query('SELECT 1 FROM account_domain_blocks WHERE account_id = $1 AND domain = $2', [req.accountId, accountDomain]));
+          // queries.push(client.query('SELECT 1 FROM account_domain_blocks WHERE account_id = $1 AND domain = $2', [req.accountId, accountDomain]));
         }
 
         Promise.all(queries).then(values => {
@@ -536,24 +536,6 @@ const startWorker = (workerId) => {
     streamFrom(`timeline:${req.accountId}`, req, streamToHttp(req, res), streamHttpEnd(req), false, true);
   });
 
-  app.get('/api/v1/streaming/list', (req, res) => {
-    const listId = req.query.list;
-
-    authorizeListAccess(listId, req, authorized => {
-      if (!authorized) {
-        httpNotFound(res);
-        return;
-      }
-
-      const channel = `timeline:list:${listId}`;
-      streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)));
-    });
-  });
-
-  app.get('/api/v1/streaming/pro', (req, res) => {
-    streamFrom('timeline:pro', req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)));
-  });
-
   const wss = new WebSocketServer({ server, verifyClient: wsVerifyClient });
 
   wss.on('connection', (ws, req) => {
@@ -564,9 +546,6 @@ const startWorker = (workerId) => {
     let channel;
 
     switch (location.query.stream) {
-      case 'pro':
-        streamFrom('timeline:pro', req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
-        break;
       case 'statuscard':
         channel = `statuscard:${req.accountId}`;
         streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
@@ -577,19 +556,6 @@ const startWorker = (workerId) => {
         break;
       case 'user:notification':
         streamFrom(`timeline:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
-        break;
-      case 'list':
-        const listId = location.query.list;
-
-        authorizeListAccess(listId, req, authorized => {
-          if (!authorized) {
-            ws.close();
-            return;
-          }
-
-          channel = `timeline:list:${listId}`;
-          streamFrom(channel, req, streamToWs(req, ws), streamWsEnd(req, ws, subscriptionHeartbeat(channel)));
-        });
         break;
       default:
         ws.close();

@@ -5,4 +5,5 @@ class ManifestsController < EmptyController
   def show
     render json: InstancePresenter.new, serializer: ManifestSerializer
   end
+
 end

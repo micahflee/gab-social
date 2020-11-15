@@ -8,7 +8,7 @@
       %data.p-name{ value: "#{@account.username} on #{site_hostname}" }/
 
       .account-section-headline
-        = active_link_to t('accounts.posts_tab_heading'), short_account_url(@account)
+        = active_link_to t('accounts.posts_tab_heading'),  "/#{account.username}"
         = active_link_to t('accounts.posts_with_replies'), short_account_with_replies_url(@account)
         = active_link_to t('accounts.media'), short_account_media_url(@account)
 
@@ -19,12 +19,12 @@
       - else
         .activity-stream
           - if params[:page].to_i.zero?
-            = render partial: 'stream_entries/status', collection: @pinned_statuses, as: :status, locals: { pinned: true }
+            = render partial: 'statuses/status', collection: @pinned_statuses, as: :status, locals: { pinned: true }
 
           - if @newer_url
             .entry= link_to_more @newer_url
 
-          = render partial: 'stream_entries/status', collection: @statuses, as: :status
+          = render partial: 'statuses/status', collection: @statuses, as: :status
 
           - if @older_url
             .entry= link_to_more @older_url

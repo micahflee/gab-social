@@ -2,14 +2,11 @@
 
 class SuspendAccountService < BaseService
   ASSOCIATIONS_ON_SUSPEND = %w(
-    account_pins
     active_relationships
     block_relationships
     blocked_by_relationships
-    conversation_mutes
     conversations
     custom_filters
-    domain_blocks
     favourites
     follow_requests
     list_accounts
@@ -23,7 +20,6 @@ class SuspendAccountService < BaseService
     scheduled_statuses
     status_bookmarks
     status_pins
-    stream_entries
     subscriptions
   ).freeze
 
@@ -42,21 +38,12 @@ class SuspendAccountService < BaseService
     @account = account
     @options = options
 
-    reject_follows!
     purge_user!
     purge_profile!
     purge_content!
   end
 
   private
-
-  def reject_follows!
-    return if @account.local? || !@account.activitypub?
-
-    ActivityPub::DeliveryWorker.push_bulk(Follow.where(account: @account)) do |follow|
-      [build_reject_json(follow), follow.target_account_id, follow.account.inbox_url]
-    end
-  end
 
   def purge_user!
     return if !@account.local? || @account.user.nil?
@@ -104,34 +91,6 @@ class SuspendAccountService < BaseService
 
   def destroy_all(association)
     association.in_batches.destroy_all
-  end
-
-  def delete_actor_json
-    return @delete_actor_json if defined?(@delete_actor_json)
-
-    payload = ActiveModelSerializers::SerializableResource.new(
-      @account,
-      serializer: ActivityPub::DeleteActorSerializer,
-      adapter: ActivityPub::Adapter
-    ).as_json
-
-    @delete_actor_json = Oj.dump(ActivityPub::LinkedDataSignature.new(payload).sign!(@account))
-  end
-
-  def build_reject_json(follow)
-    ActiveModelSerializers::SerializableResource.new(
-      follow,
-      serializer: ActivityPub::RejectFollowSerializer,
-      adapter: ActivityPub::Adapter
-    ).to_json
-  end
-
-  def delivery_inboxes
-    @delivery_inboxes ||= @account.followers.inboxes + Relay.enabled.pluck(:inbox_url)
-  end
-
-  def low_priority_delivery_inboxes
-    Account.inboxes - delivery_inboxes
   end
 
   def associations_for_destruction

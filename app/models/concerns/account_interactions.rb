@@ -40,20 +40,6 @@ module AccountInteractions
       end
     end
 
-    def endorsed_map(target_account_ids, account_id)
-      follow_mapping(AccountPin.where(account_id: account_id, target_account_id: target_account_ids), :target_account_id)
-    end
-
-    def domain_blocking_map(target_account_ids, account_id)
-      accounts_map    = Account.where(id: target_account_ids).select('id, domain').each_with_object({}) { |a, h| h[a.id] = a.domain }
-      blocked_domains = domain_blocking_map_by_domain(accounts_map.values.compact, account_id)
-      accounts_map.reduce({}) { |h, (id, domain)| h.merge(id => blocked_domains[domain]) }
-    end
-
-    def domain_blocking_map_by_domain(target_domains, account_id)
-      follow_mapping(AccountDomainBlock.where(account_id: account_id, domain: target_domains), :domain)
-    end
-
     private
 
     def follow_mapping(query, field)
@@ -85,8 +71,6 @@ module AccountInteractions
     has_many :muting, -> { order('mutes.id desc') }, through: :mute_relationships, source: :target_account
     has_many :muted_by_relationships, class_name: 'Mute', foreign_key: :target_account_id, dependent: :destroy
     has_many :muted_by, -> { order('mutes.id desc') }, through: :muted_by_relationships, source: :account
-    has_many :conversation_mutes, dependent: :destroy
-    has_many :domain_blocks, class_name: 'AccountDomainBlock', dependent: :destroy
   end
 
   def follow!(other_account, reblogs: nil, uri: nil)
@@ -120,14 +104,6 @@ module AccountInteractions
     mute
   end
 
-  def mute_conversation!(conversation)
-    conversation_mutes.find_or_create_by!(conversation: conversation)
-  end
-
-  def block_domain!(other_domain)
-    domain_blocks.find_or_create_by!(domain: other_domain)
-  end
-
   def unfollow!(other_account)
     follow = active_relationships.find_by(target_account: other_account)
     follow&.destroy
@@ -143,16 +119,6 @@ module AccountInteractions
     mute&.destroy
   end
 
-  def unmute_conversation!(conversation)
-    mute = conversation_mutes.find_by(conversation: conversation)
-    mute&.destroy!
-  end
-
-  def unblock_domain!(other_domain)
-    block = domain_blocks.find_by(domain: other_domain)
-    block&.destroy
-  end
-
   def following?(other_account)
     active_relationships.where(target_account: other_account).exists?
   end
@@ -161,16 +127,8 @@ module AccountInteractions
     block_relationships.where(target_account: other_account).exists?
   end
 
-  def domain_blocking?(other_domain)
-    domain_blocks.where(domain: other_domain).exists?
-  end
-
   def muting?(other_account)
     mute_relationships.where(target_account: other_account).exists?
-  end
-
-  def muting_conversation?(conversation)
-    conversation_mutes.where(conversation: conversation).exists?
   end
 
   def muting_notifications?(other_account)
@@ -199,10 +157,6 @@ module AccountInteractions
 
   def pinned?(status)
     status_pins.where(status: status).exists?
-  end
-
-  def endorsed?(account)
-    account_pins.where(target_account: account).exists?
   end
 
   def followers_for_local_distribution

@@ -9,7 +9,6 @@ class ReportService < BaseService
     @options        = options
 
     create_report!
-    forward_to_origin! if !@target_account.local? && ActiveModel::Type::Boolean.new.cast(@options[:forward])
 
     @report
   end
@@ -25,24 +24,4 @@ class ReportService < BaseService
     )
   end
 
-  def forward_to_origin!
-    ActivityPub::DeliveryWorker.perform_async(
-      payload,
-      some_local_account.id,
-      @target_account.inbox_url
-    )
-  end
-
-  def payload
-    Oj.dump(ActiveModelSerializers::SerializableResource.new(
-      @report,
-      serializer: ActivityPub::FlagSerializer,
-      adapter: ActivityPub::Adapter,
-      account: some_local_account
-    ).as_json)
-  end
-
-  def some_local_account
-    @some_local_account ||= Account.representative
-  end
 end

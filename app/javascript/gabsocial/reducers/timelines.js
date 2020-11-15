@@ -28,6 +28,7 @@ const initialTimeline = ImmutableMap({
   online: false,
   top: true,
   isLoading: false,
+  isError: false,
   hasMore: true,
   items: ImmutableList(),
   queuedItems: ImmutableList(), //max= MAX_QUEUED_ITEMS
@@ -49,10 +50,15 @@ const expandNormalizedTimeline = (state, timeline, statuses, next, isPartial, is
           return newIds;
         }
 
+        // const realtime = ['home']
+        // if no realtime, do all that, otherwise just concat
+        // return oldIds.concat(newIds);
+
         const lastIndex = oldIds.findLastIndex(id => id !== null && compareId(id, newIds.last()) >= 0) + 1;
         const firstIndex = oldIds.take(lastIndex).findLastIndex(id => id !== null && compareId(id, newIds.first()) > 0);
 
         if (firstIndex < 0) {
+          console.log("----2")
           return (isPartial ? newIds.unshift(null) : newIds).concat(oldIds.skip(lastIndex));
         }
 
@@ -162,7 +168,10 @@ export default function timelines(state = initialState, action) {
   case TIMELINE_EXPAND_REQUEST:
     return state.update(action.timeline, initialTimeline, map => map.set('isLoading', true));
   case TIMELINE_EXPAND_FAIL:
-    return state.update(action.timeline, initialTimeline, map => map.set('isLoading', false));
+    return state.update(action.timeline, initialTimeline, map => map.withMutations(mMap => {
+      map.set('isLoading', false)
+      map.set('isError', true)
+    }));
   case TIMELINE_EXPAND_SUCCESS:
     return expandNormalizedTimeline(state, action.timeline, fromJS(action.statuses), action.next, action.partial, action.isLoadingRecent);
   case TIMELINE_UPDATE:

@@ -16,6 +16,7 @@ class Notification < ApplicationRecord
   include Paginable
   include Cacheable
 
+  # : todo : enums, 1,2,3,4,5,...
   TYPE_CLASS_MAP = {
     mention:        'Mention',
     reblog:         'Status',

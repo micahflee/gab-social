@@ -18,93 +18,92 @@ export const SEARCH_FETCH_FAIL    = 'SEARCH_FETCH_FAIL';
 
 export const SEARCH_FILTER_SET = 'SEARCH_FILTER_SET'
 
-export function changeSearch(value) {
-  return {
-    type: SEARCH_CHANGE,
-    value,
-  };
-};
+/**
+ * 
+ */
+export const changeSearch = (value) => ({
+  type: SEARCH_CHANGE,
+  value,
+})
 
-export function clearSearch() {
-  return {
-    type: SEARCH_CLEAR,
-  };
-};
+/**
+ * 
+ */
+export const clearSearch = () => ({
+  type: SEARCH_CLEAR,
+})
 
-export function submitSearch() {
-  return (dispatch, getState) => {
-    const value = getState().getIn(['search', 'value']);
-    const onlyVerified = getState().getIn(['search', 'filter', 'onlyVerified'])
+/**
+ * 
+ */
+export const submitSearch = () => (dispatch, getState) => {
+  const value = getState().getIn(['search', 'value'])
+  const onlyVerified = getState().getIn(['search', 'filter', 'onlyVerified'])
 
-    if (value.length === 0) return
+  if (value.length === 0) return
 
-    dispatch(fetchSearchRequest());
+  dispatch(fetchSearchRequest())
 
-    api(getState).get('/api/v2/search', {
-      params: {
-        onlyVerified,
-        q: value,
-        resolve: true,
-      },
-    }).then(response => {
-      if (response.data.accounts) {
-        dispatch(importFetchedAccounts(response.data.accounts));
-        dispatch(fetchRelationships(response.data.accounts.map(item => item.id)));
-      }
+  api(getState).get('/api/v2/search', {
+    params: {
+      onlyVerified,
+      q: value,
+      resolve: true,
+    },
+  }).then((response) => {
+    if (response.data.accounts) {
+      dispatch(importFetchedAccounts(response.data.accounts))
+      dispatch(fetchRelationships(response.data.accounts.map(item => item.id)))
+    }
 
-      if (response.data.statuses) {
-        dispatch(importFetchedStatuses(response.data.statuses));
-      }
+    if (response.data.statuses) {
+      dispatch(importFetchedStatuses(response.data.statuses))
+    }
 
-      if (response.data.links) {
-        dispatch(importLinkCards(response.data.links));
-      }
+    if (response.data.links) {
+      dispatch(importLinkCards(response.data.links))
+    }
 
-      if (response.data.groups) {
-        dispatch(fetchGroupsSuccess(response.data.groups))
-        dispatch(fetchGroupRelationships(response.data.groups.map(item => item.id)))
-      }
+    if (response.data.groups) {
+      dispatch(fetchGroupsSuccess(response.data.groups))
+      dispatch(fetchGroupRelationships(response.data.groups.map(item => item.id)))
+    }
 
-      dispatch(fetchSearchSuccess(response.data));
-    }).catch(error => {
-      dispatch(fetchSearchFail(error));
-    });
-  };
-};
+    dispatch(fetchSearchSuccess(response.data))
+  }).catch((error) => {
+    dispatch(fetchSearchFail(error))
+  })
+}
 
-export function fetchSearchRequest() {
-  return {
-    type: SEARCH_FETCH_REQUEST,
-  };
-};
+const fetchSearchRequest = () => ({
+  type: SEARCH_FETCH_REQUEST,
+})
 
-export function fetchSearchSuccess(results) {
-  return {
-    type: SEARCH_FETCH_SUCCESS,
-    results,
-  };
-};
+const fetchSearchSuccess = (results) => ({
+  type: SEARCH_FETCH_SUCCESS,
+  results,
+})
 
-export function fetchSearchFail(error) {
-  return {
-    type: SEARCH_FETCH_FAIL,
-    error,
-  };
-};
+const fetchSearchFail = (error) => ({
+  type: SEARCH_FETCH_FAIL,
+  error,
+})
 
-export function showSearch() {
-  return {
-    type: SEARCH_SHOW,
-  };
-};
+/**
+ * 
+ */
+export const showSearch = () => ({
+  type: SEARCH_SHOW,
+})
 
-export function setFilter(path, value, shouldSubmit) {
-  return (dispatch) => {
-    dispatch({
-      type: SEARCH_FILTER_SET,
-      path: path,
-      value: value,
-    })
-    if (shouldSubmit) dispatch(submitSearch())
-  }
+/**
+ * 
+ */
+export const setFilter = (path, value, shouldSubmit) => (dispatch) => {
+  dispatch({
+    type: SEARCH_FILTER_SET,
+    path: path,
+    value: value,
+  })
+  if (shouldSubmit) dispatch(submitSearch())
 }

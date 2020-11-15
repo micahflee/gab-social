@@ -3,9 +3,7 @@
 class Auth::RegistrationsController < Devise::RegistrationsController
   layout :determine_layout
 
-  before_action :set_invite, only: [:new, :create]
   before_action :set_challenge, only: [:new]
-  before_action :check_enabled_registrations, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
   before_action :set_sessions, only: [:edit, :update]
   before_action :set_instance_presenter, only: [:new, :create, :update]
@@ -41,7 +39,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     super(hash)
 
     resource.locale             = I18n.locale
-    resource.invite_code        = params[:invite_code] if resource.invite_code.blank?
     resource.agreement          = true
     resource.current_sign_in_ip = request.remote_ip
 
@@ -50,22 +47,12 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def configure_sign_up_params
     devise_parameter_sanitizer.permit(:sign_up) do |u|
-      u.permit({ account_attributes: [:username], invite_request_attributes: [:text] }, :email, :password, :password_confirmation, :invite_code)
+      u.permit({ account_attributes: [:username] }, :email, :password, :password_confirmation)
     end
   end
 
   def after_sign_up_path_for(_resource)
     new_user_session_path
-  end
-
-  def after_sign_in_path_for(_resource)
-    set_invite
-
-    if @invite&.autofollow?
-      short_account_path(@invite.user.account)
-    else
-      super
-    end
   end
 
   def after_inactive_sign_up_path_for(_resource)
@@ -76,22 +63,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
     edit_user_registration_path
   end
 
-  def check_enabled_registrations
-    redirect_to root_path if single_user_mode? || !allowed_registrations?
-  end
-
-  def allowed_registrations?
-    Setting.registrations_mode != 'none' || @invite&.valid_for_use?
-  end
-
-  def invite_code
-    if params[:user]
-      params[:user][:invite_code]
-    else
-      params[:invite_code]
-    end
-  end
-
   private
 
   def set_instance_presenter
@@ -100,11 +71,6 @@ class Auth::RegistrationsController < Devise::RegistrationsController
 
   def set_body_classes
     @body_classes = %w(edit update).include?(action_name) ? 'admin' : ''
-  end
-
-  def set_invite
-    invite = invite_code.present? ? Invite.find_by(code: invite_code) : nil
-    @invite = invite&.valid_for_use? ? invite : nil
   end
 
   def set_challenge

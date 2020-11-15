@@ -3,15 +3,15 @@
 class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :revised_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
-             :uri, :url, :replies_count, :reblogs_count,
+             :url, :replies_count, :reblogs_count,
              :favourites_count, :quote_of_id, :expires_at, :has_quote
 
   attribute :favourited, if: :current_user?
   attribute :reblogged, if: :current_user?
-  attribute :muted, if: :current_user?
-  attribute :bookmarked, if: :current_user?
-  attribute :pinned, if: :pinnable?
-  attribute :pinned_by_group, if: :pinnable_by_group?
+  
+  attribute :account_id, if: :account_id?
+  attribute :group_id, if: :group_id?
+  attribute :preview_card_id, if: :preview_card_id?
 
   attribute :content, unless: :source_requested?
   attribute :rich_content, unless: :source_requested?
@@ -20,16 +20,15 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   belongs_to :reblog, serializer: REST::StatusSerializer
   belongs_to :quote, serializer: REST::StatusSerializer
-  belongs_to :application, if: :show_application?
-  belongs_to :account, serializer: REST::AccountSerializer
-  belongs_to :group, serializer: REST::GroupSerializer
+  belongs_to :account, serializer: REST::AccountSerializer, unless: :account_id?
+  belongs_to :group, serializer: REST::GroupSerializer, unless: :group_id?
 
   has_many :media_attachments, serializer: REST::MediaAttachmentSerializer
   has_many :ordered_mentions, key: :mentions
   has_many :tags
   has_many :emojis, serializer: REST::CustomEmojiSerializer
 
-  has_one :preview_card, key: :card, serializer: REST::PreviewCardSerializer
+  has_one :preview_card, key: :card, serializer: REST::PreviewCardSerializer, unless: :preview_card_id?
   has_one :preloadable_poll, key: :poll, serializer: REST::PollSerializer
 
   def id
@@ -52,8 +51,28 @@ class REST::StatusSerializer < ActiveModel::Serializer
     !current_user.nil?
   end
 
-  def show_application?
-    object.account.user_shows_application? || (current_user? && current_user.account_id == object.account_id)
+  def account_id
+    instance_options[:account_id]
+  end
+
+  def account_id?
+    !instance_options[:account_id].nil?
+  end
+
+  def group_id
+    instance_options[:group_id]
+  end
+
+  def group_id?
+    !instance_options[:group_id].nil?
+  end
+
+  def preview_card_id
+    instance_options[:preview_card_id]
+  end
+
+  def preview_card_id?
+    !instance_options[:preview_card_id].nil?
   end
 
   def visibility
@@ -68,7 +87,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def uri
-    OStatus::TagManager.instance.uri_for(object)
+    "/#{object.account.username}/posts/#{object.id}"
+    # uri: "https://gab.com/users/a/statuses/105075286733432550"
+    # url: "https://gab.com/a/posts/105075286733432550"
+    # TagManager.instance.uri_for(object)
   end
 
   def content
@@ -108,14 +130,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
       instance_options[:relationships].reblogs_map[object.id] || false
     else
       current_user.account.reblogged?(object)
-    end
-  end
-
-  def muted
-    if instance_options && instance_options[:relationships]
-      instance_options[:relationships].mutes_map[object.conversation_id] || false
-    else
-      current_user.account.muting_conversation?(object.conversation)
     end
   end
 
@@ -196,7 +210,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
     attributes :name, :url
 
     def url
-      tag_url(object)
+      "/tags/#{object.name}"
     end
   end
 end

@@ -22,6 +22,9 @@ export const GROUP_EDITOR_IS_VISIBLE_CHANGE = 'GROUP_EDITOR_IS_VISIBLE_CHANGE'
 export const GROUP_EDITOR_RESET = 'GROUP_EDITOR_RESET'
 export const GROUP_EDITOR_SETUP = 'GROUP_EDITOR_SETUP'
 
+/**
+ * 
+ */
 export const submit = (routerHistory) => (dispatch, getState) => {
 	if (!me) return
 
@@ -50,16 +53,19 @@ export const submit = (routerHistory) => (dispatch, getState) => {
 	}
 
 	if (groupId === null) {
-		dispatch(create(options, routerHistory))
+		dispatch(createGroup(options, routerHistory))
 	} else {
-		dispatch(update(groupId, options, routerHistory))
+		dispatch(updateGroup(groupId, options, routerHistory))
 	}
 }
 
-const create = (options, routerHistory) => (dispatch, getState) => {
+/**
+ * 
+ */
+const createGroup = (options, routerHistory) => (dispatch, getState) => {
 	if (!me) return
 
-	dispatch(createRequest())
+	dispatch(createGroupRequest())
 
 	const formData = new FormData()
 	formData.append('title', options.title)
@@ -81,28 +87,31 @@ const create = (options, routerHistory) => (dispatch, getState) => {
 			'Content-Type': 'multipart/form-data'
 		}
 	}).then(({ data }) => {
-		dispatch(createSuccess(data))
+		dispatch(createGroupSuccess(data))
 		routerHistory.push(`/groups/${data.id}`)
-	}).catch(err => dispatch(createFail(err)))
+	}).catch((err) => dispatch(createGroupFail(err)))
 }
 
 
-export const createRequest = (id) => ({
+const createGroupRequest = (id) => ({
 	type: GROUP_CREATE_REQUEST,
 	id,
 })
 
-export const createSuccess = (group) => ({
+const createSuccess = (group) => ({
 	type: GROUP_CREATE_SUCCESS,
 	group,
 })
 
-export const createFail = (error) => ({
+const createFail = (error) => ({
 	type: GROUP_CREATE_FAIL,
 	error,
 })
 
-const update = (groupId, options, routerHistory) => (dispatch, getState) => {
+/**
+ * 
+ */
+const updateGroup = (groupId, options, routerHistory) => (dispatch, getState) => {
 	if (!me) return
 
 	dispatch(updateRequest())
@@ -130,26 +139,29 @@ const update = (groupId, options, routerHistory) => (dispatch, getState) => {
 			'Content-Type': 'multipart/form-data'
 		}
 	}).then(({ data }) => {
-		dispatch(updateSuccess(data))
+		dispatch(updateGroupSuccess(data))
 		routerHistory.push(`/groups/${data.id}`)
-	}).catch(err => dispatch(updateFail(err)))
+	}).catch((err) => dispatch(updateGroupFail(err)))
 }
 
-export const updateRequest = (id) => ({
+const updateGroupRequest = (id) => ({
 	type: GROUP_UPDATE_REQUEST,
 	id,
 })
 
-export const updateSuccess = (group) => ({
+const updateGroupSuccess = (group) => ({
 	type: GROUP_UPDATE_SUCCESS,
 	group,
 })
 
-export const updateFail = (error) => ({
+const updateGroupFail = (error) => ({
 	type: GROUP_UPDATE_FAIL,
 	error,
 })
 
+/**
+ * 
+ */
 export const resetEditor = () => ({
 	type: GROUP_EDITOR_RESET
 })

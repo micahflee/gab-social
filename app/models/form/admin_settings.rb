@@ -9,47 +9,25 @@ class Form::AdminSettings
     site_title
     site_short_description
     site_description
-    site_extended_description
-    site_terms
     registrations_mode
-    closed_registrations_message
-    open_deletion
-    timeline_preview
-    show_staff_badge
     bootstrap_timeline_accounts
     theme
     min_invite_role
-    activity_api_enabled
-    peers_api_enabled
-    show_known_fediverse_at_about_page
     preview_sensitive_media
-    profile_directory
     thumbnail
-    hero
-    mascot
   ).freeze
 
   BOOLEAN_KEYS = %i(
-    open_deletion
-    timeline_preview
-    show_staff_badge
-    activity_api_enabled
-    peers_api_enabled
-    show_known_fediverse_at_about_page
     preview_sensitive_media
-    profile_directory
   ).freeze
 
   UPLOAD_KEYS = %i(
     thumbnail
-    hero
-    mascot
   ).freeze
 
   attr_accessor(*KEYS)
 
   validates :site_short_description, :site_description, html: { wrap_with: :p }
-  validates :site_extended_description, :site_terms, :closed_registrations_message, html: true
   validates :registrations_mode, inclusion: { in: %w(open approved none) }
   validates :min_invite_role, inclusion: { in: %w(disabled user moderator admin) }
   validates :site_contact_email, :site_contact_username, presence: true

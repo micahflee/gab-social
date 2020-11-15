@@ -1,23 +1,23 @@
-import api from '../api';
+import api from '../api'
 import { FormattedMessage } from 'react-intl'
-import { CancelToken, isCancel } from 'axios';
+import { CancelToken, isCancel } from 'axios'
 import throttle from 'lodash.throttle'
 import moment from 'moment-mini'
 import { isMobile } from '../utils/is_mobile'
-import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light';
+import { search as emojiSearch } from '../components/emoji/emoji_mart_search_light'
 import { urlRegex } from '../features/ui/util/url_regex'
-import { tagHistory } from '../settings';
+import { tagHistory } from '../settings'
 import { joinGroup } from './groups'
-import { useEmoji } from './emojis';
-import resizeImage from '../utils/resize_image';
-import { importFetchedAccounts } from './importer';
+import { useEmoji } from './emojis'
+import resizeImage from '../utils/resize_image'
+import { importFetchedAccounts } from './importer'
 import {
   updateTimelineQueue,
   updateTimeline,
 } from './timelines'
-// import { showAlert, showAlertForError } from './alerts';
-import { defineMessages } from 'react-intl';
-import { openModal, closeModal } from './modal';
+// import { showAlert, showAlertForError } from './alerts'
+import { defineMessages } from 'react-intl'
+import { openModal, closeModal } from './modal'
 import {
   STATUS_EXPIRATION_OPTION_5_MINUTES,
   STATUS_EXPIRATION_OPTION_60_MINUTES,
@@ -26,57 +26,58 @@ import {
   STATUS_EXPIRATION_OPTION_3_DAYS,
   STATUS_EXPIRATION_OPTION_7_DAYS,
 } from '../constants'
-import { me } from '../initial_state';
+import { me } from '../initial_state'
 import { makeGetStatus } from '../selectors'
 
-let cancelFetchComposeSuggestionsAccounts;
+let cancelFetchComposeSuggestionsAccounts
 
-export const COMPOSE_CHANGE          = 'COMPOSE_CHANGE';
-export const COMPOSE_SUBMIT_REQUEST  = 'COMPOSE_SUBMIT_REQUEST';
-export const COMPOSE_SUBMIT_SUCCESS  = 'COMPOSE_SUBMIT_SUCCESS';
-export const COMPOSE_SUBMIT_FAIL     = 'COMPOSE_SUBMIT_FAIL';
-export const COMPOSE_REPLY           = 'COMPOSE_REPLY';
-export const COMPOSE_QUOTE           = 'COMPOSE_QUOTE';
-export const COMPOSE_REPLY_CANCEL    = 'COMPOSE_REPLY_CANCEL';
-export const COMPOSE_MENTION         = 'COMPOSE_MENTION';
-export const COMPOSE_RESET           = 'COMPOSE_RESET';
-export const COMPOSE_UPLOAD_REQUEST  = 'COMPOSE_UPLOAD_REQUEST';
-export const COMPOSE_UPLOAD_SUCCESS  = 'COMPOSE_UPLOAD_SUCCESS';
-export const COMPOSE_UPLOAD_FAIL     = 'COMPOSE_UPLOAD_FAIL';
-export const COMPOSE_UPLOAD_PROGRESS = 'COMPOSE_UPLOAD_PROGRESS';
-export const COMPOSE_UPLOAD_UNDO     = 'COMPOSE_UPLOAD_UNDO';
+export const COMPOSE_CHANGE          = 'COMPOSE_CHANGE'
+export const COMPOSE_SUBMIT_REQUEST  = 'COMPOSE_SUBMIT_REQUEST'
+export const COMPOSE_SUBMIT_SUCCESS  = 'COMPOSE_SUBMIT_SUCCESS'
+export const COMPOSE_SUBMIT_FAIL     = 'COMPOSE_SUBMIT_FAIL'
+export const COMPOSE_REPLY           = 'COMPOSE_REPLY'
+export const COMPOSE_QUOTE           = 'COMPOSE_QUOTE'
+export const COMPOSE_REPLY_CANCEL    = 'COMPOSE_REPLY_CANCEL'
+export const COMPOSE_MENTION         = 'COMPOSE_MENTION'
+export const COMPOSE_RESET           = 'COMPOSE_RESET'
 
-export const COMPOSE_SUGGESTIONS_CLEAR = 'COMPOSE_SUGGESTIONS_CLEAR';
-export const COMPOSE_SUGGESTIONS_READY = 'COMPOSE_SUGGESTIONS_READY';
-export const COMPOSE_SUGGESTION_SELECT = 'COMPOSE_SUGGESTION_SELECT';
-export const COMPOSE_SUGGESTION_TAGS_UPDATE = 'COMPOSE_SUGGESTION_TAGS_UPDATE';
+export const COMPOSE_UPLOAD_REQUEST  = 'COMPOSE_UPLOAD_REQUEST'
+export const COMPOSE_UPLOAD_SUCCESS  = 'COMPOSE_UPLOAD_SUCCESS'
+export const COMPOSE_UPLOAD_FAIL     = 'COMPOSE_UPLOAD_FAIL'
+export const COMPOSE_UPLOAD_PROGRESS = 'COMPOSE_UPLOAD_PROGRESS'
+export const COMPOSE_UPLOAD_UNDO     = 'COMPOSE_UPLOAD_UNDO'
 
-export const COMPOSE_TAG_HISTORY_UPDATE = 'COMPOSE_TAG_HISTORY_UPDATE';
+export const COMPOSE_SUGGESTIONS_CLEAR = 'COMPOSE_SUGGESTIONS_CLEAR'
+export const COMPOSE_SUGGESTIONS_READY = 'COMPOSE_SUGGESTIONS_READY'
+export const COMPOSE_SUGGESTION_SELECT = 'COMPOSE_SUGGESTION_SELECT'
+export const COMPOSE_SUGGESTION_TAGS_UPDATE = 'COMPOSE_SUGGESTION_TAGS_UPDATE'
 
-export const COMPOSE_MOUNT   = 'COMPOSE_MOUNT';
-export const COMPOSE_UNMOUNT = 'COMPOSE_UNMOUNT';
+export const COMPOSE_TAG_HISTORY_UPDATE = 'COMPOSE_TAG_HISTORY_UPDATE'
 
-export const COMPOSE_SENSITIVITY_CHANGE = 'COMPOSE_SENSITIVITY_CHANGE';
-export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE';
-export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE';
-export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE';
-export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE';
-export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE';
+export const COMPOSE_MOUNT   = 'COMPOSE_MOUNT'
+export const COMPOSE_UNMOUNT = 'COMPOSE_UNMOUNT'
 
-export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT';
+export const COMPOSE_SENSITIVITY_CHANGE = 'COMPOSE_SENSITIVITY_CHANGE'
+export const COMPOSE_SPOILERNESS_CHANGE = 'COMPOSE_SPOILERNESS_CHANGE'
+export const COMPOSE_SPOILER_TEXT_CHANGE = 'COMPOSE_SPOILER_TEXT_CHANGE'
+export const COMPOSE_VISIBILITY_CHANGE  = 'COMPOSE_VISIBILITY_CHANGE'
+export const COMPOSE_LISTABILITY_CHANGE = 'COMPOSE_LISTABILITY_CHANGE'
+export const COMPOSE_COMPOSING_CHANGE = 'COMPOSE_COMPOSING_CHANGE'
 
-export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST';
-export const COMPOSE_UPLOAD_CHANGE_SUCCESS     = 'COMPOSE_UPLOAD_UPDATE_SUCCESS';
-export const COMPOSE_UPLOAD_CHANGE_FAIL        = 'COMPOSE_UPLOAD_UPDATE_FAIL';
+export const COMPOSE_EMOJI_INSERT = 'COMPOSE_EMOJI_INSERT'
 
-export const COMPOSE_POLL_ADD             = 'COMPOSE_POLL_ADD';
-export const COMPOSE_POLL_REMOVE          = 'COMPOSE_POLL_REMOVE';
-export const COMPOSE_POLL_OPTION_ADD      = 'COMPOSE_POLL_OPTION_ADD';
-export const COMPOSE_POLL_OPTION_CHANGE   = 'COMPOSE_POLL_OPTION_CHANGE';
-export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE';
-export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE';
+export const COMPOSE_UPLOAD_CHANGE_REQUEST     = 'COMPOSE_UPLOAD_UPDATE_REQUEST'
+export const COMPOSE_UPLOAD_CHANGE_SUCCESS     = 'COMPOSE_UPLOAD_UPDATE_SUCCESS'
+export const COMPOSE_UPLOAD_CHANGE_FAIL        = 'COMPOSE_UPLOAD_UPDATE_FAIL'
 
-export const COMPOSE_SCHEDULED_AT_CHANGE = 'COMPOSE_SCHEDULED_AT_CHANGE';
+export const COMPOSE_POLL_ADD             = 'COMPOSE_POLL_ADD'
+export const COMPOSE_POLL_REMOVE          = 'COMPOSE_POLL_REMOVE'
+export const COMPOSE_POLL_OPTION_ADD      = 'COMPOSE_POLL_OPTION_ADD'
+export const COMPOSE_POLL_OPTION_CHANGE   = 'COMPOSE_POLL_OPTION_CHANGE'
+export const COMPOSE_POLL_OPTION_REMOVE   = 'COMPOSE_POLL_OPTION_REMOVE'
+export const COMPOSE_POLL_SETTINGS_CHANGE = 'COMPOSE_POLL_SETTINGS_CHANGE'
+
+export const COMPOSE_SCHEDULED_AT_CHANGE = 'COMPOSE_SCHEDULED_AT_CHANGE'
 
 export const COMPOSE_EXPIRES_AT_CHANGE = 'COMPOSE_EXPIRES_AT_CHANGE'
 
@@ -87,15 +88,15 @@ export const COMPOSE_CLEAR = 'COMPOSE_CLEAR'
 const messages = defineMessages({
   uploadErrorLimit: { id: 'upload_error.limit', defaultMessage: 'File upload limit exceeded.' },
   uploadErrorPoll:  { id: 'upload_error.poll', defaultMessage: 'File upload not allowed with polls.' },
-});
+})
 
-const COMPOSE_PANEL_BREAKPOINT = 600 + (285 * 1) + (10 * 1);
+const COMPOSE_PANEL_BREAKPOINT = 600 + (285 * 1) + (10 * 1)
 
 export const ensureComposeIsVisible = (getState, routerHistory) => {
   if (!getState().getIn(['compose', 'mounted']) && window.innerWidth < COMPOSE_PANEL_BREAKPOINT) {
-    routerHistory.push('/posts/new');
+    routerHistory.push('/posts/new')
   }
-};
+}
 
 export function changeCompose(text, markdown, replyId, isStandalone, caretPosition) {
   return function (dispatch, getState) {
@@ -566,13 +567,11 @@ export function readyComposeSuggestionsEmojis(token, emojis) {
   };
 };
 
-export function readyComposeSuggestionsAccounts(token, accounts) {
-  return {
-    type: COMPOSE_SUGGESTIONS_READY,
-    token,
-    accounts,
-  };
-};
+export const readyComposeSuggestionsAccounts = (token, accounts) => ({
+  type: COMPOSE_SUGGESTIONS_READY,
+  token,
+  accounts,
+})
 
 export function selectComposeSuggestion(position, token, suggestion, path) {
   return (dispatch, getState) => {
@@ -730,31 +729,35 @@ export function removePollOption(index) {
   };
 };
 
-export function changePollSettings(expiresIn, isMultiple) {
-  return {
-    type: COMPOSE_POLL_SETTINGS_CHANGE,
-    expiresIn,
-    isMultiple,
-  };
-};
+/**
+ * 
+ */
+export const changePollSettings = (expiresIn, isMultiple) => ({
+  type: COMPOSE_POLL_SETTINGS_CHANGE,
+  expiresIn,
+  isMultiple,
+})
 
-export function changeScheduledAt(date) {
-  return {
-    type: COMPOSE_SCHEDULED_AT_CHANGE,
-    date,
-  };
-};
+/**
+ * 
+ */
+export const changeScheduledAt = (date) => ({
+  type: COMPOSE_SCHEDULED_AT_CHANGE,
+  date,
+})
 
-export function changeExpiresAt(value) {
-  return {
-    type: COMPOSE_EXPIRES_AT_CHANGE,
-    value,
-  }
-}
+/**
+ * 
+ */
+export const changeExpiresAt = (value) => ({
+  type: COMPOSE_EXPIRES_AT_CHANGE,
+  value,
+})
 
-export function changeRichTextEditorControlsVisibility(open) {
-  return {
-    type: COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
-    open,
-  }
-}
+/**
+ * 
+ */
+export const changeRichTextEditorControlsVisibility = (open) => ({
+  type: COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
+  open,
+})

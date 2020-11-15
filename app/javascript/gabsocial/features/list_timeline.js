@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage } from 'react-intl'
-import { connectListStream } from '../actions/streaming'
 import { expandListTimeline } from '../actions/timelines'
 import { fetchList, deleteList } from '../actions/lists'
 import { openModal } from '../actions/modal'
@@ -29,7 +28,6 @@ class ListTimeline extends ImmutablePureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.id !== this.props.params.id) {
-      this.handleDisconnect()
       this.handleConnect(nextProps.params.id)
     }
   }
@@ -39,15 +37,6 @@ class ListTimeline extends ImmutablePureComponent {
 
     dispatch(fetchList(id))
     dispatch(expandListTimeline(id))
-
-    this.disconnect = dispatch(connectListStream(id))
-  }
-
-  handleDisconnect() {
-    if (this.disconnect) {
-      this.disconnect()
-      this.disconnect = null
-    }
   }
 
   handleLoadMore = (maxId) => {

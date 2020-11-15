@@ -4,20 +4,12 @@ class AfterBlockService < BaseService
   def call(account, target_account)
     clear_home_feed(account, target_account)
     clear_notifications(account, target_account)
-    clear_conversations(account, target_account)
   end
 
   private
 
   def clear_home_feed(account, target_account)
     FeedManager.instance.clear_from_timeline(account, target_account)
-  end
-
-  def clear_conversations(account, target_account)
-    AccountConversation.where(account: account)
-                       .where('? = ANY(participant_account_ids)', target_account.id)
-                       .in_batches
-                       .destroy_all
   end
 
   def clear_notifications(account, target_account)

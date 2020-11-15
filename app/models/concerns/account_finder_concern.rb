@@ -8,10 +8,6 @@ module AccountFinderConcern
       find_local(username) || raise(ActiveRecord::RecordNotFound)
     end
 
-    def find_remote!(username, domain)
-      find_remote(username, domain) || raise(ActiveRecord::RecordNotFound)
-    end
-
     def find_acct!(acct)
       find_acct(acct) || raise(ActiveRecord::RecordNotFound)
     end
@@ -21,25 +17,24 @@ module AccountFinderConcern
     end
 
     def find_local(username)
-      find_remote(username, nil)
-    end
-
-    def find_remote(username, domain)
-      AccountFinder.new(username, domain).account
+      find_now(username)
     end
 
     def find_acct(acct)
       username, domain = acct.split("@")
-      find_remote(username, domain)
+      find_now(username)
+    end
+
+    def find_now(username)
+      AccountFinder.new(username).account
     end
   end
 
   class AccountFinder
-    attr_reader :username, :domain
+    attr_reader :username
 
-    def initialize(username, domain)
+    def initialize(username)
       @username = username
-      @domain = domain
     end
 
     def account
@@ -65,11 +60,7 @@ module AccountFinderConcern
     end
 
     def matching_domain
-      if domain.nil?
-        Account.where(domain: nil)
-      else
-        Account.where(Account.arel_table[:domain].lower.eq domain.to_s.downcase)
-      end
+      Account.where(domain: nil)
     end
   end
 end

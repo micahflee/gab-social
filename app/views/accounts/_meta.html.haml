@@ -5,12 +5,8 @@
   - if account.user&.setting_noindex
     %meta{ name: 'robots', content: 'noindex' }/
 
-  %link{ rel: 'alternate', type: 'application/atom+xml', href: account_url(account, format: 'atom') }/
-  %link{ rel: 'alternate', type: 'application/rss+xml', href: account_url(account, format: 'rss') }/
-  %link{ rel: 'alternate', type: 'application/activity+json', href: ActivityPub::TagManager.instance.uri_for(account) }/
-
   = opengraph 'og:type', 'profile'
-  = render 'accounts/og', account: account, url: short_account_url(account, only_path: false)
+  = render 'accounts/og', account: account, url: "https://gab.com/#{account.username}"
 
   - if older_url
     %link{ rel: 'next', href: older_url }/

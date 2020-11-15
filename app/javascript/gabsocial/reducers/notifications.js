@@ -31,6 +31,7 @@ const initialState = ImmutableMap({
   top: false,
   unread: 0,
   isLoading: false,
+  isError: false,
   queuedNotifications: ImmutableList(), //max = MAX_QUEUED_NOTIFICATIONS
   totalQueuedNotificationsCount: 0, //used for queuedItems overflow for MAX_QUEUED_NOTIFICATIONS+
   lastReadId: -1,
@@ -271,7 +272,10 @@ export default function notifications(state = initialState, action) {
   case NOTIFICATIONS_EXPAND_REQUEST:
     return state.set('isLoading', true);
   case NOTIFICATIONS_EXPAND_FAIL:
-    return state.set('isLoading', false);
+    return state.withMutations(mutable => {
+      mutable.set('isLoading', false)
+      mutable.set('isError', true)
+    })
   case NOTIFICATIONS_FILTER_SET:
     return state.withMutations(mutable => {
       mutable.set('items', ImmutableList()).set('hasMore', true)

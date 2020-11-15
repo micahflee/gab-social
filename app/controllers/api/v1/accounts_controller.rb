@@ -10,9 +10,6 @@ class Api::V1::AccountsController < Api::BaseController
   before_action :require_user!, except: [:show, :create]
   before_action :set_account, except: [:create]
   before_action :check_account_suspension, only: [:show]
-  before_action :check_enabled_registrations, only: [:create]
-
-  respond_to :json
 
   def show
     render json: @account, serializer: REST::AccountSerializer
@@ -77,13 +74,5 @@ class Api::V1::AccountsController < Api::BaseController
 
   def account_params
     params.permit(:username, :email, :password, :agreement, :locale)
-  end
-
-  def check_enabled_registrations
-    forbidden if single_user_mode? || !allowed_registrations?
-  end
-
-  def allowed_registrations?
-    Setting.registrations_mode != 'none'
   end
 end

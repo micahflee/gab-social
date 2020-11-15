@@ -13,19 +13,11 @@ class AboutController < ApplicationController
     end
   end
 
-  def more; end
-  def terms; end
-  def privacy; end
-  def investors; end
-  def dmca; end
-  def sales; end
-
   private
 
   def new_user
     User.new.tap do |user|
       user.build_account
-      user.build_invite_request
     end
   end
 

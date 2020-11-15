@@ -15,12 +15,6 @@ module GabSocial
       Setting.registrations_mode = 'open'
       say('OK', :green)
     end
-
-    desc 'close', 'Close registrations'
-    def close
-      Setting.registrations_mode = 'none'
-      say('OK', :green)
-    end
   end
 
   class SettingsCLI < Thor

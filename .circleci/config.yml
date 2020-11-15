@@ -167,7 +167,7 @@ jobs:
       - image: circleci/node:8.15.0-stretch
     steps:
       - *attach_workspace
-      - run: ./bin/retry yarn test:jest
+      - run: ./bin/retry yarn test:jest # : todo :
 
   check-i18n:
     <<: *defaults

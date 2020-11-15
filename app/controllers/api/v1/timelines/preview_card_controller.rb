@@ -10,6 +10,7 @@ class Api::V1::Timelines::PreviewCardController < Api::BaseController
   def show
     render json: @statuses,
            each_serializer: REST::StatusSerializer,
+           preview_card_id: params[:id],
            relationships: StatusRelationshipsPresenter.new(@statuses, current_user.account_id)
   end
 

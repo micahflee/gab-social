@@ -4,8 +4,12 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
 import Sticky from 'react-stickynode'
+import throttle from 'lodash.throttle'
 import { me } from '../initial_state'
-import { CX } from '../constants'
+import {
+  CX,
+  LAZY_LOAD_SCROLL_OFFSET,
+} from '../constants'
 import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
 import FooterBar from '../components/footer_bar'
 import ProfileHeader from '../components/profile_header'
@@ -26,6 +30,37 @@ import {
 
 class ProfileLayout extends ImmutablePureComponent {
 
+  state = {
+    lazyLoaded: false,
+  }
+
+  componentDidMount() {
+    this.window = window
+    this.documentElement = document.scrollingElement || document.documentElement
+
+    this.window.addEventListener('scroll', this.handleScroll)
+  }
+
+  componentWillUnmount() {
+    this.detachScrollListener()
+  }
+
+  detachScrollListener = () => {
+    this.window.removeEventListener('scroll', this.handleScroll)
+  }
+
+  handleScroll = throttle(() => {
+    if (this.window) {
+      const { scrollTop } = this.documentElement
+      
+      if (scrollTop > LAZY_LOAD_SCROLL_OFFSET && !this.state.lazyLoaded) {
+        this.setState({ lazyLoaded: true })
+        this.detachScrollListener()
+      }
+    }
+  }, 150, { trailing: true })
+
+
   render() {
     const {
       account,
@@ -34,6 +69,7 @@ class ProfileLayout extends ImmutablePureComponent {
       unavailable,
       noSidebar,
     } = this.props
+    const { lazyLoaded } = this.state
 
     const mainContentClasses = CX({
       d: 1,
@@ -121,7 +157,7 @@ class ProfileLayout extends ImmutablePureComponent {
                           <div className={[_s.d, _s.w340PX].join(' ')}>
                             <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
                             <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
-                            { !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account }} /> }
+                            { !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account, isLazy: true, shouldLoad: lazyLoaded }} />}
                             { !me && <WrappedBundle component={SignUpPanel} /> }
                             <WrappedBundle component={LinkFooter} />
                           </div>

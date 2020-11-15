@@ -52,7 +52,7 @@ class TabBarItem extends React.PureComponent {
 
     // Combine state, props, location to make absolutely
     // sure of active status.
-    const active = isActive || (to === location.pathname && !location.search) || isCurrent
+    const active = (isActive === true || isCurrent || (to === location.pathname && !location.search))
 
     const containerClasses = CX({
       d: 1,

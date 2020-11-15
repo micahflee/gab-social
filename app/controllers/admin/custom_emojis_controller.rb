@@ -51,23 +51,6 @@ module Admin
       redirect_to admin_custom_emojis_path(page: params[:page], **@filter_params)
     end
 
-    def copy
-      authorize @custom_emoji, :copy?
-
-      emoji = CustomEmoji.find_or_initialize_by(domain: nil,
-                                                shortcode: @custom_emoji.shortcode)
-      emoji.image = @custom_emoji.image
-
-      if emoji.save
-        log_action :create, emoji
-        flash[:notice] = I18n.t('admin.custom_emojis.copied_msg')
-      else
-        flash[:alert] = I18n.t('admin.custom_emojis.copy_failed_msg')
-      end
-
-      redirect_to admin_custom_emojis_path(page: params[:page], **@filter_params)
-    end
-
     def enable
       authorize @custom_emoji, :enable?
       @custom_emoji.update!(disabled: false)

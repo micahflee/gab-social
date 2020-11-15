@@ -39,7 +39,7 @@ export function normalizeAccount(account) {
 
 export function normalizeStatus(status, normalOldStatus) {
   const normalStatus   = { ...status };
-  normalStatus.account = status.account.id;
+  normalStatus.account = status.account_id || status.account.id;
 
   if (status.reblog && status.reblog.id) {
     normalStatus.reblog = status.reblog.id;
@@ -51,6 +51,10 @@ export function normalizeStatus(status, normalOldStatus) {
 
   if (status.poll && status.poll.id) {
     normalStatus.poll = status.poll.id;
+  }
+
+  if (!!status.group || !!status.group_id) {
+    normalStatus.group = status.group_id || status.group.id;
   }
 
   // Only calculate these values when status first encountered

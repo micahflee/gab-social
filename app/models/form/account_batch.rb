@@ -12,8 +12,6 @@ class Form::AccountBatch
       unfollow!
     when 'remove_from_followers'
       remove_from_followers!
-    when 'block_domains'
-      block_domains!
     when 'approve'
       approve!
     when 'reject'
@@ -32,12 +30,6 @@ class Form::AccountBatch
   def remove_from_followers!
     current_account.passive_relationships.where(account_id: account_ids).find_each do |follow|
       reject_follow!(follow)
-    end
-  end
-
-  def block_domains!
-    AfterAccountDomainBlockWorker.push_bulk(account_domains) do |domain|
-      [current_account.id, domain]
     end
   end
 

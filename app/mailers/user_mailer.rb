@@ -148,7 +148,7 @@ class UserMailer < Devise::Mailer
     I18n.with_locale(@resource.locale || I18n.default_locale) do
       mail to: @resource.email,
            subject: I18n.t("user_mailer.warning.subject.#{@warning.action}", acct: "@#{user.account.local_username_and_domain}"),
-           reply_to: Setting.site_contact_email
+           reply_to: 'support@gab.com'
     end
   end
 

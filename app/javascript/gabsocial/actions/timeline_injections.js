@@ -19,7 +19,7 @@ export const showTimelineInjection = (injectionId) => (dispatch) => {
 export const hideTimelineInjection = (injectionId) => (dispatch, getState) => {
   const existingInjectionWeight = getState().getIn(['settings', 'injections', injectionId], null)
 
-  if (!existingInjectionWeight) return false
+  if (!existingInjectionWeight) return
 
   const newInjectionWeight = Math.max(existingInjectionWeight - 0.005, 0.01)
 

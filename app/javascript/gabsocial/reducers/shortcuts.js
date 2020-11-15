@@ -12,6 +12,7 @@ import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable'
 const initialState = ImmutableMap({
   items: ImmutableList(),
   isLoading: false,
+  isFetched: false,
   isError: false,
 })
 
@@ -50,17 +51,20 @@ export default function shortcutsReducer(state = initialState, action) {
     case SHORTCUTS_FETCH_REQUEST:
       return state.withMutations((map) => {
         map.set('isLoading', true)
+        map.set('isFetched', false)
         map.set('isError', false)
       })
     case SHORTCUTS_FETCH_SUCCESS:
       return state.withMutations((map) => {
         map.set('items', normalizeShortcuts(action.shortcuts))
         map.set('isLoading', false)
+        map.set('isFetched', true)
         map.set('isError', false)
       })
     case SHORTCUTS_FETCH_FAIL:
       return state.withMutations((map) => {
         map.set('isLoading', false)
+        map.set('isFetched', true)
         map.set('isError', true)
       })
     case SHORTCUTS_ADD_SUCCESS:

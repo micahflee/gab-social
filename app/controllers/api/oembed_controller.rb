@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Api::OEmbedController < Api::BaseController
-  respond_to :json
 
   def show
     @status = status_finder.status

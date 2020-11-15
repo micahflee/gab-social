@@ -56,6 +56,7 @@ class Group < ApplicationRecord
     record.errors.add(:base, I18n.t('groups.errors.limit')) if Group.where(account_id: value).count >= PER_ACCOUNT_LIMIT
   end
 
+  before_save :set_slug
   before_save :set_password
   before_destroy :clean_feed_manager
   after_create :add_owner_to_accounts
@@ -80,6 +81,20 @@ class Group < ApplicationRecord
       password
     end
   end
+
+  def set_slug
+    puts "tilly-5: " + slug.to_s
+    puts "tilly-6: " + self.member_count.to_s
+    
+    if !slug.nil? && self.member_count > 50 && self.slug.nil?
+      self.slug = slug.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
+    elsif !slug.nil? && self.member_count < 50 && self.slug.nil?
+      self.slug = nil
+    else
+      self.slug = self.slug
+    end
+  end
+
   def add_owner_to_accounts
     group_accounts << GroupAccount.new(account: account, role: :admin, write_permissions: true)
   end

@@ -4,7 +4,6 @@ import accounts from './accounts'
 import accounts_counters from './accounts_counters'
 import compose from './compose'
 import contexts from './contexts'
-import conversations from './conversations'
 import custom_emojis from './custom_emojis'
 import filters from './filters'
 import groups from './groups'
@@ -49,7 +48,6 @@ const reducers = {
   accounts_counters,
   compose,
   contexts,
-  conversations,
   custom_emojis,
   filters,
   groups,

@@ -1,4 +1,0 @@
-Account address,Show reposts
-bob,true
-eve@example.com,false
-

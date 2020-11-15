@@ -39,14 +39,6 @@ class Export
     end
   end
 
-  def to_blocked_domains_csv
-    CSV.generate do |csv|
-      account.domain_blocks.pluck(:domain).each do |domain|
-        csv << [domain]
-      end
-    end
-  end
-
   def total_storage
     account.media_attachments.sum(:file_file_size)
   end
@@ -73,10 +65,6 @@ class Export
 
   def total_mutes
     account.muting.count
-  end
-
-  def total_domain_blocks
-    account.domain_blocks.count
   end
 
   private

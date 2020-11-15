@@ -4,8 +4,8 @@ import {
   CLEAR_SUBSCRIPTION,
   SET_ALERTS,
   setAlerts,
-} from './setter';
-import { register, saveSettings } from './registerer';
+} from './setter'
+import { register, saveSettings } from './registerer'
 
 export {
   SET_BROWSER_SUPPORT,
@@ -13,11 +13,9 @@ export {
   CLEAR_SUBSCRIPTION,
   SET_ALERTS,
   register,
-};
+}
 
-export function changeAlerts(path, value) {
-  return dispatch => {
-    dispatch(setAlerts(path, value));
-    dispatch(saveSettings());
-  };
+export const changeAlerts = (path, value) => (dispatch) => {
+  dispatch(setAlerts(path, value))
+  dispatch(saveSettings())
 }

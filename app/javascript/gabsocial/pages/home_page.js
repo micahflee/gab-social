@@ -2,13 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import throttle from 'lodash.throttle'
-import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
-import { MODAL_HOME_TIMELINE_SETTINGS } from '../constants'
+import { openModal } from '../actions/modal'
+import {
+  MODAL_HOME_TIMELINE_SETTINGS,
+  LAZY_LOAD_SCROLL_OFFSET,
+} from '../constants'
 import { me } from '../initial_state'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
+import TabBar from '../components/tab_bar'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   UserPanel,
@@ -47,7 +51,7 @@ class HomePage extends React.PureComponent {
     if (this.window) {
       const { scrollTop } = this.documentElement
       
-      if (scrollTop > 25 && !this.state.lazyLoaded) {
+      if (scrollTop > LAZY_LOAD_SCROLL_OFFSET && !this.state.lazyLoaded) {
         this.setState({ lazyLoaded: true })
         this.detachScrollListener()
       }
@@ -98,11 +102,10 @@ class HomePage extends React.PureComponent {
           path={title}
           badge={totalQueuedItemsCount}
         />
-        
+
         <TimelineComposeBlock autoFocus={false} />
-
         {children}
-
+        
       </DefaultLayout>
     )
   }

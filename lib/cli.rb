@@ -80,7 +80,7 @@ module GabSocial
 
       exit(1) if prompt.no?('Are you sure you want to proceed?')
 
-      inboxes   = Account.inboxes
+      inboxes   = nil
       processed = 0
       dry_run   = options[:dry_run] ? ' (DRY RUN)' : ''
 

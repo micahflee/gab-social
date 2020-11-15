@@ -4,8 +4,8 @@ class OEmbedSerializer < ActiveModel::Serializer
   include RoutingHelper
   include ActionView::Helpers::TagHelper
 
-  attributes :type, :version, :title, :author_name,
-             :author_url, :provider_name, :provider_url,
+  attributes :type, :version, :title
+             :provider_name, :provider_url,
              :cache_age, :html, :width, :height
 
   def type
@@ -14,14 +14,6 @@ class OEmbedSerializer < ActiveModel::Serializer
 
   def version
     '1.0'
-  end
-
-  def author_name
-    object.account.display_name.presence || object.account.username
-  end
-
-  def author_url
-    short_account_url(object.account)
   end
 
   def provider_name

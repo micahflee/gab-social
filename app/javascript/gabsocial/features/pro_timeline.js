@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { expandProTimeline } from '../actions/timelines'
-import { connectProStream } from '../actions/streaming'
 import StatusList from '../components/status_list'
 
 class ProTimeline extends React.PureComponent {
@@ -16,15 +15,6 @@ class ProTimeline extends React.PureComponent {
     const { dispatch } = this.props
 
     dispatch(expandProTimeline())
-
-    this.disconnect = dispatch(connectProStream())
-  }
-
-  componentWillUnmount() {
-		if (this.disconnect) {
-			this.disconnect()
-			this.disconnect = null
-		}
   }
   
   handleLoadMore = (maxId) => {

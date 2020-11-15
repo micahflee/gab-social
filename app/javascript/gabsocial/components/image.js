@@ -54,7 +54,7 @@ class Image extends React.PureComponent {
       <img
         alt={alt}
         className={classes}
-        {...otherProps}
+        {...otherProps} // : todo : remove
         ref={imageRef}
         src={src}
         onError={this.handleOnError}

@@ -15,14 +15,6 @@ import {
   BOOKMARKED_STATUSES_EXPAND_FAIL,
 } from '../actions/bookmarks'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
-import {
-  FAVORITE_SUCCESS,
-  UNFAVORITE_SUCCESS,
-  PIN_SUCCESS,
-  UNPIN_SUCCESS,
-  BOOKMARK_SUCCESS,
-  UNBOOKMARK_SUCCESS,
-} from '../actions/interactions';
 
 const initialState = ImmutableMap({
   bookmarks: ImmutableMap({
@@ -31,11 +23,6 @@ const initialState = ImmutableMap({
     items: ImmutableList(),
   }),
   favorites: ImmutableMap({
-    next: null,
-    loaded: false,
-    items: ImmutableList(),
-  }),
-  pins: ImmutableMap({
     next: null,
     loaded: false,
     items: ImmutableList(),
@@ -93,18 +80,6 @@ export default function statusLists(state = initialState, action) {
     return normalizeList(state, 'favorites', action.statuses, action.next);
   case FAVORITED_STATUSES_EXPAND_SUCCESS:
     return appendToList(state, 'favorites', action.statuses, action.next);
-  case FAVORITE_SUCCESS:
-    return prependOneToList(state, 'favorites', action.status);
-  case UNFAVORITE_SUCCESS:
-    return removeOneFromList(state, 'favorites', action.status);
-  case PIN_SUCCESS:
-    return prependOneToList(state, 'pins', action.status);
-  case UNPIN_SUCCESS:
-    return removeOneFromList(state, 'pins', action.status);
-  case BOOKMARK_SUCCESS:
-    return prependOneToList(state, 'bookmarks', action.status);
-  case UNBOOKMARK_SUCCESS:
-    return removeOneFromList(state, 'bookmarks', action.status);
   default:
     return state;
   }

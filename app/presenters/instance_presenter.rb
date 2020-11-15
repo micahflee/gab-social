@@ -6,9 +6,6 @@ class InstancePresenter
     :site_title,
     :site_short_description,
     :site_description,
-    :site_extended_description,
-    :site_terms,
-    :closed_registrations_message,
     to: Setting
   )
 
@@ -25,6 +22,7 @@ class InstancePresenter
   end
 
   def status_count
+    puts "tilly-hello-1"
     Rails.cache.fetch('local_status_count') { Account.local.joins(:account_stat).sum('account_stats.statuses_count') }.to_i
   end
 
@@ -46,10 +44,6 @@ class InstancePresenter
 
   def thumbnail
     @thumbnail ||= Rails.cache.fetch('site_uploads/thumbnail') { SiteUpload.find_by(var: 'thumbnail') }
-  end
-
-  def hero
-    @hero ||= Rails.cache.fetch('site_uploads/hero') { SiteUpload.find_by(var: 'hero') }
   end
   
 end

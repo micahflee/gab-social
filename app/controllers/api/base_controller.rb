@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
-  DEFAULT_STATUSES_LIMIT = 20
+  DEFAULT_STATUSES_LIMIT = 18
   DEFAULT_ACCOUNTS_LIMIT = 40
 
   include RateLimitHeaders
@@ -77,8 +77,6 @@ class Api::BaseController < ApplicationController
     # : todo : when figure out email/catpcha, put this back
     # elsif !current_user.confirmed?
     #   render json: { error: 'Your login is missing a confirmed e-mail address' }, status: 403
-    elsif !current_user.approved?
-      render json: { error: 'Your login is currently pending approval' }, status: 403
     else
       set_user_activity
     end

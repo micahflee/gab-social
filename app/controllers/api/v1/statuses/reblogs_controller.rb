@@ -6,8 +6,6 @@ class Api::V1::Statuses::ReblogsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }
   before_action :require_user!
 
-  respond_to :json
-
   def create
     if !current_user.account.local? || !status_for_reblog.local
       return render json: { error: 'Invalid action' }, status: 422

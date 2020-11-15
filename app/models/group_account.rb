@@ -13,6 +13,7 @@
 
 class GroupAccount < ApplicationRecord
   self.ignored_columns = ["unread_count"]
+  # : todo : enum: 1,2,3,4,5...
   enum role: {
     admin: "admin",
     moderator: "moderator"

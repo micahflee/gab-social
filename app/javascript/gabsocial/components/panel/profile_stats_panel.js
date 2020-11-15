@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { me, favouritesCount } from '../../initial_state'
+import { me } from '../../initial_state'
 import { shortNumberFormat } from '../../utils/numbers'
 import PanelLayout from './panel_layout'
 import UserStat from '../user_stat'
@@ -56,7 +56,7 @@ class ProfileStatsPanel extends ImmutablePureComponent {
               account.get('id') === me &&
               <UserStat
                 title={intl.formatMessage(messages.likes)}
-                value={shortNumberFormat(favouritesCount)}
+                value={shortNumberFormat(0)}
                 to={`/${account.get('acct')}/likes`}
                 isCentered={noPanel}
               />

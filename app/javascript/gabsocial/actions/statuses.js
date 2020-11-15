@@ -22,18 +22,12 @@ export const COMMENTS_FETCH_REQUEST = 'COMMENTS_FETCH_REQUEST';
 export const COMMENTS_FETCH_SUCCESS = 'COMMENTS_FETCH_SUCCESS';
 export const COMMENTS_FETCH_FAIL    = 'COMMENTS_FETCH_FAIL';
 
-export const STATUS_MUTE_REQUEST = 'STATUS_MUTE_REQUEST';
-export const STATUS_MUTE_SUCCESS = 'STATUS_MUTE_SUCCESS';
-export const STATUS_MUTE_FAIL    = 'STATUS_MUTE_FAIL';
-
-export const STATUS_UNMUTE_REQUEST = 'STATUS_UNMUTE_REQUEST';
-export const STATUS_UNMUTE_SUCCESS = 'STATUS_UNMUTE_SUCCESS';
-export const STATUS_UNMUTE_FAIL    = 'STATUS_UNMUTE_FAIL';
-
 export const STATUS_REVEAL = 'STATUS_REVEAL';
 export const STATUS_HIDE   = 'STATUS_HIDE';
 
 export const STATUS_EDIT = 'STATUS_EDIT';
+
+export const UPDATE_STATUS_STATS = 'UPDATE_STATUS_STATS'
 
 export function fetchStatusRequest(id, skipLoading) {
   return {
@@ -280,78 +274,6 @@ export function fetchCommentsFail(id, error) {
   };
 };
 
-export function muteStatus(id) {
-  return (dispatch, getState) => {
-    if (!me) return;
-
-    dispatch(muteStatusRequest(id));
-
-    api(getState).post(`/api/v1/statuses/${id}/mute`).then(() => {
-      dispatch(muteStatusSuccess(id));
-    }).catch(error => {
-      dispatch(muteStatusFail(id, error));
-    });
-  };
-};
-
-export function muteStatusRequest(id) {
-  return {
-    type: STATUS_MUTE_REQUEST,
-    id,
-  };
-};
-
-export function muteStatusSuccess(id) {
-  return {
-    type: STATUS_MUTE_SUCCESS,
-    id,
-  };
-};
-
-export function muteStatusFail(id, error) {
-  return {
-    type: STATUS_MUTE_FAIL,
-    id,
-    error,
-  };
-};
-
-export function unmuteStatus(id) {
-  return (dispatch, getState) => {
-    if (!me) return;
-
-    dispatch(unmuteStatusRequest(id));
-
-    api(getState).post(`/api/v1/statuses/${id}/unmute`).then(() => {
-      dispatch(unmuteStatusSuccess(id));
-    }).catch(error => {
-      dispatch(unmuteStatusFail(id, error));
-    });
-  };
-};
-
-export function unmuteStatusRequest(id) {
-  return {
-    type: STATUS_UNMUTE_REQUEST,
-    id,
-  };
-};
-
-export function unmuteStatusSuccess(id) {
-  return {
-    type: STATUS_UNMUTE_SUCCESS,
-    id,
-  };
-};
-
-export function unmuteStatusFail(id, error) {
-  return {
-    type: STATUS_UNMUTE_FAIL,
-    id,
-    error,
-  };
-};
-
 export function hideStatus(ids) {
   if (!Array.isArray(ids)) {
     ids = [ids];
@@ -371,5 +293,12 @@ export function revealStatus(ids) {
   return {
     type: STATUS_REVEAL,
     ids,
+  };
+};
+
+export function updateStatusStats(data) {
+  return {
+    type: UPDATE_STATUS_STATS,
+    data,
   };
 };

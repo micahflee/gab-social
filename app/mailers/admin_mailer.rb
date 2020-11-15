@@ -3,7 +3,7 @@
 class AdminMailer < ApplicationMailer
   layout 'plain_mailer'
 
-  helper :stream_entries
+  helper :statuses
 
   def new_report(recipient, report)
     @report   = report
@@ -15,13 +15,4 @@ class AdminMailer < ApplicationMailer
     end
   end
 
-  def new_pending_account(recipient, user)
-    @account  = user.account
-    @me       = recipient
-    @instance = Rails.configuration.x.local_domain
-
-    locale_for_account(@me) do
-      mail to: @me.user_email, subject: I18n.t('admin_mailer.new_pending_account.subject', instance: @instance, username: @account.username)
-    end
-  end
 end

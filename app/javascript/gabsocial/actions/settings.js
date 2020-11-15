@@ -5,16 +5,26 @@ import { me } from '../initial_state'
 export const SETTING_CHANGE = 'SETTING_CHANGE'
 export const SETTING_SAVE   = 'SETTING_SAVE'
 
-export function changeSetting(path, value) {
-  return dispatch => {
-    dispatch({
-      type: SETTING_CHANGE,
-      path,
-      value,
-    })
+export const saveShownOnboarding = () => (dispatch) => {
+  dispatch(changeSetting(['shownOnboarding'], true))
+  dispatch(saveSettings())
+}
 
-    dispatch(saveSettings())
-  }
+export const changeSetting = (path, value) => (dispatch) => {
+  dispatch({
+    type: SETTING_CHANGE,
+    path,
+    value,
+  })
+
+  dispatch(saveSettings())
+}
+
+/**
+ * 
+ */
+export const saveSettings = () => (dispatch, getState) => {
+  debouncedSave(dispatch, getState)
 }
 
 const debouncedSave = debounce((dispatch, getState) => {
@@ -28,7 +38,3 @@ const debouncedSave = debounce((dispatch, getState) => {
     .then(() => dispatch({ type: SETTING_SAVE }))
     .catch(() => { /* */ })
 }, 350, { trailing: true })
-
-export function saveSettings() {
-  return (dispatch, getState) => debouncedSave(dispatch, getState)
-}

@@ -2,8 +2,6 @@
 
 class BlacklistedEmailValidator < ActiveModel::Validator
   def validate(user)
-    return if user.valid_invitation?
-
     @email = user.email
 
     user.errors.add(:email, I18n.t('users.invalid_email')) if blocked_email?

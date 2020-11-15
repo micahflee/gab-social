@@ -13,61 +13,59 @@ export const SUGGESTIONS_FETCH_FAIL    = 'SUGGESTIONS_FETCH_FAIL'
 
 export const SUGGESTIONS_DISMISS = 'SUGGESTIONS_DISMISS'
 
-export function fetchPopularSuggestions() {
-  return (dispatch, getState) => {
-    if (!me) return false
-
-    dispatch(fetchSuggestionsRequest(SUGGESTION_TYPE_VERIFIED))
-
-    api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_VERIFIED}`).then(response => {
-      dispatch(importFetchedAccounts(response.data))
-      dispatch(fetchSuggestionsSuccess(response.data, SUGGESTION_TYPE_VERIFIED))
-      dispatch(fetchRelationships(response.data.map(item => item.id)))
-    }).catch(error => dispatch(fetchSuggestionsFail(error, SUGGESTION_TYPE_VERIFIED)))
-  }
+/**
+ * 
+ */
+export const fetchPopularSuggestions = () => (dispatch, getState) => {
+  if (!me) return false
+  fetchSuggestions(SUGGESTION_TYPE_VERIFIED, dispatch, getState)
 }
 
-export function fetchRelatedSuggestions(unlimited = false) {
-  return (dispatch, getState) => {
-    if (!me) return false
-
-    dispatch(fetchSuggestionsRequest(SUGGESTION_TYPE_RELATED))
-
-    api(getState).get(`/api/v1/suggestions?type=${SUGGESTION_TYPE_RELATED}&unlimited=${!!unlimited}`).then(response => {
-      dispatch(importFetchedAccounts(response.data))
-      dispatch(fetchSuggestionsSuccess(response.data, SUGGESTION_TYPE_RELATED))
-      dispatch(fetchRelationships(response.data.map(item => item.id)))
-    }).catch(error => dispatch(fetchSuggestionsFail(error, SUGGESTION_TYPE_RELATED)))
-  }
+/**
+ * 
+ */
+export const fetchRelatedSuggestions = (unlimited = false) => (dispatch, getState) => {
+  if (!me) return false
+  fetchSuggestions(SUGGESTION_TYPE_RELATED, dispatch, getState, unlimited)
 }
 
-export function fetchSuggestionsRequest(suggestionType) {
-  return {
-    type: SUGGESTIONS_FETCH_REQUEST,
-    skipLoading: true,
-    suggestionType,
-  }
+/**
+ * 
+ */
+const fetchSuggestions = (suggestionType, dispatch, getState, unlimited = false) => {
+  dispatch(fetchSuggestionsRequest(suggestionType))
+
+  api(getState).get(`/api/v1/suggestions?type=${suggestionType}&unlimited=${!!unlimited}`).then((response) => {
+    dispatch(importFetchedAccounts(response.data))
+    dispatch(fetchSuggestionsSuccess(response.data, suggestionType))
+    dispatch(fetchRelationships(response.data.map(item => item.id)))
+  }).catch(error => dispatch(fetchSuggestionsFail(error, suggestionType)))
 }
 
-export function fetchSuggestionsSuccess(accounts, suggestionType) {
-  return {
-    type: SUGGESTIONS_FETCH_SUCCESS,
-    skipLoading: true,
-    accounts,
-    suggestionType
-  }
-}
+const fetchSuggestionsRequest = (suggestionType) => ({
+  type: SUGGESTIONS_FETCH_REQUEST,
+  skipLoading: true,
+  suggestionType,
+})
 
-export function fetchSuggestionsFail(error, suggestionType) {
-  return {
-    type: SUGGESTIONS_FETCH_FAIL,
-    skipLoading: true,
-    skipAlert: true,
-    error,
-    suggestionType,
-  }
-}
+const fetchSuggestionsSuccess = (accounts, suggestionType) => ({
+  type: SUGGESTIONS_FETCH_SUCCESS,
+  skipLoading: true,
+  accounts,
+  suggestionType
+})
 
+const fetchSuggestionsFail = (error, suggestionType) => ({
+  type: SUGGESTIONS_FETCH_FAIL,
+  skipLoading: true,
+  skipAlert: true,
+  error,
+  suggestionType,
+})
+
+/**
+ * 
+ */
 export const dismissRelatedSuggestion = (accountId) => (dispatch, getState) => {
   if (!me) return
 

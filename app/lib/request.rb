@@ -108,12 +108,8 @@ class Request
   end
 
   def key_id
-    case @key_id_format
-    when :acct
-      @account.to_webfinger_s
-    when :uri
-      [ActivityPub::TagManager.instance.uri_for(@account), '#main-key'].join
-    end
+    # : todo : remove
+    nil
   end
 
   def timeout

@@ -8,13 +8,15 @@ class Api::V1::Groups::PinsController < Api::BaseController
   before_action :set_group
   before_action :set_status
 
-  respond_to :json
-
   def create
     authorize @group, :update?
     
     GroupPinnedStatus.create!(group: @group, status: @status)
     render json: @status, serializer: REST::StatusSerializer
+  end
+
+  def show
+    # is status pinned by user of group?
   end
 
   def destroy

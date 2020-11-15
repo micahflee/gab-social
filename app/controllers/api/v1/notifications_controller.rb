@@ -1,13 +1,11 @@
 # frozen_string_literal: true
 
 class Api::V1::NotificationsController < Api::BaseController
-  before_action -> { doorkeeper_authorize! :read, :'read:notifications' }, except: [:clear, :dismiss, :mark_read]
-  before_action -> { doorkeeper_authorize! :write, :'write:notifications' }, only: [:clear, :dismiss, :mark_read]
+  before_action -> { doorkeeper_authorize! :read, :'read:notifications' }, except: [:clear, :mark_read]
+  before_action -> { doorkeeper_authorize! :write, :'write:notifications' }, only: [:clear, :mark_read]
   before_action :require_user!
   before_action :set_filter_params
   after_action :insert_pagination_headers, only: :index
-
-  respond_to :json
 
   DEFAULT_NOTIFICATIONS_LIMIT = 20
 
@@ -23,11 +21,6 @@ class Api::V1::NotificationsController < Api::BaseController
 
   def clear
     current_account.notifications.delete_all
-    render_empty
-  end
-
-  def dismiss
-    current_account.notifications.find_by!(id: params[:id]).destroy!
     render_empty
   end
 

@@ -15,7 +15,9 @@ import ProfileLayout from '../layouts/profile_layout'
 class ProfilePage extends ImmutablePureComponent {
 
   componentDidMount() {
-    this.props.dispatch(fetchAccountByUsername(this.props.params.username))
+    if (!this.props.account) {
+      this.props.dispatch(fetchAccountByUsername(this.props.params.username))
+    }
   }
 
   render() {

@@ -9,7 +9,6 @@ class UpdateAccountService < BaseService
       next unless ret
 
       authorize_all_follow_requests(account) if was_locked && !account.locked
-      check_links(account)
       process_hashtags(account)
     end
   rescue GabSocial::DimensionsValidationError => de
@@ -23,10 +22,6 @@ class UpdateAccountService < BaseService
     AuthorizeFollowWorker.push_bulk(FollowRequest.where(target_account: account).select(:account_id, :target_account_id)) do |req|
       [req.account_id, req.target_account_id]
     end
-  end
-
-  def check_links(account)
-    VerifyAccountLinksWorker.perform_async(account.id)
   end
 
   def process_hashtags(account)

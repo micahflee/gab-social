@@ -33,7 +33,6 @@
 #  account_id                :bigint(8)        not null
 #  disabled                  :boolean          default(FALSE), not null
 #  moderator                 :boolean          default(FALSE), not null
-#  invite_id                 :bigint(8)
 #  remember_token            :string
 #  chosen_languages          :string           is an Array
 #  created_by_application_id :bigint(8)
@@ -43,6 +42,8 @@
 #
 
 class User < ApplicationRecord
+  self.ignored_columns = ["{:column=>:invite}_id"]
+
   include Settings::Extend
   include UserRoles
 
@@ -69,24 +70,18 @@ class User < ApplicationRecord
   include LdapAuthenticable
 
   belongs_to :account, inverse_of: :user
-  belongs_to :invite, counter_cache: :uses, optional: true
   belongs_to :created_by_application, class_name: 'Doorkeeper::Application', optional: true
   accepts_nested_attributes_for :account
 
   has_many :applications, class_name: 'Doorkeeper::Application', as: :owner
   has_many :backups, inverse_of: :user
 
-  has_one :invite_request, class_name: 'UserInviteRequest', inverse_of: :user, dependent: :destroy
-  accepts_nested_attributes_for :invite_request, reject_if: ->(attributes) { attributes['text'].blank? }
-
   validates :locale, inclusion: I18n.available_locales.map(&:to_s), if: :locale?
-  validates :unique_email, uniqueness: true, on: :create
   validates_with BlacklistedEmailValidator, on: :create
   validates_with EmailMxValidator, if: :validate_email_dns?
   validates :agreement, acceptance: { allow_nil: false, accept: [true, 'true', '1'] }, on: :create
 
   scope :recent, -> { order(id: :desc) }
-  scope :pending, -> { where(approved: false) }
   scope :approved, -> { where(approved: true) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }
   scope :enabled, -> { where(disabled: false) }
@@ -96,7 +91,6 @@ class User < ApplicationRecord
   scope :emailable, -> { confirmed.enabled.joins(:account).merge(Account.searchable) }
 
   before_validation :sanitize_languages
-  before_validation :set_unique_email
   before_create :set_approved
   after_create :prepare_new_user!
 
@@ -109,22 +103,13 @@ class User < ApplicationRecord
 
   delegate :auto_play_gif, :default_sensitive, :unfollow_modal, :boost_modal, :delete_modal,
            :noindex, :theme, :display_media, :hide_network,
-           :expand_spoilers, :default_language, :aggregate_reblogs, :show_application,
+           :expand_spoilers, :default_language, :aggregate_reblogs,
            :group_in_home_feed, to: :settings, prefix: :setting, allow_nil: false
 
-  attr_reader :invite_code
   attr_writer :external
 
   def confirmed?
     confirmed_at.present?
-  end
-
-  def invited?
-    invite_id.present?
-  end
-
-  def valid_invitation?
-    invite_id.present? && invite.valid_for_use?
   end
 
   def disable!
@@ -138,8 +123,8 @@ class User < ApplicationRecord
   end
 
   def confirm
-    new_user      = !confirmed?
-    self.approved = true if open_registrations?
+    new_user = !confirmed?
+    self.approved = true
 
     super
 
@@ -149,8 +134,8 @@ class User < ApplicationRecord
   end
 
   def confirm!
-    new_user      = !confirmed?
-    self.approved = true if open_registrations?
+    new_user = !confirmed?
+    self.approved = true
 
     skip_confirmation!
     save!
@@ -158,16 +143,8 @@ class User < ApplicationRecord
     # prepare_new_user! if new_user && approved?
   end
 
-  def pending?
-    !approved?
-  end
-
   def active_for_authentication?
     super && approved?
-  end
-
-  def inactive_message
-    !approved? ? :pending : super
   end
 
   def approve!
@@ -200,20 +177,12 @@ class User < ApplicationRecord
     settings.notification_emails['report']
   end
 
-  def allows_pending_account_emails?
-    settings.notification_emails['pending_account']
-  end
-
   def hides_network?
     @hides_network ||= settings.hide_network
   end
 
   def aggregates_reblogs?
     @aggregates_reblogs ||= settings.aggregate_reblogs
-  end
-
-  def shows_application?
-    @shows_application ||= settings.show_application
   end
 
   def allows_group_in_home_feed?
@@ -247,11 +216,6 @@ class User < ApplicationRecord
 
   def web_push_subscription(session)
     session.web_push_subscription.nil? ? nil : session.web_push_subscription
-  end
-
-  def invite_code=(code)
-    self.invite  = Invite.find_by(code: code) if code.present?
-    @invite_code = code
   end
 
   def challenge
@@ -294,11 +258,7 @@ class User < ApplicationRecord
   private
 
   def set_approved
-    self.approved = open_registrations? || valid_invitation? || external?
-  end
-
-  def open_registrations?
-    Setting.registrations_mode == 'open'
+    self.approved = true
   end
 
   def external?
@@ -345,12 +305,4 @@ class User < ApplicationRecord
     end
   end
 
-  def set_unique_email
-    user, domain = self.email.split('@')
-    user = user.split('+').first
-    if ((domain == 'gmail.com') || (domain == 'hotmail.com'))
-      user = user.gsub('.', '')
-    end
-    self.unique_email = "#{user}@#{domain}"
-  end
 end

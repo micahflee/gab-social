@@ -46,10 +46,6 @@ class Poll < ApplicationRecord
     options.map.with_index { |title, key| Option.new(self, key.to_s, title, show_totals_now? ? cached_tallies[key] : nil) }
   end
 
-  def possibly_stale?
-    remote? && last_fetched_before_expiration? && time_passed_since_last_fetch?
-  end
-
   def voted?(account)
     account.id == account_id || votes.where(account: account).exists?
   end
@@ -94,15 +90,7 @@ class Poll < ApplicationRecord
     Rails.cache.delete("statuses/#{status_id}")
   end
 
-  def last_fetched_before_expiration?
-    last_fetched_at.nil? || expires_at.nil? || last_fetched_at < expires_at
-  end
-
-  def time_passed_since_last_fetch?
-    last_fetched_at.nil? || last_fetched_at < 1.minute.ago
-  end
-
   def show_totals_now?
-    expired? || !hide_totals?
+    expired?
   end
 end

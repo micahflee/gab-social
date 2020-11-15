@@ -19,13 +19,6 @@ export const TIMELINE_DISCONNECT = 'TIMELINE_DISCONNECT';
 
 export const MAX_QUEUED_ITEMS = 40;
 
-const fetchStatusesAccountsRelationships = (dispatch, statuses) => {
-  const accountIds = statuses.map(item => item.account.id)
-  if (accountIds.length > 0) {
-    dispatch(fetchRelationships(accountIds));
-  }
-}
-
 export function updateTimeline(timeline, status, accept) {
   return dispatch => {
     if (typeof accept === 'function' && !accept(status)) {
@@ -134,36 +127,34 @@ const parseTags = (tags = {}, mode) => {
   });
 };
 
-export function expandTimeline(timelineId, path, params = {}, done = noOp) {
-  return (dispatch, getState) => {
-    const timeline = getState().getIn(['timelines', timelineId], ImmutableMap());
-    const isLoadingMore = !!params.max_id;
+export const expandTimeline = (timelineId, path, params = {}, done = noOp) => (dispatch, getState) => {
+  const timeline = getState().getIn(['timelines', timelineId], ImmutableMap())
+  const isLoadingMore = !!params.max_id
 
-    if (timeline.get('isLoading')) {
-      done();
-      return;
-    }
+  if (!!timeline && (timeline.get('isLoading') || timeline.get('isError'))) {
+    done()
+    return
+  }
 
-    if (!params.max_id && !params.pinned && timeline.get('items', ImmutableList()).size > 0) {
-      params.since_id = timeline.getIn(['items', 0]);
-    }
+  if (!params.max_id && !params.pinned && timeline.get('items', ImmutableList()).size > 0) {
+    params.since_id = timeline.getIn(['items', 0])
+  }
 
-    const isLoadingRecent = !!params.since_id;
+  const isLoadingRecent = !!params.since_id
 
-    dispatch(expandTimelineRequest(timelineId, isLoadingMore));
+  dispatch(expandTimelineRequest(timelineId, isLoadingMore))
 
-    api(getState).get(path, { params }).then(response => {
-      const next = getLinks(response).refs.find(link => link.rel === 'next');
-      dispatch(importFetchedStatuses(response.data));
-      dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore));
-      fetchStatusesAccountsRelationships(dispatch, response.data)
-      done();
-    }).catch(error => {
-      dispatch(expandTimelineFail(timelineId, error, isLoadingMore));
-      done();
-    });
-  };
-};
+  api(getState).get(path, { params }).then((response) => {
+    console.log("response:", response)
+    const next = getLinks(response).refs.find(link => link.rel === 'next')
+    dispatch(importFetchedStatuses(response.data))
+    dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore))
+    done()
+  }).catch((error) => {
+    dispatch(expandTimelineFail(timelineId, error, isLoadingMore))
+    done()
+  })
+}
 
 export const expandHomeTimeline = ({ maxId } = {}, done = noOp) => expandTimeline('home', '/api/v1/timelines/home', { max_id: maxId }, done);
 export const expandExploreTimeline = ({ maxId, sortBy } = {}, done = noOp) => expandTimeline('explore', '/api/v1/timelines/explore', { max_id: maxId, sort_by: sortBy }, done);

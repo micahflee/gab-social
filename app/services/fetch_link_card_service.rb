@@ -78,6 +78,7 @@ class FetchLinkCardService < BaseService
   end
 
   def parse_urls
+    # : todo :
     if @status.local?
       urls = @status.text.scan(URL_PATTERN).map { |array| Addressable::URI.parse(array[0]).normalize }
     else
@@ -114,8 +115,6 @@ class FetchLinkCardService < BaseService
 
     @card.type          = embed[:type]
     @card.title         = embed[:title]         || ''
-    @card.author_name   = embed[:author_name]   || ''
-    @card.author_url    = embed[:author_url].present? ? (url + embed[:author_url]).to_s : ''
     @card.provider_name = embed[:provider_name] || ''
     @card.provider_url  = embed[:provider_url].present? ? (url + embed[:provider_url]).to_s : ''
     @card.width         = 0
