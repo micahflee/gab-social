@@ -10,9 +10,6 @@ class FeedInsertWorker
     case @type
     when :home
       @follower = Account.find(id)
-    when :list
-      @list     = List.find(id)
-      @follower = @list.account
     end
 
     check_and_insert
@@ -36,8 +33,6 @@ class FeedInsertWorker
     case @type
     when :home
       FeedManager.instance.push_to_home(@follower, @status)
-    when :list
-      FeedManager.instance.push_to_list(@list, @status)
     end
   end
 end
