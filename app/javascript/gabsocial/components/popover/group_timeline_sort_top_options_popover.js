@@ -56,12 +56,14 @@ class GroupTimelineSortTopOptionsPopover extends React.PureComponent {
         title: intl.formatMessage(messages.topYearTitle),
         onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_YEARLY),
       },
+      /*
       {
         hideArrow: true,
         isActive: sortByTopValue === GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_ALL_TIME,
         title: intl.formatMessage(messages.topAllTitle),
         onClick: () => this.handleOnClick(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_ALL_TIME),
       },
+      */
     ]
 
     return (
