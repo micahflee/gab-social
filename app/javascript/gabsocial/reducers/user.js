@@ -19,6 +19,7 @@ export default function (state = initialState, action) {
     case SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS:
       return state
     case SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL:
+      alert('Failed to update your profile. Max profile image size is 2MB. Please update and try again.')
       return state.set('isError', true)
     case RESEND_USER_CONFIRMATION_EMAIL_SUCCESS:
       return state.set('emailConfirmationResends', state.get('emailConfirmationResends') + 1)

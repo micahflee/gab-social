@@ -11,7 +11,7 @@ export const SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS = 'SAVE_USER_PROFILE_IN
 export const SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL = 'SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL'
 export const RESEND_USER_CONFIRMATION_EMAIL_SUCCESS = 'RESEND_USER_CONFIRMATION_EMAIL_SUCCESS'
 
-export const saveUserProfileInformation = (data) => {
+export const saveUserProfileInformation = (data, closer) => {
   return function (dispatch, getState) {
     if (!isObject(data) || !me) return
 
@@ -31,6 +31,7 @@ export const saveUserProfileInformation = (data) => {
     }).then((response) => {
       dispatch(importFetchedAccount(response.data))
       dispatch(saveUserProfileInformationSuccess(response.data))
+      closer()
     }).catch(error => {
       dispatch(saveUserProfileInformationFail(error))
     })
