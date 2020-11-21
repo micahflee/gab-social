@@ -18,7 +18,7 @@ class Api::V1::Timelines::ListController < Api::BaseController
 
   def set_list
     @list = List.where(account: current_account).find(params[:id])
-    @accounts = ListAccount.select('follow_id').where(list_id: @list)
+    @accounts = ListAccount.select('account_id').where(list_id: @list)
   end
 
   def set_statuses
