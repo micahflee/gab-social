@@ -72,7 +72,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
       return []
     end
 
-    date_limit = 30.days.ago
+    date_limit = 7.days.ago
     top_order = 'status_stats.favourites_count DESC, status_stats.reblogs_count DESC, status_stats.replies_count DESC'
 
     if @sort_type == 'hot'
@@ -94,6 +94,8 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
       if @sort_type == 'newest'
         statuses = Status.where(
               group: @groupIds, reply: false
+            ).where(
+              'statuses.updated_at > ?', date_limit
             ).paginate_by_id(
               limit_param(DEFAULT_STATUSES_LIMIT),
               params_slice(:max_id, :since_id, :min_id)
@@ -131,6 +133,8 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
       if @sort_type == 'newest'
         statuses = Status.where(
               group: @groupIds, reply: false
+            ).where(
+              'statuses.created_at > ?', date_limit
             ).paginate_by_id(limit_param(DEFAULT_STATUSES_LIMIT), params_slice(:max_id, :since_id, :min_id))
       elsif @sort_type == 'recent'
         statuses = Status.where(
