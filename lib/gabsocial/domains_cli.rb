@@ -44,7 +44,7 @@ module GabSocial
     def deleteallremote
       dry_run = options[:dry_run] ? ' (DRY RUN)' : ''
 
-      Account.remote.by_domain_accounts.each do |acct|
+      Account.remote.by_domain_accounts.find_in_batches do |acct|
         domain = acct.domain
 
         say("\n\n\n - Starting domain block for #{domain} #{dry_run}", :green)
@@ -64,7 +64,7 @@ module GabSocial
         end
       end
 
-      say('\nDomain block deleteallremote done', :green)
+      say('\n\n - Domain block deleteallremote done', :green)
     end
 
     option :concurrency, type: :numeric, default: 50, aliases: [:c]
