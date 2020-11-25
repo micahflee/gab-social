@@ -98,8 +98,8 @@ class EditProfileModal extends ImmutablePureComponent {
     if (account.get('avatar_static') !== avatarSrc) obj.avatar = avatarSrc
     if (account.get('header_static') !== headerSrc) obj.header = headerSrc
 
-    this.props.onSave(obj)
-    this.handleOnClose()
+    this.props.onSave(obj, this.handleOnClose)
+    //this.handleOnClose()
   }
 
   render() {
@@ -210,7 +210,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSave: (data) => dispatch(saveUserProfileInformation(data)),
+  onSave: (data, closer) => dispatch(saveUserProfileInformation(data, closer)),
 })
 
 EditProfileModal.propTypes = {

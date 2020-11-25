@@ -90,7 +90,7 @@ class Status < ApplicationRecord
 
   default_scope { recent }
 
-  scope :recent, -> { reorder(created_at: :desc) }
+  scope :recent, -> { reorder(updated_at: :desc) }
   scope :remote, -> { where(local: false).or(where.not(uri: nil)) }
   scope :local,  -> { where(local: true).or(where(uri: nil)) }
 
@@ -290,13 +290,14 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where('updated_at > ?', 30.days.ago)
+      query = where('updated_at > ?', 5.days.ago)
       query.where(visibility: [:public, :unlisted, :private])
       query.where(account: [account] + account.following).without_replies
     end
 
     def as_group_timeline(group)
-      where(group: group).without_replies
+      query = where('updated_at > ?', 5.days.ago)
+      query.where(group: group).without_replies
     end
 
     def as_group_collection_timeline(groupIds)
