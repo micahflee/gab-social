@@ -44,19 +44,23 @@ module GabSocial
     def deleteallremote
       dry_run = options[:dry_run] ? ' (DRY RUN)' : ''
 
-      Account.remote.by_domain_accounts.limit(2).each do |domain|
+      Account.remote.by_domain_accounts.each do |acct|
+        domain = acct.domain
+
         say("Starting domain block for #{domain} #{dry_run}", :green)
 
-        existing_domain_block = DomainBlock.find_by(domain: domain)
+        if domain.present?
+          existing_domain_block = DomainBlock.find_by(domain: domain)
 
-        unless existing_domain_block.present?
-          say("Domain block for #{domain} is starting #{dry_run}", :green)
-          unless options[:dry_run]
-            domain_block = DomainBlock.new(domain: domain, severity: :suspend)
-            DomainBlockWorker.perform_async(@domain_block.id)
+          unless existing_domain_block.present?
+            say("Domain block for #{domain} is starting #{dry_run}", :green)
+            unless options[:dry_run]
+              domain_block = DomainBlock.new(domain: domain, severity: :suspend)
+              DomainBlockWorker.perform_async(domain_block.id)
+            end
+          else
+            say("Domain block for #{domain} is already implemented #{dry_run}", :green)
           end
-        else
-          say("Domain block for #{domain} is already implemented #{dry_run}", :green)
         end
       end
 
