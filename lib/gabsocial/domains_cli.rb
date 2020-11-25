@@ -39,6 +39,30 @@ module GabSocial
       say("Removed #{custom_emojis_count} custom emojis", :green)
     end
 
+    option :dry_run, type: :boolean
+    desc 'deleteallremote', 'Remove all remote data'
+    def deleteallremote
+      dry_run = options[:dry_run] ? ' (DRY RUN)' : ''
+
+      Account.remote.by_domain_accounts.limit(2).each do |domain|
+        say("Starting domain block for #{domain} #{dry_run}", :green)
+
+        existing_domain_block = DomainBlock.find_by(domain: domain)
+
+        unless existing_domain_block.present?
+          say("Domain block for #{domain} is starting #{dry_run}", :green)
+          unless options[:dry_run]
+            domain_block = DomainBlock.new(domain: domain, severity: :suspend)
+            DomainBlockWorker.perform_async(@domain_block.id)
+          end
+        else
+          say("Domain block for #{domain} is already implemented #{dry_run}", :green)
+        end
+      end
+
+      say('Domain block deleteallremote done', :green)
+    end
+
     option :concurrency, type: :numeric, default: 50, aliases: [:c]
     option :silent, type: :boolean, default: false, aliases: [:s]
     option :format, type: :string, default: 'summary', aliases: [:f]
