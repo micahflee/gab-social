@@ -72,6 +72,10 @@ class Group < ApplicationRecord
     end
   end
 
+  def has_password?
+    return !!self.password && self.password.gsub(/\s+/, "").length > 1 && self.password.to_s != "null"
+  end
+
   private
 
   def set_password

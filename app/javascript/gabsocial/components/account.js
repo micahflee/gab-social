@@ -80,7 +80,7 @@ class Account extends ImmutablePureComponent {
       </Button>
     ) :  <AccountActionButton account={account} isSmall />
 
-    const avatarSize = compact ? 42 : 52
+    const avatarSize = compact ? 40 : 52
     const dismissBtn = !showDismiss ? null : (
       <Button
         isNarrow

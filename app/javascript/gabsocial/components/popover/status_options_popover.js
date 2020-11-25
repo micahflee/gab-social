@@ -5,13 +5,16 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { FormattedMessage, defineMessages, injectIntl } from 'react-intl'
 import { me, isStaff, boostModal, deleteModal } from '../../initial_state'
+import { makeGetStatus } from '../../selectors'
 import {
   repost,
   unrepost,
   pin,
   unpin,
+  isPin,
   bookmark,
   unbookmark,
+  isBookmark,
 } from '../../actions/interactions';
 import {
   deleteStatus,
@@ -24,6 +27,7 @@ import {
   groupRemoveStatus,
   pinGroupStatus,
   unpinGroupStatus,
+  isPinnedGroupStatus,
 } from '../../actions/groups'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
@@ -51,11 +55,23 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   ]
 
   componentDidMount() {
+    const {
+      status,
+      statusId,
+      groupRelationships,
+    } = this.props
+    
+    if (status.get('pinnable')) {
+      this.props.fetchIsPin(statusId)
+    }
+    this.props.fetchIsBookmark(statusId)
+    
+    if (!!status.get('group')) {
+      this.props.fetchIsPinnedGroupStatus(status.getIn(['group', 'id'], null), statusId)
+    }
+
     if (!this.props.groupRelationships && this.props.groupId) {
       this.props.onFetchGroupRelationships(this.props.groupId)
-      // : todo :
-      // check if pin
-      // check if bookmark
     }
   }
 
@@ -131,10 +147,14 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       isXS,
     } = this.props
 
+    if (!status) return <div />
+
     const mutingConversation = status.get('muted')
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
     const isReply = !!status.get('in_reply_to_id')
     const withGroupAdmin = !!groupRelationships ? (groupRelationships.get('admin') || groupRelationships.get('moderator')) : false
+
+    console.log("publicStatus:", status, publicStatus)
 
     let menu = []
 
@@ -296,13 +316,15 @@ const messages = defineMessages({
   share: { id: 'status.share_gab', defaultMessage: 'Share gab' },
 })
 
-const mapStateToProps = (state, { status }) => {
+const mapStateToProps = (state, { statusId }) => {
   if (!me) return null
-
+  
+  const status = statusId ? makeGetStatus()(state, { id: statusId }) : undefined
   const groupId = status ? status.getIn(['group', 'id']) : undefined
   const groupRelationships = state.getIn(['group_relationships', groupId])
 
   return {
+    status,
     groupId,
     groupRelationships,
     isPro: state.getIn(['accounts', me, 'is_pro']),
@@ -310,6 +332,18 @@ const mapStateToProps = (state, { status }) => {
 }
 
 const mapDispatchToProps = (dispatch) => ({
+
+  fetchIsPin(statusId) {
+    dispatch(isPin(statusId))
+  },
+
+  fetchIsBookmark(statusId) {
+    dispatch(isBookmark(statusId))
+  },
+  
+  fetchIsPinnedGroupStatus(groupId, statusId) {
+    dispatch(isPinnedGroupStatus(groupId, statusId))
+  },
 
   onPin(status) {
     dispatch(closePopover())
@@ -440,7 +474,8 @@ const mapDispatchToProps = (dispatch) => ({
 })
 
 StatusOptionsPopover.propTypes = {
-  status: ImmutablePropTypes.map.isRequired,
+  status: ImmutablePropTypes.map,
+  statusId: PropTypes.string.isRequired,
   groupRelationships: ImmutablePropTypes.map,
   groupId: PropTypes.string,
   onQuote: PropTypes.func.isRequired,
@@ -454,6 +489,9 @@ StatusOptionsPopover.propTypes = {
   onFetchGroupRelationships: PropTypes.func.isRequired,
   onOpenProUpgradeModal: PropTypes.func.isRequired,
   onClosePopover: PropTypes.func.isRequired,
+  fetchIsPinnedGroupStatus: PropTypes.func.isRequired,
+  fetchIsBookmark: PropTypes.func.isRequired,
+  fetchIsPin: PropTypes.func.isRequired,
   isXS: PropTypes.bool,
   isPro: PropTypes.bool,
 }

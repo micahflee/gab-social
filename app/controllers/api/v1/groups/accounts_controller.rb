@@ -19,21 +19,18 @@ class Api::V1::Groups::AccountsController < Api::BaseController
   def create
     authorize @group, :join?
 
-    if !@group.password.nil?
+    if @group.has_password?
+      # use the groups/password_controller to join group with password
       render json: { error: true, message: 'Unable to join group. Incorrect password.' }, status: 422
-    end
-
-    if @group.is_private
-      @group.join_requests << current_account
     else
-      @group.accounts << current_account
-
-      if current_user.allows_group_in_home_feed?
-        current_user.force_regeneration!
+      if @group.is_private
+        @group.join_requests << current_account
+      else
+        @group.accounts << current_account
       end
-    end
 
-    render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships
+      render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships
+    end
   end
 
   def update
@@ -41,7 +38,7 @@ class Api::V1::Groups::AccountsController < Api::BaseController
 
     @account = @group.accounts.find(params[:account_id])
     GroupAccount.where(group: @group, account: @account).update(group_account_params)
-    render_empty
+    render_empty_success
   end
 
   def destroy
@@ -51,9 +48,6 @@ class Api::V1::Groups::AccountsController < Api::BaseController
     else
       authorize @group, :leave?
       GroupAccount.where(group: @group, account_id: current_account.id).destroy_all
-      if current_user.allows_group_in_home_feed?
-        current_user.force_regeneration!
-      end
     end
 
     render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships

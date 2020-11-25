@@ -134,6 +134,8 @@ export const GROUP_TIMELINE_SORTING_TYPE_NEWEST = 'newest'
 export const GROUP_TIMELINE_SORTING_TYPE_RECENT_ACTIVITY = 'recent'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP = 'top'
 
+export const ACCEPTED_GROUP_TABS = ['new', 'featured', 'member', 'admin']
+
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY = 'today'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY = 'weekly'
 export const GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_MONTHLY = 'monthly'

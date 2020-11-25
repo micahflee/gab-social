@@ -1,5 +1,6 @@
 import api, { getLinks } from '../api'
 import IntlMessageFormat from 'intl-messageformat'
+import noop from 'lodash.noop'
 import { fetchRelationships } from './accounts'
 import {
   importFetchedAccount,
@@ -48,8 +49,6 @@ const excludeTypesFromFilter = filter => {
   const allTypes = ImmutableList(['follow', 'favourite', 'reblog', 'mention', 'poll'])
   return allTypes.filterNot(item => item === filter).toJS()
 }
-
-const noOp = () => {}
 
 /**
  * 
@@ -159,7 +158,7 @@ export const dequeueNotifications = () => (dispatch, getState) => {
 /**
  * 
  */
-export const expandNotifications = ({ maxId } = {}, done = noOp) => (dispatch, getState) => {
+export const expandNotifications = ({ maxId } = {}, done = noop) => (dispatch, getState) => {
   if (!me) return
 
   const onlyVerified = getState().getIn(['notifications', 'filter', 'onlyVerified'])
@@ -204,19 +203,19 @@ export const expandNotifications = ({ maxId } = {}, done = noOp) => (dispatch, g
   })
 }
 
-export const expandNotificationsRequest = (isLoadingMore) => ({
+const expandNotificationsRequest = (isLoadingMore) => ({
   type: NOTIFICATIONS_EXPAND_REQUEST,
   skipLoading: !isLoadingMore,
 })
 
-export const expandNotificationsSuccess = (notifications, next, isLoadingMore) => ({
+const expandNotificationsSuccess = (notifications, next, isLoadingMore) => ({
   type: NOTIFICATIONS_EXPAND_SUCCESS,
   notifications,
   next,
   skipLoading: !isLoadingMore,
 })
 
-export const expandNotificationsFail = (error, isLoadingMore) => ({
+const expandNotificationsFail = (error, isLoadingMore) => ({
   type: NOTIFICATIONS_EXPAND_FAIL,
   error,
   skipLoading: !isLoadingMore,

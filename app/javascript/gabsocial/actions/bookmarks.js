@@ -33,20 +33,17 @@ export const fetchBookmarkedStatuses = () => (dispatch, getState) => {
 
 const fetchBookmarkedStatusesRequest = () => ({
   type: BOOKMARKED_STATUSES_FETCH_REQUEST,
-  skipLoading: true,
 })
 
 const fetchBookmarkedStatusesSuccess = (statuses, next) => ({
   type: BOOKMARKED_STATUSES_FETCH_SUCCESS,
   statuses,
   next,
-  skipLoading: true,
 })
 
 const fetchBookmarkedStatusesFail = (error) => ({
   type: BOOKMARKED_STATUSES_FETCH_FAIL,
   error,
-  skipLoading: true,
 })
 
 /**

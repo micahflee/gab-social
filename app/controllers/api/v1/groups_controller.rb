@@ -16,12 +16,12 @@ class Api::V1::GroupsController < Api::BaseController
         @groups = Group.where(id: @groupIds).limit(150).all
       when 'new'
         if !current_user
-          render json: { error: 'This method requires an authenticated user' }, status: 422
+          return render json: { error: 'This method requires an authenticated user' }, status: 422
         end
         @groups = Group.where(is_archived: false).limit(24).order('created_at DESC').all
       when 'member'
         if !current_user
-          render json: { error: 'This method requires an authenticated user' }, status: 422
+          return render json: { error: 'This method requires an authenticated user' }, status: 422
         end
         @groups = Group.joins(:group_accounts).where(is_archived: false, group_accounts: { account: current_account }).order('group_accounts.id DESC').all
       when 'admin'
@@ -36,7 +36,7 @@ class Api::V1::GroupsController < Api::BaseController
 
   def by_category
     if !current_user
-      render json: { error: 'This method requires an authenticated user' }, status: 422
+      return render json: { error: 'This method requires an authenticated user' }, status: 422
     end
 
     @groupCategory = nil
@@ -54,7 +54,7 @@ class Api::V1::GroupsController < Api::BaseController
 
   def by_tag
     if !current_user
-      render json: { error: 'This method requires an authenticated user' }, status: 422
+      return render json: { error: 'This method requires an authenticated user' }, status: 422
     end
 
     @groups = []
@@ -94,7 +94,7 @@ class Api::V1::GroupsController < Api::BaseController
 
     @group.is_archived = true
     @group.save!
-    render_empty
+    render_empty_success
   end
 
   def destroy_status
@@ -102,7 +102,7 @@ class Api::V1::GroupsController < Api::BaseController
 
     status = Status.find(params[:status_id])
     GroupUnlinkStatusService.new.call(current_account, @group, status)
-    render_empty
+    render_empty_success
   end
 
   def approve_status
@@ -110,7 +110,7 @@ class Api::V1::GroupsController < Api::BaseController
 
     status = Status.find(params[:status_id])
     GroupApproveStatusService.new.call(current_account, @group, status)
-    render_empty
+    render_empty_success
   end
 
   private

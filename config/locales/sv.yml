@@ -1,7 +1,7 @@
 ---
 sv:
   about:
-    about_hashtag_html: Dessa är offentliga toots märkta med <strong>#%{hashtag}</strong>. Du kan interagera med dem om du har ett konto någonstans i federationen.
+    about_hashtag_html: Dessa är offentliga gabs märkta med <strong>#%{hashtag}</strong>. Du kan interagera med dem om du har ett konto någonstans i federationen.
     about_gabsocial_html: Gab Social är ett socialt nätverk baserat på öppna webbprotokoll och gratis, öppen källkodsprogramvara. Det är decentraliserat som e-post.
     about_this: Om
     administered_by: 'Administreras av:'
@@ -30,8 +30,8 @@ sv:
     nothing_here: Det finns inget här!
     people_followed_by: Personer som %{name} följer
     people_who_follow: Personer som följer %{name}
-    posts: Toots
-    posts_with_replies: Toots med svar
+    posts: Gabs
+    posts_with_replies: Gabs med svar
     reserved_username: Användarnamnet är reserverat
     roles:
       admin: Admin
@@ -291,7 +291,7 @@ sv:
           disabled: Ingen
           title: Tillåt inbjudningar av
       show_known_fediverse_at_about_page:
-        desc_html: När den växlas, kommer toots från hela fediverse visas på förhandsvisning. Annars visas bara lokala toots.
+        desc_html: När den växlas, kommer gabs från hela fediverse visas på förhandsvisning. Annars visas bara lokala gabs.
         title: Visa det kända fediverse på tidslinjens förhandsgranskning
       show_staff_badge:
         desc_html: Visa en personalbricka på en användarsida
@@ -423,7 +423,7 @@ sv:
     archive_takeout:
       date: Datum
       download: Ladda ner ditt arkiv
-      hint_html: Du kan begära ett arkiv av dina <strong>toots och uppladdad media</strong>. Den exporterade datan kommer att vara i ActivityPub-format och läsbar av kompatibel programvara. Du kan begära ett arkiv var sjunde dag.
+      hint_html: Du kan begära ett arkiv av dina <strong>gabs och uppladdad media</strong>. Den exporterade datan kommer att vara i ActivityPub-format och läsbar av kompatibel programvara. Du kan begära ett arkiv var sjunde dag.
       in_progress: Kompilerar ditt arkiv...
       request: Efterfråga ditt arkiv
       size: Storlek
@@ -619,9 +619,9 @@ sv:
     open_in_web: Öppna på webben
     over_character_limit: teckengräns på %{max} har överskridits
     pin_errors:
-      limit: Du har redan fäst det maximala antalet toots
-      ownership: Någon annans toot kan inte fästas
-      private: Icke-offentliga toot kan inte fästas
+      limit: Du har redan fäst det maximala antalet gabs
+      ownership: Någon annans gab kan inte fästas
+      private: Icke-offentliga gab kan inte fästas
       reblog: Knuffar kan inte fästas
     show_more: Visa mer
     title: "%{name} on Gab: '%{quote}'"
@@ -633,7 +633,7 @@ sv:
       unlisted: Olistade
       unlisted_long: Alla kan se, men listas inte på offentliga tidslinjer
   stream_entries:
-    pinned: Fäst toot
+    pinned: Fäst gab
     reblogged: boostad
     sensitive_content: Känsligt innehåll
   terms:

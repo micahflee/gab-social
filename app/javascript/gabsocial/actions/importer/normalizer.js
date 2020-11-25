@@ -5,20 +5,26 @@ import { expandSpoilers } from '../../initial_state'
 
 const domParser = new DOMParser()
 
+/**
+ * 
+ */
 const makeEmojiMap = record => record.emojis.reduce((obj, emoji) => {
-  obj[`:${emoji.shortcode}:`] = emoji;
-  return obj;
-}, {});
+  obj[`:${emoji.shortcode}:`] = emoji
+  return obj
+}, {})
 
-export function normalizeAccount(account) {
-  account = { ...account };
+/**
+ * 
+ */
+export const normalizeAccount = (account) => {
+  account = { ...account }
 
-  const emojiMap = makeEmojiMap(account);
-  const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name;
+  const emojiMap = makeEmojiMap(account)
+  const displayName = account.display_name.trim().length === 0 ? account.username : account.display_name
 
-  account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap);
-  account.display_name_plain = emojify(escapeTextContentForBrowser(displayName), emojiMap, true);
-  account.note_emojified = emojify(account.note, emojiMap);
+  account.display_name_html = emojify(escapeTextContentForBrowser(displayName), emojiMap)
+  account.display_name_plain = emojify(escapeTextContentForBrowser(displayName), emojiMap, true)
+  account.note_emojified = emojify(account.note, emojiMap)
   account.note_plain = unescapeHTML(account.note)
 
   if (account.fields) {
@@ -27,67 +33,73 @@ export function normalizeAccount(account) {
       name_emojified: emojify(escapeTextContentForBrowser(pair.name)),
       value_emojified: emojify(pair.value, emojiMap),
       value_plain: unescapeHTML(pair.value),
-    }));
+    }))
   }
 
   if (account.moved) {
-    account.moved = account.moved.id;
+    account.moved = account.moved.id
   }
 
-  return account;
+  return account
 }
 
-export function normalizeStatus(status, normalOldStatus) {
-  const normalStatus   = { ...status };
-  normalStatus.account = status.account_id || status.account.id;
+/**
+ * 
+ */
+export const normalizeStatus = (status, normalOldStatus) => {
+  const normalStatus   = { ...status }
+  normalStatus.account = status.account_id || status.account.id
 
   if (status.reblog && status.reblog.id) {
-    normalStatus.reblog = status.reblog.id;
+    normalStatus.reblog = status.reblog.id
   }
 
   if (status.quote && status.quote.id) {
-    normalStatus.quote = status.quote.id;
+    normalStatus.quote = status.quote.id
   }
 
   if (status.poll && status.poll.id) {
-    normalStatus.poll = status.poll.id;
+    normalStatus.poll = status.poll.id
   }
 
   if (!!status.group || !!status.group_id) {
-    normalStatus.group = status.group_id || status.group.id;
+    normalStatus.group = status.group_id || status.group.id
   }
 
   // Only calculate these values when status first encountered
   // Otherwise keep the ones already in the reducer
   if (normalOldStatus && normalOldStatus.get('content') === normalStatus.content && normalOldStatus.get('spoiler_text') === normalStatus.spoiler_text) {
-    normalStatus.search_index = normalOldStatus.get('search_index');
-    normalStatus.contentHtml = normalOldStatus.get('contentHtml');
-    normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml');
-    normalStatus.hidden = normalOldStatus.get('hidden');
+    normalStatus.search_index = normalOldStatus.get('search_index')
+    normalStatus.contentHtml = normalOldStatus.get('contentHtml')
+    normalStatus.spoilerHtml = normalOldStatus.get('spoilerHtml')
+    normalStatus.hidden = normalOldStatus.get('hidden')
   } else {
-    const spoilerText   = normalStatus.spoiler_text || '';
-    const searchContent = [spoilerText, status.content].join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n');
-    const emojiMap      = makeEmojiMap(normalStatus);
-    const theContent = !!normalStatus.rich_content ? normalStatus.rich_content : normalStatus.content;
+    const spoilerText = normalStatus.spoiler_text || ''
+    const searchContent = [spoilerText, status.content].join('\n\n').replace(/<br\s*\/?>/g, '\n').replace(/<\/p><p>/g, '\n\n')
+    const emojiMap = makeEmojiMap(normalStatus)
+    const theContent = !!normalStatus.rich_content ? normalStatus.rich_content : normalStatus.content
 
-    normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent;
-    normalStatus.contentHtml  = emojify(theContent, emojiMap, false, true);
-    normalStatus.spoilerHtml  = emojify(escapeTextContentForBrowser(spoilerText), emojiMap);
-    normalStatus.hidden       = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive;
+    normalStatus.search_index = domParser.parseFromString(searchContent, 'text/html').documentElement.textContent
+    normalStatus.contentHtml = emojify(theContent, emojiMap, false, true)
+    normalStatus.spoilerHtml = emojify(escapeTextContentForBrowser(spoilerText), emojiMap)
+    normalStatus.hidden = expandSpoilers ? false : spoilerText.length > 0 || normalStatus.sensitive
   }
 
-  return normalStatus;
+  return normalStatus
 }
 
-export function normalizePoll(poll) {
-  const normalPoll = { ...poll };
+/**
+ * 
+ */
+export const normalizePoll = (poll) => {
+  const normalPoll = { ...poll }
 
-  const emojiMap = makeEmojiMap(normalPoll);
+  const emojiMap = makeEmojiMap(normalPoll)
 
-  normalPoll.options = poll.options.map(option => ({
+  normalPoll.options = poll.options.map((option) => ({
     ...option,
     title_emojified: emojify(escapeTextContentForBrowser(option.title), emojiMap),
-  }));
+  }))
 
-  return normalPoll;
+  return normalPoll
 }

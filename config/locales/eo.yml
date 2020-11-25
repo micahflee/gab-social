@@ -649,7 +649,7 @@ eo:
     identity: Identeco
     inactive: Malaktiva
     publicize_checkbox: 'And gab this:'
-    publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
+    publicize_gab: 'It is proven! I am %{username} on %{service}: %{url}'
     status: Confirmo statuso
     view_proof: Vidi pruvo
   imports:

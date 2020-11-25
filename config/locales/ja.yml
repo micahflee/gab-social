@@ -653,7 +653,7 @@ ja:
     identity: Identity
     inactive: 非アクティブ
     publicize_checkbox: 'そしてこれをトゥートしてください:'
-    publicize_toot: 'It is proven! I am %{username} on %{service}: %{url}'
+    publicize_gab: 'It is proven! I am %{username} on %{service}: %{url}'
     status: 認証状態
     view_proof: 証明を表示
   imports:

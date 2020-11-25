@@ -414,7 +414,7 @@ ar:
           disabled: لا أحد
           title: المستخدِمون المصرح لهم لإرسال الدعوات
       show_known_fediverse_at_about_page:
-        desc_html: عند التثبت ، سوف تظهر toots من جميع fediverse المعروفة على عرض مسبق. وإلا فإنه سيعرض فقط toots المحلية.
+        desc_html: عند التثبت ، سوف تظهر gabs من جميع fediverse المعروفة على عرض مسبق. وإلا فإنه سيعرض فقط gabs المحلية.
         title: إظهار الفيديفرس الموحَّد في خيط المُعايَنة
       show_staff_badge:
         desc_html: عرض شارة الموظفين على صفحة المستخدم

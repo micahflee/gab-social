@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes';
 import ImmutablePureComponent from 'react-immutable-pure-component';
 import { Set as ImmutableSet } from 'immutable';
-import noop from 'lodash/noop';
+import noop from 'lodash.noop'
 import { toggleStatusReport } from '../actions/reports';
 import { MediaGallery, Video } from '../features/ui/util/async_components';
 import Bundle from '../features/ui/util/bundle';

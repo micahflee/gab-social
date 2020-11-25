@@ -11,12 +11,12 @@ es:
         fields: Puedes tener hasta 4 elementos mostrándose como una tabla en tu perfil
         header: PNG, GIF o JPG. Máximo %{size}. Será escalado a %{dimensions}px
         inbox_url: Copia la URL de la página principal del relés que quieres utilizar
-        irreversible: Los toots filtrados desaparecerán irreversiblemente, incluso si este filtro es eliminado más adelante
+        irreversible: Los gabs filtrados desaparecerán irreversiblemente, incluso si este filtro es eliminado más adelante
         locale: El idioma de la interfaz de usuario, correos y notificaciones push
         locked: Requiere que manualmente apruebes seguidores y las publicaciones serán mostradas solamente a tus seguidores
-        phrase: Se aplicará sin importar las mayúsculas o los avisos de contenido de un toot
+        phrase: Se aplicará sin importar las mayúsculas o los avisos de contenido de un gab
         scopes: Qué APIs de la aplicación tendrán acceso. Si seleccionas el alcance de nivel mas alto, no necesitas seleccionar las individuales.
-        setting_default_language: El idioma de tus toots podrá detectarse automáticamente, pero no siempre es preciso
+        setting_default_language: El idioma de tus gabs podrá detectarse automáticamente, pero no siempre es preciso
         setting_hide_network: A quién sigues y quién te sigue no será mostrado en tu perfil
         setting_noindex: Afecta a tu perfil público y páginas de estado
         setting_theme: Afecta al aspecto de Gab Social cuando te identificas desde cualquier dispositivo.
@@ -26,7 +26,7 @@ es:
       sessions:
         otp: 'Introduce el código de autenticación de dos factores geberado por tu aplicación de teléfono o usa uno de tus códigos de recuperación:'
       user:
-        chosen_languages: Cuando se marca, solo se mostrarán los toots en los idiomas seleccionados en los timelines públicos
+        chosen_languages: Cuando se marca, solo se mostrarán los gabs en los idiomas seleccionados en los timelines públicos
     labels:
       account:
         fields:
@@ -58,11 +58,11 @@ es:
         password: Contraseña
         phrase: Palabra clave o frase
         setting_auto_play_gif: Reproducir automáticamente los GIFs animados
-        setting_boost_modal: Mostrar ventana de confirmación antes de un Retoot
+        setting_boost_modal: Mostrar ventana de confirmación antes de un Repost
         setting_default_language: Idioma de publicación
         setting_default_privacy: Privacidad de publicaciones
         setting_default_sensitive: Marcar siempre imágenes como sensibles
-        setting_delete_modal: Mostrar diálogo de confirmación antes de borrar un toot
+        setting_delete_modal: Mostrar diálogo de confirmación antes de borrar un gab
         setting_hide_network: Ocultar tu red
         setting_noindex: Excluirse del indexado de motores de búsqueda
         setting_reduce_motion: Reducir el movimiento de las animaciones

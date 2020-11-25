@@ -10,25 +10,29 @@ class Api::V1::Groups::PinsController < Api::BaseController
 
   def create
     authorize @group, :update?
-    
-    GroupPinnedStatus.create!(group: @group, status: @status)
-    render json: @status, serializer: REST::StatusSerializer
+
+    pin = GroupPinnedStatus.find_by(group: @group, status: @status)
+    if pin.nil?
+      GroupPinnedStatus.create!(group: @group, status: @status)
+      render json: @status, serializer: REST::StatusGroupPinnedSerializer, group_id: @group.id
+    else
+      return render json: { error: 'Status is already pinned to group' }, status: 500
+    end
   end
 
   def show
-    # is status pinned by user of group?
+    render json: @status, serializer: REST::StatusGroupPinnedSerializer, group_id: @group.id
   end
 
   def destroy
     authorize @group, :update?
 
     pin = GroupPinnedStatus.find_by(group: @group, status: @status)
-
     if pin
       pin.destroy!
     end
 
-    render json: @status, serializer: REST::StatusSerializer
+    render json: @status, serializer: REST::StatusGroupPinnedSerializer, group_id: @group.id
   end
 
   private

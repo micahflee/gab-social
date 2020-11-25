@@ -148,7 +148,7 @@ module AccountInteractions
   end
 
   def bookmarked?(status)
-    status_bookmarks.where(account: self).exists?
+    status_bookmarks.where(account: self, status: status).exists?
   end
 
   def reblogged?(status)

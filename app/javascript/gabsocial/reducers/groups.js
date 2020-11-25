@@ -30,7 +30,7 @@ export default function groups(state = initialState, action) {
   case GROUPS_FETCH_SUCCESS:
     return normalizeGroups(state, action.groups)
   case GROUP_FETCH_FAIL:
-    return state.set(action.id, false)
+    return state.set(action.groupId, false)
   default:
     return state
   }

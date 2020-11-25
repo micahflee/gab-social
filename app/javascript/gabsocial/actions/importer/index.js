@@ -14,7 +14,10 @@ export const STATUSES_IMPORT = 'STATUSES_IMPORT'
 export const POLLS_IMPORT    = 'POLLS_IMPORT'
 export const ACCOUNT_FETCH_FAIL_FOR_USERNAME_LOOKUP = 'ACCOUNT_FETCH_FAIL_FOR_USERNAME_LOOKUP'
 
-function pushUnique(array, object) {
+/**
+ * 
+ */
+const pushUnique = (array, object) => {
   if (array.every(element => element.id !== object.id)) {
     array.push(object);
   }

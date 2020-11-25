@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Api::BaseController < ApplicationController
-  DEFAULT_STATUSES_LIMIT = 18
-  DEFAULT_ACCOUNTS_LIMIT = 40
+  DEFAULT_STATUSES_LIMIT = 20
+  DEFAULT_ACCOUNTS_LIMIT = 20
 
   include RateLimitHeaders
 
@@ -82,8 +82,8 @@ class Api::BaseController < ApplicationController
     end
   end
 
-  def render_empty
-    render json: {}, status: 200
+  def render_empty_success(message = nil)
+    render json: { success: true, error: false, message: message }, status: 200
   end
 
   def authorize_if_got_token!(*scopes)

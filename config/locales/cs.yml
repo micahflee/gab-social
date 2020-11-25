@@ -1,7 +1,7 @@
 ---
 cs:
   about:
-    about_hashtag_html: Tohle jsou veřejné tooty označené hashtagem <strong>#%{hashtag}</strong>. Pokud máte účet kdekoliv ve fedivesmíru, můžete s nimi interagovat.
+    about_hashtag_html: Tohle jsou veřejné gabs označené hashtagem <strong>#%{hashtag}</strong>. Pokud máte účet kdekoliv ve fedivesmíru, můžete s nimi interagovat.
     about_gabsocial_html: Gab Social je sociální síť založená na otevřených webových protokolech a svobodném, otevřeném softwaru. Je decentralizovaná jako e-mail.
     about_this: O tomto serveru
     active_count_after: aktivních
@@ -30,9 +30,9 @@ cs:
     server_stats: 'Statistika serveru:'
     source_code: Zdrojový kód
     status_count_after:
-      few: tooty
-      one: toot
-      other: tootů
+      few: gab
+      one: Gab
+      other: gab
     status_count_before: Kteří napsali
     tagline: Sociální síť, která bojuje za svobodu slova, osobní svobodu a volný tok informací online. Všichni jsou vítáni.
     terms: Podmínky používání
@@ -62,11 +62,11 @@ cs:
     pin_errors:
       following: Musíte již sledovat osobu, kterou chcete podpořit
     posts:
-      few: Tooty
-      one: Toot
-      other: Tootů
-    posts_tab_heading: Tooty
-    posts_with_replies: Tooty a odpovědi
+      few: Gabs
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs a odpovědi
     reserved_username: Toto uživatelské jméno je rezervováno
     roles:
       admin: Administrátor
@@ -175,7 +175,7 @@ cs:
         targeted_reports: Nahlášeni ostatními
       silence: Utišit
       silenced: Utišen/a
-      statuses: Tooty
+      statuses: Gabs
       subscribe: Odebírat
       suspended: Pozastaven/a
       title: Účty
@@ -199,7 +199,7 @@ cs:
         destroy_custom_emoji: "%{name} zničil/a emoji %{target}"
         destroy_domain_block: "%{name} odblokoval/a doménu %{target}"
         destroy_email_domain_block: "%{name} odebral/a e-mailovou doménu %{target} z černé listiny"
-        destroy_status: "%{name} odstranil/a toot uživatele %{target}"
+        destroy_status: "%{name} odstranil/a gab uživatele %{target}"
         disable_2fa_user: "%{name} vypnul/a dvoufázové ověřování pro uživatele %{target}"
         disable_custom_emoji: "%{name} zakázal/a emoji %{target}"
         disable_user: "%{name} zakázal/a přihlašování pro uživatele %{target}"
@@ -217,8 +217,8 @@ cs:
         unsilence_account: "%{name} odtišil/a účet uživatele %{target}"
         unsuspend_account: "%{name} zrušil/a pozastavení účtu uživatele %{target}"
         update_custom_emoji: "%{name} aktualizoval/a emoji %{target}"
-        update_status: "%{name} aktualizoval/a toot uživatele %{target}"
-      deleted_status: "(smazaný toot)"
+        update_status: "%{name} aktualizoval/a gab uživatele %{target}"
+      deleted_status: "(smazaný gab)"
       title: Záznam auditu
     custom_emojis:
       by_domain: Doména
@@ -345,11 +345,11 @@ cs:
     relays:
       add_new: Přidat nový most
       delete: Smazat
-      description_html: "<strong>Federovací most</strong> je přechodný server, který vyměňuje velká množství veřejných tootů mezi servery, které z něj odebírají a publikují na něj. <strong>Může pomoci malým a středně velkým serverům objevovat obsah z fedivesmíru</strong>, což by jinak vyžadovalo, aby místní uživatelé manuálně sledovali jiné lidi na vzdálených serverech."
+      description_html: "<strong>Federovací most</strong> je přechodný server, který vyměňuje velká množství veřejných gab mezi servery, které z něj odebírají a publikují na něj. <strong>Může pomoci malým a středně velkým serverům objevovat obsah z fedivesmíru</strong>, což by jinak vyžadovalo, aby místní uživatelé manuálně sledovali jiné lidi na vzdálených serverech."
       disable: Zakázat
       disabled: Zakázáno
       enable: Povolit
-      enable_hint: Je-li tohle povoleno, začne váš server odebírat všechny veřejné tooty z tohoto mostu a odesílat na něj své vlastní veřejné tooty.
+      enable_hint: Je-li tohle povoleno, začne váš server odebírat všechny veřejné gabs z tohoto mostu a odesílat na něj své vlastní veřejné gabs.
       enabled: Povoleno
       inbox_url: URL mostu
       pending: Čekám na souhlas mostu
@@ -392,7 +392,7 @@ cs:
       updated_at: Aktualizováno
     settings:
       activity_api_enabled:
-        desc_html: Počty lokálně publikovaných tootů, aktivních uživatelů a nových registrací, v týdenních intervalech
+        desc_html: Počty lokálně publikovaných gab, aktivních uživatelů a nových registrací, v týdenních intervalech
         title: Publikovat hromadné statistiky o uživatelské aktivitě
       bootstrap_timeline_accounts:
         desc_html: Je-li uživatelských jmen více, oddělujte je čárkami. Lze zadat pouze místní a odemknuté účty. Je-li tohle prázdné, jsou výchozí hodnotou všichni místní administrátoři.
@@ -432,7 +432,7 @@ cs:
           open: Kdokoliv se může registrovat
         title: Režim registrací
       show_known_fediverse_at_about_page:
-        desc_html: Je-li tohle zapnuto, zobrazí se v náhledu tooty z celého známého fedivesmíru. Jinak budou zobrazeny pouze místní tooty.
+        desc_html: Je-li tohle zapnuto, zobrazí se v náhledu gabs z celého známého fedivesmíru. Jinak budou zobrazeny pouze místní gabs.
         title: Zobrazit na náhledu časové osy celý známý fedivesmír
       show_staff_badge:
         desc_html: Zobrazit na stránce uživatele odznak člena personálu
@@ -467,8 +467,8 @@ cs:
       media:
         title: Média
       no_media: Žádná média
-      no_status_selected: Nebyly změněny žádné tooty, neboť žádné nebyly vybrány
-      title: Tooty účtu
+      no_status_selected: Nebyly změněny žádné gabs, neboť žádné nebyly vybrány
+      title: Gabs účtu
       with_media: S médii
     subscriptions:
       callback_url: Zpáteční URL
@@ -506,7 +506,7 @@ cs:
     settings: 'Změnit volby e-mailu: %{link}'
     view: 'Zobrazit:'
     view_profile: Zobrazit profil
-    view_status: Zobrazit toot
+    view_status: Zobrazit gab
   applications:
     created: Aplikace úspěšně vytvořena
     destroyed: Aplikace úspěšně smazána
@@ -603,7 +603,7 @@ cs:
     archive_takeout:
       date: Datum
       download: Stáhnout svůj archiv
-      hint_html: Můžete si vyžádat archiv vašich <strong>tootů a nahraných médií</strong>. Exportovaná data budou ve formátu ActivityPub a budou čitelná kterýmkoliv kompatibilním softwarem. Archiv si můžete vyžádat každých 7 dní.
+      hint_html: Můžete si vyžádat archiv vašich <strong>gab a nahraných médií</strong>. Exportovaná data budou ve formátu ActivityPub a budou čitelná kterýmkoliv kompatibilním softwarem. Archiv si můžete vyžádat každých 7 dní.
       in_progress: Kompiluji váš archiv…
       request: Vyžádat svůj archiv
       size: Velikost
@@ -660,8 +660,8 @@ cs:
     i_am_html: Na %{service} jsem %{username}.
     identity: Identita
     inactive: Neaktivní
-    publicize_checkbox: 'A tootnout tohle:'
-    publicize_toot: 'Je to dokázáno! Na %{service} jsem %{username}: %{url}'
+    publicize_checkbox: 'A gab tohle:'
+    publicize_gab: 'Je to dokázáno! Na %{service} jsem %{username}: %{url}'
     status: Stav ověření
     view_proof: Zobrazit důkaz
   imports:
@@ -707,7 +707,7 @@ cs:
       limit: Dosáhl/a jste maximálního počtu seznamů
   media_attachments:
     validations:
-      images_and_video: K tootu, který již obsahuje obrázky, nelze připojit video
+      images_and_video: K gab, který již obsahuje obrázky, nelze připojit video
       too_many: Nelze připojit více než 4 soubory
   migrations:
     acct: přezdívka@doména nového účtu
@@ -731,8 +731,8 @@ cs:
         other: "%{count} nových oznámení od vaší poslední návštěvy"
       title: Ve vaší nepřítomnosti…
     favourite:
-      body: 'Váš toot si oblíbil/a %{name}:'
-      subject: "%{name} si oblíbil/a váš toot"
+      body: 'Váš gab si oblíbil/a %{name}:'
+      subject: "%{name} si oblíbil/a váš gab"
       title: Nové oblíbení
     follow:
       body: "%{name} vás nyní sleduje!"
@@ -749,8 +749,8 @@ cs:
       subject: Byl/a jste zmíněn/a uživatelem %{name}
       title: Nová zmínka
     reblog:
-      body: 'Váš toot byl repostnutý uživatelem %{name}:'
-      subject: "%{name} repostnul/a váš toot"
+      body: 'Váš gab byl repostnutý uživatelem %{name}:'
+      subject: "%{name} repostnul/a váš gab"
       title: Nový repost
   number:
     human:
@@ -807,20 +807,20 @@ cs:
   remote_interaction:
     favourite:
       proceed: Pokračovat k oblíbení
-      prompt: 'Chcete si oblíbit tento toot:'
+      prompt: 'Chcete si oblíbit tento gab:'
     reblog:
       proceed: Pokračovat k repostnutí
-      prompt: 'Chcete repostnout tento toot:'
+      prompt: 'Chcete repostnout tento gab:'
     reply:
       proceed: Pokračovat k odpovězení
-      prompt: 'Chcete odpovědět na tento toot:'
+      prompt: 'Chcete odpovědět na tento gab:'
   remote_unfollow:
     error: Chyba
     title: Nadpis
     unfollowed: Už nesledujete
   scheduled_statuses:
-    over_daily_limit: Překročil/a jste limit %{limit} plánovaných tootů pro tento den
-    over_total_limit: Překročil/a jste limit %{limit} plánovaných tootů
+    over_daily_limit: Překročil/a jste limit %{limit} plánovaných gab pro tento den
+    over_total_limit: Překročil/a jste limit %{limit} plánovaných gab
     too_soon: Plánované datum musí být v budoucnosti
   sessions:
     activity: Nejnovější aktivita
@@ -903,9 +903,9 @@ cs:
     open_in_web: Otevřít na webu
     over_character_limit: limit %{max} znaků byl překročen
     pin_errors:
-      limit: Už jste si připnul/a maximální počet tootů
-      ownership: Nelze připnout toot někoho jiného
-      private: Nelze připnout neveřejné tooty
+      limit: Už jste si připnul/a maximální počet gab
+      ownership: Nelze připnout gab někoho jiného
+      private: Nelze připnout neveřejné gabs
       reblog: Nelze připnout repost
     poll:
       total_votes:
@@ -924,7 +924,7 @@ cs:
       unlisted: Neuvedené
       unlisted_long: Všichni mohou vidět, ale nebudou zahrnuty ve veřejných časových osách
   stream_entries:
-    pinned: Připnutý toot
+    pinned: Připnutý gab
     reblogged: repostnul/a
     sensitive_content: Citlivý obsah
   terms:
@@ -1042,8 +1042,8 @@ cs:
     warning:
       explanation:
         disable: Zatímco je váš účet zmražen, zůstávají data vašeho účtu nedotčená, ale nemůžete vykonávat žádné akce, dokud nebude odemčen.
-        silence: Zatímco je váš účet omezen, mohou vaše tooty na tomto serveru vidět pouze lidé, kteří váš již sledují, a můžete být vyloučen/a z různých veřejných výpisů. Ostatní vás však pořád mohou manuálně sledovat.
-        suspend: Váš účet byl pozastaven a všechny vaše tooty a vaše nahrané mediální soubory byly nenávratně odstraněny z tohoto serveru a serverů, na kterých jste měl/a sledující.
+        silence: Zatímco je váš účet omezen, mohou vaše gabs na tomto serveru vidět pouze lidé, kteří váš již sledují, a můžete být vyloučen/a z různých veřejných výpisů. Ostatní vás však pořád mohou manuálně sledovat.
+        suspend: Váš účet byl pozastaven a všechny vaše gabs a vaše nahrané mediální soubory byly nenávratně odstraněny z tohoto serveru a serverů, na kterých jste měl/a sledující.
       review_server_policies: Posoudit politiku serveru
       subject:
         disable: Váš účet %{acct} byl zmražen

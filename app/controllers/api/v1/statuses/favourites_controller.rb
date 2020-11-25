@@ -8,7 +8,6 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
 
   def create
     @status = favourited_status
-    puts "tilly -- status: " + @status.inspect
     render json: @status, serializer: REST::StatusStatSerializer
   end
 
@@ -18,7 +17,10 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
 
     UnfavouriteWorker.perform_async(current_user.account_id, @status.id)
 
-    render json: @status, serializer: REST::StatusStatSerializer, unfavourite: true, relationships: StatusRelationshipsPresenter.new([@status], current_user&.account_id, favourites_map: @favourites_map)
+    render json: @status,
+           serializer: REST::StatusStatSerializer,
+           unfavourite: true,
+           relationships: StatusRelationshipsPresenter.new([@status], current_user&.account_id, favourites_map: @favourites_map)
   end
 
   private

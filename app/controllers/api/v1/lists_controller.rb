@@ -28,7 +28,7 @@ class Api::V1::ListsController < Api::BaseController
 
   def destroy
     @list.destroy!
-    render_empty
+    render_empty_success
   end
 
   private

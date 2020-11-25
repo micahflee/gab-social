@@ -23,7 +23,7 @@ class Api::V1::SuggestionsController < Api::BaseController
 
   def destroy
     PotentialFriendshipTracker.remove(current_account.id, params[:id])
-    render_empty
+    render_empty_success
   end
 
 end

@@ -7,22 +7,25 @@ class Api::V1::Statuses::ReblogsController < Api::BaseController
   before_action :require_user!
 
   def create
-    if !current_user.account.local? || !status_for_reblog.local
-      return render json: { error: 'Invalid action' }, status: 422
-    end
-
-    @status = ReblogService.new.call(current_user.account, status_for_reblog, reblog_params)
-    render json: @status, serializer: REST::StatusSerializer
+    @relog = status_for_reblog
+    ReblogService.new.call(current_user.account, @relog, reblog_params)
+    render json: @relog, serializer: REST::StatusStatSerializer
   end
 
   def destroy
-    @status = status_for_destroy.reblog
-    @reblogs_map = { @status.id => false }
+    @my_relog = status_for_destroy
+    @original_status = @my_relog.reblog
 
-    authorize status_for_destroy, :unreblog?
-    RemovalWorker.perform_async(status_for_destroy.id)
+    authorize @my_relog, :unreblog?
 
-    render json: @status, serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new([@status], current_user&.account_id, reblogs_map: @reblogs_map)
+    RemovalWorker.perform_async(@my_relog.id)
+
+    @reblogs_map = { @original_status.id => false }
+
+    render json: @original_status,
+           serializer: REST::StatusStatSerializer,
+           unreblog: true,
+           relationships: StatusRelationshipsPresenter.new([@original_status], current_user&.account_id, reblogs_map: @reblogs_map)
   end
 
   private

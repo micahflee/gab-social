@@ -44,20 +44,17 @@ const fetchSuggestions = (suggestionType, dispatch, getState, unlimited = false)
 
 const fetchSuggestionsRequest = (suggestionType) => ({
   type: SUGGESTIONS_FETCH_REQUEST,
-  skipLoading: true,
   suggestionType,
 })
 
 const fetchSuggestionsSuccess = (accounts, suggestionType) => ({
   type: SUGGESTIONS_FETCH_SUCCESS,
-  skipLoading: true,
   accounts,
   suggestionType
 })
 
 const fetchSuggestionsFail = (error, suggestionType) => ({
   type: SUGGESTIONS_FETCH_FAIL,
-  skipLoading: true,
   skipAlert: true,
   error,
   suggestionType,

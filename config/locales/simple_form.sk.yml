@@ -94,7 +94,7 @@ sk:
         setting_default_language: Píšeš v jazyku
         setting_default_privacy: Súkromie príspevkov
         setting_default_sensitive: Označ všetky mediálne súbory ako chúlostivé
-        setting_delete_modal: Zobrazuj potvrdzovacie okno pred vymazaním toot-u
+        setting_delete_modal: Zobrazuj potvrdzovacie okno pred vymazaním gab-u
         setting_display_media: Zobrazovanie médií
         setting_display_media_default: Štandard
         setting_display_media_hide_all: Skryť všetky
@@ -124,7 +124,7 @@ sk:
         follow: Poslať email, ak ťa niekto začne následovať
         follow_request: Zaslať email ak ti niekto pošle žiadosť o sledovanie
         mention: Poslať email ak ťa niekto spomenie v svojom príspevku
-        reblog: Poslať email ak niekto re-tootne tvoj príspevok
+        reblog: Poslať email ak niekto repost tvoj príspevok
         report: Poslať e-mail ak niekto dodá nové hlásenie
     'no': Nie
     required:

@@ -35,7 +35,7 @@ class SortingQueryBuilder < BaseService
     query = Status.unscoped.without_replies
     query = query.joins(:status_stat).order(top_order) unless ['newest'].include? sort_type
     query = query.where('statuses.created_at > ?', date_limit)
-    query = query.where(group: @group) unless group.nil?
+    query = query.where(group: group) unless group.nil?
     query = query.where('statuses.id > ? AND statuses.id <> ?', max_id, max_id) unless max_id.nil? || max_id.empty?
     query = query.limit(20)
     

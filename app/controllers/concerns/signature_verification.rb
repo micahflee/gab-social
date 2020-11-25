@@ -66,6 +66,7 @@ module SignatureVerification
 
     return account unless verify_signature(account, signature, compare_signed_string).nil?
 
+    # : todo :
     @signature_verification_failure_reason = "Verification failed for #{account.username}@#{account.domain} #{account.uri}"
     @signed_request_account = nil
   end

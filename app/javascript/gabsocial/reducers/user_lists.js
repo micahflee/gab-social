@@ -23,8 +23,18 @@ import {
   FOLLOW_REQUEST_REJECT_SUCCESS,
 } from '../actions/accounts'
 import {
+  REPOSTS_FETCH_REQUEST,
   REPOSTS_FETCH_SUCCESS,
+  REPOSTS_FETCH_FAIL,
+  REPOSTS_EXPAND_REQUEST,
+  REPOSTS_EXPAND_SUCCESS,
+  REPOSTS_EXPAND_FAIL,
+  LIKES_FETCH_REQUEST,
   LIKES_FETCH_SUCCESS,
+  LIKES_FETCH_FAIL,
+  LIKES_EXPAND_REQUEST,
+  LIKES_EXPAND_SUCCESS,
+  LIKES_EXPAND_FAIL,
 } from '../actions/interactions'
 import {
   BLOCKS_FETCH_REQUEST,
@@ -52,6 +62,7 @@ import {
   GROUP_JOIN_REQUESTS_EXPAND_SUCCESS,
   GROUP_JOIN_REQUESTS_APPROVE_SUCCESS,
   GROUP_JOIN_REQUESTS_REJECT_SUCCESS,
+  GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS,
 } from '../actions/groups'
 
 const initialState = ImmutableMap({
@@ -119,12 +130,28 @@ export default function userLists(state = initialState, action) {
   case FOLLOWING_EXPAND_FAIL:
     return state.setIn(['following', action.id, 'isLoading'], false);
 
+  case REPOSTS_FETCH_REQUEST:
+  case REPOSTS_EXPAND_REQUEST:
+    return state.setIn(['reblogged_by', action.statusId, 'isLoading'], true)
   case REPOSTS_FETCH_SUCCESS:
-    return state.setIn(['reblogged_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
+    return normalizeList(state, 'reblogged_by', action.statusId, action.accounts, action.next)
+  case REPOSTS_EXPAND_SUCCESS:
+    return appendToList(state, 'reblogged_by', action.statusId, action.accounts, action.next)
+  case REPOSTS_FETCH_FAIL:
+  case REPOSTS_EXPAND_FAIL:
+    return setListFailed(state, 'reblogged_by', action.statusId)
 
+  case LIKES_FETCH_REQUEST:
+  case LIKES_EXPAND_REQUEST:
+    return state.setIn(['liked_by', action.statusId, 'isLoading'], true)
   case LIKES_FETCH_SUCCESS:
-    return state.setIn(['liked_by', action.id], ImmutableList(action.accounts.map(item => item.id)));
-
+    return normalizeList(state, 'liked_by', action.statusId, action.accounts, action.next)
+  case LIKES_EXPAND_SUCCESS:
+    return appendToList(state, 'liked_by', action.statusId, action.accounts, action.next)
+  case LIKES_FETCH_FAIL:
+  case LIKES_EXPAND_FAIL:
+    return setListFailed(state, 'liked_by', action.statusId)
+  
   case FOLLOW_REQUESTS_FETCH_SUCCESS:
     return normalizeList(state, 'follow_requests', me, action.accounts, action.next);
   case FOLLOW_REQUESTS_EXPAND_SUCCESS:
@@ -162,21 +189,24 @@ export default function userLists(state = initialState, action) {
     return setListFailed(state, 'mutes', me)
 
   case GROUP_MEMBERS_FETCH_SUCCESS:
-    return normalizeList(state, 'groups', action.id, action.accounts, action.next);
+    return normalizeList(state, 'groups', action.groupId, action.accounts, action.next);
   case GROUP_MEMBERS_EXPAND_SUCCESS:
-    return appendToList(state, 'groups', action.id, action.accounts, action.next);
+    return appendToList(state, 'groups', action.groupId, action.accounts, action.next);
+
+  case GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS:
+    return state.updateIn(['groups', action.groupId, 'items'], list => list.filterNot(item => item === action.accountId));
   
   case GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS:
-    return normalizeList(state, 'group_removed_accounts', action.id, action.accounts, action.next);
+    return normalizeList(state, 'group_removed_accounts', action.groupId, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS:
-    return appendToList(state, 'group_removed_accounts', action.id, action.accounts, action.next);
+    return appendToList(state, 'group_removed_accounts', action.groupId, action.accounts, action.next);
   case GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS:
-    return state.updateIn(['group_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.id));
+    return state.updateIn(['group_removed_accounts', action.groupId, 'items'], list => list.filterNot(item => item === action.accountId));
   
   case GROUP_JOIN_REQUESTS_FETCH_SUCCESS:
-    return normalizeList(state, 'group_join_requests', action.id, action.accounts, action.next);
+    return normalizeList(state, 'group_join_requests', action.groupId, action.accounts, action.next);
   case GROUP_JOIN_REQUESTS_EXPAND_SUCCESS:
-    return appendToList(state, 'group_join_requests', action.id, action.accounts, action.next);
+    return appendToList(state, 'group_join_requests', action.groupId, action.accounts, action.next);
   case GROUP_JOIN_REQUESTS_APPROVE_SUCCESS:
   case GROUP_JOIN_REQUESTS_REJECT_SUCCESS:
     return state.updateIn(['group_join_requests', action.groupId, 'items'], list => list.filterNot(item => item === action.accountId));

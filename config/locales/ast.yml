@@ -34,10 +34,10 @@ ast:
     people_followed_by: Persones a les que sigue %{name}
     people_who_follow: Persones que siguen a %{name}
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots y rempuestes
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs y rempuestes
     reserved_username: El nome d'usuariu ta acutáu
     roles:
       bot: Robó
@@ -165,7 +165,7 @@ ast:
   exports:
     archive_takeout:
       date: Data
-      hint_html: Pues solicitar un archivu colos tos <strong>toots y ficheros xubíos</strong>. Los datos esportaos van tar nel formatu ActivityPub, llexible pa cualesquier software que seya compatible. Pues solicitar un archivu cada 7 díes.
+      hint_html: Pues solicitar un archivu colos tos <strong>gabs y ficheros xubíos</strong>. Los datos esportaos van tar nel formatu ActivityPub, llexible pa cualesquier software que seya compatible. Pues solicitar un archivu cada 7 díes.
       request: Solicitar l'archivu
       size: Tamañu
     blocks: Xente que bloquiesti
@@ -238,7 +238,7 @@ ast:
     reblog:
       body: "%{name} compartió'l to estáu:"
       subject: "%{name} compartió'l to estáu"
-      title: Compartición nueva de toot
+      title: Compartición nueva de gab
   number:
     human:
       decimal_units:
@@ -309,13 +309,13 @@ ast:
       video:
         one: "%{count} videu"
         other: "%{count} vídeos"
-    boosted_from_html: Compartióse'l toot dende %{acct_link}
+    boosted_from_html: Compartióse'l gab dende %{acct_link}
     language_detection: Deteutala automáticamente
     pin_errors:
-      limit: Yá fixesti'l númberu máxiumu de toots
-      ownership: Nun pue fixase'l toot d'otra persona
-      private: Nun puen fixase los toots que nun seyan públicos
-      reblog: Nun pue fixase un toot compartíu
+      limit: Yá fixesti'l númberu máxiumu de gabs
+      ownership: Nun pue fixase'l gab d'otra persona
+      private: Nun puen fixase los gabs que nun seyan públicos
+      reblog: Nun pue fixase un gab compartíu
     show_more: Amosar más
     title: "%{name}: «%{quote}»"
     visibilities:

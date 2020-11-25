@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { fetchGroups } from '../../actions/groups'
+import { fetchGroupsByTab } from '../../actions/groups'
 import GroupCollectionItem from '../group_collection_item'
 import TimelineInjectionLayout from './timeline_injection_layout'
 
@@ -11,7 +11,7 @@ class FeaturedGroupsInjection extends ImmutablePureComponent {
 
   componentDidMount() {
     if (!this.props.isFetched) {
-      this.props.onFetchGroups('featured')
+      this.props.onFetchGroupsByTap('featured')
     }
   }
   
@@ -59,14 +59,14 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	onFetchGroups: (tab) => dispatch(fetchGroups(tab)),
+	onFetchGroupsByTap: (tab) => dispatch(fetchGroupsByTab(tab)),
 })
 
 FeaturedGroupsInjection.propTypes = {
 	groupIds: ImmutablePropTypes.list,
 	isFetched: PropTypes.bool.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  onFetchGroups: PropTypes.func.isRequired,
+  onFetchGroupsByTab: PropTypes.func.isRequired,
   injectionId: PropTypes.string.isRequired,
 }
 

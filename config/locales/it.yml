@@ -1,7 +1,7 @@
 ---
 it:
   about:
-    about_hashtag_html: Questi sono i toot pubblici etichettati con <strong>#%{hashtag}</strong>. Puoi interagire con loro se hai un account nel fediverse.
+    about_hashtag_html: Questi sono i gab pubblici etichettati con <strong>#%{hashtag}</strong>. Puoi interagire con loro se hai un account nel fediverse.
     about_gabsocial_html: Gab Social è un social network <em>gratuito e open-source</em>. Un'alternativa <em>decentralizzata</em> alle piattaforme commerciali che evita che una singola compagnia monopolizzi il tuo modo di comunicare. Scegli un server di cui ti fidi &mdash; qualunque sia la tua scelta, potrai interagire con chiunque altro. Chiunque può sviluppare un suo server Gab Social e partecipare alla vita del <em>social network</em>.
     about_this: A proposito di questo server
     administered_by: 'Amministrato da:'
@@ -48,10 +48,10 @@ it:
     pin_errors:
       following: Devi gia seguire la persona che vuoi promuovere
     posts:
-      one: Toot
-      other: Toot
-    posts_tab_heading: Toot
-    posts_with_replies: Toot e risposte
+      one: Gab
+      other: Gab
+    posts_tab_heading: Gab
+    posts_with_replies: Gab e risposte
     reserved_username: Il nome utente è gia stato preso
     roles:
       admin: Amministratore
@@ -312,11 +312,11 @@ it:
     relays:
       add_new: Aggiungi ripetitore
       delete: Cancella
-      description_html: Un <strong>ripetitore di federazione</strong> è un server che fa da intermediario e scambia grandi quantità di toot pubblici tra server che si collegano e pubblicano su di esso. <strong>Può aiutare server piccoli e medi a ottenere contenuti dal fediverse</strong>, che altrimenti riceverebbero solo se i loro utenti locali seguissero altre persone su server remoti.
+      description_html: Un <strong>ripetitore di federazione</strong> è un server che fa da intermediario e scambia grandi quantità di gab pubblici tra server che si collegano e pubblicano su di esso. <strong>Può aiutare server piccoli e medi a ottenere contenuti dal fediverse</strong>, che altrimenti riceverebbero solo se i loro utenti locali seguissero altre persone su server remoti.
       disable: Disabilita
       disabled: Disabilitato
       enable: Abilita
-      enable_hint: Dopo l'attivazione, il vostro server riceverà tutti i toot pubblici da questo ripetitore, e inizierà a inviargli i suoi toot pubblici.
+      enable_hint: Dopo l'attivazione, il vostro server riceverà tutti i gab pubblici da questo ripetitore, e inizierà a inviargli i suoi gab pubblici.
       enabled: Abilitato
       inbox_url: Url Relay
       pending: In attesa dell'approvazione del ripetitore
@@ -392,7 +392,7 @@ it:
           disabled: Nessuno
           title: Permetti inviti da
       show_known_fediverse_at_about_page:
-        desc_html: Quando attivato, mostra nell'anteprima i toot da tutte le istanze conosciute. Altrimenti mostra solo i toot locali.
+        desc_html: Quando attivato, mostra nell'anteprima i gab da tutte le istanze conosciute. Altrimenti mostra solo i gab locali.
         title: Mostra la fediverse conosciuta nell'anteprima della timeline
       show_staff_badge:
         title: Mostra badge staff
@@ -537,7 +537,7 @@ it:
     archive_takeout:
       date: Data
       download: Scarica il tuo archivio
-      hint_html: Puoi richiedere un archivio dei tuoi <strong>toot e media caricati</strong>. I dati esportati sono in formato ActivityPub, leggibili da qualunque software che segue questo standard. Puoi richiedere un archivio ogni 7 giorni.
+      hint_html: Puoi richiedere un archivio dei tuoi <strong>gab e media caricati</strong>. I dati esportati sono in formato ActivityPub, leggibili da qualunque software che segue questo standard. Puoi richiedere un archivio ogni 7 giorni.
       in_progress: Creazione archivio...
       request: Richiedi il tuo archivio
       size: Dimensioni
@@ -698,20 +698,20 @@ it:
   remote_interaction:
     favourite:
       proceed: Continua per segnare come apprezzato
-      prompt: 'Vuoi segnare questo toot come apprezzato:'
+      prompt: 'Vuoi segnare questo gab come apprezzato:'
     reblog:
       proceed: Continua per condividere
-      prompt: 'Vuoi condividere questo toot:'
+      prompt: 'Vuoi condividere questo gab:'
     reply:
       proceed: Continua per rispondere
-      prompt: 'Vuoi rispondere a questo toot:'
+      prompt: 'Vuoi rispondere a questo gab:'
   remote_unfollow:
     error: Errore
     title: Titolo
     unfollowed: Non più seguito
   scheduled_statuses:
-    over_daily_limit: Hai superato il limite di %{limit} toot programmati per questo giorno
-    over_total_limit: Hai superato il limite di %{limit} toot programmati
+    over_daily_limit: Hai superato il limite di %{limit} gab programmati per questo giorno
+    over_total_limit: Hai superato il limite di %{limit} gab programmati
     too_soon: La data di pubblicazione deve essere nel futuro
   sessions:
     activity: Ultima attività
@@ -772,10 +772,10 @@ it:
     open_in_web: Apri sul Web
     over_character_limit: Limite caratteri superato di %{max}
     pin_errors:
-      limit: Hai già fissato in cima il massimo numero di toot
-      ownership: Non puoi fissare in cima un toot di qualcun altro
-      private: Un toot non pubblico non può essere fissato in cima
-      reblog: Un toot condiviso non può essere fissato in cima
+      limit: Hai già fissato in cima il massimo numero di gab
+      ownership: Non puoi fissare in cima un gab di qualcun altro
+      private: Un gab non pubblico non può essere fissato in cima
+      reblog: Un gab condiviso non può essere fissato in cima
     poll:
       total_votes:
         one: "%{count} voto"
@@ -791,7 +791,7 @@ it:
       unlisted: Pubblico, ma non visibile sulla timeline pubblica
       unlisted_long: Tutti lo possono vedere, ma non compare nelle timeline pubbliche
   stream_entries:
-    pinned: Toot fissato in cima
+    pinned: Gab fissato in cima
     reblogged: condiviso
     sensitive_content: Materiale sensibile
   terms:

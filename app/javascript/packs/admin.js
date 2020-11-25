@@ -31,15 +31,3 @@ delegate(document, '.media-spoiler-hide-button', 'click', () => {
   });
 });
 
-delegate(document, '#domain_block_severity', 'change', ({ target }) => {
-  const rejectMediaDiv   = document.querySelector('.input.with_label.domain_block_reject_media');
-  const rejectReportsDiv = document.querySelector('.input.with_label.domain_block_reject_reports');
-
-  if (rejectMediaDiv) {
-    rejectMediaDiv.style.display = (target.value === 'suspend') ? 'none' : 'block';
-  }
-
-  if (rejectReportsDiv) {
-    rejectReportsDiv.style.display = (target.value === 'suspend') ? 'none' : 'block';
-  }
-});

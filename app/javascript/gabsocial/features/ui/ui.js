@@ -55,7 +55,6 @@ import {
   AccountTimeline,
   Assets,
   BlockedAccounts,
-  BlockedDomains,
   BookmarkedStatuses,
   CommunityTimeline,
   Compose,

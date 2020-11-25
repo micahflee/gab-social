@@ -8,12 +8,17 @@ class Api::V1::Statuses::PinsController < Api::BaseController
   before_action :set_status
 
   def create
-    StatusPin.create!(account: current_account, status: @status)
-    render json: @status, serializer: REST::StatusSerializer
+    pin = StatusPin.find_by(account: current_account, status: @status)
+    if pin.nil?
+      StatusPin.create!(account: current_account, status: @status)
+      render json: @status, serializer: REST::StatusPinnedSerializer
+    else
+      return render json: { error: 'Status is already pinned' }, status: 500
+    end
   end
 
   def show
-    # is status pinned by user?
+    render json: @status, serializer: REST::StatusPinnedSerializer
   end
 
   def destroy
@@ -23,7 +28,7 @@ class Api::V1::Statuses::PinsController < Api::BaseController
       pin.destroy!
     end
 
-    render json: @status, serializer: REST::StatusSerializer
+    render json: @status, serializer: REST::StatusPinnedSerializer
   end
 
   private

@@ -11,7 +11,7 @@ import {
 } from '../constants'
 import { me } from '../initial_state'
 import { saveShownOnboarding } from '../actions/settings'
-import { fetchGroups } from '../actions/groups'
+import { fetchGroupsByTab } from '../actions/groups'
 import { saveUserProfileInformation } from '../actions/user'
 import { makeGetAccount } from '../selectors'
 import Button from '../components/button'
@@ -414,7 +414,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSaveShownOnboarding: () => dispatch(saveShownOnboarding()),
-  onFetchFeaturedGroups: () => dispatch(fetchGroups('featured')),
+  onFetchFeaturedGroups: () => dispatch(fetchGroupsByTab('featured')),
   onSaveUserProfileInformation(data) {
     dispatch(saveUserProfileInformation(data))
   },

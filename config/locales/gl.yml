@@ -59,10 +59,10 @@ gl:
     pin_errors:
       following: Debe seguir a persoa que intenta recomendar
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots e respostas
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs e respostas
     reserved_username: O nome de usuaria está reservado
     roles:
       admin: Admin
@@ -332,11 +332,11 @@ gl:
     relays:
       add_new: Engadir un novo repetidor
       delete: Eliminar
-      description_html: Un <strong>repetidor da federación</strong> é un servidor intermedio que intercambia grandes volumes de toots públicos entre servidores que se suscriban e publiquen nel. <strong>Pode axudar a servidores pequenos e medios a descubrir contido no fediverso</strong>, o que de outro xeito precisaría que as usuarias locais seguisen a outra xente en servidores remotos.
+      description_html: Un <strong>repetidor da federación</strong> é un servidor intermedio que intercambia grandes volumes de gabs públicos entre servidores que se suscriban e publiquen nel. <strong>Pode axudar a servidores pequenos e medios a descubrir contido no fediverso</strong>, o que de outro xeito precisaría que as usuarias locais seguisen a outra xente en servidores remotos.
       disable: Desactivar
       disabled: Desactivada
       enable: Activar
-      enable_hint: Unha vez activado, o seu servidor suscribirase a todos os toots públicos de este servidor, e tamén comezará a eviar a el os toots públicos do servidor.
+      enable_hint: Unha vez activado, o seu servidor suscribirase a todos os gabs públicos de este servidor, e tamén comezará a eviar a el os gabs públicos do servidor.
       enabled: Activada
       inbox_url: URL do repetidor
       pending: Agardando polo permiso do repetidor
@@ -419,7 +419,7 @@ gl:
           open: Rexistro aberto
         title: Estado do rexistro
       show_known_fediverse_at_about_page:
-        desc_html: Si activado, mostraralle os toots de todo o fediverso coñecido nunha vista previa. Si non só mostrará os toots locais.
+        desc_html: Si activado, mostraralle os gabs de todo o fediverso coñecido nunha vista previa. Si non só mostrará os gabs locais.
         title: Mostrar vista previa do fediverso na liña temporal
       show_staff_badge:
         desc_html: Mostrar unha insignia de membresía nunha páxina de usuaria
@@ -586,7 +586,7 @@ gl:
     archive_takeout:
       date: Data
       download: Descargue o seu ficheiro
-      hint_html: Pode solicitar un ficheiro cos <strong>seus toots e ficheiros de medios</strong>. Os datos estarán en formato ActivityPub e son compatibles con calquer software que o siga. Pode solicitar un ficheiro cada 7 días.
+      hint_html: Pode solicitar un ficheiro cos <strong>seus gabs e ficheiros de medios</strong>. Os datos estarán en formato ActivityPub e son compatibles con calquer software que o siga. Pode solicitar un ficheiro cada 7 días.
       in_progress: Xerando o seu ficheiro...
       request: Solicite o ficheiro
       size: Tamaño
@@ -778,20 +778,20 @@ gl:
   remote_interaction:
     favourite:
       proceed: Darlle a favorito
-      prompt: 'Vostede quere favorecer este toot:'
+      prompt: 'Vostede quere favorecer este gab:'
     reblog:
       proceed: Darlle a promocionar
-      prompt: 'Vostede quere promocionar este toot:'
+      prompt: 'Vostede quere promocionar este gab:'
     reply:
       proceed: Respostar
-      prompt: 'Vostede quere respostar a este toot:'
+      prompt: 'Vostede quere respostar a este gab:'
   remote_unfollow:
     error: Fallo
     title: Título
     unfollowed: Deixou de seguir
   scheduled_statuses:
-    over_daily_limit: Excedeu o límite de %{limit} toots programados para ese día
-    over_total_limit: Excedeu o límite de %{limit} toots programados
+    over_daily_limit: Excedeu o límite de %{limit} gabs programados para ese día
+    over_total_limit: Excedeu o límite de %{limit} gabs programados
     too_soon: A data de programación debe estar no futuro
   sessions:
     activity: Última actividade
@@ -1004,8 +1004,8 @@ gl:
     warning:
       explanation:
         disable: Cando a súa conta está conxelada, os datos permanecen intactos, pero non pode levar a fin accións ate que se desbloquea.
-        silence: Mentras a conta está limitada, só a xente que actualmente a segue verá os seus toots en este servidor, e vostede podería estar excluída de varias listas públicas. Porén, outras persoas poderíana seguila de xeito manual.
-        suspend: A súa conta foi suspendida, e todos os seus toots e medios subidos foron eliminados de este servidor de xeito irreversible, e dos servidores onde tivese seguidoras.
+        silence: Mentras a conta está limitada, só a xente que actualmente a segue verá os seus gabs en este servidor, e vostede podería estar excluída de varias listas públicas. Porén, outras persoas poderíana seguila de xeito manual.
+        suspend: A súa conta foi suspendida, e todos os seus gabs e medios subidos foron eliminados de este servidor de xeito irreversible, e dos servidores onde tivese seguidoras.
       review_server_policies: Revisar políticas do servidor
       subject:
         disable: A súa conta %{acct} foi conxelada
@@ -1019,7 +1019,7 @@ gl:
         suspend: Conta suspendida
     welcome:
       edit_profile_action: Configurar perfil
-      edit_profile_step: Vostede pode persoalizar o seu perfil subindo un avatar, cabeceira, cambiar o seu nome público e aínda máis. Si restrinxe a súa conta pode revisar a conta das personas que solicitan seguilas antes de permitirlles o acceso aos seus toots.
+      edit_profile_step: Vostede pode persoalizar o seu perfil subindo un avatar, cabeceira, cambiar o seu nome público e aínda máis. Si restrinxe a súa conta pode revisar a conta das personas que solicitan seguilas antes de permitirlles o acceso aos seus gabs.
       explanation: Aquí ten alunhas endereitas para ir aprendendo
       final_action: Comece a publicar
       final_step: 'Publique! Incluso sin seguidoras as súas mensaxes serán vistas por outras, por exemplo na liña temporal local e nas etiquetas. Podería presentarse no #fediverso utilizando a etiqueta #introductions.'

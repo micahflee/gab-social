@@ -669,7 +669,7 @@ ru:
     identity: Идентификатор
     inactive: Неактивно
     publicize_checkbox: 'И опубликуйте текст:'
-    publicize_toot: 'Подтверждено! Я %{username} на %{service}: %{url}'
+    publicize_gab: 'Подтверждено! Я %{username} на %{service}: %{url}'
     status: Статус подтверждения
     view_proof: Посмотреть доказательство личности
   imports:

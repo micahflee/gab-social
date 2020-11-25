@@ -126,13 +126,13 @@ nl:
       read:lists: zie jouw lijsten
       read:mutes: zie jouw genegeerde gebruikers
       read:notifications: zie jouw meldingen
-      read:reports: zie jouw gerapporteerde toots
+      read:reports: zie jouw gerapporteerde gabs
       read:search: namens jou zoeken
-      read:statuses: zie alle toots
+      read:statuses: zie alle gabs
       write: alle gegevens van jouw account bewerken
       write:accounts: jouw profiel bewerken
       write:blocks: accounts en domeinen blokkeren
-      write:favourites: toots als favoriet markeren
+      write:favourites: gabs als favoriet markeren
       write:filters: filters aanmaken
       write:follows: mensen volgen
       write:lists: lijsten aanmaken
@@ -140,4 +140,4 @@ nl:
       write:mutes: mensen en gesprekken negeren
       write:notifications: meldingen verwijderen
       write:reports: andere mensen rapporteren
-      write:statuses: toots publiceren
+      write:statuses: gabs publiceren

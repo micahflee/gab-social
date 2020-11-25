@@ -23,7 +23,7 @@ class Api::V1::Groups::RemovedAccountsController < Api::BaseController
     @account = @group.accounts.find(params[:account_id])
     @group.removed_accounts << @account
     GroupAccount.where(group: @group, account: @account).destroy_all
-    render_empty
+    render_empty_success
   end
 
   def destroy
@@ -31,7 +31,7 @@ class Api::V1::Groups::RemovedAccountsController < Api::BaseController
 
     @account = @group.removed_accounts.find(params[:account_id])
     GroupRemovedAccount.where(group: @group, account: @account).destroy_all
-    render_empty
+    render_empty_success
   end
 
   private

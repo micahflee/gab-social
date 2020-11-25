@@ -653,7 +653,7 @@ de:
     identity: Identität
     inactive: Inaktiv
     publicize_checkbox: 'Und poste das:'
-    publicize_toot: 'Es ist offiziell! Ich bin %{username} auf %{service}: %{url}'
+    publicize_gab: 'Es ist offiziell! Ich bin %{username} auf %{service}: %{url}'
     status: Verifizierungsstatus
     view_proof: Zeige Nachweis
   imports:

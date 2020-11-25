@@ -663,7 +663,7 @@ pl:
     identity: Tożsamość
     inactive: Niekatywny
     publicize_checkbox: 'I opublikuj to:'
-    publicize_toot: 'Udowodnione! Jestem %{username} na %{service}: %{url}'
+    publicize_gab: 'Udowodnione! Jestem %{username} na %{service}: %{url}'
     status: Stan weryfikacji
     view_proof: Wyświetl dowód
   imports:

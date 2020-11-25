@@ -23,18 +23,15 @@ export const fetchFilters = () => (dispatch, getState) => {
 
 const fetchFiltersRequest = () => ({
   type: FILTERS_FETCH_REQUEST,
-  skipLoading: true,
 })
 
 const fetchFiltersSuccess = (filters) => ({
   type: FILTERS_FETCH_SUCCESS,
   filters,
-  skipLoading: true,
 })
 
 const fetchFiltersFail = (err) => ({
   type: FILTERS_FETCH_FAIL,
   err,
-  skipLoading: true,
   skipAlert: true,
 })

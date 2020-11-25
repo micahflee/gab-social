@@ -3,10 +3,10 @@ de:
   simple_form:
     hints:
       account_warning_preset:
-        text: Du kannst Toot-Syntax benutzen, wie zum Beispiel URLs, Hashtags und Erwähnungen
+        text: Du kannst Gab-Syntax benutzen, wie zum Beispiel URLs, Hashtags und Erwähnungen
       admin_account_action:
         send_email_notification: Der Benutzer erhält eine Erklärung, was mit seinem Account geschehen ist
-        text_html: Optional. Du kannst Toot-Syntax benutzen. Du kannst <a href="%{path}">Warnungsvorlagen</a> benutzen um Zeit zu sparen
+        text_html: Optional. Du kannst Gab-Syntax benutzen. Du kannst <a href="%{path}">Warnungsvorlagen</a> benutzen um Zeit zu sparen
         type_html: Wähle aus, was du mit <strong>%{acct}</strong> machen möchtest
         warning_preset_id: Optional. Du kannst immer noch eigenen Text an das Ende der Vorlage hinzufügen
       defaults:

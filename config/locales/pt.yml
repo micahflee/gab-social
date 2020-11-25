@@ -1,7 +1,7 @@
 ---
 pt:
   about:
-    about_hashtag_html: Estes são toots públicos marcados com <strong>#%{hashtag}</strong>. Podes interagir com eles se tiveres uma conta Gab Social.
+    about_hashtag_html: Estes são gabs públicos marcados com <strong>#%{hashtag}</strong>. Podes interagir com eles se tiveres uma conta Gab Social.
     about_gabsocial_html: Gab Social é uma rede social baseada em protocolos abertos da web e software livre e gratuito. É descentralizado como e-mail.
     about_this: Sobre esta instância
     administered_by: 'Administrado por:'
@@ -831,7 +831,7 @@ pt:
       unlisted: Público, mas não mostre no timeline público
       unlisted_long: Todos podem ver, porém não será postado nas timelines públicas
   stream_entries:
-    pinned: Toot fixado
+    pinned: Gab fixado
     reblogged: partilhado
     sensitive_content: Conteúdo sensível
   terms:

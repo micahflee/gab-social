@@ -48,9 +48,9 @@ fi:
     pin_errors:
       following: Sinun täytyy seurata henkilöä jota haluat tukea
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
     posts_with_replies: Tuuttaukset ja vastaukset
     reserved_username: Käyttäjänimi on varattu
     roles:

@@ -71,3 +71,20 @@ export const connectStatusUpdateStream = () => {
  * 
  */
 export const connectUserStream = () => connectTimelineStream('home', 'user')
+
+/**
+ * 
+ */
+export const connectMessageStream = () => {
+
+  return connectStream('chat_messages', null, (dispatch, getState) => {
+
+    return {
+      onConnect() {},
+      onDisconnect() {},
+      onReceive (data) {
+        //
+      },
+    }
+  })
+}

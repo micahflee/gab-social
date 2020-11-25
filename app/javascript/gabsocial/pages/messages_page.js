@@ -18,7 +18,7 @@ class MessagesPage extends React.PureComponent {
         title={title}
       >
         <PageTitle path={title} />
-        {children}
+        
       </MessagesLayout>
     )
   }

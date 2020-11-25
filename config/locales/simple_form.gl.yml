@@ -3,10 +3,10 @@ gl:
   simple_form:
     hints:
       account_warning_preset:
-        text: Vostede pode utilizar dar formato ao toot, como URLs, etiquetas e mencións
+        text: Vostede pode utilizar dar formato ao gab, como URLs, etiquetas e mencións
       admin_account_action:
         send_email_notification: A usuaria recibirá unha explicación sobre o que lle aconteceu a súa conta
-        text_html: Optativo. Pode utilizar formato no toot. Pode <a href="%{path}">engadir avisos preestablecidos</a> para aforrar tempo
+        text_html: Optativo. Pode utilizar formato no gab. Pode <a href="%{path}">engadir avisos preestablecidos</a> para aforrar tempo
         type_html: Escolla que facer con <strong>%{acct}</strong>
         warning_preset_id: Optativo. Poderá engadir texto personalizado ao final do preestablecido
       defaults:
@@ -20,20 +20,20 @@ gl:
         fields: Pode ter ate 4 elementos no seu perfil mostrados como unha táboa
         header: PNG, GIF ou JPG. Máximo %{size}. Será reducida a %{dimensions}px
         inbox_url: Copiar o URL desde a páxina de inicio do repetidor que quere utilizar
-        irreversible: Os toots filtrados desaparecerán de xeito irreversible, incluso si despois se elimina o filtro
+        irreversible: Os gabs filtrados desaparecerán de xeito irreversible, incluso si despois se elimina o filtro
         locale: O idioma da interface de usuaria, correos e notificacións
         locked: Require que vostede acepte as seguidoras de xeito manual
         password: Utilice 8 caracteres ao menos
-        phrase: Concordará independentemente das maiúsculas ou avisos de contido no toot
+        phrase: Concordará independentemente das maiúsculas ou avisos de contido no gab
         scopes: A que APIs terá acceso a aplicación. Si selecciona un ámbito de alto nivel, non precisa seleccionar elementos individuais.
-        setting_aggregate_reblogs: Non mostrar novas promocións de toots que foron promocionados recentemente (só afecta a promocións recén recibidas)
-        setting_default_language: Pódese detectar automáticamente o idioma dos seus toots, mais non sempre é preciso
+        setting_aggregate_reblogs: Non mostrar novas promocións de gabs que foron promocionados recentemente (só afecta a promocións recén recibidas)
+        setting_default_language: Pódese detectar automáticamente o idioma dos seus gabs, mais non sempre é preciso
         setting_display_media_default: Ocultar medios marcados como sensibles
         setting_display_media_hide_all: Ocultar sempre os medios
         setting_display_media_show_all: Mostrar sempre os medios marcados como sensibles
         setting_hide_network: Non se mostrará no seu perfil quen a segue e quen a está a seguir
         setting_noindex: Afecta ao seu perfil público e páxinas de estado
-        setting_show_application: A aplicación que está a utilizar para enviar toots mostrarase na vista detallada do toot
+        setting_show_application: A aplicación que está a utilizar para enviar gabs mostrarase na vista detallada do gab
         setting_theme: Afecta ao aspecto de Gab Social en calquer dispositivo cando está conectada.
         username: O seu nome de usuaria será único en %{domain}
         whole_word: Se a chave ou frase de paso é só alfanumérica, só se aplicará se concorda a palabra completa
@@ -44,7 +44,7 @@ gl:
       sessions:
         otp: 'Introduza o código de doble-factor xerado no aplicativo do seu móbil ou utilice un dos seus códigos de recuperación:'
       user:
-        chosen_languages: Se ten marca, só os toots nos idiomas seleccionados serán mostrados en liñas temporais públicas
+        chosen_languages: Se ten marca, só os gabs nos idiomas seleccionados serán mostrados en liñas temporais públicas
     labels:
       account:
         fields:
@@ -103,7 +103,7 @@ gl:
         setting_hide_network: Non mostrar contactos
         setting_noindex: Pedir non aparecer nas buscas dos motores de busca
         setting_reduce_motion: Reducir o movemento nas animacións
-        setting_show_application: Mostrar a aplicación utilizada para tootear
+        setting_show_application: Mostrar a aplicación utilizada para gab
         setting_system_font_ui: Utilizar a tipografía por defecto do sistema
         setting_theme: Decorado da instancia
         setting_unfollow_modal: Solicitar confirmación antes de deixar de seguir alguén

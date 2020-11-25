@@ -11,7 +11,7 @@ import { CX } from '../constants'
 
 class StatusActionBar extends ImmutablePureComponent {
 
-  updateOnProps = ['status']
+  // updateOnProps = ['status']
 
   handleShareClick = () => {
     this.props.onShare(this.shareButton, this.props.status)

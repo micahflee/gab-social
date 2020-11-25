@@ -51,11 +51,11 @@ lt:
     pin_errors:
       following: Privalai sekti žmogų kurį nori pagerbti
     posts:
-      few: Tootai
-      one: Tootas
-      other: Tootai
-    posts_tab_heading: Tootai
-    posts_with_replies: Tootai ir atsakymai
+      few: Gabs
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs ir atsakymai
     reserved_username: Vartotojo vardas rezervuotas
     roles:
       admin: Administratorius
@@ -725,20 +725,20 @@ lt:
   remote_interaction:
     favourite:
       proceed: Pamėgti
-      prompt: 'Jūs norite pamėgti šį toot''ą:'
+      prompt: 'Jūs norite pamėgti šį gab''ą:'
     reblog:
       proceed: Pakelti
-      prompt: 'Jūs norite pakelti šį toot''ą:'
+      prompt: 'Jūs norite pakelti šį gab''ą:'
     reply:
       proceed: Atsakyti
-      prompt: 'Jūs norite atsakyti šiam toot''ui:'
+      prompt: 'Jūs norite atsakyti šiam gab''ui:'
   remote_unfollow:
     error: Klaida
     title: Pavadinimas
     unfollowed: Nebesekama
   scheduled_statuses:
-    over_daily_limit: Jūs pasieketė limitą (%{limit}) galimų toot'ų per dieną
-    over_total_limit: Jūs pasieketė %{limit} limitą galimų toot'ų
+    over_daily_limit: Jūs pasieketė limitą (%{limit}) galimų gab'ų per dieną
+    over_total_limit: Jūs pasieketė %{limit} limitą galimų gab'ų
     too_soon: Planuota data privalo būti ateityje
   sessions:
     activity: Paskutinė veikla
@@ -814,9 +814,9 @@ lt:
     open_in_web: Atidaryti naudojan Web
     over_character_limit: pasiektas %{max} simbolių limitas
     pin_errors:
-      limit: Jūs jau prisegėte maksimalų toot'ų skaičų
-      ownership: Kitų vartotojų toot'ai negali būti prisegti
-      private: Ne vieši toot'ai negali būti prisegti
+      limit: Jūs jau prisegėte maksimalų gab'ų skaičų
+      ownership: Kitų vartotojų gab'ai negali būti prisegti
+      private: Ne vieši gab'ai negali būti prisegti
       reblog: Pakeltos žinutės negali būti prisegtos
     show_more: Daugiau
     sign_in_to_participate: Prisijunkite jeigu norite dalyvauti pokalbyje
@@ -829,7 +829,7 @@ lt:
       unlisted: Neįtrauktas į sąrašus
       unlisted_long: Matyti gali visi, tačiau nėra įtraukta į viešas laiko juostas
   stream_entries:
-    pinned: Prisegtas toot'as
+    pinned: Prisegtas gab'as
     reblogged: pakeltas
     sensitive_content: Jautrus turinys
   terms:
@@ -945,8 +945,8 @@ lt:
     warning:
       explanation:
         disable: Kol Jūsų paskyra užšaldyta, Jūsų duomenys tebėra matomi, tačiau jūs negalite atlikti jokių veiksmu, tol, kol užšaldymas panaikintas.
-        silence: Kol Jūsų paskyra limituota, tik žmonės, kurie jus jau sekė matus Jūsų toot'us serveryje, Jūs taip pat būsite išimtas iš viešųjų sąrašų. Tačiau, kiti gali jus rasti, savo rankomis.
-        suspend: Jūsų paskyra buvo užrakinta, ir visi Jūsų toot'ai, medijos failai, buvo panaikinti iš šio serverio, ir visų kitų serverių, kur turėjote sekėjų.
+        silence: Kol Jūsų paskyra limituota, tik žmonės, kurie jus jau sekė matus Jūsų gab'us serveryje, Jūs taip pat būsite išimtas iš viešųjų sąrašų. Tačiau, kiti gali jus rasti, savo rankomis.
+        suspend: Jūsų paskyra buvo užrakinta, ir visi Jūsų gab'ai, medijos failai, buvo panaikinti iš šio serverio, ir visų kitų serverių, kur turėjote sekėjų.
       review_server_policies: Apžvelgti serverio politiką
       subject:
         disable: Jūsų paskyra %{acct} buvo užšaldyta

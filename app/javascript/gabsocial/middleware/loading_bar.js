@@ -6,7 +6,7 @@ export default function loadingBarMiddleware(config = {}) {
   const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
 
   return ({ dispatch }) => next => (action) => {
-    if (action.type && !action.skipLoading) {
+    if (action.type && action.type.indexOf('TIMELINE') > -1) {
       const [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes
 
       const isPending = new RegExp(`${PENDING}$`, 'g')

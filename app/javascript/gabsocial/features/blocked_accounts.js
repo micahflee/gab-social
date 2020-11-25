@@ -11,6 +11,7 @@ import Account from '../components/account'
 import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import ScrollableList from '../components/scrollable_list'
+import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
 class Blocks extends ImmutablePureComponent {
 
@@ -40,16 +41,19 @@ class Blocks extends ImmutablePureComponent {
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
           isLoading={isLoading}
+          showLoading={isLoading}
           emptyMessage={emptyMessage}
+          placeholderComponent={AccountPlaceholder}
+          placeholderCount={3}
         >
           {
-            accountIds && accountIds.map((id) =>
+            accountIds && accountIds.map((id) => (
               <Account
                 key={`blocked-accounts-${id}`}
                 id={id}
                 compact
               />
-            )
+            ))
           }
         </ScrollableList>
       </Block>

@@ -3,7 +3,7 @@
 class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :revised_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
-             :url, :replies_count, :reblogs_count,
+             :url, :replies_count, :reblogs_count, :pinnable, :pinnable_by_group,
              :favourites_count, :quote_of_id, :expires_at, :has_quote
 
   attribute :favourited, if: :current_user?
@@ -32,6 +32,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   has_one :preloadable_poll, key: :poll, serializer: REST::PollSerializer
 
   def id
+    # puts "tilly instance:" + instance_options.inspect
     object.id.to_s
   end
 
@@ -134,22 +135,14 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def bookmarked
-    if instance_options && instance_options[:relationships]
-      instance_options[:relationships].bookmarks_map[object.id] || false
-    else
-      current_user.account.bookmarked?(object)
-    end
+    return
   end
 
   def pinned
-    if instance_options && instance_options[:relationships]
-      instance_options[:relationships].pins_map[object.id] || false
-    else
-      current_user.account.pinned?(object)
-    end
+    return
   end
 
-  def pinnable?
+  def pinnable
     current_user? &&
       current_user.account_id == object.account_id &&
       !object.reblog? &&
@@ -157,14 +150,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
   end
 
   def pinned_by_group
-    if instance_options && instance_options[:relationships]
-      instance_options[:relationships].group_pins_map[object.id] || false
-    else
-      false
-    end
+    return
   end
 
-  def pinnable_by_group?
+  def pinnable_by_group
     if object.group_id?
       true
     else

@@ -4,9 +4,9 @@ ro:
     hosted_on: Gab Social găzduit de %{domain}
   accounts:
     posts:
-      few: Toots
-      one: Toot
-      other: Toots
+      few: Gabs
+      one: Gab
+      other: Gabs
   auth:
     change_password: Parolă
     confirm_email: Confirmă email

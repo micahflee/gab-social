@@ -1,7 +1,7 @@
 ---
 es:
   about:
-    about_hashtag_html: Estos son toots públicos etiquetados con <strong>#%{hashtag}</strong>. Puedes interactuar con ellos si tienes una cuenta en cualquier parte del fediverso.
+    about_hashtag_html: Estos son gabs públicos etiquetados con <strong>#%{hashtag}</strong>. Puedes interactuar con ellos si tienes una cuenta en cualquier parte del fediverso.
     about_gabsocial_html: Gab Social es un servidor de red social <em>libre y de código abierto</em>. Una alternativa <em>descentralizada</em> a plataformas comerciales, que evita el riesgo de que una única compañía monopolice tu comunicación. Cualquiera puede ejecutar Gab Social y participar sin problemas en la <em>red social</em>.
     about_this: Acerca de esta instancia
     administered_by: 'Administrado por:'
@@ -48,10 +48,10 @@ es:
     pin_errors:
       following: Debes estar siguiendo a la persona a la que quieres aprobar
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots con respuestas
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs con respuestas
     reserved_username: El nombre de usuario está reservado
     roles:
       admin: Administrador
@@ -289,11 +289,11 @@ es:
     relays:
       add_new: Añadir un nuevo relés
       delete: Borrar
-      description_html: Un <strong>relés de federation</strong> es un servidor intermedio que intercambia grandes volúmenes de toots públicos entre servidores que se suscriben y publican en él. <strong>Puede ayudar a servidores pequeños y medianos a descubir contenido del fediverso</strong>, que de otra manera requeriría que los usuarios locales siguiesen manialmente a personas de servidores remotos.
+      description_html: Un <strong>relés de federation</strong> es un servidor intermedio que intercambia grandes volúmenes de gabs públicos entre servidores que se suscriben y publican en él. <strong>Puede ayudar a servidores pequeños y medianos a descubir contenido del fediverso</strong>, que de otra manera requeriría que los usuarios locales siguiesen manialmente a personas de servidores remotos.
       disable: Deshabilitar
       disabled: Deshabilitado
       enable: Hablitar
-      enable_hint: Una vez conectado, tu servidor se suscribirá a todos los toots públicos de este relés, y comenzará a enviar los toots públicos de este servidor hacia él.
+      enable_hint: Una vez conectado, tu servidor se suscribirá a todos los gabs públicos de este relés, y comenzará a enviar los gabs públicos de este servidor hacia él.
       enabled: Habilitado
       inbox_url: URL del relés
       pending: Esperando la aprobación del relés
@@ -367,7 +367,7 @@ es:
           disabled: Nadie
           title: Permitir invitaciones de
       show_known_fediverse_at_about_page:
-        desc_html: Cuando esté activado, se mostrarán toots de todo el fediverso conocido en la vista previa. En otro caso, se mostrarán solamente toots locales.
+        desc_html: Cuando esté activado, se mostrarán gabs de todo el fediverso conocido en la vista previa. En otro caso, se mostrarán solamente gabs locales.
         title: Mostrar fediverso conocido en la vista previa de la historia
       show_staff_badge:
         desc_html: Mostrar un parche de staff en la página de un usuario
@@ -503,7 +503,7 @@ es:
     archive_takeout:
       date: Fecha
       download: Descargar tu archivo
-      hint_html: Puedes solicitar un archivo de tus <strong>toots y materiales subidos</strong>. Los datos exportados estarán en formato ActivityPub, legibles por cualquier software compatible.
+      hint_html: Puedes solicitar un archivo de tus <strong>gabs y materiales subidos</strong>. Los datos exportados estarán en formato ActivityPub, legibles por cualquier software compatible.
       in_progress: Recopilando tu archivo...
       request: Solicitar tu archivo
       size: Tamaño
@@ -615,8 +615,8 @@ es:
       subject: Fuiste mencionado por %{name}
       title: Nueva mención
     reblog:
-      body: "%{name} ha retooteado tu estado:"
-      subject: "%{name} ha retooteado tu estado"
+      body: "%{name} ha reposted tu estado:"
+      subject: "%{name} ha reposted tu estado"
       title: Nueva difusión
   number:
     human:
@@ -722,8 +722,8 @@ es:
     over_character_limit: Límite de caracteres de %{max} superado
     pin_errors:
       limit: Ya has fijado el número máximo de publicaciones
-      ownership: El toot de alguien más no puede fijarse
-      private: Los toots no-públicos no pueden fijarse
+      ownership: El gab de alguien más no puede fijarse
+      private: Los gabs no-públicos no pueden fijarse
       reblog: Un repost no puede fijarse
     show_more: Mostrar más
     sign_in_to_participate: Regístrate para participar en la conversación
@@ -736,8 +736,8 @@ es:
       unlisted: Público, pero no mostrar en la historia federada
       unlisted_long: Todos pueden ver, pero no está listado en las líneas de tiempo públicas
   stream_entries:
-    pinned: Toot fijado
-    reblogged: retooteado
+    pinned: Gab fijado
+    reblogged: reposted
     sensitive_content: Contenido sensible
   terms:
     title: Términos del Servicio y Políticas de Privacidad de %{instance}

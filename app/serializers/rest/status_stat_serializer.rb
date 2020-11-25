@@ -34,6 +34,14 @@ class REST::StatusStatSerializer < ActiveModel::Serializer
     end
   end
 
+  def reblogs_count
+    if instance_options && instance_options[:unreblog]
+      object.reblogs_count - 1
+    else
+      object.reblogs_count
+    end
+  end
+
   def current_user?
     !current_user.nil?
   end

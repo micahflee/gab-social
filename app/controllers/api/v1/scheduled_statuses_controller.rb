@@ -26,7 +26,7 @@ class Api::V1::ScheduledStatusesController < Api::BaseController
 
   def destroy
     @status.destroy!
-    render_empty
+    render_empty_success
   end
 
   private

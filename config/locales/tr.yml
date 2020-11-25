@@ -47,10 +47,10 @@ tr:
     pin_errors:
       following: Onaylamak istediğiniz kişiyi zaten takip ediyor olmalısınız
     posts:
-      one: Toot
-      other: Tootlar
-    posts_tab_heading: Tootlar
-    posts_with_replies: Tootlar ve yanıtlar
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs ve yanıtlar
     reserved_username: Kullanıcı adı saklıdır
     roles:
       admin: Yönetici

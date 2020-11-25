@@ -681,7 +681,7 @@ en:
     identity: Identity
     inactive: Inactive
     publicize_checkbox: 'And gab this:'
-    publicize_toot: 'I am %{username} on %{service}: %{url}'
+    publicize_gab: 'I am %{username} on %{service}: %{url}'
     status: Verification status
     view_proof: View proof
   imports:

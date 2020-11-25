@@ -1,3 +1,5 @@
+import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable'
+import compareId from '../utils/compare_id'
 import {
   TIMELINE_UPDATE,
   TIMELINE_DELETE,
@@ -11,17 +13,19 @@ import {
   TIMELINE_DEQUEUE,
   MAX_QUEUED_ITEMS,
   TIMELINE_SCROLL_TOP,
-} from '../actions/timelines';
+} from '../actions/timelines'
 import {
   ACCOUNT_BLOCK_SUCCESS,
   ACCOUNT_MUTE_SUCCESS,
   ACCOUNT_UNFOLLOW_SUCCESS,
-} from '../actions/accounts';
-import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable';
-import compareId from '../utils/compare_id';
-import { GROUP_REMOVE_STATUS_SUCCESS } from '../actions/groups';
+} from '../actions/accounts'
+import {
+  GROUP_REMOVE_STATUS_SUCCESS,
+  GROUP_UNPIN_STATUS_SUCCESS,
+} from '../actions/groups'
+import { UNPIN_SUCCESS } from '../actions/interactions'
 
-const initialState = ImmutableMap();
+const initialState = ImmutableMap()
 
 const initialTimeline = ImmutableMap({
   unread: 0,
@@ -33,14 +37,14 @@ const initialTimeline = ImmutableMap({
   items: ImmutableList(),
   queuedItems: ImmutableList(), //max= MAX_QUEUED_ITEMS
   totalQueuedItemsCount: 0, //used for queuedItems overflow for MAX_QUEUED_ITEMS+
-});
+})
 
 const expandNormalizedTimeline = (state, timeline, statuses, next, isPartial, isLoadingRecent) => {
-  return state.update(timeline, initialTimeline, map => map.withMutations(mMap => {
-    mMap.set('isLoading', false);
-    mMap.set('isPartial', isPartial);
+  return state.update(timeline, initialTimeline, map => map.withMutations((mMap) => {
+    mMap.set('isLoading', false)
+    mMap.set('isPartial', isPartial)
 
-    if (!next && !isLoadingRecent) mMap.set('hasMore', false);
+    if (!next && !isLoadingRecent) mMap.set('hasMore', false)
 
     if (!statuses.isEmpty()) {
       mMap.update('items', ImmutableList(), oldIds => {
@@ -160,8 +164,16 @@ const filterTimeline = (timeline, state, relationship, statuses) =>
     ));
 
 const removeStatusFromGroup = (state, groupId, statusId) => {
-  return state.updateIn([`group:${groupId}`, 'items'], list => list.filterNot(item => item === statusId));
-};
+  return state.updateIn([`group:${groupId}`, 'items'], list => list.filterNot(item => item === statusId))
+}
+
+const removeStatusFromGroupPins = (state, groupId, statusId) => {
+  return state.updateIn([`group:${groupId}:pinned`, 'items'], list => list.filterNot(item => item === statusId))
+}
+
+const removeStatusFromAccountPins = (state, accountId, statusId) => {
+  return state.updateIn([`account:${accountId}:pinned`, 'items'], list => list.filterNot(item => item === statusId))
+}
 
 export default function timelines(state = initialState, action) {
   switch(action.type) {
@@ -201,10 +213,14 @@ export default function timelines(state = initialState, action) {
       action.timeline,
       initialTimeline,
       map => map.set('online', false).update('items', items => items.first() ? items.unshift(null) : items)
-    );
+    )
+  case UNPIN_SUCCESS:
+    return removeStatusFromAccountPins(state, action.accountId, action.status.get('id'))
   case GROUP_REMOVE_STATUS_SUCCESS:
-    return removeStatusFromGroup(state, action.groupId, action.id)
+    return removeStatusFromGroup(state, action.groupId, action.statusId)
+  case GROUP_UNPIN_STATUS_SUCCESS:
+    return removeStatusFromGroupPins(state, action.groupId, action.statusId)
   default:
-    return state;
+    return state
   }
-};
+}

@@ -27,7 +27,7 @@ class Api::V1::FiltersController < Api::BaseController
 
   def destroy
     @filter.destroy!
-    render_empty
+    render_empty_success
   end
 
   private

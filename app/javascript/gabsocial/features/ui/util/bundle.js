@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import noop from 'lodash.noop'
 import {
   fetchBundleRequest,
   fetchBundleSuccess,
@@ -8,7 +9,6 @@ import {
 } from '../../../actions/bundles'
 
 const emptyComponent = () => null
-const noop = () => { }
 
 class Bundle extends React.PureComponent {
 

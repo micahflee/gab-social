@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { injectIntl, defineMessages } from 'react-intl'
-import { fetchGroups } from '../actions/groups'
+import { fetchGroupsByTab } from '../actions/groups'
 import { openPopover } from '../actions/popover'
 import { POPOVER_GROUP_LIST_SORT_OPTIONS } from '../constants'
 import Block from '../components/block'
@@ -16,12 +16,12 @@ import GroupListItem from '../components/group_list_item'
 class GroupsCollection extends ImmutablePureComponent {
 
 	componentWillMount() {
-		this.props.onFetchGroups(this.props.activeTab)
+		this.props.onFetchGroupsByTab(this.props.activeTab)
 	}
 
 	componentDidUpdate(oldProps) {
 		if (this.props.activeTab && this.props.activeTab !== oldProps.activeTab) {
-			this.props.onFetchGroups(this.props.activeTab)
+			this.props.onFetchGroupsByTab(this.props.activeTab)
 		}
 	}
 
@@ -103,7 +103,7 @@ const mapStateToProps = (state, { activeTab }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-	onFetchGroups: (tab) => dispatch(fetchGroups(tab)),
+	onFetchGroupsByTab: (tab) => dispatch(fetchGroupsByTab(tab)),
 	onOpenSortPopover(tab, targetRef) {
 		dispatch(openPopover(POPOVER_GROUP_LIST_SORT_OPTIONS, {
 			targetRef,

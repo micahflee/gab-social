@@ -2,6 +2,9 @@ import { combineReducers } from 'redux-immutable'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import accounts from './accounts'
 import accounts_counters from './accounts_counters'
+import chat_compose from './chat_compose'
+import chat_conversations from './chat_conversations'
+import chat_messages from './chat_messages'
 import compose from './compose'
 import contexts from './contexts'
 import custom_emojis from './custom_emojis'
@@ -46,6 +49,8 @@ import user_lists from './user_lists'
 const reducers = {
   accounts,
   accounts_counters,
+  chat_conversations,
+  chat_messages,
   compose,
   contexts,
   custom_emojis,

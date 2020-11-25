@@ -21,12 +21,12 @@ class Api::V1::Lists::AccountsController < Api::BaseController
       end
     end
 
-    render_empty
+    render_empty_success
   end
 
   def destroy
     ListAccount.where(list: @list, account_id: account_ids).destroy_all
-    render_empty
+    render_empty_success
   end
 
   private

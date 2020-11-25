@@ -4,11 +4,11 @@ import { Map as ImmutableMap, fromJS } from 'immutable';
 const normalizeRelationship = (state, relationship) => state.set(relationship.id, fromJS(relationship));
   
 const normalizeRelationships = (state, relationships) => {
-    relationships.forEach(relationship => {
-        state = normalizeRelationship(state, relationship);
-    });
+  relationships.forEach(relationship => {
+    state = normalizeRelationship(state, relationship);
+  });
   
-    return state;
+  return state
 };
   
 const initialState = ImmutableMap();

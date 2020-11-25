@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class StatusRelationshipsPresenter
-  attr_reader :reblogs_map, :favourites_map, :group_pins_map
+  attr_reader :reblogs_map, :favourites_map
 
   def initialize(statuses, current_account_id = nil, **options)
     if current_account_id.nil?

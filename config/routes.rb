@@ -221,6 +221,18 @@ Rails.application.routes.draw do
         resource :explore, only: :show, controller: :explore
       end
 
+      namespace :messages do
+        resource :conversations, only: [:show, :create]
+        resource :chats, only: [:show, :create]
+
+        member do
+          post :block
+          post :unblock
+          post :mute
+          post :unmute
+        end
+      end
+
       resources :links, only: :show
       resource :popular_links, only: :show
       resources :streaming, only: [:index]

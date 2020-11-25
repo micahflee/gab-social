@@ -4,7 +4,7 @@ import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import { fetchGroups } from '../../actions/groups'
+import { fetchGroupsByTab } from '../../actions/groups'
 import PanelLayout from './panel_layout'
 import GroupListItem from '../group_list_item'
 import ScrollableList from '../scrollable_list'
@@ -26,13 +26,13 @@ class GroupsPanel extends ImmutablePureComponent {
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (!prevState.fetched && this.state.fetched) {
-      this.props.onFetchGroups(this.props.groupType)
+      this.props.onFetchGroupsByTab(this.props.groupType)
     }
   }
 
   componentDidMount() {
     if (!this.props.isLazy) {
-      this.props.onFetchGroups(this.props.groupType)
+      this.props.onFetchGroupsByTab(this.props.groupType)
       this.setState({ fetched: true })
     }
   }
@@ -93,7 +93,7 @@ const mapStateToProps = (state, { groupType }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchGroups: (type) => dispatch(fetchGroups(type))
+  onFetchGroupsByTab: (type) => dispatch(fetchGroupsByTab(type))
 })
 
 GroupsPanel.propTypes = {

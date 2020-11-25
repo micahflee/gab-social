@@ -1,7 +1,7 @@
 ---
 pt-BR:
   about:
-    about_hashtag_html: Estes são toots públicos com a hashtag <strong>#%{hashtag}</strong>. Você pode interagir com eles se tiver uma conta em qualquer lugar no fediverso.
+    about_hashtag_html: Estes são gabs públicos com a hashtag <strong>#%{hashtag}</strong>. Você pode interagir com eles se tiver uma conta em qualquer lugar no fediverso.
     about_gabsocial_html: Gab Social é uma rede social baseada em protocolos abertos e software gratuito e de código aberto. É descentralizada como e-mail.
     about_this: Sobre
     active_count_after: Ativo
@@ -59,10 +59,10 @@ pt-BR:
     pin_errors:
       following: Você tem que estar seguindo a pessoa que você quer sugerir
     posts:
-      one: Toot
-      other: Toots
-    posts_tab_heading: Toots
-    posts_with_replies: Toots e respostas
+      one: Gab
+      other: Gabs
+    posts_tab_heading: Gabs
+    posts_with_replies: Gabs e respostas
     reserved_username: Este usuário está reservado
     roles:
       admin: Administrador
@@ -339,11 +339,11 @@ pt-BR:
     relays:
       add_new: Adicionar novo repetidor
       delete: Excluir
-      description_html: Um <strong>repetidor de federação</strong> é um servidor intermediário que troca um grande volume de toots públicos entre servidores que se inscrevem e publicam nele. <strong>O repetidor pode ser usado para ajudar servidores pequenos e médios a descobrir conteúdo do fediverso</strong>, que normalmente precisariam que usuários locais manualmente seguissem outras pessoas em servidores remotos.
+      description_html: Um <strong>repetidor de federação</strong> é um servidor intermediário que troca um grande volume de gabs públicos entre servidores que se inscrevem e publicam nele. <strong>O repetidor pode ser usado para ajudar servidores pequenos e médios a descobrir conteúdo do fediverso</strong>, que normalmente precisariam que usuários locais manualmente seguissem outras pessoas em servidores remotos.
       disable: Desativar
       disabled: Desabilitar
       enable: Habilitar
-      enable_hint: Uma vez habilitado, seu servidor vai se inscrever para receber todos os toots públicos desse repetidor; E vai começar a enviar todos os toots públicos desse servidor para o repetidor.
+      enable_hint: Uma vez habilitado, seu servidor vai se inscrever para receber todos os gabs públicos desse repetidor; E vai começar a enviar todos os gabs públicos desse servidor para o repetidor.
       enabled: Habilitado
       inbox_url: URL do repetidor
       pending: Esperando pela aprovação do repetidor
@@ -426,7 +426,7 @@ pt-BR:
           open: Qualquer um pode se cadastrar
         title: Modo de cadastro
       show_known_fediverse_at_about_page:
-        desc_html: Quando ligado, vai mostrar toots de todo o fediverso conhecido na prévia da timeline. Senão, mostra somente toots locais.
+        desc_html: Quando ligado, vai mostrar gabs de todo o fediverso conhecido na prévia da timeline. Senão, mostra somente gabs locais.
         title: Mostrar fediverso conhecido na prévia da timeline
       show_staff_badge:
         desc_html: Mostrar uma insígnia de Equipe na página de usuário
@@ -596,7 +596,7 @@ pt-BR:
     archive_takeout:
       date: Data
       download: Baixe o seu arquivo
-      hint_html: Você pode pedir um arquivo dos seus <strong>toots e mídia enviada</strong>. Os dados exportados estarão no formato ActivityPub, que podem ser lidos por qualquer software compatível. Você pode pedir um arquivo a cada 7 dias.
+      hint_html: Você pode pedir um arquivo dos seus <strong>gabs e mídia enviada</strong>. Os dados exportados estarão no formato ActivityPub, que podem ser lidos por qualquer software compatível. Você pode pedir um arquivo a cada 7 dias.
       in_progress: Preparando o seu arquivo...
       request: Solicitar o seu arquivo
       size: Tamanho
@@ -653,7 +653,7 @@ pt-BR:
     identity: Identidade
     inactive: Inativo
     publicize_checkbox: 'E publique isso:'
-    publicize_toot: 'Está provado! Eu sou %{username} no %{service}: %{url}'
+    publicize_gab: 'Está provado! Eu sou %{username} no %{service}: %{url}'
     status: Status da verificação
     view_proof: Ver prova
   imports:
@@ -796,20 +796,20 @@ pt-BR:
   remote_interaction:
     favourite:
       proceed: Proceder para favoritar
-      prompt: 'Você quer favoritar este toot:'
+      prompt: 'Você quer favoritar este gab:'
     reblog:
       proceed: Proceder para compartilhar
-      prompt: 'Você quer compartilhar esse toot:'
+      prompt: 'Você quer compartilhar esse gab:'
     reply:
       proceed: Proceder para responder
-      prompt: 'Você quer responder à esse toot:'
+      prompt: 'Você quer responder à esse gab:'
   remote_unfollow:
     error: Erro
     title: Título
     unfollowed: Deixou de seguir
   scheduled_statuses:
-    over_daily_limit: Você excedeu o limite de %{limit} toots planejados para esse dia
-    over_total_limit: Você excedeu o limite de %{limit} toots planejados
+    over_daily_limit: Você excedeu o limite de %{limit} gabs planejados para esse dia
+    over_total_limit: Você excedeu o limite de %{limit} gabs planejados
     too_soon: A data planejada precisa ser no futuro
   sessions:
     activity: Última atividade
@@ -889,9 +889,9 @@ pt-BR:
     open_in_web: Abrir na web
     over_character_limit: limite de caracteres de %{max} excedido
     pin_errors:
-      limit: Você já fixou a quantidade máxima de toots
-      ownership: Toots de outras pessoas não podem ser fixados
-      private: Toot não-público não pode ser fixado
+      limit: Você já fixou a quantidade máxima de gabs
+      ownership: gabs de outras pessoas não podem ser fixados
+      private: Gab não-público não pode ser fixado
       reblog: Um compartilhamento não pode ser fixado
     poll:
       total_votes:
@@ -909,7 +909,7 @@ pt-BR:
       unlisted: Não listado
       unlisted_long: Todos podem ver, porém não será postado nas timelines públicas
   stream_entries:
-    pinned: Toot fixado
+    pinned: Gab fixado
     reblogged: compartilhou
     sensitive_content: Conteúdo sensível
   terms:
@@ -1027,8 +1027,8 @@ pt-BR:
     warning:
       explanation:
         disable: Enquanto sua conta está congelada, seus dados estão intactos, mas você não pode realizar nenhuma ação até que sua conta seja desbloqueada.
-        silence: Enquanto sua conta está limitada, somente pessoas que já estão seguindo você poderão ver seus toots nesse servidor, e você pode ser excluído de diversas listagens públicas. No entanto, outros ainda podem seguir você manualmente.
-        suspend: Sua conta está suspensa e todos os seus toots e mídias foram irreversivelmente removidas desse servidor e de servidores onde você tinha seguidores.
+        silence: Enquanto sua conta está limitada, somente pessoas que já estão seguindo você poderão ver seus gabs nesse servidor, e você pode ser excluído de diversas listagens públicas. No entanto, outros ainda podem seguir você manualmente.
+        suspend: Sua conta está suspensa e todos os seus gabs e mídias foram irreversivelmente removidas desse servidor e de servidores onde você tinha seguidores.
       review_server_policies: Revisar as políticas do servidor
       subject:
         disable: Sua conta %{acct} foi congelada

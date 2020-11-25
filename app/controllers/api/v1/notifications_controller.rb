@@ -21,12 +21,12 @@ class Api::V1::NotificationsController < Api::BaseController
 
   def clear
     current_account.notifications.delete_all
-    render_empty
+    render_empty_success
   end
 
   def mark_read
     current_account.notifications.find(params[:id]).mark_read!
-    render_empty
+    render_empty_success
   end
 
   private

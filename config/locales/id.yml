@@ -1,7 +1,7 @@
 ---
 id:
   about:
-    about_hashtag_html: Ini adalah toot public yang ditandai dengan <strong>#%{hashtag}</strong>. Anda bisa berinteraksi dengan mereka jika anda memiliki akun dimanapun di fediverse.
+    about_hashtag_html: Ini adalah gab public yang ditandai dengan <strong>#%{hashtag}</strong>. Anda bisa berinteraksi dengan mereka jika anda memiliki akun dimanapun di fediverse.
     about_gabsocial_html: Gab Social adalah sebuah jejaring sosial <em>terbuka, open-source</em. Sebuah alternatif <em>desentralisasi</em> dari platform komersial, menjauhkan anda resiko dari sebuah perusahaan yang memonopoli komunikasi anda. Pilih server yang anda percayai &mdash; apapun yang anda pilih, anda tetap dapat berinteraksi dengan semua orang. Semua orang dapat menjalankan server Gab Social sendiri dan berpartisipasi dalam <em>jejaring sosial</em> dengan mudah.
     about_this: Tentang server ini
     administered_by: 'Dikelola oleh:'
@@ -47,10 +47,10 @@ id:
     pin_errors:
       following: Anda harus mengikuti orang yang ingin anda endorse
     posts:
-      one: Toot
-      other: Toot
-    posts_tab_heading: Toot
-    posts_with_replies: Toot dan balasan
+      one: Gab
+      other: Gab
+    posts_tab_heading: Gab
+    posts_with_replies: Gab dan balasan
     reserved_username: Nama pengguna telah dipesan
     roles:
       admin: Admin

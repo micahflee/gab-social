@@ -21,10 +21,9 @@ import {
   GROUP_TIMELINE_SORTING_TYPE_TOP,
   GROUP_TIMELINE_SORTING_TYPE_NEWEST,
   GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_TODAY,
+  ACCEPTED_GROUP_TABS,
 } from '../constants'
 import slugify from '../utils/slugify'
-
-const tabs = ['new', 'featured', 'member', 'admin']
 
 const initialState = ImmutableMap({
   sortByValue: GROUP_TIMELINE_SORTING_TYPE_NEWEST,

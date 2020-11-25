@@ -16,17 +16,14 @@ export const fetchCustomEmojis = () => (dispatch, getState) => {
 
 const fetchCustomEmojisRequest = () => ({
   type: CUSTOM_EMOJIS_FETCH_REQUEST,
-  skipLoading: true,
 })
 
 const fetchCustomEmojisSuccess = (custom_emojis) => ({
   type: CUSTOM_EMOJIS_FETCH_SUCCESS,
   custom_emojis,
-  skipLoading: true,
 })
 
 const fetchCustomEmojisFail = (error) => ({
   type: CUSTOM_EMOJIS_FETCH_FAIL,
   error,
-  skipLoading: true,
 })

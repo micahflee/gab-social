@@ -14,12 +14,12 @@ class Api::V1::FollowRequestsController < Api::BaseController
   def authorize
     AuthorizeFollowService.new.call(account, current_account)
     NotifyService.new.call(current_account, Follow.find_by(account: account, target_account: current_account))
-    render_empty
+    render_empty_success
   end
 
   def reject
     RejectFollowService.new.call(account, current_account)
-    render_empty
+    render_empty_success
   end
 
   private

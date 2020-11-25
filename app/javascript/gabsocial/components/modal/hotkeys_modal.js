@@ -126,7 +126,7 @@ const messages = defineMessages({
   down: { id: 'keyboard_shortcuts.down', defaultMessage: 'move down in the list' },
   column: { id: 'keyboard_shortcuts.column', defaultMessage: 'focus a status in one of the columns' },
   compose: { id: 'keyboard_shortcuts.compose', defaultMessage: 'focus the compose textarea' },
-  gab: { id: 'keyboard_shortcuts.toot', defaultMessage: 'start a brand new gab' },
+  gab: { id: 'keyboard_shortcuts.gab', defaultMessage: 'start a brand new gab' },
   back: { id: 'keyboard_shortcuts.back', defaultMessage: 'navigate back' },
   search: { id: 'keyboard_shortcuts.search', defaultMessage: 'focus search' },
   unfocus: { id: 'keyboard_shortcuts.unfocus', defaultMessage: 'un-focus compose textarea/search' },

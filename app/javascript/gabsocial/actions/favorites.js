@@ -33,20 +33,17 @@ export const fetchFavoritedStatuses = () => (dispatch, getState) => {
 
 const fetchFavoritedStatusesRequest = () => ({
   type: FAVORITED_STATUSES_FETCH_REQUEST,
-  skipLoading: true,
 })
 
 const fetchFavoritedStatusesSuccess = (statuses, next) => ({
   type: FAVORITED_STATUSES_FETCH_SUCCESS,
   statuses,
   next,
-  skipLoading: true,
 })
 
 const fetchFavoritedStatusesFail = (error) => ({
   type: FAVORITED_STATUSES_FETCH_FAIL,
   error,
-  skipLoading: true,
 })
 
 /**

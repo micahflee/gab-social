@@ -124,7 +124,7 @@ export const makeGetStatus = () => {
       }
 
 
-      console.log("group:", group)
+      // console.log("group:", group)
 
       //Find ancestor status
 
