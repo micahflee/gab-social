@@ -47,24 +47,24 @@ module GabSocial
       Account.remote.by_domain_accounts.each do |acct|
         domain = acct.domain
 
-        say("Starting domain block for #{domain} #{dry_run}", :green)
+        say("\n\n\n - Starting domain block for #{domain} #{dry_run}", :green)
 
         if domain.present?
           existing_domain_block = DomainBlock.find_by(domain: domain)
 
           unless existing_domain_block.present?
-            say("Domain block for #{domain} is starting #{dry_run}", :green)
+            say("\nDomain block for #{domain} is starting #{dry_run}", :green)
             unless options[:dry_run]
               domain_block = DomainBlock.new(domain: domain, severity: :suspend)
               DomainBlockWorker.perform_async(domain_block.id)
             end
           else
-            say("Domain block for #{domain} is already implemented #{dry_run}", :green)
+            say("\nDomain block for #{domain} is already implemented #{dry_run}", :red)
           end
         end
       end
 
-      say('Domain block deleteallremote done', :green)
+      say('\nDomain block deleteallremote done', :green)
     end
 
     option :concurrency, type: :numeric, default: 50, aliases: [:c]
