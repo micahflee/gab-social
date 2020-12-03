@@ -15,6 +15,8 @@ class InlineRenderer
       serializer = REST::NotificationSerializer
     when :conversation
       serializer = REST::ConversationSerializer
+    when :chat_message
+      serializer = REST::ChatMessageSerializer
     else
       return
     end

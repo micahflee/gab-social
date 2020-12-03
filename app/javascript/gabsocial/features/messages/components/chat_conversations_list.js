@@ -17,7 +17,6 @@ import ScrollableList from '../../../components/scrollable_list'
 class ChatConversationsList extends ImmutablePureComponent {
 
   componentDidMount() {
-    console.log("componentDidMount:", this.props.source)
     this.props.onFetchChatConversations(this.props.source)
   }
 
@@ -32,8 +31,6 @@ class ChatConversationsList extends ImmutablePureComponent {
       source,
       chatConversationIds,
     } = this.props
-
-    console.log("---source:", source, chatConversationIds)
 
     return (
       <div className={[_s.d, _s.w100PC, _s.overflowHidden, _s.boxShadowNone].join(' ')}>

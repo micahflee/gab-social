@@ -97,8 +97,10 @@ export default function chat_conversation_messages(state = initialState, action)
   case CHAT_CONVERSATION_MESSAGES_EXPAND_SUCCESS:
     return expandNormalizedChatConversation(state, action.chatConversationId, fromJS(action.chatMessages), action.next, action.partial, action.isLoadingRecent)
   case CHAT_MESSAGES_SEND_SUCCESS:
-    return updateChatMessageConversation(state, action.chatConversationId, fromJS(action.chatMessage))
-  // CHAT_MESSAGES_DELETE_REQUEST
+    return updateChatMessageConversation(state, action.chatMessage.chat_conversation_id, fromJS(action.chatMessage))
+  case CHAT_MESSAGES_DELETE_REQUEST:
+    // : todo : 
+    return state
   default:
     return state
   }

@@ -1,5 +1,7 @@
 import {
   BREAKPOINT_EXTRA_SMALL,
+  POPOVER_CHAT_CONVERSATION_OPTIONS,
+  POPOVER_CHAT_MESSAGE_DELETE,
   POPOVER_COMMENT_SORTING_OPTIONS,
   POPOVER_DATE_PICKER,
   POPOVER_EMOJI_PICKER,
@@ -20,6 +22,8 @@ import {
   POPOVER_VIDEO_STATS,
 } from '../../constants'
 import {
+  ChatConversationOptionsPopover,
+  ChatMessageDeletePopover,
   CommentSortingOptionsPopover,
   DatePickerPopover,
   EmojiPickerPopover,
@@ -53,25 +57,28 @@ import LoadingPopover from './loading_popover'
 
 const initialState = getWindowDimension()
 
-const POPOVER_COMPONENTS = {}
-POPOVER_COMPONENTS[POPOVER_COMMENT_SORTING_OPTIONS] = CommentSortingOptionsPopover
-POPOVER_COMPONENTS[POPOVER_DATE_PICKER] = DatePickerPopover
-POPOVER_COMPONENTS[POPOVER_EMOJI_PICKER] = EmojiPickerPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_LIST_SORT_OPTIONS] = GroupListSortOptionsPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_MEMBER_OPTIONS] = GroupMemberOptionsPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_OPTIONS] = GroupOptionsPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_TIMELINE_SORT_OPTIONS] = GroupTimelineSortOptionsPopover
-POPOVER_COMPONENTS[POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS] = GroupTimelineSortTopOptionsPopover
-POPOVER_COMPONENTS[POPOVER_NAV_SETTINGS] = NavSettingsPopover
-POPOVER_COMPONENTS[POPOVER_PROFILE_OPTIONS] = ProfileOptionsPopover
-POPOVER_COMPONENTS[POPOVER_SIDEBAR_MORE] = SidebarMorePopover
-POPOVER_COMPONENTS[POPOVER_STATUS_OPTIONS] = StatusOptionsPopover
-POPOVER_COMPONENTS[POPOVER_STATUS_EXPIRATION_OPTIONS] = StatusExpirationOptionsPopover
-POPOVER_COMPONENTS[POPOVER_STATUS_SHARE] = StatusSharePopover
-POPOVER_COMPONENTS[POPOVER_STATUS_VISIBILITY] = StatusVisibilityPopover
-POPOVER_COMPONENTS[POPOVER_TIMELINE_INJECTION_OPTIONS] = TimelineInjectionOptionsPopover
-POPOVER_COMPONENTS[POPOVER_USER_INFO] = UserInfoPopover
-POPOVER_COMPONENTS[POPOVER_VIDEO_STATS] = VideoStatsPopover
+const POPOVER_COMPONENTS = {
+  [POPOVER_CHAT_CONVERSATION_OPTIONS]: ChatConversationOptionsPopover,
+  [POPOVER_CHAT_MESSAGE_DELETE]: ChatMessageDeletePopover,
+  [POPOVER_COMMENT_SORTING_OPTIONS]: CommentSortingOptionsPopover,
+  [POPOVER_DATE_PICKER]: DatePickerPopover,
+  [POPOVER_EMOJI_PICKER]: EmojiPickerPopover,
+  [POPOVER_GROUP_LIST_SORT_OPTIONS]: GroupListSortOptionsPopover,
+  [POPOVER_GROUP_MEMBER_OPTIONS]: GroupMemberOptionsPopover,
+  [POPOVER_GROUP_OPTIONS]: GroupOptionsPopover,
+  [POPOVER_GROUP_TIMELINE_SORT_OPTIONS]: GroupTimelineSortOptionsPopover,
+  [POPOVER_GROUP_TIMELINE_SORT_TOP_OPTIONS]: GroupTimelineSortTopOptionsPopover,
+  [POPOVER_NAV_SETTINGS]: NavSettingsPopover,
+  [POPOVER_PROFILE_OPTIONS]: ProfileOptionsPopover,
+  [POPOVER_SIDEBAR_MORE]: SidebarMorePopover,
+  [POPOVER_STATUS_OPTIONS]: StatusOptionsPopover,
+  [POPOVER_STATUS_EXPIRATION_OPTIONS]: StatusExpirationOptionsPopover,
+  [POPOVER_STATUS_SHARE]: StatusSharePopover,
+  [POPOVER_STATUS_VISIBILITY]: StatusVisibilityPopover,
+  [POPOVER_TIMELINE_INJECTION_OPTIONS]: TimelineInjectionOptionsPopover,
+  [POPOVER_USER_INFO]: UserInfoPopover,
+  [POPOVER_VIDEO_STATS]: VideoStatsPopover,
+}
 
 class PopoverRoot extends React.PureComponent {
 

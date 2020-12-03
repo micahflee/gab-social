@@ -26,7 +26,7 @@ class Api::V1::ChatConversationController < Api::BaseController
   end
 
   def mark_chat_conversation_unread
-    @chat_conversation_account.update!(is_unread: true)
+    @chat_conversation_account.update!(unread_count: 1)
     render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 

@@ -13,6 +13,8 @@ export const CHAT_CONVERSATIONS_APPROVED_EXPAND_REQUEST = 'CHAT_CONVERSATIONS_AP
 export const CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS'
 export const CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL    = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL'
 
+export const CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL'
+
 //
 
 export const CHAT_CONVERSATIONS_CREATE_REQUEST = 'CHAT_CONVERSATIONS_CREATE_REQUEST'
@@ -432,6 +434,20 @@ export const fetchChatConversationRequestedCount = () => (dispatch, getState) =>
   api(getState).get('/api/v1/chat_conversations/requested_conversations/count').then(response => {
     dispatch({
       type: CHAT_CONVERSATION_REQUESTED_COUNT_FETCH_SUCCESS,
+      count: response.data,
+    })
+  })
+}
+
+/**
+ * 
+ */
+export const fetchChatConversationUnreadCount = () => (dispatch, getState) => {
+  if (!me) return
+
+  api(getState).get('/api/v1/chat_conversations/approved_conversations/unread_count').then(response => {
+    dispatch({
+      type: CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS,
       count: response.data,
     })
   })

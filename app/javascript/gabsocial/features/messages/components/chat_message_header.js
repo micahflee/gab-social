@@ -4,9 +4,11 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import { makeGetChatConversation } from '../../../selectors'
-import { openModal } from '../../../actions/modal'
+import { openPopover } from '../../../actions/popover'
 import { approveChatConversationRequest } from '../../../actions/chat_conversations'
-import { MODAL_CHAT_CONVERSATION_CREATE } from '../../../constants'
+import {
+  POPOVER_CHAT_CONVERSATION_OPTIONS
+} from '../../../constants'
 import Button from '../../../components/button'
 import AvatarGroup from '../../../components/avatar_group'
 import DisplayName from '../../../components/display_name'
@@ -16,6 +18,14 @@ class ChatMessageHeader extends React.PureComponent {
 
   handleOnApproveMessageRequest = () => {
     this.props.onApproveChatConversationRequest(this.props.chatConversationId)
+  }
+
+  handleOnOpenChatConversationOptionsPopover = () => {
+    this.props.onOpenChatConversationOptionsPopover(this.props.chatConversationId, this.optionsBtnRef)
+  }
+
+  setOptionsBtnRef = (c) => {
+    this.optionsBtnRef = c
   }
 
   render () {
@@ -37,8 +47,9 @@ class ChatMessageHeader extends React.PureComponent {
           </React.Fragment>
         }
         <Button
+          buttonRef={this.setOptionsBtnRef}
           isNarrow
-          onClick={undefined}
+          onClick={this.handleOnOpenChatConversationOptionsPopover}
           color='primary'
           backgroundColor='secondary'
           className={[_s.mlAuto, _s.px5].join(' ')}
@@ -68,17 +79,22 @@ const mapStateToProps = (state, { chatConversationId }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenChatConversationCreateModal() {
-    dispatch(openModal(MODAL_CHAT_CONVERSATION_CREATE))
-  },
   onApproveChatConversationRequest(chatConversationId) {
     dispatch(approveChatConversationRequest(chatConversationId))
-  }
+  },
+  onOpenChatConversationOptionsPopover(chatConversationId, targetRef) {
+    dispatch(openPopover(POPOVER_CHAT_CONVERSATION_OPTIONS, {
+      chatConversationId,
+      targetRef,
+      position: 'bottom',
+    }))
+  },
 })
 
 ChatMessageHeader.propTypes = {
-  onOpenChatConversationCreateModal: PropTypes.func.isRequired,
   chatConversationId: PropTypes.string,
+  onApproveChatConversationRequest: PropTypes.func.isRequired,
+  onOpenChatConversationOptionsPopover: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatMessageHeader)

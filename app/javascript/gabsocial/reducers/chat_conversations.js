@@ -4,6 +4,10 @@ import {
   fromJS,
 } from 'immutable'
 import { me } from '../initial_state'
+import {
+  CHAT_MESSAGES_SEND_SUCCESS,
+  CHAT_MESSAGES_DELETE_REQUEST,
+} from '../actions/chat_messages'
 import { 
   CHAT_CONVERSATIONS_APPROVED_FETCH_SUCCESS,
   CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS,
@@ -22,6 +26,10 @@ export const normalizeChatConversation = (chatConversation) => {
   })
 }
 
+const setLastChatMessage = (state, chatMessage) => {
+  return state.setIn([chatMessage.chat_conversation_id, 'last_chat_message'], fromJS(chatMessage))
+}
+
 const importChatConversation = (state, chatConversation) => state.set(chatConversation.chat_conversation_id, normalizeChatConversation(chatConversation))
 
 const importChatConversations = (state, chatConversations) => {
@@ -37,6 +45,11 @@ export default function chat_conversations(state = initialState, action) {
   case CHAT_CONVERSATIONS_REQUESTED_FETCH_SUCCESS:
   case CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS:
     return importChatConversations(state, action.chatConversations)
+  case CHAT_MESSAGES_SEND_SUCCESS:
+    return setLastChatMessage(state, action.chatMessage)
+  case CHAT_MESSAGES_DELETE_REQUEST:
+    // : todo : set last conversation message to one prior to this one
+    return state
   default:
     return state
   }

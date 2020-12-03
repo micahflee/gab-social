@@ -12,7 +12,9 @@ export function ChatConversationCreate() { return import(/* webpackChunkName: "f
 export function ChatConversationCreateModal() { return import(/* webpackChunkName: "components/chat_conversation_create_modal" */'../../../components/modal/chat_conversation_create_modal') }
 export function ChatConversationDeleteModal() { return import(/* webpackChunkName: "components/chat_conversation_delete_modal" */'../../../components/modal/chat_conversation_delete_modal') }
 export function ChatConversationMutedAccounts() { return import(/* webpackChunkName: "features/chat_conversation_muted_accounts" */'../../chat_conversation_muted_accounts') }
+export function ChatConversationOptionsPopover() { return import(/* webpackChunkName: "components/chat_conversation_options_popover" */'../../../components/popover/chat_conversation_options_popover') }
 export function ChatConversationRequests() { return import(/* webpackChunkName: "features/chat_conversation_requests" */'../../chat_conversation_requests') }
+export function ChatMessageDeletePopover() { return import(/* webpackChunkName: "components/chat_message_delete_popover" */'../../../components/popover/chat_message_delete_popover') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
 export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }
 export function CommunityTimelineSettingsModal() { return import(/* webpackChunkName: "components/community_timeline_settings_modal" */'../../../components/modal/community_timeline_settings_modal') }

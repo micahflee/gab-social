@@ -3,11 +3,11 @@
 #
 # Table name: chat_mutes
 #
-#  id                 :bigint(8)        not null, primary key
-#  created_at         :datetime         not null
-#  updated_at         :datetime         not null
-#  account_id         :bigint(8)        not null
-#  target_account_id  :bigint(8)        not null
+#  id                :bigint(8)        not null, primary key
+#  account_id        :integer          not null
+#  target_account_id :integer          not null
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
 #
 
 class ChatMute < ApplicationRecord

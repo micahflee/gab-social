@@ -208,7 +208,7 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/messages/requests' exact page={MessagesPage} component={ChatConversationRequests} content={children} componentParams={{ isSettings: true, source: 'requested' }} />
         <WrappedRoute path='/messages/blocks' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/mutes' exact page={MessagesPage} component={ChatConversationMutedAccounts} content={children} componentParams={{ isSettings: true }} />
-        <WrappedRoute path='/messages/:conversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
+        <WrappedRoute path='/messages/:chatConversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />

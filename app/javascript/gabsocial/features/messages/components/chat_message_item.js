@@ -5,7 +5,11 @@ import moment from 'moment-mini'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { NavLink } from 'react-router-dom'
-import { CX } from '../../../constants'
+import { openPopover } from '../../../actions/popover'
+import {
+  CX,
+  POPOVER_CHAT_MESSAGE_DELETE,
+ } from '../../../constants'
 import { me } from '../../../initial_state'
 import Input from '../../../components/input'
 import Avatar from '../../../components/avatar'
@@ -47,7 +51,11 @@ class ChatMessageItem extends ImmutablePureComponent {
   }
 
   handleMoreClick = () => {
-    //
+    this.props.onOpenChatMessageDeletePopover(this.props.chatMessageId, this.deleteBtnRef)
+  }
+
+  setDeleteBtnRef = (c) => {
+    this.deleteBtnRef = c
   }
 
   render() {
@@ -65,6 +73,8 @@ class ChatMessageItem extends ImmutablePureComponent {
     if (!chatMessage) return <div />
 
     const account = chatMessage.get('account')
+    if (!account) return <div />
+
     const content = { __html: chatMessage.get('text') }
     const alt = account.get('id', null) === me
     const createdAt = chatMessage.get('created_at')
@@ -89,9 +99,10 @@ class ChatMessageItem extends ImmutablePureComponent {
       d: 1,
       px15: 1,
       py5: 1,
-      bgTertiary: !alt,
-      bgSecondary: alt,
-      circle: 1,
+      maxW80PC: 1,
+      bgTertiary: alt,
+      bgSecondary: !alt,
+      radiusRounded: 1,
       ml10: 1,
       mr10: 1,
     })
@@ -138,6 +149,7 @@ class ChatMessageItem extends ImmutablePureComponent {
               alt &&
               <div className={buttonContainerClasses}>
                 <Button
+                  buttonRef={this.setDeleteBtnRef}
                   onClick={this.handleMoreClick}
                   color='tertiary'
                   backgroundColor='none'
@@ -165,15 +177,25 @@ const mapStateToProps = (state, { lastChatMessageId, chatMessageId }) => ({
   lastChatMessageSameSender: lastChatMessageId ? state.getIn(['chat_messages', `${lastChatMessageId}`, 'from_account_id'], null) === state.getIn(['chat_messages', `${chatMessageId}`, 'from_account_id'], null) : false,
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenChatMessageDeletePopover(chatMessageId, targetRef) {
+    dispatch(openPopover(POPOVER_CHAT_MESSAGE_DELETE, {
+      targetRef,
+      chatMessageId,
+      position: 'top',
+    }))
+  },
+})
+
 ChatMessageItem.propTypes = {
   intl: PropTypes.object.isRequired,
   lastChatMessageId: PropTypes.string,
   lastChatMessageDate: PropTypes.string,
-  lastChatMessageSameSender: PropTypes.string,
+  lastChatMessageSameSender: PropTypes.bool,
   chatMessageId: PropTypes.string.isRequired,
   chatMessage: ImmutablePropTypes.map,
   isHidden: PropTypes.bool,
   alt: PropTypes.bool,
 }
 
-export default connect(mapStateToProps)(ChatMessageItem)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatMessageItem)

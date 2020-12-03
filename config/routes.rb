@@ -234,8 +234,16 @@ Rails.application.routes.draw do
       end
 
       namespace :chat_conversations do
-        resources :messages, only: :show
-        resources :approved_conversations
+        resources :messages, only: :show do
+          member do
+            delete :destroy_all
+          end
+        end
+        resources :approved_conversations, only: :index do
+          collection do
+            get :unread_count
+          end
+        end
         resources :requested_conversations, only: :index do
           collection do
             get :count

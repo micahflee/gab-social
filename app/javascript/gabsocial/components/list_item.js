@@ -81,6 +81,7 @@ class ListItem extends React.PureComponent {
     const textContainerClasses = CX({
       d: 1,
       pr5: 1,
+      w100PC: hideArrow,
       maxW100PC42PX: !hideArrow || showActive,
     })
 

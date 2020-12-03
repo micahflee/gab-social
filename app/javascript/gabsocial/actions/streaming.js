@@ -6,6 +6,7 @@ import {
   updateTimelineQueue,
 } from './timelines'
 import { updateNotificationsQueue } from './notifications'
+import { sendChatMessageSuccess } from './chat_messages'
 import { fetchFilters } from './filters'
 import { getLocale } from '../locales'
 import { handleComposeSubmit } from './compose'
@@ -76,17 +77,15 @@ export const connectUserStream = () => connectTimelineStream('home', 'user')
  * 
  */
 export const connectChatMessagesStream = (accountId) => {
-  return connectStream(`chat_messages:${accountId}`, null, (dispatch, getState) => {
+  return connectStream(`chat_messages`, null, (dispatch, getState) => {
     return {
-      onConnect() {
-        // console.log("chat messages connected")
-      },
-      onDisconnect() {
-        // console.log("chat messages disconnected")
-      },
+      onConnect() {},
+      onDisconnect() {},
       onReceive (data) {
-        // : todo :
-        console.log("chat messages onReceive:", data)
+        if (!data['event'] || !data['payload']) return
+        if (data.event === 'notification') {
+          dispatch(sendChatMessageSuccess(JSON.parse(data.payload)))
+        }
       },
     }
   })

@@ -19,7 +19,7 @@ export const sendChatMessage = (text = '', chatConversationId) => (dispatch, get
   if (!me || !chatConversationId) return
   if (text.length === 0) return
 
-  dispatch(sendMessageRequest())
+  dispatch(sendChatMessageRequest(chatConversationId))
 
   api(getState).post('/api/v1/chat_messages', {
     text,
@@ -30,23 +30,23 @@ export const sendChatMessage = (text = '', chatConversationId) => (dispatch, get
     // },
   }).then((response) => {
     dispatch(importFetchedChatMessages([response.data]))
-    dispatch(sendMessageSuccess(response.data, chatConversationId))
+    dispatch(sendChatMessageSuccess(response.data))
   }).catch((error) => {
-    dispatch(sendMessageFail(error))
+    dispatch(sendChatMessageFail(error))
   })
 }
 
-const sendMessageRequest = () => ({
+const sendChatMessageRequest = (chatConversationId) => ({
   type: CHAT_MESSAGES_SEND_REQUEST,
-})
-
-const sendMessageSuccess = (chatMessage, chatConversationId) => ({
-  type: CHAT_MESSAGES_SEND_SUCCESS,
-  chatMessage,
   chatConversationId,
 })
 
-const sendMessageFail = (error) => ({
+export const sendChatMessageSuccess = (chatMessage) => ({
+  type: CHAT_MESSAGES_SEND_SUCCESS,
+  chatMessage,
+})
+
+const sendChatMessageFail = (error) => ({
   type: CHAT_MESSAGES_SEND_FAIL,
   error,
 })
@@ -54,32 +54,32 @@ const sendMessageFail = (error) => ({
 /**
  * 
  */
-const deleteMessage = (chatMessageId) => (dispatch, getState) => {
+export const deleteChatMessage = (chatMessageId) => (dispatch, getState) => {
   if (!me || !chatMessageId) return
 
-  dispatch(deleteMessageRequest(chatMessageId))
+  dispatch(deleteChatMessageRequest(chatMessageId))
 
   api(getState).delete(`/api/v1/chat_messages/${chatMessageId}`, {}, {
     // headers: {
     //   'Idempotency-Key': getState().getIn(['chat_compose', 'idempotencyKey']),
     // },
   }).then((response) => {
-    deleteMessageSuccess(response)
+    dispatch(deleteChatMessageSuccess(response.data))
   }).catch((error) => {
-    dispatch(deleteMessageFail(error))
+    dispatch(deleteChatMessageFail(error))
   })
 }
 
-const deleteMessageRequest = (chatMessageId) => ({
+const deleteChatMessageRequest = (chatMessageId) => ({
   type: CHAT_MESSAGES_DELETE_REQUEST,
   chatMessageId,
 })
 
-const deleteMessageSuccess = () => ({
+const deleteChatMessageSuccess = () => ({
   type: CHAT_MESSAGES_DELETE_SUCCESS,
 })
 
-const deleteMessageFail = (error) => ({
+const deleteChatMessageFail = (error) => ({
   type: CHAT_MESSAGES_DELETE_FAIL,
   error,
 })

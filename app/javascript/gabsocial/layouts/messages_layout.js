@@ -41,8 +41,6 @@ class MessagesLayout extends React.PureComponent {
       jcEnd: 1,
     })
 
-    console.log("currentConversationIsRequest:",currentConversationIsRequest)
-
     return (
       <Layout
         showBackBtn

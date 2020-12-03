@@ -15,6 +15,22 @@ class Api::V1::ChatConversations::MessagesController < Api::BaseController
     render json: @chats, each_serializer: REST::ChatMessageSerializer
   end
 
+  def destroy_all
+    puts "tilly destry all chat"
+    # : todo :
+    # check if is pro
+    # @chat = ChatMessage.where(from_account: current_user.account).find(params[:id])
+
+    puts "tilly @chat: " + @chat.inspect
+
+    # : todo :
+    # make sure last_chat_message_id in chat_account_conversation gets set to last
+
+    # @chat.destroy!
+
+    # render json: @chat, serializer: REST::ChatMessageSerializer
+  end
+
   private
 
   def set_chat_conversation

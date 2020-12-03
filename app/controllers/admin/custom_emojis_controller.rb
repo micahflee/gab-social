@@ -70,12 +70,7 @@ module Admin
     end
 
     def filter_params
-      params.permit(
-        :local,
-        :remote,
-        :by_domain,
-        :shortcode
-      )
+      params.permit(:shortcode)
     end
   end
 end

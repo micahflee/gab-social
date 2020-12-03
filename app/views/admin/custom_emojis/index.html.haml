@@ -1,29 +1,13 @@
 - content_for :page_title do
   = t('admin.custom_emojis.title')
 
-.filters
-  .filter-subset
-    %strong= t('admin.accounts.location.title')
-    %ul
-      %li= filter_link_to t('admin.accounts.location.all'), local: nil, remote: nil
-      %li
-        - if selected? local: '1', remote: nil
-          = filter_link_to t('admin.accounts.location.local'), {local: nil, remote: nil}, {local: '1', remote: nil}
-        - else
-          = filter_link_to t('admin.accounts.location.local'), local: '1', remote: nil
-      %li
-        - if selected? remote: '1', local: nil
-          = filter_link_to t('admin.accounts.location.remote'), {remote: nil, local: nil}, {remote: '1', local: nil}
-        - else
-          = filter_link_to t('admin.accounts.location.remote'), remote: '1', local: nil
-
 = form_tag admin_custom_emojis_url, method: 'GET', class: 'simple_form' do
   .fields-group
     - Admin::FilterHelper::CUSTOM_EMOJI_FILTERS.each do |key|
       - if params[key].present?
         = hidden_field_tag key, params[key]
 
-    - %i(shortcode by_domain).each do |key|
+    - %i(shortcode).each do |key|
       .input.string.optional
         = text_field_tag key, params[key], class: 'string optional', placeholder: I18n.t("admin.custom_emojis.#{key}")
 

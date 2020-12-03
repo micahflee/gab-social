@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_30_172733) do
+ActiveRecord::Schema.define(version: 2020_12_03_214600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -207,11 +207,12 @@ ActiveRecord::Schema.define(version: 2020_11_30_172733) do
     t.bigint "chat_conversation_id"
     t.bigint "participant_account_ids", default: [], null: false, array: true
     t.bigint "last_chat_message_id"
-    t.boolean "is_unread", default: false, null: false
     t.boolean "is_hidden", default: false, null: false
     t.boolean "is_approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "unread_count", default: 0, null: false
+    t.string "chat_message_expiration_policy"
     t.index ["account_id"], name: "index_chat_conversation_accounts_on_account_id"
     t.index ["chat_conversation_id"], name: "index_chat_conversation_accounts_on_chat_conversation_id"
   end
@@ -228,6 +229,7 @@ ActiveRecord::Schema.define(version: 2020_11_30_172733) do
     t.integer "chat_conversation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "expires_at"
     t.index ["from_account_id", "chat_conversation_id"], name: "index_chat_messages_on_from_account_id_and_chat_conversation_id"
   end
 

@@ -3,16 +3,17 @@
 #
 # Table name: chat_conversation_accounts
 #
-#  id                       :bigint(8)        not null, primary key
-#  account_id               :bigint(8)
-#  chat_conversation_id     :bigint(8)
-#  participant_account_ids  :bigint(8)        default([]), not null, is an Array
-#  last_chat_message_id     :bigint(8)
-#  is_unread                :boolean          default(FALSE), not null
-#  is_hidden                :boolean          default(FALSE), not null
-#  is_approved              :boolean          default(FALSE), not null
-#  created_at               :datetime         not null
-#  updated_at               :datetime         not null
+#  id                             :bigint(8)        not null, primary key
+#  account_id                     :bigint(8)
+#  chat_conversation_id           :bigint(8)
+#  participant_account_ids        :bigint(8)        default([]), not null, is an Array
+#  last_chat_message_id           :bigint(8)
+#  is_hidden                      :boolean          default(FALSE), not null
+#  is_approved                    :boolean          default(FALSE), not null
+#  created_at                     :datetime         not null
+#  updated_at                     :datetime         not null
+#  unread_count                   :bigint(8)        default(0), not null
+#  chat_message_expiration_policy :string
 #
 
 class ChatConversationAccount < ApplicationRecord
@@ -28,7 +29,6 @@ class ChatConversationAccount < ApplicationRecord
     if participant_account_ids.empty?
       [account]
     else
-      # : todo : dont include current_account
       participants = Account.where(id: participant_account_ids)
       participants.empty? ? [account] : participants
     end

@@ -61,7 +61,9 @@ class ChatConversationsListItem extends ImmutablePureComponent {
     const avatarSize = 46
     const otherAccounts = chatConversation.get('other_accounts')
     const lastMessage = chatConversation.get('last_chat_message', null)
-    const content = { __html: !!lastMessage ? lastMessage.get('text', '') : '' }
+    let lastMessageText = !!lastMessage ? lastMessage.get('text', '') : ''
+    lastMessageText = lastMessageText.length >= 28 ? `${lastMessageText.substring(0, 28).trim()}...` : lastMessageText
+    const content = { __html: lastMessageText }
     const date = !!lastMessage ? lastMessage.get('created_at') : chatConversation.get('created_at')
 
     return (

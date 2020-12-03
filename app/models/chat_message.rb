@@ -3,13 +3,14 @@
 #
 # Table name: chat_messages
 #
-#  id                     :bigint(8)        not null, primary key
-#  account_id             :bigint(8)        not null
-#  chat_conversation_id   :bigint(8)        not null
-#  text                   :text             default(""), not null
-#  language               :string
-#  created_at             :datetime         not null
-#  updated_at             :datetime         not null
+#  id                   :bigint(8)        not null, primary key
+#  text                 :text             default(""), not null
+#  language             :text             default(""), not null
+#  from_account_id      :integer          not null
+#  chat_conversation_id :integer          not null
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  expires_at           :datetime
 #
 
 class ChatMessage < ApplicationRecord

@@ -54,6 +54,7 @@ class DefaultSidebar extends ImmutablePureComponent {
       title,
       showBackBtn,
       shortcuts,
+      unreadChatsCount,
     } = this.props
     const { hoveringShortcuts } = this.state
 
@@ -82,7 +83,7 @@ class DefaultSidebar extends ImmutablePureComponent {
         </SidebarSectionTitle>
         <SidebarSectionItem title='Home' icon='home' to='/home' count={homeItemsQueueCount} />
         <SidebarSectionItem title='Notifications' icon='notifications' to='/notifications' count={notificationCount} />
-        <SidebarSectionItem title='Chats' icon='chat' to='/messages' />
+        <SidebarSectionItem title='Chats' icon='chat' to='/messages' count={unreadChatsCount} />
         <SidebarSectionItem title='Groups' icon='group' to='/groups' />
         <SidebarSectionItem title='Lists' icon='list' to='/lists' />
         <SidebarSectionItem title='Explore' icon='explore' to='/explore' />
@@ -151,6 +152,7 @@ const mapStateToProps = (state) => ({
   shortcuts: state.getIn(['shortcuts', 'items']),
   moreOpen: state.getIn(['popover', 'popoverType']) === 'SIDEBAR_MORE',
   notificationCount: state.getIn(['notifications', 'unread']),
+  unreadChatsCount: state.getIn(['chats', 'chatsUnreadCount']),
   homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
 })
 
@@ -170,6 +172,7 @@ DefaultSidebar.propTypes = {
   openSidebarMorePopover: PropTypes.func.isRequired,
   notificationCount: PropTypes.number.isRequired,
   homeItemsQueueCount: PropTypes.number.isRequired,
+  unreadChatsCount: PropTypes.number.isRequired,
   actions: PropTypes.array,
   tabs: PropTypes.array,
   title: PropTypes.string,

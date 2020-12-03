@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { shortNumberFormat } from '../utils/numbers'
 import { CX } from '../constants'
 import Button from './button'
 import Icon from './icon'
@@ -53,17 +54,22 @@ class NavigationBarButton extends React.PureComponent {
 
     const countClasses = CX({
       d: 1,
+      text: 1,
+      textAlignCenter: 1,
+      minW20PX: 1,
+      mlAuto: 1,
       fs12PX: 1,
-      posAbs: 1,
+      px5: 1,
+      mr2: 1,
+      lineHeight15: 1,
+      ml5: 1,
+      cWhite: 1,
+      rightNeg5PX: 1,
       top0: 1,
-      mt15: 1,
-      right0: 1,
-      mr5: 1,
-      h4PX: 1,
-      w4PX: 1,
-      cBrand: 1,
-      bgNavigationBlend: 1,
-      radiusSmall: 1,
+      mt5: 1,
+      bgRed: 1,
+      posAbs: 1,
+      circle: 1,
     })
 
     const iconContainerClasses = CX({
@@ -112,7 +118,9 @@ class NavigationBarButton extends React.PureComponent {
         }
         {
           !title && count > 0 &&
-          <span className={countClasses} />
+          <span className={countClasses}>
+            {shortNumberFormat(count)}
+          </span>
         }
       </Button>
     )

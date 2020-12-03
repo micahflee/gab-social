@@ -9,6 +9,7 @@ import { sendChatMessage } from '../../../actions/chat_messages'
 import { CX } from '../../../constants'
 import Button from '../../../components/button'
 import Input from '../../../components/input'
+import Text from '../../../components/text'
 
 class ChatMessagesComposeForm extends React.PureComponent {
 
@@ -90,13 +91,13 @@ class ChatMessagesComposeForm extends React.PureComponent {
       maxH200PX: 1,
       borderColorSecondary: 1,
       border1PX: 1,
-      radiusSmall: 1,
+      radiusRounded: 1,
       py10: 1,
     })
 
     return (
-      <div className={[_s.d, _s.posAbs, _s.bottom0, _s.left0, _s.right0, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.bgPrimary, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px15, _s.py5].join(' ')}>
-        <div className={[_s.d, _s.pr15, _s.flexGrow1].join(' ')}>
+      <div className={[_s.d, _s.posAbs, _s.bottom0, _s.left0, _s.right0, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.bgPrimary, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
+        <div className={[_s.d, _s.pr15, _s.flexGrow1, _s.py10].join(' ')}>
           <Textarea
             id='chat-message-compose-input'
             inputRef={this.setTextbox}
@@ -112,12 +113,12 @@ class ChatMessagesComposeForm extends React.PureComponent {
             aria-autocomplete='list'
           />
         </div>
-        <div className={[_s.d, _s.h100PC, _s.mtAuto, _s.pb5].join(' ')}>
+        <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
           <Button
             disabled={disabled}
             onClick={this.handleOnSendChatMessage}
           >
-            Send
+            <Text color='inherit' className={_s.px10}>Send</Text>
           </Button>
         </div>
       </div>

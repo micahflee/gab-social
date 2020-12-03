@@ -45,7 +45,7 @@ class SidebarSectionItem extends React.PureComponent {
     const iconSize = '16px'
     const currentPathname = noRouter ? '' : this.context.router.route.location.pathname
     const shouldShowActive = hovering || active || currentPathname === to || currentPathname === href
-    const isNotifications = to === '/notifications'
+    const isHighlighted = ['/notifications', '/messages'].indexOf(to) > -1
 
     const containerClasses = CX({
       d: 1,
@@ -67,16 +67,18 @@ class SidebarSectionItem extends React.PureComponent {
     const countClasses = CX({
       d: 1,
       text: 1,
+      textAlignCenter: 1,
+      minW20PX: 1,
       mlAuto: 1,
       fs12PX: 1,
       px5: 1,
       mr2: 1,
       lineHeight15: 1,
       ml5: 1,
-      cSecondary: !isNotifications,
-      cWhite: isNotifications,
-      bgBrand: isNotifications,
-      radiusSmall: isNotifications,
+      cSecondary: !isHighlighted,
+      cWhite: isHighlighted,
+      bgRed: isHighlighted,
+      circle: isHighlighted,
     })
 
     return (

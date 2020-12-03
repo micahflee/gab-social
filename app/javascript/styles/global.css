@@ -15,6 +15,7 @@
   --color_red-dark: #c72c5b;
 
   --radius-small: 8px;
+  --radius-rounded: 20px;
   --radius-circle: 9999px;
 
   --fs_xs: 0.8571428571rem;
@@ -73,8 +74,8 @@
 
 :root[no-radius] {
   --radius-small: 0 !important;
+  --radius-rounded: 0 !important;
 }
-
 
 :root[theme='white'] {
   --navigation_background: var(--color_white);
@@ -357,6 +358,7 @@ pre {
 
 .circle { border-radius: var(--radius-circle); }
 .radiusSmall { border-radius: var(--radius-small); }
+.radiusRounded { border-radius: var(--radius-rounded); }
 .topLeftRadiusSmall { border-top-left-radius: var(--radius-small); }
 .topRightRadiusSmall { border-top-right-radius: var(--radius-small); }
 .bottomRightRadiusSmall { border-bottom-right-radius: var(--radius-small); }
@@ -502,6 +504,7 @@ pre {
 .left50PC { left: 50%; }
 
 .right0 { right: 0px; }
+.rightNeg5PX { right: -5px; }
 .rightAuto { right: auto; }
 
 /*  */

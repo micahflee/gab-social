@@ -14,8 +14,6 @@
 #
 
 class AccountConversation < ApplicationRecord
-  after_commit :push_to_streaming_api
-
   belongs_to :account
   belongs_to :conversation
   belongs_to :last_status, class_name: 'Status'
@@ -100,11 +98,6 @@ class AccountConversation < ApplicationRecord
   def set_last_status
     self.status_ids     = status_ids.sort
     self.last_status_id = status_ids.last
-  end
-
-  def push_to_streaming_api
-    return if destroyed? || !subscribed_to_timeline?
-    PushConversationWorker.perform_async(id)
   end
 
   def subscribed_to_timeline?

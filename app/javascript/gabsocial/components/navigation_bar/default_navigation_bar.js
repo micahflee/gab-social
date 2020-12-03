@@ -67,6 +67,8 @@ class DefaultNavigationBar extends ImmutablePureComponent {
       account,
       noActions,
       logoDisabled,
+      unreadChatsCount,
+      notificationCount,
     } = this.props
 
     const navigationContainerClasses = CX({
@@ -171,7 +173,8 @@ class DefaultNavigationBar extends ImmutablePureComponent {
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
-                    <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' />
+                    <NavigationBarButton attrTitle='Notifications' icon='notifications' to='/notifications' count={notificationCount} />
+                    <NavigationBarButton attrTitle='Chats' icon='chat' to='/messages' count={unreadChatsCount} />
                     <NavigationBarButton attrTitle='Dark/Muted/Light/White Mode' icon='light-bulb' onClick={this.handleOnClickLightBulb} />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
@@ -236,6 +239,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                         attrTitle={action.attrTitle}
                         title={action.title}
                         icon={action.icon}
+                        count={action.count}
                         to={action.to || undefined}
                         onClick={action.onClick ? () => action.onClick() : undefined}
                         key={`action-btn-${i}`}
@@ -261,6 +265,8 @@ const mapStateToProps = (state) => ({
   emailConfirmationResends: state.getIn(['user', 'emailConfirmationResends'], 0),
   theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
   logoDisabled: state.getIn(['settings', 'displayOptions', 'logoDisabled'], false),
+  notificationCount: state.getIn(['notifications', 'unread']),
+  unreadChatsCount: state.getIn(['chats', 'chatsUnreadCount']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -288,6 +294,8 @@ DefaultNavigationBar.propTypes = {
   tabs: PropTypes.array,
   title: PropTypes.string,
   showBackBtn: PropTypes.bool,
+  notificationCount: PropTypes.number.isRequired,
+  unreadChatsCount: PropTypes.number.isRequired,
   onOpenNavSettingsPopover: PropTypes.func.isRequired,
   onOpenEmailModal: PropTypes.func.isRequired,
   onResendUserConfirmationEmail: PropTypes.func.isRequired,

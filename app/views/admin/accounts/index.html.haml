@@ -3,11 +3,6 @@
 
 .filters
   .filter-subset
-    %strong= t('admin.accounts.location.title')
-    %ul
-      %li= filter_link_to t('admin.accounts.location.local'), remote: nil
-      %li= filter_link_to t('admin.accounts.location.remote'), remote: '1'
-  .filter-subset
     %strong= t('admin.accounts.moderation.title')
     %ul
       %li= filter_link_to t('admin.accounts.moderation.active'), silenced: nil, suspended: nil, pending: nil

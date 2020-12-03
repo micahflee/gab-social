@@ -70,6 +70,7 @@ class HomePage extends React.PureComponent {
       intl,
       isPro,
       totalQueuedItemsCount,
+      unreadChatsCount,
     } = this.props
     const { lazyLoaded } = this.state
 
@@ -80,6 +81,11 @@ class HomePage extends React.PureComponent {
         page='home'
         title={title}
         actions={[
+          {
+            icon: 'chat',
+            to: '/messages',
+            count: unreadChatsCount,
+          },
           {
             icon: 'search',
             to: '/search',
@@ -117,6 +123,7 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => ({
   totalQueuedItemsCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  unreadChatsCount: state.getIn(['chats', 'chatsUnreadCount']),
   isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
@@ -125,6 +132,7 @@ HomePage.propTypes = {
   dispatch: PropTypes.func.isRequired,
   intl: PropTypes.object.isRequired,
   isPro: PropTypes.bool,
+  unreadChatsCount: PropTypes.number.isRequired,
   totalQueuedItemsCount: PropTypes.number.isRequired,
 }
 
