@@ -4,9 +4,7 @@ class OEmbedSerializer < ActiveModel::Serializer
   include RoutingHelper
   include ActionView::Helpers::TagHelper
 
-  attributes :type, :version, :title,
-             :provider_name, :provider_url,
-             :cache_age, :html, :width, :height
+  attributes :type, :version, :title, :provider_name, :provider_url, :cache_age, :html, :width, :height
 
   def type
     'rich'
