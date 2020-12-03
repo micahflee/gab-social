@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { defineMessages, injectIntl } from 'react-intl'
-import ImmutablePureComponent from 'react-immutable-pure-component'
-import ImmutablePropTypes from 'react-immutable-proptypes'
 import Input from '../../../components/input'
 
-class MessagesSearch extends ImmutablePureComponent {
+class ChatConversationsSearch extends React.PureComponent {
 
   static contextTypes = {
     router: PropTypes.object,
@@ -17,7 +14,7 @@ class MessagesSearch extends ImmutablePureComponent {
 
   render() {
     const {
-      intl,
+      children
     } = this.props
 
     return (
@@ -34,12 +31,8 @@ class MessagesSearch extends ImmutablePureComponent {
 
 }
 
-const messages = defineMessages({
-  placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
-})
-
-MessagesSearch.propTypes = {
-  intl: PropTypes.object.isRequired,
+ChatConversationsSearch.propTypes = {
+  //
 }
 
-export default injectIntl(MessagesSearch)
+export default ChatConversationsSearch

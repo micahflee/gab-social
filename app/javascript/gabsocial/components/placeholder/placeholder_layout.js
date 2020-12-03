@@ -12,6 +12,7 @@ class PlaceholderLayout extends React.PureComponent {
       intl,
       theme,
       viewBox,
+      preserveAspectRatio,
     } = this.props
 
     const isLight = ['light', 'white', ''].indexOf(theme) > -1
@@ -26,6 +27,7 @@ class PlaceholderLayout extends React.PureComponent {
         viewBox={viewBox}
         backgroundColor={backgroundColor}
         foregroundColor={foregroundColor}
+        preserveAspectRatio={preserveAspectRatio}
       >
         {this.props.children}
       </ContentLoader>
@@ -47,6 +49,7 @@ PlaceholderLayout.propTypes = {
   intl: PropTypes.object.isRequired,
   theme: PropTypes.string.isRequired,
   viewBox: PropTypes.string.isRequired,
+  preserveAspectRatio: PropTypes.string,
 }
 
 export default injectIntl(connect(mapStateToProps)(PlaceholderLayout))

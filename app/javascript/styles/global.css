@@ -35,10 +35,12 @@
   --solid_color_tertiary: #f5f5f7;
   --solid_color_block: #f5f8fa;
   --solid_color_highlight: rgba(224, 234, 66, .125);
+  --solid_color_toast: #232425;
 
   --text_color_primary: #2d3436;
   --text_color_secondary: #4b4f55;
   --text_color_tertiary: #777;
+  --text_color_alt: var(--solid_color_secondary);
 
   --border_color_secondary: #ececed;
 
@@ -91,10 +93,12 @@
   --solid_color_secondary-dark: #424343 !important;
   --solid_color_tertiary: #333 !important;
   --solid_color_block: #2d2d2d !important;
-
+  --solid_color_toast: #fcfcfc !important;
+  
   --text_color_primary: #fff !important;
   --text_color_secondary: #999 !important;
   --text_color_tertiary: #656565 !important;
+  --text_color_alt: var(----solid_color_primary);
 
   --border_color_secondary: #424141 !important;
 
@@ -116,14 +120,16 @@
   --solid_color_secondary-dark: #282828 !important;
   --solid_color_tertiary: #000 !important;
   --solid_color_block: #202327 !important;
+  --solid_color_toast: #fcfcfc !important;
 
   --text_color_primary: #cccbcb !important;
   --text_color_secondary: #888 !important;
   --text_color_tertiary: #656565 !important;
+  --text_color_alt: var(----solid_color_primary);
 
   --border_color_secondary: #343434 !important;
 
-  --color_input_placeholder: var(--text_color_secondary);
+  --color_input_placeholder: var(--text_color_secondary) !important;
 
   /* Navigation bar. Only themes. Non-editable */
   --navigation_background: #000 !important;
@@ -423,6 +429,8 @@ pre {
 
 .bgTertiary { background-color: var(--solid_color_tertiary); }
 
+.bgToast { background-color: var(--solid_color_toast); }
+
 .bgPrimary { background-color: var(--solid_color_primary); }
 .bgPrimaryOpaque { background-color: var(--solid_color_primary-opaque) }
 
@@ -459,6 +467,7 @@ pre {
 
 /*  */
 
+.cAlt { color: var(--text_color_alt); }
 .cPrimary { color: var(--text_color_primary); }
 
 .cBlack { color: var(--color_black); }
@@ -582,6 +591,7 @@ pre {
 .w330PX { width: 330px; }
 .w300PX { width: 300px; }
 .w240PX { width: 240px; }
+.w228PX { width: 228px; }
 .w208PX { width: 208px; }
 .w115PX { width: 115px; }
 .w84PX { width: 84px; }
@@ -892,6 +902,7 @@ pre {
 .boxShadowPopover { box-shadow: 0 0 15px -5px rgba(0,0,0,0.15); }
 .boxShadowBlock { box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
 .boxShadowDot { box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 6px #000; }
+.boxShadowToast { box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, .2), 0px 0px 2px -1px rgba(0, 0, 0, 0.4); }
 
 .boxShadowNone .boxShadowBlock {
   box-shadow: none !important;

@@ -48,4 +48,16 @@ class EmptyController < ActionController::Base
     nil
   end
 
+  protected
+
+  def limit_param(default_limit)
+    return default_limit unless params[:limit]
+    [params[:limit].to_i.abs, default_limit * 2].min
+  end
+
+  def truthy_param?(key)
+    ActiveModel::Type::Boolean.new.cast(params[key])
+  end
+  
+
 end

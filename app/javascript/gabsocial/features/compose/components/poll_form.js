@@ -157,7 +157,7 @@ class PollFormOption extends ImmutablePureComponent {
 
           <Input
             placeholder={intl.formatMessage(messages.option_placeholder, { number: index + 1 })}
-            maxLength={25}
+            maxLength={160}
             value={title}
             onChange={this.handleOptionTitleChange}
           />

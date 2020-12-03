@@ -1,86 +1,85 @@
+import { Map as ImmutableMap, List as ImmutableList, toJS } from 'immutable'
+import noop from 'lodash.noop'
 import api from '../api'
 import { me } from '../initial_state'
+import { importFetchedChatMessages } from './importer'
 
-export const MESSAGE_SEND_REQUEST = 'MESSAGE_SEND_REQUEST'
-export const MESSAGE_SEND_SUCCESS = 'MESSAGE_SEND_SUCCESS'
-export const MESSAGE_SEND_FAIL    = 'MESSAGE_SEND_FAIL'
+export const CHAT_MESSAGES_SEND_REQUEST = 'CHAT_MESSAGES_SEND_REQUEST'
+export const CHAT_MESSAGES_SEND_SUCCESS = 'CHAT_MESSAGES_SEND_SUCCESS'
+export const CHAT_MESSAGES_SEND_FAIL    = 'CHAT_MESSAGES_SEND_FAIL'
 
-export const MESSAGE_DELETE_REQUEST = 'MESSAGE_DELETE_REQUEST'
-export const MESSAGE_DELETE_SUCCESS = 'MESSAGE_DELETE_SUCCESS'
-export const MESSAGE_DELETE_FAIL    = 'MESSAGE_DELETE_FAIL'
+export const CHAT_MESSAGES_DELETE_REQUEST = 'CHAT_MESSAGES_DELETE_REQUEST'
+export const CHAT_MESSAGES_DELETE_SUCCESS = 'CHAT_MESSAGES_DELETE_SUCCESS'
+export const CHAT_MESSAGES_DELETE_FAIL    = 'CHAT_MESSAGES_DELETE_FAIL'
 
 /**
  * 
  */
-const sendMessage = (text, conversationId) => (dispatch, getState) => {
-  if (!me) return
+export const sendChatMessage = (text = '', chatConversationId) => (dispatch, getState) => {
+  if (!me || !chatConversationId) return
+  if (text.length === 0) return
 
-  // : todo :
-  // let text = getState().getIn(['chat_messages', 'text'], '')
-  // let conversationId = getState().getIn(['chat_messags', 'conversation_id'], '')
-  
   dispatch(sendMessageRequest())
 
-  api(getState).put('/api/v1/messages/chat', {
+  api(getState).post('/api/v1/chat_messages', {
     text,
-    conversationId,
+    chat_conversation_id: chatConversationId,
   }, {
-    headers: {
-      'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
-    },
+    // headers: {
+    //   'Idempotency-Key': getState().getIn(['chat_compose`', 'idempotencyKey']),
+    // },
   }).then((response) => {
-    sendMessageSuccess(response)
+    dispatch(importFetchedChatMessages([response.data]))
+    dispatch(sendMessageSuccess(response.data, chatConversationId))
   }).catch((error) => {
     dispatch(sendMessageFail(error))
   })
 }
 
-const sendMessageRequest = (text, conversationId) => ({
-  type: MESSAGE_SEND_REQUEST,
-  text,
-  conversationId,
+const sendMessageRequest = () => ({
+  type: CHAT_MESSAGES_SEND_REQUEST,
 })
 
-const sendMessageSuccess = () => ({
-  type: MESSAGE_SEND_SUCCESS,
+const sendMessageSuccess = (chatMessage, chatConversationId) => ({
+  type: CHAT_MESSAGES_SEND_SUCCESS,
+  chatMessage,
+  chatConversationId,
 })
 
 const sendMessageFail = (error) => ({
-  type: MESSAGE_SEND_FAIL,
+  type: CHAT_MESSAGES_SEND_FAIL,
   error,
 })
 
 /**
  * 
  */
-const deleteMessage = (messageId) => (dispatch, getState) => {
-  if (!me || !messageId) return
+const deleteMessage = (chatMessageId) => (dispatch, getState) => {
+  if (!me || !chatMessageId) return
 
-  // : todo :
-  
-  dispatch(sendMessageRequest())
+  dispatch(deleteMessageRequest(chatMessageId))
 
-  api(getState).delete(`/api/v1/messages/chat/${messageId}`, {}, {
-    headers: {
-      'Idempotency-Key': getState().getIn(['compose', 'idempotencyKey']),
-    },
+  api(getState).delete(`/api/v1/chat_messages/${chatMessageId}`, {}, {
+    // headers: {
+    //   'Idempotency-Key': getState().getIn(['chat_compose', 'idempotencyKey']),
+    // },
   }).then((response) => {
-    sendMessageSuccess(response)
+    deleteMessageSuccess(response)
   }).catch((error) => {
-    dispatch(sendMessageFail(error))
+    dispatch(deleteMessageFail(error))
   })
 }
 
-const deleteMessageRequest = (messageId) => ({
-  type: MESSAGE_DELETE_REQUEST,
-  messageId,
+const deleteMessageRequest = (chatMessageId) => ({
+  type: CHAT_MESSAGES_DELETE_REQUEST,
+  chatMessageId,
 })
 
 const deleteMessageSuccess = () => ({
-  type: MESSAGE_DELETE_SUCCESS,
+  type: CHAT_MESSAGES_DELETE_SUCCESS,
 })
 
 const deleteMessageFail = (error) => ({
-  type: MESSAGE_DELETE_FAIL,
+  type: CHAT_MESSAGES_DELETE_FAIL,
   error,
 })

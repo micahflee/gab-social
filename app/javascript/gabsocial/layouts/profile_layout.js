@@ -177,7 +177,7 @@ class ProfileLayout extends ImmutablePureComponent {
 
             </div>
 
-            <FloatingActionButton isDesktop />
+            <FloatingActionButton />
 
           </main>
         </Responsive>

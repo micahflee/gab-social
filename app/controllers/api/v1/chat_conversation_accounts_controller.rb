@@ -1,21 +1,13 @@
 # frozen_string_literal: true
 
-class Api::V1::AccountsController < Api::BaseController
-  before_action -> { authorize_if_got_token! :read, :'read:accounts' }, except: [:create, :follow, :unfollow, :block, :unblock, :mute, :unmute]
-  before_action -> { doorkeeper_authorize! :follow, :'write:follows' }, only: [:follow, :unfollow]
-  before_action -> { doorkeeper_authorize! :follow, :'write:mutes' }, only: [:mute, :unmute]
-  before_action -> { doorkeeper_authorize! :follow, :'write:blocks' }, only: [:block, :unblock]
-  before_action -> { doorkeeper_authorize! :write, :'write:accounts' }, only: [:create]
+class Api::V1::ChatConversationAccountsController < Api::BaseController
+  before_action -> { authorize_if_got_token! :read, :'read:chats' }, except: [:create, :follow, :unfollow, :block, :unblock, :mute, :unmute]
+  before_action -> { doorkeeper_authorize! :write, :'write:chats' }, only: [:create]
 
-  before_action :require_user!, except: [:show, :create]
+  before_action :require_user!
   before_action :set_account, except: [:create]
-  before_action :check_account_suspension, only: [:show]
 
   def show
-    # 
-  end
-
-  def create
     # 
   end
 
@@ -42,18 +34,19 @@ class Api::V1::AccountsController < Api::BaseController
   private
 
   def set_account
-    @account = Account.find(params[:id])
+  #   @account = Account.find(params[:id])
   end
 
-  def relationships(**options)
-    AccountRelationshipsPresenter.new([@account.id], current_user.account_id, options)
-  end
+  # def relationships(**options)
+  #   AccountRelationshipsPresenter.new([@account.id], current_user.account_id, options)
+  # end
 
   def check_account_suspension
     gone if @account.suspended?
   end
 
-  def account_params
-    params.permit(:username, :email, :password, :agreement, :locale)
-  end
+  # def account_params
+  #   params.permit(:username, :email, :password, :agreement, :locale)
+  # end
+
 end

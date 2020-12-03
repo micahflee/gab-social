@@ -2,11 +2,15 @@ import React from 'react'
 import { FormattedNumber } from 'react-intl'
 
 export const shortNumberFormat = (number) => {
+  if (isNaN(number)) {
+    return <FormattedNumber value={0} />
+  }
+  
   if (number < 1000) {
     try {
       return (<FormattedNumber value={number} />).props.value
     } catch (error) {
-      return <FormattedNumber value={number} />
+      return <FormattedNumber value={0} />
     }
   }
 

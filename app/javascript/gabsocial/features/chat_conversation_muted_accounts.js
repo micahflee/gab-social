@@ -12,7 +12,7 @@ import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import ScrollableList from '../components/scrollable_list'
 
-class Mutes extends ImmutablePureComponent {
+class MessagesMutedAccounts extends ImmutablePureComponent {
 
   componentWillMount() {
     this.props.onFetchMutes()
@@ -30,8 +30,10 @@ class Mutes extends ImmutablePureComponent {
     } = this.props
 
     return (
-      <Block>
-        <BlockHeading title={<FormattedMessage id='navigation_bar.mutes' defaultMessage='Muted users' />} />
+      <div className={[_s.d, _s.w100PC, _s.boxShadowNone].join(' ')}>
+        <div className={[_s.d, _s.h60PX, _s.w100PC, _s.px10, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <BlockHeading title={<FormattedMessage id='navigation_bar.mutes' defaultMessage='Muted users' />} />
+        </div>
         <ScrollableList
           scrollKey='mutes'
           onLoadMore={this.handleLoadMore}
@@ -49,7 +51,7 @@ class Mutes extends ImmutablePureComponent {
             )
           }
         </ScrollableList>
-      </Block>
+      </div>
     )
   }
 
@@ -66,7 +68,7 @@ const mapDispatchToProps = (dispatch) => ({
   onExpandMutes: () => dispatch(expandMutes()),
 })
 
-Mutes.propTypes = {
+MessagesMutedAccounts.propTypes = {
   accountIds: ImmutablePropTypes.list,
   hasMore: PropTypes.bool,
   isLoading: PropTypes.bool,
@@ -74,4 +76,4 @@ Mutes.propTypes = {
   onFetchMutes: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(Mutes))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(MessagesMutedAccounts))

@@ -24,10 +24,13 @@ import Avatar from './avatar'
 import DisplayName from './display_name'
 import Button from './button'
 import Text from './text'
+
 class Account extends ImmutablePureComponent {
 
   handleAction = (e) => {
     this.props.onActionClick(this.props.account, e)
+    e.preventDefault()
+    return false
   }
 
   handleUnrequest = () => {

@@ -7,6 +7,12 @@ export function BlockAccountModal() { return import(/* webpackChunkName: "compon
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
+export function ChatConversationBlockedAccounts() { return import(/* webpackChunkName: "features/chat_conversation_blocked_accounts" */'../../chat_conversation_blocked_accounts') }
+export function ChatConversationCreate() { return import(/* webpackChunkName: "features/chat_conversation_create" */'../../chat_conversation_create') }
+export function ChatConversationCreateModal() { return import(/* webpackChunkName: "components/chat_conversation_create_modal" */'../../../components/modal/chat_conversation_create_modal') }
+export function ChatConversationDeleteModal() { return import(/* webpackChunkName: "components/chat_conversation_delete_modal" */'../../../components/modal/chat_conversation_delete_modal') }
+export function ChatConversationMutedAccounts() { return import(/* webpackChunkName: "features/chat_conversation_muted_accounts" */'../../chat_conversation_muted_accounts') }
+export function ChatConversationRequests() { return import(/* webpackChunkName: "features/chat_conversation_requests" */'../../chat_conversation_requests') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
 export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }
 export function CommunityTimelineSettingsModal() { return import(/* webpackChunkName: "components/community_timeline_settings_modal" */'../../../components/modal/community_timeline_settings_modal') }
@@ -78,7 +84,8 @@ export function MediaGallery() { return import(/* webpackChunkName: "components/
 export function MediaGalleryPanel() { return import(/* webpackChunkName: "components/media_gallery_panel" */'../../../components/panel/media_gallery_panel') }
 export function MediaModal() { return import(/* webpackChunkName: "components/media_modal" */'../../../components/modal/media_modal') }
 export function Messages() { return import(/* webpackChunkName: "features/messages" */'../../messages') }
-export function Mutes() { return import(/* webpackChunkName: "features/mutes" */'../../mutes') }
+export function MessagesSettings() { return import(/* webpackChunkName: "features/messages_settings" */'../../messages_settings') }
+export function MutedAccounts() { return import(/* webpackChunkName: "features/muted_accounts" */'../../muted_accounts') }
 export function MuteModal() { return import(/* webpackChunkName: "modals/mute_modal" */'../../../components/modal/mute_modal') }
 export function NavSettingsPopover() { return import(/* webpackChunkName: "modals/nav_settings_popover" */'../../../components/popover/nav_settings_popover') }
 export function News() { return import(/* webpackChunkName: "features/news" */'../../news') }

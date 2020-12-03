@@ -13,11 +13,58 @@ class ToastsContainer extends React.PureComponent {
   }
 
   render() {
-    const { notifications } = this.props
+    // const { notifications } = this.props
+    const notifications = [
+      {
+        key: '1',
+        title: 'Error',
+        to: 'to',
+        image: 'https://gab.com/media/user/58077e8a49705.jpg',
+        message: 'Unable to follow @andrew',
+        date: new Date(),
+        isImageAccount: true,
+      },
+      {
+        key: '2',
+        title: 'Success',
+        to: 'to',
+        image: 'https://gab.com/media/user/58077e8a49705.jpg',
+        message: 'Your gab was posted. Click here to view',
+        date: new Date(),
+        isImageAccount: false,
+      },
+      {
+        key: '3',
+        title: '',
+        to: 'to',
+        image: 'https://gab.com/media/user/58077e8a49705.jpg',
+        message: 'Unable to follow @andrew',
+        date: new Date(),
+        isImageAccount: true,
+      },
+      {
+        key: '4',
+        title: '',
+        to: 'to',
+        image: 'https://gab.com/media/user/58077e8a49705.jpg',
+        message: 'Your gab was posted. Click here to view',
+        date: new Date(),
+        isImageAccount: false,
+      },
+      {
+        key: '5',
+        title: '',
+        to: 'to',
+        message: 'Your gab was deleted',
+        date: new Date(),
+        isImageAccount: false,
+      },
+    ]
+
     const hasNotifications = Array.isArray(notifications) && notifications.length > 0
     
     const containerClasses = CX({
-      default: 1,
+      d: 1,
       z5: 1,
       posFixed: 1,
       bottom0: 1,
@@ -28,17 +75,17 @@ class ToastsContainer extends React.PureComponent {
       pb10: 1,
       displayNone: !hasNotifications
     })
-    
+  
+
     return (
       <div className={containerClasses}>
         {
-          hasNotifications && notifications.map((notification) => (
+          !hasNotifications && notifications.map((notification) => (
             <Toast
               onDismiss={this.handleOnDismiss}
               key={notification.key}
               id={notification.key}
               title={notification.title}
-              type={notification.type}
               to={notification.to}
               image={notification.image}
               message={notification.message}

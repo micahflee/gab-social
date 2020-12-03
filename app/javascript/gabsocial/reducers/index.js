@@ -2,7 +2,9 @@ import { combineReducers } from 'redux-immutable'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import accounts from './accounts'
 import accounts_counters from './accounts_counters'
-import chat_compose from './chat_compose'
+import chats from './chats'
+import chat_conversation_lists from './chat_conversation_lists'
+import chat_conversation_messages from './chat_conversation_messages'
 import chat_conversations from './chat_conversations'
 import chat_messages from './chat_messages'
 import compose from './compose'
@@ -49,6 +51,9 @@ import user_lists from './user_lists'
 const reducers = {
   accounts,
   accounts_counters,
+  chats,
+  chat_conversation_lists,
+  chat_conversation_messages,
   chat_conversations,
   chat_messages,
   compose,
@@ -88,10 +93,10 @@ const reducers = {
   status_revisions,
   suggestions,
   timelines,
-  timeline_injections,
-  toasts,
-  user,
-  user_lists,
+  // timeline_injections,
+  // toasts,
+  // user,
+  // user_lists,
 }
 
 export default combineReducers(reducers)

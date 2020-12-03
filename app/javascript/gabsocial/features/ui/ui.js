@@ -56,6 +56,10 @@ import {
   Assets,
   BlockedAccounts,
   BookmarkedStatuses,
+  ChatConversationCreate,
+  ChatConversationRequests,
+  ChatConversationBlockedAccounts,
+  ChatConversationMutedAccounts,
   CommunityTimeline,
   Compose,
   DMCA,
@@ -86,7 +90,8 @@ import {
   ListEdit,
   ListTimeline,
   Messages,
-  Mutes,
+  MessagesSettings,
+  MutedAccounts,
   News,
   NewsView,
   Notifications,
@@ -198,8 +203,12 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/news' exact publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
         <WrappedRoute path='/news/view/:trendsRSSId' page={NewsPage} component={NewsView} content={children} componentParams={{ title: 'News RSS Feed' }} />
 
-        <WrappedRoute path='/messages' exact page={MessagesPage} component={Messages} content={children} />
-        <WrappedRoute path='/messages/:conversationId' exact page={MessagesPage} component={Messages} content={children} />
+        <WrappedRoute path='/messages' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
+        <WrappedRoute path='/messages/settings' exact page={MessagesPage} component={MessagesSettings} content={children} componentParams={{ isSettings: true }} />
+        <WrappedRoute path='/messages/requests' exact page={MessagesPage} component={ChatConversationRequests} content={children} componentParams={{ isSettings: true, source: 'requested' }} />
+        <WrappedRoute path='/messages/blocks' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
+        <WrappedRoute path='/messages/mutes' exact page={MessagesPage} component={ChatConversationMutedAccounts} content={children} componentParams={{ isSettings: true }} />
+        <WrappedRoute path='/messages/:conversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
@@ -244,39 +253,24 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/search/links' exact page={SearchPage} component={Search} content={children} />
 
         <WrappedRoute path='/settings/blocks' exact page={SettingsPage} component={BlockedAccounts} content={children} componentParams={{ title: 'Blocked Users' }} />
-        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={Mutes} content={children} componentParams={{ title: 'Muted Users' }} />
+        <WrappedRoute path='/settings/mutes' exact page={SettingsPage} component={MutedAccounts} content={children} componentParams={{ title: 'Muted Users' }} />
         
-        <Redirect from='/@:username' to='/:username' exact />
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
-        <Redirect from='/@:username/comments' to='/:username/comments' />
         <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountTimeline} content={children} componentParams={{ commentsOnly: true }} />
 
-        <Redirect from='/@:username/followers' to='/:username/followers' />
         <WrappedRoute path='/:username/followers' page={ProfilePage} component={Followers} content={children} />
-
-        <Redirect from='/@:username/following' to='/:username/following' />
         <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />
 
-        <Redirect from='/@:username/media' to='/:username/photos' />
-        <Redirect from='/@:username/photos' to='/:username/photos' />
-        <Redirect from='/:username/media' to='/:username/photos' />
         <WrappedRoute path='/:username/photos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'photo' }} />
         <WrappedRoute path='/:username/videos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'video' }} />
 
-        <Redirect from='/@:username/likes' to='/:username/likes' />
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
-
-        <Redirect from='/@:username/bookmarks' to='/:username/bookmarks' />
         <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
 
-        <Redirect from='/@:username/posts/:statusId' to='/:username/posts/:statusId' exact />
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 
-        <Redirect from='/@:username/posts/:statusId/reposts' to='/:username/posts/:statusId/reposts' />
         <WrappedRoute path='/:username/posts/:statusId/reposts' publicRoute page={ModalPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />
-
-        <Redirect from='/@:username/posts/:statusId/likes' to='/:username/posts/:statusId/likes' />
         <WrappedRoute path='/:username/posts/:statusId/likes' page={ModalPage} component={StatusLikes} content={children} componentParams={{ title: 'Likes' }} />
 
         <WrappedRoute page={ErrorPage} component={GenericNotFound} content={children} />

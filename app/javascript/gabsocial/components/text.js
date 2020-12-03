@@ -4,6 +4,7 @@ import { CX } from '../constants'
 
 // Define colors for enumeration for Text component `color` prop
 const COLORS = {
+  alt: 'alt',
   primary: 'primary',
   secondary: 'secondary',
   tertiary: 'tertiary',
@@ -76,6 +77,7 @@ class Text extends React.PureComponent {
       lineHeight15: isBadge,
       px5: isBadge,
 
+      cAlt: color === COLORS.alt,
       cPrimary: color === COLORS.primary,
       cSecondary: color === COLORS.secondary,
       cTertiary: color === COLORS.tertiary,

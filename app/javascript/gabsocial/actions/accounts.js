@@ -163,6 +163,7 @@ export const followAccount = (id, reblogs = true) => (dispatch, getState) => {
   dispatch(followAccountRequest(id, locked))
 
   api(getState).post(`/api/v1/accounts/${id}/follow`, { reblogs }).then((response) => {
+    console.log("response:", response)
     dispatch(followAccountSuccess(response.data, alreadyFollowing))
   }).catch((error) => {
     dispatch(followAccountFail(error, locked))

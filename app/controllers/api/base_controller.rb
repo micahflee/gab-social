@@ -3,12 +3,15 @@
 class Api::BaseController < ApplicationController
   DEFAULT_STATUSES_LIMIT = 20
   DEFAULT_ACCOUNTS_LIMIT = 20
+  DEFAULT_CHAT_CONVERSATION_LIMIT = 12
+  DEFAULT_CHAT_CONVERSATION_MESSAGE_LIMIT = 10
 
   include RateLimitHeaders
 
   skip_before_action :store_current_location
   skip_before_action :check_user_permissions
 
+  before_action :block_if_doorkeeper
   before_action :set_cache_headers
 
   protect_from_forgery with: :null_session
@@ -88,6 +91,14 @@ class Api::BaseController < ApplicationController
 
   def authorize_if_got_token!(*scopes)
     doorkeeper_authorize!(*scopes) if doorkeeper_token
+  end
+
+  def superapp?
+    doorkeeper_token && doorkeeper_token.application.superapp? || false
+  end
+
+  def block_if_doorkeeper
+    raise GabSocial::NotPermittedError unless superapp?
   end
 
   def set_cache_headers

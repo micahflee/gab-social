@@ -69,6 +69,7 @@ Doorkeeper.configure do
                   :'write:notifications',
                   :'write:reports',
                   :'write:statuses',
+                  :'write:chats',
                   :read,
                   :'read:accounts',
                   :'read:blocks',
@@ -81,6 +82,7 @@ Doorkeeper.configure do
                   :'read:notifications',
                   :'read:search',
                   :'read:statuses',
+                  :'read:chats',
                   :follow,
                   :push
 

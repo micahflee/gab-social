@@ -51,22 +51,6 @@ module Admin
       redirect_to admin_custom_emojis_path(page: params[:page], **@filter_params)
     end
 
-    def enable
-      authorize @custom_emoji, :enable?
-      @custom_emoji.update!(disabled: false)
-      log_action :enable, @custom_emoji
-      flash[:notice] = I18n.t('admin.custom_emojis.enabled_msg')
-      redirect_to admin_custom_emojis_path(page: params[:page], **@filter_params)
-    end
-
-    def disable
-      authorize @custom_emoji, :disable?
-      @custom_emoji.update!(disabled: true)
-      log_action :disable, @custom_emoji
-      flash[:notice] = I18n.t('admin.custom_emojis.disabled_msg')
-      redirect_to admin_custom_emojis_path(page: params[:page], **@filter_params)
-    end
-
     private
 
     def set_custom_emoji

@@ -16,6 +16,7 @@ import { MIN_ACCOUNT_CREATED_AT_ONBOARDING } from '../constants'
 import {
   connectUserStream,
   connectStatusUpdateStream,
+  connectChatMessagesStream,
 } from '../actions/streaming'
 import { getLocale } from '../locales'
 import initialState from '../initial_state'
@@ -95,6 +96,7 @@ export default class GabSocial extends React.PureComponent {
     if (!!me) {
       this.disconnect = store.dispatch(connectUserStream())
       store.dispatch(connectStatusUpdateStream())
+      store.dispatch(connectChatMessagesStream(me))
     }
 
     console.log('%cGab Social ', [

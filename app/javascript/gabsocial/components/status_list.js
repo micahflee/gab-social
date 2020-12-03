@@ -290,7 +290,7 @@ class StatusList extends ImmutablePureComponent {
           hasMore={hasMore}
         />
         <ScrollableList
-          ref={this.setRef}
+          scrollRef={this.setRef}
           isLoading={isLoading || isRefreshing}
           showLoading={isRefreshing || (isLoading && statusIds.size === 0)}
           onLoadMore={onLoadMore && this.handleLoadOlder}

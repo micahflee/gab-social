@@ -142,9 +142,7 @@ class Layout extends React.PureComponent {
 
                 {
                   !noComposeButton &&
-                  <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                    <FloatingActionButton />
-                  </Responsive>
+                  <FloatingActionButton />
                 }
 
               </ResponsiveClassesComponent>

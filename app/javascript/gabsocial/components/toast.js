@@ -35,19 +35,31 @@ class Toast extends React.PureComponent {
       message,
       date,
       to,
-      type,
     } = this.props
 
-    const contentClasses = CX({
-      default: 1,
+    const containerClasses = CX({
+      d: 1,
+      radiusSmall: 1,
+      w228PX: 1,
       mt5: 1,
-      pt2: 1,
-      maxWidth240PX: 1,
+      mb5: 1,
+      px15: 1,
+      pt10: 1,
+      pb15: !!title,
+      pb10: !title,
+      bgToast: 1,
+      boxShadowToast: 1,
+    })
+
+    const contentClasses = CX({
+      d: 1,
+      mt5: !!title,
+      pt2: !!title,
       flexRow: !!image,
     })
 
     const innerContentClasses = CX({
-      default: 1,
+      d: 1,
       flexNormal: 1,
       pl10: !!image,
       pt2: !!image,
@@ -65,19 +77,11 @@ class Toast extends React.PureComponent {
     })
 
     return (
-      <div className={[_s.default, _s.radiusSmall, _s.mb5, _s.px15, _s.pt10, _s.pb15, _s.bgPrimary, _s.boxShadowToast].join(' ')}>
+      <div className={containerClasses}>
         <div className={[_s.default, _s.flexRow, _s.alignItemsCenter, _s.justifyContentCenter].join(' ')}>
-          <Text size='media' weight='medium' className={[_s.mr15, _s.minWidth160PX].join(' ')}>
+          <Text size='medium' color='alt' weight='bold'>
             {title}
           </Text>
-          <Button
-            backgroundColor='secondary'
-            color='primary'
-            icon='close'
-            iconSize='6px'
-            onClick={this.handleOnDismiss}
-            className={[_s.mlAuto, _s.px10].join(' ')}
-          />
         </div>
         <div className={contentClasses}>
           {
@@ -90,12 +94,16 @@ class Toast extends React.PureComponent {
             />
           }
           <div className={innerContentClasses}>
-            <Text size='small'>
+            <Text size='small' color='alt'>
               {message}
             </Text>
             {
               date &&
-              <Text color='secondary' size='extraSmall' className={dateClasses}>
+              <Text color='tertiary' size='extraSmall' className={dateClasses}>
+                {
+                  !image &&
+                  <Text size='small' color='tertiary' className={[_s.ml5, _s.mr5].join(' ')}>·</Text>
+                }
                 <RelativeTimestamp timestamp={date} />
               </Text>
               }
@@ -116,10 +124,6 @@ Toast.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   title: PropTypes.string.isRequired,
   to: PropTypes.string,
-  type: PropTypes.oneOf([
-    TOAST_TYPE_ERROR,
-    TOAST_TYPE_SUCCESS,
-  ]).isRequired,
 }
 
 export default Toast

@@ -537,7 +537,8 @@ const startWorker = (workerId) => {
   });
 
   app.get('/api/v1/streaming/chat_messages', (req, res) => {
-    const channel = `chat_messages:${req.accountId}`;
+    console.log("tilly hello from inside here:", req)
+    const channel = `chat_messages:${req.chatConversationId}`;
     streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)));
   });
 
@@ -549,6 +550,8 @@ const startWorker = (workerId) => {
     req.remoteAddress = ws._socket.remoteAddress;
 
     let channel;
+
+    console.log("tilly location.query.stream:", location.query.stream)
 
     switch (location.query.stream) {
       case 'statuscard':
@@ -563,7 +566,8 @@ const startWorker = (workerId) => {
         streamFrom(`timeline:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
         break;
       case 'chat_messages':
-        streamFrom(`chat_messages:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
+        console.log("tilly incoming chat_messages:", req.chatConversationId, location.query.stream)
+        streamFrom(`chat_messages:${req.chatConversationId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
         break;
       default:
         ws.close();

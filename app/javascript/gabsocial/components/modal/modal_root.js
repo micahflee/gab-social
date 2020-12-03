@@ -10,6 +10,8 @@ import LoadingModal from './loading_modal'
 import {
   MODAL_BLOCK_ACCOUNT,
   MODAL_BOOST,
+  MODAL_CHAT_CONVERSATION_CREATE,
+  MODAL_CHAT_CONVERSATION_DELETE,
   MODAL_COMMUNITY_TIMELINE_SETTINGS,
   MODAL_COMPOSE,
   MODAL_CONFIRM,
@@ -42,6 +44,8 @@ import {
 import {
   BlockAccountModal,
   BoostModal,
+  ChatConversationCreateModal,
+  ChatConversationDeleteModal,
   CommunityTimelineSettingsModal,
   ComposeModal,
   ConfirmationModal,
@@ -74,37 +78,40 @@ import {
   VideoModal,
 } from '../../features/ui/util/async_components'
 
-const MODAL_COMPONENTS = {}
-MODAL_COMPONENTS[MODAL_BLOCK_ACCOUNT] = BlockAccountModal
-MODAL_COMPONENTS[MODAL_BOOST] = BoostModal
-MODAL_COMPONENTS[MODAL_COMMUNITY_TIMELINE_SETTINGS] = CommunityTimelineSettingsModal
-MODAL_COMPONENTS[MODAL_COMPOSE] = ComposeModal
-MODAL_COMPONENTS[MODAL_CONFIRM] = ConfirmationModal
-MODAL_COMPONENTS[MODAL_DISPLAY_OPTIONS] = DisplayOptionsModal
-MODAL_COMPONENTS[MODAL_EDIT_SHORTCUTS] = EditShortcutsModal
-MODAL_COMPONENTS[MODAL_EDIT_PROFILE] = EditProfileModal
-MODAL_COMPONENTS[MODAL_EMAIL_CONFIRMATION_REMINDER] = EmailConfirmationReminderModal
-MODAL_COMPONENTS[MODAL_GROUP_CREATE] = GroupCreateModal
-MODAL_COMPONENTS[MODAL_GROUP_DELETE] = GroupDeleteModal
-MODAL_COMPONENTS[MODAL_GROUP_PASSWORD] = GroupPasswordModal
-MODAL_COMPONENTS[MODAL_HASHTAG_TIMELINE_SETTINGS] = HashtagTimelineSettingsModal
-MODAL_COMPONENTS[MODAL_HOME_TIMELINE_SETTINGS] = HomeTimelineSettingsModal
-MODAL_COMPONENTS[MODAL_HOTKEYS] = HotkeysModal
-MODAL_COMPONENTS[MODAL_LIST_ADD_USER] = ListAddUserModal
-MODAL_COMPONENTS[MODAL_LIST_CREATE] = ListCreateModal
-MODAL_COMPONENTS[MODAL_LIST_DELETE] = ListDeleteModal
-MODAL_COMPONENTS[MODAL_LIST_EDITOR] = ListEditorModal
-MODAL_COMPONENTS[MODAL_LIST_TIMELINE_SETTINGS] = ListTimelineSettingsModal
-MODAL_COMPONENTS[MODAL_MEDIA] = MediaModal
-MODAL_COMPONENTS[MODAL_MUTE] = MuteModal
-MODAL_COMPONENTS[MODAL_PRO_UPGRADE] = ProUpgradeModal
-MODAL_COMPONENTS[MODAL_REPORT] = ReportModal
-MODAL_COMPONENTS[MODAL_STATUS_LIKES] = StatusLikesModal
-MODAL_COMPONENTS[MODAL_STATUS_REPOSTS] = StatusRepostsModal
-MODAL_COMPONENTS[MODAL_STATUS_REVISIONS] = StatusRevisionsModal
-MODAL_COMPONENTS[MODAL_UNAUTHORIZED] = UnauthorizedModal
-MODAL_COMPONENTS[MODAL_UNFOLLOW] = UnfollowModal
-MODAL_COMPONENTS[MODAL_VIDEO] = VideoModal
+const MODAL_COMPONENTS = {
+  [MODAL_BLOCK_ACCOUNT]: BlockAccountModal,
+  [MODAL_BOOST]: BoostModal,
+  [MODAL_CHAT_CONVERSATION_CREATE]: ChatConversationCreateModal,
+  [MODAL_CHAT_CONVERSATION_DELETE]: ChatConversationDeleteModal,
+  [MODAL_COMMUNITY_TIMELINE_SETTINGS]: CommunityTimelineSettingsModal,
+  [MODAL_COMPOSE]: ComposeModal,
+  [MODAL_CONFIRM]: ConfirmationModal,
+  [MODAL_DISPLAY_OPTIONS]: DisplayOptionsModal,
+  [MODAL_EDIT_SHORTCUTS]: EditShortcutsModal,
+  [MODAL_EDIT_PROFILE]: EditProfileModal,
+  [MODAL_EMAIL_CONFIRMATION_REMINDER]: EmailConfirmationReminderModal,
+  [MODAL_GROUP_CREATE]: GroupCreateModal,
+  [MODAL_GROUP_DELETE]: GroupDeleteModal,
+  [MODAL_GROUP_PASSWORD]: GroupPasswordModal,
+  [MODAL_HASHTAG_TIMELINE_SETTINGS]: HashtagTimelineSettingsModal,
+  [MODAL_HOME_TIMELINE_SETTINGS]: HomeTimelineSettingsModal,
+  [MODAL_HOTKEYS]: HotkeysModal,
+  [MODAL_LIST_ADD_USER]: ListAddUserModal,
+  [MODAL_LIST_CREATE]: ListCreateModal,
+  [MODAL_LIST_DELETE]: ListDeleteModal,
+  [MODAL_LIST_EDITOR]: ListEditorModal,
+  [MODAL_LIST_TIMELINE_SETTINGS]: ListTimelineSettingsModal,
+  [MODAL_MEDIA]: MediaModal,
+  [MODAL_MUTE]: MuteModal,
+  [MODAL_PRO_UPGRADE]: ProUpgradeModal,
+  [MODAL_REPORT]: ReportModal,
+  [MODAL_STATUS_LIKES]: StatusLikesModal,
+  [MODAL_STATUS_REPOSTS]: StatusRepostsModal,
+  [MODAL_STATUS_REVISIONS]: StatusRevisionsModal,
+  [MODAL_UNAUTHORIZED]: UnauthorizedModal,
+  [MODAL_UNFOLLOW]: UnfollowModal,
+  [MODAL_VIDEO]: VideoModal,
+}
 
 const CENTERED_XS_MODALS = [
   MODAL_BLOCK_ACCOUNT,

@@ -20,6 +20,49 @@ export const makeGetAccount = () => {
   });
 };
 
+export const makeGetChatMessage = () => {
+  return createSelector(
+    [
+      (state) => state,
+      (state, { id }) => state.getIn(['chat_messages', id]),
+      (state, { id }) => state.getIn(['accounts', `${state.getIn(['chat_messages', `${id}`, 'from_account_id'])}`]),
+    ],
+    (state, base, account) => {
+      if (!base) return null
+      return base.withMutations((map) => {
+        map.set('account', account)
+      })
+    }
+  )
+}
+
+export const makeGetChatConversation = () => {
+  return createSelector(
+    [
+      (state) => state,
+      (state, { id }) => state.getIn(['chat_conversations', `${id}`]),
+      (state) => state.get('accounts'),
+    ],
+    (state, base, allAccounts) => {
+      if (!base) return null
+    
+      let otherAccounts = ImmutableList()
+      if (allAccounts) {
+        base.get('other_account_ids').forEach((acctId) => {
+          const acct = allAccounts.get(`${acctId}`, null)
+          if (acct) {
+            otherAccounts = otherAccounts.set(otherAccounts.size, acct)
+          }
+        })
+      }
+
+      return base.withMutations((map) => {
+        map.set('other_accounts', otherAccounts)
+      })
+    }
+  )
+}
+
 const toServerSideType = columnType => {
   switch (columnType) {
     case 'home':

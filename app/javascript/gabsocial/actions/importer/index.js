@@ -12,6 +12,7 @@ export const ACCOUNTS_IMPORT = 'ACCOUNTS_IMPORT'
 export const STATUS_IMPORT   = 'STATUS_IMPORT'
 export const STATUSES_IMPORT = 'STATUSES_IMPORT'
 export const POLLS_IMPORT    = 'POLLS_IMPORT'
+export const CHAT_MESSAGES_IMPORT = 'CHAT_MESSAGES_IMPORT'
 export const ACCOUNT_FETCH_FAIL_FOR_USERNAME_LOOKUP = 'ACCOUNT_FETCH_FAIL_FOR_USERNAME_LOOKUP'
 
 /**
@@ -46,6 +47,11 @@ export const importStatuses = (statuses) => ({
 export const importPolls = (polls) => ({
   type: POLLS_IMPORT,
   polls,
+})
+
+export const importChatMessages = (chatMessages) => ({
+  type: CHAT_MESSAGES_IMPORT,
+  chatMessages,
 })
 
 export const importFetchedAccount = (account) => {
@@ -97,7 +103,7 @@ export const importFetchedStatuses = (statuses) => (dispatch, getState) => {
     }
   }
 
-  statuses.forEach(processStatus) 
+  statuses.forEach(processStatus)
 
   dispatch(importPolls(polls))
   dispatch(importFetchedAccounts(accounts))
@@ -113,3 +119,7 @@ export const importErrorWhileFetchingAccountByUsername = (username) => ({
   type: ACCOUNT_FETCH_FAIL_FOR_USERNAME_LOOKUP,
   username
 })
+
+export const importFetchedChatMessages = (chatMessages) => (dispatch, getState) => {
+  dispatch(importChatMessages(chatMessages))
+}

@@ -75,15 +75,18 @@ export const connectUserStream = () => connectTimelineStream('home', 'user')
 /**
  * 
  */
-export const connectMessageStream = () => {
-
-  return connectStream('chat_messages', null, (dispatch, getState) => {
-
+export const connectChatMessagesStream = (accountId) => {
+  return connectStream(`chat_messages:${accountId}`, null, (dispatch, getState) => {
     return {
-      onConnect() {},
-      onDisconnect() {},
+      onConnect() {
+        // console.log("chat messages connected")
+      },
+      onDisconnect() {
+        // console.log("chat messages disconnected")
+      },
       onReceive (data) {
-        //
+        // : todo :
+        console.log("chat messages onReceive:", data)
       },
     }
   })

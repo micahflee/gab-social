@@ -62,7 +62,6 @@ const expandNormalizedTimeline = (state, timeline, statuses, next, isPartial, is
         const firstIndex = oldIds.take(lastIndex).findLastIndex(id => id !== null && compareId(id, newIds.first()) > 0);
 
         if (firstIndex < 0) {
-          console.log("----2")
           return (isPartial ? newIds.unshift(null) : newIds).concat(oldIds.skip(lastIndex));
         }
 

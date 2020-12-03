@@ -4,6 +4,7 @@ class AccountSearchService < BaseService
   attr_reader :query, :limit, :offset, :options, :account
 
   def call(query, account = nil, options = {})
+    puts "query:"+query.inspect
     @query   = query.strip
     @limit   = options[:limit].to_i
     @offset  = options[:offset].to_i

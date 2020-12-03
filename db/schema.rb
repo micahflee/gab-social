@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_09_233215) do
+ActiveRecord::Schema.define(version: 2020_11_30_172733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -194,6 +194,51 @@ ActiveRecord::Schema.define(version: 2020_11_09_233215) do
     t.boolean "success", default: false, null: false
   end
 
+  create_table "chat_blocks", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "target_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "target_account_id"], name: "index_chat_blocks_on_account_id_and_target_account_id", unique: true
+  end
+
+  create_table "chat_conversation_accounts", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "chat_conversation_id"
+    t.bigint "participant_account_ids", default: [], null: false, array: true
+    t.bigint "last_chat_message_id"
+    t.boolean "is_unread", default: false, null: false
+    t.boolean "is_hidden", default: false, null: false
+    t.boolean "is_approved", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_chat_conversation_accounts_on_account_id"
+    t.index ["chat_conversation_id"], name: "index_chat_conversation_accounts_on_chat_conversation_id"
+  end
+
+  create_table "chat_conversations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "chat_messages", force: :cascade do |t|
+    t.text "text", default: "", null: false
+    t.text "language", default: "", null: false
+    t.integer "from_account_id", null: false
+    t.integer "chat_conversation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["from_account_id", "chat_conversation_id"], name: "index_chat_messages_on_from_account_id_and_chat_conversation_id"
+  end
+
+  create_table "chat_mutes", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "target_account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "target_account_id"], name: "index_chat_mutes_on_account_id_and_target_account_id", unique: true
+  end
+
   create_table "conversations", force: :cascade do |t|
     t.string "uri"
     t.datetime "created_at", null: false
@@ -210,7 +255,6 @@ ActiveRecord::Schema.define(version: 2020_11_09_233215) do
     t.datetime "image_updated_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "disabled", default: false, null: false
     t.string "uri"
     t.string "image_remote_url"
     t.boolean "visible_in_picker", default: true, null: false
@@ -810,6 +854,8 @@ ActiveRecord::Schema.define(version: 2020_11_09_233215) do
   add_foreign_key "backups", "users", on_delete: :nullify
   add_foreign_key "blocks", "accounts", column: "target_account_id", name: "fk_9571bfabc1", on_delete: :cascade
   add_foreign_key "blocks", "accounts", name: "fk_4269e03e65", on_delete: :cascade
+  add_foreign_key "chat_conversation_accounts", "accounts", on_delete: :cascade
+  add_foreign_key "chat_conversation_accounts", "chat_conversations", on_delete: :cascade
   add_foreign_key "custom_filters", "accounts", on_delete: :cascade
   add_foreign_key "favourites", "accounts", name: "fk_5eb6c2b873", on_delete: :cascade
   add_foreign_key "favourites", "statuses", name: "fk_b0e856845e", on_delete: :cascade

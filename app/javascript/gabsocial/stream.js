@@ -43,6 +43,7 @@ export function connectStream(path, pollingRefresh = null, callbacks = () => ({ 
       },
 
       received(data) {
+        console.log("received:", data)
         onReceive(data);
       },
 

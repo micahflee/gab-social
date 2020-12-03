@@ -3,21 +3,44 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { me } from '../initial_state'
-import { CX } from '../constants'
+import { getWindowDimension } from '../utils/is_mobile'
+import {
+  CX,
+  MODAL_COMPOSE,
+  BREAKPOINT_EXTRA_SMALL,
+} from '../constants'
 import { openModal } from '../actions/modal'
 import Button from './button'
 
+const initialState = getWindowDimension()
+
 class FloatingActionButton extends React.PureComponent {
 
+  state = {
+    width: initialState.width,
+  }
+
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, false)
+  }
+
+  handleResize = () => {
+    const { width } = getWindowDimension()
+    this.setState({ width })
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
   render() {
-    const {
-      intl,
-      onOpenCompose,
-      isDesktop,
-    } = this.props
+    const { intl, onOpenCompose } = this.props
+    const { width } = this.state
 
     if (!me) return null
 
+    const isDesktop = width > BREAKPOINT_EXTRA_SMALL
     const message = intl.formatMessage(messages.gab)
 
     const containerClasses = CX({
@@ -56,13 +79,12 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenCompose: () => dispatch(openModal('COMPOSE')),
+  onOpenCompose: () => dispatch(openModal(MODAL_COMPOSE)),
 })
 
 FloatingActionButton.propTypes = {
   intl: PropTypes.object.isRequired,
   onOpenCompose: PropTypes.func.isRequired,
-  isDesktop: PropTypes.bool,
 }
 
 export default injectIntl(connect(null, mapDispatchToProps)(FloatingActionButton))

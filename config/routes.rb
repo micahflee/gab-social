@@ -221,15 +221,33 @@ Rails.application.routes.draw do
         resource :explore, only: :show, controller: :explore
       end
 
-      namespace :messages do
-        resource :conversations, only: [:show, :create]
-        resource :chats, only: [:show, :create]
-
+      resources :chat_conversation_accounts, only: :show do
+        resources :blocked_accounts, only: :index
+        resources :muted_accounts, only: :index
+      
         member do
-          post :block
-          post :unblock
-          post :mute
-          post :unmute
+          post :block_messenger
+          post :unblock_messenger
+          post :mute_messenger
+          post :unmute_messenger
+        end
+      end
+
+      namespace :chat_conversations do
+        resources :messages, only: :show
+        resources :approved_conversations
+        resources :requested_conversations, only: :index do
+          collection do
+            get :count
+          end
+        end
+      end
+
+      resources :chat_conversation, only: [:show, :create] do
+        member do
+          post :mark_chat_conversation_approved
+          post :mark_chat_conversation_unread
+          post :mark_chat_conversation_hidden
         end
       end
 
@@ -241,6 +259,7 @@ Rails.application.routes.draw do
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences, only: [:index]
       resources :group_categories, only: [:index]
+      resources :chat_messages, only: [:create, :destroy]
 
       get '/search', to: 'search#index', as: :search
       get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex

@@ -94,30 +94,32 @@ class ScrollableList extends React.PureComponent {
 
   handleScroll = throttle(() => {
     if (this.window) {
-      const { scrollTop, scrollHeight } = this.documentElement;
-      const { innerHeight } = this.window;
-      const offset = scrollHeight - scrollTop - innerHeight;
+      const { scrollTop, scrollHeight } = this.documentElement
+      const { innerHeight } = this.window
+      const offset = scrollHeight - scrollTop - innerHeight
 
       if (600 > offset && this.props.onLoadMore && this.props.hasMore && !this.props.isLoading && !this.props.disableInfiniteScroll) {
-        this.props.onLoadMore();
+        this.props.onLoadMore()
       }
 
       if (scrollTop < 100 && this.props.onScrollToTop) {
-        this.props.onScrollToTop();
+        this.props.onScrollToTop()
+      } else if (scrollTop < 100 && this.props.onScrollToBottom) {
+        this.props.onScrollToBottom()
       } else if (this.props.onScroll) {
-        this.props.onScroll();
+        this.props.onScroll()
       }
 
       if (!this.lastScrollWasSynthetic) {
         // If the last scroll wasn't caused by setScrollTop(), assume it was
         // intentional and cancel any pending scroll reset on mouse idle
-        this.scrollToTopOnMouseIdle = false;
+        this.scrollToTopOnMouseIdle = false
       }
-      this.lastScrollWasSynthetic = false;
+      this.lastScrollWasSynthetic = false
     }
   }, 150, {
     trailing: true,
-  });
+  })
 
   handleWheel = throttle(() => {
     this.scrollToTopOnMouseIdle = false;
@@ -175,6 +177,11 @@ class ScrollableList extends React.PureComponent {
     this.props.onLoadMore();
   }
 
+  setRef = (c) => {
+    this.node = c
+    if (this.props.scrollRef) this.props.scrollRef(c)
+  }
+
   render() {
     const {
       children,
@@ -186,6 +193,8 @@ class ScrollableList extends React.PureComponent {
       onLoadMore,
       placeholderComponent: Placeholder,
       placeholderCount,
+      onScrollToTop,
+      onScrollToBottom,
     } = this.props
     const childrenCount = React.Children.count(children);
 
@@ -210,8 +219,18 @@ class ScrollableList extends React.PureComponent {
       return <ColumnIndicator type='loading' />
     } else if (isLoading || childrenCount > 0 || hasMore || !emptyMessage) {
       return (
-        <div onMouseMove={this.handleMouseMove}>
+        <div onMouseMove={this.handleMouseMove} ref={this.setRef}>
           <div role='feed'>
+            {
+              (hasMore && onLoadMore && !isLoading) && !!onScrollToBottom &&
+              <LoadMore onClick={this.handleLoadMore} />
+            }
+
+            {
+              isLoading && !!onScrollToBottom &&
+              <ColumnIndicator type='loading' />
+            }
+            
             {
               !!this.props.children &&
               React.Children.map(this.props.children, (child, index) => (
@@ -234,12 +253,12 @@ class ScrollableList extends React.PureComponent {
             }
 
             {
-              (hasMore && onLoadMore && !isLoading) &&
+              (hasMore && onLoadMore && !isLoading) && !!onScrollToTop &&
               <LoadMore onClick={this.handleLoadMore} />
             }
 
             {
-              isLoading &&
+              isLoading && !!onScrollToTop &&
               <ColumnIndicator type='loading' />
             }
           </div>
@@ -268,9 +287,10 @@ ScrollableList.propTypes = {
   ]),
   children: PropTypes.node,
   onScrollToTop: PropTypes.func,
+  onScrollToBottom: PropTypes.func,
   onScroll: PropTypes.func,
   placeholderComponent: PropTypes.node,
-  placeholderCount: PropTypes.node,
+  placeholderCount: PropTypes.number,
   disableInfiniteScroll: PropTypes.bool,
 }
 

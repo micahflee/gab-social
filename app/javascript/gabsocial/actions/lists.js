@@ -297,7 +297,7 @@ export const fetchListSuggestions = (q) => (dispatch, getState) => {
 /**
  * 
  */
-export const fetchListSuggestionsReady = (query, accounts) => ({
+const fetchListSuggestionsReady = (query, accounts) => ({
   type: LIST_EDITOR_SUGGESTIONS_READY,
   query,
   accounts,

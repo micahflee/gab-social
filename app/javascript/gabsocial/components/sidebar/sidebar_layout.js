@@ -1,26 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import {
-  CX,
-  BREAKPOINT_SMALL,
-} from '../../constants'
+import { CX } from '../../constants'
 import {
   me,
   emailConfirmed,
 } from '../../initial_state'
 import Button from '../button'
-import { openModal } from '../../actions/modal'
-import Responsive from '../../features/ui/util/responsive_component'
 import Heading from '../heading'
 import BackButton from '../back_button'
 import Pills from '../pills'
 
 class SidebarLayout extends React.PureComponent {
-
-  handleOpenComposeModal = () => {
-    this.props.onOpenComposeModal()
-  }
 
   render() {
     const {
@@ -91,30 +82,6 @@ class SidebarLayout extends React.PureComponent {
                 {children}
               </nav>
 
-              {
-                !!me &&
-                <Responsive min={BREAKPOINT_SMALL}>
-                  <Button
-                    onClick={this.handleOpenComposeModal}
-                    className={_s.py15}
-                    icon='pencil'
-                    iconSize='18px'
-                    iconClassName={[_s.py5, _s.px5].join(' ')}
-                  />
-                </Responsive>
-              }
-
-              {
-                !!me &&
-                <Responsive max={BREAKPOINT_SMALL}>
-                  <Button
-                    onClick={this.handleOpenComposeModal}
-                    className={_s.py15}
-                    icon='pencil'
-                  />
-                </Responsive>
-              }
-
             </div>
           </div>
         </div>
@@ -124,18 +91,11 @@ class SidebarLayout extends React.PureComponent {
 
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onOpenComposeModal() {
-    dispatch(openModal('COMPOSE'))
-  },
-})
-
 SidebarLayout.propTypes = {
-  onOpenComposeModal: PropTypes.func.isRequired,
   actions: PropTypes.array,
   tabs: PropTypes.array,
   title: PropTypes.string,
   showBackBtn: PropTypes.bool,
 }
 
-export default connect(null, mapDispatchToProps)(SidebarLayout)
+export default SidebarLayout
