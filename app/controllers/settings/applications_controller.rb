@@ -60,6 +60,7 @@ class Settings::ApplicationsController < Settings::BaseController
   def application_params
     params.require(:doorkeeper_application).permit(
       :name,
+      :superapp,
       :redirect_uri,
       :scopes,
       :website

@@ -24,6 +24,12 @@
 %hr/
 
 = simple_form_for @application, url: settings_application_path(@application), method: :put do |f|
+  - if current_user.staff?
+    .fields-row
+      .fields-row__column.fields-group
+        = f.input 'superapp', as: :boolean, wrapper: :with_label, hint: false
+    %hr/
+
   = render 'fields', f: f
 
   .actions
