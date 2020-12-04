@@ -1,11 +1,15 @@
 # frozen_string_literal: true
 
 class REST::ChatMessageSerializer < ActiveModel::Serializer
-  attributes :id, :text, :language, :from_account_id,
+  attributes :id, :text_html, :text, :language, :from_account_id,
              :chat_conversation_id, :created_at
 
   def id
     object.id.to_s
+  end
+
+  def text_html
+    Formatter.instance.chatMessageText(object).strip
   end
 
   def from_account_id

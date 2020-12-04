@@ -72,15 +72,17 @@ export const expandChatMessages = (chatConversationId, params = {}, done = noop)
 
   dispatch(expandChatMessagesRequest(chatConversationId, isLoadingMore))
 
-  api(getState).get(`/api/v1/chat_conversations/messages/${chatConversationId}`, { params }).then((response) => {
-    console.log("response:", response)
+  api(getState).get(`/api/v1/chat_conversations/messages/${chatConversationId}`, {
+    params: {
+      max_id: params.maxId,
+      since_id: params.sinceId,
+    }
+  }).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
-    console.log("next:", next, getLinks(response).refs)
     dispatch(importFetchedChatMessages(response.data))
     dispatch(expandChatMessagesSuccess(chatConversationId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore))
     done()
   }).catch((error) => {
-    console.log("error:", error)
     dispatch(expandChatMessagesFail(chatConversationId, error, isLoadingMore))
     done()
   })

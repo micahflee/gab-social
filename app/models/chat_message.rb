@@ -25,4 +25,9 @@ class ChatMessage < ApplicationRecord
 
   scope :recent, -> { reorder(created_at: :desc) }
 
+  def emojis
+    return @emojis if defined?(@emojis)
+
+    @emojis = CustomEmoji.from_text(text)
+  end
 end

@@ -4,11 +4,10 @@ import throttle from 'lodash.throttle'
 import { List as ImmutableList } from 'immutable'
 import IntersectionObserverArticle from './intersection_observer_article'
 import IntersectionObserverWrapper from '../features/ui/util/intersection_observer_wrapper'
+import { MOUSE_IDLE_DELAY } from '../constants'
 import Block from './block'
 import ColumnIndicator from './column_indicator'
 import LoadMore from './load_more'
-
-const MOUSE_IDLE_DELAY = 300
 
 class ScrollableList extends React.PureComponent {
 
@@ -27,7 +26,7 @@ class ScrollableList extends React.PureComponent {
   lastScrollWasSynthetic = false;
   scrollToTopOnMouseIdle = false;
 
-  setScrollTop = newScrollTop => {
+  setScrollTop = (newScrollTop) => {
     if (this.documentElement.scrollTop !== newScrollTop) {
       this.lastScrollWasSynthetic = true;
       this.documentElement.scrollTop = newScrollTop;
@@ -104,8 +103,6 @@ class ScrollableList extends React.PureComponent {
 
       if (scrollTop < 100 && this.props.onScrollToTop) {
         this.props.onScrollToTop()
-      } else if (scrollTop < 100 && this.props.onScrollToBottom) {
-        this.props.onScrollToBottom()
       } else if (this.props.onScroll) {
         this.props.onScroll()
       }
@@ -194,7 +191,6 @@ class ScrollableList extends React.PureComponent {
       placeholderComponent: Placeholder,
       placeholderCount,
       onScrollToTop,
-      onScrollToBottom,
     } = this.props
     const childrenCount = React.Children.count(children);
 
@@ -221,16 +217,6 @@ class ScrollableList extends React.PureComponent {
       return (
         <div onMouseMove={this.handleMouseMove} ref={this.setRef}>
           <div role='feed'>
-            {
-              (hasMore && onLoadMore && !isLoading) && !!onScrollToBottom &&
-              <LoadMore onClick={this.handleLoadMore} />
-            }
-
-            {
-              isLoading && !!onScrollToBottom &&
-              <ColumnIndicator type='loading' />
-            }
-            
             {
               !!this.props.children &&
               React.Children.map(this.props.children, (child, index) => (
@@ -287,7 +273,6 @@ ScrollableList.propTypes = {
   ]),
   children: PropTypes.node,
   onScrollToTop: PropTypes.func,
-  onScrollToBottom: PropTypes.func,
   onScroll: PropTypes.func,
   placeholderComponent: PropTypes.node,
   placeholderCount: PropTypes.number,

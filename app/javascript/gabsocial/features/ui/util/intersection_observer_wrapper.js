@@ -23,9 +23,9 @@ export default class IntersectionObserverWrapper {
     };
 
     this.observer = new IntersectionObserver(onIntersection, options);
-    this.observerBacklog.forEach(([ id, node, callback ]) => {
+    Array.isArray(this.observerBacklog) ? this.observerBacklog.forEach(([ id, node, callback ]) => {
       this.observe(id, node, callback);
-    });
+    }) : null;
     this.observerBacklog = null;
   }
 

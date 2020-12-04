@@ -42,6 +42,10 @@ class ChatMessageDeletePopover extends React.PureComponent {
 const mapDispatchToProps = (dispatch) => ({
   onDeleteChatMessage(chatMessageId) {
     dispatch(deleteChatMessage(chatMessageId))
+    dispatch(closePopover())
+  },
+  onClosePopover() {
+    dispatch(closePopover())
   },
 })
 

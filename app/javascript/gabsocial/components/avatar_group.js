@@ -18,6 +18,7 @@ class AvatarGroup extends ImmutablePureComponent {
     return (
       <div className={[_s.d].join(' ')}>
         {
+          !!accounts &&
           accounts.map((account) => {
             const isPro = account.get('is_pro')
             const alt = `${account.get('display_name')} ${isPro ? '(PRO)' : ''}`.trim()

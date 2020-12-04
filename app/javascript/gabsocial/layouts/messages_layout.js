@@ -8,16 +8,40 @@ import {
   BREAKPOINT_EXTRA_SMALL,
   MODAL_CHAT_CONVERSATION_CREATE,
 } from '../constants'
+import { getWindowDimension } from '../utils/is_mobile'
 import Layout from './layout'
 import Responsive from '../features/ui/util/responsive_component'
-import List from '../components/list'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
-import ChatConversationsSearch from '../features/messages/components/chat_conversations_search'
-import ChatConversationsList from '../features/messages/components/chat_conversations_list'
-import ChatSettingsHeader from '../features/messages/components/chat_settings_header'
-import ChatConversationRequestsListItem from '../features/messages/components/chat_conversations_requests_list_item'
+import ChatSettingsSidebar from '../features/messages/components/chat_settings_sidebar'
+import ChatApprovedConversationsSidebar from '../features/messages/components/chat_approved_conversations_sidebar'
+import FooterBar from '../components/footer_bar'
+import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
+import ChatNavigationBar from '../components/navigation_bar/chat_navigation_bar_xs'
+import ChatMessageScrollingList from '../features/messages/components/chat_message_scrolling_list'
+import ChatMessageComposeForm from '../features/messages/components/chat_message_compose_form'
+import ChatConversationRequestApproveBar from '../features/messages/components/chat_conversation_request_approve_bar'
+
+const initialState = getWindowDimension()
 
 class MessagesLayout extends React.PureComponent {
+
+  state = {
+    width: initialState.width,
+  }
+
+  componentDidMount() {
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
+  handleResize = () => {
+    const { width } = getWindowDimension()
+    this.setState({ width })
+  }
 
   onClickAdd = () => {
     this.props.onOpenChatConversationCreateModal()
@@ -31,15 +55,54 @@ class MessagesLayout extends React.PureComponent {
       showBackBtn,
       source,
       currentConversationIsRequest,
+      selectedChatConversationId,
     } = this.props
+    const { width } = this.state
 
-    const mainBlockClasses = CX({
-      d: 1,
-      w1015PX: 1,
-      h100PC: 1,
-      flexRow: 1,
-      jcEnd: 1,
-    })
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
+
+    if (isXS) {
+      if (!selectedChatConversationId) {
+        return (
+          <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+            <DefaultNavigationBar
+              showBackBtn
+              actions={[
+                {
+                  icon: 'add',
+                  to: '/messages/new',
+                }
+              ]}
+              title={title}
+            />
+            <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
+                {
+                  (isSettings || currentConversationIsRequest) &&
+                  <ChatSettingsSidebar />
+                }
+                {
+                  !isSettings && !currentConversationIsRequest &&
+                  <ChatApprovedConversationsSidebar source={source} />
+                }
+              </div>
+              <FooterBar />
+            </main> 
+          </div>
+        )
+      } else {
+        return (
+          <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+            <ChatNavigationBar chatConversationId={selectedChatConversationId} />
+            <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
+              <ChatMessageScrollingList chatConversationId={selectedChatConversationId} isXS={isXS} />
+            </main>
+            { currentConversationIsRequest && <ChatConversationRequestApproveBar /> }
+            { !currentConversationIsRequest && <ChatMessageComposeForm chatConversationId={selectedChatConversationId} isXS={isXS} /> }
+          </div>
+        )
+      }
+    }
 
     return (
       <Layout
@@ -68,57 +131,17 @@ class MessagesLayout extends React.PureComponent {
             classNamesXS={[_s.d, _s.w100PC].join(' ')}
           >
             <ResponsiveClassesComponent
-              classNames={mainBlockClasses}
-              classNamesXS={[_s.d, _s.w100PC, _s.jcEnd].join(' ')}
+              classNames={[_s.d, _s.w1015PX, _s.h100PC, _s.flexRow, _s.jcEnd].join(' ')}
+              classNamesXS={[_s.d, _s.w100PC, _s.h100PC, _s.jcEnd].join(' ')}
             >
-
-              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                <div className={[_s.d, _s.w340PX, _s.h100PC, _s.bgPrimary, _s.borderLeft1PX, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}>
-                  <div className={[_s.d, _s.h100PC, _s.overflowHidden, _s.w100PC, _s.boxShadowNone].join(' ')}>
-                    
-                    {
-                      (isSettings || currentConversationIsRequest) &&
-                      <React.Fragment>
-                        <ChatSettingsHeader />
-                        <List
-                          items={[
-                            {
-                              title: 'Preferences',
-                              to: '/messages/settings',
-                            },
-                            {
-                              title: 'Message Requests',
-                              to: '/messages/requests',
-                            },
-                            {
-                              title: 'Blocked Chats',
-                              to: '/messages/blocks',
-                            },
-                            {
-                              title: 'Muted Chats',
-                              to: '/messages/mutes',
-                            },
-                          ]}
-                        />
-                      </React.Fragment>
-                    }
-
-                    {
-                      !isSettings && !currentConversationIsRequest &&
-                      <React.Fragment>
-                        <ChatConversationsSearch />
-                        <div className={[_s.d, _s.w100PC, _s.posAbs, _s.bottom0, _s.top60PX, _s.overflowYScroll].join(' ')}>
-                          <ChatConversationRequestsListItem />
-                          <ChatConversationsList source={source} />
-                        </div>
-                      </React.Fragment>
-                    }
-
-                  </div>
-                </div>
-              </Responsive>
-              
-
+              {
+                (isSettings || currentConversationIsRequest) &&
+                <ChatSettingsSidebar />
+              }
+              {
+                !isSettings && !currentConversationIsRequest &&
+                <ChatApprovedConversationsSidebar source={source} />
+              }
               <div className={[_s.d, _s.flexGrow1, _s.h100PC, _s.bgPrimary, _s.borderColorSecondary, _s.borderRight1PX, _s.z1].join(' ')}>
                 <div className={[_s.d, _s.w100PC, _s.h100PC].join(' ')}>
                   {children}
@@ -134,10 +157,13 @@ class MessagesLayout extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const selectedId = state.getIn(['chats', 'selectedChatConversationId'], null)
-  const currentConversationIsRequest = selectedId ? !state.getIn(['chat_conversations', selectedId, 'is_approved'], true) : false
+  const selectedChatConversationId = state.getIn(['chats', 'selectedChatConversationId'], null)
+  const currentConversationIsRequest = selectedChatConversationId ? !state.getIn(['chat_conversations', selectedChatConversationId, 'is_approved'], true) : false
 
-  return { currentConversationIsRequest }
+  return {
+    selectedChatConversationId,
+    currentConversationIsRequest,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => ({

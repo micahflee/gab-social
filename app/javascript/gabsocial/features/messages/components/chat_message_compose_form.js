@@ -28,54 +28,50 @@ class ChatMessagesComposeForm extends React.PureComponent {
   }
 
   onBlur = () => {
-    this.setState({ focused: false });
+    this.setState({ focused: false })
   }
 
   onFocus = () => {
-    this.setState({ focused: true });
+    this.setState({ focused: true })
   }
 
   onKeyDown = (e) => {
-    const { disabled } = this.props;
+    const { disabled } = this.props
 
-    if (disabled) {
-      e.preventDefault();
-      return;
-    }
+    if (disabled) return e.preventDefault()
 
     // Ignore key events during text composition
     // e.key may be a name of the physical key even in this case (e.x. Safari / Chrome on Mac)
-    if (e.which === 229 || e.isComposing) return;
+    if (e.which === 229) return
 
     switch (e.key) {
     case 'Escape':
       document.querySelector('#gabsocial').focus()
-      break;
+      break
     case 'Enter':
+      this.handleOnSendChatMessage()
+      return e.preventDefault()
     case 'Tab':
-      // 
-      break;
+      this.sendBtn.focus()
+      return e.preventDefault()
+      break
     }
 
-    // if (e.defaultPrevented || !this.props.onKeyDown) return;
+    if (e.defaultPrevented) return
   }
 
   setTextbox = (c) => {
     this.textbox = c
   }
 
+  setSendBtn = (c) => {
+    this.sendBtn = c
+  }
+
   render () {
-    const { chatConversationId } = this.props
+    const { isXS, chatConversationId } = this.props
     const { value } = this.state
     const disabled = false
-
-    const textareaContainerClasses = CX({
-      d: 1,
-      maxW100PC: 1,
-      flexGrow1: 1,
-      jcCenter: 1,
-      py5: 1,
-    })
 
     const textareaClasses = CX({
       d: 1,
@@ -95,31 +91,59 @@ class ChatMessagesComposeForm extends React.PureComponent {
       py10: 1,
     })
 
+    const textarea = (
+      <Textarea
+        id='chat-message-compose-input'
+        inputRef={this.setTextbox}
+        className={textareaClasses}
+        disabled={disabled}
+        placeholder='Type a new message...'
+        autoFocus={false}
+        value={value}
+        onChange={this.onChange}
+        onFocus={this.onFocus}
+        onBlur={this.onBlur}
+        onKeyDown={this.onKeyDown}
+        aria-autocomplete='list'
+      />
+    )
+
+    const button = (
+      <Button
+        buttonRef={this.setSendBtn}
+        disabled={disabled}
+        onClick={this.handleOnSendChatMessage}
+      >
+        <Text color='inherit' className={_s.px10}>Send</Text>
+      </Button>
+    )
+
+    if (isXS) {
+      return (
+        <div className={[_s.d, _s.z4, _s.minH58PX, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.minH58PX, _s.bgPrimary, _s.aiCenter, _s.z3, _s.bottom0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+            <div className={[_s.d, _s.w100PC, _s.pb5, _s.px15, _s.aiCenter, _s.jcCenter, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px10].join(' ')}>
+                <div className={[_s.d, _s.pr15, _s.flexGrow1, _s.py10].join(' ')}>
+                  {textarea}
+                </div>
+                <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
+                  {button}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    }
+
     return (
       <div className={[_s.d, _s.posAbs, _s.bottom0, _s.left0, _s.right0, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.bgPrimary, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
         <div className={[_s.d, _s.pr15, _s.flexGrow1, _s.py10].join(' ')}>
-          <Textarea
-            id='chat-message-compose-input'
-            inputRef={this.setTextbox}
-            className={textareaClasses}
-            disabled={disabled}
-            placeholder='Type a new message...'
-            autoFocus={false}
-            value={value}
-            onChange={this.onChange}
-            onFocus={this.onFocus}
-            onBlur={this.onBlur}
-            onKeyDown={this.onKeyDown}
-            aria-autocomplete='list'
-          />
+          {textarea}
         </div>
         <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
-          <Button
-            disabled={disabled}
-            onClick={this.handleOnSendChatMessage}
-          >
-            <Text color='inherit' className={_s.px10}>Send</Text>
-          </Button>
+          {button}
         </div>
       </div>
     )
@@ -135,6 +159,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 ChatMessagesComposeForm.propTypes = {
   chatConversationId: PropTypes.string,
+  isXS: PropTypes.bool,
   onSendMessage: PropTypes.func.isRequired,
 }
 

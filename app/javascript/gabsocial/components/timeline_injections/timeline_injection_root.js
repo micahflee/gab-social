@@ -51,7 +51,6 @@ class TimelineInjectionRoot extends React.PureComponent {
 
   handleResize = () => {
     const { width } = getWindowDimension()
-
     this.setState({ width })
   }
 

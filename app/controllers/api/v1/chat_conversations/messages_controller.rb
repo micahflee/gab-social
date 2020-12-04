@@ -55,7 +55,7 @@ class Api::V1::ChatConversations::MessagesController < Api::BaseController
   end
 
   def insert_pagination_headers
-    set_pagination_headers(next_path, nil)
+    set_pagination_headers(next_path, prev_path)
   end
 
   def pagination_params(core_params)
@@ -63,10 +63,27 @@ class Api::V1::ChatConversations::MessagesController < Api::BaseController
   end
 
   def next_path
-    api_v1_chat_conversations_message_url params[:id], pagination_params(since_id: pagination_since_id)
+    if records_continue?
+      api_v1_chat_conversations_message_url params[:id], pagination_params(max_id: pagination_max_id)
+    end
+  end
+
+  def prev_path
+    unless @chats.empty?
+      api_v1_chat_conversations_message_url params[:id], pagination_params(since_id: pagination_since_id)
+    end
+  end
+
+  def pagination_max_id
+    @chats.last.id
   end
 
   def pagination_since_id
     @chats.first.id
   end
+
+  def records_continue?
+    @chats.size == limit_param(DEFAULT_CHAT_CONVERSATION_MESSAGE_LIMIT)
+  end
+
 end

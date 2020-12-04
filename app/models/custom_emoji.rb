@@ -54,14 +54,14 @@ class CustomEmoji < ApplicationRecord
   end
 
   class << self
-    def from_text(text, domain)
+    def from_text(text)
       return [] if text.blank?
 
       shortcodes = text.scan(SCAN_RE).map(&:first).uniq
 
       return [] if shortcodes.empty?
 
-      EntityCache.instance.emoji(shortcodes, domain)
+      EntityCache.instance.emoji(shortcodes)
     end
 
     def search(shortcode)
@@ -72,10 +72,7 @@ class CustomEmoji < ApplicationRecord
   private
 
   def remove_entity_cache
-    Rails.cache.delete(EntityCache.instance.to_key(:emoji, shortcode, domain))
+    Rails.cache.delete(EntityCache.instance.to_key(:emoji, shortcode,))
   end
 
-  def downcase_domain
-    self.domain = domain.downcase unless domain.nil?
-  end
 end

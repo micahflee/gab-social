@@ -10,7 +10,7 @@ class Messages extends React.PureComponent {
 
   render () {
     const {
-      account,
+      isXS,
       selectedChatConversationId,
       chatConverationIsRequest,
     } = this.props
@@ -48,6 +48,7 @@ const mapStateToProps = (state, props) => {
 }
 
 Messages.propTypes = {
+  isXS: PropTypes.bool,
   selectedChatConversationId: PropTypes.string,
   chatConverationIsRequest: PropTypes.bool.isRequired,
 }

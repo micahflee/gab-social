@@ -80,6 +80,21 @@ class Formatter
 
   include ActionView::Helpers::TextHelper
 
+  def chatMessageText(chatMessage)
+    raw_content = chatMessage.text
+
+    return '' if raw_content.blank?
+
+    html = raw_content
+    html = encode_and_link_urls(html, nil, keep_html: false)
+    html = reformat(html, true)
+    html = encode_custom_emojis(html, chatMessage.emojis)
+
+    html.html_safe # rubocop:disable Rails/OutputSafety
+
+    html
+  end
+
   def format(status, **options)
     if options[:use_markdown]
       raw_content = status.markdown

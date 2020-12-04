@@ -19,6 +19,7 @@ class BackButton extends React.PureComponent {
 
   handleBackClick = () => {
     this.historyBack()
+    if (!!this.props.onClick) this.props.onClick()
   }
 
   render() {

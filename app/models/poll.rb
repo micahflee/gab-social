@@ -57,7 +57,7 @@ class Poll < ApplicationRecord
   end
 
   def emojis
-    @emojis ||= CustomEmoji.from_text(options.join(' '), account.domain)
+    @emojis ||= CustomEmoji.from_text(options.join(' '))
   end
 
   class Option < ActiveModelSerializers::Model

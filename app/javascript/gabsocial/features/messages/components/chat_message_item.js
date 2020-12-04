@@ -75,7 +75,7 @@ class ChatMessageItem extends ImmutablePureComponent {
     const account = chatMessage.get('account')
     if (!account) return <div />
 
-    const content = { __html: chatMessage.get('text') }
+    const content = { __html: chatMessage.get('text_html') }
     const alt = account.get('id', null) === me
     const createdAt = chatMessage.get('created_at')
 
