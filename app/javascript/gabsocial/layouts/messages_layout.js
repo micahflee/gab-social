@@ -62,7 +62,7 @@ class MessagesLayout extends React.PureComponent {
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
     if (isXS) {
-      if (!selectedChatConversationId) {
+      if (!selectedChatConversationId && !isSettings) {
         return (
           <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
             <DefaultNavigationBar
@@ -71,6 +71,10 @@ class MessagesLayout extends React.PureComponent {
                 {
                   icon: 'add',
                   to: '/messages/new',
+                },
+                {
+                  icon: 'cog',
+                  to: '/messages/settings',
                 }
               ]}
               title={title}
@@ -79,7 +83,7 @@ class MessagesLayout extends React.PureComponent {
               <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
                 {
                   (isSettings || currentConversationIsRequest) &&
-                  <ChatSettingsSidebar />
+                  <ChatSettingsSidebar isXS />
                 }
                 {
                   !isSettings && !currentConversationIsRequest &&
@@ -90,7 +94,7 @@ class MessagesLayout extends React.PureComponent {
             </main> 
           </div>
         )
-      } else {
+      } else if (selectedChatConversationId && !isSettings) {
         return (
           <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
             <ChatNavigationBar chatConversationId={selectedChatConversationId} />
@@ -101,6 +105,8 @@ class MessagesLayout extends React.PureComponent {
             { !currentConversationIsRequest && <ChatMessageComposeForm chatConversationId={selectedChatConversationId} isXS={isXS} /> }
           </div>
         )
+      } else {
+        //settings
       }
     }
 

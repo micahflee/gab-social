@@ -7,12 +7,15 @@ import List from '../../../components/list'
 class ChatSettingsSidebar extends React.PureComponent {
 
   render() {
+    const { isXS } = this.props
+
     return (
       <ResponsiveClassesComponent
         classNames={[_s.d, _s.w340PX, _s.h100PC, _s.bgPrimary, _s.borderLeft1PX, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
         classNamesSmall={[_s.d, _s.w300PX, _s.h100PC, _s.bgPrimary, _s.borderLeft1PX, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
+        classNamesXS={[_s.d, _s.w100PC,  _s.bgPrimary].join(' ')}
       >
-        <ChatSettingsHeader />
+        { !isXS && <ChatSettingsHeader /> }
         <List
           items={[
             {
@@ -37,6 +40,10 @@ class ChatSettingsSidebar extends React.PureComponent {
     )
   }
 
+}
+
+ChatSettingsSidebar.propTypes = {
+  isXS: PropTypes.bool,
 }
 
 export default ChatSettingsSidebar
