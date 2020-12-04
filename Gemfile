@@ -12,7 +12,7 @@ gem 'thor', '~> 0.20'
 gem 'hamlit-rails', '~> 0.2'
 gem 'pg', '~> 1.2.3'
 gem 'makara', '~> 0.4'
-gem 'pghero', '~> 2.4.2'
+gem 'pghero', '~> 2.7.0'
 gem 'dotenv-rails', '~> 2.7'
 
 gem 'aws-sdk-s3', '~> 1.41', require: false
