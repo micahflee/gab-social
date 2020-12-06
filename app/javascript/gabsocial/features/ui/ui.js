@@ -54,6 +54,8 @@ import {
   BlockedAccounts,
   BlockedDomains,
   BookmarkedStatuses,
+  CaliforniaConsumerProtection,
+  CaliforniaConsumerProtectionContact,
   CommunityTimeline,
   Compose,
   DMCA,
@@ -187,6 +189,8 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/about/privacy' publicRoute exact page={AboutPage} component={PrivacyPolicy} content={children} componentParams={{ title: 'Privacy Policy' }} />
         <WrappedRoute path='/about/sales' publicRoute exact page={AboutPage} component={TermsOfSale} content={children} componentParams={{ title: 'Terms of Sale' }} />
         <WrappedRoute path='/about/tos' publicRoute exact page={AboutPage} component={TermsOfService} content={children} componentParams={{ title: 'Terms of Service' }} />
+        <WrappedRoute path='/about/ccpa' publicRoute exact page={AboutPage} component={CaliforniaConsumerProtection} content={children} componentParams={{ title: 'Terms of Service' }} />
+        <WrappedRoute path='/about/ccpa/contact' publicRoute exact page={AboutPage} component={CaliforniaConsumerProtectionContact} content={children} componentParams={{ title: 'Terms of Service' }} />
 
         <WrappedRoute path='/explore' publicRoute page={ExplorePage} component={ExploreTimeline} content={children} componentParams={{ title: 'Explore' }} />
         <WrappedRoute path='/suggestions' exact page={BasicPage} component={Suggestions} content={children} componentParams={{ title: 'Suggestions' }} />

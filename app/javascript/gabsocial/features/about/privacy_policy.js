@@ -279,6 +279,40 @@ export default class PrivacyPolicy extends React.PureComponent {
             <Text tagName='p' className={_s.mt15} size='medium'>It is our policy to post any changes we make to our privacy policy on this page with a notice that the privacy policy has been updated on the Website home page. If we make material changes to how we treat our users’ personal information, we will notify you through a notice on the Website home page. The date the privacy policy was last revised is identified at the top of the page. You are responsible for ensuring we have an up-to-date active and deliverable email address for you, and for periodically visiting our Website and this privacy policy to check for any changes.</Text>
 
             <br />
+            <Heading size='h2'>Your California Privacy Rights</Heading>
+            <Text tagName='p' className={_s.mt15} size='medium'>If you are a California resident, California law may provide you with additional rights regarding our use of your personal information. To learn more about your California privacy rights, visit our CCPA Privacy Notice at&nbsp;
+              <Button
+                isText
+                underlineOnHover
+                color='brand'
+                backgroundColor='none'
+                className={_s.displayInline}
+                href='/about/ccpa'
+              >
+                https://gab.com/about/ccpa
+              </Button>
+            </Text>
+            <Text tagName='p' className={_s.mt15} size='medium'>California's "Shine the Light" law (Civil Code Section § 1798.83) permits users of our Website that are California residents to request certain information regarding our disclosure of personal information to third parties for their direct marketing purposes. To make such a request, please send us an e-mail to&nbsp;
+              <Button
+                isText
+                underlineOnHover
+                color='brand'
+                backgroundColor='none'
+                className={_s.displayInline}
+                href='mailto:support@gab.com'
+              >
+                support@gab.com
+              </Button>
+              &nbsp;or write to us at
+            </Text>
+            <Text tagName='p' className={[_s.mt15].join(' ')} size='medium'>
+              Gab AI Inc.<br />
+              700 N State Street<br />
+              Clarks Summit, PA 18411<br />
+              Attn: Data Privacy Department
+            </Text>
+            
+            <br />
             <Heading size='h2'>Contact Information</Heading>
             <Text tagName='p' className={_s.mt15} size='medium'>To ask questions or comment about this privacy policy and our privacy practices, contact us at:</Text>
             <Text tagName='p' className={_s.mt15} size='medium'>

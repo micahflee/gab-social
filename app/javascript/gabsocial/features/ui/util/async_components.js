@@ -7,6 +7,8 @@ export function BlockAccountModal() { return import(/* webpackChunkName: "compon
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
+export function CaliforniaConsumerProtection() { return import(/* webpackChunkName: "features/california_consumer_protection" */'../../about/california_consumer_protection') }
+export function CaliforniaConsumerProtectionContact() { return import(/* webpackChunkName: "features/california_consumer_protection_contact" */'../../about/california_consumer_protection_contact') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
 export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }
 export function CommunityTimelineSettingsModal() { return import(/* webpackChunkName: "components/community_timeline_settings_modal" */'../../../components/modal/community_timeline_settings_modal') }

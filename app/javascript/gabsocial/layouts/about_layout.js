@@ -53,6 +53,10 @@ class AboutLayout extends React.PureComponent {
         title: 'Terms of Service',
         to: '/about/tos',
       },
+      {
+        title: 'California Consumer Protection',
+        to: '/about/ccpa',
+      },
     ]
   }
 
