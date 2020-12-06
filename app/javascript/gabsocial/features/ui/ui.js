@@ -62,6 +62,7 @@ import {
   ChatConversationMutedAccounts,
   CommunityTimeline,
   Compose,
+  Deck,
   DMCA,
   ExploreTimeline,
   // Filters,
@@ -186,6 +187,8 @@ class SwitchingArea extends React.PureComponent {
         }
 
         <WrappedRoute path='/home' exact page={HomePage} component={HomeTimeline} content={children} />
+
+        <WrappedRoute path='/deck' exact page={DeckPage} component={Deck} content={children} />
 
         <WrappedRoute path='/about' publicRoute exact page={AboutPage} component={About} content={children} componentParams={{ title: 'About' }} />
         <WrappedRoute path='/about/assets' publicRoute exact page={AboutPage} component={Assets} content={children} componentParams={{ title: 'Assets' }} />
