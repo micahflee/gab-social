@@ -23,6 +23,7 @@ export function ComposeForm() { return import(/* webpackChunkName: "components/c
 export function ComposeModal() { return import(/* webpackChunkName: "components/compose_modal" */'../../../components/modal/compose_modal') }
 export function ConfirmationModal() { return import(/* webpackChunkName: "components/confirmation_modal" */'../../../components/modal/confirmation_modal') }
 export function DatePickerPopover() { return import(/* webpackChunkName: "components/date_picker_popover" */'../../../components/popover/date_picker_popover') }
+export function Deck() { return import(/* webpackChunkName: "features/deck" */'../../deck') }
 export function DisplayOptionsModal() { return import(/* webpackChunkName: "components/display_options_modal" */'../../../components/modal/display_options_modal') }
 export function DMCA() { return import(/* webpackChunkName: "features/about/dmca" */'../../about/dmca') }
 export function EditProfileModal() { return import(/* webpackChunkName: "components/edit_profile_modal" */'../../../components/modal/edit_profile_modal') }

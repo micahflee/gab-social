@@ -389,6 +389,7 @@ pre {
 .displayNone { display: none; }
 .displayBlock { display: block; }
 .displayInline { display: inline; }
+.displayInlineBlock { display: inline-block; }
 .displayFlex { display: flex !important; }
 
 .cursorText { cursor: text; }
@@ -547,6 +548,7 @@ pre {
 .minH40PX { min-height: 40px; }
 .minH28PX { min-height: 28px; }
 
+.h100VH { height: 100vh; }
 .h100PC { height: 100%; }
 .h350PX { height: 350px; }
 .h260PX { height: 260px; }
@@ -590,6 +592,7 @@ pre {
 .w1255PX { width: 1255px; }
 .w1015PX { width: 1015px; }
 .w645PX { width: 645px; }
+.w360PX { width: 360px; }
 .w340PX { width: 340px; }
 .w330PX { width: 330px; }
 .w300PX { width: 300px; }

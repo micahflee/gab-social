@@ -82,6 +82,7 @@ defaults: &defaults
     - links
     - messages
     - message
+    - deck
   bootstrap_timeline_accounts: ''
 
 development:

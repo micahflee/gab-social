@@ -18,6 +18,7 @@ const makeMapStateToProps = () => {
     const isReposts = !!props.notification.get('repost')
     const isGrouped = isFollows || isLikes || isReposts
     const lastReadId = state.getIn(['notifications', 'lastReadId'])
+    const isCompact = state.getIn(['settings', 'isCompact'])
 
     if (isFollows) {
       let lastUpdated
@@ -40,6 +41,7 @@ const makeMapStateToProps = () => {
         createdAt: lastUpdated,
         isUnread: isUnread,
         statusId: undefined,
+        isCompact,
       }
     } else if (isLikes || isReposts) {
       const theType = isLikes ? 'like' : 'repost'
@@ -62,6 +64,7 @@ const makeMapStateToProps = () => {
         createdAt: lastUpdated,
         isUnread: isUnread,
         statusId: list.get('status'),
+        isCompact,
       }
     } else if (!isGrouped) {
       const notification = getNotification(state, props.notification, props.notification.get('account'))
@@ -74,6 +77,7 @@ const makeMapStateToProps = () => {
         createdAt: notification.get('created_at'),
         isUnread: lastReadId < notification.get('id'),
         statusId: statusId || undefined,
+        isCompact,
       }
     }
   }

@@ -21,6 +21,7 @@ const initialState = ImmutableMap({
   saved: true,
   shownOnboarding: false,
   skinTone: 1,
+  isCompact: false,
   commentSorting: COMMENT_SORTING_TYPE_OLDEST,
 
   // every dismiss reduces by half or set to zero for pwa, shop, pro

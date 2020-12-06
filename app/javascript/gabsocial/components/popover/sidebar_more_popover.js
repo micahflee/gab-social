@@ -14,6 +14,10 @@ class SidebarMorePopover extends React.PureComponent {
     this.props.onOpenDisplayModal()
   }
 
+  handleOnClosePopover = () => {
+    this.props.onClosePopover()
+  }
+
   render() {
     const { intl, isXS } = this.props
 
@@ -28,6 +32,11 @@ class SidebarMorePopover extends React.PureComponent {
             {
               title: intl.formatMessage(messages.help),
               href: 'https://help.gab.com',
+            },
+            {
+              title: 'Gab Deck',
+              to: '/deck',
+              onClick: this.handleOnClosePopover,
             },
             {
               title: intl.formatMessage(messages.display),
@@ -66,6 +75,9 @@ const messages = defineMessages({
 })
 
 const mapDispatchToProps = (dispatch) => ({
+  onClosePopover() {
+    dispatch(closePopover())
+  },
   onOpenDisplayModal: () => {
     dispatch(closePopover())
     dispatch(openModal(MODAL_DISPLAY_OPTIONS))

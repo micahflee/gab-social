@@ -75,6 +75,7 @@ class DisplayName extends ImmutablePureComponent {
       isSmall,
       isComment,
       isCentered,
+      isInline,
     } = this.props
 
     if (!account) return null
@@ -86,6 +87,7 @@ class DisplayName extends ImmutablePureComponent {
       flexRow: !isMultiline,
       cursorPointer: !noHover,
       aiCenter: isCentered,
+      displayInlineBlock: isInline,
     })
 
     const displayNameClasses = CX({
@@ -209,6 +211,7 @@ DisplayName.propTypes = {
   noUsername: PropTypes.bool,
   isComment: PropTypes.bool,
   isCentered: PropTypes.bool,
+  isInline: PropTypes.bool,
 }
 
 export default (connect(null, mapDispatchToProps)(DisplayName))

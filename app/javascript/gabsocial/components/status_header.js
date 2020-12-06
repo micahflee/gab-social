@@ -37,6 +37,7 @@ class StatusHeader extends ImmutablePureComponent {
       intl,
       reduced,
       status,
+      isCompact,
     } = this.props
 
     const statusUrl = `/${status.getIn(['account', 'acct'])}/posts/${status.get('id')}`
@@ -48,7 +49,7 @@ class StatusHeader extends ImmutablePureComponent {
       pb10: reduced,
     })
 
-    const avatarSize = reduced ? 20 : 46
+    const avatarSize = reduced ? 20 : isCompact ? 38 : 46
 
     const visibility = status.get('visibility')
 
@@ -75,6 +76,13 @@ class StatusHeader extends ImmutablePureComponent {
       timeUntilExpiration = moment(expirationDate).fromNow()
     }
 
+    const textContainerClasses = CX({
+      d: 1,
+      aiStart: 1,
+      flexGrow1 :1,
+      mt5: !isCompact,
+    })
+
     return (
       <div className={containerClasses}>
         <div className={[_s.d, _s.flexRow, _s.mt5].join(' ')}>
@@ -90,7 +98,7 @@ class StatusHeader extends ImmutablePureComponent {
             </NavLink>
           }
 
-          <div className={[_s.d, _s.aiStart, _s.flexGrow1, _s.mt5].join(' ')}>
+          <div className={textContainerClasses}>
 
             <div className={[_s.d, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
               <NavLink

@@ -40,6 +40,7 @@ class TimelineInjectionLayout extends React.PureComponent {
       buttonHref,
       buttonTitle,
       isXS,
+      isCompact,
     } = this.props
     const { dismissed } = this.state
 
@@ -52,7 +53,7 @@ class TimelineInjectionLayout extends React.PureComponent {
       borderTop1PX: isXS,
       borderBottom1PX: isXS,
       border1PX: !isXS,
-      radiusSmall: !isXS,
+      radiusSmall: !isXS && !isCompact,
       borderColorSecondary: 1,
       bgPrimary: 1,
       overflowHidden: 1,
@@ -105,6 +106,11 @@ class TimelineInjectionLayout extends React.PureComponent {
 
 }
 
+
+const mapStateToProps = (state) => ({
+  isCompact: state.getIn(['settings', 'isCompact']),
+})
+
 TimelineInjectionLayout.propTypes = {
   title: PropTypes.string,
   buttonLink: PropTypes.string,
@@ -115,4 +121,4 @@ TimelineInjectionLayout.propTypes = {
   isXS: PropTypes.bool,
 }
 
-export default connect()(TimelineInjectionLayout)
+export default connect(mapStateToProps)(TimelineInjectionLayout)

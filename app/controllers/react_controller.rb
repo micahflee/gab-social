@@ -52,7 +52,7 @@ class ReactController < ApplicationController
   end
 
   def find_route_matches
-    request.path.match(/\A\/(home|news|api|suggestions|links|chat_conversations|chat_conversation_accounts|messages|shortcuts|group|groups|list|lists|notifications|tags|compose|follow_requests|admin|account|settings|filters|timeline|blocks|mutes)/)
+    request.path.match(/\A\/(home|news|api|deck|suggestions|links|chat_conversations|chat_conversation_accounts|messages|shortcuts|group|groups|list|lists|notifications|tags|compose|follow_requests|admin|account|settings|filters|timeline|blocks|mutes)/)
   end
 
   def find_public_route_matches

@@ -46,7 +46,11 @@ class StatusActionBar extends ImmutablePureComponent {
   }
 
   render() {
-    const { status, intl } = this.props
+    const {
+      status,
+      intl,
+      isCompact,
+    } = this.props
 
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
 
@@ -66,7 +70,7 @@ class StatusActionBar extends ImmutablePureComponent {
 
     const containerClasses = CX({
       d: 1,
-      px10: 1,
+      px10: !isCompact,
       mt10: !shouldCondense,
       mt5: shouldCondense,
     })
@@ -76,8 +80,9 @@ class StatusActionBar extends ImmutablePureComponent {
       py2: 1,
       flexRow: 1,
       w100PC: 1,
-      borderTop1PX: !shouldCondense,
-      borderColorSecondary: !shouldCondense,
+      borderTop1PX: !shouldCondense && !isCompact,
+      borderColorSecondary: !shouldCondense || isCompact,
+      borderBottom1PX: isCompact,
       mt5: hasInteractions,
     })
 
@@ -105,11 +110,19 @@ class StatusActionBar extends ImmutablePureComponent {
       py5: 1,
     })
 
+    const interactionContainerClasses = CX({
+      d: 1,
+      flexRow: 1,
+      aiEnd: 1,
+      px5: !isCompact,
+      px15: isCompact,
+    })
+
     return (
       <div className={containerClasses}>
         {
           hasInteractions && 
-          <div className={[_s.d, _s.flexRow, _s.aiEnd, _s.px5].join(' ')}>
+          <div className={interactionContainerClasses}>
             {
               favoriteCount > 0 &&
               <button
@@ -156,11 +169,13 @@ class StatusActionBar extends ImmutablePureComponent {
               icon={!!status.get('favourited') ? 'liked' : 'like'}
               active={!!status.get('favourited')}
               onClick={this.handleFavoriteClick}
+              isCompact={isCompact}
             />
             <StatusActionBarItem
               title={intl.formatMessage(messages.comment)}
               icon='comment'
               onClick={this.handleReplyClick}
+              isCompact={isCompact}
             />
             <StatusActionBarItem
               title={intl.formatMessage(messages.repost)}
@@ -169,6 +184,7 @@ class StatusActionBar extends ImmutablePureComponent {
               disabled={!publicStatus}
               active={!!status.get('reblogged')}
               onClick={this.handleRepostClick}
+              isCompact={isCompact}
             />
             <StatusActionBarItem
               title={intl.formatMessage(messages.quote)}
@@ -176,6 +192,7 @@ class StatusActionBar extends ImmutablePureComponent {
               icon={!publicStatus ? 'lock' : 'quote'}
               disabled={!publicStatus}
               onClick={this.handleQuoteClick}
+              isCompact={isCompact}
             />
             <StatusActionBarItem
               title={intl.formatMessage(messages.share)}
@@ -183,6 +200,7 @@ class StatusActionBar extends ImmutablePureComponent {
               buttonRef={this.setShareButton}
               icon='share'
               onClick={this.handleShareClick}
+              isCompact={isCompact}
             />
           </div>
         </div>
@@ -214,6 +232,7 @@ StatusActionBar.propTypes = {
   status: ImmutablePropTypes.map.isRequired,
   onOpenLikes: PropTypes.func.isRequired,
   onOpenReposts: PropTypes.func.isRequired,
+  isCompact: PropTypes.bool,
 }
 
 export default injectIntl(StatusActionBar)

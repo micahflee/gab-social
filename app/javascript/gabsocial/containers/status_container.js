@@ -183,6 +183,7 @@ const makeMapStateToProps = () => {
       isComment,
       commentSortingType,
       isComposeModalOpen: state.getIn(['modal', 'modalType']) === 'COMPOSE',
+      isCompact: state.getIn(['settings', 'isCompact']),
     }
   }
 
