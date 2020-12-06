@@ -48,7 +48,7 @@ import AboutPage from '../../pages/about_page'
 import LinkPage from '../../pages/link_page'
 import MessagesPage from '../../pages/messages_page'
 import ComposePage from '../../pages/compose_page'
-import DeckPage from '../../pages/compose_page'
+import DeckPage from '../../pages/deck_page'
 
 import {
   About,

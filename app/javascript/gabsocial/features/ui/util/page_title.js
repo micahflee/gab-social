@@ -16,7 +16,7 @@ class PageTitle extends React.PureComponent {
   }
 
   updatePageTitle = ({ badge, path}) => {
-    let realPath = Array.isArray(path) ? path.join(' / ') : path
+    let realPath = Array.isArray(path) ? path.join(' / ') : `${path}`
     realPath = realPath.trim()
 
     const realBadge = !!badge ? `(${badge})` : ''

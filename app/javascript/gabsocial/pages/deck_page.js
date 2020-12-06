@@ -10,7 +10,7 @@ class DeckPage extends React.PureComponent {
 
     return (
       <DeckLayout>
-        <PageTitle path={'Deck'} />
+        <PageTitle path='Deck' />
         {children}
       </DeckLayout>
     )
