@@ -44,11 +44,13 @@ const saveUserProfileInformationRequest = () => ({
 
 const saveUserProfileInformationSuccess = (userProfileData) => ({
   type: SAVE_USER_PROFILE_INFORMATION_FETCH_SUCCESS,
+  showToast: true,
   userProfileData,
 })
 
 const saveUserProfileInformationFail = (error) => ({
   type: SAVE_USER_PROFILE_INFORMATION_FETCH_FAIL,
+  showToast: true,
   error,
 })
 

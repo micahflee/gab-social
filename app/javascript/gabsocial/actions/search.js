@@ -86,6 +86,7 @@ const fetchSearchSuccess = (results) => ({
 
 const fetchSearchFail = (error) => ({
   type: SEARCH_FETCH_FAIL,
+  showToast: true,
   error,
 })
 

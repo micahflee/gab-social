@@ -39,6 +39,7 @@ export const fetchBlocksSuccess = (accounts, next) => ({
 
 export const fetchBlocksFail = (error) => ({
   type: BLOCKS_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -75,5 +76,6 @@ export const expandBlocksSuccess = (accounts, next) => ({
 
 export const expandBlocksFail = (error) => ({
   type: BLOCKS_EXPAND_FAIL,
+  showToast: true,
   error,
 })

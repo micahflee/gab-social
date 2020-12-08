@@ -65,11 +65,13 @@ const submitReportRequest = () => ({
 
 const submitReportSuccess = (report) => ({
   type: REPORT_SUBMIT_SUCCESS,
+  showToast: true,
   report,
 })
 
 const submitReportFail = (error) => ({
   type: REPORT_SUBMIT_FAIL,
+  showToast: true,
   error,
 })
 

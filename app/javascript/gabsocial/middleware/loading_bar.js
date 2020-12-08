@@ -1,3 +1,4 @@
+import isObject from 'lodash.isobject'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
 const defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED']
@@ -5,8 +6,8 @@ const defaultTypeSuffixes = ['PENDING', 'FULFILLED', 'REJECTED']
 export default function loadingBarMiddleware(config = {}) {
   const promiseTypeSuffixes = config.promiseTypeSuffixes || defaultTypeSuffixes
 
-  return ({ dispatch }) => next => (action) => {
-    if (action.type && action.type.indexOf('TIMELINE') > -1) {
+  return ({ dispatch }) => (next) => (action) => {
+    if (isObject(action) && action.type && action.type.indexOf('TIMELINE') > -1) {
       const [PENDING, FULFILLED, REJECTED] = promiseTypeSuffixes
 
       const isPending = new RegExp(`${PENDING}$`, 'g')

@@ -30,8 +30,8 @@ const fetchFiltersSuccess = (filters) => ({
   filters,
 })
 
-const fetchFiltersFail = (err) => ({
+const fetchFiltersFail = (error) => ({
   type: FILTERS_FETCH_FAIL,
-  err,
+  error,
   skipAlert: true,
 })

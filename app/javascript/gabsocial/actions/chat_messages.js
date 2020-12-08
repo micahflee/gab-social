@@ -48,6 +48,7 @@ export const sendChatMessageSuccess = (chatMessage) => ({
 
 const sendChatMessageFail = (error) => ({
   type: CHAT_MESSAGES_SEND_FAIL,
+  showToast: true,
   error,
 })
 
@@ -77,9 +78,11 @@ const deleteChatMessageRequest = (chatMessageId) => ({
 
 const deleteChatMessageSuccess = () => ({
   type: CHAT_MESSAGES_DELETE_SUCCESS,
+  showToast: true,
 })
 
 const deleteChatMessageFail = (error) => ({
   type: CHAT_MESSAGES_DELETE_FAIL,
+  showToast: true,
   error,
 })

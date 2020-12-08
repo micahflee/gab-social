@@ -43,6 +43,7 @@ const fetchFavoritedStatusesSuccess = (statuses, next) => ({
 
 const fetchFavoritedStatusesFail = (error) => ({
   type: FAVORITED_STATUSES_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -81,5 +82,6 @@ const expandFavoritedStatusesSuccess = (statuses, next) => ({
 
 const expandFavoritedStatusesFail = (error) => ({
   type: FAVORITED_STATUSES_EXPAND_FAIL,
+  showToast: true,
   error,
 })

@@ -106,6 +106,7 @@ export const expandChatMessagesSuccess = (chatConversationId, chatMessages, next
 
 export const expandChatMessagesFail = (chatConversationId, error, isLoadingMore) => ({
   type: CHAT_CONVERSATION_MESSAGES_EXPAND_FAIL,
+  showToast: true,
   chatConversationId,
   error,
   skipLoading: !isLoadingMore,

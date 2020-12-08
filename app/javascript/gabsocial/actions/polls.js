@@ -29,11 +29,13 @@ const voteRequest = () => ({
 
 const voteSuccess = (poll) => ({
   type: POLL_VOTE_SUCCESS,
+  showToast: true,
   poll,
 })
 
 const voteFail = (error) => ({
   type: POLL_VOTE_FAIL,
+  showToast: true,
   error,
 })
 

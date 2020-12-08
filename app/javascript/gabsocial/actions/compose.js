@@ -398,11 +398,13 @@ const submitComposeRequest = () => ({
 
 const submitComposeSuccess = (status) => ({
   type: COMPOSE_SUBMIT_SUCCESS,
+  showToast: true,
   status,
 })
 
 const submitComposeFail = (error) => ({
   type: COMPOSE_SUBMIT_FAIL,
+  showToast: true,
   error,
 })
 
@@ -466,6 +468,7 @@ const uploadComposeSuccess = (media) => ({
 
 const uploadComposeFail = (error) => ({
   type: COMPOSE_UPLOAD_FAIL,
+  showToast: true,
   error,
 })
 
@@ -496,6 +499,7 @@ const changeUploadComposeSuccess = (media) => ({
 const changeUploadComposeFail = (error, decrement = false) => ({
   type: COMPOSE_UPLOAD_CHANGE_FAIL,
   error,
+  showToast: true,
   decrement: decrement,
 })
 

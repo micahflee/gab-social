@@ -180,6 +180,7 @@ const expandTimelineSuccess = (timeline, statuses, next, partial, isLoadingRecen
 
 const expandTimelineFail = (timeline, error, isLoadingMore) => ({
   type: TIMELINE_EXPAND_FAIL,
+  showToast: true,
   timeline,
   error,
   skipLoading: !isLoadingMore,

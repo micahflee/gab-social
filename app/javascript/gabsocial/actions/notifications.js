@@ -218,6 +218,7 @@ const expandNotificationsSuccess = (notifications, next, isLoadingMore) => ({
 const expandNotificationsFail = (error, isLoadingMore) => ({
   type: NOTIFICATIONS_EXPAND_FAIL,
   error,
+  showToast: true,
   skipLoading: !isLoadingMore,
 })
 

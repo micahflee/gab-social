@@ -557,6 +557,7 @@ const expandLikesSuccess = (statusId, accounts, next) => ({
 
 const expandLikesFail = (statusId, error) => ({
   type: LIKES_EXPAND_FAIL,
+  showToast: true,
   statusId,
   error,
 })

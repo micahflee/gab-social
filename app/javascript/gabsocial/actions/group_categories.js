@@ -26,5 +26,6 @@ const fetchGroupCategoriesSuccess = (categories) => ({
 
 const fetchGroupCategoriesFail = (error) => ({
   type: GROUP_CATEGORIES_FETCH_FAIL,
+  showToast: true,
   error,
 })

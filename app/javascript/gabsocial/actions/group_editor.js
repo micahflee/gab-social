@@ -100,11 +100,13 @@ const createGroupRequest = (id) => ({
 
 const createSuccess = (group) => ({
 	type: GROUP_CREATE_SUCCESS,
+	showToast: true,
 	group,
 })
 
 const createFail = (error) => ({
 	type: GROUP_CREATE_FAIL,
+	showToast: true,
 	error,
 })
 
@@ -151,11 +153,13 @@ const updateGroupRequest = (id) => ({
 
 const updateGroupSuccess = (group) => ({
 	type: GROUP_UPDATE_SUCCESS,
+	showToast: true,
 	group,
 })
 
 const updateGroupFail = (error) => ({
 	type: GROUP_UPDATE_FAIL,
+	showToast: true,
 	error,
 })
 

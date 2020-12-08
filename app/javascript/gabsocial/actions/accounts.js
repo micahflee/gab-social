@@ -148,7 +148,6 @@ const fetchAccountFail = (id, error) => ({
   type: ACCOUNT_FETCH_FAIL,
   id,
   error,
-  skipAlert: true,
 })
 
 /**
@@ -178,12 +177,14 @@ const followAccountRequest = (id, locked) => ({
 
 const followAccountSuccess = (relationship, alreadyFollowing) => ({
   type: ACCOUNT_FOLLOW_SUCCESS,
+  showToast: true,
   relationship,
   alreadyFollowing,
 })
 
 const followAccountFail = (error, locked) => ({
   type: ACCOUNT_FOLLOW_FAIL,
+  showToast: true,
   error,
   locked,
 })
@@ -210,12 +211,14 @@ const unfollowAccountRequest = (id) => ({
 
 const unfollowAccountSuccess = (relationship, statuses) => ({
   type: ACCOUNT_UNFOLLOW_SUCCESS,
+  showToast: true,
   relationship,
   statuses,
 })
 
 const unfollowAccountFail = (error) => ({
   type: ACCOUNT_UNFOLLOW_FAIL,
+  showToast: true,
   error,
 })
 
@@ -243,12 +246,14 @@ const blockAccountRequest = (id) => ({
 
 const blockAccountSuccess = (relationship, statuses) => ({
   type: ACCOUNT_BLOCK_SUCCESS,
+  showToast: true,
   relationship,
   statuses,
 })
 
 const blockAccountFail = (error) => ({
   type: ACCOUNT_BLOCK_FAIL,
+  showToast: true,
   error,
 })
 
@@ -274,11 +279,13 @@ const unblockAccountRequest = (id) => ({
 
 const unblockAccountSuccess = (relationship) => ({
   type: ACCOUNT_UNBLOCK_SUCCESS,
+  showToast: true,
   relationship,
 })
 
 const unblockAccountFail = (error) => ({
   type: ACCOUNT_UNBLOCK_FAIL,
+  showToast: true,
   error,
 })
 
@@ -305,12 +312,14 @@ const muteAccountRequest = (id) => ({
 
 const muteAccountSuccess = (relationship, statuses) => ({
   type: ACCOUNT_MUTE_SUCCESS,
+  showToast: true,
   relationship,
   statuses,
 })
 
 const muteAccountFail = (error) => ({
   type: ACCOUNT_MUTE_FAIL,
+  showToast: true,
   error,
 })
 
@@ -336,11 +345,13 @@ const unmuteAccountRequest = (id) => ({
 
 const unmuteAccountSuccess = (relationship) => ({
   type: ACCOUNT_UNMUTE_SUCCESS,
+  showToast: true,
   relationship,
 })
 
 const unmuteAccountFail = (error) => ({
   type: ACCOUNT_UNMUTE_FAIL,
+  showToast: true,
   error,
 })
 
@@ -377,6 +388,7 @@ const fetchFollowersSuccess = (id, accounts, next) => ({
 
 const fetchFollowersFail = (id, error) => ({
   type: FOLLOWERS_FETCH_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -419,6 +431,7 @@ const expandFollowersSuccess = (id, accounts, next) => ({
 
 const expandFollowersFail = (id, error) => ({
   type: FOLLOWERS_EXPAND_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -456,6 +469,7 @@ const fetchFollowingSuccess = (id, accounts, next) => ({
 
 const fetchFollowingFail = (id, error) => ({
   type: FOLLOWING_FETCH_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -498,6 +512,7 @@ const expandFollowingSuccess = (id, accounts, next) => ({
 
 const expandFollowingFail = (id, error) => ({
   type: FOLLOWING_EXPAND_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -575,6 +590,7 @@ const fetchFollowRequestsSuccess = (accounts, next) => ({
 
 const fetchFollowRequestsFail = (error) => ({
   type: FOLLOW_REQUESTS_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -610,6 +626,7 @@ const expandFollowRequestsSuccess = (accounts, next) => ({
 
 const expandFollowRequestsFail = (error) => ({
   type: FOLLOW_REQUESTS_EXPAND_FAIL,
+  showToast: true,
   error,
 })
 
@@ -634,11 +651,13 @@ const authorizeFollowRequestRequest = (id) => ({
 
 const authorizeFollowRequestSuccess = (id) => ({
   type: FOLLOW_REQUEST_AUTHORIZE_SUCCESS,
+  showToast: true,
   id,
 })
 
 const authorizeFollowRequestFail = (id, error) => ({
   type: FOLLOW_REQUEST_AUTHORIZE_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -664,11 +683,13 @@ const rejectFollowRequestRequest = (id) => ({
 
 const rejectFollowRequestSuccess = (id) => ({
   type: FOLLOW_REQUEST_REJECT_SUCCESS,
+  showToast: true,
   id,
 })
 
 const rejectFollowRequestFail = (id, error) => ({
   type: FOLLOW_REQUEST_REJECT_FAIL,
+  showToast: true,
   id,
   error,
 })

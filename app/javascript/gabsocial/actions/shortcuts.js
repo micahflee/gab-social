@@ -107,10 +107,12 @@ const removeShortcutsRequest = () => ({
 
 const removeShortcutsSuccess = (shortcutId) => ({
   type: SHORTCUTS_REMOVE_SUCCESS,
+  showToast: true,
   shortcutId,
 })
 
 const removeShortcutsFail = (error) => ({
   type: SHORTCUTS_REMOVE_FAIL,
+  showToast: true,
   error,
 })

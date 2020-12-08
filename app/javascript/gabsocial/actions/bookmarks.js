@@ -43,6 +43,7 @@ const fetchBookmarkedStatusesSuccess = (statuses, next) => ({
 
 const fetchBookmarkedStatusesFail = (error) => ({
   type: BOOKMARKED_STATUSES_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -81,5 +82,6 @@ const expandBookmarkedStatusesSuccess = (statuses, next) => ({
 
 const expandBookmarkedStatusesFail = (error) => ({
   type: BOOKMARKED_STATUSES_EXPAND_FAIL,
+  showToast: true,
   error,
 })

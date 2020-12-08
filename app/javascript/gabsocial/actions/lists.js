@@ -109,6 +109,7 @@ const fetchListsSuccess = (lists) => ({
 
 const fetchListsFail = (error) => ({
   type: LISTS_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -169,11 +170,13 @@ export const createListRequest = () => ({
 
 export const createListSuccess = (list) => ({
   type: LIST_CREATE_SUCCESS,
+  showToast: true,
   list,
 })
 
 export const createListFail = (error) => ({
   type: LIST_CREATE_FAIL,
+  showToast: true,
   error,
 })
 
@@ -201,11 +204,13 @@ export const updateListRequest = id => ({
 
 export const updateListSuccess = list => ({
   type: LIST_UPDATE_SUCCESS,
+  showToast: true,
   list,
 })
 
 export const updateListFail = (id, error) => ({
   type: LIST_UPDATE_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -234,11 +239,13 @@ export const deleteListRequest = (id) => ({
 
 export const deleteListSuccess = (id) => ({
   type: LIST_DELETE_SUCCESS,
+  showToast: true,
   id,
 })
 
 export const deleteListFail = (id, error) => ({
   type: LIST_DELETE_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -271,6 +278,7 @@ export const fetchListAccountsSuccess = (id, accounts, next) => ({
 
 export const fetchListAccountsFail = (id, error) => ({
   type: LIST_ACCOUNTS_FETCH_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -346,12 +354,14 @@ const addToListRequest = (listId, accountId) => ({
 
 const addToListSuccess = (listId, accountId) => ({
   type: LIST_EDITOR_ADD_SUCCESS,
+  showToast: true,
   listId,
   accountId,
 })
 
 const addToListFail = (listId, accountId, error) => ({
   type: LIST_EDITOR_ADD_FAIL,
+  showToast: true,
   listId,
   accountId,
   error,
@@ -385,12 +395,14 @@ const removeFromListRequest = (listId, accountId) => ({
 
 const removeFromListSuccess = (listId, accountId) => ({
   type: LIST_EDITOR_REMOVE_SUCCESS,
+  showToast: true,
   listId,
   accountId,
 })
 
 const removeFromListFail = (listId, accountId, error) => ({
   type: LIST_EDITOR_REMOVE_FAIL,
+  showToast: true,
   listId,
   accountId,
   error,
@@ -439,10 +451,11 @@ const fetchAccountListsSuccess = (id, lists) => ({
   lists,
 })
 
-const fetchAccountListsFail = (id, err) => ({
+const fetchAccountListsFail = (id, error) => ({
   type: LIST_ADDER_LISTS_FETCH_FAIL,
+  showToast: true,
   id,
-  err,
+  error,
 })
 
 /**

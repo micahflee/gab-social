@@ -153,6 +153,7 @@ const fetchGroupSuccess = (group) => ({
 
 const fetchGroupFail = (groupId, error) => ({
   type: GROUP_FETCH_FAIL,
+  showToast: true,
   groupId,
   error,
 })
@@ -233,6 +234,7 @@ export const fetchGroupsSuccess = (groups, tab) => ({
 
 const fetchGroupsFail = (error, tab) => ({
   type: GROUPS_FETCH_FAIL,
+  showToast: true,
   error,
   tab,
 })
@@ -273,6 +275,7 @@ const fetchGroupsByCategorySuccess = (groups, category) => ({
 
 const fetchGroupsByCategoryFail = (error, category) => ({
   type: GROUPS_BY_CATEGORY_FETCH_FAIL,
+  showToast: true,
   error,
   category,
 })
@@ -313,6 +316,7 @@ export const fetchGroupsByTagSuccess = (groups, tag) => ({
 
 export const fetchGroupsByTagFail = (error, tag) => ({
   type: GROUPS_BY_TAG_FETCH_FAIL,
+  showToast: true,
   error,
   tag,
 })
@@ -340,11 +344,13 @@ const joinGroupRequest = (groupId) => ({
 
 const joinGroupSuccess = (relationship) => ({
   type: GROUP_JOIN_SUCCESS,
+  showToast: true,
   relationship
 })
 
 const joinGroupFail = (error) => ({
   type: GROUP_JOIN_FAIL,
+  showToast: true,
   error,
 })
 
@@ -371,11 +377,13 @@ const leaveGroupRequest = (groupId) => ({
 
 const leaveGroupSuccess = (relationship) => ({
   type: GROUP_LEAVE_SUCCESS,
+  showToast: true,
   relationship,
 })
 
 const leaveGroupFail = (error) => ({
   type: GROUP_LEAVE_FAIL,
+  showToast: true,
   error,
 })
 
@@ -414,6 +422,7 @@ const fetchMembersSuccess = (groupId, accounts, next) => ({
 
 const fetchMembersFail = (groupId, error) => ({
   type: GROUP_MEMBERS_FETCH_FAIL,
+  showToast: true,
   groupId,
   error,
 })
@@ -458,6 +467,7 @@ const expandMembersSuccess = (groupId, accounts, next) => ({
 
 const expandMembersFail = (groupId, error) => ({
   type: GROUP_MEMBERS_EXPAND_FAIL,
+  showToast: true,
   groupId,
   error,
 })
@@ -497,6 +507,7 @@ const fetchRemovedAccountsSuccess = (groupId, accounts, next) => ({
 
 const fetchRemovedAccountsFail = (groupId, error) => ({
   type: GROUP_REMOVED_ACCOUNTS_FETCH_FAIL,
+  showToast: true,
   groupId,
   error,
 })
@@ -541,6 +552,7 @@ const expandRemovedAccountsSuccess = (groupId, accounts, next) => ({
 
 const expandRemovedAccountsFail = (groupId, error) => ({
   type: GROUP_REMOVED_ACCOUNTS_EXPAND_FAIL,
+  showToast: true,
   groupId,
   error,
 })
@@ -570,12 +582,14 @@ const removeRemovedAccountRequest = (groupId, accountId) => ({
 
 const removeRemovedAccountSuccess = (groupId, accountId) => ({
   type: GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS,
+  showToast: true,
   groupId,
   accountId,
 })
 
 const removeRemovedAccountFail = (groupId, accountId, error) => ({
   type: GROUP_REMOVED_ACCOUNTS_REMOVE_FAIL,
+  showToast: true,
   groupId,
   accountId,
   error,
@@ -606,12 +620,14 @@ const createRemovedAccountRequest = (groupId, accountId) => ({
 
 const createRemovedAccountSuccess = (groupId, accountId) => ({
   type: GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS,
+  showToast: true,
   groupId,
   accountId,
 })
 
 const createRemovedAccountFail = (groupId, accountId, error) => ({
   type: GROUP_REMOVED_ACCOUNTS_CREATE_FAIL,
+  showToast: true,
   groupId,
   accountId,
   error,
@@ -643,12 +659,14 @@ const groupRemoveStatusRequest = (groupId, statusId) => ({
 
 const groupRemoveStatusSuccess = (groupId, statusId) => ({
   type: GROUP_REMOVE_STATUS_SUCCESS,
+  showToast: true,
   groupId,
   statusId,
 })
 
 const groupRemoveStatusFail = (groupId, statusId, error) => ({
   type: GROUP_REMOVE_STATUS_FAIL,
+  showToast: true,
   groupId,
   statusId,
   error,
@@ -680,12 +698,14 @@ const updateRoleRequest = (groupId, accountId) => ({
 
 const updateRoleSuccess = (groupId, accountId) => ({
   type: GROUP_UPDATE_ROLE_SUCCESS,
+  showToast: true,
   groupId,
   accountId,
 })
 
 const updateRoleFail = (groupId, accountId, error) => ({
   type: GROUP_UPDATE_ROLE_FAIL,
+  showToast: true,
   groupId,
   accountId,
   error,
@@ -760,6 +780,7 @@ const fetchJoinRequestsSuccess = (id, accounts, next) => ({
 
 const fetchJoinRequestsFail = (id, error) => ({
   type: GROUP_JOIN_REQUESTS_FETCH_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -802,6 +823,7 @@ const expandJoinRequestsSuccess = (id, accounts, next) => ({
 
 const expandJoinRequestsFail = (id, error) => ({
   type: GROUP_JOIN_REQUESTS_EXPAND_FAIL,
+  showToast: true,
   id,
   error,
 })
@@ -821,12 +843,14 @@ export const approveJoinRequest = (accountId, groupId) => (dispatch, getState) =
 
 const approveJoinRequestSuccess = (accountId, groupId) => ({
   type: GROUP_JOIN_REQUESTS_APPROVE_SUCCESS,
+  showToast: true,
   accountId,
   groupId,
 })
 
 const approveJoinRequestFail = (accountId, groupId, error) => ({
   type: GROUP_JOIN_REQUESTS_APPROVE_FAIL,
+  showToast: true,
   accountId,
   groupId,
   error,
@@ -847,12 +871,14 @@ export const rejectJoinRequest = (accountId, groupId) => (dispatch, getState) =>
 
 const rejectJoinRequestSuccess = (accountId, groupId) => ({
   type: GROUP_JOIN_REQUESTS_REJECT_SUCCESS,
+  showToast: true,
   accountId,
   groupId,
 })
 
 const rejectJoinRequestFail = (accountId, groupId, error) => ({
   type: GROUP_JOIN_REQUESTS_REJECT_FAIL,
+  showToast: true,
   accountId,
   groupId,
   error,
@@ -881,12 +907,14 @@ const pinGroupStatusRequest = (groupId) => ({
 
 const pinGroupStatusSuccess = (groupId, statusId) => ({
   type: GROUP_PIN_STATUS_SUCCESS,
+  showToast: true,
   groupId,
   statusId,
 })
 
 const pinGroupStatusFail = (groupId, statusId, error) => ({
   type: GROUP_PIN_STATUS_FAIL,
+  showToast: true,
   groupId,
   statusId,
   error,
@@ -915,12 +943,14 @@ const unpinGroupStatusRequest = (groupId) => ({
 
 const unpinGroupStatusSuccess = (groupId, statusId) => ({
   type: GROUP_UNPIN_STATUS_SUCCESS,
+  showToast: true,
   groupId,
   statusId,
 })
 
 const unpinGroupStatusFail = (groupId, statusId, error) => ({
   type: GROUP_UNPIN_STATUS_FAIL,
+  showToast: true,
   groupId,
   statusId,
   error,

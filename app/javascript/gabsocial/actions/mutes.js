@@ -43,6 +43,7 @@ const fetchMutesSuccess = (accounts, next) => ({
 
 const fetchMutesFail = (error) => ({
   type: MUTES_FETCH_FAIL,
+  showToast: true,
   error,
 })
 
@@ -79,6 +80,7 @@ const expandMutesSuccess = (accounts, next) => ({
 
 export const expandMutesFail = (error) => ({
   type: MUTES_EXPAND_FAIL,
+  showToast: true,
   error,
 })
 

@@ -11,7 +11,7 @@ export const loadStatusRevisions = (statusId) => (dispatch, getState) => {
   dispatch(loadStatusRevisionsRequest())
   api(getState).get(`/api/v1/statuses/${statusId}/revisions`)
     .then(res => dispatch(loadStatusRevisionsSuccess(res.data)))
-    .catch(() => dispatch(loadStatusRevisionsFail()))
+    .catch((error) => dispatch(loadStatusRevisionsFail(error)))
 }
 
 const loadStatusRevisionsRequest = () => ({
@@ -23,7 +23,8 @@ const loadStatusRevisionsSuccess = (data) => ({
   revisions: data,
 })
 
-const loadStatusRevisionsFail = () => ({
+const loadStatusRevisionsFail = (error) => ({
   type: STATUS_REVISIONS_LOAD_FAIL,
-  error: true,
+  showToast: true,
+  error,
 })
