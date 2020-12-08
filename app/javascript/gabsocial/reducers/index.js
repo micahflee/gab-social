@@ -10,6 +10,7 @@ import chat_messages from './chat_messages'
 import compose from './compose'
 import contexts from './contexts'
 import custom_emojis from './custom_emojis'
+import deck from './deck'
 import filters from './filters'
 import groups from './groups'
 import group_categories from './group_categories'
@@ -59,6 +60,7 @@ const reducers = {
   compose,
   contexts,
   custom_emojis,
+  deck,
   filters,
   groups,
   group_categories,

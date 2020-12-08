@@ -309,7 +309,7 @@ class Status extends ImmutablePureComponent {
       isComposeModalOpen,
       commentSortingType,
       onOpenProModal,
-      isCompact,
+      isDeckConnected,
     } = this.props
     // const { height } = this.state
 
@@ -362,7 +362,7 @@ class Status extends ImmutablePureComponent {
     }
 
     const parentClasses = CX({
-      pb15: !isChild && !isCompact,
+      pb15: !isChild && !isDeckConnected,
     })
 
     const containerClasses = CX({
@@ -438,7 +438,7 @@ class Status extends ImmutablePureComponent {
                   <StatusHeader
                     status={status}
                     reduced={isChild}
-                    isCompact={isCompact}
+                    isCompact={isDeckConnected}
                   />
 
                   <div className={_s.d}>
@@ -453,7 +453,7 @@ class Status extends ImmutablePureComponent {
                   </div>
 
                   <StatusMedia
-                    isChild={isChild || isCompact}
+                    isChild={isChild || isDeckConnected}
                     isComposeModalOpen={isComposeModalOpen}
                     status={status}
                     onOpenMedia={this.props.onOpenMedia}
@@ -492,12 +492,12 @@ class Status extends ImmutablePureComponent {
                       onOpenLikes={this.props.onOpenLikes}
                       onOpenReposts={this.props.onOpenReposts}
                       onQuote={this.handleOnQuote}
-                      isCompact={isCompact}
+                      isCompact={isDeckConnected}
                     />
                   }
 
                   {
-                    !isChild && !!me && !isCompact &&
+                    !isChild && !!me && !isDeckConnected &&
                     <ResponsiveClassesComponent
                       classNames={[_s.d, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px15, _s.mb10].join(' ')}
                       classNamesXS={[_s.d, _s.borderTop1PX, _s.borderColorSecondary, _s.pt10, _s.px10, _s.mb10].join(' ')}

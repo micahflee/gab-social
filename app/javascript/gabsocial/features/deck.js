@@ -1,10 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
+import {
+  deckConnect,
+  deckDisconnect,
+} from '../actions/deck'
 import WrappedBundle from './ui/util/wrapped_bundle'
 import DeckColumn from '../components/deck_column'
 import {
   AccountTimeline,
+  Compose,
   HomeTimeline,
   Notifications,
   HashtagTimeline,
@@ -17,19 +24,33 @@ class Deck extends React.PureComponent {
   }
 
   componentDidMount () {
-    // this.props.connectDeck()
+    this.props.connectDeck()
   }
 
   componentWillUnmount() {
-    // this.props.disconnectDeck()
+    this.props.disconnectDeck()
+  }
+
+  componentDidMount () {
+    this.props.dispatch(deckConnect())
+  }
+
+  componentWillUnmount() {
+    this.props.dispatch(deckDisconnect())
   }
 
   render () {
-    const { account, children } = this.props
+    const { gabDeckOrder } = this.props
+
+    console.log("gabDeckOrder:", gabDeckOrder)
 
     return (
       <div className={[_s.d, _s.flexRow].join(' ')}>
-        <DeckColumn title='Home' icon='home'>
+        <DeckColumn title='Compose' icon='pencil'>
+          <WrappedBundle component={Compose} />
+        </DeckColumn>
+        <DeckColumn />
+        {/*<DeckColumn title='Home' icon='home'>
           <WrappedBundle component={HomeTimeline} />
         </DeckColumn>
         <DeckColumn title='Notifications' icon='notifications'>
@@ -41,6 +62,7 @@ class Deck extends React.PureComponent {
         <DeckColumn title='Jonny' icon='group' subtitle='@admin'>
           <WrappedBundle component={AccountTimeline} componentParams={{ account }} />
         </DeckColumn>
+        </DeckColumn>*/}
       </div>
     )
   }
@@ -48,15 +70,11 @@ class Deck extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  account: state.getIn(['accounts', '1']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  
+  gabDeckOrder: state.getIn(['settings', 'gabDeckOrder']),
 })
 
 Deck.propTypes = {
-  // 
+  gabDeckOrder: ImmutablePropTypes.list,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Deck)
+export default connect(mapStateToProps)(Deck)

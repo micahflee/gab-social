@@ -317,6 +317,7 @@ pre {
 .flexShrink1 { flex-shrink: 1; }
 
 .flexRow { flex-direction: row; }
+.flexColumn { flex-direction: column; }
 .flexRowReverse { flex-direction: row-reverse; }
 .flexWrap { flex-wrap: wrap; }
 .flexColumnReverse { flex-direction: column-reverse; }

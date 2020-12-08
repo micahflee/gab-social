@@ -183,12 +183,12 @@ const makeMapStateToProps = () => {
       isComment,
       commentSortingType,
       isComposeModalOpen: state.getIn(['modal', 'modalType']) === 'COMPOSE',
-      isCompact: state.getIn(['settings', 'isCompact']),
+      isDeckConnected: state.getIn(['deck', 'connected'], false),
     }
   }
 
   return mapStateToProps
-};
+}
 
 const mapDispatchToProps = (dispatch) => ({
   onReply (status, router, showModal) {

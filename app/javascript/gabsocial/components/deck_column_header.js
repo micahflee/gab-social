@@ -16,17 +16,20 @@ class DeckColumnHeader extends React.PureComponent {
 
     return (
       <div className={[_s.d, _s.w100PC, _s.flexRow, _s.aiCenter, _s.h60PX, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgPrimary].join(' ')}>
-        <Icon id={icon} className={_s.cPrimary} size='20px' />
+        { !!icon && <Icon id={icon} className={_s.cPrimary} size='20px' /> }
         <div className={[_s.d, _s.flexRow, _s.aiEnd, _s.ml15].join(' ')}>
-          <Text size='large' weight='medium'>{title}</Text>
+          { !!title && <Text size='large' weight='medium'>{title}</Text> }
           { !!subtitle && <Text className={_s.ml5} size='small' color='secondary'>{subtitle}</Text> }
         </div>
         <div className={[_s.d, _s.aiCenter, _s.mlAuto, _s.jcCenter].join(' ')}>
-          <Button
-            color='primary'
-            backgroundColor='none'
-            icon='list'
-          />
+          {
+            !!title &&
+            <Button
+              color='primary'
+              backgroundColor='none'
+              icon='list'
+            />
+          }
         </div>
       </div>
     )

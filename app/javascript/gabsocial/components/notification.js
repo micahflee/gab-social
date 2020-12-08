@@ -33,7 +33,7 @@ class Notification extends ImmutablePureComponent {
       statusId,
       isHidden,
       isUnread,
-      isCompact,
+      isDeckConnected,
     } = this.props
     
     const count = !!accounts ? accounts.size : 0
@@ -93,7 +93,7 @@ class Notification extends ImmutablePureComponent {
 
     const containerClasses = CX({
       d: 1,
-      px10: !isCompact,
+      px10: !isDeckConnected,
       cursorPointer: 1,
       bgSubtle_onHover: !isUnread,
       highlightedComment: isUnread,
@@ -109,7 +109,7 @@ class Notification extends ImmutablePureComponent {
           <div className={[_s.d, _s.flexRow, _s.my10, _s.py10, _s.px10].join(' ')}>
 
             {
-              !isCompact &&
+              !isDeckConnected &&
               <Responsive min={BREAKPOINT_EXTRA_SMALL}>
                 <Icon id={icon} size='20px' className={[_s.cPrimary, _s.minW20PX, _s.mt5, _s.mr15].join(' ')} />
               </Responsive>
@@ -195,7 +195,7 @@ Notification.propTypes = {
   type: PropTypes.string.isRequired,
   isHidden: PropTypes.bool,
   isUnread: PropTypes.bool,
-  isCompact: PropTypes.bool,
+  isDeckConnected: PropTypes.bool,
 }
 
 export default injectIntl(Notification)
