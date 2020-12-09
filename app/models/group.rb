@@ -87,9 +87,6 @@ class Group < ApplicationRecord
   end
 
   def set_slug
-    puts "tilly-5: " + slug.to_s
-    puts "tilly-6: " + self.member_count.to_s
-    
     if !slug.nil? && self.member_count > 50 && self.slug.nil?
       self.slug = slug.downcase.strip.gsub(' ', '-').gsub(/[^\w-]/, '')
     elsif !slug.nil? && self.member_count < 50 && self.slug.nil?

@@ -21,7 +21,7 @@ class StatusFilter
   end
 
   def filtered_status?
-    blocking_account? || blocking_domain? || muting_account?
+    blocking_account? || muting_account?
   end
 
   def blocking_account?

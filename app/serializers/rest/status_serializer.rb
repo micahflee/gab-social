@@ -32,7 +32,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
   has_one :preloadable_poll, key: :poll, serializer: REST::PollSerializer
 
   def id
-    # puts "tilly instance:" + instance_options.inspect
     object.id.to_s
   end
 

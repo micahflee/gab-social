@@ -5,8 +5,11 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
-import ModalLayout from './modal_layout'
 import TimelineComposeBlock from '../timeline_compose_block'
+import Block from '../block'
+import Heading from '../heading'
+import Text from '../text'
+import Button from '../button'
 
 class ComposeModal extends ImmutablePureComponent {
 
@@ -32,6 +35,10 @@ class ComposeModal extends ImmutablePureComponent {
     }
   }
 
+  onHandleSubmit = () => {
+    
+  }
+
   render() {
     const {
       intl,
@@ -42,13 +49,35 @@ class ComposeModal extends ImmutablePureComponent {
     const title = isEditing ? messages.edit : isComment ? messages.comment : messages.title
 
     return (
-      <ModalLayout
-        noPadding
-        title={intl.formatMessage(title)}
-        onClose={this.onClickClose}
-      >
-        <TimelineComposeBlock modal />
-      </ModalLayout>
+      <div style={{width: '512px'}} className={[_s.d, _s.modal].join(' ')}>
+        <Block>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+            <Button
+              backgroundColor='none'
+              title={intl.formatMessage(messages.close)}
+              onClick={this.onClickClose}
+              color='secondary'
+              icon='close'
+              iconSize='10px'
+            />
+            <Heading size='h2'>
+              {intl.formatMessage(title)}
+            </Heading>
+            <Button
+              backgroundColor='none'
+              title={intl.formatMessage(messages.close)}
+              className={_s.mlAuto}
+              onClick={this.onHandleSubmit}
+              color='secondary'
+            >
+              <Text>Post</Text>
+            </Button>
+          </div>
+          <div className={[_s.d].join(' ')}>
+            <TimelineComposeBlock isModal />
+          </div>
+        </Block>
+      </div>
     )
   }
 }
@@ -58,6 +87,7 @@ const messages = defineMessages({
   title: { id: 'navigation_bar.compose', defaultMessage: 'Compose new gab' },
   comment: { id: 'navigation_bar.compose_comment', defaultMessage: 'Compose new comment' },
   edit: { id: 'navigation_bar.edit_gab', defaultMessage: 'Edit' },
+  close: { id: 'lightbox.close', defaultMessage: 'Close' },
 })
 
 const mapStateToProps = (state) => {

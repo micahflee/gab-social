@@ -43,10 +43,10 @@ class ComposeExtraButtonList extends React.PureComponent {
     
 
   render() {
-    const { isMatch, edit, hidePro } = this.props
+    const { isMatch, edit, hidePro, isModal } = this.props
     const { height } = this.state
 
-    const small = height <= 660
+    const small = height <= 660 || isModal
 
     const containerClasses = CX({
       d: 1,
@@ -83,6 +83,7 @@ ComposeExtraButtonList.propTypes = {
   hidePro: PropTypes.bool,
   edit: PropTypes.bool,
   isMatch: PropTypes.bool,
+  isModal: PropTypes.bool,
 }
 
 export default ComposeExtraButtonList

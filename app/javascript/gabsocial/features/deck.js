@@ -43,7 +43,6 @@ class Deck extends React.PureComponent {
 
   componentDidMount () {
     this.props.dispatch(deckConnect())
-    console.log("this.props.isPro:", this.props)
     if (!this.props.isPro) this.handleOnOpenProUpgradeModal()
   }
 
@@ -52,7 +51,6 @@ class Deck extends React.PureComponent {
   }
 
   handleOnOpenProUpgradeModal = () => {
-    console.log("handleOnOpenProUpgradeModal")
     this.props.dispatch(openModal(MODAL_PRO_UPGRADE))
   }
 
@@ -71,7 +69,7 @@ class Deck extends React.PureComponent {
   }
 
   getDeckColumn = (deckColumn, index) => {
-    if (!deckColumn || !isPro) return null
+    if (!deckColumn || !this.props.isPro) return null
 
     let Component = null
     let componentParams = {}
@@ -178,7 +176,7 @@ class Deck extends React.PureComponent {
               <DeckColumn title='Gab Deck for GabPRO' icon='pro' noButtons>
                 <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
                   <Text>
-                    Gab Deck for GabPRO
+                    Gab Deck for GabPRO. Some text about what it does and some buttons on going pro to use it.
                   </Text>
                 </div>
               </DeckColumn>
@@ -188,7 +186,7 @@ class Deck extends React.PureComponent {
         }
         {
           !isEmpty && isPro &&
-          gabDeckOrder.splice(0, GAB_DECK_MAX_ITEMS).map((deckOption, i) => this.getDeckColumn(deckOption, i))
+          gabDeckOrder.map((deckOption, i) => this.getDeckColumn(deckOption, i))
         }
       </SortableContainer>
     )

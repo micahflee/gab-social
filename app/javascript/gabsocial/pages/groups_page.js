@@ -79,6 +79,10 @@ class GroupsPage extends React.PureComponent {
             to: isPro ? '/groups/create' : undefined,
             onClick: isPro ? undefined : this.handleOpenProUpgradeModal,
           },
+          {
+            icon: 'search',
+            to: '/search',
+          },
         ]}
         tabs={tabs}
         page='groups'

@@ -27,11 +27,7 @@ class Api::V1::ChatMessagesController < Api::BaseController
   end
 
   def destroy
-    puts "tilly destry chat"
-    
     @chat = ChatMessage.where(from_account: current_user.account).find(params[:id])
-
-    puts "tilly @chat: " + @chat.inspect
 
     # : todo :
     # make sure last_chat_message_id in chat_account_conversation gets set to last
@@ -49,7 +45,6 @@ class Api::V1::ChatMessagesController < Api::BaseController
 
   def set_chat_conversation_recipients
     account_conversation = ChatConversationAccount.where(account: current_user.account, chat_conversation: @chat_conversation).first
-    puts "tilly account_conversation - " + account_conversation.inspect
     @chat_conversation_recipients = Account.where(id: account_conversation.participant_account_ids)
   end
 

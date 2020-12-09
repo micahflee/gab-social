@@ -403,7 +403,6 @@ StatusList.propTypes = {
   timelineId: PropTypes.string,
   queuedItemSize: PropTypes.number,
   onDequeueTimeline: PropTypes.func.isRequired,
-  onClearTimeline: PropTypes.func.isRequired,
   onScrollToTop: PropTypes.func.isRequired,
   onScroll: PropTypes.func.isRequired,
   onFetchContext: PropTypes.func.isRequired,

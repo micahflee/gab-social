@@ -9,12 +9,10 @@ class Api::V1::ChatConversationController < Api::BaseController
   before_action :set_chat_conversation, only: [:show, :mark_chat_conversation_approved, :mark_chat_conversation_hidden, :mark_chat_conversation_unread]
 
   def show
-    puts "tilly ChatConversationsController-0"
     render json: {}, each_serializer: REST::ChatConversationAccountSerializer
   end
 
   def create
-    puts "tilly ChatConversationsController-1"
     # : todo :
     # check if already created
     # check if blocked

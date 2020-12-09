@@ -161,12 +161,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     if (me) {
       if (isReply) {
         menu.push({
-          icon: 'repost',
-          hideArrow: true,
-          title: intl.formatMessage(status.get('reblogged') ? messages.cancel_repost_private : messages.repost_private),
-          onClick: this.handleRepostClick,
-        })
-        menu.push({
           icon: 'pencil',
           hideArrow: true,
           title: intl.formatMessage(messages.repostWithComment),

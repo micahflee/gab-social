@@ -8,6 +8,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import {
   favorite,
   unfavorite,
+  repost,
+  unrepost,
 } from '../actions/interactions'
 import { replyCompose } from '../actions/compose'
 import { openModal } from '../actions/modal'
@@ -15,8 +17,9 @@ import { openPopover } from '../actions/popover'
 import { makeGetStatus } from '../selectors'
 import {
   CX,
+  MODAL_BOOST,
 } from '../constants'
-import { me } from '../initial_state'
+import { me, boostModal } from '../initial_state'
 import Avatar from './avatar'
 import Button from './button'
 import CommentHeader from './comment_header'
@@ -49,12 +52,36 @@ class Comment extends ImmutablePureComponent {
     this.props.onFavorite(this.props.status)
   }
 
+  handleOnRepost = () => {
+    this.props.onRepost(this.props.status)
+  }
+
   handleOnOpenStatusOptions = () => {
     this.props.onOpenStatusOptions(this.moreNode, this.props.status)
   }
 
   handleToggleMediaVisibility = () => {
     this.setState({ showMedia: !this.state.showMedia })
+  }
+
+  handleOnThreadMouseEnter = (event) => {
+    if (event.target) {
+      const threadKey = event.target.getAttribute('data-threader-indent')
+      const elems = document.querySelectorAll(`[data-threader-indent="${threadKey}"]`)
+      elems.forEach((elem) => elem.classList.add('thread-hovering'))
+    }
+  }
+  
+  handleOnThreadMouseLeave = (event) => {
+    if (event.target) {
+      const threadKey = event.target.getAttribute('data-threader-indent')
+      const elems = document.querySelectorAll(`[data-threader-indent="${threadKey}"]`)
+      elems.forEach((elem) => elem.classList.remove('thread-hovering'))
+    }
+  }
+  
+  handleOnThreadClick = (event) => {
+    // : todo :
   }
 
   setMoreNode = (c) => {
@@ -81,7 +108,7 @@ class Comment extends ImmutablePureComponent {
     }
 
     const style = {
-      paddingLeft: `${indent * 42}px`,
+      paddingLeft: `${indent * 38}px`,
     }
 
     const contentClasses = CX({
@@ -95,8 +122,28 @@ class Comment extends ImmutablePureComponent {
     })
 
     return (
-      <div className={[_s.d, _s.px15, _s.mb10, _s.py5].join(' ')} data-comment={status.get('id')}>
-        <div className={_s.d} style={style}>
+      <div className={[_s.d, _s.px15, _s.py5].join(' ')} data-comment={status.get('id')}>
+        {
+          indent > 0 &&
+          <div className={[_s.d, _s.z3, _s.flexRow, _s.posAbs, _s.topNeg20PX, _s.left0, _s.bottom20PX, _s.aiCenter, _s.jcCenter].join(' ')}>
+            {Array.apply(null, {
+              length: indent
+            }).map((_, i) => (
+              <button
+                key={`thread-${status.get('id')}-${i}`}
+                data-threader
+                data-threader-indent={i}
+                onMouseEnter={this.handleOnThreadMouseEnter}
+                onMouseLeave={this.handleOnThreadMouseLeave}
+                onClick={this.handleOnThreadClick}
+                className={[_s.d, _s.w14PX, _s.h100PC, _s.outlineNone, _s.bgTransparent, _s.ml20, _s.cursorPointer].join(' ')}
+              >
+                <span className={[_s.d, _s.w2PX, _s.h100PC, _s.mlAuto, _s.mr2, _s.bgSubtle].join(' ')} />
+              </button>
+            ))}
+          </div>
+        }
+        <div className={[_s.d, _s.mb10].join(' ')} style={style}>
 
           <div className={[_s.d, _s.flexRow].join(' ')}>
             <NavLink
@@ -104,7 +151,7 @@ class Comment extends ImmutablePureComponent {
               title={status.getIn(['account', 'acct'])}
               className={[_s.d, _s.mr10, _s.pt5].join(' ')}
             >
-              <Avatar account={status.get('account')} size={32} />
+              <Avatar account={status.get('account')} size={30} />
             </NavLink>
 
             <div className={[_s.d, _s.flexShrink1, _s.maxW100PC42PX].join(' ')}>
@@ -144,6 +191,10 @@ class Comment extends ImmutablePureComponent {
                 <CommentButton
                   title={intl.formatMessage(messages.reply)}
                   onClick={this.handleOnReply}
+                />
+                <CommentButton
+                  title={intl.formatMessage(status.get('reblogged') ? messages.unrepost : messages.repost)}
+                  onClick={this.handleOnRepost}
                 />
                 <div ref={this.setMoreNode}>
                   <CommentButton
@@ -193,6 +244,8 @@ CommentButton.propTypes = {
 
 const messages = defineMessages({
   reply: { id: 'status.reply', defaultMessage: 'Reply' },
+  repost: { id: 'status.repost', defaultMessage: 'Repost' },
+  unrepost: { id: 'status.unrepost', defaultMessage: 'Unrepost' },
   like: { id: 'status.like', defaultMessage: 'Like' },
   unlike: { id: 'status.unlike', defaultMessage: 'Unlike' },
 })
@@ -225,6 +278,24 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(unfavorite(status))
     } else {
       dispatch(favorite(status))
+    }
+  },
+  onRepost(status) {
+    if (!me) return dispatch(openModal('UNAUTHORIZED'))
+
+    const alreadyReposted = status.get('reblogged')
+
+    if (boostModal && !alreadyReposted) {
+      dispatch(openModal(MODAL_BOOST, {
+        status,
+        onRepost: () => dispatch(repost(status)),
+      }))
+    } else {
+      if (alreadyReposted) {
+        dispatch(unrepost(status))
+      } else {
+        dispatch(repost(status))
+      }
     }
   },
   onOpenStatusOptions(targetRef, status) {
@@ -260,6 +331,7 @@ Comment.propTypes = {
   isHighlighted: PropTypes.bool,
   onReply: PropTypes.func.isRequired,
   onFavorite: PropTypes.func.isRequired,
+  onRepost: PropTypes.func.isRequired,
   onOpenStatusOptions: PropTypes.func.isRequired,
   onOpenLikes: PropTypes.func.isRequired,
   onOpenReposts: PropTypes.func.isRequired,

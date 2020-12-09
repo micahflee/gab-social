@@ -71,7 +71,7 @@ UserStat.propTypes = {
     PropTypes.number,
     PropTypes.object,
   ]).isRequired,
-  isCentered: PropTypes.bool.isRequired,
+  isCentered: PropTypes.bool,
 }
 
 export default UserStat

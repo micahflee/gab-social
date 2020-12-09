@@ -35,14 +35,14 @@ import Text from '../../../components/text'
 import Icon from '../../../components/icon'
 import ComposeExtraButtonList from './compose_extra_button_list'
 import ComposeDestinationHeader from './compose_destination_header'
+import ComposeFormSubmitButton from './compose_form_submit_button'
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
   commentPlaceholder: { id: 'compose_form.comment_placeholder', defaultMessage: "Write a comment..." },
   spoiler_placeholder: { id: 'compose_form.spoiler_placeholder', defaultMessage: 'Write your warning here' },
-  publish: { id: 'compose_form.publish', defaultMessage: 'Publish' },
-  publishEdit: { id: 'compose_form.publish_edit', defaultMessage: 'Publish Edit' },
-  publishLoud: { id: 'compose_form.publish_loud', defaultMessage: '{publish}' },
+  post: { id: 'compose_form.post', defaultMessage: 'Post' },
+  postEdit: { id: 'compose_form.post_edit', defaultMessage: 'Post Edit' },
   schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
 })
 
@@ -73,12 +73,19 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleClick = (e) => {
-    if (!this.form) return false;
+    const { isStandalone, isModalOpen, shouldCondense } = this.props
+    
+    if (!this.form) return false
     if (e.target) {
       if (e.target.classList.contains('react-datepicker__time-list-item')) return false
     }
     if (!this.form.contains(e.target)) {
-      this.handleClickOutside();
+      this.handleClickOutside()
+    } else {
+      if (!isStandalone && !isModalOpen && !shouldCondense) {
+        this.props.openComposeModal()
+        return false
+      }
     }
   }
 
@@ -287,7 +294,7 @@ class ComposeForm extends ImmutablePureComponent {
                       isDisabled={disabledButton}
                       className={_s.px10}
                     >
-                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.post)}
                     </Button>
                   </div>
 
@@ -307,15 +314,11 @@ class ComposeForm extends ImmutablePureComponent {
       )
     }
 
-    if (isModalOpen) {
-      //
-    }
-
     if (isStandalone || isModalOpen) {
       return (
         <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgTertiary].join(' ')}>
           
-          <div className={[_s.d, _s.calcMaxH370PX, _s.overflowYScroll, _s.boxShadowBlock, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s.d, _s.pb10, _s.calcMaxH370PX, _s.overflowYScroll, _s.boxShadowBlock, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
             <ComposeDestinationHeader account={account} />
 
             <div
@@ -327,11 +330,7 @@ class ComposeForm extends ImmutablePureComponent {
               {
                 !!reduxReplyToId && isModalOpen && isMatch &&
                 <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                  <StatusContainer
-                    contextType='compose'
-                    id={reduxReplyToId}
-                    isChild
-                  />
+                  <StatusContainer contextType='compose' id={reduxReplyToId} isChild />
                 </div>
               }
 
@@ -374,10 +373,7 @@ class ComposeForm extends ImmutablePureComponent {
               {
                 (isUploading || anyMedia) &&
                 <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
-                  <UploadForm
-                    replyToId={replyToId}
-                    isModalOpen={isModalOpen}
-                  />
+                  <UploadForm replyToId={replyToId} isModalOpen={isModalOpen} />
                 </div>
               }
 
@@ -391,33 +387,15 @@ class ComposeForm extends ImmutablePureComponent {
               {
                 !!quoteOfId && isModalOpen && isMatch &&
                 <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                  <StatusContainer
-                    contextType='compose'
-                    id={quoteOfId}
-                    isChild
-                  />
+                  <StatusContainer contextType='compose' id={quoteOfId} isChild />
                 </div>
               }
-
             </div>
           </div>
 
-         <div className={[_s.d, _s.w100PC, _s.pt10, _s.px10].join(' ')}>
-            <Button
-              isBlock
-              isDisabled={disabledButton}
-              backgroundColor={disabledButton ? 'secondary' : 'brand'}
-              color={disabledButton ? 'tertiary' : 'white'}
-              className={[_s.fs15PX, _s.px15, _s.flexGrow1, _s.mlAuto].join(' ')}
-              onClick={this.handleSubmit}
-            >
-              <Text color='inherit' weight='medium' align='center'>
-                {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
-              </Text>
-            </Button>
-          </div>
+          { !isModalOpen && <ComposeFormSubmitButton /> }
             
-          <ComposeExtraButtonList isMatch={isMatch} hidePro={hidePro} edit={edit} />
+          <ComposeExtraButtonList isMatch={isMatch} hidePro={hidePro} edit={edit} isModal={isModalOpen} />
         </div>
       )
     }
@@ -431,26 +409,13 @@ class ComposeForm extends ImmutablePureComponent {
         <Text className={[_s.d, _s.px15, _s.pt15, _s.pb10].join(' ')} size='medium' color='tertiary'>
           {intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
         </Text>
-
         <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mt5, _s.px10, _s.flexWrap].join(' ')}>
           <UploadButton />
           <EmojiPickerButton isMatch={isMatch} />
-          <Responsive min={BREAKPOINT_EXTRA_EXTRA_SMALL}>
-            <PollButton />
-          </Responsive>
-          <Button
-            isOutline
-            isDisabled={disabledButton}
-            backgroundColor='none'
-            color='brand'
-            className={[_s.fs15PX, _s.px15, _s.flexGrow1, _s.maxW212PX, _s.mlAuto].join(' ')}
-            onClick={this.handleSubmit}
-          >
-            <Text color='inherit' weight='medium' align='center'>
-              {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
-            </Text>
-          </Button>
+          <PollButton />
+          <ComposeFormSubmitButton />
         </div>
+        <div className={[_s.d, _s.posAbs, _s.z2, _s.left0, _s.right0, _s.bottom0, _s.top0].join(' ')} />
       </div>
     )
   }
@@ -481,6 +446,7 @@ ComposeForm.propTypes = {
   onFetchSuggestions: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired,
   onChangeSpoilerText: PropTypes.func.isRequired,
+  openComposeModal: PropTypes.func.isRequired,
   onPaste: PropTypes.func.isRequired,
   showSearch: PropTypes.bool,
   anyMedia: PropTypes.bool,

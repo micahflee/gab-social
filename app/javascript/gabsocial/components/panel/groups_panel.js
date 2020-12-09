@@ -99,7 +99,7 @@ const mapDispatchToProps = (dispatch) => ({
 GroupsPanel.propTypes = {
   groupIds: ImmutablePropTypes.list,
   isLazy: PropTypes.bool, 
-  onFetchGroups: PropTypes.func.isRequired,
+  onFetchGroupsByTab: PropTypes.func.isRequired,
   shouldLoad: PropTypes.bool,
   groupType: PropTypes.string,
 }

@@ -19,15 +19,15 @@ class TimelineComposeBlock extends ImmutablePureComponent {
       account,
       size,
       intl,
-      modal,
+      isModal,
       ...rest
     } = this.props
 
-    if (modal) {
+    if (isModal) {
       return (
         <section className={_s.d}>
           <div className={[_s.d, _s.flexRow].join(' ')}>
-            <ComposeFormContainer {...rest} modal={modal} />
+            <ComposeFormContainer {...rest} isModal={isModal} />
           </div>
         </section>
       )
@@ -69,7 +69,7 @@ TimelineComposeBlock.propTypes = {
   intl: PropTypes.object.isRequired,
   account: ImmutablePropTypes.map.isRequired,
   size: PropTypes.number,
-  modal: PropTypes.bool,
+  isModal: PropTypes.bool,
 }
 
 TimelineComposeBlock.defaultProps = {

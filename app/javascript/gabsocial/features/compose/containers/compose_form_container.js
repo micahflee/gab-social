@@ -13,6 +13,8 @@ import {
   uploadCompose,
   changeScheduledAt,
 } from '../../../actions/compose'
+import { openModal } from '../../../actions/modal'
+import { MODAL_COMPOSE } from '../../../constants'
 import { me } from '../../../initial_state'
 
 const mapStateToProps = (state, props) => {
@@ -20,7 +22,7 @@ const mapStateToProps = (state, props) => {
     replyToId,
     isStandalone,
     shouldCondense,
-    modal,
+    isModal,
   } = props
 
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
@@ -37,7 +39,7 @@ const mapStateToProps = (state, props) => {
 
   if (isModalOpen) isMatch = true
   if (isModalOpen && shouldCondense) isMatch = false
-  if (isModalOpen && (!modal && !isStandalone)) isMatch = false
+  if (isModalOpen && (!isModal && !isStandalone)) isMatch = false
   
   if (!isMatch) {
     return {
@@ -125,6 +127,10 @@ const mapDispatchToProps = (dispatch, { isStandalone }) => ({
 
   setScheduledAt(date) {
     dispatch(changeScheduledAt(date))
+  },
+
+  openComposeModal() {
+    dispatch(openModal(MODAL_COMPOSE))
   },
 })
 

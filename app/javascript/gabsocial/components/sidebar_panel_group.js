@@ -35,7 +35,7 @@ class SidebarPanelGroup extends React.PureComponent {
     return (
       <React.Fragment>
         {
-          layout.map((panel) => {
+          layout.map((panel, i) => {
             if (!panel) return null
 
             if (typeof panel !== 'function' || panel.key === 'status-promotion-panel') {
@@ -44,6 +44,7 @@ class SidebarPanelGroup extends React.PureComponent {
 
             return (
               <Bundle
+                key={`sidebar-panel-group-item-${i}`}
                 fetchComponent={panel}
                 loading={this.renderLoading}
                 error={this.renderError}
