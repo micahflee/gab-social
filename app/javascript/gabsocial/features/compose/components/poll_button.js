@@ -12,13 +12,19 @@ class PollButton extends React.PureComponent {
   }
 
   render() {
-    const { intl, active, unavailable, disabled, small } = this.props
+    const {
+      intl,
+      active,
+      unavailable,
+      disabled,
+      small,
+    } = this.props
 
     if (unavailable) return null
 
     return (
       <ComposeExtraButton
-        title={intl.formatMessage(active ? messages.remove_poll : messages.title)}
+        title={intl.formatMessage(active ? messages.remove_poll : messages.add_poll)}
         disabled={disabled}
         onClick={this.handleClick}
         icon='poll'
@@ -42,7 +48,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   onClick() {
     dispatch((_, getState) => {
       if (getState().getIn(['compose', 'poll'])) {
@@ -52,7 +57,6 @@ const mapDispatchToProps = (dispatch) => ({
       }
     })
   },
-
 })
 
 PollButton.propTypes = {

@@ -46,11 +46,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   onChangeRichTextEditorControlsVisibility() {
     dispatch(changeRichTextEditorControlsVisibility())
   },
-
   onOpenProUpgradeModal() {
     dispatch(openModal('PRO_UPGRADE'))
   },

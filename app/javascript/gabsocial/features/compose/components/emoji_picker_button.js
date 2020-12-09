@@ -29,9 +29,9 @@ class EmojiPickerButton extends React.PureComponent {
         title={intl.formatMessage(messages.emoji)}
         onClick={this.handleClick}
         icon='happy'
-        small={small}
         active={active && isMatch}
         buttonRef={this.setButton}
+        small={small}
       />
     )
   }
@@ -47,21 +47,19 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   onClick(targetRef) {
     dispatch(openPopover('EMOJI_PICKER', {
       targetRef,
     }))
   },
-
 })
 
 EmojiPickerButton.propTypes = {
   intl: PropTypes.object.isRequired,
   onClick: PropTypes.func.isRequired,
   active: PropTypes.bool,
-  small: PropTypes.bool,
   isMatch: PropTypes.bool,
+  small: PropTypes.bool,
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(EmojiPickerButton))

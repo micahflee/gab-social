@@ -11,13 +11,14 @@ import {
   MAX_POST_CHARACTER_COUNT,
   ALLOWED_AROUND_SHORT_CODE,
   BREAKPOINT_EXTRA_SMALL,
+  BREAKPOINT_EXTRA_EXTRA_SMALL,
+  BREAKPOINT_MEDIUM,
 } from '../../../constants'
 import AutosuggestTextbox from '../../../components/autosuggest_textbox'
 import Responsive from '../../ui/util/responsive_component'
 import ResponsiveClassesComponent from '../../ui/util/responsive_classes_component'
 import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
-import CharacterCounter from '../../../components/character_counter'
 import EmojiPickerButton from './emoji_picker_button'
 import PollButton from './poll_button'
 import PollForm from './poll_form'
@@ -30,6 +31,10 @@ import StatusVisibilityButton from './status_visibility_button'
 import UploadButton from './media_upload_button'
 import UploadForm from './upload_form'
 import Input from '../../../components/input'
+import Text from '../../../components/text'
+import Icon from '../../../components/icon'
+import ComposeExtraButtonList from './compose_extra_button_list'
+import ComposeDestinationHeader from './compose_destination_header'
 
 const messages = defineMessages({
   placeholder: { id: 'compose_form.placeholder', defaultMessage: "What's on your mind?" },
@@ -193,11 +198,12 @@ class ComposeForm extends ImmutablePureComponent {
       isSubmitting,
       isPro,
       hidePro,
+      isStandalone,
     } = this.props
 
     const disabled = isSubmitting
     const text = [this.props.spoilerText, countableText(this.props.text)].join('');
-    const disabledButton = disabled || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text) !== 0 && length(text.trim()) === 0 && !anyMedia);
+    const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
     const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
 
     const parentContainerClasses = CX({
@@ -238,220 +244,213 @@ class ComposeForm extends ImmutablePureComponent {
       displayNone: length(this.props.text) === 0,
     })
 
-    return (
-      <div className={[_s.d, _s.w100PC].join(' ')}>
-        {
-          shouldCondense &&
-          <div className={parentContainerClasses}>
-            <div className={[_s.d, _s.w100PC].join(' ')}>
+    if (shouldCondense) {
+      return (
+        <div className={[_s.d, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
+            <div className={[_s.d, _s.mr10].join(' ')}>
+              <Avatar account={account} size={28} noHover />
+            </div>
 
-              <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
-                <div className={[_s.d, _s.mr10].join(' ')}>
-                  <Avatar account={account} size={28} noHover />
-                </div>
+            <div
+              className={[_s.d, _s.flexWrap, _s.overflowHidden, _s.flex1, _s.minH28PX, _s.py2, _s.aiEnd, _s.flexRow, _s.radiusSmall, _s.bgSubtle, _s.px5].join(' ')}
+              ref={this.setForm}
+              onClick={this.handleClick}
+            >
 
-                <div
-                  className={childContainerClasses}
-                  ref={this.setForm}
-                  onClick={this.handleClick}
-                >
+              <AutosuggestTextbox
+                ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+                placeholder={intl.formatMessage(messages.commentPlaceholder)}
+                disabled={disabled}
+                value={this.props.text}
+                onChange={this.handleChange}
+                suggestions={this.props.suggestions}
+                onKeyDown={this.handleKeyDown}
+                onFocus={this.handleComposeFocus}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                onSuggestionSelected={this.onSuggestionSelected}
+                onPaste={onPaste}
+                autoFocus={shouldAutoFocus}
+                small={shouldCondense}
+                isPro={isPro}
+                isEdit={!!edit}
+                id='comment-composer'
+              />
 
-                  <AutosuggestTextbox
-                    ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-                    placeholder={intl.formatMessage(messages.commentPlaceholder)}
-                    disabled={disabled}
-                    value={this.props.text}
-                    onChange={this.handleChange}
-                    suggestions={this.props.suggestions}
-                    onKeyDown={this.handleKeyDown}
-                    onFocus={this.handleComposeFocus}
-                    onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                    onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                    onSuggestionSelected={this.onSuggestionSelected}
-                    onPaste={onPaste}
-                    autoFocus={shouldAutoFocus}
-                    small={shouldCondense}
-                    isPro={isPro}
-                    isEdit={!!edit}
-                    id='comment-composer'
-                  />
-
-                  <div className={actionsContainerClasses}>
-                    <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
-
-                      { /* <EmojiPickerButton small={shouldCondense} isMatch={isMatch} /> */}
-
-                      { /* <UploadButton small={shouldCondense} /> */}
-
-                      <div className={commentPublishBtnClasses}>
-                        <Button
-                          isNarrow
-                          onClick={this.handleSubmit}
-                          isDisabled={disabledButton}
-                          className={_s.px10}
-                        >
-                          {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
-                        </Button>
-                      </div>
-
-                    </div>
+              <div className={[_s.d, _s.flexRow, _s.aiStart, _s.mlAuto].join(' ')}>
+                <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
+                  <div className={commentPublishBtnClasses}>
+                    <Button
+                      isNarrow
+                      onClick={this.handleSubmit}
+                      isDisabled={disabledButton}
+                      className={_s.px10}
+                    >
+                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.publish)}
+                    </Button>
                   </div>
 
                 </div>
               </div>
 
+            </div>
+          </div>
+
+          {
+            (isUploading || anyMedia) &&
+            <div className={[_s.d, _s.w100PC, _s.pl35, _s.mt5].join(' ')}>
+              <UploadForm replyToId={replyToId} isModalOpen={isModalOpen} />
+            </div>
+          }
+        </div>
+      )
+    }
+
+    if (isModalOpen) {
+      //
+    }
+
+    if (isStandalone || isModalOpen) {
+      return (
+        <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgTertiary].join(' ')}>
+          
+          <div className={[_s.d, _s.calcMaxH370PX, _s.overflowYScroll, _s.boxShadowBlock, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+            <ComposeDestinationHeader account={account} />
+
+            <div
+              className={[_s.d, _s.bgPrimary, _s.boxShadowBlock, _s.w100PC, _s.minH200PX, _s.pb10, _s.borderBottom1PX, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
+              ref={this.setForm}
+              onClick={this.handleClick}
+            >
+
+              {
+                !!reduxReplyToId && isModalOpen && isMatch &&
+                <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                  <StatusContainer
+                    contextType='compose'
+                    id={reduxReplyToId}
+                    isChild
+                  />
+                </div>
+              }
+
+              {
+                !!spoiler &&
+                <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                  <Input
+                    placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                    value={this.props.spoilerText}
+                    onChange={this.handleChangeSpoilerText}
+                    disabled={!this.props.spoiler}
+                    prependIcon='warning'
+                    maxLength={256}
+                    id='cw-spoiler-input'
+                  />
+                </div>
+              }
+
+              <AutosuggestTextbox
+                ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+                placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
+                disabled={disabled}
+                value={this.props.text}
+                valueMarkdown={this.props.markdown}
+                onChange={this.handleChange}
+                suggestions={this.props.suggestions}
+                onKeyDown={this.handleKeyDown}
+                onFocus={this.handleComposeFocus}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+                onSuggestionSelected={this.onSuggestionSelected}
+                onPaste={onPaste}
+                autoFocus={shouldAutoFocus}
+                small={shouldCondense}
+                isPro={isPro}
+                isEdit={!!edit}
+                id='main-composer'
+              />
+
               {
                 (isUploading || anyMedia) &&
-                <div className={[_s.d, _s.w100PC, _s.pl35, _s.mt5].join(' ')}>
+                <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
                   <UploadForm
                     replyToId={replyToId}
                     isModalOpen={isModalOpen}
                   />
                 </div>
               }
-            </div>
-          </div>
-        }
 
-        {
-          !shouldCondense &&
-          <div className={parentContainerClasses}>
-            <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
-              <div
-                className={childContainerClasses}
-                ref={this.setForm}
-                onClick={this.handleClick}
-              >
-
-                {
-                  !!reduxReplyToId && isModalOpen && isMatch &&
-                  <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                    <StatusContainer
-                      contextType='compose'
-                      id={reduxReplyToId}
-                      isChild
-                    />
-                  </div>
-                }
-
-                {
-                  !!spoiler &&
-                  <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-                    <Input
-                      placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-                      value={this.props.spoilerText}
-                      onChange={this.handleChangeSpoilerText}
-                      disabled={!this.props.spoiler}
-                      prependIcon='warning'
-                      maxLength={256}
-                      id='cw-spoiler-input'
-                    />
-                  </div>
-                }
-
-                <AutosuggestTextbox
-                  ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-                  placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
-                  disabled={disabled}
-                  value={this.props.text}
-                  valueMarkdown={this.props.markdown}
-                  onChange={this.handleChange}
-                  suggestions={this.props.suggestions}
-                  onKeyDown={this.handleKeyDown}
-                  onFocus={this.handleComposeFocus}
-                  onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                  onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                  onSuggestionSelected={this.onSuggestionSelected}
-                  onPaste={onPaste}
-                  autoFocus={shouldAutoFocus}
-                  small={shouldCondense}
-                  isPro={isPro}
-                  isEdit={!!edit}
-                  id='main-composer'
-                />
-
-                {
-                  (isUploading || anyMedia) &&
-                  <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
-                    <UploadForm
-                      replyToId={replyToId}
-                      isModalOpen={isModalOpen}
-                    />
-                  </div>
-                }
-
-                {
-                  !edit && hasPoll &&
-                  <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
-                    <PollForm replyToId={replyToId} />
-                  </div>
-                }
-
-                {
-                  !!quoteOfId && isModalOpen && isMatch &&
-                  <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                    <StatusContainer
-                      contextType='compose'
-                      id={quoteOfId}
-                      isChild
-                    />
-                  </div>
-                }
-
-                <div className={actionsContainerClasses}>
-                  <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
-
-                    <UploadButton small={shouldCondense} />
-
-                    <EmojiPickerButton small={shouldCondense} isMatch={isMatch} />
-
-                    { /* <GifSelectorButton small={shouldCondense} /> */}
-
-                    {
-                      !edit &&
-                      <PollButton />
-                    }
-
-                    <StatusVisibilityButton />
-                    <SpoilerButton />
-                    {
-                      !hidePro && !edit &&
-                      <SchedulePostButton />
-                    }
-
-                    {
-                      !hidePro && !edit &&
-                      <ExpiresPostButton />
-                    }
-
-                    {
-                      !hidePro &&
-                      <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                        <RichTextEditorButton />
-                      </Responsive>
-                    }
-                  </div>
-
-                  <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                    <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
-                  </Responsive>
-
-                  <Button
-                    isOutline
-                    isDisabled={disabledButton}
-                    backgroundColor='none'
-                    color='brand'
-                    className={[_s.fs15PX, _s.px15].join(' ')}
-                    onClick={this.handleSubmit}
-                  >
-                    {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
-                  </Button>
+              {
+                !edit && hasPoll &&
+                <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
+                  <PollForm replyToId={replyToId} />
                 </div>
+              }
 
-              </div>
+              {
+                !!quoteOfId && isModalOpen && isMatch &&
+                <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                  <StatusContainer
+                    contextType='compose'
+                    id={quoteOfId}
+                    isChild
+                  />
+                </div>
+              }
+
             </div>
           </div>
-        }
+
+         <div className={[_s.d, _s.w100PC, _s.pt10, _s.px10].join(' ')}>
+            <Button
+              isBlock
+              isDisabled={disabledButton}
+              backgroundColor={disabledButton ? 'secondary' : 'brand'}
+              color={disabledButton ? 'tertiary' : 'white'}
+              className={[_s.fs15PX, _s.px15, _s.flexGrow1, _s.mlAuto].join(' ')}
+              onClick={this.handleSubmit}
+            >
+              <Text color='inherit' weight='medium' align='center'>
+                {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
+              </Text>
+            </Button>
+          </div>
+            
+          <ComposeExtraButtonList isMatch={isMatch} hidePro={hidePro} edit={edit} />
+        </div>
+      )
+    }
+
+    return (
+      <div
+        className={[_s.d, _s.w100PC, _s.pb10, _s.flexWrap, _s.overflowHidden, _s.flex1].join(' ')}
+        ref={this.setForm}
+        onClick={this.handleClick}
+      >
+        <Text className={[_s.d, _s.px15, _s.pt15, _s.pb10].join(' ')} size='medium' color='tertiary'>
+          {intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
+        </Text>
+
+        <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mt5, _s.px10, _s.flexWrap].join(' ')}>
+          <UploadButton />
+          <EmojiPickerButton isMatch={isMatch} />
+          <Responsive min={BREAKPOINT_EXTRA_EXTRA_SMALL}>
+            <PollButton />
+          </Responsive>
+          <Button
+            isOutline
+            isDisabled={disabledButton}
+            backgroundColor='none'
+            color='brand'
+            className={[_s.fs15PX, _s.px15, _s.flexGrow1, _s.maxW212PX, _s.mlAuto].join(' ')}
+            onClick={this.handleSubmit}
+          >
+            <Text color='inherit' weight='medium' align='center'>
+              {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.publishEdit : messages.publish)}
+            </Text>
+          </Button>
+        </div>
       </div>
     )
   }
@@ -497,6 +496,7 @@ ComposeForm.propTypes = {
   isPro: PropTypes.bool,
   hidePro: PropTypes.bool,
   autoJoinGroup: PropTypes.bool,
+  isStandalone: PropTypes.bool,
 }
 
 ComposeForm.defaultProps = {

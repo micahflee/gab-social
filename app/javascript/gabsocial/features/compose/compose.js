@@ -7,25 +7,13 @@ import ComposeFormContainer from './containers/compose_form_container'
 class Compose extends React.PureComponent {
 
   componentWillUnmount() {
-    this.props.onClearCompose()
+    this.props.dispatch(clearCompose())
   }
 
   render () {
-    return (
-      <div className={[_s.d, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-        <ComposeFormContainer isStandalone />
-      </div>
-    )
+    return <ComposeFormContainer isStandalone />
   }
 
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  onClearCompose:() => dispatch(clearCompose())
-})
-
-Compose.propTypes = {
-  onClearCompose: PropTypes.func.isRequired,
-}
-
-export default connect(null, mapDispatchToProps)(Compose)
+export default connect()(Compose)

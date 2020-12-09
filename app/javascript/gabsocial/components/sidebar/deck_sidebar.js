@@ -11,6 +11,7 @@ import { makeGetAccount } from '../../selectors'
 import {
   THEMES,
   DEFAULT_THEME,
+  MODAL_COMPOSE,
   POPOVER_NAV_SETTINGS,
   MODAL_DECK_COLUMN_ADD,
 } from '../../constants'
@@ -36,6 +37,10 @@ class DeckSidebar extends ImmutablePureComponent {
 
   handleOnOpenNewColumnModel = () => {
     this.props.onOpenNewColumnModal()
+  }
+
+  handleOnOpenComposeModal = () => {
+    this.props.onOpenComposeModal()
   }
 
   setAvatarNode = (c) => {
@@ -70,9 +75,9 @@ class DeckSidebar extends ImmutablePureComponent {
 
               <div className={[_s.d, _s.px10].join(' ')}>
 
-                <NavigationBarButton icon='pencil' />
+                <NavigationBarButton icon='pencil' onClick={this.handleOnOpenComposeModal} />
                 
-                <NavigationBarButton icon='search' />
+                <NavigationBarButton icon='search' to='/search' />
 
                 <Divider isSmall />
 
@@ -117,11 +122,14 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenNavSettingsPopover(targetRef) {
     dispatch(openPopover(POPOVER_NAV_SETTINGS, {
       targetRef,
-      position: 'right-start',
+      position: 'top-start',
     }))
   },
   onOpenNewColumnModal() {
     dispatch(openModal(MODAL_DECK_COLUMN_ADD))
+  },
+  onOpenComposeModal() {
+    dispatch(openModal(MODAL_COMPOSE))
   },
   onChange(key, value) {
     dispatch(changeSetting(['displayOptions', key], value))
@@ -133,6 +141,7 @@ DeckSidebar.propTypes = {
   account: ImmutablePropTypes.map,
   onOpenNavSettingsPopover: PropTypes.func.isRequired,
   onOpenNewColumnModal: PropTypes.func.isRequired,
+  onOpenComposeModal: PropTypes.func.isRequired,
   theme: PropTypes.string,
   logoDisabled: PropTypes.bool,
 }

@@ -39,11 +39,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-
   onClick () {
     dispatch(changeComposeSpoilerness())
   },
-
 })
 
 SpoilerButton.propTypes = {

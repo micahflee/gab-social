@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { setDeckColumnAtIndex } from '../../actions/deck'
-import { saveSettings } from '../../actions/settings'
 import { openModal } from '../../actions/modal'
 import ModalLayout from './modal_layout'
 import Button from '../button'
@@ -11,6 +10,7 @@ import Text from '../text'
 class DeckColumnAddModal extends React.PureComponent {
 
   onAdd = (column) => {
+    console.log("onAdd column: ", column)
     switch (column) {
       case 'user':
         // 
@@ -18,15 +18,12 @@ class DeckColumnAddModal extends React.PureComponent {
       case 'list':
         // 
         break
-      case 'groups':
-        // 
-        break
       case 'group':
         // 
         break
       default:
         this.props.dispatch(setDeckColumnAtIndex(column))
-        this.props.dispatch(saveSettings())
+        this.props.onClose()
         break
     }
   }
@@ -47,7 +44,7 @@ class DeckColumnAddModal extends React.PureComponent {
           <div className={[_s.d, _s.pl10, _s.borderBottom1PX, _s.borderColorSecondary, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
             <DeckColumnAddModalButton icon='home' type='Home' onClick={() => this.onAdd('home')} />
             <DeckColumnAddModalButton icon='group' type='User' onClick={() => this.onAdd('user')} />
-            <DeckColumnAddModalButton icon='notifications' type='Notifications' onClick={() => this.onAdd('home')} />
+            <DeckColumnAddModalButton icon='notifications' type='Notifications' onClick={() => this.onAdd('notifications')} />
           </div>
           <div className={[_s.d, _s.pl10, _s.borderBottom1PX, _s.borderColorSecondary, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
             <DeckColumnAddModalButton icon='list' type='List' onClick={() => this.onAdd('list')} />
@@ -56,7 +53,7 @@ class DeckColumnAddModal extends React.PureComponent {
           </div>
           <div className={[_s.d, _s.pl10, _s.pb10, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
             <DeckColumnAddModalButton icon='pro' type='PRO Timeline' onClick={() => this.onAdd('pro')} />
-            <DeckColumnAddModalButton icon='group' type='Groups Timeline' onClick={() => this.onAdd('groups')} />
+            <DeckColumnAddModalButton icon='pencil' type='Compose' onClick={() => this.onAdd('compose')} />
             <DeckColumnAddModalButton icon='group' type='Group Timeline' onClick={() => this.onAdd('group')} />
           </div>
         </div>
@@ -85,7 +82,7 @@ const DeckColumnAddModalButton = ({ icon, type, onClick }) => (
 
 
 DeckColumnAddModalButton.propTypes = {
-  onSetDeckColumnAtIndex: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 }
 
 export default connect()(DeckColumnAddModal)

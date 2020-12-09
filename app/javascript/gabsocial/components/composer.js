@@ -261,7 +261,7 @@ class Composer extends React.PureComponent {
       <div className={_s.d}>
 
         {
-          !small && isPro &&
+          isPro &&
           <RichTextEditorBar
             editorState={editorState}
             onChange={this.onChange}

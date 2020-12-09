@@ -336,6 +336,7 @@ class Introduction extends ImmutablePureComponent {
                     <Text color='white' className={_s.px5}>{nextTitle}</Text>
                   </Responsive>
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+                    <Text color='white' className={[_s.px5, _s.mr10].join(' ')}>Done</Text>
                     <Icon id='check' size='14px' className={_s.cWhite} />
                   </Responsive>
                 </React.Fragment>
