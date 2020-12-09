@@ -22,6 +22,12 @@ class TagManager
     uri.normalized_host
   end
 
+  def normalize_link(link)
+    return if link.nil?
+    uri = Addressable::URI.parse(link)
+    return "#{uri.normalized_host}#{uri.normalized_path}"
+  end
+
   def same_acct?(canonical, needle)
     return true if canonical.casecmp(needle).zero?
     username, domain = needle.split('@')

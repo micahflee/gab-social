@@ -25,6 +25,7 @@ class EditStatusService < BaseService
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
 
+    validate_links!
     validate_media!
     preprocess_attributes!
     revision_text = prepare_revision_text
@@ -87,6 +88,10 @@ class EditStatusService < BaseService
 
     hasVideoOrGif = @media.find(&:video?) || @media.find(&:gifv?)
     raise GabSocial::ValidationError, I18n.t('media_attachments.validations.images_and_video') if @media.size > 1 && hasVideoOrGif
+  end
+
+  def validate_links!
+    raise GabSocial::NotPermittedError if LinkBlock.block?(@text)
   end
 
   def language_from_option(str)

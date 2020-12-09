@@ -1,0 +1,11 @@
+- content_for :page_title do
+  = t('.title')
+
+= simple_form_for @link_block, url: admin_link_blocks_path do |f|
+  = render 'shared/error_messages', object: @link_block
+
+  .fields-group
+    = f.input :link, wrapper: :with_label, label: t('admin.link_blocks.link')
+
+  .actions
+    = f.button :button, t('.create'), type: :submit

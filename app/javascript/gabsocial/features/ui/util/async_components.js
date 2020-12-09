@@ -7,6 +7,8 @@ export function BlockAccountModal() { return import(/* webpackChunkName: "compon
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
+export function CaliforniaConsumerProtection() { return import(/* webpackChunkName: "features/california_consumer_protection" */'../../about/california_consumer_protection') }
+export function CaliforniaConsumerProtectionContact() { return import(/* webpackChunkName: "features/california_consumer_protection_contact" */'../../about/california_consumer_protection_contact') }
 export function ChatConversationBlockedAccounts() { return import(/* webpackChunkName: "features/chat_conversation_blocked_accounts" */'../../chat_conversation_blocked_accounts') }
 export function ChatConversationCreate() { return import(/* webpackChunkName: "features/chat_conversation_create" */'../../chat_conversation_create') }
 export function ChatConversationCreateModal() { return import(/* webpackChunkName: "components/chat_conversation_create_modal" */'../../../components/modal/chat_conversation_create_modal') }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_03_214600) do
+ActiveRecord::Schema.define(version: 2020_12_06_060226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -392,6 +392,13 @@ ActiveRecord::Schema.define(version: 2020_12_03_214600) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.index ["user_id"], name: "index_identities_on_user_id"
+  end
+
+  create_table "link_blocks", force: :cascade do |t|
+    t.string "link", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link"], name: "index_link_blocks_on_link", unique: true
   end
 
   create_table "list_accounts", force: :cascade do |t|

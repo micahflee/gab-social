@@ -31,6 +31,7 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :action_logs, safe_join([fa_icon('bars fw'), t('admin.action_logs.title')]), admin_action_logs_url
       s.item :reports, safe_join([fa_icon('flag fw'), t('admin.reports.title')]), admin_reports_url, highlights_on: %r{/admin/reports}
       s.item :email_domain_blocks, safe_join([fa_icon('envelope fw'), t('admin.email_domain_blocks.title')]), admin_email_domain_blocks_url, highlights_on: %r{/admin/email_domain_blocks}, if: -> { current_user.admin? }
+      s.item :link_blocks, safe_join([fa_icon('link fw'), t('admin.link_blocks.title')]), admin_link_blocks_url, highlights_on: %r{/admin/link_blocks}, if: -> { current_user.admin? }
     end
 
     n.item :admin, safe_join([fa_icon('cogs fw'), t('admin.title')]), admin_dashboard_url, if: proc { current_user.staff? } do |s|

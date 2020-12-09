@@ -325,6 +325,16 @@ en:
         title: Undo domain block for %{domain}
         undo: Undo
       undo: Undo domain block
+    link_blocks:
+      add_new: Add new
+      created_msg: Successfully added link to blacklist
+      delete: Delete
+      destroyed_msg: Successfully deleted link from blacklist
+      link: Link
+      new:
+        create: Add link
+        title: New link blacklist entry
+      title: Link blacklist
     email_domain_blocks:
       add_new: Add new
       created_msg: Successfully added e-mail domain to blacklist
