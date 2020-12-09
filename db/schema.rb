@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_08_210104) do
+ActiveRecord::Schema.define(version: 2020_12_06_060226) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -430,6 +430,13 @@ ActiveRecord::Schema.define(version: 2020_09_08_210104) do
     t.boolean "autofollow", default: false, null: false
     t.index ["code"], name: "index_invites_on_code", unique: true
     t.index ["user_id"], name: "index_invites_on_user_id"
+  end
+
+  create_table "link_blocks", force: :cascade do |t|
+    t.string "link", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["link"], name: "index_link_blocks_on_link", unique: true
   end
 
   create_table "list_accounts", force: :cascade do |t|

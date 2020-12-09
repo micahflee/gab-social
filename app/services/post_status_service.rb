@@ -34,6 +34,7 @@ class PostStatusService < BaseService
 
     return idempotency_duplicate if idempotency_given? && idempotency_duplicate?
 
+    validate_links!
     validate_media!
     validate_group!
     preprocess_attributes!
@@ -98,7 +99,7 @@ class PostStatusService < BaseService
   end
 
   def postprocess_status!
-    LinkCrawlWorker.perform_async(@status.id) unless @status.spoiler_text?
+    LinkCrawlWorker.perform_async(@status.id)
     DistributionWorker.perform_async(@status.id)
     # Pubsubhubbub::DistributionWorker.perform_async(@status.stream_entry.id)
     # ActivityPub::DistributionWorker.perform_async(@status.id)
@@ -125,6 +126,10 @@ class PostStatusService < BaseService
 
     hasVideoOrGif = @media.find(&:video?) || @media.find(&:gifv?)
     raise GabSocial::ValidationError, I18n.t('media_attachments.validations.images_and_video') if @media.size > 1 && hasVideoOrGif
+  end
+
+  def validate_links!
+    raise GabSocial::NotPermittedError if LinkBlock.block?(@text)
   end
 
   def language_from_option(str)
