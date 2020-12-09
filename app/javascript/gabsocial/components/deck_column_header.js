@@ -22,6 +22,7 @@ class DeckColumnHeader extends React.PureComponent {
       subtitle,
       icon,
       children,
+      noButtons,
     } = this.props
 
     return (
@@ -40,7 +41,7 @@ class DeckColumnHeader extends React.PureComponent {
           { !!subtitle && <Text className={_s.ml5} color='secondary'>{subtitle}</Text> }
         </div>
         {
-          !!title &&
+          !!title && !noButtons &&
           <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mlAuto, _s.jcCenter].join(' ')}>
             <Button
               isNarrow
@@ -71,6 +72,7 @@ DeckColumnHeader.propTypes = {
   subtitle: PropTypes.string,
   icon: PropTypes.string,
   index: PropTypes.number,
+  noButtons: PropTypes.bool,
 }
 
 export default connect()(DeckColumnHeader)

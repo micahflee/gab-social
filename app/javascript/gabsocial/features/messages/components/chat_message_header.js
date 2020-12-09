@@ -86,7 +86,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(openPopover(POPOVER_CHAT_CONVERSATION_OPTIONS, {
       chatConversationId,
       targetRef,
-      position: 'bottom',
+      position: 'left-end',
     }))
   },
 })

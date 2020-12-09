@@ -166,7 +166,8 @@ export const TIMELINE_INJECTION_WEIGHT_MULTIPLIER = 100
 export const TIMELINE_INJECTION_WEIGHT_SUBTRACTOR = 0.005
 export const TIMELINE_INJECTION_WEIGHT_MIN = 0.01
 
-export const GAB_DECK_OPTIONS = ['home', 'user.id', 'notifications', 'list.id', 'likes', 'bookmarks', 'pro', 'compose', 'group.id']
+export const GAB_DECK_MAX_ITEMS = 8
+export const GAB_DECK_OPTIONS = ['home', 'user.id', 'notifications', 'list.id', 'likes', 'bookmarks', 'pro', 'compose', 'group.id', 'explore', 'news', 'news.id', 'hashtag.id']
 
 export const TRENDS_RSS_SOURCES = [
   {'id':'5daf64b18e955e2433b0f5ce','title':'Breitbart'},

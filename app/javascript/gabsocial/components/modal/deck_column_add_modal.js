@@ -21,6 +21,9 @@ class DeckColumnAddModal extends React.PureComponent {
       case 'group':
         // 
         break
+      case 'hashtag':
+        // 
+        break
       default:
         this.props.dispatch(setDeckColumnAtIndex(column))
         this.props.onClose()
@@ -51,10 +54,15 @@ class DeckColumnAddModal extends React.PureComponent {
             <DeckColumnAddModalButton icon='like' type='Likes' onClick={() => this.onAdd('likes')} />
             <DeckColumnAddModalButton icon='bookmark' type='Bookmarks' onClick={() => this.onAdd('bookmarks')} />
           </div>
-          <div className={[_s.d, _s.pl10, _s.pb10, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
+          <div className={[_s.d, _s.pl10, _s.borderBottom1PX, _s.borderColorSecondary, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
             <DeckColumnAddModalButton icon='pro' type='PRO Timeline' onClick={() => this.onAdd('pro')} />
             <DeckColumnAddModalButton icon='pencil' type='Compose' onClick={() => this.onAdd('compose')} />
             <DeckColumnAddModalButton icon='group' type='Group Timeline' onClick={() => this.onAdd('group')} />
+          </div>
+          <div className={[_s.d, _s.pl10, _s.pb10, _s.flexRow, _s.aiCenter, _s.jcCenter].join(' ')}>
+            <DeckColumnAddModalButton icon='apps' type='Hashtag' onClick={() => this.onAdd('hashtag')} />
+            <DeckColumnAddModalButton icon='explore' type='Explore' onClick={() => this.onAdd('explore')} />
+            <DeckColumnAddModalButton icon='news' type='News' onClick={() => this.onAdd('news')} />
           </div>
         </div>
       </ModalLayout>

@@ -9,15 +9,19 @@ import {
 } from 'react-sortable-hoc'
 import { me, meUsername} from '../initial_state'
 import {
+  GAB_DECK_MAX_ITEMS,
+  MODAL_PRO_UPGRADE,
+} from '../constants'
+import {
   deckConnect,
   deckDisconnect,
   updateDeckColumnAtIndex,
 } from '../actions/deck'
-import {
-  saveSettings,
-} from '../actions/settings'
+import { saveSettings } from '../actions/settings'
+import { openModal } from '../actions/modal'
 import WrappedBundle from './ui/util/wrapped_bundle'
 import DeckColumn from '../components/deck_column'
+import Text from '../components/text'
 import {
   AccountTimeline,
   Compose,
@@ -27,6 +31,8 @@ import {
   HashtagTimeline,
   BookmarkedStatuses,
   ProTimeline,
+  News,
+  ExploreTimeline,
 } from './ui/util/async_components'
 
 class Deck extends React.PureComponent {
@@ -36,19 +42,18 @@ class Deck extends React.PureComponent {
   }
 
   componentDidMount () {
-    this.props.connectDeck()
-  }
-
-  componentWillUnmount() {
-    this.props.disconnectDeck()
-  }
-
-  componentDidMount () {
     this.props.dispatch(deckConnect())
+    console.log("this.props.isPro:", this.props)
+    if (!this.props.isPro) this.handleOnOpenProUpgradeModal()
   }
 
   componentWillUnmount() {
     this.props.dispatch(deckDisconnect())
+  }
+
+  handleOnOpenProUpgradeModal = () => {
+    console.log("handleOnOpenProUpgradeModal")
+    this.props.dispatch(openModal(MODAL_PRO_UPGRADE))
   }
 
   onSortEnd = ({oldIndex, newIndex}) => {
@@ -66,7 +71,7 @@ class Deck extends React.PureComponent {
   }
 
   getDeckColumn = (deckColumn, index) => {
-    if (!deckColumn) return null
+    if (!deckColumn || !isPro) return null
 
     let Component = null
     let componentParams = {}
@@ -105,16 +110,32 @@ class Deck extends React.PureComponent {
         icon = 'pro'
         Component = ProTimeline
         break
+      case 'news':
+        title = 'News'
+        icon = 'news'
+        Component = News
+        componentParams = { isSmall: true }
+        break
+      case 'explore':
+        title = 'Explore'
+        icon = 'explore'
+        Component = ExploreTimeline
+        break
       default:
         break
     }
 
+    // : todo :
     if (!Component) {
       if (deckColumn.indexOf('user.') > -1)  {
         
       } else if (deckColumn.indexOf('list.') > -1)  {
         
       } else if (deckColumn.indexOf('group.') > -1)  {
+        
+      } else if (deckColumn.indexOf('news.') > -1)  {
+        
+      } else if (deckColumn.indexOf('hashtag.') > -1)  {
         
       }
     }
@@ -135,12 +156,9 @@ class Deck extends React.PureComponent {
   }
 
   render () {
-    const { gabDeckOrder } = this.props
-
-    console.log("gabDeckOrder:", gabDeckOrder)
+    const { gabDeckOrder, isPro } = this.props
 
     const isEmpty = gabDeckOrder.size === 0
-    // : todo : max: 12
 
     return (
       <SortableContainer
@@ -150,17 +168,27 @@ class Deck extends React.PureComponent {
         shouldCancelStart={this.onShouldCancelStart}
       >
         {
-          isEmpty &&
+          (isEmpty || !isPro) &&
           <React.Fragment>
-            <DeckColumn title='Compose' icon='pencil'>
+            <DeckColumn title='Compose' icon='pencil' noButtons>
               <WrappedBundle component={Compose} />
             </DeckColumn>
+            {
+              !isPro &&
+              <DeckColumn title='Gab Deck for GabPRO' icon='pro' noButtons>
+                <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
+                  <Text>
+                    Gab Deck for GabPRO
+                  </Text>
+                </div>
+              </DeckColumn>
+            }
             <DeckColumn />
           </React.Fragment>
         }
         {
-          !isEmpty &&
-          gabDeckOrder.map((deckOption, i) => this.getDeckColumn(deckOption, i))
+          !isEmpty && isPro &&
+          gabDeckOrder.splice(0, GAB_DECK_MAX_ITEMS).map((deckOption, i) => this.getDeckColumn(deckOption, i))
         }
       </SortableContainer>
     )
@@ -181,10 +209,12 @@ const SortableContainer = sortableContainer(({children}) => (
 ))
 
 const mapStateToProps = (state) => ({
+  isPro: state.getIn(['accounts', me, 'is_pro']),
   gabDeckOrder: state.getIn(['settings', 'gabDeckOrder']),
 })
 
 Deck.propTypes = {
+  isPro: PropTypes.bool.isRequired,
   gabDeckOrder: ImmutablePropTypes.list,
 }
 

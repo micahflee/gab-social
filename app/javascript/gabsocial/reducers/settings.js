@@ -18,6 +18,7 @@ import {
   TIMELINE_INJECTION_PWA,
   TIMELINE_INJECTION_SHOP,
   TIMELINE_INJECTION_USER_SUGGESTIONS,
+  GAB_DECK_MAX_ITEMS,
 } from '../constants'
 import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable'
 import uuid from '../utils/uuid'
@@ -92,9 +93,8 @@ export default function settings(state = initialState, action) {
   case LIST_DELETE_SUCCESS:
     return filterDeadListColumns(state, action.id)
   case DECK_SET_COLUMN_AT_INDEX:
-    // : todo : max: 12
     const sizeOfDeck = state.get('gabDeckOrder', ImmutableList()).size
-    const newIndex = Math.max(action.index || 0, sizeOfDeck)
+    const newIndex = Math.min(Math.max(action.index || 0, sizeOfDeck), GAB_DECK_MAX_ITEMS)
     return state.setIn(['gabDeckOrder', newIndex + 1], action.column).set('saved', false)
   case DECK_DELETE_COLUMN_AT_INDEX:
     return state.deleteIn(['gabDeckOrder', action.index])

@@ -49,6 +49,8 @@ class DeckSidebar extends ImmutablePureComponent {
 
   render() {
     const { account, logoDisabled } = this.props
+    
+    const isPro = !!account ? account.get('is_pro') : false
 
     return (
       <div className={[_s.d, _s.z4, _s.w76PX, _s.w100PC].join(' ')}>
@@ -83,7 +85,7 @@ class DeckSidebar extends ImmutablePureComponent {
 
                 <Divider isSmall />
 
-                <NavigationBarButton title='&nbsp;' icon='add' onClick={this.handleOnOpenNewColumnModel} />
+                { isPro && <NavigationBarButton title='&nbsp;' icon='add' onClick={this.handleOnOpenNewColumnModel} /> }
               </div>
 
               <div className={[_s.d, _s.mtAuto, _s.aiCenter].join(' ')}>
