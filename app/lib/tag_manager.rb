@@ -25,7 +25,7 @@ class TagManager
   def normalize_link(link)
     return if link.nil?
     uri = Addressable::URI.parse(link)
-    return "#{uri.normalized_host}#{uri.normalized_path}"
+    return "#{uri.normalized_host}#{uri.normalized_path}".strip
   end
 
   def same_acct?(canonical, needle)
