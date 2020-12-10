@@ -32,6 +32,7 @@ class EmojiPickerButton extends React.PureComponent {
         active={active && isMatch}
         buttonRef={this.setButton}
         small={small}
+        iconClassName={_s.cIconComposeEmoji}
       />
     )
   }

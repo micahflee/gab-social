@@ -114,7 +114,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
         disabled={disabled}
         onClick={this.handleOnSendChatMessage}
       >
-        <Text color='inherit' className={_s.px10}>Send</Text>
+        <Text color='inherit' weight='medium' className={_s.px10}>Send</Text>
       </Button>
     )
 

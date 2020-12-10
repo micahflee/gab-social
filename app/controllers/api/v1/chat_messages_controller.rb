@@ -17,6 +17,7 @@ class Api::V1::ChatMessagesController < Api::BaseController
 
     # : todo :
     # check if blocked
+    # update unread_count++ if offline
 
     @chat_conversation_recipients.each do |account|
       payload = InlineRenderer.render(@chat, account, :chat_message)

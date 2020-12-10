@@ -42,6 +42,7 @@ class UploadButton extends ImmutablePureComponent {
         onClick={this.handleClick}
         small={small}
         icon='media'
+        iconClassName={_s.cIconComposeMedia}
       >
         <label>
           <span className={_s.displayNone}>{intl.formatMessage(messages.upload)}</span>

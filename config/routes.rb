@@ -222,11 +222,13 @@ Rails.application.routes.draw do
         resource :explore, only: :show, controller: :explore
       end
 
-      resources :chat_conversation_accounts, only: :show do
-        resources :blocked_accounts, only: :index
-        resources :muted_accounts, only: :index
-      
+      resource :chat_conversation_accounts, only: :show do
+        resource :blocked_chat_accounts, only: :show, controller: 'chat_conversation_accounts/blocked_chat_accounts'
+        resource :muted_chat_accounts, only: :show, controller: 'chat_conversation_accounts/muted_chat_accounts'
+
         member do
+          get :is_messenger_blocked
+          get :is_messenger_muted
           post :block_messenger
           post :unblock_messenger
           post :mute_messenger

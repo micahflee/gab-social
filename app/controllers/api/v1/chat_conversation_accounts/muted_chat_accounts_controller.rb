@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-class Api::V1::ChatConversationAccounts::MutedAccountsController < Api::BaseController
+class Api::V1::ChatConversationAccounts::MutedChatAccountsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :follow, :'read:mutes' }
   before_action :require_user!
   after_action :insert_pagination_headers
 
-  def index
+  def show
     @accounts = load_accounts
     render json: @accounts, each_serializer: REST::AccountSerializer
   end
@@ -32,13 +32,13 @@ class Api::V1::ChatConversationAccounts::MutedAccountsController < Api::BaseCont
 
   def next_path
     if records_continue?
-      api_v1_chat_conversation_accounts_muted_accounts_url pagination_params(max_id: pagination_max_id)
+      api_v1_chat_conversation_accounts_muted_chat_accounts_url pagination_params(max_id: pagination_max_id)
     end
   end
 
   def prev_path
     unless paginated_mutes.empty?
-      api_v1_chat_conversation_accounts_muted_accounts_url pagination_params(since_id: pagination_since_id)
+      api_v1_chat_conversation_accounts_muted_chat_accounts_url pagination_params(since_id: pagination_since_id)
     end
   end
 

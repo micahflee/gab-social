@@ -17,6 +17,7 @@ class ComposeExtraButton extends React.PureComponent {
       buttonRef,
       isLast,
       small,
+      iconClassName,
     } = this.props
 
     const containerClasses = CX({
@@ -42,7 +43,7 @@ class ComposeExtraButton extends React.PureComponent {
       px10: 1,
     })
 
-    const iconClasses = CX({
+    const iconClasses = CX(iconClassName, {
       cSecondary: !active,
       cWhite: active,
       mr10: 1,
@@ -89,6 +90,7 @@ ComposeExtraButton.propTypes = {
   active: PropTypes.bool,
   buttonRef: PropTypes.func,
   small: PropTypes.bool,
+  iconClassName: PropTypes.string,
 }
 
 export default ComposeExtraButton

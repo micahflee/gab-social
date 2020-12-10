@@ -95,10 +95,10 @@ const reducers = {
   status_revisions,
   suggestions,
   timelines,
-  // timeline_injections,
-  // toasts,
-  // user,
-  // user_lists,
+  timeline_injections,
+  toasts,
+  user,
+  user_lists,
 }
 
 export default combineReducers(reducers)

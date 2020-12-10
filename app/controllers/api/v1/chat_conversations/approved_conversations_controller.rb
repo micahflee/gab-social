@@ -17,9 +17,9 @@ class Api::V1::ChatConversations::ApprovedConversationsController < Api::BaseCon
   end
 
   def unread_count
-    # : todo : make is_unread into unread_count then count
-    # count = ChatConversationAccount.where(account: current_account, is_hidden: false, is_approved: true, unread_count: true).count
-    render json: 1
+    unreads = ChatConversationAccount.where(account: current_account, is_hidden: false, is_approved: true).where('unread_count > 0')
+    sum = unreads.sum('unread_count')
+    render json: sum.to_i
   end
 
   private

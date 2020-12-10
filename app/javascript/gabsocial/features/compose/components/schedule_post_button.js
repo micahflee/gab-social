@@ -41,6 +41,7 @@ class SchedulePostButton extends React.PureComponent {
         onClick={this.handleToggle}
         small={small}
         title={intl.formatMessage(messages.schedule_status)}
+        iconClassName={_s.cIconComposeSchedule}
       />
     )
   }

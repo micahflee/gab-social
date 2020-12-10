@@ -42,6 +42,7 @@ class StatusVisibilityButton extends React.PureComponent {
         onClick={this.handleOnClick}
         small={small}
         buttonRef={this.setButton}
+        iconClassName={_s.cIconComposeSensitive}
       />
     )
   }

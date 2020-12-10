@@ -40,6 +40,7 @@ class ExpiresPostButton extends React.PureComponent {
         onClick={this.handleToggle}
         small={small}
         title={intl.formatMessage(messages.expires)}
+        iconClassName={_s.cIconComposeExpires}
       />
     )
   }

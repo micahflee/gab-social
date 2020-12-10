@@ -16,6 +16,7 @@
 #  chat_message_expiration_policy :string
 #
 
+# : todo : expires
 class ChatConversationAccount < ApplicationRecord
   include Paginable
   

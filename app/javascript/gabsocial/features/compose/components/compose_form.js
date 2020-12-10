@@ -28,6 +28,7 @@ import ExpiresPostButton from './expires_post_button'
 import RichTextEditorButton from './rich_text_editor_button'
 import StatusContainer from '../../../containers/status_container'
 import StatusVisibilityButton from './status_visibility_button'
+import MoreButton from './more_button'
 import UploadButton from './media_upload_button'
 import UploadForm from './upload_form'
 import Input from '../../../components/input'
@@ -82,6 +83,8 @@ class ComposeForm extends ImmutablePureComponent {
     if (!this.form.contains(e.target)) {
       this.handleClickOutside()
     } else {
+      // : todo :
+      // if mobile go to /compose else openModal
       if (!isStandalone && !isModalOpen && !shouldCondense) {
         this.props.openComposeModal()
         return false
@@ -395,7 +398,7 @@ class ComposeForm extends ImmutablePureComponent {
 
           { !isModalOpen && <ComposeFormSubmitButton /> }
             
-          <ComposeExtraButtonList isMatch={isMatch} hidePro={hidePro} edit={edit} isModal={isModalOpen} />
+          <ComposeExtraButtonList isStandalone={isStandalone} isMatch={isMatch} hidePro={hidePro} edit={edit} isModal={isModalOpen} />
         </div>
       )
     }
@@ -413,6 +416,7 @@ class ComposeForm extends ImmutablePureComponent {
           <UploadButton />
           <EmojiPickerButton isMatch={isMatch} />
           <PollButton />
+          <MoreButton />
           <ComposeFormSubmitButton />
         </div>
         <div className={[_s.d, _s.posAbs, _s.z2, _s.left0, _s.right0, _s.bottom0, _s.top0].join(' ')} />

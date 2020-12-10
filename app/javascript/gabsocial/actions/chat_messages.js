@@ -12,6 +12,10 @@ export const CHAT_MESSAGES_DELETE_REQUEST = 'CHAT_MESSAGES_DELETE_REQUEST'
 export const CHAT_MESSAGES_DELETE_SUCCESS = 'CHAT_MESSAGES_DELETE_SUCCESS'
 export const CHAT_MESSAGES_DELETE_FAIL    = 'CHAT_MESSAGES_DELETE_FAIL'
 
+export const CHAT_MESSAGES_PURGE_REQUEST = 'CHAT_MESSAGES_PURGE_REQUEST'
+export const CHAT_MESSAGES_PURGE_SUCCESS = 'CHAT_MESSAGES_PURGE_SUCCESS'
+export const CHAT_MESSAGES_PURGE_FAIL    = 'CHAT_MESSAGES_PURGE_FAIL'
+
 /**
  * 
  */
@@ -83,6 +87,37 @@ const deleteChatMessageSuccess = () => ({
 
 const deleteChatMessageFail = (error) => ({
   type: CHAT_MESSAGES_DELETE_FAIL,
+  showToast: true,
+  error,
+})
+
+/**
+ * 
+ */
+export const purgeChatMessages = (chatConversationId) => (dispatch, getState) => {
+  if (!me || !chatConversationId) return
+
+  dispatch(deleteChatMessagesRequest(chatConversationId))
+
+  api(getState).delete(`/api/v1/chat_conversations/${chatConversationId}/messages/destroy_all`).then((response) => {
+  dispatch(deleteChatMessagesSuccess(response.data))
+  }).catch((error) => {
+    dispatch(deleteChatMessagesFail(error))
+  })
+}
+
+const deleteChatMessagesRequest = () => ({
+  type: CHAT_MESSAGES_PURGE_REQUEST,
+})
+
+const deleteChatMessagesSuccess = (chatConversationId) => ({
+  type: CHAT_MESSAGES_PURGE_SUCCESS,
+  chatConversationId,
+  showToast: true,
+})
+
+const deleteChatMessagesFail = (error) => ({
+  type: CHAT_MESSAGES_PURGE_FAIL,
   showToast: true,
   error,
 })

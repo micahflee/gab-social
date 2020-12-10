@@ -6,7 +6,11 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import debounce from 'lodash.debounce'
 import { me } from '../initial_state'
-import { fetchBlocks, expandBlocks } from '../actions/blocks'
+import {
+  fetchChatMessengerBlocks,
+  expandChatMessengerBlocks,
+  unblockChatMessenger,
+} from '../actions/chat_conversation_accounts'
 import Account from '../components/account'
 import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
@@ -14,7 +18,7 @@ import Divider from '../components/divider'
 import ScrollableList from '../components/scrollable_list'
 import AccountPlaceholder from '../components/placeholder/account_placeholder'
 
-class MessagesBlockedAccounts extends ImmutablePureComponent {
+class ChatConversationBlockedAccounts extends ImmutablePureComponent {
 
   componentDidMount() {
     this.props.onFetchBlocks()
@@ -40,7 +44,7 @@ class MessagesBlockedAccounts extends ImmutablePureComponent {
           <BlockHeading title={intl.formatMessage(messages.blocks)} />
         </div>
         <ScrollableList
-          scrollKey='blocked_accounts'
+          scrollKey='chat_blocked_accounts'
           onLoadMore={this.handleLoadMore}
           hasMore={hasMore}
           isLoading={isLoading}
@@ -55,6 +59,9 @@ class MessagesBlockedAccounts extends ImmutablePureComponent {
                 key={`blocked-accounts-${id}`}
                 id={id}
                 compact
+                actionIcon='subtract'
+								onActionClick={() => this.props.onRemove(id)}
+								actionTitle='Remove'
               />
             ))
           }
@@ -66,22 +73,23 @@ class MessagesBlockedAccounts extends ImmutablePureComponent {
 }
 
 const messages = defineMessages({
-  empty: { id: 'empty_column.blocks', defaultMessage: 'You haven\'t blocked any users yet.' },
-  blocks: { id: 'navigation_bar.blocks', defaultMessage: 'Blocked users' },
+  empty: { id: 'empty_column.chat_blocks', defaultMessage: 'You haven\'t blocked any chat users yet.' },
+  blocks: { id: 'navigation_bar.chat_blocks', defaultMessage: 'Blocked chat users' },
 })
 
 const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'blocks', me, 'items']),
-  hasMore: !!state.getIn(['user_lists', 'blocks', me, 'next']),
-  isLoading: state.getIn(['user_lists', 'blocks', me, 'isLoading']),
+  accountIds: state.getIn(['user_lists', 'chat_blocks', me, 'items']),
+  hasMore: !!state.getIn(['user_lists', 'chat_blocks', me, 'next']),
+  isLoading: state.getIn(['user_lists', 'chat_blocks', me, 'isLoading']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchBlocks: () => dispatch(fetchBlocks()),
-  onExpandBlocks: () => dispatch(expandBlocks()),
+  onFetchBlocks: () => dispatch(fetchChatMessengerBlocks()),
+  onExpandBlocks: () => dispatch(expandChatMessengerBlocks()),
+  onRemove: (accountId) => dispatch(unblockChatMessenger(accountId)),
 })
 
-MessagesBlockedAccounts.propTypes = {
+ChatConversationBlockedAccounts.propTypes = {
   accountIds: ImmutablePropTypes.list,
   hasMore: PropTypes.bool,
   intl: PropTypes.object.isRequired,
@@ -90,4 +98,4 @@ MessagesBlockedAccounts.propTypes = {
   onFetchBlocks: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(MessagesBlockedAccounts))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ChatConversationBlockedAccounts))

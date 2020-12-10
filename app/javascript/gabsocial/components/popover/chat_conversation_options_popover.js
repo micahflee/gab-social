@@ -5,6 +5,14 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { openModal } from '../../actions/modal'
+import {
+  isChatMessengerBlocked,
+  isChatMessengerMuted,
+  blockChatMessenger,
+  unblockChatMessenger,
+  muteChatMessenger,
+  unmuteChatMessenger,
+} from '../../actions/chat_conversation_accounts'
 import { MODAL_PRO_UPGRADE } from '../../constants'
 import { me } from '../../initial_state'
 import { makeGetChatConversation } from '../../selectors'
@@ -14,24 +22,39 @@ import List from '../list'
 
 class ChatConversationOptionsPopover extends ImmutablePureComponent {
 
-  handleOnBlock = () => {
-    //
+  handleOnHide = () => {
+    this.props.onHide()
+    this.handleOnClosePopover()
   }
 
-  handleOnHide = () => {
+  handleOnBlock = () => {
+    this.props.onBlock()
+    this.handleOnClosePopover()
+  }
 
+  handleOnUnblock = () => {
+    this.props.onUnblock()
+    this.handleOnClosePopover()
   }
 
   handleOnMute = () => {
+    this.props.onMute()
+    this.handleOnClosePopover()
+  }
 
+  handleOnUnmute = () => {
+    this.props.onUnute()
+    this.handleOnClosePopover()
   }
 
   handleOnPurge = () => {
     if (!this.props.isPro) {
       this.props.openProUpgradeModal()
     } else {
-      // 
+      this.props.onPurge()
     }
+
+    this.handleOnClosePopover()
   }
 
   handleOnClosePopover = () => {

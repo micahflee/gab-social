@@ -12,6 +12,7 @@ class ComposeFormSubmitButton extends React.PureComponent {
       active,
       small,
       disabledButton,
+      type,
     } = this.props
 
     const containerClasses = CX({
@@ -72,7 +73,7 @@ class ComposeFormSubmitButton extends React.PureComponent {
 
 // {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.postEdit : messages.post)}
 ComposeFormSubmitButton.propTypes = {
-  
+  type: PropTypes.oneOf(['header', 'block', 'comment'])
 }
 
 export default ComposeFormSubmitButton

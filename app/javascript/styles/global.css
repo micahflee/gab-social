@@ -490,6 +490,17 @@ pre {
 
 /*  */
 
+.cIconComposeEmoji { color: #F6B83C; }
+.cIconComposeExpires { color: #EE2C4D; }
+.cIconComposeMedia { color: #4BBC66; }
+.cIconComposePoll { color: #F87E3A; }
+.cIconComposeRichText { color: #227BEF; }
+.cIconComposeSchedule { color: #ff0000; }
+.cIconComposeSpoiler { color: #8C75C9; }
+.cIconComposeSensitive { color: #35BBA7; }
+
+/*  */
+
 .topNeg50PX { top: -50px; }
 .topNeg20PX { top: -20px; }
 .top0 { top: 0; }

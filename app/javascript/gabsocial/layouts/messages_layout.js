@@ -130,7 +130,7 @@ class MessagesLayout extends React.PureComponent {
           },
         ]}
       >
-        <div className={[_s.d, _s.flexRow, _s.w100PC, _s.calcH53PX].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.boxShadowNone, _s.w100PC, _s.calcH53PX].join(' ')}>
           <ResponsiveClassesComponent
             classNames={[_s.d, _s.flexShrink1, _s.flexGrow1].join(' ')}
             classNamesSmall={[_s.d, _s.flexShrink1, _s.flexGrow1].join(' ')}
@@ -159,7 +159,6 @@ class MessagesLayout extends React.PureComponent {
       </Layout>
     )
   }
-
 }
 
 const mapStateToProps = (state) => {

@@ -22,6 +22,7 @@ class SpoilerButton extends React.PureComponent {
         onClick={this.handleClick}
         small={small}
         active={active}
+        iconClassName={_s.cIconComposeSpoiler}
       />
     )
   }

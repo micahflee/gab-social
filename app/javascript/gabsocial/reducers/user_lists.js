@@ -7,12 +7,14 @@ import {
   FOLLOWERS_FETCH_FAIL,
   FOLLOWERS_EXPAND_REQUEST,
   FOLLOWERS_EXPAND_FAIL,
+
   FOLLOWING_FETCH_REQUEST,
   FOLLOWING_FETCH_FAIL,
   FOLLOWING_EXPAND_REQUEST,
   FOLLOWING_FETCH_SUCCESS,
   FOLLOWING_EXPAND_SUCCESS,
   FOLLOWING_EXPAND_FAIL,
+
   FOLLOW_REQUESTS_FETCH_REQUEST,
   FOLLOW_REQUESTS_FETCH_FAIL,
   FOLLOW_REQUESTS_EXPAND_REQUEST,
@@ -29,6 +31,7 @@ import {
   REPOSTS_EXPAND_REQUEST,
   REPOSTS_EXPAND_SUCCESS,
   REPOSTS_EXPAND_FAIL,
+
   LIKES_FETCH_REQUEST,
   LIKES_FETCH_SUCCESS,
   LIKES_FETCH_FAIL,
@@ -52,12 +55,28 @@ import {
   MUTES_EXPAND_SUCCESS,
   MUTES_EXPAND_FAIL,
 } from '../actions/mutes'
+import {
+  CHAT_MESSENGER_BLOCKS_FETCH_REQUEST,
+  CHAT_MESSENGER_BLOCKS_FETCH_SUCCESS,
+  CHAT_MESSENGER_BLOCKS_FETCH_FAIL,
+  CHAT_MESSENGER_BLOCKS_EXPAND_REQUEST,
+  CHAT_MESSENGER_BLOCKS_EXPAND_SUCCESS,
+  CHAT_MESSENGER_BLOCKS_EXPAND_FAIL,
+
+  CHAT_MESSENGER_MUTES_FETCH_REQUEST,
+  CHAT_MESSENGER_MUTES_FETCH_SUCCESS,
+  CHAT_MESSENGER_MUTES_FETCH_FAIL,
+  CHAT_MESSENGER_MUTES_EXPAND_REQUEST,
+  CHAT_MESSENGER_MUTES_EXPAND_SUCCESS,
+  CHAT_MESSENGER_MUTES_EXPAND_FAIL,
+} from '../actions/chat_conversation_accounts'
 import { 
   GROUP_MEMBERS_FETCH_SUCCESS,
   GROUP_MEMBERS_EXPAND_SUCCESS,
   GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS,
   GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS,
   GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS,
+
   GROUP_JOIN_REQUESTS_FETCH_SUCCESS,
   GROUP_JOIN_REQUESTS_EXPAND_SUCCESS,
   GROUP_JOIN_REQUESTS_APPROVE_SUCCESS,
@@ -73,6 +92,8 @@ const initialState = ImmutableMap({
   follow_requests: ImmutableMap(),
   blocks: ImmutableMap(),
   mutes: ImmutableMap(),
+  chat_blocks: ImmutableMap(),
+  chat_mutes: ImmutableMap(),
   groups: ImmutableMap(),
   group_removed_accounts: ImmutableMap(),
   group_join_requests: ImmutableMap(),
@@ -210,6 +231,29 @@ export default function userLists(state = initialState, action) {
   case GROUP_JOIN_REQUESTS_APPROVE_SUCCESS:
   case GROUP_JOIN_REQUESTS_REJECT_SUCCESS:
     return state.updateIn(['group_join_requests', action.groupId, 'items'], list => list.filterNot(item => item === action.accountId));
+
+  case CHAT_MESSENGER_BLOCKS_FETCH_REQUEST:
+  case CHAT_MESSENGER_BLOCKS_EXPAND_REQUEST:
+    return state.setIn(['chat_blocks', me, 'isLoading'], true)
+  case CHAT_MESSENGER_BLOCKS_FETCH_SUCCESS:
+    return normalizeList(state, 'chat_blocks', me, action.accounts, action.next)
+  case CHAT_MESSENGER_BLOCKS_EXPAND_SUCCESS:
+    return appendToList(state, 'chat_blocks', me, action.accounts, action.next)
+  case CHAT_MESSENGER_BLOCKS_FETCH_FAIL:
+  case CHAT_MESSENGER_BLOCKS_EXPAND_FAIL:
+    return setListFailed(state, 'chat_blocks', me)
+
+  case CHAT_MESSENGER_MUTES_FETCH_REQUEST:
+  case CHAT_MESSENGER_MUTES_EXPAND_REQUEST:
+    return state.setIn(['chat_mutes', me, 'isLoading'], true)
+  case CHAT_MESSENGER_MUTES_FETCH_SUCCESS:
+    return normalizeList(state, 'chat_mutes', me, action.accounts, action.next)
+  case CHAT_MESSENGER_MUTES_EXPAND_SUCCESS:
+    return appendToList(state, 'chat_mutes', me, action.accounts, action.next)
+  case CHAT_MESSENGER_MUTES_FETCH_FAIL:
+  case CHAT_MESSENGER_MUTES_EXPAND_FAIL:
+    return setListFailed(state, 'chat_mutes', me)
+
   default:
     return state;
   }

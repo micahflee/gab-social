@@ -5,10 +5,10 @@ import { defineMessages, injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
+import ComposeFormSubmitButton from '../../features/compose/components/compose_form_submit_button'
 import TimelineComposeBlock from '../timeline_compose_block'
 import Block from '../block'
 import Heading from '../heading'
-import Text from '../text'
 import Button from '../button'
 
 class ComposeModal extends ImmutablePureComponent {
@@ -51,27 +51,23 @@ class ComposeModal extends ImmutablePureComponent {
     return (
       <div style={{width: '512px'}} className={[_s.d, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
-            <Button
-              backgroundColor='none'
-              title={intl.formatMessage(messages.close)}
-              onClick={this.onClickClose}
-              color='secondary'
-              icon='close'
-              iconSize='10px'
-            />
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.pl10, _s.pr15].join(' ')}>
+            <div className={[_s.d, _s.w115PX, _s.aiStart, _s.jcCenter, _s.mrAuto].join(' ')}>
+              <Button
+                backgroundColor='none'
+                title={intl.formatMessage(messages.close)}
+                onClick={this.onClickClose}
+                color='secondary'
+                icon='close'
+                iconSize='10px'
+              />
+            </div>
             <Heading size='h2'>
               {intl.formatMessage(title)}
             </Heading>
-            <Button
-              backgroundColor='none'
-              title={intl.formatMessage(messages.close)}
-              className={_s.mlAuto}
-              onClick={this.onHandleSubmit}
-              color='secondary'
-            >
-              <Text>Post</Text>
-            </Button>
+            <div className={[_s.d, _s.w115PX, _s.aiEnd, _s.jcCenter, _s.mlAuto].join(' ')}>
+              <ComposeFormSubmitButton type='header' />
+            </div>
           </div>
           <div className={[_s.d].join(' ')}>
             <TimelineComposeBlock isModal />
@@ -92,7 +88,6 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => {
   const status = state.getIn(['statuses', state.getIn(['compose', 'id'])])
-
   return {
     composeText: state.getIn(['compose', 'text']),
     isEditing: !!status,

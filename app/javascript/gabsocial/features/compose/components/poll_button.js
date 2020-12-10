@@ -30,6 +30,7 @@ class PollButton extends React.PureComponent {
         icon='poll'
         small={small}
         active={active}
+        iconClassName={_s.cIconComposePoll}
       />
     )
   }
