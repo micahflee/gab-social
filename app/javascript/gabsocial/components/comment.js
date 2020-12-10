@@ -95,6 +95,7 @@ class Comment extends ImmutablePureComponent {
       status,
       isHidden,
       isHighlighted,
+      isDetached,
       ancestorAccountId,
     } = this.props
 
@@ -111,6 +112,16 @@ class Comment extends ImmutablePureComponent {
       paddingLeft: `${indent * 38}px`,
     }
 
+    const containerClasses = CX({
+      d: 1,
+      px15: 1,
+      py5: !isDetached,
+      pt10: isDetached,
+      pb5: isDetached,
+      borderBottom1PX: isDetached,
+      borderColorSecondary: isDetached,
+    })
+
     const contentClasses = CX({
       d: 1,
       px10: 1,
@@ -122,7 +133,7 @@ class Comment extends ImmutablePureComponent {
     })
 
     return (
-      <div className={[_s.d, _s.px15, _s.py5].join(' ')} data-comment={status.get('id')}>
+      <div className={containerClasses} data-comment={status.get('id')}>
         {
           indent > 0 &&
           <div className={[_s.d, _s.z3, _s.flexRow, _s.posAbs, _s.topNeg20PX, _s.left0, _s.bottom20PX, _s.aiCenter, _s.jcCenter].join(' ')}>
@@ -327,6 +338,7 @@ Comment.propTypes = {
   ancestorAccountId: PropTypes.string.isRequired,
   status: ImmutablePropTypes.map.isRequired,
   isHidden: PropTypes.bool,
+  isDetached: PropTypes.bool,
   isIntersecting: PropTypes.bool,
   isHighlighted: PropTypes.bool,
   onReply: PropTypes.func.isRequired,

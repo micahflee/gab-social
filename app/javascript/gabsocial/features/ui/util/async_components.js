@@ -1,6 +1,7 @@
 export function About() { return import(/* webpackChunkName: "features/about/about" */'../../about/about') }
 export function AboutSidebar() { return import(/* webpackChunkName: "components/about_sidebar" */'../../../components/sidebar/about_sidebar') }
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
+export function AccountCommentsTimeline() { return import(/* webpackChunkName: "features/account_comments_timeline" */'../../account_comments_timeline') }
 export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
 export function Assets() { return import(/* webpackChunkName: "features/about/assets" */'../../about/assets') }
 export function BlockAccountModal() { return import(/* webpackChunkName: "components/block_account_modal" */'../../../components/modal/block_account_modal') }

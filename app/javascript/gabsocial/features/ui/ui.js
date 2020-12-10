@@ -54,6 +54,7 @@ import {
   About,
   AccountGallery,
   AccountTimeline,
+  AccountCommentsTimeline,
   Assets,
   BlockedAccounts,
   BookmarkedStatuses,
@@ -266,7 +267,7 @@ class SwitchingArea extends React.PureComponent {
         
         <WrappedRoute path='/:username' publicRoute exact page={ProfilePage} component={AccountTimeline} content={children} />
 
-        <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountTimeline} content={children} componentParams={{ commentsOnly: true }} />
+        <WrappedRoute path='/:username/comments' page={ProfilePage} component={AccountCommentsTimeline} content={children} />
 
         <WrappedRoute path='/:username/followers' page={ProfilePage} component={Followers} content={children} />
         <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />

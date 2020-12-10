@@ -23,6 +23,7 @@ import { fetchStatus, fetchContext } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
 import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
+import Comment from './comment'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
 import TimelineInjectionBase from './timeline_injections/timeline_injection_base'
 import TimelineInjectionRoot from './timeline_injections/timeline_injection_root'
@@ -161,6 +162,7 @@ class StatusList extends ImmutablePureComponent {
       onScrollToTop,
       onScroll,
       promotions,
+      isComments,
     } = this.props
     const { fetchedContext, isRefreshing } = this.state
 
@@ -226,16 +228,27 @@ class StatusList extends ImmutablePureComponent {
             )
           }
 
-          scrollableContent.push(
-            <StatusContainer
-              key={`${statusId}-${i}`}
-              id={statusId}
-              onMoveUp={this.handleMoveUp}
-              onMoveDown={this.handleMoveDown}
-              contextType={timelineId}
-              commentsLimited
-            />
-          )
+          if (isComments) {
+            scrollableContent.push(
+              <Comment
+                isDetached
+                key={`comment-${statusId}-${i}`}
+                id={statusId}
+                ancestorAccountId={1}
+              />
+            )
+          } else {
+            scrollableContent.push(
+              <StatusContainer
+                key={`${statusId}-${i}`}
+                id={statusId}
+                onMoveUp={this.handleMoveUp}
+                onMoveDown={this.handleMoveDown}
+                contextType={timelineId}
+                commentsLimited
+              />
+            )
+          }
         }
         
       }
@@ -339,11 +352,11 @@ const makeGetStatusIds = () => createSelector([
   })
 })
 
-const mapStateToProps = (state, { timelineId }) => {
+const mapStateToProps = (state, { timelineId, isComments }) => {
   if (!timelineId) return {}
 
   const getStatusIds = makeGetStatusIds()
-  const promotions = getPromotions()(state)
+  const promotions = isComments ? null : getPromotions()(state)
 
   const statusIds = getStatusIds(state, {
     type: timelineId.substring(0, 5) === 'group' ? 'group' : timelineId,
@@ -398,6 +411,7 @@ StatusList.propTypes = {
   onLoadMore: PropTypes.func,
   isLoading: PropTypes.bool,
   isPartial: PropTypes.bool,
+  isComments: PropTypes.bool,
   hasMore: PropTypes.bool,
   emptyMessage: PropTypes.string,
   timelineId: PropTypes.string,
