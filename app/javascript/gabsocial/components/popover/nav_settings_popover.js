@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
+import { openModal } from '../../actions/modal'
 import { meUsername } from '../../initial_state'
+import { MODAL_DISPLAY_OPTIONS } from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
@@ -11,6 +13,11 @@ class NavSettingsPopover extends React.PureComponent {
 
   handleOnClosePopover = () => {
     this.props.onClosePopover()
+  }
+
+  handleOpenDisplayOptions = () => {
+    this.props.onOpenDisplayOptions()
+    this.handleOnClosePopover()
   }
 
   render() {
@@ -28,6 +35,10 @@ class NavSettingsPopover extends React.PureComponent {
               title: intl.formatMessage(messages.profile),
               to: `/${meUsername}`,
               onClick: this.handleOnClosePopover,
+            },
+            {
+              title: 'Display options',
+              onClick: this.handleOpenDisplayOptions,
             },
             {
               title: intl.formatMessage(messages.help),
@@ -60,6 +71,9 @@ const mapDispatchToProps = (dispatch) => ({
   onClosePopover() {
     dispatch(closePopover())
   },
+  onOpenDisplayOptions() {
+    dispatch(openModal(MODAL_DISPLAY_OPTIONS))
+  }
 })
 
 NavSettingsPopover.propTypes = {

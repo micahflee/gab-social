@@ -1,16 +1,23 @@
-import throttle from 'lodash.throttle'
+import debounce from 'lodash.debounce'
 import api, { getLinks } from '../api'
 import { importFetchedAccounts } from './importer'
 import { me } from '../initial_state'
 
 export const CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS = 'CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS'
 
+export const CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS = 'CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS'
+
 export const SET_CHAT_CONVERSATION_SELECTED = 'SET_CHAT_CONVERSATION_SELECTED'
 
 /**
  * 
  */
-export const fetchChatConversationAccountSuggestions = (query) => throttle((dispatch, getState) => {
+export const fetchChatConversationAccountSuggestions = (query) => (dispatch, getState) => {
+  if (!query) return
+  debouncedFetchChatConversationAccountSuggestions(query, dispatch, getState) 
+}
+
+export const debouncedFetchChatConversationAccountSuggestions = debounce((query, dispatch, getState) => {
   if (!query) return
   
   api(getState).get('/api/v1/accounts/search', {
@@ -25,12 +32,19 @@ export const fetchChatConversationAccountSuggestions = (query) => throttle((disp
   }).catch((error) => {
     //
   })
-}, 200, { leading: true, trailing: true })
+}, 650, { leading: true })
 
 const fetchChatConversationAccountSuggestionsSuccess = (accounts) => ({
   type: CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS,
   accounts,
 })
+
+/**
+ * 
+ */
+export const clearChatConversationAccountSuggestions = () => (dispatch) => {
+  dispatch({ type: CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS })
+}
 
 /**
  * 

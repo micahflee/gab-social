@@ -1,7 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { fetchChatConversationAccountSuggestions } from '../actions/chats'
+import {
+  fetchChatConversationAccountSuggestions,
+  clearChatConversationAccountSuggestions,
+} from '../actions/chats'
 import { createChatConversation } from '../actions/chat_conversations'
 import Account from '../components/account'
 import Button from '../components/button'
@@ -22,6 +25,11 @@ class ChatConversationCreate extends React.PureComponent {
 
   handleOnCreateChatConversation = (accountId) => {
     this.props.onCreateChatConversation(accountId)
+    this.props.onClearChatConversationAccountSuggestions()
+
+    if (this.props.isModal && !!this.props.onCloseModal) {
+      this.props.onCloseModal()
+    }
   }
 
   render() {
@@ -47,7 +55,7 @@ class ChatConversationCreate extends React.PureComponent {
               suggestionsIds.map((accountId) => (
                 <Account
                   compact
-                  key={`remove-from-list-${accountId}`}
+                  key={`chat-conversation-account-create-${accountId}`}
                   id={accountId}
                   onActionClick={() => this.handleOnCreateChatConversation(accountId)}
                   actionIcon='add'
@@ -67,12 +75,15 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onChange: (value) => {
+  onChange(value) {
     dispatch(fetchChatConversationAccountSuggestions(value))
   },
-  onCreateChatConversation: (accountId) => {
+  onCreateChatConversation(accountId) {
     dispatch(createChatConversation(accountId))
   },
+  onClearChatConversationAccountSuggestions() {
+    dispatch(clearChatConversationAccountSuggestions())
+  }
 })
 
 ChatConversationCreate.propTypes = {

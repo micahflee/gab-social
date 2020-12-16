@@ -41,6 +41,7 @@ export const COMPOSE_QUOTE           = 'COMPOSE_QUOTE'
 export const COMPOSE_REPLY_CANCEL    = 'COMPOSE_REPLY_CANCEL'
 export const COMPOSE_MENTION         = 'COMPOSE_MENTION'
 export const COMPOSE_RESET           = 'COMPOSE_RESET'
+export const COMPOSE_GROUP_SET       = 'COMPOSE_GROUP_SET'
 
 export const COMPOSE_UPLOAD_REQUEST  = 'COMPOSE_UPLOAD_REQUEST'
 export const COMPOSE_UPLOAD_SUCCESS  = 'COMPOSE_UPLOAD_SUCCESS'
@@ -760,6 +761,14 @@ export const changeScheduledAt = (date) => ({
 export const changeExpiresAt = (value) => ({
   type: COMPOSE_EXPIRES_AT_CHANGE,
   value,
+})
+
+/**
+ * 
+ */
+export const changeComposeGroupId = (groupId) => ({
+  type: COMPOSE_GROUP_SET,
+  groupId,
 })
 
 /**

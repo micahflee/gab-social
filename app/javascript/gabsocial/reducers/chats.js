@@ -6,6 +6,7 @@ import {
 import { me } from '../initial_state'
 import {
   CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS,
+  CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS,
   SET_CHAT_CONVERSATION_SELECTED,
 } from '../actions/chats'
 import {
@@ -29,6 +30,8 @@ export default function chats(state = initialState, action) {
   switch(action.type) {
   case CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS:
     return state.set('createChatConversationSuggestionIds', ImmutableList(action.accounts.map((item) => item.id)))
+  case CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS:
+    return state.set('createChatConversationSuggestionIds', ImmutableList())
   case SET_CHAT_CONVERSATION_SELECTED:
     return state.set('selectedChatConversationId', action.chatConversationId)
   case CHAT_CONVERSATION_REQUESTED_COUNT_FETCH_SUCCESS:

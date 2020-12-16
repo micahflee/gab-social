@@ -30,10 +30,18 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, isModal, formLocation } = this.props
+    const {
+      account,
+      isModal,
+      composeGroup,
+      formLocation,
+    } = this.props
 
     const isIntroduction = formLocation === 'introduction'
-    const title = 'Post to timeline'
+    
+    let groupTitle = !!composeGroup ? composeGroup.get('title') : ''
+    groupTitle = groupTitle.length > 32 ? `${groupTitle.substring(0, 32).trim()}...` : groupTitle
+    const title = !!composeGroup ? `Post to ${groupTitle}` : 'Post to timeline'
 
     return (
       <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.bgPrimary, _s.w100PC, _s.h40PX, _s.pr15].join(' ')}>
@@ -76,6 +84,15 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
   }
 }
 
+const mapStateToProps = (state) => {
+  const composeGroupId = state.getIn(['compose', 'group_id'])
+
+  return {
+    composeGroupId,
+    composeGroup: state.getIn(['groups', composeGroupId]),
+  }
+}
+
 const mapDispatchToProps = (dispatch) => ({
   onOpenModal() {
     dispatch(openModal(MODAL_COMPOSE))
@@ -96,4 +113,4 @@ ComposeDestinationHeader.propTypes = {
   formLocation: PropTypes.string,
 }
 
-export default connect(null, mapDispatchToProps)(ComposeDestinationHeader)
+export default connect(mapStateToProps, mapDispatchToProps)(ComposeDestinationHeader)

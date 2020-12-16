@@ -7,13 +7,19 @@ import { openModal } from '../../actions/modal'
 import { setDeckColumnAtIndex } from '../../actions/deck'
 import { getOrderedLists, getListOfGroups } from '../../selectors'
 import { fetchLists } from '../../actions/lists'
+import {
+  fetchDeckAccountSuggestions,
+  clearDeckAccountSuggestions,
+} from '../../actions/deck'
 import { fetchGroupsByTab } from '../../actions/groups'
 import { MODAL_DECK_COLUMN_ADD } from '../../constants'
+import Account from '../account'
 import Heading from '../heading'
 import Button from '../button'
 import Block from '../block'
 import Input from '../input'
 import List from '../list'
+import Text from '../text'
 
 class DeckColumnAddOptionsModal extends ImmutablePureComponent {
 
@@ -50,17 +56,24 @@ class DeckColumnAddOptionsModal extends ImmutablePureComponent {
     this.setState({ hashtagValue: '' })
   }
 
+  handleAddUser = (userId) => {
+    this.setState({ usernameValue: '' })
+    this.props.onClearDeckAccountSuggestions()
+    if (!!userId) this.handleAdd(`user.${userId}`)
+  }
+
   onChangeHashtagValue = (hashtagValue) => {
     this.setState({ hashtagValue })
   }
 
   onChangeUsernameValue = (usernameValue) => {
     this.setState({ usernameValue })
+    this.props.onFetchUserSuggestions(usernameValue)
   }
 
   getContentForColumn = () => {
-    const { column, lists, groups, accounts } = this.props
-    const { hashtagValue } = this.state
+    const { column, lists, groups, suggestionsIds } = this.props
+    const { hashtagValue, usernameValue } = this.state
 
     if (column === 'hashtag') {
       return (
@@ -107,17 +120,39 @@ class DeckColumnAddOptionsModal extends ImmutablePureComponent {
           />
         </div>
       )
-    } else if (column === 'group') {
+    } else if (column === 'user') {
       return (
-        <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
-          <Input
-            type='text'
-            value={usernameValue}
-            placeholder=''
-            id='user-deck'
-            title='Enter username'
-            onChange={this.onChangeUsernameValue}
-          />
+        <div className={[_s.d, _s.width100PC].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+            <Input
+              type='text'
+              value={usernameValue}
+              placeholder=''
+              id='user-deck'
+              title='Enter username'
+              onChange={this.onChangeUsernameValue}
+            />
+          </div>
+
+          <div className={[_s.d, _s.pt10].join(' ')}>
+            <div className={[_s.d].join(' ')}>
+              <Text weight='bold' size='small' color='secondary' className={[_s.d, _s.px15, _s.ml15, _s.mt5, _s.mb15].join(' ')}>
+                Search results ({suggestionsIds.size})
+              </Text>
+              {
+                suggestionsIds &&
+                suggestionsIds.map((accountId) => (
+                  <Account
+                    compact
+                    key={`create-deck-user-${accountId}`}
+                    id={accountId}
+                    onActionClick={() => this.handleAddUser(accountId)}
+                    actionIcon='add'
+                  />
+                ))
+              }
+            </div>
+          </div>
         </div>
       )
     }
@@ -175,7 +210,7 @@ class DeckColumnAddOptionsModal extends ImmutablePureComponent {
 const mapStateToProps = (state) => ({
   lists: getOrderedLists(state),
   groups: getListOfGroups(state, { type: 'member' }),
-  accounts: [],
+  suggestionsIds: state.getIn(['deck', 'accountSuggestions']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
@@ -191,6 +226,12 @@ const mapDispatchToProps = (dispatch) => ({
   onOpenDeckColumnAddModal() {
     dispatch(openModal(MODAL_DECK_COLUMN_ADD))
   },
+  onFetchUserSuggestions(query) {
+    dispatch(fetchDeckAccountSuggestions(query))
+  },
+  onClearDeckAccountSuggestions() {
+    dispatch(clearDeckAccountSuggestions())
+  }
 })
 
 DeckColumnAddOptionsModal.propTypes = {

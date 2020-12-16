@@ -182,9 +182,7 @@ class SlideFirstPost extends React.PureComponent {
               <Text size='large' className={_s.pb10}>Now let's make your very first Gab post! Please introduce yourself to the Gab community. How did you hear about Gab? What are you interested in?</Text>
               <br />
 
-              <Divider />
-
-              <div className={[_s.d, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
+              <div className={[_s.d, _s.boxShadowBlock, _s.overflowHidden, _s.radiusSmall].join(' ')}>
                 <ComposeFormContainer
                   formLocation='introduction'
                   groupId={GAB_COM_INTRODUCE_YOURSELF_GROUP_ID}

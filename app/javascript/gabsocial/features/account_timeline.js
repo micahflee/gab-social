@@ -95,9 +95,8 @@ const messages = defineMessages({
 
 const emptyList = ImmutableList()
 
-const mapStateToProps = (state, { account, commentsOnly = false }) => {
-  const accountId = !!account ? account.getIn(['id'], null) : -1
-
+const mapStateToProps = (state, { id, account, commentsOnly = false }) => {
+  const accountId = !!id ? id : !!account ? account.getIn(['id'], null) : -1
   const path = commentsOnly ? `${accountId}:comments_only` : accountId
 
   return {

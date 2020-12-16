@@ -73,9 +73,9 @@ class Deck extends React.PureComponent {
   getDeckColumn = (deckColumn, index) => {
     if (!deckColumn || !this.props.isPro) return null
 
-    let Component = null
+    let Component, noRefresh, accountId, icon = null
     let componentParams = {}
-    let title, subtitle, icon = ''
+    let title, subtitle = ''
 
     switch (deckColumn) {
       case 'notifications':
@@ -92,6 +92,7 @@ class Deck extends React.PureComponent {
         title = 'Compose'
         icon = 'pencil'
         Component = Compose
+        noRefresh = true
         break
       case 'likes':
         title = 'Likes'
@@ -127,7 +128,11 @@ class Deck extends React.PureComponent {
 
     if (!Component) {
       if (deckColumn.indexOf('user.') > -1)  {
-        
+        const userAccountId = deckColumn.replace('user.', '')
+        title = 'User'
+        Component = AccountTimeline
+        componentParams = { id: userAccountId }
+        accountId = userAccountId
       } else if (deckColumn.indexOf('list.') > -1)  {
         const listId = deckColumn.replace('list.', '')
         title = 'List'
@@ -162,7 +167,14 @@ class Deck extends React.PureComponent {
         index={index}
         sortIndex={index}
       >
-        <DeckColumn title={title} subtitle={subtitle} icon={icon} index={index}>
+        <DeckColumn
+          title={title}
+          subtitle={subtitle}
+          icon={icon}
+          index={index}
+          noRefresh={noRefresh}
+          accountId={accountId}
+        >
           <WrappedBundle component={Component} componentParams={componentParams} />
         </DeckColumn>
       </SortableItem>

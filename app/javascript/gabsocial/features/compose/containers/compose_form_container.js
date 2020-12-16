@@ -12,6 +12,7 @@ import {
   changeComposeSpoilerText,
   uploadCompose,
   changeScheduledAt,
+  changeComposeGroupId,
 } from '../../../actions/compose'
 import { openModal } from '../../../actions/modal'
 import { MODAL_COMPOSE } from '../../../constants'
@@ -132,6 +133,10 @@ const mapDispatchToProps = (dispatch, { isStandalone }) => ({
   openComposeModal() {
     dispatch(openModal(MODAL_COMPOSE))
   },
+
+  onChangeComposeGroupId(groupId) {
+    dispatch(changeComposeGroupId(groupId))
+  }
 })
 
 function mergeProps(stateProps, dispatchProps, ownProps) {

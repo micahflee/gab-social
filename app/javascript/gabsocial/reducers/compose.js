@@ -39,6 +39,7 @@ import {
   COMPOSE_EXPIRES_AT_CHANGE,
   COMPOSE_RICH_TEXT_EDITOR_CONTROLS_VISIBILITY,
   COMPOSE_CLEAR,
+  COMPOSE_GROUP_SET,
 } from '../actions/compose';
 import { TIMELINE_DELETE } from '../actions/timelines';
 import { STORE_HYDRATE } from '../actions/store';
@@ -62,6 +63,7 @@ const initialState = ImmutableMap({
   preselectDate: null,
   in_reply_to: null,
   quote_of_id: null,
+  group_id: null,
   is_composing: false,
   is_submitting: false,
   is_changing_upload: false,
@@ -119,6 +121,7 @@ function clearAll(state) {
     map.set('expires_at', null);
     map.set('rte_controls_visible', false);
     map.set('gif', false);
+    map.set('group_id', null);
   });
 };
 
@@ -305,6 +308,7 @@ export default function compose(state = initialState, action) {
       map.set('id', null);
       map.set('quote_of_id', null);
       map.set('in_reply_to', null);
+      map.set('group_id', null);
       map.set('text', '');
       map.set('spoiler', false);
       map.set('spoiler_text', '');
@@ -414,6 +418,8 @@ export default function compose(state = initialState, action) {
     return state.withMutations(map => {
       map.set('rte_controls_visible', action.open || !state.get('rte_controls_visible'));
     });
+  case COMPOSE_GROUP_SET:
+    return state.set('group_id', action.groupId);
   default:
     return state;
   }

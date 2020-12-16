@@ -141,7 +141,9 @@ class ChatMessageItem extends ImmutablePureComponent {
         <div className={[_s.d, _s.w100PC, _s.pb15].join(' ')}>
 
           <div className={messageContainerClasses}>
-            <Avatar account={chatMessage.get('account')} size={38} />
+            <NavLink to={`/${chatMessage.getIn(['account', 'username'])}`}>
+              <Avatar account={chatMessage.get('account')} size={38} />
+            </NavLink>
             <div className={messageInnerContainerClasses}>
               <div className={[_s.py5, _s.dangerousContent, _s.cPrimary].join(' ')} dangerouslySetInnerHTML={content} />
             </div>

@@ -134,6 +134,11 @@ class ComposeForm extends ImmutablePureComponent {
 
   componentDidMount() {
     document.addEventListener('click', this.handleClick, false)
+
+    const { groupId } = this.props
+    if (groupId) {
+      this.props.onChangeComposeGroupId(groupId)
+    }
   }
 
   componentWillUnmount() {
