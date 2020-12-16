@@ -110,7 +110,7 @@ class ProfileLayout extends ImmutablePureComponent {
 
                   <div className={[_s.d, _s.w100PC, , _s.flexRow, _s.jcEnd, _s.py15].join(' ')}>
                     <div className={[_s.d, _s.w100PC, _s.z1].join(' ')}>
-                      <div className={_s.d}>
+                      <div className={[_s.d, _s.boxShadowNone].join(' ')}>
                         {children}
                       </div>
                     </div>

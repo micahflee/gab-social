@@ -7,6 +7,8 @@ class Api::Web::SettingsController < Api::Web::BaseController
     setting.data = params[:data]
     setting.save!
 
+    # todo validate all data objects
+
     render_empty_success
   end
 

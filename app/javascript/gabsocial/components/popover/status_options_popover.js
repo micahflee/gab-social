@@ -78,6 +78,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   handleGroupRemoveAccount = () => {
     const { status } = this.props
 
+    // : todo : check
     this.props.onGroupRemoveAccount(status.getIn(['group', 'id']), status.getIn(['account', 'id']))
   }
 

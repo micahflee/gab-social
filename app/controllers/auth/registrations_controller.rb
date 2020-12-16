@@ -11,7 +11,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   before_action :set_cache_headers, only: [:edit, :update]
 
   def new
-    super(&:build_invite_request)
+    super
   end
 
   def create

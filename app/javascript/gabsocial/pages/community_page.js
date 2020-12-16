@@ -1,11 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
-import { openModal } from '../actions/modal'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
-import { MODAL_COMMUNITY_TIMELINE_SETTINGS } from '../constants'
 import {
   LinkFooter,
   GroupsPanel,
@@ -16,10 +13,6 @@ import {
 
 class CommunityPage extends React.PureComponent {
 
-  onOpenCommunityPageSettingsModal = () => {
-    this.props.dispatch(openModal(MODAL_COMMUNITY_TIMELINE_SETTINGS))
-  }
-
   render() {
     const { children, intl } = this.props
 
@@ -29,12 +22,6 @@ class CommunityPage extends React.PureComponent {
       <DefaultLayout
         title={title}
         page='community'
-        actions={[
-          {
-            icon: 'ellipsis',
-            onClick: this.onOpenCommunityPageSettingsModal,
-          },
-        ]}
         layout={[
           ProgressPanel,
           TrendsBreakingPanel,
@@ -60,4 +47,4 @@ CommunityPage.propTypes = {
   intl: PropTypes.object.isRequired,
 }
 
-export default injectIntl(connect()(CommunityPage))
+export default injectIntl(CommunityPage)

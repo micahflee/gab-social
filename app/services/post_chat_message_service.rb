@@ -52,16 +52,17 @@ class PostChatMessageService < BaseService
     @chat_conversation_recipients_accounts = ChatConversationAccount.where(chat_conversation: @chat_conversation)
     @chat_conversation_recipients_accounts.each do |recipient|
       recipient.last_chat_message_id = @chat.id
-      recipient.is_hidden = false  # reset to show unless blocked
+      recipient.is_hidden = false  # : todo : reset to show unless blocked
 
       # Get not mine
       if @account_conversation.id != recipient.id
         recipient.unread_count = recipient.unread_count + 1
 
-        # : todo :
-        # check if muting, redis
-        payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
-        Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
+        # check if muting
+        unless recipient.is_muted
+          payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
+          Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
+        end
       else
         recipient.unread_count = 0
       end
@@ -80,8 +81,10 @@ class PostChatMessageService < BaseService
     raise ActiveRecord::RecordInvalid
   end
 
-  def set_message_expiration_date
-    case @account_conversation.expiration_policy
+  def set_message_expiration_date!
+    @expires_at = nil
+    
+    case @account_conversation.chat_message_expiration_policy
     when :five_minutes
       @expires_at = 5.minutes
     when :sixty_minutes

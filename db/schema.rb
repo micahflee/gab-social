@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_15_203113) do
+ActiveRecord::Schema.define(version: 2020_12_16_051551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -214,6 +214,7 @@ ActiveRecord::Schema.define(version: 2020_12_15_203113) do
     t.datetime "updated_at", null: false
     t.bigint "unread_count", default: 0, null: false
     t.string "chat_message_expiration_policy"
+    t.boolean "is_muted", default: false, null: false
     t.index ["account_id"], name: "index_chat_conversation_accounts_on_account_id"
     t.index ["chat_conversation_id"], name: "index_chat_conversation_accounts_on_chat_conversation_id"
   end
@@ -232,14 +233,6 @@ ActiveRecord::Schema.define(version: 2020_12_15_203113) do
     t.datetime "updated_at", null: false
     t.datetime "expires_at"
     t.index ["from_account_id", "chat_conversation_id"], name: "index_chat_messages_on_from_account_id_and_chat_conversation_id"
-  end
-
-  create_table "chat_mutes", force: :cascade do |t|
-    t.integer "account_id", null: false
-    t.integer "target_account_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["account_id", "target_account_id"], name: "index_chat_mutes_on_account_id_and_target_account_id", unique: true
   end
 
   create_table "conversations", force: :cascade do |t|

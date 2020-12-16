@@ -53,6 +53,12 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
         subtitle: 'Hide until next message',
         onClick: () => this.handleOnHide(),
       },
+      {
+        hideArrow: true,
+        title: 'Mute Conversation',
+        subtitle: "Don't get notified of new messages",
+        onClick: () => this.handleOnHide(),
+      },
       {},
       {
         hideArrow: true,

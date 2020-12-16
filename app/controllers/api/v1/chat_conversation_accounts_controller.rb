@@ -7,21 +7,8 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
   before_action :require_user!
   before_action :set_account
 
-  def is_messenger_blocked
-    # 
-  end
-
-  def is_messenger_muted
-    # 
-  end
-
   def block_messenger
     BlockMessengerService.new.call(current_user.account, @account)
-    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
-  end
-
-  def mute_messenger
-    MuteMessengerService.new.call(current_user.account, @account)
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 
@@ -30,14 +17,21 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 
-  def unmute_messenger
-    UnmuteMessegerService.new.call(current_user.account, @account)
-    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
+  def mute_chat_conversation
+    @chat_conversation_account.is_muted = true
+    @chat_conversation_account.save!
+    render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+  end
+
+  def unmute_chat_conversation
+    @chat_conversation_account.is_muted = false
+    @chat_conversation_account.save!
+    render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 
   def set_expiration_policy
     if current_user.account.is_pro
-      # 
+      # : todo :
       render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
     else
       render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
@@ -48,6 +42,14 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
 
   def set_account
     @account = Account.find(params[:id])
+  end
+
+  def set_chat_conversation
+    @chat_conversation = ChatConversation.find(params[:id])
+    @chat_conversation_account = ChatConversationAccount.where(
+      account: current_account,
+      chat_conversation: @chat_conversation
+    ).first
   end
 
   def check_account_suspension

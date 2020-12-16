@@ -41,7 +41,7 @@ class DeckLayout extends React.PureComponent {
 
     if (isXS) {
       return (
-        <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.w100PC, _s.h100VH, _s.bgTertiary].join(' ')}>
+        <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.w100PC, _s.h100VH, _s.bgTertiary, _s.px15, _s.py15].join(' ')}>
           <Text className={_s.mb10}>Gab Deck is not available on mobile or tablet devices. Please only access using a desktop computer.</Text>
           <Button to='/home'>Return home</Button>
         </div>

@@ -30,10 +30,6 @@ class ChatSettingsSidebar extends React.PureComponent {
               title: 'Blocked Chats',
               to: '/messages/blocks',
             },
-            {
-              title: 'Muted Chats',
-              to: '/messages/mutes',
-            },
           ]}
         />
       </ResponsiveClassesComponent>

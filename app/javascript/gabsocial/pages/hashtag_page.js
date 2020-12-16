@@ -1,12 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
-import { openModal } from '../actions/modal'
 import { defineMessages, injectIntl } from 'react-intl'
 import isObject from 'lodash.isobject'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
-import { MODAL_HASHTAG_TIMELINE_SETTINGS } from '../constants'
 import {
   LinkFooter,
   ProgressPanel,
@@ -15,17 +12,6 @@ import {
 } from '../features/ui/util/async_components'
 
 class HashtagPage extends React.PureComponent {
-
-  onOpenHashtagPageSettingsModal = () => {
-    const { params } = this.props
-
-    const hashtag = isObject(params) ? params.id : ''
-    if (!hashtag) return
-
-    this.props.dispatch(openModal(MODAL_HASHTAG_TIMELINE_SETTINGS, {
-      hashtag,
-    }))
-  }
 
   render() {
     const {
@@ -41,12 +27,6 @@ class HashtagPage extends React.PureComponent {
         showBackBtn
         title={intl.formatMessage(messages.hashtagTimeline)}
         page={`hashtag.${hashtag}`}
-        actions={[
-          {
-            icon: 'ellipsis',
-            onClick: this.onOpenHashtagPageSettingsModal,
-          },
-        ]}
         layout={[
           ProgressPanel,
           TrendsBreakingPanel,
@@ -73,4 +53,4 @@ HashtagPage.propTypes = {
   params: PropTypes.object.isRequired,
 }
 
-export default injectIntl(connect()(HashtagPage))
+export default injectIntl(HashtagPage)

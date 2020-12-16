@@ -4,14 +4,11 @@ import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { deleteChatMessage } from '../../actions/chat_messages'
 import {
-  isChatMessengerBlocked,
-  isChatMessengerMuted,
   blockChatMessenger,
   unblockChatMessenger,
-  muteChatMessenger,
-  unmuteChatMessenger,
   reportChatMessage,
 } from '../../actions/chat_conversation_accounts'
+import { fetchRelationships } from '../../actions/accounts'
 import { makeGetChatMessage } from '../../selectors'
 import { me } from '../../initial_state'
 import PopoverLayout from './popover_layout'
@@ -20,6 +17,12 @@ import List from '../list'
 import Text from '../text'
 
 class ChatMessageOptionsPopover extends React.PureComponent {
+
+  componentDidMount() {
+    if (!this.props.isMine) {
+      this.props.onFetchRelationships(this.props.fromAccountId)
+    }
+  }
 
   handleOnDelete = () => {
     this.props.onDeleteChatMessage(this.props.chatMessageId)
@@ -31,17 +34,9 @@ class ChatMessageOptionsPopover extends React.PureComponent {
 
   handleOnBlock = () => {
     if (this.props.isBlocked) {
-      this.props.unblockChatMessenger(this.props.fromAccountId)
+      this.props.onUnblock(this.props.fromAccountId)
     } else {
-      this.props.blockChatMessenger(this.props.fromAccountId)
-    }
-  }
-  
-  handleOnMute = () => {
-    if (this.props.isMuted) {
-      this.props.unmuteChatMessenger(this.props.fromAccountId)
-    } else {
-      this.props.muteChatMessenger(this.props.fromAccountId)
+      this.props.onBlock(this.props.fromAccountId)
     }
   }
 
@@ -53,7 +48,6 @@ class ChatMessageOptionsPopover extends React.PureComponent {
     const {
       isXS,
       isMine,
-      isMuted,
       isBlocked,
     } = this.props
 
@@ -76,12 +70,6 @@ class ChatMessageOptionsPopover extends React.PureComponent {
         subtitle: isBlocked ? '' : 'The messenger will not be able to message you.',
         onClick: () => this.handleOnBlock(),
       },
-      {
-        hideArrow: true,
-        title: isMuted ? 'Unmute Messenger' : 'Mute Messenger',
-        subtitle: isMuted ? '' : 'You will not be notified of new messsages',
-        onClick: () => this.handleOnMute(),
-      },
     ]
 
     return (
@@ -96,12 +84,15 @@ class ChatMessageOptionsPopover extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state, { chatMessageId }) => ({
-  isMine: state.getIn(['chat_messages', chatMessageId, 'from_account_id']) === me,
-  fromAccountId: state.getIn(['chat_messages', chatMessageId, 'from_account_id']),
-  isBlocked: state.getIn(['chat_messages', chatMessageId, 'from_account_id']),
-  isMuted: state.getIn(['chat_messages', chatMessageId, 'from_account_id']),
-})
+const mapStateToProps = (state, { chatMessageId }) => {
+  const fromAccountId = state.getIn(['chat_messages', chatMessageId, 'from_account_id'])
+
+  return {
+    fromAccountId,
+    isMine: fromAccountId === me,
+    isBlocked: state.getIn(['relationships', fromAccountId, 'chat_blocked_by'], false),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   onDeleteChatMessage(chatMessageId) {
@@ -114,14 +105,11 @@ const mapDispatchToProps = (dispatch) => ({
   onUnblock(accountId) {
     dispatch(unblockChatMessenger(accountId))
   },
-  onMute(accountId) {
-    dispatch(muteChatMessenger(accountId))
-  },
-  onUnmute(accountId) {
-    dispatch(unmuteChatMessenger(accountId))
-  },
   onReportChatMessage(chatMessageId) {
     dispatch(reportChatMessage(chatMessageId))
+  },
+  onFetchRelationships(accountId) {
+    // dispatch(fetchRelationships(accountId))
   },
   onClosePopover() {
     dispatch(closePopover())
@@ -130,9 +118,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 ChatMessageOptionsPopover.propTypes = {
   isXS: PropTypes.bool,
+  isMine: PropTypes.bool,
   chatMessageId: PropTypes.string.isRequired,
   isBlocked: PropTypes.bool.isRequired,
-  isMuted: PropTypes.bool.isRequired,
   onDeleteChatMessage: PropTypes.func.isRequired,
 }
 

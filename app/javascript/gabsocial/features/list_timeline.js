@@ -22,10 +22,6 @@ class ListTimeline extends ImmutablePureComponent {
     this.handleConnect(this.props.params.id)
   }
 
-  componentWillUnmount() {
-    this.handleDisconnect()
-  }
-
   componentWillReceiveProps(nextProps) {
     if (nextProps.params.id !== this.props.params.id) {
       this.handleConnect(nextProps.params.id)

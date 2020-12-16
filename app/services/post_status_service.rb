@@ -111,6 +111,8 @@ class PostStatusService < BaseService
     return if group_id.blank?
     return if @autoJoinGroup
 
+    # : todo : check removedaccounts if exist dont allow
+
     raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group') if not GroupAccount.where(account: @account, group_id: group_id).exists?
   end
 

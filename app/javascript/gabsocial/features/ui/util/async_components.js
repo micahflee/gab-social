@@ -3,10 +3,14 @@ export function AboutSidebar() { return import(/* webpackChunkName: "components/
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
 export function AccountCommentsTimeline() { return import(/* webpackChunkName: "features/account_comments_timeline" */'../../account_comments_timeline') }
 export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
+export function AlbumCreate() { return import(/* webpackChunkName: "features/album_create" */'../../album_create') }
+export function AlbumCreateModal() { return import(/* webpackChunkName: "components/album_create_modal" */'../../../components/modal/album_create_modal') }
 export function Assets() { return import(/* webpackChunkName: "features/about/assets" */'../../about/assets') }
 export function BlockAccountModal() { return import(/* webpackChunkName: "components/block_account_modal" */'../../../components/modal/block_account_modal') }
 export function BlockedAccounts() { return import(/* webpackChunkName: "features/blocked_accounts" */'../../blocked_accounts') }
 export function BookmarkCollections() { return import(/* webpackChunkName: "features/bookmark_collections" */'../../bookmark_collections') }
+export function BookmarkCollectionCreate() { return import(/* webpackChunkName: "features/bookmark_collection_create" */'../../bookmark_collection_create') }
+export function BookmarkCollectionCreateModal() { return import(/* webpackChunkName: "components/bookmark_collection_create_modal" */'../../../components/modal/bookmark_collection_create_modal') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
 export function CaliforniaConsumerProtection() { return import(/* webpackChunkName: "features/california_consumer_protection" */'../../about/california_consumer_protection') }
@@ -15,13 +19,11 @@ export function ChatConversationBlockedAccounts() { return import(/* webpackChun
 export function ChatConversationCreate() { return import(/* webpackChunkName: "features/chat_conversation_create" */'../../chat_conversation_create') }
 export function ChatConversationCreateModal() { return import(/* webpackChunkName: "components/chat_conversation_create_modal" */'../../../components/modal/chat_conversation_create_modal') }
 export function ChatConversationDeleteModal() { return import(/* webpackChunkName: "components/chat_conversation_delete_modal" */'../../../components/modal/chat_conversation_delete_modal') }
-export function ChatConversationMutedAccounts() { return import(/* webpackChunkName: "features/chat_conversation_muted_accounts" */'../../chat_conversation_muted_accounts') }
 export function ChatConversationOptionsPopover() { return import(/* webpackChunkName: "components/chat_conversation_options_popover" */'../../../components/popover/chat_conversation_options_popover') }
 export function ChatConversationRequests() { return import(/* webpackChunkName: "features/chat_conversation_requests" */'../../chat_conversation_requests') }
 export function ChatMessageOptionsPopover() { return import(/* webpackChunkName: "components/chat_message_options_popover" */'../../../components/popover/chat_message_options_popover') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
 export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }
-export function CommunityTimelineSettingsModal() { return import(/* webpackChunkName: "components/community_timeline_settings_modal" */'../../../components/modal/community_timeline_settings_modal') }
 export function Compose() { return import(/* webpackChunkName: "features/compose" */'../../compose') }
 export function ComposeForm() { return import(/* webpackChunkName: "components/compose_form" */'../../compose/components/compose_form') }
 export function ComposeModal() { return import(/* webpackChunkName: "components/compose_modal" */'../../../components/modal/compose_modal') }
@@ -70,7 +72,6 @@ export function GroupsCategories() { return import(/* webpackChunkName: "feature
 export function GroupCategory() { return import(/* webpackChunkName: "features/group_category" */'../../group_category') }
 export function GroupTag() { return import(/* webpackChunkName: "features/group_tag" */'../../group_tag') }
 export function HashtagTimeline() { return import(/* webpackChunkName: "features/hashtag_timeline" */'../../hashtag_timeline') }
-export function HashtagTimelineSettingsModal() { return import(/* webpackChunkName: "components/hashtag_timeline_settings_modal" */'../../../components/modal/hashtag_timeline_settings_modal') }
 export function HomeTimeline() { return import(/* webpackChunkName: "features/home_timeline" */'../../home_timeline') }
 export function HomeTimelineSettingsModal() { return import(/* webpackChunkName: "components/home_timeline_settings_modal" */'../../../components/modal/home_timeline_settings_modal') }
 export function HotkeysModal() { return import(/* webpackChunkName: "components/hotkeys_modal" */'../../../components/modal/hotkeys_modal') }

@@ -107,7 +107,7 @@ class ProfileHeader extends ImmutablePureComponent {
         title: intl.formatMessage(messages.comments),
       },
       {
-        to: `/${account.get('acct')}/photos`,
+        to: `/${account.get('acct')}/albums`,
         title: intl.formatMessage(messages.photos),
       },
       {
@@ -119,7 +119,11 @@ class ProfileHeader extends ImmutablePureComponent {
     const isMyProfile = !account ? false : account.get('id') === me
     if (isMyProfile) {
       tabs.push({
-        to: `/${account.get('acct')}/bookmarks`,
+        to: `/${account.get('acct')}/likes`,
+        title: 'Likes',
+      })
+      tabs.push({
+        to: `/${account.get('acct')}/bookmark_collections`,
         title: intl.formatMessage(messages.bookmarks),
       })
     }
@@ -149,21 +153,12 @@ class ProfileHeader extends ImmutablePureComponent {
       displayNone: stickied,
     })
 
-    const mobileAvatarContainerClasses = CX({
-      d: 1,
-      circle: 1,
-      boxShadowProfileAvatar: 1,
-      mtNeg50PX: !headerMissing,
-    })
-
     const mobileDescriptionContainerClasses = CX({
       d: 1,
       w100PC: 1,
       px15: 1,
-      mt5: !!me,
       mb10: 1,
       pt15: !!me,
-      pb10: 1,
     })
 
     return (
@@ -174,10 +169,10 @@ class ProfileHeader extends ImmutablePureComponent {
             <div className={[_s.d, _s.w100PC].join(' ')}>
               {
                 !headerMissing &&
-                <div className={[_s.d, _s.h200PX, _s.px10, _s.w100PC, _s.mt10, _s.overflowHidden].join(' ')}>
+                <div className={[_s.d, _s.h172PX, _s.w100PC, _s.overflowHidden].join(' ')}>
                   <Image
                     alt={intl.formatMessage(messages.headerPhoto)}
-                    className={[_s.topRightRadiusSmall, _s.topLeftRadiusSmall, _s.h100PC].join(' ')}
+                    className={_s.h100PC}
                     src={headerSrc}
                     expandOnClick
                   />
@@ -185,85 +180,80 @@ class ProfileHeader extends ImmutablePureComponent {
               }
               {
                 headerMissing &&
-                <div className={[_s.d, _s.h20PX, _s.w100PC].join(' ')} />
+                <div className={[_s.d, _s.h122PX, _s.w100PC, _s.bgSecondary].join(' ')} />
               }
 
               <div className={[_s.d, _s.w100PC].join(' ')}>
 
-                <div className={[_s.d, _s.aiCenter, _s.px15, _s.mb5].join(' ')}>
-                  <div className={mobileAvatarContainerClasses}>
-                    <Avatar size={100} account={account} noHover expandOnClick />
+                <div className={[_s.d, _s.px15].join(' ')}>
+                  <div class={[_s.d, _s.flexRow].join(' ')}>
+                    <div className={[_s.d, _s.circle, _s.boxShadowProfileAvatar, _s.mtNeg32PX].join(' ')}>
+                      <Avatar size={88} account={account} noHover expandOnClick />
+                    </div>
+                    {
+                      account && account.get('id') === me &&
+                      <div className={[_s.d, _s.flexRow, _s.pt10, _s.flexGrow1, _s.h40PX, _s.jcEnd].join(' ')}>
+                        <Button
+                          isOutline
+                          backgroundColor='none'
+                          color='brand'
+                          className={[_s.jcCenter, _s.aiCenter, _s.h40PX].join(' ')}
+                          onClick={this.handleOnEditProfile}
+                        >
+                          <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
+                            {intl.formatMessage(messages.editProfile)}
+                          </Text>
+                        </Button>
+                      </div>
+                    }
+  
+                    {
+                      account && account.get('id') !== me && !!me &&
+                      <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.pt15, _s.flexGrow1, _s.h40PX, _s.jcEnd].join(' ')}>
+                        <Button
+                          icon={isShortcut ? 'star' : 'star-outline'}
+                          iconSize='18px'
+                          color='brand'
+                          backgroundColor='none'
+                          className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr10].join(' ')}
+                          onClick={this.handleToggleShortcut}
+                        />
+                        <div className={[_s.d, _s.flexRow, _s.h40PX].join(' ')}>
+                          <Button
+                            isOutline
+                            icon='chat'
+                            iconSize='18px'
+                            iconClassName={_s.inheritFill}
+                            color='brand'
+                            backgroundColor='none'
+                            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
+                            onClick={this.handleOpenMore}
+                            buttonRef={this.setOpenMoreNodeRef}
+                          />
+                        </div>
+                        <div className={[_s.d, _s.flexRow, _s.h40PX].join(' ')}>
+                          <AccountActionButton account={account} />
+                        </div>
+                      </div>
+                    }
                   </div>
 
-                  <div className={[_s.d, _s.flexRow, _s.flexNormal, _s.py10].join(' ')}>
+                  <div className={[_s.d, _s.flexRow, _s.flexNormal, _s.pt10].join(' ')}>
                     <DisplayName
                       account={account}
                       isMultiline
                       isLarge
-                      isCentered
                       noHover
                     />
                   </div>
                 </div>
 
-
                 <div className={[_s.d, _s.bgPrimary, _s.aiCenter].join(' ')}>
-                  {
-                    account && account.get('id') === me &&
-                    <div className={[_s.d,_s.py5].join(' ')}>
-                      <Button
-                        isOutline
-                        backgroundColor='none'
-                        color='brand'
-                        className={[_s.jcCenter, _s.aiCenter].join(' ')}
-                        onClick={this.handleOnEditProfile}
-                      >
-                        <Text color='inherit' weight='bold' size='medium' className={_s.px15}>
-                          {intl.formatMessage(messages.editProfile)}
-                        </Text>
-                      </Button>
-                    </div>
-                  }
-
-                  {
-                    account && account.get('id') !== me && !!me &&
-                    <div className={[_s.d, _s.flexRow, _s.py5].join(' ')}>
-                      
-                      <Button
-                        icon={isShortcut ? 'star' : 'star-outline'}
-                        iconSize='18px'
-                        color='brand'
-                        backgroundColor='none'
-                        className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr15].join(' ')}
-                        onClick={this.handleToggleShortcut}
-                      />
-
-                      <div className={[_s.d, _s.flexRow, _s.mr15].join(' ')}>
-                        <AccountActionButton account={account} />
-                      </div>
-
-                      <div>
-                        <Button
-                          isOutline
-                          icon='ellipsis'
-                          iconSize='18px'
-                          iconClassName={_s.inheritFill}
-                          color='brand'
-                          backgroundColor='none'
-                          className={[_s.jcCenter, _s.aiCenter, _s.ml10, _s.px10].join(' ')}
-                          onClick={this.handleOpenMore}
-                          buttonRef={this.setOpenMoreNodeRef}
-                        />
-                      </div>
-
-                    </div>
-                  }
-
                   <div className={mobileDescriptionContainerClasses}>
                     {children}
                   </div>
 
-                  <div className={[_s.d, _s.mt10, _s.mb10, _s.pt5, _s.w100PC, _s.pr10].join(' ')}>
+                  <div className={[_s.d, _s.mt10, _s.mb10, _s.pt5, _s.w100PC].join(' ')}>
                     <Pills pills={tabs} />
                   </div>
                 </div>

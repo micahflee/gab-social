@@ -56,16 +56,17 @@ import {
   AccountGallery,
   AccountTimeline,
   AccountCommentsTimeline,
+  AlbumCreate,
   Assets,
   BlockedAccounts,
   BookmarkCollections,
+  BookmarkCollectionCreate,
   BookmarkedStatuses,
   CaliforniaConsumerProtection,
   CaliforniaConsumerProtectionContact,
   ChatConversationCreate,
   ChatConversationRequests,
   ChatConversationBlockedAccounts,
-  ChatConversationMutedAccounts,
   CommunityTimeline,
   Compose,
   Deck,
@@ -219,7 +220,6 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/messages/settings' exact page={MessagesPage} component={MessagesSettings} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/requests' exact page={MessagesPage} component={ChatConversationRequests} content={children} componentParams={{ isSettings: true, source: 'requested' }} />
         <WrappedRoute path='/messages/blocks' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
-        <WrappedRoute path='/messages/mutes' exact page={MessagesPage} component={ChatConversationMutedAccounts} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/:chatConversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />
@@ -278,9 +278,13 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/:username/videos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'video' }} />
         <WrappedRoute path='/:username/albums' page={ProfilePage} component={AccountAlbums} content={children} componentParams={{ noSidebar: true, mediaType: 'photo' }} />
 
+        <WrappedRoute path='/:username/album_create' page={ModalPage} component={AlbumCreate} content={children} componentParams={{ title: 'Create Album', page: 'create-album' }} />
+        <WrappedRoute path='/:username/album_edit/:albumId' page={ModalPage} component={AlbumCreate} content={children} componentParams={{ title: 'Create Album', page: 'edit-album' }} />        
+
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
-        <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkCollections} content={children} />
-        <WrappedRoute path='/:username/:bookmarkCollectionId/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
+        <WrappedRoute path='/:username/bookmark_collections' page={ProfilePage} component={BookmarkCollections} content={children} />
+        <WrappedRoute path='/:username/bookmark_collections/create' page={ModalPage} component={BookmarkCollectionCreate} content={children} componentParams={{ title: 'Create Bookmark Collection', page: 'create-bookmark-collection' }} />
+        <WrappedRoute path='/:username/bookmark_collections/:bookmarkCollectionId' page={ProfilePage} component={BookmarkedStatuses} content={children} />
 
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 

@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import List from '../list'
+import Button from '../button'
 import Text from '../text'
 
 class ComposePostDesinationPopover extends React.PureComponent {
@@ -38,8 +39,20 @@ class ComposePostDesinationPopover extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
-        <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>Post to:</Text>
-        <List items={items} />
+        <div className={[_s.d]}>
+          <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>Post to:</Text>
+          <List items={items} />
+        </div>
+        <div>
+          <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>
+            <Button
+              isText
+              icon='back'
+            />
+            Select group:
+          </Text>
+          <List items={items} />
+        </div>
       </PopoverLayout>
     )
   }

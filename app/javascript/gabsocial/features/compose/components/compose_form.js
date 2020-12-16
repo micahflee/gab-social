@@ -273,7 +273,7 @@ class ComposeForm extends ImmutablePureComponent {
         <div className={[_s.d, _s.calcMaxH410PX, _s.overflowYScroll].join(' ')}>
 
           <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-            <ComposeDestinationHeader account={account} isModal={isModalOpen} />
+            <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
           </Responsive>
 
           <div className={containerClasses} ref={this.setForm} onClick={this.handleClick}>

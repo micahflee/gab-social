@@ -193,4 +193,4 @@ ChatMessagesComposeForm.propTypes = {
   onSendMessage: PropTypes.func.isRequired,
 }
 
-export default connect(mapDispatchToProps)(ChatMessagesComposeForm)
+export default connect(null, mapDispatchToProps)(ChatMessagesComposeForm)

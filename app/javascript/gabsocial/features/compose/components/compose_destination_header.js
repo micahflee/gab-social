@@ -30,34 +30,38 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
   }
 
   render() {
-    const { account, isModal } = this.props
+    const { account, isModal, formLocation } = this.props
 
+    const isIntroduction = formLocation === 'introduction'
     const title = 'Post to timeline'
 
     return (
       <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.bgPrimary, _s.w100PC, _s.h40PX, _s.pr15].join(' ')}>
         <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.pl15, _s.flexGrow1, _s.mrAuto, _s.h40PX].join(' ')}>
           <Avatar account={account} size={28} />
-          <div className={[_s.ml15].join(' ')}>
-            <Button
-              isNarrow
-              isOutline
-              radiusSmall
-              buttonRef={this.setDestinationBtn}
-              backgroundColor='secondary'
-              color='primary'
-              onClick={this.handleOnClick}
-              className={[_s.border1PX, _s.borderColorPrimary].join(' ')}
-            >
-              <Text color='inherit' size='small' className={_s.jcCenter}>
-                {title}
-                <Icon id='caret-down' size='8px' className={_s.ml5} />
-              </Text>
-            </Button>
-          </div>
+          {
+            !isIntroduction &&
+            <div className={[_s.ml15].join(' ')}>
+              <Button
+                isNarrow
+                isOutline
+                radiusSmall
+                buttonRef={this.setDestinationBtn}
+                backgroundColor='secondary'
+                color='primary'
+                onClick={this.handleOnClick}
+                className={[_s.border1PX, _s.borderColorPrimary].join(' ')}
+              >
+                <Text color='inherit' size='small' className={_s.jcCenter}>
+                  {title}
+                  <Icon id='caret-down' size='8px' className={_s.ml5} />
+                </Text>
+              </Button>
+            </div>
+          }
         </div>
         {
-          !isModal &&
+          !isModal && !isIntroduction &&
           <Button
             isText
             isNarrow
@@ -89,6 +93,7 @@ ComposeDestinationHeader.propTypes = {
   isModal: PropTypes.bool,
   onOpenModal: PropTypes.func.isRequired,
   onOpenPopover: PropTypes.func.isRequired,
+  formLocation: PropTypes.string,
 }
 
 export default connect(null, mapDispatchToProps)(ComposeDestinationHeader)

@@ -8,11 +8,12 @@ import ModalBase from './modal_base'
 import BundleErrorModal from './bundle_error_modal'
 import LoadingModal from './loading_modal'
 import {
+  MODAL_ALBUM_CREATE,
   MODAL_BLOCK_ACCOUNT,
+  MODAL_BOOKMARK_COLLECTION_CREATE,
   MODAL_BOOST,
   MODAL_CHAT_CONVERSATION_CREATE,
   MODAL_CHAT_CONVERSATION_DELETE,
-  MODAL_COMMUNITY_TIMELINE_SETTINGS,
   MODAL_COMPOSE,
   MODAL_CONFIRM,
   MODAL_DECK_COLUMN_ADD,
@@ -24,7 +25,6 @@ import {
   MODAL_GROUP_CREATE,
   MODAL_GROUP_DELETE,
   MODAL_GROUP_PASSWORD,
-  MODAL_HASHTAG_TIMELINE_SETTINGS,
   MODAL_HOME_TIMELINE_SETTINGS,
   MODAL_HOTKEYS,
   MODAL_LIST_ADD_USER,
@@ -44,11 +44,12 @@ import {
   MODAL_VIDEO,
 } from '../../constants'
 import {
+  AlbumCreateModal,
   BlockAccountModal,
+  BookmarkCollectionCreateModal,
   BoostModal,
   ChatConversationCreateModal,
   ChatConversationDeleteModal,
-  CommunityTimelineSettingsModal,
   ComposeModal,
   ConfirmationModal,
   DeckColumnAddModal,
@@ -62,7 +63,6 @@ import {
   GroupMembersModal,
   GroupPasswordModal,
   GroupRemovedAccountsModal,
-  HashtagTimelineSettingsModal,
   HomeTimelineSettingsModal,
   HotkeysModal,
   ListAddUserModal,
@@ -83,11 +83,12 @@ import {
 } from '../../features/ui/util/async_components'
 
 const MODAL_COMPONENTS = {
+  [MODAL_ALBUM_CREATE]: AlbumCreateModal,
   [MODAL_BLOCK_ACCOUNT]: BlockAccountModal,
+  [MODAL_BOOKMARK_COLLECTION_CREATE]: BookmarkCollectionCreateModal,
   [MODAL_BOOST]: BoostModal,
   [MODAL_CHAT_CONVERSATION_CREATE]: ChatConversationCreateModal,
   [MODAL_CHAT_CONVERSATION_DELETE]: ChatConversationDeleteModal,
-  [MODAL_COMMUNITY_TIMELINE_SETTINGS]: CommunityTimelineSettingsModal,
   [MODAL_COMPOSE]: ComposeModal,
   [MODAL_CONFIRM]: ConfirmationModal,
   [MODAL_DECK_COLUMN_ADD]: DeckColumnAddModal,
@@ -99,7 +100,6 @@ const MODAL_COMPONENTS = {
   [MODAL_GROUP_CREATE]: GroupCreateModal,
   [MODAL_GROUP_DELETE]: GroupDeleteModal,
   [MODAL_GROUP_PASSWORD]: GroupPasswordModal,
-  [MODAL_HASHTAG_TIMELINE_SETTINGS]: HashtagTimelineSettingsModal,
   [MODAL_HOME_TIMELINE_SETTINGS]: HomeTimelineSettingsModal,
   [MODAL_HOTKEYS]: HotkeysModal,
   [MODAL_LIST_ADD_USER]: ListAddUserModal,

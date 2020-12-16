@@ -5,14 +5,19 @@ import {
 } from '../actions/toasts'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable'
 
+const makeMessageFromData = (data) => {
+  return `${data.type}`.split('_').join(' ').toLowerCase()
+}
+
 const initialState = ImmutableList([])
 
 export default function toasts(state = initialState, action) {
   switch(action.type) {
   case TOAST_SHOW:
+    console.log("action:", action)
     return state.set(state.size, ImmutableMap({
       key: state.size > 0 ? state.last().get('key') + 1 : 0,
-      message: 'action.message',
+      message: makeMessageFromData(action.toastData),
       type: action.toastType,
     }))
   case TOAST_DISMISS:

@@ -24,23 +24,13 @@ export const IS_CHAT_MESSENGER_BLOCKED_SUCCESS = 'IS_CHAT_MESSENGER_BLOCKED_SUCC
 
 //
 
-export const CHAT_MESSENGER_MUTES_FETCH_REQUEST = 'CHAT_MESSENGER_MUTES_FETCH_REQUEST'
-export const CHAT_MESSENGER_MUTES_FETCH_SUCCESS = 'CHAT_MESSENGER_MUTES_FETCH_SUCCESS'
-export const CHAT_MESSENGER_MUTES_FETCH_FAIL    = 'CHAT_MESSENGER_MUTES_FETCH_FAIL'
+export const MUTE_CHAT_CONVERSATION_REQUEST = 'MUTE_CHAT_CONVERSATION_REQUEST'
+export const MUTE_CHAT_CONVERSATION_SUCCESS = 'MUTE_CHAT_CONVERSATION_SUCCESS'
+export const MUTE_CHAT_CONVERSATION_FAIL    = 'MUTE_CHAT_CONVERSATION_FAIL'
 
-export const CHAT_MESSENGER_MUTES_EXPAND_REQUEST = 'CHAT_MESSENGER_MUTES_EXPAND_REQUEST'
-export const CHAT_MESSENGER_MUTES_EXPAND_SUCCESS = 'CHAT_MESSENGER_MUTES_EXPAND_SUCCESS'
-export const CHAT_MESSENGER_MUTES_EXPAND_FAIL    = 'CHAT_MESSENGER_MUTES_EXPAND_FAIL'
-
-export const MUTE_CHAT_MESSAGER_REQUEST = 'MUTE_CHAT_MESSAGER_REQUEST'
-export const MUTE_CHAT_MESSAGER_SUCCESS = 'MUTE_CHAT_MESSAGER_SUCCESS'
-export const MUTE_CHAT_MESSAGER_FAIL    = 'MUTE_CHAT_MESSAGER_FAIL'
-
-export const UNMUTE_CHAT_MESSAGER_REQUEST = 'UNMUTE_CHAT_MESSAGER_REQUEST'
-export const UNMUTE_CHAT_MESSAGER_SUCCESS = 'UNMUTE_CHAT_MESSAGER_SUCCESS'
-export const UNMUTE_CHAT_MESSAGER_FAIL    = 'UNMUTE_CHAT_MESSAGER_FAIL'
-
-export const IS_CHAT_MESSENGER_MUTED_SUCCESS = 'IS_CHAT_MESSENGER_MUTED_SUCCESS'
+export const UNMUTE_CHAT_CONVERSATION_REQUEST = 'UNMUTE_CHAT_CONVERSATION_REQUEST'
+export const UNMUTE_CHAT_CONVERSATION_SUCCESS = 'UNMUTE_CHAT_CONVERSATION_SUCCESS'
+export const UNMUTE_CHAT_CONVERSATION_FAIL    = 'UNMUTE_CHAT_CONVERSATION_FAIL'
 
 /**
  * 
@@ -96,12 +86,12 @@ const unblockChatMessengerRequest = (accountId) => ({
 })
 
 const unblockChatMessengerSuccess = () => ({
-  type: UNBLOCK_CHAT_MESSAGER_REQUEST,
+  type: UNBLOCK_CHAT_MESSAGER_SUCCESS,
   showToast: true,
 })
 
 const unblockChatMessengerFail = (accountId, error) => ({
-  type: UNBLOCK_CHAT_MESSAGER_REQUEST,
+  type: UNBLOCK_CHAT_MESSAGER_FAIL,
   showToast: true,
   accountId,
   error,
@@ -195,147 +185,64 @@ export const expandChatMessengerBlocksFail = (error) => ({
 /**
  * 
  */
-export const muteChatMessenger = (accountId) => (dispatch, getState) => {
-  if (!me || !accountId) return
+export const muteChatConversation = (chatConversationId) => (dispatch, getState) => {
+  if (!me || !chatConversationId) return
 
-  dispatch(muteChatMessengerRequest(accountId))
+  dispatch(muteChatConversationRequest(chatConversationId))
   
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/mute_messenger`).then((response) => {
-    dispatch(muteChatMessengerSuccess())
+  api(getState).post(`/api/v1/chat_conversation_accounts/${chatConversationId}/mute_chat_conversation`).then((response) => {
+    dispatch(muteChatConversationSuccess(response.data))
   }).catch((error) => {
-    dispatch(muteChatMessengerFail(accountId, error))
+    dispatch(muteChatMessengerFail(error))
   })
 }
 
-const muteChatMessengerRequest = (accountId) => ({
-  type: MUTE_CHAT_MESSAGER_REQUEST,
+const muteChatConversationRequest = (accountId) => ({
+  type: MUTE_CHAT_CONVERSATION_REQUEST,
   accountId,
 })
 
-const muteChatMessengerSuccess = () => ({
-  type: MUTE_CHAT_MESSAGER_SUCCESS,
+const muteChatConversationSuccess = (chatConversation) => ({
+  type: MUTE_CHAT_CONVERSATION_SUCCESS,
+  chatConversation,
   showToast: true,
 })
 
-const muteChatMessengerFail = (accountId, error) => ({
-  type: MUTE_CHAT_MESSAGER_FAIL,
+const muteChatConversationFail = (error) => ({
+  type: MUTE_CHAT_CONVERSATION_FAIL,
   showToast: true,
-  accountId,
   error,
 })
 
 /**
  *
  */
-export const unmuteChatMessenger = (accountId) => (dispatch, getState) => {
-  if (!me || !accountId) return
+export const unmuteChatConversation = (chatConversationId) => (dispatch, getState) => {
+  if (!me || !chatConversationId) return
 
-  dispatch(unmuteChatMessengerRequest(accountId))
+  dispatch(unmuteChatConversationRequest(chatConversationId))
 
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/unmute_messenger`).then((response) => {
-    dispatch(unmuteChatMessengerSuccess())
+  api(getState).post(`/api/v1/chat_conversation_accounts/${chatConversationId}/unmute_chat_conversation`).then((response) => {
+    dispatch(unmuteChatConversationSuccess(response.data))
   }).catch((error) => {
-    dispatch(unmuteChatMessengerFail(accountId, error))
+    dispatch(unmuteChatConversationFail(error))
   })
 }
 
-const unmuteChatMessengerRequest = (accountId) => ({
-  type: UNMUTE_CHAT_MESSAGER_REQUEST,
+const unmuteChatConversationRequest = (accountId) => ({
+  type: UNMUTE_CHAT_CONVERSATION_REQUEST,
   accountId,
 })
 
-const unmuteChatMessengerSuccess = () => ({
-  type: UNMUTE_CHAT_MESSAGER_REQUEST,
+const unmuteChatConversationSuccess = (chatConversation) => ({
+  type: UNMUTE_CHAT_CONVERSATION_SUCCESS,
+  chatConversation,
   showToast: true,
 })
 
-const unmuteChatMessengerFail = (accountId, error) => ({
-  type: UNMUTE_CHAT_MESSAGER_REQUEST,
+const unmuteChatConversationFail = (accountId, error) => ({
+  type: UNMUTE_CHAT_CONVERSATION_FAIL,
   showToast: true,
   accountId,
   error,
 })
-
-/**
- * @description Check if a chat messenger is muted by the current user account.
- * @param {String} accountId
- */
-export const isChatMessengerMuted = (accountId) => (dispatch, getState) => {
-  if (!me || !accountId) return
-
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/is_messenger_muted`).then((response) => {
-    dispatch(isChatMessengerMutedSuccess(response.data))
-  })
-}
-
-const isChatMessengerMutedSuccess = (data) => ({
-  type: IS_CHAT_MESSENGER_MUTED_SUCCESS,
-  data,
-})
-
-/**
- * 
- */
-export const fetchChatMessengerMutes = () => (dispatch, getState) => {
-  if (!me) return
-
-  dispatch(fetchChatMessengerMutesRequest())
-
-  api(getState).get('/api/v1/chat_conversation_accounts/muted_chat_accounts').then(response => {
-    const next = getLinks(response).refs.find(link => link.rel === 'next')
-    dispatch(importFetchedAccounts(response.data))
-    dispatch(fetchChatMessengerMutesSuccess(response.data, next ? next.uri : null))
-  }).catch(error => dispatch(fetchChatMessengerMutesFail(error)))
-}
-
-export const fetchChatMessengerMutesRequest = () => ({
-  type: CHAT_MESSENGER_MUTES_FETCH_REQUEST,
-})
-
-export const fetchChatMessengerMutesSuccess = (accounts, next) => ({
-  type: CHAT_MESSENGER_MUTES_FETCH_SUCCESS,
-  accounts,
-  next,
-})
-
-export const fetchChatMessengerMutesFail = (error) => ({
-  type: CHAT_MESSENGER_MUTES_FETCH_FAIL,
-  showToast: true,
-  error,
-})
-
-/**
- * 
- */
-export const expandChatMessengerMutes = () => (dispatch, getState) => {
-  if (!me) return
-  
-  const url = getState().getIn(['user_lists', 'chat_mutes', me, 'next'])
-  const isLoading = getState().getIn(['user_lists', 'chat_mutes', me, 'isLoading'])
-
-  if (url === null || isLoading) return
-
-  dispatch(expandChatMessengerMutesRequest())
-
-  api(getState).get(url).then(response => {
-    const next = getLinks(response).refs.find(link => link.rel === 'next')
-    dispatch(importFetchedAccounts(response.data))
-    dispatch(expandChatMessengerMutesSuccess(response.data, next ? next.uri : null))
-  }).catch(error => dispatch(expandChatMessengerMutesFail(error)))
-}
-
-export const expandChatMessengerMutesRequest = () => ({
-  type: CHAT_MESSENGER_MUTES_EXPAND_REQUEST,
-})
-
-export const expandChatMessengerMutesSuccess = (accounts, next) => ({
-  type: CHAT_MESSENGER_MUTES_EXPAND_SUCCESS,
-  accounts,
-  next,
-})
-
-export const expandChatMessengerMutesFail = (error) => ({
-  type: CHAT_MESSENGER_MUTES_EXPAND_FAIL,
-  error,
-})
-

@@ -57,6 +57,7 @@ class ComposeExtraButtonList extends React.PureComponent {
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const isStandalone = formLocation === 'standalone'
     const isTimeline = formLocation === 'timeline'
+    const isIntroduction = formLocation === 'introduction'
     const small = (!isModal && isXS && !isStandalone) || isTimeline
 
     console.log("small, formLocation:", small, formLocation)
@@ -84,8 +85,8 @@ class ComposeExtraButtonList extends React.PureComponent {
         <UploadButton small={small} />
         <EmojiPickerButton isMatch={isMatch} small={small} />
         { !edit && <PollButton small={small} /> }
-        <StatusVisibilityButton small={small} />
-        <SpoilerButton small={small} />
+        { !isIntroduction && <StatusVisibilityButton small={small} /> }
+        { !isIntroduction && <SpoilerButton small={small} /> }
         { !hidePro && !edit && <SchedulePostButton small={small} /> }
         { !hidePro && !edit && <ExpiresPostButton small={small} /> }
         { !hidePro && !isXS && <RichTextEditorButton small={small} /> }

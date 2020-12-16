@@ -32,35 +32,27 @@ class ProfileStatsPanel extends ImmutablePureComponent {
           !!account &&
           <ResponsiveClassesComponent
             classNames={[_s.d, _s.flexRow].join(' ')}
-            classNamesXS={[_s.d, _s.flexRow, _s.mt15, _s.pt10].join(' ')}
+            classNamesXS={[_s.d, _s.flexRow, _s.mt15, _s.flexWrap].join(' ')}
           >
             <UserStat
               title={intl.formatMessage(messages.gabs)}
               value={shortNumberFormat(account.get('statuses_count'))}
               to={`/${account.get('acct')}`}
-              isCentered={noPanel}
+              isInline={noPanel}
             />
             <UserStat
               title={intl.formatMessage(messages.followers)}
               value={shortNumberFormat(account.get('followers_count'))}
               to={`/${account.get('acct')}/followers`}
-              isCentered={noPanel}
+              isInline={noPanel}
             />
             <UserStat
+              isLast
               title={intl.formatMessage(messages.follows)}
               value={shortNumberFormat(account.get('following_count'))}
               to={`/${account.get('acct')}/following`}
-              isCentered={noPanel}
+              isInline={noPanel}
             />
-            {
-              account.get('id') === me &&
-              <UserStat
-                title={intl.formatMessage(messages.likes)}
-                value={shortNumberFormat(0)}
-                to={`/${account.get('acct')}/likes`}
-                isCentered={noPanel}
-              />
-            }
           </ResponsiveClassesComponent>
         }
       </Wrapper>

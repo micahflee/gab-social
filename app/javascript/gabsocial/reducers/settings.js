@@ -50,18 +50,12 @@ const initialState = ImmutableMap({
     theme: 'white',
   }),
 
-  home: ImmutableMap({
-    shows: ImmutableMap({
-      reply: true,
-      repost: true,
-    }),
-  }),
-
-  community: ImmutableMap({
-    shows: ImmutableMap({
-      onlyMedia: false,
-    }),
-  }),
+  // home: ImmutableMap({
+  //   shows: ImmutableMap({
+  //     reply: true,
+  //     repost: true,
+  //   }),
+  // }),
 })
 
 const defaultColumns = fromJS([

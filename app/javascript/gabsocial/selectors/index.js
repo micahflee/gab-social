@@ -232,7 +232,7 @@ export const getToasts = createSelector([
 
   let arr = []
 
-  base.forEach(item => {
+  base.forEach((item) => {
     arr.push({
       message: item.get('message'),
       type: item.get('type'),
@@ -241,4 +241,20 @@ export const getToasts = createSelector([
   })
 
   return arr
+})
+
+export const getListOfGroups = createSelector([
+  (state) => state.get('groups'),
+  (state, { type }) => state.getIn(['group_lists', type, 'items']),
+], (groups, groupIds) => {
+  console.log("groupIds:", groupIds)
+  let list = ImmutableList()
+  groupIds.forEach((id, i) => {
+    const group = groups.get(`${id}`)
+    console.log("groupIds:", id, i, group)
+    list = list.set(i, group)
+  })
+  console.log("list:", list)
+
+  return list
 })

@@ -3,7 +3,7 @@
 class REST::ChatConversationAccountSerializer < ActiveModel::Serializer
   attributes :id, :is_hidden, :is_approved, :unread_count,
              :is_unread, :chat_conversation_id, :created_at,
-             :is_blocked, :is_muted, :chat_message_expiration_policy
+             :is_muted, :chat_message_expiration_policy
 
   has_many :participant_accounts, key: :other_accounts, serializer: REST::AccountSerializer
   has_one :last_chat_message, serializer: REST::ChatMessageSerializer, unless: :last_chat_message_id?
@@ -22,14 +22,6 @@ class REST::ChatConversationAccountSerializer < ActiveModel::Serializer
 
   def is_unread
     object.unread_count > 0
-  end
-
-  def is_blocked
-    false
-  end
-
-  def is_muted
-    false
   end
 
 end

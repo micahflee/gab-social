@@ -1,35 +1,137 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import ImmutablePropTypes from 'react-immutable-proptypes'
+import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
 import { openModal } from '../../actions/modal'
+import { setDeckColumnAtIndex } from '../../actions/deck'
+import { getOrderedLists, getListOfGroups } from '../../selectors'
+import { fetchLists } from '../../actions/lists'
+import { fetchGroupsByTab } from '../../actions/groups'
 import { MODAL_DECK_COLUMN_ADD } from '../../constants'
 import Heading from '../heading'
 import Button from '../button'
 import Block from '../block'
+import Input from '../input'
+import List from '../list'
 
-class DeckColumnAddOptionsModal extends React.PureComponent {
+class DeckColumnAddOptionsModal extends ImmutablePureComponent {
 
   state = {
-    selectedItem: null,
+    hashtagValue: '',
+    usernameValue: '',
+  }
+
+  componentDidMount() {
+    switch (this.props.column) {
+      case 'list':
+        this.props.onFetchLists()
+        break
+      case 'group':
+        this.props.onFetchMemberGroups()
+        break
+      default:
+        break
+    }
   }
 
   onClickClose = () => {
     this.props.onClose()
-    this.props.dispatch(openModal(MODAL_DECK_COLUMN_ADD))
+    this.props.onOpenDeckColumnAddModal()
   }
 
-  handleAdd = () => {
-    //
+  handleAdd = (id) => {
+    this.props.onSetDeckColumn(id)
+    this.props.onClose()
+  }
+
+  handleAddHashtag = () => {
+    this.handleAdd(`hashtag.${this.state.hashtagValue}`)
+    this.setState({ hashtagValue: '' })
+  }
+
+  onChangeHashtagValue = (hashtagValue) => {
+    this.setState({ hashtagValue })
+  }
+
+  onChangeUsernameValue = (usernameValue) => {
+    this.setState({ usernameValue })
+  }
+
+  getContentForColumn = () => {
+    const { column, lists, groups, accounts } = this.props
+    const { hashtagValue } = this.state
+
+    if (column === 'hashtag') {
+      return (
+        <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+          <Input
+            type='text'
+            value={hashtagValue}
+            placeholder='gabfam'
+            id='hashtag-deck'
+            title='Enter hashtag'
+            onChange={this.onChangeHashtagValue}
+          />
+        </div>
+      )
+    } else if (column === 'list') {
+      const listItems = lists.map((list) => ({
+        onClick: () => this.handleAdd(`list.${list.get('id')}`),
+        title: list.get('title'),
+      }))
+  
+      return (
+        <div className={[_s.d, _s.maxH340PX, _s.overflowYScroll].join(' ')}>
+          <List
+            scrollKey='lists-deck-add'
+            showLoading={lists.size === 0}
+            emptyMessage="You don't have any lists yet."
+            items={listItems}
+          />
+        </div>
+      )
+    } else if (column === 'group') {
+      const listItems = groups.map((group) => ({
+        onClick: () => this.handleAdd(`group.${group.get('id')}`),
+        title: group.get('title'),
+      }))
+  
+      return (
+        <div className={[_s.d, _s.maxH340PX, _s.overflowYScroll].join(' ')}>
+          <List
+            scrollKey='groups-deck-add'
+            showLoading={groups.size === 0}
+            emptyMessage="You are not a member of any groups yet."
+            items={listItems}
+          />
+        </div>
+      )
+    } else if (column === 'group') {
+      return (
+        <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+          <Input
+            type='text'
+            value={usernameValue}
+            placeholder=''
+            id='user-deck'
+            title='Enter username'
+            onChange={this.onChangeUsernameValue}
+          />
+        </div>
+      )
+    }
+
   }
 
   render() {
     const { column } = this.props
-    const { selectedItem } = this.state
-
-    // user, hashtag, list, groups
+    const { hashtagValue } = this.state
 
     if (!column) return <div />
     const title = `Select a ${column}`
+
+    const content = this.getContentForColumn()
 
     return (
       <div style={{width: '520px'}} className={[_s.d, _s.modal].join(' ')}>
@@ -49,16 +151,19 @@ class DeckColumnAddOptionsModal extends React.PureComponent {
               {title}
             </Heading>
             <div className={[_s.d, _s.w115PX, _s.aiEnd, _s.jcCenter, _s.mlAuto].join(' ')}>
-              <Button
-                isDisabled={!selectedItem}
-                onClick={this.handleAdd}
-              >
-                Add
-              </Button>
+              {
+                column === 'hashtag' &&
+                <Button
+                  isDisabled={!hashtagValue}
+                  onClick={this.handleAddHashtag}
+                >
+                  Add
+                </Button>
+              }
             </div>
           </div>
           <div className={[_s.d].join(' ')}>
-            test
+            {content}
           </div>
         </Block>
       </div>
@@ -67,9 +172,33 @@ class DeckColumnAddOptionsModal extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  lists: getOrderedLists(state),
+  groups: getListOfGroups(state, { type: 'member' }),
+  accounts: [],
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onFetchLists() {
+    dispatch(fetchLists())
+  },
+  onFetchMemberGroups() {
+    dispatch(fetchGroupsByTab('member'))
+  },
+  onSetDeckColumn(id) {
+    dispatch(setDeckColumnAtIndex(id))
+  },
+  onOpenDeckColumnAddModal() {
+    dispatch(openModal(MODAL_DECK_COLUMN_ADD))
+  },
+})
+
 DeckColumnAddOptionsModal.propTypes = {
+  groupIds: ImmutablePropTypes.list,
   onClose: PropTypes.func.isRequired,
+  onFetchLists: PropTypes.func.isRequired,
+  onSetDeckColumn: PropTypes.func.isRequired,
   column: PropTypes.string.isRequired,
 }
 
-export default connect()(DeckColumnAddOptionsModal)
+export default connect(mapStateToProps, mapDispatchToProps)(DeckColumnAddOptionsModal)

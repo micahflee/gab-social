@@ -22,6 +22,9 @@ class LinkBlock < ApplicationRecord
       Addressable::URI.parse(array[0]).normalize
     }
     url = urls.first
+
+    return false if url.nil?
+
     link_for_fetch = TagManager.instance.normalize_link(url)
     link_for_fetch = link_for_fetch.chomp("/")
 

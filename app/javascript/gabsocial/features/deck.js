@@ -25,7 +25,9 @@ import Text from '../components/text'
 import {
   AccountTimeline,
   Compose,
+  GroupTimeline,
   LikedStatuses,
+  ListTimeline,
   HomeTimeline,
   Notifications,
   HashtagTimeline,
@@ -73,7 +75,7 @@ class Deck extends React.PureComponent {
 
     let Component = null
     let componentParams = {}
-    let title, icon = ''
+    let title, subtitle, icon = ''
 
     switch (deckColumn) {
       case 'notifications':
@@ -123,18 +125,32 @@ class Deck extends React.PureComponent {
         break
     }
 
-    // : todo :
     if (!Component) {
       if (deckColumn.indexOf('user.') > -1)  {
         
       } else if (deckColumn.indexOf('list.') > -1)  {
-        
+        const listId = deckColumn.replace('list.', '')
+        title = 'List'
+        subtitle = listId
+        icon = 'list'
+        Component = ListTimeline
+        componentParams = { params: { id: listId }} 
       } else if (deckColumn.indexOf('group.') > -1)  {
-        
+        const groupId = deckColumn.replace('group.', '')
+        title = 'Group'
+        subtitle = groupId
+        icon = 'group'
+        Component = GroupTimeline
+        componentParams = { params: { id: groupId }} 
       } else if (deckColumn.indexOf('news.') > -1)  {
-        
+        // : todo :        
       } else if (deckColumn.indexOf('hashtag.') > -1)  {
-        
+        const hashtag = deckColumn.replace('hashtag.', '')
+        title = 'Hashtag'
+        subtitle = hashtag
+        icon = 'apps'
+        Component = HashtagTimeline
+        componentParams = { params: { id: hashtag }} 
       }
     }
 
@@ -146,7 +162,7 @@ class Deck extends React.PureComponent {
         index={index}
         sortIndex={index}
       >
-        <DeckColumn title={title} icon={icon} index={index}>
+        <DeckColumn title={title} subtitle={subtitle} icon={icon} index={index}>
           <WrappedBundle component={Component} componentParams={componentParams} />
         </DeckColumn>
       </SortableItem>
@@ -157,6 +173,8 @@ class Deck extends React.PureComponent {
     const { gabDeckOrder, isPro } = this.props
 
     const isEmpty = gabDeckOrder.size === 0
+
+    console.log("gabDeckOrder:", gabDeckOrder)
 
     return (
       <SortableContainer

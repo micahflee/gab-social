@@ -24,79 +24,92 @@ export const BOOKMARK_COLLECTIONS_REMOVE_REQUEST = 'BOOKMARK_COLLECTIONS_REMOVE_
 export const BOOKMARK_COLLECTIONS_REMOVE_SUCCESS = 'BOOKMARK_COLLECTIONS_REMOVE_SUCCESS'
 export const BOOKMARK_COLLECTIONS_REMOVE_FAIL = 'BOOKMARK_COLLECTIONS_REMOVE_FAIL'
 
+//
+
+export const UPDATE_BOOKMARK_COLLECTION_FAIL = 'UPDATE_BOOKMARK_COLLECTION_FAIL'
+export const UPDATE_BOOKMARK_COLLECTION_REQUEST = 'UPDATE_BOOKMARK_COLLECTION_REQUEST'
+export const UPDATE_BOOKMARK_COLLECTION_SUCCESS = 'UPDATE_BOOKMARK_COLLECTION_SUCCESS'
+
+export const UPDATE_BOOKMARK_COLLECTION_STATUS_FAIL = 'UPDATE_BOOKMARK_COLLECTION_STATUS_FAIL'
+export const UPDATE_BOOKMARK_COLLECTION_STATUS_REQUEST = 'UPDATE_BOOKMARK_COLLECTION_STATUS_REQUEST'
+export const UPDATE_BOOKMARK_COLLECTION_STATUS_SUCCESS = 'UPDATE_BOOKMARK_COLLECTION_STATUS_SUCCESS'
+
 /**
  * 
  */
-export const fetchBookmarkedStatuses = () => (dispatch, getState) => {
+export const fetchBookmarkedStatuses = (bookmarkCollectionId) => (dispatch, getState) => {
   if (!me) return
 
   if (getState().getIn(['status_lists', 'bookmarks', 'isLoading'])) {
     return
   }
 
-  dispatch(fetchBookmarkedStatusesRequest())
+  dispatch(fetchBookmarkedStatusesRequest(bookmarkCollectionId))
 
   api(getState).get('/api/v1/bookmarks').then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedStatuses(response.data))
-    dispatch(fetchBookmarkedStatusesSuccess(response.data, next ? next.uri : null))
+    dispatch(fetchBookmarkedStatusesSuccess(response.data, bookmarkCollectionId, next ? next.uri : null))
   }).catch((error) => {
-    dispatch(fetchBookmarkedStatusesFail(error))
+    dispatch(fetchBookmarkedStatusesFail(bookmarkCollectionId, error))
   })
 }
 
-const fetchBookmarkedStatusesRequest = () => ({
+const fetchBookmarkedStatusesRequest = (bookmarkCollectionId) => ({
   type: BOOKMARKED_STATUSES_FETCH_REQUEST,
 })
 
-const fetchBookmarkedStatusesSuccess = (statuses, next) => ({
+const fetchBookmarkedStatusesSuccess = (statuses, bookmarkCollectionId, next) => ({
   type: BOOKMARKED_STATUSES_FETCH_SUCCESS,
+  bookmarkCollectionId,
   statuses,
   next,
 })
 
-const fetchBookmarkedStatusesFail = (error) => ({
+const fetchBookmarkedStatusesFail = (bookmarkCollectionId, error) => ({
   type: BOOKMARKED_STATUSES_FETCH_FAIL,
   showToast: true,
+  bookmarkCollectionId,
   error,
 })
 
 /**
  * 
  */
-export const expandBookmarkedStatuses = () => (dispatch, getState) => {
+export const expandBookmarkedStatuses = (bookmarkCollectionId) => (dispatch, getState) => {
   if (!me) return
 
-  const url = getState().getIn(['status_lists', 'bookmarks', 'next'], null)
+  const url = getState().getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'next'], null)
 
-  if (url === null || getState().getIn(['status_lists', 'bookmarks', 'isLoading'])) {
+  if (url === null || getState().getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'isLoading'])) {
     return
   }
 
-  dispatch(expandBookmarkedStatusesRequest())
+  dispatch(expandBookmarkedStatusesRequest(bookmarkCollectionId))
 
   api(getState).get(url).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedStatuses(response.data))
-    dispatch(expandBookmarkedStatusesSuccess(response.data, next ? next.uri : null))
+    dispatch(expandBookmarkedStatusesSuccess(response.data, bookmarkCollectionId, next ? next.uri : null))
   }).catch((error) => {
-    dispatch(expandBookmarkedStatusesFail(error))
+    dispatch(expandBookmarkedStatusesFail(bookmarkCollectionId, error))
   })
 }
 
-const expandBookmarkedStatusesRequest = () => ({
+const expandBookmarkedStatusesRequest = (bookmarkCollectionId) => ({
   type: BOOKMARKED_STATUSES_EXPAND_REQUEST,
 })
 
-const expandBookmarkedStatusesSuccess = (statuses, next) => ({
+const expandBookmarkedStatusesSuccess = (statuses, bookmarkCollectionId, next) => ({
   type: BOOKMARKED_STATUSES_EXPAND_SUCCESS,
   statuses,
   next,
 })
 
-const expandBookmarkedStatusesFail = (error) => ({
+const expandBookmarkedStatusesFail = (bookmarkCollectionId, error) => ({
   type: BOOKMARKED_STATUSES_EXPAND_FAIL,
   showToast: true,
+  bookmarkCollectionId,
   error,
 })
 
@@ -188,6 +201,66 @@ const removeBookmarkCollectionSuccess = () => ({
 
 const removeBookmarkCollectionFail = (error) => ({
   type: BOOKMARK_COLLECTIONS_CREATE_FAIL,
+  showToast: true,
+  error,
+})
+
+/**
+ * 
+ */
+export const updateBookmarkCollection = (bookmarkCollectionId, title) => (dispatch, getState) => {
+  if (!me || !statusId) return
+
+  dispatch(updateBookmarkCollectionRequest())
+
+  api(getState).post('/api/v1/bookmark_collections', { title }).then((response) => {
+    dispatch(updateBookmarkCollectionSuccess(response.data))
+  }).catch((error) => {
+    dispatch(updateBookmarkCollectionFail(error))
+  })
+}
+
+const updateBookmarkCollectionRequest = () => ({
+  type: UPDATE_BOOKMARK_COLLECTION_REQUEST,
+})
+
+const updateBookmarkCollectionSuccess = (bookmarkCollection) => ({
+  type: UPDATE_BOOKMARK_COLLECTION_SUCCESS,
+  bookmarkCollection,
+})
+
+const updateBookmarkCollectionFail = (error) => ({
+  type: UPDATE_BOOKMARK_COLLECTION_FAIL,
+  showToast: true,
+  error,
+})
+
+/**
+ * 
+ */
+export const updateBookmarkCollectionStatus = (statusId, bookmarkCollectionId) => (dispatch, getState) => {
+  if (!me || !statusId) return
+
+  dispatch(updateBookmarkCollectionStatusRequest())
+
+  api(getState).post('/api/v1/bookmark_collections', { title }).then((response) => {
+    dispatch(updateBookmarkCollectionStatusSuccess(response.data))
+  }).catch((error) => {
+    dispatch(updateBookmarkCollectionStatusFail(error))
+  })
+}
+
+const updateBookmarkCollectionStatusRequest = () => ({
+  type: UPDATE_BOOKMARK_COLLECTION_STATUS_REQUEST,
+})
+
+const updateBookmarkCollectionStatusSuccess = (bookmarkCollection) => ({
+  type: UPDATE_BOOKMARK_COLLECTION_STATUS_SUCCESS,
+  bookmarkCollection,
+})
+
+const updateBookmarkCollectionStatusFail = (error) => ({
+  type: UPDATE_BOOKMARK_COLLECTION_STATUS_FAIL,
   showToast: true,
   error,
 })

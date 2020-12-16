@@ -13,11 +13,11 @@ import ColumnIndicator from '../components/column_indicator'
 class BookmarkedStatuses extends ImmutablePureComponent {
 
   componentWillMount() {
-    this.props.dispatch(fetchBookmarkedStatuses())
+    this.props.dispatch(fetchBookmarkedStatuses(this.props.bookmarkCollectionId))
   }
 
   handleLoadMore = debounce(() => {
-    this.props.dispatch(expandBookmarkedStatuses())
+    this.props.dispatch(expandBookmarkedStatuses(this.props.bookmarkCollectionId))
   }, 300, { leading: true })
 
   render() {
@@ -46,14 +46,13 @@ class BookmarkedStatuses extends ImmutablePureComponent {
 
 }
 
-const mapStateToProps = (state, { params: { username } }) => {
-  return {
-    isMyAccount: (username.toLowerCase() === meUsername.toLowerCase()),
-    statusIds: state.getIn(['status_lists', 'bookmarks', 'items']),
-    isLoading: state.getIn(['status_lists', 'bookmarks', 'isLoading'], true),
-    hasMore: !!state.getIn(['status_lists', 'bookmarks', 'next']),
-  }
-}
+const mapStateToProps = (state, { params: { username, bookmarkCollectionId } }) => ({
+  bookmarkCollectionId,
+  isMyAccount: (username.toLowerCase() === meUsername.toLowerCase()),
+  statusIds: state.getIn(['status_lists', 'bookmarks', 'items']),
+  isLoading: state.getIn(['status_lists', 'bookmarks', 'isLoading'], true),
+  hasMore: !!state.getIn(['status_lists', 'bookmarks', 'next']),
+})
 
 BookmarkedStatuses.propTypes = {
   dispatch: PropTypes.func.isRequired,

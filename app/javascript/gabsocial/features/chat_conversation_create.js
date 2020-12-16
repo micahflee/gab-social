@@ -21,7 +21,6 @@ class ChatConversationCreate extends React.PureComponent {
   }
 
   handleOnCreateChatConversation = (accountId) => {
-    console.log("handleOnCreateChatConversation:", accountId)
     this.props.onCreateChatConversation(accountId)
   }
 
@@ -69,7 +68,6 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onChange: (value) => {
-    console.log("value", value)
     dispatch(fetchChatConversationAccountSuggestions(value))
   },
   onCreateChatConversation: (accountId) => {

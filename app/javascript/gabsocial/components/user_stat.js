@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { NavLink } from 'react-router-dom'
 import { CX } from '../constants'
 import Text from './text'
+import DotTextSeperator from './dot_text_seperator'
 
 /**
  * Renders a user stat component
@@ -30,17 +31,29 @@ class UserStat extends React.PureComponent {
       title,
       value,
       isCentered,
+      isInline,
+      isLast,
     } = this.props
     const { hovering } = this.state
 
     const align = isCentered ? 'center' : 'left'
+    const titleSize = isInline ? 'normal' : 'extraLarge'
+    const subtitleSize = isInline ? 'normal' : 'small'
+
     const containerClasses = CX({
       d: 1,
       cursorPointer: 1,
       noUnderline: 1,
       flexNormal: isCentered,
-      flexGrow1: !isCentered,
-      pr15: !isCentered,
+      flexGrow1: !isCentered && !isInline,
+      flexRow: isInline,
+      aiCenter: isInline,
+      pr15: !isCentered && !isInline,
+      pr10: !isCentered && isInline,
+    })
+    const subtitleClasses = CX({
+      pr5: isInline,
+      pl5: isInline,
     })
 
     return (
@@ -51,12 +64,13 @@ class UserStat extends React.PureComponent {
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
       >
-        <Text size='extraLarge' weight='bold' color='brand' align={align}>
+        <Text size={titleSize} weight='bold' color='brand' align={align}>
           {value}
         </Text>
-        <Text size='small' weight='medium' color='secondary' hasUnderline={hovering} align={align}>
+        <Text size={subtitleSize} weight='medium' color='secondary' hasUnderline={hovering} align={align} className={subtitleClasses}>
           {title}
         </Text>
+        { !isLast && isInline && <DotTextSeperator /> }
       </NavLink>
     )
   }
@@ -72,6 +86,8 @@ UserStat.propTypes = {
     PropTypes.object,
   ]).isRequired,
   isCentered: PropTypes.bool,
+  isInline: PropTypes.bool,
+  isLast: PropTypes.bool,
 }
 
 export default UserStat

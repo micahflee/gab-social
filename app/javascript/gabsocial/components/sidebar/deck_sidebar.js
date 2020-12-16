@@ -89,18 +89,12 @@ class DeckSidebar extends ImmutablePureComponent {
 
                 <div className={[_s.d, _s.aiCenter, _s.jcCenter].join(' ')}>
                 {
+                  /*
                   !!gabDeckOrder && gabDeckOrder.map((item, i) => (
-                    <Button
-                      isText
-                      key={`gab-deck-sidebar-dot-${i}`}
-                      onClick={this.scrollToItem}
-                      backgroundColor='secondary'
-                      className={[_s.mt5, _s.mb5, _s.px10, _s.py10, _s.circle].join(' ')}
-                      icon='notifications'
-                      iconClassName={_s.cPrimary}
-                    />
+                    
                   ))
-                }
+                  */
+                 }
                 </div>
 
                 <Divider isSmall />

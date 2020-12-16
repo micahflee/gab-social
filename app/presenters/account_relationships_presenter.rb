@@ -27,6 +27,9 @@ class AccountRelationshipsPresenter
 
   private
 
+  # : todo :
+  # chat muting, chat blocking
+
   def cached
     return @cached if defined?(@cached)
 

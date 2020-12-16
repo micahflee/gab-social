@@ -11,6 +11,8 @@ export const SET_CHAT_CONVERSATION_SELECTED = 'SET_CHAT_CONVERSATION_SELECTED'
  * 
  */
 export const fetchChatConversationAccountSuggestions = (query) => throttle((dispatch, getState) => {
+  if (!query) return
+  
   api(getState).get('/api/v1/accounts/search', {
     params: {
       q: query,

@@ -228,15 +228,14 @@ Rails.application.routes.draw do
 
       resource :chat_conversation_accounts, only: :show do
         resource :blocked_chat_accounts, only: :show, controller: 'chat_conversation_accounts/blocked_chat_accounts'
-        resource :muted_chat_accounts, only: :show, controller: 'chat_conversation_accounts/muted_chat_accounts'
 
         member do
           get :is_messenger_blocked
           get :is_messenger_muted
           post :block_messenger
           post :unblock_messenger
-          post :mute_messenger
-          post :unmute_messenger
+          post :mute_chat_conversation
+          post :unmute_chat_conversation
           post :set_expiration_policy
         end
       end
@@ -391,6 +390,13 @@ Rails.application.routes.draw do
   root 'react#react'
 
   get '/', to: 'react#react', as: :homepage
+
+  get '/about', to: 'react#react'
+  get '/about/tos', to: 'react#react'
+  get '/about/privacy', to: 'react#react'
+  get '/about/investors', to: 'react#react'
+  get '/about/dmca', to: 'react#react'
+  get '/about/sales', to: 'react#react'
 
   match '*unmatched_route',
         via: :all,

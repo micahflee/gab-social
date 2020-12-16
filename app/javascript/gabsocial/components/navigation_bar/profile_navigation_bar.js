@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import BackButton from '../back_button'
+import Button from '../button'
 import Heading from '../heading'
 
 class ProfileNavigationBar extends React.PureComponent {
@@ -26,6 +27,19 @@ class ProfileNavigationBar extends React.PureComponent {
                   <div dangerouslySetInnerHTML={{ __html: titleHTML }} />
                 </span>
               </Heading>
+            </div>
+
+            <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.mr15].join(' ')}>
+              <Button
+                icon='ellipsis'
+                iconSize='26px'
+                iconClassName={_s.inheritFill}
+                color='brand'
+                backgroundColor='none'
+                className={[_s.jcCenter, _s.aiCenter, _s.ml10, _s.px10].join(' ')}
+                onClick={this.handleOpenMore}
+                buttonRef={this.setOpenMoreNodeRef}
+              />
             </div>
 
           </div>
