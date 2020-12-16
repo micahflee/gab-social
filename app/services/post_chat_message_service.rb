@@ -43,7 +43,7 @@ class PostChatMessageService < BaseService
     @chat = ChatMessage.create!(
       from_account: @account,
       chat_conversation: @chat_conversation,
-      text: @text
+      text: @text,
       expires_at: @expires_at
     )
   end
