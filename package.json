@@ -133,6 +133,7 @@
     "tiny-queue": "^0.2.1",
     "uglifyjs-webpack-plugin": "^2.1.2",
     "uuid": "^3.1.0",
+    "video.js": "^7.10.2",
     "webpack": "^4.29.6",
     "webpack-assets-manifest": "^3.1.1",
     "webpack-bundle-analyzer": "^3.1.0",

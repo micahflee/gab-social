@@ -50,6 +50,7 @@
 #  is_verified             :boolean          default(FALSE), not null
 #  is_donor                :boolean          default(FALSE), not null
 #  is_investor             :boolean          default(FALSE), not null
+#  is_flagged_as_spam      :boolean          default(FALSE), not null
 #
 
 class Account < ApplicationRecord
@@ -91,7 +92,7 @@ class Account < ApplicationRecord
   scope :recent, -> { reorder(id: :desc) }
   scope :bots, -> { where(actor_type: %w(Application Service)) }
   scope :alphabetic, -> { order(domain: :asc, username: :asc) }
-  scope :by_domain_accounts, -> { group(:domain).select(:domain, 'COUNT(*) AS accounts_count').order('accounts_count desc') }
+  scope :by_domain_accounts, -> { group(:id).select(:domain, 'COUNT(*) AS accounts_count').order('accounts_count desc') }
   scope :matches_username, ->(value) { where(arel_table[:username].matches("#{value}%")) }
   scope :matches_display_name, ->(value) { where(arel_table[:display_name].matches("#{value}%")) }
   scope :matches_domain, ->(value) { where(arel_table[:domain].matches("%#{value}%")) }
@@ -146,6 +147,14 @@ class Account < ApplicationRecord
 
   def local_followers_count
     Follow.where(target_account_id: id).count
+  end
+
+  def chat_conversation_accounts_count
+    ChatConversationAccount.where(account_id: id).count
+  end
+
+  def chat_messages_count
+    ChatMessage.where(from_account_id: id).count
   end
 
   def silenced?

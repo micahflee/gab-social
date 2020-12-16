@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { NavLink } from 'react-router-dom'
 import { defineMessages, injectIntl } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
@@ -11,7 +12,6 @@ import {
   MAX_POST_CHARACTER_COUNT,
   ALLOWED_AROUND_SHORT_CODE,
   BREAKPOINT_EXTRA_SMALL,
-  BREAKPOINT_EXTRA_EXTRA_SMALL,
   BREAKPOINT_MEDIUM,
 } from '../../../constants'
 import AutosuggestTextbox from '../../../components/autosuggest_textbox'
@@ -62,80 +62,70 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   handleComposeFocus = () => {
-    this.setState({
-      composeFocused: true,
-    });
+    this.setState({ composeFocused: true })
   }
 
   handleKeyDown = (e) => {
     if (e.keyCode === 13 && (e.ctrlKey || e.metaKey)) {
-      this.handleSubmit();
+      this.handleSubmit()
     }
   }
 
   handleClick = (e) => {
-    const { isStandalone, isModalOpen, shouldCondense } = this.props
-    
+    const { isModalOpen, shouldCondense } = this.props
+
     if (!this.form) return false
     if (e.target) {
       if (e.target.classList.contains('react-datepicker__time-list-item')) return false
     }
     if (!this.form.contains(e.target)) {
       this.handleClickOutside()
-    } else {
-      // : todo :
-      // if mobile go to /compose else openModal
-      if (!isStandalone && !isModalOpen && !shouldCondense) {
-        this.props.openComposeModal()
-        return false
-      }
     }
   }
 
   handleClickOutside = () => {
-    const { shouldCondense, scheduledAt, text, isModalOpen } = this.props;
-    const condensed = shouldCondense && !text;
+    const { shouldCondense, scheduledAt, text, isModalOpen } = this.props
+    const condensed = shouldCondense && !text
+
     if (condensed && scheduledAt && !isModalOpen) { //Reset scheduled date if condensing
-      this.props.setScheduledAt(null);
+      this.props.setScheduledAt(null)
     }
 
-    this.setState({
-      composeFocused: false,
-    });
+    this.setState({ composeFocused: false })
   }
 
   handleSubmit = () => {
     // if (this.props.text !== this.autosuggestTextarea.textbox.value) {
     // Something changed the text inside the textarea (e.g. browser extensions like Grammarly)
     // Update the state to match the current text
-    // this.props.onChange(this.autosuggestTextarea.textbox.value);
+    // this.props.onChange(this.autosuggestTextarea.textbox.value)
     // }
 
     // Submit disabled:
     const { isSubmitting, isChangingUpload, isUploading, anyMedia, groupId, autoJoinGroup } = this.props
-    const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('');
+    const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('')
 
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > MAX_POST_CHARACTER_COUNT || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
-      return;
+      return
     }
 
     this.props.onSubmit(groupId, this.props.replyToId, this.context.router, autoJoinGroup)
   }
 
   onSuggestionsClearRequested = () => {
-    this.props.onClearSuggestions();
+    this.props.onClearSuggestions()
   }
 
   onSuggestionsFetchRequested = (token) => {
-    this.props.onFetchSuggestions(token);
+    this.props.onFetchSuggestions(token)
   }
 
   onSuggestionSelected = (tokenStart, token, value) => {
-    this.props.onSuggestionSelected(tokenStart, token, value, ['text']);
+    this.props.onSuggestionSelected(tokenStart, token, value, ['text'])
   }
 
   onSpoilerSuggestionSelected = (tokenStart, token, value) => {
-    this.props.onSuggestionSelected(tokenStart, token, value, ['spoiler_text']);
+    this.props.onSuggestionSelected(tokenStart, token, value, ['spoiler_text'])
   }
 
   handleChangeSpoilerText = (value) => {
@@ -143,11 +133,11 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    document.addEventListener('click', this.handleClick, false);
+    document.addEventListener('click', this.handleClick, false)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClick, false);
+    document.removeEventListener('click', this.handleClick, false)
   }
 
   componentDidUpdate(prevProps) {
@@ -156,24 +146,24 @@ class ComposeForm extends ImmutablePureComponent {
     // This statement does several things:
     // - If we're beginning a reply, and,
     //     - Replying to zero or one users, places the cursor at the end of the textbox.
-    //     - Replying to more than one user, selects any usernames past the first;
+    //     - Replying to more than one user, selects any usernames past the first
     //       this provides a convenient shortcut to drop everyone else from the conversation.
     if (this.props.focusDate !== prevProps.focusDate) {
-      let selectionEnd, selectionStart;
+      let selectionEnd, selectionStart
 
       if (this.props.preselectDate !== prevProps.preselectDate) {
-        selectionEnd = this.props.text.length;
-        selectionStart = this.props.text.search(/\s/) + 1;
+        selectionEnd = this.props.text.length
+        selectionStart = this.props.text.search(/\s/) + 1
       } else if (typeof this.props.caretPosition === 'number') {
-        selectionStart = this.props.caretPosition;
-        selectionEnd = this.props.caretPosition;
+        selectionStart = this.props.caretPosition
+        selectionEnd = this.props.caretPosition
       } else {
-        selectionEnd = this.props.text.length;
-        selectionStart = selectionEnd;
+        selectionEnd = this.props.text.length
+        selectionStart = selectionEnd
       }
 
-      // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd);
-      // this.autosuggestTextarea.textbox.focus();
+      // this.autosuggestTextarea.textbox.setSelectionRange(selectionStart, selectionEnd)
+      // this.autosuggestTextarea.textbox.focus()
     }
   }
 
@@ -190,7 +180,6 @@ class ComposeForm extends ImmutablePureComponent {
       intl,
       account,
       onPaste,
-      showSearch,
       anyMedia,
       shouldCondense,
       autoFocus,
@@ -208,218 +197,151 @@ class ComposeForm extends ImmutablePureComponent {
       isSubmitting,
       isPro,
       hidePro,
-      isStandalone,
+      dontOpenModal,
+      formLocation,
     } = this.props
 
     const disabled = isSubmitting
-    const text = [this.props.spoilerText, countableText(this.props.text)].join('');
+    const text = [this.props.spoilerText, countableText(this.props.text)].join('')
     const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
-    const shouldAutoFocus = autoFocus && !showSearch && !isMobile(window.innerWidth)
+    const shouldAutoFocus = autoFocus && !isMobile(window.innerWidth)
 
-    const parentContainerClasses = CX({
+    const containerClasses = CX({
       d: 1,
-      w100PC: 1,
-      flexRow: !shouldCondense,
-      pb10: !shouldCondense,
+      pb10: 1,
+      calcMaxH410PX: 1,
+      minH200PX: isModalOpen && isMatch,
+      overflowYScroll: 1,
+      boxShadowBlock: 1,
+      borderTop1PX: 1,
+      borderColorSecondary: 1,
     })
 
-    const childContainerClasses = CX({
-      d: 1,
-      flexWrap: 1,
-      overflowHidden: 1,
-      flex1: 1,
-      minH28PX: 1,
-      py2: shouldCondense,
-      aiEnd: shouldCondense,
-      flexRow: shouldCondense,
-      radiusSmall: shouldCondense,
-      bgSubtle: shouldCondense,
-      px5: shouldCondense,
-    })
-
-    const actionsContainerClasses = CX({
-      d: 1,
-      flexRow: 1,
-      aiCenter: !shouldCondense,
-      aiStart: shouldCondense,
-      mt10: !shouldCondense,
-      px10: !shouldCondense,
-      mlAuto: shouldCondense,
-      flexWrap: !shouldCondense,
-    })
-
-    const commentPublishBtnClasses = CX({
-      d: 1,
-      jcCenter: 1,
-      displayNone: length(this.props.text) === 0,
-    })
+    const textbox = (
+      <AutosuggestTextbox
+        ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
+        placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
+        disabled={disabled}
+        value={this.props.text}
+        valueMarkdown={this.props.markdown}
+        onChange={this.handleChange}
+        suggestions={this.props.suggestions}
+        onKeyDown={this.handleKeyDown}
+        onFocus={this.handleComposeFocus}
+        onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+        onSuggestionsClearRequested={this.onSuggestionsClearRequested}
+        onSuggestionSelected={this.onSuggestionSelected}
+        onPaste={onPaste}
+        autoFocus={shouldAutoFocus}
+        small={shouldCondense}
+        isModalOpen={isModalOpen}
+        isPro={isPro}
+        isEdit={!!edit}
+        id='main-composer'
+      />
+    )
 
     if (shouldCondense) {
       return (
         <div className={[_s.d, _s.w100PC].join(' ')}>
-          <div className={[_s.d, _s.flexRow, _s.w100PC].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.w100PC, _s.aiCenter].join(' ')}>
             <div className={[_s.d, _s.mr10].join(' ')}>
-              <Avatar account={account} size={28} noHover />
+              <Avatar account={account} size={30} noHover />
             </div>
-
             <div
-              className={[_s.d, _s.flexWrap, _s.overflowHidden, _s.flex1, _s.minH28PX, _s.py2, _s.aiEnd, _s.flexRow, _s.radiusSmall, _s.bgSubtle, _s.px5].join(' ')}
+              className={[_s.d, _s.flexWrap, _s.overflowHidden, _s.flex1, _s.minH28PX, _s.py5, _s.aiEnd, _s.flexRow, _s.radiusSmall, _s.bgSubtle, _s.px5].join(' ')}
               ref={this.setForm}
               onClick={this.handleClick}
             >
-
-              <AutosuggestTextbox
-                ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-                placeholder={intl.formatMessage(messages.commentPlaceholder)}
-                disabled={disabled}
-                value={this.props.text}
-                onChange={this.handleChange}
-                suggestions={this.props.suggestions}
-                onKeyDown={this.handleKeyDown}
-                onFocus={this.handleComposeFocus}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSuggestionSelected}
-                onPaste={onPaste}
-                autoFocus={shouldAutoFocus}
-                small={shouldCondense}
-                isPro={isPro}
-                isEdit={!!edit}
-                id='comment-composer'
-              />
-
-              <div className={[_s.d, _s.flexRow, _s.aiStart, _s.mlAuto].join(' ')}>
-                <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
-                  <div className={commentPublishBtnClasses}>
-                    <Button
-                      isNarrow
-                      onClick={this.handleSubmit}
-                      isDisabled={disabledButton}
-                      className={_s.px10}
-                    >
-                      {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.post)}
-                    </Button>
-                  </div>
-
-                </div>
-              </div>
-
+              { textbox }
+              { isMatch && <ComposeFormSubmitButton type='comment' /> }
             </div>
           </div>
 
           {
-            (isUploading || anyMedia) &&
+            (isUploading || anyMedia) && isMatch &&
             <div className={[_s.d, _s.w100PC, _s.pl35, _s.mt5].join(' ')}>
-              <UploadForm replyToId={replyToId} isModalOpen={isModalOpen} />
+              <UploadForm isModalOpen={isModalOpen} />
             </div>
           }
         </div>
       )
     }
 
-    if (isStandalone || isModalOpen) {
-      return (
-        <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgTertiary].join(' ')}>
-          
-          <div className={[_s.d, _s.pb10, _s.calcMaxH370PX, _s.overflowYScroll, _s.boxShadowBlock, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-            <ComposeDestinationHeader account={account} />
-
-            <div
-              className={[_s.d, _s.bgPrimary, _s.boxShadowBlock, _s.w100PC, _s.minH200PX, _s.pb10, _s.borderBottom1PX, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
-              ref={this.setForm}
-              onClick={this.handleClick}
-            >
-
-              {
-                !!reduxReplyToId && isModalOpen && isMatch &&
-                <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                  <StatusContainer contextType='compose' id={reduxReplyToId} isChild />
-                </div>
-              }
-
-              {
-                !!spoiler &&
-                <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-                  <Input
-                    placeholder={intl.formatMessage(messages.spoiler_placeholder)}
-                    value={this.props.spoilerText}
-                    onChange={this.handleChangeSpoilerText}
-                    disabled={!this.props.spoiler}
-                    prependIcon='warning'
-                    maxLength={256}
-                    id='cw-spoiler-input'
-                  />
-                </div>
-              }
-
-              <AutosuggestTextbox
-                ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
-                placeholder={intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
-                disabled={disabled}
-                value={this.props.text}
-                valueMarkdown={this.props.markdown}
-                onChange={this.handleChange}
-                suggestions={this.props.suggestions}
-                onKeyDown={this.handleKeyDown}
-                onFocus={this.handleComposeFocus}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                onSuggestionsClearRequested={this.onSuggestionsClearRequested}
-                onSuggestionSelected={this.onSuggestionSelected}
-                onPaste={onPaste}
-                autoFocus={shouldAutoFocus}
-                small={shouldCondense}
-                isPro={isPro}
-                isEdit={!!edit}
-                id='main-composer'
-              />
-
-              {
-                (isUploading || anyMedia) &&
-                <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
-                  <UploadForm replyToId={replyToId} isModalOpen={isModalOpen} />
-                </div>
-              }
-
-              {
-                !edit && hasPoll &&
-                <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
-                  <PollForm replyToId={replyToId} />
-                </div>
-              }
-
-              {
-                !!quoteOfId && isModalOpen && isMatch &&
-                <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                  <StatusContainer contextType='compose' id={quoteOfId} isChild />
-                </div>
-              }
-            </div>
-          </div>
-
-          { !isModalOpen && <ComposeFormSubmitButton /> }
-            
-          <ComposeExtraButtonList isStandalone={isStandalone} isMatch={isMatch} hidePro={hidePro} edit={edit} isModal={isModalOpen} />
-        </div>
-      )
-    }
-
     return (
-      <div
-        className={[_s.d, _s.w100PC, _s.pb10, _s.flexWrap, _s.overflowHidden, _s.flex1].join(' ')}
-        ref={this.setForm}
-        onClick={this.handleClick}
-      >
-        <Text className={[_s.d, _s.px15, _s.pt15, _s.pb10].join(' ')} size='medium' color='tertiary'>
-          {intl.formatMessage((shouldCondense || !!reduxReplyToId) && isMatch ? messages.commentPlaceholder : messages.placeholder)}
-        </Text>
-        <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.mt5, _s.px10, _s.flexWrap].join(' ')}>
-          <UploadButton />
-          <EmojiPickerButton isMatch={isMatch} />
-          <PollButton />
-          <MoreButton />
-          <ComposeFormSubmitButton />
+      <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary].join(' ')}>
+        <div className={[_s.d, _s.calcMaxH410PX, _s.overflowYScroll].join(' ')}>
+
+          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
+            <ComposeDestinationHeader account={account} isModal={isModalOpen} />
+          </Responsive>
+
+          <div className={containerClasses} ref={this.setForm} onClick={this.handleClick}>
+            {
+              !!reduxReplyToId && isModalOpen && isMatch &&
+              <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                <StatusContainer contextType='compose' id={reduxReplyToId} isChild />
+              </div>
+            }
+
+            {
+              !!spoiler &&
+              <div className={[_s.d, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+                <Input
+                  placeholder={intl.formatMessage(messages.spoiler_placeholder)}
+                  value={this.props.spoilerText}
+                  onChange={this.handleChangeSpoilerText}
+                  disabled={!this.props.spoiler}
+                  prependIcon='warning'
+                  maxLength={256}
+                  id='cw-spoiler-input'
+                />
+              </div>
+            }
+
+            { textbox }
+
+            {
+              (isUploading || anyMedia) &&
+              <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
+                <div className={[_s.d, _s.borderTop1PX, _s.borderColorSecondary].join(' ')} />
+                <UploadForm />
+              </div>
+            }
+
+            {
+              !edit && hasPoll &&
+              <div className={[_s.d, _s.px15, _s.mt5].join(' ')}>
+                <PollForm />
+              </div>
+            }
+
+            {
+              !!quoteOfId && isModalOpen && isMatch &&
+              <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                <StatusContainer contextType='compose' id={quoteOfId} isChild />
+              </div>
+            }
+          </div>
         </div>
-        <div className={[_s.d, _s.posAbs, _s.z2, _s.left0, _s.right0, _s.bottom0, _s.top0].join(' ')} />
+        
+        <div className={[_s.d, _s.px10].join(' ')}>
+          <ComposeExtraButtonList formLocation={formLocation} isMatch={isMatch} hidePro={hidePro} edit={edit} isModal={isModalOpen} />
+        </div>
+
+        {
+          (!disabledButton || isModalOpen) && isMatch &&
+          <div className={[_s.d, _s.mb10, _s.px10].join(' ')}>
+            <ComposeFormSubmitButton type='block' />
+          </div>
+        }
+
+        <Responsive max={BREAKPOINT_EXTRA_SMALL}>
+          {
+            formLocation === 'timeline' &&
+            <NavLink to='/compose' className={[_s.d, _s.z4, _s.posAbs, _s.top0, _s.left0, _s.right0, _s.bottom0].join(' ')} />
+          }
+        </Responsive>
       </div>
     )
   }
@@ -450,9 +372,7 @@ ComposeForm.propTypes = {
   onFetchSuggestions: PropTypes.func.isRequired,
   onSuggestionSelected: PropTypes.func.isRequired,
   onChangeSpoilerText: PropTypes.func.isRequired,
-  openComposeModal: PropTypes.func.isRequired,
   onPaste: PropTypes.func.isRequired,
-  showSearch: PropTypes.bool,
   anyMedia: PropTypes.bool,
   shouldCondense: PropTypes.bool,
   autoFocus: PropTypes.bool,
@@ -466,11 +386,7 @@ ComposeForm.propTypes = {
   isPro: PropTypes.bool,
   hidePro: PropTypes.bool,
   autoJoinGroup: PropTypes.bool,
-  isStandalone: PropTypes.bool,
-}
-
-ComposeForm.defaultProps = {
-  showSearch: false,
+  formLocation: PropTypes.string,
 }
 
 export default injectIntl(ComposeForm)

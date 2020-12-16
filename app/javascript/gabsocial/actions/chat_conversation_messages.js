@@ -44,10 +44,10 @@ export const clearChatMessageConversation = (chatConversationId) => (dispatch) =
 /**
  * 
  */
-export const scrollBottomChatMessageConversation = (chatConversationId, top) => ({
+export const scrollBottomChatMessageConversation = (chatConversationId, bottom) => ({
   type: CHAT_CONVERSATION_MESSAGES_SCROLL_BOTTOM,
   chatConversationId,
-  top,
+  bottom,
 })
 
 /**
@@ -56,7 +56,7 @@ export const scrollBottomChatMessageConversation = (chatConversationId, top) => 
 export const expandChatMessages = (chatConversationId, params = {}, done = noop) => (dispatch, getState) => {
   if (!me || !chatConversationId) return
 
-  const chatConversation = getState().getIn(['chat_messages', chatConversationId], ImmutableMap())
+  const chatConversation = getState().getIn(['chat_conversations', chatConversationId], ImmutableMap())
   const isLoadingMore = !!params.maxId
 
   if (!!chatConversation && (chatConversation.get('isLoading') || chatConversation.get('isError'))) {

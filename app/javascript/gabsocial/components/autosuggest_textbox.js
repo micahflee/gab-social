@@ -189,6 +189,7 @@ class AutosuggestTextbox extends ImmutablePureComponent {
       id,
       isPro,
       isEdit,
+      isModalOpen,
     } = this.props
 
     const { suggestionsHidden } = this.state

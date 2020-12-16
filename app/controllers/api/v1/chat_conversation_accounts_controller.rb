@@ -35,6 +35,15 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
     render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
   end
 
+  def set_expiration_policy
+    if current_user.account.is_pro
+      # 
+      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    else
+      render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
+    end
+  end
+
   private
 
   def set_account

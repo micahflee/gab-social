@@ -5,14 +5,8 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { openModal } from '../../actions/modal'
-import {
-  isChatMessengerBlocked,
-  isChatMessengerMuted,
-  blockChatMessenger,
-  unblockChatMessenger,
-  muteChatMessenger,
-  unmuteChatMessenger,
-} from '../../actions/chat_conversation_accounts'
+import { hideChatConversation } from '../../actions/chat_conversations'
+import { purgeChatMessages } from '../../actions/chat_messages'
 import { MODAL_PRO_UPGRADE } from '../../constants'
 import { me } from '../../initial_state'
 import { makeGetChatConversation } from '../../selectors'
@@ -27,21 +21,6 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     this.handleOnClosePopover()
   }
 
-  handleOnBlock = () => {
-    this.props.onBlock()
-    this.handleOnClosePopover()
-  }
-
-  handleOnUnblock = () => {
-    this.props.onUnblock()
-    this.handleOnClosePopover()
-  }
-
-  handleOnMute = () => {
-    this.props.onMute()
-    this.handleOnClosePopover()
-  }
-
   handleOnUnmute = () => {
     this.props.onUnute()
     this.handleOnClosePopover()
@@ -51,7 +30,7 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     if (!this.props.isPro) {
       this.props.openProUpgradeModal()
     } else {
-      this.props.onPurge()
+      this.props.onPurge(this.props.chatConversationId)
     }
 
     this.handleOnClosePopover()
@@ -68,18 +47,6 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     } = this.props
 
     const items = [
-      {
-        hideArrow: true,
-        title: 'Block Messenger',
-        subtitle: 'The messenger will not be able to message you.',
-        onClick: () => this.handleOnBlock(),
-      },
-      {
-        hideArrow: true,
-        title: 'Mute Messenger',
-        subtitle: 'You will not be notified of new messsages',
-        onClick: () => this.handleOnMute(),
-      },
       {
         hideArrow: true,
         title: 'Hide Conversation',
@@ -122,6 +89,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onSetCommentSortingSetting(type) {
     dispatch(closePopover())
+  },
+  onPurge(chatConversationId) {
+    dispatch(purgeChatMessages(chatConversationId))
+  },
+  onHide(chatConversationId) {
+    dispatch(hideChatConversation(chatConversationId))
   },
   onClosePopover: () => dispatch(closePopover()),
 })

@@ -20,7 +20,13 @@ class Settings::ProfilesController < Settings::BaseController
     if @account.is_verified && params[:account][:display_name] && @account.display_name != params[:account][:display_name]
       flash[:alert] = 'Unable to change Display name for verified account'
       redirect_to settings_profile_path
+    elsif !@account.is_pro && params[:account][:username] && @account.username != params[:account][:username]
+      flash[:alert] = 'Unable to change username for your account. You are not GabPRO'
+      redirect_to settings_profile_path
     else
+      # : todo :
+      # only allowed to change username once per day
+
       if UpdateAccountService.new.call(@account, account_params)
         redirect_to settings_profile_path, notice: I18n.t('generic.changes_saved_msg')
       else
@@ -33,7 +39,7 @@ class Settings::ProfilesController < Settings::BaseController
   private
 
   def account_params
-    params.require(:account).permit(:display_name, :note, :avatar, :header, :locked, :bot, :discoverable, fields_attributes: [:name, :value])
+    params.require(:account).permit(:display_name, :username, :note, :avatar, :header, :locked, :bot, :discoverable, fields_attributes: [:name, :value])
   end
 
   def set_account

@@ -46,6 +46,7 @@ export const IS_CHAT_MESSENGER_MUTED_SUCCESS = 'IS_CHAT_MESSENGER_MUTED_SUCCESS'
  * 
  */
 export const blockChatMessenger = (accountId) => (dispatch, getState) => {
+  console.log("blockChatMessenger:", accountId)
   if (!me || !accountId) return
 
   dispatch(blockChatMessengerRequest(accountId))

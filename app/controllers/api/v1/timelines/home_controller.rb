@@ -62,6 +62,6 @@ class Api::V1::Timelines::HomeController < Api::BaseController
   end
 
   def regeneration_in_progress?
-    Redis.current.exists("account:#{current_account.id}:regeneration")
+    Redis.current.exists?("account:#{current_account.id}:regeneration")
   end
 end

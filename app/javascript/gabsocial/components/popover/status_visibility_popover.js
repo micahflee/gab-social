@@ -49,6 +49,7 @@ class StatusVisibilityDropdown extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
+        <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>Status Visibility:</Text>
         <div className={[_s.d].join(' ')}>
           {
             options.map((option, i) => {

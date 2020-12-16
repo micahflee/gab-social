@@ -2,6 +2,7 @@ import { Map as ImmutableMap, fromJS } from 'immutable'
 import {
   CHAT_MESSAGES_SEND_SUCCESS,
   CHAT_MESSAGES_DELETE_REQUEST,
+  CHAT_MESSAGES_PURGE_REQUEST,
 } from '../actions/chat_messages'
 import {
   CHAT_MESSAGES_IMPORT,
@@ -26,6 +27,8 @@ export default function chat_messages(state = initialState, action) {
     return importChatMessage(state, action.chatMessage)
   case CHAT_MESSAGES_DELETE_REQUEST:
     return deleteChatMessage(state, action.chatMessageId)
+  case CHAT_MESSAGES_PURGE_REQUEST:
+    return state
   default:
     return state
   }

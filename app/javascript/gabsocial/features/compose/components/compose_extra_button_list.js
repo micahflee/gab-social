@@ -6,6 +6,7 @@ import {
 } from '../../../constants'
 import Responsive from '../../ui/util/responsive_component'
 import ResponsiveClassesComponent from '../../ui/util/responsive_classes_component'
+import Text from '../../../components/text'
 import EmojiPickerButton from './emoji_picker_button'
 import PollButton from './poll_button'
 import SchedulePostButton from './schedule_post_button'
@@ -22,6 +23,7 @@ class ComposeExtraButtonList extends React.PureComponent {
 
   state = {
     height: initialState.height,
+    width: initialState.width,
   }
 
   componentDidMount() {
@@ -31,9 +33,9 @@ class ComposeExtraButtonList extends React.PureComponent {
   }
 
   handleResize = () => {
-    const { height } = getWindowDimension()
+    const { height, width } = getWindowDimension()
 
-    this.setState({ height })
+    this.setState({ height, width })
   }
 
   componentWillUnmount() {
@@ -48,26 +50,33 @@ class ComposeExtraButtonList extends React.PureComponent {
       edit,
       hidePro,
       isModal,
-      isStandalone,
+      formLocation,
     } = this.props
-    const { height } = this.state
+    const { height, width } = this.state
 
-    const small = (height <= 660 || isModal) && !isStandalone
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
+    const isStandalone = formLocation === 'standalone'
+    const isTimeline = formLocation === 'timeline'
+    const small = (!isModal && isXS && !isStandalone) || isTimeline
+
+    console.log("small, formLocation:", small, formLocation)
 
     const containerClasses = CX({
       d: 1,
       w100PC: 1,
       bgPrimary: 1,
-      px15: 1,
-      py10: 1,
+      px5: 1,
+      py5: 1,
+      mb10: 1,
       mtAuto: 1,
-      boxShadowBlockY: 1,
-      topLeftRadiusSmall: 1,
+      radiusSmall: 1,
+      borderTop1PX: 1,
+      borderBottom1PX: 1,
+      boxShadowBlock: 1,
       borderColorSecondary: 1,
-      topRightRadiusSmall: 1,
-      flexRow: small,
-      overflowXScroll: small,
-      noScrollbar: small,
+      flexWrap: 1,
+      flexRow: (small || !isTimeline || isXS) && !isStandalone,
+      jcSpaceAround: isXS,
     })
 
     return (
@@ -79,8 +88,8 @@ class ComposeExtraButtonList extends React.PureComponent {
         <SpoilerButton small={small} />
         { !hidePro && !edit && <SchedulePostButton small={small} /> }
         { !hidePro && !edit && <ExpiresPostButton small={small} /> }
-        { !hidePro && <RichTextEditorButton small={small} /> }
-      </div>    
+        { !hidePro && !isXS && <RichTextEditorButton small={small} /> }
+      </div>
     )
   }
 }
@@ -90,7 +99,7 @@ ComposeExtraButtonList.propTypes = {
   edit: PropTypes.bool,
   isMatch: PropTypes.bool,
   isModal: PropTypes.bool,
-  isStandalone: PropTypes.bool,
+  formLocation: PropTypes.string,
 }
 
 export default ComposeExtraButtonList

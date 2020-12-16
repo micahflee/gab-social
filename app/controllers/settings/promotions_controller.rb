@@ -46,11 +46,11 @@ class Settings::PromotionsController < Admin::BaseController
 		@promotion = Promotion.find(params[:id])
 	end
 
-    def set_filter_params
-      @filter_params = filter_params.to_hash.symbolize_keys
-    end
+	def set_filter_params
+		@filter_params = filter_params.to_hash.symbolize_keys
+	end
 
-    def resource_params
-      params.require(:promotion).permit(:expires_at, :status_id, :timeline_id, :position)
-    end
+	def resource_params
+		params.require(:promotion).permit(:expires_at, :status_id, :timeline_id, :position)
+	end
 end

@@ -6,7 +6,7 @@ class Api::V1::ChatConversationController < Api::BaseController
 
   before_action :require_user!
   before_action :set_account, only: :create
-  before_action :set_chat_conversation, only: [:show, :mark_chat_conversation_approved, :mark_chat_conversation_hidden, :mark_chat_conversation_unread]
+  before_action :set_chat_conversation, only: [:show, :mark_chat_conversation_approved, :mark_chat_conversation_hidden, :mark_chat_conversation_read]
 
   def show
     render json: {}, each_serializer: REST::ChatConversationAccountSerializer
@@ -23,8 +23,8 @@ class Api::V1::ChatConversationController < Api::BaseController
     render json: chat_conversation_account, each_serializer: REST::ChatConversationAccountSerializer
   end
 
-  def mark_chat_conversation_unread
-    @chat_conversation_account.update!(unread_count: 1)
+  def mark_chat_conversation_read
+    @chat_conversation_account.update!(unread_count: 0)
     render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 
@@ -34,8 +34,13 @@ class Api::V1::ChatConversationController < Api::BaseController
   end
 
   def mark_chat_conversation_approved
-    @chat_conversation_account.update!(is_approved: true)
-    render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    approved_conversation_count = ChatConversationAccount.where(account: @account, is_hidden: false, is_approved: true).count
+    if approved_conversation_count >= ChatConversationAccount::PER_ACCOUNT_APPROVED_LIMIT
+      render json: { error: true, message: "You have #{approved_conversation_count} active chat conversations. The limit is #{ChatConversationAccount::PER_ACCOUNT_APPROVED_LIMIT}. Delete some conversations first before approving any more requests." }
+    else  
+      @chat_conversation_account.update!(is_approved: true)
+      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    end
   end
 
   private

@@ -1,10 +1,10 @@
 class Settings::Verifications::ModerationController < Admin::BaseController
 	def index
-		@verification_requests = AccountVerificationRequest.all
+		@verification_requests = AccountVerificationRequest.order('created_at DESC').all
 	end
 
 	def approve
-		verification_request = AccountVerificationRequest.find params[:id]
+		verification_request = AccountVerificationRequest.find(params[:id])
 		
 		# Mark user as verified
 		account = verification_request.account
@@ -22,6 +22,8 @@ class Settings::Verifications::ModerationController < Admin::BaseController
 	end
 
 	def reject
-		@verification_requests = AccountVerificationRequest.find params[:id]
+		verification_request = AccountVerificationRequest.find(params[:id])
+		verification_request.destroy()
+		redirect_to settings_verifications_moderation_url, notice: I18n.t('verifications.moderation.rejected_msg')
 	end
 end

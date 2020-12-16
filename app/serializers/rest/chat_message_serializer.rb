@@ -2,7 +2,7 @@
 
 class REST::ChatMessageSerializer < ActiveModel::Serializer
   attributes :id, :text_html, :text, :language, :from_account_id,
-             :chat_conversation_id, :created_at
+             :chat_conversation_id, :created_at, :expires_at
 
   def id
     object.id.to_s

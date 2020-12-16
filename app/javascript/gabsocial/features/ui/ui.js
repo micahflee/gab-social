@@ -52,11 +52,13 @@ import DeckPage from '../../pages/deck_page'
 
 import {
   About,
+  AccountAlbums,
   AccountGallery,
   AccountTimeline,
   AccountCommentsTimeline,
   Assets,
   BlockedAccounts,
+  BookmarkCollections,
   BookmarkedStatuses,
   CaliforniaConsumerProtection,
   CaliforniaConsumerProtectionContact,
@@ -274,9 +276,11 @@ class SwitchingArea extends React.PureComponent {
 
         <WrappedRoute path='/:username/photos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'photo' }} />
         <WrappedRoute path='/:username/videos' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true, mediaType: 'video' }} />
+        <WrappedRoute path='/:username/albums' page={ProfilePage} component={AccountAlbums} content={children} componentParams={{ noSidebar: true, mediaType: 'photo' }} />
 
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
-        <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
+        <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkCollections} content={children} />
+        <WrappedRoute path='/:username/:bookmarkCollectionId/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
 
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 

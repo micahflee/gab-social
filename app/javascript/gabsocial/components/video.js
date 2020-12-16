@@ -344,7 +344,7 @@ class Video extends ImmutablePureComponent {
           this.video.play()
         }
         setTimeout(() => { // : hack :
-          this.video.requestPictureInPicture()          
+          this.video.requestPictureInPicture()
         }, 500)
       } else {
         document.exitPictureInPicture()

@@ -43,12 +43,16 @@ class DeckSidebar extends ImmutablePureComponent {
     this.props.onOpenComposeModal()
   }
 
+  scrollToItem = () => {
+
+  }
+
   setAvatarNode = (c) => {
     this.avatarNode = c
   }
 
   render() {
-    const { account, logoDisabled } = this.props
+    const { account, gabDeckOrder, logoDisabled } = this.props
     
     const isPro = !!account ? account.get('is_pro') : false
 
@@ -82,6 +86,22 @@ class DeckSidebar extends ImmutablePureComponent {
                 <NavigationBarButton icon='search' to='/search' />
 
                 <Divider isSmall />
+
+                <div className={[_s.d, _s.aiCenter, _s.jcCenter].join(' ')}>
+                {
+                  !!gabDeckOrder && gabDeckOrder.map((item, i) => (
+                    <Button
+                      isText
+                      key={`gab-deck-sidebar-dot-${i}`}
+                      onClick={this.scrollToItem}
+                      backgroundColor='secondary'
+                      className={[_s.mt5, _s.mb5, _s.px10, _s.py10, _s.circle].join(' ')}
+                      icon='notifications'
+                      iconClassName={_s.cPrimary}
+                    />
+                  ))
+                }
+                </div>
 
                 <Divider isSmall />
 
@@ -119,6 +139,7 @@ const mapStateToProps = (state) => ({
   account: makeGetAccount()(state, me),
   theme: state.getIn(['settings', 'displayOptions', 'theme'], DEFAULT_THEME),
   logoDisabled: state.getIn(['settings', 'displayOptions', 'logoDisabled'], false),
+  gabDeckOrder: state.getIn(['settings', 'gabDeckOrder']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

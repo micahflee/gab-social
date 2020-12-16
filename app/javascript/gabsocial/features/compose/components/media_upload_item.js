@@ -19,7 +19,7 @@ class Upload extends ImmutablePureComponent {
   }
 
   state = {
-    hovered: false,
+    hovering: false,
     focused: false,
     dirtyDescription: null,
   }
@@ -45,11 +45,11 @@ class Upload extends ImmutablePureComponent {
   }
 
   handleMouseEnter = () => {
-    this.setState({ hovered: true })
+    this.setState({ hovering: true })
   }
 
   handleMouseLeave = () => {
-    this.setState({ hovered: false })
+    this.setState({ hovering: false })
   }
 
   handleInputFocus = () => {
@@ -75,66 +75,60 @@ class Upload extends ImmutablePureComponent {
 
   render() {
     const { intl, media } = this.props
-    const active = this.state.hovered || this.state.focused
-    const description = this.state.dirtyDescription || (this.state.dirtyDescription !== '' && media.get('description')) || ''
+    const { hovering } = this.state
 
-    const descriptionContainerClasses = CX({
-      d: 1,
-      posAbs: 1,
-      right0: 1,
-      bottom0: 1,
-      left0: 1,
-      mt5: 1,
-      mb5: 1,
-      ml5: 1,
-      mr5: 1,
-      displayNone: !active,
-    })
+    const active = hovering || this.state.focused
+    const description = this.state.dirtyDescription || (this.state.dirtyDescription !== '' && media.get('description')) || ''
 
     return (
       <div
         tabIndex='0'
-        className={[_s.d, _s.w50PC, _s.px5, _s.py5].join(' ')}
+        className={[_s.d, _s.w100PC, _s.mt10].join(' ')}
         onMouseEnter={this.handleMouseEnter}
         onMouseLeave={this.handleMouseLeave}
         onClick={this.handleClick}
         role='button'
       >
-        <div className={[_s.d, _s.radiusSmall, _s.overflowHidden, _s.h158PX].join(' ')}>
+        <div className={[_s.d, _s.radiusSmall, _s.borderColorSecondary, _s.border1PX, _s.overflowHidden, _s.maxH100VH, _s.minH106PX].join(' ')}>
           <Image
-            className={[_s.d, _s.h158PX].join(' ')}
+            className={[_s.d, _s.minH106PX, _s.maxH100VH].join(' ')}
             src={media.get('preview_url')}
           />
+          { hovering && <div className={[_s.d, _s.posAbs, _s.z2, _s.top0, _s.bottom0, _s.right0, _s.left0, _s.bgBlackOpaquest].join(' ')} /> }
           {
             media.get('type') === 'gifv' &&
-            <div className={[_s.d, _s.posAbs, _s.z2, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.ml10, _s.mt10, _s.top0, _s.left0].join(' ')}>
+            <div className={[_s.d, _s.posAbs, _s.z3, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.ml10, _s.mt10, _s.bottom0, _s.right0].join(' ')}>
               <Text size='extraSmall' color='white' weight='medium'>GIF</Text>
             </div>
           }
-          <Button
-            backgroundColor='black'
-            color='white'
-            title={intl.formatMessage(messages.delete)}
-            onClick={this.handleUndoClick}
-            icon='close'
-            iconSize='10px'
-            iconClassName={_s.inherit}
-            className={[_s.top0, _s.right0, _s.posAbs, _s.mr5, _s.mt5, _s.px10].join(' ')}
-          />
-
-          <div className={descriptionContainerClasses}>
-            <Input
-              small
-              hideLabel
-              id={`input-${media.get('id')}`}
-              title={intl.formatMessage(messages.description)}
-              placeholder={intl.formatMessage(messages.description)}
-              value={description}
-              maxLength={420}
-              onFocus={this.handleInputFocus}
-              onChange={this.handleInputChange}
-              onBlur={this.handleInputBlur}
-              onKeyDown={this.handleKeyDown}
+          <div className={[_s.d, _s.posAbs, _s.px15, _s.pt15, _s.z3, _s.flexRow, _s.top0, _s.left0, _s.right0].join(' ')}>
+            {
+              active &&
+              <div className={[_s.d, _s.flexGrow1, _s.mr15].join(' ')}>
+                <Input
+                  small
+                  hideLabel
+                  id={`input-${media.get('id')}`}
+                  title={intl.formatMessage(messages.description)}
+                  placeholder={intl.formatMessage(messages.description)}
+                  value={description}
+                  maxLength={420}
+                  onFocus={this.handleInputFocus}
+                  onChange={this.handleInputChange}
+                  onBlur={this.handleInputBlur}
+                  onKeyDown={this.handleKeyDown}
+                />
+              </div>
+            }
+            <Button
+              backgroundColor='black'
+              color='white'
+              title={intl.formatMessage(messages.delete)}
+              onClick={this.handleUndoClick}
+              icon='close'
+              iconSize='10px'
+              iconClassName={_s.inherit}
+              className={[_s.mlAuto, _s.px10].join(' ')}
             />
           </div>
         </div>

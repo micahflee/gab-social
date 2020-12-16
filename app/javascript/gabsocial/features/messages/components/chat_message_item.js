@@ -8,7 +8,7 @@ import { NavLink } from 'react-router-dom'
 import { openPopover } from '../../../actions/popover'
 import {
   CX,
-  POPOVER_CHAT_MESSAGE_DELETE,
+  POPOVER_CHAT_MESSAGE_OPTIONS,
  } from '../../../constants'
 import { me } from '../../../initial_state'
 import Input from '../../../components/input'
@@ -51,7 +51,7 @@ class ChatMessageItem extends ImmutablePureComponent {
   }
 
   handleMoreClick = () => {
-    this.props.onOpenChatMessageDeletePopover(this.props.chatMessageId, this.deleteBtnRef)
+    this.props.onOpenChatMessageOptionsPopover(this.props.chatMessageId, this.deleteBtnRef)
   }
 
   setDeleteBtnRef = (c) => {
@@ -122,7 +122,7 @@ class ChatMessageItem extends ImmutablePureComponent {
     const buttonContainerClasses = CX({
       d: 1,
       flexRow: 1,
-      displayNone: !isHovering && alt,
+      displayNone: !isHovering,
     })
 
     return (
@@ -145,19 +145,16 @@ class ChatMessageItem extends ImmutablePureComponent {
             <div className={messageInnerContainerClasses}>
               <div className={[_s.py5, _s.dangerousContent, _s.cPrimary].join(' ')} dangerouslySetInnerHTML={content} />
             </div>
-            {
-              alt &&
-              <div className={buttonContainerClasses}>
-                <Button
-                  buttonRef={this.setDeleteBtnRef}
-                  onClick={this.handleMoreClick}
-                  color='tertiary'
-                  backgroundColor='none'
-                  icon='ellipsis'
-                  iconSize='18px'
-                />
-              </div>
-              }
+            <div className={buttonContainerClasses}>
+              <Button
+                buttonRef={this.setDeleteBtnRef}
+                onClick={this.handleMoreClick}
+                color='tertiary'
+                backgroundColor='none'
+                icon='ellipsis'
+                iconSize='18px'
+              />
+            </div>
           </div>
           <div className={lowerContainerClasses}>
             <Text size='extraSmall' color='tertiary' align={alt ? 'right' : 'left'}>
@@ -178,8 +175,8 @@ const mapStateToProps = (state, { lastChatMessageId, chatMessageId }) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onOpenChatMessageDeletePopover(chatMessageId, targetRef) {
-    dispatch(openPopover(POPOVER_CHAT_MESSAGE_DELETE, {
+  onOpenChatMessageOptionsPopover(chatMessageId, targetRef) {
+    dispatch(openPopover(POPOVER_CHAT_MESSAGE_OPTIONS, {
       targetRef,
       chatMessageId,
       position: 'top',

@@ -79,7 +79,7 @@ class MediaItem extends ImmutablePureComponent {
       posAbs: 1,
       top0: 1,
       h100PC: 1,
-      w100PC: 1,
+      // w100PC: 1,
       py2: !isSmall,
       px2: !isSmall,
     })
@@ -87,7 +87,7 @@ class MediaItem extends ImmutablePureComponent {
     const linkClasses = CX({
       d: 1,
       w100PC: 1,
-      h100PC: 1,
+      // h100PC: 1,
       overflowHidden: 1,
       border1PX: 1,
       borderColorPrimary: 1,
@@ -96,7 +96,7 @@ class MediaItem extends ImmutablePureComponent {
     const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`;
 
     return (
-      <div className={[_s.d, _s.w25PC, _s.pt25PC].join(' ')}>
+      <div className={[_s.d, _s.pt25PC].join(' ')}>
         <div className={containerClasses}>
           <NavLink
             to={statusUrl}
@@ -117,6 +117,7 @@ class MediaItem extends ImmutablePureComponent {
               visible &&
               <Image
                 height='100%'
+                width=''
                 src={attachment.get('preview_url')}
                 alt={attachment.get('description')}
                 title={attachment.get('description')}

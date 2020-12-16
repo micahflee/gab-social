@@ -7,6 +7,7 @@ import { me } from '../initial_state'
 import {
   CHAT_MESSAGES_SEND_SUCCESS,
   CHAT_MESSAGES_DELETE_REQUEST,
+  CHAT_MESSAGES_PURGE_REQUEST,
 } from '../actions/chat_messages'
 import { 
   CHAT_CONVERSATIONS_APPROVED_FETCH_SUCCESS,
@@ -14,6 +15,7 @@ import {
   CHAT_CONVERSATIONS_REQUESTED_FETCH_SUCCESS,
   CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS,
   CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS,
+  CHAT_CONVERSATION_MARK_READ_SUCCESS,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap()
@@ -50,6 +52,11 @@ export default function chat_conversations(state = initialState, action) {
   case CHAT_MESSAGES_DELETE_REQUEST:
     // : todo : set last conversation message to one prior to this one
     return state
+  case CHAT_MESSAGES_PURGE_REQUEST:
+    // : todo :
+    return state
+  case CHAT_CONVERSATION_MARK_READ_SUCCESS:
+    return importChatConversation(state, action.chatConversation)
   default:
     return state
   }

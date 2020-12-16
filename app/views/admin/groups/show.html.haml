@@ -1,0 +1,35 @@
+- content_for :page_title do
+  = @group.title
+
+-# : todo :
+-# add/remove admin
+-# add/remove moderator
+-# feature/unfeature
+-# delete
+-# view accounts
+-# view removed accounts
+-# number of accounts
+-# number of removed accounts
+-# number of posts
+
+.card.h-card{:style => "height:300px"}
+  .card__img
+    = image_tag @group.cover_image.url, alt: '', :style => "height:300px"
+
+.dashboard__counters{ style: 'margin-top: 10px' }
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter 0 #@account.statuses_count
+      .dashboard__counters__label Status Count
+  %div
+    %div
+      .dashboard__counters__num= number_to_human_size 0 #@account.media_attachments.sum('file_file_size')
+      .dashboard__counters__label Member Count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter 0 #@account.local_followers_count
+      .dashboard__counters__label Removed Members Count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter 0 #@account.reports.count
+      .dashboard__counters__label Member Requests Count

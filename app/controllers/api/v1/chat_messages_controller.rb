@@ -5,49 +5,19 @@ class Api::V1::ChatMessagesController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:chats' }
 
   before_action :require_user!
-  before_action :set_chat_conversation, only: :create
-  before_action :set_chat_conversation_recipients, only: :create
 
   def create
-    @chat = ChatMessage.create!(
-      from_account: current_account,
-      chat_conversation: @chat_conversation,
-      text: ActionController::Base.helpers.strip_tags(params[:text])
-    )
-
-    # : todo :
-    # check if blocked
-    # update unread_count++ if offline
-
-    @chat_conversation_recipients.each do |account|
-      payload = InlineRenderer.render(@chat, account, :chat_message)
-      Redis.current.publish("chat_messages:#{account.id}", Oj.dump(event: :notification, payload: payload))
-    end
-
+    @chat_conversation = ChatConversation.find(chat_params[:chat_conversation_id])
+    @chat = PostChatMessageService.new.call(current_user.account, text: chat_params[:text], chat_conversation: @chat_conversation)
     render json: @chat, serializer: REST::ChatMessageSerializer
   end
 
   def destroy
-    @chat = ChatMessage.where(from_account: current_user.account).find(params[:id])
-
-    # : todo :
-    # make sure last_chat_message_id in chat_account_conversation gets set to last
-
-    @chat.destroy!
-
+    @chat = DeleteChatMessageService.new.call(current_user.account, params[:id])
     render json: @chat, serializer: REST::ChatMessageSerializer
   end
 
   private
-
-  def set_chat_conversation
-    @chat_conversation = ChatConversation.find(params[:chat_conversation_id])
-  end
-
-  def set_chat_conversation_recipients
-    account_conversation = ChatConversationAccount.where(account: current_user.account, chat_conversation: @chat_conversation).first
-    @chat_conversation_recipients = Account.where(id: account_conversation.participant_account_ids)
-  end
 
   def chat_params
     params.permit(:text, :chat_conversation_id)

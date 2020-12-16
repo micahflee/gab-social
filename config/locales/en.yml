@@ -1151,6 +1151,7 @@ en:
       approve: Approve
       approved_msg: Account has been verified.
       reject: Reject
+      rejected_msg: Successfully rejected.
   billing:
     upgrade:
       explanation_html: Here you can upgrade to PRO.

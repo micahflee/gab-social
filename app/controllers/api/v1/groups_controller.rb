@@ -46,7 +46,7 @@ class Api::V1::GroupsController < Api::BaseController
 
     @groups = []
     if !@groupCategory.nil?
-      @groups = Group.where(is_archived: false, group_categories: @groupCategory).all
+      @groups = Group.where(is_archived: false, group_categories: @groupCategory).order('member_count DESC').all
     end
 
     render json: @groups, each_serializer: REST::GroupSerializer
@@ -59,7 +59,7 @@ class Api::V1::GroupsController < Api::BaseController
 
     @groups = []
     if !params[:tag].empty?
-      @groups = Group.where(is_archived: false).where("array_to_string(tags, '||') ILIKE :tag", tag: "%#{params[:tag]}%").all
+      @groups = Group.where(is_archived: false).where("array_to_string(tags, '||') ILIKE :tag", tag: "%#{params[:tag]}%").order('member_count DESC').all
     end
 
     render json: @groups, each_serializer: REST::GroupSerializer

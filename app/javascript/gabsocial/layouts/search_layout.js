@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
-import { me } from '../initial_state'
+import { me, trendingHashtags } from '../initial_state'
 import {
   BREAKPOINT_EXTRA_SMALL,
   CX,
@@ -42,26 +42,20 @@ class SearchLayout extends React.PureComponent {
         title: 'Explore',
         onClick: () => this.setState({ currentExploreTabIndex: 0 }),
         component: ExploreTimeline,
-      },
-      {
-        title: '#Election2020',
-        onClick: () => this.setState({ currentExploreTabIndex: 1 }),
-        component: HashtagTimeline,
-        componentParams: { params: { id: 'election2020' } },
-      },
-      {
-        title: '#RiggedElection',
-        onClick: () => this.setState({ currentExploreTabIndex: 2 }),
-        component: HashtagTimeline,
-        componentParams: { params: { id: 'riggedelection' } },
-      },
-      {
-        title: '#StopTheSteal',
-        onClick: () => this.setState({ currentExploreTabIndex: 3 }),
-        component: HashtagTimeline,
-        componentParams: { params: { id: 'stopthesteal' } },
-      },
+      }
     ]
+
+    if (Array.isArray(trendingHashtags)) {
+      trendingHashtags.forEach((tag, i) => {
+        let j = i + 1
+        this.exploreTabs.push({
+          title: `#${tag}`,
+          onClick: () => this.setState({ currentExploreTabIndex: j }),
+          component: HashtagTimeline,
+          componentParams: { params: { id: `${tag}`.toLowerCase() } },
+        })
+      })
+    }
     
     this.searchTabs = [
       {

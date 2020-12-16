@@ -18,9 +18,13 @@ class LinkBlock < ApplicationRecord
     return false if text.nil?
     return false if text.length < 1
 
-    urls = text.scan(FetchLinkCardService::URL_PATTERN).map { |array| Addressable::URI.parse(array[0]).normalize }
+    urls = text.scan(FetchLinkCardService::URL_PATTERN).map {|array|
+      Addressable::URI.parse(array[0]).normalize
+    }
     url = urls.first
     link_for_fetch = TagManager.instance.normalize_link(url)
-    where(link: link_for_fetch).exists?
+    link_for_fetch = link_for_fetch.chomp("/")
+
+    where("LOWER(link) LIKE LOWER(?)", "%#{link_for_fetch}%").exists?
   end
 end

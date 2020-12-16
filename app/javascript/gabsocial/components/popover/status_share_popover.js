@@ -5,6 +5,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../../actions/modal'
+import { showToast } from '../../actions/toasts'
 import { closePopover } from '../../actions/popover'
 import PopoverLayout from './popover_layout'
 import Button from '../button'
@@ -31,6 +32,7 @@ class StatusSharePopover extends ImmutablePureComponent {
     }
 
     document.body.removeChild(textarea)
+    this.props.onShowCopyToast()
     this.handleClosePopover()
   }
 
@@ -157,6 +159,9 @@ const messages = defineMessages({
 
 const mapDispatchToProps = (dispatch) => ({
   onClosePopover: () => dispatch(closePopover()),
+  onShowCopyToast() {
+    dispatch(showToast())
+  },
 })
 
 StatusSharePopover.propTypes = {

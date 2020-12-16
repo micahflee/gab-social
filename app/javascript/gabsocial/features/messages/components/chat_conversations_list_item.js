@@ -35,16 +35,17 @@ class ChatConversationsListItem extends ImmutablePureComponent {
 
     if (!chatConversation) return <div/>
 
+    console.log("chatConversation:", chatConversation)
+
     const containerClasses = CX({
       d: 1,
       w100PC: 1,
       bgTransparent: 1,
       bgSubtle_onHover: 1,
-      borderBottom1PX: 1,
-      borderColorSecondary: 1,
       noUnderline: 1,
       outlineNone: 1,
       cursorPointer: 1,
+      pl15: 1,
     })
 
     const innerContainerClasses = CX({
@@ -71,6 +72,9 @@ class ChatConversationsListItem extends ImmutablePureComponent {
         className={containerClasses}
         onClick={this.handleOnClick}
       >
+        
+        { chatConversation.get('is_unread') && <div className={[_s.d, _s.posAbs, _s.left0, _s.top50PC, _s.ml10, _s.mtNeg5PX, _s.circle, _s.w10PX, _s.h10PX, _s.bgBrand].join(' ')} /> }
+        
         <div className={innerContainerClasses}>
           <AvatarGroup accounts={otherAccounts} size={avatarSize} noHover />
 
@@ -88,6 +92,7 @@ class ChatConversationsListItem extends ImmutablePureComponent {
 
             <div className={[_s.py5, _s.dangerousContent, _s.textAlignLeft].join(' ')} dangerouslySetInnerHTML={content} />
           </div>
+          <div className={[_s.d, _s.posAbs, _s.h1PX, _s.w100PC, _s.bottom0, _s.right0, _s.bgSecondary].join(' ')} />
         </div>
       </button>
     )

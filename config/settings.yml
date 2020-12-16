@@ -22,6 +22,11 @@ defaults: &defaults
   noindex: false
   theme: 'default'
   aggregate_reblogs: true
+  chat_messages:
+    restrict_non_followers: true
+    show_active: false
+    read_receipts: false
+    sounds: true
   notification_emails:
     follow: false
     reblog: false

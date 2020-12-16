@@ -1,30 +1,80 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CX } from '../../../constants'
+import { connect } from 'react-redux'
+import { defineMessages, injectIntl } from 'react-intl'
+import { length } from 'stringz'
+import { countableText } from '../../ui/util/counter'
+import { submitCompose } from '../../../actions/compose'
+import {
+  CX,
+  MAX_POST_CHARACTER_COUNT,
+} from '../../../constants'
 import Button from '../../../components/button'
 import Text from '../../../components/text'
 
 class ComposeFormSubmitButton extends React.PureComponent {
 
+  handleSubmit = () => {
+
+  }
+
   render() {
     const {
+      intl,
       title,
       active,
       small,
-      disabledButton,
       type,
+
+      edit,
+      text,
+      isSubmitting,
+      isChangingUpload,
+      isUploading,
+      anyMedia,
+      quoteOfId,
+      scheduledAt,
+      hasPoll,
     } = this.props
+
+    const disabledButton = isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
+
+    if (type === 'comment') {
+      const commentPublishBtnClasses = CX({
+        d: 1,
+        jcCenter: 1,
+        displayNone: disabledButton,
+      })
+
+      return (
+        <div className={[_s.d, _s.flexRow, _s.aiStart, _s.mlAuto].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.mrAuto].join(' ')}>
+            <div className={commentPublishBtnClasses}>
+              <Button
+                isNarrow
+                radiusSmall
+                onClick={this.handleSubmit}
+                isDisabled={disabledButton}
+                className={_s.px15}
+              >
+                {intl.formatMessage(scheduledAt ? messages.schedulePost : messages.post)}
+              </Button>
+            </div>
+
+          </div>
+        </div>
+      )
+    }
 
     const containerClasses = CX({
       d: 1,
-      mr5: 1,
       jcCenter: 1,
       h40PX: 1,
     })
 
     const btnClasses = CX({
       d: 1,
-      circle: 1,
+      radiusSmall: 1,
       noUnderline: 1,
       font: 1,
       cursorPointer: 1,
@@ -37,31 +87,33 @@ class ComposeFormSubmitButton extends React.PureComponent {
       py10: 1,
       px10: 1,
     })
-
-    const iconClasses = CX({
-      cSecondary: !active,
-      cWhite: active,
-      mr10: 1,
-      py2: small,
-      ml10: small,
-    })
-
-    const iconSize = !small ? '18px' : '16px'
-    const textColor = !active ? 'primary' : 'white'
-
+    
+    let backgroundColor, color
+    if (disabledButton) {
+      backgroundColor = 'tertiary'
+      color = 'tertiary'
+    } else if (type === 'navigation') {
+      backgroundColor = 'white'
+      color = 'brand'
+    } else {
+      backgroundColor = 'brand'
+      color = 'white'
+    }
+    
     return (
       <div className={containerClasses}>
-        <div className={[_s.d, _s.w100PC, _s.py10, _s.px10].join(' ')}>
+        <div className={[_s.d, _s.w100PC].join(' ')}>
           <Button
             isBlock
+            radiusSmall
             isDisabled={disabledButton}
-            backgroundColor={disabledButton ? 'secondary' : 'brand'}
-            color={disabledButton ? 'tertiary' : 'white'}
+            backgroundColor={backgroundColor}
+            color={color}
             className={[_s.fs15PX, _s.px15, _s.flexGrow1, _s.mlAuto].join(' ')}
             onClick={this.handleSubmit}
           >
-            <Text color='inherit' weight='medium' align='center'>
-              post
+            <Text color='inherit' size='medium' weight='bold' align='center'>
+              {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.postEdit : messages.post)}
             </Text>
           </Button>
         </div>
@@ -71,9 +123,32 @@ class ComposeFormSubmitButton extends React.PureComponent {
 
 }
 
-// {intl.formatMessage(scheduledAt ? messages.schedulePost : edit ? messages.postEdit : messages.post)}
+const messages = defineMessages({
+  post: { id: 'compose_form.post', defaultMessage: 'Post' },
+  postEdit: { id: 'compose_form.post_edit', defaultMessage: 'Post Edit' },
+  schedulePost: { id: 'compose_form.schedule_post', defaultMessage: 'Schedule Post' },
+})
+
+const mapStateToProps = (state) => ({
+  edit: state.getIn(['compose', 'id']) !== null,
+  text: state.getIn(['compose', 'text']),
+  isSubmitting: state.getIn(['compose', 'is_submitting']),
+  isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
+  isUploading: state.getIn(['compose', 'is_uploading']),
+  anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
+  quoteOfId: state.getIn(['compose', 'quote_of_id']),
+  scheduledAt: state.getIn(['compose', 'scheduled_at']),
+  hasPoll: state.getIn(['compose', 'poll']),
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(groupId, replyToId = null, router, isStandalone, autoJoinGroup) {
+    dispatch(submitCompose(groupId, replyToId, router, isStandalone, autoJoinGroup))
+  }
+})
+
 ComposeFormSubmitButton.propTypes = {
-  type: PropTypes.oneOf(['header', 'block', 'comment'])
+  type: PropTypes.oneOf(['header', 'navigation', 'block', 'comment'])
 }
 
-export default ComposeFormSubmitButton
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ComposeFormSubmitButton))

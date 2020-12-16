@@ -17,14 +17,25 @@
 #
 
 # : todo : expires
+# : todo : max per account
 class ChatConversationAccount < ApplicationRecord
   include Paginable
   
+  PER_ACCOUNT_APPROVED_LIMIT = 100
+
+  EXPIRATION_POLICY_MAP = {
+    none: nil,
+    five_minutes: '1',
+    sixty_minutes: '2',
+    six_hours: '3',
+    one_day: '4',
+    three_days: '5',
+    one_week: '6',
+  }.freeze
+
   belongs_to :account
   belongs_to :chat_conversation
   belongs_to :last_chat_message, class_name: 'ChatMessage', optional: true
-
-  # before_validation :set_last_chat_message
 
   def participant_accounts
     if participant_account_ids.empty?
@@ -33,12 +44,6 @@ class ChatConversationAccount < ApplicationRecord
       participants = Account.where(id: participant_account_ids)
       participants.empty? ? [account] : participants
     end
-  end
-
-  private
-
-  def set_last_chat_message
-    self.last_chat_message_id = nil # : todo :
   end
 
 end

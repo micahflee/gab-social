@@ -26,6 +26,18 @@
     = link_to sidekiq_url do
       .dashboard__counters__num= number_with_delimiter @queue_backlog
       .dashboard__counters__label= t 'admin.dashboard.backlog'
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @statuses_count
+      .dashboard__counters__label Status count
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @pro_accounts_count
+      .dashboard__counters__label PRO Users
+  %div
+    %div
+      .dashboard__counters__num= number_with_delimiter @donor_accounts_count
+      .dashboard__counters__label Donor Users
 
 .dashboard__widgets
   .dashboard__widgets__users

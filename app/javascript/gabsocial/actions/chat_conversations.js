@@ -45,6 +45,22 @@ export const CHAT_CONVERSATION_DELETE_REQUEST = 'CHAT_CONVERSATION_DELETE_REQUES
 export const CHAT_CONVERSATION_DELETE_SUCCESS = 'CHAT_CONVERSATION_DELETE_SUCCESS'
 export const CHAT_CONVERSATION_DELETE_FAIL    = 'CHAT_CONVERSATION_DELETE_FAIL'
 
+//
+
+export const CHAT_CONVERSATION_MARK_READ_FETCH = 'CHAT_CONVERSATION_MARK_READ_FETCH'
+export const CHAT_CONVERSATION_MARK_READ_SUCCESS = 'CHAT_CONVERSATION_MARK_READ_SUCCESS'
+export const CHAT_CONVERSATION_MARK_READ_FAIL = 'CHAT_CONVERSATION_MARK_READ_FAIL'
+
+export const CHAT_CONVERSATION_HIDE_FETCH = 'CHAT_CONVERSATION_HIDE_FETCH'
+export const CHAT_CONVERSATION_HIDE_SUCCESS = 'CHAT_CONVERSATION_HIDE_SUCCESS'
+export const CHAT_CONVERSATION_HIDE_FAIL = 'CHAT_CONVERSATION_HIDE_FAIL'
+
+//
+
+export const SET_CHAT_CONVERSATION_EXPIRATION_REQUEST = 'SET_CHAT_CONVERSATION_EXPIRATION_REQUEST'
+export const SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS = 'SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS'
+export const SET_CHAT_CONVERSATION_EXPIRATION_FAIL    = 'SET_CHAT_CONVERSATION_EXPIRATION_FAIL'
+
 /**
  * @description Fetch paginated active chat conversations, import accounts and set chat converations
  */
@@ -310,3 +326,92 @@ export const approveChatConversationRequestSuccess = (chatConversation) => ({
 export const approveChatConversationRequestFail = () => ({
   type: CHAT_CONVERSATION_REQUEST_APPROVE_FAIL,
 })
+
+/**
+ * 
+ */
+export const hideChatConversation = (chatConversationId) => (dispatch, getState) => {
+  if (!me|| !chatConversationId) return
+
+  dispatch(hideChatConversationFetch(chatConversationId))
+
+  api(getState).post(`/api/v1/chat_conversation/${chatConversationId}/mark_chat_conversation_hidden`).then((response) => {
+    dispatch(approveChatConversationRequestSuccess(chatConversationId))
+  }).catch((error) => dispatch(approveChatConversationRequestFail(error)))
+}
+
+export const hideChatConversationFetch = (chatConversationId) => ({
+  type: CHAT_CONVERSATION_HIDE_SUCCESS,
+  chatConversationId,
+})
+
+export const hideChatConversationSuccess = (chatConversationId) => ({
+  type: CHAT_CONVERSATION_HIDE_SUCCESS,
+  chatConversationId,
+})
+
+export const hideChatConversationFail = () => ({
+  type: CHAT_CONVERSATION_HIDE_FAIL,
+})
+
+/**
+ * 
+ */
+export const readChatConversation = (chatConversationId) => (dispatch, getState) => {
+  if (!me|| !chatConversationId) return
+
+  const chatConversation = getState().getIn(['chat_conversations', chatConversationId])
+  if (!chatConversation) return
+  if (chatConversation.get('unread_count') < 1) return
+
+  dispatch(readChatConversationFetch(chatConversation))
+
+  api(getState).post(`/api/v1/chat_conversation/${chatConversationId}/mark_chat_conversation_read`).then((response) => {
+    dispatch(readChatConversationSuccess(response.data))
+  }).catch((error) => dispatch(readChatConversationFail(error)))
+}
+
+export const readChatConversationFetch = (chatConversation) => ({
+  type: CHAT_CONVERSATION_MARK_READ_FETCH,
+  chatConversation,
+})
+
+export const readChatConversationSuccess = (chatConversation) => ({
+  type: CHAT_CONVERSATION_MARK_READ_SUCCESS,
+  chatConversation,
+})
+
+export const readChatConversationFail = () => ({
+  type: CHAT_CONVERSATION_MARK_READ_FAIL,
+})
+
+/**
+ * 
+ */
+export const setChatConversationExpiration = (chatConversationId, expiration) => (dispatch, getState) => {
+  if (!me|| !chatConversationId || !expiration) return
+
+  dispatch(setChatConversationExpirationFetch(chatConversation))
+
+  api(getState).post(`/api/v1/chat_conversation/${chatConversationId}/set_expiration_policy`, {
+    expiration,
+  }).then((response) => {
+    dispatch(setChatConversationExpirationSuccess(response.data))
+  }).catch((error) => dispatch(setChatConversationExpirationFail(error)))
+}
+
+export const setChatConversationExpirationFetch = (chatConversation) => ({
+  type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
+  chatConversation,
+})
+
+export const setChatConversationExpirationSuccess = (chatConversation) => ({
+  type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
+  chatConversation,
+})
+
+export const setChatConversationExpirationFail = (error) => ({
+  type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
+  error,
+})
+

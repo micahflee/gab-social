@@ -38,12 +38,6 @@ module StatusesHelper
     content_tag(:svg, tag(:use, 'xlink:href' => '#mastodon-svg-logo'), 'viewBox' => '0 0 216.4144 232.00976')
   end
 
-  def account_badge(account, all: false)
-    if account.bot?
-      content_tag(:div, content_tag(:div, t('accounts.roles.bot'), class: 'account-role bot'), class: 'roles')
-    end
-  end
-
   def link_to_more(url)
     link_to t('statuses.show_more'), url, class: 'load-more load-gap'
   end

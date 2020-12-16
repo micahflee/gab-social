@@ -1,75 +1,94 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { defineMessages, injectIntl } from 'react-intl'
+import { connect } from 'react-redux'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { length } from 'stringz'
-import { isMobile } from '../../../utils/is_mobile'
-import { countableText } from '../../ui/util/counter'
 import {
   CX,
-  MAX_POST_CHARACTER_COUNT,
-  ALLOWED_AROUND_SHORT_CODE,
-  BREAKPOINT_EXTRA_SMALL,
-  BREAKPOINT_EXTRA_EXTRA_SMALL,
-  BREAKPOINT_MEDIUM,
+  MODAL_COMPOSE,
+  POPOVER_COMPOSE_POST_DESTINATION,
 } from '../../../constants'
-import AutosuggestTextbox from '../../../components/autosuggest_textbox'
-import Responsive from '../../ui/util/responsive_component'
-import ResponsiveClassesComponent from '../../ui/util/responsive_classes_component'
+import { openModal } from '../../../actions/modal'
+import { openPopover } from '../../../actions/popover'
 import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
-import EmojiPickerButton from './emoji_picker_button'
-import PollButton from './poll_button'
-import PollForm from './poll_form'
-import SchedulePostButton from './schedule_post_button'
-import SpoilerButton from './spoiler_button'
-import ExpiresPostButton from './expires_post_button'
-import RichTextEditorButton from './rich_text_editor_button'
-import StatusContainer from '../../../containers/status_container'
-import StatusVisibilityButton from './status_visibility_button'
-import UploadButton from './media_upload_button'
-import UploadForm from './upload_form'
-import Input from '../../../components/input'
-import Text from '../../../components/text'
 import Icon from '../../../components/icon'
-import ComposeExtraButtonList from './compose_extra_button_list'
+import Text from '../../../components/text'
 
 class ComposeDestinationHeader extends ImmutablePureComponent {
 
   handleOnClick = () => {
+    this.props.onOpenPopover(this.desinationBtn)
+  }
 
+  handleOnExpand = () => {
+    this.props.onOpenModal()
+  }
+
+  setDestinationBtn = (c) => {
+    this.desinationBtn = c
   }
 
   render() {
-    const { account } = this.props
+    const { account, isModal } = this.props
 
     const title = 'Post to timeline'
 
     return (
-      <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.bgPrimary, _s.borderBottom1PX, _s.borderTop1PX, _s.borderColorSecondary, _s.mb5, _s.mt5, _s.px15, _s.w100PC, _s.h40PX].join(' ')}>
-        <Avatar account={account} size={28} />
-        <div className={[_s.ml15].join(' ')}>
-          <Button
-            isNarrow
-            radiusSmall
-            backgroundColor='tertiary'
-            color='primary'
-            onClick={this.handleOnClick}
-          >
-            <Text color='inherit' size='small' className={_s.jcCenter}>
-              {title}
-              <Icon id='caret-down' size='8px' className={_s.ml5} />
-            </Text>
-          </Button>
+      <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.bgPrimary, _s.w100PC, _s.h40PX, _s.pr15].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.pl15, _s.flexGrow1, _s.mrAuto, _s.h40PX].join(' ')}>
+          <Avatar account={account} size={28} />
+          <div className={[_s.ml15].join(' ')}>
+            <Button
+              isNarrow
+              isOutline
+              radiusSmall
+              buttonRef={this.setDestinationBtn}
+              backgroundColor='secondary'
+              color='primary'
+              onClick={this.handleOnClick}
+              className={[_s.border1PX, _s.borderColorPrimary].join(' ')}
+            >
+              <Text color='inherit' size='small' className={_s.jcCenter}>
+                {title}
+                <Icon id='caret-down' size='8px' className={_s.ml5} />
+              </Text>
+            </Button>
+          </div>
         </div>
+        {
+          !isModal &&
+          <Button
+            isText
+            isNarrow
+            backgroundColor='none'
+            color='tertiary'
+            icon='fullscreen'
+            onClick={this.handleOnExpand}
+          />
+        }
       </div>
     )
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  onOpenModal() {
+    dispatch(openModal(MODAL_COMPOSE))
+  },
+  onOpenPopover(targetRef) {
+    dispatch(openPopover(POPOVER_COMPOSE_POST_DESTINATION, {
+      targetRef,
+      position: 'bottom',
+    }))
+  },
+})
+
 ComposeDestinationHeader.propTypes = {
   account: ImmutablePropTypes.map,
+  isModal: PropTypes.bool,
+  onOpenModal: PropTypes.func.isRequired,
+  onOpenPopover: PropTypes.func.isRequired,
 }
 
-export default ComposeDestinationHeader
+export default connect(null, mapDispatchToProps)(ComposeDestinationHeader)

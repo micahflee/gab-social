@@ -48,7 +48,7 @@ class ExpiresPostButton extends React.PureComponent {
 }
 
 const messages = defineMessages({
-  expires: { id: 'expiration.title', defaultMessage: 'Add status expiration' },
+  expires: { id: 'expiration.title', defaultMessage: 'Status expiration' },
 })
 
 const mapStateToProps = (state) => ({

@@ -22,14 +22,14 @@ class ComposeExtraButton extends React.PureComponent {
 
     const containerClasses = CX({
       d: 1,
-      mr5: 1,
       jcCenter: 1,
       h40PX: 1,
+      mr5: 1,
     })
 
     const btnClasses = CX({
       d: 1,
-      circle: 1,
+      circle: small,
       noUnderline: 1,
       font: 1,
       cursorPointer: 1,
@@ -37,21 +37,25 @@ class ComposeExtraButton extends React.PureComponent {
       outlineNone: 1,
       bgTransparent: 1,
       flexRow: 1,
+      aiCenter: 1,
+      // jcCenter: !small,
       bgSubtle_onHover: !active,
       bgBrandLight: active,
       py10: 1,
-      px10: 1,
+      px10: small,
+      radiusSmall: !small,
     })
 
-    const iconClasses = CX(iconClassName, {
+    const iconClasses = CX(active ? null : iconClassName, {
       cSecondary: !active,
       cWhite: active,
-      mr10: 1,
+      mr10: !small,
       py2: small,
-      ml10: small,
+      ml10: !small,
+      px2: small,
     })
 
-    const iconSize = !small ? '18px' : '16px'
+    const iconSize = '16px'
     const textColor = !active ? 'primary' : 'white'
 
     return (
@@ -65,13 +69,13 @@ class ComposeExtraButton extends React.PureComponent {
           backgroundColor='none'
           iconClassName={iconClasses}
           icon={icon}
-          iconSize={iconSize}
+          iconSize='16px'
           buttonRef={!children ? buttonRef : undefined}
         >
           { children }
           {
             !small &&
-            <Text color={textColor} weight='medium' className={[_s.pr5].join(' ')}>
+            <Text color={textColor} weight='medium' className={[_s.pr10].join(' ')}>
               {title}
             </Text>
           }

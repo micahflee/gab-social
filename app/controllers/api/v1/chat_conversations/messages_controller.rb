@@ -11,24 +11,16 @@ class Api::V1::ChatConversations::MessagesController < Api::BaseController
   after_action :insert_pagination_headers, unless: -> { @chats.empty? }
 
   def show
-    puts "tilly chat_message_conversations - 1: " + @chats.count.inspect
     render json: @chats, each_serializer: REST::ChatMessageSerializer
   end
 
   def destroy_all
-    puts "tilly destry all chat"
-    # : todo :
-    # check if is pro
-    # @chat = ChatMessage.where(from_account: current_user.account).find(params[:id])
-
-    puts "tilly @chat: " + @chat.inspect
-
-    # : todo :
-    # make sure last_chat_message_id in chat_account_conversation gets set to last
-
-    # @chat.destroy!
-
-    # render json: @chat, serializer: REST::ChatMessageSerializer
+    if current_user.account.is_pro
+      @chat_conversation_account = PurgeChatMessagesService.new.call(current_user.account, @chat_conversation)
+      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    else
+      render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
+    end
   end
 
   private

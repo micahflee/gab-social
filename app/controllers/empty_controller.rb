@@ -48,7 +48,25 @@ class EmptyController < ActionController::Base
     nil
   end
 
-  protected
+  def cache_collection(raw, klass)
+    return raw unless klass.respond_to?(:with_includes)
+
+    raw                    = raw.cache_ids.to_a if raw.is_a?(ActiveRecord::Relation)
+    cached_keys_with_value = Rails.cache.read_multi(*raw).transform_keys(&:id)
+    uncached_ids           = raw.map(&:id) - cached_keys_with_value.keys
+
+    klass.reload_stale_associations!(cached_keys_with_value.values) if klass.respond_to?(:reload_stale_associations!)
+
+    unless uncached_ids.empty?
+      uncached = klass.where(id: uncached_ids).with_includes.each_with_object({}) { |item, h| h[item.id] = item }
+
+      uncached.each_value do |item|
+        Rails.cache.write(item, item)
+      end
+    end
+
+    raw.map { |item| cached_keys_with_value[item.id] || uncached[item.id] }.compact
+  end
 
   def limit_param(default_limit)
     return default_limit unless params[:limit]

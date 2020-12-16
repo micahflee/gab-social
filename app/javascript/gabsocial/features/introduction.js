@@ -186,9 +186,9 @@ class SlideFirstPost extends React.PureComponent {
 
               <div className={[_s.d, _s.mt15, _s.boxShadowBlock, _s.radiusSmall].join(' ')}>
                 <ComposeFormContainer
+                  formLocation='introduction'
                   groupId={GAB_COM_INTRODUCE_YOURSELF_GROUP_ID}
                   hidePro
-                  autoFocus
                   autoJoinGroup
                 />
               </div>
@@ -325,7 +325,7 @@ class Introduction extends ImmutablePureComponent {
             <Button
               href={currentIndex === 3 ? '/home' : undefined}
               onClick={this.handleNext}
-              className={_s.px10}
+              className={[_s.px10, _s.aiCenter, _s.flexRow].join(' ')}
               icon={currentIndex !== 3 ? 'arrow-right' : undefined}
               iconSize={currentIndex !== 3 ? '18px' : undefined}
             >
@@ -336,7 +336,7 @@ class Introduction extends ImmutablePureComponent {
                     <Text color='white' className={_s.px5}>{nextTitle}</Text>
                   </Responsive>
                   <Responsive max={BREAKPOINT_EXTRA_SMALL}>
-                    <Text color='white' className={[_s.px5, _s.mr10].join(' ')}>Done</Text>
+                    <Text color='white' className={[_s.px5, _s.mr5].join(' ')}>Done</Text>
                     <Icon id='check' size='14px' className={_s.cWhite} />
                   </Responsive>
                 </React.Fragment>

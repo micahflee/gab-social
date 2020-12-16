@@ -12,6 +12,7 @@ class Api::V1::Accounts::CredentialsController < Api::BaseController
 
   def update
     @account = current_account
+    # : todo : add link blocking check for bio
     UpdateAccountService.new.call(@account, account_params, raise_error: true)
     UserSettingsDecorator.new(current_user).update(user_settings_params) if user_settings_params
     render json: @account, serializer: REST::CredentialAccountSerializer

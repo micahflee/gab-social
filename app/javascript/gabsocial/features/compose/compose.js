@@ -11,7 +11,7 @@ class Compose extends React.PureComponent {
   }
 
   render () {
-    return <ComposeFormContainer isStandalone />
+    return <ComposeFormContainer formLocation='standalone' />
   }
 
 }

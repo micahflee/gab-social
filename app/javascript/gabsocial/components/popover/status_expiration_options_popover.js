@@ -5,15 +5,16 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
 import { changeExpiresAt } from '../../actions/compose'
 import {
-  STATUS_EXPIRATION_OPTION_5_MINUTES,
-  STATUS_EXPIRATION_OPTION_60_MINUTES,
-  STATUS_EXPIRATION_OPTION_6_HOURS,
-  STATUS_EXPIRATION_OPTION_24_HOURS,
-  STATUS_EXPIRATION_OPTION_3_DAYS,
-  STATUS_EXPIRATION_OPTION_7_DAYS,
+  EXPIRATION_OPTION_5_MINUTES,
+  EXPIRATION_OPTION_60_MINUTES,
+  EXPIRATION_OPTION_6_HOURS,
+  EXPIRATION_OPTION_24_HOURS,
+  EXPIRATION_OPTION_3_DAYS,
+  EXPIRATION_OPTION_7_DAYS,
 } from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
+import Text from '../text'
 
 class StatusExpirationOptionsPopover extends React.PureComponent {
 
@@ -36,41 +37,47 @@ class StatusExpirationOptionsPopover extends React.PureComponent {
     const listItems = [
       {
         hideArrow: true,
+        title: 'None',
+        onClick: () => this.handleOnSetStatusExpiration(null),
+        isActive: !expiresAtValue,
+      },
+      {
+        hideArrow: true,
         title: intl.formatMessage(messages.minutes, { number: 5 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_5_MINUTES),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_5_MINUTES,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_5_MINUTES),
+        isActive: expiresAtValue === EXPIRATION_OPTION_5_MINUTES,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.minutes, { number: 60 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_60_MINUTES),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_60_MINUTES,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_60_MINUTES),
+        isActive: expiresAtValue === EXPIRATION_OPTION_60_MINUTES,
       },
       {
         hideArrow: true,
         title: '6 hours',
         title: intl.formatMessage(messages.hours, { number: 6 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_6_HOURS),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_6_HOURS,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_6_HOURS),
+        isActive: expiresAtValue === EXPIRATION_OPTION_6_HOURS,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.hours, { number: 24 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_24_HOURS),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_24_HOURS,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_24_HOURS),
+        isActive: expiresAtValue === EXPIRATION_OPTION_24_HOURS,
       },
       {
         hideArrow: true,
         title: '3 days',
         title: intl.formatMessage(messages.days, { number: 3 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_3_DAYS),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_3_DAYS,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_3_DAYS),
+        isActive: expiresAtValue === EXPIRATION_OPTION_3_DAYS,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.days, { number: 7 }),
-        onClick: () => this.handleOnSetStatusExpiration(STATUS_EXPIRATION_OPTION_7_DAYS),
-        isActive: expiresAtValue === STATUS_EXPIRATION_OPTION_7_DAYS,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_7_DAYS),
+        isActive: expiresAtValue === EXPIRATION_OPTION_7_DAYS,
       },
     ]
 
@@ -88,8 +95,9 @@ class StatusExpirationOptionsPopover extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
+        <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>This gab deletes after:</Text>
         <List
-          scrollKey='group_list_sort_options'
+          scrollKey='status_expiration'
           items={listItems}
           size={isXS ? 'large' : 'small'}
         />

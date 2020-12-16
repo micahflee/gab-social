@@ -3,11 +3,12 @@
 #
 # Table name: status_bookmarks
 #
-#  id         :bigint(8)        not null, primary key
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  account_id :bigint(8)        not null
-#  status_id  :bigint(8)        not null
+#  id                            :bigint(8)        not null, primary key
+#  created_at                    :datetime         not null
+#  updated_at                    :datetime         not null
+#  account_id                    :bigint(8)        not null
+#  status_id                     :bigint(8)        not null
+#  status_bookmark_collection_id :bigint(8)
 #
 
 class StatusBookmark < ApplicationRecord

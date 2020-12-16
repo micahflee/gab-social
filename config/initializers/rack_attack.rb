@@ -87,17 +87,27 @@ class Rack::Attack
 
   API_DELETE_REBLOG_REGEX = /\A\/api\/v1\/statuses\/[\d]+\/unreblog/.freeze
   API_DELETE_STATUS_REGEX = /\A\/api\/v1\/statuses\/[\d]+/.freeze
+  API_POST_CHAT_MESSAGE_REGEX = /\A\/api\/v1\/chat_messages/.freeze
+  API_POST_FOLLOW_REGEX = /\A\/api\/v1\/accounts\/[\d]+\/follow/.freeze
   API_POST_GROUP_PASSWORD_CHECK_REGEX = /\A\/api\/v1\/groups\/[\d]+\/password/.freeze
 
   throttle('throttle_api_delete', limit: 30, period: 30.minutes) do |req|
     req.authenticated_user_id if (req.post? && req.path =~ API_DELETE_REBLOG_REGEX) || (req.delete? && req.path =~ API_DELETE_STATUS_REGEX)
   end
 
+  throttle('throttle_api_chat_message', limit: 1000, period: 1.day) do |req|
+    req.authenticated_user_id if req.post? && req.path =~ API_POST_CHAT_MESSAGE_REGEX
+  end
+
+  throttle('throttle_api_follow', limit: 200, period: 1.day) do |req|
+    req.authenticated_user_id if req.post? && req.path =~ API_POST_FOLLOW_REGEX
+  end
+
   throttle('throttle_group_password_check', limit: 5, period: 1.minute) do |req|
     req.authenticated_user_id if req.post? && req.path =~ API_POST_GROUP_PASSWORD_CHECK_REGEX
   end
 
-  throttle('protected_paths', limit: 25, period: 5.minutes) do |req|
+  throttle('protected_paths', limit: 10, period: 5.minutes) do |req|
     req.remote_ip if req.post? && req.path =~ PROTECTED_PATHS_REGEX
   end
 

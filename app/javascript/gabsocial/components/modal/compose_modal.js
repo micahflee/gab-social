@@ -49,9 +49,9 @@ class ComposeModal extends ImmutablePureComponent {
     const title = isEditing ? messages.edit : isComment ? messages.comment : messages.title
 
     return (
-      <div style={{width: '512px'}} className={[_s.d, _s.modal].join(' ')}>
+      <div style={{width: '580px'}} className={[_s.d, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.pl10, _s.pr15].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.pl5, _s.pr10].join(' ')}>
             <div className={[_s.d, _s.w115PX, _s.aiStart, _s.jcCenter, _s.mrAuto].join(' ')}>
               <Button
                 backgroundColor='none'
@@ -69,8 +69,8 @@ class ComposeModal extends ImmutablePureComponent {
               <ComposeFormSubmitButton type='header' />
             </div>
           </div>
-          <div className={[_s.d].join(' ')}>
-            <TimelineComposeBlock isModal />
+          <div className={[_s.d, _s.pt5].join(' ')}>
+            <TimelineComposeBlock isModal formLocation='modal' />
           </div>
         </Block>
       </div>

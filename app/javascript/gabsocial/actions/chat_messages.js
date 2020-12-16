@@ -59,6 +59,22 @@ const sendChatMessageFail = (error) => ({
 /**
  * 
  */
+export const manageIncomingChatMessage = (chatMessage) => (dispatch, getState) => {
+  if (!chatMessage) return
+
+  console.log("chatMessage:", chatMessage)
+  dispatch(sendChatMessageSuccess(chatMessage))
+
+  const isOnline = getState().getIn(['chat_conversation_messages', chatMessage.chat_conversation_id, 'online'])
+  console.log("isOnline: ", isOnline)
+
+  // : todo :
+  // Check if is online for conversation, if not increase total/convo unread count 
+}
+
+/**
+ * 
+ */
 export const deleteChatMessage = (chatMessageId) => (dispatch, getState) => {
   if (!me || !chatMessageId) return
 
@@ -99,24 +115,25 @@ export const purgeChatMessages = (chatConversationId) => (dispatch, getState) =>
 
   dispatch(deleteChatMessagesRequest(chatConversationId))
 
-  api(getState).delete(`/api/v1/chat_conversations/${chatConversationId}/messages/destroy_all`).then((response) => {
+  api(getState).delete(`/api/v1/chat_conversations/messages/${chatConversationId}/destroy_all`).then((response) => {
   dispatch(deleteChatMessagesSuccess(response.data))
   }).catch((error) => {
     dispatch(deleteChatMessagesFail(error))
   })
 }
 
-const deleteChatMessagesRequest = () => ({
+const purgeChatMessagesRequest = (chatConversationId) => ({
   type: CHAT_MESSAGES_PURGE_REQUEST,
+  chatConversationId,
 })
 
-const deleteChatMessagesSuccess = (chatConversationId) => ({
+const purgeChatMessagesSuccess = (chatConversationId) => ({
   type: CHAT_MESSAGES_PURGE_SUCCESS,
   chatConversationId,
   showToast: true,
 })
 
-const deleteChatMessagesFail = (error) => ({
+const purgeChatMessagesFail = (error) => ({
   type: CHAT_MESSAGES_PURGE_FAIL,
   showToast: true,
   error,

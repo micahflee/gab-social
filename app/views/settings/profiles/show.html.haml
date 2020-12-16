@@ -7,12 +7,17 @@
   .fields-row
     .fields-row__column.fields-group.fields-row__column-6
       - if @account.is_verified
-        %span Verified accounts cannot change their display name
+        %div 
+          %span Verified accounts cannot change their username or display name. Please contact
+          %a{:href => "https://gab.com/help", :style => "color:#3ACD80;text-decoration:none;outline:0;", :target => "_blank"} @help
+          %span for more information.
         %br
         %br
+      - elsif @account.is_pro
+        = f.input :username, wrapper: :with_label, input_html: { maxlength: 30 }, hint: false
       - else
         = f.input :display_name, wrapper: :with_label, input_html: { maxlength: 30 }, hint: false
-      = f.input :note, wrapper: :with_label, input_html: { maxlength: 500 }, hint: false
+        = f.input :note, wrapper: :with_label, input_html: { maxlength: 500 }, hint: false
 
   .fields-row
     .fields-row__column.fields-row__column-6

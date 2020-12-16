@@ -8,7 +8,7 @@ import Heading from '../heading'
 import Button from '../button'
 import BackButton from '../back_button'
 import Text from '../text'
-import CharacterCounter from '../character_counter'
+import ComposeFormSubmitButton from '../../features/compose/components/compose_form_submit_button'
 
 class ComposeNavigationBar extends React.PureComponent {
 
@@ -26,13 +26,7 @@ class ComposeNavigationBar extends React.PureComponent {
     } = this.props
 
     const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
-    const buttonOptions = {
-      backgroundColor: disabledButton ? 'tertiary' : 'brand',
-      color: disabledButton ? 'tertiary' : 'white',
-      isDisabled: disabledButton,
-      onClick: this.handleOnPost,
-    }
-
+ 
     return (
       <div className={[_s.d, _s.z4, _s.h53PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.h53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
@@ -48,18 +42,14 @@ class ComposeNavigationBar extends React.PureComponent {
 
             <div className={[_s.d, _s.h53PX, _s.flexRow, _s.jcCenter, _s.aiCenter, _s.mrAuto].join(' ')}>
               <Heading size='h1'>
-                Compose
+                <span className={[_s.dangerousContent, _s.fs24PX, _s.colorNavigation].join(' ')}>
+                  Compose
+                </span>
               </Heading>
             </div>
 
             <div className={[_s.d, _s.h53PX, _s.flexRow, _s.mlAuto, _s.aiCenter, _s.jcCenter, _s.mr15].join(' ')}>
-              <CharacterCounter max={MAX_POST_CHARACTER_COUNT} text={text} />
-
-              <Button {...buttonOptions}>
-                <Text color='inherit' weight='bold' size='medium' className={_s.px5}>
-                  POST
-                </Text>
-              </Button>
+              <ComposeFormSubmitButton type='navigation' />
             </div>
 
           </div>

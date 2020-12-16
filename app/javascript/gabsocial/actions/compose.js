@@ -20,12 +20,12 @@ import { defineMessages } from 'react-intl'
 import { openModal, closeModal } from './modal'
 import {
   MODAL_COMPOSE,
-  STATUS_EXPIRATION_OPTION_5_MINUTES,
-  STATUS_EXPIRATION_OPTION_60_MINUTES,
-  STATUS_EXPIRATION_OPTION_6_HOURS,
-  STATUS_EXPIRATION_OPTION_24_HOURS,
-  STATUS_EXPIRATION_OPTION_3_DAYS,
-  STATUS_EXPIRATION_OPTION_7_DAYS,
+  EXPIRATION_OPTION_5_MINUTES,
+  EXPIRATION_OPTION_60_MINUTES,
+  EXPIRATION_OPTION_6_HOURS,
+  EXPIRATION_OPTION_24_HOURS,
+  EXPIRATION_OPTION_3_DAYS,
+  EXPIRATION_OPTION_7_DAYS,
 } from '../constants'
 import { me } from '../initial_state'
 import { makeGetStatus } from '../selectors'
@@ -347,17 +347,17 @@ export const submitCompose = (groupId, replyToId = null, router, isStandalone, a
   let expires_at = getState().getIn(['compose', 'expires_at'], null)
 
   if (expires_at) {
-    if (expires_at === STATUS_EXPIRATION_OPTION_5_MINUTES) {
+    if (expires_at === EXPIRATION_OPTION_5_MINUTES) {
       expires_at = moment.utc().add('5', 'minute').toDate()
-    } else if (expires_at === STATUS_EXPIRATION_OPTION_60_MINUTES) {
+    } else if (expires_at === EXPIRATION_OPTION_60_MINUTES) {
       expires_at = moment.utc().add('60', 'minute').toDate()
-    } else if (expires_at === STATUS_EXPIRATION_OPTION_6_HOURS) {
+    } else if (expires_at === EXPIRATION_OPTION_6_HOURS) {
       expires_at = moment.utc().add('6', 'hour').toDate()
-    } else if (expires_at === STATUS_EXPIRATION_OPTION_24_HOURS) {
+    } else if (expires_at === EXPIRATION_OPTION_24_HOURS) {
       expires_at = moment.utc().add('24', 'hour').toDate()
-    } else if (expires_at === STATUS_EXPIRATION_OPTION_3_DAYS) {
+    } else if (expires_at === EXPIRATION_OPTION_3_DAYS) {
       expires_at = moment.utc().add('3', 'day').toDate()
-    } else if (expires_at === STATUS_EXPIRATION_OPTION_7_DAYS) {
+    } else if (expires_at === EXPIRATION_OPTION_7_DAYS) {
       expires_at = moment.utc().add('7', 'day').toDate()
     }
   }

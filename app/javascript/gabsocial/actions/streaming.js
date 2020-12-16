@@ -6,7 +6,7 @@ import {
   updateTimelineQueue,
 } from './timelines'
 import { updateNotificationsQueue } from './notifications'
-import { sendChatMessageSuccess } from './chat_messages'
+import { manageIncomingChatMessage } from './chat_messages'
 import { fetchFilters } from './filters'
 import { getLocale } from '../locales'
 import { handleComposeSubmit } from './compose'
@@ -84,7 +84,7 @@ export const connectChatMessagesStream = (accountId) => {
       onReceive (data) {
         if (!data['event'] || !data['payload']) return
         if (data.event === 'notification') {
-          dispatch(sendChatMessageSuccess(JSON.parse(data.payload)))
+          dispatch(manageIncomingChatMessage(JSON.parse(data.payload)))
         }
       },
     }

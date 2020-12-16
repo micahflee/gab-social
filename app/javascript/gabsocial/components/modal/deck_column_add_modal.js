@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { MODAL_DECK_COLUMN_ADD_OPTIONS } from '../../constants'
 import { setDeckColumnAtIndex } from '../../actions/deck'
 import { openModal } from '../../actions/modal'
 import ModalLayout from './modal_layout'
@@ -10,25 +11,17 @@ import Text from '../text'
 class DeckColumnAddModal extends React.PureComponent {
 
   onAdd = (column) => {
-    console.log("onAdd column: ", column)
-    switch (column) {
-      case 'user':
-        // 
-        break
-      case 'list':
-        // 
-        break
-      case 'group':
-        // 
-        break
-      case 'hashtag':
-        // 
-        break
-      default:
-        this.props.dispatch(setDeckColumnAtIndex(column))
-        this.props.onClose()
-        break
+    const moreOptions = ['user', 'list', 'group', 'hashtag']
+    if (moreOptions.indexOf(column) > -1) {
+      this.openOptionsModal(column)
+    } else {
+      this.props.dispatch(setDeckColumnAtIndex(column))
+      this.props.onClose()
     }
+  }
+
+  openOptionsModal = (column) => {
+    this.props.dispatch(openModal(MODAL_DECK_COLUMN_ADD_OPTIONS, { column }))
   }
 
   render() {

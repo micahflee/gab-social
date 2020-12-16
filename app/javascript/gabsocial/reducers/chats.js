@@ -11,6 +11,7 @@ import {
 import {
   CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS,
   CHAT_CONVERSATION_REQUESTED_COUNT_FETCH_SUCCESS,
+  CHAT_CONVERSATION_MARK_READ_FETCH,
 } from '../actions/chat_conversations'
 import { 
   CHAT_MESSAGES_FETCH_SUCCESS,
@@ -34,6 +35,10 @@ export default function chats(state = initialState, action) {
     return state.set('chatConversationRequestCount', action.count)
   case CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS:
     return state.set('chatsUnreadCount', action.count)
+  case CHAT_CONVERSATION_MARK_READ_FETCH:
+    const chatConversationUnreadCount = action.chatConversation.get('unread_count')
+    const totalUnreadCount = state.get('chatsUnreadCount')
+    return state.set('chatsUnreadCount', Math.max(totalUnreadCount - chatConversationUnreadCount, 0))
   default:
     return state
   }

@@ -42,6 +42,18 @@
         - else
           %span.neutral= t('admin.accounts.no_limits_imposed')
       .dashboard__counters__label= t 'admin.accounts.login_status'
+  %div
+    = link_to admin_account_joined_groups_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.groups.count
+      .dashboard__counters__label Joined Groups
+  %div
+    = link_to admin_account_chat_conversations_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.chat_conversation_accounts_count
+      .dashboard__counters__label Chat Conversations
+  %div
+    = link_to admin_account_chat_messages_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.chat_messages_count
+      .dashboard__counters__label Chat Messages
 
 - unless @account.local? && @account.user.nil?
   .table-wrapper

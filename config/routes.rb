@@ -53,6 +53,7 @@ Rails.application.routes.draw do
     resources :promotions, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
     resources :group_categories, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :trending_hashtags, only: [:index, :new, :create, :edit, :update, :destroy]
 
     namespace :verifications do
       get :moderation, to: 'moderation#index', as: :moderation
@@ -144,6 +145,9 @@ Rails.application.routes.draw do
       resource :action, only: [:new, :create], controller: 'account_actions'
       resources :statuses, only: [:index, :show, :create, :update, :destroy]
       resources :followers, only: [:index]
+      resources :joined_groups, only: [:index]
+      resources :chat_conversations, only: [:index]
+      resources :chat_messages, only: [:index, :show, :create, :update, :destroy]
 
       resource :confirmation, only: [:create] do
         collection do
@@ -165,7 +169,7 @@ Rails.application.routes.draw do
 
     resources :custom_emojis, only: [:index, :new, :create, :update, :destroy]
 
-    resources :groups, only: [:index, :destroy] do
+    resources :groups, only: [:index, :show, :update, :destroy] do
       member do
         post :enable_featured
         post :disable_featured
@@ -233,6 +237,7 @@ Rails.application.routes.draw do
           post :unblock_messenger
           post :mute_messenger
           post :unmute_messenger
+          post :set_expiration_policy
         end
       end
 
@@ -257,24 +262,20 @@ Rails.application.routes.draw do
       resources :chat_conversation, only: [:show, :create] do
         member do
           post :mark_chat_conversation_approved
-          post :mark_chat_conversation_unread
+          post :mark_chat_conversation_read
           post :mark_chat_conversation_hidden
         end
       end
 
-      resources :links, only: :show
-      resource :popular_links, only: :show
-      resources :streaming, only: [:index]
+      resources :links,         only: :show
+      resource :popular_links,  only: :show
+      resources :streaming,     only: [:index]
       resources :custom_emojis, only: [:index]
-      resources :suggestions, only: [:index, :destroy]
+      resources :suggestions,   only: [:index, :destroy]
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
-      resources :preferences, only: [:index]
+      resources :preferences,   only: [:index]
       resources :group_categories, only: [:index]
       resources :chat_messages, only: [:create, :destroy]
-
-      get '/search', to: 'search#index', as: :search
-      get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
-
       resources :promotions,   only: [:index]
       resources :follows,      only: [:create]
       resources :media,        only: [:create, :update]
@@ -285,6 +286,11 @@ Rails.application.routes.draw do
       resources :filters,      only: [:index, :create, :show, :update, :destroy]
       resources :shortcuts,    only: [:index, :create, :show, :destroy]
       resources :bookmarks,    only: [:index]
+      resources :bookmark_collections, only: [:index, :create, :update, :show, :destroy]
+      resources :albums,       only: [:index, :create, :update, :show, :destroy]
+
+      get '/search', to: 'search#index', as: :search
+      get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
 
       namespace :apps do
         get :verify_credentials, to: 'credentials#show'

@@ -8,6 +8,7 @@ import { openModal } from '../../../actions/modal'
 import { sendChatMessage } from '../../../actions/chat_messages'
 import { CX } from '../../../constants'
 import Button from '../../../components/button'
+import Icon from '../../../components/icon'
 import Input from '../../../components/input'
 import Text from '../../../components/text'
 
@@ -21,6 +22,10 @@ class ChatMessagesComposeForm extends React.PureComponent {
   handleOnSendChatMessage = () => {
     this.props.onSendChatMessage(this.state.value, this.props.chatConversationId)
     this.setState({ value: '' })
+  }
+
+  handleOnExpire = () => {
+    //
   }
 
   onChange = (e) => {
@@ -68,6 +73,10 @@ class ChatMessagesComposeForm extends React.PureComponent {
     this.sendBtn = c
   }
 
+  setExpiresBtn = (c) => {
+    this.expiresBtn = c
+  }
+
   render () {
     const { isXS, chatConversationId } = this.props
     const { value } = this.state
@@ -85,9 +94,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
       px10: 1,
       fs14PX: 1,
       maxH200PX: 1,
-      borderColorSecondary: 1,
-      border1PX: 1,
-      radiusRounded: 1,
+      w100PC: 1,
       py10: 1,
     })
 
@@ -105,6 +112,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
         onBlur={this.onBlur}
         onKeyDown={this.onKeyDown}
         aria-autocomplete='list'
+        maxLength={1600}
       />
     )
 
@@ -114,8 +122,18 @@ class ChatMessagesComposeForm extends React.PureComponent {
         disabled={disabled}
         onClick={this.handleOnSendChatMessage}
       >
-        <Text color='inherit' weight='medium' className={_s.px10}>Send</Text>
+        <Text color='inherit' weight='medium' className={isXS ? undefined : _s.px10}>Send</Text>
       </Button>
+    )
+
+    const expiresBtn = (
+      <button
+        ref={this.setExpiresBtn}
+        className={[_s.d, _s.bgSubtle, _s.borderRight1PX, _s.borderColorSecondary, _s.w40PX, _s.h100PC, _s.aiCenter, _s.jcCenter, _s.cursorPointer, _s.outlineNone].join(' ')}
+        onClick={this.handleOnExpire}
+      >
+        <Icon id='stopwatch' className={[_s.cPrimary, _s.ml2].join(' ')} size='15px' />
+      </button>
     )
 
     if (isXS) {
@@ -124,8 +142,13 @@ class ChatMessagesComposeForm extends React.PureComponent {
           <div className={[_s.d, _s.minH58PX, _s.bgPrimary, _s.aiCenter, _s.z3, _s.bottom0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
             <div className={[_s.d, _s.w100PC, _s.pb5, _s.px15, _s.aiCenter, _s.jcCenter, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
               <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px10].join(' ')}>
-                <div className={[_s.d, _s.pr15, _s.flexGrow1, _s.py10].join(' ')}>
-                  {textarea}
+                <div className={[_s.d, _s.flexRow, _s.radiusRounded, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden].join(' ')}>
+                  <div className={_s.d}>  
+                    {expiresBtn}
+                  </div>
+                  <div className={[_s.d, _s.flexGrow1].join(' ')}>
+                    {textarea}
+                  </div>
                 </div>
                 <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
                   {button}
@@ -140,9 +163,16 @@ class ChatMessagesComposeForm extends React.PureComponent {
     return (
       <div className={[_s.d, _s.posAbs, _s.bottom0, _s.left0, _s.right0, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.bgPrimary, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px15].join(' ')}>
         <div className={[_s.d, _s.pr15, _s.flexGrow1, _s.py10].join(' ')}>
-          {textarea}
+          <div className={[_s.d, _s.flexRow, _s.radiusRounded, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden].join(' ')}>
+            <div className={_s.d}>  
+              {expiresBtn}
+            </div>
+            <div className={[_s.d, _s.flexGrow1].join(' ')}>
+              {textarea}
+            </div>
+          </div>
         </div>
-        <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
+        <div className={[_s.d, _s.h100PC, _s.mtAuto, _s.mb10, _s.aiCenter, _s.jcCenter].join(' ')}>
           {button}
         </div>
       </div>
@@ -163,4 +193,4 @@ ChatMessagesComposeForm.propTypes = {
   onSendMessage: PropTypes.func.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(ChatMessagesComposeForm)
+export default connect(mapDispatchToProps)(ChatMessagesComposeForm)

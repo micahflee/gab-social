@@ -5,6 +5,10 @@ class UpdateAccountService < BaseService
     was_locked    = account.locked
     update_method = raise_error ? :update! : :update
 
+    # : todo :
+    # check if link blocking
+    # set account.is_flagged_as_spam
+
     account.send(update_method, params).tap do |ret|
       next unless ret
 

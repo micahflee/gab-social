@@ -5,14 +5,20 @@ class SuspendAccountService < BaseService
     active_relationships
     block_relationships
     blocked_by_relationships
+    chat_block_relationships
+    chat_blocked_by_relationships
     conversations
+    chat_conversations
+    chat_messages
     custom_filters
     favourites
     follow_requests
     list_accounts
     media_attachments
     mute_relationships
+    chat_mute_relationships
     muted_by_relationships
+    chat_muted_by_relationships
     notifications
     owned_lists
     passive_relationships
@@ -21,6 +27,10 @@ class SuspendAccountService < BaseService
     status_bookmarks
     status_pins
     subscriptions
+    group_accounts
+    group_join_requests
+    group_removed_accounts
+    shortcuts
   ).freeze
 
   ASSOCIATIONS_ON_DESTROY = %w(

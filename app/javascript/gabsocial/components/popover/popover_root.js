@@ -1,8 +1,9 @@
 import {
   BREAKPOINT_EXTRA_SMALL,
   POPOVER_CHAT_CONVERSATION_OPTIONS,
-  POPOVER_CHAT_MESSAGE_DELETE,
+  POPOVER_CHAT_MESSAGE_OPTIONS,
   POPOVER_COMMENT_SORTING_OPTIONS,
+  POPOVER_COMPOSE_POST_DESTINATION,
   POPOVER_DATE_PICKER,
   POPOVER_EMOJI_PICKER,
   POPOVER_GROUP_LIST_SORT_OPTIONS,
@@ -23,8 +24,9 @@ import {
 } from '../../constants'
 import {
   ChatConversationOptionsPopover,
-  ChatMessageDeletePopover,
+  ChatMessageOptionsPopover,
   CommentSortingOptionsPopover,
+  ComposePostDesinationPopover,
   DatePickerPopover,
   EmojiPickerPopover,
   GroupListSortOptionsPopover,
@@ -59,8 +61,9 @@ const initialState = getWindowDimension()
 
 const POPOVER_COMPONENTS = {
   [POPOVER_CHAT_CONVERSATION_OPTIONS]: ChatConversationOptionsPopover,
-  [POPOVER_CHAT_MESSAGE_DELETE]: ChatMessageDeletePopover,
+  [POPOVER_CHAT_MESSAGE_OPTIONS]: ChatMessageOptionsPopover,
   [POPOVER_COMMENT_SORTING_OPTIONS]: CommentSortingOptionsPopover,
+  [POPOVER_COMPOSE_POST_DESTINATION]: ComposePostDesinationPopover,
   [POPOVER_DATE_PICKER]: DatePickerPopover,
   [POPOVER_EMOJI_PICKER]: EmojiPickerPopover,
   [POPOVER_GROUP_LIST_SORT_OPTIONS]: GroupListSortOptionsPopover,

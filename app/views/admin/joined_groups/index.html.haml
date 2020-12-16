@@ -1,0 +1,15 @@
+- content_for :page_title do
+  = "@#{@account.username} - Joined Groups" 
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= t('admin.groups.id')
+        %th= t('admin.groups.title')
+        %th= t('admin.groups.member_count')
+        %th
+    %tbody
+      = render @groups
+
+= paginate @groups

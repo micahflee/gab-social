@@ -5,6 +5,9 @@ module Admin
   class DashboardController < BaseController
     def index
       @users_count           = User.count
+      @statuses_count        = Status.count
+      @pro_accounts_count    = Account.where(is_pro: true).count
+      @donor_accounts_count  = Account.where(is_donor: true).count
       @registrations_week    = Redis.current.get("activity:accounts:local:#{current_week}") || 0
       @logins_week           = Redis.current.pfcount("activity:logins:#{current_week}")
       @interactions_week     = Redis.current.get("activity:interactions:#{current_week}") || 0

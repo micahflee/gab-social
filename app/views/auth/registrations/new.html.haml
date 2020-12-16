@@ -23,7 +23,7 @@
     = f.input :password_confirmation, wrapper: :with_label, label: t('simple_form.labels.defaults.confirm_password'), required: true, input_html: { 'aria-label' => t('simple_form.labels.defaults.confirm_password'), :autocomplete => 'off' }
 
   .fields-group
-    = f.input :challenge, wrapper: :with_label, label: "Are you human? What is #{@challenge_add_1} + #{@challenge_add_2} = ", required: true, input_html: { 'aria-label' => "Are you human? What is #{@challenge_add_1} + #{@challenge_add_2}", :autocomplete => 'off' }
+    = f.input :challenge, wrapper: :with_label, label: "Are you a human? What is #{@challenge_add_1} + #{@challenge_add_2} = ", required: true, input_html: { 'aria-label' => "Are you a human? What is #{@challenge_add_1} + #{@challenge_add_2}", :autocomplete => 'off' }
 
   .fields-group-agreement
     = f.input :agreement, as: :boolean, wrapper: :with_label, label: t('auth.checkbox_agreement_html', about_tos_path: about_tos_path)

@@ -6,12 +6,7 @@ class FanOutOnWriteService < BaseService
   # @param [Status] status
   def call(status)
     raise GabSocial::RaceConditionError if status.visibility.nil?
-
-    if status.direct_visibility? || status.limited_visibility?
-      # 
-    else
-      deliver_to_self(status) if status.account.local?
-    end
+    deliver_to_self(status) if status.account.local?
   end
 
   private

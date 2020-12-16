@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_06_060226) do
+ActiveRecord::Schema.define(version: 2020_12_15_203113) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -134,6 +134,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
     t.boolean "is_verified", default: false, null: false
     t.boolean "is_donor", default: false, null: false
     t.boolean "is_investor", default: false, null: false
+    t.boolean "is_flagged_as_spam", default: false, null: false
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), lower((domain)::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
     t.index ["is_donor"], name: "index_accounts_on_is_donor"
@@ -418,6 +419,17 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
     t.index ["account_id"], name: "index_lists_on_account_id"
   end
 
+  create_table "media_attachment_albums", force: :cascade do |t|
+    t.text "title", default: "", null: false
+    t.text "description"
+    t.integer "account_id", null: false
+    t.integer "visibility", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "cover_id"
+    t.index ["cover_id"], name: "index_media_attachment_albums_on_cover_id"
+  end
+
   create_table "media_attachments", force: :cascade do |t|
     t.bigint "status_id"
     t.string "file_file_name"
@@ -434,7 +446,9 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
     t.text "description"
     t.bigint "scheduled_status_id"
     t.string "blurhash"
+    t.bigint "media_attachment_album_id"
     t.index ["account_id"], name: "index_media_attachments_on_account_id"
+    t.index ["media_attachment_album_id"], name: "index_media_attachments_on_media_attachment_album_id"
     t.index ["scheduled_status_id"], name: "index_media_attachments_on_scheduled_status_id"
     t.index ["shortcode"], name: "index_media_attachments_on_shortcode", unique: true
     t.index ["status_id"], name: "index_media_attachments_on_status_id"
@@ -671,13 +685,22 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
     t.index ["var"], name: "index_site_uploads_on_var", unique: true
   end
 
+  create_table "status_bookmark_collections", force: :cascade do |t|
+    t.text "title", default: "", null: false
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "status_bookmarks", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "account_id", null: false
     t.bigint "status_id", null: false
+    t.bigint "status_bookmark_collection_id"
     t.index ["account_id", "status_id"], name: "index_status_bookmarks_on_account_id_and_status_id", unique: true
     t.index ["account_id"], name: "index_status_bookmarks_on_account_id"
+    t.index ["status_bookmark_collection_id"], name: "index_status_bookmarks_on_status_bookmark_collection_id"
     t.index ["status_id"], name: "index_status_bookmarks_on_status_id"
   end
 
@@ -887,6 +910,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
   add_foreign_key "list_accounts", "lists", on_delete: :cascade
   add_foreign_key "lists", "accounts", on_delete: :cascade
   add_foreign_key "media_attachments", "accounts", name: "fk_96dd81e81b", on_delete: :nullify
+  add_foreign_key "media_attachments", "media_attachment_albums", on_delete: :nullify
   add_foreign_key "media_attachments", "scheduled_statuses", on_delete: :nullify
   add_foreign_key "media_attachments", "statuses", on_delete: :nullify
   add_foreign_key "mentions", "accounts", name: "fk_970d43f9d1", on_delete: :cascade
@@ -915,6 +939,7 @@ ActiveRecord::Schema.define(version: 2020_12_06_060226) do
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
   add_foreign_key "shortcuts", "accounts", on_delete: :cascade
   add_foreign_key "status_bookmarks", "accounts", on_delete: :cascade
+  add_foreign_key "status_bookmarks", "status_bookmark_collections", on_delete: :nullify
   add_foreign_key "status_bookmarks", "statuses", on_delete: :cascade
   add_foreign_key "status_pins", "accounts", name: "fk_d4cb435b62", on_delete: :cascade
   add_foreign_key "status_pins", "statuses", on_delete: :cascade

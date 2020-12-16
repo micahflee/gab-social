@@ -10,12 +10,14 @@ import ComposeFormContainer from '../features/compose/containers/compose_form_co
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
 import Responsive from '../features/ui/util/responsive_component'
 import Avatar from './avatar'
-import Heading from './heading'
+import Button from './button'
+import Text from './text'
 
 class TimelineComposeBlock extends ImmutablePureComponent {
 
   render() {
     const {
+      formLocation,
       account,
       size,
       intl,
@@ -27,7 +29,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
       return (
         <section className={_s.d}>
           <div className={[_s.d, _s.flexRow].join(' ')}>
-            <ComposeFormContainer {...rest} isModal={isModal} />
+            <ComposeFormContainer {...rest} isModal={isModal} formLocation={formLocation} />
           </div>
         </section>
       )
@@ -39,17 +41,7 @@ class TimelineComposeBlock extends ImmutablePureComponent {
           classNames={[_s.d, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden, _s.radiusSmall].join(' ')}
           classNamesXS={[_s.d, _s.boxShadowBlock, _s.bgPrimary, _s.overflowHidden].join(' ')}
         >
-          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-            <div className={[_s.d, _s.bgSubtle, _s.borderTop1PX, _s.borderBottom1PX, _s.borderColorSecondary, _s.px15, _s.py2, _s.aiCenter, _s.flexRow].join(' ')}>
-              <div className={_s.mr10}>
-                <Avatar account={account} size={20} noHover />
-              </div>
-              <Heading size='h5'>
-                {intl.formatMessage(messages.createPost)}
-              </Heading>
-            </div>
-          </Responsive>
-          <ComposeFormContainer {...rest} />
+          <ComposeFormContainer {...rest} formLocation={formLocation} />
         </ResponsiveClassesComponent>
       </section>
     )
@@ -70,10 +62,12 @@ TimelineComposeBlock.propTypes = {
   account: ImmutablePropTypes.map.isRequired,
   size: PropTypes.number,
   isModal: PropTypes.bool,
+  formLocation: PropTypes.string,
 }
 
 TimelineComposeBlock.defaultProps = {
   size: 32,
+  formLocation: 'timeline',
 }
 
 export default injectIntl(connect(mapStateToProps)(TimelineComposeBlock))

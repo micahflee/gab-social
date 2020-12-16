@@ -148,7 +148,7 @@ class StyleButton extends React.PureComponent {
       px10: 1,
       mr5: 1,
       noSelect: 1,
-      bgSecondaryDark_onHover: 1,
+      bgSubtle_onHover: 1,
       bgBrandLight: active,
       bgTransparent: 1,
       radiusSmall: 1,
@@ -162,7 +162,7 @@ class StyleButton extends React.PureComponent {
         onMouseDown={this.handleOnClick}
         title={label}
       >
-        <Icon id={icon} size='12px' className={_s[iconColor]} />
+        <Icon id={icon} size='16px' className={_s[iconColor]} />
       </button>
     )
   }

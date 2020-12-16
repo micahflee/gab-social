@@ -18,23 +18,16 @@ class UploadForm extends ImmutablePureComponent {
 
     return (
       <div className={_s.d}>
+        { isUploading && <ProgressBar small progress={uploadProgress} /> }
+
         <div className={[_s.d, _s.flexRow, _s.flexWrap].join(' ')}>
-          {
-            mediaIds.map(id => (
-              <Upload id={id} key={id} />
-            ))
-          }
+          {mediaIds.map(id => (
+            <Upload id={id} key={id} />
+          ))}
         </div>
 
-        {
-          !mediaIds.isEmpty() &&
-          <SensitiveMediaButton />
-        }
-
-        {
-          isUploading &&
-          <ProgressBar small progress={uploadProgress} />
-        }
+        { !mediaIds.isEmpty() && <SensitiveMediaButton /> }
+        { isUploading && <ProgressBar small progress={uploadProgress} /> }
       </div>
     )
   }
@@ -48,7 +41,6 @@ const mapStateToProps = (state) => ({
 })
 
 UploadForm.propTypes = {
-  isModalOpen: PropTypes.bool,
   isUploading: PropTypes.bool,
   mediaIds: ImmutablePropTypes.list.isRequired,
   uploadProgress: PropTypes.number,

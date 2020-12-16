@@ -49,7 +49,7 @@ class ChatNavigationBar extends React.PureComponent {
             <div className={[_s.d, _s.h53PX, _s.flexRow, _s.jcCenter, _s.aiCenter, _s.mrAuto].join(' ')}>
               <AvatarGroup accounts={otherAccounts} size={35} noHover />
               <Heading size='h1'>
-                <div className={[_s.dangerousContent, _s.pl10, _s.fs19PX].join(' ')} dangerouslySetInnerHTML={{ __html: nameHTML }} />
+                <div className={[_s.dangerousContent, _s.colorNavigation, _s.pl10, _s.fs19PX].join(' ')} dangerouslySetInnerHTML={{ __html: nameHTML }} />
               </Heading>
             </div>
 

@@ -15,6 +15,7 @@ import {
   expandChatMessages,
   scrollBottomChatMessageConversation,
 } from '../../../actions/chat_conversation_messages'
+import { readChatConversation } from '../../../actions/chat_conversations'
 import IntersectionObserverArticle from '../../../components/intersection_observer_article'
 import IntersectionObserverWrapper from '../../ui/util/intersection_observer_wrapper'
 import ChatMessagePlaceholder from '../../../components/placeholder/chat_message_placeholder'
@@ -58,7 +59,6 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     // Reset the scroll position when a new child comes in in order not to
     // jerk the scrollbar around if you're already scrolled down the page.
     if (snapshot !== null && this.scrollContainerRef) {
-      console.log("snapshot:", snapshot)
       this.setScrollTop(this.scrollContainerRef.scrollHeight - snapshot)
     }
 
@@ -68,6 +68,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
 
     if (prevProps.chatMessageIds.size === 0 && this.props.chatMessageIds.size > 0 && this.scrollContainerRef) {
       this.scrollContainerRef.scrollTop = this.scrollContainerRef.scrollHeight
+      this.props.onReadChatConversation(this.props.chatConversationId)
     }
   }
 
@@ -362,6 +363,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   },
   onSetChatConversationSelected: (chatConversationId) => {
     dispatch(setChatConversationSelected(chatConversationId))
+  },
+  onReadChatConversation(chatConversationId) {
+    dispatch(readChatConversation(chatConversationId))
   },
 })
 
