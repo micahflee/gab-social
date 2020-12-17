@@ -958,32 +958,8 @@ pre {
   list-style: none;
 }
 
-.videoEase {
-  transition: left 0.25s linear, width 0.25s linear;
-}
-
-.videoPlayerControlsBackground {
-  background: linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,.45) 60%, transparent);
-}
-
 .newsBackground {
   background: linear-gradient(0deg, rgba(0,0,0,1), transparent 100%);
-}
-
-.videoPlayerSeek:before {
-  content: '';
-  display: block;
-  position: absolute;
-  border-radius: 4px;
-  top: 10px;
-  width: 100%;
-  height: 40px;
-}
-
-.videoPlayerVolume {
-  width: 24px;
-  left: 68px;
-  bottom: 60px;
 }
 
 .select {
@@ -1052,12 +1028,6 @@ pre {
   content: '…';
   position: relative;
 }
-
-/* .videoPlayerVolume:before {
-  content: '';
-  display: block;
-  position: absolute;
-} */
 
 .visiblyHidden {
   clip: rect(1px, 1px, 1px, 1px);
@@ -1370,6 +1340,248 @@ pre {
   }
 }
 
+/* video.js */
+
+:global(.video-js .vjs-menu-button-inline.vjs-slider-active),
+:global(.video-js .vjs-menu-button-inline:focus),
+:global(.video-js .vjs-menu-button-inline:hover),
+:global(.video-js.vjs-no-flex .vjs-menu-button-inline) {
+  width: 20em !important;
+}
+
+:global(.video-js .vjs-time-control) {
+  display: block !important;
+  line-height: 34px!important;
+  font-size: 12px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+:global(.video-js .vjs-remaining-time) {
+  display: none !important;
+}
+
+:global(.vjs-time-control.vjs-time-divider) {
+  width: 20px !important;
+  padding: 0 4px 0 8px !important;
+  min-width: 20px !important;
+}
+
+
+:global(.video-js button) {
+  outline: none !important;
+}
+
+:global(.vjs-playback-rate.vjs-menu-button.vjs-menu-button-popup.vjs-control.vjs-button) {
+  margin-left: auto !important;
+}
+
+:global(.vjs-fullscreen-control .vjs-icon-placeholder:before) {
+  content: "\e928" !important;
+}
+
+:global(.vjs-fullscreen .vjs-fullscreen-control .vjs-icon-placeholder:before) {
+  /* minimize */
+  content: "\e93a" !important;
+}
+
+:global(.vjs-fullscreen-control .vjs-icon-placeholder:before) {
+  content: "\e928" !important;
+}
+
+:global(.vjs-picture-in-picture-control .vjs-icon-placeholder:before) {
+  content: "\e923" !important;
+}
+
+:global(.vjs-button > .vjs-icon-placeholder:before) {
+  font-size: 20px !important;
+  line-height: 35px !important;
+}
+
+:global(.vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal) {
+  margin-right: 15px !important;
+}
+
+:global(.vjs-volume-panel .vjs-icon-placeholder:before) {
+  font-size: 25px !important;
+}
+
+:global(.vjs-volume-panel .vjs-icon-placeholder:before) {
+  content: "\e917" !important;
+}
+
+:global(.vjs-volume-panel .vjs-vol-0 .vjs-icon-placeholder:before) {
+  content: "\e916" !important; 
+}
+
+:global(.vjs-playback-rate .vjs-playback-rate-value) {
+  font-size: 1.725em !important;
+  line-height: 2.15 !important;
+}
+
+:global(.vjs-playing.video-js .vjs-big-play-button .vjs-icon-placeholder:before),
+:global(.vjs-playing.video-js .vjs-play-control .vjs-icon-placeholder:before),
+:global(.vjs-playing .vjs-icon-play:before) {
+  /* pause */
+  content: "\e93f" !important;
+}
+
+:global(.vjs-paused.video-js .vjs-big-play-button .vjs-icon-placeholder:before),
+:global(.vjs-paused.video-js .vjs-play-control .vjs-icon-placeholder:before),
+:global(.vjs-paused .vjs-icon-play:before) {
+  /* play */
+  content: "\e942" !important;
+}
+
+:global(.video-js .vjs-big-play-button .vjs-icon-placeholder:before) {
+  line-height: 68px !important;
+  font-size: 26px !important;
+  padding-left: 4px !important;
+}
+
+:global(.video-js span) {
+  font-family: var(--font_family) !important;
+}
+
+:global(.vjs-volume-level),
+:global(.vjs-play-progress.vjs-slider-bar) {
+  background-color: var(--color_brand) !important;
+} 
+
+:global(.video-js .vjs-big-play-button) {
+  background-color:rgba(0,0,0,.35);
+  font-size: 3.5em !important;
+  width: 2em !important;
+  height: 2em !important;
+  border-radius: var(--radius-circle) !important;
+  top: calc(50% - 1em) !important;
+  left: calc(50% - 1em) !important;
+}
+
+:global(.video-js .vjs-control-bar) {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+  background-color: transparent !important;
+  background: linear-gradient(0deg, rgba(0,0,0,.85), rgba(0,0,0,.45) 60%, transparent);
+  height: 42px !important;
+}
+
+:global(.video-js .vjs-progress-holder),
+:global(.vjs-slider-horizontal .vjs-volume-level) {
+  height: 6px !important;
+}
+
+:global(.video-js .vjs-progress-control .vjs-progress-holder) {
+  margin: 15px 10px 0 10px !important;
+}
+
+:global(.video-js .vjs-progress-holder .vjs-load-progress),
+:global(.video-js .vjs-progress-holder .vjs-load-progress div),
+:global(.video-js .vjs-progress-holder .vjs-play-progress),
+:global(.vjs-slider-horizontal .vjs-volume-level) {
+  border-radius: var(--radius-circle) !important;
+}
+
+:global(.video-js .vjs-volume-bar) {
+  margin: 1.55em .45em 0 1em !important;
+}
+
+:global(.vjs-volume-bar.vjs-slider-horizontal),
+:global(.video-js .vjs-volume-panel.vjs-volume-panel-horizontal.vjs-hover),
+:global(.video-js .vjs-volume-panel.vjs-volume-panel-horizontal.vjs-slider-active),
+:global(.video-js .vjs-volume-panel.vjs-volume-panel-horizontal:active) {
+  width: 140px !important;
+}
+
+:global(.video-js .vjs-volume-panel .vjs-volume-control.vjs-slider-active.vjs-volume-horizontal),
+:global(.video-js .vjs-volume-panel .vjs-volume-control:active.vjs-volume-horizontal),
+:global(.video-js .vjs-volume-panel.vjs-hover .vjs-mute-control~.vjs-volume-control.vjs-volume-horizontal),
+:global(.video-js .vjs-volume-panel.vjs-hover .vjs-volume-control.vjs-volume-horizontal),
+:global(.video-js .vjs-volume-panel:active .vjs-volume-control.vjs-volume-horizontal),
+:global(.video-js .vjs-volume-panel:focus .vjs-volume-control.vjs-volume-horizontal) {
+  width: 100px !important;
+}
+
+:global(.video-js .vjs-play-progress:before) {
+  content: "" !important;
+  right: 0 !important;
+  top: -3px !important;
+  height: 12px !important;
+  width: 13px !important;
+  background-color: var(--color_white);
+  border-radius: var(--radius-circle);
+  transform: scale(1);
+  transition: scale 1s linear;
+}
+
+:global(.video-js .vjs-progress-control:hover .vjs-play-progress:before) {
+  transform: scale(1.5) !important;
+}
+
+:global(.vjs-text-track-display) {
+  bottom: 42px !important;
+}
+
+:global(.video-js .vjs-progress-control) {
+  position: absolute !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 42px !important;
+  height: 42px !important;
+  width: 100% !important;
+}
+
+:global(.vjs-paused.vjs-has-started.video-js .vjs-big-play-button) {
+  display: block !important;
+}
+
+:global(.vjs-playback-rate.vjs-hover .vjs-menu) {
+  width: 70px;
+  left: -15px;
+}
+
+:global(.vjs-playback-rate.vjs-hover .vjs-menu li) {
+  padding: 5px !important;
+  font-size: 14px !important;
+}
+
+:global(.vjs-menu-button-popup .vjs-menu .vjs-menu-content) {
+  max-height: 200px !important;
+}
+
+:global(.video-js .vjs-volume-level:before) {
+  content: '' !important;
+  width: 10px !important;
+  height: 10px !important;
+  background-color: var(--color_white);
+  border-radius: var(--radius-circle);
+  top: -2px !important;
+}
+
+@media (min-width:0px) and (max-width:992px) {
+  /* mobile */
+  :global(.video-js .vjs-picture-in-picture-control) {
+    display: none !important;
+  }
+
+  :global(.vjs-button > .vjs-icon-placeholder:before) {
+    font-size: 18px !important;
+  }
+  
+  :global(.vjs-volume-panel .vjs-icon-placeholder:before) {
+    font-size: 22px !important;
+  }
+
+  :global(.video-js .vjs-control-button) {
+    width: 4.5em !important;
+  }
+
+  :global(.vjs-volume-panel.vjs-control.vjs-volume-panel-horizontal) {
+    margin-right: 10px !important;
+  }
+}
+
 /*  */
 
 @font-face {
@@ -1384,6 +1596,7 @@ pre {
   font-display: block;
 }
 
+:global(.video-js .vjs-icon-placeholder:before),
 .gfi {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'gab_font_icon' !important;
@@ -1589,7 +1802,7 @@ pre {
   content: "\e93e";
 }
 .gfi-pause:before {
-  content: "\e93f";
+  content: "\e93f"
 }
 .gfi-pencil:before {
   content: "\e940";
