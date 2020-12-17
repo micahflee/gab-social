@@ -14,6 +14,7 @@ import {
 } from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
+import Text from '../text'
 
 class ChatConversationExpirationOptionsPopover extends React.PureComponent {
 
@@ -94,7 +95,7 @@ class ChatConversationExpirationOptionsPopover extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
-        <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>This chats delete after:</Text>
+        <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>Chats delete after:</Text>
         <List
           scrollKey='chat_conversation_expiration'
           items={listItems}

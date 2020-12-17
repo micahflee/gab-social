@@ -424,4 +424,8 @@ StatusList.propTypes = {
   promotedStatuses: PropTypes.object,
 }
 
+StatusList.defaultProps = {
+  statusIds: ImmutableList(),
+}
+
 export default connect(mapStateToProps, mapDispatchToProps)(StatusList)

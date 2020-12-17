@@ -4,9 +4,15 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { connect } from 'react-redux'
 import Textarea from 'react-textarea-autosize'
-import { openModal } from '../../../actions/modal'
+import { openPopover } from '../../../actions/popover'
+import { modal } from '../../../actions/modal'
 import { sendChatMessage } from '../../../actions/chat_messages'
-import { CX } from '../../../constants'
+import { me } from '../../../initial_state'
+import {
+  CX,
+  MODAL_PRO_UPGRADE,
+  POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS,
+} from '../../../constants'
 import Button from '../../../components/button'
 import Icon from '../../../components/icon'
 import Input from '../../../components/input'
@@ -25,7 +31,11 @@ class ChatMessagesComposeForm extends React.PureComponent {
   }
 
   handleOnExpire = () => {
-    //
+    if (this.props.isPro) {
+      this.props.onShowExpirePopover(this.expiresBtn)
+    } else {
+      this.props.onShowProModal()
+    }
   }
 
   onChange = (e) => {
@@ -181,16 +191,33 @@ class ChatMessagesComposeForm extends React.PureComponent {
 
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapStateToProps = (state) => ({
+  isPro: state.getIn(['accounts', me, 'is_pro']),
+})
+
+const mapDispatchToProps = (dispatch, { chatConversationId }) => ({
   onSendChatMessage(text, chatConversationId) {
     dispatch(sendChatMessage(text, chatConversationId))
   },
+  onShowProModal() {
+    dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
+  onShowExpirePopover(targetRef) {
+    dispatch(openPopover(POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS, {
+      targetRef,
+      chatConversationId,
+      position: 'top',
+    }))
+  }
 })
 
 ChatMessagesComposeForm.propTypes = {
   chatConversationId: PropTypes.string,
   isXS: PropTypes.bool,
-  onSendMessage: PropTypes.func.isRequired,
+  isPro: PropTypes.bool,
+  onSendChatMessage: PropTypes.func.isRequired,
+  onShowExpirePopover: PropTypes.func.isRequired,
+  onShowProModal: PropTypes.func.isRequired,
 }
 
-export default connect(null, mapDispatchToProps)(ChatMessagesComposeForm)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatMessagesComposeForm)

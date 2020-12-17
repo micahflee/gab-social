@@ -13,7 +13,7 @@ sv:
         bot: Detta konto utför huvudsakligen automatiserade åtgärder och kanske inte övervakas
         digest: Skickas endast efter en lång period av inaktivitet och endast om du har fått några personliga meddelanden i din frånvaro
         email: Ett konfirmationsmeddelande kommer att skickas till dig via epost
-        fields: Du kan ha upp till 4 objekt visade som en tabell på din profil
+        fields: Du kan ha upp till 6 objekt visade som en tabell på din profil
         header: PNG, GIF eller JPG. Högst %{size}. Kommer att skalas ner till %{dimensions}px
         irreversible: Filtrerade inlägg kommer att försvinna oåterkalleligt, även om filter tas bort senare
         locale: Användargränssnittets språk, e-post och push-aviseringar

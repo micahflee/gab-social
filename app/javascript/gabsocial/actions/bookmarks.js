@@ -40,13 +40,13 @@ export const UPDATE_BOOKMARK_COLLECTION_STATUS_SUCCESS = 'UPDATE_BOOKMARK_COLLEC
 export const fetchBookmarkedStatuses = (bookmarkCollectionId) => (dispatch, getState) => {
   if (!me) return
 
-  if (getState().getIn(['status_lists', 'bookmarks', 'isLoading'])) {
+  if (getState().getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'isLoading'])) {
     return
   }
 
   dispatch(fetchBookmarkedStatusesRequest(bookmarkCollectionId))
 
-  api(getState).get('/api/v1/bookmarks').then((response) => {
+  api(getState).get(`/api/v1/bookmark_collections/${bookmarkCollectionId}/bookmarks`).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedStatuses(response.data))
     dispatch(fetchBookmarkedStatusesSuccess(response.data, bookmarkCollectionId, next ? next.uri : null))
@@ -57,6 +57,7 @@ export const fetchBookmarkedStatuses = (bookmarkCollectionId) => (dispatch, getS
 
 const fetchBookmarkedStatusesRequest = (bookmarkCollectionId) => ({
   type: BOOKMARKED_STATUSES_FETCH_REQUEST,
+  bookmarkCollectionId,
 })
 
 const fetchBookmarkedStatusesSuccess = (statuses, bookmarkCollectionId, next) => ({
@@ -98,10 +99,12 @@ export const expandBookmarkedStatuses = (bookmarkCollectionId) => (dispatch, get
 
 const expandBookmarkedStatusesRequest = (bookmarkCollectionId) => ({
   type: BOOKMARKED_STATUSES_EXPAND_REQUEST,
+  bookmarkCollectionId,
 })
 
 const expandBookmarkedStatusesSuccess = (statuses, bookmarkCollectionId, next) => ({
   type: BOOKMARKED_STATUSES_EXPAND_SUCCESS,
+  bookmarkCollectionId,
   statuses,
   next,
 })
@@ -213,7 +216,7 @@ export const updateBookmarkCollection = (bookmarkCollectionId, title) => (dispat
 
   dispatch(updateBookmarkCollectionRequest())
 
-  api(getState).post('/api/v1/bookmark_collections', { title }).then((response) => {
+  api(getState).put('/api/v1/bookmark_collections', { title }).then((response) => {
     dispatch(updateBookmarkCollectionSuccess(response.data))
   }).catch((error) => {
     dispatch(updateBookmarkCollectionFail(error))
@@ -243,8 +246,9 @@ export const updateBookmarkCollectionStatus = (statusId, bookmarkCollectionId) =
 
   dispatch(updateBookmarkCollectionStatusRequest())
 
-  api(getState).post('/api/v1/bookmark_collections', { title }).then((response) => {
-    dispatch(updateBookmarkCollectionStatusSuccess(response.data))
+  api(getState).post(`/api/v1/bookmark_collections/${bookmarkCollectionId}/update_status`, { statusId }).then((response) => {
+    dispatch(importFetchedStatuses([response.data]))
+    dispatch(updateBookmarkCollectionStatusSuccess())
   }).catch((error) => {
     dispatch(updateBookmarkCollectionStatusFail(error))
   })
@@ -254,9 +258,8 @@ const updateBookmarkCollectionStatusRequest = () => ({
   type: UPDATE_BOOKMARK_COLLECTION_STATUS_REQUEST,
 })
 
-const updateBookmarkCollectionStatusSuccess = (bookmarkCollection) => ({
+const updateBookmarkCollectionStatusSuccess = () => ({
   type: UPDATE_BOOKMARK_COLLECTION_STATUS_SUCCESS,
-  bookmarkCollection,
 })
 
 const updateBookmarkCollectionStatusFail = (error) => ({

@@ -27,6 +27,7 @@ class ShopInjection extends React.PureComponent {
     } = this.props
 
     if (!items || isError || !Array.isArray(items)) return <div />
+    if (items.length <= 0) return <div />
 
     return (
       <TimelineInjectionLayout

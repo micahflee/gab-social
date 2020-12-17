@@ -6,7 +6,7 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def create?
-    admin? or current_account.is_pro
+    true
   end
 
   def update?

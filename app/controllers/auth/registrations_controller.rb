@@ -4,6 +4,7 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   layout :determine_layout
 
   before_action :set_challenge, only: [:new]
+  before_action :check_enabled_registrations, only: [:new, :create]
   before_action :configure_sign_up_params, only: [:create]
   before_action :set_sessions, only: [:edit, :update]
   before_action :set_instance_presenter, only: [:new, :create, :update]
@@ -90,4 +91,13 @@ class Auth::RegistrationsController < Devise::RegistrationsController
   def set_cache_headers
     response.headers['Cache-Control'] = 'no-cache, no-store, max-age=0, must-revalidate'
   end
+
+  def check_enabled_registrations
+    redirect_to root_path if single_user_mode? || !allowed_registrations?
+  end
+
+  def allowed_registrations?
+    Setting.registrations_mode != 'none'
+  end
+
 end

@@ -16,9 +16,7 @@ class SuspendAccountService < BaseService
     list_accounts
     media_attachments
     mute_relationships
-    chat_mute_relationships
     muted_by_relationships
-    chat_muted_by_relationships
     notifications
     owned_lists
     passive_relationships

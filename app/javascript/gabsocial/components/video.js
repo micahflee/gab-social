@@ -7,6 +7,7 @@ import { defineMessages, injectIntl } from 'react-intl'
 import { is } from 'immutable'
 import throttle from 'lodash.throttle'
 import { decode } from 'blurhash'
+import videojs from 'video.js'
 import { isFullscreen, requestFullscreen, exitFullscreen } from '../utils/fullscreen'
 import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../utils/media_aspect_ratio'
 import {
@@ -24,9 +25,23 @@ import Icon from './icon'
 import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
 
+import '!style-loader!css-loader!video.js/dist/video-js.min.css'
+
 // check every 100 ms for buffer
 const checkInterval = 100
 const FIXED_VAR = 6
+
+const videoJsOptions = {
+  autoplay: false,
+  playbackRates: [0.5, 1, 1.25, 1.5, 2],
+  width: 720,
+  height: 300,
+  controls: true,
+  sources: [{
+    // src: '//vjs.zencdn.net/v/oceans.mp4',
+    type: 'video/mp4',
+  }],
+};
 
 const formatTime = (secondsNum) => {
   if (isNaN(secondsNum)) secondsNum = 0
@@ -135,6 +150,13 @@ class Video extends ImmutablePureComponent {
     if ('pictureInPictureEnabled' in document) {
       this.setState({ pipAvailable: true })
     }
+
+    videoJsOptions.sources = [{ src: this.props.src }]
+    console.log("videoJsOptions:", videoJsOptions)
+    // instantiate video.js
+    this.videoPlayer = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
+      console.log('onPlayerReady', this)
+    })
   }
 
   componentWillUnmount() {
@@ -144,6 +166,10 @@ class Video extends ImmutablePureComponent {
     document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
     
     clearInterval(this.bufferCheckInterval)
+
+    if (this.videoPlayer) {
+      this.videoPlayer.dispose()
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -199,6 +225,7 @@ class Video extends ImmutablePureComponent {
 
   setVideoRef = (n) => {
     this.video = n
+    this.videoNode = n
 
     if (this.video) {
       const { volume, muted } = this.video
@@ -582,174 +609,33 @@ class Video extends ImmutablePureComponent {
 
         <div className={overlayClasses} id='overlay'>
           {
-            paused && !isBuffering &&
-            <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-              <button
-                onClick={this.togglePlay}
-                className={[_s.d, _s.outlineNone, _s.cursorPointer, _s.aiCenter, _s.jcCenter, _s.posAbs, _s.bgBlackOpaque, _s.circle, _s.h60PX, _s.w60PX].join(' ')}
-              >
-                <Icon id='play' size='24px' className={_s.cWhite} />
-              </button>
-            </Responsive>
-          }
-          {
             !paused && true &&
             <Icon id='loading' size='60px' className={[_s.d, _s.posAbs].join(' ')} />
           }
         </div>
 
-        <video
-          className={[_s.d, _s.h100PC, _s.w100PC, _s.outlineNone].join(' ')}
-          playsInline
-          ref={this.setVideoRef}
-          src={src}
-          poster={preview}
-          preload={preload}
-          role='button'
-          tabIndex='0'
-          aria-label={alt}
-          title={alt}
-          width={width}
-          height={height}
-          volume={volume}
-          onClick={this.togglePlay}
-          onPlay={this.handlePlay}
-          onPause={this.handlePause}
-          onTimeUpdate={this.handleTimeUpdate}
-          onLoadedData={this.handleLoadedData}
-          onProgress={this.handleProgress}
-          onVolumeChange={this.handleVolumeChange}
-        />
-
-        <div
-          className={volumeControlClasses}
-          onMouseDown={this.handleVolumeMouseDown}
-          onMouseEnter={this.handleMouseEnterVolumeControl}
-          onMouseLeave={this.handleMouseLeaveVolumeControl}
-          ref={this.setVolumeRef}
-        >
-          <div
-            className={[_s.d, _s.radiusSmall, _s.my10, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimaryOpaque].join(' ')}
-            style={{
-              height: '102px',
-            }}
+        <div data-vjs-player>
+          <video
+            className={[_s.d, _s.h100PC, _s.w100PC, _s.outlineNone, 'video-js'].join(' ')}
+            ref={this.setVideoRef}
+            // playsInline
+            // poster={preview}
+            // preload={preload}
+            // role='button'
+            // tabIndex='0'
+            // aria-label={alt}
+            // title={alt}
+            // width={width}
+            // height={height}
+            // volume={volume}
+            // onClick={this.togglePlay}
+            // onPlay={this.handlePlay}
+            // onPause={this.handlePause}
+            // onTimeUpdate={this.handleTimeUpdate}
+            // onLoadedData={this.handleLoadedData}
+            // onProgress={this.handleProgress}
+            // onVolumeChange={this.handleVolumeChange}
           />
-          <div
-            className={[_s.d, _s.radiusSmall, _s.my10, _s.bottom0, _s.posAbs, _s.w4PX, _s.ml10, _s.bgPrimary].join(' ')}
-            style={{
-              height: `${volumeHeight}px`
-            }}
-          />
-          <span
-            className={[_s.d, _s.cursorPointer, _s.posAbs, _s.circle, _s.px5, _s.boxShadow1, _s.mbNeg5PX, _s.py5, _s.bgPrimary, _s.z3].join(' ')}
-            tabIndex='0'
-            style={{
-              marginLeft: '7px',
-              bottom: `${volumeHandleLoc}px`,
-            }}
-          />
-        </div>
-
-        <div className={videoControlsBackgroundClasses}>
-
-          <div
-            className={[_s.d, _s.cursorPointer, _s.h22PX, _s.videoPlayerSeek].join(' ')}
-            onMouseDown={this.handleMouseDown}
-            ref={this.setSeekRef}
-          >
-
-            <div className={[progressClasses, _s.bgLoading, _s.w100PC].join(' ')} />
-            <div className={[progressClasses, _s.bgSubtle].join(' ')} style={{ width: `${buffer}%` }} />
-            <div className={[progressClasses, _s.bgBrand].join(' ')} style={{ width: `${progress}%` }} />
-
-            <span
-              className={seekHandleClasses}
-              tabIndex='0'
-              style={{
-                left: `${progress}%`
-              }}
-            >
-              <span className={seekInnerHandleClasses} />
-            </span>
-          </div>
-
-          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.pb5, _s.noSelect].join(' ')}>
-            <Button
-              isNarrow
-              backgroundColor='none'
-              aria-label={intl.formatMessage(paused ? messages.play : messages.pause)}
-              onClick={this.togglePlay}
-              icon={paused ? 'play' : 'pause'}
-              title={paused ? 'Play' : 'Pause'}
-              iconSize='16px'
-              iconClassName={_s.cWhite}
-              className={_s.pl0}
-            />
-
-            <Button
-              isNarrow
-              backgroundColor='none'
-              type='button'
-              aria-label={intl.formatMessage(muted ? messages.unmute : messages.mute)}
-              onClick={this.toggleMute}
-              icon={muted ? 'audio-mute' : 'audio'}
-              iconSize='24px'
-              iconClassName={_s.cWhite}
-              className={[_s.px10, _s.mr10].join(' ')}
-              title='Volume'
-              onMouseEnter={this.handleMouseEnterAudio}
-              onMouseLeave={this.handleMouseLeaveAudio}
-            />
-            
-            <Text color='white' size='small'>
-              {formatTime(currentTime)}
-              &nbsp;/&nbsp;
-              {formatTime(duration)}
-            </Text>
-
-            <div className={[_s.d, _s.mlAuto, _s.flexRow, _s.aiCenter].join(' ')}>
-              <Button
-                isNarrow
-                backgroundColor='none'
-                aria-label={intl.formatMessage(messages.video_stats)}
-                onClick={this.handleOnClickSettings}
-                icon='cog'
-                iconSize='20px'
-                iconClassName={_s.cWhite}
-                className={[_s.px10, _s.pr0].join(' ')}
-                buttonRef={this.setSettingsBtnRef}
-                title='Video stats'
-              />
-              <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-                {
-                  pipAvailable &&
-                  <Button
-                    isNarrow
-                    backgroundColor='none'
-                    aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
-                    onClick={this.togglePip}
-                    icon='copy'
-                    iconSize='20px'
-                    iconClassName={_s.cWhite}
-                    className={[_s.px10, _s.pr0].join(' ')}
-                    title='Picture in Picture'
-                  />
-                }
-              </Responsive>
-              <Button
-                isNarrow
-                backgroundColor='none'
-                aria-label={intl.formatMessage(fullscreen ? messages.exit_fullscreen : messages.fullscreen)}
-                onClick={this.toggleFullscreen}
-                icon={fullscreen ? 'minimize-fullscreen' : 'fullscreen'}
-                title={fullscreen ? 'Minimize fullscreen' : 'Fullscreen'}
-                iconSize='20px'
-                iconClassName={_s.cWhite}
-                className={[_s.px10, _s.pr0].join(' ')}
-              />
-            </div>
-          </div>
-
         </div>
 
         {

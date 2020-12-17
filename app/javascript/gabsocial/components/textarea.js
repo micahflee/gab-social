@@ -19,6 +19,7 @@ class Textarea extends React.PureComponent {
       onBlur,
       title,
       isRequired,
+      maxLength,
     } = this.props
 
     const inputClasses = CX({
@@ -58,6 +59,7 @@ class Textarea extends React.PureComponent {
             onKeyUp={onKeyUp}
             onFocus={onFocus}
             onBlur={onBlur}
+            maxLength={maxLength}
             required={isRequired ? true : undefined}
           />
 
@@ -77,6 +79,7 @@ Textarea.propTypes = {
   onBlur: PropTypes.func,
   title: PropTypes.string,
   isRequired: PropTypes.bool,
+  maxLength: PropTypes.number,
 }
 
 export default Textarea

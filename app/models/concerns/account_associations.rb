@@ -7,6 +7,10 @@ module AccountAssociations
     # Local users
     has_one :user, inverse_of: :account, dependent: :destroy
 
+    # Chat
+    has_many :chat_messages, inverse_of: :account, dependent: :destroy
+    has_many :chat_conversation_accounts, inverse_of: :account, dependent: :destroy
+
     # Timelines
     has_many :statuses, inverse_of: :account, dependent: :destroy
     has_many :favourites, inverse_of: :account, dependent: :destroy
@@ -14,9 +18,10 @@ module AccountAssociations
     has_many :notifications, inverse_of: :account, dependent: :destroy
     has_many :scheduled_statuses, inverse_of: :account, dependent: :destroy
 
-    # Pinned statuses
+    # Bookmarked statuses
     has_many :status_bookmarks, inverse_of: :account, dependent: :destroy
     has_many :bookmarked_statuses, -> { reorder('status_bookmarks.created_at DESC') }, through: :status_bookmarks, class_name: 'Status', source: :status
+    has_many :status_bookmark_collections, inverse_of: :account, dependent: :destroy
 
     # Pinned statuses
     has_many :status_pins, inverse_of: :account, dependent: :destroy
@@ -26,7 +31,7 @@ module AccountAssociations
     has_many :media_attachments, dependent: :destroy
     has_many :polls, dependent: :destroy
 
-    # PuSH subscriptions
+    # Push subscriptions
     has_many :subscriptions, dependent: :destroy
 
     # Report relationships

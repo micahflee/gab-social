@@ -2,9 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
-import { changeListEditorTitle, submitListEditor } from '../actions/lists'
+import { createBookmarkCollection } from '../actions/bookmarks'
 import { closeModal } from '../actions/modal'
-import { MODAL_LIST_CREATE } from '../constants'
 import Button from '../components/button'
 import Input from '../components/input'
 import Form from '../components/form'
@@ -21,14 +20,13 @@ class BookmarkCollectionCreate extends React.PureComponent {
   }
 
   handleOnSubmit = () => {
-    this.props.onSubmit()
+    this.props.onSubmit(this.state.value)
   }
 
   render() {
-    const { disabled, isModal } = this.props
     const { value } = this.state
 
-    const isDisabled = !value || disabled
+    const isDisabled = !value
 
     return (
       <Form>
@@ -54,14 +52,10 @@ class BookmarkCollectionCreate extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state) => ({
-  disabled: state.getIn(['listEditor', 'isSubmitting']),
-})
-
 const mapDispatchToProps = (dispatch, { isModal }) => ({
-  onSubmit() {
-    if (isModal) dispatch(closeModal(MODAL_LIST_CREATE))
-    dispatch(submitListEditor(true))
+  onSubmit(title) {
+    if (isModal) dispatch(closeModal())
+    dispatch(createBookmarkCollection(title))
   },
 })
 
@@ -70,4 +64,4 @@ BookmarkCollectionCreate.propTypes = {
   isModal: PropTypes.bool,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BookmarkCollectionCreate)
+export default connect(null, mapDispatchToProps)(BookmarkCollectionCreate)

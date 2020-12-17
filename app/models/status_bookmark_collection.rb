@@ -8,12 +8,13 @@
 #  account_id :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  visibility :string
 #
 
 class StatusBookmarkCollection < ApplicationRecord
 
-  PER_ACCOUNT_LIMIT = 100
+  PER_ACCOUNT_LIMIT = 150
 
-  belongs_to :account
+  belongs_to :account, inverse_of: :status_bookmark_collections
   
 end

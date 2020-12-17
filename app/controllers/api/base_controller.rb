@@ -80,6 +80,10 @@ class Api::BaseController < ApplicationController
     # : todo : when figure out email/catpcha, put this back
     # elsif !current_user.confirmed?
     #   render json: { error: 'Your login is missing a confirmed e-mail address' }, status: 403
+    elsif current_user.account.is_flagged_as_spam?
+      render json: { error: 'Your account has been flagged as spam. Please contact support@gab.com if you believe this is an error.' }, status: 403
+    elsif !current_user.approved?
+      render json: { error: 'Your login is currently pending approval' }, status: 403
     else
       set_user_activity
     end

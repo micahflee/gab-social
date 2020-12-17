@@ -201,7 +201,7 @@ class Deck extends React.PureComponent {
             <DeckColumn title='Compose' icon='pencil' noButtons>
               <WrappedBundle component={Compose} />
             </DeckColumn>
-            {
+            { /** : todo : */
               !isPro &&
               <DeckColumn title='Gab Deck for GabPRO' icon='pro' noButtons>
                 <div className={[_s.d, _s.px15, _s.py15].join(' ')}>

@@ -15,7 +15,7 @@ import Text from '../../../components/text'
 class ComposeFormSubmitButton extends React.PureComponent {
 
   handleSubmit = () => {
-
+    this.props.onSubmit()
   }
 
   render() {

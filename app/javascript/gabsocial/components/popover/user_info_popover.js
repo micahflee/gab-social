@@ -12,7 +12,7 @@ import PopoverLayout from './popover_layout'
 import AccountActionButton from '../account_action_button'
 import Avatar from '../avatar'
 import DisplayName from '../display_name'
-import Text from '../text'
+import UserStat from '../user_stat'
 
 class UserInfoPopover extends ImmutablePureComponent {
 
@@ -47,28 +47,19 @@ class UserInfoPopover extends ImmutablePureComponent {
           </div>
 
           <div className={[_s.d, _s.flexRow, _s.mt10].join(' ')}>
-            <NavLink
-              to={`${to}/followers`}
-              className={[_s.d, _s.flexRow, _s.mr10, _s.noUnderline, _s.cPrimary, _s.underline_onHover].join(' ')}
-            >
-              <Text weight='extraBold' color='primary'>
-                {shortNumberFormat(account.get('followers_count'))}&nbsp;
-              </Text>
-              <Text color='secondary'>
-                <FormattedMessage id='account.followers' defaultMessage='Followers' />
-              </Text>
-            </NavLink>
-            <NavLink
-              to={`${to}/following`}
-              className={[_s.d, _s.flexRow, _s.noUnderline, _s.cPrimary, _s.underline_onHover].join(' ')}
-            >
-              <Text weight='extraBold' color='primary'>
-                {shortNumberFormat(account.get('following_count'))}&nbsp;
-              </Text>
-              <Text color='secondary'>
-                <FormattedMessage id='account.follows' defaultMessage='Following' />
-              </Text>
-            </NavLink>
+            <UserStat
+              title={<FormattedMessage id='account.followers' defaultMessage='Followers' />}
+              value={shortNumberFormat(account.get('followers_count'))}
+              to={`/${account.get('acct')}/followers`}
+              isInline
+            />
+            <UserStat
+              isLast
+              title={<FormattedMessage id='account.follows' defaultMessage='Following' />}
+              value={shortNumberFormat(account.get('following_count'))}
+              to={`/${account.get('acct')}/following`}
+              isInline
+            />
           </div>
 
         </div>

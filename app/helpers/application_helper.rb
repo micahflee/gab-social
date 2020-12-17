@@ -104,4 +104,17 @@ module ApplicationHelper
     # : todo :
     return 'white'
   end
+
+  def open_registrations?
+    Setting.registrations_mode == 'open'
+  end
+
+  def approved_registrations?
+    Setting.registrations_mode == 'approved'
+  end
+
+  def closed_registrations?
+    Setting.registrations_mode == 'none'
+  end
+
 end

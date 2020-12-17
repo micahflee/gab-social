@@ -17,7 +17,7 @@ eu:
         digest: Soilik jarduerarik gabeko epe luze bat eta gero, eta soilik ez zeudela mezu pertsonalen bat jaso baduzu
         discoverable_html: <a href="%{path}" target="_blank">Direktorioa</a>k Jendea interesen eta jardueraren arabera aurkitzea ahalbidetzen du. Gutxienez %{min_followers} jarraitzaile behar dira bertan agertzeko
         email: Baieztapen e-mail bat bidaliko zaizu
-        fields: 4 elementu bistaratu ditzakezu taula batean zure profilean
+        fields: 6 elementu bistaratu ditzakezu taula batean zure profilean
         header: PNG, GIF edo JPG. Gehienez %{size}. %{dimensions}px eskalara txikituko da
         inbox_url: Kopiatu erabili nahi duzun errelearen hasiera orriaren URLa
         irreversible: Iragazitako Gab-ak betirako galduko dira, geroago iragazkia kentzen baduzu ere

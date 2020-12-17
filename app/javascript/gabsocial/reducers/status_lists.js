@@ -16,17 +16,16 @@ import {
 } from '../actions/bookmarks'
 import { Map as ImmutableMap, List as ImmutableList } from 'immutable';
 
+const initialMap = ImmutableMap({
+  next: null,
+  loaded: false,
+  isLoading: false,
+  items: ImmutableList(),
+})
+
 const initialState = ImmutableMap({
-  bookmarks: ImmutableMap({
-    next: null,
-    loaded: false,
-    items: ImmutableList(),
-  }),
-  favorites: ImmutableMap({
-    next: null,
-    loaded: false,
-    items: ImmutableList(),
-  }),
+  bookmarks: ImmutableMap(),
+  favorites: initialMap,
 });
 
 const normalizeList = (state, listType, statuses, next) => {
@@ -62,14 +61,30 @@ export default function statusLists(state = initialState, action) {
   switch (action.type) {
   case BOOKMARKED_STATUSES_FETCH_REQUEST:
   case BOOKMARKED_STATUSES_EXPAND_REQUEST:
-    return state.setIn(['bookmarks', 'isLoading'], true);
+    return state.updateIn(['bookmarks', action.bookmarkCollectionId], initialMap, map => map.set('isLoading', true))
   case BOOKMARKED_STATUSES_FETCH_FAIL:
   case BOOKMARKED_STATUSES_EXPAND_FAIL:
-    return state.setIn(['bookmarks', 'isLoading'], false);
+    return state.setIn(['bookmarks', action.bookmarkCollectionId, 'isLoading'], false);
   case BOOKMARKED_STATUSES_FETCH_SUCCESS:
-    return normalizeList(state, 'bookmarks', action.statuses, action.next);
+    console.log("BOOKMARKED_STATUSES_FETCH_SUCCESS:", action)
+    try {
+      return state.updateIn(['bookmarks', action.bookmarkCollectionId], listMap => listMap.withMutations(map => {
+        map.set('next', action.next);
+        map.set('loaded', true);
+        map.set('isLoading', false);
+        map.set('items', ImmutableList(action.statuses.map(item => item.id)));
+      })) 
+    } catch (error) {
+      console.log("error:", state, error)
+    }
+    return state
   case BOOKMARKED_STATUSES_EXPAND_SUCCESS:
-    return appendToList(state, 'bookmarks', action.statuses, action.next);
+    return state.updateIn(['bookmarks', action.bookmarkCollectionId], listMap => listMap.withMutations(map => {
+      map.set('next', action.next);
+      map.set('isLoading', false);
+      map.set('items', map.get('items').concat(action.statuses.map(item => item.id)));
+    }))
+
   case FAVORITED_STATUSES_FETCH_REQUEST:
   case FAVORITED_STATUSES_EXPAND_REQUEST:
     return state.setIn(['favorites', 'isLoading'], true);

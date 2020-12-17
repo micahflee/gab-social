@@ -4,7 +4,7 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attributes :id, :created_at, :revised_at, :in_reply_to_id, :in_reply_to_account_id,
              :sensitive, :spoiler_text, :visibility, :language,
              :url, :replies_count, :reblogs_count, :pinnable, :pinnable_by_group,
-             :favourites_count, :quote_of_id, :expires_at, :has_quote
+             :favourites_count, :quote_of_id, :expires_at, :has_quote, :bookmark_collection_id
 
   attribute :favourited, if: :current_user?
   attribute :reblogged, if: :current_user?
@@ -166,6 +166,10 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def ordered_mentions
     object.active_mentions.to_a.sort_by(&:id)
+  end
+
+  def bookmark_collection_id
+    instance_options[:bookmark_collection_id]
   end
 
   class ApplicationSerializer < ActiveModel::Serializer

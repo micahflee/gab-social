@@ -17,7 +17,7 @@ pt:
         digest: Enviado após um longo período de inatividade e apenas se foste mencionado na tua ausência
         discoverable_html: O <a href="%{path}" target="_blank">directory</a> permite encontrar contas de pessoas com base nos seus interesses e actividades. Exige, pelo menos %{min_followers} seguidores
         email: Será enviado um e-mail de confirmação
-        fields: Podes ter até 4 itens expostos, em forma de tabela, no teu perfil
+        fields: Podes ter até 6 itens expostos, em forma de tabela, no teu perfil
         header: PNG, GIF or JPG. Arquivos até %{size}. Vão ser reduzidos para %{dimensions}px
         inbox_url: Copia a URL da página inicial do repetidor que queres usar
         irreversible: Publicações filtradas irão desaparecer irremediavelmente, mesmo que o filtro seja removido posteriormente

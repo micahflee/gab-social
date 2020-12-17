@@ -61,6 +61,7 @@ import {
   BlockedAccounts,
   BookmarkCollections,
   BookmarkCollectionCreate,
+  BookmarkCollectionEdit,
   BookmarkedStatuses,
   CaliforniaConsumerProtection,
   CaliforniaConsumerProtectionContact,
@@ -282,10 +283,11 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/:username/album_edit/:albumId' page={ModalPage} component={AlbumCreate} content={children} componentParams={{ title: 'Create Album', page: 'edit-album' }} />        
 
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
-        <WrappedRoute path='/:username/bookmark_collections' page={ProfilePage} component={BookmarkCollections} content={children} />
         <WrappedRoute path='/:username/bookmark_collections/create' page={ModalPage} component={BookmarkCollectionCreate} content={children} componentParams={{ title: 'Create Bookmark Collection', page: 'create-bookmark-collection' }} />
         <WrappedRoute path='/:username/bookmark_collections/:bookmarkCollectionId' page={ProfilePage} component={BookmarkedStatuses} content={children} />
-
+        <WrappedRoute path='/:username/bookmark_collections/:bookmarkCollectionId/edit' page={ModalPage} component={BookmarkCollectionEdit} content={children} componentParams={{ title: 'Edit Bookmark Collection', page: 'edit-bookmark-collection' }} />
+        <WrappedRoute path='/:username/bookmark_collections' page={ProfilePage} component={BookmarkCollections} content={children} />
+        
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 
         <WrappedRoute path='/:username/posts/:statusId/reposts' publicRoute page={ModalPage} component={StatusReposts} content={children} componentParams={{ title: 'Reposts' }} />

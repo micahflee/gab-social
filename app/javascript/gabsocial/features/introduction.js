@@ -113,6 +113,7 @@ class SlidePhotos extends ImmutablePureComponent {
                   id='display-name'
                   title='Display name'
                   placeholder='Add your name...'
+                  maxLength={30}
                   value={displayNameValue}
                   onChange={this.handleDisplayNameChange}
                   onBlur={this.handleDisplayNameBlur}

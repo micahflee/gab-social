@@ -29,19 +29,32 @@ class BookmarkCollections extends ImmutablePureComponent {
 
   render() {
     const {
+      isMyAccount,
       isLoading,
       isError,
       bookmarkCollections,
     } = this.props
 
+    if (!isMyAccount) {
+      return <ColumnIndicator type='missing' />
+    }
+
     if (isError) {
       return <ColumnIndicator type='error' message='Error fetching bookmark collections' />
     }
 
-    const listItems = [{ to: `/${meUsername}/bookmark_collections/bookmarks`, title: 'Bookmarks' }].concat(!!bookmarkCollections ? bookmarkCollections.map((s) => ({
-      to: s.get('to'),
-      title: s.get('title'),
-    })) : [])
+    console.log("bookmarkCollections:", bookmarkCollections)
+
+    let listItems = !!bookmarkCollections ? bookmarkCollections.map((b) => ({
+      to: `/${meUsername}/bookmark_collections/${b.get('id')}`,
+      title: b.get('title'),
+    })) : []
+    listItems = listItems.unshift({
+      to: `/${meUsername}/bookmark_collections/saved`,
+      title: 'Bookmarks',
+    })
+
+    console.log("listItems:", listItems)
 
     return (
       <Block>
@@ -69,10 +82,11 @@ class BookmarkCollections extends ImmutablePureComponent {
 
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { params: { username } }) => ({
+  isMyAccount: (username.toLowerCase() === meUsername.toLowerCase()),
   isError: state.getIn(['bookmark_collections', 'isError']),
   isLoading: state.getIn(['bookmark_collections', 'isLoading']),
-  shortcuts: state.getIn(['bookmark_collections', 'items']),
+  bookmarkCollections: state.getIn(['bookmark_collections', 'items']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

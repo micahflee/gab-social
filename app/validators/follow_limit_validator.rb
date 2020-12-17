@@ -12,6 +12,7 @@ class FollowLimitValidator < ActiveModel::Validator
   class << self
     def limit_for_account(account)
       adjusted_limit = account.is_pro ? 50000 : LIMIT
+      adjusted_limit = account.is_flagged_as_spam ? 0 : LIMIT
 
       if account.following_count < adjusted_limit
         adjusted_limit

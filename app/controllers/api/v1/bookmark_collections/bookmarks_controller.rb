@@ -1,16 +1,17 @@
 # frozen_string_literal: true
 
-class Api::V1::BookmarksController < Api::BaseController
+class Api::V1::BookmarkCollections::BookmarksController < Api::BaseController
   before_action -> { doorkeeper_authorize! :read, :'read:bookmarks' }
   before_action :require_user!
   after_action :insert_pagination_headers
 
   def index
-    @statuses = []
     if current_account.is_pro
       @statuses = load_statuses
+      render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
+    else
+      render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
     end
-    render json: @statuses, each_serializer: REST::StatusSerializer, relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 
   private
@@ -42,11 +43,11 @@ class Api::V1::BookmarksController < Api::BaseController
   end
 
   def next_path
-    api_v1_bookmarks_url pagination_params(max_id: pagination_max_id) if records_continue?
+    api_v1_bookmark_collection_bookmarks_url pagination_params(max_id: pagination_max_id) if records_continue?
   end
 
   def prev_path
-    api_v1_bookmarks_url pagination_params(since_id: pagination_since_id) unless results.empty?
+    api_v1_bookmark_collection_bookmarks_url pagination_params(since_id: pagination_since_id) unless results.empty?
   end
 
   def pagination_max_id

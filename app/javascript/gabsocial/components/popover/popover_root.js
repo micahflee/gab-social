@@ -1,5 +1,6 @@
 import {
   BREAKPOINT_EXTRA_SMALL,
+  POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS,
   POPOVER_CHAT_CONVERSATION_OPTIONS,
   POPOVER_CHAT_MESSAGE_OPTIONS,
   POPOVER_COMMENT_SORTING_OPTIONS,
@@ -23,6 +24,7 @@ import {
   POPOVER_VIDEO_STATS,
 } from '../../constants'
 import {
+  ChatConversationExpirationOptionsPopover,
   ChatConversationOptionsPopover,
   ChatMessageOptionsPopover,
   CommentSortingOptionsPopover,
@@ -60,6 +62,7 @@ import LoadingPopover from './loading_popover'
 const initialState = getWindowDimension()
 
 const POPOVER_COMPONENTS = {
+  [POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS]: ChatConversationExpirationOptionsPopover,
   [POPOVER_CHAT_CONVERSATION_OPTIONS]: ChatConversationOptionsPopover,
   [POPOVER_CHAT_MESSAGE_OPTIONS]: ChatMessageOptionsPopover,
   [POPOVER_COMMENT_SORTING_OPTIONS]: CommentSortingOptionsPopover,

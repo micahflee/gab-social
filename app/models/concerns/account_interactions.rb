@@ -77,12 +77,6 @@ module AccountInteractions
     has_many :chat_blocking, -> { order('chat_blocks.id desc') }, through: :chat_block_relationships, source: :target_account
     has_many :chat_blocked_by_relationships, class_name: 'ChatBlock', foreign_key: :target_account_id, dependent: :destroy
     has_many :chat_blocked_by, -> { order('chat_blocks.id desc') }, through: :chat_blocked_by_relationships, source: :account
-
-    # Chat mute relationships
-    has_many :chat_mute_relationships, class_name: 'ChatMute', foreign_key: 'account_id', dependent: :destroy
-    has_many :chat_muting, -> { order('chat_mutes.id desc') }, through: :chat_mute_relationships, source: :target_account
-    has_many :chat_muted_by_relationships, class_name: 'ChatMute', foreign_key: :target_account_id, dependent: :destroy
-    has_many :chat_muted_by, -> { order('chat_mutes.id desc') }, through: :chat_muted_by_relationships, source: :account
   end
 
   def follow!(other_account, reblogs: nil, uri: nil)

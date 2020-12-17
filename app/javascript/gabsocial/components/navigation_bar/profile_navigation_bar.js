@@ -33,7 +33,7 @@ class ProfileNavigationBar extends React.PureComponent {
               <Button
                 icon='ellipsis'
                 iconSize='26px'
-                iconClassName={_s.inheritFill}
+                iconClassName={_s.colorNavigation}
                 color='brand'
                 backgroundColor='none'
                 className={[_s.jcCenter, _s.aiCenter, _s.ml10, _s.px10].join(' ')}

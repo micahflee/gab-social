@@ -38,8 +38,11 @@ class UserStat extends React.PureComponent {
 
     const align = isCentered ? 'center' : 'left'
     const titleSize = isInline ? 'normal' : 'extraLarge'
-    const subtitleSize = isInline ? 'normal' : 'small'
+    const titleColor = isInline ? 'primary' : 'brand'
+    const titleWeight = isInline ? 'extraBold' : 'bold'
 
+    const subtitleSize = isInline ? 'normal' : 'small'
+    
     const containerClasses = CX({
       d: 1,
       cursorPointer: 1,
@@ -64,7 +67,7 @@ class UserStat extends React.PureComponent {
         onMouseEnter={this.handleOnMouseEnter}
         onMouseLeave={this.handleOnMouseLeave}
       >
-        <Text size={titleSize} weight='bold' color='brand' align={align}>
+        <Text size={titleSize} weight={titleWeight} color={titleColor} align={align}>
           {value}
         </Text>
         <Text size={subtitleSize} weight='medium' color='secondary' hasUnderline={hovering} align={align} className={subtitleClasses}>

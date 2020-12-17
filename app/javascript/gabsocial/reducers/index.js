@@ -2,6 +2,8 @@ import { combineReducers } from 'redux-immutable'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import accounts from './accounts'
 import accounts_counters from './accounts_counters'
+import albums from './albums'
+import bookmark_collections from './bookmark_collections'
 import chats from './chats'
 import chat_conversation_lists from './chat_conversation_lists'
 import chat_conversation_messages from './chat_conversation_messages'
@@ -52,6 +54,7 @@ import user_lists from './user_lists'
 const reducers = {
   accounts,
   accounts_counters,
+  bookmark_collections,
   chats,
   chat_conversation_lists,
   chat_conversation_messages,

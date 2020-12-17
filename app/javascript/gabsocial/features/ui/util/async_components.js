@@ -11,6 +11,8 @@ export function BlockedAccounts() { return import(/* webpackChunkName: "features
 export function BookmarkCollections() { return import(/* webpackChunkName: "features/bookmark_collections" */'../../bookmark_collections') }
 export function BookmarkCollectionCreate() { return import(/* webpackChunkName: "features/bookmark_collection_create" */'../../bookmark_collection_create') }
 export function BookmarkCollectionCreateModal() { return import(/* webpackChunkName: "components/bookmark_collection_create_modal" */'../../../components/modal/bookmark_collection_create_modal') }
+export function BookmarkCollectionEdit() { return import(/* webpackChunkName: "features/bookmark_collection_edit" */'../../bookmark_collection_edit') }
+export function BookmarkCollectionEditModal() { return import(/* webpackChunkName: "components/bookmark_collection_edit_modal" */'../../../components/modal/bookmark_collection_edit_modal') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
 export function CaliforniaConsumerProtection() { return import(/* webpackChunkName: "features/california_consumer_protection" */'../../about/california_consumer_protection') }
@@ -21,6 +23,7 @@ export function ChatConversationCreateModal() { return import(/* webpackChunkNam
 export function ChatConversationDeleteModal() { return import(/* webpackChunkName: "components/chat_conversation_delete_modal" */'../../../components/modal/chat_conversation_delete_modal') }
 export function ChatConversationOptionsPopover() { return import(/* webpackChunkName: "components/chat_conversation_options_popover" */'../../../components/popover/chat_conversation_options_popover') }
 export function ChatConversationRequests() { return import(/* webpackChunkName: "features/chat_conversation_requests" */'../../chat_conversation_requests') }
+export function ChatConversationExpirationOptionsPopover() { return import(/* webpackChunkName: "components/chat_conversation_expiration_options_popover" */'../../../components/popover/chat_conversation_expiration_options_popover') }
 export function ChatMessageOptionsPopover() { return import(/* webpackChunkName: "components/chat_message_options_popover" */'../../../components/popover/chat_message_options_popover') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
 export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }

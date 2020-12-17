@@ -9,6 +9,9 @@ import { fetchBookmarkedStatuses, expandBookmarkedStatuses } from '../actions/bo
 import { meUsername } from '../initial_state'
 import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
+import Block from '../components/block'
+import Button from '../components/button'
+import Text from '../components/text'
 
 class BookmarkedStatuses extends ImmutablePureComponent {
 
@@ -32,15 +35,37 @@ class BookmarkedStatuses extends ImmutablePureComponent {
       return <ColumnIndicator type='missing' />
     }
 
+    console.log("statusIds:", statusIds)
+
     return (
-      <StatusList
-        statusIds={statusIds}
-        scrollKey='bookmarked_statuses'
-        hasMore={hasMore}
-        isLoading={isLoading}
-        onLoadMore={this.handleLoadMore}
-        emptyMessage={<FormattedMessage id='empty_column.bookmarked_statuses' defaultMessage="You don't have any bookmarked gabs yet. If you are GabPRO, when you bookmark one, it will show up here." />}
-      />
+      <div className={[_s.d, _s.w100PC].join(' ')}>
+        <Block>
+          <div className={[_s.d, _s.px15, _s.py10].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
+              <Text size='extraLarge' weight='bold'>
+                Bookmarks:
+              </Text>
+              <Button
+                className={[_s.px10, _s.mlAuto].join(' ')}
+                onClick={this.handleOpenModal}
+                backgroundColor='tertiary'
+                color='tertiary'
+                icon='cog'
+              />
+            </div>
+          </div>
+        </Block>
+        <div className={[_s.d, _s.w100PC, _s.mt10].join(' ')}>
+          <StatusList
+            statusIds={statusIds}
+            scrollKey='bookmarked_statuses'
+            hasMore={hasMore}
+            isLoading={isLoading}
+            onLoadMore={this.handleLoadMore}
+            emptyMessage={<FormattedMessage id='empty_column.bookmarked_statuses' defaultMessage="You don't have any bookmarked gabs yet. If you are GabPRO, when you bookmark one, it will show up here." />}
+          />
+        </div>
+      </div>
     )
   }
 
@@ -49,9 +74,9 @@ class BookmarkedStatuses extends ImmutablePureComponent {
 const mapStateToProps = (state, { params: { username, bookmarkCollectionId } }) => ({
   bookmarkCollectionId,
   isMyAccount: (username.toLowerCase() === meUsername.toLowerCase()),
-  statusIds: state.getIn(['status_lists', 'bookmarks', 'items']),
-  isLoading: state.getIn(['status_lists', 'bookmarks', 'isLoading'], true),
-  hasMore: !!state.getIn(['status_lists', 'bookmarks', 'next']),
+  statusIds: state.getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'items']),
+  isLoading: state.getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'isLoading'], true),
+  hasMore: !!state.getIn(['status_lists', 'bookmarks', bookmarkCollectionId, 'next']),
 })
 
 BookmarkedStatuses.propTypes = {
@@ -59,6 +84,7 @@ BookmarkedStatuses.propTypes = {
   statusIds: ImmutablePropTypes.list.isRequired,
   hasMore: PropTypes.bool,
   isLoading: PropTypes.bool,
+  bookmarkCollectionId: PropTypes.string,
   isMyAccount: PropTypes.bool.isRequired,
 }
 

@@ -164,6 +164,7 @@ class EditProfileModal extends ImmutablePureComponent {
                     <Input
                       id='display-name'
                       title='Display name'
+                      maxLength={30}
                       value={displayNameValue}
                       onChange={this.handleDisplayNameChange}
                       onBlur={this.handleDisplayNameBlur}
@@ -176,6 +177,7 @@ class EditProfileModal extends ImmutablePureComponent {
                   title='Bio'
                   value={bioValue}
                   disabled={false}
+                  maxLength={500}
                   onChange={this.handleBioChange}
                   placeholder='Add your bio...'
                 />

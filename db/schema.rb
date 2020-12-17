@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_16_051551) do
+ActiveRecord::Schema.define(version: 2020_12_17_003945) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -879,8 +879,13 @@ ActiveRecord::Schema.define(version: 2020_12_16_051551) do
   add_foreign_key "backups", "users", on_delete: :nullify
   add_foreign_key "blocks", "accounts", column: "target_account_id", name: "fk_9571bfabc1", on_delete: :cascade
   add_foreign_key "blocks", "accounts", name: "fk_4269e03e65", on_delete: :cascade
+  add_foreign_key "chat_blocks", "accounts", column: "target_account_id", on_delete: :cascade
+  add_foreign_key "chat_blocks", "accounts", on_delete: :cascade
   add_foreign_key "chat_conversation_accounts", "accounts", on_delete: :cascade
   add_foreign_key "chat_conversation_accounts", "chat_conversations", on_delete: :cascade
+  add_foreign_key "chat_conversation_accounts", "chat_messages", column: "last_chat_message_id", on_delete: :nullify
+  add_foreign_key "chat_messages", "accounts", column: "from_account_id", on_delete: :cascade
+  add_foreign_key "chat_messages", "chat_conversations", on_delete: :cascade
   add_foreign_key "custom_filters", "accounts", on_delete: :cascade
   add_foreign_key "favourites", "accounts", name: "fk_5eb6c2b873", on_delete: :cascade
   add_foreign_key "favourites", "statuses", name: "fk_b0e856845e", on_delete: :cascade
@@ -902,6 +907,8 @@ ActiveRecord::Schema.define(version: 2020_12_16_051551) do
   add_foreign_key "list_accounts", "follows", on_delete: :cascade
   add_foreign_key "list_accounts", "lists", on_delete: :cascade
   add_foreign_key "lists", "accounts", on_delete: :cascade
+  add_foreign_key "media_attachment_albums", "accounts", on_delete: :cascade
+  add_foreign_key "media_attachment_albums", "media_attachments", column: "cover_id", on_delete: :nullify
   add_foreign_key "media_attachments", "accounts", name: "fk_96dd81e81b", on_delete: :nullify
   add_foreign_key "media_attachments", "media_attachment_albums", on_delete: :nullify
   add_foreign_key "media_attachments", "scheduled_statuses", on_delete: :nullify
@@ -931,6 +938,7 @@ ActiveRecord::Schema.define(version: 2020_12_16_051551) do
   add_foreign_key "session_activations", "oauth_access_tokens", column: "access_token_id", name: "fk_957e5bda89", on_delete: :cascade
   add_foreign_key "session_activations", "users", name: "fk_e5fda67334", on_delete: :cascade
   add_foreign_key "shortcuts", "accounts", on_delete: :cascade
+  add_foreign_key "status_bookmark_collections", "accounts", on_delete: :cascade
   add_foreign_key "status_bookmarks", "accounts", on_delete: :cascade
   add_foreign_key "status_bookmarks", "status_bookmark_collections", on_delete: :nullify
   add_foreign_key "status_bookmarks", "statuses", on_delete: :cascade

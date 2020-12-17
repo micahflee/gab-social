@@ -124,7 +124,7 @@ class User < ApplicationRecord
 
   def confirm
     new_user = !confirmed?
-    self.approved = true
+    self.approved = true if open_registrations?
 
     super
 
@@ -135,7 +135,7 @@ class User < ApplicationRecord
 
   def confirm!
     new_user = !confirmed?
-    self.approved = true
+    self.approved = true if open_registrations?
 
     skip_confirmation!
     save!
@@ -258,7 +258,7 @@ class User < ApplicationRecord
   private
 
   def set_approved
-    self.approved = true
+    self.approved = open_registrations?  
   end
 
   def external?
@@ -303,6 +303,10 @@ class User < ApplicationRecord
     else
       super
     end
+  end
+
+  def open_registrations?
+    Setting.registrations_mode == 'open'
   end
 
 end

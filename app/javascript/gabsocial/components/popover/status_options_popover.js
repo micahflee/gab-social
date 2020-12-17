@@ -22,6 +22,10 @@ import {
 } from '../../actions/statuses';
 import { quoteCompose } from '../../actions/compose'
 import {
+  fetchBookmarkCollections,
+  updateBookmarkCollectionStatus,
+} from '../../actions/bookmarks'
+import {
   fetchGroupRelationships,
   createRemovedAccount,
   groupRemoveStatus,
@@ -40,7 +44,9 @@ import {
   POPOVER_STATUS_SHARE,
 } from '../../constants'
 import PopoverLayout from './popover_layout'
+import Button from '../button'
 import List from '../list'
+import Text from '../text'
 
 class StatusOptionsPopover extends ImmutablePureComponent {
 
@@ -48,11 +54,9 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     router: PropTypes.object,
   }
 
-  updateOnProps = [
-    'status',
-    'groupRelationships',
-    'isXS',
-  ]
+  state = {
+    showingBookmarkCollections: false,
+  }
 
   componentDidMount() {
     const {
@@ -109,11 +113,25 @@ class StatusOptionsPopover extends ImmutablePureComponent {
   }
 
   handleBookmarkClick = () => {
+    // : todo : add to specific bookmark collection
     if (this.props.isPro) {
       this.props.onBookmark(this.props.status)
     } else {
       this.props.onOpenProUpgradeModal()
     }
+  }
+
+  handleBookmarkChangeClick = () => {
+    if (!this.props.bookmarkCollectionsIsFetched) this.props.onFetchBookmarkCollections()
+    this.setState({ showingBookmarkCollections: true })
+  }
+
+  handleBookmarkChangeBackClick = () => {
+    this.setState({ showingBookmarkCollections: false })
+  }
+
+  handleBookmarkChangeSelectClick = (bookmarkCollectionId) => {
+    this.props.onUpdateBookmarkCollectionStatus(this.props.status.get('id'), bookmarkCollectionId)
   }
 
   handleDeleteClick = () => {
@@ -142,11 +160,13 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
   render() {
     const {
-      status,
-      intl,
-      groupRelationships,
       isXS,
+      intl,
+      status,
+      groupRelationships,
+      bookmarkCollections,
     } = this.props
+    const { showingBookmarkCollections } = this.state
 
     if (!status) return <div />
 
@@ -154,8 +174,6 @@ class StatusOptionsPopover extends ImmutablePureComponent {
     const publicStatus = ['public', 'unlisted'].includes(status.get('visibility'))
     const isReply = !!status.get('in_reply_to_id')
     const withGroupAdmin = !!groupRelationships ? (groupRelationships.get('admin') || groupRelationships.get('moderator')) : false
-
-    console.log("publicStatus:", status, publicStatus)
 
     let menu = []
 
@@ -171,11 +189,19 @@ class StatusOptionsPopover extends ImmutablePureComponent {
 
       menu.push({
         icon: 'bookmark',
-        hideArrow: true,
+        hideArrow: status.get('bookmarked'),
         title: intl.formatMessage(status.get('bookmarked') ? messages.unbookmark : messages.bookmark),
         onClick: this.handleBookmarkClick,
       })
-      
+
+      if (status.get('bookmarked')) {
+        menu.push({
+          icon: 'bookmark',
+          title: 'Update bookmark collection',
+          onClick: this.handleBookmarkChangeClick,
+        })
+      }
+
       if (status.getIn(['account', 'id']) === me) {
         if (publicStatus) {
           menu.push({
@@ -264,16 +290,62 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       })
     }
 
+    const popoverWidth = !isStaff ? 260 : 362
+
+    let bookmarkCollectionItems = !!bookmarkCollections ? bookmarkCollections.map((bookmarkCollection) => ({
+      hideArrow: true,
+      onClick: () => this.handleBookmarkChangeSelectClick(bookmarkCollection.get('id')),
+      title: bookmarkCollection.get('title'),
+      isActive: bookmarkCollection.get('id') === status.get('bookmark_collection_id'),
+    })) : []
+    bookmarkCollectionItems = bookmarkCollectionItems.unshift({
+      hideArrow: true,
+      onClick: () => this.handleBookmarkChangeSelectClick('saved'),
+      title: 'Saved',
+      isActive: !status.get('bookmark_collection_id'),
+    })
+
     return (
       <PopoverLayout
         isXS={isXS}
         onClose={this.handleClosePopover}
+        width={popoverWidth}
       >
-        <List
-          scrollKey='profile_options'
-          items={menu}
-          size={isXS ? 'large' : 'small'}
-        />
+        {
+          !showingBookmarkCollections &&
+          <List
+            scrollKey='profile_options'
+            items={menu}
+            size={isXS ? 'large' : 'small'}
+          />
+        }
+        {
+          showingBookmarkCollections &&
+          <div className={[_s.d, _s.w100PC].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.bgSecondary].join(' ')}>
+              <Button
+                isText
+                icon='back'
+                color='primary'
+                backgroundColor='none'
+                className={[_s.aiCenter, _s.jcCenter, _s.pl15, _s.pr5].join(' ')}
+                onClick={this.handleBookmarkChangeBackClick}
+              />
+              <Text className={[_s.d, _s.pl5, _s.py10].join(' ')}>
+                Select bookmark collection:
+              </Text>
+            </div>
+            <div className={[_s.d, _s.w100PC, _s.overflowYScroll, _s.maxH340PX].join(' ')}>
+              <List
+                scrollKey='status_options_bookmark_collections'
+                showLoading={bookmarkCollectionItems.length === 0}
+                emptyMessage="You have no bookmark collections yet."
+                items={bookmarkCollectionItems}
+                size={isXS ? 'large' : 'small'}
+              />
+            </div>
+          </div>
+        }
       </PopoverLayout>
     )
   }
@@ -323,6 +395,8 @@ const mapStateToProps = (state, { statusId }) => {
     groupId,
     groupRelationships,
     isPro: state.getIn(['accounts', me, 'is_pro']),
+    bookmarkCollectionsIsFetched: state.getIn(['bookmark_collections', 'isFetched']),
+    bookmarkCollections: state.getIn(['bookmark_collections', 'items']),
   }
 }
 
@@ -454,7 +528,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(closePopover())
     dispatch(openModal(MODAL_PRO_UPGRADE))
   },
-
   onPinGroupStatus(status) {
     dispatch(closePopover())
 
@@ -464,7 +537,13 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(pinGroupStatus(status.getIn(['group', 'id']), status.get('id')))
     }
   },
-
+  onFetchBookmarkCollections() {
+    dispatch(fetchBookmarkCollections())
+  },
+  onUpdateBookmarkCollectionStatus(statusId, bookmarkCollectionId) {
+    dispatch(updateBookmarkCollectionStatus(statusId, bookmarkCollectionId))
+    dispatch(closePopover())
+  },
   onClosePopover: () => dispatch(closePopover()),
 })
 
@@ -487,6 +566,8 @@ StatusOptionsPopover.propTypes = {
   fetchIsPinnedGroupStatus: PropTypes.func.isRequired,
   fetchIsBookmark: PropTypes.func.isRequired,
   fetchIsPin: PropTypes.func.isRequired,
+  onFetchBookmarkCollections: PropTypes.func.isRequired,
+  onUpdateBookmarkCollectionStatus: PropTypes.func.isRequired,
   isXS: PropTypes.bool,
   isPro: PropTypes.bool,
 }

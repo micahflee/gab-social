@@ -284,9 +284,14 @@ Rails.application.routes.draw do
       resources :reports,      only: [:create]
       resources :filters,      only: [:index, :create, :show, :update, :destroy]
       resources :shortcuts,    only: [:index, :create, :show, :destroy]
-      resources :bookmarks,    only: [:index]
-      resources :bookmark_collections, only: [:index, :create, :update, :show, :destroy]
       resources :albums,       only: [:index, :create, :update, :show, :destroy]
+
+      resources :bookmark_collections, only: [:index, :create, :show, :update, :destroy] do
+        resources :bookmarks, only: [:index], controller: 'bookmark_collections/bookmarks'
+        member do
+          post :update_status
+        end
+      end
 
       get '/search', to: 'search#index', as: :search
       get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
@@ -385,12 +390,22 @@ Rails.application.routes.draw do
     end
   end
 
+  # : todo :
+  # get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
+  # get '/:username/comments_only', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
+  # get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
+  # get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
+  # get '/:username/posts/:statusId/reblogs', to: 'statuses#show', username: username_regex
+  # get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
+  # get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
+
   get '/g/:groupSlug', to: 'react#groupBySlug'
   get '/(*any)', to: 'react#react', as: :web
   root 'react#react'
 
   get '/', to: 'react#react', as: :homepage
 
+  # : todo :
   get '/about', to: 'react#react'
   get '/about/tos', to: 'react#react'
   get '/about/privacy', to: 'react#react'

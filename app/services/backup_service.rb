@@ -3,6 +3,14 @@
 require 'rubygems/package'
 
 # : todo :
+# albums
+# bookmarks
+# bookmark collections
+# chat messages
+# chat conversations
+# joined group
+# removed groups
+
 class BackupService < BaseService
   attr_reader :account, :backup, :collection
 

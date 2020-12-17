@@ -106,7 +106,7 @@ class ComposePostDesinationPopover extends ImmutablePureComponent {
             <div className={[_s.d, _s.w100PC, _s.overflowYScroll, _s.maxH340PX].join(' ')}>
               <List
                 scrollKey='groups-post-destination-add'
-                showLoading={groups.size === 0}
+                showLoading={groups.length === 0}
                 emptyMessage="You are not a member of any groups yet."
                 items={groupItems}
               />

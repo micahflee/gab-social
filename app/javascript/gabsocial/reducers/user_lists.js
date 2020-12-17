@@ -86,7 +86,6 @@ const initialState = ImmutableMap({
   blocks: ImmutableMap(),
   mutes: ImmutableMap(),
   chat_blocks: ImmutableMap(),
-  chat_mutes: ImmutableMap(),
   groups: ImmutableMap(),
   group_removed_accounts: ImmutableMap(),
   group_join_requests: ImmutableMap(),
