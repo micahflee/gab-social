@@ -618,7 +618,7 @@ class Video extends ImmutablePureComponent {
           <video
             className={[_s.d, _s.h100PC, _s.w100PC, _s.outlineNone, 'video-js'].join(' ')}
             ref={this.setVideoRef}
-            // playsInline
+            playsInline
             // poster={preview}
             // preload={preload}
             // role='button'
