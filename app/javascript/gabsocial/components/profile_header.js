@@ -226,6 +226,7 @@ class ProfileHeader extends ImmutablePureComponent {
                             iconClassName={_s.inheritFill}
                             color='brand'
                             backgroundColor='none'
+                            // : TODO :
                             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
                             onClick={this.handleOpenMore}
                             buttonRef={this.setOpenMoreNodeRef}
@@ -362,6 +363,18 @@ class ProfileHeader extends ImmutablePureComponent {
                               color='brand'
                               backgroundColor='none'
                               className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10].join(' ')}
+                              onClick={this.handleOpenMore}
+                              buttonRef={this.setOpenMoreNodeRef}
+                            />
+                            <Button
+                              isOutline
+                              icon='chat'
+                              iconSize='18px'
+                              iconClassName={_s.inheritFill}
+                              color='brand'
+                              backgroundColor='none'
+                              // : TODO :
+                              className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
                               onClick={this.handleOpenMore}
                               buttonRef={this.setOpenMoreNodeRef}
                             />

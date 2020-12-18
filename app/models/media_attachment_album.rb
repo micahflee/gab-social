@@ -11,6 +11,7 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  cover_id    :bigint(8)
+#  count       :integer          default(0), not null
 #
 
 class MediaAttachmentAlbum < ApplicationRecord

@@ -3,7 +3,10 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { length } from 'stringz'
 import { openPopover } from '../../actions/popover'
-import { MAX_POST_CHARACTER_COUNT } from '../../constants'
+import {
+  CX,
+  MAX_POST_CHARACTER_COUNT,
+} from '../../constants'
 import Heading from '../heading'
 import Button from '../button'
 import BackButton from '../back_button'
@@ -23,15 +26,27 @@ class ComposeNavigationBar extends React.PureComponent {
       isSubmitting,
       anyMedia,
       text,
+      isXS,
     } = this.props
 
     const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
- 
+    const innerClasses = CX({
+      d: 1,
+      flexRow: 1,
+      saveAreaInsetPT: 1,
+      saveAreaInsetPL: 1,
+      saveAreaInsetPR: 1,
+      w100PC: 1,
+      maxW640PX: !isXS,
+      mlAuto: !isXS,
+      mrAuto: !isXS,
+    })
+
     return (
       <div className={[_s.d, _s.z4, _s.h53PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.h53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
 
-          <div className={[_s.d, _s.flexRow, _s.saveAreaInsetPT, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
+          <div className={innerClasses}>
 
             <BackButton
               toHome
@@ -81,6 +96,7 @@ ComposeNavigationBar.propTypes = {
   isSubmitting: PropTypes.bool,
   anyMedia: PropTypes.bool,
   text: PropTypes.string,
+  isXS: PropTypes.bool,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComposeNavigationBar)

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_003945) do
+ActiveRecord::Schema.define(version: 2020_12_18_012018) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -420,6 +420,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_003945) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "cover_id"
+    t.integer "count", default: 0, null: false
     t.index ["cover_id"], name: "index_media_attachment_albums_on_cover_id"
   end
 

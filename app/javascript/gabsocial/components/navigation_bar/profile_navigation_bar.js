@@ -1,10 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
+import { POPOVER_PROFILE_OPTIONS } from '../../constants'
+import { openPopover } from '../../actions/popover'
 import BackButton from '../back_button'
 import Button from '../button'
 import Heading from '../heading'
 
 class ProfileNavigationBar extends React.PureComponent {
+
+  handleOpenMore = () => {
+    this.props.openProfileOptionsPopover({
+      account: this.props.account,
+      targetRef: this.openMoreNode,
+      position: 'bottom',
+    })
+  }
+
+  setOpenMoreNodeRef = (n) => {
+    this.openMoreNode = n
+  }
 
   render() {
     const { titleHTML } = this.props
@@ -51,9 +66,15 @@ class ProfileNavigationBar extends React.PureComponent {
 
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  openProfileOptionsPopover(props) {
+    dispatch(openPopover(POPOVER_PROFILE_OPTIONS, props))
+  },
+})
+
 ProfileNavigationBar.propTypes = {
   titleHTML: PropTypes.string,
   showBackBtn: PropTypes.bool,
 }
 
-export default ProfileNavigationBar
+export default connect(null, mapDispatchToProps)(ProfileNavigationBar)

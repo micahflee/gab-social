@@ -35,7 +35,6 @@ class ComposePage extends React.PureComponent {
     const { width } = this.state
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
-    if (!isXS) throw 'This page does not exist'
 
     return (
       <ComposeLayout title='Compose' isXS={isXS}>

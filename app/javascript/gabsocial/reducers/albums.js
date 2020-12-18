@@ -4,7 +4,7 @@ import {
   ALBUMS_FETCH_FAIL,
   ALBUMS_CREATE_SUCCESS,
   ALBUMS_REMOVE_REQUEST,
-} from '../actions/bookmarks'
+} from '../actions/albums'
 import { Map as ImmutableMap, List as ImmutableList, fromJS } from 'immutable'
 
 const initialState = ImmutableMap({
@@ -24,7 +24,7 @@ export default function albums(state = initialState, action) {
       })
     case ALBUMS_FETCH_SUCCESS:
       return state.withMutations((map) => {
-        map.set('items', fromJS(action.bookmarkCollections))
+        map.set('items', fromJS(action.albums))
         map.set('isLoading', false)
         map.set('isFetched', true)
         map.set('isError', false)
@@ -36,10 +36,10 @@ export default function albums(state = initialState, action) {
         map.set('isError', true)
       })
     case ALBUMS_CREATE_SUCCESS:
-      return state.update('items', list => list.push(fromJS(action.bookmarkCollection)))
+      return state.update('items', list => list.push(fromJS(action.albums)))
     case ALBUMS_REMOVE_REQUEST:
       return state.update('items', list => list.filterNot((item) => {
-        return item.get('id') === action.bookmarkCollectionId
+        return item.get('id') === action.albumId
       }))
     default:
       return state

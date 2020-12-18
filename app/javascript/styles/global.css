@@ -600,6 +600,7 @@ pre {
 .maxW212PX { max-width: 212px; }
 
 .minW330PX { min-width: 330px; }
+.minW162PX { min-width: 162px; }
 .minW120PX { min-width: 120px; }
 .minW84PX { min-width: 84px; }
 .minW76PX { min-width: 76px; }
@@ -849,6 +850,7 @@ pre {
 .mtNeg50PX { margin-top: -50px; }
 .mtNeg75PX { margin-top: -75px; }
 
+.pt100PC { padding-top: 100%; }
 .pt5625PC { padding-top: 56.25%; }
 .pt25PC { padding-top: 25%; }
 .pt53PX { padding-top: 53px; }

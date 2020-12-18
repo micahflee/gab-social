@@ -5,31 +5,16 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
 import { is } from 'immutable'
-import throttle from 'lodash.throttle'
 import { decode } from 'blurhash'
 import videojs from 'video.js'
-import { isFullscreen, requestFullscreen, exitFullscreen } from '../utils/fullscreen'
 import { isPanoramic, isPortrait, minimumAspectRatio, maximumAspectRatio } from '../utils/media_aspect_ratio'
-import {
-  openPopover,
-} from '../actions/popover'
 import { displayMedia } from '../initial_state'
-import {
-  CX,
-  POPOVER_VIDEO_STATS,
-  BREAKPOINT_EXTRA_SMALL,
-} from '../constants'
-import Responsive from '../features/ui/util/responsive_component'
 import Button from './button'
 import Icon from './icon'
 import SensitiveMediaItem from './sensitive_media_item'
 import Text from './text'
 
 import '!style-loader!css-loader!video.js/dist/video-js.min.css'
-
-// check every 100 ms for buffer
-const checkInterval = 100
-const FIXED_VAR = 6
 
 const videoJsOptions = {
   autoplay: false,
@@ -38,130 +23,19 @@ const videoJsOptions = {
   sources: [{}],
 }
 
-const formatTime = (secondsNum) => {
-  if (isNaN(secondsNum)) secondsNum = 0
-
-  let hours = Math.floor(secondsNum / 3600)
-  let minutes = Math.floor((secondsNum - (hours * 3600)) / 60)
-  let seconds = Math.floor(secondsNum) - (hours * 3600) - (minutes * 60)
-
-  if (hours < 10) hours = '0' + hours
-  if (minutes < 10) minutes = '0' + minutes
-  if (seconds < 10) seconds = '0' + seconds
-
-  return (hours === '00' ? '' : `${hours}:`) + `${minutes}:${seconds}`
-}
-
-export const findElementPosition = (el) => {
-  let box
-
-  if (el.getBoundingClientRect && el.parentNode) {
-    box = el.getBoundingClientRect()
-  }
-
-  if (!box) {
-    return {
-      left: 0,
-      top: 0,
-    }
-  }
-
-  const docEl = document.documentElement
-  const body = document.body
-
-  const clientLeft = docEl.clientLeft || body.clientLeft || 0
-  const scrollLeft = window.pageXOffset || body.scrollLeft
-  const left = (box.left + scrollLeft) - clientLeft
-
-  const clientTop = docEl.clientTop || body.clientTop || 0
-  const scrollTop = window.pageYOffset || body.scrollTop
-  const top = (box.top + scrollTop) - clientTop
-
-  return {
-    left: Math.round(left),
-    top: Math.round(top),
-  }
-}
-
-export const getPointerPosition = (el, event) => {
-  const position = {}
-  const box = findElementPosition(el)
-  const boxW = el.offsetWidth
-  const boxH = el.offsetHeight
-  const boxY = box.top
-  const boxX = box.left
-
-  let pageY = event.pageY
-  let pageX = event.pageX
-
-  if (event.changedTouches) {
-    pageX = event.changedTouches[0].pageX
-    pageY = event.changedTouches[0].pageY
-  }
-
-  position.y = Math.max(0, Math.min(1, (pageY - boxY) / boxH))
-  position.x = Math.max(0, Math.min(1, (pageX - boxX) / boxW))
-
-  return position
-}
-
 class Video extends ImmutablePureComponent {
 
   state = {
-    currentTime: 0,
-    duration: 0,
-    volume: 0.5,
-    paused: true,
-    dragging: false,
-    draggingVolume: false,
     containerWidth: this.props.width,
-    fullscreen: false,
-    hovered: false,
-    muted: false,
-    hoveringVolumeButton: false,
-    hoveringVolumeControl: false,
     revealed: this.props.visible !== undefined ? this.props.visible : (displayMedia !== 'hide_all' && !this.props.sensitive || displayMedia === 'show_all'),
-    pipAvailable: true,
-    isBuffering: false,
   }
 
-  bufferCheckInterval = null
-  lastPlayPos = 0
-  volHeight = 100
-  volOffset = 13
-
   componentDidMount() {
-    const { meta, blurhash } = this.props
-
-    document.addEventListener('fullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
-    document.addEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
-
-    if (meta) {
-      this.setState({ duration: parseInt(meta.get('duration')) })
-    }
-
-    if ('pictureInPictureEnabled' in document) {
-      this.setState({ pipAvailable: true })
-    }
-
     videoJsOptions.sources = [{ src: this.props.src }]
-    console.log("videoJsOptions:", videoJsOptions)
-    // instantiate video.js
-    this.videoPlayer = videojs(this.videoNode, videoJsOptions, function onPlayerReady() {
-      console.log('onPlayerReady', this)
-    })
+    this.videoPlayer = videojs(this.video, videoJsOptions)
   }
 
   componentWillUnmount() {
-    document.removeEventListener('fullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('webkitfullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('mozfullscreenchange', this.handleFullscreenChange, true)
-    document.removeEventListener('MSFullscreenChange', this.handleFullscreenChange, true)
-    
-    clearInterval(this.bufferCheckInterval)
-
     if (this.videoPlayer) {
       this.videoPlayer.dispose()
     }
@@ -179,34 +53,6 @@ class Video extends ImmutablePureComponent {
     }
   }
 
-  checkBuffering = () => {
-    const { isBuffering, paused } = this.state
-    if (!this.video) {
-      this.handlePause()
-      return
-    }
-    const { currentTime } = this.video
-
-    // Checking offset should be at most the check interval but allow for some margin
-    let offset = (checkInterval - 30) / 1000
-
-    if (!isBuffering && currentTime < (this.lastPlayPos + offset) && !paused) {
-      // If no buffering is currently detected, and the position does not seem to increase
-      // and the player isn't manually paused...
-      this.setState({ isBuffering: true })
-    } else if (isBuffering && currentTime > (this.lastPlayPos + offset) && !paused) {
-      // If we were buffering but the player has advanced, then there is no buffering
-      this.setState({ isBuffering: false })
-    }
-
-    this.lastPlayPos = currentTime
-  }
-
-  volHandleOffset = (v) => {
-    const offset = v * this.volHeight + this.volOffset
-    return (offset > 110) ? 110 : offset
-  }
-
   setPlayerRef = (n) => {
     this.player = n
 
@@ -220,196 +66,9 @@ class Video extends ImmutablePureComponent {
 
   setVideoRef = (n) => {
     this.video = n
-    this.videoNode = n
-
-    if (this.video) {
-      const { volume, muted } = this.video
-      this.setState({
-        volume,
-        muted,
-      })
-    }
-  }
-
-  setSeekRef = (n) => {
-    this.seek = n
-  }
-
-  setVolumeRef = (n) => {
-    this.volume = n
-  }
-
-  setSettingsBtnRef = (n) => {
-    this.settingsBtn = n
   }
 
   handleClickRoot = (e) => e.stopPropagation()
-
-  handlePlay = () => {
-    this.setState({ paused: false })
-
-    this.bufferCheckInterval = setInterval(this.checkBuffering, checkInterval)
-  }
-
-  handlePause = () => {
-    this.setState({
-      paused: true,
-      isBuffering: false,
-    })
-
-    clearInterval(this.bufferCheckInterval)
-  }
-
-  handleTimeUpdate = () => {
-    const { currentTime, duration } = this.video
-    this.setState({
-      currentTime: currentTime.toFixed(FIXED_VAR),
-      duration: duration.toFixed(FIXED_VAR),
-    })
-  }
-
-  handleVolumeMouseDown = (e) => {
-    document.addEventListener('mousemove', this.handleMouseVolSlide, true)
-    document.addEventListener('mouseup', this.handleVolumeMouseUp, true)
-    document.addEventListener('touchmove', this.handleMouseVolSlide, true)
-    document.addEventListener('touchend', this.handleVolumeMouseUp, true)
-
-    this.handleMouseVolSlide(e)
-
-    e.preventDefault()
-    e.stopPropagation()
-
-    this.setState({ draggingVolume: true })
-  }
-
-  handleVolumeMouseUp = () => {
-    this.handleMouseLeaveVolumeControl()
-
-    document.removeEventListener('mousemove', this.handleMouseVolSlide, true)
-    document.removeEventListener('mouseup', this.handleVolumeMouseUp, true)
-    document.removeEventListener('touchmove', this.handleMouseVolSlide, true)
-    document.removeEventListener('touchend', this.handleVolumeMouseUp, true)
-
-    this.setState({ draggingVolume: false })
-  }
-
-  handleMouseVolSlide = throttle((e) => {
-    const rect = this.volume.getBoundingClientRect()
-    const y = 1 - ((e.clientY - rect.top) / this.volHeight)
-
-    if (!isNaN(y)) {
-      const slideamt = y
-      if (y > 1) {
-        slideamt = 1
-      } else if (y < 0) {
-        slideamt = 0
-      }
-      this.video.volume = slideamt
-      this.setState({ volume: slideamt })
-    }
-  }, 60)
-
-  handleMouseDown = (e) => {
-    document.addEventListener('mousemove', this.handleMouseMove, true)
-    document.addEventListener('mouseup', this.handleMouseUp, true)
-    document.addEventListener('touchmove', this.handleMouseMove, true)
-    document.addEventListener('touchend', this.handleMouseUp, true)
-
-    this.setState({ dragging: true })
-    this.video.pause()
-    this.handleMouseMove(e)
-
-    e.preventDefault()
-    e.stopPropagation()
-  }
-
-  handleMouseUp = () => {
-    document.removeEventListener('mousemove', this.handleMouseMove, true)
-    document.removeEventListener('mouseup', this.handleMouseUp, true)
-    document.removeEventListener('touchmove', this.handleMouseMove, true)
-    document.removeEventListener('touchend', this.handleMouseUp, true)
-
-    this.setState({ dragging: false })
-    this.video.play()
-  }
-
-  handleMouseMove = throttle(e => {
-    const { x } = getPointerPosition(this.seek, e)
-    const currentTime = parseFloat(this.video.duration * x).toFixed(FIXED_VAR)
-
-    if (!isNaN(currentTime)) {
-      this.video.currentTime = currentTime
-      this.setState({ currentTime })
-    }
-  }, 60)
-
-  togglePlay = () => {
-    if (this.state.paused) {
-      this.video.play()
-    } else {
-      this.video.pause()
-    }
-  }
-
-  toggleFullscreen = () => {
-    if (isFullscreen()) {
-      exitFullscreen()
-    } else {
-      requestFullscreen(this.player)
-    }
-  }
-  
-  togglePip = () => {
-    try {
-      if (this.video !== document.pictureInPictureElement) {
-        if (this.state.paused) {
-          this.video.play()
-        }
-        setTimeout(() => { // : hack :
-          this.video.requestPictureInPicture()
-        }, 500)
-      } else {
-        document.exitPictureInPicture()
-      }
-    } catch(e) {
-      //
-    }
-  }
-
-  handleFullscreenChange = () => {
-    this.setState({ fullscreen: isFullscreen() })
-  }
-
-  handleMouseEnter = () => {
-    this.setState({ hovered: true })
-  }
-
-  handleMouseLeave = () => {
-    this.setState({ hovered: false })
-  }
-
-  handleMouseEnterAudio = () => {
-    this.setState({ hoveringVolumeButton: true })
-  }
-
-  handleMouseLeaveAudio = throttle(() => {
-    this.setState({ hoveringVolumeButton: false })
-  }, 2500)
-
-  handleMouseEnterVolumeControl = () => {
-    this.setState({ hoveringVolumeControl: true })
-  }
-
-  handleMouseLeaveVolumeControl = throttle(() => {
-    if (!this.state.draggingVolume) {
-      this.setState({ hoveringVolumeControl: false })
-    }
-  }, 2500)
-
-  toggleMute = () => {
-    this.video.muted = !this.video.muted
-    this.setState({ muted: this.video.muted })
-  }
 
   toggleReveal = () => {
     if (this.props.onToggleVisibility) {
@@ -417,36 +76,6 @@ class Video extends ImmutablePureComponent {
     } else {
       this.setState({ revealed: !this.state.revealed })
     }
-  }
-
-  handleLoadedData = () => {
-    if (this.props.startTime) {
-      this.video.currentTime = this.props.startTime
-      this.video.play()
-    }
-  }
-
-  handleProgress = () => {
-    const { buffered, duration } = this.video
-
-    if (!buffered) return
-    if (buffered.length > 0) {
-      this.setState({
-        buffer: buffered.end(0) / duration * 100,
-      })
-    }
-  }
-
-  handleVolumeChange = () => {
-    const { volume, muted } = this.video
-    this.setState({
-      volume,
-      muted,
-    })
-  }
-
-  handleOnClickSettings = () => {
-    this.props.onOpenVideoStatsPopover(this.settingsBtn, this.props.meta)
   }
 
   render() {
@@ -464,26 +93,9 @@ class Video extends ImmutablePureComponent {
 
     const {
       containerWidth,
-      currentTime,
-      duration,
-      volume,
-      buffer,
-      dragging,
-      paused,
-      fullscreen,
-      hovered,
-      muted,
       revealed,
-      hoveringVolumeButton,
-      hoveringVolumeControl,
-      pipAvailable,
-      isBuffering,
     } = this.state
 
-    const progress = (currentTime / duration) * 100
-
-    const volumeHeight = (muted) ? 0 : volume * this.volHeight
-    const volumeHandleLoc = (muted) ? this.volHandleOffset(0) : this.volHandleOffset(volume)
     const playerStyle = {}
 
     let { width, height } = this.props
@@ -505,7 +117,7 @@ class Video extends ImmutablePureComponent {
 
     let preload
 
-    if (startTime || fullscreen || dragging) {
+    if (startTime) {
       preload = 'auto'
     } else if (detailed) {
       preload = 'metadata'
@@ -513,87 +125,13 @@ class Video extends ImmutablePureComponent {
       preload = 'none'
     }
 
-    const mainContainerClasses = CX({
-      d: 1,
-      mt10: 1,
-      outlineNone: 1,
-    })
-
-    const seekHandleClasses = CX({
-      d: 1,
-      posAbs: 1,
-      circle: 1,
-      h20PX: 1,
-      w20PX: 1,
-      bgTransparent: 1,
-      mlNeg5PX: 1,
-      mr5: 1,
-      z3: 1,
-      aiCenter: 1,
-      jcCenter: 1,
-      videoEase: 1,
-      opacity0: !dragging,
-      opacity1: dragging || hovered,
-    })
-
-    const seekInnerHandleClasses = CX({
-      d: 1,
-      circle: 1,
-      h14PX: 1,
-      w14PX: 1,
-      bgBrand: 1,
-      boxShadow1: 1,
-    })
-
-    const progressClasses = CX({
-      d: 1,
-      radiusSmall: 1,
-      mt10: 1,
-      posAbs: 1,
-      h4PX: 1,
-      videoEase: 1,
-    })
-
-    const volumeControlClasses = CX({
-      d: 1,
-      posAbs: 1,
-      bgBlackOpaque: 1,
-      videoPlayerVolume: 1,
-      h122PX: 1,
-      circle: 1,
-      displayNone: !hoveringVolumeButton && !hoveringVolumeControl || !hovered,
-    })
-
-    const videoControlsBackgroundClasses = CX({
-      d: 1,
-      z2: 1,
-      px15: 1,
-      videoPlayerControlsBackground: 1,
-      posAbs: 1,
-      bottom0: 1,
-      right0: 1,
-      left0: 1,
-      displayNone: !hovered && !paused,
-    })
-
-    const overlayClasses = CX({
-      d: 1,
-      top50PC: 1,
-      left50PC: 1,
-      posAbs: 1,
-      z2: 1,
-      aiCenter: 1,
-      jcCenter: 1,
-      displayNone: !paused && !isBuffering,
-    })
-
     if (!revealed && sensitive) {
       return <SensitiveMediaItem onClick={this.toggleReveal} />
     }
 
     return (
       <div
-        className={mainContainerClasses}
+        className={[_s.d, _s.mt10, _s.outlineNone].join(' ')}
         style={playerStyle}
         ref={this.setPlayerRef}
         onMouseEnter={this.handleMouseEnter}
@@ -601,35 +139,19 @@ class Video extends ImmutablePureComponent {
         onClick={this.handleClickRoot}
         tabIndex={0}
       >
-
-        <div className={overlayClasses} id='overlay'>
-          {
-            !paused && true &&
-            <Icon id='loading' size='60px' className={[_s.d, _s.posAbs].join(' ')} />
-          }
-        </div>
-
         <div data-vjs-player>
           <video
             className={[_s.d, _s.h100PC, _s.w100PC, _s.outlineNone, 'video-js'].join(' ')}
             ref={this.setVideoRef}
             playsInline
-            // poster={preview}
-            // preload={preload}
-            // role='button'
-            // tabIndex='0'
-            // aria-label={alt}
-            // title={alt}
-            // width={width}
-            // height={height}
-            // volume={volume}
-            // onClick={this.togglePlay}
-            // onPlay={this.handlePlay}
-            // onPause={this.handlePause}
-            // onTimeUpdate={this.handleTimeUpdate}
-            // onLoadedData={this.handleLoadedData}
-            // onProgress={this.handleProgress}
-            // onVolumeChange={this.handleVolumeChange}
+            poster={preview}
+            preload={preload}
+            role='button'
+            tabIndex='0'
+            aria-label={alt}
+            title={alt}
+            width={width}
+            height={height}
           />
         </div>
 
@@ -651,28 +173,7 @@ class Video extends ImmutablePureComponent {
 }
 
 const messages = defineMessages({
-  play: { id: 'video.play', defaultMessage: 'Play' },
-  pause: { id: 'video.pause', defaultMessage: 'Pause' },
-  mute: { id: 'video.mute', defaultMessage: 'Mute sound' },
-  unmute: { id: 'video.unmute', defaultMessage: 'Unmute sound' },
-  hide: { id: 'video.hide', defaultMessage: 'Hide video' },
-  fullscreen: { id: 'video.fullscreen', defaultMessage: 'Full screen' },
-  exit_fullscreen: { id: 'video.exit_fullscreen', defaultMessage: 'Exit full screen' },
-  sensitive: { id: 'status.sensitive_warning', defaultMessage: 'Sensitive content' },
-  hidden: { id: 'status.media_hidden', defaultMessage: 'Media hidden' },
-  video_stats: { id: 'video.stats_label', defaultMessage: 'Video meta stats' },
   toggle_visible: { id: 'media_gallery.toggle_visible', defaultMessage: 'Hide media' },
-})
-
-
-const mapDispatchToProps = (dispatch) => ({
-  onOpenVideoStatsPopover(targetRef, meta) {
-    dispatch(openPopover(POPOVER_VIDEO_STATS, {
-      targetRef,
-      meta,
-      position: 'top',
-    }))
-  }
 })
 
 Video.propTypes = {
@@ -692,7 +193,6 @@ Video.propTypes = {
   blurhash: PropTypes.string,
   aspectRatio: PropTypes.number,
   meta: ImmutablePropTypes.map,
-  onOpenVideoStatsPopover: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(Video))
+export default injectIntl(Video)

@@ -88,7 +88,7 @@ class ProfileLayout extends ImmutablePureComponent {
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>
           {
             !!me &&
-            <ProfileNavigationBar titleHTML={titleHTML} />
+            <ProfileNavigationBar titleHTML={titleHTML} account={account} />
           }
           {
             !me &&
