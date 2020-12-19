@@ -6,7 +6,13 @@ class Api::V1::ChatConversationController < Api::BaseController
 
   before_action :require_user!
   before_action :set_account, only: :create
-  before_action :set_chat_conversation, only: [:show, :mark_chat_conversation_approved, :mark_chat_conversation_hidden, :mark_chat_conversation_read]
+  before_action :set_chat_conversation, only: [
+      :show,
+      :mark_chat_conversation_approved,
+      :mark_chat_conversation_hidden,
+      :mark_chat_conversation_read,
+      :set_expiration_policy
+    ]
 
   def show
     render json: {}, each_serializer: REST::ChatConversationAccountSerializer
@@ -40,6 +46,33 @@ class Api::V1::ChatConversationController < Api::BaseController
     else  
       @chat_conversation_account.update!(is_approved: true)
       render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    end
+  end
+
+  def set_expiration_policy
+    if current_user.account.is_pro
+      case params[:expiration]
+        when 'five_minutes'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:five_minutes]
+        when 'one_hour'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_hour]
+        when 'six_hours'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:six_hours]
+        when 'one_day'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_day]
+        when 'three_days'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:three_days]
+        when 'one_week'
+          @expires_at = ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_week]
+        else
+          @expires_at = nil
+      end
+      puts "tilly @expires_at: " + @expires_at.inspect
+      @chat_conversation_account.chat_message_expiration_policy = @expires_at
+      @chat_conversation_account.save!
+      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+    else
+      render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
     end
   end
 

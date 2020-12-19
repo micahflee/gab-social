@@ -16,6 +16,7 @@ import {
   CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS,
   CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS,
   CHAT_CONVERSATION_MARK_READ_SUCCESS,
+  SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap()
@@ -41,6 +42,7 @@ const importChatConversations = (state, chatConversations) => {
 export default function chat_conversations(state = initialState, action) {
   switch(action.type) {
   case CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS:
+  case SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS:
     return importChatConversation(state, action.chatConversation)
   case CHAT_CONVERSATIONS_APPROVED_FETCH_SUCCESS:
   case CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS:

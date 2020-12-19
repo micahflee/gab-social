@@ -49,14 +49,13 @@ class PostChatMessageService < BaseService
   end
 
   def postprocess_chat!
-    @chat_conversation_recipients_accounts = ChatConversationAccount.where(chat_conversation: @chat_conversation)
     @chat_conversation_recipients_accounts.each do |recipient|
       recipient.last_chat_message_id = @chat.id
-      recipient.is_hidden = false  # : todo : reset to show unless blocked
 
       # Get not mine
       if @account_conversation.id != recipient.id
         recipient.unread_count = recipient.unread_count + 1
+        recipient.is_hidden = false
 
         # check if muting
         unless recipient.is_muted
@@ -72,33 +71,46 @@ class PostChatMessageService < BaseService
   end
 
   def set_chat_conversation_recipients!
-    # : todo :
-    # check if chat blocked
-    # check if normal blocked
-    
     @account_conversation = ChatConversationAccount.where(account: @account, chat_conversation: @chat_conversation).first
+    @chat_conversation_recipients_accounts = ChatConversationAccount.where(chat_conversation: @chat_conversation)
+
+    # if 1-to-1 chat, check for blocking and dont allow message to send if blocking
+    # if 1-to-many let chat go through but keep is_hidden
+    @chat_conversation_recipients_accounts.each do |recipient|
+      # : todo :
+      # check if chat blocked
+      # check if normal blocked
+
+      if recipient.account.blocking?(@account) || recipient.account.chat_blocking?(@account)
+        raise GabSocial::NotPermittedError
+      end
+    end
+      
+      
   rescue ArgumentError
     raise ActiveRecord::RecordInvalid
   end
 
   def set_message_expiration_date!
     @expires_at = nil
+
+    unless @account.is_pro
+      return @expires_at
+    end
     
     case @account_conversation.chat_message_expiration_policy
-    when :five_minutes
-      @expires_at = 5.minutes
-    when :sixty_minutes
-      @expires_at = 1.hour
-    when :six_hours
-      @expires_at = 6.hours
-    when :one_day
-      @expires_at = 1.day
-    when :three_days
-      @expires_at = 3.days
-    when :one_week
-      @expires_at = 1.week
-    else
-      @expires_at = nil
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:five_minutes]
+        @expires_at = Time.now + 5.minutes
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_hour]
+        @expires_at = Time.now + 1.hour
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:six_hours]
+        @expires_at = Time.now + 6.hours
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_day]
+        @expires_at = Time.now + 1.day
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:three_days]
+        @expires_at = Time.now + 3.days
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_week]
+        @expires_at = Time.now + 1.week
     end
     
     @expires_at 

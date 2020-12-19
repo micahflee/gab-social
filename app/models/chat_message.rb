@@ -23,6 +23,7 @@ class ChatMessage < ApplicationRecord
   
   default_scope { recent }
 
+  scope :expired, -> { where.not(expires_at: nil).where('expires_at < ?', Time.now.utc) }
   scope :recent, -> { reorder(created_at: :desc) }
 
   def emojis

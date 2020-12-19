@@ -12,6 +12,7 @@ import {
   RELATIONSHIPS_FETCH_SUCCESS,
 } from '../actions/accounts'
 import {
+  FETCH_CHAT_MESSENGER_BLOCKING_RELATIONSHIPS_SUCCESS,
   BLOCK_CHAT_MESSAGER_SUCCESS,
   UNBLOCK_CHAT_MESSAGER_SUCCESS,
 } from '../actions/chat_conversation_accounts'
@@ -39,14 +40,21 @@ export default function relationships(state = initialState, action) {
     return state.setIn([action.id, 'following'], false)
   case ACCOUNT_UNFOLLOW_FAIL:
     return state.setIn([action.id, 'following'], true)
+
+  case BLOCK_CHAT_MESSAGER_SUCCESS:
+  case FETCH_CHAT_MESSENGER_BLOCKING_RELATIONSHIPS_SUCCESS:
+  case UNBLOCK_CHAT_MESSAGER_SUCCESS:
+    return state.withMutations((map) => {
+      if (action.data.chat_blocking !== undefined) map.setIn([data.target_id, 'chat_blocking'], action.data.chat_blocking)
+      if (action.data.chat_blocked_by !== undefined) map.setIn([data.target_id, 'chat_blocked_by'], action.data.chat_blocked_by)
+    })
+
   case ACCOUNT_FOLLOW_SUCCESS:
   case ACCOUNT_UNFOLLOW_SUCCESS:
   case ACCOUNT_BLOCK_SUCCESS:
   case ACCOUNT_UNBLOCK_SUCCESS:
   case ACCOUNT_MUTE_SUCCESS:
   case ACCOUNT_UNMUTE_SUCCESS:
-  case BLOCK_CHAT_MESSAGER_SUCCESS:
-  case UNBLOCK_CHAT_MESSAGER_SUCCESS:
     return normalizeRelationship(state, action.relationship)
   case RELATIONSHIPS_FETCH_SUCCESS:
     return normalizeRelationships(state, action.relationships)

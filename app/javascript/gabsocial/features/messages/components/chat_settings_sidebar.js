@@ -27,8 +27,12 @@ class ChatSettingsSidebar extends React.PureComponent {
               to: '/messages/requests',
             },
             {
-              title: 'Blocked Chats',
+              title: 'Blocked Chat Messengers',
               to: '/messages/blocks',
+            },
+            {
+              title: 'Muted Conversations',
+              to: '/messages/muted_conversations',
             },
           ]}
         />

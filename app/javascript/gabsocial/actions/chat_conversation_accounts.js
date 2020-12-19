@@ -20,7 +20,7 @@ export const UNBLOCK_CHAT_MESSAGER_REQUEST = 'UNBLOCK_CHAT_MESSAGER_REQUEST'
 export const UNBLOCK_CHAT_MESSAGER_SUCCESS = 'UNBLOCK_CHAT_MESSAGER_SUCCESS'
 export const UNBLOCK_CHAT_MESSAGER_FAIL    = 'UNBLOCK_CHAT_MESSAGER_FAIL'
 
-export const IS_CHAT_MESSENGER_BLOCKED_SUCCESS = 'IS_CHAT_MESSENGER_BLOCKED_SUCCESS'
+export const FETCH_CHAT_MESSENGER_BLOCKING_RELATIONSHIPS_SUCCESS = 'FETCH_CHAT_MESSENGER_BLOCKING_RELATIONSHIPS_SUCCESS'
 
 //
 
@@ -36,13 +36,12 @@ export const UNMUTE_CHAT_CONVERSATION_FAIL    = 'UNMUTE_CHAT_CONVERSATION_FAIL'
  * 
  */
 export const blockChatMessenger = (accountId) => (dispatch, getState) => {
-  console.log("blockChatMessenger:", accountId)
   if (!me || !accountId) return
 
   dispatch(blockChatMessengerRequest(accountId))
   
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/block_messenger`).then((response) => {
-    dispatch(blockChatMessengerSuccess())
+  api(getState).post(`/api/v1/chat_conversation_accounts/_/block_messenger`, { account_id: accountId }).then((response) => {
+    dispatch(blockChatMessengerSuccess(response.data))
   }).catch((error) => {
     dispatch(blockChatMessengerFail(accountId, error))
   })
@@ -53,8 +52,9 @@ const blockChatMessengerRequest = (accountId) => ({
   accountId,
 })
 
-const blockChatMessengerSuccess = () => ({
+const blockChatMessengerSuccess = (data) => ({
   type: BLOCK_CHAT_MESSAGER_SUCCESS,
+  data,
   showToast: true,
 })
 
@@ -73,8 +73,8 @@ export const unblockChatMessenger = (accountId) => (dispatch, getState) => {
 
   dispatch(unblockChatMessengerRequest(accountId))
 
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/unblock_messenger`).then((response) => {
-    dispatch(unblockChatMessengerSuccess())
+  api(getState).post(`/api/v1/chat_conversation_accounts/_/unblock_messenger`, { account_id: accountId }).then((response) => {
+    dispatch(unblockChatMessengerSuccess(response.data))
   }).catch((error) => {
     dispatch(unblockChatMessengerFail(accountId, error))
   })
@@ -85,8 +85,9 @@ const unblockChatMessengerRequest = (accountId) => ({
   accountId,
 })
 
-const unblockChatMessengerSuccess = () => ({
+const unblockChatMessengerSuccess = (data) => ({
   type: UNBLOCK_CHAT_MESSAGER_SUCCESS,
+  data,
   showToast: true,
 })
 
@@ -101,16 +102,16 @@ const unblockChatMessengerFail = (accountId, error) => ({
  * @description Check if a chat messenger is blocked by the current user account.
  * @param {String} accountId
  */
-export const isChatMessengerBlocked = (accountId) => (dispatch, getState) => {
+export const fetchMessengerBlockingRelationships = (accountId) => (dispatch, getState) => {
   if (!me || !accountId) return
 
-  api(getState).post(`/api/v1/chat_conversation_accounts/${accountId}/is_messenger_blocked`).then((response) => {
-    dispatch(isChatMessengerBlockedSuccess(response.data))
+  api(getState).post(`/api/v1/chat_conversation_accounts/_/messenger_block_relationships`, { account_id: accountId }).then((response) => {
+    dispatch(fetchMessengerBlockingRelationshipsSuccess(response.data))
   })
 }
 
-const isChatMessengerBlockedSuccess = (data) => ({
-  type: IS_CHAT_MESSENGER_BLOCKED_SUCCESS,
+const fetchMessengerBlockingRelationshipsSuccess = (data) => ({
+  type: FETCH_CHAT_MESSENGER_BLOCKING_RELATIONSHIPS_SUCCESS,
   data,
 })
 
@@ -193,7 +194,7 @@ export const muteChatConversation = (chatConversationId) => (dispatch, getState)
   api(getState).post(`/api/v1/chat_conversation_accounts/${chatConversationId}/mute_chat_conversation`).then((response) => {
     dispatch(muteChatConversationSuccess(response.data))
   }).catch((error) => {
-    dispatch(muteChatMessengerFail(error))
+    dispatch(muteChatConversationFail(error))
   })
 }
 

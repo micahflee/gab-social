@@ -5,43 +5,47 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
   before_action -> { doorkeeper_authorize! :write, :'write:chats' }
 
   before_action :require_user!
-  before_action :set_account
+  before_action :set_account, only: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
+  before_action :check_account_suspension, only: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
+  before_action :set_chat_conversation, except: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
 
   def block_messenger
-    BlockMessengerService.new.call(current_user.account, @account)
-    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
+    @block = BlockChatMessengerService.new.call(current_user.account, @account)
+    render json: @account,
+           serializer: REST::ChatMessengerBlockedSerializer,
+           chat_blocking: true
   end
 
   def unblock_messenger
-    UnblockMessengerService.new.call(current_user.account, @account)
-    render json: @account, serializer: REST::RelationshipSerializer, relationships: relationships
+    UnblockChatMessengerService.new.call(current_user.account, @account)
+    render json: @account,
+           serializer: REST::ChatMessengerBlockedSerializer,
+           chat_blocking: false
+  end
+
+  def messenger_block_relationships
+    chat_blocking = current_user.account.chat_blocking?(@account)
+    chat_blocked_by = current_user.account.chat_blocked_by?(@account, current_account)
+    render json: @account,
+           serializer: REST::ChatMessengerBlockedSerializer,
+           chat_blocking: chat_blocking,
+           chat_blocked_by: chat_blocked_by
   end
 
   def mute_chat_conversation
-    @chat_conversation_account.is_muted = true
-    @chat_conversation_account.save!
+    @chat_conversation_account.update!(is_muted: true)
     render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 
   def unmute_chat_conversation
-    @chat_conversation_account.is_muted = false
-    @chat_conversation_account.save!
+    @chat_conversation_account.update!(is_muted: false)
     render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
-  end
-
-  def set_expiration_policy
-    if current_user.account.is_pro
-      # : todo :
-      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
-    else
-      render json: { error: 'You need to be a GabPRO member to access this' }, status: 422
-    end
   end
 
   private
 
   def set_account
-    @account = Account.find(params[:id])
+    @account = Account.find(params[:account_id])
   end
 
   def set_chat_conversation

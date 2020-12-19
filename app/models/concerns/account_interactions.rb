@@ -24,6 +24,14 @@ module AccountInteractions
       follow_mapping(Block.where(account_id: target_account_ids, target_account_id: account_id), :account_id)
     end
 
+    def chat_blocking_map(target_account_ids, account_id)
+      follow_mapping(ChatBlock.where(target_account_id: target_account_ids, account_id: account_id), :target_account_id)
+    end
+
+    def chat_blocked_by_map(target_account_ids, account_id)
+      follow_mapping(ChatBlock.where(account_id: target_account_ids, target_account_id: account_id), :account_id)
+    end
+
     def muting_map(target_account_ids, account_id)
       Mute.where(target_account_id: target_account_ids, account_id: account_id).each_with_object({}) do |mute, mapping|
         mapping[mute.target_account_id] = {
@@ -97,6 +105,10 @@ module AccountInteractions
                        .find_or_create_by!(target_account: other_account)
   end
 
+  def chat_block!(other_account)
+    chat_block_relationships.find_or_create_by!(target_account: other_account)
+  end
+
   def mute!(other_account, notifications: nil)
     notifications = true if notifications.nil?
     mute = mute_relationships.create_with(hide_notifications: notifications).find_or_create_by!(target_account: other_account)
@@ -120,6 +132,11 @@ module AccountInteractions
     block&.destroy
   end
 
+  def chat_unblock!(other_account)
+    block = chat_block_relationships.find_by(target_account: other_account)
+    block&.destroy
+  end
+
   def unmute!(other_account)
     mute = mute_relationships.find_by(target_account: other_account)
     mute&.destroy
@@ -131,6 +148,14 @@ module AccountInteractions
 
   def blocking?(other_account)
     block_relationships.where(target_account: other_account).exists?
+  end
+
+  def chat_blocking?(other_account)
+    chat_block_relationships.where(target_account: other_account).exists?
+  end
+
+  def chat_blocked_by(target_account_id, account_id)
+    ChatBlock.where(account_id: target_account_id, target_account_id: account_id).exists?
   end
 
   def muting?(other_account)

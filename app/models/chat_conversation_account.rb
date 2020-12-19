@@ -27,7 +27,7 @@ class ChatConversationAccount < ApplicationRecord
   EXPIRATION_POLICY_MAP = {
     none: nil,
     five_minutes: '1',
-    sixty_minutes: '2',
+    one_hour: '2',
     six_hours: '3',
     one_day: '4',
     three_days: '5',

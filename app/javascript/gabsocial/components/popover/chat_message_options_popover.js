@@ -4,11 +4,11 @@ import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { deleteChatMessage } from '../../actions/chat_messages'
 import {
+  fetchMessengerBlockingRelationships,
   blockChatMessenger,
   unblockChatMessenger,
-  reportChatMessage,
+  // reportChatMessage,
 } from '../../actions/chat_conversation_accounts'
-import { fetchRelationships } from '../../actions/accounts'
 import { makeGetChatMessage } from '../../selectors'
 import { me } from '../../initial_state'
 import PopoverLayout from './popover_layout'
@@ -20,7 +20,7 @@ class ChatMessageOptionsPopover extends React.PureComponent {
 
   componentDidMount() {
     if (!this.props.isMine) {
-      this.props.onFetchRelationships(this.props.fromAccountId)
+      this.props.onFetchMessengerBlockingRelationships(this.props.fromAccountId)
     }
   }
 
@@ -33,7 +33,7 @@ class ChatMessageOptionsPopover extends React.PureComponent {
   }
 
   handleOnBlock = () => {
-    if (this.props.isBlocked) {
+    if (this.props.isChatBlocked) {
       this.props.onUnblock(this.props.fromAccountId)
     } else {
       this.props.onBlock(this.props.fromAccountId)
@@ -48,7 +48,7 @@ class ChatMessageOptionsPopover extends React.PureComponent {
     const {
       isXS,
       isMine,
-      isBlocked,
+      isChatBlocked,
     } = this.props
 
     const items = isMine ? [
@@ -66,8 +66,8 @@ class ChatMessageOptionsPopover extends React.PureComponent {
       {},
       {
         hideArrow: true,
-        title: isBlocked ? 'Unblock Messenger' : 'Block Messenger',
-        subtitle: isBlocked ? '' : 'The messenger will not be able to message you.',
+        title: isChatBlocked ? 'Unblock Messenger' : 'Block Messenger',
+        subtitle: isChatBlocked ? null : 'The messenger will not be able to message you.',
         onClick: () => this.handleOnBlock(),
       },
     ]
@@ -90,7 +90,7 @@ const mapStateToProps = (state, { chatMessageId }) => {
   return {
     fromAccountId,
     isMine: fromAccountId === me,
-    isBlocked: state.getIn(['relationships', fromAccountId, 'chat_blocked_by'], false),
+    isChatBlocked: state.getIn(['relationships', fromAccountId, 'chat_blocking'], false),
   }
 }
 
@@ -101,15 +101,19 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onBlock(accountId) {
     dispatch(blockChatMessenger(accountId))
+    dispatch(closePopover())
   },
   onUnblock(accountId) {
     dispatch(unblockChatMessenger(accountId))
+    dispatch(closePopover())
   },
   onReportChatMessage(chatMessageId) {
-    dispatch(reportChatMessage(chatMessageId))
+    // : todo :
+    // dispatch(reportChatMessage(chatMessageId))
+    dispatch(closePopover())
   },
-  onFetchRelationships(accountId) {
-    // dispatch(fetchRelationships(accountId))
+  onFetchMessengerBlockingRelationships(accountId) {
+    dispatch(fetchMessengerBlockingRelationships(accountId))
   },
   onClosePopover() {
     dispatch(closePopover())
@@ -120,8 +124,9 @@ ChatMessageOptionsPopover.propTypes = {
   isXS: PropTypes.bool,
   isMine: PropTypes.bool,
   chatMessageId: PropTypes.string.isRequired,
-  isBlocked: PropTypes.bool.isRequired,
+  isChatBlocked: PropTypes.bool.isRequired,
   onDeleteChatMessage: PropTypes.func.isRequired,
+  onIsChatMessengerBlocked: PropTypes.func.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatMessageOptionsPopover)

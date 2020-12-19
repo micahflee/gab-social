@@ -7,6 +7,7 @@ import compareId from '../utils/compare_id'
 import {
   CHAT_MESSAGES_SEND_SUCCESS,
   CHAT_MESSAGES_DELETE_REQUEST,
+  CHAT_MESSAGES_PURGE_SUCCESS,
 } from '../actions/chat_messages'
 import {
   CHAT_CONVERSATION_MESSAGES_EXPAND_REQUEST,
@@ -100,6 +101,9 @@ export default function chat_conversation_messages(state = initialState, action)
     return updateChatMessageConversation(state, action.chatMessage.chat_conversation_id, fromJS(action.chatMessage))
   case CHAT_MESSAGES_DELETE_REQUEST:
     // : todo : 
+    return state
+  case CHAT_MESSAGES_PURGE_SUCCESS:
+    // : todo :
     return state
   default:
     return state

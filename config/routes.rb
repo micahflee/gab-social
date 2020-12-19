@@ -226,17 +226,17 @@ Rails.application.routes.draw do
         resource :explore, only: :show, controller: :explore
       end
 
-      resource :chat_conversation_accounts, only: :show do
+      namespace :chat_conversation_accounts do
         resource :blocked_chat_accounts, only: :show, controller: 'chat_conversation_accounts/blocked_chat_accounts'
-
+      end
+      
+      resources :chat_conversation_accounts, only: :show do
         member do
-          get :is_messenger_blocked
-          get :is_messenger_muted
+          post :messenger_block_relationships
           post :block_messenger
           post :unblock_messenger
           post :mute_chat_conversation
           post :unmute_chat_conversation
-          post :set_expiration_policy
         end
       end
 
@@ -263,6 +263,7 @@ Rails.application.routes.draw do
           post :mark_chat_conversation_approved
           post :mark_chat_conversation_read
           post :mark_chat_conversation_hidden
+          post :set_expiration_policy
         end
       end
 

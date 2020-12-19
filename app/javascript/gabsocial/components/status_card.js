@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import Immutable from 'immutable'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import punycode from 'punycode'
 import {
   CX,
   DEFAULT_REL,

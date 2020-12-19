@@ -3,12 +3,12 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { closePopover } from '../../actions/popover'
-import { changeExpiresAt } from '../../actions/compose'
+import { setChatConversationExpiration } from '../../actions/chat_conversations'
 import {
   EXPIRATION_OPTION_5_MINUTES,
-  EXPIRATION_OPTION_60_MINUTES,
+  EXPIRATION_OPTION_1_HOUR,
   EXPIRATION_OPTION_6_HOURS,
-  EXPIRATION_OPTION_24_HOURS,
+  EXPIRATION_OPTION_1_DAY,
   EXPIRATION_OPTION_3_DAYS,
   EXPIRATION_OPTION_7_DAYS,
 } from '../../constants'
@@ -19,7 +19,7 @@ import Text from '../text'
 class ChatConversationExpirationOptionsPopover extends React.PureComponent {
 
   handleOnSetExpiration = (expiresAt) => {
-    this.props.onChangeExpiresAt(expiresAt)
+    this.props.onSetChatConversationExpiration(expiresAt)
     this.handleOnClosePopover()
   }
 
@@ -29,65 +29,61 @@ class ChatConversationExpirationOptionsPopover extends React.PureComponent {
 
   render() {
     const {
+      chatConversationId,
       expiresAtValue,
       intl,
       isXS,
     } = this.props
 
+    console.log("expiresAtValue:", expiresAtValue)
+    if (!chatConversationId) return <div/>
+
     const listItems = [
       {
         hideArrow: true,
         title: 'None',
-        onClick: () => this.handleOnSetStatusExpiration(null),
+        onClick: () => this.handleOnSetExpiration(null),
         isActive: !expiresAtValue,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.minutes, { number: 5 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_5_MINUTES),
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_5_MINUTES),
         isActive: expiresAtValue === EXPIRATION_OPTION_5_MINUTES,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.minutes, { number: 60 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_60_MINUTES),
-        isActive: expiresAtValue === EXPIRATION_OPTION_60_MINUTES,
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_1_HOUR),
+        isActive: expiresAtValue === EXPIRATION_OPTION_1_HOUR,
       },
       {
         hideArrow: true,
         title: '6 hours',
         title: intl.formatMessage(messages.hours, { number: 6 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_6_HOURS),
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_6_HOURS),
         isActive: expiresAtValue === EXPIRATION_OPTION_6_HOURS,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.hours, { number: 24 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_24_HOURS),
-        isActive: expiresAtValue === EXPIRATION_OPTION_24_HOURS,
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_1_DAY),
+        isActive: expiresAtValue === EXPIRATION_OPTION_1_DAY,
       },
       {
         hideArrow: true,
         title: '3 days',
         title: intl.formatMessage(messages.days, { number: 3 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_3_DAYS),
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_3_DAYS),
         isActive: expiresAtValue === EXPIRATION_OPTION_3_DAYS,
       },
       {
         hideArrow: true,
         title: intl.formatMessage(messages.days, { number: 7 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_7_DAYS),
+        onClick: () => this.handleOnSetExpiration(EXPIRATION_OPTION_7_DAYS),
         isActive: expiresAtValue === EXPIRATION_OPTION_7_DAYS,
       },
     ]
-
-    if (expiresAtValue) {
-      listItems.unshift({
-        hideArrow: true,
-        title: 'Remove expiration',
-        onClick: () => this.handleOnSetStatusExpiration(null),
-      },)
-    }
 
     return (
       <PopoverLayout
@@ -113,16 +109,16 @@ const messages = defineMessages({
   days: { id: 'intervals.full.days', defaultMessage: '{number, plural, one {# day} other {# days}}' },
 })
 
-const mapStateToProps = (state) => ({
-  expiresAtValue: state.getIn(['compose', 'expires_at']),
+const mapStateToProps = (state, { chatConversationId }) => ({
+  expiresAtValue: state.getIn(['chat_conversations', chatConversationId, 'chat_message_expiration_policy']),
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  onChangeExpiresAt(expiresAt)  {
-    dispatch(changeExpiresAt(expiresAt))
-  },
+const mapDispatchToProps = (dispatch, { chatConversationId }) => ({
   onClosePopover() {
     dispatch(closePopover())
+  },
+  onSetChatConversationExpiration(expiration) {
+    dispatch(setChatConversationExpiration(chatConversationId, expiration))
   },
 })
 
@@ -130,7 +126,7 @@ ChatConversationExpirationOptionsPopover.defaultProps = {
   expiresAtValue: PropTypes.string.isRequired,
   intl: PropTypes.object.isRequired,
   isXS: PropTypes.bool,
-  onChangeExpiresAt: PropTypes.func.isRequired,
+  onSetChatConversationExpiration: PropTypes.func.isRequired,
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ChatConversationExpirationOptionsPopover))

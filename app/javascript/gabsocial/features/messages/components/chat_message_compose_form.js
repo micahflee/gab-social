@@ -88,7 +88,11 @@ class ChatMessagesComposeForm extends React.PureComponent {
   }
 
   render () {
-    const { isXS, chatConversationId } = this.props
+    const {
+      isXS,
+      expiresAtValue,
+      chatConversationId,
+    } = this.props
     const { value } = this.state
     const disabled = false
 
@@ -107,6 +111,22 @@ class ChatMessagesComposeForm extends React.PureComponent {
       w100PC: 1,
       py10: 1,
     })
+
+    const expireBtnClasses = CX({
+      d: 1,
+      borderRight1PX: 1,
+      borderColorSecondary: 1,
+      w40PX: 1,
+      h100PC: 1,
+      aiCenter: 1,
+      jcCenter: 1,
+      cursorPointer: 1,
+      outlineNone: 1,
+      bgSubtle: !expiresAtValue,
+      bgBlack: !!expiresAtValue,
+    })
+
+    const expireBtnIconClassName = !!expiresAtValue ?  _s.cWhite : _s.cBlack
 
     const textarea = (
       <Textarea
@@ -137,13 +157,15 @@ class ChatMessagesComposeForm extends React.PureComponent {
     )
 
     const expiresBtn = (
-      <button
-        ref={this.setExpiresBtn}
-        className={[_s.d, _s.bgSubtle, _s.borderRight1PX, _s.borderColorSecondary, _s.w40PX, _s.h100PC, _s.aiCenter, _s.jcCenter, _s.cursorPointer, _s.outlineNone].join(' ')}
+      <Button
+        noClasses
+        buttonRef={this.setExpiresBtn}
+        className={expireBtnClasses}
         onClick={this.handleOnExpire}
-      >
-        <Icon id='stopwatch' className={[_s.cPrimary, _s.ml2].join(' ')} size='15px' />
-      </button>
+        icon='stopwatch'
+        iconSize='15px'
+        iconClassName={expireBtnIconClassName}
+      />
     )
 
     if (isXS) {
@@ -191,8 +213,9 @@ class ChatMessagesComposeForm extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, { chatConversationId }) => ({
   isPro: state.getIn(['accounts', me, 'is_pro']),
+  expiresAtValue: state.getIn(['chat_conversations', chatConversationId, 'chat_message_expiration_policy']),
 })
 
 const mapDispatchToProps = (dispatch, { chatConversationId }) => ({

@@ -21,9 +21,9 @@ import { openModal, closeModal } from './modal'
 import {
   MODAL_COMPOSE,
   EXPIRATION_OPTION_5_MINUTES,
-  EXPIRATION_OPTION_60_MINUTES,
+  EXPIRATION_OPTION_1_HOUR,
   EXPIRATION_OPTION_6_HOURS,
-  EXPIRATION_OPTION_24_HOURS,
+  EXPIRATION_OPTION_1_DAY,
   EXPIRATION_OPTION_3_DAYS,
   EXPIRATION_OPTION_7_DAYS,
 } from '../constants'
@@ -345,23 +345,7 @@ export const submitCompose = (groupId, replyToId = null, router, isStandalone, a
   let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null)
   if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate()
 
-  let expires_at = getState().getIn(['compose', 'expires_at'], null)
-
-  if (expires_at) {
-    if (expires_at === EXPIRATION_OPTION_5_MINUTES) {
-      expires_at = moment.utc().add('5', 'minute').toDate()
-    } else if (expires_at === EXPIRATION_OPTION_60_MINUTES) {
-      expires_at = moment.utc().add('60', 'minute').toDate()
-    } else if (expires_at === EXPIRATION_OPTION_6_HOURS) {
-      expires_at = moment.utc().add('6', 'hour').toDate()
-    } else if (expires_at === EXPIRATION_OPTION_24_HOURS) {
-      expires_at = moment.utc().add('24', 'hour').toDate()
-    } else if (expires_at === EXPIRATION_OPTION_3_DAYS) {
-      expires_at = moment.utc().add('3', 'day').toDate()
-    } else if (expires_at === EXPIRATION_OPTION_7_DAYS) {
-      expires_at = moment.utc().add('7', 'day').toDate()
-    }
-  }
+  const expires_at = getState().getIn(['compose', 'expires_at'], null)
 
   if (isMobile(window.innerWidth) && router && isStandalone) {
     router.history.goBack()

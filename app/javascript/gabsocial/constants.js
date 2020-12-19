@@ -134,9 +134,9 @@ export const GAB_COM_INTRODUCE_YOURSELF_GROUP_ID = '12'
 export const MIN_ACCOUNT_CREATED_AT_ONBOARDING = 1594789200000 // 2020-07-15
 
 export const EXPIRATION_OPTION_5_MINUTES = 'five_minutes'
-export const EXPIRATION_OPTION_60_MINUTES = 'one_hour'
+export const EXPIRATION_OPTION_1_HOUR = 'one_hour'
 export const EXPIRATION_OPTION_6_HOURS = 'six_hours'
-export const EXPIRATION_OPTION_24_HOURS = 'one_day'
+export const EXPIRATION_OPTION_1_DAY = 'one_day'
 export const EXPIRATION_OPTION_3_DAYS = 'three_days'
 export const EXPIRATION_OPTION_7_DAYS = 'one_week'
 

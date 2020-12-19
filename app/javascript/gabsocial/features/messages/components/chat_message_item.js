@@ -12,9 +12,11 @@ import {
  } from '../../../constants'
 import { me } from '../../../initial_state'
 import Input from '../../../components/input'
+import Icon from '../../../components/icon'
 import Avatar from '../../../components/avatar'
 import Button from '../../../components/button'
 import Text from '../../../components/text'
+import DotTextSeperator from '../../../components/dot_text_seperator'
 import { makeGetChatMessage } from '../../../selectors'
 
 class ChatMessageItem extends ImmutablePureComponent {
@@ -30,9 +32,9 @@ class ChatMessageItem extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    const { lastChatMessageSameSender, lastChatMessageDate } = this.props
-    if (lastChatMessageDate) {
-      const createdAt = this.props.chatMessage.get('created_at')
+    const { lastChatMessageSameSender, lastChatMessageDate, chatMessage } = this.props
+    if (lastChatMessageDate && chatMessage) {
+      const createdAt = chatMessage.get('created_at')
       const isNewDay = moment(createdAt).format('L') !== moment(lastChatMessageDate).format('L')
       const isCloseToMyLast = moment(lastChatMessageDate).diff(createdAt, 'minutes') < 60 && lastChatMessageSameSender && !isNewDay
       this.setState({
@@ -125,6 +127,12 @@ class ChatMessageItem extends ImmutablePureComponent {
       displayNone: !isHovering,
     })
 
+    const expirationDate = chatMessage.get('expires_at')
+    let timeUntilExpiration
+    if (!!expirationDate) {
+      timeUntilExpiration = moment(expirationDate).fromNow()
+    }
+
     return (
       <div
         className={[_s.d, _s.w100PC, _s.pb10].join(' ')}
@@ -161,6 +169,15 @@ class ChatMessageItem extends ImmutablePureComponent {
           <div className={lowerContainerClasses}>
             <Text size='extraSmall' color='tertiary' align={alt ? 'right' : 'left'}>
               {moment(createdAt).format('lll')}
+
+              {
+                !!expirationDate &&
+                <React.Fragment>
+                  <DotTextSeperator />
+                  <Text size='extraSmall' color='tertiary' className={_s.ml5}>Expires in {timeUntilExpiration}</Text>
+                  <Icon id='stopwatch' size='11px' className={[_s.d, _s.ml5, _s.displayInline, _s.cSecondary].join(' ')} />
+                </React.Fragment>
+              }
             </Text>
           </div>
         </div>

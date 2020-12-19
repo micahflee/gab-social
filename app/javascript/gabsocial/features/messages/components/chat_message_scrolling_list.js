@@ -47,15 +47,11 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     this.detachIntersectionObserver()
   }
 
-  componentWillReceiveProps (nextProps) {
-    const { chatConversationId } = nextProps
-
-    if (chatConversationId !== this.props.chatConversationId) {
-      this.props.onExpandChatMessages(chatConversationId)
-    }
-  }
-
   componentDidUpdate(prevProps, prevState, snapshot) {
+    if (prevProps.chatConversationId !== this.props.chatConversationId) {
+      this.props.onExpandChatMessages(this.props.chatConversationId)
+    }
+    
     // Reset the scroll position when a new child comes in in order not to
     // jerk the scrollbar around if you're already scrolled down the page.
     if (snapshot !== null && this.scrollContainerRef) {
@@ -69,6 +65,8 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     if (prevProps.chatMessageIds.size === 0 && this.props.chatMessageIds.size > 0 && this.scrollContainerRef) {
       this.scrollContainerRef.scrollTop = this.scrollContainerRef.scrollHeight
       this.props.onReadChatConversation(this.props.chatConversationId)
+    } else if (prevProps.chatMessageIds.size < this.props.chatMessageIds.size && this.scrollContainerRef) {
+      this.scrollContainerRef.scrollTop = this.scrollContainerRef.scrollHeight
     }
   }
 
@@ -265,7 +263,6 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
               lastChatMessageId={lastChatMessageId}
               onMoveUp={this.handleMoveUp}
               onMoveDown={this.handleMoveDown}
-              commentsLimited
             />
           )
         }

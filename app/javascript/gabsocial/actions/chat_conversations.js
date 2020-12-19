@@ -389,9 +389,9 @@ export const readChatConversationFail = () => ({
  * 
  */
 export const setChatConversationExpiration = (chatConversationId, expiration) => (dispatch, getState) => {
-  if (!me|| !chatConversationId || !expiration) return
+  if (!me|| !chatConversationId) return
 
-  dispatch(setChatConversationExpirationFetch(chatConversation))
+  dispatch(setChatConversationExpirationFetch(chatConversationId))
 
   api(getState).post(`/api/v1/chat_conversation/${chatConversationId}/set_expiration_policy`, {
     expiration,
@@ -400,18 +400,18 @@ export const setChatConversationExpiration = (chatConversationId, expiration) =>
   }).catch((error) => dispatch(setChatConversationExpirationFail(error)))
 }
 
-export const setChatConversationExpirationFetch = (chatConversation) => ({
+export const setChatConversationExpirationFetch = (chatConversationId) => ({
   type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
-  chatConversation,
+  chatConversationId,
 })
 
 export const setChatConversationExpirationSuccess = (chatConversation) => ({
-  type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
+  type: SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS,
   chatConversation,
 })
 
 export const setChatConversationExpirationFail = (error) => ({
-  type: SET_CHAT_CONVERSATION_EXPIRATION_REQUEST,
+  type: SET_CHAT_CONVERSATION_EXPIRATION_FAIL,
   error,
 })
 

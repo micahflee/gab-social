@@ -1,12 +1,23 @@
 # frozen_string_literal: true
 
 class DeleteChatMessageService < BaseService
-  def call(account, chatMessageId)    
-    @chat = ChatMessage.where(from_account: account).find(chatMessageId)
-    
-    # : todo :
-    # make sure last_chat_message_id in chat_account_conversation gets set to last
-    
-    @chat.destroy!
+  include Redisable
+
+  def call(chat_message)
+    return if chat_message.nil?
+
+    @chat_message = chat_message
+
+    RedisLock.acquire(lock_options) do |lock|
+      if lock.acquired?
+        @chat_message.destroy!
+      else
+        raise GabSocial::RaceConditionError
+      end
+    end
+  end
+
+  def lock_options
+    { redis: Redis.current, key: "distribute_chat_message:#{@chat_message.id}" }
   end
 end

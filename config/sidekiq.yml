@@ -18,6 +18,9 @@
   scheduled_statuses_scheduler:
     every: '1m'
     class: Scheduler::ScheduledStatusesScheduler
+  expiring_chat_messages_scheduler:
+    every: '1m'
+    class: Scheduler::ExpiringChatMessagesScheduler
   media_cleanup_scheduler:
     cron: '<%= Random.rand(0..59) %> <%= Random.rand(3..5) %> * * *'
     class: Scheduler::MediaCleanupScheduler

@@ -6,6 +6,10 @@ import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { openModal } from '../../actions/modal'
 import { hideChatConversation } from '../../actions/chat_conversations'
+import {
+  muteChatConversation,
+  unmuteChatConversation,
+} from '../../actions/chat_conversation_accounts'
 import { purgeChatMessages } from '../../actions/chat_messages'
 import { MODAL_PRO_UPGRADE } from '../../constants'
 import { me } from '../../initial_state'
@@ -21,8 +25,12 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     this.handleOnClosePopover()
   }
 
-  handleOnUnmute = () => {
-    this.props.onUnute()
+  handleOnMute = () => {
+    if (this.props.isMuted) {
+      this.props.onUnmute()
+    } else {
+      this.props.onMute()
+    }
     this.handleOnClosePopover()
   }
 
@@ -30,7 +38,7 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     if (!this.props.isPro) {
       this.props.openProUpgradeModal()
     } else {
-      this.props.onPurge(this.props.chatConversationId)
+      this.props.onPurge()
     }
 
     this.handleOnClosePopover()
@@ -44,6 +52,7 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
     const {
       intl,
       isXS,
+      isMuted,
     } = this.props
 
     const items = [
@@ -55,9 +64,9 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
       },
       {
         hideArrow: true,
-        title: 'Mute Conversation',
-        subtitle: "Don't get notified of new messages",
-        onClick: () => this.handleOnHide(),
+        title: isMuted ? 'Unmute Conversation' : 'Mute Conversation',
+        subtitle: isMuted ? null : "Don't get notified of new messages",
+        onClick: () => this.handleOnMute(),
       },
       {},
       {
@@ -86,23 +95,28 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
 
 const mapStateToProps = (state, { chatConversationId }) => ({
   isPro: state.getIn(['accounts', me, 'is_pro']),
-  chatConversation: makeGetChatConversation()(state, { id: chatConversationId }),
+  isMuted: state.getIn(['chat_conversations', chatConversationId, 'is_muted']),
 })
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, { chatConversationId }) => ({
   openProUpgradeModal() {
     dispatch(openModal(MODAL_PRO_UPGRADE))
   },
-  onSetCommentSortingSetting(type) {
-    dispatch(closePopover())
-  },
-  onPurge(chatConversationId) {
+  onPurge() {
     dispatch(purgeChatMessages(chatConversationId))
   },
-  onHide(chatConversationId) {
+  onHide() {
     dispatch(hideChatConversation(chatConversationId))
   },
-  onClosePopover: () => dispatch(closePopover()),
+  onMute() {
+    dispatch(muteChatConversation(chatConversationId))
+  },
+  onUnmute() {
+    dispatch(unmuteChatConversation(chatConversationId))
+  },
+  onClosePopover() {
+    dispatch(closePopover())
+  },
 })
 
 ChatConversationOptionsPopover.propTypes = {

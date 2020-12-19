@@ -18,12 +18,12 @@ class Api::V1::ChatConversationAccounts::BlockedChatAccountsController < Api::Ba
 
   def paginated_blocks
     @paginated_blocks ||= ChatBlock.eager_load(target_account: :account_stat)
-                               .where(account: current_account)
-                               .paginate_by_max_id(
-                                 limit_param(DEFAULT_ACCOUNTS_LIMIT),
-                                 params[:max_id],
-                                 params[:since_id]
-                               )
+                                  .where(account: current_account)
+                                  .paginate_by_max_id(
+                                    limit_param(DEFAULT_ACCOUNTS_LIMIT),
+                                    params[:max_id],
+                                    params[:since_id]
+                                  )
   end
 
   def insert_pagination_headers

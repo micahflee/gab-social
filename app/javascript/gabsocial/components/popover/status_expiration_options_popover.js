@@ -6,9 +6,9 @@ import { closePopover } from '../../actions/popover'
 import { changeExpiresAt } from '../../actions/compose'
 import {
   EXPIRATION_OPTION_5_MINUTES,
-  EXPIRATION_OPTION_60_MINUTES,
+  EXPIRATION_OPTION_1_HOUR,
   EXPIRATION_OPTION_6_HOURS,
-  EXPIRATION_OPTION_24_HOURS,
+  EXPIRATION_OPTION_1_DAY,
   EXPIRATION_OPTION_3_DAYS,
   EXPIRATION_OPTION_7_DAYS,
 } from '../../constants'
@@ -50,8 +50,8 @@ class StatusExpirationOptionsPopover extends React.PureComponent {
       {
         hideArrow: true,
         title: intl.formatMessage(messages.minutes, { number: 60 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_60_MINUTES),
-        isActive: expiresAtValue === EXPIRATION_OPTION_60_MINUTES,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_1_HOUR),
+        isActive: expiresAtValue === EXPIRATION_OPTION_1_HOUR,
       },
       {
         hideArrow: true,
@@ -63,8 +63,8 @@ class StatusExpirationOptionsPopover extends React.PureComponent {
       {
         hideArrow: true,
         title: intl.formatMessage(messages.hours, { number: 24 }),
-        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_24_HOURS),
-        isActive: expiresAtValue === EXPIRATION_OPTION_24_HOURS,
+        onClick: () => this.handleOnSetStatusExpiration(EXPIRATION_OPTION_1_DAY),
+        isActive: expiresAtValue === EXPIRATION_OPTION_1_DAY,
       },
       {
         hideArrow: true,

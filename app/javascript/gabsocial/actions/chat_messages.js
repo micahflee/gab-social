@@ -113,12 +113,12 @@ const deleteChatMessageFail = (error) => ({
 export const purgeChatMessages = (chatConversationId) => (dispatch, getState) => {
   if (!me || !chatConversationId) return
 
-  dispatch(deleteChatMessagesRequest(chatConversationId))
+  dispatch(purgeChatMessagesRequest(chatConversationId))
 
   api(getState).delete(`/api/v1/chat_conversations/messages/${chatConversationId}/destroy_all`).then((response) => {
-  dispatch(deleteChatMessagesSuccess(response.data))
+  dispatch(purgeChatMessagesSuccess(chatConversationId))
   }).catch((error) => {
-    dispatch(deleteChatMessagesFail(error))
+    dispatch(purgeChatMessagesFail(error))
   })
 }
 

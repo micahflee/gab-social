@@ -1,3 +1,4 @@
+import punycode from 'punycode'
 const IDNA_PREFIX = 'xn--'
 
 export const decodeIDNA = (domain) => {

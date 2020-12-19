@@ -7,6 +7,7 @@ import { makeGetChatConversation } from '../../../selectors'
 import { setChatConversationSelected } from '../../../actions/chats'
 import { CX } from '../../../constants'
 import Input from '../../../components/input'
+import Icon from '../../../components/icon'
 import DisplayNameGroup from '../../../components/display_name_group'
 import DisplayName from '../../../components/display_name'
 import AvatarGroup from '../../../components/avatar_group'
@@ -34,8 +35,6 @@ class ChatConversationsListItem extends ImmutablePureComponent {
     } = this.props
 
     if (!chatConversation) return <div/>
-
-    console.log("chatConversation:", chatConversation)
 
     const containerClasses = CX({
       d: 1,
@@ -66,6 +65,8 @@ class ChatConversationsListItem extends ImmutablePureComponent {
     lastMessageText = lastMessageText.length >= 28 ? `${lastMessageText.substring(0, 28).trim()}...` : lastMessageText
     const content = { __html: lastMessageText }
     const date = !!lastMessage ? lastMessage.get('created_at') : chatConversation.get('created_at')
+    const isUnread = chatConversation.get('is_unread')
+    const isMuted = chatConversation.get('is_muted')
 
     return (
       <button
@@ -73,7 +74,13 @@ class ChatConversationsListItem extends ImmutablePureComponent {
         onClick={this.handleOnClick}
       >
         
-        { chatConversation.get('is_unread') && <div className={[_s.d, _s.posAbs, _s.left0, _s.top50PC, _s.ml10, _s.mtNeg5PX, _s.circle, _s.w10PX, _s.h10PX, _s.bgBrand].join(' ')} /> }
+        { isUnread && !isMuted && <div className={[_s.d, _s.posAbs, _s.left0, _s.top50PC, _s.ml10, _s.mtNeg5PX, _s.circle, _s.w10PX, _s.h10PX, _s.bgBrand].join(' ')} /> }
+        {
+          isMuted &&
+          <div className={[_s.d, _s.posAbs, _s.left0, _s.top50PC, _s.ml10, _s.mtNeg5PX, _s.circle, _s.w10PX, _s.h10PX, _s.bgTransparent].join(' ')}>
+            <Icon id='audio-mute' className={_s.cError} size='12px' /> 
+          </div>
+        }
         
         <div className={innerContainerClasses}>
           <AvatarGroup accounts={otherAccounts} size={avatarSize} noHover />

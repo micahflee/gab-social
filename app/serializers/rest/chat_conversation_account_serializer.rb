@@ -24,4 +24,23 @@ class REST::ChatConversationAccountSerializer < ActiveModel::Serializer
     object.unread_count > 0
   end
 
+  def chat_message_expiration_policy
+    case object.chat_message_expiration_policy
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:five_minutes]
+        return 'five_minutes'
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_hour]
+        return 'one_hour'
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:six_hours]
+        return 'six_hours'
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_day]
+        return 'one_day'
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:three_days]
+        return 'three_days'
+      when ChatConversationAccount::EXPIRATION_POLICY_MAP[:one_week]
+        return 'one_week'
+      else
+        return nil
+    end
+  end
+
 end

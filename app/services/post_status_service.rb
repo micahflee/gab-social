@@ -59,7 +59,23 @@ class PostStatusService < BaseService
     @visibility   = @options[:visibility] || @account.user&.setting_default_privacy
     @visibility   = :unlisted if @visibility == :public && @account.silenced?
     @visibility   = :private_group if @isPrivateGroup
-    @expires_at   = @options[:expires_at]&.to_datetime if @account.is_pro
+    @expires_at = nil
+    if @account.is_pro
+      case @options[:expires_at]
+        when 'five_minutes'
+          @expires_at = Time.now + 5.minutes
+        when 'one_hour'
+          @expires_at = Time.now + 1.hour
+        when 'six_hours'
+          @expires_at = Time.now + 6.hours
+        when 'one_day'
+          @expires_at = Time.now + 1.day
+        when 'three_days'
+          @expires_at = Time.now + 3.days
+        when 'one_week'
+          @expires_at = Time.now + 1.week
+      end
+    end
     @scheduled_at = @options[:scheduled_at]&.to_datetime
     @scheduled_at = nil if scheduled_in_the_past?
   rescue ArgumentError
