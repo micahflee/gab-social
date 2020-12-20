@@ -68,6 +68,7 @@ import {
   ChatConversationCreate,
   ChatConversationRequests,
   ChatConversationBlockedAccounts,
+  ChatConversationMutes,
   CommunityTimeline,
   Compose,
   Deck,
@@ -221,7 +222,7 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/messages/settings' exact page={MessagesPage} component={MessagesSettings} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/requests' exact page={MessagesPage} component={ChatConversationRequests} content={children} componentParams={{ isSettings: true, source: 'requested' }} />
         <WrappedRoute path='/messages/blocks' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
-        <WrappedRoute path='/messages/muted_conversations' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
+        <WrappedRoute path='/messages/muted_conversations' exact page={MessagesPage} component={ChatConversationMutes} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/:chatConversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
 
         <WrappedRoute path='/timeline/all' exact page={CommunityPage} component={CommunityTimeline} content={children} componentParams={{ title: 'Community Feed' }} />

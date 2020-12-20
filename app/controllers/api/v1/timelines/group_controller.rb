@@ -13,7 +13,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
     if current_user
       render json: @statuses,
             each_serializer: REST::StatusSerializer,
-            group_id: params[:id],
+            group_id: params[:id], # : todo :
             relationships: StatusRelationshipsPresenter.new(@statuses, current_user.account_id, group_id: @group.id)
     else
       render json: @statuses, each_serializer: REST::StatusSerializer

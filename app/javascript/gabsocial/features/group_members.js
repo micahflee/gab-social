@@ -62,23 +62,20 @@ class GroupMembers extends ImmutablePureComponent {
 			<Block>
 				<BlockHeading title='Group Members' />
 
-				{
-					/* : todo :
-					<div className={[_s.d, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
-						<Input
-							id='group-member-search'
-							placeholder='Search group members'
-							prependIcon='search'
-							// value={value}
-							onKeyUp={this.handleKeyUp}
-							onChange={this.handleOnChange}
-							onFocus={this.handleOnFocus}
-							onBlur={this.handleOnBlur}
-							autoComplete='off'
-						/>
-					</div>
-					*/
-				}
+			<div className={[_s.d, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
+				<Input
+					id='group-member-search'
+					placeholder='Search group members'
+					prependIcon='search'
+					// value={value}
+					onKeyUp={this.handleKeyUp}
+					onChange={this.handleOnChange}
+					onFocus={this.handleOnFocus}
+					onBlur={this.handleOnBlur}
+					autoComplete='off'
+				/>
+			</div>
+
 				<div className={[_s.d].join(' ')}>
 					<ScrollableList
 						scrollKey='group-members'

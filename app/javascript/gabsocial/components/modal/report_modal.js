@@ -55,6 +55,7 @@ class ReportModal extends ImmutablePureComponent {
 
     return (
       <ModalLayout
+        width={760}
         noPadding
         title={intl.formatMessage(messages.target, {
           target: account.get('acct')
@@ -67,7 +68,7 @@ class ReportModal extends ImmutablePureComponent {
           classNamesSmall={[_s.d, _s.flexColumnReverse].join(' ')}
         >
           <ResponsiveClassesComponent
-            classNames={[_s.d, _s.w50PC, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
+            classNames={[_s.d, _s.maxW320PX, _s.py10, _s.px15, _s.borderRight1PX, _s.borderColorSecondary].join(' ')}
             classNamesSmall={[_s.d, _s.w100PC, _s.py10, _s.px15, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}
           >
             <Text color='secondary' size='small'>
@@ -95,13 +96,13 @@ class ReportModal extends ImmutablePureComponent {
           </ResponsiveClassesComponent>
 
           <ResponsiveClassesComponent
-            classNames={[_s.d, _s.w50PC, _s.maxH80VH].join(' ')}
+            classNames={[_s.d, _s.flexNormal, _s.maxH80VH].join(' ')}
             classNamesSmall={[_s.d, _s.w100PC, _s.h260PX].join(' ')}
           >
-            <div className={[_s.d, _s.h100PC, _s.overflowYScroll, _s.pr15, _s.py10].join(' ')}>
+            <div className={[_s.d, _s.h100PC, _s.overflowYScroll].join(' ')}>
               {
-                statusIds.map(statusId => (
-                  <StatusCheckBox id={statusId} key={statusId} disabled={isSubmitting} />
+                statusIds.map((statusId) => (
+                  <StatusCheckBox id={statusId} key={`reporting-${statusId}`} disabled={isSubmitting} />
                 ))
               }
             </div>

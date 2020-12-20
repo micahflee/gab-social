@@ -25,6 +25,7 @@ class Api::V1::ChatConversationController < Api::BaseController
     # check if chat blocked
     # check if allow anyone to message then create with approved:true
     # unique account id, participants
+
     chat_conversation_account = find_or_create_conversation
     render json: chat_conversation_account, each_serializer: REST::ChatConversationAccountSerializer
   end
@@ -67,7 +68,6 @@ class Api::V1::ChatConversationController < Api::BaseController
         else
           @expires_at = nil
       end
-      puts "tilly @expires_at: " + @expires_at.inspect
       @chat_conversation_account.chat_message_expiration_policy = @expires_at
       @chat_conversation_account.save!
       render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer

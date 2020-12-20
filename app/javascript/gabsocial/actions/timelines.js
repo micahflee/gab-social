@@ -151,7 +151,6 @@ export const expandTimeline = (timelineId, path, params = {}, done = noop) => (d
   dispatch(expandTimelineRequest(timelineId, isLoadingMore))
 
   api(getState).get(path, { params }).then((response) => {
-    console.log("response:", response)
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedStatuses(response.data))
     dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore))

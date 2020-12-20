@@ -258,7 +258,6 @@ export const deleteChatConversation = (chatConversationId) => (dispatch, getStat
   dispatch(deleteChatConversationRequest(conversationId))
 
   api(getState).delete(`/api/v1/chat_conversation/${chatConversationId}`).then((response) => {
-    console.log("chat_conversations delete response: ", response)
     dispatch(deleteChatConversationSuccess())
   }).catch((error) => {
     dispatch(deleteChatConversationFail(error))

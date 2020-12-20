@@ -35,7 +35,6 @@ class ChatConversationExpirationOptionsPopover extends React.PureComponent {
       isXS,
     } = this.props
 
-    console.log("expiresAtValue:", expiresAtValue)
     if (!chatConversationId) return <div/>
 
     const listItems = [

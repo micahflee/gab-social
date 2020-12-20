@@ -70,7 +70,7 @@ class DatePickerPopover extends React.PureComponent {
           <div className={[_s.d, _s.aiCenter, _s.flexRow, _s.px10, _s.py10, _s.borderTop1PX, _s.borderColorSecondary].join(' ')}>
             <Text size='extraSmall' color='secondary'>
               <FormattedMessage id='scheduled_for_datetime' defaultMessage='Scheduled for {datetime}' values={{
-                datetime: moment.utc(date).format('lll'),
+                datetime: moment(date).format('lll'),
               }}/>
             </Text>
             <div className={_s.mlAuto}>

@@ -14,6 +14,7 @@ import {
 import { FormattedMessage } from 'react-intl'
 import Account from '../components/account'
 import Block from '../components/block'
+import Input from '../components/input'
 import BlockHeading from '../components/block_heading'
 import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
@@ -49,6 +50,19 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 		return (
 			<Block>
 				<BlockHeading title='Removed Accounts' />
+				<div className={[_s.d, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
+					<Input
+						id='group-member-search'
+						placeholder='Search removed group members'
+						prependIcon='search'
+						// value={value}
+						onKeyUp={this.handleKeyUp}
+						onChange={this.handleOnChange}
+						onFocus={this.handleOnFocus}
+						onBlur={this.handleOnBlur}
+						autoComplete='off'
+					/>
+				</div>
 				<ScrollableList
 					scrollKey='removed_accounts'
 					hasMore={hasMore}

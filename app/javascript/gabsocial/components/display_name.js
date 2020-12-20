@@ -106,8 +106,7 @@ class DisplayName extends ImmutablePureComponent {
     const usernameClasses = CX({
       text: 1,
       displayFlex: 1,
-      flexNormal: 1,
-      flexShrink1: 1,
+      flexShrink0: 1,
       overflowWrapBreakWord: 1,
       textOverflowEllipsis: 1,
       cSecondary: 1,
@@ -131,16 +130,9 @@ class DisplayName extends ImmutablePureComponent {
       const isFollowedBy = (me !==  accountId && account.getIn(['relationship', 'followed_by']))
 
       if (isFollowedBy) {
-        relationshipLabel = 'Follows you'//intl.formatMessage(messages.accountFollowsYou)
+        relationshipLabel = 'Follows you'
       }
     }
-
-    // {
-    //   /* : todo : audio-mute, bot
-    //   account.getIn(['relationship', 'muting'])
-    //   */
-    // }
-    // bot: { id: 'account.badges.bot', defaultMessage: 'Bot' },
 
     return (
       <div
@@ -149,7 +141,7 @@ class DisplayName extends ImmutablePureComponent {
         onMouseLeave={noHover ? undefined : this.handleMouseLeave}
         ref={this.setRef}
       >
-        <span className={[_s.d, _s.flexRow, _s.aiCenter, _s.maxW100PC].join(' ')}>
+        <span className={[_s.d, _s.flexRow, _s.aiCenter, _s.maxW100PC, _s.flexShrink1, _s.overflowHidden].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}

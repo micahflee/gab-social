@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { me } from '../initial_state'
 import { openModal } from '../actions/modal'
+import { openPopover } from '../actions/popover'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
+  POPOVER_CHAT_SETTINGS,
   MODAL_CHAT_CONVERSATION_CREATE,
 } from '../constants'
 import { getWindowDimension } from '../utils/is_mobile'
@@ -43,6 +45,10 @@ class MessagesLayout extends React.PureComponent {
     this.setState({ width })
   }
 
+  handleOpenSettingsOptionsPopover = () => {
+    this.props.onOpenSettingsOptionsPopover()
+  }
+
   onClickAdd = () => {
     this.props.onOpenChatConversationCreateModal()
   }
@@ -74,12 +80,12 @@ class MessagesLayout extends React.PureComponent {
                 },
                 {
                   icon: 'cog',
-                  to: '/messages/settings',
+                  onClick: this.handleOpenSettingsOptionsPopover,
                 }
               ]}
               title={title}
             />
-            <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
+            <main role='main' className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
               <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
                 {
                   (isSettings || currentConversationIsRequest) &&
@@ -98,7 +104,7 @@ class MessagesLayout extends React.PureComponent {
         return (
           <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
             <ChatNavigationBar chatConversationId={selectedChatConversationId} />
-            <main role='main' className={[_s.d, _s.w100PC].join(' ')}>
+            <main role='main' className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
               <ChatMessageScrollingList chatConversationId={selectedChatConversationId} isXS={isXS} />
             </main>
             { currentConversationIsRequest && <ChatConversationRequestApproveBar /> }
@@ -106,7 +112,17 @@ class MessagesLayout extends React.PureComponent {
           </div>
         )
       } else {
-        //settings
+        return (
+          <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
+            <DefaultNavigationBar showBackBtn title={title} />
+            <main role='main' className={[_s.d, _s.w100PC, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
+                {children}
+              </div>
+              <FooterBar />
+            </main> 
+          </div>
+        )
       }
     }
 
@@ -174,7 +190,10 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => ({
   onOpenChatConversationCreateModal() {
     dispatch(openModal(MODAL_CHAT_CONVERSATION_CREATE))
-  }
+  },
+  onOpenSettingsOptionsPopover() {
+    dispatch(openPopover(POPOVER_CHAT_SETTINGS))
+  },
 })
 
 MessagesLayout.propTypes = {

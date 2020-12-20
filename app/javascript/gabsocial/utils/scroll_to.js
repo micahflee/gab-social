@@ -1,5 +1,5 @@
 // https://gist.github.com/andjosh/6764939
-export const scrollTo = (element, to, duration) => {
+export const scrollTo = (element, to, duration = 0) => {
   var start = element.scrollTop,
     change = to - start,
     currentTime = 0,

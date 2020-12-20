@@ -79,7 +79,8 @@ class StatusHeader extends ImmutablePureComponent {
     const textContainerClasses = CX({
       d: 1,
       aiStart: 1,
-      flexGrow1 :1,
+      flex1: 1,
+      overflowHidden: 1,
       mt5: !isCompact,
     })
 
@@ -100,13 +101,15 @@ class StatusHeader extends ImmutablePureComponent {
 
           <div className={textContainerClasses}>
 
-            <div className={[_s.d, _s.flexRow, _s.w100PC, _s.aiStart].join(' ')}>
+            <div className={[_s.d, _s.flexRow, _s.w100PC, _s.aiStart, _s.overflowHidden].join(' ')}>
               <NavLink
-                className={[_s.d, _s.flexRow, _s.aiStart, _s.noUnderline].join(' ')}
+                className={[_s.d, _s.flexRow, _s.aiStart, _s.noUnderline, _s.flex1, _s.maxW100PC30PX].join(' ')}
                 to={`/${status.getIn(['account', 'acct'])}`}
                 title={status.getIn(['account', 'acct'])}
               >
-                <DisplayName account={status.get('account')} noRelationship />
+                <div className={[_s.d, _s.w100PC, _s.overflowHidden].join(' ')}>
+                  <DisplayName account={status.get('account')} noRelationship />
+                </div>
               </NavLink>
 
               {
@@ -118,7 +121,7 @@ class StatusHeader extends ImmutablePureComponent {
                   icon='ellipsis'
                   iconSize='20px'
                   iconClassName={_s.cSecondary}
-                  className={_s.mlAuto}
+                  className={[_s.mlAuto].join(' ')}
                   onClick={this.handleOpenStatusOptionsPopover}
                   buttonRef={this.setStatusOptionsButton}
                 />

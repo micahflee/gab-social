@@ -382,6 +382,7 @@ Rails.application.routes.draw do
 
     namespace :web do
       resource :settings, only: [:update]
+      resource :chat_settings, only: [:update]
       resource :embed, only: [:create]
       resources :push_subscriptions, only: [:create] do
         member do

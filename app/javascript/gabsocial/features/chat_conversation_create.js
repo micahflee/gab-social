@@ -37,31 +37,33 @@ class ChatConversationCreate extends React.PureComponent {
 
     return (
       <Form>
-        <div className={[_s.d, _s.px15, _s.pt10].join(' ')}>
-          <Input
-            title='Search for a user'
-            value={query}
-            onChange={this.onChange}
-          />
-        </div>
+        <div className={[_s.d, _s.bgPrimary, _s.w100PC, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+          <div className={[_s.d, _s.px15, _s.pt10].join(' ')}>
+            <Input
+              title='Search for a user'
+              value={query}
+              onChange={this.onChange}
+            />
+          </div>
 
-        <div className={[_s.d, _s.pt10].join(' ')}>
-          <div className={[_s.d].join(' ')}>
-            <Text weight='bold' size='small' color='secondary' className={[_s.d, _s.px15, _s.ml15, _s.mt5, _s.mb15].join(' ')}>
-              Search results ({suggestionsIds.size})
-            </Text>
-            {
-              suggestionsIds &&
-              suggestionsIds.map((accountId) => (
-                <Account
-                  compact
-                  key={`chat-conversation-account-create-${accountId}`}
-                  id={accountId}
-                  onActionClick={() => this.handleOnCreateChatConversation(accountId)}
-                  actionIcon='add'
-                />
-              ))
-            }
+          <div className={[_s.d, _s.pt10].join(' ')}>
+            <div className={[_s.d].join(' ')}>
+              <Text weight='bold' size='small' color='secondary' className={[_s.d, _s.px15, _s.ml15, _s.mt5, _s.mb15].join(' ')}>
+                Search results ({suggestionsIds.size})
+              </Text>
+              {
+                suggestionsIds &&
+                suggestionsIds.map((accountId) => (
+                  <Account
+                    compact
+                    key={`chat-conversation-account-create-${accountId}`}
+                    id={accountId}
+                    onActionClick={() => this.handleOnCreateChatConversation(accountId)}
+                    actionIcon='add'
+                  />
+                ))
+              }
+            </div>
           </div>
         </div>
       </Form>

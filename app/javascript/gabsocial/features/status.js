@@ -61,6 +61,7 @@ const mapStateToProps = (state, props) => {
   const statusId = props.id || props.params.statusId
 
   return {
+    statusId,
     status: state.getIn(['statuses', statusId]),
   }
 }

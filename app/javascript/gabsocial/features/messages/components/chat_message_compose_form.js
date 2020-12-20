@@ -27,6 +27,8 @@ class ChatMessagesComposeForm extends React.PureComponent {
 
   handleOnSendChatMessage = () => {
     this.props.onSendChatMessage(this.state.value, this.props.chatConversationId)
+    document.querySelector('#gabsocial').focus()
+    this.onBlur()
     this.setState({ value: '' })
   }
 
@@ -93,7 +95,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
       expiresAtValue,
       chatConversationId,
     } = this.props
-    const { value } = this.state
+    const { focused, value } = this.state
     const disabled = false
 
     const textareaClasses = CX({
@@ -141,6 +143,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
         onFocus={this.onFocus}
         onBlur={this.onBlur}
         onKeyDown={this.onKeyDown}
+        focused={focused}
         aria-autocomplete='list'
         maxLength={1600}
       />
@@ -170,11 +173,11 @@ class ChatMessagesComposeForm extends React.PureComponent {
 
     if (isXS) {
       return (
-        <div className={[_s.d, _s.z4, _s.minH58PX, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.z4, _s.minH58PX, _s.w100PC, _s.mtAuto].join(' ')}>
           <div className={[_s.d, _s.minH58PX, _s.bgPrimary, _s.aiCenter, _s.z3, _s.bottom0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
             <div className={[_s.d, _s.w100PC, _s.pb5, _s.px15, _s.aiCenter, _s.jcCenter, _s.saveAreaInsetPB, _s.saveAreaInsetPL, _s.saveAreaInsetPR, _s.w100PC].join(' ')}>
               <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.minH58PX, _s.w100PC, _s.borderTop1PX, _s.borderColorSecondary, _s.px10].join(' ')}>
-                <div className={[_s.d, _s.flexRow, _s.radiusRounded, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden].join(' ')}>
+                <div className={[_s.d, _s.flexRow, _s.flexGrow1, _s.radiusRounded, _s.border1PX, _s.borderColorSecondary, _s.overflowHidden].join(' ')}>
                   <div className={_s.d}>  
                     {expiresBtn}
                   </div>
@@ -182,7 +185,7 @@ class ChatMessagesComposeForm extends React.PureComponent {
                     {textarea}
                   </div>
                 </div>
-                <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
+                <div className={[_s.d, _s.pl10, _s.h100PC, _s.aiCenter, _s.jcCenter].join(' ')}>
                   {button}
                 </div>
               </div>

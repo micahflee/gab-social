@@ -33,6 +33,9 @@ class ChatNavigationBar extends React.PureComponent {
     const otherAccounts = chatConversation ? chatConversation.get('other_accounts') : null
     const nameHTML = !!otherAccounts ? otherAccounts.get(0).get('display_name_html') : ''
 
+    // : todo :
+    // fix padding on mobile device
+
     return (
       <div className={[_s.d, _s.z4, _s.h53PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.h53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
@@ -46,23 +49,29 @@ class ChatNavigationBar extends React.PureComponent {
               iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
             />
 
-            <div className={[_s.d, _s.h53PX, _s.flexRow, _s.jcCenter, _s.aiCenter, _s.mrAuto].join(' ')}>
-              <AvatarGroup accounts={otherAccounts} size={35} noHover />
-              <Heading size='h1'>
-                <div className={[_s.dangerousContent, _s.colorNavigation, _s.pl10, _s.fs19PX].join(' ')} dangerouslySetInnerHTML={{ __html: nameHTML }} />
-              </Heading>
+            <div className={[_s.d, _s.minH53PX, _s.flexRow, _s.aiCenter, _s.mrAuto, _s.flex1, _s.overflowHidden].join(' ')}>
+              <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.w100PC, _s.flexShrink1].join(' ')}>
+                <Heading size='h1'>
+                  <div className={[_s.d, _s.w100PC].join(' ')}>
+                    <span
+                      className={[_s.w100PC, _s.textOverflowEllipsis, _s.colorNavigation].join(' ')}
+                      dangerouslySetInnerHTML={{ __html: nameHTML }}
+                    />
+                  </div>
+                </Heading>
+              </div>
             </div>
 
             <div className={[_s.d, _s.h53PX, _s.mlAuto, _s.aiCenter, _s.jcCenter, _s.mr15].join(' ')}>
               <Button
                 isNarrow
-                backgroundColor='tertiary'
+                backgroundColor='none'
                 color='primary'
                 onClick={this.handleOnOpenChatConversationOptionsPopover}
                 className={[_s.px5].join(' ')}
                 icon='ellipsis'
-                iconClassName={[_s.cSecondary, _s.px5, _s.py5].join(' ')}
-                iconSize='15px'
+                iconClassName={[_s.colorNavigation, _s.px5, _s.py5].join(' ')}
+                iconSize='26px'
               />
             </div>
 

@@ -38,6 +38,8 @@ class ChatConversationAccount < ApplicationRecord
   belongs_to :chat_conversation
   belongs_to :last_chat_message, class_name: 'ChatMessage', optional: true
 
+  validate :validate_total_limit
+
   def participant_accounts
     if participant_account_ids.empty?
       [account]
@@ -45,6 +47,12 @@ class ChatConversationAccount < ApplicationRecord
       participants = Account.where(id: participant_account_ids)
       participants.empty? ? [account] : participants
     end
+  end
+
+  private
+
+  def validate_total_limit
+    # errors.add(:base, I18n.t('scheduled_statuses.over_total_limit', limit: PER_ACCOUNT_APPROVED_LIMIT)) if account.scheduled_statuses.count >= PER_ACCOUNT_APPROVED_LIMIT
   end
 
 end

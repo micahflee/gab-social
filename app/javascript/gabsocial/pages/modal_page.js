@@ -19,6 +19,7 @@ class ModalPage extends React.PureComponent {
 
     return (
       <DefaultLayout
+        noComposeButton
         title={title}
         page={page}
         showBackBtn

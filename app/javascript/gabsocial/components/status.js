@@ -310,12 +310,15 @@ class Status extends ImmutablePureComponent {
       commentSortingType,
       onOpenProModal,
       isDeckConnected,
+      statusId,
     } = this.props
     // const { height } = this.state
 
     let { status } = this.props
 
-    if (!status) return null
+    if (!status) {
+      return null
+    }
 
     if (isComment && !ancestorStatus && !isChild) {
       // Wait to load...
@@ -331,7 +334,7 @@ class Status extends ImmutablePureComponent {
     if (ancestorStatus) {
       status = ancestorStatus
     } else {
-      if (status.get('reblog', null) !== null && typeof status.get('reblog') === 'object') {
+      if (status.get('reblog', null) !== null) {
         rebloggedByText = intl.formatMessage(
           { id: 'status.reposted_by', defaultMessage: '{name} reposted' },
           { name: status.getIn(['account', 'acct']) }

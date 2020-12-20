@@ -9,7 +9,6 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
     @statuses = load_statuses
     render json: @statuses,
            each_serializer: REST::StatusSerializer,
-           account_id: params[:account_id],
            relationships: StatusRelationshipsPresenter.new(@statuses, current_user&.account_id)
   end
 

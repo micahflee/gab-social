@@ -3,6 +3,7 @@ import {
   POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS,
   POPOVER_CHAT_CONVERSATION_OPTIONS,
   POPOVER_CHAT_MESSAGE_OPTIONS,
+  POPOVER_CHAT_SETTINGS,
   POPOVER_COMMENT_SORTING_OPTIONS,
   POPOVER_COMPOSE_POST_DESTINATION,
   POPOVER_DATE_PICKER,
@@ -27,6 +28,7 @@ import {
   ChatConversationExpirationOptionsPopover,
   ChatConversationOptionsPopover,
   ChatMessageOptionsPopover,
+  ChatSettingsPopover,
   CommentSortingOptionsPopover,
   ComposePostDesinationPopover,
   DatePickerPopover,
@@ -65,6 +67,7 @@ const POPOVER_COMPONENTS = {
   [POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS]: ChatConversationExpirationOptionsPopover,
   [POPOVER_CHAT_CONVERSATION_OPTIONS]: ChatConversationOptionsPopover,
   [POPOVER_CHAT_MESSAGE_OPTIONS]: ChatMessageOptionsPopover,
+  [POPOVER_CHAT_SETTINGS]: ChatSettingsPopover,
   [POPOVER_COMMENT_SORTING_OPTIONS]: CommentSortingOptionsPopover,
   [POPOVER_COMPOSE_POST_DESTINATION]: ComposePostDesinationPopover,
   [POPOVER_DATE_PICKER]: DatePickerPopover,
@@ -161,7 +164,7 @@ class PopoverRoot extends React.PureComponent {
             renderDelay={150}
           >
             {
-              (Component) => <Component innerRef={this.setRef} isXS={isXS} {...props} />
+              (Component) => <Component innerRef={this.setRef} isXS={isXS} onClose={onClose} {...props} />
             }
           </Bundle>
         }

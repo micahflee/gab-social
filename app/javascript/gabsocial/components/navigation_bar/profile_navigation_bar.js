@@ -24,6 +24,9 @@ class ProfileNavigationBar extends React.PureComponent {
   render() {
     const { titleHTML } = this.props
 
+    // : todo :
+    // fix padding on mobile device
+    
     return (
       <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
@@ -36,12 +39,17 @@ class ProfileNavigationBar extends React.PureComponent {
               iconClassName={[_s.mr5, _s.fillNavigation].join(' ')}
             />
 
-            <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.mrAuto].join(' ')}>
-              <Heading size='h1'>
-                <span className={[_s.textOverflowEllipsis, _s.colorNavigation].join(' ')}>
-                  <div dangerouslySetInnerHTML={{ __html: titleHTML }} />
-                </span>
-              </Heading>
+            <div className={[_s.d, _s.minH53PX, _s.mrAuto, _s.flex1, _s.overflowHidden].join(' ')}>
+              <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.w100PC].join(' ')}>
+                <Heading size='h1'>
+                  <div className={[_s.d, _s.w100PC].join(' ')}>
+                    <span
+                      className={[_s.w100PC, _s.textOverflowEllipsis, _s.colorNavigation].join(' ')}
+                      dangerouslySetInnerHTML={{ __html: titleHTML }}
+                    />
+                  </div>
+                </Heading>
+              </div>
             </div>
 
             <div className={[_s.d, _s.minH53PX, _s.jcCenter, _s.mr15].join(' ')}>

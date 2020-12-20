@@ -46,17 +46,27 @@ class StatusCheckBox extends ImmutablePureComponent {
       } else {
         media = (
           <Bundle fetchComponent={MediaGallery} loading={this.renderLoadingMediaGallery} >
-            {Component => <Component media={status.get('media_attachments')} sensitive={status.get('sensitive')} onOpenMedia={noop} />}
+            {Component => (
+              <Component
+                media={status.get('media_attachments')}
+                sensitive={status.get('sensitive')}
+                onOpenMedia={noop}
+                width={239}
+                height={110}
+              />
+            )}
           </Bundle>
         );
       }
     }
 
     return (
-      <div className={[_s.d, _s.flexRow].join(' ')}>
-        <div className={[_s.d].join(' ')}>
+      <div className={[_s.d, _s.flexRow, _s.flexWrap, _s.borderBottom1PX, _s.borderColorSecondary, _s.aiStart, _s.mb5, _s.pr15, _s.pt5, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.pt5, _s.maxW100PC].join(' ')}>
           <StatusContent status={status} />
-          {media}
+          <div className={_s.pl15}>
+            {media}
+          </div>
         </div>
 
         <div className={[_s.d, _s.mlAuto].join(' ')}>

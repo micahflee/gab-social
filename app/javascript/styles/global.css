@@ -314,6 +314,7 @@ pre {
 
 .flex1 { flex: 1; }
 .flexGrow1 { flex-grow: 1; }
+.flexShrink0 { flex-shrink: 0; }
 .flexShrink1 { flex-shrink: 1; }
 
 .flexRow { flex-direction: row; }
@@ -597,6 +598,8 @@ pre {
 .maxW100PC130PX { max-width: calc(100% - 130px); }
 .maxW100PC86PX { max-width: calc(100% - 86px); }
 .maxW100PC42PX { max-width: calc(100% - 42px); }
+.maxW100PC30PX { max-width: calc(100% - 30px); }
+.maxW320PX { max-width: 320px; }
 .maxW212PX { max-width: 212px; }
 
 .minW330PX { min-width: 330px; }
@@ -1312,6 +1315,13 @@ pre {
 :global(.react-datepicker__time-container),
 :global(.react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box) {
   width: 100px !important;
+}
+
+:global(.react-datepicker__day--disabled),
+:global(.react-datepicker__month-text--disabled),
+:global(.react-datepicker__quarter-text--disabled) {
+  cursor: not-allowed;
+  opacity: 0.2 !important;
 }
 
 @media (max-width: 500px) {

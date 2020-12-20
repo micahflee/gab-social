@@ -166,9 +166,6 @@ export const makeGetStatus = () => {
         quotedStatus = quotedStatus.set('account', accountQuoted);
       }
 
-
-      // console.log("group:", group)
-
       //Find ancestor status
 
       const regex = (accountRepost || accountBase).get('id') !== me && regexFromFilters(filters);
@@ -247,14 +244,11 @@ export const getListOfGroups = createSelector([
   (state) => state.get('groups'),
   (state, { type }) => state.getIn(['group_lists', type, 'items']),
 ], (groups, groupIds) => {
-  console.log("groupIds:", groupIds)
   let list = ImmutableList()
   groupIds.forEach((id, i) => {
     const group = groups.get(`${id}`)
-    console.log("groupIds:", id, i, group)
     list = list.set(i, group)
   })
-  console.log("list:", list)
 
   return list
 })

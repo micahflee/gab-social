@@ -44,7 +44,7 @@ class UserSuggestionsInjection extends ImmutablePureComponent {
         id={injectionId}
         title={title}
         buttonLink='/suggestions'
-        buttonTitle='See more reccomendations'
+        buttonTitle='See more recommendations'
         isXS={isXS}
       >
           {

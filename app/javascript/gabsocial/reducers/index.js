@@ -9,6 +9,7 @@ import chat_conversation_lists from './chat_conversation_lists'
 import chat_conversation_messages from './chat_conversation_messages'
 import chat_conversations from './chat_conversations'
 import chat_messages from './chat_messages'
+import chat_settings from './chat_settings'
 import compose from './compose'
 import contexts from './contexts'
 import custom_emojis from './custom_emojis'
@@ -60,6 +61,7 @@ const reducers = {
   chat_conversation_messages,
   chat_conversations,
   chat_messages,
+  chat_settings,
   compose,
   contexts,
   custom_emojis,

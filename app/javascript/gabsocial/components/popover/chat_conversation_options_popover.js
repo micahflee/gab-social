@@ -6,6 +6,7 @@ import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
 import { openModal } from '../../actions/modal'
 import { hideChatConversation } from '../../actions/chat_conversations'
+import { setChatConversationSelected } from '../../actions/chats'
 import {
   muteChatConversation,
   unmuteChatConversation,
@@ -107,6 +108,7 @@ const mapDispatchToProps = (dispatch, { chatConversationId }) => ({
   },
   onHide() {
     dispatch(hideChatConversation(chatConversationId))
+    dispatch(setChatConversationSelected(null))
   },
   onMute() {
     dispatch(muteChatConversation(chatConversationId))

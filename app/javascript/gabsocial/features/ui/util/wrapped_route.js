@@ -43,15 +43,6 @@ class WrappedRoute extends React.PureComponent {
       ...rest
     } = this.props
 
-    // : todo :
-    // api().get('/api/v1/accounts/verify_credentials')
-    // .then((res) => {
-    //   console.log("res:", res)
-    // })
-    // .catch((err) => {
-    //   console.log("err:", err)
-    // })
-
     if (!publicRoute && !me) {
       const actualUrl = encodeURIComponent(this.props.computedMatch.url)
       return <Route path={this.props.path} component={() => {

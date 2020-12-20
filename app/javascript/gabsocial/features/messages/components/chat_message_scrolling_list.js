@@ -39,6 +39,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
   componentDidMount () {
     const { chatConversationId } = this.props
     this.props.onExpandChatMessages(chatConversationId)
+    this.scrollToBottom()
   }
 
   componentWillUnmount() {
@@ -63,10 +64,10 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     }
 
     if (prevProps.chatMessageIds.size === 0 && this.props.chatMessageIds.size > 0 && this.scrollContainerRef) {
-      this.scrollContainerRef.scrollTop = this.scrollContainerRef.scrollHeight
+      this.scrollToBottom()
       this.props.onReadChatConversation(this.props.chatConversationId)
     } else if (prevProps.chatMessageIds.size < this.props.chatMessageIds.size && this.scrollContainerRef) {
-      this.scrollContainerRef.scrollTop = this.scrollContainerRef.scrollHeight
+      // this.setScrollTop(this.scrollContainerRef.scrollHeight)
     }
   }
 
@@ -114,10 +115,15 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     if (!this.scrollContainerRef) return
     if (this.scrollContainerRef.scrollTop !== newScrollTop) {
       this.lastScrollWasSynthetic = true
+      console.log("newScrollTop:", newScrollTop)
       this.scrollContainerRef.scrollTop = newScrollTop
     }
   }
 
+  scrollToBottom = () => {
+    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+  }
+  
   _selectChild(index, align_top) {
     const container = this.node.node
     const element = container.querySelector(`article:nth-of-type(${index + 1}) .focusable`)
@@ -163,6 +169,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
 
   handleWheel = throttle(() => {
     this.scrollToTopOnMouseIdle = false
+    this.handleScroll()
   }, 150, {
     trailing: true,
   })
@@ -190,7 +197,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
 
   handleMouseIdle = () => {
     if (this.scrollToTopOnMouseIdle) {
-      this.setScrollTop(0)
+      this.setScrollTop(this.scrollContainerRef.scrollHeight)
     }
 
     this.mouseMovedRecently = false
@@ -320,6 +327,10 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
                   </IntersectionObserverArticle>
                 ))
               }
+              <div
+                style={{ float: 'left', clear: 'both' }}
+                ref={(el) => { this.messagesEnd = el }}
+              />
             </div>
           </div>
         </div>

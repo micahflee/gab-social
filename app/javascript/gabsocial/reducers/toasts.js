@@ -14,7 +14,6 @@ const initialState = ImmutableList([])
 export default function toasts(state = initialState, action) {
   switch(action.type) {
   case TOAST_SHOW:
-    console.log("action:", action)
     return state.set(state.size, ImmutableMap({
       key: state.size > 0 ? state.last().get('key') + 1 : 0,
       message: makeMessageFromData(action.toastData),

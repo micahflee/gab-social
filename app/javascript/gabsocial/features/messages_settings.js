@@ -38,7 +38,7 @@ class MessagesSettings extends ImmutablePureComponent {
           <BlockHeading title={'Chat Preferences'} />
         </div>
 
-        <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
+        <div className={[_s.d, _s.px15, _s.py15, _s.overflowHidden].join(' ')}>
           <Form>
             <Switch
               label='Restrict messages from people you dont follow'

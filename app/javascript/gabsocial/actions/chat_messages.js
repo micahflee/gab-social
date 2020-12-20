@@ -62,11 +62,9 @@ const sendChatMessageFail = (error) => ({
 export const manageIncomingChatMessage = (chatMessage) => (dispatch, getState) => {
   if (!chatMessage) return
 
-  console.log("chatMessage:", chatMessage)
   dispatch(sendChatMessageSuccess(chatMessage))
 
   const isOnline = getState().getIn(['chat_conversation_messages', chatMessage.chat_conversation_id, 'online'])
-  console.log("isOnline: ", isOnline)
 
   // : todo :
   // Check if is online for conversation, if not increase total/convo unread count 

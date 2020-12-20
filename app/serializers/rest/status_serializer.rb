@@ -9,10 +9,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
   attribute :favourited, if: :current_user?
   attribute :reblogged, if: :current_user?
   
-  attribute :account_id, if: :account_id?
-  attribute :group_id, if: :group_id?
-  attribute :preview_card_id, if: :preview_card_id?
-
   attribute :content, unless: :source_requested?
   attribute :rich_content, unless: :source_requested?
   attribute :plain_markdown, unless: :source_requested?
@@ -20,15 +16,15 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   belongs_to :reblog, serializer: REST::StatusSerializer
   belongs_to :quote, serializer: REST::StatusSerializer
-  belongs_to :account, serializer: REST::AccountSerializer, unless: :account_id?
-  belongs_to :group, serializer: REST::GroupSerializer, unless: :group_id?
+  belongs_to :account, serializer: REST::AccountSerializer
+  belongs_to :group, serializer: REST::GroupSerializer
 
   has_many :media_attachments, serializer: REST::MediaAttachmentSerializer
   has_many :ordered_mentions, key: :mentions
   has_many :tags
   has_many :emojis, serializer: REST::CustomEmojiSerializer
 
-  has_one :preview_card, key: :card, serializer: REST::PreviewCardSerializer, unless: :preview_card_id?
+  has_one :preview_card, key: :card, serializer: REST::PreviewCardSerializer
   has_one :preloadable_poll, key: :poll, serializer: REST::PollSerializer
 
   def id
@@ -49,30 +45,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def current_user?
     !current_user.nil?
-  end
-
-  def account_id
-    instance_options[:account_id]
-  end
-
-  def account_id?
-    !instance_options[:account_id].nil?
-  end
-
-  def group_id
-    instance_options[:group_id]
-  end
-
-  def group_id?
-    !instance_options[:group_id].nil?
-  end
-
-  def preview_card_id
-    instance_options[:preview_card_id]
-  end
-
-  def preview_card_id?
-    !instance_options[:preview_card_id].nil?
   end
 
   def visibility
