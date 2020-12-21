@@ -170,6 +170,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                     <NavigationBarButton title='Explore' icon='explore' to='/explore' />
                     <NavigationBarButton title='News' icon='news' to='/news' />
                     <NavigationBarButton title='Groups' icon='group' to='/groups' />
+                    <NavigationBarButton title='TV' icon='tv' href='https://tv.gab.com' />
 
                     <div className={[_s.d, _s.h20PX, _s.w1PX, _s.mr10, _s.ml10, _s.bgNavigationBlend].join(' ')} />
 
@@ -241,6 +242,7 @@ class DefaultNavigationBar extends ImmutablePureComponent {
                         icon={action.icon}
                         count={action.count}
                         to={action.to || undefined}
+                        href={action.href || undefined}
                         onClick={action.onClick ? () => action.onClick() : undefined}
                         key={`action-btn-${i}`}
                         isXS

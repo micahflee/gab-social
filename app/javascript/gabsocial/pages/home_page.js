@@ -82,6 +82,10 @@ class HomePage extends React.PureComponent {
         title={title}
         actions={[
           {
+            icon: 'tv',
+            href: 'https://tv.gab.com',
+          },
+          {
             icon: 'chat',
             to: '/messages',
             count: unreadChatsCount,
