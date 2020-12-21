@@ -17,6 +17,10 @@ import {
   isBookmark,
 } from '../../actions/interactions';
 import {
+  muteAccount,
+  unmuteAccount,
+} from '../../actions/interactions';
+import {
   deleteStatus,
   editStatus,
 } from '../../actions/statuses';
@@ -493,7 +497,16 @@ const mapDispatchToProps = (dispatch) => ({
       accountId: account.get('id'),
     }))
   },
-
+  onMute(account) {
+    dispatch(closePopover())
+    if (account.getIn(['relationship', 'muting'])) {
+      dispatch(unmuteAccount(account.get('id')));
+    } else {
+      dispatch(openModal('MUTE', {
+        accountId: account.get('id'),
+      }))
+    }
+  },
   onReport(status) {
     dispatch(closePopover())
     dispatch(initReport(status.get('account'), status))

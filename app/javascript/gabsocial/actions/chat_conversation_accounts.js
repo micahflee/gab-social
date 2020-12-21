@@ -123,7 +123,7 @@ export const fetchChatMessengerBlocks = () => (dispatch, getState) => {
 
   dispatch(fetchChatMessengerBlocksRequest())
 
-  api(getState).get('/api/v1/chat_conversation_accounts/blocked_chat_accounts').then(response => {
+  api(getState).get('/api/v1/chat_conversations/blocked_chat_accounts').then(response => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedAccounts(response.data))
     dispatch(fetchChatMessengerBlocksSuccess(response.data, next ? next.uri : null))

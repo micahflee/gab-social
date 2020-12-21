@@ -5,11 +5,11 @@ import { me } from '../initial_state'
 export const CHAT_SETTING_CHANGE = 'CHAT_SETTING_CHANGE'
 export const CHAT_SETTING_SAVE = 'CHAT_SETTING_SAVE'
 
-export const changeChatSetting = (path, value) => (dispatch) => {
+export const changeChatSetting = (path, checked) => (dispatch) => {
   dispatch({
     type: CHAT_SETTING_CHANGE,
     path,
-    value,
+    checked,
   })
 
   dispatch(saveChatSettings())

@@ -51,6 +51,7 @@ class Account extends ImmutablePureComponent {
       showDismiss,
       withBio,
       isCard,
+      noClick,
     } = this.props
 
     if (!account) return null
@@ -105,6 +106,8 @@ class Account extends ImmutablePureComponent {
       noUnderline: 1,
       overflowHidden: 1,
       flexNormal: 1,
+      outlineNone: 1,
+      bgTransparent: 1,
       aiStart: !isCard,
       aiCenter: isCard,
     })
@@ -133,26 +136,28 @@ class Account extends ImmutablePureComponent {
       <div className={containerClasses}>
         <div className={innerContainerClasses}>
 
-          <NavLink
-            className={[_s.d, _s.noUnderline].join(' ')}
+          <Button
+            noClasses
+            className={[_s.d, _s.noUnderline, _s.outlineNone, _s.bgTransparent].join(' ')}
             title={account.get('acct')}
-            to={`/${account.get('acct')}`}
+            to={noClick ? undefined : `/${account.get('acct')}`}
           >
             <Avatar account={account} size={avatarSize} />
-          </NavLink>
+          </Button>
 
           <div className={[_s.d, _s.px10, _s.overflowHidden, _s.flexNormal].join(' ')}>
             <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
-              <NavLink
+              <Button
+                noClasses
                 title={account.get('acct')}
-                to={`/${account.get('acct')}`}
+                to={noClick ? undefined : `/${account.get('acct')}`}
                 className={buttonClasses}
               >
                 <div className={displayNameWrapperClasses}>
                   <DisplayName account={account} isMultiline={compact || isCard} />
                 </div>
                 {!compact && actionButton}
-              </NavLink>
+              </Button>
 
               <div className={[_s.d].join(' ')}>
                 {dismissBtn}
@@ -232,6 +237,7 @@ Account.propTypes = {
   dismissAction: PropTypes.func,
   withBio: PropTypes.bool,
   isCard: PropTypes.bool,
+  noClick: PropTypes.bool,
 }
 
 export default injectIntl(connect(makeMapStateToProps, mapDispatchToProps)(Account))

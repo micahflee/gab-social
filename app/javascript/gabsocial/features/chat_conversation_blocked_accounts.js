@@ -59,9 +59,9 @@ class ChatConversationBlockedAccounts extends ImmutablePureComponent {
                 key={`blocked-accounts-${id}`}
                 id={id}
                 compact
-                actionIcon='subtract'
+                actionIcon=''
 								onActionClick={() => this.props.onRemove(id)}
-								actionTitle='Remove'
+								actionTitle='Undo Chat Block'
               />
             ))
           }

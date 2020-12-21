@@ -84,8 +84,8 @@ class MediaAttachment < ApplicationRecord
     },
   }.freeze
 
-  IMAGE_LIMIT = Proc.new { |account| account.is_pro ? 50.megabytes : 8.megabytes }
-  VIDEO_LIMIT = Proc.new { |account| account.is_pro ? 1.gigabytes : 40.megabytes}
+  IMAGE_LIMIT = Proc.new { |account| account.is_pro ? 100.megabytes : 20.megabytes }
+  VIDEO_LIMIT = Proc.new { |account| account.is_pro ? 2.gigabytes : 250.megabytes}
 
   belongs_to :account,          inverse_of: :media_attachments, optional: true
   belongs_to :status,           inverse_of: :media_attachments, optional: true

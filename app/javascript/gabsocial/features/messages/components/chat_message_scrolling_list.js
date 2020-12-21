@@ -22,6 +22,7 @@ import ChatMessagePlaceholder from '../../../components/placeholder/chat_message
 import ChatMessageItem from './chat_message_item'
 import ColumnIndicator from '../../../components/column_indicator'
 import LoadMore from '../../../components/load_more'
+import Text from '../../../components/text'
 
 class ChatMessageScrollingList extends ImmutablePureComponent {
 
@@ -238,6 +239,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
       isLoading,
       isPartial,
       hasMore,
+      amITalkingToMyself,
       onScrollToBottom,
       onScroll,
       isXS,
@@ -300,6 +302,15 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
             ref={this.setScrollContainerRef}
           >
             {
+              amITalkingToMyself &&
+              <div className={[_s.d, _s.bgTertiary, _s.radiusSmall, _s.mt5, _s.ml10, _s.mr15, _s.px15, _s.py15, _s.mb15].join(' ')}>
+                <Text size='medium' color='secondary'>
+                  This is a chat conversation with yourself. Use this space to keep messages, links and texts. Please remember that these messages are not encrypted.
+                </Text>
+              </div>
+            }
+
+            {
               (hasMore && !isLoading) &&
               <LoadMore onClick={this.handleLoadOlder} />
             }
@@ -349,7 +360,11 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
 const mapStateToProps = (state, { chatConversationId }) => {
   if (!chatConversationId) return {}
 
+  const otherAccountIds = state.getIn(['chat_conversations', chatConversationId, 'other_account_ids'], null)
+  const amITalkingToMyself = !!otherAccountIds ? otherAccountIds.size == 1 && otherAccountIds.get(0) === me : false
+
   return {
+    amITalkingToMyself,
     chatMessageIds: state.getIn(['chat_conversation_messages', chatConversationId, 'items'], ImmutableList()),
     isLoading: state.getIn(['chat_conversation_messages', chatConversationId, 'isLoading'], true),
     isPartial: state.getIn(['chat_conversation_messages', chatConversationId, 'isPartial'], false),

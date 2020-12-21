@@ -84,6 +84,8 @@ export const connectChatMessagesStream = (accountId) => {
       onReceive (data) {
         if (!data['event'] || !data['payload']) return
         if (data.event === 'notification') {
+          // : todo :
+          //Play sound
           dispatch(manageIncomingChatMessage(JSON.parse(data.payload)))
         }
       },

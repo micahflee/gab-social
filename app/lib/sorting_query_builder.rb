@@ -39,6 +39,7 @@ class SortingQueryBuilder < BaseService
     query = query.where('statuses.id > ? AND statuses.id <> ?', max_id, max_id) unless max_id.nil? || max_id.empty?
     query = query.limit(20)
     
+    # : todo : reject blocks, etc. in feedmanager
     # SELECT  "statuses".*
     # FROM "statuses"
     # INNER JOIN "status_stats" ON "status_stats"."status_id" = "statuses"."id" 

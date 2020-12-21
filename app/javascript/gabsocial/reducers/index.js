@@ -21,6 +21,7 @@ import group_categories from './group_categories'
 import group_editor from './group_editor'
 import group_lists from './group_lists'
 import group_relationships from './group_relationships'
+import hashtags from './hashtags'
 import height_cache from './height_cache'
 import links from './links.js'
 import lists from './lists'
@@ -75,6 +76,7 @@ const reducers = {
   group_editor,
   group_lists,
   group_relationships,
+  hashtags,
   height_cache,
   links,
   lists,

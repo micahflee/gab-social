@@ -1,4 +1,5 @@
 import api, { getLinks } from '../api'
+import debounce from 'lodash.debounce'
 import { importFetchedAccounts } from './importer'
 import { me } from '../initial_state'
 
@@ -12,7 +13,9 @@ export const CHAT_CONVERSATIONS_APPROVED_EXPAND_REQUEST = 'CHAT_CONVERSATIONS_AP
 export const CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS'
 export const CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL    = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL'
 
-export const CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS = 'CHAT_CONVERSATIONS_APPROVED_EXPAND_FAIL'
+export const CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS = 'CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS'
+
+export const CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS = 'CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS'
 
 //
 
@@ -35,6 +38,16 @@ export const CHAT_CONVERSATIONS_REQUESTED_FETCH_FAIL    = 'CHAT_CONVERSATIONS_RE
 export const CHAT_CONVERSATIONS_REQUESTED_EXPAND_REQUEST = 'CHAT_CONVERSATIONS_REQUESTED_EXPAND_REQUEST'
 export const CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS = 'CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS'
 export const CHAT_CONVERSATIONS_REQUESTED_EXPAND_FAIL    = 'CHAT_CONVERSATIONS_REQUESTED_EXPAND_FAIL'
+
+//
+
+export const CHAT_CONVERSATIONS_MUTED_FETCH_REQUEST = 'CHAT_CONVERSATIONS_MUTED_FETCH_REQUEST'
+export const CHAT_CONVERSATIONS_MUTED_FETCH_SUCCESS = 'CHAT_CONVERSATIONS_MUTED_FETCH_SUCCESS'
+export const CHAT_CONVERSATIONS_MUTED_FETCH_FAIL    = 'CHAT_CONVERSATIONS_MUTED_FETCH_FAIL'
+
+export const CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST = 'CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST'
+export const CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS = 'CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS'
+export const CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL    = 'CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL'
 
 //
 
@@ -216,6 +229,83 @@ export const expandChatConversationRequestedFail = (error) => ({
 })
 
 /**
+ * @description Fetch paginated muted chat conversations, import accounts and set chat converations
+ */
+export const fetchChatConversationMuted = () => (dispatch, getState) => {
+  if (!me) return
+
+  dispatch(fetchChatConversationMutedRequest())
+
+  api(getState).get('/api/v1/chat_conversations/muted_conversations').then((response) => {
+    const next = getLinks(response).refs.find(link => link.rel === 'next')
+    const conversationsAccounts = [].concat.apply([], response.data.map((c) => c.other_accounts))
+    // const conversationsChatMessages = response.data.map((c) => c.last_chat_message)
+
+    dispatch(importFetchedAccounts(conversationsAccounts))
+    // dispatch(importFetchedChatMessages(conversationsChatMessages))
+    dispatch(fetchChatConversationMutedSuccess(response.data, next ? next.uri : null))
+  }).catch((error) => {
+    dispatch(fetchChatConversationMutedFail(error))
+  })
+}
+
+export const fetchChatConversationMutedRequest = () => ({
+  type: CHAT_CONVERSATIONS_MUTED_FETCH_REQUEST,
+})
+
+export const fetchChatConversationMutedSuccess = (chatConversations, next) => ({
+  type: CHAT_CONVERSATIONS_MUTED_FETCH_SUCCESS,
+  chatConversations,
+  next,
+})
+
+export const fetchChatConversationMutedFail = (error) => ({
+  type: CHAT_CONVERSATIONS_MUTED_FETCH_FAIL,
+  showToast: true,
+  error,
+})
+
+/**
+ * @description Expand paginated muted chat conversations, import accounts and set chat converations
+ */
+export const expandChatConversationMuted = () => (dispatch, getState) => {
+  if (!me) return
+  
+  const url = getState().getIn(['chat_conversations', 'muted', 'next'])
+  const isLoading = getState().getIn(['chat_conversations', 'muted', 'isLoading'])
+
+  if (url === null || isLoading) return
+
+  dispatch(expandChatConversationMutedRequest())
+
+  api(getState).get(url).then(response => {
+    const next = getLinks(response).refs.find(link => link.rel === 'next')
+    const conversationsAccounts = [].concat.apply([], response.data.map((c) => c.other_accounts))
+    // const conversationsChatMessages = response.data.map((c) => c.last_chat_message)
+
+    dispatch(importFetchedAccounts(conversationsAccounts))
+    // dispatch(importFetchedChatMessages(conversationsChatMessages))
+    dispatch(expandChatConversationMutedSuccess(response.data, next ? next.uri : null))
+  }).catch(error => dispatch(expandChatConversationMutedFail(error)))
+}
+
+export const expandChatConversationMutedRequest = () => ({
+  type: CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST,
+})
+
+export const expandChatConversationMutedSuccess = (chatConversations, next) => ({
+  type: CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS,
+  chatConversations,
+  next,
+})
+
+export const expandChatConversationMutedFail = (error) => ({
+  type: CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL,
+  showToast: true,
+  error,
+})
+
+/**
  * @description Create a chat conversation with given accountId. May fail because of blocks.
  * @param {String} accountId
  */
@@ -227,6 +317,7 @@ export const createChatConversation = (accountId) => (dispatch, getState) => {
   api(getState).post('/api/v1/chat_conversation', { account_id: accountId }).then((response) => {
     dispatch(createChatConversationSuccess(response.data))
   }).catch((error) => {
+    console.log("error:", error)
     dispatch(createChatConversationFail(error))
   })
 }
@@ -414,3 +505,40 @@ export const setChatConversationExpirationFail = (error) => ({
   error,
 })
 
+/**
+ * 
+ */
+export const fetchChatConversationAccountSuggestions = (query) => (dispatch, getState) => {
+  if (!query) return
+  debouncedFetchChatConversationAccountSuggestions(query, dispatch, getState) 
+}
+
+export const debouncedFetchChatConversationAccountSuggestions = debounce((query, dispatch, getState) => {
+  if (!query) return
+  
+  api(getState).get('/api/v1/accounts/search', {
+    params: {
+      q: query,
+      resolve: false,
+      limit: 4,
+    },
+  }).then((response) => {
+    // const next = getLinks(response).refs.find(link => link.rel === 'next')
+    // const conversationsAccounts = [].concat.apply([], response.data.map((c) => c.other_accounts))
+
+    dispatch(importFetchedAccounts(response.data))
+
+    // dispatch(importFetchedAccounts(conversationsAccounts))
+    // dispatch(importFetchedChatMessages(conversationsChatMessages))
+    // dispatch(fetchChatConversationsSuccess(response.data, next ? next.uri : null))
+
+    dispatch(fetchChatConversationAccountSuggestionsSuccess(response.data))
+  }).catch((error) => {
+    //
+  })
+}, 650, { leading: true })
+
+const fetchChatConversationAccountSuggestionsSuccess = (chatConversations) => ({
+  type: CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS,
+  chatConversations,
+})

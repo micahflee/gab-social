@@ -15,6 +15,13 @@ import {
   CHAT_CONVERSATIONS_REQUESTED_EXPAND_FAIL,
 
   CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS,
+
+  CHAT_CONVERSATIONS_MUTED_FETCH_REQUEST,
+  CHAT_CONVERSATIONS_MUTED_FETCH_SUCCESS,
+  CHAT_CONVERSATIONS_MUTED_FETCH_FAIL,
+  CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST,
+  CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS,
+  CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap({
@@ -24,6 +31,11 @@ const initialState = ImmutableMap({
     items: ImmutableList(),
   }),
   requested: ImmutableMap({
+    next: null,
+    isLoading: false,
+    items: ImmutableList(),
+  }),
+  muted: ImmutableMap({
     next: null,
     isLoading: false,
     items: ImmutableList(),
@@ -79,6 +91,18 @@ export default function chat_conversation_lists(state = initialState, action) {
 
   case CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS:
     return removeOneFromList(state, 'requested', action.chatConversation.chat_conversation_id)
+
+  case CHAT_CONVERSATIONS_MUTED_FETCH_REQUEST:
+  case CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST:
+    return state.setIn(['muted', 'isLoading'], true)
+  case CHAT_CONVERSATIONS_MUTED_FETCH_FAIL:
+  case CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL:
+    return state.setIn(['muted', 'isLoading'], false)
+  case CHAT_CONVERSATIONS_MUTED_FETCH_SUCCESS:
+    return normalizeList(state, 'muted', action.chatConversations, action.next) 
+  case CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS:
+    return appendToList(state, 'muted', action.chatConversations, action.next)
+
   default:
     return state
   }

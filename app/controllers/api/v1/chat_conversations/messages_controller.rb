@@ -47,7 +47,7 @@ class Api::V1::ChatConversations::MessagesController < Api::BaseController
     ).paginate_by_id(
       limit_param(DEFAULT_CHAT_CONVERSATION_MESSAGE_LIMIT),
       params_slice(:max_id, :since_id, :min_id)
-    )
+    ).reject { |chat_message| FeedManager.instance.filter?(:chat_message, chat_message, current_account.id) }
   end
 
   def insert_pagination_headers

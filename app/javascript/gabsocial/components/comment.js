@@ -88,6 +88,14 @@ class Comment extends ImmutablePureComponent {
     this.moreNode = c
   }
 
+  setContainerNode = (c) => {
+    this.containerNode = c
+
+    if (this.props.isHighlighted && this.containerNode) {
+      this.containerNode.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
+
   render() {
     const {
       indent,
@@ -101,7 +109,7 @@ class Comment extends ImmutablePureComponent {
 
     if (isHidden) {
       return (
-        <div tabIndex='0'>
+        <div tabIndex='0' ref={this.setContainerNode}>
           {status.getIn(['account', 'display_name']) || status.getIn(['account', 'username'])}
           {status.get('content')}
         </div>
@@ -133,7 +141,11 @@ class Comment extends ImmutablePureComponent {
     })
 
     return (
-      <div className={containerClasses} data-comment={status.get('id')}>
+      <div
+        className={containerClasses}
+        data-comment={status.get('id')}
+        ref={this.setContainerNode}
+      >
         {
           indent > 0 &&
           <div className={[_s.d, _s.z3, _s.flexRow, _s.posAbs, _s.topNeg20PX, _s.left0, _s.bottom20PX, _s.aiCenter, _s.jcCenter].join(' ')}>

@@ -227,7 +227,7 @@ Rails.application.routes.draw do
       end
 
       namespace :chat_conversation_accounts do
-        resource :blocked_chat_accounts, only: :show, controller: 'chat_conversation_accounts/blocked_chat_accounts'
+        # 
       end
       
       resources :chat_conversation_accounts, only: :show do
@@ -256,6 +256,8 @@ Rails.application.routes.draw do
             get :count
           end
         end
+        resources :blocked_chat_accounts, only: :index
+        resources :muted_conversations, only: :index
       end
 
       resources :chat_conversation, only: [:show, :create] do
@@ -268,6 +270,7 @@ Rails.application.routes.draw do
       end
 
       resources :links,         only: :show
+      resources :hashtags,         only: :show
       resource :popular_links,  only: :show
       resources :streaming,     only: [:index]
       resources :custom_emojis, only: [:index]

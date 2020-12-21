@@ -9,6 +9,8 @@ import {
   expandChatConversations,
   fetchChatConversationRequested,
   expandChatConversationRequested,
+  fetchChatConversationMuted,
+  expandChatConversationMuted,
 } from '../../../actions/chat_conversations'
 import AccountPlaceholder from '../../../components/placeholder/account_placeholder'
 import ChatConversationsListItem from './chat_conversations_list_item'
@@ -72,6 +74,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(fetchChatConversations())
     } else if (source ==='requested') {
       dispatch(fetchChatConversationRequested())
+    } else if (source ==='muted') {
+      dispatch(fetchChatConversationMuted())
     }
   },
   onExpandChatConversations(source) {
@@ -79,6 +83,8 @@ const mapDispatchToProps = (dispatch) => ({
       dispatch(expandChatConversations())
     } else if (source ==='requested') {
       dispatch(expandChatConversationRequested())
+    } else if (source ==='muted') {
+      dispatch(expandChatConversationMuted())
     }
   },
 })

@@ -79,10 +79,6 @@ class SearchLayout extends React.PureComponent {
         title: intl.formatMessage(messages.links),
         to: '/search/links',
       },
-      {
-        title: intl.formatMessage(messages.hashtags),
-        to: '/search/hashtags',
-      },
     ]
   }
 

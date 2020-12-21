@@ -56,6 +56,7 @@ class ChatConversationCreate extends React.PureComponent {
                 suggestionsIds.map((accountId) => (
                   <Account
                     compact
+                    noClick
                     key={`chat-conversation-account-create-${accountId}`}
                     id={accountId}
                     onActionClick={() => this.handleOnCreateChatConversation(accountId)}

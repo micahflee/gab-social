@@ -54,6 +54,7 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
       intl,
       isXS,
       isMuted,
+      isChatConversationRequest,
     } = this.props
 
     const items = [
@@ -62,21 +63,23 @@ class ChatConversationOptionsPopover extends ImmutablePureComponent {
         title: 'Hide Conversation',
         subtitle: 'Hide until next message',
         onClick: () => this.handleOnHide(),
-      },
-      {
+      }
+    ]
+    if (!isChatConversationRequest) {
+      items.push({
         hideArrow: true,
         title: isMuted ? 'Unmute Conversation' : 'Mute Conversation',
         subtitle: isMuted ? null : "Don't get notified of new messages",
         onClick: () => this.handleOnMute(),
-      },
-      {},
-      {
+      })
+      items.push({})
+      items.push({
         hideArrow: true,
         title: 'Purge messages',
         subtitle: 'Remove all of your messages in this conversation',
         onClick: () => this.handleOnPurge(),
-      },
-    ]
+      })
+    }
 
     return (
       <PopoverLayout
@@ -125,6 +128,7 @@ ChatConversationOptionsPopover.propTypes = {
   isXS: PropTypes.bool,
   isPro: PropTypes.bool.isRequired,
   chatConversation: ImmutablePropTypes.map,
+  isChatConversationRequest: PropTypes.bool,
   onClosePopover: PropTypes.func.isRequired,
 }
 

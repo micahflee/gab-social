@@ -1,36 +1,25 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import { injectIntl, FormattedMessage } from 'react-intl'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import debounce from 'lodash.debounce'
 import { me } from '../initial_state'
-import { fetchMutes, expandMutes } from '../actions/mutes'
-import Account from '../components/account'
+import { changeChatSetting } from '../actions/chat_settings'
 import BlockHeading from '../components/block_heading'
-import Button from '../components/button'
 import Form from '../components/form'
-import Switch from '../components/switch'
-import Text from '../components/text'
+import SettingSwitch from '../components/setting_switch'
 import Divider from '../components/divider'
 
 class MessagesSettings extends ImmutablePureComponent {
 
-  componentWillMount() {
-    this.props.onFetchMutes()
+  handleOnChange = (key, checked) => {
+    this.props.onSave(key, checked)
   }
 
-  handleLoadMore = debounce(() => {
-    this.props.onExpandMutes()
-  }, 300, { leading: true })
-
   render() {
-    const {
-      accountIds,
-      hasMore,
-      isLoading,
-    } = this.props
+    const { chatSettings } = this.props
+
+    if (!chatSettings) return null
 
     return (
       <div className={[_s.d, _s.w100PC, _s.boxShadowNone].join(' ')}>
@@ -40,23 +29,34 @@ class MessagesSettings extends ImmutablePureComponent {
 
         <div className={[_s.d, _s.px15, _s.py15, _s.overflowHidden].join(' ')}>
           <Form>
-            <Switch
+            <SettingSwitch
               label='Restrict messages from people you dont follow'
-              checked={true}
-              onChange={this.handleLockedChange}
+              settings={chatSettings}
+              settingPath='restrict_non_followers'
+              onChange={this.handleOnChange}
             />
+            { /* : todo :
             <div className={[_s.d, _s.w100PC, _s.my10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
-            <Switch
+            <SettingSwitch
               label='Show when you are active'
-              checked={false}
-              onChange={this.handleLockedChange}
+              settings={chatSettings}
+              settingPath='show_active'
+              onChange={this.handleOnChange}
             />
             <div className={[_s.d, _s.w100PC, _s.my10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
-            <Switch
-              label='Notification sound enabled'
-              checked={false}
-              onChange={this.handleLockedChange}
+            <SettingSwitch
+              label='Show read receipts'
+              settings={chatSettings}
+              settingPath='read_receipts'
+              onChange={this.handleOnChange}
             />
+            <div className={[_s.d, _s.w100PC, _s.my10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
+            <SettingSwitch
+              label='Notification sound enabled'
+              settings={chatSettings}
+              settingPath='sounds'
+              onChange={this.handleOnChange}
+            /> */ }
           </Form>
         </div>
       </div>
@@ -66,22 +66,18 @@ class MessagesSettings extends ImmutablePureComponent {
 }
 
 const mapStateToProps = (state) => ({
-  accountIds: state.getIn(['user_lists', 'mutes', me, 'items']),
-  hasMore: !!state.getIn(['user_lists', 'mutes', me, 'next']),
-  isLoading: state.getIn(['user_lists', 'mutes', me, 'isLoading']),
+  chatSettings: state.getIn(['chat_settings']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onFetchMutes: () => dispatch(fetchMutes()),
-  onExpandMutes: () => dispatch(expandMutes()),
+  onSave(key, checked) {
+    // dispatch(changeChatSetting(key, checked))
+  },
 })
 
 MessagesSettings.propTypes = {
-  accountIds: ImmutablePropTypes.list,
-  hasMore: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  onExpandMutes: PropTypes.func.isRequired,
-  onFetchMutes: PropTypes.func.isRequired,
+  chatSettings: ImmutablePropTypes.map,
+  onSave: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(MessagesSettings))
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesSettings)

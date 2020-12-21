@@ -17,9 +17,7 @@ const initialState = ImmutableMap({
 export default function chat_settings(state = initialState, action) {
   switch(action.type) {
   case CHAT_SETTING_CHANGE:
-    return state
-      .setIn(action.path, action.value)
-      .set('saved', false)
+    return state.set(action.path, action.checked).set('saved', false)
   default:
     return state
   }

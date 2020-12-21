@@ -54,13 +54,16 @@ class PostChatMessageService < BaseService
 
       # Get not mine
       if @account_conversation.id != recipient.id
-        recipient.unread_count = recipient.unread_count + 1
-        recipient.is_hidden = false
+        # check if recipient is blocking me
+        unless recipient.account.chat_blocking?(@account)
+          recipient.unread_count = recipient.unread_count + 1
+          recipient.is_hidden = false
 
-        # check if muting
-        unless recipient.is_muted
-          payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
-          Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
+          # check if muting
+          unless recipient.is_muted
+            payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
+            Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
+          end
         end
       else
         recipient.unread_count = 0
@@ -72,21 +75,7 @@ class PostChatMessageService < BaseService
 
   def set_chat_conversation_recipients!
     @account_conversation = ChatConversationAccount.where(account: @account, chat_conversation: @chat_conversation).first
-    @chat_conversation_recipients_accounts = ChatConversationAccount.where(chat_conversation: @chat_conversation)
-
-    # if 1-to-1 chat, check for blocking and dont allow message to send if blocking
-    # if 1-to-many let chat go through but keep is_hidden
-    @chat_conversation_recipients_accounts.each do |recipient|
-      # : todo :
-      # check if chat blocked
-      # check if normal blocked
-
-      if recipient.account.blocking?(@account) || recipient.account.chat_blocking?(@account)
-        raise GabSocial::NotPermittedError
-      end
-    end
-      
-      
+    @chat_conversation_recipients_accounts = ChatConversationAccount.where(chat_conversation: @chat_conversation)      
   rescue ArgumentError
     raise ActiveRecord::RecordInvalid
   end

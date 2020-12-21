@@ -4,7 +4,9 @@ import { connect } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
 import isEqual from 'lodash.isequal'
 import { expandHashtagTimeline, clearTimeline } from '../actions/timelines'
+import { fetchHashtag } from '../actions/hashtags'
 import StatusList from '../components/status_list'
+import HashtagItem from '../components/hashtag_item'
 
 class HashtagTimeline extends React.PureComponent {
 
@@ -64,10 +66,11 @@ class HashtagTimeline extends React.PureComponent {
   }
 
   componentDidMount () {
-    const { dispatch } = this.props
+    const { dispatch, tagName } = this.props
     const { id, tags } = this.props.params
 
     dispatch(expandHashtagTimeline(id, { tags }))
+    dispatch(fetchHashtag(tagName))
   }
 
   componentWillReceiveProps (nextProps) {
@@ -86,21 +89,28 @@ class HashtagTimeline extends React.PureComponent {
   }
 
   render () {
-    const { id } = this.props.params
+    const { tag, tagName } = this.props
+
+    console.log("tagName:", tag)
 
     return (
-      <StatusList
-        scrollKey='hashtag_timeline'
-        timelineId={`hashtag:${id}`}
-        onLoadMore={this.handleLoadMore}
-        emptyMessage={<FormattedMessage id='empty_column.hashtag' defaultMessage='There is nothing in this hashtag yet.' />}
-      />
-    );
+      <React.Fragment>
+        { tag && <HashtagItem hashtag={tag} /> }
+        <StatusList
+          scrollKey='hashtag_timeline'
+          timelineId={`hashtag:${tagName}`}
+          onLoadMore={this.handleLoadMore}
+          emptyMessage={<FormattedMessage id='empty_column.hashtag' defaultMessage='There is nothing in this hashtag yet.' />}
+        />
+      </React.Fragment>
+    )
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
+  tagName: props.params.id,
+  tag: state.getIn(['hashtags', `${props.params.id}`]),
   hasUnread: state.getIn(['timelines', `hashtag:${props.params.id}`, 'unread']) > 0,
 })
 

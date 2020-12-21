@@ -21,7 +21,12 @@ class ChatMessageHeader extends React.PureComponent {
   }
 
   handleOnOpenChatConversationOptionsPopover = () => {
-    this.props.onOpenChatConversationOptionsPopover(this.props.chatConversationId, this.optionsBtnRef)
+    const isChatConversationRequest = !!this.props.chatConversation ? !this.props.chatConversation.get('is_approved') : false
+    this.props.onOpenChatConversationOptionsPopover({
+      isChatConversationRequest,
+      chatConversationId: this.props.chatConversationId,
+      targetRef: this.optionsBtnRef,
+    })
   }
 
   setOptionsBtnRef = (c) => {
@@ -63,7 +68,7 @@ class ChatMessageHeader extends React.PureComponent {
             onClick={this.handleOnApproveMessageRequest}
             className={_s.ml10}
           >
-            <Text>
+            <Text color='inherit'>
               Approve Message Request
             </Text>
           </Button>
@@ -82,10 +87,9 @@ const mapDispatchToProps = (dispatch) => ({
   onApproveChatConversationRequest(chatConversationId) {
     dispatch(approveChatConversationRequest(chatConversationId))
   },
-  onOpenChatConversationOptionsPopover(chatConversationId, targetRef) {
+  onOpenChatConversationOptionsPopover(options) {
     dispatch(openPopover(POPOVER_CHAT_CONVERSATION_OPTIONS, {
-      chatConversationId,
-      targetRef,
+      ...options,
       position: 'left-end',
     }))
   },
