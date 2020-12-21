@@ -113,6 +113,16 @@ class Api::V1::GroupsController < Api::BaseController
     render_empty_success
   end
 
+  def member_search
+    @accounts = Group.search_for_members(@group, params[:q], DEFAULT_ACCOUNTS_LIMIT)
+    render json: @accounts, each_serializer: REST::AccountSerializer
+  end
+
+  def removed_accounts_search
+    @accounts = Group.search_for_removed_accounts(@group, params[:q], DEFAULT_ACCOUNTS_LIMIT)
+    render json: @accounts, each_serializer: REST::AccountSerializer
+  end
+
   private
 
   def set_group

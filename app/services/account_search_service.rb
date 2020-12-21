@@ -4,13 +4,13 @@ class AccountSearchService < BaseService
   attr_reader :query, :limit, :offset, :options, :account
 
   def call(query, account = nil, options = {})
-    puts "query:"+query.inspect
     @query   = query.strip
     @limit   = options[:limit].to_i
     @offset  = options[:offset].to_i
     @onlyVerified = options[:onlyVerified] || false
     @options = options
     @account = account
+    @group = options[:group] || nil
 
     search_service_results
   end
@@ -84,7 +84,7 @@ class AccountSearchService < BaseService
   end
 
   def advanced_search_results
-    Account.advanced_search_for(terms_for_query, account, limit, options[:following], offset, onlyVerified: @onlyVerified)
+    Account.advanced_search_for(terms_for_query, account, limit, offset, onlyVerified: @onlyVerified)
   end
 
   def simple_search_results

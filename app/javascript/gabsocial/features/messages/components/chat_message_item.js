@@ -174,7 +174,7 @@ class ChatMessageItem extends ImmutablePureComponent {
                 !!expirationDate &&
                 <React.Fragment>
                   <DotTextSeperator />
-                  <Text size='extraSmall' color='tertiary' className={_s.ml5}>Expires in {timeUntilExpiration}</Text>
+                  <Text size='extraSmall' color='tertiary' className={_s.ml5}>Expires {timeUntilExpiration}</Text>
                   <Icon id='stopwatch' size='11px' className={[_s.d, _s.ml5, _s.displayInline, _s.cSecondary].join(' ')} />
                 </React.Fragment>
               }

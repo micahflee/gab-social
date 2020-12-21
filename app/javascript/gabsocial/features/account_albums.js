@@ -67,6 +67,13 @@ class AccountAlbums extends ImmutablePureComponent {
   // }
 
   render() {
+    const {
+      account,
+      isMe,
+    } = this.props
+      
+    if (!account) return null
+
     return (
       <Block>
         <div className={[_s.d, _s.px10, _s.py10].join(' ')}>
@@ -76,18 +83,18 @@ class AccountAlbums extends ImmutablePureComponent {
           <TabBar tabs={[
             {
               title: 'All Photos',
-              to: '/'
+              to: `/${account.get('username')}/photos`,
             },
             {
               title: 'Albums',
               isActive: true,
-              to: '/'
+              to: `/${account.get('username')}/albums`,
             },
           ]}/>
         </div>
 
         <div className={[_s.d, _s.w100PC, _s.flexRow, _s.flexWrap, _s.px10, _s.mb15, _s.pb10].join(' ')}>
-          <Album />
+          { isMe && <Album isAddable /> }
           <Album />
           <Album />
           <Album />
@@ -111,7 +118,7 @@ class AccountAlbums extends ImmutablePureComponent {
     //   account,
     // } = this.props
 
-    // if (!account) return null
+    
 
     // return (
     //   <Block>

@@ -2,6 +2,7 @@ import {
   Map as ImmutableMap,
   List as ImmutableList,
 } from 'immutable'
+import debounce from 'lodash.debounce'
 import api, { getLinks } from '../api'
 import { me } from '../initial_state'
 import { importFetchedAccounts } from './importer'
@@ -33,6 +34,8 @@ export const GROUP_LEAVE_REQUEST = 'GROUP_LEAVE_REQUEST'
 export const GROUP_LEAVE_SUCCESS = 'GROUP_LEAVE_SUCCESS'
 export const GROUP_LEAVE_FAIL    = 'GROUP_LEAVE_FAIL'
 
+//
+
 export const GROUP_MEMBERS_FETCH_REQUEST = 'GROUP_MEMBERS_FETCH_REQUEST'
 export const GROUP_MEMBERS_FETCH_SUCCESS = 'GROUP_MEMBERS_FETCH_SUCCESS'
 export const GROUP_MEMBERS_FETCH_FAIL    = 'GROUP_MEMBERS_FETCH_FAIL'
@@ -40,6 +43,11 @@ export const GROUP_MEMBERS_FETCH_FAIL    = 'GROUP_MEMBERS_FETCH_FAIL'
 export const GROUP_MEMBERS_EXPAND_REQUEST = 'GROUP_MEMBERS_EXPAND_REQUEST'
 export const GROUP_MEMBERS_EXPAND_SUCCESS = 'GROUP_MEMBERS_EXPAND_SUCCESS'
 export const GROUP_MEMBERS_EXPAND_FAIL    = 'GROUP_MEMBERS_EXPAND_FAIL'
+
+export const GROUP_MEMBERS_SEARCH_SUCCESS = 'GROUP_MEMBERS_SEARCH_SUCCESS'
+export const CLEAR_GROUP_MEMBERS_SEARCH = 'CLEAR_GROUP_MEMBERS_SEARCH'
+
+//
 
 export const GROUP_REMOVED_ACCOUNTS_FETCH_REQUEST = 'GROUP_REMOVED_ACCOUNTS_FETCH_REQUEST'
 export const GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_FETCH_SUCCESS'
@@ -49,6 +57,11 @@ export const GROUP_REMOVED_ACCOUNTS_EXPAND_REQUEST = 'GROUP_REMOVED_ACCOUNTS_EXP
 export const GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_EXPAND_SUCCESS'
 export const GROUP_REMOVED_ACCOUNTS_EXPAND_FAIL    = 'GROUP_REMOVED_ACCOUNTS_EXPAND_FAIL'
 
+export const GROUP_REMOVED_ACCOUNTS_SEARCH_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_SEARCH_SUCCESS'
+export const CLEAR_GROUP_REMOVED_ACCOUNTS_SEARCH = 'CLEAR_GROUP_REMOVED_ACCOUNTS_SEARCH'
+
+//
+
 export const GROUP_REMOVED_ACCOUNTS_REMOVE_REQUEST = 'GROUP_REMOVED_ACCOUNTS_REMOVE_REQUEST'
 export const GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_REMOVE_SUCCESS'
 export const GROUP_REMOVED_ACCOUNTS_REMOVE_FAIL    = 'GROUP_REMOVED_ACCOUNTS_REMOVE_FAIL'
@@ -56,6 +69,8 @@ export const GROUP_REMOVED_ACCOUNTS_REMOVE_FAIL    = 'GROUP_REMOVED_ACCOUNTS_REM
 export const GROUP_REMOVED_ACCOUNTS_CREATE_REQUEST = 'GROUP_REMOVED_ACCOUNTS_CREATE_REQUEST'
 export const GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS = 'GROUP_REMOVED_ACCOUNTS_CREATE_SUCCESS'
 export const GROUP_REMOVED_ACCOUNTS_CREATE_FAIL    = 'GROUP_REMOVED_ACCOUNTS_CREATE_FAIL'
+
+//
 
 export const GROUP_JOIN_REQUESTS_FETCH_REQUEST = 'GROUP_JOIN_REQUESTS_FETCH_REQUEST'
 export const GROUP_JOIN_REQUESTS_FETCH_SUCCESS = 'GROUP_JOIN_REQUESTS_FETCH_SUCCESS'
@@ -457,7 +472,7 @@ const expandMembersRequest = (groupId) => ({
   type: GROUP_MEMBERS_EXPAND_REQUEST,
   groupId,
 })
-``
+
 const expandMembersSuccess = (groupId, accounts, next) => ({
   type: GROUP_MEMBERS_EXPAND_SUCCESS,
   groupId,
@@ -471,6 +486,43 @@ const expandMembersFail = (groupId, error) => ({
   groupId,
   error,
 })
+
+/**
+ * 
+ */
+export const fetchGroupMembersAdminSearch = (groupId, query) => (dispatch, getState) => {
+  if (!groupId || !query) return
+  debouncedFetchGroupMembersAdminSearch(groupId, query, dispatch, getState) 
+}
+
+export const debouncedFetchGroupMembersAdminSearch = debounce((groupId, query, dispatch, getState) => {
+  if (!groupId || !query) return
+
+  api(getState).get(`/api/v1/groups/${groupId}/member_search`, {
+    params: {
+      q: query,
+      resolve: false,
+      limit: 4,
+    },
+  }).then((response) => {
+    dispatch(importFetchedAccounts(response.data))
+    dispatch(fetchGroupMembersAdminSearchSuccess(response.data))
+  }).catch((error) => {
+    //
+  })
+}, 650, { leading: true })
+
+const fetchGroupMembersAdminSearchSuccess = (accounts) => ({
+  type: GROUP_MEMBERS_SEARCH_SUCCESS,
+  accounts,
+})
+
+/**
+ * 
+ */
+export const clearGroupMembersAdminSearch = () => (dispatch) => {
+  dispatch({ type: CLEAR_GROUP_MEMBERS_SEARCH })
+}
 
 /**
  * @description Fetch removed accounts for the given groupId and imports paginated
@@ -556,6 +608,43 @@ const expandRemovedAccountsFail = (groupId, error) => ({
   groupId,
   error,
 })
+
+/**
+ * 
+ */
+export const fetchGroupRemovedAccountsAdminSearch = (groupId, query) => (dispatch, getState) => {
+  if (!groupId || !query) return
+  debouncedFetchGroupRemovedAccountsAdminSearch(groupId, query, dispatch, getState) 
+}
+
+export const debouncedFetchGroupRemovedAccountsAdminSearch = debounce((groupId, query, dispatch, getState) => {
+  if (!groupId || !query) return
+  
+  api(getState).get(`/api/v1/groups/${groupId}/removed_accounts_search`, {
+    params: {
+      q: query,
+      resolve: false,
+      limit: 4,
+    },
+  }).then((response) => {
+    dispatch(importFetchedAccounts(response.data))
+    dispatch(fetchGroupRemovedAccountsAdminSearchSuccess(response.data))
+  }).catch((error) => {
+    //
+  })
+}, 650, { leading: true })
+
+const fetchGroupRemovedAccountsAdminSearchSuccess = (accounts) => ({
+  type: GROUP_REMOVED_ACCOUNTS_SEARCH_SUCCESS,
+  accounts,
+})
+
+/**
+ * 
+ */
+export const clearGroupRemovedAccountsAdminSearch = () => (dispatch) => {
+  dispatch({ type: CLEAR_GROUP_REMOVED_ACCOUNTS_SEARCH })
+}
 
 /**
  * @description Remove a "removed account" from a group with the given groupId and accountId.

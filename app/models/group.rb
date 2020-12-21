@@ -70,6 +70,16 @@ class Group < ApplicationRecord
         .limit(25)
         .offset(offset)
     end
+
+    def search_for_members(group, term, limit)
+      pattern = '%' + sanitize_sql_like(term.strip) + '%'
+      group.accounts.where("LOWER(username) LIKE LOWER(?)", pattern).limit(limit)
+    end
+
+    def search_for_removed_accounts(group, term, limit)
+      pattern = '%' + sanitize_sql_like(term.strip) + '%'
+      group.removed_accounts.where("LOWER(username) LIKE LOWER(?)", pattern).limit(limit)
+    end
   end
 
   def has_password?

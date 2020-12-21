@@ -52,7 +52,7 @@ class Api::V1::Groups::AccountsController < Api::BaseController
 
     render json: @group, serializer: REST::GroupRelationshipSerializer, relationships: relationships
   end
-
+  
   private
 
   def relationships

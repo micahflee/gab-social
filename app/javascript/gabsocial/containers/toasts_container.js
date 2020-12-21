@@ -15,55 +15,6 @@ class ToastsContainer extends React.PureComponent {
   render() {
     const { notifications } = this.props
 
-    console.log("notifications:", notifications)
-
-    // const notifications = [
-    //   {
-    //     key: '1',
-    //     title: 'Error',
-    //     to: 'to',
-    //     image: 'https://gab.com/media/user/58077e8a49705.jpg',
-    //     message: 'Unable to follow @andrew',
-    //     date: new Date(),
-    //     isImageAccount: true,
-    //   },
-    //   {
-    //     key: '2',
-    //     title: 'Success',
-    //     to: 'to',
-    //     image: 'https://gab.com/media/user/58077e8a49705.jpg',
-    //     message: 'Your gab was posted. Click here to view',
-    //     date: new Date(),
-    //     isImageAccount: false,
-    //   },
-    //   {
-    //     key: '3',
-    //     title: '',
-    //     to: 'to',
-    //     image: 'https://gab.com/media/user/58077e8a49705.jpg',
-    //     message: 'Unable to follow @andrew',
-    //     date: new Date(),
-    //     isImageAccount: true,
-    //   },
-    //   {
-    //     key: '4',
-    //     title: '',
-    //     to: 'to',
-    //     image: 'https://gab.com/media/user/58077e8a49705.jpg',
-    //     message: 'Your gab was posted. Click here to view',
-    //     date: new Date(),
-    //     isImageAccount: false,
-    //   },
-    //   {
-    //     key: '5',
-    //     title: '',
-    //     to: 'to',
-    //     message: 'Your gab was deleted',
-    //     date: new Date(),
-    //     isImageAccount: false,
-    //   },
-    // ]
-
     const hasNotifications = !!notifications && notifications.size > 0
     
     const containerClasses = CX({
@@ -76,6 +27,7 @@ class ToastsContainer extends React.PureComponent {
       pt15: 1,
       heightMax100VH: 1,
       pb10: 1,
+      saveAreaInsetMB: 1,
       displayNone: !hasNotifications
     })
   

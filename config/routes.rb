@@ -349,6 +349,9 @@ Rails.application.routes.draw do
         member do
           delete '/statuses/:status_id', to: 'groups#destroy_status'
           post '/statuses/:status_id/approve', to: 'groups#approve_status'
+
+          get '/member_search', to: 'groups#member_search'
+          get '/removed_accounts_search', to: 'groups#removed_accounts_search'
         end
 
         get '/category/:category', to: 'groups#by_category'

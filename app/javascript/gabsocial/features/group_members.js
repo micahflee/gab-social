@@ -10,6 +10,7 @@ import { me } from '../initial_state'
 import {
 	fetchMembers,
 	expandMembers,
+	fetchGroupMembersAdminSearch,
 } from '../actions/groups'
 import { openPopover } from '../actions/popover'
 import Account from '../components/account'
@@ -20,6 +21,10 @@ import Input from '../components/input'
 import ScrollableList from '../components/scrollable_list'
 
 class GroupMembers extends ImmutablePureComponent {
+
+	state = {
+		query: '',
+	}
 
 	componentWillMount() {
 		const { groupId } = this.props
@@ -44,20 +49,29 @@ class GroupMembers extends ImmutablePureComponent {
 		this.props.onExpandMembers(this.props.groupId)
 	}, 300, { leading: true })
 
+	handleOnChange = (query) => {
+		this.setState({ query })
+		this.props.onChange(this.props.groupId, query)
+	}
+
 	render() {
 		const {
-			accountIds,
+			listAccountIds,
+			searchAcountIds,
 			hasMore,
 			group,
 			relationships,
 		} = this.props
+		const { query } = this.state
 
 		if (!group || !relationships) return <ColumnIndicator type='loading' />
 
 		const isAdminOrMod = relationships ? (relationships.get('admin') || relationships.get('moderator')) : false
 
 		if (!isAdminOrMod) return <ColumnIndicator type='missing' />
-			
+		
+		const accountIds = !!query ? searchAcountIds : listAccountIds
+
 		return (
 			<Block>
 				<BlockHeading title='Group Members' />
@@ -67,11 +81,8 @@ class GroupMembers extends ImmutablePureComponent {
 					id='group-member-search'
 					placeholder='Search group members'
 					prependIcon='search'
-					// value={value}
-					onKeyUp={this.handleKeyUp}
+					value={query}
 					onChange={this.handleOnChange}
-					onFocus={this.handleOnFocus}
-					onBlur={this.handleOnBlur}
 					autoComplete='off'
 				/>
 			</div>
@@ -109,17 +120,21 @@ class GroupMembers extends ImmutablePureComponent {
 const mapStateToProps = (state, { params }) => {
 	const groupId = isObject(params) ? params['id'] : -1
 	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
-
+	
 	return {
 		group,
 		groupId,
+		listAccountIds: state.getIn(['user_lists', 'groups', groupId, 'items']),
+		searchAcountIds: state.getIn(['group_lists', 'member_search_accounts']),
 		relationships: state.getIn(['group_relationships', groupId]),
-		accountIds: state.getIn(['user_lists', 'groups', groupId, 'items']),
 		hasMore: !!state.getIn(['user_lists', 'groups', groupId, 'next']),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
+	onChange(groupId, query) {
+		dispatch(fetchGroupMembersAdminSearch(groupId, query))
+	},
 	onFetchMembers(groupId) {
 		dispatch(fetchMembers(groupId))
 	},

@@ -404,7 +404,7 @@ class Account < ApplicationRecord
       records
     end
 
-    def advanced_search_for(terms, account, limit = 10, following = false, offset = 0, options = {})
+    def advanced_search_for(terms, account, limit = 10, offset = 0, options = {})
       textsearch, query = generate_query_for_search(terms)
       @onlyVerified = options[:onlyVerified] || false
 
@@ -425,7 +425,6 @@ class Account < ApplicationRecord
       SQL
 
       records = find_by_sql([sql, account.id, account.id, limit, offset])
-
 
       ActiveRecord::Associations::Preloader.new.preload(records, :account_stat)
       records

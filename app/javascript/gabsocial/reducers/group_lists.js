@@ -16,6 +16,10 @@ import {
   GROUPS_BY_TAG_FETCH_REQUEST,
   GROUPS_BY_TAG_FETCH_SUCCESS,
   GROUPS_BY_TAG_FETCH_FAIL,
+  GROUP_MEMBERS_SEARCH_SUCCESS,
+  CLEAR_GROUP_MEMBERS_SEARCH,
+  GROUP_REMOVED_ACCOUNTS_SEARCH_SUCCESS,
+  CLEAR_GROUP_REMOVED_ACCOUNTS_SEARCH,
 } from '../actions/groups'
 import {
   GROUP_TIMELINE_SORTING_TYPE_TOP,
@@ -51,6 +55,8 @@ const initialState = ImmutableMap({
   }),
   by_category: ImmutableMap(),
   by_tag: ImmutableMap(),
+  member_search_accounts: ImmutableList(),
+  removed_search_accounts: ImmutableList(),
 })
 
 export default function groupLists(state = initialState, action) {
@@ -144,6 +150,14 @@ export default function groupLists(state = initialState, action) {
       items: ImmutableList(),
       isLoading: false,
     }))
+  case GROUP_MEMBERS_SEARCH_SUCCESS:
+    return state.set('member_search_accounts', ImmutableList(action.accounts.map((item) => item.id)))
+  case CLEAR_GROUP_MEMBERS_SEARCH:
+    return state.set('member_search_accounts', ImmutableList())
+  case GROUP_REMOVED_ACCOUNTS_SEARCH_SUCCESS:
+    return state.set('removed_search_accounts', ImmutableList(action.accounts.map((item) => item.id)))
+  case CLEAR_GROUP_REMOVED_ACCOUNTS_SEARCH:
+    return state.set('removed_search_accounts', ImmutableList())
   default:
     return state
   }

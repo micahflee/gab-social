@@ -76,7 +76,7 @@ class MessagesLayout extends React.PureComponent {
               actions={[
                 {
                   icon: 'add',
-                  to: '/messages/new',
+                  to: `'/messages/new'`,
                 },
                 {
                   icon: 'cog',

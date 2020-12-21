@@ -64,7 +64,7 @@ class Account extends ImmutablePureComponent {
       )
     }
 
-    const actionButton = (onActionClick && actionIcon) ? (
+    const actionButton = (onActionClick && (actionIcon || actionTitle)) ? (
       <Button
         onClick={this.handleAction}
         isOutline={true}

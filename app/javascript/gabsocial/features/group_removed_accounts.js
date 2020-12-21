@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
-import { defineMessages, injectIntl } from 'react-intl'
 import debounce from 'lodash.debounce'
 import isObject from 'lodash.isobject'
 import {
 	fetchRemovedAccounts,
 	expandRemovedAccounts,
 	removeRemovedAccount,
+	fetchGroupRemovedAccountsAdminSearch,
 } from '../actions/groups'
 import { FormattedMessage } from 'react-intl'
 import Account from '../components/account'
@@ -20,6 +20,10 @@ import ColumnIndicator from '../components/column_indicator'
 import ScrollableList from '../components/scrollable_list'
 
 class GroupRemovedAccounts extends ImmutablePureComponent {
+
+	state = {
+		query: '',
+	}
 
 	componentWillMount() {
 		const { groupId } = this.props
@@ -37,15 +41,23 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 		this.props.onExpandRemovedAccounts(this.props.groupId)
 	}, 300, { leading: true })
 
+	handleOnChange = (query) => {
+		this.setState({ query })
+		this.props.onChange(this.props.groupId, query)
+	}
+
 	render() {
 		const {
-			accountIds,
+			listAccountIds,
+			searchAcountIds,
 			hasMore,
 			group,
-			intl,
 		} = this.props
+		const { query } = this.state
 
 		if (!group) return <ColumnIndicator type='loading' />
+
+		const accountIds = !!query ? searchAcountIds : listAccountIds
 
 		return (
 			<Block>
@@ -55,11 +67,8 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 						id='group-member-search'
 						placeholder='Search removed group members'
 						prependIcon='search'
-						// value={value}
-						onKeyUp={this.handleKeyUp}
+						value={query}
 						onChange={this.handleOnChange}
-						onFocus={this.handleOnFocus}
-						onBlur={this.handleOnBlur}
 						autoComplete='off'
 					/>
 				</div>
@@ -73,11 +82,11 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 					{
 						accountIds && accountIds.map((id) => (
 							<Account
+							  compact
 								key={id}
 								id={id}
-								actionIcon='subtract'
 								onActionClick={() => this.props.onRemoveRemovedAccount(group.get('id'), id)}
-								actionTitle={intl.formatMessage(messages.remove)}
+								actionTitle='Allow to join'
 							/>
 						))
 					}
@@ -88,10 +97,6 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 
 }
 
-const messages = defineMessages({
-	remove: { id: 'groups.removed_accounts', defaultMessage: 'Allow joining' },
-})
-
 const mapStateToProps = (state, { params }) => {
 	const groupId = isObject(params) ? params['id'] : -1
 	const group = groupId === -1 ? null : state.getIn(['groups', groupId])
@@ -99,12 +104,16 @@ const mapStateToProps = (state, { params }) => {
 	return {
 		group,
 		groupId,
-		accountIds: state.getIn(['user_lists', 'group_removed_accounts', groupId, 'items']),
+		listAccountIds: state.getIn(['user_lists', 'group_removed_accounts', groupId, 'items']),
+		searchAcountIds: state.getIn(['group_lists', 'removed_search_accounts']),
 		hasMore: !!state.getIn(['user_lists', 'group_removed_accounts', groupId, 'next']),
 	}
 }
 
 const mapDispatchToProps = (dispatch) => ({
+	onChange(groupId, query) {
+		dispatch(fetchGroupRemovedAccountsAdminSearch(groupId, query))
+	},
 	onFetchRemovedAccounts(groupId) {
 		dispatch(fetchRemovedAccounts(groupId))
 	},
@@ -125,4 +134,4 @@ GroupRemovedAccounts.propTypes = {
 	onRemoveRemovedAccount: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(GroupRemovedAccounts))
+export default connect(mapStateToProps, mapDispatchToProps)(GroupRemovedAccounts)

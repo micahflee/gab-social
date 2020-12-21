@@ -95,6 +95,8 @@ class MediaItem extends ImmutablePureComponent {
 
     const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`;
 
+    // : todo : fix dimensions to be like albums
+
     return (
       <div className={[_s.d, _s.pt25PC].join(' ')}>
         <div className={containerClasses}>
