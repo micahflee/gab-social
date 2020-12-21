@@ -23,7 +23,6 @@ class Api::V1::Accounts::FollowingAccountsController < Api::BaseController
   end
 
   def hide_results?
-    # : todo : where tf is this?
     (@account.user_hides_network? && current_account.id != @account.id) || (current_account && @account.blocking?(current_account))
   end
 

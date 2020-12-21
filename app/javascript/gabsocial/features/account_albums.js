@@ -3,76 +3,60 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
-import { injectIntl, defineMessages } from 'react-intl'
-import { expandAccountMediaTimeline } from '../actions/timelines'
-import { getAccountGallery } from '../selectors'
+import { me } from '../initial_state'
+import {
+  fetchAccountAlbums,
+  expandAccountAlbums,
+} from '../actions/albums'
 import ColumnIndicator from '../components/column_indicator'
 import Heading from '../components/heading'
 import TabBar from '../components/tab_bar'
-import MediaItem from '../components/media_item'
 import LoadMore from '../components/load_more'
 import Block from '../components/block'
-import Image from '../components/image'
 import Album from '../components/album'
+import Dummy from '../components/dummy'
 import MediaGalleryPlaceholder from '../components/placeholder/media_gallery_placeholder'
 
 class AccountAlbums extends ImmutablePureComponent {
 
-  // componentDidMount() {
-  //   const { accountId, mediaType } = this.props
+  componentDidMount() {
+    const { accountId, mediaType } = this.props
 
-  //   if (accountId && accountId !== -1) {
-  //     this.props.dispatch(expandAccountMediaTimeline(accountId, { mediaType }))
-  //   }
-  // }
+    if (accountId && accountId !== -1) {
+      this.props.onFetchAccountAlbums(accountId)
+    }
+  }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (
-  //     (nextProps.accountId && nextProps.accountId !== this.props.accountId) ||
-  //     (nextProps.accountId && nextProps.mediaType !== this.props.mediaType)
-  //   ) {
-  //     this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId, {
-  //       mediaType: nextProps.mediaType,
-  //     }))
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.accountId && nextProps.accountId !== this.props.accountId) {
+      this.props.onFetchAccountAlbums(nextProps.accountId)
+    }
+  }
 
-  // handleScrollToBottom = () => {
-  //   if (this.props.hasMore) {
-  //     this.handleLoadMore(this.props.attachments.size > 0 ? this.props.attachments.last().getIn(['status', 'id']) : undefined)
-  //   }
-  // }
+  handleLoadMore = () => {
+    const { accountId, hasMore } = this.props
+    if (accountId && accountId !== -1 && hasMore) {
+      this.props.onExpandAccountAlbums(accountId)
+    }
+  }
 
-  // handleScroll = (e) => {
-  //   const { scrollTop, scrollHeight, clientHeight } = e.target
-  //   const offset = scrollHeight - scrollTop - clientHeight
-
-  //   if (150 > offset && !this.props.isLoading) {
-  //     this.handleScrollToBottom()
-  //   }
-  // }
-
-  // handleLoadMore = (maxId) => {
-  //   if (this.props.accountId && this.props.accountId !== -1) {
-  //     this.props.dispatch(expandAccountMediaTimeline(this.props.accountId, {
-  //       maxId,
-  //       mediaType: this.props.mediaType,
-  //     }))
-  //   }
-  // }
-
-  // handleLoadOlder = (e) => {
-  //   e.preventDefault()
-  //   this.handleScrollToBottom()
-  // }
+  handleLoadOlder = (e) => {
+    e.preventDefault()
+    this.handleLoadMore()
+  }
 
   render() {
     const {
-      account,
       isMe,
+      albums,
+      account,
+      accountId,
+      hasMore,
+      isLoading,
     } = this.props
       
     if (!account) return null
+    const hasAlbums = !!albums ? albums.size > 0 : false
 
     return (
       <Block>
@@ -95,103 +79,68 @@ class AccountAlbums extends ImmutablePureComponent {
 
         <div className={[_s.d, _s.w100PC, _s.flexRow, _s.flexWrap, _s.px10, _s.mb15, _s.pb10].join(' ')}>
           { isMe && <Album isAddable /> }
-          <Album />
-          <Album />
-          <Album />
-          <Album />
-          <Album />
 
-          <Album isDummy />
-          <Album isDummy />
-          <Album isDummy />
-          <Album isDummy />
-          <Album isDummy />
-          <Album isDummy />
+          {
+            hasAlbums &&
+            albums.map((albums, i) => (
+              <Album
+                key={album.get('id')}
+                album={album}
+                account={account}
+              />
+            ))
+          }
+
+          {
+            Array.apply(null, { length: 8}).map((_, i) => (
+              <Dummy className={[_s.d, _s.minW162PX, _s.px5, _s.flex1].join(' ')} />
+            ))
+          }
+   
+          {
+            !isLoading && !hasAlbums && me !== accountId &&
+            <ColumnIndicator type='error' message='No albums exist' />
+          }
         </div>
+
+          {
+            hasMore && !(isLoading && !hasAlbums) &&
+            <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />
+          }
       </Block>
     )
-    // const {
-    //   attachments,
-    //   isLoading,
-    //   hasMore,
-    //   intl,
-    //   account,
-    // } = this.props
-
     
-
-    // return (
-    //   <Block>
-    //     <div
-    //       role='feed'
-    //       onScroll={this.handleScroll}
-    //       className={[_s.d, _s.flexRow, _s.flexWrap, _s.py5, _s.px5].join(' ')}
-    //     >
-
-    //       {
-    //         attachments.map((attachment, i) => (
-    //           <MediaItem
-    //             key={attachment.get('id')}
-    //             attachment={attachment}
-    //             account={account}
-    //           />
-    //         ))
-    //       }
-
-    //       {
-    //         isLoading && attachments.size === 0 &&
-    //         <div className={[_s.d, _s.w100PC].join(' ')}>
-    //           <MediaGalleryPlaceholder />
-    //         </div>
-    //       }
-
-    //       {
-    //         !isLoading && attachments.size === 0 &&
-    //         <ColumnIndicator type='error' message={intl.formatMessage(messages.none)} />
-    //       }
-    //     </div>
-
-    //     {
-    //       hasMore && !(isLoading && attachments.size === 0) &&
-    //       <LoadMore visible={!isLoading} onClick={this.handleLoadOlder} />
-    //     }
-    //   </Block>
-    // )
   }
 
 }
-
-const messages = defineMessages({
-  none: { id: 'account_gallery.none', defaultMessage: 'No media to show.' },
-})
 
 const mapStateToProps = (state, { account, mediaType }) => {
   const accountId =  !!account ? account.get('id') : -1
 
   return {
     accountId,
-    attachments: getAccountGallery(state, accountId, mediaType),
-    isLoading: state.getIn(['timelines', `account:${accountId}:media`, 'isLoading']),
-    hasMore: state.getIn(['timelines', `account:${accountId}:media`, 'hasMore']),
+    albums: state.getIn(['album_lists', accountId, 'items']),
+    isLoading: state.getIn(['album_lists', accountId, 'isLoading'], false),
+    hasMore: state.getIn(['album_lists', accountId, 'hasMore'], false),
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
+  onFetchAccountAlbums(accountId) {
 
+  },
+  onExpandAccountAlbums(accountId) {
+
+  },
 })
 
 AccountAlbums.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   account: ImmutablePropTypes.map,
   accountId: PropTypes.string,
-  attachments: ImmutablePropTypes.list.isRequired,
+  albums: ImmutablePropTypes.list,
   isLoading: PropTypes.bool,
   hasMore: PropTypes.bool,
   intl: PropTypes.object.isRequired,
-  mediaType: PropTypes.oneOf([
-    'photo',
-    'video',
-  ]),
 }
 
-export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(AccountAlbums))
+export default connect(mapStateToProps, mapDispatchToProps)(AccountAlbums)

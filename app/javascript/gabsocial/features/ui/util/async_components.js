@@ -3,7 +3,8 @@ export function AboutSidebar() { return import(/* webpackChunkName: "components/
 export function AccountTimeline() { return import(/* webpackChunkName: "features/account_timeline" */'../../account_timeline') }
 export function AccountCommentsTimeline() { return import(/* webpackChunkName: "features/account_comments_timeline" */'../../account_comments_timeline') }
 export function AccountAlbums() { return import(/* webpackChunkName: "features/account_albums" */'../../account_albums') }
-export function AccountGallery() { return import(/* webpackChunkName: "features/account_gallery" */'../../account_gallery') }
+export function AccountPhotoGallery() { return import(/* webpackChunkName: "features/account_photo_gallery" */'../../account_photo_gallery') }
+export function AccountVideoGallery() { return import(/* webpackChunkName: "features/account_video_gallery" */'../../account_video_gallery') }
 export function AlbumCreate() { return import(/* webpackChunkName: "features/album_create" */'../../album_create') }
 export function AlbumCreateModal() { return import(/* webpackChunkName: "components/album_create_modal" */'../../../components/modal/album_create_modal') }
 export function Assets() { return import(/* webpackChunkName: "features/about/assets" */'../../about/assets') }
@@ -12,8 +13,6 @@ export function BlockedAccounts() { return import(/* webpackChunkName: "features
 export function BookmarkCollections() { return import(/* webpackChunkName: "features/bookmark_collections" */'../../bookmark_collections') }
 export function BookmarkCollectionCreate() { return import(/* webpackChunkName: "features/bookmark_collection_create" */'../../bookmark_collection_create') }
 export function BookmarkCollectionCreateModal() { return import(/* webpackChunkName: "components/bookmark_collection_create_modal" */'../../../components/modal/bookmark_collection_create_modal') }
-export function BookmarkCollectionEdit() { return import(/* webpackChunkName: "features/bookmark_collection_edit" */'../../bookmark_collection_edit') }
-export function BookmarkCollectionEditModal() { return import(/* webpackChunkName: "components/bookmark_collection_edit_modal" */'../../../components/modal/bookmark_collection_edit_modal') }
 export function BookmarkedStatuses() { return import(/* webpackChunkName: "features/bookmarked_statuses" */'../../bookmarked_statuses') }
 export function BoostModal() { return import(/* webpackChunkName: "components/boost_modal" */'../../../components/modal/boost_modal') }
 export function CaliforniaConsumerProtection() { return import(/* webpackChunkName: "features/california_consumer_protection" */'../../about/california_consumer_protection') }

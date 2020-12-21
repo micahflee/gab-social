@@ -28,7 +28,7 @@ class DeckColumnHeader extends React.PureComponent {
     } = this.props
 
     return (
-      <div data-sort-header className={[_s.d, _s.w100PC, _s.flexRow, _s.aiCenter, _s.h60PX, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgPrimary].join(' ')}>
+      <div data-sort-header className={[_s.d, _s.w100PC, _s.overflowHidden, _s.flexRow, _s.aiCenter, _s.h60PX, _s.px15, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary, _s.bgPrimary].join(' ')}>
         <div data-sort-header className={[_s.d, _s.flexRow, _s.mr15, _s.cursorEWResize].join(' ')}>
           <span className={[_s.d, _s.w1PX, _s.h24PX, _s.mr2, _s.bgSecondary].join(' ')} />
           <span className={[_s.d, _s.w1PX, _s.h24PX, _s.mr2, _s.bgSecondary].join(' ')} />
@@ -36,7 +36,7 @@ class DeckColumnHeader extends React.PureComponent {
         </div>
 
         { !!icon && <Icon id={icon} className={[_s.cPrimary, _s.mr15].join(' ')} size='18px' /> }
-        <div className={[_s.d, _s.flexRow, _s.aiEnd].join(' ')}>
+        <div className={[_s.d, _s.flexRow, _s.aiEnd, _s.flexShrink1, _s.overflowHidden, _s.textOverflowEllipsis2].join(' ')}>
           { !!title && <Text size='extraLarge' weight='medium'>{title}</Text> }
           { !!subtitle && <Text className={_s.ml5} color='secondary'>{subtitle}</Text> }
         </div>

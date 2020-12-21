@@ -78,16 +78,12 @@ class FetchLinkCardService < BaseService
   end
 
   def parse_urls
-    # : todo :
     if @status.local?
       urls = @status.text.scan(URL_PATTERN).map { |array| Addressable::URI.parse(array[0]).normalize }
+      return urls.reject { |uri| bad_url?(uri) }.first
     else
-      html  = Nokogiri::HTML(@status.text)
-      links = html.css('a')
-      urls  = links.map { |a| Addressable::URI.parse(a['href']).normalize unless skip_link?(a) }.compact
+      return nil
     end
-
-    urls.reject { |uri| bad_url?(uri) }.first
   end
 
   def bad_url?(uri)

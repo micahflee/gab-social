@@ -124,6 +124,14 @@
             %td
 
           %tr
+            %th Is flagged as spam
+            %td
+              - if @account.is_flagged_as_spam?
+                %span YES
+              - else
+                %span no
+
+          %tr
             %th= t('admin.accounts.most_recent_ip')
             %td= @account.user_current_sign_in_ip
             %td

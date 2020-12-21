@@ -21,9 +21,6 @@ class Settings::GroupCategoriesController < Admin::BaseController
 	end
 
 	def destroy
-		# : todo :
-		# don't destroy if any groups have this category
-
 		@category.destroy!
 		log_action :destroy, @category
 		flash[:notice] = I18n.t('promotions.destroyed_msg')

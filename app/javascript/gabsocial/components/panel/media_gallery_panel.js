@@ -39,12 +39,6 @@ class MediaGalleryPanel extends ImmutablePureComponent {
     }
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   if (nextProps.accountId && nextProps.accountId !== this.props.accountId) {
-  //     this.props.dispatch(expandAccountMediaTimeline(nextProps.accountId, { limit: 8 }))
-  //   }
-  // }
-
   render() {
     const {
       account,

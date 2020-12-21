@@ -3,6 +3,7 @@ import { loadingBarReducer } from 'react-redux-loading-bar'
 import accounts from './accounts'
 import accounts_counters from './accounts_counters'
 import albums from './albums'
+import album_lists from './album_lists'
 import bookmark_collections from './bookmark_collections'
 import chats from './chats'
 import chat_conversation_lists from './chat_conversation_lists'
@@ -55,6 +56,8 @@ import user_lists from './user_lists'
 const reducers = {
   accounts,
   accounts_counters,
+  // albums,
+  // album_lists,
   bookmark_collections,
   chats,
   chat_conversation_lists,

@@ -34,7 +34,10 @@ class GroupPage extends ImmutablePureComponent {
 		const isMember = !!relationships ? relationships.get('member') : false
 		const unavailable = isPrivate && !isMember
 
-
+		if (!!group) {
+      if (group.get('archived')) return null
+		}
+		
 		return (
 			<GroupLayout
 				title={'Group'}

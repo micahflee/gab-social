@@ -97,7 +97,6 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
   }
 
   getCurrentChatMessageIndex = (id) => {
-    // : todo :
     return this.props.chatMessageIds.indexOf(id)
   }
 

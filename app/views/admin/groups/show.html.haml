@@ -8,28 +8,60 @@
 -# delete
 -# view accounts
 -# view removed accounts
--# number of accounts
--# number of removed accounts
--# number of posts
 
 .card.h-card{:style => "height:300px"}
   .card__img
-    = image_tag @group.cover_image.url, alt: '', :style => "height:300px"
+    = image_tag full_asset_url(@group.cover_image.url), alt: '', :style => "height:300px"
 
 .dashboard__counters{ style: 'margin-top: 10px' }
   %div
     %div
-      .dashboard__counters__num= number_with_delimiter 0 #@account.statuses_count
+      .dashboard__counters__num= number_with_delimiter Status.where(group:@group).count
       .dashboard__counters__label Status Count
   %div
     %div
-      .dashboard__counters__num= number_to_human_size 0 #@account.media_attachments.sum('file_file_size')
+      .dashboard__counters__num= number_with_delimiter @group.accounts.count
       .dashboard__counters__label Member Count
   %div
     %div
-      .dashboard__counters__num= number_with_delimiter 0 #@account.local_followers_count
+      .dashboard__counters__num= number_with_delimiter @group.removed_accounts.count
       .dashboard__counters__label Removed Members Count
   %div
     %div
-      .dashboard__counters__num= number_with_delimiter 0 #@account.reports.count
+      .dashboard__counters__num= number_with_delimiter @group.join_requests.count
       .dashboard__counters__label Member Requests Count
+
+= simple_form_for(@group, url: admin_group_path(@group.id), html: { method: :put }) do |f|
+  = render 'shared/error_messages', object: @group
+
+  .fields-group
+    = f.input :title, wrapper: :with_label, label: 'Title'
+
+  .fields-group
+    = f.input :description, wrapper: :with_label, label: 'Description'
+  
+  .fields-group
+    = f.input :slug, wrapper: :with_label, label: 'Slug'
+  
+  .fields-group
+    = f.input :tags, wrapper: :with_label, label: 'Tags'
+
+  .fields-group
+    = f.input :is_nsfw, as: :boolean, wrapper: :with_label, label: 'Is NSFW?'
+
+  .fields-group
+    = f.input :is_featured, as: :boolean, wrapper: :with_label, label: 'Is Featured?'
+
+  .fields-group
+    = f.input :is_private, as: :boolean, wrapper: :with_label, label: 'Is Private?'
+
+  .fields-group
+    = f.input :is_visible, as: :boolean, wrapper: :with_label, label: 'Is Visible?'
+
+  .actions
+    = f.button :button, t('generic.save_changes'), type: :submit
+
+-# : todo : delete
+-# : todo : list admins
+-# : todo : list mods
+-# : todo : make ME admin

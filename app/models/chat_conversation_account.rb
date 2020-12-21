@@ -17,7 +17,6 @@
 #  is_muted                       :boolean          default(FALSE), not null
 #
 
-# : todo : expires
 # : todo : max per account
 class ChatConversationAccount < ApplicationRecord
   include Paginable

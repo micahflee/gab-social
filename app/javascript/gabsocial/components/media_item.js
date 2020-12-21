@@ -14,23 +14,41 @@ class MediaItem extends ImmutablePureComponent {
 
   state = {
     loaded: false,
-    visible: displayMedia !== 'hide_all' && !this.props.attachment.getIn(['status', 'sensitive']) || displayMedia === 'show_all',
+    visible: true,
   }
 
   componentDidMount() {
-    if (this.props.attachment.get('blurhash')) {
+    const { attachment } = this.props
+    if (!attachment) return
+
+    if (attachment.get('blurhash')) {
       this._decode()
     }
+
+    this.setState({
+      visible: displayMedia !== 'hide_all' && !this.props.attachment.getIn(['status', 'sensitive']) || displayMedia === 'show_all',
+    })
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.attachment.get('blurhash') !== this.props.attachment.get('blurhash') && this.props.attachment.get('blurhash')) {
+    const { attachment } = this.props
+    const { prevAttachment } = prevProps
+
+    if (prevAttachment !== attachment) {
+      this._decode()
+      return
+    }
+
+    if (prevAttachment.get('blurhash') !== attachment.get('blurhash') && attachment.get('blurhash')) {
       this._decode()
     }
   }
 
-  _decode() {
-    const hash = this.props.attachment.get('blurhash')
+  _decode = () => {
+    const { attachment } = this.props
+    if (!attachment) return
+
+    const hash = attachment.get('blurhash')
     const pixels = decode(hash, 160, 160)
 
     if (pixels && this.canvas) {
@@ -41,7 +59,7 @@ class MediaItem extends ImmutablePureComponent {
     }
   }
 
-  setCanvasRef = c => {
+  setCanvasRef = (c) => {
     this.canvas = c
   }
 
@@ -50,7 +68,10 @@ class MediaItem extends ImmutablePureComponent {
   }
 
   hoverToPlay() {
-    return !autoPlayGif && ['gifv', 'video'].indexOf(this.props.attachment.get('type')) !== -1
+    const { attachment } = this.props
+    if (!attachment) return
+
+    return !autoPlayGif && ['gifv', 'video'].indexOf(attachment.get('type')) !== -1
   }
 
   render() {
@@ -60,104 +81,152 @@ class MediaItem extends ImmutablePureComponent {
       isSmall,
     } = this.props
     const { visible, loaded } = this.state
-
+    
+    if (!attachment || !account) return null
+    
     const status = attachment.get('status')
     const title = status.get('spoiler_text') || attachment.get('description')
 
     const attachmentType = attachment.get('type')
+    const aspectRatio = attachment.getIn(['meta', 'aspect'])
+
+    const isVideo = attachmentType === 'video'
     let badge = null
 
-    if (attachmentType === 'video') {
+    if (isVideo) {
       const duration = attachment.getIn(['meta', 'duration'])
       badge = (duration / 60).toFixed(2)
     } else if (attachmentType === 'gifv') {
       badge = 'GIF'
     }
 
+    const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`
+
+    const isSmallRatio = aspectRatio < 1
+    const isSquare = aspectRatio === 1
     const containerClasses = CX({
       d: 1,
-      posAbs: 1,
-      top0: 1,
-      h100PC: 1,
-      // w100PC: 1,
-      py2: !isSmall,
-      px2: !isSmall,
+      px5: 1,
+      flex1: !isSmallRatio && !isSquare,
+      minW198PX: !isVideo && !isSmallRatio && !isSquare,
+      minW232PX: isVideo && !isSmallRatio && !isSquare,
+      minW120PX: isSmallRatio,
+      minW162PX: isSquare,
     })
 
-    const linkClasses = CX({
+    const paddedContainerClasses = CX({
       d: 1,
-      w100PC: 1,
-      // h100PC: 1,
-      overflowHidden: 1,
-      border1PX: 1,
-      borderColorPrimary: 1,
+      h100PC: isSmallRatio || isSquare,
+      pt100PC: isSmallRatio || isSquare || !isVideo,
+      pt5625PC: isVideo && !isSmallRatio && !isSquare,
     })
-
-    const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`;
-
-    // : todo : fix dimensions to be like albums
 
     return (
-      <div className={[_s.d, _s.pt25PC].join(' ')}>
-        <div className={containerClasses}>
-          <NavLink
-            to={statusUrl}
-            title={title}
-            className={linkClasses}
-          >
-            {
-              (!loaded || !visible) &&
-              <canvas
-                height='100%'
-                width='100%'
-                ref={this.setCanvasRef}
-                className={[_s.d, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
-              />
-            }
+      <div className={containerClasses}>
+        <NavLink
+          className={[_s.d, _s.noUnderline, _s.outlineNone, _s.bgTransparent, _s.flexGrow1].join(' ')}
+          to={statusUrl}
+          title={title}
+        >
+          <div className={[_s.d, _s.mt5, _s.mb10, _s.flexGrow1].join(' ')}>
+            <div className={paddedContainerClasses}>
+              <div className={[_s.d, _s.posAbs, _s.top0, _s.right0, _s.left0, _s.bottom0].join(' ')}>
+                <div className={[_s.d, _s.h100PC, _s.aiCenter, _s.jcCenter, _s.radiusSmall, _s.overflowHidden].join(' ')}>
+                  {
+                    (!loaded || !visible) &&
+                    <canvas
+                      height='100%'
+                      width='100%'
+                      ref={this.setCanvasRef}
+                      className={[_s.d, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
+                    />
+                  }
+      
+                  {
+                    visible &&
+                    <Image
+                      height='100%'
+                      width=''
+                      src={attachment.get('preview_url')}
+                      alt={attachment.get('description')}
+                      title={attachment.get('description')}
+                      onLoad={this.handleImageLoad}
+                      className={_s.z1}
+                    />
+                  }
 
-            {
-              visible &&
-              <Image
-                height='100%'
-                width=''
-                src={attachment.get('preview_url')}
-                alt={attachment.get('description')}
-                title={attachment.get('description')}
-                onLoad={this.handleImageLoad}
-                className={_s.z1}
-              />
-            }
-
-            <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.h100PC, _s.w100PC, _s.z3, _s.posAbs].join(' ')}>
-              {
-                !visible &&
-                <Icon
-                  id='hidden'
-                  size='22px'
-                  className={[_s.cWhite].join('')}
-                />
-              }
-
-              {
-                !!badge &&
-                <div className={[_s.d, _s.posAbs, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
-                  <Text size='extraSmall' color='white'>
-                    {badge}
-                  </Text>
+                  {
+                    (!visible || !!badge) &&
+                    <div className={[_s.d, _s.aiCenter, _s.jcCenter, _s.h100PC, _s.w100PC, _s.z3, _s.posAbs].join(' ')}>
+                      {
+                        !visible &&
+                        <Icon
+                          id='hidden'
+                          size='22px'
+                          className={[_s.cWhite].join('')}
+                        />
+                      }
+                      {
+                        !!badge &&
+                        <div className={[_s.d, _s.posAbs, _s.radiusSmall, _s.bgBlackOpaque, _s.px5, _s.py5, _s.mr5, _s.mt5, _s.mb5, _s.bottom0, _s.right0].join(' ')}>
+                          <Text size='extraSmall' color='white'>
+                            {badge}
+                          </Text>
+                        </div>
+                      }
+                    </div>
+                  }
+              
                 </div>
-              }
-
+              </div>
             </div>
-
-          </NavLink>
-        </div>
+          </div>
+        </NavLink>
       </div>
     )
+
+    // return (
+    //   <div className={[_s.d, _s.pt25PC].join(' ')}>
+    //     <div className={containerClasses}>
+    //       <NavLink
+    //         to={statusUrl}
+    //         title={title}
+    //         className={linkClasses}
+    //       >
+    //         {
+    //           (!loaded || !visible) &&
+    //           <canvas
+    //             height='100%'
+    //             width='100%'
+    //             ref={this.setCanvasRef}
+    //             className={[_s.d, _s.w100PC, _s.h100PC, _s.z2].join(' ')}
+    //           />
+    //         }
+
+    //         {
+    //           visible &&
+    //           <Image
+    //             height='100%'
+    //             width=''
+    //             src={attachment.get('preview_url')}
+    //             alt={attachment.get('description')}
+    //             title={attachment.get('description')}
+    //             onLoad={this.handleImageLoad}
+    //             className={_s.z1}
+    //           />
+    //         }
+
+   
+    //       </NavLink>
+    //     </div>
+    //   </div>
+    // )
   }
 
 }
 
 MediaItem.propTypes = {
+  isDummy: PropTypes.bool.isRequired,
   account: ImmutablePropTypes.map.isRequired,
   attachment: ImmutablePropTypes.map.isRequired,
   isSmall: PropTypes.bool,

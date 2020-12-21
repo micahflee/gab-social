@@ -2,7 +2,7 @@
   %td
     = admin_account_link_to(account)
     - if account.is_flagged_as_spam
-      %span SPAM
+      %span{ :style => "display:block;margin:5px 0 0 20px;font-size:12px;background-color:#781600;border-radius:6px;color:#fff;width:40px;line-height:22px;font-weight:600;padding:2px 0 0 6px;" } SPAM
   %td
     - if account.user_current_sign_in_ip
       %samp.ellipsized-ip{ title: account.user_current_sign_in_ip }= account.user_current_sign_in_ip

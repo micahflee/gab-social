@@ -99,9 +99,6 @@ class GroupHeader extends ImmutablePureComponent {
       })
     }
 
-    // : todo :
-    // {group.get('archived') && <Icon id='lock' title={intl.formatMessage(messages.group_archived)} />}
-
     return (
       <div className={[_s.d, _s.z1, _s.w100PC, _s.mb15].join(' ')}>
         <Responsive max={BREAKPOINT_EXTRA_SMALL}>

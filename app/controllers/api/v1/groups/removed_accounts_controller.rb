@@ -34,10 +34,6 @@ class Api::V1::Groups::RemovedAccountsController < Api::BaseController
     render_empty_success
   end
 
-  def search
-    # : todo :
-  end
-
   private
 
   def set_group

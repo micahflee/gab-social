@@ -1,0 +1,16 @@
+.batch-table__row
+  %label.batch-table__row__select.batch-checkbox
+    = f.check_box :chat_message_ids, { multiple: true, include_hidden: false }, chat_message.id
+  .batch-table__row__content
+    %div{:style=>"display:flex;flex-direction:column;"}
+    %span= chat_message.text
+    %div{:style=> "display:block;color:#555;"}
+      %span Created:
+      %span= chat_message.created_at
+    - if chat_message.expires_at
+      %div{:style=> "display:block;color:#555;"}
+        %span Expires:
+        %span= chat_message.expires_at
+    %div{:style=> "display:block;color:#555;"}
+      %span In conversation:
+      %span= chat_message.chat_conversation_id

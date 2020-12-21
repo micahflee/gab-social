@@ -65,6 +65,19 @@ class DeckSidebar extends ImmutablePureComponent {
 
             <div className={[_s.d].join(' ')}>
 
+              <Button
+                to='/'
+                isText
+                title='Go home'
+                aria-label='Go home'
+                color='none'
+                backgroundColor='none'
+                className={[_s.d, _s.jcCenter, _s.noSelect, _s.noUnderline, _s.mt15, _s.mb15, _s.cursorPointer, _s.px10, _s.mr5].join(' ')}
+                icon='back'
+                iconSize='20px'
+                iconClassName={_s.fillNavigationBrand}
+              />
+
               <h1 className={[_s.d].join(' ')}>
                 <Button
                   to='/'

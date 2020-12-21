@@ -101,7 +101,7 @@ module ApplicationHelper
   end
 
   def theme
-    # : todo :
+    # : todo : remove
     return 'white'
   end
 

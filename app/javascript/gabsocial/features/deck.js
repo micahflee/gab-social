@@ -10,6 +10,7 @@ import {
 import { me, meUsername} from '../initial_state'
 import {
   GAB_DECK_MAX_ITEMS,
+  URL_GAB_PRO,
   MODAL_PRO_UPGRADE,
 } from '../constants'
 import {
@@ -22,6 +23,7 @@ import { openModal } from '../actions/modal'
 import WrappedBundle from './ui/util/wrapped_bundle'
 import DeckColumn from '../components/deck_column'
 import Text from '../components/text'
+import Button from '../components/button'
 import {
   AccountTimeline,
   Compose,
@@ -186,6 +188,15 @@ class Deck extends React.PureComponent {
 
     const isEmpty = gabDeckOrder.size === 0
 
+    const title = (
+      <span className={[_s.d, _s.flexRow, _s.jcCenter, _s.aiCenter].join(' ')}>
+        <span className={[_s.d, _s.mr2].join(' ')}>
+          Gab Deck for Gab
+        </span>
+        <span className={[_s.bgPro, _s.cBlack, _s.radiusSmall, _s.px5, _s.py5].join(' ')}>PRO</span>
+      </span>
+    )
+
     return (
       <SortableContainer
         axis='x'
@@ -199,16 +210,29 @@ class Deck extends React.PureComponent {
             <DeckColumn title='Compose' icon='pencil' noButtons>
               <WrappedBundle component={Compose} />
             </DeckColumn>
-            { /** : todo : */
+            {
               !isPro &&
-              <DeckColumn title='Gab Deck for GabPRO' icon='pro' noButtons>
+              <DeckColumn title={title} icon='pro' noButtons>
                 <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
                   <Text>
-                    Gab Deck for GabPRO. Some text about what it does and some buttons on going pro to use it.
+                    GabDeck is a unique way to customize your Gab experience. Upgrade to GabPRO to unlock the GabDeck.                  
                   </Text>
+                  <div className={[_s.mt15, _s.d, _s.flexRow].join(' ')}>
+                    <Button href={URL_GAB_PRO}>
+                      <Text color='inherit' className={_s.px10}>
+                        Upgrade to GabPRO
+                      </Text>
+                    </Button>
+                  </div>
                 </div>
               </DeckColumn>
             }
+            <DeckColumn title='Explore' icon='explore' noButtons>
+              <WrappedBundle component={ExploreTimeline} />
+            </DeckColumn>
+            <DeckColumn title='News' icon='news' noButtons>
+              <WrappedBundle component={News} componentParams={{ isSmall: true }} />
+            </DeckColumn>
             <DeckColumn />
           </React.Fragment>
         }

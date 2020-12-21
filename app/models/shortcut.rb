@@ -12,11 +12,10 @@
 #
 
 class Shortcut < ApplicationRecord
-  # : todo : enum 1,2, etc.
-  # enum shortcut_type: {
-  #   account: 'account', 
-  #   group: 'group'
-  # }
+  SHORTCUT_TYPE_MAP = {
+    account: 'account',
+    group: 'group',
+  }.freeze
 
   belongs_to :account
 

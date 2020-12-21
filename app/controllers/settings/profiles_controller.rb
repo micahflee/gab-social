@@ -26,6 +26,10 @@ class Settings::ProfilesController < Settings::BaseController
     else
       # : todo :
       # only allowed to change username once per day
+      if params[:account][:username] && @account.username != params[:account][:username]
+        Redis.current.set("username_change:#{account.id}", true) 
+        Redis.current.expire("username_change:#{account.id}", 24.huors.seconds)
+      end
 
       if UpdateAccountService.new.call(@account, account_params)
         redirect_to settings_profile_path, notice: I18n.t('generic.changes_saved_msg')
