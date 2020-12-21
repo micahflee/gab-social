@@ -115,7 +115,6 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     if (!this.scrollContainerRef) return
     if (this.scrollContainerRef.scrollTop !== newScrollTop) {
       this.lastScrollWasSynthetic = true
-      console.log("newScrollTop:", newScrollTop)
       this.scrollContainerRef.scrollTop = newScrollTop
     }
   }

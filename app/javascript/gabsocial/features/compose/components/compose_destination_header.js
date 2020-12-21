@@ -32,6 +32,7 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
   render() {
     const {
       account,
+      isReply,
       isModal,
       composeGroup,
       formLocation,
@@ -41,7 +42,18 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
     
     let groupTitle = !!composeGroup ? composeGroup.get('title') : ''
     groupTitle = groupTitle.length > 32 ? `${groupTitle.substring(0, 32).trim()}...` : groupTitle
-    const title = !!composeGroup ? `Post to ${groupTitle}` : 'Post to timeline'
+    let title = 'Post to timeline'
+    if (!!composeGroup) {
+      if (isReply) {
+        title = `Comment in ${groupTitle}`
+      } else {
+        title = `Post to ${groupTitle}`
+      }
+    } else {
+      if (isReply) {
+        title = 'Post as comment'
+      }
+    }
 
     return (
       <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.bgPrimary, _s.w100PC, _s.h40PX, _s.pr15].join(' ')}>
@@ -57,12 +69,12 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
                 buttonRef={this.setDestinationBtn}
                 backgroundColor='secondary'
                 color='primary'
-                onClick={this.handleOnClick}
+                onClick={isReply ? undefined : this.handleOnClick}
                 className={[_s.border1PX, _s.borderColorPrimary].join(' ')}
               >
                 <Text color='inherit' size='small' className={_s.jcCenter}>
                   {title}
-                  <Icon id='caret-down' size='8px' className={_s.ml5} />
+                  { !isReply && <Icon id='caret-down' size='8px' className={_s.ml5} /> }
                 </Text>
               </Button>
             </div>
@@ -89,6 +101,7 @@ const mapStateToProps = (state) => {
 
   return {
     composeGroupId,
+    isReply: !!state.getIn(['compose', 'in_reply_to']),
     composeGroup: state.getIn(['groups', composeGroupId]),
   }
 }
@@ -111,6 +124,7 @@ ComposeDestinationHeader.propTypes = {
   onOpenModal: PropTypes.func.isRequired,
   onOpenPopover: PropTypes.func.isRequired,
   formLocation: PropTypes.string,
+  isReply: PropTypes.bool.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComposeDestinationHeader)

@@ -499,11 +499,7 @@ export const debouncedFetchGroupMembersAdminSearch = debounce((groupId, query, d
   if (!groupId || !query) return
 
   api(getState).get(`/api/v1/groups/${groupId}/member_search`, {
-    params: {
-      q: query,
-      resolve: false,
-      limit: 4,
-    },
+    params: { q: query },
   }).then((response) => {
     dispatch(importFetchedAccounts(response.data))
     dispatch(fetchGroupMembersAdminSearchSuccess(response.data))
@@ -621,11 +617,7 @@ export const debouncedFetchGroupRemovedAccountsAdminSearch = debounce((groupId, 
   if (!groupId || !query) return
   
   api(getState).get(`/api/v1/groups/${groupId}/removed_accounts_search`, {
-    params: {
-      q: query,
-      resolve: false,
-      limit: 4,
-    },
+    params: { q: query },
   }).then((response) => {
     dispatch(importFetchedAccounts(response.data))
     dispatch(fetchGroupRemovedAccountsAdminSearchSuccess(response.data))

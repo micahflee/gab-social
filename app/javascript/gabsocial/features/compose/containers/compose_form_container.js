@@ -5,7 +5,6 @@ import { List as ImmutableList } from 'immutable'
 import ComposeForm from '../components/compose_form'
 import {
   changeCompose,
-  submitCompose,
   clearComposeSuggestions,
   fetchComposeSuggestions,
   selectComposeSuggestion,
@@ -21,11 +20,12 @@ import { me } from '../../../initial_state'
 const mapStateToProps = (state, props) => {
   const {
     replyToId,
-    isStandalone,
+    formLocation,
     shouldCondense,
     isModal,
   } = props
 
+  const isStandalone = formLocation === 'standalone'
   const reduxReplyToId = state.getIn(['compose', 'in_reply_to'])
   const isModalOpen = state.getIn(['modal', 'modalType']) === 'COMPOSE' || isStandalone
   let isMatch;
@@ -44,6 +44,7 @@ const mapStateToProps = (state, props) => {
   
   if (!isMatch) {
     return {
+      isStandalone,
       isMatch,
       isModalOpen,
       reduxReplyToId,
@@ -73,6 +74,7 @@ const mapStateToProps = (state, props) => {
     isMatch,
     isModalOpen,
     reduxReplyToId,
+    isStandalone,
     edit: state.getIn(['compose', 'id']) !== null,
     text: state.getIn(['compose', 'text']),
     markdown: state.getIn(['compose', 'markdown']),
@@ -96,14 +98,11 @@ const mapStateToProps = (state, props) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { isStandalone }) => ({
+const mapDispatchToProps = (dispatch, { formLocation }) => ({
 
   onChange(text, markdown, newReplyToId, position) {
+    const isStandalone = formLocation === 'standalone'
     dispatch(changeCompose(text, markdown, newReplyToId, isStandalone, position))
-  },
-
-  onSubmit(groupId, replyToId, router, autoJoinGroup) {
-    dispatch(submitCompose(groupId, replyToId, router, isStandalone, autoJoinGroup))
   },
 
   onClearSuggestions() {

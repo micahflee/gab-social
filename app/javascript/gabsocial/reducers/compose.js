@@ -273,6 +273,7 @@ export default function compose(state = initialState, action) {
   case COMPOSE_REPLY:
     return state.withMutations(map => {
       map.set('in_reply_to', action.status.get('id'));
+      map.set('group_id', action.status.getIn(['group', 'id'], null));
       map.set('quote_of_id', null);
       map.set('privacy', privacyPreference(action.status.get('visibility'), state.get('default_privacy')));
       map.set('focusDate', new Date());

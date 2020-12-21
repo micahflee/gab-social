@@ -186,8 +186,6 @@ class Deck extends React.PureComponent {
 
     const isEmpty = gabDeckOrder.size === 0
 
-    console.log("gabDeckOrder:", gabDeckOrder)
-
     return (
       <SortableContainer
         axis='x'

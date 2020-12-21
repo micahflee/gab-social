@@ -10,26 +10,17 @@ import {
 import Heading from '../heading'
 import Button from '../button'
 import BackButton from '../back_button'
-import Text from '../text'
 import ComposeFormSubmitButton from '../../features/compose/components/compose_form_submit_button'
 
 class ComposeNavigationBar extends React.PureComponent {
 
-  handleOnPost = () => {
-    // 
+  static contextTypes = {
+    router: PropTypes.object,
   }
-
+  
   render() {
-    const {
-      isUploading,
-      isChangingUpload,
-      isSubmitting,
-      anyMedia,
-      text,
-      isXS,
-    } = this.props
+    const { isXS } = this.props
 
-    const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
     const innerClasses = CX({
       d: 1,
       flexRow: 1,
@@ -64,7 +55,7 @@ class ComposeNavigationBar extends React.PureComponent {
             </div>
 
             <div className={[_s.d, _s.h53PX, _s.flexRow, _s.mlAuto, _s.aiCenter, _s.jcCenter, _s.mr15].join(' ')}>
-              <ComposeFormSubmitButton type='navigation' />
+              <ComposeFormSubmitButton type='navigation' router={this.context.router} />
             </div>
 
           </div>
@@ -76,27 +67,8 @@ class ComposeNavigationBar extends React.PureComponent {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  isUploading: state.getIn(['compose', 'is_uploading']),
-  isChangingUpload: state.getIn(['compose', 'is_changing_upload']),
-  isSubmitting: state.getIn(['compose', 'is_submitting']),
-  anyMedia: state.getIn(['compose', 'media_attachments']).size > 0,
-  text: state.getIn(['compose', 'text']),
-})
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmitCompose() {
-    //
-  },
-})
-
 ComposeNavigationBar.propTypes = {
-  isUploading: PropTypes.bool,
-  isChangingUpload: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-  anyMedia: PropTypes.bool,
-  text: PropTypes.string,
   isXS: PropTypes.bool,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ComposeNavigationBar)
+export default ComposeNavigationBar

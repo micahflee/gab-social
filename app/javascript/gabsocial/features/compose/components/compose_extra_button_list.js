@@ -60,8 +60,6 @@ class ComposeExtraButtonList extends React.PureComponent {
     const isIntroduction = formLocation === 'introduction'
     const small = (!isModal && isXS && !isStandalone) || isTimeline
 
-    console.log("small, formLocation:", small, formLocation)
-
     const containerClasses = CX({
       d: 1,
       w100PC: 1,

@@ -15,7 +15,9 @@ import Text from '../../../components/text'
 class ComposeFormSubmitButton extends React.PureComponent {
 
   handleSubmit = () => {
-    this.props.onSubmit()
+    const { formLocation, autoJoinGroup, router, type } = this.props
+    const isStandalone = formLocation === 'standalone' || type === 'navigation'
+    this.props.onSubmit(router, isStandalone, autoJoinGroup)
   }
 
   render() {
@@ -25,7 +27,7 @@ class ComposeFormSubmitButton extends React.PureComponent {
       active,
       small,
       type,
-
+      //
       edit,
       text,
       isSubmitting,
@@ -35,6 +37,7 @@ class ComposeFormSubmitButton extends React.PureComponent {
       quoteOfId,
       scheduledAt,
       hasPoll,
+      replyToId,
     } = this.props
 
     const disabledButton = isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
@@ -66,12 +69,6 @@ class ComposeFormSubmitButton extends React.PureComponent {
       )
     }
 
-    const containerClasses = CX({
-      d: 1,
-      jcCenter: 1,
-      h40PX: 1,
-    })
-
     const btnClasses = CX({
       d: 1,
       radiusSmall: 1,
@@ -101,7 +98,7 @@ class ComposeFormSubmitButton extends React.PureComponent {
     }
     
     return (
-      <div className={containerClasses}>
+      <div className={[_s.d, _s.jcCenter, _s.h40PX].join(' ')}>
         <div className={[_s.d, _s.w100PC].join(' ')}>
           <Button
             isBlock
@@ -139,16 +136,24 @@ const mapStateToProps = (state) => ({
   quoteOfId: state.getIn(['compose', 'quote_of_id']),
   scheduledAt: state.getIn(['compose', 'scheduled_at']),
   hasPoll: state.getIn(['compose', 'poll']),
+  replyToId: state.getIn(['compose', 'in_reply_to']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit(groupId, replyToId = null, router, isStandalone, autoJoinGroup) {
-    dispatch(submitCompose(groupId, replyToId, router, isStandalone, autoJoinGroup))
+  onSubmit(router, isStandalone, autoJoinGroup) {
+    dispatch(submitCompose({
+      router,
+      isStandalone,
+      autoJoinGroup,
+    }))
   }
 })
 
 ComposeFormSubmitButton.propTypes = {
-  type: PropTypes.oneOf(['header', 'navigation', 'block', 'comment'])
+  type: PropTypes.oneOf(['header', 'navigation', 'block', 'comment']),
+  formLocation: PropTypes.string,
+  autoJoinGroup: PropTypes.bool,
+  router: PropTypes.object,
 }
 
 export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(ComposeFormSubmitButton))

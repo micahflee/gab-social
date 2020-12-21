@@ -102,14 +102,19 @@ class ComposeForm extends ImmutablePureComponent {
     // }
 
     // Submit disabled:
-    const { isSubmitting, isChangingUpload, isUploading, anyMedia, groupId, autoJoinGroup } = this.props
+    const { isSubmitting, formLocation, isChangingUpload, isUploading, anyMedia, groupId, autoJoinGroup } = this.props
     const fulltext = [this.props.spoilerText, countableText(this.props.text)].join('')
+    const isStandalone = formLocation === 'standalone'
 
     if (isSubmitting || isUploading || isChangingUpload || length(fulltext) > MAX_POST_CHARACTER_COUNT || (fulltext.length !== 0 && fulltext.trim().length === 0 && !anyMedia)) {
       return
     }
 
-    this.props.onSubmit(groupId, this.props.replyToId, this.context.router, autoJoinGroup)
+    this.props.onSubmit({
+      router: this.context.router,
+      isStandalone,
+      autoJoinGroup,
+    })
   }
 
   onSuggestionsClearRequested = () => {
@@ -183,6 +188,7 @@ class ComposeForm extends ImmutablePureComponent {
   render() {
     const {
       intl,
+      autoJoinGroup,
       account,
       onPaste,
       anyMedia,
@@ -277,9 +283,7 @@ class ComposeForm extends ImmutablePureComponent {
       <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary].join(' ')}>
         <div className={[_s.d, _s.calcMaxH410PX, _s.overflowYScroll].join(' ')}>
 
-          <Responsive min={BREAKPOINT_EXTRA_SMALL}>
-            <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
-          </Responsive>
+          <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
 
           <div className={containerClasses} ref={this.setForm} onClick={this.handleClick}>
             {
@@ -337,7 +341,12 @@ class ComposeForm extends ImmutablePureComponent {
         {
           (!disabledButton || isModalOpen) && isMatch &&
           <div className={[_s.d, _s.mb10, _s.px10].join(' ')}>
-            <ComposeFormSubmitButton type='block' />
+            <ComposeFormSubmitButton
+              type='block'
+              formLocation={formLocation}
+              autoJoinGroup={autoJoinGroup}
+              router={this.context.router}
+            />
           </div>
         }
 

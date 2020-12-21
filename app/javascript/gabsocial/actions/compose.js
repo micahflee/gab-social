@@ -307,16 +307,14 @@ export const handleComposeSubmit = (dispatch, getState, response, status) => {
 /**
  * 
  */
-export const submitCompose = (groupId, replyToId = null, router, isStandalone, autoJoinGroup) => (dispatch, getState) => {
+export const submitCompose = (options = {}) => (dispatch, getState) => {
   if (!me) return
 
-  if (autoJoinGroup) dispatch(joinGroup(groupId))
+  if (options.autoJoinGroup) dispatch(joinGroup(groupId))
 
   let status = getState().getIn(['compose', 'text'], '')
   let markdown = getState().getIn(['compose', 'markdown'], '')
-  const media = getState().getIn(['compose', 'media_attachments'])
-  const isPrivateGroup = !!groupId ? getState().getIn(['groups', groupId, 'is_private'], false) : false
-
+  
   const replacer = (match) => {
     const hasProtocol = match.startsWith('https://') || match.startsWith('http://')
     //Make sure not a remote mention like @someone@somewhere.com
@@ -331,24 +329,27 @@ export const submitCompose = (groupId, replyToId = null, router, isStandalone, a
   status = `${status}`.replace(urlRegex, replacer)
   markdown = !!markdown ? `${markdown}`.replace(urlRegex, replacer) : undefined
 
-  const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null) || replyToId
-
-  dispatch(submitComposeRequest())
-  dispatch(closeModal())
-
-  const id = getState().getIn(['compose', 'id'])
-  const endpoint = id === null
-    ? '/api/v1/statuses'
-    : `/api/v1/statuses/${id}`
-  const method = id === null ? 'post' : 'put'
+  const inReplyToId = getState().getIn(['compose', 'in_reply_to'], null)
+  const groupId = getState().getIn(['compose', 'group_id'], null)
+  const media = getState().getIn(['compose', 'media_attachments'])
+  const isPrivateGroup = !!groupId ? getState().getIn(['groups', groupId, 'is_private'], false) : false
+  const expires_at = getState().getIn(['compose', 'expires_at'], null)
 
   let scheduled_at = getState().getIn(['compose', 'scheduled_at'], null)
   if (scheduled_at !== null) scheduled_at = moment.utc(scheduled_at).toDate()
 
-  const expires_at = getState().getIn(['compose', 'expires_at'], null)
+  //
 
-  if (isMobile(window.innerWidth) && router && isStandalone) {
-    router.history.goBack()
+  const id = getState().getIn(['compose', 'id'])
+  const endpoint = id === null ? '/api/v1/statuses' : `/api/v1/statuses/${id}`
+  const method = id === null ? 'post' : 'put'
+
+
+  dispatch(submitComposeRequest())
+  dispatch(closeModal())
+
+  if (isMobile(window.innerWidth) && options.router && options.isStandalone) {
+    options.router.history.goBack()
   }
 
   api(getState)[method](endpoint, {
@@ -356,7 +357,7 @@ export const submitCompose = (groupId, replyToId = null, router, isStandalone, a
     markdown,
     expires_at,
     scheduled_at,
-    autoJoinGroup,
+    autoJoinGroup: options.autoJoinGroup,
     isPrivateGroup,
     in_reply_to_id: inReplyToId,
     quote_of_id: getState().getIn(['compose', 'quote_of_id'], null),
