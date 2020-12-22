@@ -45,10 +45,12 @@ class ChatMessagesComposeForm extends React.PureComponent {
   }
 
   onBlur = () => {
+    console.log("onBlur")
     this.setState({ focused: false })
   }
 
   onFocus = () => {
+    console.log("onFocus")
     this.setState({ focused: true })
   }
 

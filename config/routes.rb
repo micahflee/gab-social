@@ -237,6 +237,7 @@ Rails.application.routes.draw do
           post :unblock_messenger
           post :mute_chat_conversation
           post :unmute_chat_conversation
+          get  :search
         end
       end
 

@@ -67,8 +67,8 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     if (prevProps.chatMessageIds.size === 0 && this.props.chatMessageIds.size > 0 && this.scrollContainerRef) {
       this.scrollToBottom()
       this.props.onReadChatConversation(this.props.chatConversationId)
-    } else if (prevProps.chatMessageIds.size < this.props.chatMessageIds.size && this.scrollContainerRef) {
-      // this.setScrollTop(this.scrollContainerRef.scrollHeight)
+    } else if (this.props.chatMessageIds.size - prevProps.chatMessageIds.size === 1) {
+      this.scrollToBottom()
     }
   }
 
@@ -121,7 +121,7 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
 
   scrollToBottom = () => {
     if (this.messagesEnd) {
-      this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+      this.messagesEnd.scrollIntoView()
     }
   }
   
@@ -225,6 +225,11 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
     this.containerNode = c
   }
 
+  setMessagesEnd = (c) => {
+    this.messagesEnd = c
+    this.scrollToBottom()
+  }
+
   setScrollContainerRef = (c) => {
     this.scrollContainerRef = c
 
@@ -242,7 +247,6 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
       isPartial,
       hasMore,
       amITalkingToMyself,
-      onScrollToBottom,
       onScroll,
       isXS,
     } = this.props
@@ -338,11 +342,13 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
                   </IntersectionObserverArticle>
                 ))
               }
-              <div
-                style={{ float: 'left', clear: 'both' }}
-                ref={(el) => { this.messagesEnd = el }}
-              />
             </div>
+
+            <div
+              key='end-message'
+              style={{ float: 'left', clear: 'both' }}
+              ref={this.setMessagesEnd}
+            />
           </div>
         </div>
       )

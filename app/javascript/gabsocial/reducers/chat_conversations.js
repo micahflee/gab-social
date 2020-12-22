@@ -18,6 +18,7 @@ import {
   CHAT_CONVERSATION_REQUEST_APPROVE_SUCCESS,
   CHAT_CONVERSATION_MARK_READ_SUCCESS,
   SET_CHAT_CONVERSATION_EXPIRATION_SUCCESS,
+  CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap()
@@ -50,6 +51,7 @@ export default function chat_conversations(state = initialState, action) {
   case CHAT_CONVERSATIONS_APPROVED_EXPAND_SUCCESS:
   case CHAT_CONVERSATIONS_REQUESTED_FETCH_SUCCESS:
   case CHAT_CONVERSATIONS_REQUESTED_EXPAND_SUCCESS:
+  case CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS:
     return importChatConversations(state, action.chatConversations)
   case CHAT_MESSAGES_SEND_SUCCESS:
     return setLastChatMessage(state, action.chatMessage)

@@ -8,6 +8,7 @@ import {
   CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS_SUCCESS,
   CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS,
   SET_CHAT_CONVERSATION_SELECTED,
+  SET_CHAT_CONVERSATION_SEARCH_VALUE,
 } from '../actions/chats'
 import {
   CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS,
@@ -24,6 +25,7 @@ const initialState = ImmutableMap({
   selectedChatConversationId: null,
   chatConversationRequestCount: 0,
   chatsUnreadCount: 0,
+  searchValue: '',
 })
 
 export default function chats(state = initialState, action) {
@@ -42,6 +44,8 @@ export default function chats(state = initialState, action) {
     const chatConversationUnreadCount = action.chatConversation.get('unread_count')
     const totalUnreadCount = state.get('chatsUnreadCount')
     return state.set('chatsUnreadCount', Math.max(totalUnreadCount - chatConversationUnreadCount, 0))
+  case SET_CHAT_CONVERSATION_SEARCH_VALUE:
+    return state.set('searchValue', action.value)
   default:
     return state
   }

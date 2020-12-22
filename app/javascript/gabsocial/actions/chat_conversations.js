@@ -509,40 +509,29 @@ export const setChatConversationExpirationFail = (error) => ({
   error,
 })
 
+
 /**
  * 
  */
-export const fetchChatConversationAccountSuggestions = (query) => (dispatch, getState) => {
+export const searchApprovedChatConversations = (query) => (dispatch, getState) => {
   if (!query) return
-  debouncedFetchChatConversationAccountSuggestions(query, dispatch, getState) 
+  debouncedSearchApprovedChatConversations(query, dispatch, getState) 
 }
 
-export const debouncedFetchChatConversationAccountSuggestions = debounce((query, dispatch, getState) => {
+export const debouncedSearchApprovedChatConversations = debounce((query, dispatch, getState) => {
   if (!query) return
   
-  api(getState).get('/api/v1/accounts/search', {
-    params: {
-      q: query,
-      resolve: false,
-      limit: 4,
-    },
+  api(getState).get('/api/v1/chat_conversation_accounts/_/search', {
+    params: { q: query },
   }).then((response) => {
-    // const next = getLinks(response).refs.find(link => link.rel === 'next')
-    // const conversationsAccounts = [].concat.apply([], response.data.map((c) => c.other_accounts))
-
-    dispatch(importFetchedAccounts(response.data))
-
-    // dispatch(importFetchedAccounts(conversationsAccounts))
-    // dispatch(importFetchedChatMessages(conversationsChatMessages))
-    // dispatch(fetchChatConversationsSuccess(response.data, next ? next.uri : null))
-
-    dispatch(fetchChatConversationAccountSuggestionsSuccess(response.data))
+    const conversationsAccounts = [].concat.apply([], response.data.map((c) => c.other_accounts))
+    dispatch(searchApprovedChatConversationsSuccess(response.data))
   }).catch((error) => {
     //
   })
 }, 650, { leading: true })
 
-const fetchChatConversationAccountSuggestionsSuccess = (chatConversations) => ({
+const searchApprovedChatConversationsSuccess = (chatConversations) => ({
   type: CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS,
   chatConversations,
 })

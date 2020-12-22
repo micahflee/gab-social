@@ -62,11 +62,25 @@ class ChatConversationsList extends ImmutablePureComponent {
 
 }
 
-const mapStateToProps = (state, { source }) => ({
-  chatConversationIds: state.getIn(['chat_conversation_lists', source, 'items']),
-  hasMore: !!state.getIn(['chat_conversation_lists', source, 'next']),
-  isLoading: state.getIn(['chat_conversation_lists', source, 'isLoading']),
-})
+const mapStateToProps = (state, { source }) => {
+  let chatConversationIds
+  if (source === 'approved') {
+    const chatSearchValue = state.getIn(['chats', 'searchValue'], '')
+    if (!!chatSearchValue && chatSearchValue.length > 0) {
+      chatConversationIds = state.getIn(['chat_conversation_lists', 'approved_search', 'items'])
+    } else {
+      chatConversationIds = state.getIn(['chat_conversation_lists', source, 'items'])
+    }
+  } else {
+    chatConversationIds = state.getIn(['chat_conversation_lists', source, 'items'])
+  }
+
+  return {
+    chatConversationIds,
+    hasMore: !!state.getIn(['chat_conversation_lists', source, 'next']),
+    isLoading: state.getIn(['chat_conversation_lists', source, 'isLoading']),
+  }
+}
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchChatConversations(source) {

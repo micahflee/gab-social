@@ -9,6 +9,8 @@ export const CLEAR_CHAT_CONVERSATION_CREATE_SEARCH_ACCOUNTS = 'CLEAR_CHAT_CONVER
 
 export const SET_CHAT_CONVERSATION_SELECTED = 'SET_CHAT_CONVERSATION_SELECTED'
 
+export const SET_CHAT_CONVERSATION_SEARCH_VALUE = 'SET_CHAT_CONVERSATION_SEARCH_VALUE'
+
 /**
  * 
  */
@@ -53,5 +55,15 @@ export const setChatConversationSelected = (chatConversationId) => (dispatch) =>
   dispatch({
     type: SET_CHAT_CONVERSATION_SELECTED,
     chatConversationId,
+  })
+}
+
+/**
+ * 
+ */
+export const onChangeSearch = (value) => (dispatch) => {
+  dispatch({
+    type: SET_CHAT_CONVERSATION_SEARCH_VALUE,
+    value,
   })
 }

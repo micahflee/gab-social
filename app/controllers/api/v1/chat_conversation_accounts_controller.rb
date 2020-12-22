@@ -7,7 +7,7 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
   before_action :require_user!
   before_action :set_account, only: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
   before_action :check_account_suspension, only: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
-  before_action :set_chat_conversation, except: [:block_messenger, :unblock_messenger, :messenger_block_relationships]
+  before_action :set_chat_conversation, except: [:block_messenger, :unblock_messenger, :messenger_block_relationships, :search]
 
   def block_messenger
     @block = BlockChatMessengerService.new.call(current_user.account, @account)
@@ -40,6 +40,13 @@ class Api::V1::ChatConversationAccountsController < Api::BaseController
   def unmute_chat_conversation
     @chat_conversation_account.update!(is_muted: false)
     render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
+  end
+
+  def search
+    # : todo :
+    search_conversations = [] #ChatConversationAccount.where(account: current_account, is_hidden: false, is_approved: true).map(&:participant_account_ids)
+                          # .joins(:account).where("accounts.display_name ILIKE ?", "%#{params[:q]}%")
+    render json: search_conversations, each_serializer: REST::ChatConversationAccountSerializer
   end
 
   private

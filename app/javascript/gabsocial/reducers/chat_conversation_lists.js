@@ -23,6 +23,7 @@ import {
   CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS,
   CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL,
   CHAT_CONVERSATIONS_CREATE_SUCCESS,
+  CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap({
@@ -39,6 +40,9 @@ const initialState = ImmutableMap({
   muted: ImmutableMap({
     next: null,
     isLoading: false,
+    items: ImmutableList(),
+  }),
+  approved_search: ImmutableMap({
     items: ImmutableList(),
   }),
 })
@@ -106,6 +110,9 @@ export default function chat_conversation_lists(state = initialState, action) {
 
   case CHAT_CONVERSATIONS_CREATE_SUCCESS:
     return appendToList(state, 'approved', [action.chatConversation], action.next)
+
+  case CHAT_CONVERSATION_APPROVED_SEARCH_FETCH_SUCCESS:
+    return normalizeList(state, 'approved_search', action.chatConversations, null)
 
   default:
     return state

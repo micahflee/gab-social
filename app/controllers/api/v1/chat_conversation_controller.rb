@@ -34,13 +34,8 @@ class Api::V1::ChatConversationController < Api::BaseController
   end
 
   def mark_chat_conversation_approved
-    approved_conversation_count = ChatConversationAccount.where(account: @account, is_hidden: false, is_approved: true).count
-    if approved_conversation_count >= ChatConversationAccount::PER_ACCOUNT_APPROVED_LIMIT
-      render json: { error: true, message: "You have #{approved_conversation_count} active chat conversations. The limit is #{ChatConversationAccount::PER_ACCOUNT_APPROVED_LIMIT}. Delete some conversations first before approving any more requests." }
-    else  
-      @chat_conversation_account.update!(is_approved: true)
-      render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
-    end
+    @chat_conversation_account.update!(is_approved: true)
+    render json: @chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 
   def set_expiration_policy
