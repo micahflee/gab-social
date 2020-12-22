@@ -59,6 +59,7 @@ class SidebarLayout extends React.PureComponent {
                               color='primary'
                               onClick={action.onClick ? () => action.onClick() : undefined}
                               to={action.to}
+                              href={action.href}
                               key={`action-btn-${i}`}
                               className={[_s.ml5, _s.px5].join(' ')}
                               icon={action.icon}
