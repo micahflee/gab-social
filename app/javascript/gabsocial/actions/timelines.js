@@ -294,6 +294,8 @@ export const expandListTimeline = (id, { maxId } = {}, done = noop) => {
  * 
  */
 export const expandGroupTimeline = (id, { sortBy, maxId, onlyMedia } = {}, done = noop) => {
+  if (!id) return
+
   return expandTimeline(`group:${id}`, `/api/v1/timelines/group/${id}`, {
     sort_by: sortBy,
     max_id: maxId,

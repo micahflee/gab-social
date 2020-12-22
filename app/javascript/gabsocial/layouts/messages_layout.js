@@ -107,7 +107,7 @@ class MessagesLayout extends React.PureComponent {
             <main role='main' className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
               <ChatMessageScrollingList chatConversationId={selectedChatConversationId} isXS={isXS} />
             </main>
-            { currentConversationIsRequest && <ChatConversationRequestApproveBar /> }
+            { currentConversationIsRequest && <ChatConversationRequestApproveBar chatConversationId={selectedChatConversationId} /> }
             { !currentConversationIsRequest && <ChatMessageComposeForm chatConversationId={selectedChatConversationId} isXS={isXS} /> }
           </div>
         )

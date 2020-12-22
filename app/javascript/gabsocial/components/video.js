@@ -31,17 +31,7 @@ class Video extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    videoJsOptions.sources = [
-      {
-        src: this.props.src,
-        type: this.props.fileContentType,
-      },
-      {
-        src: this.props.sourceMp4,
-        type: 'video/mp4',
-      },
-    ]
-    this.videoPlayer = videojs(this.video, videoJsOptions)
+    //
   }
 
   componentWillUnmount() {
@@ -75,6 +65,23 @@ class Video extends ImmutablePureComponent {
 
   setVideoRef = (n) => {
     this.video = n
+    this.setupVideo()
+  }
+
+  setupVideo = () => {
+    if (!this.video) return null
+
+    videoJsOptions.sources = [
+      {
+        src: this.props.src,
+        type: this.props.fileContentType,
+      },
+      {
+        src: this.props.sourceMp4,
+        type: 'video/mp4',
+      },
+    ]
+    this.videoPlayer = videojs(this.video, videoJsOptions)
   }
 
   handleClickRoot = (e) => e.stopPropagation()
