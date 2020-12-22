@@ -8,7 +8,7 @@ class MediaProxyController < ApplicationController
   def show
     RedisLock.acquire(lock_options) do |lock|
       if lock.acquired?
-        @media_attachment = MediaAttachment.remote.find(params[:id])
+        @media_attachment = MediaAttachment.find(params[:id])
         redownload! if @media_attachment.needs_redownload? && !reject_media?
       else
         raise GabSocial::RaceConditionError
@@ -29,6 +29,8 @@ class MediaProxyController < ApplicationController
   def version
     if request.path.ends_with?('/small')
       :small
+    elsif request.path.ends_with?('/playable')
+      :playable
     else
       :original
     end

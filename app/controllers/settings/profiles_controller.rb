@@ -17,10 +17,7 @@ class Settings::ProfilesController < Settings::BaseController
 
   def update
     # if verified and display_name is different, return flash error and redirect back
-    if @account.is_verified && params[:account][:display_name] && @account.display_name != params[:account][:display_name]
-      flash[:alert] = 'Unable to change Display name for verified account'
-      redirect_to settings_profile_path
-    elsif !@account.is_pro && params[:account][:username] && @account.username != params[:account][:username]
+    if !@account.is_pro && params[:account][:username] && @account.username != params[:account][:username]
       flash[:alert] = 'Unable to change username for your account. You are not GabPRO'
       redirect_to settings_profile_path
     else
