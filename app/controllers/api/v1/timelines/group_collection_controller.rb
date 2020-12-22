@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Timelines::GroupCollectionController < EmptyController
+class Api::V1::Timelines::GroupCollectionController < Api::BaseController
   before_action :set_collection_type
   before_action :set_sort_type
   before_action :set_statuses
@@ -10,10 +10,10 @@ class Api::V1::Timelines::GroupCollectionController < EmptyController
   }
 
   def show
-    if current_user
+    if current_account
       render json: @statuses,
         each_serializer: REST::StatusSerializer,
-        relationships: StatusRelationshipsPresenter.new(@statuses, current_user.account_id)
+        relationships: StatusRelationshipsPresenter.new(@statuses, current_account.id)
     else
       render json: @statuses, each_serializer: REST::StatusSerializer
     end
@@ -64,12 +64,10 @@ class Api::V1::Timelines::GroupCollectionController < EmptyController
     @groupIds = []
     if @collection_type == 'featured'
       @groupIds = FetchGroupsService.new.call("featured")
-    elsif @collection_type == 'member' && !current_user.nil?
-      @groupIds = current_user.account.groups.pluck(:id)
-    else
-      return []
+    elsif @collection_type == 'member' && !current_account.nil?
+      @groupIds = current_account.groups.pluck(:id)
     end
-
+  
     if current_account
       SortingQueryBuilder.new.call(@sort_type, params[:max_id], @groupIds).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
     else

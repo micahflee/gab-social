@@ -286,12 +286,6 @@ class ComposeForm extends ImmutablePureComponent {
           <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
 
           <div className={containerClasses} ref={this.setForm} onClick={this.handleClick}>
-            {
-              !!reduxReplyToId && isModalOpen && isMatch &&
-              <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
-                <StatusContainer contextType='compose' id={reduxReplyToId} isChild />
-              </div>
-            }
 
             {
               !!spoiler &&
@@ -325,6 +319,13 @@ class ComposeForm extends ImmutablePureComponent {
               </div>
             }
 
+            {
+              !!reduxReplyToId && isModalOpen && isMatch &&
+              <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>
+                <StatusContainer contextType='compose' id={reduxReplyToId} isChild />
+              </div>
+            }
+            
             {
               !!quoteOfId && isModalOpen && isMatch &&
               <div className={[_s.d, _s.px15, _s.py10, _s.mt5].join(' ')}>

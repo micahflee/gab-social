@@ -20,8 +20,8 @@ class ChatConversationRequestApproveBar extends React.PureComponent {
   }
 
   render () {
-    if (!chatConversationId) return null
-    
+    if (!this.props.chatConversationId) return null
+
     return (
       <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
         <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.bottom0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
