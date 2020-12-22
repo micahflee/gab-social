@@ -28,11 +28,11 @@ class MediaAttachment < ApplicationRecord
   enum type: [:image, :gifv, :video, :unknown]
 
   IMAGE_FILE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp'].freeze
-  VIDEO_FILE_EXTENSIONS = ['.webm', '.mp4', '.m4v', '.mov'].freeze
+  VIDEO_FILE_EXTENSIONS = ['.webm', '.mp4', '.m4v'].freeze
 
   IMAGE_MIME_TYPES             = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
-  VIDEO_MIME_TYPES             = ['video/webm', 'video/mp4', 'video/quicktime'].freeze
-  VIDEO_CONVERTIBLE_MIME_TYPES = ['video/webm', 'video/quicktime'].freeze
+  VIDEO_MIME_TYPES             = ['video/webm', 'video/mp4'].freeze
+  VIDEO_CONVERTIBLE_MIME_TYPES = ['video/webm'].freeze
 
   BLURHASH_OPTIONS = {
     x_comp: 4,
@@ -170,6 +170,7 @@ class MediaAttachment < ApplicationRecord
       elsif IMAGE_MIME_TYPES.include? f.instance.file_content_type
         IMAGE_STYLES
       elsif VIDEO_CONVERTIBLE_MIME_TYPES.include?(f.instance.file_content_type)
+        puts "tilly convert"
         {
           small: VIDEO_STYLES[:small],
           original: VIDEO_FORMAT,

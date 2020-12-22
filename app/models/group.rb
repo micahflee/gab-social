@@ -31,7 +31,8 @@ class Group < ApplicationRecord
   include GroupInteractions
   include GroupCoverImage
 
-  PER_ACCOUNT_LIMIT = 50
+  PER_ACCOUNT_LIMIT_PRO = 100
+  PER_ACCOUNT_LIMIT_NORMAL = 10
 
   belongs_to :account, optional: true
 
@@ -53,7 +54,9 @@ class Group < ApplicationRecord
   validates :description, presence: true
 
   validates_each :account_id, on: :create do |record, _attr, value|
-    record.errors.add(:base, I18n.t('groups.errors.limit')) if Group.where(account_id: value).count >= PER_ACCOUNT_LIMIT
+    account = Account.find(value)
+    limit = account.is_pro ? PER_ACCOUNT_LIMIT_PRO : PER_ACCOUNT_LIMIT_NORMAL
+    record.errors.add(:base, "You have reached the limit for group creation.") if Group.where(account_id: value).count >= limit
   end
 
   before_save :set_slug

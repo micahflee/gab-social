@@ -67,6 +67,7 @@ class StatusMedia extends ImmutablePureComponent {
                 src={video.get('url')}
                 alt={video.get('description')}
                 aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
+                fileContentType={video.get('file_content_type')}
                 sensitive={status.get('sensitive')}
                 height={110}
                 width={width}

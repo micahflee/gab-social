@@ -36,6 +36,13 @@ class EmptyController < ActionController::Base
 
   protected
 
+  def set_pagination_headers(next_path = nil, prev_path = nil)
+    links = []
+    links << [next_path, [%w(rel next)]] if next_path
+    links << [prev_path, [%w(rel prev)]] if prev_path
+    response.headers['Link'] = LinkHeader.new(links) unless links.empty?
+  end
+  
   def current_user
     nil
   end

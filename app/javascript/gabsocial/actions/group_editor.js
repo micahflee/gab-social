@@ -88,6 +88,7 @@ const createGroup = (options, routerHistory) => (dispatch, getState) => {
 		}
 	}).then(({ data }) => {
 		dispatch(createGroupSuccess(data))
+		console.log("pushing routerHistory:", routerHistory)
 		routerHistory.push(`/groups/${data.id}`)
 	}).catch((err) => dispatch(createGroupFail(err)))
 }
@@ -98,13 +99,13 @@ const createGroupRequest = (id) => ({
 	id,
 })
 
-const createSuccess = (group) => ({
+const createGroupSuccess = (group) => ({
 	type: GROUP_CREATE_SUCCESS,
 	showToast: true,
 	group,
 })
 
-const createFail = (error) => ({
+const createGroupFail = (error) => ({
 	type: GROUP_CREATE_FAIL,
 	showToast: true,
 	error,
@@ -138,7 +139,7 @@ const updateGroup = (groupId, options, routerHistory) => (dispatch, getState) =>
 
 	api(getState).put(`/api/v1/groups/${groupId}`, formData, {
 		headers: {
-			'Content-Type': 'multipart/form-data'
+			'Content-Type': 'multipart/form-data',
 		}
 	}).then(({ data }) => {
 		dispatch(updateGroupSuccess(data))

@@ -20,7 +20,7 @@ class Api::V1::ChatConversationController < Api::BaseController
 
   def create
     chat_conversation_account = find_or_create_conversation
-    render json: chat_conversation_account, each_serializer: REST::ChatConversationAccountSerializer
+    render json: chat_conversation_account, serializer: REST::ChatConversationAccountSerializer
   end
 
   def mark_chat_conversation_read

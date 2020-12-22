@@ -49,6 +49,8 @@ class MediaItem extends ImmutablePureComponent {
     if (!attachment) return
 
     const hash = attachment.get('blurhash')
+    if (!hash) return
+
     const pixels = decode(hash, 160, 160)
 
     if (pixels && this.canvas) {
@@ -103,7 +105,7 @@ class MediaItem extends ImmutablePureComponent {
     const statusUrl = `/${account.getIn(['acct'])}/posts/${status.get('id')}`
 
     const isSmallRatio = aspectRatio < 1
-    const isSquare = aspectRatio === 1
+    const isSquare = aspectRatio === 1 || isSmall
     const containerClasses = CX({
       d: 1,
       px5: 1,

@@ -14,6 +14,10 @@ import Text from '../components/text'
 
 class ChatConversationCreate extends React.PureComponent {
 
+  static contextTypes = {
+		router: PropTypes.object
+  }
+  
   state = {
     query: '',
   }
@@ -24,7 +28,7 @@ class ChatConversationCreate extends React.PureComponent {
   }
 
   handleOnCreateChatConversation = (accountId) => {
-    this.props.onCreateChatConversation(accountId)
+    this.props.onCreateChatConversation(accountId, this.context.router.history)
     this.props.onClearChatConversationAccountSuggestions()
 
     if (this.props.isModal && !!this.props.onCloseModal) {
@@ -81,8 +85,8 @@ const mapDispatchToProps = (dispatch) => ({
   onChange(value) {
     dispatch(fetchChatConversationAccountSuggestions(value))
   },
-  onCreateChatConversation(accountId) {
-    dispatch(createChatConversation(accountId))
+  onCreateChatConversation(accountId, routerHistory) {
+    dispatch(createChatConversation(accountId, routerHistory))
   },
   onClearChatConversationAccountSuggestions() {
     dispatch(clearChatConversationAccountSuggestions())

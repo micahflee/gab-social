@@ -194,16 +194,16 @@ export const removeBookmarkCollection = (bookmarkCollectionId) => (dispatch, get
 }
 
 const removeBookmarkCollectionRequest = (bookmarkCollectionId) => ({
-  type: BOOKMARK_COLLECTIONS_CREATE_REQUEST,
+  type: BOOKMARK_COLLECTIONS_REMOVE_REQUEST,
   bookmarkCollectionId,
 })
 
 const removeBookmarkCollectionSuccess = () => ({
-  type: BOOKMARK_COLLECTIONS_CREATE_SUCCESS,
+  type: BOOKMARK_COLLECTIONS_REMOVE_SUCCESS,
 })
 
 const removeBookmarkCollectionFail = (error) => ({
-  type: BOOKMARK_COLLECTIONS_CREATE_FAIL,
+  type: BOOKMARK_COLLECTIONS_REMOVE_FAIL,
   showToast: true,
   error,
 })

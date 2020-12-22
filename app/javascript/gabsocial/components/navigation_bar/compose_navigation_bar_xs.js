@@ -34,9 +34,9 @@ class ComposeNavigationBar extends React.PureComponent {
     })
 
     return (
-      <div className={[_s.d, _s.z4, _s.h53PX, _s.w100PC].join(' ')}>
-        <div className={[_s.d, _s.h53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
-
+      <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>
+        <div className={[_s.d, _s.minH53PX, _s.bgNavigation, _s.aiCenter, _s.z3, _s.top0, _s.right0, _s.left0, _s.posFixed].join(' ')} >
+        
           <div className={innerClasses}>
 
             <BackButton

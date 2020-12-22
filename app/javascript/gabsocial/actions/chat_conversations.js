@@ -1,6 +1,8 @@
 import api, { getLinks } from '../api'
 import debounce from 'lodash.debounce'
 import { importFetchedAccounts } from './importer'
+import { closeModal } from './modal'
+import { setChatConversationSelected } from './chats'
 import { me } from '../initial_state'
 
 //
@@ -309,15 +311,17 @@ export const expandChatConversationMutedFail = (error) => ({
  * @description Create a chat conversation with given accountId. May fail because of blocks.
  * @param {String} accountId
  */
-export const createChatConversation = (accountId) => (dispatch, getState) => {
+export const createChatConversation = (accountId, routerHistory) => (dispatch, getState) => {
   if (!me || !accountId) return
 
   dispatch(createChatConversationRequest())
 
   api(getState).post('/api/v1/chat_conversation', { account_id: accountId }).then((response) => {
     dispatch(createChatConversationSuccess(response.data))
+    dispatch(closeModal())
+    dispatch(setChatConversationSelected(response.data.chat_conversation_id))
+    if (routerHistory) routerHistory.push(`/messages/${response.data.chat_conversation_id}`)
   }).catch((error) => {
-    console.log("error:", error)
     dispatch(createChatConversationFail(error))
   })
 }

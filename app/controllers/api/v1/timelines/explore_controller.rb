@@ -45,7 +45,11 @@ class Api::V1::Timelines::ExploreController < EmptyController
   end
 
   def explore_statuses
-    SortingQueryBuilder.new.call(@sort_type, params[:max_id])
+    if current_account
+      SortingQueryBuilder.new.call(@sort_type, params[:max_id]).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+    else
+      SortingQueryBuilder.new.call(@sort_type, params[:max_id])
+    end
   end
 
   def insert_pagination_headers

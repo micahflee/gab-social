@@ -27,8 +27,8 @@ class ChatMessagesComposeForm extends React.PureComponent {
 
   handleOnSendChatMessage = () => {
     this.props.onSendChatMessage(this.state.value, this.props.chatConversationId)
-    document.querySelector('#gabsocial').focus()
-    this.onBlur()
+    // document.querySelector('#gabsocial').focus()
+    // this.onBlur()
     this.setState({ value: '' })
   }
 

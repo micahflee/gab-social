@@ -41,7 +41,7 @@ export const blockChatMessenger = (accountId) => (dispatch, getState) => {
   dispatch(blockChatMessengerRequest(accountId))
   
   api(getState).post(`/api/v1/chat_conversation_accounts/_/block_messenger`, { account_id: accountId }).then((response) => {
-    dispatch(blockChatMessengerSuccess(response.data))
+    dispatch(blockChatMessengerSuccess(response))
   }).catch((error) => {
     dispatch(blockChatMessengerFail(accountId, error))
   })
@@ -74,7 +74,7 @@ export const unblockChatMessenger = (accountId) => (dispatch, getState) => {
   dispatch(unblockChatMessengerRequest(accountId))
 
   api(getState).post(`/api/v1/chat_conversation_accounts/_/unblock_messenger`, { account_id: accountId }).then((response) => {
-    dispatch(unblockChatMessengerSuccess(response.data))
+    dispatch(unblockChatMessengerSuccess(response))
   }).catch((error) => {
     dispatch(unblockChatMessengerFail(accountId, error))
   })

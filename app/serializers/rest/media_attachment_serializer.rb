@@ -5,7 +5,7 @@ class REST::MediaAttachmentSerializer < ActiveModel::Serializer
 
   attributes :id, :type, :url, :preview_url,
              :remote_url, :text_url, :meta,
-             :description, :blurhash
+             :description, :blurhash, :file_content_type
 
   def id
     object.id.to_s

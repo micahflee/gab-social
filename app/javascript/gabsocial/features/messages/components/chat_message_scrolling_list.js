@@ -120,7 +120,9 @@ class ChatMessageScrollingList extends ImmutablePureComponent {
   }
 
   scrollToBottom = () => {
-    this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    if (this.messagesEnd) {
+      this.messagesEnd.scrollIntoView({ behavior: 'smooth' });
+    }
   }
   
   _selectChild(index, align_top) {

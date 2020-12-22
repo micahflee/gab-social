@@ -30,7 +30,7 @@ class MessagesSettings extends ImmutablePureComponent {
         <div className={[_s.d, _s.px15, _s.py15, _s.overflowHidden].join(' ')}>
           <Form>
             <SettingSwitch
-              label='Restrict messages from people you dont follow'
+              label="Hide chats from users you don't follow"
               settings={chatSettings}
               settingPath='restrict_non_followers'
               onChange={this.handleOnChange}

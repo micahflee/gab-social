@@ -16,6 +16,7 @@ import {
   addShortcut,
   removeShortcut,
 } from '../actions/shortcuts'
+import { createChatConversation } from '../actions/chat_conversations'
 import { openModal } from '../actions/modal'
 import { openPopover } from '../actions/popover'
 import { me } from '../initial_state'
@@ -32,6 +33,10 @@ import ProfileHeaderXSPlaceholder from './placeholder/profile_header_xs_placehol
 
 class ProfileHeader extends ImmutablePureComponent {
 
+  static contextTypes = {
+		router: PropTypes.object
+  }
+  
   state = {
     stickied: false,
   }
@@ -69,6 +74,15 @@ class ProfileHeader extends ImmutablePureComponent {
     } else {
       this.setState({ stickied: false })
     }
+  }
+
+  handleOnCreateChatConversation = () => {
+    const { account } = this.props
+    const accountId = !!account ? account.get('id') : null
+    
+    if (!accountId) return
+
+    this.props.onCreateChatConversation(accountId, this.context.router.history)
   }
 
   setOpenMoreNodeRef = (n) => {
@@ -226,10 +240,8 @@ class ProfileHeader extends ImmutablePureComponent {
                             iconClassName={_s.inheritFill}
                             color='brand'
                             backgroundColor='none'
-                            // : TODO :
                             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
-                            onClick={this.handleOpenMore}
-                            buttonRef={this.setOpenMoreNodeRef}
+                            onClick={this.handleOnCreateChatConversation}
                           />
                         </div>
                         <div className={[_s.d, _s.flexRow, _s.h40PX].join(' ')}>
@@ -373,10 +385,8 @@ class ProfileHeader extends ImmutablePureComponent {
                               iconClassName={_s.inheritFill}
                               color='brand'
                               backgroundColor='none'
-                              // : TODO :
                               className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
-                              onClick={this.handleOpenMore}
-                              buttonRef={this.setOpenMoreNodeRef}
+                              onClick={this.handleOnCreateChatConversation}
                             />
                           </div>
                         }
@@ -434,6 +444,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onRemoveShortcut(accountId) {
     dispatch(removeShortcut(null, 'account', accountId))
+  },
+  onCreateChatConversation(accountId, routerHistory) {
+    dispatch(createChatConversation(accountId, routerHistory))
   },
 });
 

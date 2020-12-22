@@ -51,7 +51,12 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   end
 
   def group_statuses
-    SortingQueryBuilder.new.call(@sort_type, params[:max_id], @group)
+    if current_account
+      SortingQueryBuilder.new.call(@sort_type, params[:max_id], @group).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+    else
+      SortingQueryBuilder.new.call(@sort_type, params[:max_id], @group)
+    end
+
   end
 
   def insert_pagination_headers

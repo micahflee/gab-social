@@ -6618,13 +6618,6 @@ react-sortable-hoc@^1.11.0:
     invariant "^2.2.4"
     prop-types "^15.5.7"
 
-react-sparklines@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/react-sparklines/-/react-sparklines-1.7.0.tgz#9b1d97e8c8610095eeb2ad658d2e1fcf91f91a60"
-  integrity sha512-bJFt9K4c5Z0k44G8KtxIhbG+iyxrKjBZhdW6afP+R7EnIq+iKjbWbEFISrf3WKNFsda+C46XAfnX0StS5fbDcg==
-  dependencies:
-    prop-types "^15.5.10"
-
 react-stickynode@^3.0.4:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-stickynode/-/react-stickynode-3.0.4.tgz#1e9c096cec3613cc8294807eba319ced074c8b21"

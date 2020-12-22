@@ -31,7 +31,10 @@ class Video extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    videoJsOptions.sources = [{ src: this.props.src }]
+    videoJsOptions.sources = [{
+      src: this.props.src,
+      type: this.props.fileContentType,
+    }]
     this.videoPlayer = videojs(this.video, videoJsOptions)
   }
 
@@ -193,6 +196,7 @@ Video.propTypes = {
   blurhash: PropTypes.string,
   aspectRatio: PropTypes.number,
   meta: ImmutablePropTypes.map,
+  fileContentType: PropTypes.string,
 }
 
 export default injectIntl(Video)

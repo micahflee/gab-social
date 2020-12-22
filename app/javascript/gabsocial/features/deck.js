@@ -215,7 +215,7 @@ class Deck extends React.PureComponent {
               <DeckColumn title={title} icon='pro' noButtons>
                 <div className={[_s.d, _s.px15, _s.py15].join(' ')}>
                   <Text>
-                    GabDeck is a unique way to customize your Gab experience. Upgrade to GabPRO to unlock the GabDeck.                  
+                    GabDeck is a unique way to customize your Gab experience. Upgrade to GabPRO to unlock the GabDeck.
                   </Text>
                   <div className={[_s.mt15, _s.d, _s.flexRow].join(' ')}>
                     <Button href={URL_GAB_PRO}>

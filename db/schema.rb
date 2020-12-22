@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_012018) do
+ActiveRecord::Schema.define(version: 2020_12_22_040559) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -57,6 +57,15 @@ ActiveRecord::Schema.define(version: 2020_12_18_012018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["tag_id"], name: "index_account_tag_stats_on_tag_id", unique: true
+  end
+
+  create_table "account_username_changes", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.text "from_username", default: "", null: false
+    t.text "to_username", default: "", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_username_changes_on_account_id"
   end
 
   create_table "account_verification_requests", force: :cascade do |t|
@@ -873,6 +882,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_012018) do
   add_foreign_key "account_moderation_notes", "accounts", column: "target_account_id"
   add_foreign_key "account_stats", "accounts", on_delete: :cascade
   add_foreign_key "account_tag_stats", "tags", on_delete: :cascade
+  add_foreign_key "account_username_changes", "accounts", on_delete: :cascade
   add_foreign_key "account_warnings", "accounts", column: "target_account_id", on_delete: :cascade
   add_foreign_key "account_warnings", "accounts", on_delete: :nullify
   add_foreign_key "accounts", "accounts", column: "moved_to_account_id", on_delete: :nullify

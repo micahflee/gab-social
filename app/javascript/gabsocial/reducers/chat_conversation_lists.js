@@ -22,6 +22,7 @@ import {
   CHAT_CONVERSATIONS_MUTED_EXPAND_REQUEST,
   CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS,
   CHAT_CONVERSATIONS_MUTED_EXPAND_FAIL,
+  CHAT_CONVERSATIONS_CREATE_SUCCESS,
 } from '../actions/chat_conversations'
 
 const initialState = ImmutableMap({
@@ -102,6 +103,9 @@ export default function chat_conversation_lists(state = initialState, action) {
     return normalizeList(state, 'muted', action.chatConversations, action.next) 
   case CHAT_CONVERSATIONS_MUTED_EXPAND_SUCCESS:
     return appendToList(state, 'muted', action.chatConversations, action.next)
+
+  case CHAT_CONVERSATIONS_CREATE_SUCCESS:
+    return appendToList(state, 'approved', [action.chatConversation], action.next)
 
   default:
     return state

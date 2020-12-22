@@ -108,6 +108,7 @@ class Poll extends ImmutablePureComponent {
       aiCenter: !showResults,
     })
 
+    // : todo : fix widths and truncate for large poll options
     return (
       <li className={listItemClasses} key={option.get('title')}>
         {

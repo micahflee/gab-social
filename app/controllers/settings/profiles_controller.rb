@@ -24,11 +24,12 @@ class Settings::ProfilesController < Settings::BaseController
       flash[:alert] = 'Unable to change username for your account. You are not GabPRO'
       redirect_to settings_profile_path
     else
-      # : todo :
-      # only allowed to change username once per day
-      if params[:account][:username] && @account.username != params[:account][:username]
-        Redis.current.set("username_change:#{account.id}", true) 
-        Redis.current.expire("username_change:#{account.id}", 24.huors.seconds)
+      if @account.username != params[:account][:username]
+        AccountUsernameChange.create!(
+          account: @account,
+          from_username: @account.username,
+          to_username: params[:account][:username]
+        )
       end
 
       if UpdateAccountService.new.call(@account, account_params)
