@@ -67,6 +67,7 @@ class PostChatMessageService < BaseService
         end
       else
         recipient.unread_count = 0
+        recipient.is_hidden = false
       end
 
       recipient.save

@@ -430,22 +430,24 @@ export const hideChatConversation = (chatConversationId) => (dispatch, getState)
   dispatch(hideChatConversationFetch(chatConversationId))
 
   api(getState).post(`/api/v1/chat_conversation/${chatConversationId}/mark_chat_conversation_hidden`).then((response) => {
-    dispatch(approveChatConversationRequestSuccess(chatConversationId))
-  }).catch((error) => dispatch(approveChatConversationRequestFail(error)))
+    dispatch(hideChatConversationSuccess(chatConversationId))
+  }).catch((error) => dispatch(hideChatConversationFail(error)))
 }
 
 export const hideChatConversationFetch = (chatConversationId) => ({
-  type: CHAT_CONVERSATION_HIDE_SUCCESS,
+  type: CHAT_CONVERSATION_HIDE_FETCH,
   chatConversationId,
 })
 
 export const hideChatConversationSuccess = (chatConversationId) => ({
   type: CHAT_CONVERSATION_HIDE_SUCCESS,
   chatConversationId,
+  showToast: true,
 })
 
 export const hideChatConversationFail = () => ({
   type: CHAT_CONVERSATION_HIDE_FAIL,
+  showToast: true,
 })
 
 /**

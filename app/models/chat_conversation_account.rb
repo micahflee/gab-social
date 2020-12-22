@@ -35,6 +35,10 @@ class ChatConversationAccount < ApplicationRecord
   belongs_to :chat_conversation
   belongs_to :last_chat_message, class_name: 'ChatMessage', optional: true
 
+  default_scope { recent }
+
+  scope :recent, -> { reorder(updated_at: :desc) }
+
   def participant_accounts
     if participant_account_ids.empty?
       [account]
