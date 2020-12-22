@@ -29,6 +29,7 @@ module AccountAssociations
 
     # Media
     has_many :media_attachments, dependent: :destroy
+    has_many :media_attachment_albums, dependent: :destroy
     has_many :polls, dependent: :destroy
 
     # Push subscriptions

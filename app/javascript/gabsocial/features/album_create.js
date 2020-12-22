@@ -8,35 +8,60 @@ import Button from '../components/button'
 import Input from '../components/input'
 import Form from '../components/form'
 import Text from '../components/text'
+import Divider from '../components/divider'
+import Textarea from '../components/textarea'
 
 class AlbumCreate extends React.PureComponent {
 
   state = {
-    value: '',
+    titleValue: '',
+    descriptionValue: '',
+    checked: false,
   }
 
-  onChange = (value) => {
-    this.setState({ value })
+  onChangeTitle = (titleValue) => {
+    this.setState({ titleValue })
+  }
+
+  onChangeDescription = (descriptionValue) => {
+    this.setState({ descriptionValue })
   }
 
   handleOnSubmit = () => {
-    this.props.onSubmit(this.state.value)
+    const { titleValue, descriptionValue, checked } = this.state
+    this.props.onSubmit(titleValue, descriptionValue, checked)
+  }
+
+  onTogglePrivacy = (checked) => {
+    this.setState({ checked })
   }
 
   render() {
-    const { value } = this.state
+    const {
+      titleValue,
+      descriptionValue,
+    } = this.state
 
-    const isDisabled = !value
+    const isDisabled = !titleValue
+
+    console.log("HELLO")
 
     return (
       <Form>
         <Input
           title='Title'
           placeholder='Album title'
-          value={value}
-          onChange={this.onChange}
+          value={titleValue}
+          onChange={this.onChangeTitle}
         />
-
+        <Divider isInvisible />
+        <Textarea
+          title='Description'
+          placeholder='Album description'
+          value={descriptionValue}
+          onChange={this.onChangeDescription}
+        />
+        <Divider isInvisible />
         <Button
           isDisabled={isDisabled}
           onClick={this.handleOnSubmit}
@@ -53,9 +78,9 @@ class AlbumCreate extends React.PureComponent {
 }
 
 const mapDispatchToProps = (dispatch, { isModal }) => ({
-  onSubmit(title) {
+  onSubmit(title, description, isPrivate) {
     if (isModal) dispatch(closeModal())
-    dispatch(createBookmarkCollection(title))
+    dispatch(createAlbum(title, description, isPrivate))
   },
 })
 

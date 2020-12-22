@@ -306,11 +306,6 @@ class Account < ApplicationRecord
     username
   end
 
-  def excluded_from_chat_account_ids
-    # : todo :
-    # Rails.cache.fetch("exclude_account_ids_for:#{id}") { blocking.pluck(:target_account_id) + blocked_by.pluck(:account_id) + muting.pluck(:target_account_id) }
-  end
-
   def excluded_from_timeline_account_ids
     Rails.cache.fetch("exclude_account_ids_for:#{id}") { blocking.pluck(:target_account_id) + blocked_by.pluck(:account_id) + muting.pluck(:target_account_id) }
   end

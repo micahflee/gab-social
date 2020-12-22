@@ -57,8 +57,8 @@ import user_lists from './user_lists'
 const reducers = {
   accounts,
   accounts_counters,
-  // albums,
-  // album_lists,
+  albums,
+  album_lists,
   bookmark_collections,
   chats,
   chat_conversation_lists,

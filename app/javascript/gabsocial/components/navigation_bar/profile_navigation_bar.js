@@ -23,9 +23,6 @@ class ProfileNavigationBar extends React.PureComponent {
 
   render() {
     const { titleHTML } = this.props
-
-    // : todo :
-    // fix padding on mobile device
     
     return (
       <div className={[_s.d, _s.z4, _s.minH53PX, _s.w100PC].join(' ')}>

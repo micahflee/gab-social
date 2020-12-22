@@ -19,7 +19,7 @@ import {
 import {
   muteAccount,
   unmuteAccount,
-} from '../../actions/interactions';
+} from '../../actions/accounts';
 import {
   deleteStatus,
   editStatus,
@@ -197,11 +197,12 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       })
 
       if (status.get('bookmarked')) {
-        menu.push({
-          icon: 'bookmark',
-          title: 'Update bookmark collection',
-          onClick: this.handleBookmarkChangeClick,
-        })
+        // : todo :
+        // menu.push({
+        //   icon: 'bookmark',
+        //   title: 'Update bookmark collection',
+        //   onClick: this.handleBookmarkChangeClick,
+        // })
       }
 
       if (status.getIn(['account', 'id']) === me) {

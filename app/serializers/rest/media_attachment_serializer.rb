@@ -3,7 +3,7 @@
 class REST::MediaAttachmentSerializer < ActiveModel::Serializer
   include RoutingHelper
 
-  attributes :id, :type, :url, :preview_url,
+  attributes :id, :type, :url, :preview_url, :source_mp4,
              :remote_url, :text_url, :meta,
              :description, :blurhash, :file_content_type
 
@@ -30,6 +30,18 @@ class REST::MediaAttachmentSerializer < ActiveModel::Serializer
       media_proxy_url(object.id, :original)
     else
       full_asset_url(object.file.url(:original))
+    end
+  end
+
+  def source_mp4
+    if object.type == "image" || object.type == "gifv" || object.type == "unknown"
+      return nil
+    else 
+      if object.needs_redownload?
+        media_proxy_url(object.id, :playable)
+      else
+        full_asset_url(object.file.url(:playable))
+      end
     end
   end
 

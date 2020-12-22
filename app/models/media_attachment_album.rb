@@ -16,11 +16,14 @@
 
 class MediaAttachmentAlbum < ApplicationRecord
 
+  include Paginable
+
   enum visibility: [
     :public,
     :private,
   ], _suffix: :visibility
 
   belongs_to :account
+  belongs_to :cover, class_name: 'MediaAttachment', optional: true
 
 end

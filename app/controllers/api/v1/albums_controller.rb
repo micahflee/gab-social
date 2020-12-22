@@ -2,15 +2,11 @@
 
 class Api::V1::AlbumsController < Api::BaseController
   before_action :require_user!
-  before_action :set_albums, only: :index
+
   before_action :set_album, only: [:show, :update, :destroy]
 
-  def index
-    render json: @albums, each_serializer: REST::AlbumSerializer
-  end
-
   def create
-    @album = "" #current_account.custom_filters.create!(resource_params)
+    @album = current_account.media_attachment_albums.create!(resource_params)
     render json: @album, serializer: REST::AlbumSerializer
   end
 
@@ -30,15 +26,11 @@ class Api::V1::AlbumsController < Api::BaseController
 
   private
 
-  def set_albums
-    @albums = "" #current_account.custom_filters
-  end
-
   def set_album
-    @album = "" # current_account.custom_filters.find(params[:id])
+    @album = current_account.media_attachment_albums.find(params[:id])
   end
 
   def resource_params
-    params.permit(:title, :description, :visibility)
+    params.permit(:title, :description)
   end
 end

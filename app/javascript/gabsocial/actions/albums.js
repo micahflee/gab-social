@@ -47,7 +47,7 @@ export const fetchAlbums = (accountId) => (dispatch, getState) => {
 
   dispatch(fetchAlbumsRequest(accountId))
 
-  api(getState).get(`/api/v1/albums/find_by_account/${accountId}`).then((response) => {
+  api(getState).get(`/api/v1/album_lists/${accountId}`).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(fetchAlbumsSuccess(response.data, accountId, next ? next.uri : null))
   }).catch((error) => {
@@ -119,7 +119,7 @@ const expandAlbumsFail = (accountId, error) => ({
 /**
  * 
  */
-export const createAlbum = (title, description, visibility) => (dispatch, getState) => {
+export const createAlbum = (title, description) => (dispatch, getState) => {
   if (!me || !title) return
 
   dispatch(createAlbumRequest())
@@ -127,7 +127,6 @@ export const createAlbum = (title, description, visibility) => (dispatch, getSta
   api(getState).post('/api/v1/albums', {
     title,
     description,
-    visibility,
   }).then((response) => {
     dispatch(createAlbumSuccess(response.data))
   }).catch((error) => {

@@ -21,13 +21,17 @@ class Album extends React.PureComponent {
 
   render() {
     const {
+      account,
       album,
       isAddable,
     } = this.props
-    
-    const title = isAddable ? 'New album' : 'Album title'
-    const subtitle = isAddable ? '' : '10 Items'
-    const to = isAddable ? undefined : `/photos`
+
+    if (!isAddable && (!album || !account)) return null
+
+    const title = isAddable ? 'New album' : album.get('title')
+    const subtitle = isAddable ? '' : `${album.get('count')} Items`
+    const to = isAddable ? undefined : `/${account.get('username')}/albums/${album.get('id')}`
+    const albumImageUrl = !!album ? album.getIn(['cover', 'preview_url'], null) : null
 
     return (
       <div className={[_s.d, _s.minW162PX, _s.px5, _s.flex1].join(' ')}>
@@ -40,8 +44,17 @@ class Album extends React.PureComponent {
           <div className={[_s.d, _s.w100PC, _s.mt5, _s.mb10].join(' ')}>
             <div className={[_s.d, _s.w100PC, _s.pt100PC].join(' ')}>
               <div className={[_s.d, _s.posAbs, _s.top0, _s.w100PC, _s.right0, _s.bottom0, _s.left0].join(' ')}>
-                <div className={[_s.d, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter, _s.radiusSmall, _s.bgTertiary, _s.border1PX, _s.borderColorSecondary].join(' ')}>
+                <div className={[_s.d, _s.w100PC, _s.h100PC, _s.aiCenter, _s.jcCenter, _s.radiusSmall, _s.overflowHidden, _s.bgTertiary, _s.border1PX, _s.borderColorSecondary].join(' ')}>
                   { isAddable && <Icon id='add' size='20px' /> }
+                  {
+                    albumImageUrl &&
+                    <Image
+                      height='100%'
+                      width='100%'
+                      className={_s.z3}
+                      src={albumImageUrl}
+                    />
+                  }
                 </div>
               </div>
             </div>
@@ -58,9 +71,14 @@ class Album extends React.PureComponent {
 }
 
 Album.propTypes = {
+  account: ImmutablePropTypes.map,
   album: ImmutablePropTypes.map,
   isAddable: PropTypes.bool,
 }
+
+const mapStateToProps = (state, { albumId }) => ({
+  album: state.getIn(['albums', albumId]),
+})
 
 const mapDispatchToProps = (dispatch) => ({
   openAlbumCreate() {
@@ -68,4 +86,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 })
 
-export default connect(null, mapDispatchToProps)(Album)
+export default connect(mapStateToProps, mapDispatchToProps)(Album)

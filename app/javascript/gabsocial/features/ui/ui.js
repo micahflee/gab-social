@@ -53,6 +53,7 @@ import DeckPage from '../../pages/deck_page'
 import {
   About,
   AccountAlbums,
+  AccountAlbumGallery,
   AccountPhotoGallery,
   AccountVideoGallery,
   AccountTimeline,
@@ -279,18 +280,18 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/:username/following' page={ProfilePage} component={Following} content={children} />
 
         <WrappedRoute path='/:username/photos' exact page={ProfilePage} component={AccountPhotoGallery} content={children} componentParams={{ noSidebar: true }} />
-        { /* <WrappedRoute path='/:username/albums/:albumId' page={ProfilePage} component={AccountGallery} content={children} componentParams={{ noSidebar: true }} /> */ }
+        { /* <WrappedRoute path='/:username/albums/:albumId' page={ProfilePage} component={AccountAlbumGallery} content={children} componentParams={{ noSidebar: true }} />  */ }
         <WrappedRoute path='/:username/videos' exact page={ProfilePage} component={AccountVideoGallery} content={children} componentParams={{ noSidebar: true }} />
-        <WrappedRoute path='/:username/albums' exact page={ProfilePage} component={AccountAlbums} content={children} componentParams={{ noSidebar: true }} />
-
+        { /* <WrappedRoute path='/:username/albums' exact page={ProfilePage} component={AccountAlbums} content={children} componentParams={{ noSidebar: true }} /> */ }
         { /* <WrappedRoute path='/:username/albums/create' exact page={ModalPage} component={AlbumCreate} content={children} componentParams={{ title: 'Create Album', page: 'create-album' }} /> */ }
         { /* <WrappedRoute path='/:username/albums/:albumId/edit' page={ModalPage} component={AlbumCreate} content={children} componentParams={{ title: 'Edit Album', page: 'edit-album' }} />  */ }
 
         <WrappedRoute path='/:username/likes' page={ProfilePage} component={LikedStatuses} content={children} />
-        <WrappedRoute path='/:username/bookmark_collections/create' page={ModalPage} component={BookmarkCollectionCreate} content={children} componentParams={{ title: 'Create Bookmark Collection', page: 'create-bookmark-collection' }} />
+        <WrappedRoute path='/:username/bookmarks' page={ProfilePage} component={BookmarkedStatuses} content={children} />
+        {/*<WrappedRoute path='/:username/bookmark_collections/create' page={ModalPage} component={BookmarkCollectionCreate} content={children} componentParams={{ title: 'Create Bookmark Collection', page: 'create-bookmark-collection' }} />
         <WrappedRoute path='/:username/bookmark_collections/:bookmarkCollectionId' page={ProfilePage} component={BookmarkedStatuses} content={children} />
         <WrappedRoute path='/:username/bookmark_collections/:bookmarkCollectionId/edit' page={ModalPage} component={BookmarkCollectionCreate} content={children} componentParams={{ title: 'Edit Bookmark Collection', page: 'edit-bookmark-collection' }} />
-        <WrappedRoute path='/:username/bookmark_collections' page={ProfilePage} component={BookmarkCollections} content={children} />
+        <WrappedRoute path='/:username/bookmark_collections' page={ProfilePage} component={BookmarkCollections} content={children} />*/}
         
         <WrappedRoute path='/:username/posts/:statusId' publicRoute exact page={BasicPage} component={StatusFeature} content={children} componentParams={{ title: 'Status', page: 'status' }} />
 

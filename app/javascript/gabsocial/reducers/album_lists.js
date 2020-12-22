@@ -47,6 +47,7 @@ export default function album_lists(state = initialState, action) {
   case ALBUMS_EXPAND_REQUEST:
     return state.setIn([action.accountId, 'isLoading'], true)
   case ALBUMS_FETCH_SUCCESS:
+    console.log("ALBUMS_FETCH_SUCCESS:", action)
     return normalizeList(state, action.accountId, action.albums, action.next)
   case ALBUMS_EXPAND_SUCCESS:
     return appendToList(state, action.accountId, action.albums, action.next)

@@ -20,8 +20,6 @@
 # : todo : max per account
 class ChatConversationAccount < ApplicationRecord
   include Paginable
-  
-  PER_ACCOUNT_APPROVED_LIMIT = 250
 
   EXPIRATION_POLICY_MAP = {
     none: nil,

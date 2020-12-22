@@ -121,7 +121,7 @@ class ProfileHeader extends ImmutablePureComponent {
         title: intl.formatMessage(messages.comments),
       },
       {
-        to: `/${account.get('acct')}/albums`,
+        to: `/${account.get('acct')}/photos`,
         title: intl.formatMessage(messages.photos),
       },
       {
@@ -137,7 +137,7 @@ class ProfileHeader extends ImmutablePureComponent {
         title: 'Likes',
       })
       tabs.push({
-        to: `/${account.get('acct')}/bookmark_collections`,
+        to: `/${account.get('acct')}/bookmarks`,
         title: intl.formatMessage(messages.bookmarks),
       })
     }

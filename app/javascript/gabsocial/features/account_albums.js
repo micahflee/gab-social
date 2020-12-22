@@ -5,8 +5,8 @@ import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { me } from '../initial_state'
 import {
-  fetchAccountAlbums,
-  expandAccountAlbums,
+  fetchAlbums,
+  expandAlbums,
 } from '../actions/albums'
 import ColumnIndicator from '../components/column_indicator'
 import Heading from '../components/heading'
@@ -48,7 +48,7 @@ class AccountAlbums extends ImmutablePureComponent {
   render() {
     const {
       isMe,
-      albums,
+      albumIds,
       account,
       accountId,
       hasMore,
@@ -56,7 +56,9 @@ class AccountAlbums extends ImmutablePureComponent {
     } = this.props
       
     if (!account) return null
-    const hasAlbums = !!albums ? albums.size > 0 : false
+    const hasAlbums = !!albumIds ? albumIds.size > 0 : false
+
+    console.log("albumIds:", albumIds)
 
     return (
       <Block>
@@ -69,11 +71,11 @@ class AccountAlbums extends ImmutablePureComponent {
               title: 'All Photos',
               to: `/${account.get('username')}/photos`,
             },
-            {
-              title: 'Albums',
-              isActive: true,
-              to: `/${account.get('username')}/albums`,
-            },
+            // {
+            //   title: 'Albums',
+            //   isActive: true,
+            //   to: `/${account.get('username')}/albums`,
+            // },
           ]}/>
         </div>
 
@@ -82,10 +84,10 @@ class AccountAlbums extends ImmutablePureComponent {
 
           {
             hasAlbums &&
-            albums.map((albums, i) => (
+            albumIds.map((albumId, i) => (
               <Album
-                key={album.get('id')}
-                album={album}
+                key={albumId}
+                albumId={albumId}
                 account={account}
               />
             ))
@@ -119,7 +121,7 @@ const mapStateToProps = (state, { account, mediaType }) => {
 
   return {
     accountId,
-    albums: state.getIn(['album_lists', accountId, 'items']),
+    albumIds: state.getIn(['album_lists', accountId, 'items']),
     isLoading: state.getIn(['album_lists', accountId, 'isLoading'], false),
     hasMore: state.getIn(['album_lists', accountId, 'hasMore'], false),
   }
@@ -127,17 +129,17 @@ const mapStateToProps = (state, { account, mediaType }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   onFetchAccountAlbums(accountId) {
-
+    dispatch(fetchAlbums(accountId))
   },
   onExpandAccountAlbums(accountId) {
-
+    dispatch(expandAlbums(accountId))
   },
 })
 
 AccountAlbums.propTypes = {
   account: ImmutablePropTypes.map,
   accountId: PropTypes.string,
-  albums: ImmutablePropTypes.list,
+  albumIds: ImmutablePropTypes.list,
   isLoading: PropTypes.bool,
   hasMore: PropTypes.bool,
   intl: PropTypes.object.isRequired,

@@ -31,10 +31,16 @@ class Video extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    videoJsOptions.sources = [{
-      src: this.props.src,
-      type: this.props.fileContentType,
-    }]
+    videoJsOptions.sources = [
+      {
+        src: this.props.src,
+        type: this.props.fileContentType,
+      },
+      {
+        src: this.props.sourceMp4,
+        type: 'video/mp4',
+      },
+    ]
     this.videoPlayer = videojs(this.video, videoJsOptions)
   }
 
@@ -182,6 +188,7 @@ const messages = defineMessages({
 Video.propTypes = {
   preview: PropTypes.string,
   src: PropTypes.string.isRequired,
+  sourceMp4: PropTypes.string,
   alt: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,

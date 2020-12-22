@@ -28,11 +28,11 @@ class MediaAttachment < ApplicationRecord
   enum type: [:image, :gifv, :video, :unknown]
 
   IMAGE_FILE_EXTENSIONS = ['.jpg', '.jpeg', '.png', '.gif', '.webp'].freeze
-  VIDEO_FILE_EXTENSIONS = ['.webm', '.mp4', '.m4v'].freeze
+  VIDEO_FILE_EXTENSIONS = ['.webm', '.mp4', '.m4v', '.mov'].freeze
 
   IMAGE_MIME_TYPES             = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'].freeze
-  VIDEO_MIME_TYPES             = ['video/webm', 'video/mp4'].freeze
-  VIDEO_CONVERTIBLE_MIME_TYPES = ['video/webm'].freeze
+  VIDEO_MIME_TYPES             = ['video/webm', 'video/mp4', 'video/quicktime'].freeze
+  VIDEO_CONVERTIBLE_MIME_TYPES = ['video/webm', 'video/quicktime'].freeze
 
   BLURHASH_OPTIONS = {
     x_comp: 4,
@@ -63,6 +63,23 @@ class MediaAttachment < ApplicationRecord
       time: 0,
       file_geometry_parser: FastGeometryParser,
       blurhash: BLURHASH_OPTIONS,
+    },
+    playable: {
+      convert_options: {
+        output: {
+          'loglevel' => 'fatal',
+          'movflags' => 'faststart',
+          'pix_fmt'  => 'yuv420p',
+          'vf'       => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
+          'vsync'    => 'cfr',
+          'c:v'      => 'h264',
+          'b:v'      => '500K',
+          'maxrate'  => '1300K',
+          'bufsize'  => '1300K',
+          'crf'      => 18,
+        },
+      },
+      format: 'mp4',
     },
   }.freeze
 
@@ -170,9 +187,9 @@ class MediaAttachment < ApplicationRecord
       elsif IMAGE_MIME_TYPES.include? f.instance.file_content_type
         IMAGE_STYLES
       elsif VIDEO_CONVERTIBLE_MIME_TYPES.include?(f.instance.file_content_type)
-        puts "tilly convert"
         {
           small: VIDEO_STYLES[:small],
+          playable: VIDEO_STYLES[:playable],
           original: VIDEO_FORMAT,
         }
       else

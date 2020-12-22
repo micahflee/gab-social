@@ -65,6 +65,7 @@ class StatusMedia extends ImmutablePureComponent {
                 preview={video.get('preview_url')}
                 blurhash={video.get('blurhash')}
                 src={video.get('url')}
+                sourceMp4={video.get('source_mp4')}
                 alt={video.get('description')}
                 aspectRatio={video.getIn(['meta', 'small', 'aspect'])}
                 fileContentType={video.get('file_content_type')}

@@ -55,7 +55,7 @@ class MediaGalleryPanel extends ImmutablePureComponent {
         noPadding
         title={intl.formatMessage(messages.title)}
         headerButtonTitle={!!account ? intl.formatMessage(messages.show_all) : undefined}
-        headerButtonTo={!!account ? `/${account.get('acct')}/albums` : undefined}
+        headerButtonTo={!!account ? `/${account.get('acct')}/photos` : undefined}
       > 
         <div className={[_s.d, _s.flexRow, _s.flexWrap, _s.aiCenter, _s.jcCenter].join(' ')}>
           {

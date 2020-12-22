@@ -74,7 +74,6 @@ class AccountPhotoGallery extends ImmutablePureComponent {
 
     if (!account) return null
     const hasAttachments = !!attachments ? attachments.size > 0 : false
-    console.log("account, isLoading, attachments:", account, isLoading, attachments, hasAttachments)
     
     return (
       <Block>
@@ -87,11 +86,11 @@ class AccountPhotoGallery extends ImmutablePureComponent {
               title: 'All Photos',
               to: `/${account.get('username')}/photos`,
             },
-            {
-              title: 'Albums',
-              isActive: true,
-              to: `/${account.get('username')}/albums`,
-            },
+            // {
+            //   title: 'Albums',
+            //   isActive: true,
+            //   to: `/${account.get('username')}/albums`,
+            // },
           ]}/>
         </div>
 
