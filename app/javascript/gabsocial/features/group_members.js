@@ -18,6 +18,7 @@ import ColumnIndicator from '../components/column_indicator'
 import Block from '../components/block'
 import BlockHeading from '../components/block_heading'
 import Input from '../components/input'
+import Text from '../components/text'
 import ScrollableList from '../components/scrollable_list'
 
 class GroupMembers extends ImmutablePureComponent {
@@ -71,21 +72,32 @@ class GroupMembers extends ImmutablePureComponent {
 		if (!isAdminOrMod) return <ColumnIndicator type='missing' />
 		
 		const accountIds = !!query ? searchAcountIds : listAccountIds
+		const accountIdsSize = !!accountIds ? accountIds.size : 0
+		const memberCount = group.get('member_count')
+
+		const blockHeadingTitle = (
+			<React.Fragment>
+				Group Members
+				<Text className={[_s.d, _s.ml10]} size='medium' color='secondary'>
+					({accountIdsSize} of {memberCount})
+				</Text>
+			</React.Fragment>
+		)
 
 		return (
 			<Block>
-				<BlockHeading title='Group Members' />
+				<BlockHeading title={blockHeadingTitle} />
 
-			<div className={[_s.d, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
-				<Input
-					id='group-member-search'
-					placeholder='Search group members'
-					prependIcon='search'
-					value={query}
-					onChange={this.handleOnChange}
-					autoComplete='off'
-				/>
-			</div>
+				<div className={[_s.d, _s.jcCenter, _s.px15, _s.my5, _s.borderBottom1PX, _s.borderColorSecondary, _s.pt5, _s.pb15].join(' ')}>
+					<Input
+						id='group-member-search'
+						placeholder='Search group members'
+						prependIcon='search'
+						value={query}
+						onChange={this.handleOnChange}
+						autoComplete='off'
+					/>
+				</div>
 
 				<div className={[_s.d].join(' ')}>
 					<ScrollableList
