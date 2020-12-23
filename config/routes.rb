@@ -400,19 +400,18 @@ Rails.application.routes.draw do
     end
   end
 
-
   get '/g/:groupSlug', to: 'react#groupBySlug'
+
+  get '/:username/posts/:statusId', to: 'react#status_show', username: username_regex
+  get '/:username/posts/:statusId', to: 'react#status_show', username: username_regex, as: :short_account_status
+  get '/:username/posts/:statusId/embed', to: 'react#embed_status', username: username_regex, as: :embed_short_account_status
+
   get '/(*any)', to: 'react#react', as: :web
+  get '/:username', to: 'react#account_show', username: username_regex, as: :short_account_with_replies
   root 'react#react'
 
   get '/', to: 'react#react', as: :homepage
 
-  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
-  get '/:username/comments', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
-  get '/:username/photos', to: 'accounts#show', username: username_regex, as: :short_account_media
-  get '/:username/posts/:statusId', to: 'statuses#show', username: username_regex
-  get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
-  get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
   get '/about', to: 'react#react'
   get '/about/tos', to: 'react#react'
   get '/about/privacy', to: 'react#react'

@@ -21,8 +21,7 @@ module AccountFinderConcern
     end
 
     def find_acct(acct)
-      username, domain = acct.split("@")
-      find_now(username)
+      find_now(acct)
     end
 
     def find_now(username)

@@ -1,4 +1,4 @@
-- the_title = t('statuses.title', name: display_name(account), quote: truncate(status.spoiler_text.presence || stream_entry.activity.text, length: 50, omission: '…', escape: false))
+- the_title = t('statuses.title', name: display_name(account), quote: truncate(status.spoiler_text.presence, length: 50, omission: '…', escape: false))
 
 - content_for :page_title do
   = the_title
