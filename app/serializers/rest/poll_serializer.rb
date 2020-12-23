@@ -4,7 +4,7 @@ class REST::PollSerializer < ActiveModel::Serializer
   attributes :id, :expires_at, :expired,
              :multiple, :votes_count
 
-  has_many :loaded_options, key: :options
+  has_many :loaded_options, key: :options, serializer: REST::PollOptionSerializer
   has_many :emojis, serializer: REST::CustomEmojiSerializer
 
   attribute :voted, if: :current_user?
@@ -25,7 +25,4 @@ class REST::PollSerializer < ActiveModel::Serializer
     !current_user.nil?
   end
 
-  class OptionSerializer < ActiveModel::Serializer
-    attributes :title, :votes_count
-  end
 end

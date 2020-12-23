@@ -91,6 +91,6 @@ class Poll < ApplicationRecord
   end
 
   def show_totals_now?
-    expired?
+    expired? || !hide_totals?
   end
 end
