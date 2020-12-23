@@ -124,12 +124,26 @@ class PostStatusService < BaseService
   def validate_group!
     group_id = @options[:group_id]
 
+    # All good if no group
     return if group_id.blank?
+
+    # If removed from group, return error immediately
+    if GroupRemovedAccount.where(account: @account, group_id: group_id).exists?
+      raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group')
+      return
+    end
+
+    # Return ok if autojoin flag exists
     return if @autoJoinGroup
 
-    # : todo : check removedaccounts if exist dont allow
+    # Return ok if is reply
+    return unless @in_reply_to.nil?
 
-    raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group') if not GroupAccount.where(account: @account, group_id: group_id).exists?
+    # If is normal post and tries without being a member, return error
+    unless GroupAccount.where(account: @account, group_id: group_id).exists?
+      raise GabSocial::ValidationError, I18n.t('statuses.not_a_member_of_group')
+      return
+    end
   end
 
   def validate_media!
