@@ -12,7 +12,11 @@ class Api::V1::ChatConversations::RequestedConversationsController < Api::BaseCo
   end
 
   def count
-    count = ChatConversationAccount.where(account: current_account, is_hidden: false, is_approved: false).count
+    count = ChatConversationAccount.where(
+      account: current_account,
+      is_hidden: false,
+      is_approved: false,
+    ).where.not(last_chat_message_id: nil).count
     render json: count
   end
 
@@ -27,7 +31,7 @@ class Api::V1::ChatConversations::RequestedConversationsController < Api::BaseCo
       account: current_account,
       is_hidden: false,
       is_approved: false
-    ).paginate_by_max_id(
+    ).where.not(last_chat_message_id: nil).paginate_by_max_id(
       limit_param(DEFAULT_CHAT_CONVERSATION_LIMIT),
       params[:max_id],
       params[:since_id]
