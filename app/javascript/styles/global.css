@@ -1067,12 +1067,13 @@ pre {
   color: var(--color_input_placeholder);
 }
 
-.noScrollbar::-webkit-scrollbar {
-  display: none;
+.noScrollbar::-webkit-scrollbar { 
+  display: none; /* Chrome/Safari/Webkit */
 }
 
 .noScrollbar {
-  -ms-overflow-style: none;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE 10+ */
 }
 
 .saveAreaInsetPB {
