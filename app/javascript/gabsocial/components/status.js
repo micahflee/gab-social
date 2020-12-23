@@ -193,6 +193,11 @@ class Status extends ImmutablePureComponent {
     }
   }
 
+  handleOnOpenStatusModal = (status) => {
+    if (!status) return
+    this.props.onOpenStatusModal(status.get('id'))
+  }
+
   handleExpandedToggle = () => {
     this.props.onToggleHidden(this._properStatus())
   }
@@ -442,6 +447,7 @@ class Status extends ImmutablePureComponent {
                     status={status}
                     reduced={isChild}
                     isCompact={isDeckConnected}
+                    onOpenStatusModal={this.handleOnOpenStatusModal}
                   />
 
                   <div className={_s.d}>
@@ -496,6 +502,7 @@ class Status extends ImmutablePureComponent {
                       onOpenReposts={this.props.onOpenReposts}
                       onQuote={this.handleOnQuote}
                       isCompact={isDeckConnected}
+                      onOpenStatusModal={this.handleOnOpenStatusModal}
                     />
                   }
 

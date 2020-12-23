@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { defineMessages, injectIntl } from 'react-intl'
-import { NavLink } from 'react-router-dom'
 import { me } from '../initial_state'
 import Text from './text'
+import Button from './button'
 import StatusActionBarItem from './status_action_bar_item'
 import { CX } from '../constants'
 
@@ -31,6 +31,10 @@ class StatusActionBar extends ImmutablePureComponent {
 
   handleQuoteClick = () => {
     this.props.onQuote(this.props.status)
+  }
+
+  handleOnOpenStatusModal = () => {
+    this.props.onOpenStatusModal(this.props.status)
   }
 
   openLikesList = () => {
@@ -106,6 +110,7 @@ class StatusActionBar extends ImmutablePureComponent {
       noUnderline: 1,
       underline_onHover: 1,
       bgTransparent: 1,
+      outlineNone: 1,
       mr10: 1,
       py5: 1,
     })
@@ -139,16 +144,18 @@ class StatusActionBar extends ImmutablePureComponent {
             }
             {
               replyCount > 0 &&
-              <NavLink
+              <Button
+                noClasses
                 className={interactionBtnClasses}
-                to={statusUrl}
+                to={isCompact ? undefined : statusUrl}
+                onClick={isCompact ? this.handleOnOpenStatusModal : undefined}
               >
                 <Text color='secondary' size='small'>
                   {intl.formatMessage(messages.commentsLabel, {
                     number: replyCount,
                   })}
                 </Text>
-              </NavLink>
+              </Button>
             }
             {
               repostCount > 0 &&
@@ -232,6 +239,7 @@ StatusActionBar.propTypes = {
   status: ImmutablePropTypes.map.isRequired,
   onOpenLikes: PropTypes.func.isRequired,
   onOpenReposts: PropTypes.func.isRequired,
+  onOpenStatusModal: PropTypes.func.isRequired,
   isCompact: PropTypes.bool,
 }
 

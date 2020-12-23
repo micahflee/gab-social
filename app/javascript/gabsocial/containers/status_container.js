@@ -32,6 +32,7 @@ import {
 import {
   MODAL_BOOST,
   MODAL_CONFIRM,
+  MODAL_STATUS,
   MODAL_PRO_UPGRADE,
   POPOVER_COMMENT_SORTING_OPTIONS,
   POPOVER_STATUS_SHARE,
@@ -339,6 +340,10 @@ const mapDispatchToProps = (dispatch) => ({
 
   onOpenProModal() {
     dispatch(openModal(MODAL_PRO_UPGRADE))
+  },
+
+  onOpenStatusModal(statusId) {
+    dispatch(openModal(MODAL_STATUS, { statusId }))
   },
 
 });

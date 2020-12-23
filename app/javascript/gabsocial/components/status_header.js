@@ -28,6 +28,12 @@ class StatusHeader extends ImmutablePureComponent {
     this.props.onOpenStatusRevisionsPopover(this.props.status)
   }
 
+  handleOnOpenStatusModal = () => {
+    if (!!this.props.onOpenStatusModal) {
+      this.props.onOpenStatusModal(this.props.status)
+    }
+  }
+
   setStatusOptionsButton = n => {
     this.statusOptionsButton = n
   }
@@ -134,7 +140,8 @@ class StatusHeader extends ImmutablePureComponent {
                 underlineOnHover
                 backgroundColor='none'
                 color='none'
-                to={statusUrl}
+                to={isCompact ? undefined : statusUrl}
+                onClick={isCompact ? this.handleOnOpenStatusModal : undefined}
               >
                 <Text size='small' color='secondary'>
                   <RelativeTimestamp timestamp={status.get('created_at')} />
@@ -238,7 +245,9 @@ StatusHeader.propTypes = {
   status: ImmutablePropTypes.map,
   onOpenStatusRevisionsPopover: PropTypes.func.isRequired,
   onOpenStatusOptionsPopover: PropTypes.func.isRequired,
+  onOpenStatusModal: PropTypes.func.isRequired,
   reduced: PropTypes.bool,
+  isCompact: PropTypes.bool,
 }
 
 export default injectIntl(connect(null, mapDispatchToProps)(StatusHeader))

@@ -139,6 +139,7 @@ export function StatusOptionsPopover() { return import(/* webpackChunkName: "com
 export function StatusSharePopover() { return import(/* webpackChunkName: "components/status_share_popover" */'../../../components/popover/status_share_popover') }
 export function StatusPromotionPanel() { return import(/* webpackChunkName: "components/status_promotion_panel" */'../../../components/panel/status_promotion_panel') }
 export function StatusReposts() { return import(/* webpackChunkName: "features/status_reposts" */'../../status_reposts') }
+export function StatusModal() { return import(/* webpackChunkName: "modals/status_modal" */'../../../components/modal/status_modal') }
 export function StatusLikesModal() { return import(/* webpackChunkName: "modals/status_likes_modal" */'../../../components/modal/status_likes_modal') }
 export function StatusRepostsModal() { return import(/* webpackChunkName: "modals/status_reposts_modal" */'../../../components/modal/status_reposts_modal') }
 export function StatusRevisionsModal() { return import(/* webpackChunkName: "modals/status_revisions_modal" */'../../../components/modal/status_revisions_modal') }
