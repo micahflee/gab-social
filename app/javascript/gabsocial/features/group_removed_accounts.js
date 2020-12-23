@@ -51,10 +51,17 @@ class GroupRemovedAccounts extends ImmutablePureComponent {
 			listAccountIds,
 			searchAcountIds,
 			hasMore,
+			relationships,
 			group,
 		} = this.props
 		const { query } = this.state
 
+		if (!group || !relationships) return <ColumnIndicator type='loading' />
+
+		const isAdminOrMod = relationships ? (relationships.get('admin') || relationships.get('moderator')) : false
+
+		if (!isAdminOrMod) return <ColumnIndicator type='missing' />
+		
 		if (!group) return <ColumnIndicator type='loading' />
 
 		const accountIds = !!query ? searchAcountIds : listAccountIds
@@ -107,6 +114,7 @@ const mapStateToProps = (state, { params }) => {
 		listAccountIds: state.getIn(['user_lists', 'group_removed_accounts', groupId, 'items']),
 		searchAcountIds: state.getIn(['group_lists', 'removed_search_accounts']),
 		hasMore: !!state.getIn(['user_lists', 'group_removed_accounts', groupId, 'next']),
+		relationships: state.getIn(['group_relationships', groupId]),
 	}
 }
 
