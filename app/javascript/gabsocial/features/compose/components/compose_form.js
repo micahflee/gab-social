@@ -217,17 +217,6 @@ class ComposeForm extends ImmutablePureComponent {
     const disabledButton =  isSubmitting || isUploading || isChangingUpload || length(text) > MAX_POST_CHARACTER_COUNT || (length(text.trim()) === 0 && !anyMedia)
     const shouldAutoFocus = autoFocus && !isMobile(window.innerWidth)
 
-    const containerClasses = CX({
-      d: 1,
-      pb10: 1,
-      calcMaxH410PX: 1,
-      minH200PX: isModalOpen && isMatch,
-      overflowYScroll: 1,
-      boxShadowBlock: 1,
-      borderTop1PX: 1,
-      borderColorSecondary: 1,
-    })
-
     const textbox = (
       <AutosuggestTextbox
         ref={(isModalOpen && shouldCondense) ? null : this.setAutosuggestTextarea}
@@ -279,9 +268,22 @@ class ComposeForm extends ImmutablePureComponent {
       )
     }
 
+    const containerClasses = CX({
+      d: 1,
+      pb10: 1,
+      calcMaxH410PX: 1,
+      mb10: 1,
+      minH200PX: isModalOpen && isMatch,
+      overflowYScroll: 1,
+      flex1: 1,
+      boxShadowBlock: length(text) > 64,
+      borderTop1PX: 1,
+      borderColorSecondary: 1,
+    })
+
     return (
       <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary].join(' ')}>
-        <div className={[_s.d, _s.calcMaxH410PX, _s.overflowYScroll].join(' ')}>
+        <div className={[_s.d, _s.calcMaxH410PX, _s.minH98PX].join(' ')}>
 
           <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
 

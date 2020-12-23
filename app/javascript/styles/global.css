@@ -555,7 +555,7 @@ pre {
 
 .calcMaxH410PX { max-height: calc(100vh - 450px); }
 @media (min-width: 0px) and (max-width:992) { .calcMaxH410PX { max-height: calc(100vh - 410px); }  }
-@media (min-height: 0px) and (max-height:660px) { .calcMaxH410PX { max-height: calc(100vh - 140px); } }
+@media (min-height: 0px) and (max-height:660px) { .calcMaxH410PX { max-height: calc(100vh - 240px); } }
 
 .minH100VH { min-height: 100vh; }
 .minH50VH { min-height: 50vh; }

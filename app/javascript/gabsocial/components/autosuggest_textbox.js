@@ -197,6 +197,7 @@ class AutosuggestTextbox extends ImmutablePureComponent {
     const textareaContainerClasses = CX({
       d: 1,
       maxW100PC: 1,
+      h100PC: !small,
       flexGrow1: small,
       jcCenter: small,
       py5: small,
@@ -225,7 +226,7 @@ class AutosuggestTextbox extends ImmutablePureComponent {
     return (
       <React.Fragment>
         <div className={textareaContainerClasses}>
-          <label htmlFor={id} className={_s.visiblyHidden}>
+          <label htmlFor={id} className={[_s.visiblyHidden, _s.displayNone].join(' ')}>
             {placeholder}
           </label>
           

@@ -255,10 +255,11 @@ class Composer extends React.PureComponent {
       px15: !small,
       px10: small,
       pb10: !small,
+      h100PC: !small,
     })
 
     return (
-      <div className={_s.d}>
+      <div className={[_s.d, _s.flex1].join(' ')}>
 
         {
           isPro &&
