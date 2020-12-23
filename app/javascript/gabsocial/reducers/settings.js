@@ -91,13 +91,13 @@ export default function settings(state = initialState, action) {
     const newIndex = Math.min(Math.max(action.index || 0, sizeOfDeck), GAB_DECK_MAX_ITEMS)
     return state.setIn(['gabDeckOrder', newIndex + 1], action.column).set('saved', false)
   case DECK_DELETE_COLUMN_AT_INDEX:
-    return state.deleteIn(['gabDeckOrder', action.index])
+    return state.deleteIn(['gabDeckOrder', action.index]).set('saved', false)
   case DECK_CHANGE_COLUMN_AT_INDEX:
     return state.update('gabDeckOrder', idsList => idsList.withMutations((list) => {
       let soruce = list.get(action.oldIndex)
       let destination = list.get(action.newIndex)
       return list.set(action.newIndex, soruce).set(action.oldIndex, destination)
-    }))
+    })).set('saved', false)
   default:
     return state
   }
