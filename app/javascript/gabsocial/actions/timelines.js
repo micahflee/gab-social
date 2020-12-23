@@ -24,6 +24,13 @@ const parseTags = (tags = {}, mode) => {
   return (tags[mode] || []).map((tag) => tag.value)
 }
 
+const fetchStatusesAccountsRelationships = (dispatch, statuses) => {
+  const accountIds = statuses.map(item => item.account.id)
+  if (accountIds.length > 0) {
+    dispatch(fetchRelationships(accountIds))
+  }
+}
+
 /**
  * 
  */
@@ -154,6 +161,7 @@ export const expandTimeline = (timelineId, path, params = {}, done = noop) => (d
     const next = getLinks(response).refs.find(link => link.rel === 'next')
     dispatch(importFetchedStatuses(response.data))
     dispatch(expandTimelineSuccess(timelineId, response.data, next ? next.uri : null, response.code === 206, isLoadingRecent, isLoadingMore))
+    fetchStatusesAccountsRelationships(dispatch, response.data)
     done()
   }).catch((error) => {
     dispatch(expandTimelineFail(timelineId, error, isLoadingMore))
