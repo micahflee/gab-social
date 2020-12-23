@@ -117,7 +117,7 @@ const createGroupFail = (error) => ({
 const updateGroup = (groupId, options, routerHistory) => (dispatch, getState) => {
 	if (!me) return
 
-	dispatch(updateRequest())
+	dispatch(updateGroupRequest())
 
 	const formData = new FormData()
 	formData.append('title', options.title)
