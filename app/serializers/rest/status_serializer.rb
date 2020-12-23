@@ -60,9 +60,6 @@ class REST::StatusSerializer < ActiveModel::Serializer
 
   def uri
     "/#{object.account.username}/posts/#{object.id}"
-    # uri: "https://gab.com/users/a/statuses/105075286733432550"
-    # url: "https://gab.com/a/posts/105075286733432550"
-    # TagManager.instance.uri_for(object)
   end
 
   def content

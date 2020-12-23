@@ -407,14 +407,12 @@ Rails.application.routes.draw do
 
   get '/', to: 'react#react', as: :homepage
 
-  # : todo :
-  # get '/:username/with_replies', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
-  # get '/:username/comments_only', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
-  # get '/:username/media', to: 'accounts#show', username: username_regex, as: :short_account_media
-  # get '/:username/tagged/:tag', to: 'accounts#show', username: username_regex, as: :short_account_tag
-  # get '/:username/posts/:statusId/reblogs', to: 'statuses#show', username: username_regex
-  # get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
-  # get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
+  get '/:username', to: 'accounts#show', username: username_regex, as: :short_account_with_replies
+  get '/:username/comments', to: 'accounts#show', username: username_regex, as: :short_account_comments_only
+  get '/:username/photos', to: 'accounts#show', username: username_regex, as: :short_account_media
+  get '/:username/posts/:statusId', to: 'statuses#show', username: username_regex
+  get '/:account_username/posts/:id', to: 'statuses#show', account_username: username_regex, as: :short_account_status
+  get '/:account_username/posts/:id/embed', to: 'statuses#embed', account_username: username_regex, as: :embed_short_account_status
   get '/about', to: 'react#react'
   get '/about/tos', to: 'react#react'
   get '/about/privacy', to: 'react#react'
