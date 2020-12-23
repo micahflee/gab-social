@@ -122,7 +122,9 @@ export const makeGetStatus = () => {
       (state) => state,
       (state, { id }) => state.getIn(['statuses', id]),
       (state, { id }) => state.getIn(['groups', state.getIn(['statuses', id, 'group'])]),
+      (state, { id }) => state.getIn(['groups', state.getIn(['statuses', state.getIn(['statuses', id, 'reblog']), 'group'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id'])]),
+      (state, { id }) => state.getIn(['groups', state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id']), 'group'])]),
       (state, { id }) => state.getIn(['statuses', state.getIn(['statuses', id, 'reblog'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', id, 'account'])]),
       (state, { id }) => state.getIn(['accounts', state.getIn(['statuses', state.getIn(['statuses', id, 'quote_of_id']), 'account'])]),
@@ -131,7 +133,7 @@ export const makeGetStatus = () => {
       getFilters,
     ],
 
-    (state, statusBase, group, quotedStatus, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
+    (state, statusBase, group, groupRepost, quotedStatus, quotedStatusGroup, statusRepost, accountBase, accountQuoted, accountRepost, username, filters) => {
       if (!statusBase) {
         return null
       }
@@ -144,6 +146,7 @@ export const makeGetStatus = () => {
 
       if (statusRepost) {
         statusRepost = statusRepost.set('account', accountRepost)
+        if (groupRepost) statusRepost = statusRepost.set('group', groupRepost)
 
         //Check if theres a quoted post that
         const statusRepostQuoteId = statusRepost.get('quote_of_id')
@@ -164,6 +167,7 @@ export const makeGetStatus = () => {
 
       if (quotedStatus) {
         quotedStatus = quotedStatus.set('account', accountQuoted);
+        if (quotedStatusGroup) quotedStatus = quotedStatus.set('group', quotedStatusGroup)
       }
 
       //Find ancestor status
