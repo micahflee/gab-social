@@ -15,10 +15,10 @@ import Button from '../components/button'
 class AccountTimeline extends ImmutablePureComponent {
 
   componentWillMount() {
-    const { accountId, commentsOnly } = this.props
+    const { accountId, commentsOnly, isDeckConnected } = this.props
 
     if (accountId && accountId !== -1) {
-      if (!commentsOnly) {
+      if (!commentsOnly && !isDeckConnected) {
         this.props.dispatch(expandAccountFeaturedTimeline(accountId))
       }
 
@@ -28,7 +28,7 @@ class AccountTimeline extends ImmutablePureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.accountId && nextProps.accountId !== -1 && (nextProps.accountId !== this.props.accountId && nextProps.accountId) || nextProps.commentsOnly !== this.props.commentsOnly) {
-      if (!nextProps.commentsOnly) {
+      if (!nextProps.commentsOnly && !nextProps.isDeckConnected) {
         this.props.dispatch(expandAccountFeaturedTimeline(nextProps.accountId))
       }
 
@@ -101,6 +101,7 @@ const mapStateToProps = (state, { id, account, commentsOnly = false }) => {
 
   return {
     accountId,
+    isDeckConnected: state.getIn(['deck', 'connected'], false),
     statusIds: state.getIn(['timelines', `account:${path}`, 'items'], emptyList),
     featuredStatusIds: commentsOnly ? ImmutableList() : state.getIn(['timelines', `account:${accountId}:pinned`, 'items'], emptyList),
     isLoading: state.getIn(['timelines', `account:${path}`, 'isLoading'], true),
@@ -116,6 +117,7 @@ AccountTimeline.propTypes = {
   isLoading: PropTypes.bool,
   hasMore: PropTypes.bool,
   commentsOnly: PropTypes.bool,
+  isDeckConnected: PropTypes.bool,
   intl: PropTypes.object.isRequired,
   isMe: PropTypes.bool.isRequired,
 }

@@ -36,6 +36,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			sortByValue,
 			sortByTopValue,
 			onlyMedia,
+			isDeckConnected,
 		} = this.props
 
 		if (sortByValue !== GROUP_TIMELINE_SORTING_TYPE_NEWEST) {
@@ -43,7 +44,9 @@ class GroupTimeline extends ImmutablePureComponent {
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue, onlyMedia)
 
-			this.props.onExpandGroupFeaturedTimeline(groupId)
+			if (!isDeckConnected) {
+				this.props.onExpandGroupFeaturedTimeline(groupId)
+			}
 			this.props.onExpandGroupTimeline(groupId, { sortBy, onlyMedia })
 		}
 	}
@@ -57,7 +60,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			this.props.onClearTimeline(`group:${this.props.groupId}`)
 		}
 
-		if (prevProps.groupId !== this.props.groupId) {
+		if (prevProps.groupId !== this.props.groupId && !this.props.isDeckConnected) {
 			this.props.onExpandGroupFeaturedTimeline(this.props.groupId)
 		}
 	}
@@ -127,6 +130,7 @@ const mapStateToProps = (state, props) => ({
 	groupPinnedStatusIds: state.getIn(['timelines', `group:${props.params.id}:pinned`, 'items'], emptyList),
 	sortByValue: state.getIn(['group_lists', 'sortByValue']),
 	sortByTopValue: state.getIn(['group_lists', 'sortByTopValue']),
+	isDeckConnected: state.getIn(['deck', 'connected'], false),
 })
 
 const mapDispatchToProps = (dispatch) => ({
