@@ -260,6 +260,8 @@ export const expandCommunityTimeline = ({ maxId, onlyMedia } = {}, done = noop) 
  * 
  */
 export const expandAccountTimeline = (accountId, { maxId, withReplies, commentsOnly } = {}) => {
+  if (!accountId) return
+  
   let key = `account:${accountId}${withReplies ? ':with_replies' : ''}${commentsOnly ? ':comments_only' : ''}`
   return expandTimeline(key, `/api/v1/accounts/${accountId}/statuses`, {
     only_comments: commentsOnly,

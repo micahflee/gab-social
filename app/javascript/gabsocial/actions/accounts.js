@@ -97,6 +97,7 @@ function getFromDB(dispatch, getState, index, id) {
  */
 export const fetchAccount = (id) => (dispatch, getState) => {
   if (id === -1 || getState().getIn(['accounts', id], null) !== null) return
+  if (!id) return
 
   dispatch(fetchRelationships([id]))
   dispatch(fetchAccountRequest(id))
