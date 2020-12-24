@@ -38,7 +38,7 @@ class ReactController < ApplicationController
   end
 
   def account_show
-    # : todo :
+    return process(:react)
   end
 
   private
