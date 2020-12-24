@@ -5,9 +5,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
   before_action :set_sort_type
   before_action :set_statuses
 
-  after_action :insert_pagination_headers, unless: -> {
-    @statuses.empty?
-  }
+  after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   def show
     if current_user
@@ -52,9 +50,11 @@ class Api::V1::Timelines::GroupController < Api::BaseController
 
   def group_statuses
     if current_account
-      SortingQueryBuilder.new.call(@sort_type, params[:max_id], @group).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+      SortingQueryBuilder.new.call(@sort_type, @group, params[:page]).reject {|status|
+        FeedManager.instance.filter?(:home, status, current_account.id)
+      }
     else
-      SortingQueryBuilder.new.call(@sort_type, params[:max_id], @group)
+      SortingQueryBuilder.new.call(@sort_type, @group, params[:page])
     end
 
   end

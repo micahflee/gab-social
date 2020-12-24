@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
 class SortingQueryBuilder < BaseService  
-  def call(sort_type, max_id = nil, group = nil)
-    min_likes = 20
-    min_reblogs = 10
-    min_replies = 2
+  def call(sort_type, group = nil, page = 1)
+    limit = 20
+
+    min_likes = 5
+    min_reblogs = 2
+    min_replies = 1
     date_limit = 30.days.ago
+    max_page = 8
 
     case sort_type
     when 'hot'
@@ -32,14 +35,35 @@ class SortingQueryBuilder < BaseService
       'top_all_time',
     ]
 
-    query = Status.unscoped.without_replies
-    query = query.joins(:status_stat).order(top_order) unless ['newest'].include? sort_type
-    query = query.where('statuses.created_at > ?', date_limit)
-    query = query.where(group: group) unless group.nil?
-    query = query.where('statuses.id > ? AND statuses.id <> ?', max_id, max_id) unless max_id.nil? || max_id.empty?
-    query = query.limit(20)
-    
-    query
+    if page.to_i > max_page
+      return []
+    end
+
+    if sort_type == 'newest'
+      query = Status.without_replies.without_reblogs
+      query = query.with_public_visibility if group.nil?
+      query = query.where('statuses.created_at > ?', date_limit)
+      query = query.where(group: group) unless group.nil?
+      query = query.page(page.to_i)
+      query = query.per(limit)
+      return query
+    else
+      query = StatusStat.where('status_stats.created_at > ?', date_limit)
+      query = query.order(top_order) unless sort_type == 'recent'
+      query = query.order(updated_at: :desc) if sort_type == 'recent'
+      query = query.where('status.stats.replies_count > ?', min_replies) unless sort_type == 'recent'
+      query = query.where('status.stats.reblogs_count > ?', min_reblogs) unless sort_type == 'recent'
+      query = query.where('status.stats.favourites_count > ?', min_likes) unless sort_type == 'recent'
+      query = query.joins(:status)
+      query = query.where('statuses.reblog_of_id IS NULL')
+      query = query.where('statuses.in_reply_to_id IS NULL')
+      query = query.where('statuses.group_id': group) unless group.nil?
+      query = query.where('statuses.visibility': 0) if group.nil?
+      query = query.page(page)
+      query = query.per(limit)
+      query = query.map(&:status)
+      return query
+    end
   end
 
 end

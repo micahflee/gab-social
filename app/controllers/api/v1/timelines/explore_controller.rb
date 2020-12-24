@@ -4,9 +4,7 @@ class Api::V1::Timelines::ExploreController < EmptyController
   before_action :set_sort_type
   before_action :set_statuses
 
-  after_action :insert_pagination_headers, unless: -> {
-    @statuses.empty?
-  }
+  after_action :insert_pagination_headers, unless: -> { @statuses.empty? }
 
   def show
     if current_user
@@ -46,9 +44,11 @@ class Api::V1::Timelines::ExploreController < EmptyController
 
   def explore_statuses
     if current_account
-      SortingQueryBuilder.new.call(@sort_type, params[:max_id]).reject { |status| FeedManager.instance.filter?(:home, status, current_account.id) }
+      SortingQueryBuilder.new.call(@sort_type, nil, params[:page]).reject {|status|
+        FeedManager.instance.filter?(:home, status, current_account.id)
+      }
     else
-      SortingQueryBuilder.new.call(@sort_type, params[:max_id])
+      SortingQueryBuilder.new.call(@sort_type, nil, params[:page])
     end
   end
 

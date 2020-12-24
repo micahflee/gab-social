@@ -25,9 +25,9 @@ import GroupSortBlock from '../components/group_sort_block'
 class GroupTimeline extends ImmutablePureComponent {
 
 	state = {
-		//keep track of loads for if no user, 
-		//only allow 2 loads before showing sign up msg
-		loadCount: 0,
+		//keep track of page loads for if no user, 
+		//only allow 2 page loads before showing sign up msg
+		page: 1,
 	}
 	
 	componentDidMount() {
@@ -72,17 +72,19 @@ class GroupTimeline extends ImmutablePureComponent {
 			sortByTopValue,
 			onlyMedia,
 		} = this.props
-		const { loadCount } = this.state
-
-		if (!!maxId && !me) {
-			this.setState({ loadCount: this.state.loadCount + 1 })
-			if (loadCount >= 2) return false
-		} else if (!maxId && loadCount !== 0) {
-			this.setState({ loadCount: 0 })
-		}
+		const { page } = this.state
+		
+		const newPage = !!maxId ? this.state.page + 1 : 1
+		if (!!maxId && !me && page >= 2) return false
+		this.setState({ page: newPage })
 		
 		const sortBy = getSortBy(sortByValue, sortByTopValue)
-		this.props.onExpandGroupTimeline(groupId, { sortBy, maxId, onlyMedia })
+		this.props.onExpandGroupTimeline(groupId, {
+			sortBy,
+			maxId,
+			onlyMedia,
+			page: newPage,
+		})
 	}
 
 	render() {
@@ -92,7 +94,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			intl,
 			groupPinnedStatusIds,
 		} = this.props
-		const { loadCount } = this.state
+		const { page } = this.state
 
 		if (typeof group === 'undefined') {
 			return <ColumnIndicator type='loading' />
@@ -100,7 +102,7 @@ class GroupTimeline extends ImmutablePureComponent {
 			return <ColumnIndicator type='missing' />
 		}
 
-		const canLoadMore = loadCount < 2 && !me || !!me
+		const canLoadMore = page < 2 && !me || !!me
 
 		return (
 			<React.Fragment>

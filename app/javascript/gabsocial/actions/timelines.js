@@ -230,8 +230,9 @@ export const expandHomeTimeline = ({ maxId } = {}, done = noop) => {
 /**
  * 
  */
-export const expandExploreTimeline = ({ maxId, sortBy } = {}, done = noop) => {
+export const expandExploreTimeline = ({ maxId, sortBy, page } = {}, done = noop) => {
   return expandTimeline('explore', '/api/v1/timelines/explore', {
+    page,
     max_id: maxId,
     sort_by: sortBy,
   }, done)
@@ -303,10 +304,11 @@ export const expandListTimeline = (id, { maxId } = {}, done = noop) => {
 /**
  * 
  */
-export const expandGroupTimeline = (id, { sortBy, maxId, onlyMedia } = {}, done = noop) => {
+export const expandGroupTimeline = (id, { sortBy, maxId, onlyMedia, page } = {}, done = noop) => {
   if (!id) return
 
   return expandTimeline(`group:${id}`, `/api/v1/timelines/group/${id}`, {
+    page,
     sort_by: sortBy,
     max_id: maxId,
     only_media: onlyMedia
@@ -323,8 +325,9 @@ export const expandGroupFeaturedTimeline = (groupId, done = noop) => {
 /**
  * 
  */
-export const expandGroupCollectionTimeline = (collectionType, { sortBy, maxId } = {}, done = noop) => {
+export const expandGroupCollectionTimeline = (collectionType, { sortBy, maxId, page } = {}, done = noop) => {
   return expandTimeline(`group_collection:${collectionType}`, `/api/v1/timelines/group_collection/${collectionType}`, {
+    page,
     sort_by: sortBy,
     max_id: maxId,
   }, done)
