@@ -19,6 +19,7 @@ class ProPage extends React.PureComponent {
 
     return (
       <DefaultLayout
+        showBackBtn
         title={title}
         page='pro'
         layout={[
