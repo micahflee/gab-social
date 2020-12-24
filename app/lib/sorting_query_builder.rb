@@ -51,9 +51,9 @@ class SortingQueryBuilder < BaseService
       query = StatusStat.where('status_stats.created_at > ?', date_limit)
       query = query.order(top_order) unless sort_type == 'recent'
       query = query.order(updated_at: :desc) if sort_type == 'recent'
-      query = query.where('status.stats.replies_count > ?', min_replies) unless sort_type == 'recent'
-      query = query.where('status.stats.reblogs_count > ?', min_reblogs) unless sort_type == 'recent'
-      query = query.where('status.stats.favourites_count > ?', min_likes) unless sort_type == 'recent'
+      query = query.where('status_stats.replies_count > ?', min_replies) unless sort_type == 'recent'
+      query = query.where('status_stats.reblogs_count > ?', min_reblogs) unless sort_type == 'recent'
+      query = query.where('status_stats.favourites_count > ?', min_likes) unless sort_type == 'recent'
       query = query.joins(:status)
       query = query.where('statuses.reblog_of_id IS NULL')
       query = query.where('statuses.in_reply_to_id IS NULL')

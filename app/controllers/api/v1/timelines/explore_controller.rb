@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::Timelines::ExploreController < EmptyController
+class Api::V1::Timelines::ExploreController < Api::BaseController
   before_action :set_sort_type
   before_action :set_statuses
 
