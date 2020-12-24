@@ -45,7 +45,7 @@ class TagManager
 
     case target.object_type
     when :person
-      "/#{target.username}"
+      short_account_with_replies_url(target)
     when :note, :comment, :activity
       short_account_status_url(target.account, target)
     end

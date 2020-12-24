@@ -35,7 +35,7 @@ import {
   MODAL_STATUS,
   MODAL_PRO_UPGRADE,
   POPOVER_COMMENT_SORTING_OPTIONS,
-  POPOVER_STATUS_SHARE,
+  POPOVER_SHARE,
   COMMENT_SORTING_TYPE_OLDEST,
   COMMENT_SORTING_TYPE_NEWEST,
   COMMENT_SORTING_TYPE_TOP,
@@ -323,7 +323,7 @@ const mapDispatchToProps = (dispatch) => ({
       }
     } 
 
-    dispatch(openPopover(POPOVER_STATUS_SHARE, {
+    dispatch(openPopover(POPOVER_SHARE, {
       targetRef,
       status,
       position: 'top',

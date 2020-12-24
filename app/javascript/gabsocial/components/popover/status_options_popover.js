@@ -45,7 +45,7 @@ import {
 } from '../../actions/popover'
 import {
   MODAL_PRO_UPGRADE,
-  POPOVER_STATUS_SHARE,
+  POPOVER_SHARE,
 } from '../../constants'
 import PopoverLayout from './popover_layout'
 import Button from '../button'
@@ -529,7 +529,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   onOpenSharePopover(targetRef, status) {
     dispatch(closePopover())
-    dispatch(openPopover(POPOVER_STATUS_SHARE, {
+    dispatch(openPopover(POPOVER_SHARE, {
       targetRef,
       status,
       position: 'top',

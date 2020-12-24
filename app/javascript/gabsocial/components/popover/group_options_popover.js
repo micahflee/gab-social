@@ -8,7 +8,11 @@ import {
   addShortcut,
   removeShortcut,
 } from '../../actions/shortcuts'
-import { closePopover } from '../../actions/popover'
+import {
+  openPopover,
+  closePopover,
+} from '../../actions/popover'
+import { POPOVER_SHARE } from '../../constants'
 import PopoverLayout from './popover_layout'
 import List from '../list'
 
@@ -25,6 +29,10 @@ class GroupOptionsPopover extends ImmutablePureComponent {
     } else {
       this.props.onAddShortcut(this.props.group.get('id'))
     }
+  }
+
+  handleOnShare = () => {
+    this.props.onShare(this.props.group)
   }
 
   render() {
@@ -66,8 +74,16 @@ class GroupOptionsPopover extends ImmutablePureComponent {
         to: `/groups/${groupId}/edit`,
         isHidden: !isAdmin,
       })
+      listItems.push({})
     }
       
+    listItems.push({
+      hideArrow: true,
+      icon: 'share',
+      title: 'Share group',
+      onClick: this.handleOnShare,
+    })
+    listItems.push({})
     listItems.push({
       hideArrow: true,
       icon: 'star',
@@ -109,13 +125,20 @@ const mapStateToProps = (state, { group }) => {
   return { isShortcut }
 }
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, { innerRef }) => ({
   onClosePopover: () => dispatch(closePopover()),
   onAddShortcut(groupId) {
     dispatch(addShortcut('group', groupId))
   },
   onRemoveShortcut(groupId) {
     dispatch(removeShortcut(null, 'group', groupId))
+  },
+  onShare(group) {
+    dispatch(openPopover(POPOVER_SHARE, {
+      innerRef,
+      group,
+      position: 'top',
+    }))
   },
 })
 

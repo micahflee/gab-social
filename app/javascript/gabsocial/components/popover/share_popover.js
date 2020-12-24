@@ -3,20 +3,51 @@ import PropTypes from 'prop-types'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import { connect } from 'react-redux'
-import { defineMessages, injectIntl } from 'react-intl'
 import { openModal } from '../../actions/modal'
 import { showToast } from '../../actions/toasts'
 import { closePopover } from '../../actions/popover'
+import { TOAST_TYPE_SUCCESS } from '../../constants'
 import PopoverLayout from './popover_layout'
 import Button from '../button'
 import Heading from '../heading'
 import Text from '../text'
 import List from '../list'
 
-class StatusSharePopover extends ImmutablePureComponent {
+class SharePopover extends ImmutablePureComponent {
+
+  state = {
+    url: '',
+    type: '',
+  }
+
+  componentDidMount() {
+    this._setUrl()
+  }
+  
+  componentDidUpdate() {
+    this._setUrl()
+  }
+
+  _setUrl = () => {
+    const { account, group, status } = this.props
+    let url, type
+    
+    if (!!account) {
+      type = 'account'
+      url = account.get('url')
+    } else if (!!group) {
+      type = 'group'
+      url = group.get('url')
+    } else if (!!status) {
+      type = 'status'
+      url = status.get('url')
+    }
+
+    this.setState({ url, type })
+  }
 
   handleCopy = () => {
-    const url = this.props.status.get('url')
+    const { url } = this.state
     const textarea = document.createElement('textarea')
 
     textarea.textContent = url
@@ -41,13 +72,12 @@ class StatusSharePopover extends ImmutablePureComponent {
   }
 
   render() {
-    const { intl, status } = this.props
+    const { url, type } = this.state
 
-    if (!status) return <div />
+    if (!url) return <div />
 
-    const encodedStatusUrl = encodeURIComponent(status.get('url'))
-    const mailToHref = `mailto:?subject=Gab&body=${encodedStatusUrl}`
-    const content = status.get('contentHtml')
+    const encodedUrl = encodeURIComponent(url)
+    const mailToHref = `mailto:?subject=Gab&body=${encodedUrl}`
     const iconSize = '18px'
 
     return (
@@ -56,7 +86,7 @@ class StatusSharePopover extends ImmutablePureComponent {
       >
         <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
           <Heading size='h3'>
-            Share Gab
+            Share Gab {type}
           </Heading>
         </div>
         <div className={[_s.d, _s.w100PC, _s.px15, _s.py15, _s.flexRow, _s.noScrollbar, _s.aiCenter, _s.overflowXScroll, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
@@ -67,7 +97,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             color='primary'
             backgroundColor='secondary'
             onClick={this.handleCopy}
-            title={intl.formatMessage(messages.copy)}
+            title={`Copy this ${type}`}
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
           />
           <Button
@@ -76,7 +106,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href={`sms:+&body=${encodedStatusUrl}`}
+            href={`sms:+&body=${encodedUrl}`}
             target='_blank'
             title='Share via text message'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgSMS].join(' ')}
@@ -87,7 +117,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodedStatusUrl}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
             target='_blank'
             title='Share on Facebook'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgFacebook].join(' ')}
@@ -98,7 +128,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href={`https://twitter.com/intent/tweet?url=${encodedStatusUrl}`}
+            href={`https://twitter.com/intent/tweet?url=${encodedUrl}`}
             target='_blank'
             title='Share on Twitter'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgTwitter].join(' ')}
@@ -109,7 +139,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href={`https://telegram.me/share/?url=${encodedStatusUrl}`}
+            href={`https://telegram.me/share/?url=${encodedUrl}`}
             target='_blank'
             title='Share on Telegram'
             className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10, _s.bgTelegram].join(' ')}
@@ -120,7 +150,7 @@ class StatusSharePopover extends ImmutablePureComponent {
             iconClassName={_s.inheritFill}
             color='white'
             backgroundColor='none'
-            href={`http://www.reddit.com/submit?url=${encodedStatusUrl}&title=Gab`}
+            href={`http://www.reddit.com/submit?url=${encodedUrl}&title=Gab`}
             title='Share on Reddit'
             target='_blank'
             className={[_s.jcCenter, _s.aiCenter, _s.px10, _s.mr10, _s.bgReddit].join(' ')}
@@ -152,22 +182,20 @@ class StatusSharePopover extends ImmutablePureComponent {
   }
 }
 
-const messages = defineMessages({
-  email: { id: 'status.email', defaultMessage: 'Email this gab' },
-  copy: { id: 'status.copy', defaultMessage: 'Copy link to status' },
-})
-
 const mapDispatchToProps = (dispatch) => ({
   onClosePopover: () => dispatch(closePopover()),
   onShowCopyToast() {
-    dispatch(showToast())
+    dispatch(showToast(TOAST_TYPE_SUCCESS, {
+      type: "SUCCESSFULLY_COPIED_TO_CLIPBOARD"
+    }))
   },
 })
 
-StatusSharePopover.propTypes = {
-  intl: PropTypes.object.isRequired,
+SharePopover.propTypes = {
   onClosePopover: PropTypes.func.isRequired,
-  status: ImmutablePropTypes.map.isRequired,
+  account: ImmutablePropTypes.map,
+  group: ImmutablePropTypes.map,
+  status: ImmutablePropTypes.map,
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(StatusSharePopover))
+export default connect(null, mapDispatchToProps)(SharePopover)

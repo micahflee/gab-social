@@ -17,7 +17,11 @@ import {
 } from '../../actions/shortcuts'
 import { initReport } from '../../actions/reports'
 import { openModal } from '../../actions/modal'
-import { closePopover } from '../../actions/popover'
+import {
+  openPopover,
+  closePopover,
+} from '../../actions/popover'
+import { POPOVER_SHARE } from '../../constants'
 import { unfollowModal, me, isStaff } from '../../initial_state'
 import { makeGetAccount } from '../../selectors'
 import PopoverLayout from './popover_layout'
@@ -37,14 +41,12 @@ class ProfileOptionsPopover extends React.PureComponent {
     if (!account) return menu
     if (account.get('id') === me) return menu
 
-    if ('share' in navigator) {
-      menu.push({
-        hideArrow: true,
-        icon: 'share',
-        title: intl.formatMessage(messages.share, { name: account.get('username') }),
-        onClick: this.handleShare
-      });
-    }
+    menu.push({
+      hideArrow: true,
+      icon: 'share',
+      title: intl.formatMessage(messages.share, { name: account.get('username') }),
+      onClick: this.handleShare
+    });
 
     menu.push({
       hideArrow: true,
@@ -119,7 +121,7 @@ class ProfileOptionsPopover extends React.PureComponent {
   }
 
   handleShare = () => {
-    // : todo :
+    this.props.onShare(this.props.account)
   }
 
   handleFollow = () => {
@@ -225,7 +227,7 @@ const mapStateToProps = (state, { account }) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, { intl }) => ({
+const mapDispatchToProps = (dispatch, { intl, innerRef }) => ({
   onFollow(account) {
     if (account.getIn(['relationship', 'following']) || account.getIn(['relationship', 'requested'])) {
       if (unfollowModal) {
@@ -290,6 +292,13 @@ const mapDispatchToProps = (dispatch, { intl }) => ({
   onRemoveShortcut(accountId) {
     dispatch(closePopover())
     dispatch(removeShortcut(null, 'account', accountId))
+  },
+  onShare(account) {
+    dispatch(openPopover(POPOVER_SHARE, {
+      innerRef,
+      account,
+      position: 'top',
+    }))
   },
 })
 

@@ -5,7 +5,7 @@ class REST::GroupSerializer < ActiveModel::Serializer
   
   attributes :id, :title, :description, :description_html,
              :cover_image_url, :is_archived, :member_count,
-             :created_at, :is_private, :is_visible, :slug,
+             :created_at, :is_private, :is_visible, :slug, :url,
              :tags, :group_category, :password, :has_password
 
   def id
@@ -59,4 +59,9 @@ class REST::GroupSerializer < ActiveModel::Serializer
 
     full_asset_url(object.cover_image.url)
   end
+
+  def url
+    group_show_page_url(object)
+  end
+  
 end

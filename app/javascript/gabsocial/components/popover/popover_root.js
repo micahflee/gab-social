@@ -18,7 +18,7 @@ import {
   POPOVER_SIDEBAR_MORE,
   POPOVER_STATUS_OPTIONS,
   POPOVER_STATUS_EXPIRATION_OPTIONS,
-  POPOVER_STATUS_SHARE,
+  POPOVER_SHARE,
   POPOVER_STATUS_VISIBILITY,
   POPOVER_TIMELINE_INJECTION_OPTIONS,
   POPOVER_USER_INFO,
@@ -43,7 +43,7 @@ import {
   SidebarMorePopover,
   StatusExpirationOptionsPopover,
   StatusOptionsPopover,
-  StatusSharePopover,
+  SharePopover,
   StatusVisibilityPopover,
   TimelineInjectionOptionsPopover,
   UserInfoPopover,
@@ -82,7 +82,7 @@ const POPOVER_COMPONENTS = {
   [POPOVER_SIDEBAR_MORE]: SidebarMorePopover,
   [POPOVER_STATUS_OPTIONS]: StatusOptionsPopover,
   [POPOVER_STATUS_EXPIRATION_OPTIONS]: StatusExpirationOptionsPopover,
-  [POPOVER_STATUS_SHARE]: StatusSharePopover,
+  [POPOVER_SHARE]: SharePopover,
   [POPOVER_STATUS_VISIBILITY]: StatusVisibilityPopover,
   [POPOVER_TIMELINE_INJECTION_OPTIONS]: TimelineInjectionOptionsPopover,
   [POPOVER_USER_INFO]: UserInfoPopover,
@@ -133,6 +133,10 @@ class PopoverRoot extends React.PureComponent {
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
     return <ErrorPopover isXS={isXS} onClose={this.props.onClose} />
+  }
+
+  setRef = () => {
+    // : todo : ?
   }
 
   render() {

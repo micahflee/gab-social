@@ -136,7 +136,7 @@ export function SignUpPanel() { return import(/* webpackChunkName: "components/s
 export function StatusExpirationOptionsPopover() { return import(/* webpackChunkName: "components/status_expiration_options_popover" */'../../../components/popover/status_expiration_options_popover') }
 export function StatusLikes() { return import(/* webpackChunkName: "features/status_likes" */'../../status_likes') }
 export function StatusOptionsPopover() { return import(/* webpackChunkName: "components/status_options_popover" */'../../../components/popover/status_options_popover') }
-export function StatusSharePopover() { return import(/* webpackChunkName: "components/status_share_popover" */'../../../components/popover/status_share_popover') }
+export function SharePopover() { return import(/* webpackChunkName: "components/share_popover" */'../../../components/popover/share_popover') }
 export function StatusPromotionPanel() { return import(/* webpackChunkName: "components/status_promotion_panel" */'../../../components/panel/status_promotion_panel') }
 export function StatusReposts() { return import(/* webpackChunkName: "features/status_reposts" */'../../status_reposts') }
 export function StatusModal() { return import(/* webpackChunkName: "modals/status_modal" */'../../../components/modal/status_modal') }

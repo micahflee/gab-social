@@ -408,6 +408,7 @@ Rails.application.routes.draw do
 
   get '/(*any)', to: 'react#react', as: :web
   get '/:username', to: 'react#account_show', username: username_regex, as: :short_account_with_replies
+  get '/groups/:groupId', to: 'react#group_show', as: :group_show_page
   root 'react#react'
 
   get '/', to: 'react#react', as: :homepage
