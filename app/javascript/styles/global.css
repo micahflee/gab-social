@@ -141,13 +141,6 @@
   --navigation_search: var(--solid_color_block) !important;
 }
 
-@media all and (display-mode: standalone) {
-  body {
-    /* : todo:  */
-    /* background-color: yellow; */
-  }
-}
-
 html,
 body {
   min-height: 100%;
@@ -504,13 +497,11 @@ pre {
 
 /*  */
 
-.topNeg50PX { top: -50px; }
 .topNeg20PX { top: -20px; }
 .top0 { top: 0; }
 .top120PX { top: 120px; }
 .top60PX { top: 60px; }
 .top53PX { top: 53px; }
-.top60PC { top: 60%; }
 .top50PC { top: 50%; }
 
 .bottom0 { bottom: 0; }
@@ -520,7 +511,6 @@ pre {
 .bottomAuto { bottom: auto; }
 
 .left0 { left: 0px; }
-.left50PC { left: 50%; }
 
 .right0 { right: 0px; }
 .rightNeg5PX { right: -5px; }
@@ -563,10 +553,8 @@ pre {
 .minH106PX { min-height: 106px; }
 .minH103PX { min-height: 103px; }
 .minH98PX { min-height: 98px; }
-.minH80PX { min-height: 80px; }
 .minH58PX { min-height: 58px; }
 .minH53PX { min-height: 53px; }
-.minH50PX { min-height: 50px; }
 .minH40PX { min-height: 40px; }
 .minH28PX { min-height: 28px; }
 
@@ -586,7 +574,6 @@ pre {
 .h24PX { height: 24px; }
 .h22PX { height: 22px; }
 .h20PX { height: 20px; }
-.h14PX { height: 14px; }
 .h10PX { height: 10px; }
 .h4PX { height: 4px; }
 .h1PX { height: 1px; }
@@ -616,17 +603,14 @@ pre {
 .w50PC { width: 50%; }
 .w48PC { width: 48%; }
 .w33PC { width: 33.32%; }
-.w25PC { width: 25%; }
 .w1255PX { width: 1255px; }
 .w1015PX { width: 1015px; }
 .w645PX { width: 645px; }
-.w360PX { width: 360px; }
 .w340PX { width: 340px; }
 .w330PX { width: 330px; }
 .w300PX { width: 300px; }
 .w240PX { width: 240px; }
 .w228PX { width: 228px; }
-.w208PX { width: 208px; }
 .w115PX { width: 115px; }
 .w84PX { width: 84px; }
 .w76PX { width: 76px; }
@@ -837,12 +821,10 @@ pre {
 .ml5 { margin-left: 5px; }
 .ml2 { margin-left: 2px; }
 .mlAuto { margin-left: auto; }
-.mlNeg5PX { margin-left: -5px; }
 
 .mb15 { margin-bottom: 15px; }
 .mb10 { margin-bottom: 10px; }
 .mb5 { margin-bottom: 5px; }
-.mbNeg5PX { margin-bottom: -5px; }
 
 .mt15 { margin-top: 15px; }
 .mt10 { margin-top: 10px; }
@@ -933,14 +915,10 @@ pre {
   padding-right: 10px;
 }
 
-.opacity0 { opacity: 0; }
 .opacity05 { opacity: 0.5; }
-.opacity1 { opacity: 1; }
 
-.boxShadow1 { box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, .25); }
 .boxShadowPopover { box-shadow: 0 0 15px -5px rgba(0,0,0,0.15); }
 .boxShadowBlock { box-shadow: 0 1px 2px rgba(0,0,0,0.2); }
-.boxShadowBlockY { box-shadow: 0 -1px 2px rgba(0,0,0,0.2); }
 .boxShadowDot { box-shadow: inset 0 0 0 3px #fff, inset 0 0 0 6px #000; }
 .boxShadowToast { box-shadow: 0px 0px 10px -2px rgba(0, 0, 0, .2), 0px 0px 2px -1px rgba(0, 0, 0, 0.4); }
 
