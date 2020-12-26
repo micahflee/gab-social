@@ -53,7 +53,7 @@ class GroupsPanel extends ImmutablePureComponent {
     return (
       <PanelLayout
         title={intl.formatMessage(groupType === 'member' ? messages.memberTitle : messages.featuredTitle)}
-        headerButtonTitle={intl.formatMessage(messages.all)}
+        headerButtonTitle={intl.formatMessage(messages.show_all)}
         headerButtonTo={groupType === 'member' ? '/groups/browse/member' : '/groups/browse/featured'}
         footerButtonTitle={count > maxCount ? intl.formatMessage(messages.show_all) : undefined}
         footerButtonTo={count > maxCount ? '/groups' : undefined}
@@ -85,7 +85,6 @@ const messages = defineMessages({
   memberTitle: { id: 'groups.sidebar-panel.member_title', defaultMessage: 'Groups you\'re in' },
   featuredTitle: { id: 'groups.sidebar-panel.featured_title', defaultMessage: 'Featured Groups' },
   show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
-  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
 })
 
 const mapStateToProps = (state, { groupType }) => ({

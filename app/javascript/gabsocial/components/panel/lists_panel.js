@@ -54,7 +54,7 @@ class ListsPanel extends ImmutablePureComponent {
     return (
       <PanelLayout
         title={intl.formatMessage(messages.title)}
-        headerButtonTitle={intl.formatMessage(messages.all)}
+        headerButtonTitle={intl.formatMessage(messages.show_all)}
         headerButtonTo='/lists'
         footerButtonTitle={count > maxCount ? intl.formatMessage(messages.show_all) : undefined}
         footerButtonTo={count > maxCount ? '/lists' : undefined}
@@ -76,7 +76,6 @@ class ListsPanel extends ImmutablePureComponent {
 const messages = defineMessages({
   title: { id: 'lists.subheading', defaultMessage: 'Your Lists' },
   show_all: { id: 'groups.sidebar-panel.show_all', defaultMessage: 'Show all' },
-  all: { id: 'groups.sidebar-panel.all', defaultMessage: 'All' },
 })
 
 const mapStateToProps = (state) => ({
