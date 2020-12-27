@@ -7,11 +7,23 @@ default: &default
 
 development:
   <<: *default
-  database: <%= ENV['DB_NAME'] || 'gabsocial_development' %>
-  username: <%= ENV['DB_USER'] %>
-  password: <%= ENV['DB_PASS'] %>
-  host: <%= ENV['DB_HOST'] %>
-  port: <%= ENV['DB_PORT'] %>
+  adapter: postgresql_makara
+  prepared_statements: false
+  makara:
+    id: postgres
+    sticky: true
+    connections:
+      - role: master
+        blacklist_duration: 0
+        url: postgresql://<%= ENV['DB_USER']%>:<%= ENV['DB_PASS'] %>@<%= ENV['DB_HOST'] %>:<%= ENV['DB_PORT'] %>/<%= ENV['DB_NAME'] || 'gabsocial_development' %>
+      - role: slave
+        url: postgresql://<%= ENV['DB_USER']%>:<%= ENV['DB_PASS'] %>@<%= ENV['DB_HOST'] %>:<%= ENV['DB_PORT'] %>/<%= ENV['DB_NAME'] || 'gabsocial_development' %>
+
+#  database: <%= ENV['DB_NAME'] || 'gabsocial_development' %>
+#  username: <%= ENV['DB_USER'] %>
+#  password: <%= ENV['DB_PASS'] %>
+#  host: <%= ENV['DB_HOST'] %>
+#  port: <%= ENV['DB_PORT'] %>
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
