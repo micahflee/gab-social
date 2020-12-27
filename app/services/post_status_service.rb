@@ -151,7 +151,7 @@ class PostStatusService < BaseService
 
     raise GabSocial::ValidationError, I18n.t('media_attachments.validations.too_many') if @options[:media_ids].size > 4 || @options[:poll].present?
 
-    # @account.media_attachments.connection.stick_to_master!
+    @account.media_attachments.connection.stick_to_master!
     @media = @account.media_attachments.where(status_id: nil).where(id: @options[:media_ids].take(4).map(&:to_i))
 
     hasVideoOrGif = @media.find(&:video?) || @media.find(&:gifv?)

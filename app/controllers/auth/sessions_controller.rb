@@ -36,6 +36,7 @@ class Auth::SessionsController < Devise::SessionsController
   protected
 
   def find_user
+    User.connection.stick_to_master!
     if session[:otp_user_id]
       User.find(session[:otp_user_id])
     elsif user_params[:email]
