@@ -10,6 +10,7 @@ class Auth::SessionsController < Devise::SessionsController
   prepend_before_action :authenticate_with_two_factor, if: :two_factor_enabled?, only: [:create]
   before_action :set_instance_presenter, only: [:new]
   before_action :set_body_classes
+  before_action :use_master
 
   def new
     Devise.omniauth_configs.each do |provider, config|
@@ -34,6 +35,10 @@ class Auth::SessionsController < Devise::SessionsController
   end
 
   protected
+
+  def use_master
+    User.connection.stick_to_master!
+  end
 
   def find_user
     if session[:otp_user_id]
