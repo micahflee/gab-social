@@ -3,6 +3,7 @@
 module Admin
   class GroupsController < BaseController
     before_action :set_group, except: [:index]
+    before_action :set_accounts, only: [:show]
     before_action :set_filter_params
   
     def index
@@ -15,33 +16,24 @@ module Admin
     end
 
     def update
-      # 
+      if @group.update(resource_params)
+        redirect_to admin_group_path(@group.id), notice: I18n.t('generic.changes_saved_msg')
+      else
+        render action: :edit
+      end
     end
   
     def destroy
       authorize @group, :destroy?
       @group.destroy!
       log_action :destroy, @group
-      flash[:notice] = I18n.t('admin.groups.destroyed_msg')
-      redirect_to admin_groups_path(page: params[:page], **@filter_params)
+      flash[:notice] = 'Group destroyed'
+      redirect_to admin_groups_path
     end
-  
-    def enable_featured
-      authorize @group, :update?
-      @group.is_featured = true
-      @group.save!
-      log_action :update, @group
-      flash[:notice] = I18n.t('admin.groups.updated_msg')
-      redirect_to admin_groups_path(page: params[:page], **@filter_params)
-    end
-  
-    def disable_featured
-      authorize @group, :update?
-      @group.is_featured = false
-      @group.save!
-      log_action :update, @group
-      flash[:notice] = I18n.t('admin.groups.updated_msg')
-      redirect_to admin_groups_path(page: params[:page], **@filter_params)
+
+    def make_me_admin
+      GroupAccount.create(group: @group, account: current_account, role: 'admin')
+      redirect_to admin_group_path(@group.id), notice: 'You are now an admin of this group'
     end
   
     private
@@ -50,12 +42,27 @@ module Admin
       @group = Group.find(params[:id])
     end
   
+    def set_accounts
+      @admins = GroupAccount.where(group: @group, role: 'admin')
+      @mods = GroupAccount.where(group: @group, role: 'moderator')
+    end
+
     def set_filter_params
       @filter_params = filter_params.to_hash.symbolize_keys
     end
   
     def resource_params
-      params.require(:group).permit(:is_featured, :is_nsfw)
+      params.require(:group).permit(
+        :title,
+        :description,
+        # :slug,
+        :tags,
+        :is_private,
+        :is_archived,
+        :is_visible,
+        :is_featured,
+        :is_nsfw
+      )
     end
   
     def filtered_groups

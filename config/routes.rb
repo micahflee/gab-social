@@ -171,8 +171,7 @@ Rails.application.routes.draw do
 
     resources :groups, only: [:index, :show, :update, :destroy] do
       member do
-        post :enable_featured
-        post :disable_featured
+        post :make_me_admin
       end
     end
 

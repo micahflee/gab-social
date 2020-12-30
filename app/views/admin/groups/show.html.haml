@@ -10,7 +10,7 @@
 -# view removed accounts
 
 .card.h-card{:style => "height:300px"}
-  .card__img
+  .card__img{:style => "height:300px"}
     = image_tag full_asset_url(@group.cover_image.url), alt: '', :style => "height:300px"
 
 .dashboard__counters{ style: 'margin-top: 10px' }
@@ -58,10 +58,51 @@
   .fields-group
     = f.input :is_visible, as: :boolean, wrapper: :with_label, label: 'Is Visible?'
 
+  .fields-group
+    = f.input :is_archived, as: :boolean, wrapper: :with_label, label: 'Is Archived?'
+
   .actions
     = f.button :button, t('generic.save_changes'), type: :submit
 
--# : todo : delete
--# : todo : list admins
--# : todo : list mods
--# : todo : make ME admin
+%br
+%hr
+%br
+
+%span Group Admins and Moderators
+%br
+%br
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th= t('admin.accounts.username')
+        %th Role
+    %tbody
+      - @admins.each do |acct|
+        %tr
+          %td
+            = admin_account_link_to(acct.account)
+          %td
+            %span Admin
+      - @mods.each do |acct|
+        %tr
+          %td
+            = admin_account_link_to(acct.account)
+          %td
+            %span Moderator
+
+
+%br
+%hr
+%br
+
+.actions
+  = table_link_to 'arrow-up', 'Make me Admin', make_me_admin_admin_group_path(@group.id), method: :post, data: { confirm: t('admin.accounts.are_you_sure') }
+
+%br
+%hr
+%br
+
+.actions
+  = table_link_to 'times', 'Delete Group', admin_group_path(@group.id), method: :delete, data: { confirm: t('admin.accounts.are_you_sure') }
