@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 
-class SortingQueryBuilder < BaseService  
+class SortingQueryBuilder < BaseService
   def call(sort_type, group = nil, page = 1)
     limit = 20
 
     min_likes = 5
     min_reblogs = 2
     min_replies = 1
-    date_limit = 30.days.ago
+    date_limit = 5.years.ago
     max_page = 8
 
     case sort_type
