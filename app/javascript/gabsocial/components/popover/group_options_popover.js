@@ -4,6 +4,7 @@ import { connect } from 'react-redux'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import { defineMessages, injectIntl } from 'react-intl'
+import { isStaff } from '../../initial_state'
 import {
   addShortcut,
   removeShortcut,
@@ -91,6 +92,14 @@ class GroupOptionsPopover extends ImmutablePureComponent {
       onClick: this.handleOnToggleShortcut,
     })
 
+    if (isStaff) {
+      listItems.push({})
+      listItems.push({
+        title: intl.formatMessage(messages.open_in_admin, { name: group.getIn('title') }),
+        href: `/admin/groups/${groupId}`
+      })
+    }
+
     return (
       <PopoverLayout
         width={240}
@@ -114,6 +123,7 @@ const messages = defineMessages({
   editGroup: { id: 'edit_group', defaultMessage: 'Edit group' },
   add_to_shortcuts: { id: 'account.add_to_shortcuts', defaultMessage: 'Add to shortcuts' },
   remove_from_shortcuts: { id: 'account.remove_from_shortcuts', defaultMessage: 'Remove from shortcuts' },
+  open_in_admin: { id: 'status.admin_account', defaultMessage: 'Open moderation interface for @{name}' },
 })
 
 const mapStateToProps = (state, { group }) => {
