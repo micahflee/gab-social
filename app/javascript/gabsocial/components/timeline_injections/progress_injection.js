@@ -49,7 +49,7 @@ class ProgressInjection extends React.PureComponent {
 const messages = defineMessages({
   progressTitle: { id: 'progress_title', defaultMessage: '{value}% covered this month' },
   operationsTitle: { id: 'operations_title', defaultMessage: "Gab's Operational Expenses" },
-  operationsSubtitle: { id: 'operations_subtitle', defaultMessage: 'We are 100% funded by you' },
+  operationsSubtitle: { id: 'operations_subtitle', defaultMessage: "We're 100% funded by you." },
   donationTitle: { id: 'make_donation', defaultMessage: 'Make a Donation' },
 })
 
