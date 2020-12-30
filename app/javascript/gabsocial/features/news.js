@@ -101,7 +101,7 @@ class News extends React.PureComponent {
             <WrappedBundle component={TrendsBreakingPanel} componentParams={{ hideReadMore: 1 }} />
             <WrappedBundle component={LatestFromGabPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
           </div>
-          <div classNames={[_s.d, _s.w50PC].join(' ')}>
+          <div className={[_s.d, _s.w50PC].join(' ')}>
             <WrappedBundle component={PopularLinksPanel} />
             <WrappedBundle component={TrendsFeedsPanel} />
             <WrappedBundle component={GabNewsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />
