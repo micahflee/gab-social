@@ -12,6 +12,7 @@ import { openModal } from '../../actions/modal'
 import {
   CX,
   MODAL_EDIT_PROFILE,
+  PLACEHOLDER_MISSING_HEADER_SRC,
 } from '../../constants'
 import PanelLayout from './panel_layout'
 import Avatar from '../avatar'
@@ -50,29 +51,41 @@ class UserPanel extends ImmutablePureComponent {
     } = this.props
     const { hovering } = this.state
 
+    const acct = account.get('acct')
+    const headerSrc = !!account ? account.get('header') : undefined
+    const headerMissing = !headerSrc ? true : headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1
+
     const buttonClasses = CX({
       posAbs: 1,
-      mt10: 1,
       mr10: 1,
       top0: 1,
       right0: 1,
+      mt10: 1,
       displayNone: !hovering,
     })
 
-    const acct = account.get('acct')
+    const headerContainerClasses = CX({
+      d: 1,
+      h122PX: !headerMissing,
+      h55PX: headerMissing,
+      bgSecondary: headerMissing,
+    })
 
     return (
       <PanelLayout noPadding>
         <div
-          className={[_s.d, _s.h122PX].join(' ')}
+          className={headerContainerClasses}
           onMouseEnter={this.handleOnMouseEnter}
           onMouseLeave={this.handleOnMouseLeave}
         >
-          <Image
-            alt={intl.formatMessage(messages.headerPhoto)}
-            className={_s.h122PX}
-            src={account.get('header_static')}
-          />
+          {
+            !headerMissing &&
+            <Image
+              alt={intl.formatMessage(messages.headerPhoto)}
+              className={_s.h122PX}
+              src={account.get('header_static')}
+            />
+          }
           <Button
             color='secondary'
             backgroundColor='secondary'
