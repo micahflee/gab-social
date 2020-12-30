@@ -117,7 +117,7 @@ class EditProfileModal extends ImmutablePureComponent {
     return (
       <div style={{ width: '440px' }} className={[_s.d, _s.modal].join(' ')}>
         <Block>
-          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.px15].join(' ')}>
+          <div className={[_s.d, _s.flexRow, _s.aiCenter, _s.jcCenter, _s.borderBottom1PX, _s.borderColorSecondary, _s.h53PX, _s.pr10].join(' ')}>
             <Button
               backgroundColor='none'
               title={intl.formatMessage(messages.close)}
@@ -131,6 +131,7 @@ class EditProfileModal extends ImmutablePureComponent {
               {intl.formatMessage(messages.edit_profile)}
             </Heading>
             <Button
+              radiusSmall
               title={intl.formatMessage(messages.save)}
               className={[_s.mlAuto, _s.w60PX].join(' ')}
               onClick={this.handleOnSave}
