@@ -831,81 +831,81 @@ export const checkGroupPasswordFail = (error) => ({
 /**
  * 
  */
-export const fetchJoinRequests = (id) => (dispatch, getState) => {
+export const fetchJoinRequests = (groupId) => (dispatch, getState) => {
   if (!me) return
 
-  dispatch(fetchJoinRequestsRequest(id))
+  dispatch(fetchJoinRequestsRequest(groupId))
 
-  api(getState).get(`/api/v1/groups/${id}/join_requests`).then((response) => {
+  api(getState).get(`/api/v1/groups/${groupId}/join_requests`).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
 
     dispatch(importFetchedAccounts(response.data))
-    dispatch(fetchJoinRequestsSuccess(id, response.data, next ? next.uri : null))
+    dispatch(fetchJoinRequestsSuccess(groupId, response.data, next ? next.uri : null))
     dispatch(fetchRelationships(response.data.map(item => item.id)))
   }).catch((error) => {
-    dispatch(fetchJoinRequestsFail(id, error))
+    dispatch(fetchJoinRequestsFail(groupId, error))
   })
 }
 
-const fetchJoinRequestsRequest = (id) => ({
+const fetchJoinRequestsRequest = (groupId) => ({
   type: GROUP_JOIN_REQUESTS_FETCH_REQUEST,
-  id,
+  groupId,
 })
 
-const fetchJoinRequestsSuccess = (id, accounts, next) => ({
+const fetchJoinRequestsSuccess = (groupId, accounts, next) => ({
   type: GROUP_JOIN_REQUESTS_FETCH_SUCCESS,
-  id,
+  groupId,
   accounts,
   next,
 })
 
-const fetchJoinRequestsFail = (id, error) => ({
+const fetchJoinRequestsFail = (groupId, error) => ({
   type: GROUP_JOIN_REQUESTS_FETCH_FAIL,
   showToast: true,
-  id,
+  groupId,
   error,
 })
 
 /**
  * 
  */
-export const expandJoinRequests = (id) => (dispatch, getState) => {
+export const expandJoinRequests = (groupId) => (dispatch, getState) => {
   if (!me) return
 
-  const url = getState().getIn(['user_lists', 'group_join_requests', id, 'next'])
-  const isLoading = getState().getIn(['user_lists', 'group_join_requests', id, 'isLoading'])
+  const url = getState().getIn(['user_lists', 'group_join_requests', groupId, 'next'])
+  const isLoading = getState().getIn(['user_lists', 'group_join_requests', groupId, 'isLoading'])
 
   if (url === null || isLoading) return
 
-  dispatch(expandJoinRequestsRequest(id))
+  dispatch(expandJoinRequestsRequest(groupId))
 
   api(getState).get(url).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
 
     dispatch(importFetchedAccounts(response.data))
-    dispatch(expandJoinRequestsSuccess(id, response.data, next ? next.uri : null))
+    dispatch(expandJoinRequestsSuccess(groupId, response.data, next ? next.uri : null))
     dispatch(fetchRelationships(response.data.map(item => item.id)))
   }).catch((error) => {
-    dispatch(expandJoinRequestsFail(id, error))
+    dispatch(expandJoinRequestsFail(groupId, error))
   })
 }
 
-const expandJoinRequestsRequest = (id) => ({
+const expandJoinRequestsRequest = (groupId) => ({
   type: GROUP_JOIN_REQUESTS_EXPAND_REQUEST,
-  id,
+  groupId,
 })
 
 const expandJoinRequestsSuccess = (id, accounts, next) => ({
   type: GROUP_JOIN_REQUESTS_EXPAND_SUCCESS,
-  id,
+  groupId,
   accounts,
   next,
 })
 
-const expandJoinRequestsFail = (id, error) => ({
+const expandJoinRequestsFail = (groupId, error) => ({
   type: GROUP_JOIN_REQUESTS_EXPAND_FAIL,
   showToast: true,
-  id,
+  groupId,
   error,
 })
 
