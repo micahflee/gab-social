@@ -194,7 +194,7 @@ class ProfileHeader extends ImmutablePureComponent {
               }
               {
                 headerMissing &&
-                <div className={[_s.d, _s.h122PX, _s.w100PC, _s.bgSecondary].join(' ')} />
+                <div className={[_s.d, _s.h53PX, _s.w100PC, _s.bgPrimary].join(' ')} />
               }
 
               <div className={[_s.d, _s.w100PC].join(' ')}>
