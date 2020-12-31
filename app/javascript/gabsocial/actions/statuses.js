@@ -78,6 +78,8 @@ function getFromDB(dispatch, getState, accountIndex, index, id) {
  * 
  */
 export const fetchStatus = (id) => (dispatch, getState) => {
+  if (!id) return
+  
   const skipLoading = getState().getIn(['statuses', id], null) !== null
   if (skipLoading) return
 
