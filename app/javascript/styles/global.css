@@ -984,9 +984,23 @@ pre {
   width: 20px;
 }
 
+:global(.emoji-mart) {
+  border: none !important;
+  background-color: var(--solid_color_primary) !important;
+}
+
 :global(.emoji-mart-emoji span) {
   background-repeat: no-repeat;
   background-position: center;
+}
+
+:global(.emoji-mart-category-label span) {
+  background-color: var(--solid_color_primary) !important;
+  color: var(--text_color_primary) !important;
+}
+
+:global(.emoji-mart-category-label span) {
+  color: var(--text_color_primary) !important;
 }
 
 :global(.invisible) {
