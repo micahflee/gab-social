@@ -179,8 +179,9 @@ const updateSuggestionTags = (state, token) => {
   });
 };
 
-const insertEmoji = (state, emojiData, needsSpace) => {
+const insertEmoji = (state, emojiData) => {
   const position = state.get('caretPosition')
+  const needsSpace = !!emojiData.custom && position !== 0
   const oldText = state.get('text');
   const emoji = needsSpace ? ' ' + emojiData.native : emojiData.native;
 
@@ -365,7 +366,7 @@ export default function compose(state = initialState, action) {
       return state;
     }
   case COMPOSE_EMOJI_INSERT:
-    return insertEmoji(state, action.emoji, action.needsSpace);
+    return insertEmoji(state, action.emoji);
   case COMPOSE_UPLOAD_CHANGE_SUCCESS:
     return state
       .set('is_changing_upload', false)

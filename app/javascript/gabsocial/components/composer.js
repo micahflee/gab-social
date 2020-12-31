@@ -175,13 +175,17 @@ class Composer extends React.PureComponent {
       plainText: value,
     })
 
-    const selectionState = editorState.getSelection()
+    const selectionState = editorState.getSelection()  
+    const currentBlockKey = selectionState.getStartKey()
+    const currentBlockIndex = blocks.findIndex((k) => k.key === currentBlockKey)
+    const priorBlockTextLength = blocks.splice(0, currentBlockIndex).map(block => (!block.text.trim() && '') || block.text).join('\n').length
     const selectionStart = selectionState.getStartOffset()
+    const cursorPosition = priorBlockTextLength + selectionStart
 
     const rawObject = convertToRaw(content)
     const markdownString = this.props.isPro ? draftToMarkdown(rawObject,markdownOptions) : null
 
-    this.props.onChange(null, value, markdownString, selectionStart)
+    this.props.onChange(null, value, markdownString, cursorPosition)
   }
 
   handleOnFocus = () => {

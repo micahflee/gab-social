@@ -670,10 +670,9 @@ export const changeComposeVisibility = (value) => ({
 /**
  * 
  */
-export const insertEmojiCompose = (emoji, needsSpace) => ({
+export const insertEmojiCompose = (emoji) => ({
   type: COMPOSE_EMOJI_INSERT,
   emoji,
-  needsSpace,
 })
 
 /**

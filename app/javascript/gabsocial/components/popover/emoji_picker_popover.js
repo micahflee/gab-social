@@ -285,7 +285,7 @@ const mapDispatchToProps = (dispatch) => ({
 
   onPickEmoji: (emoji) => {
     dispatch(useEmoji(emoji))
-    dispatch(insertEmojiCompose(emoji, false))
+    dispatch(insertEmojiCompose(emoji))
   },
 })
 
