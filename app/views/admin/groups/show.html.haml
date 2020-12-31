@@ -79,6 +79,11 @@
         %th= t('admin.accounts.username')
         %th Role
     %tbody
+      %tr
+        %td
+          = admin_account_link_to(@group.account)
+        %td
+          %span Group Creator
       - @admins.each do |acct|
         %tr
           %td
