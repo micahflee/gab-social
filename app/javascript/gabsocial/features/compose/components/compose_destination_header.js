@@ -32,26 +32,33 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
   render() {
     const {
       account,
+      isEdit,
       isReply,
       isModal,
       composeGroup,
+      composeGroupId,
       formLocation,
     } = this.props
 
     const isIntroduction = formLocation === 'introduction'
+
+    console.log("composeGroup, composeGroupId:", composeGroup, composeGroupId)
     
+    let editText = isEdit ? ' edit ' : ''
     let groupTitle = !!composeGroup ? composeGroup.get('title') : ''
     groupTitle = groupTitle.length > 32 ? `${groupTitle.substring(0, 32).trim()}...` : groupTitle
-    let title = 'Post to timeline'
-    if (!!composeGroup) {
+    if (!groupTitle && composeGroupId) groupTitle = 'group'
+
+    let title = `Post${editText}to timeline`
+    if (!!composeGroupId) {
       if (isReply) {
-        title = `Comment in ${groupTitle}`
+        title = `Comment${editText}in ${groupTitle}`
       } else {
-        title = `Post to ${groupTitle}`
+        title = `Post${editText}to ${groupTitle}`
       }
     } else {
       if (isReply) {
-        title = 'Post as comment'
+        title = `Post${editText}as comment`
       }
     }
 
@@ -69,12 +76,12 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
                 buttonRef={this.setDestinationBtn}
                 backgroundColor='secondary'
                 color='primary'
-                onClick={isReply ? undefined : this.handleOnClick}
+                onClick={(isReply || isEdit) ? undefined : this.handleOnClick}
                 className={[_s.border1PX, _s.borderColorPrimary].join(' ')}
               >
                 <Text color='inherit' size='small' className={_s.jcCenter}>
                   {title}
-                  { !isReply && <Icon id='caret-down' size='8px' className={_s.ml5} /> }
+                  { !isReply && !isEdit && <Icon id='caret-down' size='8px' className={_s.ml5} /> }
                 </Text>
               </Button>
             </div>
@@ -102,6 +109,7 @@ const mapStateToProps = (state) => {
   return {
     composeGroupId,
     isReply: !!state.getIn(['compose', 'in_reply_to']),
+    isEdit: state.getIn(['compose', 'id']) !== null,
     composeGroup: state.getIn(['groups', composeGroupId]),
   }
 }
@@ -125,6 +133,7 @@ ComposeDestinationHeader.propTypes = {
   onOpenPopover: PropTypes.func.isRequired,
   formLocation: PropTypes.string,
   isReply: PropTypes.bool.isRequired,
+  isEdit: PropTypes.bool.isRequired,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ComposeDestinationHeader)

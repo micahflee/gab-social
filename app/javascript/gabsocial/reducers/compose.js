@@ -384,6 +384,7 @@ export default function compose(state = initialState, action) {
       map.set('markdown', action.status.get('plain_markdown'));
       map.set('in_reply_to', action.status.get('in_reply_to_id'));
       map.set('quote_of_id', action.status.get('quote_of_id'));
+      map.set('group_id', action.status.getIn(['group', 'id'], null));
       map.set('privacy', action.status.get('visibility'));
       map.set('media_attachments', action.status.get('media_attachments'));
       map.set('focusDate', new Date());
