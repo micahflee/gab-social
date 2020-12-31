@@ -22,6 +22,7 @@ class List extends ImmutablePureComponent {
     } = this.props
 
     const Wrapper = !!scrollKey ? ScrollableList : Dummy
+    const itemsSize = !!items ? Array.isArray(items) ? items.length : items.size : 0
 
     return (
       <Block>
@@ -39,7 +40,7 @@ class List extends ImmutablePureComponent {
               <ListItem
                 size={size}
                 key={`list-item-${i}`}
-                isLast={items.size - 1 === i}
+                isLast={itemsSize - 1 === i}
                 {...item}
               />
             ))
