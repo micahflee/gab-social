@@ -73,10 +73,9 @@ class Poll extends ImmutablePureComponent {
       posAbs: 1,
       top0: 1,
       left0: 1,
-      radiusSmall: 1,
+      circle: 1,
       h100PC: 1,
       bgSecondary: !leading && !optionHasNoVotes,
-      bgTertiary: !leading && optionHasNoVotes,
       bgBrandLight: leading,
     })
 
