@@ -28,6 +28,9 @@ class Status extends ImmutablePureComponent {
     if (prevProps.status !== status && !!status) {
       this.shouldFetchStatusParts(status)
     }
+    if (prevProps.statusId !== this.props.statusId && !this.props.status) {
+      this.props.onFetchStatus(this.props.statusId)
+    }
   }
 
   shouldFetchStatusParts = (status) => {
