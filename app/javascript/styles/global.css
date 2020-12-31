@@ -831,6 +831,7 @@ pre {
 .mt10 { margin-top: 10px; }
 .mt5 { margin-top: 5px; }
 .mt2 { margin-top: 2px; }
+.mt0 { margin-top: 0; }
 .mtAuto { margin-top: auto; }
 .mtNeg5PX { margin-top: -5px; }
 .mtNeg26PX { margin-top: -26px; }

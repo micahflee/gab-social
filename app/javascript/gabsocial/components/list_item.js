@@ -85,6 +85,13 @@ class ListItem extends React.PureComponent {
       maxW100PC42PX: !hideArrow || showActive,
     })
 
+    const arrowClasses = CX({
+      mlAuto: !showActive,
+      ml10: showActive,
+      cSecondary: 1,
+      flexShrink1: 1,
+    })
+
     return (
       <Button
         to={to}
@@ -127,20 +134,20 @@ class ListItem extends React.PureComponent {
         </div>
 
         {
-          !hideArrow &&
-          <Icon
-            id={!!actionIcon ? actionIcon : 'angle-right'}
-            size='10px'
-            className={[_s.mlAuto, _s.cSecondary, _s.flexShrink1].join(' ')}
-          />
-        }
-
-        {
           !!showActive &&
           <input
             type='radio'
             checked={isActive}
-            className={[_s.mlAuto, _s.flexShrink1].join(' ')}
+            className={[_s.mlAuto, _s.flexShrink1, _s.mt0].join(' ')}
+          />
+        }
+
+        {
+          !hideArrow &&
+          <Icon
+            id={!!actionIcon ? actionIcon : 'angle-right'}
+            size='10px'
+            className={arrowClasses}
           />
         }
       </Button>
