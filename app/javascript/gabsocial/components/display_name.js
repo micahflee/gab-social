@@ -141,7 +141,7 @@ class DisplayName extends ImmutablePureComponent {
         onMouseLeave={noHover ? undefined : this.handleMouseLeave}
         ref={this.setRef}
       >
-        <span className={[_s.d, _s.flexRow, _s.aiCenter, _s.maxW100PC, _s.flexShrink1, _s.overflowHidden].join(' ')}>
+        <span className={[_s.d, _s.flexRow, _s.aiCenter, _s.maxW100PC, _s.flexShrink1, _s.overflowHidden, _s.cPrimary].join(' ')}>
           <bdi className={[_s.text, _s.whiteSpaceNoWrap, _s.textOverflowEllipsis].join(' ')}>
             <strong
               className={displayNameClasses}
