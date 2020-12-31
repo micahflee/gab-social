@@ -145,7 +145,7 @@ class ProfileHeader extends ImmutablePureComponent {
     const headerSrc = !!account ? account.get('header') : undefined
     const headerMissing = !headerSrc ? true : headerSrc.indexOf(PLACEHOLDER_MISSING_HEADER_SRC) > -1
     const avatarSize = headerMissing ? 75 : 150
-    const top = headerMissing ? -46 : -380
+    const top = headerMissing ? -46 : -430
 
     const avatarContainerClasses = CX({
       d: 1,
@@ -281,10 +281,10 @@ class ProfileHeader extends ImmutablePureComponent {
           <Sticky top={top} enabled onStateChange={this.onStickyStateChange}>
             <div className={[_s.d, _s.z1, _s.w100PC, _s.aiCenter, _s.boxShadowBlock, _s.bgPrimary].join(' ')}>
 
-              <div className={[_s.d, _s.w1015PX].join(' ')}>
+              <div className={[_s.d, _s.w1255PX].join(' ')}>
                 {
                   !headerMissing &&
-                  <div className={[_s.d, _s.h350PX, _s.w100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
+                  <div className={[_s.d, _s.h400PX, _s.w100PC, _s.bottomRightRadiusSmall, _s.bottomLeftRadiusSmall, _s.overflowHidden].join(' ')}>
                     <Image
                       alt={intl.formatMessage(messages.headerPhoto)}
                       className={_s.h100PC}
@@ -298,7 +298,7 @@ class ProfileHeader extends ImmutablePureComponent {
                   <div className={[_s.d, _s.h20PX, _s.w100PC].join(' ')} />
                 }
 
-                <div className={[_s.d, _s.w100PC].join(' ')}>
+                <div className={[_s.d, _s.w1015PX, _s.mlAuto, _s.mrAuto].join(' ')}>
 
                   <div className={[_s.d, _s.flexRow, _s.pr15, _s.pl25, _s.mb5].join(' ')}>
                     <div className={avatarContainerClasses}>
@@ -322,7 +322,6 @@ class ProfileHeader extends ImmutablePureComponent {
                       <DisplayName account={account} isMultiline isLarge noHover />
                     </div>
                   </div>
-
 
                   <div className={[_s.d, _s.flexRow, _s.bgPrimary, _s.h53PX].join(' ')}>
                     <div className={tabBarContainerClasses}>
