@@ -78,7 +78,10 @@ class ChatMessageOptionsPopover extends React.PureComponent {
         isXS={isXS}
         onClose={this.handleOnClosePopover}
       >
-        <List items={items} />
+        <List
+          size={isXS ? 'large' : 'small'}
+          items={items}
+        />
       </PopoverLayout>
     )
   }

@@ -84,7 +84,10 @@ class ComposePostDesinationPopover extends ImmutablePureComponent {
           !isGroupsSelected &&
           <div className={[_s.d, _s.w100PC].join(' ')}>
             <Text className={[_s.d, _s.px15, _s.py10, _s.bgSecondary].join(' ')}>Post to:</Text>
-            <List items={mainItems} />
+            <List
+              size={isXS ? 'large' : 'normal'}
+              items={mainItems}
+            />
           </div>
         }
         {
@@ -105,6 +108,7 @@ class ComposePostDesinationPopover extends ImmutablePureComponent {
             </div>
             <div className={[_s.d, _s.w100PC, _s.overflowYScroll, _s.maxH340PX].join(' ')}>
               <List
+                size={isXS ? 'large' : 'normal'}
                 scrollKey='groups-post-destination-add'
                 showLoading={groups.length === 0}
                 emptyMessage="You are not a member of any groups yet."
