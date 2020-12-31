@@ -42,9 +42,7 @@ class ComposeDestinationHeader extends ImmutablePureComponent {
 
     const isIntroduction = formLocation === 'introduction'
 
-    console.log("composeGroup, composeGroupId:", composeGroup, composeGroupId)
-    
-    let editText = isEdit ? ' edit ' : ''
+    let editText = isEdit ? ' edit ' : ' '
     let groupTitle = !!composeGroup ? composeGroup.get('title') : ''
     groupTitle = groupTitle.length > 32 ? `${groupTitle.substring(0, 32).trim()}...` : groupTitle
     if (!groupTitle && composeGroupId) groupTitle = 'group'
