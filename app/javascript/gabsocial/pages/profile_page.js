@@ -20,6 +20,12 @@ class ProfilePage extends ImmutablePureComponent {
     }
   }
 
+  componentDidUpdate() {
+    if (!this.props.account) {
+      this.props.dispatch(fetchAccountByUsername(this.props.params.username))
+    }
+  }
+
   render() {
     const {
       account,
