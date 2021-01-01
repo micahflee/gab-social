@@ -99,7 +99,7 @@ class EditProfileModal extends ImmutablePureComponent {
     if (account.get('header_static') !== headerSrc) obj.header = headerSrc
 
     this.props.onSave(obj, this.handleOnClose)
-    //this.handleOnClose()
+    this.handleOnClose()
   }
 
   render() {
