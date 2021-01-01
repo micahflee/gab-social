@@ -16,7 +16,7 @@ class Toast extends React.PureComponent {
   componentDidMount() {
     this._timer = setTimeout(() => {
       this.handleOnDismiss()
-    }, 5000)
+    }, 3500)
   }
 
   componentWillUnmount() {
