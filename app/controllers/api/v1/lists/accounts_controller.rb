@@ -15,17 +15,19 @@ class Api::V1::Lists::AccountsController < Api::BaseController
   end
 
   def create
-    ApplicationRecord.transaction do
-      list_accounts.each do |account|
-        @list.accounts << account
+    puts "tilly create"
+    if Block.where(account_id: params[:account_id], target_account: current_account).exists?
+      raise GabSocial::NotPermittedError
+    else
+      ApplicationRecord.transaction do
+        @list.accounts << list_account
       end
+      render_empty_success
     end
-
-    render_empty_success
   end
 
   def destroy
-    ListAccount.where(list: @list, account_id: account_ids).destroy_all
+    ListAccount.where(list: @list, account_id: params[:account_id]).destroy_all
     render_empty_success
   end
 
@@ -43,16 +45,12 @@ class Api::V1::Lists::AccountsController < Api::BaseController
     end
   end
 
-  def list_accounts
-    Account.find(account_ids)
-  end
-
-  def account_ids
-    Array(resource_params[:account_ids])
+  def list_account
+    Account.find(params[:account_id])
   end
 
   def resource_params
-    params.permit(account_ids: [])
+    params.permit(:account_id)
   end
 
   def insert_pagination_headers

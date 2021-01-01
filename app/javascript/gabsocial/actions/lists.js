@@ -341,7 +341,7 @@ export const addToList = (listId, accountId) => (dispatch, getState) => {
 
   dispatch(addToListRequest(listId, accountId))
 
-  api(getState).post(`/api/v1/lists/${listId}/accounts`, { account_ids: [accountId] })
+  api(getState).post(`/api/v1/lists/${listId}/accounts`, { account_id: accountId })
     .then(() => dispatch(addToListSuccess(listId, accountId)))
     .catch((err) => dispatch(addToListFail(listId, accountId, err)))
 }
@@ -382,7 +382,7 @@ export const removeFromList = (listId, accountId) => (dispatch, getState) => {
 
   dispatch(removeFromListRequest(listId, accountId))
 
-  api(getState).delete(`/api/v1/lists/${listId}/accounts`, { params: { account_ids: [accountId] } })
+  api(getState).delete(`/api/v1/lists/${listId}/accounts`, { params: { account_id: accountId } })
     .then(() => dispatch(removeFromListSuccess(listId, accountId)))
     .catch((err) => dispatch(removeFromListFail(listId, accountId, err)))
 }
