@@ -15,7 +15,7 @@ class Api::V1::ChatConversations::RequestedConversationsController < Api::BaseCo
     count = ChatConversationAccount.where(
       account: current_account,
       is_hidden: false,
-      is_approved: false,
+      is_approved: false
     ).where.not(last_chat_message_id: nil).count
     render json: count
   end

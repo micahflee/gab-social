@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import debounce from 'lodash.debounce'
+import noop from 'lodash.noop'
 import ImmutablePureComponent from 'react-immutable-pure-component'
 import ImmutablePropTypes from 'react-immutable-proptypes'
 import {
@@ -43,6 +44,7 @@ class ChatConversationsList extends ImmutablePureComponent {
           isLoading={isLoading}
           showLoading={isLoading}
           placeholderComponent={AccountPlaceholder}
+          onScrollToTop={noop}
           placeholderCount={3}
           emptyMessage='Empty'
         >

@@ -41,6 +41,8 @@ const setLastChatMessage = (state, chatMessage) => {
 const importChatConversation = (state, chatConversation) => state.set(chatConversation.chat_conversation_id, normalizeChatConversation(chatConversation))
 
 const importChatConversations = (state, chatConversations) => {
+  if (!Array.isArray(chatConversations)) return state
+  
   return state.withMutations((mutable) => chatConversations.forEach((chatConversation) => importChatConversation(mutable, chatConversation)))
 }
 

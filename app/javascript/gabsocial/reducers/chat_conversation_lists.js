@@ -49,18 +49,22 @@ const initialState = ImmutableMap({
 
 const normalizeList = (state, source, chatConversations, next) => {
   return state.update(source, listMap => listMap.withMutations(map => {
+    const items = Array.isArray(chatConversations) ? ImmutableList(chatConversations.map(chatConversation => chatConversation.chat_conversation_id)) : ImmutableList()
+
     map.set('next', next)
     map.set('loaded', true)
     map.set('isLoading', false)
-    map.set('items', ImmutableList(chatConversations.map(chatConversation => chatConversation.chat_conversation_id)))
+    map.set('items', items)
   }))
 }
 
 const appendToList = (state, source, chatConversations, next) => {
   return state.update(source, listMap => listMap.withMutations(map => {
+    const items = Array.isArray(chatConversations) ? chatConversations.map(chatConversation => chatConversation.chat_conversation_id) : []
+
     map.set('next', next)
     map.set('isLoading', false)
-    map.set('items', map.get('items').concat(chatConversations.map(chatConversation => chatConversation.chat_conversation_id)))
+    map.set('items', map.get('items').concat(items))
   }))
 }
 

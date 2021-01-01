@@ -119,10 +119,10 @@ export const fetchChatConversationsFail = (error) => ({
 export const expandChatConversations = () => (dispatch, getState) => {
   if (!me) return
   
-  const url = getState().getIn(['chat_conversations', 'approved', 'next'])
-  const isLoading = getState().getIn(['chat_conversations', 'approved', 'isLoading'])
+  const url = getState().getIn(['chat_conversation_lists', 'approved', 'next'])
+  const isLoading = getState().getIn(['chat_conversation_lists', 'approved', 'isLoading'])
 
-  if (url === null || isLoading) return
+  if (!url || url === null || isLoading) return
 
   dispatch(expandChatConversationsRequest())
 
@@ -196,10 +196,10 @@ export const fetchChatConversationRequestedFail = (error) => ({
 export const expandChatConversationRequested = () => (dispatch, getState) => {
   if (!me) return
   
-  const url = getState().getIn(['chat_conversations', 'requested', 'next'])
-  const isLoading = getState().getIn(['chat_conversations', 'requested', 'isLoading'])
+  const url = getState().getIn(['chat_conversation_lists', 'requested', 'next'])
+  const isLoading = getState().getIn(['chat_conversation_lists', 'requested', 'isLoading'])
 
-  if (url === null || isLoading) return
+  if (!url || url === null || isLoading) return
 
   dispatch(expandChatConversationRequestedRequest())
 
@@ -211,7 +211,9 @@ export const expandChatConversationRequested = () => (dispatch, getState) => {
     dispatch(importFetchedAccounts(conversationsAccounts))
     // dispatch(importFetchedChatMessages(conversationsChatMessages))
     dispatch(expandChatConversationRequestedSuccess(response.data, next ? next.uri : null))
-  }).catch(error => dispatch(expandChatConversationRequestedFail(error)))
+  }).catch(error => {
+    dispatch(expandChatConversationRequestedFail(error))
+  })
 }
 
 export const expandChatConversationRequestedRequest = () => ({
@@ -273,10 +275,10 @@ export const fetchChatConversationMutedFail = (error) => ({
 export const expandChatConversationMuted = () => (dispatch, getState) => {
   if (!me) return
   
-  const url = getState().getIn(['chat_conversations', 'muted', 'next'])
-  const isLoading = getState().getIn(['chat_conversations', 'muted', 'isLoading'])
+  const url = getState().getIn(['chat_conversation_lists', 'muted', 'next'])
+  const isLoading = getState().getIn(['chat_conversation_lists', 'muted', 'isLoading'])
 
-  if (url === null || isLoading) return
+  if (!url || url === null || isLoading) return
 
   dispatch(expandChatConversationMutedRequest())
 
