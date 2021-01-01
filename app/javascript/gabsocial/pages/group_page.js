@@ -16,12 +16,20 @@ import Divider from '../components/divider'
 class GroupPage extends ImmutablePureComponent {
 
 	componentDidMount() {
-		this.props.dispatch(fetchGroup(this.props.params.id))
+		if (!this.props.group) {
+			this.props.dispatch(fetchGroup(this.props.params.id))
+		}
 	}
 
 	componentWillUnmount() {
 		//Reset group composer
 		this.props.dispatch(changeComposeGroupId(null))
+	}
+	
+	componentDidUpdate(prevProps) {
+		if (!!this.props.group && prevProps.params.id !== this.props.params.id) {
+			this.props.dispatch(fetchGroup(this.props.params.id))
+		}
 	}
 
 	render() {
