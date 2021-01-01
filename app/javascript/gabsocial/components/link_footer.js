@@ -57,6 +57,10 @@ class LinkFooter extends React.PureComponent {
         text: intl.formatMessage(messages.privacy),
       },
       {
+        href: 'https://gabstatus.com/',
+        text: 'Status',
+      },
+      {
         href: '/auth/sign_out',
         text: intl.formatMessage(messages.logout),
         requiresUser: true,
