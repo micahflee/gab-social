@@ -151,8 +151,6 @@ class ComposeForm extends ImmutablePureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    if (!this.autosuggestTextarea) return
-
     // This statement does several things:
     // - If we're beginning a reply, and,
     //     - Replying to zero or one users, places the cursor at the end of the textbox.
@@ -281,9 +279,16 @@ class ComposeForm extends ImmutablePureComponent {
       borderColorSecondary: 1,
     })
 
+    const innerClasses = CX({
+      d: 1,
+      calcMaxH410PX: 1,
+      minH98PX: formLocation === 'timeline',
+      minH200PX: ['standalone', 'modal'].indexOf(formLocation) > -1,
+    })
+
     return (
       <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary].join(' ')}>
-        <div className={[_s.d, _s.calcMaxH410PX, _s.minH98PX].join(' ')}>
+        <div className={innerClasses}>
 
           <ComposeDestinationHeader formLocation={formLocation} account={account} isModal={isModalOpen} />
 

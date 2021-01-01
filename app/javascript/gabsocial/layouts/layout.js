@@ -1,11 +1,13 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import Sticky from 'react-stickynode'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import { me } from '../initial_state'
+import { changeComposeGroupId } from '../actions/compose'
 import LoggedOutSidebar from '../components/sidebar/logged_out_sidebar'
 import DefaultSidebar from '../components/sidebar/default_sidebar'
 import SidebarPanelGroup from '../components/sidebar_panel_group'
@@ -23,6 +25,12 @@ import {
 } from '../features/ui/util/async_components'
 
 class Layout extends React.PureComponent {
+
+  componentDidMount() {
+    if (['group', 'compose'].indexOf(this.props.page) === -1) {
+      this.props.dispatch(changeComposeGroupId(null))
+    }
+  }
 
   render() {
     const {
@@ -179,4 +187,4 @@ Layout.propTypes = {
   title: PropTypes.string,
 }
 
-export default Layout
+export default connect()(Layout)

@@ -289,6 +289,11 @@ export const handleComposeSubmit = (dispatch, getState, response, status) => {
   dispatch(insertIntoTagHistory(response.data.tags, status))
   dispatch(submitComposeSuccess({ ...response.data }))
 
+  // If is group, reset composer to be in group
+  if (response.data.group) {
+    dispatch(changeComposeGroupId(response.data.group.id))
+  }
+
   // To make the app more responsive, immediately push the status into the timeline
   // : todo : push into comment, reload parent status, etc.
   const insertIfOnline = (timelineId) => {
