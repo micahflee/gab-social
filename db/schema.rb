@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_22_040559) do
+ActiveRecord::Schema.define(version: 2021_01_02_225500) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_040559) do
     t.boolean "is_approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "unread_count", default: 0, null: false
+    t.bigint "unread_count", default: 0
     t.string "chat_message_expiration_policy"
     t.boolean "is_muted", default: false, null: false
     t.index ["account_id"], name: "index_chat_conversation_accounts_on_account_id"
@@ -720,6 +720,7 @@ ActiveRecord::Schema.define(version: 2020_12_22_040559) do
     t.string "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["status_id"], name: "index_status_revisions_on_status_id"
   end
 
   create_table "status_stats", force: :cascade do |t|
