@@ -29,12 +29,12 @@ class GroupPolicy < ApplicationPolicy
 
   def approve_status?
     check_archive!
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
 
   def destroy_status?
     check_archive!
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
 
   def join?
@@ -56,19 +56,19 @@ class GroupPolicy < ApplicationPolicy
   end
 
   def update_account?
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
 
   def show_removed_accounts?
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
   
   def create_removed_account?
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
 
   def destroy_removed_account?
-    is_group_admin?
+    is_group_admin_or_moderator?
   end
 
   private
@@ -83,6 +83,10 @@ class GroupPolicy < ApplicationPolicy
 
   def is_group_admin?
     record.group_accounts.where(account_id: current_account.id, role: :admin).exists?
+  end
+
+  def is_group_admin_or_moderator?
+    record.group_accounts.where(account_id: current_account.id, role: [:moderator, :admin]).exists?
   end
 
   def check_archive!
