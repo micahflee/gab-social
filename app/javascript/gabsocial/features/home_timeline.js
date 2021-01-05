@@ -13,22 +13,16 @@ import StatusList from '../components/status_list'
 class HomeTimeline extends React.PureComponent {
 
   componentDidMount () {
-    this._checkIfReloadNeeded(false, this.props.isPartial)
+    this.props.onExpandHomeTimeline()
   }
 
   componentDidUpdate (prevProps) {
-    this._checkIfReloadNeeded(prevProps.isPartial, this.props.isPartial)
-    
     //Check if clicked on "home" button, if so, reload
     if (prevProps.location.key !== this.props.location.key &&
         prevProps.location.pathname === '/home' &&
         this.props.location.pathname === '/home') {
       this.handleReload()
     }
-  }
-
-  componentWillUnmount () {
-    this._stopPolling()
   }
 
   handleLoadMore = (maxId) => {
@@ -38,25 +32,6 @@ class HomeTimeline extends React.PureComponent {
   handleReload = throttle(() => {
     this.props.onExpandHomeTimeline()
   }, 5000)
-
-  _checkIfReloadNeeded (wasPartial, isPartial) {
-    const { onExpandHomeTimeline } = this.props
-
-    if (!wasPartial && isPartial) {
-      this.polling = setInterval(() => {
-        onExpandHomeTimeline()
-      }, 3000)
-    } else if (wasPartial && !isPartial) {
-      this._stopPolling()
-    }
-  }
-
-  _stopPolling () {
-    if (this.polling) {
-      clearInterval(this.polling)
-      this.polling = null
-    }
-  }
 
   render () {
     const { intl } = this.props
