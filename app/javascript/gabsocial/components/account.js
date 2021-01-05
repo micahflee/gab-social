@@ -71,7 +71,7 @@ class Account extends ImmutablePureComponent {
         isOutline={true}
         color='brand'
         backgroundColor='none'
-        className={[_s.px10, _s.flexRow, _s.aiCenter].join(' ')}
+        className={[_s.px10, _s.flexRow, _s.aiCenter, _s.ml15].join(' ')}
         icon={actionIcon}
         iconSize='10px'
       >
@@ -159,7 +159,7 @@ class Account extends ImmutablePureComponent {
                 {!compact && actionButton}
               </Button>
 
-              <div className={[_s.d].join(' ')}>
+              <div className={[_s.d, _s.flexRow, _s.aiCenter].join(' ')}>
                 {dismissBtn}
                 {compact && actionButton}
               </div>
