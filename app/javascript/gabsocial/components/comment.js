@@ -123,7 +123,7 @@ class Comment extends ImmutablePureComponent {
     const containerClasses = CX({
       d: 1,
       px15: 1,
-      py5: !isDetached,
+      pt5: !isDetached,
       pt10: isDetached,
       pb5: isDetached,
       borderBottom1PX: isDetached,
@@ -166,7 +166,7 @@ class Comment extends ImmutablePureComponent {
             ))}
           </div>
         }
-        <div className={[_s.d, _s.mb10].join(' ')} style={style}>
+        <div className={[_s.d, _s.mb5].join(' ')} style={style}>
 
           <div className={[_s.d, _s.flexRow].join(' ')}>
             <NavLink
