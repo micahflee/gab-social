@@ -39,7 +39,7 @@ class ChatConversationBlockedAccounts extends ImmutablePureComponent {
     const emptyMessage = intl.formatMessage(messages.empty)
 
     return (
-      <div className={[_s.d, _s.w100PC, _s.h100PC, _s.overflowHidden, _s.boxShadowNone].join(' ')}>
+      <div className={[_s.d, _s.w100PC, _s.flexGrow1, _s.overflowHidden, _s.boxShadowNone].join(' ')}>
         <div className={[_s.d, _s.h60PX, _s.w100PC, _s.px10, _s.py10, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
           <BlockHeading title={intl.formatMessage(messages.blocks)} />
         </div>

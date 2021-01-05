@@ -115,8 +115,8 @@ class MessagesLayout extends React.PureComponent {
         return (
           <div className={[_s.d, _s.w100PC, _s.minH100VH, _s.bgTertiary].join(' ')}>
             <DefaultNavigationBar showBackBtn title={title} />
-            <main role='main' className={[_s.d, _s.w100PC, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
-              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.pb15].join(' ')}>
+            <main role='main' className={[_s.d, _s.w100PC, _s.flexGrow1, _s.bgPrimary, _s.borderBottom1PX, _s.borderColorSecondary].join(' ')}>
+              <div className={[_s.d, _s.w100PC, _s.flexRow, _s.flexGrow1, _s.mb15].join(' ')}>
                 {children}
               </div>
               <FooterBar />
