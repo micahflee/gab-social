@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_150000) do
     t.boolean "is_approved", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "unread_count", default: 0
+    t.bigint "unread_count", default: 0, null: false
     t.string "chat_message_expiration_policy"
     t.boolean "is_muted", default: false, null: false
     t.index ["account_id"], name: "index_chat_conversation_accounts_on_account_id"

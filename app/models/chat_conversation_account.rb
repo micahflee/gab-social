@@ -12,7 +12,7 @@
 #  is_approved                    :boolean          default(FALSE), not null
 #  created_at                     :datetime         not null
 #  updated_at                     :datetime         not null
-#  unread_count                   :bigint(8)        default(0)
+#  unread_count                   :bigint(8)        default(0), not null
 #  chat_message_expiration_policy :string
 #  is_muted                       :boolean          default(FALSE), not null
 #
