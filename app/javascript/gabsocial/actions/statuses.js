@@ -252,7 +252,6 @@ const fetchCommentsSuccess = (id, descendants) => ({
 
 const fetchCommentsFail = (id, error) => ({
   type: COMMENTS_FETCH_FAIL,
-  showToast: true,
   id,
   error,
   skipAlert: true,
