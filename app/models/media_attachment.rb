@@ -52,6 +52,23 @@ class MediaAttachment < ApplicationRecord
     },
   }.freeze
 
+  VIDEO_FORMAT_OUTPUT_OPTIONS = {
+    'loglevel' => 'fatal',
+    'movflags' => 'faststart',
+    'pix_fmt'  => 'yuv420p',
+    'vf'       => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
+    'vsync'    => 'cfr',
+    'c:v'      => if ENV['NVENC_ENABLED'] == 'Y'
+                    'h264_nvenc'
+                  else
+                    'h264'
+                  end,
+    'b:v'      => '500K',
+    'maxrate'  => '1300K',
+    'bufsize'  => '1300K',
+    'crf'      => 18,
+  }
+
   VIDEO_STYLES = {
     small: {
       convert_options: {
@@ -66,18 +83,7 @@ class MediaAttachment < ApplicationRecord
     },
     playable: {
       convert_options: {
-        output: {
-          'loglevel' => 'fatal',
-          'movflags' => 'faststart',
-          'pix_fmt'  => 'yuv420p',
-          'vf'       => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
-          'vsync'    => 'cfr',
-          'c:v'      => 'h264',
-          'b:v'      => '500K',
-          'maxrate'  => '1300K',
-          'bufsize'  => '1300K',
-          'crf'      => 18,
-        },
+        output: VIDEO_FORMAT_OUTPUT_OPTIONS,
       },
       format: 'mp4',
     },
@@ -86,18 +92,7 @@ class MediaAttachment < ApplicationRecord
   VIDEO_FORMAT = {
     format: 'mp4',
     convert_options: {
-      output: {
-        'loglevel' => 'fatal',
-        'movflags' => 'faststart',
-        'pix_fmt'  => 'yuv420p',
-        'vf'       => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
-        'vsync'    => 'cfr',
-        'c:v'      => 'h264',
-        'b:v'      => '500K',
-        'maxrate'  => '1300K',
-        'bufsize'  => '1300K',
-        'crf'      => 18,
-      },
+      output: VIDEO_FORMAT_OUTPUT_OPTIONS,
     },
   }.freeze
 
@@ -122,7 +117,7 @@ class MediaAttachment < ApplicationRecord
 
   validates :account, presence: true
   validates :description, length: { maximum: 420 }, if: :local?
-  
+
   scope :attached,   -> { where.not(status_id: nil).or(where.not(scheduled_status_id: nil)) }
   scope :unattached, -> { where(status_id: nil, scheduled_status_id: nil) }
   scope :local,      -> { where(remote_url: '') }
