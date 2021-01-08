@@ -1,37 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getWindowDimension } from '../../../utils/is_mobile'
-
-const initialState = getWindowDimension()
+import { connect } from 'react-redux'
 
 class Responsive extends React.PureComponent {
-
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
-  }
 
   shouldRender = (min, max, width) => {
     return width > min && width < max
   }
 
   render() {
-    const { children, min, max } = this.props
-    const { width } = this.state
+    const { children, min, max, width } = this.props
 
     const shouldRender = this.shouldRender(min, max, width)
 
@@ -39,6 +17,10 @@ class Responsive extends React.PureComponent {
   }
 
 }
+
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
 
 Responsive.propTypes = {
   min: PropTypes.number,
@@ -50,4 +32,4 @@ Responsive.defaultProps = {
   max: Infinity,
 }
 
-export default Responsive
+export default connect(mapStateToProps)(Responsive)

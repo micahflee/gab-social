@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -15,35 +16,17 @@ import ExpiresPostButton from './expires_post_button'
 import RichTextEditorButton from './rich_text_editor_button'
 import StatusVisibilityButton from './status_visibility_button'
 import UploadButton from './media_upload_button'
-import { getWindowDimension } from '../../../utils/is_mobile'
-
-const initialState = getWindowDimension()
  
 class ComposeExtraButtonList extends React.PureComponent {
 
-  state = {
-    height: initialState.height,
-    width: initialState.width,
-  }
-
   componentDidMount() {
-    this.handleResize()
     window.addEventListener('keyup', this.handleKeyUp, false)
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { height, width } = getWindowDimension()
-
-    this.setState({ height, width })
   }
 
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleResize, false)
   }
     
-
   render() {
     const {
       isMatch,
@@ -51,8 +34,9 @@ class ComposeExtraButtonList extends React.PureComponent {
       hidePro,
       isModal,
       formLocation,
+      width,
+      height,
     } = this.props
-    const { height, width } = this.state
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const isStandalone = formLocation === 'standalone'
@@ -92,6 +76,11 @@ class ComposeExtraButtonList extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+  height: state.getIn(['settings', 'window_dimensions', 'height']),
+})
   
 ComposeExtraButtonList.propTypes = {
   hidePro: PropTypes.bool,
@@ -101,4 +90,4 @@ ComposeExtraButtonList.propTypes = {
   formLocation: PropTypes.string,
 }
 
-export default ComposeExtraButtonList
+export default connect(mapStateToProps)(ComposeExtraButtonList)

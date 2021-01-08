@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   BREAKPOINT_EXTRA_LARGE,
   BREAKPOINT_LARGE,
@@ -7,33 +8,12 @@ import {
   BREAKPOINT_SMALL,
   BREAKPOINT_EXTRA_SMALL,
 } from '../../../constants'
-import { getWindowDimension } from '../../../utils/is_mobile'
-
-const initialState = getWindowDimension()
 
 class ResponsiveClassesComponent extends React.PureComponent {
 
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
-  }
-
   render() {
     const {
+      width,
       children,
       classNames,
       classNamesXL,
@@ -42,7 +22,6 @@ class ResponsiveClassesComponent extends React.PureComponent {
       classNamesSmall,
       classNamesXS,
     } = this.props
-    const { width } = this.state
 
     let classes;
     if (width >= BREAKPOINT_EXTRA_LARGE) {
@@ -68,6 +47,10 @@ class ResponsiveClassesComponent extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+
 ResponsiveClassesComponent.propTypes = {
   classNames: PropTypes.string,
   classNamesXL: PropTypes.string,
@@ -77,4 +60,4 @@ ResponsiveClassesComponent.propTypes = {
   classNamesXS: PropTypes.string,
 }
 
-export default ResponsiveClassesComponent
+export default connect(mapStateToProps)(ResponsiveClassesComponent)

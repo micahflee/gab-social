@@ -54,14 +54,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { closePopover } from '../../actions/popover'
-import { getWindowDimension } from '../../utils/is_mobile'
 import Bundle from '../../features/ui/util/bundle'
 import ModalBase from '../modal/modal_base'
 import PopoverBase from './popover_base'
 import ErrorPopover from './error_popover'
 import LoadingPopover from './loading_popover'
-
-const initialState = getWindowDimension()
 
 const POPOVER_COMPONENTS = {
   [POPOVER_CHAT_CONVERSATION_EXPIRATION_OPTIONS]: ChatConversationExpirationOptionsPopover,
@@ -91,22 +88,8 @@ const POPOVER_COMPONENTS = {
 
 class PopoverRoot extends React.PureComponent {
 
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
   componentDidUpdate() {
-    const { type } = this.props
-    const { width } = this.state
+    const { type, width } = this.props
 
     if (width <= BREAKPOINT_EXTRA_SMALL && !!type) {
       document.body.classList.add(_s.overflowYHidden)
@@ -115,21 +98,15 @@ class PopoverRoot extends React.PureComponent {
     }
   }
 
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
-  }
-
   renderLoading = () => {
-    const { width } = this.state
+    const { width } = this.props
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
     return <LoadingPopover isXS={isXS} onClose={this.props.onClose} />
   }
 
   renderError = () => {
-    const { width } = this.state
+    const { width } = this.props
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
     return <ErrorPopover isXS={isXS} onClose={this.props.onClose} />
@@ -140,8 +117,7 @@ class PopoverRoot extends React.PureComponent {
   }
 
   render() {
-    const { type, props, onClose } = this.props
-    const { width } = this.state
+    const { type, props, onClose, width } = this.props
 
     const visible = !!type
 
@@ -181,6 +157,7 @@ class PopoverRoot extends React.PureComponent {
 const mapStateToProps = (state) => ({
   type: state.getIn(['popover', 'popoverType']),
   props: state.getIn(['popover', 'popoverProps'], {}),
+  width: state.getIn(['settings', 'window_dimensions', 'width']),  
 })
 
 const mapDispatchToProps = (dispatch) => ({

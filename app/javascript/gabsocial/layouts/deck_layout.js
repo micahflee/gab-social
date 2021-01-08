@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { connect } from 'react-redux'
 import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
@@ -9,33 +10,11 @@ import Button from '../components/button'
 import Text from '../components/text'
 import DeckSidebar from '../components/sidebar/deck_sidebar'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
-import { getWindowDimension } from '../utils/is_mobile'
-
-const initialState = getWindowDimension()
 
 class DeckLayout extends React.PureComponent {
 
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-    this.setState({ width })
-  }
-
   render() {
-    const { children, title } = this.props
-    const { width } = this.state
+    const { children, title, width } = this.props
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
@@ -73,8 +52,12 @@ class DeckLayout extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+
 DeckLayout.propTypes = {
   title: PropTypes.string,
 }
 
-export default DeckLayout
+export default connect(mapStateToProps)(DeckLayout)

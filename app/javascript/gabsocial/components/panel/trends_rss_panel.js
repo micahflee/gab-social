@@ -9,21 +9,17 @@ import {
   CX,
   BREAKPOINT_EXTRA_SMALL,
 } from '../../constants'
-import { getWindowDimension } from '../../utils/is_mobile'
 import PanelLayout from './panel_layout'
 import TrendsCard from '../trends_card'
 import Button from '../button'
 import LoadMore from '../load_more'
 import ScrollableList from '../scrollable_list'
 
-const initialState = getWindowDimension()
-
 class TrendsRSSPanel extends ImmutablePureComponent {
 
   state = {
     viewType: 0,
     fetched: false,
-    isXS: initialState.width <= BREAKPOINT_EXTRA_SMALL,
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -47,20 +43,11 @@ class TrendsRSSPanel extends ImmutablePureComponent {
       this.setState({ fetched: true })
     }
 
-    this.handleResize()
     window.addEventListener('keyup', this.handleKeyUp, false)
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ isXS: width <= BREAKPOINT_EXTRA_SMALL })
   }
 
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleResize, false)
   }
 
   onItemViewClick = () => {
@@ -79,13 +66,14 @@ class TrendsRSSPanel extends ImmutablePureComponent {
       items,
       hideReadMore,
       feed,
+      width,
     } = this.props
     const {
       fetched,
       viewType,
-      isXS,
     } = this.state
 
+    const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const count = !!items ? items.count() : 0
     if (count === 0 && fetched) return null
     const hasMore = count % 10 === 0
@@ -129,6 +117,7 @@ const mapStateToProps = (state, { trendsRSSId }) => ({
   isLoading: state.getIn(['news', 'trends_feeds', `${trendsRSSId}`, 'isLoading'], false),
   isFetched: state.getIn(['news', 'trends_feeds', `${trendsRSSId}`, 'isFetched'], false),
   items: state.getIn(['news', 'trends_feeds', `${trendsRSSId}`, 'items'], ImmutableList()),
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
 })
 
 TrendsRSSPanel.propTypes = {

@@ -20,10 +20,8 @@ import {
 
 import React from 'react'
 import PropTypes from 'prop-types'
-import { getWindowDimension } from '../../utils/is_mobile'
+import { connect } from 'react-redux'
 import Bundle from '../../features/ui/util/bundle'
-
-const initialState = getWindowDimension()
 
 const INJECTION_COMPONENTS = {}
 INJECTION_COMPONENTS[TIMELINE_INJECTION_FEATURED_GROUPS] = FeaturedGroupsInjection
@@ -36,24 +34,6 @@ INJECTION_COMPONENTS[TIMELINE_INJECTION_USER_SUGGESTIONS] = UserSuggestionsInjec
 
 class TimelineInjectionRoot extends React.PureComponent {
 
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-    this.setState({ width })
-  }
-
   renderLoading = () => {
     return <div />
   }
@@ -63,8 +43,7 @@ class TimelineInjectionRoot extends React.PureComponent {
   }
 
   render() {
-    const { props, type } = this.props
-    const { width } = this.state
+    const { props, type, width } = this.props
 
     const visible = !!type
 
@@ -100,6 +79,10 @@ class TimelineInjectionRoot extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+  
 TimelineInjectionRoot.propTypes = {
   type: PropTypes.string,
   props: PropTypes.object,
@@ -109,4 +92,4 @@ TimelineInjectionRoot.defaultProps = {
   props: {},
 }
 
-export default TimelineInjectionRoot
+export default connect(mapStateToProps)(TimelineInjectionRoot)

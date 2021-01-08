@@ -1,20 +1,17 @@
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import PullToRefresh from 'pulltorefreshjs'
 import moment from 'moment-mini'
 import { BREAKPOINT_EXTRA_SMALL } from '../constants'
-import { getWindowDimension } from '../utils/is_mobile'
 import Responsive from '../features/ui//util/responsive_component'
 import Text from './text'
-
-const initialState = getWindowDimension()
 
 class PullToRefresher extends React.PureComponent {
 
   state = {
     lastRefreshDate: null,
-    width: initialState.width,
   }
 
   componentDidMount() {
@@ -24,10 +21,7 @@ class PullToRefresher extends React.PureComponent {
     return
     
     if (this.props.isDisabled) return
-    if (this.state.width > BREAKPOINT_EXTRA_SMALL) return
-
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
+    if (this.props.width > BREAKPOINT_EXTRA_SMALL) return
 
     const textProps = {
       color: 'secondary',
@@ -58,13 +52,6 @@ class PullToRefresher extends React.PureComponent {
 
   handleDestroy() {
     PullToRefresh.destroyAll()
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
   }
 
   handleOnRefresh = () => {
@@ -92,9 +79,13 @@ class PullToRefresher extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+  
 PullToRefresher.propTypes = {
   onRefresh: PropTypes.func,
   isDisabled: PropTypes.bool,
 }
 
-export default PullToRefresher
+export default connect(mapStateToProps)(PullToRefresher)

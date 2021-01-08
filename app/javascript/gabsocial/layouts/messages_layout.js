@@ -10,7 +10,6 @@ import {
   POPOVER_CHAT_SETTINGS,
   MODAL_CHAT_CONVERSATION_CREATE,
 } from '../constants'
-import { getWindowDimension } from '../utils/is_mobile'
 import Layout from './layout'
 import Responsive from '../features/ui/util/responsive_component'
 import ResponsiveClassesComponent from '../features/ui/util/responsive_classes_component'
@@ -23,27 +22,7 @@ import ChatMessageScrollingList from '../features/messages/components/chat_messa
 import ChatMessageComposeForm from '../features/messages/components/chat_message_compose_form'
 import ChatConversationRequestApproveBar from '../features/messages/components/chat_conversation_request_approve_bar'
 
-const initialState = getWindowDimension()
-
 class MessagesLayout extends React.PureComponent {
-
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-    this.setState({ width })
-  }
 
   handleOpenSettingsOptionsPopover = () => {
     this.props.onOpenSettingsOptionsPopover()
@@ -55,6 +34,7 @@ class MessagesLayout extends React.PureComponent {
 
   render() {
     const {
+      width,
       title,
       children,
       isSettings,
@@ -63,7 +43,6 @@ class MessagesLayout extends React.PureComponent {
       currentConversationIsRequest,
       selectedChatConversationId,
     } = this.props
-    const { width } = this.state
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
@@ -184,6 +163,7 @@ const mapStateToProps = (state) => {
   return {
     selectedChatConversationId,
     currentConversationIsRequest,
+    width: state.getIn(['settings', 'window_dimensions', 'width']),
   }
 }
 

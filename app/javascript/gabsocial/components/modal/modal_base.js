@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { injectIntl, defineMessages } from 'react-intl'
-import { getWindowDimension } from '../../utils/is_mobile'
 import { openModal } from '../../actions/modal'
 import { cancelReplyCompose } from '../../actions/compose'
 import {
@@ -10,13 +9,10 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../../constants'
 
-const initialState = getWindowDimension()
-
 class ModalBase extends React.PureComponent {
 
   state = {
     revealed: !!this.props.children,
-    width: initialState.width,
   }
 
   activeElement = this.state.revealed ? document.activeElement : null
@@ -45,9 +41,7 @@ class ModalBase extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.handleResize()
     window.addEventListener('keyup', this.handleKeyUp, false)
-    window.addEventListener('resize', this.handleResize, false)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -77,15 +71,8 @@ class ModalBase extends React.PureComponent {
     }
   }
 
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
-  }
-
   componentWillUnmount() {
     window.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleResize, false)
   }
 
   getSiblings = () => {
@@ -101,8 +88,7 @@ class ModalBase extends React.PureComponent {
   }
 
   render() {
-    const { children, isCenteredXS } = this.props
-    const { width } = this.state
+    const { children, isCenteredXS, width } = this.props
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
     const visible = !!children
@@ -163,6 +149,7 @@ const messages = defineMessages({
 const mapStateToProps = (state) => ({
   composeId: state.getIn(['compose', 'id']),
   composeText: state.getIn(['compose', 'text']),
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
 })
 
 const mapDispatchToProps = (dispatch) => ({

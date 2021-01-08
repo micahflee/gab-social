@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
 import { me } from '../initial_state'
-import { getWindowDimension } from '../utils/is_mobile'
 import {
   CX,
   MODAL_COMPOSE,
@@ -12,31 +11,10 @@ import {
 import { openModal } from '../actions/modal'
 import Button from './button'
 
-const initialState = getWindowDimension()
-
 class FloatingActionButton extends React.PureComponent {
 
-  state = {
-    width: initialState.width,
-  }
-
-  componentDidMount() {
-    this.handleResize()
-    window.addEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-    this.setState({ width })
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
   render() {
-    const { intl, onOpenCompose } = this.props
-    const { width } = this.state
+    const { intl, onOpenCompose, state, width } = this.props
 
     if (!me) return null
 
@@ -78,6 +56,10 @@ const messages = defineMessages({
   gab: { id: 'gab', defaultMessage: 'Gab' }, 
 })
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+
 const mapDispatchToProps = (dispatch) => ({
   onOpenCompose: () => dispatch(openModal(MODAL_COMPOSE)),
 })
@@ -87,4 +69,4 @@ FloatingActionButton.propTypes = {
   onOpenCompose: PropTypes.func.isRequired,
 }
 
-export default injectIntl(connect(null, mapDispatchToProps)(FloatingActionButton))
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(FloatingActionButton))

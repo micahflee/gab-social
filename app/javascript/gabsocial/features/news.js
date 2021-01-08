@@ -21,15 +21,11 @@ import {
   TrendsHeadlinesPanel,
   TrendsRSSPanel,
 } from './ui/util/async_components'
-import { getWindowDimension } from '../utils/is_mobile'
-
-const initialState = getWindowDimension()
 
 class News extends React.PureComponent {
 
   state = {
     lazyLoaded: false,
-    width: initialState.width,
   }
 
   componentDidMount() {
@@ -38,21 +34,12 @@ class News extends React.PureComponent {
 
     this.window.addEventListener('scroll', this.handleScroll)
     
-    this.handleResize()
     window.addEventListener('keyup', this.handleKeyUp, false)
-    window.addEventListener('resize', this.handleResize, false)
   }
 
   componentWillUnmount() {
     this.detachScrollListener()
     window.removeEventListener('keyup', this.handleKeyUp)
-    window.removeEventListener('resize', this.handleResize, false)
-  }
-
-  handleResize = () => {
-    const { width } = getWindowDimension()
-
-    this.setState({ width })
   }
 
   detachScrollListener = () => {
@@ -71,8 +58,8 @@ class News extends React.PureComponent {
   }, 150, { trailing: true })
 
   render() {
-    const { children, isSmall } = this.props
-    const { lazyLoaded, width } = this.state
+    const { children, isSmall, width } = this.props
+    const { lazyLoaded } = this.state
 
     const isXS = width <= BREAKPOINT_EXTRA_SMALL
 
@@ -113,8 +100,12 @@ class News extends React.PureComponent {
 
 }
 
+const mapStateToProps = (state) => ({
+  width: state.getIn(['settings', 'window_dimensions', 'width']),
+})
+
 News.propTypes = {
   isSmall: PropTypes.bool,
 }
 
-export default News
+export default connect(mapStateToProps)(News)
