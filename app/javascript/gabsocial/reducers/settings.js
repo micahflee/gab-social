@@ -1,4 +1,8 @@
-import { SETTING_CHANGE, SETTING_SAVE } from '../actions/settings'
+import {
+  SETTING_CHANGE,
+  SETTING_SAVE,
+  WINDOW_DIMENSION_CHANGE,
+} from '../actions/settings'
 import { STORE_HYDRATE } from '../actions/store'
 import { EMOJI_USE } from '../actions/emojis'
 import { LIST_DELETE_SUCCESS, LIST_FETCH_FAIL } from '../actions/lists'
@@ -28,6 +32,10 @@ const initialState = ImmutableMap({
   shownOnboarding: false,
   skinTone: 1,
   isCompact: false,
+  window_dimensions: ImmutableMap({
+    width: 0,
+    height: 0,
+  }),
   commentSorting: COMMENT_SORTING_TYPE_OLDEST,
   gabDeckOrder: ImmutableList([]),
 
@@ -72,6 +80,11 @@ const filterDeadListColumns = (state, listId) => state.update('columns', columns
 
 export default function settings(state = initialState, action) {
   switch(action.type) {
+  case WINDOW_DIMENSION_CHANGE:
+    return state.set('window_dimensions', ImmutableMap({
+      width: action.width,
+      height: action.height,
+    }))
   case STORE_HYDRATE:
     return hydrate(state, action.state.get('settings'))
   case SETTING_CHANGE:

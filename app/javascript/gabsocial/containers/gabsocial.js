@@ -19,6 +19,7 @@ import {
   connectStatusUpdateStream,
   connectChatMessagesStream,
 } from '../actions/streaming'
+import { saveWindowDimensions } from '../actions/settings'
 import { getLocale } from '../locales'
 import initialState from '../initial_state'
 import { me, isFirstSession } from '../initial_state'
@@ -37,6 +38,7 @@ store.dispatch(hydrateAction)
 store.dispatch(fetchCustomEmojis())
 store.dispatch(fetchPromotions())
 store.dispatch(fetchChatConversationUnreadCount())
+store.dispatch(saveWindowDimensions())
 
 const mapStateToProps = (state) => ({
   accountCreatedAt: !!me ? state.getIn(['accounts', me, 'created_at']) : undefined,
@@ -64,6 +66,17 @@ class GabSocialMount extends React.PureComponent {
 
       if (shouldShow) this.setState({ shouldShow })
     }
+
+    this.handleResize()
+    window.addEventListener('resize', this.handleResize, false)
+  }
+
+  componentWillUnmount () {
+    window.removeEventListener('resize', this.handleResize, false)
+  }
+
+  handleResize = () => {
+    this.props.dispatch(saveWindowDimensions())
   }
 
   render () {

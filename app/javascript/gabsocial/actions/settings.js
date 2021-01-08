@@ -1,9 +1,22 @@
 import api from '../api'
 import debounce from 'lodash.debounce'
 import { me } from '../initial_state'
+import { getWindowDimension } from '../utils/is_mobile'
 
 export const SETTING_CHANGE = 'SETTING_CHANGE'
 export const SETTING_SAVE   = 'SETTING_SAVE'
+
+export const WINDOW_DIMENSION_CHANGE = 'WINDOW_DIMENSION_CHANGE'
+
+export const saveWindowDimensions = () => (dispatch) => {
+  const { width, height } = getWindowDimension()
+
+  dispatch({
+    type: WINDOW_DIMENSION_CHANGE,
+    width,
+    height,
+  })
+}
 
 export const saveShownOnboarding = () => (dispatch) => {
   dispatch(changeSetting(['shownOnboarding'], true))
