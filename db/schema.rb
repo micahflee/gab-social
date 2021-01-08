@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_03_150000) do
+ActiveRecord::Schema.define(version: 2021_01_08_123456) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -631,6 +631,7 @@ ActiveRecord::Schema.define(version: 2021_01_03_150000) do
     t.bigint "assigned_account_id"
     t.string "uri"
     t.index ["account_id"], name: "index_reports_on_account_id"
+    t.index ["action_taken"], name: "index_reports_on_action_taken"
     t.index ["target_account_id"], name: "index_reports_on_target_account_id"
   end
 
