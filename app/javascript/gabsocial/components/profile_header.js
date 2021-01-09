@@ -13,6 +13,9 @@ import {
   BREAKPOINT_EXTRA_SMALL,
 } from '../constants'
 import {
+  fetchRelationships,
+} from '../actions/accounts'
+import {
   addShortcut,
   removeShortcut,
 } from '../actions/shortcuts'
@@ -39,6 +42,24 @@ class ProfileHeader extends ImmutablePureComponent {
   
   state = {
     stickied: false,
+  }
+
+  componentDidMount() {
+    this.checkRelationships(this.props.account)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { account } = this.props
+    if (prevProps.account !== account) {
+      this.checkRelationships(account)
+    }
+  }
+
+  checkRelationships = (account) => {
+    if (!account) return
+    if (!account.get('relationship')) {
+      this.props.onFetchRelationships(account.get('id'))
+    }
   }
 
   handleOnEditProfile = () => {
@@ -446,6 +467,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   onCreateChatConversation(accountId, routerHistory) {
     dispatch(createChatConversation(accountId, routerHistory))
+  },
+  onFetchRelationships(accountId) {
+    dispatch(fetchRelationships([accountId]))
   },
 });
 

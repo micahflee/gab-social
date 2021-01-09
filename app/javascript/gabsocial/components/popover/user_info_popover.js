@@ -6,6 +6,7 @@ import ImmutablePureComponent from 'react-immutable-pure-component'
 import { NavLink } from 'react-router-dom'
 import { FormattedMessage } from 'react-intl'
 import { makeGetAccount } from '../../selectors'
+import { fetchRelationships } from '../../actions/accounts'
 import { shortNumberFormat } from '../../utils/numbers'
 import { me } from '../../initial_state'
 import PopoverLayout from './popover_layout'
@@ -15,6 +16,24 @@ import DisplayName from '../display_name'
 import UserStat from '../user_stat'
 
 class UserInfoPopover extends ImmutablePureComponent {
+
+  componentDidMount() {
+    this.checkRelationships(this.props.account)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { account } = this.props
+    if (prevProps.account !== account) {
+      this.checkRelationships(account)
+    }
+  }
+
+  checkRelationships = (account) => {
+    if (!account) return
+    if (!account.get('relationship')) {
+      this.props.onFetchRelationships(account.get('id'))
+    }
+  }
 
   render() {
     const { account, isXS } = this.props
@@ -72,10 +91,16 @@ const mapStateToProps = (state, props) => ({
   account: makeGetAccount()(state, props.accountId),
 })
 
+const mapDispatchToProps = (dispatch) => ({
+  onFetchRelationships(accountId) {
+    dispatch(fetchRelationships([accountId]))
+  },
+})
+
 UserInfoPopover.propTypes = {
   account: ImmutablePropTypes.map,
   accountId: PropTypes.string.isRequired,
   isXS: PropTypes.bool,
 }
 
-export default connect(mapStateToProps)(UserInfoPopover)
+export default connect(mapStateToProps, mapDispatchToProps)(UserInfoPopover)
