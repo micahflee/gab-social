@@ -54,7 +54,7 @@ class ListPage extends ImmutablePureComponent {
         layout={[
           <WrappedBundle component={ListDetailsPanel} componentParams={{ list: list, onEdit: this.handleOnOpenListEditModal }} />,
           TrendsBreakingPanel,
-          UserSuggestionsPanel,
+          // UserSuggestionsPanel,
           LinkFooter,
         ]}
       >

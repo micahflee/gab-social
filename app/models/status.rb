@@ -290,12 +290,7 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where('created_at > ?', 21.days.ago)
-      query.where(visibility: [:public, :unlisted]).or(
-          where(visibility: [:private]).where('group is null')
-      ).or(
-          where(visibility: [:private]).where(group: account.groups)
-      )
+      query = where('created_at > ?', 5.days.ago)
       query.where(account: [account] + account.following).without_replies
     end
 
@@ -309,7 +304,7 @@ class Status < ApplicationRecord
     end
 
     def as_pro_timeline(account = nil)
-      query = timeline_scope.without_replies.popular_accounts.where('statuses.updated_at > ?', 2.hours.ago)
+      query = timeline_scope.without_replies.popular_accounts.where('statuses.updated_at > ?', 1.hours.ago)
       apply_timeline_filters(query, account)
     end
 

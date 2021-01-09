@@ -13,7 +13,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
         each_serializer: REST::StatusSerializer,
         relationships: StatusRelationshipsPresenter.new(@statuses, current_account.id)
     else
-      render json: @statuses, each_serializer: REST::StatusSerializer
+      render json: [], each_serializer: REST::StatusSerializer
     end
   end
 

@@ -537,6 +537,8 @@ const fetchComposeSuggestionsAccounts = throttle((dispatch, getState, token) => 
     cancelFetchComposeSuggestionsAccounts()
   }
 
+  return false
+
   api(getState).get('/api/v1/accounts/search', {
     cancelToken: new CancelToken(cancel => {
       cancelFetchComposeSuggestionsAccounts = cancel

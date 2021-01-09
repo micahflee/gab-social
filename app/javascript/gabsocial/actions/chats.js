@@ -21,7 +21,8 @@ export const fetchChatConversationAccountSuggestions = (query) => (dispatch, get
 
 export const debouncedFetchChatConversationAccountSuggestions = debounce((query, dispatch, getState) => {
   if (!query) return
-  
+  return false
+
   api(getState).get('/api/v1/accounts/search', {
     params: {
       q: query,

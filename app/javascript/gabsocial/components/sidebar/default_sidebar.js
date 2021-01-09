@@ -21,7 +21,7 @@ class DefaultSidebar extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    this.props.onFetchShortcuts()
+    // this.props.onFetchShortcuts()
   }
 
   handleOpenSidebarMorePopover = () => {

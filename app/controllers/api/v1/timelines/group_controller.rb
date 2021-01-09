@@ -54,7 +54,8 @@ class Api::V1::Timelines::GroupController < Api::BaseController
         FeedManager.instance.filter?(:home, status, current_account.id)
       }
     else
-      SortingQueryBuilder.new.call(@sort_type, @group, params[:page])
+      return []
+      # SortingQueryBuilder.new.call(@sort_type, @group, params[:page])
     end
 
   end

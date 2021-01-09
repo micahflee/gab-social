@@ -157,7 +157,7 @@ class ProfileLayout extends ImmutablePureComponent {
                           <div className={[_s.d, _s.w340PX].join(' ')}>
                             <WrappedBundle component={ProfileStatsPanel} componentParams={{ account }} />
                             <WrappedBundle component={ProfileInfoPanel} componentParams={{ account }} />
-                            { !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account, isLazy: true, shouldLoad: lazyLoaded }} />}
+                            { /*  !unavailable && <WrappedBundle component={MediaGalleryPanel} componentParams={{ account, isLazy: true, shouldLoad: lazyLoaded }} /> */ }
                             { !me && <WrappedBundle component={SignUpPanel} /> }
                             <WrappedBundle component={LinkFooter} />
                           </div>

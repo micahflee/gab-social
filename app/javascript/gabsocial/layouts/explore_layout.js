@@ -65,10 +65,10 @@ class ExploreLayout extends ImmutablePureComponent {
 
     const layout = [
       SignUpLogInPanel,
-      <WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />,
     ]
     if (!!me) {
-      layout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, suggestionType: 'verified' }} />)
+      layout.push(<WrappedBundle component={GroupsPanel} componentParams={{ groupType: 'featured' }} />)
+      // layout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, suggestionType: 'verified' }} />)
     }
     layout.push(<WrappedBundle component={TrendsBreakingPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }} />)
 

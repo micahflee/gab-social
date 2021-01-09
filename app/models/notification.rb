@@ -42,6 +42,7 @@ class Notification < ApplicationRecord
   validates :account_id, uniqueness: { scope: [:activity_type, :activity_id] }
   validates :activity_type, inclusion: { in: TYPE_CLASS_MAP.values }
 
+  scope :latest, -> { where('created_at < ?', 7.days.ago) }
   scope :browserable, ->(exclude_types = [], account_id = nil, only_verified = false, only_following = false) {
     types = TYPE_CLASS_MAP.values - activity_types_from_types(exclude_types + [:follow_request])
 

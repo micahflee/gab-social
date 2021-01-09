@@ -34,13 +34,13 @@ class UserSuggestionsPanel extends ImmutablePureComponent {
 
   componentDidUpdate(prevProps, prevState) {
     if (!prevState.fetched && this.state.fetched) {
-      this.handleFetch()
+      // this.handleFetch()
     }
   }
 
   componentDidMount() {
     if (!this.props.isLazy) {
-      this.handleFetch()
+      // this.handleFetch()
     }
   }
 
@@ -60,6 +60,7 @@ class UserSuggestionsPanel extends ImmutablePureComponent {
       suggestionType,
     } = this.props
 
+    return null
     if (suggestions.isEmpty()) return null
 
     const Child = isLoading ? AccountPlaceholder : Account
