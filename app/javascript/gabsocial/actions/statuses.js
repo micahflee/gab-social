@@ -1,3 +1,4 @@
+import debounce from 'lodash.debounce'
 import api from '../api'
 import openDB from '../storage/db'
 import { evictStatus } from '../storage/modifier'
@@ -141,7 +142,7 @@ export const editStatus = (status) => (dispatch) => {
  * 
  */
 export const deleteStatus = (id, routerHistory) => (dispatch, getState) => {
-  if (!me) return
+  if (!me || !id) return
 
   let status = getState().getIn(['statuses', id])
 
@@ -180,6 +181,8 @@ const deleteStatusFail = (id, error) => ({
  * 
  */
 export const fetchContext = (id, ensureIsReply) => (dispatch, getState) => {
+  if (!id) return
+
   if (ensureIsReply) {
     const isReply = !!getState().getIn(['statuses', id, 'in_reply_to_id'], null)
     if (!isReply) return
@@ -225,6 +228,12 @@ const fetchContextFail = (id, error) => ({
  * 
  */
 export const fetchComments = (id) => (dispatch, getState) => {
+  if (!id) return
+  debouncedFetchComments(id, dispatch, getState)
+}
+
+export const debouncedFetchComments = debounce((id, dispatch, getState) => {
+  if (!id) return
   dispatch(fetchCommentsRequest(id))
 
   api(getState).get(`/api/v1/statuses/${id}/comments`).then((response) => {
@@ -237,7 +246,8 @@ export const fetchComments = (id) => (dispatch, getState) => {
 
     dispatch(fetchCommentsFail(id, error))
   })
-}
+}, 5000, { leading: true })
+
 
 const fetchCommentsRequest = (id) => ({
   type: COMMENTS_FETCH_REQUEST,

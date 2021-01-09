@@ -1,4 +1,5 @@
 import api, { getLinks } from '../api'
+import debounce from 'lodash.debounce'
 import IntlMessageFormat from 'intl-messageformat'
 import noop from 'lodash.noop'
 import { fetchRelationships } from './accounts'
@@ -262,9 +263,14 @@ export const setFilter = (path, value) => (dispatch) => {
 /**
  * 
  */
+
 export const markReadNotifications = () => (dispatch, getState) => {
   if (!me) return
-  
+  debouncedMarkReadNotifications(dispatch, getState)
+}
+
+export const debouncedMarkReadNotifications = debounce((dispatch, getState) => {
+  if (!me) return
   const topNotification = parseInt(getState().getIn(['notifications', 'items', 0, 'id']))
   const lastReadId = getState().getIn(['notifications', 'lastReadId'])
 
@@ -278,4 +284,4 @@ export const markReadNotifications = () => (dispatch, getState) => {
       })
     })
   }
-}
+}, 5000, { leading: true })
