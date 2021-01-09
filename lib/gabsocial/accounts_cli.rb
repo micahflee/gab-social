@@ -413,7 +413,7 @@ module GabSocial
           end
         end
 
-        # BootstrapTimelineWorker.perform_async(account.id)
+        BootstrapTimelineWorker.perform_async(account.id)
 
         say("OK, unfollowed #{processed} followees, skipped #{failed}", :green)
       end

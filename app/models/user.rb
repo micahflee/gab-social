@@ -219,7 +219,7 @@ class User < ApplicationRecord
   end
 
   def challenge
-    #
+    # 
   end
 
   def password_required?
@@ -258,7 +258,7 @@ class User < ApplicationRecord
   private
 
   def set_approved
-    self.approved = open_registrations?
+    self.approved = open_registrations?  
   end
 
   def external?
@@ -272,7 +272,7 @@ class User < ApplicationRecord
   end
 
   def prepare_new_user!
-    # BootstrapTimelineWorker.perform_async(account_id)
+    BootstrapTimelineWorker.perform_async(account_id)
     ActivityTracker.increment('activity:accounts:local')
     UserMailer.welcome(self).deliver_later
   end
