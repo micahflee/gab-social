@@ -19,7 +19,6 @@ class UnfollowService < BaseService
     return unless follow
 
     follow.destroy!
-    UnmergeWorker.perform_async(@target_account.id, @source_account.id)
     follow
   end
 
