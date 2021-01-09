@@ -26,7 +26,6 @@ class FollowRequest < ApplicationRecord
 
   def authorize!
     account.follow!(target_account)
-    MergeWorker.perform_async(target_account.id, account.id) if account.local?
     destroy!
   end
 

@@ -54,8 +54,6 @@ class FollowService < BaseService
       LocalNotificationWorker.perform_async(target_account.id, follow.id, follow.class.name)
     end
 
-    MergeWorker.perform_async(target_account.id, source_account.id)
-
     follow
   end
 
