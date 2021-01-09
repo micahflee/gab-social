@@ -10,7 +10,7 @@ import List from '../components/list'
 class Shortcuts extends ImmutablePureComponent {
 
   componentDidMount() {
-    // this.props.onFetchShortcuts()
+    this.props.onFetchShortcuts()
   }
 
   render() {
@@ -19,8 +19,6 @@ class Shortcuts extends ImmutablePureComponent {
       isError,
       shortcuts,
     } = this.props
-
-    return null
 
     if (isError) {
       return <ColumnIndicator type='error' message='Error fetching shortcuts' />
