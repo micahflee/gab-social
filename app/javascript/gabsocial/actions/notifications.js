@@ -74,8 +74,6 @@ export const updateNotifications = (notification, intlMessages, intlLocale) => (
       type: NOTIFICATIONS_UPDATE,
       notification,
     })
-
-    fetchRelatedRelationships(dispatch, [notification])
   }
 }
 
