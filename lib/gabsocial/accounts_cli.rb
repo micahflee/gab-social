@@ -355,7 +355,7 @@ module GabSocial
 
       if options[:number]
         target_account = Account.find(acct)
-        followers = target_account.followers.local.limit(options[:number]).reorder(created_at: :asc)
+        followers = target_account.followers.local.limit(options[:number])
       else
         say('Error. Specify a limit', :red)
         exit(1)
