@@ -342,6 +342,7 @@ module GabSocial
       say("OK, followed target from #{processed} accounts, skipped #{failed}", :green)
     end
 
+    option :number, type: :numeric, aliases: [:n]
     desc 'unfollow ACCT', 'Make all local accounts unfollow account specified by ACCT'
     long_desc <<-LONG_DESC
       Make all local accounts unfollow an account specified by ACCT. ACCT can be
@@ -349,16 +350,26 @@ module GabSocial
       username@domain, in case of a remote user.
     LONG_DESC
     def unfollow(acct)
-      target_account = Account.find_remote(*acct.split('@'))
-      processed      = 0
-      failed         = 0
+      target_account = nil
+      followers = nil
+
+      if options[:number]
+        target_account = Account.find(acct)
+        followers = target_account.followers.local.limit(options[:number]).reorder(created_at: :asc)
+      else
+        say('Error. Specify a limit', :red)
+        exit(1)
+      end
+      
+      processed = 0
+      failed = 0
 
       if target_account.nil?
         say("Target account (#{acct}) was not found", :red)
         exit(1)
       end
 
-      target_account.followers.local.find_each do |account|
+      followers.find_each do |account|
         begin
           UnfollowService.new.call(account, target_account)
           processed += 1
