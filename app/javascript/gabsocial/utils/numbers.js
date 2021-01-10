@@ -14,9 +14,13 @@ export const shortNumberFormat = (number) => {
     }
   }
 
+  const isMillions = number > 999999
+  const isThousands = number > 999 && !isMillions
+  const divisor = isMillions ? 1000000 : isThousands ? 1000 : 1
+  const suffix = isMillions ? 'm' : isThousands ? 'k' : ''
   return (
     <React.Fragment>
-      <FormattedNumber value={number / 1000} maximumFractionDigits={1} />k
+      <FormattedNumber value={number / divisor} maximumFractionDigits={1} />{suffix}
     </React.Fragment>
   )
 }
