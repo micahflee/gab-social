@@ -395,12 +395,12 @@ export const fetchChatConversationRequestedCount = () => (dispatch, getState) =>
 export const fetchChatConversationUnreadCount = () => (dispatch, getState) => {
   if (!me) return
 
-  api(getState).get('/api/v1/chat_conversations/approved_conversations/unread_count').then(response => {
+  // api(getState).get('/api/v1/chat_conversations/approved_conversations/unread_count').then(response => {
     dispatch({
       type: CHAT_CONVERSATION_APPROVED_UNREAD_COUNT_FETCH_SUCCESS,
-      count: response.data,
+      count: 0,
     })
-  })
+  // })
 }
 
 /**

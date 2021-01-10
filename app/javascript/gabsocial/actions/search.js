@@ -6,6 +6,7 @@ import {
   importFetchedStatuses,
 } from './importer';
 import { importLinkCards } from './links'
+import { me } from '../initial_state'
 import { SEARCH_FILTERS } from '../constants'
 
 export const SEARCH_CHANGE = 'SEARCH_CHANGE';
@@ -37,6 +38,8 @@ export const clearSearch = () => ({
  * 
  */
 export const submitSearch = () => (dispatch, getState) => {
+  if (!me) return
+
   const value = getState().getIn(['search', 'value'])
   const onlyVerified = getState().getIn(['search', 'filter', 'onlyVerified'])
 
