@@ -290,7 +290,7 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where('created_at > ?', 5.days.ago)
+      query = where('created_at > ?', 3.days.ago)
       query.where(account: [account] + account.following).without_replies
     end
 
