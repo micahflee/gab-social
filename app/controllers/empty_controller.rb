@@ -42,7 +42,7 @@ class EmptyController < ActionController::Base
     links << [prev_path, [%w(rel prev)]] if prev_path
     response.headers['Link'] = LinkHeader.new(links) unless links.empty?
   end
-  
+
   def current_user
     nil
   end
@@ -53,6 +53,10 @@ class EmptyController < ActionController::Base
 
   def current_session
     nil
+  end
+
+  def gone
+    respond_with_error(410)
   end
 
   def cache_collection(raw, klass)
@@ -83,6 +87,6 @@ class EmptyController < ActionController::Base
   def truthy_param?(key)
     ActiveModel::Type::Boolean.new.cast(params[key])
   end
-  
+
 
 end

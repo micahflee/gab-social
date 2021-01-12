@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Api::V1::AccountByUsernameController < API::BaseController
+class Api::V1::AccountByUsernameController < EmptyController
   before_action :set_account
   before_action :check_account_suspension
   before_action :check_account_local
