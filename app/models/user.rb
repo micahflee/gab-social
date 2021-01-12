@@ -219,7 +219,7 @@ class User < ApplicationRecord
   end
 
   def challenge
-    # 
+    #
   end
 
   def password_required?
@@ -246,7 +246,7 @@ class User < ApplicationRecord
   end
 
   def force_regeneration!
-    Redis.current.set("account:#{account_id}:regeneration", true)
+    # Redis.current.set("account:#{account_id}:regeneration", true)
   end
 
   protected
@@ -258,7 +258,7 @@ class User < ApplicationRecord
   private
 
   def set_approved
-    self.approved = open_registrations?  
+    self.approved = open_registrations?
   end
 
   def external?
@@ -283,9 +283,10 @@ class User < ApplicationRecord
   end
 
   def regenerate_feed!
-    return unless Redis.current.setnx("account:#{account_id}:regeneration", true)
-    Redis.current.expire("account:#{account_id}:regeneration", 1.day.seconds)
-    RegenerationWorker.perform_async(account_id)
+    # return unless Redis.current.setnx("account:#{account_id}:regeneration", true)
+    # Redis.current.expire("account:#{account_id}:regeneration", 1.day.seconds)
+    # RegenerationWorker.perform_async(account_id)
+    return
   end
 
   def needs_feed_update?
