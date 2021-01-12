@@ -76,7 +76,11 @@ apt update
 - Other -dev packages, g++ - these are needed for the compilation of Ruby using ruby-build.
 
 ```sh
-apt -y install imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file git-core g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf bison build-essential libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm5 libgdbm-dev nginx redis-server redis-tools postgresql postgresql-contrib certbot libidn11-dev libicu-dev
+apt -y install imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file git-core \
+ g++ libprotobuf-dev protobuf-compiler pkg-config gcc autoconf bison build-essential \
+ libssl-dev libyaml-dev libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 \
+ libgdbm-dev nginx redis-server redis-tools postgresql postgresql-contrib certbot \
+ libidn11-dev libicu-dev gnupg2 supervisor
 ```
 
 ### Dependencies That Need To Be Added As A Non-Root User
@@ -84,14 +88,14 @@ apt -y install imagemagick ffmpeg libpq-dev libxml2-dev libxslt1-dev file git-co
 Let us create this user first:
 
 ```sh
-adduser --disabled-password gabsocial
+adduser --disabled-password --shell /bin/bash gabsocial
 ```
 
 Log in as the `gabsocial` user:
 
 
 ```sh
-sudo su - gabsocial
+su - gabsocial
 ```
 
 #### Node Version Manager, Node.js, and Yarn
@@ -99,20 +103,17 @@ sudo su - gabsocial
 [Node Version Manager](https://github.com/nvm-sh/nvm) is a tool used for managing Node.js deployments. By convention at Gab, we only use Node.js as a standard user. No part of Node.js is managed or executed with superuser privileges. Those responsibilities are handled by Nginx later in this document.
 
 ```sh
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 ```
 
 Refresh your user session to pick up the environment changes added by `nvm`. Then, let's install Node.js v10.15.3LTS, verify that it was installed correctly, and install Yarn:
 
 ```sh
 # ask NVM to install 10.16.1LTS
-nvm install --lts 10.16.1
+nvm install --lts 12.19.0
 
-# ask Node to print it's version number and exit.
-node --version
-
-# (should display)
-v10.16.1
+nvm alias default 12.19.0
+nvm use 12.19.0
 
 # Install Yarn, globally
 npm install -g yarn forever
@@ -120,37 +121,24 @@ npm install -g yarn forever
 
 #### rbenv, Ruby, Rails, Rake
 
-We will need to set up [`rbenv`](https://github.com/rbenv/rbenv) and [`ruby-build`](https://github.com/rbenv/ruby-build):
+We will need to set up rvm.
 
+As root:
 ```sh
-git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-cd ~/.rbenv && src/configure && make -C src
-echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+gpg2 --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 
-# Restart shell
-exec bash
+\curl -sSL https://get.rvm.io | bash -s stable
 
-# Check if rbenv is correctly installed
-type rbenv
+usermod -a -G rvm root
+usermod -a -G rvm gabsocial
 
-# Install ruby-build as rbenv plugin
-git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+source /etc/profile.d/rvm.sh
+
+rvm install 2.6.5
+
 ```
 
-Now that [`rbenv`](https://github.com/rbenv/rbenv) and [`ruby-build`](https://github.com/rbenv/ruby-build) are installed, we will install the
-[Ruby](https://www.ruby-lang.org/en/) version which [Gab Social](https://code.gab.com/gab/social/gab-social) uses. That version will also need to be enabled.
 
-To enable [Ruby](https://www.ruby-lang.org/en/), run:
-
-```sh
-# We recommend watching videos on BitChute while this procedure
-# ruins your whole machine forever.
-rbenv install 2.6.1
-
-# set the global RoR environment to version 2.6.1
-rbenv global 2.6.1
-```
 
 ### node.js And Ruby Dependencies
 
@@ -160,16 +148,13 @@ Run the following to clone and install:
 
 ```sh
 # Return to gabsocial user's home directory
-cd ~
+su - gabsocial
 
 # Clone the gabsocial git repository into ~/live
 git clone https://code.gab.com/gab/social/gab-social live
 
 # Change directory to ~/live
 cd ~/live
-
-# Checkout to the latest stable branch
-git checkout $(git tag -l | grep -v 'rc[0-9]*$' | sort -V | tail -n 1)
 
 # Install bundler
 gem install bundler
@@ -413,7 +398,7 @@ If upgrading:
 
 ```sh
 cd ~/live
-RAILS_ENV=production rails assets:precompile
+RAILS_ENV=production bin/rake assets:precompile
 ```
 
 The interactive wizard will guide you through basic and necessary options, generate new app secrets, setup the database schema and precompile the assets.
