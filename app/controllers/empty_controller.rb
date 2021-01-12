@@ -55,10 +55,6 @@ class EmptyController < ActionController::Base
     nil
   end
 
-  def gone
-    respond_with_error(410)
-  end
-
   def cache_collection(raw, klass)
     return raw unless klass.respond_to?(:with_includes)
 
