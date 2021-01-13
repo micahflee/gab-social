@@ -13,6 +13,7 @@ import PageTitle from '../features/ui/util/page_title'
 import DefaultLayout from '../layouts/default_layout'
 import TimelineComposeBlock from '../components/timeline_compose_block'
 import TabBar from '../components/tab_bar'
+import WelcomeReminders from '../components/welcome_reminders'
 import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import {
   UserPanel,
@@ -114,6 +115,9 @@ class HomePage extends React.PureComponent {
         />
 
         <TimelineComposeBlock autoFocus={false} />
+
+        <WelcomeReminders />
+
         {children}
         
       </DefaultLayout>
