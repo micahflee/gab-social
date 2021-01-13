@@ -498,6 +498,26 @@ module GabSocial
       end
     end
 
+    desc 'update_account_stats ACCT', 'Update account stats.'
+    long_desc <<-LONG_DESC
+      Update account stats (follow count, status count, following count).
+    LONG_DESC
+    def update_account_stats(acct)
+      target_account = Account.find(acct)
+      if target_account.nil?
+        say("Target account (#{acct}) was not found", :red)
+        exit(1)
+      end
+
+      AccountStat.where(account: target_account).update(
+        followers_count: target_account.local_followers_count,
+        following_count: target_account.local_following_count,
+        statuses_count: target_account.statuses.count,
+      )
+
+      say('OK', :green)
+    end
+
     private
 
     def rotate_keys_for_account(account, delay = 0)
