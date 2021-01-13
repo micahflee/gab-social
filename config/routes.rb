@@ -294,7 +294,6 @@ Rails.application.routes.draw do
         end
       end
 
-      get '/search', to: 'search#index', as: :search
       get '/account_by_username/:username', to: 'account_by_username#show', username: username_regex
 
       namespace :apps do
