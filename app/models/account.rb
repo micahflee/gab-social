@@ -149,6 +149,10 @@ class Account < ApplicationRecord
     Follow.where(target_account_id: id).count
   end
 
+  def local_following_count
+    Follow.where(account_id: id).count
+  end
+
   def chat_conversation_accounts_count
     ChatConversationAccount.where(account_id: id).count
   end
