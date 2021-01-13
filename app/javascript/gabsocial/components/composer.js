@@ -180,7 +180,8 @@ class Composer extends React.PureComponent {
     const currentBlockIndex = blocks.findIndex((k) => k.key === currentBlockKey)
     const priorBlockTextLength = blocks.splice(0, currentBlockIndex).map(block => (!block.text.trim() && '') || block.text).join('\n').length
     const selectionStart = selectionState.getStartOffset()
-    const cursorPosition = priorBlockTextLength + selectionStart
+    const toAdd = currentBlockIndex === 0 ? 0 : 1
+    const cursorPosition = priorBlockTextLength + selectionStart + toAdd
 
     const rawObject = convertToRaw(content)
     const markdownString = this.props.isPro ? draftToMarkdown(rawObject,markdownOptions) : null
