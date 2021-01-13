@@ -5,6 +5,8 @@ class Api::BaseController < ApplicationController
   DEFAULT_ACCOUNTS_LIMIT = 20
   DEFAULT_CHAT_CONVERSATION_LIMIT = 100
   DEFAULT_CHAT_CONVERSATION_MESSAGE_LIMIT = 20
+  MAX_LIMIT_PARAM = 25
+  MIN_UNAUTHENTICATED_PAGES = 2
 
   include RateLimitHeaders
 
@@ -55,7 +57,7 @@ class Api::BaseController < ApplicationController
 
   def limit_param(default_limit)
     return default_limit unless params[:limit]
-    [params[:limit].to_i.abs, default_limit * 2].min
+    [params[:limit].to_i.abs, MAX_LIMIT_PARAM].min
   end
 
   def params_slice(*keys)

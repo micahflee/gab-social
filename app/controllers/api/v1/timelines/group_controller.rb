@@ -55,7 +55,8 @@ class Api::V1::Timelines::GroupController < Api::BaseController
       }
     else
       return []
-      # SortingQueryBuilder.new.call(@sort_type, @group, params[:page])
+      # page = [params[:page].to_i.abs, MIN_UNAUTHENTICATED_PAGES].min
+      # SortingQueryBuilder.new.call(@sort_type, @group, page)
     end
 
   end

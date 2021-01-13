@@ -48,7 +48,8 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
         FeedManager.instance.filter?(:home, status, current_account.id)
       }
     else
-      SortingQueryBuilder.new.call(@sort_type, nil, params[:page])
+      page = [params[:page].to_i.abs, MIN_UNAUTHENTICATED_PAGES].min
+      SortingQueryBuilder.new.call(@sort_type, nil, page)
     end
   end
 
