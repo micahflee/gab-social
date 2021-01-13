@@ -36,6 +36,7 @@ class List extends ImmutablePureComponent {
           placeholderCount={12}
         >
           {
+            !!items && itemsSize > 0 &&
             items.map((item, i) => (
               <ListItem
                 size={size}
