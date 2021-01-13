@@ -9,88 +9,31 @@ import StatusList from '../components/status_list'
 
 class HashtagTimeline extends React.PureComponent {
 
-  title = () => {
-    const title = [this.props.params.id]
-
-    if (this.additionalFor('any')) {
-      title.push(' ',
-        <FormattedMessage
-          key='any'
-          id='hashtag.column_header.tag_mode.any'
-          values={{
-            additional: this.additionalFor('any'),
-          }}
-          defaultMessage='or {additional}'
-        />
-      )
-    }
-
-    if (this.additionalFor('all')) {
-      title.push(' ',
-        <FormattedMessage
-          key='all'
-          id='hashtag.column_header.tag_mode.all'
-          values={{
-            additional: this.additionalFor('all'),
-          }}
-          defaultMessage='and {additional}'
-        />
-      )
-    }
-
-    if (this.additionalFor('none')) {
-      title.push(' ',
-        <FormattedMessage
-          key='none'
-          id='hashtag.column_header.tag_mode.none'
-          values={{
-            additional: this.additionalFor('none'),
-          }}
-          defaultMessage='without {additional}'
-        />
-      )
-    }
-
-    return title
-  }
-
-  additionalFor = (mode) => {
-    const { tags } = this.props.params
-
-    try {
-      return tags[mode].map(tag => tag.value).join('/')
-    } catch (error) {
-      return ''
-    }
-  }
-
   componentDidMount () {
     const { dispatch, tagName } = this.props
-    const { id, tags } = this.props.params
+    const { id } = this.props.params
 
-    dispatch(expandHashtagTimeline(id, { tags }))
+    dispatch(expandHashtagTimeline(id))
     // dispatch(fetchHashtag(tagName))
   }
 
   componentWillReceiveProps (nextProps) {
     const { dispatch, params } = this.props
-    const { id, tags } = nextProps.params
+    const { id } = nextProps.params
 
-    if (id !== params.id || !isEqual(tags, params.tags)) {
+    if (id !== params.id) {
       this.props.dispatch(clearTimeline(`hashtag:${id}`))
-      this.props.dispatch(expandHashtagTimeline(id, { tags }))
+      this.props.dispatch(expandHashtagTimeline(id))
     }
   }
 
   handleLoadMore = (maxId) => {
-    const { id, tags } = this.props.params
-    this.props.dispatch(expandHashtagTimeline(id, { maxId, tags }))
+    const { id } = this.props.params
+    this.props.dispatch(expandHashtagTimeline(id, { maxId }))
   }
 
   render () {
-    const { tag, tagName } = this.props
-
-    console.log("tagName:", tag)
+    const { tagName } = this.props
 
     return (
       <StatusList

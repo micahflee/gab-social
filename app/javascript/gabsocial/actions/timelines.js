@@ -336,11 +336,8 @@ export const expandLinkTimeline = (linkId, { maxId } = {}, done = noop) => {
 /**
  * 
  */
-export const expandHashtagTimeline = (hashtag, { maxId, tags } = {}, done = noop) => {
+export const expandHashtagTimeline = (hashtag, { maxId } = {}, done = noop) => {
   return expandTimeline(`hashtag:${hashtag}`, `/api/v1/timelines/tag/${hashtag}`, {
     max_id: maxId,
-    any: parseTags(tags, 'any'),
-    all: parseTags(tags, 'all'),
-    none: parseTags(tags, 'none'),
   }, done)
 }
