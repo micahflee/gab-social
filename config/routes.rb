@@ -37,8 +37,6 @@ Rails.application.routes.draw do
     confirmations:      'auth/confirmations',
   }
 
-  get '/authorize_follow', to: redirect { |_, request| "/authorize_interaction?#{request.params.to_query}" }
-
   namespace :settings do
     resource :profile, only: [:show, :update]
     resource :preferences, only: [:show, :update]
@@ -49,11 +47,6 @@ Rails.application.routes.draw do
       get :transactions, to: 'transactions#index', as: :transactions
       post '/btcpay-notification', to: 'upgrade#btcpay_notification', as: :btcpay_notification
     end
-
-    resources :promotions, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :group_categories, only: [:index, :new, :create, :edit, :update, :destroy]
-    resources :trending_hashtags, only: [:index, :new, :create, :edit, :update, :destroy]
 
     namespace :verifications do
       get :moderation, to: 'moderation#index', as: :moderation
@@ -87,13 +80,12 @@ Rails.application.routes.draw do
 
     resources :sessions, only: [:destroy]
     resources :scheduled_statuses, only: [:index, :destroy]
+    resources :filters, except: [:show]
   end
 
   resources :media, only: [:show] do
     get :player
   end
-
-  resources :filters, except: [:show]
 
   get '/media_proxy/:id/(*any)', to: 'media_proxy#show', as: :media_proxy
 
@@ -105,6 +97,10 @@ Rails.application.routes.draw do
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
     resource :settings, only: [:edit, :update]
+    resources :promotions, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :expenses, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :group_categories, only: [:index, :new, :create, :edit, :update, :destroy]
+    resources :trending_hashtags, only: [:index, :new, :create, :edit, :update, :destroy]
 
     resources :reports, only: [:index, :show] do
       member do

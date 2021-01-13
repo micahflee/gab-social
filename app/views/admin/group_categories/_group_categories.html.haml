@@ -1,0 +1,5 @@
+%tr
+  %td= group_categories.created_at
+  %td= group_categories.text
+  %td
+    = table_link_to 'trash', t('group_categories.delete'), admin_group_categories_url(group_categories), method: :delete

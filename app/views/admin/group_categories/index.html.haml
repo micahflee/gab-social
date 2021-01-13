@@ -1,7 +1,7 @@
 - content_for :page_title do
   = t('group_categories.title')
 
-= form_tag settings_group_categories_url, method: 'POST', class: 'simple_form' do
+= form_tag admin_group_categories_url, method: 'POST', class: 'simple_form' do
   .fields-group
     .input.string.optional
       = text_field_tag :text, params[:text], class: 'string optional', placeholder: I18n.t("group_categories.text")

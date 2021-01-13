@@ -1,7 +1,7 @@
 - content_for :page_title do
   = t('.title')
 
-= simple_form_for @promotion, url: settings_promotions_path do |f|
+= simple_form_for @promotion, url: admin_promotions_path do |f|
   = render 'shared/error_messages', object: @promotion
 
   .fields-group

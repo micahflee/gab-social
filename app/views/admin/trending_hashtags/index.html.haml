@@ -1,6 +1,6 @@
 - content_for :page_title do
   = 'Trending Hashtags'
 
-= form_tag settings_trending_hashtags_url, :method => :post do
+= form_tag admin_trending_hashtags_url, :method => :post do
   = text_field_tag "trending_hashtags", "", :style => 'width:400px', placeholder: "StopTheSteal, Trump2020, Election2020", :value => @trending_hashtags
   = submit_tag "Submit"

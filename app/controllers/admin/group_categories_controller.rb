@@ -1,4 +1,4 @@
-class Settings::GroupCategoriesController < Admin::BaseController	
+class Admin::GroupCategoriesController < Admin::BaseController	
 	before_action :set_category, except: [:index, :new, :create]
 
 	def index
@@ -14,7 +14,7 @@ class Settings::GroupCategoriesController < Admin::BaseController
 		
 		if @category.save
 			log_action :create, @category
-			redirect_to settings_group_categories_path, notice: I18n.t('promotions.created_msg')
+			redirect_to admin_group_categories_path, notice: I18n.t('promotions.created_msg')
 		else
 			render :new
 		end
@@ -24,7 +24,7 @@ class Settings::GroupCategoriesController < Admin::BaseController
 		@category.destroy!
 		log_action :destroy, @category
 		flash[:notice] = I18n.t('promotions.destroyed_msg')
-		redirect_to settings_group_categories_path
+		redirect_to admin_group_categories_path
 	end
 
 	private

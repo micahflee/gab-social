@@ -14,7 +14,7 @@
           %td= filter.phrase
           %td= filter.context.map { |context| I18n.t("filters.contexts.#{context}") }.join(', ')
           %td
-            = table_link_to 'pencil', t('filters.edit.title'), edit_filter_path(filter)
-            = table_link_to 'times', t('filters.index.delete'), filter_path(filter), method: :delete
+            = table_link_to 'pencil', t('filters.edit.title'), edit_settings_filter_path(filter)
+            = table_link_to 'times', t('filters.index.delete'), settings_filter_path(filter), method: :delete
 
-= link_to t('filters.new.title'), new_filter_path, class: 'button'
+= link_to t('filters.new.title'), new_settings_filter_path, class: 'button'

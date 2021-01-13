@@ -9,7 +9,7 @@ SimpleNavigation::Configuration.run do |navigation|
     end
 
     n.item :preferences, safe_join([fa_icon('cog fw'), t('settings.preferences')]), settings_preferences_url, highlights_on: %r{/settings/preferences|/settings/notifications}
-    n.item :filters, safe_join([fa_icon('filter fw'), t('filters.index.title')]), filters_path, highlights_on: %r{/filters}
+    n.item :filters, safe_join([fa_icon('filter fw'), t('filters.index.title')]), settings_filters_path, highlights_on: %r{/filters}
 
     n.item :security, safe_join([fa_icon('lock fw'), t('settings.account')]), edit_user_registration_url do |s|
       s.item :password, safe_join([fa_icon('lock fw'), t('settings.account_settings')]), edit_user_registration_url, highlights_on: %r{/auth/edit|/settings/delete}
@@ -43,10 +43,10 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :sidekiq, safe_join([fa_icon('diamond fw'), 'Sidekiq']), sidekiq_url, link_html: { target: 'sidekiq' }, if: -> { current_user.admin? }
       s.item :pghero, safe_join([fa_icon('database fw'), 'PgHero']), pghero_url, link_html: { target: 'pghero' }, if: -> { current_user.admin? }
       s.item :moderation, safe_join([fa_icon('id-card-o fw'), t('verifications.moderation.title')]), settings_verifications_moderation_url, if: -> { current_user.admin? }
-      s.item :promotions, safe_join([fa_icon('star fw'), t('promotions.title')]), settings_promotions_url, if: -> { current_user.admin? }
-      s.item :monthly_funding, safe_join([fa_icon('money fw'), t('monthly_funding.title')]), settings_expenses_url, if: -> { current_user.admin? }
-      s.item :group_categories, safe_join([fa_icon('users fw'), t('group_categories.title')]), settings_group_categories_url, if: -> { current_user.admin? }
-      s.item :trending_hashtags, safe_join([fa_icon('hashtag fw'), 'Trending Hashtags']), settings_trending_hashtags_url, if: -> { current_user.admin? }
+      s.item :promotions, safe_join([fa_icon('star fw'), t('promotions.title')]), admin_promotions_url, if: -> { current_user.admin? }
+      s.item :monthly_funding, safe_join([fa_icon('money fw'), t('monthly_funding.title')]), admin_expenses_url, if: -> { current_user.admin? }
+      s.item :group_categories, safe_join([fa_icon('users fw'), t('group_categories.title')]), admin_group_categories_url, if: -> { current_user.admin? }
+      s.item :trending_hashtags, safe_join([fa_icon('hashtag fw'), 'Trending Hashtags']), admin_trending_hashtags_url, if: -> { current_user.admin? }
     end
 
     n.item :logout, safe_join([fa_icon('sign-out fw'), t('auth.logout')]), destroy_user_session_url, link_html: { 'data-method' => 'delete' }

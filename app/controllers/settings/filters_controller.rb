@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class FiltersController < ApplicationController
+class Settings::FiltersController < Settings::BaseController
   include Authorization
 
   layout 'admin'
@@ -8,6 +8,7 @@ class FiltersController < ApplicationController
   before_action :set_filters, only: :index
   before_action :set_filter, only: [:edit, :update, :destroy]
   before_action :set_body_classes
+  before_action :authenticate_user!
 
   def index
     @filters = current_account.custom_filters
@@ -21,7 +22,7 @@ class FiltersController < ApplicationController
     @filter = current_account.custom_filters.build(resource_params)
 
     if @filter.save
-      redirect_to filters_path
+      redirect_to settings_filters_path
     else
       render action: :new
     end
@@ -31,7 +32,7 @@ class FiltersController < ApplicationController
 
   def update
     if @filter.update(resource_params)
-      redirect_to filters_path
+      redirect_to settings_filters_path
     else
       render action: :edit
     end
@@ -39,7 +40,7 @@ class FiltersController < ApplicationController
 
   def destroy
     @filter.destroy
-    redirect_to filters_path
+    redirect_to settings_filters_path
   end
 
   private

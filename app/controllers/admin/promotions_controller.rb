@@ -1,4 +1,4 @@
-class Settings::PromotionsController < Admin::BaseController
+class Admin::PromotionsController < Admin::BaseController
 	before_action :set_promotion, except: [:index, :new, :create]
 	
 	def index
@@ -14,7 +14,7 @@ class Settings::PromotionsController < Admin::BaseController
 		
 		if @promotion.save
 			log_action :create, @promotion
-			redirect_to settings_promotions_path, notice: I18n.t('promotions.created_msg')
+			redirect_to admin_promotions_path, notice: I18n.t('promotions.created_msg')
 		else
 			render :new
 		end
@@ -30,14 +30,14 @@ class Settings::PromotionsController < Admin::BaseController
 		else
 			flash[:alert] =  I18n.t('promotions.update_failed_msg')
 		end
-		redirect_to settings_promotions_path
+		redirect_to admin_promotions_path
 	end
 
 	def destroy
 		@promotion.destroy!
 		log_action :destroy, @promotion
 		flash[:notice] = I18n.t('promotions.destroyed_msg')
-		redirect_to settings_promotions_path
+		redirect_to admin_promotions_path
 	end
 
 	private
