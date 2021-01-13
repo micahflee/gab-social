@@ -21,7 +21,9 @@ class DefaultSidebar extends ImmutablePureComponent {
   }
 
   componentDidMount() {
-    // this.props.onFetchShortcuts()
+    if (this.props.isPro) {
+      this.props.onFetchShortcuts()
+    }
   }
 
   handleOpenSidebarMorePopover = () => {
@@ -154,6 +156,7 @@ const mapStateToProps = (state) => ({
   notificationCount: state.getIn(['notifications', 'unread']),
   unreadChatsCount: state.getIn(['chats', 'chatsUnreadCount']),
   homeItemsQueueCount: state.getIn(['timelines', 'home', 'totalQueuedItemsCount']),
+  isPro: state.getIn(['accounts', me, 'is_pro']),
 })
 
 const mapDispatchToProps = (dispatch) => ({
