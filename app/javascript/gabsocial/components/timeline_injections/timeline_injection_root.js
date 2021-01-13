@@ -55,7 +55,7 @@ class TimelineInjectionRoot extends React.PureComponent {
     //Since not on mobile this should not be visible
     if (!isXS && type === TIMELINE_INJECTION_PWA) return <div />
     
-    if (type === TIMELINE_INJECTION_FEATURED_GROUPS || type === TIMELINE_INJECTION_USER_SUGGESTIONS) return <div />
+    if (type === TIMELINE_INJECTION_USER_SUGGESTIONS) return <div />
 
     return (
       <div>
