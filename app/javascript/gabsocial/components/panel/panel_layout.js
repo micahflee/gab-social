@@ -38,13 +38,15 @@ class PanelLayout extends React.PureComponent {
                   <div className={[_s.d, _s.mlAuto].join(' ')}>
                     <Button
                       isText
+                      radiusSmall
                       backgroundColor='none'
                       color='brand'
                       to={headerButtonTo}
                       href={headerButtonHref}
                       onClick={headerButtonAction}
+                      className={[_s.px15, _s.py5, _s.bgSubtle_onHover].join(' ')}
                     >
-                      <Text size='small' color='inherit' weight='bold'>
+                      <Text color='inherit' weight='bold'>
                         {headerButtonTitle}
                       </Text>
                     </Button>
@@ -73,17 +75,17 @@ class PanelLayout extends React.PureComponent {
 
           {
             (!!footerButtonTitle && (!!footerButtonAction || !!footerButtonTo || !!footerButtonHref)) &&
-            <div className={_s.d}>
+            <div className={[_s.d, _s.py10, _s.px10].join(' ')}>
               <Button
-                isText
-                color='none'
-                backgroundColor='none'
+                radiusSmall
+                color='primary'
+                backgroundColor='tertiary'
                 to={footerButtonTo}
                 href={footerButtonHref}
                 onClick={footerButtonAction}
-                className={[_s.px15, _s.py15, _s.bgSubtle_onHover].join(' ')}
+                className={[_s.px15, _s.py10, _s.bgSubtle_onHover].join(' ')}
               >
-                <Text color='brand' size='medium'>
+                <Text color='inherit' size='medium' weight='medium' align='center'>
                   {footerButtonTitle}
                 </Text>
               </Button>
