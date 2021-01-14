@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { me } from '../initial_state'
 import {
   FONT_SIZES,
   THEMES,
@@ -22,6 +23,11 @@ class Display extends React.PureComponent {
     this.updateRadiusSmallDisabled(this.state.radiusSmallDisabled)
     this.updateRadiusCircleDisabled(this.state.radiusCircleDisabled)
     this.updateFontSizes(this.state.fontSize)
+
+    // If no user logged in and dark mode enabled, set to muted
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches && !me) {
+      this.updateTheme('muted')
+    }
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
