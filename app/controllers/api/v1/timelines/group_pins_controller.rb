@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Api::V1::Timelines::GroupPinsController < Api::BaseController
+  before_action :require_user!
   before_action :set_group
   before_action :set_statuses
 
