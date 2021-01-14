@@ -6,6 +6,13 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   after_action :insert_pagination_headers
 
   def index
+    # if attempting to paginate and no user, return error
+    if params[:max_id] || params[:since_id] || params[:min_id]
+      if current_account.nil?
+        render json: { "error": true }, status: 429
+      end
+    end
+      
     @statuses = load_statuses
     render json: @statuses,
            each_serializer: REST::StatusSerializer,
@@ -27,14 +34,19 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   end
 
   def account_statuses
+    # : todo : if no current_user, limit date and no: tagged, reblogs, comments
     statuses = truthy_param?(:pinned) ? pinned_scope : permitted_account_statuses
-    statuses = statuses.paginate_by_id(limit_param(DEFAULT_STATUSES_LIMIT), params_slice(:max_id, :since_id, :min_id))
 
-    statuses.merge!(only_media_scope) if truthy_param?(:only_media)
+    if current_account.nil?
+      statuses = statuses.limit(8)
+    else
+      statuses = statuses.paginate_by_id(limit_param(DEFAULT_STATUSES_LIMIT), params_slice(:max_id, :since_id, :min_id))
+    end
+
+    statuses.merge!(only_media_scope) if truthy_param?(:only_media) && !current_account.nil?
     statuses.merge!(no_replies_scope) if truthy_param?(:exclude_replies)
     statuses.merge!(only_replies_scope) if truthy_param?(:only_comments)
     statuses.merge!(no_reblogs_scope) if truthy_param?(:exclude_reblogs)
-    statuses.merge!(hashtag_scope)    if params[:tagged].present?
 
     statuses
   end
@@ -44,7 +56,11 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   end
 
   def only_media_scope
-    Status.where(id: account_media_status_ids)
+    if !current_account.nil?
+      Status.where(id: account_media_status_ids)
+    else
+      nil
+    end
   end
 
   def account_media_status_ids
@@ -83,32 +99,22 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
     Status.without_reblogs
   end
 
-  def hashtag_scope
-    tag = Tag.find_normalized(params[:tagged])
-
-    if tag
-      Status.tagged_with(tag.id)
-    else
-      Status.none
-    end
-  end
-
   def pagination_params(core_params)
     params.slice(:limit, :only_media, :exclude_replies, :only_comments).permit(:limit, :only_media, :exclude_replies, :only_comments).merge(core_params)
   end
 
   def insert_pagination_headers
-    set_pagination_headers(next_path, prev_path)
+    set_pagination_headers(next_path, prev_path) unless current_account.nil?
   end
 
   def next_path
-    if records_continue?
+    if records_continue? && !current_account.nil?
       api_v1_account_statuses_url pagination_params(max_id: pagination_max_id)
     end
   end
 
   def prev_path
-    unless @statuses.empty?
+    unless @statuses.empty? || current_account.nil?
       api_v1_account_statuses_url pagination_params(min_id: pagination_since_id)
     end
   end
