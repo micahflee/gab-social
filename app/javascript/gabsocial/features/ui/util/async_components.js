@@ -28,7 +28,6 @@ export function ChatConversationMutes() { return import(/* webpackChunkName: "fe
 export function ChatMessageOptionsPopover() { return import(/* webpackChunkName: "components/chat_message_options_popover" */'../../../components/popover/chat_message_options_popover') }
 export function ChatSettingsPopover() { return import(/* webpackChunkName: "components/chat_settings_popover" */'../../../components/popover/chat_settings_popover') }
 export function CommentSortingOptionsPopover() { return import(/* webpackChunkName: "components/comment_sorting_options_popover" */'../../../components/popover/comment_sorting_options_popover') }
-export function CommunityTimeline() { return import(/* webpackChunkName: "features/community_timeline" */'../../community_timeline') }
 export function Compose() { return import(/* webpackChunkName: "features/compose" */'../../compose') }
 export function ComposeForm() { return import(/* webpackChunkName: "components/compose_form" */'../../compose/components/compose_form') }
 export function ComposeModal() { return import(/* webpackChunkName: "components/compose_modal" */'../../../components/modal/compose_modal') }

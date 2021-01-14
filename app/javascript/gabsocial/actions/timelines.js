@@ -86,9 +86,6 @@ export const dequeueTimeline = (timeline, expandFunc, optionalExpandArgs) => (di
       if (timeline === 'home') {
         dispatch(clearTimeline(timeline))
         dispatch(expandHomeTimeline(optionalExpandArgs))
-      } else if (timeline === 'community') {
-        dispatch(clearTimeline(timeline))
-        dispatch(expandCommunityTimeline(optionalExpandArgs))
       } else {
         shouldDispatchDequeue = false
       }
@@ -236,16 +233,6 @@ export const expandProTimeline = ({ maxId } = {}, done = noop) => {
   return expandTimeline('pro', '/api/v1/timelines/pro', {
     max_id: maxId,
  }, done)
-}
-
-/**
- * 
- */
-export const expandCommunityTimeline = ({ maxId, onlyMedia } = {}, done = noop) => {
-  return expandTimeline(`community${onlyMedia ? ':media' : ''}`, '/api/v1/timelines/public', {
-    max_id: maxId,
-    only_media: !!onlyMedia,
-  }, done)
 }
 
 /**
