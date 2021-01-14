@@ -62,7 +62,7 @@ class TabBarItem extends React.PureComponent {
       displayFlex: 1,
       aiCenter: 1,
       jcCenter: 1,
-      borderBottom2PX: 1,
+      borderBottom3PX: 1,
       py5: 1,
       outlineNone: 1,
       cursorPointer: 1,

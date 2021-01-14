@@ -33,7 +33,7 @@
   --solid_color_primary-opaque:rgba(255, 255, 255,.6);
   --solid_color_secondary: #e2e8ec;
   --solid_color_secondary-dark: #d9e0e5;
-  --solid_color_tertiary: #f5f5f7;
+  --solid_color_tertiary: #F0F2F5;
   --solid_color_block: #f5f8fa;
   --solid_color_highlight: rgba(224, 234, 66, .125);
   --solid_color_toast: #232425;
@@ -378,7 +378,7 @@ pre {
 .border2PX { border-width: 2px; }
 .border6PX { border-width: 6px; }
 
-.borderBottom2PX { border-bottom-width: 2px; }
+.borderBottom3PX { border-bottom-width: 3px; }
 
 .borderDashed { border-style: dashed; }
 
