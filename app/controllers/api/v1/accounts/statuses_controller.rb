@@ -9,7 +9,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
     # if attempting to paginate and no user, return error
     if params[:max_id] || params[:since_id] || params[:min_id]
       if current_account.nil?
-        render json: { "error": true }, status: 429
+        return render json: { "error": true }, status: 429
       end
     end
       
