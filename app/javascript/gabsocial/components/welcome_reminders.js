@@ -39,7 +39,6 @@ class WelcomeReminders extends ImmutablePureComponent {
 
   componentDidUpdate(prevProps) {
     const { account } = this.props
-    console.log("Welcome updated")
     this.handleSetVisible(account)
   }
 
