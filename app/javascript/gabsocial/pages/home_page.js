@@ -76,6 +76,21 @@ class HomePage extends React.PureComponent {
     const { lazyLoaded } = this.state
 
     const title = intl.formatMessage(messages.home)
+    const sidebarLayout = [
+      UserPanel,
+      ProgressPanel,
+      <WrappedBundle component={ProPanel} componentParams={{ isPro: isPro }} />,
+      <WrappedBundle component={TrendsBreakingPanel} />,
+      <WrappedBundle component={ShopPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
+    ]
+
+    if (this.props.isPro) {
+      sidebarLayout.push(<WrappedBundle component={ListsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />)
+      sidebarLayout.push(<WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />)
+      sidebarLayout.push(<WrappedBundle component={GroupsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, groupType: 'member' }}  />)
+    }
+
+    sidebarLayout.push(LinkFooter)
 
     return (
       <DefaultLayout
@@ -96,17 +111,7 @@ class HomePage extends React.PureComponent {
             to: '/search',
           },
         ]}
-        layout={[
-          UserPanel,
-          ProgressPanel,
-          <WrappedBundle component={ProPanel} componentParams={{ isPro: isPro }} />,
-          <WrappedBundle component={TrendsBreakingPanel} />,
-          <WrappedBundle component={ShopPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
-          // <WrappedBundle component={ListsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
-          // <WrappedBundle component={UserSuggestionsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded }}  />,
-          // <WrappedBundle component={GroupsPanel} componentParams={{ isLazy: true, shouldLoad: lazyLoaded, groupType: 'member' }}  />,
-          LinkFooter,
-        ]}
+        layout={sidebarLayout}
       >
 
         <PageTitle
