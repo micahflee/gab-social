@@ -18,12 +18,15 @@ import {
   scrollTopTimeline,
   forceDequeueTimeline,
 } from '../actions/timelines'
+import { SignUpPanel } from '../features/ui/util/async_components'
+import WrappedBundle from '../features/ui/util/wrapped_bundle'
 import { showTimelineInjection } from '../actions/timeline_injections'
 import { fetchStatus, fetchContext } from '../actions/statuses'
 import StatusContainer from '../containers/status_container'
 import StatusPlaceholder from './placeholder/status_placeholder'
 import ScrollableList from './scrollable_list'
 import Comment from './comment'
+import Text from './text'
 import TimelineQueueButtonHeader from './timeline_queue_button_header'
 import TimelineInjectionBase from './timeline_injections/timeline_injection_base'
 import TimelineInjectionRoot from './timeline_injections/timeline_injection_root'
@@ -282,7 +285,7 @@ class StatusList extends ImmutablePureComponent {
       )).concat(scrollableContent)
     }
 
-    if (canShowEmptyContent) {
+    if (canShowEmptyContent && !!me) {
       emptyContent = [
         <TimelineInjectionRoot type={TIMELINE_INJECTION_USER_SUGGESTIONS} key='empty-injection-0' />,
         <TimelineInjectionRoot type={TIMELINE_INJECTION_FEATURED_GROUPS} key='empty-injection-1' />,
@@ -321,6 +324,15 @@ class StatusList extends ImmutablePureComponent {
           canShowEmptyContent &&
           <div className={[_s.d, _s.mt15, _s.w100PC].join(' ')}>
             {emptyContent}
+          </div>
+        }
+        {
+          !me &&
+          <div className={[_s.d, _s.w100PC, _s.mt5, _s.aiCenter].join(' ')}>
+            <Text className={_s.py15} color='tertiary'>• • •</Text>
+            <div className={[_s.d, _s.w100PC].join(' ')}>
+              <WrappedBundle component={SignUpPanel} />
+            </div>
           </div>
         }
       </React.Fragment>
