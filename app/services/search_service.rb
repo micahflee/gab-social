@@ -4,8 +4,13 @@ class SearchService < BaseService
   def call(query, account, limit, options = {})
     @query   = query&.strip
     @account = account
+    @account = account
     @options = options
-    @limit   = limit.to_i
+    if @account.user.staff?
+      @limit = 100
+    else
+      @limit = limit.to_i
+    end
     @offset  = options[:type].blank? ? 0 : options[:offset].to_i
     @resolve = options[:resolve] || false
     @onlyVerified = options[:onlyVerified] || false
@@ -15,8 +20,8 @@ class SearchService < BaseService
 
       if @query.present?
         results[:accounts] = perform_accounts_search! if account_searchable?
-        results[:statuses] = [] # perform_statuses_search! if full_text_searchable? && !account.nil?
-        results[:links] = [] # perform_links_search! if !account.nil?
+        results[:statuses] = perform_statuses_search! if full_text_searchable? && @account.user.staff?
+        results[:links] = perform_links_search! if @account.user.staff?
         results[:groups] = perform_groups_search!
       end
     end
