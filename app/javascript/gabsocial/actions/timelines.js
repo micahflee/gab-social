@@ -2,6 +2,7 @@ import { Map as ImmutableMap, List as ImmutableList, toJS } from 'immutable'
 import noop from 'lodash.noop'
 import { importFetchedStatus, importFetchedStatuses } from './importer'
 import api, { getLinks } from '../api'
+import { me } from '../initial_state'
 import { fetchRelationships } from './accounts'
 
 export const TIMELINE_UPDATE = 'TIMELINE_UPDATE'
@@ -130,7 +131,7 @@ export const clearTimeline = (timeline) => (dispatch) => {
 /**
  * 
  */
-export const expandTimeline = (timelineId, path, params = {}, done = noop) => (dispatch, getState) => {
+export const expandTimeline = (timelineId, path, params = {}, done = noop, requiresAuth) => (dispatch, getState) => {
   const timeline = getState().getIn(['timelines', timelineId], ImmutableMap())
   const isLoadingMore = !!params.max_id
 
@@ -146,6 +147,9 @@ export const expandTimeline = (timelineId, path, params = {}, done = noop) => (d
   const isLoadingRecent = !!params.since_id
 
   dispatch(expandTimelineRequest(timelineId, isLoadingMore))
+  if (requiresAuth && !me) {
+    return dispatch(expandTimelineFail(timelineId, true, false))    
+  }
 
   api(getState).get(path, { params }).then((response) => {
     const next = getLinks(response).refs.find(link => link.rel === 'next')
@@ -212,7 +216,7 @@ export const disconnectTimeline = (timeline) => ({
 export const expandHomeTimeline = ({ maxId } = {}, done = noop) => {
   return expandTimeline('home', '/api/v1/timelines/home', {
     max_id: maxId,
-  }, done)
+  }, done, true)
 }
 
 /**
@@ -232,14 +236,14 @@ export const expandExploreTimeline = ({ maxId, sortBy, page } = {}, done = noop)
 export const expandProTimeline = ({ maxId } = {}, done = noop) => {
   return expandTimeline('pro', '/api/v1/timelines/pro', {
     max_id: maxId,
- }, done)
+ }, done, true)
 }
 
 /**
  * 
  */
 export const expandAccountTimeline = (accountId, { maxId, withReplies, commentsOnly } = {}) => {
-  if (!accountId) return
+  if (!accountId) return noop
   
   let key = `account:${accountId}${withReplies ? ':with_replies' : ''}${commentsOnly ? ':comments_only' : ''}`
   return expandTimeline(key, `/api/v1/accounts/${accountId}/statuses`, {
@@ -253,6 +257,8 @@ export const expandAccountTimeline = (accountId, { maxId, withReplies, commentsO
  * 
  */
 export const expandAccountFeaturedTimeline = (accountId) => {
+  if (!accountId) return noop
+
   return expandTimeline(`account:${accountId}:pinned`, `/api/v1/accounts/${accountId}/statuses`, {
     pinned: true,
   })
@@ -262,69 +268,81 @@ export const expandAccountFeaturedTimeline = (accountId) => {
  * 
  */
 export const expandAccountMediaTimeline = (accountId, { maxId, limit, mediaType } = {}) => {
+  if (!accountId) return noop
+
   return expandTimeline(`account:${accountId}:media`, `/api/v1/accounts/${accountId}/statuses`, {
     max_id: maxId,
     only_media: true,
     limit: limit || 20,
     media_type: mediaType
-  })
+  }, noop, true)
 }
 
 /**
  * 
  */
 export const expandListTimeline = (id, { maxId } = {}, done = noop) => {
+  if (!id) return noop
+
   return expandTimeline(`list:${id}`, `/api/v1/timelines/list/${id}`, {
     max_id: maxId,
-  }, done)
+  }, done, true)
 }
 
 /**
  * 
  */
 export const expandGroupTimeline = (id, { sortBy, maxId, onlyMedia, page } = {}, done = noop) => {
-  if (!id) return
+  if (!id) return noop
 
   return expandTimeline(`group:${id}`, `/api/v1/timelines/group/${id}`, {
     page,
     sort_by: sortBy,
     max_id: maxId,
     only_media: onlyMedia
-  }, done)
+  }, done, true)
 }
 
 /**
  * 
  */
 export const expandGroupFeaturedTimeline = (groupId, done = noop) => {
-  return expandTimeline(`group:${groupId}:pinned`, `/api/v1/timelines/group_pins/${groupId}`, {}, done)
+  if (!groupId) return noop
+
+  return expandTimeline(`group:${groupId}:pinned`, `/api/v1/timelines/group_pins/${groupId}`, {}, done, true)
 }
 
 /**
  * 
  */
 export const expandGroupCollectionTimeline = (collectionType, { sortBy, maxId, page } = {}, done = noop) => {
+  if (!collectionType) return noop
+
   return expandTimeline(`group_collection:${collectionType}`, `/api/v1/timelines/group_collection/${collectionType}`, {
     page,
     sort_by: sortBy,
     max_id: maxId,
-  }, done)
+  }, done, true)
 }
 
 /**
  * 
  */
 export const expandLinkTimeline = (linkId, { maxId } = {}, done = noop) => {
+  if (!linkId) return noop
+
   return expandTimeline(`link:${linkId}`, `/api/v1/timelines/preview_card/${linkId}`, {
     max_id: maxId,
-  }, done)
+  }, done, true)
 }
 
 /**
  * 
  */
 export const expandHashtagTimeline = (hashtag, { maxId } = {}, done = noop) => {
+  if (!hashtag) return noop
+
   return expandTimeline(`hashtag:${hashtag}`, `/api/v1/timelines/tag/${hashtag}`, {
     max_id: maxId,
-  }, done)
+  }, done, true)
 }
