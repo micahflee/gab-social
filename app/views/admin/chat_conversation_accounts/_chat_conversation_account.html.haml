@@ -1,0 +1,12 @@
+%tr
+  %td
+    = admin_account_link_to(chat_conversation_account.account)
+  %td
+    - chat_conversation_account.participant_account_ids.each do |a|
+      %a{href: "/admin/accounts/#{a}"}= a
+  %td
+    %span= chat_conversation_account.is_approved ? "Y" : "N"
+  %td
+    %span= chat_conversation_account.is_hidden ? "Y" : "N"
+  %td
+    %span= chat_conversation_account.is_muted ? "Y" : "N"

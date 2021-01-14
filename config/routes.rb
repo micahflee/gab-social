@@ -142,7 +142,7 @@ Rails.application.routes.draw do
       resources :statuses, only: [:index, :show, :create, :update, :destroy]
       resources :followers, only: [:index]
       resources :joined_groups, only: [:index]
-      resources :chat_conversations, only: [:index]
+      resources :chat_conversation_accounts, only: [:index]
       resources :chat_messages, only: [:index, :show, :create, :update, :destroy]
 
       resource :confirmation, only: [:create] do

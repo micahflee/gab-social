@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Admin
-  class ChatConversationsController < BaseController
+  class ChatConversationAccountsController < BaseController
     before_action :set_account
 
     PER_PAGE = 20
 
     def index
       authorize :account, :index?
-      @chatConversationAccounts = ChatConversationAccount.where(account: @account).page(params[:page]).per(PER_PAGE)
+      @chat_conversation_accounts = ChatConversationAccount.where(account: @account).page(params[:page]).per(PER_PAGE)
     end
 
     def set_account

@@ -1,0 +1,24 @@
+- content_for :page_title do
+  %span= "Chat conversations including: @#{@account.acct}"
+
+.filters
+  .back-link{ style: 'flex: 1 1 auto; text-align: left' }
+    = link_to admin_account_path(@account.id) do
+      = fa_icon 'chevron-left fw'
+      = t('admin.followers.back_to_account')
+
+%hr.spacer/
+
+.table-wrapper
+  %table.table
+    %thead
+      %tr
+        %th Account
+        %th Members
+        %th Approved?
+        %th Hidden?
+        %th Muted?
+    %tbody
+      = render @chat_conversation_accounts
+
+= paginate @chat_conversation_accounts
