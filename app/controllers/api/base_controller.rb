@@ -107,6 +107,6 @@ class Api::BaseController < ApplicationController
   end
 
   def set_cache_headers
-    response.headers['Cache-Control'] = 'private'
+    response.headers['Cache-Control'] = 'private, max-age=10'
   end
 end
