@@ -8,8 +8,6 @@ class Api::BaseController < ApplicationController
   MAX_LIMIT_PARAM = 25
   MIN_UNAUTHENTICATED_PAGES = 1
 
-  include RateLimitHeaders
-
   skip_before_action :store_current_location
   skip_before_action :check_user_permissions
 

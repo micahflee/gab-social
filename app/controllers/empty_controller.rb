@@ -2,8 +2,6 @@
 
 class EmptyController < ActionController::Base
 
-  include RateLimitHeaders
-
   protect_from_forgery with: :null_session
 
   rescue_from ActiveRecord::RecordInvalid, GabSocial::ValidationError do |e|
