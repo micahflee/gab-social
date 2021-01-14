@@ -180,8 +180,8 @@ export default function timelines(state = initialState, action) {
     return state.update(action.timeline, initialTimeline, map => map.set('isLoading', true));
   case TIMELINE_EXPAND_FAIL:
     return state.update(action.timeline, initialTimeline, map => map.withMutations(mMap => {
-      map.set('isLoading', false)
-      map.set('isError', true)
+      mMap.set('isLoading', false)
+      mMap.set('isError', true)
     }));
   case TIMELINE_EXPAND_SUCCESS:
     return expandNormalizedTimeline(state, action.timeline, fromJS(action.statuses), action.next, action.partial, action.isLoadingRecent);
