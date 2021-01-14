@@ -12,6 +12,7 @@ import {
 	setGroupTimelineSort,
 } from '../actions/groups'
 import {
+	MIN_UNAUTHENTICATED_PAGES,
 	GROUP_TIMELINE_SORTING_TYPE_HOT,
 	GROUP_TIMELINE_SORTING_TYPE_NEWEST,
 } from '../constants'
@@ -24,7 +25,7 @@ class ExploreTimeline extends React.PureComponent {
 
 	state = {
 		//keep track of page loads for if no user, 
-		//only allow 2 page loads before showing sign up msg
+		//only allow MIN_UNAUTHENTICATED_PAGES page loads before showing sign up msg
 		page: 1,
 	}
 
@@ -58,7 +59,7 @@ class ExploreTimeline extends React.PureComponent {
 		const { page } = this.state
 
 		const newPage = !!maxId ? this.state.page + 1 : 1
-		if (!!maxId && !me && page >= 2) return false
+		if (!!maxId && !me && page >= MIN_UNAUTHENTICATED_PAGES) return false
 		this.setState({ page: newPage })
 
 		const sortBy = getSortBy(sortByValue, sortByTopValue)
@@ -71,7 +72,7 @@ class ExploreTimeline extends React.PureComponent {
 		const { intl } = this.props
 		const { page } = this.state
 
-		const canLoadMore = page < 2 && !me || !!me
+		const canLoadMore = page < MIN_UNAUTHENTICATED_PAGES && !me || !!me
 
 		return (
 			<React.Fragment>
