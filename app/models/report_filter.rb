@@ -23,6 +23,8 @@ class ReportFilter
       Report.where(account_id: value)
     when :target_account_id
       Report.where(target_account_id: value)
+    when :comment
+      Report.where(comment: value)
     else
       raise "Unknown filter: #{key}"
     end
