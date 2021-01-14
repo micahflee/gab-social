@@ -320,7 +320,7 @@ Rails.application.routes.draw do
         patch :update_credentials, to: 'credentials#update'
         post :resend_email_confirmation, to: 'credentials#resend_email_confirmation'
         resource :search, only: :show, controller: :search
-        resources :relationships, only: :index
+        post :relationships, to: 'relationships#relationships'
       end
 
       resources :accounts, only: [:create, :show] do
@@ -355,7 +355,6 @@ Rails.application.routes.draw do
         get '/category/:category', to: 'groups#by_category'
         get '/tag/:tag', to: 'groups#by_tag'
 
-        resources :relationships, only: :index, controller: 'groups/relationships'
         resource :accounts, only: [:show, :create, :update, :destroy], controller: 'groups/accounts'
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
         resource :password, only: [:create], controller: 'groups/password'
@@ -366,6 +365,8 @@ Rails.application.routes.draw do
         resource :pin, only: [:show, :create], controller: 'groups/pins'
         post :unpin, to: 'groups/pins#destroy'
       end
+
+      post :group_relationships, to: 'group_relationships#relationships'
 
       resources :polls, only: [:create, :show] do
         resources :votes, only: :create, controller: 'polls/votes'

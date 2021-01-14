@@ -542,7 +542,9 @@ export const fetchRelationships = (accountIds) => (dispatch, getState) => {
 
   dispatch(fetchRelationshipsRequest(newAccountIds))
 
-  api(getState).get(`/api/v1/accounts/relationships?${newAccountIds.map(id => `id[]=${id}`).join('&')}`).then((response) => {
+  api(getState).post('/api/v1/accounts/relationships', {
+    accountIds: newAccountIds,
+  }).then((response) => {
     dispatch(fetchRelationshipsSuccess(response.data))
   }).catch((error) => {
     dispatch(fetchRelationshipsFail(error))

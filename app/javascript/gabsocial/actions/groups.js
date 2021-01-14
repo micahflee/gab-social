@@ -182,13 +182,18 @@ export const fetchGroupRelationships = (groupIds) => (dispatch, getState) => {
   if (!me || !Array.isArray(groupIds)) return
 
   const loadedRelationships = getState().get('group_relationships')
-  const newGroupIds = groupIds.filter((id) => loadedRelationships.get(id, null) === null)
+  let newGroupIds = groupIds.filter((id) => loadedRelationships.get(id, null) === null)
 
   if (newGroupIds.length === 0) return
 
+  // Unique
+  newGroupIds = Array.from(new Set(newGroupIds))
+
   dispatch(fetchGroupRelationshipsRequest(newGroupIds))
 
-  api(getState).get(`/api/v1/groups/${newGroupIds[0]}/relationships?${newGroupIds.map(id => `id[]=${id}`).join('&')}`).then((response) => {
+  api(getState).post('/api/v1/group_relationships', {
+    groupIds: newGroupIds,
+  }).then((response) => {
     dispatch(fetchGroupRelationshipsSuccess(response.data))
   }).catch((error) => {
     dispatch(fetchGroupRelationshipsFail(error))
