@@ -517,7 +517,16 @@ class Status extends ImmutablePureComponent {
                   }
                   
                   {
-                    status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
+                    !me && status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
+                    <div className={[_s.d, _s.mr10, _s.ml10, _s.mb10, _s.px15, _s.py15, _s.aiCenter, _s.jcCenter, _s.borderColorSecondary, _s.borderTop1PX].join(' ')}>
+                      <Text color='tertiary' className={[_s.d, _s.py15].join(' ')}>
+                        Sign up to view {status.get('replies_count')} comments.
+                      </Text>
+                    </div>
+                  }
+
+                  {
+                    !!me && status.get('replies_count') > 0 && !isChild && !isNotification && !commentsLimited &&
                     <React.Fragment>
                       <div className={[_s.d, _s.mr10, _s.ml10, _s.mb10, _s.borderColorSecondary, _s.borderBottom1PX].join(' ')} />
 

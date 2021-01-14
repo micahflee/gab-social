@@ -5,7 +5,7 @@ class Api::V1::StatusesController < Api::BaseController
 
   before_action -> { authorize_if_got_token! :read, :'read:statuses' }, except: [:create, :update, :destroy]
   before_action -> { doorkeeper_authorize! :write, :'write:statuses' }, only:   [:create, :update, :destroy]
-  before_action :require_user!, except:  [:show, :comments, :context, :card]
+  before_action :require_user!, except:  [:show]
   before_action :set_status, only:       [:show, :comments, :context, :card, :update, :revisions]
 
   # This API was originally unlimited, pagination cannot be introduced without

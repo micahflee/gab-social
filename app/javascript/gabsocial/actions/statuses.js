@@ -181,7 +181,7 @@ const deleteStatusFail = (id, error) => ({
  * 
  */
 export const fetchContext = (id, ensureIsReply) => (dispatch, getState) => {
-  if (!id) return
+  if (!id || !me) return
 
   if (ensureIsReply) {
     const isReply = !!getState().getIn(['statuses', id, 'in_reply_to_id'], null)
@@ -228,7 +228,7 @@ const fetchContextFail = (id, error) => ({
  * 
  */
 export const fetchComments = (id) => (dispatch, getState) => {
-  if (!id) return
+  if (!id || !me) return
   debouncedFetchComments(id, dispatch, getState)
 }
 
