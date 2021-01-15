@@ -7,6 +7,7 @@
       %tr
         %th= t 'sessions.browser'
         %th= t 'sessions.activity'
+        %th IP Address
         %th
     %tbody
       - @sessions.each do |session|
@@ -21,6 +22,8 @@
               = t 'sessions.current_session'
             - else
               %time.time-ago{ datetime: session.updated_at.iso8601, title: l(session.updated_at) }= l(session.updated_at)
+          %td
+            %span= current_session.ip
           %td
             - if current_session.session_id != session.session_id
               = table_link_to 'times', t('sessions.revoke'), settings_session_path(session), method: :delete
