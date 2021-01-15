@@ -29,8 +29,6 @@ class InitialStateSerializer < ActiveModel::Serializer
       store[:is_staff]           = object.current_account.user.staff?
       store[:unread_count]       = unread_count object.current_account
       store[:last_read_notification_id] = object.current_account.user.last_read_notification
-      store[:monthly_expenses_complete] = Redis.current.get("monthly_funding_amount") || 0
-      store[:trending_hashtags] = get_trending_hashtags
       store[:is_first_session]   = is_first_session object.current_account
       store[:email_confirmed]    = object.current_account.user.confirmed?
       store[:email]              = object.current_account.user.confirmed? ? '[hidden]' : object.current_account.user.email
@@ -77,11 +75,6 @@ class InitialStateSerializer < ActiveModel::Serializer
 
   def is_first_session(account)
     object.current_account.user.sign_in_count === 1
-  end
-
-  def get_trending_hashtags
-    tags = Redis.current.get("admin_trending_hashtags") || ""
-    return tags.strip.split(", ")
   end
 
 end
