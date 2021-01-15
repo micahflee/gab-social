@@ -12,7 +12,7 @@ class ReactController < ApplicationController
 
   before_action :set_referrer_policy_header, only: [:react, :home, :status_embed, :status_show, :account_show]
   before_action :set_initial_state_json, only: [:react, :home, :status_embed, :status_show, :account_show]
-  before_action :set_data_for_meta, only: [:react, :home, :status_embed, :status_show, :account_show]
+  before_action :set_data_for_meta, only: [:status_embed, :status_show, :account_show]
 
   before_action :set_instance_presenter
 
