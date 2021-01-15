@@ -50,7 +50,7 @@ class StatusPolicy < ApplicationPolicy
   end
 
   def private?
-    record.private_visibility?
+    record.hidden?
   end
 
   def mention_exists?
