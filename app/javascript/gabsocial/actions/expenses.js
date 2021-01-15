@@ -10,6 +10,9 @@ export const EXPENSES_FETCH_FAIL = 'EXPENSES_FETCH_FAIL'
  */
 export const fetchExpenses = () => (dispatch, getState) => {
   if (!me) return
+  
+  const isFetched = getState().getIn(['expenses', 'fetched'], false)
+  if (isFetched) return
 
   dispatch(fetchExpensesRequest())
 
