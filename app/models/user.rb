@@ -102,7 +102,7 @@ class User < ApplicationRecord
   has_many :session_activations, dependent: :destroy
 
   delegate :auto_play_gif, :default_sensitive, :unfollow_modal, :boost_modal, :delete_modal,
-           :noindex, :theme, :display_media, :hide_network,
+           :noindex, :display_media, :hide_network,
            :expand_spoilers, :default_language, :aggregate_reblogs,
            :group_in_home_feed, to: :settings, prefix: :setting, allow_nil: false
 

@@ -100,11 +100,6 @@ module ApplicationHelper
     text.split("\n").map { |line| '> ' + line }.join("\n")
   end
 
-  def theme
-    # : todo : remove
-    return 'white'
-  end
-
   def open_registrations?
     Setting.registrations_mode == 'open'
   end

@@ -11,7 +11,6 @@ class Form::AdminSettings
     site_description
     registrations_mode
     bootstrap_timeline_accounts
-    theme
     min_invite_role
     preview_sensitive_media
     thumbnail

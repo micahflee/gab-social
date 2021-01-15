@@ -44,7 +44,6 @@ class Settings::PreferencesController < Settings::BaseController
       :setting_display_media,
       :setting_expand_spoilers,
       :setting_noindex,
-      :setting_theme,
       :setting_hide_network,
       :setting_aggregate_reblogs,
       :setting_group_in_home_feed,

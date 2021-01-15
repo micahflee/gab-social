@@ -20,7 +20,6 @@ defaults: &defaults
   preview_sensitive_media: false
   group_in_home_feed: true
   noindex: false
-  theme: 'default'
   aggregate_reblogs: true
   chat_messages:
     restrict_non_followers: true

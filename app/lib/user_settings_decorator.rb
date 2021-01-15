@@ -27,7 +27,6 @@ class UserSettingsDecorator
     user.settings['display_media']       = display_media_preference if change?('setting_display_media')
     user.settings['expand_spoilers']     = expand_spoilers_preference if change?('setting_expand_spoilers')
     user.settings['noindex']             = noindex_preference if change?('setting_noindex')
-    user.settings['theme']               = theme_preference if change?('setting_theme')
     user.settings['hide_network']        = hide_network_preference if change?('setting_hide_network')
     user.settings['aggregate_reblogs']   = aggregate_reblogs_preference if change?('setting_aggregate_reblogs')
     user.settings['group_in_home_feed']  = group_in_home_feed_preference if change?('setting_group_in_home_feed')
@@ -79,10 +78,6 @@ class UserSettingsDecorator
 
   def hide_network_preference
     boolean_cast_setting 'setting_hide_network'
-  end
-
-  def theme_preference
-    settings['setting_theme']
   end
 
   def default_language_preference
