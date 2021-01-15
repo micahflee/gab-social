@@ -30,7 +30,7 @@ class ReactController < ApplicationController
   end
 
   def status_show
-    return process(:react)
+    render 'react'
   end
 
   def status_embed
@@ -38,7 +38,7 @@ class ReactController < ApplicationController
   end
 
   def account_show
-    return process(:react)
+    render 'react'
   end
 
   private
