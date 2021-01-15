@@ -285,6 +285,8 @@ Rails.application.routes.draw do
       resources :shortcuts,    only: [:index, :create, :show, :destroy]
       resources :albums,       only: [:create, :update, :show, :destroy]
       resources :album_lists,  only: [:show]
+      resource :trending_hashtags,  only: [:show]
+      resource :expenses,     only: [:show]
 
       resources :bookmark_collections, only: [:index, :create, :show, :update, :destroy] do
         resources :bookmarks, only: [:index], controller: 'bookmark_collections/bookmarks'
