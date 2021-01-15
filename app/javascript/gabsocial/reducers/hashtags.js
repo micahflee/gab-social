@@ -12,7 +12,6 @@ const initialState = ImmutableMap()
 export default function hashtags(state = initialState, action) {
   switch (action.type) {
   case HASHTAG_FETCH_SUCCESS:
-    console.log("HASHTAG_FETCH_SUCCESS:", action)
     return importHashtag(state, action.hashtag)
   default:
     return state
