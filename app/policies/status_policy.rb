@@ -12,10 +12,16 @@ class StatusPolicy < ApplicationPolicy
   end
 
   def show?
-    if requires_mention?
-      owned? || mention_exists?
-    elsif private?
-      owned? || following_author? || mention_exists?
+    return true if owned? || staff?
+
+    if private?
+      if record.group_id
+        private_group_member?
+      else
+        following_author?
+      end
+    elsif requires_mention?
+      mention_exists?
     else
       current_account.nil? || !author_blocking?
     end
@@ -82,6 +88,14 @@ class StatusPolicy < ApplicationPolicy
     return true if owned?
 
     @preloaded_relations[:following] ? @preloaded_relations[:following][author.id] : current_account.following?(author)
+  end
+
+  def private_group_member?
+    return false if current_account.nil?
+    return false if record.group_id.nil?
+    return true if owned?
+
+    GroupAccount.where(group_id: record.group_id, account: current_account).exists?
   end
 
   def author
