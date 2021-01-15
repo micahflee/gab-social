@@ -15,6 +15,7 @@ import compose from './compose'
 import contexts from './contexts'
 import custom_emojis from './custom_emojis'
 import deck from './deck'
+import expenses from './expenses'
 import filters from './filters'
 import groups from './groups'
 import group_categories from './group_categories'
@@ -70,6 +71,7 @@ const reducers = {
   contexts,
   custom_emojis,
   deck,
+  expenses,
   filters,
   groups,
   group_categories,
