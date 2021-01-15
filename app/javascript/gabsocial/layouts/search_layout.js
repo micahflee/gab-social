@@ -2,11 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { defineMessages, injectIntl } from 'react-intl'
-import { me, trendingHashtags } from '../initial_state'
+import { me } from '../initial_state'
 import {
   BREAKPOINT_EXTRA_SMALL,
   CX,
 } from '../constants'
+import { fetchTrendingHashtags } from '../actions/trending_hashtags'
 import Layout from '../layouts/layout'
 import PageTitle from '../features/ui/util/page_title'
 import DefaultNavigationBar from '../components/navigation_bar/default_navigation_bar'
@@ -32,31 +33,19 @@ class SearchLayout extends React.PureComponent {
   state = {
     isSearchFocused: false,
     currentExploreTabIndex: 0,
-  }
-
-  componentWillMount() {
-    const { intl } = this.props
-
-    this.exploreTabs = [
+    setTrendingHashtags: false,
+    exploreTabs: [
       {
         title: 'Explore',
         onClick: () => this.setState({ currentExploreTabIndex: 0 }),
         component: ExploreTimeline,
       }
     ]
+  }
 
-    if (Array.isArray(trendingHashtags)) {
-      trendingHashtags.forEach((tag, i) => {
-        let j = i + 1
-        this.exploreTabs.push({
-          title: `#${tag}`,
-          onClick: () => this.setState({ currentExploreTabIndex: j }),
-          component: HashtagTimeline,
-          componentParams: { params: { id: `${tag}`.toLowerCase() } },
-        })
-      })
-    }
-    
+  componentWillMount() {
+    const { intl } = this.props
+
     this.searchTabs = [
       {
         title: intl.formatMessage(messages.top),
@@ -82,6 +71,48 @@ class SearchLayout extends React.PureComponent {
     ]
   }
 
+  componentDidMount() {
+    this._shouldSetTrendingHashtags()
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.trendingHashtags !== this.props.trendingHashtags) {
+      this._shouldSetTrendingHashtags()
+    }
+  }
+
+  _shouldSetTrendingHashtags = () => {
+    const {
+      isXS,
+      trendingHashtags,
+      trendingHashtagsFetched,
+    } = this.props
+    const { exploreTabs, setTrendingHashtags } = this.state
+
+    if (!isXS || setTrendingHashtags) return false
+    
+    if (!trendingHashtagsFetched) {
+      this.props.onFetchTrendingHashtags()
+      return
+    }
+
+    if (Array.isArray(trendingHashtags) && trendingHashtagsFetched) {
+      trendingHashtags.forEach((tag, i) => {
+        let j = i + 1
+        exploreTabs.push({
+          title: `#${tag}`,
+          onClick: () => this.setState({ currentExploreTabIndex: j }),
+          component: HashtagTimeline,
+          componentParams: { params: { id: `${tag}`.toLowerCase() } },
+        })
+      })
+      this.setState({
+        exploreTabs,
+        setTrendingHashtags: true,
+      })  
+    }
+  }
+
   handleOnToggleSearchExplore = (isSearchFocused) => {
     this.setState({ isSearchFocused })
   }
@@ -93,15 +124,15 @@ class SearchLayout extends React.PureComponent {
       value,
     } = this.props
     const {
+      exploreTabs,
       isSearchFocused,
       currentExploreTabIndex,
      } = this.state
 
-
-    const activeExploreTab = this.exploreTabs[currentExploreTabIndex];
+    const activeExploreTab = exploreTabs[currentExploreTabIndex];
     const activeTabComponent = activeExploreTab.component
     const activeTabComponentParams = activeExploreTab.componentParams || {}
-    const activeExploreTabs = this.exploreTabs.map((tab, i) => {
+    const activeExploreTabs = exploreTabs.map((tab, i) => {
       return {
         ...tab,
         active: i === currentExploreTabIndex,
@@ -184,11 +215,6 @@ class SearchLayout extends React.PureComponent {
 
 }
 
-SearchLayout.propTypes = {
-  intl: PropTypes.object.isRequired,
-  children: PropTypes.node.isRequired,
-  value: PropTypes.string,
-}
 
 const messages = defineMessages({
   search: { id: 'search', defaultMessage: 'Search' },
@@ -202,6 +228,24 @@ const messages = defineMessages({
 
 const mapStateToProps = (state) => ({
   value: state.getIn(['search', 'value']),
+  trendingHashtags: state.getIn(['trending_hashtags', 'items']),
+  trendingHashtagsFetched: state.getIn(['trending_hashtags', 'fetched'], false),
+  isXS: state.getIn(['settings', 'window_dimensions', 'width']) <= BREAKPOINT_EXTRA_SMALL,
 })
 
-export default injectIntl(connect(mapStateToProps)(SearchLayout))
+const mapDispatchToProps = (dispatch) => ({
+  onFetchTrendingHashtags() {
+    dispatch(fetchTrendingHashtags())
+  },
+})
+
+
+SearchLayout.propTypes = {
+  intl: PropTypes.object.isRequired,
+  children: PropTypes.node.isRequired,
+  value: PropTypes.string,
+  trendingHashtags: PropTypes.array,
+  isXS: PropTypes.bool.isRequired,
+}
+
+export default injectIntl(connect(mapStateToProps, mapDispatchToProps)(SearchLayout))

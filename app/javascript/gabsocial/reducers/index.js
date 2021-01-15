@@ -52,6 +52,7 @@ import suggestions from './suggestions'
 import timelines from './timelines'
 import timeline_injections from './timeline_injections'
 import toasts from './toasts'
+import trending_hashtags from './trending_hashtags'
 import user from './user'
 import user_lists from './user_lists'
 
@@ -109,6 +110,7 @@ const reducers = {
   timelines,
   timeline_injections,
   toasts,
+  trending_hashtags,
   user,
   user_lists,
 }

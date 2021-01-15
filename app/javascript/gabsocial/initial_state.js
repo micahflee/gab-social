@@ -19,7 +19,6 @@ export const version = getMeta('version');
 export const isStaff = getMeta('is_staff');
 export const unreadCount = getMeta('unread_count');
 export const lastReadNotificationId = getMeta('last_read_notification_id');
-export const trendingHashtags = getMeta('trending_hashtags');
 export const isFirstSession = getMeta('is_first_session');
 export const emailConfirmed = getMeta('email_confirmed');
 export const meEmail = getMeta('email');
