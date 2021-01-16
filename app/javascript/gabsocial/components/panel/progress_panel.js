@@ -65,7 +65,7 @@ class ProgressPanel extends React.PureComponent {
 
 const messages = defineMessages({
   progressTitle: { id: 'progress_title', defaultMessage: '{value}% covered this month' },
-  operationsTitle: { id: 'operations_title', defaultMessage: "Gab's Operational Expenses" },
+  operationsTitle: { id: 'operations_title', defaultMessage: "Help keep Gab online" },
   operationsSubtitle: { id: 'operations_subtitle', defaultMessage: "We're 100% funded by you." },
   donationTitle: { id: 'make_donation', defaultMessage: 'Make a Donation' },
 })

@@ -13,7 +13,7 @@ import Button from '../button'
 import Text from '../text'
 
 class ProgressInjection extends React.PureComponent {
-  
+
   componentDidMount() {
     const { isFetched, isXS } = this.props
     if (!isFetched && isXS) {
@@ -31,7 +31,7 @@ class ProgressInjection extends React.PureComponent {
     } = this.props
 
     if ((value === 0 && isFetched) || !isXS) return <div />
-    
+
     return (
       <TimelineInjectionLayout
         title={intl.formatMessage(messages.operationsTitle)}
@@ -56,7 +56,7 @@ class ProgressInjection extends React.PureComponent {
 
 const messages = defineMessages({
   progressTitle: { id: 'progress_title', defaultMessage: '{value}% covered this month' },
-  operationsTitle: { id: 'operations_title', defaultMessage: "Gab's Operational Expenses" },
+  operationsTitle: { id: 'operations_title', defaultMessage: "Help keep Gab online" },
   operationsSubtitle: { id: 'operations_subtitle', defaultMessage: "We're 100% funded by you." },
   donationTitle: { id: 'make_donation', defaultMessage: 'Make a Donation' },
 })
