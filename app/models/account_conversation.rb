@@ -101,7 +101,11 @@ class AccountConversation < ApplicationRecord
   end
 
   def subscribed_to_timeline?
-    Redis.current.exists?("subscribed:#{streaming_channel}")
+    exists = false
+    Redis.current.with do |conn|
+      exists = conn.exists?("subscribed:#{streaming_channel}")
+    end
+    exists
   end
 
   def streaming_channel

@@ -3,6 +3,7 @@
 class Api::V1::ExpensesController < EmptyController
 
   def show
+    amount = 0
     Redis.current.with do |conn|
       amount = conn.get("monthly_funding_amount") || 0
     end
