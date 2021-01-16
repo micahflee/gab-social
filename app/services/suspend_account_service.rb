@@ -1,15 +1,21 @@
 # frozen_string_literal: true
 
+#    conversations
+#chat_block_relationships
+#chat_blocked_by_relationships
+#chat_conversations
+#chat_messages
+#subscriptions
+#group_accounts
+#group_join_requests
+#group_removed_accounts
+#shortcuts
+
 class SuspendAccountService < BaseService
   ASSOCIATIONS_ON_SUSPEND = %w(
     active_relationships
     block_relationships
     blocked_by_relationships
-    chat_block_relationships
-    chat_blocked_by_relationships
-    conversations
-    chat_conversations
-    chat_messages
     custom_filters
     favourites
     follow_requests
@@ -24,11 +30,6 @@ class SuspendAccountService < BaseService
     scheduled_statuses
     status_bookmarks
     status_pins
-    subscriptions
-    group_accounts
-    group_join_requests
-    group_removed_accounts
-    shortcuts
   ).freeze
 
   ASSOCIATIONS_ON_DESTROY = %w(
