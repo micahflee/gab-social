@@ -78,12 +78,15 @@ module GabSocial
 
     desc 'clear', 'Remove all home and list feeds from Redis'
     def clear
-      keys = Redis.current.keys('feed:*')
-
-      Redis.current.pipelined do
-        keys.each { |key| Redis.current.del(key) }
+      keys = Redis.current.with do |conn|
+        conn.keys('feed:*')
       end
 
+      Redis.current.with do |conn|
+        conn.pipelined do
+          keys.each { |key| conn.del(key) }
+        end
+      end
       say('OK', :green)
     end
   end
