@@ -55,8 +55,12 @@ class Tag < ApplicationRecord
 
       days << {
         day: day.to_s,
-        uses: Redis.current.get("activity:tags:#{id}:#{day}") || '0',
-        accounts: Redis.current.pfcount("activity:tags:#{id}:#{day}:accounts").to_s,
+        uses: Redis.current.with do |conn|
+          conn.get("activity:tags:#{id}:#{day}") || '0'
+        end,
+        accounts: Redis.current.with do |conn|
+          conn.pfcount("activity:tags:#{id}:#{day}:accounts").to_s
+        end,
       }
     end
 
