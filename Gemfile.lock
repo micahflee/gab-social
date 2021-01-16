@@ -754,7 +754,7 @@ DEPENDENCIES
   rails-settings-cached (~> 0.6)
   rdf-normalize (~> 0.3)
   redcarpet (~> 3.4)
-  redis (~> 4.1)
+  redis (~> 4.2)
   redis-namespace (~> 1.5)
   redis-rails (~> 5.0)
   rqrcode (~> 0.10)

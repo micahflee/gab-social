@@ -3,7 +3,7 @@ require 'connection_pool'
 
 
 
-redis_connection = ConnectionPool::Wrapper.new(size: ENV['REDIS_POOL_SIZE'], timeout: 10) { Redis.new(
+redis_connection = ConnectionPool::Wrapper.new(size: ENV['REDIS_POOL_SIZE'] || 5, timeout: 10) { Redis.new(
   url: ENV['REDIS_URL'],
   driver: :hiredis
 )}
