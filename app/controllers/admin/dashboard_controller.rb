@@ -8,9 +8,11 @@ module Admin
       @statuses_count        = "." #Status.count
       @pro_accounts_count    = Account.where(is_pro: true).count
       @donor_accounts_count  = Account.where(is_donor: true).count
-      @registrations_week    = Redis.current.get("activity:accounts:local:#{current_week}") || 0
-      @logins_week           = Redis.current.pfcount("activity:logins:#{current_week}")
-      @interactions_week     = Redis.current.get("activity:interactions:#{current_week}") || 0
+      Redis.current.with do |conn|
+        @registrations_week    = conn.get("activity:accounts:local:#{current_week}") || 0
+        @logins_week           = conn.pfcount("activity:logins:#{current_week}")
+        @interactions_week     = conn.get("activity:interactions:#{current_week}") || 0
+      end
       @single_user_mode      = Rails.configuration.x.single_user_mode
       @search_enabled        = Chewy.enabled?
       @version               = GabSocial::Version.to_s
@@ -35,7 +37,9 @@ module Admin
     end
 
     def redis_info
-      @redis_info ||= Redis.current.info
+      Redis.current.with do |conn|
+        @redis_info ||= conn.info
+      end
     end
   end
 end

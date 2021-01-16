@@ -22,17 +22,19 @@ class Api::V1::Accounts::CredentialsController < Api::BaseController
     @account = current_account
 
     if !@account.user.confirmed?
-      redisResult = Redis.current.get("account:#{@account.id}:last_email_confirmation_resend") || 0
+      Redis.current.with do |conn|
+        redisResult = conn.get("account:#{@account.id}:last_email_confirmation_resend") || 0
 
-      @lastSentDate = redisResult
-      if redisResult != 0
-        @lastSentDate = Time.at(redisResult.to_i).utc
-      end
-      
-      if @lastSentDate == 0 || (@lastSentDate != 0 && Time.now.utc - @lastSentDate >= 1.hour)
-        @user = Account.find(@account.id).user || raise(ActiveRecord::RecordNotFound)
-        Redis.current.set("account:#{@account.id}:last_email_confirmation_resend", Time.now.utc.to_i)
-        @user.resend_confirmation_instructions
+        @lastSentDate = redisResult
+        if redisResult != 0
+          @lastSentDate = Time.at(redisResult.to_i).utc
+        end
+
+        if @lastSentDate == 0 || (@lastSentDate != 0 && Time.now.utc - @lastSentDate >= 1.hour)
+          @user = Account.find(@account.id).user || raise(ActiveRecord::RecordNotFound)
+          conn.set("account:#{@account.id}:last_email_confirmation_resend", Time.now.utc.to_i)
+          @user.resend_confirmation_instructions
+        end
       end
     end
 
