@@ -38,7 +38,7 @@ class Group < ApplicationRecord
 
   has_many :group_accounts, inverse_of: :group, dependent: :destroy
   has_many :accounts, through: :group_accounts
-  
+
   has_many :group_join_requests, inverse_of: :group, dependent: :destroy
   has_many :join_requests, source: :account, through: :group_join_requests
 
@@ -114,16 +114,18 @@ class Group < ApplicationRecord
   end
 
   def clean_feed_manager
-    reblog_key       = FeedManager.instance.key(:group, id, 'reblogs')
-    reblogged_id_set = Redis.current.zrange(reblog_key, 0, -1)
+    Redis.current.with do |conn|
+      reblog_key       = FeedManager.instance.key(:group, id, 'reblogs')
+      reblogged_id_set = conn.zrange(reblog_key, 0, -1)
 
-    Redis.current.pipelined do
-      Redis.current.del(FeedManager.instance.key(:group, id))
-      Redis.current.del(reblog_key)
+      conn.pipelined do
+        conn.del(FeedManager.instance.key(:group, id))
+        conn.del(reblog_key)
 
-      reblogged_id_set.each do |reblogged_id|
-        reblog_set_key = FeedManager.instance.key(:group, id, "reblogs:#{reblogged_id}")
-        Redis.current.del(reblog_set_key)
+        reblogged_id_set.each do |reblogged_id|
+          reblog_set_key = FeedManager.instance.key(:group, id, "reblogs:#{reblogged_id}")
+          conn.del(reblog_set_key)
+        end
       end
     end
   end

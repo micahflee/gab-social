@@ -31,16 +31,18 @@ class List < ApplicationRecord
   private
 
   def clean_feed_manager
-    reblog_key       = FeedManager.instance.key(:list, id, 'reblogs')
-    reblogged_id_set = Redis.current.zrange(reblog_key, 0, -1)
+    Redis.current.with do |conn|
+      reblog_key       = FeedManager.instance.key(:list, id, 'reblogs')
+      reblogged_id_set = conn.zrange(reblog_key, 0, -1)
 
-    Redis.current.pipelined do
-      Redis.current.del(FeedManager.instance.key(:list, id))
-      Redis.current.del(reblog_key)
+      conn.pipelined do
+        conn.del(FeedManager.instance.key(:list, id))
+        conn.del(reblog_key)
 
-      reblogged_id_set.each do |reblogged_id|
-        reblog_set_key = FeedManager.instance.key(:list, id, "reblogs:#{reblogged_id}")
-        Redis.current.del(reblog_set_key)
+        reblogged_id_set.each do |reblogged_id|
+          reblog_set_key = FeedManager.instance.key(:list, id, "reblogs:#{reblogged_id}")
+          conn.del(reblog_set_key)
+        end
       end
     end
   end

@@ -3,6 +3,7 @@
 class Api::V1::TrendingHashtagsController < EmptyController
 
   def show
+    tags = ""
     Redis.current.with do |conn|
       tags = conn.get("admin_trending_hashtags") || ""
     end
