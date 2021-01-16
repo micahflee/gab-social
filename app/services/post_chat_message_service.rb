@@ -60,10 +60,10 @@ class PostChatMessageService < BaseService
           recipient.is_hidden = false
 
           # check if muting
-          unless recipient.is_muted
-            payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
-            Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
-          end
+          # unless recipient.is_muted
+          #   payload = InlineRenderer.render(@chat, recipient.account, :chat_message)
+          #   Redis.current.publish("chat_messages:#{recipient.account.id}", Oj.dump(event: :notification, payload: payload))
+          # end
         end
       else
         recipient.unread_count = 0
