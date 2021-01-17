@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_111000) do
+ActiveRecord::Schema.define(version: 2021_01_17_120100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -146,10 +146,12 @@ ActiveRecord::Schema.define(version: 2021_01_17_111000) do
     t.boolean "is_flagged_as_spam", default: false, null: false
     t.index "(((setweight(to_tsvector('simple'::regconfig, (display_name)::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (username)::text), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (COALESCE(domain, ''::character varying))::text), 'C'::\"char\")))", name: "search_index", using: :gin
     t.index "lower((username)::text), lower((domain)::text)", name: "index_accounts_on_username_and_domain_lower", unique: true
+    t.index ["domain"], name: "index_accounts_on_domain"
     t.index ["is_donor"], name: "index_accounts_on_is_donor"
     t.index ["is_investor"], name: "index_accounts_on_is_investor"
     t.index ["is_pro"], name: "index_accounts_on_is_pro"
     t.index ["is_verified"], name: "index_accounts_on_is_verified"
+    t.index ["locked"], name: "index_accounts_on_locked"
     t.index ["moved_to_account_id"], name: "index_accounts_on_moved_to_account_id"
     t.index ["uri"], name: "index_accounts_on_uri"
     t.index ["url"], name: "index_accounts_on_url"
