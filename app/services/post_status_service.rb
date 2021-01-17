@@ -47,7 +47,9 @@ class PostStatusService < BaseService
       bump_potential_friendship!
     end
 
-    redis.setex(idempotency_key, 3_600, @status.id) if idempotency_given?
+    redis.with do |conn|
+      conn.setex(idempotency_key, 3_600, @status.id) if idempotency_given?
+    end
 
     @status
   end
@@ -200,7 +202,10 @@ class PostStatusService < BaseService
   end
 
   def idempotency_duplicate?
-    @idempotency_duplicate = redis.get(idempotency_key)
+    redis.with do |conn|
+      @idempotency_duplicate = conn.get(idempotency_key)
+    end
+    @idempotency_duplicate
   end
 
   def scheduled_in_the_past?

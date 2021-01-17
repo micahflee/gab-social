@@ -18,6 +18,8 @@ class LinkBlock < ApplicationRecord
     return false if text.nil?
     return false if text.length < 1
 
+    return true if text.include? '.weebly.com'
+
     urls = text.scan(FetchLinkCardService::URL_PATTERN).map {|array|
       Addressable::URI.parse(array[0]).normalize
     }

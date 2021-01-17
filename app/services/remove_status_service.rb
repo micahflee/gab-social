@@ -55,8 +55,10 @@ class RemoveStatusService < BaseService
   end
 
   def remove_from_affected
-    @mentions.map(&:account).select(&:local?).each do |account|
-      redis.publish("timeline:#{account.id}", @payload)
+    redis.with do |conn|
+      @mentions.map(&:account).select(&:local?).each do |account|
+        conn.publish("timeline:#{account.id}", @payload)
+      end
     end
   end
 
@@ -73,15 +75,19 @@ class RemoveStatusService < BaseService
   def remove_from_hashtags
     return unless @status.public_visibility?
 
-    @tags.each do |hashtag|
-      redis.publish("timeline:hashtag:#{hashtag}", @payload)
-      redis.publish("timeline:hashtag:#{hashtag}:local", @payload) if @status.local?
+    redis.with do |conn|
+      @tags.each do |hashtag|
+        conn.publish("timeline:hashtag:#{hashtag}", @payload)
+        conn.publish("timeline:hashtag:#{hashtag}:local", @payload) if @status.local?
+      end
     end
   end
 
   def remove_from_pro
-    if @account.is_pro || @account.is_donor || @account.is_investor || @account.is_verified
-      redis.publish('timeline:pro', @payload)
+    redis.with do |conn|
+      if @account.is_pro || @account.is_donor || @account.is_investor || @account.is_verified
+        conn.publish('timeline:pro', @payload)
+      end
     end
   end
 

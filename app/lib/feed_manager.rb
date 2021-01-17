@@ -4,7 +4,7 @@ require 'singleton'
 
 class FeedManager
   include Singleton
-  include Redisable
+  # include Redisable
 
   MAX_ITEMS = 150
 

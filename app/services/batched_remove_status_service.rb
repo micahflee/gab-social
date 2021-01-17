@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class BatchedRemoveStatusService < BaseService
-  include Redisable
+  #   include Redisable
 
   # Delete given statuses and reblogs of them
   # Dispatch PuSH updates of the deleted statuses, but only local ones

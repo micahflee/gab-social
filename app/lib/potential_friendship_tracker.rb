@@ -19,17 +19,24 @@ class PotentialFriendshipTracker
       key    = "interactions:#{account_id}"
       weight = WEIGHTS[action]
 
-      redis.zincrby(key, weight, target_account_id)
-      redis.zremrangebyrank(key, 0, -MAX_ITEMS)
-      redis.expire(key, EXPIRE_AFTER)
+      redis.with do |conn|
+        conn.zincrby(key, weight, target_account_id)
+        conn.zremrangebyrank(key, 0, -MAX_ITEMS)
+        conn.expire(key, EXPIRE_AFTER)
+      end
     end
 
     def remove(account_id, target_account_id)
-      redis.zrem("interactions:#{account_id}", target_account_id)
+      redis.with do |conn|
+        conn.zrem("interactions:#{account_id}", target_account_id)
+      end
     end
 
     def get(account_id, limit: 10, offset: 0)
-      account_ids = redis.zrevrange("interactions:#{account_id}", offset, limit)
+      account_ids = []
+      redis.with do |conn|
+        account_ids = conn.zrevrange("interactions:#{account_id}", offset, limit)
+      end
       return [] if account_ids.empty?
       Account.searchable.where(id: account_ids).local
     end

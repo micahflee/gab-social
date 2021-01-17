@@ -34,7 +34,9 @@ class EditStatusService < BaseService
     postprocess_status!
     create_revision! revision_text
 
-    redis.setex(idempotency_key, 3_600, @status.id) if idempotency_given?
+    redis.with do |conn|
+      conn.setex(idempotency_key, 3_600, @status.id) if idempotency_given?
+    end
 
     @status
   end
@@ -91,7 +93,7 @@ class EditStatusService < BaseService
   end
 
   def validate_links!
-    raise GabSocial::NotPermittedError if LinkBlock.block?(@text)
+    raise GabSocial::LinkBlockedError if LinkBlock.block?(@text)
   end
 
   def language_from_option(str)
@@ -119,7 +121,10 @@ class EditStatusService < BaseService
   end
 
   def idempotency_duplicate?
-    @idempotency_duplicate = redis.get(idempotency_key)
+    redis.with do |conn|
+      @idempotency_duplicate = conn.get(idempotency_key)
+    end
+    @idempotency_duplicate
   end
 
   def status_attributes

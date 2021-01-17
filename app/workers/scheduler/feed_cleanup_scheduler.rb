@@ -24,24 +24,26 @@ class Scheduler::FeedCleanupScheduler
   def clean_feeds!(ids, type)
     reblogged_id_sets = {}
 
-    redis.pipelined do
-      ids.each do |feed_id|
-        redis.del(feed_manager.key(type, feed_id))
-        reblog_key = feed_manager.key(type, feed_id, 'reblogs')
-        # We collect a future for this: we don't block while getting
-        # it, but we can iterate over it later.
-        reblogged_id_sets[feed_id] = redis.zrange(reblog_key, 0, -1)
-        redis.del(reblog_key)
+    redis.with do |conn|
+      conn.pipelined do
+        ids.each do |feed_id|
+          conn.del(feed_manager.key(type, feed_id))
+          reblog_key = feed_manager.key(type, feed_id, 'reblogs')
+          # We collect a future for this: we don't block while getting
+          # it, but we can iterate over it later.
+          reblogged_id_sets[feed_id] = conn.zrange(reblog_key, 0, -1)
+          conn.del(reblog_key)
+        end
       end
-    end
 
-    # Remove all of the reblog tracking keys we just removed the
-    # references to.
-    redis.pipelined do
-      reblogged_id_sets.each do |feed_id, future|
-        future.value.each do |reblogged_id|
-          reblog_set_key = feed_manager.key(type, feed_id, "reblogs:#{reblogged_id}")
-          redis.del(reblog_set_key)
+      # Remove all of the reblog tracking keys we just removed the
+      # references to.
+      conn.pipelined do
+        reblogged_id_sets.each do |feed_id, future|
+          future.value.each do |reblogged_id|
+            reblog_set_key = feed_manager.key(type, feed_id, "reblogs:#{reblogged_id}")
+            conn.del(reblog_set_key)
+          end
         end
       end
     end
