@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_17_120100) do
+ActiveRecord::Schema.define(version: 2021_01_17_210100) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_stat_statements"
@@ -571,6 +571,7 @@ ActiveRecord::Schema.define(version: 2021_01_17_120100) do
     t.datetime "updated_at", null: false
     t.integer "lock_version", default: 0, null: false
     t.index ["account_id"], name: "index_polls_on_account_id"
+    t.index ["id", "lock_version"], name: "index_polls_on_id_and_lock_version"
     t.index ["status_id"], name: "index_polls_on_status_id"
   end
 
