@@ -29,7 +29,7 @@ SimpleNavigation::Configuration.run do |navigation|
 
     n.item :moderation, safe_join([fa_icon('gavel fw'), t('moderation.title')]), admin_reports_url, if: proc { current_user.staff? } do |s|
       s.item :accounts, safe_join([fa_icon('users fw'), t('admin.accounts.title')]), admin_accounts_url, highlights_on: %r{/admin/accounts|/admin/pending_accounts|admin/flagged_as_spam}
-      s.item :statuses, safe_join([fa_icon('bars fw'), "Statuses"]), admin_statuses_url
+      s.item :statuses, safe_join([fa_icon('bars fw'), "Statuses"]), admin_statuses_url, if: -> { current_user.admin? }
       s.item :groups, safe_join([fa_icon('smile-o fw'), t('admin.groups.title')]), admin_groups_url, highlights_on: %r{/admin/groups}
       s.item :reports, safe_join([fa_icon('flag fw'), t('admin.reports.title')]), admin_reports_url, highlights_on: %r{/admin/reports}
       s.item :chat_messages, safe_join([fa_icon('comments fw'), "Chat Messages"]), admin_chat_messages_url, if: -> { current_user.admin? }
