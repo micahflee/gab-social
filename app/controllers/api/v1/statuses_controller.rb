@@ -13,7 +13,7 @@ class Api::V1::StatusesController < Api::BaseController
   # conversations as quasi-unlimited, it would be too much work to render more
   # than this anyway
   # : TODO :
-  CONTEXT_LIMIT = 4_096 
+  CONTEXT_LIMIT = 512
 
   def show
     @status = cache_collection([@status], Status).first
