@@ -67,6 +67,7 @@ module AccountInteractions
 
     has_many :group_accounts, inverse_of: :account, dependent: :destroy, source: :account
     has_many :groups, through: :group_accounts
+    has_many :group_removed_accounts, inverse_of: :account, dependent: :destroy, source: :account
 
     # Block relationships
     has_many :block_relationships, class_name: 'Block', foreign_key: 'account_id', dependent: :destroy
