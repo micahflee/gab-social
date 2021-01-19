@@ -249,7 +249,7 @@ class StatusOptionsPopover extends ImmutablePureComponent {
       }
     }
 
-    if (withGroupAdmin) {
+    if (withGroupAdmin || (!!groupRelationships && isStaff)) {
       menu.push(null)
       menu.push({
         icon: 'trash',
