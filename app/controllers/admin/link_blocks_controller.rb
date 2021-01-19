@@ -6,7 +6,7 @@ module Admin
 
     def index
       authorize :link_block, :index?
-      @link_blocks = LinkBlock.page(params[:page])
+      @link_blocks = filtered_link_blocks.alphabetical.page(params[:page])
     end
 
     def new
@@ -36,8 +36,16 @@ module Admin
 
     private
 
+    def filtered_link_blocks
+      LinkBlockFilter.new(filter_params).results
+    end
+
     def set_link_block
       @link_block = LinkBlock.find(params[:id])
+    end
+
+    def filter_params
+      params.permit(:link)
     end
 
     def resource_params

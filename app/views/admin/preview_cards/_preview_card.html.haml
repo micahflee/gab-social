@@ -1,0 +1,14 @@
+.batch-table__row
+  %label.batch-table__row__select.batch-checkbox
+    = f.check_box :preview_card_ids, { multiple: true, include_hidden: false }, preview_card.id
+  .batch-table__row__content
+    %div
+      %div{style: "display:flex;flex-direction:row;"}
+        - if !preview_card.image.nil?
+          %div{style: "display:block;padding-right:10px;"}
+            %img{src: preview_card.image, style: "display:block;width:80px;height:60px;"}
+        %div
+          %p{style: "color:#fff;font-size:14px;font-weight:600;margin-bottom:5px;"}= preview_card.title
+          %p{style: "color:#bbb;font-size:12px;font-weight:400;margin-bottom:5px;"}= preview_card.description
+          %p{style: "color:#21D07B;font-size:12px;font-weight:400;"}= preview_card.url
+          %a{href: "/admin/statuses?preview_card_id=#{preview_card.id}", style: "display:block;padding:6px;background-color:#666;color:#000;margin-top:6px;font-size:13px;width:90px;line-height:20px;text-decoration:none;text-align:center;border-radius:8px;"} View Statuses

@@ -1,15 +1,24 @@
 # frozen_string_literal: true
 
 module Admin
-  class StatusesController < BaseController
+  class AccountStatusesController < BaseController
     helper_method :current_params
+
+    before_action :set_account
 
     PER_PAGE = 20
 
     def index
       authorize :status, :index?
 
-      @statuses = filtered_statuses.preload(:media_attachments, :mentions).page(params[:page]).per(PER_PAGE)
+      @statuses = @account.statuses
+
+      if params[:media]
+        account_media_status_ids = @account.media_attachments.attached.reorder(nil).select(:status_id).distinct
+        @statuses.merge!(Status.where(id: account_media_status_ids))
+      end
+
+      @statuses = @statuses.preload(:media_attachments, :mentions).page(params[:page]).per(PER_PAGE)
       @form     = Form::StatusBatch.new
     end
 
@@ -28,11 +37,11 @@ module Admin
       @form         = Form::StatusBatch.new(form_status_batch_params.merge(current_account: current_account, action: action_from_button))
       flash[:alert] = I18n.t('admin.statuses.failed_to_execute') unless @form.save
 
-      redirect_to admin_statuses_path(current_params)
+      redirect_to admin_account_account_statuses_path(@account.id, current_params)
     rescue ActionController::ParameterMissing
       flash[:alert] = I18n.t('admin.statuses.no_status_selected')
 
-      redirect_to admin_statuses_path(current_params)
+      redirect_to admin_account_account_statuses_path(@account.id, current_params)
     end
 
     private
@@ -41,8 +50,8 @@ module Admin
       params.require(:form_status_batch).permit(:action, status_ids: [])
     end
 
-    def filtered_statuses
-      StatusFilter.new(nil, nil, nil, filter_params).results
+    def set_account
+      @account = Account.find(params[:account_id])
     end
 
     def current_params
@@ -54,18 +63,6 @@ module Admin
       }.select { |_, value| value.present? }
     end
 
-    def filter_params
-      params.permit(
-        :text,
-        :id,
-        :account_id,
-        :group_id,
-        :preview_card_id,
-        :created_at_lte,
-        :created_at_gte
-      )
-    end
-
     def action_from_button
       if params[:nsfw_on]
         'nsfw_on'
@@ -75,6 +72,5 @@ module Admin
         'delete'
       end
     end
-
   end
 end

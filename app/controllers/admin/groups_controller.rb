@@ -4,7 +4,6 @@ module Admin
   class GroupsController < BaseController
     before_action :set_group, except: [:index]
     before_action :set_accounts, only: [:show]
-    before_action :set_filter_params
   
     def index
       authorize :group, :index?
@@ -47,10 +46,6 @@ module Admin
       @mods = GroupAccount.where(group: @group, role: 'moderator')
     end
 
-    def set_filter_params
-      @filter_params = filter_params.to_hash.symbolize_keys
-    end
-  
     def resource_params
       params.require(:group).permit(
         :title,
@@ -66,16 +61,17 @@ module Admin
     end
   
     def filtered_groups
-      query = Group.order('is_featured DESC, member_count DESC')
-  
-      if params[:title]
-        query = query.where("LOWER(title) LIKE LOWER(?)", "%#{params[:title]}%")
-      end
-      return query
+      GroupFilter.new(filter_params).results
     end
-  
+
     def filter_params
-      params.permit(:sort,)
+      params.permit(
+        :title,
+        :description,
+        :id,
+        :member_count_gte,
+        :created_at_gte
+      )
     end
   end
 end

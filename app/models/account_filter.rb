@@ -51,6 +51,13 @@ class AccountFilter
       valid_ip?(value) ? accounts_with_users.where('users.current_sign_in_ip <<= ?', value) : Account.none
     when 'staff'
       accounts_with_users.merge User.staff
+    when "note"
+      Account.where("LOWER(note) LIKE LOWER(?)", "%#{value}%")
+    when "status_count_gte"
+      # : todo :
+      Account.joins(:account_stat)
+    when "sign_up_date_gte"
+      Account.where("created_at >= ?", value)
     else
       raise "Unknown filter: #{key}"
     end

@@ -15,7 +15,7 @@
 
 .dashboard__counters{ style: 'margin-top: 10px' }
   %div
-    %div
+    %a{href: "/admin/statuses?group_id=#{@group.id}"}
       .dashboard__counters__num= number_with_delimiter Status.where(group:@group).count
       .dashboard__counters__label Status Count
   %div
@@ -30,6 +30,11 @@
     %div
       .dashboard__counters__num= number_with_delimiter @group.join_requests.count
       .dashboard__counters__label Member Requests Count
+  %div
+    %div
+      .dashboard__counters__num
+        %time.formatted{ datetime: @group.created_at.iso8601, title: l(@group.created_at) }= l(@group.created_at)
+      .dashboard__counters__label Created
 
 = simple_form_for(@group, url: admin_group_path(@group.id), html: { method: :put }) do |f|
   = render 'shared/error_messages', object: @group

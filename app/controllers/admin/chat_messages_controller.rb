@@ -2,22 +2,20 @@
 
 module Admin
   class ChatMessagesController < BaseController
-    before_action :set_account
-
-    PER_PAGE = 100
+    PER_PAGE = 50
 
     def index
       authorize :chat_message, :index?
 
-      @chat_messages = ChatMessage.where(from_account: @account).page(params[:page]).per(PER_PAGE)
+      @chat_messages = filtered_chat_messages.page(params[:page]).per(PER_PAGE)
       @form = Form::ChatMessageBatch.new
     end
 
     def show
       authorize :chat_message, :index?
 
-      @chat_messages = @account.chat_messages.where(id: params[:id])
-      authorize @chat_messages.first, :show?
+      @chat_message = ChatMessage.where(id: params[:id])
+      authorize @chat_message, :show?
 
       @form = Form::ChatMessageBatch.new
     end
@@ -37,19 +35,18 @@ module Admin
 
     private
 
+    def filtered_chat_messages
+      ChatMessageFilter.new(filter_params).results
+    end
+    
     def form_chat_message_batch_params
       params.require(:form_chat_message_batch).permit(:action, chat_message_ids: [])
-    end
-
-    def set_account
-      @account = Account.find(params[:account_id])
     end
 
     def current_params
       page = (params[:page] || 1).to_i
 
       {
-        media: params[:media],
         page: page > 1 && page,
       }.select { |_, value| value.present? }
     end
@@ -58,6 +55,16 @@ module Admin
       if params[:delete]
         'delete'
       end
+    end
+
+    def filter_params
+      params.permit(
+        :id,
+        :text,
+        :account_id,
+        :created_at_lte,
+        :created_at_gte
+      )
     end
   end
 end

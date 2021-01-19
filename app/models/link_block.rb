@@ -14,6 +14,8 @@ class LinkBlock < ApplicationRecord
 
   validates :link, presence: true, uniqueness: true
 
+  scope :alphabetical, -> { reorder(link: :asc) }
+
   def self.block?(text)
     return false if text.nil?
     return false if text.length < 1

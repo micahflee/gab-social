@@ -4,14 +4,17 @@
   = link_to account_url, target: '_blank', rel: 'noopener' do
     .card__img
       = image_tag account.header.url, alt: ''
-    .card__bar
-      .avatar
-        = image_tag account.avatar.url, alt: '', width: 48, height: 48, class: 'u-photo'
+    .card__bar{style: "display:flex;flex-direction:column;align-items:flex-start;"}
+      %div{style: "display:flex;flex-direction:row;"}
+        .avatar
+          = image_tag account.avatar.url, alt: '', width: 48, height: 48, class: 'u-photo'
+        .display-name
+          %span{id: "default_account_display_name", style: "display:none;"}= account.username
+          %bdi
+            %strong.emojify.p-name= display_name(account, custom_emojify: true)
+          %span
+            = acct(account)
+            = fa_icon('lock') if account.locked?
+      %div{style: "display:block;margin-top:10px;"}
+        %p{style: "display:block;font-size:14px;color:#999;"}= account.note
 
-      .display-name
-        %span{id: "default_account_display_name", style: "display:none;"}= account.username
-        %bdi
-          %strong.emojify.p-name= display_name(account, custom_emojify: true)
-        %span
-          = acct(account)
-          = fa_icon('lock') if account.locked?

@@ -32,3 +32,6 @@
         ·
         = fa_icon('eye-slash fw')
         = t('stream_entries.sensitive_content')
+      - if !status.group_id.nil?
+        ·
+        %a{href: "/groups/#{status.group_id}", style: "color:#757575;text-decoration:none;font-size:14px;"}= status.group.title

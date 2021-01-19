@@ -5,25 +5,13 @@
 
 .dashboard__counters{ style: 'margin-top: 10px' }
   %div
-    = link_to admin_account_statuses_path(@account.id) do
+    = link_to admin_account_account_statuses_path(@account.id) do
       .dashboard__counters__num= number_with_delimiter @account.statuses_count
       .dashboard__counters__label= t 'admin.accounts.statuses'
   %div
-    = link_to admin_account_statuses_path(@account.id, { media: true }) do
+    = link_to admin_account_account_statuses_path(@account.id, { media: true }) do
       .dashboard__counters__num= number_to_human_size @account.media_attachments.sum('file_file_size')
       .dashboard__counters__label= t 'admin.accounts.media_attachments'
-  %div
-    = link_to admin_account_followers_path(@account.id) do
-      .dashboard__counters__num= number_with_delimiter @account.local_followers_count
-      .dashboard__counters__label= t 'admin.accounts.followers'
-  %div
-    = link_to admin_reports_path(account_id: @account.id) do
-      .dashboard__counters__num= number_with_delimiter @account.reports.count
-      .dashboard__counters__label= t '.created_reports'
-  %div
-    = link_to admin_reports_path(target_account_id: @account.id) do
-      .dashboard__counters__num= number_with_delimiter @account.targeted_reports.count
-      .dashboard__counters__label= t '.targeted_reports'
   %div
     %div
       .dashboard__counters__text
@@ -43,11 +31,35 @@
           %span.neutral= t('admin.accounts.no_limits_imposed')
       .dashboard__counters__label= t 'admin.accounts.login_status'
   %div
+    = link_to admin_account_followers_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.local_followers_count
+      .dashboard__counters__label= t 'admin.accounts.followers'
+  %div
+    = link_to admin_account_follows_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.local_following_count
+      .dashboard__counters__label= t 'admin.accounts.following'
+  %div
+    %a
+      .dashboard__counters__num= number_with_delimiter @account.blocked_by.count
+      .dashboard__counters__label Blocked By
+  %div
+    = link_to admin_reports_path(account_id: @account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.reports.count
+      .dashboard__counters__label= t '.created_reports'
+  %div
+    = link_to admin_reports_path(target_account_id: @account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.targeted_reports.count
+      .dashboard__counters__label= t '.targeted_reports'
+  %div
     = link_to admin_account_joined_groups_path(@account.id) do
       .dashboard__counters__num= number_with_delimiter @account.groups.count
       .dashboard__counters__label Joined Groups
   %div
-    = link_to admin_account_chat_conversation_accounts_path(@account.id) do
+    = link_to admin_account_joined_groups_path(@account.id) do
+      .dashboard__counters__num= number_with_delimiter @account.group_removed_accounts.count
+      .dashboard__counters__label Removed by Groups
+  %div
+    %a{href: "/admin/chat_messages?account_id=#{@account.id}"}
       .dashboard__counters__num= number_with_delimiter @account.chat_conversation_accounts_count
       .dashboard__counters__label Chat Conversations
   %div

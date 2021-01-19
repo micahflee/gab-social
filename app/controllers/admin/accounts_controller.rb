@@ -205,7 +205,10 @@ module Admin
         :display_name,
         :email,
         :ip,
-        :staff
+        :staff,
+        :note,
+        :status_count_gte,
+        :sign_up_date_gte,
       )
     end
 

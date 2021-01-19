@@ -94,6 +94,9 @@ Rails.application.routes.draw do
 
     resources :email_domain_blocks, only: [:index, :new, :create, :destroy]
     resources :link_blocks, only: [:index, :new, :create, :destroy]
+    resources :statuses, only: [:index, :show, :create, :update, :destroy]
+    resources :preview_cards, only: [:index, :create, :destroy]
+    resources :chat_messages, only: [:index, :destroy]
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
     resource :settings, only: [:edit, :update]
@@ -139,8 +142,9 @@ Rails.application.routes.draw do
       resource :change_email, only: [:show, :update]
       resource :reset, only: [:create]
       resource :action, only: [:new, :create], controller: 'account_actions'
-      resources :statuses, only: [:index, :show, :create, :update, :destroy]
+      resources :account_statuses, only: [:index, :show, :create, :update, :destroy]
       resources :followers, only: [:index]
+      resources :follows, only: [:index]
       resources :joined_groups, only: [:index]
       resources :chat_conversation_accounts, only: [:index]
       resources :chat_messages, only: [:index, :show, :create, :update, :destroy]

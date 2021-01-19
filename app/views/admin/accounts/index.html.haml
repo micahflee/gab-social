@@ -20,10 +20,16 @@
       - if params[key].present?
         = hidden_field_tag key, params[key]
 
-    - %i(username by_domain display_name email ip).each do |key|
+    - %i(username by_domain display_name email ip note).each do |key|
       - unless key == :by_domain && params[:remote].blank?
         .input.string.optional
           = text_field_tag key, params[key], class: 'string optional', placeholder: I18n.t("admin.accounts.#{key}")
+
+    .input.string.optional
+      = text_field_tag :status_count_gte, params[:status_count_gte], class: 'string optional', placeholder: "Status Count >="
+
+    .input.string.optional
+      = text_field_tag :sign_up_date_gte, params[:sign_up_date_gte], class: 'string optional', placeholder: "Sign up Date >= (MM-DD-YYYY)"
 
     .actions
       %button= t('admin.accounts.search')
