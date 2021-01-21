@@ -44,9 +44,10 @@ class Api::V1::Timelines::ExploreController < Api::BaseController
 
   def explore_statuses
     if current_account
-      SortingQueryBuilder.new.call(@sort_type, nil, params[:page]).reject {|status|
-        FeedManager.instance.filter?(:home, status, current_account.id)
-      }
+      SortingQueryBuilder.new.call(@sort_type, nil, params[:page], current_account)
+        .reject {|status|
+          FeedManager.instance.filter?(:home, status, current_account.id)
+        }
     else
       page = [params[:page].to_i.abs, MIN_UNAUTHENTICATED_PAGES].min
       SortingQueryBuilder.new.call(@sort_type, nil, page)
