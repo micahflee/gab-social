@@ -45,7 +45,7 @@ class SortingQueryBuilder < BaseService
       query = query.where('statuses.created_at > ?', date_limit)
       query = query.where(group: group) unless group.nil?
       query = query.excluding_blocked_reblogs(account) unless account.nil?
-      query = query.not_excluded_by_account(current_account) unless account.nil?
+      query = query.not_excluded_by_account(account) unless account.nil?
       query = query.page(page.to_i)
       query = query.per(limit)
       return query
@@ -58,7 +58,7 @@ class SortingQueryBuilder < BaseService
       query = query.where('status_stats.favourites_count > ?', min_likes) unless sort_type == 'recent'
       query = query.joins(:status)
       query = query.excluding_blocked_reblogs(account) unless account.nil?
-      query = query.not_excluded_by_account(current_account) unless account.nil?
+      query = query.not_excluded_by_account(account) unless account.nil?
       query = query.where('statuses.reblog_of_id IS NULL')
       query = query.where('statuses.in_reply_to_id IS NULL')
       query = query.where('statuses.group_id': group) unless group.nil?
