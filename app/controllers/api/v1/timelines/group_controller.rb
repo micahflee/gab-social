@@ -51,7 +51,7 @@ class Api::V1::Timelines::GroupController < Api::BaseController
 
   def group_statuses
     if current_account
-      SortingQueryBuilder.new.call(@sort_type, @group, params[:page], current_account).reject {|status|
+      SortingQueryBuilder.new.call(@sort_type, @group, params[:page]).reject {|status|
         FeedManager.instance.filter?(:home, status, current_account.id)
       }
     else

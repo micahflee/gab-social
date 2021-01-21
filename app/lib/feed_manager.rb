@@ -88,28 +88,28 @@ class FeedManager
 
   def filter_from_home?(status, receiver_id)
     return false if receiver_id == status.account_id
-    # return true  if status.reply? && (status.in_reply_to_id.nil? || status.in_reply_to_account_id.nil?)
+    return true  if status.reply? && (status.in_reply_to_id.nil? || status.in_reply_to_account_id.nil?)
     return true  if phrase_filtered?(status, receiver_id, :home)
 
-    # check_for_blocks = status.active_mentions.pluck(:account_id)
-    # check_for_blocks.concat([status.account_id])
+    check_for_blocks = status.active_mentions.pluck(:account_id)
+    check_for_blocks.concat([status.account_id])
 
-    # if status.reblog?
-    #  check_for_blocks.concat([status.reblog.account_id])
-    #  check_for_blocks.concat(status.reblog.active_mentions.pluck(:account_id))
-    # end
+    if status.reblog?
+      check_for_blocks.concat([status.reblog.account_id])
+      check_for_blocks.concat(status.reblog.active_mentions.pluck(:account_id))
+    end
 
-    # return true if blocks_or_mutes?(receiver_id, check_for_blocks, :home)
+    return true if blocks_or_mutes?(receiver_id, check_for_blocks, :home)
 
-    # if status.reply? && !status.in_reply_to_account_id.nil?                                                                      # Filter out if it's a reply
-    #  should_filter   = !Follow.where(account_id: receiver_id, target_account_id: status.in_reply_to_account_id).exists?         # and I'm not following the person it's a reply to
-    #  should_filter &&= receiver_id != status.in_reply_to_account_id                                                             # and it's not a reply to me
-    #  should_filter &&= status.account_id != status.in_reply_to_account_id                                                       # and it's not a self-reply
-    #  return should_filter
-    #elsif status.reblog?                                                                                                         # Filter out a reblog
-    #  should_filter ||= Block.where(account_id: status.reblog.account_id, target_account_id: receiver_id).exists?                # or if the author of the reblogged status is blocking me
-    #  return should_filter
-    #end
+    if status.reply? && !status.in_reply_to_account_id.nil?                                                                      # Filter out if it's a reply
+      should_filter   = !Follow.where(account_id: receiver_id, target_account_id: status.in_reply_to_account_id).exists?         # and I'm not following the person it's a reply to
+      should_filter &&= receiver_id != status.in_reply_to_account_id                                                             # and it's not a reply to me
+      should_filter &&= status.account_id != status.in_reply_to_account_id                                                       # and it's not a self-reply
+      return should_filter
+    elsif status.reblog?                                                                                                         # Filter out a reblog
+      should_filter ||= Block.where(account_id: status.reblog.account_id, target_account_id: receiver_id).exists?                # or if the author of the reblogged status is blocking me
+      return should_filter
+    end
 
     return false if status.group_id
 

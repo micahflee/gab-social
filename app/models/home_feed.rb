@@ -20,8 +20,6 @@ class HomeFeed < Feed
   def from_database(limit, max_id, since_id, min_id)
     Status.as_home_timeline(@account)
           .paginate_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
-          .excluding_blocked_reblogs(@account)
-          .not_excluded_by_account(@account)
           .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
   end
 end

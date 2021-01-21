@@ -101,9 +101,6 @@ class Status < ApplicationRecord
   scope :tagged_with, ->(tag) { joins(:statuses_tags).where(statuses_tags: { tag_id: tag }) }
   scope :excluding_silenced_accounts, -> { left_outer_joins(:account).where(accounts: { silenced_at: nil }) }
   scope :including_silenced_accounts, -> { left_outer_joins(:account).where.not(accounts: { silenced_at: nil }) }
-
-  scope :excluding_blocked_reblogs, ->(account) { left_outer_joins(:reblog).where.not(account_id: account.excluded_from_timeline_account_ids) }
-
   scope :popular_accounts, -> { left_outer_joins(:account).where('accounts.is_verified=true OR accounts.is_pro=true AND accounts.locked=false') }
   scope :not_excluded_by_account, ->(account) { where.not(account_id: account.excluded_from_timeline_account_ids) }
   scope :not_domain_blocked_by_account, ->(account) { account.excluded_from_timeline_domains.blank? ? left_outer_joins(:account) : left_outer_joins(:account).where('accounts.domain IS NULL OR accounts.domain NOT IN (?)', account.excluded_from_timeline_domains) }
@@ -293,7 +290,7 @@ class Status < ApplicationRecord
     end
 
     def as_home_timeline(account)
-      query = where('statuses.created_at > ?', 3.days.ago)
+      query = where('created_at > ?', 3.days.ago)
       query.where(account: [account] + account.following).without_replies
     end
 
