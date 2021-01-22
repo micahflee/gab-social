@@ -49,7 +49,7 @@ class HomeFeed < Feed
         on cf.account_id = #{@id} and (
           st.text like '%' || cf.phrase || '%'
           or rb.text like '%' || cf.phrase || '%')
-      where cf.id is null
+      where cf.id is null or st.account_id = #{@id}
     "
     # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
     # Status.as_home_timeline(@account)
