@@ -40,7 +40,7 @@ class HomeFeed < Feed
         limit #{limit}
       ) st
       left join custom_filters cf
-        on cf.account_id = #{@id} and st.text not like '%' || cf.phrase || '%'
+        on cf.account_id = #{@id} and st.text like '%' || cf.phrase || '%'
       where cf.id is null
     "
     # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
