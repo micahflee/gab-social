@@ -26,6 +26,8 @@ class HomeFeed < Feed
       select st.* from (
         select s.*
         from statuses s
+        left join statuses reblog
+          on s.reblog_of_id = reblog.id
         where
           s.created_at > NOW() - INTERVAL '7 days'
           and s.reply is false
@@ -34,6 +36,8 @@ class HomeFeed < Feed
             or s.account_id in (select target_account_id from follows where account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
+          and reblog.account_id not in (select target_account_id from mutes where account_id = #{@id})
+          and reblog.account_id not in (select target_account_id from blocks where account_id = #{@id})
           #{pagination_max}
           #{pagination_min}
         order by s.created_at desc
