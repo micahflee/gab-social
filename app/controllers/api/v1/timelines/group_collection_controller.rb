@@ -32,7 +32,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
   private
 
   def set_sort_type
-    @sort_type = 'newest'
+    @sort_type = 'hot'
     @sort_type = params[:sort_by] if [
       'hot',
       'newest',
@@ -43,7 +43,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
       'top_yearly',
       'top_all_time',
     ].include? params[:sort_by]
-    
+
     if @collection_type === 'featured' && (@sort_type == 'newest' || @sort_type == 'recent')
       @sort_type = 'hot'
     end
@@ -66,7 +66,7 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
     elsif @collection_type == 'member' && !current_account.nil?
       @groupIds = current_account.groups.pluck(:id)
     end
-  
+
     if current_account
       SortingQueryBuilder.new.call(@sort_type, @groupIds, params[:page]).reject {|status|
         FeedManager.instance.filter?(:home, status, current_account.id)
