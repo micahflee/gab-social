@@ -43,8 +43,12 @@ class HomeFeed < Feed
         order by s.created_at desc
         limit #{limit}
       ) st
+      left join statuses rb
+        on st.reblog_of_id = rb.id
       left join custom_filters cf
-        on cf.account_id = #{@id} and st.text like '%' || cf.phrase || '%'
+        on cf.account_id = #{@id} and (
+          st.text like '%' || cf.phrase || '%'
+          or rb.text like '%' || cf.phrase || '%')
       where cf.id is null
     "
     # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
