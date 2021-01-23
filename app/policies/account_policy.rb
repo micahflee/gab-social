@@ -14,7 +14,7 @@ class AccountPolicy < ApplicationPolicy
   end
 
   def suspend?
-    staff? && !record.user&.staff?
+    staff? && !record.user&.staff? && !record.is_pro? && !record.is_investor? && !record.is_donor? && !record.is_verified?
   end
 
   def unsuspend?

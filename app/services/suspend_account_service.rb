@@ -45,6 +45,7 @@ class SuspendAccountService < BaseService
   # @option [Boolean] :destroy Remove the account record instead of suspending
   def call(account, **options)
     @account = account
+    return true if @account.is_pro? || @account.is_verified? || @account.is_donor? || @account.is_investor?
     @options = options
 
     purge_user!
