@@ -94,6 +94,7 @@ class Api::BaseController < ApplicationController
   end
 
   def authorize_if_got_token!(*scopes)
+    Doorkeeper::AccessToken.connection.stick_to_master!
     doorkeeper_authorize!(*scopes) if doorkeeper_token
   end
 
