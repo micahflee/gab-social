@@ -12,7 +12,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
         return render json: { "error": true }, status: 429
       end
     end
-      
+
     @statuses = load_statuses
     render json: @statuses,
            each_serializer: REST::StatusSerializer,
@@ -39,6 +39,7 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
 
     if current_account.nil?
       statuses = statuses.limit(8)
+      statuses = statuses.where("created_at > NOW() - INTERVAL '30 days'")
     else
       statuses = statuses.paginate_by_id(limit_param(DEFAULT_STATUSES_LIMIT), params_slice(:max_id, :since_id, :min_id))
     end

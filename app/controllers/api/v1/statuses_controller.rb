@@ -51,7 +51,6 @@ class Api::V1::StatusesController < Api::BaseController
 
   def create
     markdown = status_params[:markdown] unless status_params[:markdown] === status_params[:status]
-
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
                                          markdown: markdown,
