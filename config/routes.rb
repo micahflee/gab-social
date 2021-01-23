@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   Doorkeeper::AccessToken.connection.stick_to_master!
   Doorkeeper::AccessGrant.connection.stick_to_master!
+  SessionActivation.connection.stick_to_master!
 
   use_doorkeeper do
     controllers authorizations: 'oauth/authorizations',

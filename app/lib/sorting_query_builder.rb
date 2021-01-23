@@ -8,7 +8,7 @@ class SortingQueryBuilder < BaseService
     min_reblogs = 2
     min_replies = 1
     date_limit = 5.years.ago
-    pure_limit = "NOW() - INTERVAL '14 days'"
+    pure_limit = "NOW() - INTERVAL '3 days'"
     max_page = 8
 
     case sort_type
