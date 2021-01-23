@@ -24,7 +24,7 @@ class Api::V1::StatusesController < Api::BaseController
   def comments
     descendants_results = @status.descendants(CONTEXT_LIMIT, current_account, nil, nil)
     loaded_descendants  = cache_collection(descendants_results, Status)
-    
+
     @context = Context.new(descendants: loaded_descendants)
     statuses = [@status] + @context.descendants
 
@@ -51,6 +51,7 @@ class Api::V1::StatusesController < Api::BaseController
 
   def create
     markdown = status_params[:markdown] unless status_params[:markdown] === status_params[:status]
+
     @status = PostStatusService.new.call(current_user.account,
                                          text: status_params[:status],
                                          markdown: markdown,

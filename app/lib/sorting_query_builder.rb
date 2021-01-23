@@ -1,24 +1,29 @@
 # frozen_string_literal: true
 
 class SortingQueryBuilder < BaseService
-  def call(sort_type, group = nil, page = 1)
+  def call(sort_type, group = nil, page = 1, account_id = nil, source = nil)
     limit = 20
 
     min_likes = 5
     min_reblogs = 2
     min_replies = 1
     date_limit = 5.years.ago
+    pure_limit = "NOW() - INTERVAL '1 year'"
     max_page = 8
 
     case sort_type
     when 'hot'
       date_limit = 8.hours.ago
+      pure_limit = "NOW() - INTERVAL '8 hours'"
     when 'top_today'
       date_limit = 24.hours.ago
+      pure_limit = "NOW() - INTERVAL '24 hours'"
     when 'top_weekly'
       date_limit = 7.days.ago
+      pure_limit = "NOW() - INTERVAL '7 days'"
     when 'top_monthly'
       date_limit = 30.days.ago
+      pure_limit = "NOW() - INTERVAL '30 days'"
     when 'top_yearly'
       date_limit = 1.year.ago
     end
@@ -39,7 +44,54 @@ class SortingQueryBuilder < BaseService
       return []
     end
 
+    if source == 'group_collection'
+      return [] if account_id.nil?
+      query = "
+        select q.* from (
+        select s.*
+        from statuses s
+        join group_accounts ga
+          on s.group_id = ga.group_id
+          and ga.account_id = #{account_id} "
+      query += "
+        join status_stats ss
+          on s.id = ss.status_id " if sort_type != 'newest'
+      query += "
+        where "
+      query += "
+        ss.updated_at > #{pure_limit} " if sort_type == 'recent'
+      query += "
+        s.created_at > #{pure_limit} " if sort_type != 'recent'
+      query += "
+        and s.reply is false
+        and s.reblog_of_id is null "
+      if sort_type != 'newest'
+        query += "
+        order by ss.favourites_count desc, ss.reblogs_count desc, ss.replies_count desc "
+      else
+        query += "
+        order by s.created_at desc "
+      end
+
+      query += "limit #{limit} "
+      if page.to_i > 1
+        query += "offset #{page.to_i * limit}"
+      end
+
+      query += "
+      ) q
+      left join custom_filters cf
+        on cf.account_id = #{account_id}
+        and q.text like '%' || cf.phrase || '%'
+      where cf.id is null
+      "
+      return Status.find_by_sql query
+    end
+
+
+
     if sort_type == 'newest'
+
       query = Status.without_replies.without_reblogs
       query = query.with_public_visibility if group.nil?
       query = query.where('statuses.created_at > ?', date_limit)

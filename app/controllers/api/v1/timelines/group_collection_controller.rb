@@ -64,13 +64,13 @@ class Api::V1::Timelines::GroupCollectionController < Api::BaseController
     if @collection_type == 'featured'
       @groupIds = FetchGroupsService.new.call("featured")
     elsif @collection_type == 'member' && !current_account.nil?
-      @groupIds = current_account.groups.pluck(:id)
+      # @groupIds = current_account.groups.pluck(:id)
+      return SortingQueryBuilder.new.call(@sort_type, @groupIds, params[:page], current_account.id, "group_collection")
     end
 
     if current_account
-      SortingQueryBuilder.new.call(@sort_type, @groupIds, params[:page]).reject {|status|
-        FeedManager.instance.filter?(:home, status, current_account.id)
-      }
+      SortingQueryBuilder.new.call(@sort_type, @groupIds, params[:page])
+      # .reject {|status| FeedManager.instance.filter?(:home, status, current_account.id)}
     else
       return []
       # page = [params[:page].to_i.abs, MIN_UNAUTHENTICATED_PAGES].min

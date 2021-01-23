@@ -36,8 +36,8 @@ class HomeFeed < Feed
             or s.account_id in (select target_account_id from follows where account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
-          and reblog.account_id not in (select target_account_id from mutes where account_id = #{@id})
-          and reblog.account_id not in (select target_account_id from blocks where account_id = #{@id})
+          and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
+          and (reblog.id is null or reblog.account_id not in (select target_account_id from blocks where account_id = #{@id}))
           #{pagination_max}
           #{pagination_min}
         order by s.created_at desc
