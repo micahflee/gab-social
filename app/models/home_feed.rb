@@ -33,7 +33,13 @@ class HomeFeed < Feed
           and s.reply is false
           and (
             s.account_id = #{@id}
-            or s.account_id in (select target_account_id from follows where account_id = #{@id})
+            or s.account_id in (
+              select ff.target_account_id
+              from follows ff
+              join accounts af
+                on ff.target_account_id = af.id
+                and af.updated_at > NOW() - INTERVAL '7 days'
+              where ff.account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
           and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
@@ -45,12 +51,13 @@ class HomeFeed < Feed
       ) st
       left join statuses rb
         on st.reblog_of_id = rb.id
-      left join custom_filters cf
-        on cf.account_id = #{@id} and (
-          st.text like '%' || cf.phrase || '%'
-          or rb.text like '%' || cf.phrase || '%')
-      where cf.id is null or st.account_id = #{@id}
     "
+    #  left join custom_filters cf
+    #    on cf.account_id = #{@id} and (
+    #      st.text like '%' || cf.phrase || '%'
+    #      or rb.text like '%' || cf.phrase || '%')
+    #  where cf.id is null or st.account_id = #{@id}
+    #"
     # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
     # Status.as_home_timeline(@account)
     #      .paginate_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
