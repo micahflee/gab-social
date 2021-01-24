@@ -45,12 +45,13 @@ class HomeFeed < Feed
       ) st
       left join statuses rb
         on st.reblog_of_id = rb.id
-      left join custom_filters cf
-        on cf.account_id = #{@id} and (
-          st.text like '%' || cf.phrase || '%'
-          or rb.text like '%' || cf.phrase || '%')
-      where cf.id is null or st.account_id = #{@id}
     "
+    #  left join custom_filters cf
+    #    on cf.account_id = #{@id} and (
+    #      st.text like '%' || cf.phrase || '%'
+    #      or rb.text like '%' || cf.phrase || '%')
+    #  where cf.id is null or st.account_id = #{@id}
+    #"
     # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
     # Status.as_home_timeline(@account)
     #      .paginate_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
