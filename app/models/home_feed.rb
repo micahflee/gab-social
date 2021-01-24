@@ -33,7 +33,13 @@ class HomeFeed < Feed
           and s.reply is false
           and (
             s.account_id = #{@id}
-            or s.account_id in (select target_account_id from follows where account_id = #{@id})
+            or s.account_id in (
+              select ff.target_account_id
+              from follows ff
+              join accounts af
+                on ff.target_account_id = af.id
+                and af.updated_at > NOW() - INTERVAL '7 days'
+              where ff.account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
           and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
