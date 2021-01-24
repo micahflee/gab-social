@@ -8,7 +8,7 @@ class SortingQueryBuilder < BaseService
     min_reblogs = 2
     min_replies = 1
     date_limit = 5.years.ago
-    pure_limit = "NOW() - INTERVAL '3 days'"
+    pure_limit = "NOW() - INTERVAL '14 days'"
     max_page = 8
 
     case sort_type
@@ -80,12 +80,11 @@ class SortingQueryBuilder < BaseService
 
       query += "
       ) q
+      left join custom_filters cf
+        on cf.account_id = #{account_id}
+        and q.text like '%' || cf.phrase || '%'
+      where cf.id is null
       "
-      #left join custom_filters cf
-      #  on cf.account_id = #{account_id}
-      #  and q.text like '%' || cf.phrase || '%'
-      #where cf.id is null
-      #"
       return Status.find_by_sql query
     end
 

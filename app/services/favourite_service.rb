@@ -10,14 +10,7 @@ class FavouriteService < BaseService
   def call(account, status)
     authorize_with account, status, :favourite?
 
-    favourite = nil
-    begin
-      favourite = Favourite.find_by(account: account, status: status)
-    rescue ActiveRecord::RecordNotFound
-      Favourite.connection.stick_to_master!
-      favourite = Favourite.find_by(account: account, status: status)
-    end
-    # favourite = Favourite.find_by(account: account, status: status)
+    favourite = Favourite.find_by(account: account, status: status)
 
     return favourite unless favourite.nil?
 

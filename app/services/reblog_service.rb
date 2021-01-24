@@ -13,14 +13,7 @@ class ReblogService < BaseService
 
     authorize_with account, reblogged_status, :reblog?
 
-    reblog = nil
-    begin
-      reblog = account.statuses.find_by(reblog: reblogged_status)
-    rescue ActiveRecord::RecordNotFound
-      account.statuses.connection.stick_to_master!
-      reblog = account.statuses.find_by(reblog: reblogged_status)
-    end
-    #reblog = account.statuses.find_by(reblog: reblogged_status)
+    reblog = account.statuses.find_by(reblog: reblogged_status)
 
     return reblog unless reblog.nil?
 

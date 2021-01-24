@@ -16,10 +16,6 @@ Rails.application.routes.draw do
     mount PgHero::Engine, at: 'pghero', as: :pghero
   end
 
-  Doorkeeper::AccessToken.connection.stick_to_master!
-  Doorkeeper::AccessGrant.connection.stick_to_master!
-  SessionActivation.connection.stick_to_master!
-
   use_doorkeeper do
     controllers authorizations: 'oauth/authorizations',
                 authorized_applications: 'oauth/authorized_applications',
@@ -229,9 +225,9 @@ Rails.application.routes.draw do
       end
 
       namespace :chat_conversation_accounts do
-        #
+        # 
       end
-
+      
       resources :chat_conversation_accounts, only: :show do
         member do
           post :messenger_block_relationships
@@ -369,7 +365,7 @@ Rails.application.routes.draw do
         resource :removed_accounts, only: [:show, :create, :destroy], controller: 'groups/removed_accounts'
         resource :password, only: [:create], controller: 'groups/password'
         resource :join_requests, only: [:show], controller: 'groups/requests'
-
+        
         post '/join_requests/respond', to: 'groups/requests#respond_to_request'
 
         resource :pin, only: [:show, :create], controller: 'groups/pins'

@@ -34,15 +34,6 @@ class Api::V1::Statuses::FavouritesController < Api::BaseController
   end
 
   def requested_status
-    rs = nil
-    begin
-      rs = Status.find(params[:status_id])
-    rescue ActiveRecord::RecordNotFound
-      Status.connection.stick_to_master!
-      rs = Status.find(params[:status_id])
-    end
-    return rs unless rs.nil?
-    raise ActiveRecord::RecordNotFound
+    Status.find(params[:status_id])
   end
-
 end
