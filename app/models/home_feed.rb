@@ -28,15 +28,18 @@ class HomeFeed < Feed
         from statuses s
         left join statuses reblog
           on s.reblog_of_id = reblog.id
-        left join follows f
-          on s.account_id = f.target_account_id
-          and f.account_id = #{@id}
         where
           s.created_at > NOW() - INTERVAL '7 days'
           and s.reply is false
           and (
             s.account_id = #{@id}
-            or f.id is not null
+            or s.account_id in (
+              select ff.target_account_id
+              from follows ff
+              join accounts af
+                on ff.target_account_id = af.id
+                and af.updated_at > NOW() - INTERVAL '7 days'
+              where ff.account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
           and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
@@ -55,5 +58,8 @@ class HomeFeed < Feed
     #      or rb.text like '%' || cf.phrase || '%')
     #  where cf.id is null or st.account_id = #{@id}
     #"
+    # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
+    # Status.as_home_timeline(@account)
+    #      .paginate_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
   end
 end
