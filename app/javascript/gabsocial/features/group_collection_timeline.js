@@ -25,7 +25,7 @@ import GroupsCollection from './groups_collection'
 class GroupCollectionTimeline extends React.PureComponent {
 
 	state = {
-		//keep track of page loads for if no user, 
+		//keep track of page loads for if no user,
 		//only allow MIN_UNAUTHENTICATED_PAGES page loads before showing sign up msg
 		page: 1,
 	}
@@ -39,8 +39,8 @@ class GroupCollectionTimeline extends React.PureComponent {
 
 		if (this.props.collectionType === 'featured' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_HOT) {
 			this.props.setFeaturedTop()
-		} else if (!!me && this.props.collectionType === 'member' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_NEWEST) {
-			this.props.setMemberNewest()
+		} else if (!!me && this.props.collectionType === 'member' && sortByValue !== GROUP_TIMELINE_SORTING_TYPE_HOT) {
+			this.props.setMemberHot()
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue)
 			this.props.onExpandGroupCollectionTimeline(collectionType, { sortBy })
@@ -48,7 +48,7 @@ class GroupCollectionTimeline extends React.PureComponent {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.sortByValue !== this.props.sortByValue || 
+		if (prevProps.sortByValue !== this.props.sortByValue ||
 				prevProps.sortByTopValue !== this.props.sortByTopValue ||
 				prevProps.collectionType !== this.props.collectionType) {
 				this.props.onClearTimeline(`group_collection:${prevProps.collectionType}`)
@@ -63,7 +63,7 @@ class GroupCollectionTimeline extends React.PureComponent {
 			sortByTopValue,
 		} = this.props
 		const { page } = this.state
-		
+
 		const newPage = !!maxId ? this.state.page + 1 : 1
 		if (!!maxId && !me && page >= MIN_UNAUTHENTICATED_PAGES) return false
 		this.setState({ page: newPage })
@@ -73,7 +73,7 @@ class GroupCollectionTimeline extends React.PureComponent {
 
 		this.props.onExpandGroupCollectionTimeline(collectionType, options)
 	}
- 
+
 	render() {
 		const {
 			collectionType,
@@ -141,6 +141,9 @@ const mapDispatchToProps = (dispatch) => ({
 	setMemberNewest() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
 	},
+  setMemberHot() {
+    dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_HOT))
+  },
 })
 
 GroupCollectionTimeline.propTypes = {

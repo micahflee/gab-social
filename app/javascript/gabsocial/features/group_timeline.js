@@ -14,10 +14,12 @@ import {
 } from '../actions/timelines'
 import {
 	setGroupTimelineSort,
+  setGroupTimelineTopSort,
 } from '../actions/groups'
 import {
 	MIN_UNAUTHENTICATED_PAGES,
 	GROUP_TIMELINE_SORTING_TYPE_NEWEST,
+  GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY,
 } from '../constants'
 import StatusList from '../components/status_list'
 import ColumnIndicator from '../components/column_indicator'
@@ -26,11 +28,11 @@ import GroupSortBlock from '../components/group_sort_block'
 class GroupTimeline extends ImmutablePureComponent {
 
 	state = {
-		//keep track of page loads for if no user, 
+		//keep track of page loads for if no user,
 		//only allow MIN_UNAUTHENTICATED_PAGES page loads before showing sign up msg
 		page: 1,
 	}
-	
+
 	componentDidMount() {
 		const {
 			groupId,
@@ -40,8 +42,8 @@ class GroupTimeline extends ImmutablePureComponent {
 			isDeckConnected,
 		} = this.props
 
-		if (sortByValue !== GROUP_TIMELINE_SORTING_TYPE_NEWEST) {
-			this.props.setMemberNewest()
+		if (sortByValue !== GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY) {
+			this.props.setMemberTopWeekly()
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue, onlyMedia)
 
@@ -74,11 +76,11 @@ class GroupTimeline extends ImmutablePureComponent {
 			onlyMedia,
 		} = this.props
 		const { page } = this.state
-		
+
 		const newPage = !!maxId ? this.state.page + 1 : 1
 		if (!!maxId && !me && page >= MIN_UNAUTHENTICATED_PAGES) return false
 		this.setState({ page: newPage })
-		
+
 		const sortBy = getSortBy(sortByValue, sortByTopValue)
 		this.props.onExpandGroupTimeline(groupId, {
 			sortBy,
@@ -146,6 +148,9 @@ const mapDispatchToProps = (dispatch) => ({
 	setMemberNewest() {
 		dispatch(setGroupTimelineSort(GROUP_TIMELINE_SORTING_TYPE_NEWEST))
 	},
+  setMemberTopWeekly() {
+    dispatch(setGroupTimelineTopSort(GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY))
+  },
 	onExpandGroupFeaturedTimeline(groupId) {
 		dispatch(expandGroupFeaturedTimeline(groupId))
 	},
