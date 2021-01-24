@@ -80,11 +80,12 @@ class SortingQueryBuilder < BaseService
 
       query += "
       ) q
-      left join custom_filters cf
-        on cf.account_id = #{account_id}
-        and q.text like '%' || cf.phrase || '%'
-      where cf.id is null
       "
+      #left join custom_filters cf
+      #  on cf.account_id = #{account_id}
+      #  and q.text like '%' || cf.phrase || '%'
+      #where cf.id is null
+      #"
       return Status.find_by_sql query
     end
 
