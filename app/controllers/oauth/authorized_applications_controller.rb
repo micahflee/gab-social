@@ -6,6 +6,7 @@ class Oauth::AuthorizedApplicationsController < Doorkeeper::AuthorizedApplicatio
   before_action :store_current_location
   before_action :authenticate_resource_owner!
   before_action :set_body_classes
+  before_action :use_master
 
   include Localized
 

@@ -6,6 +6,7 @@ class Oauth::AuthorizationsController < Doorkeeper::AuthorizationsController
   before_action :store_current_location
   before_action :authenticate_resource_owner!
   before_action :set_cache_headers
+  before_action :use_master
 
   include Localized
 
