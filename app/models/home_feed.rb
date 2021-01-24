@@ -8,11 +8,7 @@ class HomeFeed < Feed
   end
 
   def get(limit = 20, max_id = nil, since_id = nil, min_id = nil)
-    # if redis.exists?("account:#{@account.id}:regeneration")
     from_database(limit, max_id, since_id, min_id)
-    # else
-    #   super
-    # end
   end
 
   private
@@ -33,7 +29,12 @@ class HomeFeed < Feed
           and s.reply is false
           and (
             s.account_id = #{@id}
-            or s.account_id in (select target_account_id from follows where account_id = #{@id})
+            or s.account_id in (
+              select ff.target_account_id
+              from follows ff
+              join accounts af
+              on ff.target_account_id = af.id
+              where ff.account_id = #{@id})
           )
           and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
           and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
@@ -43,16 +44,6 @@ class HomeFeed < Feed
         order by s.created_at desc
         limit #{limit}
       ) st
-      left join statuses rb
-        on st.reblog_of_id = rb.id
-      left join custom_filters cf
-        on cf.account_id = #{@id} and (
-          st.text like '%' || cf.phrase || '%'
-          or rb.text like '%' || cf.phrase || '%')
-      where cf.id is null or st.account_id = #{@id}
     "
-    # .reject { |status| FeedManager.instance.filter?(:home, status, @account.id) }
-    # Status.as_home_timeline(@account)
-    #      .paginate_by_id(limit, max_id: max_id, since_id: since_id, min_id: min_id)
   end
 end

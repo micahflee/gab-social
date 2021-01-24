@@ -31,7 +31,15 @@ class Api::V1::Statuses::ReblogsController < Api::BaseController
   private
 
   def status_for_reblog
-    Status.find params[:status_id]
+    rs = nil
+    begin
+      rs = Status.find(params[:status_id])
+    rescue ActiveRecord::RecordNotFound
+      Status.connection.stick_to_master!
+      rs = Status.find(params[:status_id])
+    end
+    return rs unless rs.nil?
+    raise ActiveRecord::RecordNotFound
   end
 
   def status_for_destroy
