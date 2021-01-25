@@ -91,7 +91,11 @@ class SortingQueryBuilder < BaseService
       query = Status.without_replies.without_reblogs
       query = query.with_public_visibility if group.nil?
       query = query.where('statuses.created_at > ?', date_limit)
-      query = query.where(group: group) unless group.nil?
+      if source == "explore"
+        query = query.where(group: nil)
+      else
+        query = query.where(group: group) unless group.nil?
+      end
       query = query.page(page.to_i)
       query = query.per(limit)
       return query
@@ -105,7 +109,11 @@ class SortingQueryBuilder < BaseService
       query = query.joins(:status)
       query = query.where('statuses.reblog_of_id IS NULL')
       query = query.where('statuses.in_reply_to_id IS NULL')
-      query = query.where('statuses.group_id': group) unless group.nil?
+      if source == "explore"
+        query = query.where('statuses.group_id': nil)
+      else
+        query = query.where('statuses.group_id': group) unless group.nil?
+      end
       query = query.where('statuses.visibility': 0) if group.nil?
       query = query.page(page)
       query = query.per(limit)
