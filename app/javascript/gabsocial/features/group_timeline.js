@@ -42,8 +42,8 @@ class GroupTimeline extends ImmutablePureComponent {
 			isDeckConnected,
 		} = this.props
 
-		if (sortByValue !== GROUP_TIMELINE_SORTING_TYPE_TOP_OPTION_WEEKLY) {
-			this.props.setMemberTopWeekly()
+		if (sortByValue !== GROUP_TIMELINE_SORTING_TYPE_NEWEST) {
+			this.props.setMemberNewest()
 		} else {
 			const sortBy = getSortBy(sortByValue, sortByTopValue, onlyMedia)
 
