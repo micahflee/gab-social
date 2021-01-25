@@ -254,18 +254,6 @@ class ProfileHeader extends ImmutablePureComponent {
                           onClick={this.handleToggleShortcut}
                         />
                         <div className={[_s.d, _s.flexRow, _s.h40PX].join(' ')}>
-                          <Button
-                            isOutline
-                            icon='chat'
-                            iconSize='18px'
-                            iconClassName={_s.inheritFill}
-                            color='brand'
-                            backgroundColor='none'
-                            className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
-                            onClick={this.handleOnCreateChatConversation}
-                          />
-                        </div>
-                        <div className={[_s.d, _s.flexRow, _s.h40PX].join(' ')}>
                           <AccountActionButton account={account} />
                         </div>
                       </div>
@@ -397,16 +385,6 @@ class ProfileHeader extends ImmutablePureComponent {
                               className={[_s.jcCenter, _s.aiCenter, _s.mr15, _s.px10].join(' ')}
                               onClick={this.handleOpenMore}
                               buttonRef={this.setOpenMoreNodeRef}
-                            />
-                            <Button
-                              isOutline
-                              icon='chat'
-                              iconSize='18px'
-                              iconClassName={_s.inheritFill}
-                              color='brand'
-                              backgroundColor='none'
-                              className={[_s.jcCenter, _s.aiCenter, _s.mr10, _s.px10].join(' ')}
-                              onClick={this.handleOnCreateChatConversation}
                             />
                           </div>
                         }
