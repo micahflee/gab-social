@@ -23,6 +23,8 @@ class StatusFilter
     scope
   end
 
+  private
+
   def scope_for(key, value)
     case key.to_sym
     when :text
@@ -43,8 +45,6 @@ class StatusFilter
       raise "Unknown filter: #{key}"
     end
   end
-
-  private
 
   def account_present?
     !account.nil?
