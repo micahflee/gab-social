@@ -118,7 +118,7 @@ class PostStatusService < BaseService
 
   def postprocess_status!
     LinkCrawlWorker.perform_async(@status.id)
-    # DistributionWorker.perform_async(@status.id)
+    DistributionWorker.perform_async(@status.id)
     ExpiringStatusWorker.perform_at(@status.expires_at, @status.id) if @status.expires_at && @account.is_pro
     PollExpirationNotifyWorker.perform_at(@status.poll.expires_at, @status.poll.id) if @status.poll
   end
