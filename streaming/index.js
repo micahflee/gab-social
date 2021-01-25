@@ -536,11 +536,6 @@ const startWorker = (workerId) => {
     streamFrom(`timeline:${req.accountId}`, req, streamToHttp(req, res), streamHttpEnd(req), false, true);
   });
 
-  app.get('/api/v1/streaming/chat_messages', (req, res) => {
-    const channel = `chat_messages:1`;
-    streamFrom(channel, req, streamToHttp(req, res), streamHttpEnd(req, subscriptionHeartbeat(channel)));
-  });
-
   const wss = new WebSocketServer({ server, verifyClient: wsVerifyClient });
 
   wss.on('connection', (ws, req) => {
@@ -561,9 +556,6 @@ const startWorker = (workerId) => {
         break;
       case 'user:notification':
         streamFrom(`timeline:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
-        break;
-      case 'chat_messages':
-        streamFrom(`chat_messages:${req.accountId}`, req, streamToWs(req, ws), streamWsEnd(req, ws), false, true);
         break;
       default:
         ws.close();
