@@ -111,7 +111,7 @@ export default class GabSocial extends React.PureComponent {
     if (!!me) {
       this.disconnect = store.dispatch(connectUserStream())
       store.dispatch(connectStatusUpdateStream())
-      store.dispatch(connectChatMessagesStream(me))
+      // store.dispatch(connectChatMessagesStream(me))
     }
 
     console.log('%cGab Social ', [
