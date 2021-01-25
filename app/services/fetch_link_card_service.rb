@@ -49,11 +49,11 @@ class FetchLinkCardService < BaseService
 
     Request.new(:get, @url).add_headers('Accept' => 'text/html').perform do |res|
       if res.code == 200 && res.mime_type == 'text/html'
-        @html = res.body_with_limit
         @html_charset = res.charset
+        @html = res.body_with_limit
       else
-        @html = nil
         @html_charset = nil
+        @html = nil
       end
     end
 
