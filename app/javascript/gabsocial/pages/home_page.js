@@ -102,11 +102,6 @@ class HomePage extends React.PureComponent {
             href: 'https://tv.gab.com',
           },
           {
-            icon: 'chat',
-            to: '/messages',
-            count: unreadChatsCount,
-          },
-          {
             icon: 'search',
             to: '/search',
           },
