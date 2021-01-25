@@ -173,8 +173,8 @@ class StatusActionBar extends ImmutablePureComponent {
           <div className={[_s.d, _s.flexRow, _s.py2, _s.w100PC].join(' ')}>
             <StatusActionBarItem
               title={intl.formatMessage(messages.like)}
-              icon={!!status.get('favourited') ? 'liked' : 'like'}
-              active={!!status.get('favourited')}
+              icon={!!status.get('favourited') && !!me ? 'liked' : 'like'}
+              active={!!status.get('favourited') && !!me}
               onClick={this.handleFavoriteClick}
               isCompact={isCompact}
             />
@@ -189,7 +189,7 @@ class StatusActionBar extends ImmutablePureComponent {
               altTitle={!publicStatus ? intl.formatMessage(messages.cannot_repost) : ''}
               icon={!publicStatus ? 'lock' : 'repost'}
               disabled={!publicStatus}
-              active={!!status.get('reblogged')}
+              active={!!status.get('reblogged') && !!me}
               onClick={this.handleRepostClick}
               isCompact={isCompact}
             />

@@ -208,7 +208,7 @@ class Comment extends ImmutablePureComponent {
 
               <div className={[_s.d, _s.flexRow, _s.mt5].join(' ')}>
                 <CommentButton
-                  title={intl.formatMessage(status.get('favourited') ? messages.unlike : messages.like)}
+                  title={intl.formatMessage(status.get('favourited') && !!me ? messages.unlike : messages.like)}
                   onClick={this.handleOnFavorite}
                 />
                 <CommentButton
@@ -216,7 +216,7 @@ class Comment extends ImmutablePureComponent {
                   onClick={this.handleOnReply}
                 />
                 <CommentButton
-                  title={intl.formatMessage(status.get('reblogged') ? messages.unrepost : messages.repost)}
+                  title={intl.formatMessage(status.get('reblogged') && !!me ? messages.unrepost : messages.repost)}
                   onClick={this.handleOnRepost}
                 />
                 <div ref={this.setMoreNode}>
