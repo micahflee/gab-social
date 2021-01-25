@@ -19,31 +19,24 @@ class HomeFeed < Feed
     pagination_max = "and s.id < #{max_id}" unless max_id.nil?
     pagination_min = "and s.id > #{min_id}" unless min_id.nil?
     Status.find_by_sql "
-      select st.* from (
-        select s.*
+      select s.*
         from statuses s
-        left join statuses reblog
-          on s.reblog_of_id = reblog.id
-        where
-          s.created_at > NOW() - INTERVAL '7 days'
-          and s.reply is false
-          and (
-            s.account_id = #{@id}
-            or s.account_id in (
-              select ff.target_account_id
-              from follows ff
-              join accounts af
-              on ff.target_account_id = af.id
-              where ff.account_id = #{@id})
-          )
-          and s.account_id not in (select target_account_id from mutes where account_id = #{@id})
-          and (reblog.id is null or reblog.account_id not in (select target_account_id from mutes where account_id = #{@id}))
-          and (reblog.id is null or reblog.account_id not in (select target_account_id from blocks where account_id = #{@id}))
-          #{pagination_max}
-          #{pagination_min}
-        order by s.created_at desc
-        limit #{limit}
-      ) st
+        left join statuses r
+          on s.reblog_of_id = r.id
+      where
+        s.created_at > NOW() - INTERVAL '7 days'
+        and s.reply is false
+        and (
+          exists(select ff.target_account_id from follows ff
+            where ff.account_id = #{@id} and ff.target_account_id = s.account_id)
+          or s.account_id = #{@id})
+        and not exists(select mm.target_account_id from mutes mm
+          where mm.account_id = #{@id} and mm.target_account_id in (s.account_id, r.account_id))
+        and not exists(select bb.target_account_id from blocks bb
+          where bb.account_id = #{@id} and bb.target_account_id in (s.account_id, r.account_id))
+        #{pagination_max}
+        #{pagination_min}
+      order by s.created_at desc limit #{limit}
     "
   end
 end
