@@ -109,13 +109,13 @@ class Api::V1::Accounts::StatusesController < Api::BaseController
   end
 
   def next_path
-    if records_continue? && !current_account.nil?
+    if records_continue?
       api_v1_account_statuses_url pagination_params(max_id: pagination_max_id)
     end
   end
 
   def prev_path
-    unless @statuses.empty? || current_account.nil?
+    unless @statuses.empty?
       api_v1_account_statuses_url pagination_params(min_id: pagination_since_id)
     end
   end
