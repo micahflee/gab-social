@@ -32,7 +32,7 @@ SimpleNavigation::Configuration.run do |navigation|
       s.item :statuses, safe_join([fa_icon('bars fw'), "Statuses"]), admin_statuses_url, if: -> { current_user.admin? }
       s.item :groups, safe_join([fa_icon('smile-o fw'), t('admin.groups.title')]), admin_groups_url, highlights_on: %r{/admin/groups}
       s.item :reports, safe_join([fa_icon('flag fw'), t('admin.reports.title')]), admin_reports_url, highlights_on: %r{/admin/reports}
-      s.item :chat_messages, safe_join([fa_icon('comments fw'), "Chat Messages"]), admin_chat_messages_url, if: -> { current_user.admin? }
+      # s.item :chat_messages, safe_join([fa_icon('comments fw'), "Chat Messages"]), admin_chat_messages_url, if: -> { current_user.admin? }
       s.item :preview_cards, safe_join([fa_icon('link fw'), "Preview Cards"]), admin_preview_cards_url
       s.item :action_logs, safe_join([fa_icon('bars fw'), t('admin.action_logs.title')]), admin_action_logs_url
       s.item :email_domain_blocks, safe_join([fa_icon('envelope fw'), t('admin.email_domain_blocks.title')]), admin_email_domain_blocks_url, highlights_on: %r{/admin/email_domain_blocks}, if: -> { current_user.admin? }
