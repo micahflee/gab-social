@@ -100,7 +100,7 @@ Rails.application.routes.draw do
     resources :link_blocks, only: [:index, :new, :create, :destroy]
     resources :statuses, only: [:index, :show, :create, :update, :destroy]
     resources :preview_cards, only: [:index, :create, :destroy]
-    resources :chat_messages, only: [:index, :destroy]
+    # resources :chat_messages, only: [:index, :destroy]
     resources :action_logs, only: [:index]
     resources :warning_presets, except: [:new]
     resource :settings, only: [:edit, :update]
@@ -150,8 +150,8 @@ Rails.application.routes.draw do
       resources :followers, only: [:index]
       resources :follows, only: [:index]
       resources :joined_groups, only: [:index]
-      resources :chat_conversation_accounts, only: [:index]
-      resources :chat_messages, only: [:index, :show, :create, :update, :destroy]
+      # resources :chat_conversation_accounts, only: [:index]
+      # resources :chat_messages, only: [:index, :show, :create, :update, :destroy]
 
       resource :confirmation, only: [:create] do
         collection do
@@ -228,49 +228,49 @@ Rails.application.routes.draw do
         resource :explore, only: :show, controller: :explore
       end
 
-      namespace :chat_conversation_accounts do
+      # namespace :chat_conversation_accounts do
         #
-      end
+      # end
 
-      resources :chat_conversation_accounts, only: :show do
-        member do
-          post :messenger_block_relationships
-          post :block_messenger
-          post :unblock_messenger
-          post :mute_chat_conversation
-          post :unmute_chat_conversation
-          get  :search
-        end
-      end
+      # resources :chat_conversation_accounts, only: :show do
+      #   member do
+      #     post :messenger_block_relationships
+      #     post :block_messenger
+      #     post :unblock_messenger
+      #     post :mute_chat_conversation
+      #     post :unmute_chat_conversation
+      #     get  :search
+      #   end
+      # end
 
-      namespace :chat_conversations do
-        resources :messages, only: :show do
-          member do
-            delete :destroy_all
-          end
-        end
-        resources :approved_conversations, only: :index do
-          collection do
-            get :unread_count
-          end
-        end
-        resources :requested_conversations, only: :index do
-          collection do
-            get :count
-          end
-        end
-        resources :blocked_chat_accounts, only: :index
-        resources :muted_conversations, only: :index
-      end
+      # namespace :chat_conversations do
+      #   resources :messages, only: :show do
+      #     member do
+      #       delete :destroy_all
+      #     end
+      #   end
+      #   resources :approved_conversations, only: :index do
+      #     collection do
+      #       get :unread_count
+      #     end
+      #   end
+      #   resources :requested_conversations, only: :index do
+      #     collection do
+      #       get :count
+      #     end
+      #   end
+      #   resources :blocked_chat_accounts, only: :index
+      #   resources :muted_conversations, only: :index
+      # end
 
-      resources :chat_conversation, only: [:show, :create] do
-        member do
-          post :mark_chat_conversation_approved
-          post :mark_chat_conversation_read
-          post :mark_chat_conversation_hidden
-          post :set_expiration_policy
-        end
-      end
+      # resources :chat_conversation, only: [:show, :create] do
+      #   member do
+      #     post :mark_chat_conversation_approved
+      #     post :mark_chat_conversation_read
+      #     post :mark_chat_conversation_hidden
+      #     post :set_expiration_policy
+      #   end
+      # end
 
       resources :links,         only: :show
       resources :hashtags,         only: :show
@@ -281,7 +281,7 @@ Rails.application.routes.draw do
       resources :scheduled_statuses, only: [:index, :show, :update, :destroy]
       resources :preferences,   only: [:index]
       resources :group_categories, only: [:index]
-      resources :chat_messages, only: [:create, :destroy]
+      # resources :chat_messages, only: [:create, :destroy]
       resources :promotions,   only: [:index]
       resources :follows,      only: [:create]
       resources :media,        only: [:create, :update]

@@ -218,6 +218,8 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/news' exact publicRoute page={NewsPage} component={News} content={children} componentParams={{ title: 'News' }} />
         <WrappedRoute path='/news/view/:trendsRSSId' page={NewsPage} component={NewsView} content={children} componentParams={{ title: 'News RSS Feed' }} />
 
+        {
+          /*
         <WrappedRoute path='/messages' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
         <WrappedRoute path='/messages/new' exact page={BasicPage} component={ChatConversationCreate} content={children} componentParams={{ title: 'New Message' }} />
         <WrappedRoute path='/messages/settings' exact page={MessagesPage} component={MessagesSettings} content={children} componentParams={{ isSettings: true }} />
@@ -225,6 +227,8 @@ class SwitchingArea extends React.PureComponent {
         <WrappedRoute path='/messages/blocks' exact page={MessagesPage} component={ChatConversationBlockedAccounts} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/muted_conversations' exact page={MessagesPage} component={ChatConversationMutes} content={children} componentParams={{ isSettings: true }} />
         <WrappedRoute path='/messages/:chatConversationId' exact page={MessagesPage} component={Messages} content={children} componentParams={{ source: 'approved' }} />
+          */
+        }
 
         <WrappedRoute path='/timeline/pro' exact page={ProPage} component={ProTimeline} content={children} componentParams={{ title: 'Pro Feed' }} />
 
