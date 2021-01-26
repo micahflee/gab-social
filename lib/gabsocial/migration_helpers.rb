@@ -43,7 +43,7 @@ module GabSocial
   module MigrationHelpers
     # Stub for Database.postgresql? from GitLab
     def self.postgresql?
-      ActiveRecord::Base.configurations[Rails.env]['adapter'].casecmp('postgresql').zero?
+      ActiveRecord::Base.configurations[Rails.env]['adapter'].casecmp('postgresql_makara').zero?
     end
 
     # Stub for Database.mysql? from GitLab
@@ -57,7 +57,8 @@ module GabSocial
         if GabSocial::MigrationHelpers.postgresql?
           'information_schema.role_table_grants'
         else
-          'mysql.user'
+          'information_schema.role_table_grants'
+          #'mysql.user'
         end
 
       def self.scope_to_current_user

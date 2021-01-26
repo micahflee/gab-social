@@ -94,7 +94,9 @@ class ApplicationController < ActionController::Base
   end
 
   def current_session
-    @current_session ||= SessionActivation.find_by(session_id: cookies.signed['_session_id'])
+    @current_session ||= Rails.cache.fetch("dk:sess:#{cookies.signed['_session_id']}", expires_in: 25.hours) do 
+      SessionActivation.find_by(session_id: cookies.signed['_session_id'])
+    end
   end
 
   def cache_collection(raw, klass)
